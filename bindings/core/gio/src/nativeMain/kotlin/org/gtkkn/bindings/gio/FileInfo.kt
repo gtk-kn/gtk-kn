@@ -64,6 +64,7 @@ import org.gtkkn.native.gio.g_file_info_list_attributes
 import org.gtkkn.native.gio.g_file_info_new
 import org.gtkkn.native.gio.g_file_info_remove_attribute
 import org.gtkkn.native.gio.g_file_info_set_access_date_time
+import org.gtkkn.native.gio.g_file_info_set_attribute
 import org.gtkkn.native.gio.g_file_info_set_attribute_boolean
 import org.gtkkn.native.gio.g_file_info_set_attribute_byte_string
 import org.gtkkn.native.gio.g_file_info_set_attribute_file_path
@@ -92,6 +93,7 @@ import org.gtkkn.native.gio.g_file_info_set_sort_order
 import org.gtkkn.native.gio.g_file_info_set_symbolic_icon
 import org.gtkkn.native.gio.g_file_info_set_symlink_target
 import org.gtkkn.native.gio.g_file_info_unset_attribute_mask
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
@@ -143,7 +145,6 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - parameter `type`: type: Out parameter is not supported
- * - parameter `value_p`: gpointer
  */
 public open class FileInfo(pointer: CPointer<GFileInfo>) :
     Object(pointer.reinterpret()),
@@ -642,6 +643,17 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
     @GioVersion2_70
     public open fun setAccessDateTime(atime: DateTime): Unit =
         g_file_info_set_access_date_time(gioFileInfoPointer.reinterpret(), atime.glibDateTimePointer.reinterpret())
+
+    /**
+     * Sets the @attribute to contain the given value, if possible. To unset the
+     * attribute, use %G_FILE_ATTRIBUTE_TYPE_INVALID for @type.
+     *
+     * @param attribute a file attribute key.
+     * @param type a #GFileAttributeType
+     * @param valueP pointer to the value
+     */
+    public open fun setAttribute(attribute: String, type: FileAttributeType, valueP: gpointer): Unit =
+        g_file_info_set_attribute(gioFileInfoPointer.reinterpret(), attribute, type.nativeValue, valueP)
 
     /**
      * Sets the @attribute to contain the given @attr_value,

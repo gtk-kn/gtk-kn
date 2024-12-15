@@ -127,13 +127,15 @@ public open class TlsInteraction(pointer: CPointer<GTlsInteraction>) :
     public open fun askPasswordAsync(
         password: TlsPassword,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_tls_interaction_ask_password_async(
         gioTlsInteractionPointer.reinterpret(),
         password.gioTlsPasswordPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -338,14 +340,16 @@ public open class TlsInteraction(pointer: CPointer<GTlsInteraction>) :
         connection: TlsConnection,
         flags: TlsCertificateRequestFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_tls_interaction_request_certificate_async(
         gioTlsInteractionPointer.reinterpret(),
         connection.gioTlsConnectionPointer.reinterpret(),
         flags.nativeValue,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

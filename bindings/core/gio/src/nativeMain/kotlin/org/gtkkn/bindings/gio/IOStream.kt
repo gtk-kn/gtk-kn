@@ -222,13 +222,15 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
     public open fun closeAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_io_stream_close_async(
         gioIOStreamPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -313,15 +315,17 @@ public open class IOStream(pointer: CPointer<GIOStream>) :
         flags: IOStreamSpliceFlags,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_io_stream_splice_async(
         gioIOStreamPointer.reinterpret(),
         stream2.gioIOStreamPointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     public companion object : TypeCompanion<IOStream> {

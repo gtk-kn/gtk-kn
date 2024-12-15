@@ -146,13 +146,15 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      * @param cancellable a #GCancellable.
      * @param callback callback to call when request is satisfied.
      */
-    public fun nextPartAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun nextPartAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         soup_multipart_input_stream_next_part_async(
             soupMultipartInputStreamPointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

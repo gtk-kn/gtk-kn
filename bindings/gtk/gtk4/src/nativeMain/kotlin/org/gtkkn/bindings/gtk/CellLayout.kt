@@ -260,13 +260,16 @@ public interface CellLayout :
      * @param cell a `GtkCellRenderer`
      * @param func the `GtkCellLayout`DataFunc to use
      */
-    public fun setCellDataFunc(cell: CellRenderer, func: CellLayoutDataFunc): Unit = gtk_cell_layout_set_cell_data_func(
-        gtkCellLayoutPointer.reinterpret(),
-        cell.gtkCellRendererPointer.reinterpret(),
-        CellLayoutDataFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setCellDataFunc(cell: CellRenderer, func: CellLayoutDataFunc?): Unit =
+        gtk_cell_layout_set_cell_data_func(
+            gtkCellLayoutPointer.reinterpret(),
+            cell.gtkCellRendererPointer.reinterpret(),
+            func?.let {
+                CellLayoutDataFuncFunc.reinterpret()
+            },
+            func?.let { StableRef.create(func).asCPointer() },
+            func?.let { staticStableRefDestroy.reinterpret() }
+        )
 
     private data class Wrapper(private val pointer: CPointer<GtkCellLayout>) : CellLayout {
         override val gtkCellLayoutPointer: CPointer<GtkCellLayout> = pointer

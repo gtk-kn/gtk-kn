@@ -19,15 +19,18 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_value_copy
+import org.gtkkn.native.gobject.g_value_dup_boxed
 import org.gtkkn.native.gobject.g_value_dup_object
 import org.gtkkn.native.gobject.g_value_dup_param
 import org.gtkkn.native.gobject.g_value_dup_string
 import org.gtkkn.native.gobject.g_value_dup_variant
 import org.gtkkn.native.gobject.g_value_fits_pointer
 import org.gtkkn.native.gobject.g_value_get_boolean
+import org.gtkkn.native.gobject.g_value_get_boxed
 import org.gtkkn.native.gobject.g_value_get_char
 import org.gtkkn.native.gobject.g_value_get_double
 import org.gtkkn.native.gobject.g_value_get_enum
@@ -39,6 +42,7 @@ import org.gtkkn.native.gobject.g_value_get_int64
 import org.gtkkn.native.gobject.g_value_get_long
 import org.gtkkn.native.gobject.g_value_get_object
 import org.gtkkn.native.gobject.g_value_get_param
+import org.gtkkn.native.gobject.g_value_get_pointer
 import org.gtkkn.native.gobject.g_value_get_schar
 import org.gtkkn.native.gobject.g_value_get_string
 import org.gtkkn.native.gobject.g_value_get_type
@@ -49,22 +53,29 @@ import org.gtkkn.native.gobject.g_value_get_ulong
 import org.gtkkn.native.gobject.g_value_get_variant
 import org.gtkkn.native.gobject.g_value_init
 import org.gtkkn.native.gobject.g_value_init_from_instance
+import org.gtkkn.native.gobject.g_value_peek_pointer
 import org.gtkkn.native.gobject.g_value_reset
 import org.gtkkn.native.gobject.g_value_set_boolean
+import org.gtkkn.native.gobject.g_value_set_boxed
+import org.gtkkn.native.gobject.g_value_set_boxed_take_ownership
 import org.gtkkn.native.gobject.g_value_set_char
 import org.gtkkn.native.gobject.g_value_set_double
 import org.gtkkn.native.gobject.g_value_set_enum
 import org.gtkkn.native.gobject.g_value_set_flags
 import org.gtkkn.native.gobject.g_value_set_float
 import org.gtkkn.native.gobject.g_value_set_gtype
+import org.gtkkn.native.gobject.g_value_set_instance
 import org.gtkkn.native.gobject.g_value_set_int
 import org.gtkkn.native.gobject.g_value_set_int64
 import org.gtkkn.native.gobject.g_value_set_interned_string
 import org.gtkkn.native.gobject.g_value_set_long
 import org.gtkkn.native.gobject.g_value_set_object
+import org.gtkkn.native.gobject.g_value_set_object_take_ownership
 import org.gtkkn.native.gobject.g_value_set_param
 import org.gtkkn.native.gobject.g_value_set_param_take_ownership
+import org.gtkkn.native.gobject.g_value_set_pointer
 import org.gtkkn.native.gobject.g_value_set_schar
+import org.gtkkn.native.gobject.g_value_set_static_boxed
 import org.gtkkn.native.gobject.g_value_set_static_string
 import org.gtkkn.native.gobject.g_value_set_string
 import org.gtkkn.native.gobject.g_value_set_uchar
@@ -73,6 +84,8 @@ import org.gtkkn.native.gobject.g_value_set_uint64
 import org.gtkkn.native.gobject.g_value_set_ulong
 import org.gtkkn.native.gobject.g_value_set_variant
 import org.gtkkn.native.gobject.g_value_steal_string
+import org.gtkkn.native.gobject.g_value_take_boxed
+import org.gtkkn.native.gobject.g_value_take_object
 import org.gtkkn.native.gobject.g_value_take_param
 import org.gtkkn.native.gobject.g_value_take_variant
 import org.gtkkn.native.gobject.g_value_transform
@@ -111,18 +124,6 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - method `dup_boxed`: Return type gpointer is unsupported
- * - method `get_boxed`: Return type gpointer is unsupported
- * - method `get_pointer`: Return type gpointer is unsupported
- * - method `peek_pointer`: Return type gpointer is unsupported
- * - parameter `v_boxed`: gpointer
- * - parameter `v_boxed`: gpointer
- * - parameter `instance`: gpointer
- * - parameter `v_object`: gpointer
- * - parameter `v_pointer`: gpointer
- * - parameter `v_boxed`: gpointer
- * - parameter `v_boxed`: gpointer
- * - parameter `v_object`: gpointer
  * - parameter `transform_func`: ValueTransform
  * - field `g_type`: Record field g_type is private
  * - field `data`: Fields with arrays are not supported
@@ -166,6 +167,16 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      */
     public fun copy(destValue: Value): Unit =
         g_value_copy(gobjectValuePointer.reinterpret(), destValue.gobjectValuePointer.reinterpret())
+
+    /**
+     * Get the contents of a %G_TYPE_BOXED derived #GValue.  Upon getting,
+     * the boxed value is duplicated and needs to be later freed with
+     * g_boxed_free(), e.g. like: g_boxed_free (G_VALUE_TYPE (@value),
+     * return_value);
+     *
+     * @return boxed contents of @value
+     */
+    public fun dupBoxed(): gpointer? = g_value_dup_boxed(gobjectValuePointer.reinterpret())
 
     /**
      * Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
@@ -224,6 +235,13 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @return boolean contents of @value
      */
     public fun getBoolean(): Boolean = g_value_get_boolean(gobjectValuePointer.reinterpret()).asBoolean()
+
+    /**
+     * Get the contents of a %G_TYPE_BOXED derived #GValue.
+     *
+     * @return boxed contents of @value
+     */
+    public fun getBoxed(): gpointer? = g_value_get_boxed(gobjectValuePointer.reinterpret())
 
     /**
      * Do not use this function; it is broken on platforms where the %char
@@ -312,6 +330,13 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
     }
 
     /**
+     * Get the contents of a pointer #GValue.
+     *
+     * @return pointer contents of @value
+     */
+    public fun getPointer(): gpointer? = g_value_get_pointer(gobjectValuePointer.reinterpret())
+
+    /**
      * Get the contents of a %G_TYPE_CHAR #GValue.
      *
      * @return signed 8 bit integer contents of @value
@@ -393,6 +418,15 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
         g_value_init_from_instance(gobjectValuePointer.reinterpret(), instance.gobjectTypeInstancePointer.reinterpret())
 
     /**
+     * Returns the value contents as pointer. This function asserts that
+     * g_value_fits_pointer() returned true for the passed in value.
+     * This is an internal function introduced mainly for C marshallers.
+     *
+     * @return the value contents as pointer
+     */
+    public fun peekPointer(): gpointer? = g_value_peek_pointer(gobjectValuePointer.reinterpret())
+
+    /**
      * Clears the current value in @value and resets it to the default value
      * (as if the value had just been initialized).
      *
@@ -409,6 +443,21 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      */
     public fun setBoolean(vBoolean: Boolean): Unit =
         g_value_set_boolean(gobjectValuePointer.reinterpret(), vBoolean.asGBoolean())
+
+    /**
+     * Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+     *
+     * @param vBoxed boxed value to be set
+     */
+    public fun setBoxed(vBoxed: gpointer? = null): Unit = g_value_set_boxed(gobjectValuePointer.reinterpret(), vBoxed)
+
+    /**
+     * This is an internal function introduced mainly for C marshallers.
+     *
+     * @param vBoxed duplicated unowned boxed value to be set
+     */
+    public fun setBoxedTakeOwnership(vBoxed: gpointer? = null): Unit =
+        g_value_set_boxed_take_ownership(gobjectValuePointer.reinterpret(), vBoxed)
 
     /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
@@ -453,6 +502,15 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GObjectVersion2_12
     public fun setGtype(vGtype: GType): Unit = g_value_set_gtype(gobjectValuePointer.reinterpret(), vGtype)
+
+    /**
+     * Sets @value from an instantiatable type via the
+     * value_table's collect_value() function.
+     *
+     * @param instance the instance
+     */
+    public fun setInstance(instance: gpointer? = null): Unit =
+        g_value_set_instance(gobjectValuePointer.reinterpret(), instance)
 
     /**
      * Set the contents of a %G_TYPE_INT #GValue to @v_int.
@@ -506,6 +564,14 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
         g_value_set_object(gobjectValuePointer.reinterpret(), vObject?.gPointer?.reinterpret())
 
     /**
+     * This is an internal function introduced mainly for C marshallers.
+     *
+     * @param vObject object value to be set
+     */
+    public fun setObjectTakeOwnership(vObject: gpointer? = null): Unit =
+        g_value_set_object_take_ownership(gobjectValuePointer.reinterpret(), vObject)
+
+    /**
      * Set the contents of a %G_TYPE_PARAM #GValue to @param.
      *
      * @param param the #GParamSpec to be set
@@ -522,6 +588,14 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
         g_value_set_param_take_ownership(gobjectValuePointer.reinterpret(), `param`?.gPointer?.reinterpret())
 
     /**
+     * Set the contents of a pointer #GValue to @v_pointer.
+     *
+     * @param vPointer pointer value to be set
+     */
+    public fun setPointer(vPointer: gpointer? = null): Unit =
+        g_value_set_pointer(gobjectValuePointer.reinterpret(), vPointer)
+
+    /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
      *
      * @param vChar signed 8 bit integer to be set
@@ -529,6 +603,17 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GObjectVersion2_32
     public fun setSchar(vChar: gint8): Unit = g_value_set_schar(gobjectValuePointer.reinterpret(), vChar)
+
+    /**
+     * Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+     *
+     * The boxed value is assumed to be static, and is thus not duplicated
+     * when setting the #GValue.
+     *
+     * @param vBoxed static boxed value to be set
+     */
+    public fun setStaticBoxed(vBoxed: gpointer? = null): Unit =
+        g_value_set_static_boxed(gobjectValuePointer.reinterpret(), vBoxed)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.
@@ -606,6 +691,33 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GObjectVersion2_80
     public fun stealString(): String? = g_value_steal_string(gobjectValuePointer.reinterpret())?.toKString()
+
+    /**
+     * Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed
+     * and takes over the ownership of the caller’s reference to @v_boxed;
+     * the caller doesn’t have to unref it any more.
+     *
+     * @param vBoxed duplicated unowned boxed value to be set
+     * @since 2.4
+     */
+    @GObjectVersion2_4
+    public fun takeBoxed(vBoxed: gpointer? = null): Unit = g_value_take_boxed(gobjectValuePointer.reinterpret(), vBoxed)
+
+    /**
+     * Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
+     * and takes over the ownership of the caller’s reference to @v_object;
+     * the caller doesn’t have to unref it any more (i.e. the reference
+     * count of the object is not increased).
+     *
+     * If you want the #GValue to hold its own reference to @v_object, use
+     * g_value_set_object() instead.
+     *
+     * @param vObject object value to be set
+     * @since 2.4
+     */
+    @GObjectVersion2_4
+    public fun takeObject(vObject: gpointer? = null): Unit =
+        g_value_take_object(gobjectValuePointer.reinterpret(), vObject)
 
     /**
      * Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes

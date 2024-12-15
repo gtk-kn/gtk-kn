@@ -18,6 +18,7 @@ import org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
@@ -279,12 +280,14 @@ public val ClassDeletePropertyFunctionFunc: CPointer<
         (
             CPointer<JSCClass>,
             CPointer<JSCContext>,
+            gpointer?,
             CPointer<ByteVar>,
         ) -> gboolean
         >
     > = staticCFunction {
         jscClass: CPointer<JSCClass>?,
         context: CPointer<JSCContext>?,
+        instance: gpointer?,
         name: CPointer<ByteVar>?,
         userData: COpaquePointer,
     ->
@@ -292,6 +295,7 @@ public val ClassDeletePropertyFunctionFunc: CPointer<
         (
             jscClass: Class,
             context: Context,
+            instance: gpointer?,
             name: String,
         ) -> Boolean
         >().get().invoke(
@@ -301,49 +305,59 @@ public val ClassDeletePropertyFunctionFunc: CPointer<
         context!!.run {
             Context(reinterpret())
         },
+        instance,
         name?.toKString() ?: error("Expected not null string")
     ).asGBoolean()
 }
     .reinterpret()
 
-public val ClassEnumeratePropertiesFunctionFunc:
-    CPointer<
-        CFunction<
+public val ClassEnumeratePropertiesFunctionFunc: CPointer<
+    CFunction<
+        (
+            CPointer<JSCClass>,
+            CPointer<JSCContext>,
+            gpointer?,
+        ) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>?
+        >
+    > = staticCFunction {
+        jscClass: CPointer<JSCClass>?,
+        context: CPointer<JSCContext>?,
+        instance: gpointer?,
+        userData: COpaquePointer,
+    ->
+    memScoped {
+        userData.asStableRef<
             (
-                CPointer<JSCClass>,
-                CPointer<JSCContext>,
-            ) -> CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>?
-            >
-        > =
-    staticCFunction {
-            jscClass: CPointer<JSCClass>?,
-            context: CPointer<JSCContext>?,
-            userData: COpaquePointer,
-        ->
-        memScoped {
-            userData.asStableRef<(jscClass: Class, context: Context) -> List<String>?>().get().invoke(
-                jscClass!!.run {
-                    Class(reinterpret())
-                },
-                context!!.run {
-                    Context(reinterpret())
-                }
-            )?.toCStringList(this)
-        }
+                jscClass: Class,
+                context: Context,
+                instance: gpointer?,
+            ) -> List<String>?
+            >().get().invoke(
+            jscClass!!.run {
+                Class(reinterpret())
+            },
+            context!!.run {
+                Context(reinterpret())
+            },
+            instance
+        )?.toCStringList(this)
     }
-        .reinterpret()
+}
+    .reinterpret()
 
 public val ClassGetPropertyFunctionFunc: CPointer<
     CFunction<
         (
             CPointer<JSCClass>,
             CPointer<JSCContext>,
+            gpointer?,
             CPointer<ByteVar>,
         ) -> CPointer<JSCValue>?
         >
     > = staticCFunction {
         jscClass: CPointer<JSCClass>?,
         context: CPointer<JSCContext>?,
+        instance: gpointer?,
         name: CPointer<ByteVar>?,
         userData: COpaquePointer,
     ->
@@ -351,6 +365,7 @@ public val ClassGetPropertyFunctionFunc: CPointer<
         (
             jscClass: Class,
             context: Context,
+            instance: gpointer?,
             name: String,
         ) -> Value?
         >().get().invoke(
@@ -360,6 +375,7 @@ public val ClassGetPropertyFunctionFunc: CPointer<
         context!!.run {
             Context(reinterpret())
         },
+        instance,
         name?.toKString() ?: error("Expected not null string")
     )?.javascriptcoreValuePointer
 }
@@ -370,12 +386,14 @@ public val ClassHasPropertyFunctionFunc: CPointer<
         (
             CPointer<JSCClass>,
             CPointer<JSCContext>,
+            gpointer?,
             CPointer<ByteVar>,
         ) -> gboolean
         >
     > = staticCFunction {
         jscClass: CPointer<JSCClass>?,
         context: CPointer<JSCContext>?,
+        instance: gpointer?,
         name: CPointer<ByteVar>?,
         userData: COpaquePointer,
     ->
@@ -383,6 +401,7 @@ public val ClassHasPropertyFunctionFunc: CPointer<
         (
             jscClass: Class,
             context: Context,
+            instance: gpointer?,
             name: String,
         ) -> Boolean
         >().get().invoke(
@@ -392,6 +411,7 @@ public val ClassHasPropertyFunctionFunc: CPointer<
         context!!.run {
             Context(reinterpret())
         },
+        instance,
         name?.toKString() ?: error("Expected not null string")
     ).asGBoolean()
 }
@@ -402,6 +422,7 @@ public val ClassSetPropertyFunctionFunc: CPointer<
         (
             CPointer<JSCClass>,
             CPointer<JSCContext>,
+            gpointer?,
             CPointer<ByteVar>,
             CPointer<JSCValue>,
         ) -> gboolean
@@ -409,6 +430,7 @@ public val ClassSetPropertyFunctionFunc: CPointer<
     > = staticCFunction {
         jscClass: CPointer<JSCClass>?,
         context: CPointer<JSCContext>?,
+        instance: gpointer?,
         name: CPointer<ByteVar>?,
         `value`: CPointer<JSCValue>?,
         userData: COpaquePointer,
@@ -417,6 +439,7 @@ public val ClassSetPropertyFunctionFunc: CPointer<
         (
             jscClass: Class,
             context: Context,
+            instance: gpointer?,
             name: String,
             `value`: Value,
         ) -> Boolean
@@ -427,6 +450,7 @@ public val ClassSetPropertyFunctionFunc: CPointer<
         context!!.run {
             Context(reinterpret())
         },
+        instance,
         name?.toKString() ?: error("Expected not null string"),
         `value`!!.run {
             Value(reinterpret())
@@ -440,9 +464,9 @@ public val ExceptionHandlerFunc:
     staticCFunction {
             context: CPointer<JSCContext>?,
             exception: CPointer<JSCException>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(context: Context, exception: Exception) -> Unit>().get().invoke(
+        userData!!.asStableRef<(context: Context, exception: Exception) -> Unit>().get().invoke(
             context!!.run {
                 Context(reinterpret())
             },
@@ -465,9 +489,9 @@ public val OptionsFuncFunc: CPointer<
         option: CPointer<ByteVar>?,
         type: JSCOptionType,
         description: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             option: String,
             type: OptionType,
@@ -489,12 +513,14 @@ public val OptionsFuncFunc: CPointer<
  *
  * - param `jscClass` a #JSCClass
  * - param `context` a #JSCContext
+ * - param `instance` the @jsc_class instance
  * - param `name` the property name
  * - return true if handled or false to to forward the request to the parent class or prototype chain.
  */
 public typealias ClassDeletePropertyFunction = (
     jscClass: Class,
     context: Context,
+    instance: gpointer?,
     name: String,
 ) -> Boolean
 
@@ -504,10 +530,15 @@ public typealias ClassDeletePropertyFunction = (
  *
  * - param `jscClass` a #JSCClass
  * - param `context` a #JSCContext
+ * - param `instance` the @jsc_class instance
  * - return a null-terminated array of strings
  *    containing the property names, or null if @instance doesn't have enumerable properties.
  */
-public typealias ClassEnumeratePropertiesFunction = (jscClass: Class, context: Context) -> List<String>?
+public typealias ClassEnumeratePropertiesFunction = (
+    jscClass: Class,
+    context: Context,
+    instance: gpointer?,
+) -> List<String>?
 
 /**
  * The type of get_property in #JSCClassVTable. This is only required when you need to handle
@@ -515,6 +546,7 @@ public typealias ClassEnumeratePropertiesFunction = (jscClass: Class, context: C
  *
  * - param `jscClass` a #JSCClass
  * - param `context` a #JSCContext
+ * - param `instance` the @jsc_class instance
  * - param `name` the property name
  * - return a #JSCValue or null to forward the request to
  *    the parent class or prototype chain
@@ -522,6 +554,7 @@ public typealias ClassEnumeratePropertiesFunction = (jscClass: Class, context: C
 public typealias ClassGetPropertyFunction = (
     jscClass: Class,
     context: Context,
+    instance: gpointer?,
     name: String,
 ) -> Value?
 
@@ -531,6 +564,7 @@ public typealias ClassGetPropertyFunction = (
  *
  * - param `jscClass` a #JSCClass
  * - param `context` a #JSCContext
+ * - param `instance` the @jsc_class instance
  * - param `name` the property name
  * - return true if @instance has a property with @name or false to forward the request
  *    to the parent class or prototype chain.
@@ -538,6 +572,7 @@ public typealias ClassGetPropertyFunction = (
 public typealias ClassHasPropertyFunction = (
     jscClass: Class,
     context: Context,
+    instance: gpointer?,
     name: String,
 ) -> Boolean
 
@@ -547,6 +582,7 @@ public typealias ClassHasPropertyFunction = (
  *
  * - param `jscClass` a #JSCClass
  * - param `context` a #JSCContext
+ * - param `instance` the @jsc_class instance
  * - param `name` the property name
  * - param `value` the #JSCValue to set
  * - return true if handled or false to forward the request to the parent class or prototype chain.
@@ -554,6 +590,7 @@ public typealias ClassHasPropertyFunction = (
 public typealias ClassSetPropertyFunction = (
     jscClass: Class,
     context: Context,
+    instance: gpointer?,
     name: String,
     `value`: Value,
 ) -> Boolean

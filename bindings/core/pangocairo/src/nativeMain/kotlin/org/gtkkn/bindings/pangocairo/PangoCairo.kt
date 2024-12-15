@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.pangocairo
 
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
@@ -14,6 +13,7 @@ import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoAttrShape
@@ -27,7 +27,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - function `context_get_font_options`: Return type cairo.FontOptions is unsupported
- * - parameter `data`: gpointer
+ * - parameter `data`: Unsupported pointer to primitive type
  * - parameter `options`: cairo.FontOptions
  * - parameter `cr`: cairo.Context
  * - parameter `cr`: cairo.Context
@@ -87,12 +87,14 @@ public object PangoCairo {
      * @since 1.18
      */
     @PangoCairoVersion1_18
-    public fun contextSetShapeRenderer(context: Context, func: ShapeRendererFunc): Unit =
+    public fun contextSetShapeRenderer(context: Context, func: ShapeRendererFunc?): Unit =
         pango_cairo_context_set_shape_renderer(
             context.pangoContextPointer.reinterpret(),
-            ShapeRendererFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            func?.let {
+                ShapeRendererFuncFunc.reinterpret()
+            },
+            func?.let { StableRef.create(func).asCPointer() },
+            func?.let { staticStableRefDestroy.reinterpret() }
         )
 }
 
@@ -100,9 +102,9 @@ public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, 
     staticCFunction {
             attr: CPointer<PangoAttrShape>?,
             doPath: gboolean,
-            userData: COpaquePointer,
+            `data`: gpointer?,
         ->
-        userData.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(
+        data!!.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(
             attr!!.run {
                 AttrShape(reinterpret())
             },

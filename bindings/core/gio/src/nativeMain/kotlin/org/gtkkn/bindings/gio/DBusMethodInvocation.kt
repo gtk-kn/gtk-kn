@@ -25,12 +25,14 @@ import org.gtkkn.native.gio.g_dbus_method_invocation_get_parameters
 import org.gtkkn.native.gio.g_dbus_method_invocation_get_property_info
 import org.gtkkn.native.gio.g_dbus_method_invocation_get_sender
 import org.gtkkn.native.gio.g_dbus_method_invocation_get_type
+import org.gtkkn.native.gio.g_dbus_method_invocation_get_user_data
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_dbus_error
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_error_literal
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_gerror
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value_with_unix_fd_list
 import org.gtkkn.native.gio.g_dbus_method_invocation_take_error
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import kotlin.String
@@ -48,7 +50,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_user_data`: Return type gpointer is unsupported
  * - method `return_error`: Varargs parameter is not supported
  * - parameter `var_args`: va_list
  *
@@ -192,6 +193,16 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
     public open fun getSender(): String =
         g_dbus_method_invocation_get_sender(gioDBusMethodInvocationPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
+
+    /**
+     * Gets the @user_data #gpointer passed to g_dbus_connection_register_object().
+     *
+     * @return A #gpointer.
+     * @since 2.26
+     */
+    @GioVersion2_26
+    public open fun getUserData(): gpointer? =
+        g_dbus_method_invocation_get_user_data(gioDBusMethodInvocationPointer.reinterpret())
 
     /**
      * Finishes handling a D-Bus method call by returning an error.

@@ -178,15 +178,17 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
         stream: OutputStream,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gdk_content_provider_write_mime_type_async(
         gdkContentProviderPointer.reinterpret(),
         mimeType,
         stream.gioOutputStreamPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

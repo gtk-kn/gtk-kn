@@ -169,13 +169,15 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
     public open fun communicateAsync(
         stdinBuf: Bytes? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_subprocess_communicate_async(
         gioSubprocessPointer.reinterpret(),
         stdinBuf?.glibBytesPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -189,13 +191,15 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
     public open fun communicateUtf8Async(
         stdinBuf: String? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_subprocess_communicate_utf8_async(
         gioSubprocessPointer.reinterpret(),
         stdinBuf,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -426,12 +430,14 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun waitAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun waitAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_subprocess_wait_async(
             gioSubprocessPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -467,12 +473,14 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun waitCheckAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun waitCheckAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_subprocess_wait_check_async(
             gioSubprocessPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

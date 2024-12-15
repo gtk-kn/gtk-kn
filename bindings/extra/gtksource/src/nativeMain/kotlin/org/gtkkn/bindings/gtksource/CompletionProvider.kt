@@ -193,13 +193,15 @@ public interface CompletionProvider :
     public fun populateAsync(
         context: CompletionContext,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_source_completion_provider_populate_async(
         gtksourceCompletionProviderPointer.reinterpret(),
         context.gtksourceCompletionContextPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

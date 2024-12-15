@@ -466,13 +466,15 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun closeAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun closeAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_dtls_connection_close_async(
             gioDtlsConnectionPointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -715,14 +717,19 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun handshakeAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
-        g_dtls_connection_handshake_async(
-            gioDtlsConnectionPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
-        )
+    public fun handshakeAsync(
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_dtls_connection_handshake_async(
+        gioDtlsConnectionPointer.reinterpret(),
+        ioPriority,
+        cancellable?.gioCancellablePointer?.reinterpret(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
+    )
 
     /**
      * Finish an asynchronous TLS handshake operation. See
@@ -951,15 +958,17 @@ public interface DtlsConnection :
         shutdownWrite: Boolean,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_dtls_connection_shutdown_async(
         gioDtlsConnectionPointer.reinterpret(),
         shutdownRead.asGBoolean(),
         shutdownWrite.asGBoolean(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

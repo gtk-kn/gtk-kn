@@ -7,6 +7,8 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Bytes
+import org.gtkkn.bindings.glib.DestroyNotify
+import org.gtkkn.bindings.glib.DestroyNotifyFunc
 import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.Object
@@ -20,6 +22,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
@@ -40,12 +43,14 @@ import org.gtkkn.native.javascriptcore.jsc_value_is_object
 import org.gtkkn.native.javascriptcore.jsc_value_is_string
 import org.gtkkn.native.javascriptcore.jsc_value_is_typed_array
 import org.gtkkn.native.javascriptcore.jsc_value_is_undefined
+import org.gtkkn.native.javascriptcore.jsc_value_new_array_buffer
 import org.gtkkn.native.javascriptcore.jsc_value_new_array_from_strv
 import org.gtkkn.native.javascriptcore.jsc_value_new_boolean
 import org.gtkkn.native.javascriptcore.jsc_value_new_from_json
 import org.gtkkn.native.javascriptcore.jsc_value_new_function_variadic
 import org.gtkkn.native.javascriptcore.jsc_value_new_null
 import org.gtkkn.native.javascriptcore.jsc_value_new_number
+import org.gtkkn.native.javascriptcore.jsc_value_new_object
 import org.gtkkn.native.javascriptcore.jsc_value_new_string
 import org.gtkkn.native.javascriptcore.jsc_value_new_string_from_bytes
 import org.gtkkn.native.javascriptcore.jsc_value_new_typed_array
@@ -86,14 +91,12 @@ import kotlin.collections.List
  * - parameter `size`: Unsupported pointer to primitive type
  * - parameter `parameters`: Array parameter of type Value is not supported
  * - parameter `parameters`: Array parameter of type Value is not supported
- * - parameter `setter`: GObject.Callback
+ * - method `object_define_property_accessor`: User data 'user_data' cannot be shared by multiple closures
  * - parameter `parameters`: Array parameter of type Value is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - constructor `new_array`: Varargs parameter is not supported
- * - parameter `data`: gpointer
  * - parameter `array`: Array parameter of type Value is not supported
  * - parameter `parameter_types`: Array parameter of type GType is not supported
- * - parameter `instance`: gpointer
  */
 public class Value(pointer: CPointer<JSCValue>) :
     Object(pointer.reinterpret()),
@@ -113,6 +116,56 @@ public class Value(pointer: CPointer<JSCValue>) :
         get() = jsc_value_get_context(javascriptcoreValuePointer.reinterpret())!!.run {
             Context(reinterpret())
         }
+
+    /**
+     * Creates a new %ArrayBuffer from existing @data in memory.
+     *
+     * The @data is not copied: while this allows sharing data with JavaScript
+     * efficiently, the caller must ensure that the memory region remains valid
+     * until the newly created object is released by JSC.
+     *
+     * Optionally, a @destroy_notify callback can be provided, which will be
+     * invoked with @user_data as parameter when the %ArrayBuffer object is
+     * released. This is intended to be used for freeing resources related to
+     * the memory region which contains the data:
+     *
+     * |[!<-- language="C" -->
+     * GMappedFile *f = g_mapped_file_new (file_path, TRUE, NULL);
+     * JSCValue *value = jsc_value_new_array_buffer (context,
+     *     g_mapped_file_get_contents (f), g_mapped_file_get_length (f),
+     *     (GDestroyNotify) g_mapped_file_unref, f);
+     * ]|
+     *
+     * Note that the @user_data can be the same value as @data:
+     *
+     * |[!<-- language="C" -->
+     * void *bytes = g_malloc0 (100);
+     * JSCValue *value = jsc_value_new_array_buffer (context, bytes, 100, g_free, bytes);
+     * ]|
+     *
+     * @param context A #JSCContext
+     * @param data Pointer to a region of memory.
+     * @param size Size in bytes of the memory region.
+     * @param destroyNotify destroy notifier for @user_data.
+     * @return A #JSCValue, or null in case of exception.
+     * @since 2.38
+     */
+    public constructor(
+        context: Context,
+        `data`: gpointer? = null,
+        size: gsize,
+        destroyNotify: DestroyNotify?,
+    ) : this(
+        jsc_value_new_array_buffer(
+            context.javascriptcoreContextPointer.reinterpret(),
+            `data`,
+            size,
+            destroyNotify?.let {
+                DestroyNotifyFunc.reinterpret()
+            },
+            destroyNotify?.let { StableRef.create(destroyNotify).asCPointer() }
+        )!!.reinterpret()
+    )
 
     /**
      * Create a new #JSCValue referencing an array of strings with the items from @strv. If @array
@@ -212,6 +265,28 @@ public class Value(pointer: CPointer<JSCValue>) :
         context: Context,
         number: gdouble,
     ) : this(jsc_value_new_number(context.javascriptcoreContextPointer.reinterpret(), number)!!.reinterpret())
+
+    /**
+     * Create a new #JSCValue from @instance. If @instance is null a new empty object is created.
+     * When @instance is provided, @jsc_class must be provided too. @jsc_class takes ownership of
+     * @instance that will be freed by the #GDestroyNotify passed to jsc_context_register_class().
+     *
+     * @param context a #JSCContext
+     * @param instance an object instance or null
+     * @param jscClass the #JSCClass of @instance
+     * @return a #JSCValue.
+     */
+    public constructor(
+        context: Context,
+        instance: gpointer? = null,
+        jscClass: Class? = null,
+    ) : this(
+        jsc_value_new_object(
+            context.javascriptcoreContextPointer.reinterpret(),
+            instance,
+            jscClass?.javascriptcoreClassPointer?.reinterpret()
+        )!!.reinterpret()
+    )
 
     /**
      * Create a new #JSCValue from @string. If you need to create a #JSCValue from a

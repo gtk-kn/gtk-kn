@@ -127,12 +127,14 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      * @param cancellable a #GCancellable or null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public fun getData(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getData(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_web_resource_get_data(
             webkitWebResourcePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

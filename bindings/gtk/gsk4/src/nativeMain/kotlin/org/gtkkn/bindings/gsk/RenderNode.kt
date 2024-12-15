@@ -149,10 +149,12 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
          * @param errorFunc Callback on parsing errors
          * @return a new `GskRenderNode`
          */
-        public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc): RenderNode? = gsk_render_node_deserialize(
+        public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc?): RenderNode? = gsk_render_node_deserialize(
             bytes.glibBytesPointer.reinterpret(),
-            ParseErrorFuncFunc.reinterpret(),
-            StableRef.create(errorFunc).asCPointer()
+            errorFunc?.let {
+                ParseErrorFuncFunc.reinterpret()
+            },
+            errorFunc?.let { StableRef.create(errorFunc).asCPointer() }
         )?.run {
             RenderNode(reinterpret())
         }

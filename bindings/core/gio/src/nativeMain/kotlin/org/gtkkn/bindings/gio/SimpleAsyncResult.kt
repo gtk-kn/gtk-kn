@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
+import org.gtkkn.bindings.gio.annotations.GioVersion2_20
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
@@ -23,8 +24,12 @@ import org.gtkkn.native.gio.GSimpleAsyncResult
 import org.gtkkn.native.gio.g_simple_async_result_complete
 import org.gtkkn.native.gio.g_simple_async_result_complete_in_idle
 import org.gtkkn.native.gio.g_simple_async_result_get_op_res_gboolean
+import org.gtkkn.native.gio.g_simple_async_result_get_op_res_gpointer
 import org.gtkkn.native.gio.g_simple_async_result_get_op_res_gssize
+import org.gtkkn.native.gio.g_simple_async_result_get_source_tag
 import org.gtkkn.native.gio.g_simple_async_result_get_type
+import org.gtkkn.native.gio.g_simple_async_result_is_valid
+import org.gtkkn.native.gio.g_simple_async_result_new
 import org.gtkkn.native.gio.g_simple_async_result_new_from_error
 import org.gtkkn.native.gio.g_simple_async_result_new_take_error
 import org.gtkkn.native.gio.g_simple_async_result_propagate_error
@@ -35,6 +40,7 @@ import org.gtkkn.native.gio.g_simple_async_result_set_op_res_gboolean
 import org.gtkkn.native.gio.g_simple_async_result_set_op_res_gssize
 import org.gtkkn.native.gio.g_simple_async_result_take_error
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import kotlin.Boolean
 import kotlin.Long
@@ -211,15 +217,11 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_op_res_gpointer`: Return type gpointer is unsupported
- * - method `get_source_tag`: Return type gpointer is unsupported
  * - parameter `func`: SimpleAsyncThreadFunc
  * - method `set_error`: Varargs parameter is not supported
  * - parameter `args`: va_list
- * - parameter `op_res`: gpointer
- * - parameter `source_tag`: gpointer
+ * - parameter `destroy_op_res`: GLib.DestroyNotify
  * - constructor `new_error`: Varargs parameter is not supported
- * - parameter `source_tag`: gpointer
  */
 public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
     Object(pointer.reinterpret()),
@@ -232,6 +234,38 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
         get() = gPointer.reinterpret()
 
     /**
+     * Creates a #GSimpleAsyncResult.
+     *
+     * The common convention is to create the #GSimpleAsyncResult in the
+     * function that starts the asynchronous operation and use that same
+     * function as the @source_tag.
+     *
+     * If your operation supports cancellation with #GCancellable (which it
+     * probably should) then you should provide the user's cancellable to
+     * g_simple_async_result_set_check_cancellable() immediately after
+     * this function returns.
+     *
+     * @param sourceObject a #GObject, or null.
+     * @param callback a #GAsyncReadyCallback.
+     * @param sourceTag the asynchronous function.
+     * @return a #GSimpleAsyncResult.
+     */
+    public constructor(
+        sourceObject: Object? = null,
+        callback: AsyncReadyCallback?,
+        sourceTag: gpointer? = null,
+    ) : this(
+        g_simple_async_result_new(
+            sourceObject?.gPointer?.reinterpret(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() },
+            sourceTag
+        )!!.reinterpret()
+    )
+
+    /**
      * Creates a #GSimpleAsyncResult from an error condition.
      *
      * @param sourceObject a #GObject, or null.
@@ -241,13 +275,15 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
      */
     public constructor(
         sourceObject: Object? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
         error: Error,
     ) : this(
         g_simple_async_result_new_from_error(
             sourceObject?.gPointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer(),
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() },
             error.glibErrorPointer.reinterpret()
         )!!.reinterpret()
     )
@@ -285,12 +321,28 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
         g_simple_async_result_get_op_res_gboolean(gioSimpleAsyncResultPointer.reinterpret()).asBoolean()
 
     /**
+     * Gets a pointer result as returned by the asynchronous function.
+     *
+     * @return a pointer from the result.
+     */
+    public open fun getOpResGpointer(): gpointer? =
+        g_simple_async_result_get_op_res_gpointer(gioSimpleAsyncResultPointer.reinterpret())
+
+    /**
      * Gets a gssize from the asynchronous result.
      *
      * @return a gssize returned from the asynchronous function.
      */
     public open fun getOpResGssize(): Long =
         g_simple_async_result_get_op_res_gssize(gioSimpleAsyncResultPointer.reinterpret())
+
+    /**
+     * Gets the source tag for the #GSimpleAsyncResult.
+     *
+     * @return a #gpointer to the source object for the #GSimpleAsyncResult.
+     */
+    public open fun getSourceTag(): gpointer? =
+        g_simple_async_result_get_source_tag(gioSimpleAsyncResultPointer.reinterpret())
 
     /**
      * Propagates an error from within the simple asynchronous result to
@@ -415,13 +467,17 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
          */
         public fun newFromError(
             sourceObject: Object? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
             error: Error,
         ): SimpleAsyncResult = SimpleAsyncResult(
             g_simple_async_result_new_from_error(
                 sourceObject?.gPointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(),
-                StableRef.create(callback).asCPointer(),
+                callback?.let {
+                    AsyncReadyCallbackFunc.reinterpret()
+                },
+                callback?.let {
+                    StableRef.create(callback).asCPointer()
+                },
                 error.glibErrorPointer.reinterpret()
             )!!.reinterpret()
         )
@@ -438,16 +494,48 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
          */
         public fun newTakeError(
             sourceObject: Object? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
             error: Error,
         ): SimpleAsyncResult = SimpleAsyncResult(
             g_simple_async_result_new_take_error(
                 sourceObject?.gPointer?.reinterpret(),
-                AsyncReadyCallbackFunc.reinterpret(),
-                StableRef.create(callback).asCPointer(),
+                callback?.let {
+                    AsyncReadyCallbackFunc.reinterpret()
+                },
+                callback?.let {
+                    StableRef.create(callback).asCPointer()
+                },
                 error.glibErrorPointer.reinterpret()
             )!!.reinterpret()
         )
+
+        /**
+         * Ensures that the data passed to the _finish function of an async
+         * operation is consistent.  Three checks are performed.
+         *
+         * First, @result is checked to ensure that it is really a
+         * #GSimpleAsyncResult.  Second, @source is checked to ensure that it
+         * matches the source object of @result.  Third, @source_tag is
+         * checked to ensure that it is equal to the @source_tag argument given
+         * to g_simple_async_result_new() (which, by convention, is a pointer
+         * to the _async function corresponding to the _finish function from
+         * which this function is called).  (Alternatively, if either
+         * @source_tag or @result's source tag is null, then the source tag
+         * check is skipped.)
+         *
+         * @param result the #GAsyncResult passed to the _finish function.
+         * @param source the #GObject passed to the _finish function.
+         * @param sourceTag the asynchronous function.
+         * @return #TRUE if all checks passed or #FALSE if any failed.
+         * @since 2.20
+         */
+        @GioVersion2_20
+        public fun isValid(result: AsyncResult, source: Object? = null, sourceTag: gpointer? = null): Boolean =
+            g_simple_async_result_is_valid(
+                result.gioAsyncResultPointer,
+                source?.gPointer?.reinterpret(),
+                sourceTag
+            ).asBoolean()
 
         /**
          * Get the GType of SimpleAsyncResult

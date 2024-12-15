@@ -81,13 +81,15 @@ public class FaviconDatabase(pointer: CPointer<WebKitFaviconDatabase>) :
      * @param callback A #GAsyncReadyCallback to call when the request is
      *            satisfied or null if you don't care about the result.
      */
-    public fun getFavicon(pageUri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getFavicon(pageUri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_favicon_database_get_favicon(
             webkitFaviconDatabasePointer.reinterpret(),
             pageUri,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

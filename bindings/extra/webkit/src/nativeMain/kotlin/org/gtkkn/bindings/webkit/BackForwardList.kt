@@ -1,17 +1,27 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitBackForwardList
+import org.gtkkn.native.webkit.WebKitBackForwardListItem
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_item
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_list
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_list_with_limit
@@ -22,6 +32,8 @@ import org.gtkkn.native.webkit.webkit_back_forward_list_get_forward_list_with_li
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_length
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_nth_item
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_type
+import kotlin.ULong
+import kotlin.Unit
 
 /**
  * List of visited pages.
@@ -39,10 +51,6 @@ import org.gtkkn.native.webkit.webkit_back_forward_list_get_type
  * specified item. All other methods returning #WebKitBackForwardListItem<!-- -->s
  * do not change the value of the current item, they just return the requested
  * item or items.
- *
- * ## Skipped during bindings generation
- *
- * - signal `changed`: Unsupported parameter `items_removed` : gpointer
  */
 public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
     Object(pointer.reinterpret()),
@@ -148,6 +156,28 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
             BackForwardListItem(reinterpret())
         }
 
+    /**
+     * This signal is emitted when @back_forward_list changes. This happens
+     * when the current item is updated, a new item is added or one or more
+     * items are removed. Note that both @item_added and @items_removed can
+     * null when only the current item is updated. Items are only removed
+     * when the list is cleared or the maximum items limit is reached.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `itemAdded` the #WebKitBackForwardListItem added or null; `itemsRemoved` a #GList of #WebKitBackForwardListItem<!-- -->s
+     */
+    public fun connectChanged(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (itemAdded: BackForwardListItem?, itemsRemoved: gpointer?) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gPointer.reinterpret(),
+        "changed",
+        connectChangedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
+
     public companion object : TypeCompanion<BackForwardList> {
         override val type: GeneratedClassKGType<BackForwardList> =
             GeneratedClassKGType(webkit_back_forward_list_get_type()) { BackForwardList(it.reinterpret()) }
@@ -164,3 +194,25 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
         public fun getType(): GType = webkit_back_forward_list_get_type()
     }
 }
+
+private val connectChangedFunc:
+    CPointer<CFunction<(CPointer<WebKitBackForwardListItem>?, gpointer?) -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            itemAdded: CPointer<WebKitBackForwardListItem>?,
+            itemsRemoved: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<
+            (
+                itemAdded: BackForwardListItem?,
+                itemsRemoved: gpointer?,
+            ) -> Unit
+            >().get().invoke(
+            itemAdded?.run {
+                BackForwardListItem(reinterpret())
+            },
+            itemsRemoved
+        )
+    }
+        .reinterpret()

@@ -37,12 +37,16 @@ public open class CustomFilter(pointer: CPointer<GtkCustomFilter>) :
      * @return a new `GtkCustomFilter`
      */
     public constructor(
-        matchFunc: CustomFilterFunc,
+        matchFunc: CustomFilterFunc?,
     ) : this(
         gtk_custom_filter_new(
-            CustomFilterFuncFunc.reinterpret(),
-            StableRef.create(matchFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            matchFunc?.let {
+                CustomFilterFuncFunc.reinterpret()
+            },
+            matchFunc?.let {
+                StableRef.create(matchFunc).asCPointer()
+            },
+            matchFunc?.let { staticStableRefDestroy.reinterpret() }
         )!!.reinterpret()
     )
 
@@ -59,11 +63,15 @@ public open class CustomFilter(pointer: CPointer<GtkCustomFilter>) :
      *
      * @param matchFunc function to filter items
      */
-    public open fun setFilterFunc(matchFunc: CustomFilterFunc): Unit = gtk_custom_filter_set_filter_func(
+    public open fun setFilterFunc(matchFunc: CustomFilterFunc?): Unit = gtk_custom_filter_set_filter_func(
         gtkCustomFilterPointer.reinterpret(),
-        CustomFilterFuncFunc.reinterpret(),
-        StableRef.create(matchFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        matchFunc?.let {
+            CustomFilterFuncFunc.reinterpret()
+        },
+        matchFunc?.let {
+            StableRef.create(matchFunc).asCPointer()
+        },
+        matchFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     public companion object : TypeCompanion<CustomFilter> {

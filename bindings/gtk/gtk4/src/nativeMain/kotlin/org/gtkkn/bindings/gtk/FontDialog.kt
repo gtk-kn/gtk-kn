@@ -237,14 +237,16 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         parent: Window? = null,
         initialValue: FontFace? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_font_dialog_choose_face(
         gtkFontDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         initialValue?.pangoFontFacePointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -292,14 +294,16 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         parent: Window? = null,
         initialValue: FontFamily? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_font_dialog_choose_family(
         gtkFontDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         initialValue?.pangoFontFamilyPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -354,14 +358,16 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         parent: Window? = null,
         initialValue: FontDescription? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_font_dialog_choose_font(
         gtkFontDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         initialValue?.pangoFontDescriptionPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -387,14 +393,16 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         parent: Window? = null,
         initialValue: FontDescription? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_font_dialog_choose_font_and_features(
         gtkFontDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
         initialValue?.pangoFontDescriptionPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

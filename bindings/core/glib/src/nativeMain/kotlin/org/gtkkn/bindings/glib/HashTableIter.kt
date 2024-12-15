@@ -8,12 +8,15 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHashTableIter
 import org.gtkkn.native.glib.g_hash_table_iter_get_hash_table
 import org.gtkkn.native.glib.g_hash_table_iter_init
 import org.gtkkn.native.glib.g_hash_table_iter_remove
+import org.gtkkn.native.glib.g_hash_table_iter_replace
 import org.gtkkn.native.glib.g_hash_table_iter_steal
+import org.gtkkn.native.glib.gpointer
 import kotlin.Pair
 import kotlin.Unit
 import kotlin.native.ref.Cleaner
@@ -31,7 +34,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `key`: key: Out parameter is not supported
- * - parameter `value`: gpointer
  * - field `dummy1`: Record field dummy1 is private
  * - field `dummy2`: Record field dummy2 is private
  * - field `dummy3`: Record field dummy3 is private
@@ -135,6 +137,21 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      */
     @GLibVersion2_16
     public fun remove(): Unit = g_hash_table_iter_remove(glibHashTableIterPointer.reinterpret())
+
+    /**
+     * Replaces the value currently pointed to by the iterator
+     * from its associated #GHashTable. Can only be called after
+     * g_hash_table_iter_next() returned true.
+     *
+     * If you supplied a @value_destroy_func when creating the
+     * #GHashTable, the old value is freed using that function.
+     *
+     * @param value the value to replace with
+     * @since 2.30
+     */
+    @GLibVersion2_30
+    public fun replace(`value`: gpointer? = null): Unit =
+        g_hash_table_iter_replace(glibHashTableIterPointer.reinterpret(), `value`)
 
     /**
      * Removes the key/value pair currently pointed to by the

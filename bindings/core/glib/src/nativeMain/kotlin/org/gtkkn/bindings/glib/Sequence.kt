@@ -25,17 +25,17 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: gpointer
+ * - method `append`: Return type SequenceIter is unsupported
  * - method `get_begin_iter`: Return type SequenceIter is unsupported
  * - method `get_end_iter`: Return type SequenceIter is unsupported
  * - method `get_iter_at_pos`: Return type SequenceIter is unsupported
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
+ * - method `insert_sorted`: Return type SequenceIter is unsupported
+ * - method `insert_sorted_iter`: Return type SequenceIter is unsupported
+ * - method `lookup`: Return type SequenceIter is unsupported
+ * - method `lookup_iter`: Return type SequenceIter is unsupported
+ * - method `prepend`: Return type SequenceIter is unsupported
+ * - method `search`: Return type SequenceIter is unsupported
+ * - method `search_iter`: Return type SequenceIter is unsupported
  * - parameter `begin`: SequenceIter
  * - parameter `iter`: SequenceIter
  * - parameter `iter`: SequenceIter

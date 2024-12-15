@@ -179,12 +179,14 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_network_session_get_itp_summary(
             webkitNetworkSessionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

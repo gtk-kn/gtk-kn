@@ -16,6 +16,7 @@ import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_format
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_has_mipmap
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_height
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_id
+import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_sync
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_type
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_update_texture
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_get_width
@@ -25,8 +26,10 @@ import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_format
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_has_mipmap
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_height
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_id
+import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_sync
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_update_texture
 import org.gtkkn.native.gdk.gdk_gl_texture_builder_set_width
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
@@ -48,11 +51,8 @@ import kotlin.Boolean
  * ## Skipped during bindings generation
  *
  * - parameter `destroy`: GLib.DestroyNotify
- * - method `get_sync`: Return type gpointer is unsupported
  * - method `get_update_region`: Return type cairo.Region is unsupported
- * - parameter `sync`: gpointer
  * - parameter `region`: cairo.Region
- * - method `sync`: Property has no getter nor setter
  * - method `update-region`: Property has no getter nor setter
  *
  * @since 4.12
@@ -224,6 +224,39 @@ public open class GLTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          */
         @GdkVersion4_12
         set(id) = gdk_gl_texture_builder_set_id(gdkGLTextureBuilderPointer.reinterpret(), id)
+
+    /**
+     * An optional `GLSync` object.
+     *
+     * If this is set, GTK will wait on it before using the texture.
+     *
+     * @since 4.12
+     */
+    @GdkVersion4_12
+    public open var sync: gpointer?
+        /**
+         * Gets the `GLsync` previously set via gdk_gl_texture_builder_set_sync().
+         *
+         * @return the `GLSync`
+         * @since 4.12
+         */
+        get() = gdk_gl_texture_builder_get_sync(gdkGLTextureBuilderPointer.reinterpret())
+
+        /**
+         * Sets the GLSync object to use for the texture.
+         *
+         * GTK will wait on this object before using the created `GdkTexture`.
+         *
+         * The `destroy` function that is passed to [method@Gdk.GLTextureBuilder.build]
+         * is responsible for freeing the sync object when it is no longer needed.
+         * The texture builder does not destroy it and it is the callers
+         * responsibility to make sure it doesn't leak.
+         *
+         * @param sync the GLSync object
+         * @since 4.12
+         */
+        @GdkVersion4_12
+        set(sync) = gdk_gl_texture_builder_set_sync(gdkGLTextureBuilderPointer.reinterpret(), sync)
 
     /**
      * The texture [property@Gdk.GLTextureBuilder:update-region] is an update for.

@@ -21,11 +21,6 @@ import kotlin.native.ref.createCleaner
 /**
  * The `PangoAnalysis` structure stores information about
  * the properties of a segment of text.
- *
- * ## Skipped during bindings generation
- *
- * - field `shape_engine`: gpointer
- * - field `lang_engine`: gpointer
  */
 public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoAnalysisPointer: CPointer<PangoAnalysis> = pointer

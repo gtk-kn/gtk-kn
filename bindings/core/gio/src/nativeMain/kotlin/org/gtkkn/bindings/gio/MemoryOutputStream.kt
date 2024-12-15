@@ -4,6 +4,7 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
+import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -12,11 +13,14 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GMemoryOutputStream
 import org.gtkkn.native.gio.GPollableOutputStream
 import org.gtkkn.native.gio.GSeekable
+import org.gtkkn.native.gio.g_memory_output_stream_get_data
 import org.gtkkn.native.gio.g_memory_output_stream_get_data_size
 import org.gtkkn.native.gio.g_memory_output_stream_get_size
 import org.gtkkn.native.gio.g_memory_output_stream_get_type
 import org.gtkkn.native.gio.g_memory_output_stream_new_resizable
 import org.gtkkn.native.gio.g_memory_output_stream_steal_as_bytes
+import org.gtkkn.native.gio.g_memory_output_stream_steal_data
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
 
@@ -29,12 +33,9 @@ import org.gtkkn.native.gobject.gsize
  *
  * ## Skipped during bindings generation
  *
- * - method `get_data`: Return type gpointer is unsupported
- * - method `steal_data`: Return type gpointer is unsupported
- * - method `data`: Property has no getter nor setter
  * - method `destroy-function`: Property has no getter nor setter
  * - method `realloc-function`: Property has no getter nor setter
- * - parameter `data`: gpointer
+ * - parameter `realloc_function`: ReallocFunc
  */
 public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
     OutputStream(pointer.reinterpret()),
@@ -49,6 +50,24 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
 
     override val gioSeekablePointer: CPointer<GSeekable>
         get() = gPointer.reinterpret()
+
+    /**
+     * Pointer to buffer where data will be written.
+     *
+     * @since 2.24
+     */
+    @GioVersion2_24
+    public open val `data`: gpointer?
+        /**
+         * Gets any loaded data from the @ostream.
+         *
+         * Note that the returned pointer may become invalid on the next
+         * write or truncate operation on the stream.
+         *
+         * @return pointer to the stream's data, or null if the data
+         *    has been stolen
+         */
+        get() = g_memory_output_stream_get_data(gioMemoryOutputStreamPointer.reinterpret())
 
     /**
      * Size of data written to the buffer.
@@ -114,6 +133,22 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
         g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
             Bytes(reinterpret())
         }
+
+    /**
+     * Gets any loaded data from the @ostream. Ownership of the data
+     * is transferred to the caller; when no longer needed it must be
+     * freed using the free function set in @ostream's
+     * #GMemoryOutputStream:destroy-function property.
+     *
+     * @ostream must be closed before calling this function.
+     *
+     * @return the stream's data, or null if it has previously
+     *    been stolen
+     * @since 2.26
+     */
+    @GioVersion2_26
+    public open fun stealData(): gpointer? =
+        g_memory_output_stream_steal_data(gioMemoryOutputStreamPointer.reinterpret())
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =

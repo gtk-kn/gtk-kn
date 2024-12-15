@@ -186,15 +186,17 @@ public open class Drop(pointer: CPointer<GdkDrop>) :
         mimeTypes: List<String>,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = memScoped {
         return gdk_drop_read_async(
             gdkDropPointer.reinterpret(),
             mimeTypes.toCStringList(this),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
     }
 
@@ -219,14 +221,16 @@ public open class Drop(pointer: CPointer<GdkDrop>) :
         type: GType,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gdk_drop_read_value_async(
         gdkDropPointer.reinterpret(),
         type,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

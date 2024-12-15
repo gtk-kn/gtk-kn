@@ -17,6 +17,7 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gint
@@ -256,7 +257,6 @@ import kotlin.Unit
  * - method `get`: Varargs parameter is not supported
  * - parameter `var_args`: va_list
  * - parameter `new_order`: Array parameter of type gint is not supported
- * - signal `rows-reordered`: Unsupported parameter `new_order` : gpointer
  */
 public interface TreeModel :
     Interface,
@@ -707,6 +707,37 @@ public interface TreeModel :
         connectFlags.mask
     )
 
+    /**
+     * This signal is emitted when the children of a node in the
+     * `GtkTreeModel` have been reordered.
+     *
+     * Note that this signal is not emitted
+     * when rows are reordered by DND, since this is implemented
+     * by removing and then reinserting the row.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `path` a `GtkTreePath` identifying the tree node whose children
+     *     have been reordered; `iter` a valid `GtkTreeIter` pointing to the node whose children
+     *     have been reordered, or null if the depth of @path is 0; `newOrder` an array of integers mapping the current position
+     *     of each child to its old position before the re-ordering,
+     *     i.e. @new_order`[newpos] = oldpos`
+     */
+    public fun connectRowsReordered(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (
+            path: TreePath,
+            iter: TreeIter,
+            newOrder: gpointer?,
+        ) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gtkTreeModelPointer.reinterpret(),
+        "rows-reordered",
+        connectRowsReorderedFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
+
     private data class Wrapper(private val pointer: CPointer<GtkTreeModel>) : TreeModel {
         override val gtkTreeModelPointer: CPointer<GtkTreeModel> = pointer
     }
@@ -800,3 +831,36 @@ private val connectRowInsertedFunc:
         )
     }
         .reinterpret()
+
+private val connectRowsReorderedFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GtkTreePath>,
+            CPointer<GtkTreeIter>,
+            gpointer?,
+        ) -> Unit
+        >
+    > = staticCFunction {
+        _: COpaquePointer,
+        path: CPointer<GtkTreePath>?,
+        iter: CPointer<GtkTreeIter>?,
+        newOrder: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            path: TreePath,
+            iter: TreeIter,
+            newOrder: gpointer?,
+        ) -> Unit
+        >().get().invoke(
+        path!!.run {
+            TreePath(reinterpret())
+        },
+        iter!!.run {
+            TreeIter(reinterpret())
+        },
+        newOrder
+    )
+}
+    .reinterpret()

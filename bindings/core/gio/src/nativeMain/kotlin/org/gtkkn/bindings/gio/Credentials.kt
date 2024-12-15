@@ -18,14 +18,17 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GCredentials
+import org.gtkkn.native.gio.g_credentials_get_native
 import org.gtkkn.native.gio.g_credentials_get_type
 import org.gtkkn.native.gio.g_credentials_get_unix_pid
 import org.gtkkn.native.gio.g_credentials_get_unix_user
 import org.gtkkn.native.gio.g_credentials_is_same_user
 import org.gtkkn.native.gio.g_credentials_new
+import org.gtkkn.native.gio.g_credentials_set_native
 import org.gtkkn.native.gio.g_credentials_set_unix_user
 import org.gtkkn.native.gio.g_credentials_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
@@ -33,6 +36,7 @@ import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
 import kotlin.Suppress
+import kotlin.Unit
 
 /**
  * The `GCredentials` type is a reference-counted wrapper for native
@@ -70,12 +74,6 @@ import kotlin.Suppress
  *
  * Since GLib 2.72, on Windows, the native credentials may contain the PID of a
  * process. This corresponds to `G_CREDENTIALS_TYPE_WIN32_PID`.
- *
- * ## Skipped during bindings generation
- *
- * - method `get_native`: Return type gpointer is unsupported
- * - parameter `native`: gpointer
- *
  * @since 2.26
  */
 @GioVersion2_26
@@ -93,6 +91,25 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
      * @since 2.26
      */
     public constructor() : this(g_credentials_new()!!.reinterpret())
+
+    /**
+     * Gets a pointer to native credentials of type @native_type from
+     * @credentials.
+     *
+     * It is a programming error (which will cause a warning to be
+     * logged) to use this method if there is no #GCredentials support for
+     * the OS or if @native_type isn't supported by the OS.
+     *
+     * @param nativeType The type of native credentials to get.
+     * @return The pointer to native credentials or
+     *     null if there is no #GCredentials support for the OS or if @native_type
+     *     isn't supported by the OS. Do not free the returned data, it is owned
+     *     by @credentials.
+     * @since 2.26
+     */
+    @GioVersion2_26
+    public open fun getNative(nativeType: CredentialsType): gpointer? =
+        g_credentials_get_native(gioCredentialsPointer.reinterpret(), nativeType.nativeValue)
 
     /**
      * Tries to get the UNIX process identifier from @credentials. This
@@ -163,6 +180,22 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
             Result.success(gResult)
         }
     }
+
+    /**
+     * Copies the native credentials of type @native_type from @native
+     * into @credentials.
+     *
+     * It is a programming error (which will cause a warning to be
+     * logged) to use this method if there is no #GCredentials support for
+     * the OS or if @native_type isn't supported by the OS.
+     *
+     * @param nativeType The type of native credentials to set.
+     * @param native A pointer to native credentials.
+     * @since 2.26
+     */
+    @GioVersion2_26
+    public open fun setNative(nativeType: CredentialsType, native: gpointer): Unit =
+        g_credentials_set_native(gioCredentialsPointer.reinterpret(), nativeType.nativeValue, native)
 
     /**
      * Tries to set the UNIX user identifier on @credentials. This method

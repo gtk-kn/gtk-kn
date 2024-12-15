@@ -7,24 +7,37 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
+import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GHashTable
+import org.gtkkn.native.glib.g_hash_table_add
+import org.gtkkn.native.glib.g_hash_table_contains
 import org.gtkkn.native.glib.g_hash_table_destroy
+import org.gtkkn.native.glib.g_hash_table_find
 import org.gtkkn.native.glib.g_hash_table_foreach
 import org.gtkkn.native.glib.g_hash_table_foreach_remove
 import org.gtkkn.native.glib.g_hash_table_foreach_steal
 import org.gtkkn.native.glib.g_hash_table_get_keys
 import org.gtkkn.native.glib.g_hash_table_get_values
+import org.gtkkn.native.glib.g_hash_table_insert
+import org.gtkkn.native.glib.g_hash_table_lookup
 import org.gtkkn.native.glib.g_hash_table_new_similar
 import org.gtkkn.native.glib.g_hash_table_ref
+import org.gtkkn.native.glib.g_hash_table_remove
 import org.gtkkn.native.glib.g_hash_table_remove_all
+import org.gtkkn.native.glib.g_hash_table_replace
 import org.gtkkn.native.glib.g_hash_table_size
+import org.gtkkn.native.glib.g_hash_table_steal
 import org.gtkkn.native.glib.g_hash_table_steal_all
 import org.gtkkn.native.glib.g_hash_table_unref
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_hash_table_get_type
 import org.gtkkn.native.gobject.guint
+import kotlin.Boolean
 import kotlin.Unit
 
 /**
@@ -34,28 +47,58 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - function `find`: Return type gpointer is unsupported
  * - parameter `length`: length: Out parameter is not supported
- * - function `get_keys_as_ptr_array`: gpointer
- * - function `get_values_as_ptr_array`: gpointer
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - parameter `lookup_key`: gpointer
+ * - function `get_keys_as_ptr_array`: Array parameter of type gpointer is not supported
+ * - function `get_values_as_ptr_array`: Array parameter of type gpointer is not supported
+ * - parameter `orig_key`: orig_key: Out parameter is not supported
  * - parameter `hash_func`: HashFunc
  * - parameter `hash_func`: HashFunc
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - parameter `key`: gpointer
- * - function `steal_all_keys`: gpointer
- * - function `steal_all_values`: gpointer
- * - parameter `lookup_key`: gpointer
+ * - function `steal_all_keys`: Array parameter of type gpointer is not supported
+ * - function `steal_all_values`: Array parameter of type gpointer is not supported
+ * - parameter `stolen_key`: stolen_key: Out parameter is not supported
  */
 public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
     public val glibHashTablePointer: CPointer<GHashTable> = pointer
 
     public companion object {
+        /**
+         * This is a convenience function for using a #GHashTable as a set.  It
+         * is equivalent to calling g_hash_table_replace() with @key as both the
+         * key and the value.
+         *
+         * In particular, this means that if @key already exists in the hash table, then
+         * the old copy of @key in the hash table is freed and @key replaces it in the
+         * table.
+         *
+         * When a hash table only ever contains keys that have themselves as the
+         * corresponding value it is able to be stored more efficiently.  See
+         * the discussion in the section description.
+         *
+         * Starting from GLib 2.40, this function returns a boolean value to
+         * indicate whether the newly added value was already in the hash table
+         * or not.
+         *
+         * @param hashTable a #GHashTable
+         * @param key a key to insert
+         * @return true if the key did not exist yet
+         * @since 2.32
+         */
+        @GLibVersion2_32
+        public fun add(hashTable: HashTable, key: gpointer? = null): Boolean =
+            g_hash_table_add(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+
+        /**
+         * Checks if @key is in @hash_table.
+         *
+         * @param hashTable a #GHashTable
+         * @param key a key to check
+         * @return true if @key is in @hash_table, false otherwise.
+         * @since 2.32
+         */
+        @GLibVersion2_32
+        public fun contains(hashTable: HashTable, key: gpointer? = null): Boolean =
+            g_hash_table_contains(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+
         /**
          * Destroys all keys and values in the #GHashTable and decrements its
          * reference count by 1. If keys and/or values are dynamically allocated,
@@ -68,6 +111,35 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          */
         public fun destroy(hashTable: HashTable): Unit =
             g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
+
+        /**
+         * Calls the given function for key/value pairs in the #GHashTable
+         * until @predicate returns true. The function is passed the key
+         * and value of each pair, and the given @user_data parameter. The
+         * hash table may not be modified while iterating over it (you can't
+         * add/remove items).
+         *
+         * Note, that hash tables are really only optimized for forward
+         * lookups, i.e. g_hash_table_lookup(). So code that frequently issues
+         * g_hash_table_find() or g_hash_table_foreach() (e.g. in the order of
+         * once per every entry in a hash table) should probably be reworked
+         * to use additional or different data structures for reverse lookups
+         * (keep in mind that an O(n) find/foreach operation issued for all n
+         * values in a hash table ends up needing O(n*n) operations).
+         *
+         * @param hashTable a #GHashTable
+         * @param predicate function to test the key/value pairs for a certain property
+         * @return The value of the first key/value pair is returned,
+         *     for which @predicate evaluates to true. If no pair with the
+         *     requested property is found, null is returned.
+         * @since 2.4
+         */
+        @GLibVersion2_4
+        public fun find(hashTable: HashTable, predicate: HRFunc): gpointer? = g_hash_table_find(
+            hashTable.glibHashTablePointer.reinterpret(),
+            HRFuncFunc.reinterpret(),
+            StableRef.create(predicate).asCPointer()
+        )
 
         /**
          * Calls the given function for each of the key/value pairs in the
@@ -174,6 +246,41 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
             }
 
         /**
+         * Inserts a new key and value into a #GHashTable.
+         *
+         * If the key already exists in the #GHashTable its current
+         * value is replaced with the new value. If you supplied a
+         * @value_destroy_func when creating the #GHashTable, the old
+         * value is freed using that function. If you supplied a
+         * @key_destroy_func when creating the #GHashTable, the passed
+         * key is freed using that function.
+         *
+         * Starting from GLib 2.40, this function returns a boolean value to
+         * indicate whether the newly added value was already in the hash table
+         * or not.
+         *
+         * @param hashTable a #GHashTable
+         * @param key a key to insert
+         * @param value the value to associate with the key
+         * @return true if the key did not exist yet
+         */
+        public fun insert(hashTable: HashTable, key: gpointer? = null, `value`: gpointer? = null): Boolean =
+            g_hash_table_insert(hashTable.glibHashTablePointer.reinterpret(), key, `value`).asBoolean()
+
+        /**
+         * Looks up a key in a #GHashTable. Note that this function cannot
+         * distinguish between a key that is not present and one which is present
+         * and has the value null. If you need this distinction, use
+         * g_hash_table_lookup_extended().
+         *
+         * @param hashTable a #GHashTable
+         * @param key the key to look up
+         * @return the associated value, or null if the key is not found
+         */
+        public fun lookup(hashTable: HashTable, key: gpointer? = null): gpointer? =
+            g_hash_table_lookup(hashTable.glibHashTablePointer.reinterpret(), key)
+
+        /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference
          * count of 1.
          *
@@ -208,6 +315,21 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
             }
 
         /**
+         * Removes a key and its associated value from a #GHashTable.
+         *
+         * If the #GHashTable was created using g_hash_table_new_full(), the
+         * key and value are freed using the supplied destroy functions, otherwise
+         * you have to make sure that any dynamically allocated values are freed
+         * yourself.
+         *
+         * @param hashTable a #GHashTable
+         * @param key the key to remove
+         * @return true if the key was found and removed from the #GHashTable
+         */
+        public fun remove(hashTable: HashTable, key: gpointer? = null): Boolean =
+            g_hash_table_remove(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+
+        /**
          * Removes all keys and their associated values from a #GHashTable.
          *
          * If the #GHashTable was created using g_hash_table_new_full(),
@@ -223,12 +345,44 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
             g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
 
         /**
+         * Inserts a new key and value into a #GHashTable similar to
+         * g_hash_table_insert(). The difference is that if the key
+         * already exists in the #GHashTable, it gets replaced by the
+         * new key. If you supplied a @value_destroy_func when creating
+         * the #GHashTable, the old value is freed using that function.
+         * If you supplied a @key_destroy_func when creating the
+         * #GHashTable, the old key is freed using that function.
+         *
+         * Starting from GLib 2.40, this function returns a boolean value to
+         * indicate whether the newly added value was already in the hash table
+         * or not.
+         *
+         * @param hashTable a #GHashTable
+         * @param key a key to insert
+         * @param value the value to associate with the key
+         * @return true if the key did not exist yet
+         */
+        public fun replace(hashTable: HashTable, key: gpointer? = null, `value`: gpointer? = null): Boolean =
+            g_hash_table_replace(hashTable.glibHashTablePointer.reinterpret(), key, `value`).asBoolean()
+
+        /**
          * Returns the number of elements contained in the #GHashTable.
          *
          * @param hashTable a #GHashTable
          * @return the number of key/value pairs in the #GHashTable.
          */
         public fun size(hashTable: HashTable): guint = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
+
+        /**
+         * Removes a key and its associated value from a #GHashTable without
+         * calling the key and value destroy functions.
+         *
+         * @param hashTable a #GHashTable
+         * @param key the key to remove
+         * @return true if the key was found and removed from the #GHashTable
+         */
+        public fun steal(hashTable: HashTable, key: gpointer? = null): Boolean =
+            g_hash_table_steal(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
 
         /**
          * Removes all keys and their associated values from a #GHashTable

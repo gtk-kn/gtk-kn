@@ -468,11 +468,13 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      *   be shown, but none has been provided via other means, or null
      *   to reset to default behavior.
      */
-    public open fun setCreatePopupFunc(func: MenuButtonCreatePopupFunc): Unit = gtk_menu_button_set_create_popup_func(
+    public open fun setCreatePopupFunc(func: MenuButtonCreatePopupFunc?): Unit = gtk_menu_button_set_create_popup_func(
         gtkMenuButtonPointer.reinterpret(),
-        MenuButtonCreatePopupFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        func?.let {
+            MenuButtonCreatePopupFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

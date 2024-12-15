@@ -148,15 +148,17 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
         interaction: TlsInteraction? = null,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_tls_database_lookup_certificate_for_handle_async(
         gioTlsDatabasePointer.reinterpret(),
         handle,
         interaction?.gioTlsInteractionPointer?.reinterpret(),
         flags.nativeValue,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -262,15 +264,17 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
         interaction: TlsInteraction? = null,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_tls_database_lookup_certificate_issuer_async(
         gioTlsDatabasePointer.reinterpret(),
         certificate.gioTlsCertificatePointer.reinterpret(),
         interaction?.gioTlsInteractionPointer?.reinterpret(),
         flags.nativeValue,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -451,12 +455,13 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
         interaction: TlsInteraction? = null,
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_tls_database_verify_chain_async(
-        gioTlsDatabasePointer.reinterpret(), chain.gioTlsCertificatePointer.reinterpret(), purpose, identity?.gioSocketConnectablePointer, interaction?.gioTlsInteractionPointer?.reinterpret(), flags.mask, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(
-            callback
-        ).asCPointer()
+        gioTlsDatabasePointer.reinterpret(), chain.gioTlsCertificatePointer.reinterpret(), purpose, identity?.gioSocketConnectablePointer, interaction?.gioTlsInteractionPointer?.reinterpret(), flags.mask, cancellable?.gioCancellablePointer?.reinterpret(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

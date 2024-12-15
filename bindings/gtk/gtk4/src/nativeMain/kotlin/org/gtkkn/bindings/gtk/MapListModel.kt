@@ -97,13 +97,17 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      */
     public constructor(
         model: ListModel? = null,
-        mapFunc: MapListModelMapFunc,
+        mapFunc: MapListModelMapFunc?,
     ) : this(
         gtk_map_list_model_new(
             model?.gioListModelPointer,
-            MapListModelMapFuncFunc.reinterpret(),
-            StableRef.create(mapFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            mapFunc?.let {
+                MapListModelMapFuncFunc.reinterpret()
+            },
+            mapFunc?.let {
+                StableRef.create(mapFunc).asCPointer()
+            },
+            mapFunc?.let { staticStableRefDestroy.reinterpret() }
         )!!.reinterpret()
     )
 
@@ -129,11 +133,13 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      *
      * @param mapFunc map function
      */
-    public open fun setMapFunc(mapFunc: MapListModelMapFunc): Unit = gtk_map_list_model_set_map_func(
+    public open fun setMapFunc(mapFunc: MapListModelMapFunc?): Unit = gtk_map_list_model_set_map_func(
         gtkMapListModelPointer.reinterpret(),
-        MapListModelMapFuncFunc.reinterpret(),
-        StableRef.create(mapFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        mapFunc?.let {
+            MapListModelMapFuncFunc.reinterpret()
+        },
+        mapFunc?.let { StableRef.create(mapFunc).asCPointer() },
+        mapFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

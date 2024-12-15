@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputVector
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gsize
 import kotlin.Pair
 import kotlin.String
@@ -22,16 +23,22 @@ import kotlin.native.ref.createCleaner
  * You generally pass in an array of #GOutputVectors
  * and the operation will use all the buffers as if they were
  * one buffer.
- *
- * ## Skipped during bindings generation
- *
- * - field `buffer`: gpointer
- *
  * @since 2.22
  */
 @GioVersion2_22
 public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gioOutputVectorPointer: CPointer<GOutputVector> = pointer
+
+    /**
+     * Pointer to a buffer of data to read.
+     */
+    public var buffer: gpointer
+        get() = gioOutputVectorPointer.pointed.buffer!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gioOutputVectorPointer.pointed.buffer = value
+        }
 
     /**
      * the size of @buffer.
@@ -81,9 +88,11 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
+     * @param buffer Pointer to a buffer of data to read.
      * @param size the size of @buffer.
      */
-    public constructor(size: gsize) : this() {
+    public constructor(buffer: gpointer, size: gsize) : this() {
+        this.buffer = buffer
         this.size = size
     }
 
@@ -92,12 +101,18 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
+     * @param buffer Pointer to a buffer of data to read.
      * @param size the size of @buffer.
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
-    public constructor(size: gsize, scope: AutofreeScope) : this(scope) {
+    public constructor(
+        buffer: gpointer,
+        size: gsize,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.buffer = buffer
         this.size = size
     }
 
-    override fun toString(): String = "OutputVector(size=$size)"
+    override fun toString(): String = "OutputVector(buffer=$buffer, size=$size)"
 }

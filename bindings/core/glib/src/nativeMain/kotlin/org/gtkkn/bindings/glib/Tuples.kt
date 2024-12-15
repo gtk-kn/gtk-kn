@@ -12,6 +12,9 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTuples
 import org.gtkkn.native.glib.g_tuples_destroy
+import org.gtkkn.native.glib.g_tuples_index
+import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
@@ -24,10 +27,6 @@ import kotlin.native.ref.createCleaner
  * #GRelation by g_relation_select(). It only contains one public
  * member - the number of records that matched. To access the matched
  * records, you must use g_tuples_index().
- *
- * ## Skipped during bindings generation
- *
- * - method `index`: Return type gpointer is unsupported
  */
 public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibTuplesPointer: CPointer<GTuples> = pointer
@@ -103,6 +102,18 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * #GRelation.
      */
     public fun destroy(): Unit = g_tuples_destroy(glibTuplesPointer.reinterpret())
+
+    /**
+     * Gets a field from the records returned by g_relation_select(). It
+     * returns the given field of the record at the given index. The
+     * returned value should not be changed.
+     *
+     * @param index the index of the record.
+     * @param field the field to return.
+     * @return the field of the record.
+     */
+    public fun index(index: gint, `field`: gint): gpointer? =
+        g_tuples_index(glibTuplesPointer.reinterpret(), index, `field`)
 
     override fun toString(): String = "Tuples(len=$len)"
 }

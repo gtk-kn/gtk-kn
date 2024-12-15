@@ -11,6 +11,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputVector
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gsize
 import kotlin.Pair
 import kotlin.String
@@ -22,16 +23,22 @@ import kotlin.native.ref.createCleaner
  * You generally pass in an array of #GInputVectors
  * and the operation will store the read data starting in the
  * first buffer, switching to the next as needed.
- *
- * ## Skipped during bindings generation
- *
- * - field `buffer`: gpointer
- *
  * @since 2.22
  */
 @GioVersion2_22
 public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gioInputVectorPointer: CPointer<GInputVector> = pointer
+
+    /**
+     * Pointer to a buffer where data will be written.
+     */
+    public var buffer: gpointer
+        get() = gioInputVectorPointer.pointed.buffer!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gioInputVectorPointer.pointed.buffer = value
+        }
 
     /**
      * the available size in @buffer.
@@ -79,9 +86,11 @@ public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
+     * @param buffer Pointer to a buffer where data will be written.
      * @param size the available size in @buffer.
      */
-    public constructor(size: gsize) : this() {
+    public constructor(buffer: gpointer, size: gsize) : this() {
+        this.buffer = buffer
         this.size = size
     }
 
@@ -90,12 +99,18 @@ public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = nu
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
+     * @param buffer Pointer to a buffer where data will be written.
      * @param size the available size in @buffer.
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
-    public constructor(size: gsize, scope: AutofreeScope) : this(scope) {
+    public constructor(
+        buffer: gpointer,
+        size: gsize,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.buffer = buffer
         this.size = size
     }
 
-    override fun toString(): String = "InputVector(size=$size)"
+    override fun toString(): String = "InputVector(buffer=$buffer, size=$size)"
 }

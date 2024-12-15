@@ -1025,11 +1025,13 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      *
      * @param func A function to determine which columns are reorderable
      */
-    public open fun setColumnDragFunction(func: TreeViewColumnDropFunc): Unit = gtk_tree_view_set_column_drag_function(
+    public open fun setColumnDragFunction(func: TreeViewColumnDropFunc?): Unit = gtk_tree_view_set_column_drag_function(
         gtkTreeViewPointer.reinterpret(),
-        TreeViewColumnDropFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        func?.let {
+            TreeViewColumnDropFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**
@@ -1121,11 +1123,13 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      *
      * @param func a `GtkTreeView`RowSeparatorFunc
      */
-    public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc): Unit = gtk_tree_view_set_row_separator_func(
+    public open fun setRowSeparatorFunc(func: TreeViewRowSeparatorFunc?): Unit = gtk_tree_view_set_row_separator_func(
         gtkTreeViewPointer.reinterpret(),
-        TreeViewRowSeparatorFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        func?.let {
+            TreeViewRowSeparatorFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

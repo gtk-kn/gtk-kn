@@ -13,9 +13,12 @@ import org.gtkkn.native.gio.g_socket_control_message_get_level
 import org.gtkkn.native.gio.g_socket_control_message_get_msg_type
 import org.gtkkn.native.gio.g_socket_control_message_get_size
 import org.gtkkn.native.gio.g_socket_control_message_get_type
+import org.gtkkn.native.gio.g_socket_control_message_serialize
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
+import kotlin.Unit
 
 /**
  * A `GSocketControlMessage` is a special-purpose utility message that
@@ -41,7 +44,6 @@ import org.gtkkn.native.gobject.gsize
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: gpointer
  * - parameter `data`: Array parameter of type guint8 is not supported
  *
  * @since 2.22
@@ -83,6 +85,21 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      */
     @GioVersion2_22
     public open fun getSize(): gsize = g_socket_control_message_get_size(gioSocketControlMessagePointer.reinterpret())
+
+    /**
+     * Converts the data in the message to bytes placed in the
+     * message.
+     *
+     * @data is guaranteed to have enough space to fit the size
+     * returned by g_socket_control_message_get_size() on this
+     * object.
+     *
+     * @param data A buffer to write data to
+     * @since 2.22
+     */
+    @GioVersion2_22
+    public open fun serialize(`data`: gpointer): Unit =
+        g_socket_control_message_serialize(gioSocketControlMessagePointer.reinterpret(), `data`)
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =

@@ -493,11 +493,15 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * @param filterFunc callback that
      *   lets you filter which children to show
      */
-    public open fun setFilterFunc(filterFunc: FlowBoxFilterFunc): Unit = gtk_flow_box_set_filter_func(
+    public open fun setFilterFunc(filterFunc: FlowBoxFilterFunc?): Unit = gtk_flow_box_set_filter_func(
         gtkFlowBoxPointer.reinterpret(),
-        FlowBoxFilterFuncFunc.reinterpret(),
-        StableRef.create(filterFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        filterFunc?.let {
+            FlowBoxFilterFuncFunc.reinterpret()
+        },
+        filterFunc?.let {
+            StableRef.create(filterFunc).asCPointer()
+        },
+        filterFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**
@@ -534,11 +538,15 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      *
      * @param sortFunc the sort function
      */
-    public open fun setSortFunc(sortFunc: FlowBoxSortFunc): Unit = gtk_flow_box_set_sort_func(
+    public open fun setSortFunc(sortFunc: FlowBoxSortFunc?): Unit = gtk_flow_box_set_sort_func(
         gtkFlowBoxPointer.reinterpret(),
-        FlowBoxSortFuncFunc.reinterpret(),
-        StableRef.create(sortFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        sortFunc?.let {
+            FlowBoxSortFuncFunc.reinterpret()
+        },
+        sortFunc?.let {
+            StableRef.create(sortFunc).asCPointer()
+        },
+        sortFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

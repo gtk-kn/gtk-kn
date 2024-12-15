@@ -19,6 +19,9 @@ import org.gtkkn.native.glib.g_hook_compare_ids
 import org.gtkkn.native.glib.g_hook_destroy
 import org.gtkkn.native.glib.g_hook_destroy_link
 import org.gtkkn.native.glib.g_hook_find
+import org.gtkkn.native.glib.g_hook_find_data
+import org.gtkkn.native.glib.g_hook_find_func
+import org.gtkkn.native.glib.g_hook_find_func_data
 import org.gtkkn.native.glib.g_hook_first_valid
 import org.gtkkn.native.glib.g_hook_free
 import org.gtkkn.native.glib.g_hook_get
@@ -27,6 +30,7 @@ import org.gtkkn.native.glib.g_hook_next_valid
 import org.gtkkn.native.glib.g_hook_prepend
 import org.gtkkn.native.glib.g_hook_ref
 import org.gtkkn.native.glib.g_hook_unref
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.gulong
@@ -42,16 +46,22 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: gpointer
- * - parameter `func`: gpointer
- * - parameter `func`: gpointer
  * - parameter `func`: HookCompareFunc
- * - field `data`: gpointer
- * - field `func`: gpointer
  * - field `destroy`: DestroyNotify
  */
 public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibHookPointer: CPointer<GHook> = pointer
+
+    /**
+     * data which is passed to func when this hook is invoked
+     */
+    public var `data`: gpointer
+        get() = glibHookPointer.pointed.data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibHookPointer.pointed.data = value
+        }
 
     /**
      * pointer to the next hook in the list
@@ -114,6 +124,18 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
         }
 
     /**
+     * the function to call when this hook is invoked. The possible
+     *     signatures for this function are #GHookFunc and #GHookCheckFunc
+     */
+    public var func: gpointer
+        get() = glibHookPointer.pointed.func!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibHookPointer.pointed.func = value
+        }
+
+    /**
      * Allocate a new Hook.
      *
      * This instance will be allocated on the native heap and automatically freed when
@@ -148,25 +170,32 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
+     * @param data data which is passed to func when this hook is invoked
      * @param next pointer to the next hook in the list
      * @param prev pointer to the previous hook in the list
      * @param refCount the reference count of this hook
      * @param hookId the id of this hook, which is unique within its list
      * @param flags flags which are set for this hook. See #GHookFlagMask for
      *     predefined flags
+     * @param func the function to call when this hook is invoked. The possible
+     *     signatures for this function are #GHookFunc and #GHookCheckFunc
      */
     public constructor(
+        `data`: gpointer,
         next: Hook?,
         prev: Hook?,
         refCount: guint,
         hookId: gulong,
         flags: guint,
+        func: gpointer,
     ) : this() {
+        this.data = data
         this.next = next
         this.prev = prev
         this.refCount = refCount
         this.hookId = hookId
         this.flags = flags
+        this.func = func
     }
 
     /**
@@ -174,27 +203,34 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
+     * @param data data which is passed to func when this hook is invoked
      * @param next pointer to the next hook in the list
      * @param prev pointer to the previous hook in the list
      * @param refCount the reference count of this hook
      * @param hookId the id of this hook, which is unique within its list
      * @param flags flags which are set for this hook. See #GHookFlagMask for
      *     predefined flags
+     * @param func the function to call when this hook is invoked. The possible
+     *     signatures for this function are #GHookFunc and #GHookCheckFunc
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
+        `data`: gpointer,
         next: Hook?,
         prev: Hook?,
         refCount: guint,
         hookId: gulong,
         flags: guint,
+        func: gpointer,
         scope: AutofreeScope,
     ) : this(scope) {
+        this.data = data
         this.next = next
         this.prev = prev
         this.refCount = refCount
         this.hookId = hookId
         this.flags = flags
+        this.func = func
     }
 
     /**
@@ -207,7 +243,8 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
     public fun compareIds(sibling: Hook): gint =
         g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
 
-    override fun toString(): String = "Hook(next=$next, prev=$prev, refCount=$refCount, hookId=$hookId, flags=$flags)"
+    override fun toString(): String =
+        "Hook(data=$data, next=$next, prev=$prev, refCount=$refCount, hookId=$hookId, flags=$flags, func=$func)"
 
     public companion object {
         /**
@@ -256,6 +293,61 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
             needValids.asGBoolean(),
             HookFindFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
+        )!!.run {
+            Hook(reinterpret())
+        }
+
+        /**
+         * Finds a #GHook in a #GHookList with the given data.
+         *
+         * @param hookList a #GHookList
+         * @param needValids true if #GHook elements which have been destroyed
+         *     should be skipped
+         * @param data the data to find
+         * @return the #GHook with the given @data or null if no matching
+         *     #GHook is found
+         */
+        public fun findData(hookList: HookList, needValids: Boolean, `data`: gpointer? = null): Hook =
+            g_hook_find_data(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), `data`)!!.run {
+                Hook(reinterpret())
+            }
+
+        /**
+         * Finds a #GHook in a #GHookList with the given function.
+         *
+         * @param hookList a #GHookList
+         * @param needValids true if #GHook elements which have been destroyed
+         *     should be skipped
+         * @param func the function to find
+         * @return the #GHook with the given @func or null if no matching
+         *     #GHook is found
+         */
+        public fun findFunc(hookList: HookList, needValids: Boolean, func: gpointer? = null): Hook =
+            g_hook_find_func(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), func)!!.run {
+                Hook(reinterpret())
+            }
+
+        /**
+         * Finds a #GHook in a #GHookList with the given function and data.
+         *
+         * @param hookList a #GHookList
+         * @param needValids true if #GHook elements which have been destroyed
+         *     should be skipped
+         * @param func the function to find
+         * @param data the data to find
+         * @return the #GHook with the given @func and @data or null if
+         *     no matching #GHook is found
+         */
+        public fun findFuncData(
+            hookList: HookList,
+            needValids: Boolean,
+            func: gpointer,
+            `data`: gpointer? = null,
+        ): Hook = g_hook_find_func_data(
+            hookList.glibHookListPointer.reinterpret(),
+            needValids.asGBoolean(),
+            func,
+            `data`
         )!!.run {
             Hook(reinterpret())
         }

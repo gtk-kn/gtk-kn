@@ -148,7 +148,7 @@ import kotlin.Unit
  *
  * - parameter `out_fd_list`: out_fd_list: Out parameter is not supported
  * - parameter `out_fd_list`: out_fd_list: Out parameter is not supported
- * - parameter `user_data`: gpointer
+ * - parameter `user_data_free_func`: GLib.DestroyNotify
  * - parameter `out_serial`: out_serial: Out parameter is not supported
  * - parameter `out_serial`: out_serial: Out parameter is not supported
  * - parameter `out_serial`: out_serial: Out parameter is not supported
@@ -581,12 +581,13 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
         flags: DBusCallFlags,
         timeoutMsec: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_dbus_connection_call(
-        gioDBusConnectionPointer.reinterpret(), busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer?.reinterpret(), replyType?.glibVariantTypePointer?.reinterpret(), flags.mask, timeoutMsec, cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(
-            callback
-        ).asCPointer()
+        gioDBusConnectionPointer.reinterpret(), busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer?.reinterpret(), replyType?.glibVariantTypePointer?.reinterpret(), flags.mask, timeoutMsec, cancellable?.gioCancellablePointer?.reinterpret(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -740,12 +741,13 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
         timeoutMsec: gint,
         fdList: UnixFDList? = null,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_dbus_connection_call_with_unix_fd_list(
-        gioDBusConnectionPointer.reinterpret(), busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer?.reinterpret(), replyType?.glibVariantTypePointer?.reinterpret(), flags.mask, timeoutMsec, fdList?.gioUnixFDListPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(
-            callback
-        ).asCPointer()
+        gioDBusConnectionPointer.reinterpret(), busName, objectPath, interfaceName, methodName, parameters?.glibVariantPointer?.reinterpret(), replyType?.glibVariantTypePointer?.reinterpret(), flags.mask, timeoutMsec, fdList?.gioUnixFDListPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -780,12 +782,14 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun close(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun close(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_dbus_connection_close(
             gioDBusConnectionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -987,12 +991,14 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun flush(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun flush(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_dbus_connection_flush(
             gioDBusConnectionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -1472,15 +1478,17 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
             flags: DBusConnectionFlags,
             observer: DBusAuthObserver? = null,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_dbus_connection_new(
             stream.gioIOStreamPointer.reinterpret(),
             guid,
             flags.mask,
             observer?.gioDBusAuthObserverPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**
@@ -1520,14 +1528,16 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
             flags: DBusConnectionFlags,
             observer: DBusAuthObserver? = null,
             cancellable: Cancellable? = null,
-            callback: AsyncReadyCallback,
+            callback: AsyncReadyCallback?,
         ): Unit = g_dbus_connection_new_for_address(
             address,
             flags.mask,
             observer?.gioDBusAuthObserverPointer?.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
         /**

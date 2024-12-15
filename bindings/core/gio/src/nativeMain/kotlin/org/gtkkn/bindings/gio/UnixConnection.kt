@@ -114,12 +114,14 @@ public open class UnixConnection(pointer: CPointer<GUnixConnection>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun receiveCredentialsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun receiveCredentialsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_unix_connection_receive_credentials_async(
             gioUnixConnectionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -233,12 +235,14 @@ public open class UnixConnection(pointer: CPointer<GUnixConnection>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun sendCredentialsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun sendCredentialsAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_unix_connection_send_credentials_async(
             gioUnixConnectionPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**

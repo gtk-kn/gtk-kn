@@ -10,6 +10,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GTypeInfo
 import org.gtkkn.native.gobject.guint16
 import kotlin.Pair
@@ -34,7 +35,6 @@ import kotlin.native.ref.createCleaner
  * - field `base_finalize`: BaseFinalizeFunc
  * - field `class_init`: ClassInitFunc
  * - field `class_finalize`: ClassFinalizeFunc
- * - field `class_data`: gpointer
  * - field `instance_init`: InstanceInitFunc
  */
 public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
@@ -49,6 +49,17 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.class_size = value
+        }
+
+    /**
+     * User-supplied data passed to the class init/finalize functions
+     */
+    public var classData: gpointer
+        get() = gobjectTypeInfoPointer.pointed.class_data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gobjectTypeInfoPointer.pointed.class_data = value
         }
 
     /**
@@ -123,6 +134,7 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      * this class instance is garbage collected.
      *
      * @param classSize Size of the class structure (required for interface, classed and instantiatable types)
+     * @param classData User-supplied data passed to the class init/finalize functions
      * @param instanceSize Size of the instance (object) structure (required for instantiatable types only)
      * @param nPreallocs Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
      * @param valueTable A #GTypeValueTable function table for generic handling of GValues
@@ -130,11 +142,13 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public constructor(
         classSize: guint16,
+        classData: gpointer,
         instanceSize: guint16,
         nPreallocs: guint16,
         valueTable: TypeValueTable?,
     ) : this() {
         this.classSize = classSize
+        this.classData = classData
         this.instanceSize = instanceSize
         this.nPreallocs = nPreallocs
         this.valueTable = valueTable
@@ -146,6 +160,7 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
      * @param classSize Size of the class structure (required for interface, classed and instantiatable types)
+     * @param classData User-supplied data passed to the class init/finalize functions
      * @param instanceSize Size of the instance (object) structure (required for instantiatable types only)
      * @param nPreallocs Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
      * @param valueTable A #GTypeValueTable function table for generic handling of GValues
@@ -154,17 +169,19 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public constructor(
         classSize: guint16,
+        classData: gpointer,
         instanceSize: guint16,
         nPreallocs: guint16,
         valueTable: TypeValueTable?,
         scope: AutofreeScope,
     ) : this(scope) {
         this.classSize = classSize
+        this.classData = classData
         this.instanceSize = instanceSize
         this.nPreallocs = nPreallocs
         this.valueTable = valueTable
     }
 
     override fun toString(): String =
-        "TypeInfo(classSize=$classSize, instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueTable=$valueTable)"
+        "TypeInfo(classSize=$classSize, classData=$classData, instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueTable=$valueTable)"
 }

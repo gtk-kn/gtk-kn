@@ -165,15 +165,17 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
         mimeTypes: List<String>,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = memScoped {
         return gdk_clipboard_read_async(
             gdkClipboardPointer.reinterpret(),
             mimeTypes.toCStringList(this),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
     }
 
@@ -190,12 +192,14 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
      * @param cancellable optional `GCancellable` object
      * @param callback callback to call when the request is satisfied
      */
-    public open fun readTextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun readTextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         gdk_clipboard_read_text_async(
             gdkClipboardPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -233,12 +237,14 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
      * @param cancellable optional `GCancellable` object, null to ignore.
      * @param callback callback to call when the request is satisfied
      */
-    public open fun readTextureAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public open fun readTextureAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         gdk_clipboard_read_texture_async(
             gdkClipboardPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -286,14 +292,16 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
         type: GType,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gdk_clipboard_read_value_async(
         gdkClipboardPointer.reinterpret(),
         type,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -390,13 +398,15 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
     public open fun storeAsync(
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gdk_clipboard_store_async(
         gdkClipboardPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

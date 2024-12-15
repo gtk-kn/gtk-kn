@@ -241,13 +241,17 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * @param createWidgetFunc a function that creates widgets for items
      *   or null in case you also passed null as @model
      */
-    public open fun bindModel(model: ListModel? = null, createWidgetFunc: ListBoxCreateWidgetFunc): Unit =
+    public open fun bindModel(model: ListModel? = null, createWidgetFunc: ListBoxCreateWidgetFunc?): Unit =
         gtk_list_box_bind_model(
             gtkListBoxPointer.reinterpret(),
             model?.gioListModelPointer,
-            ListBoxCreateWidgetFuncFunc.reinterpret(),
-            StableRef.create(createWidgetFunc).asCPointer(),
-            staticStableRefDestroy.reinterpret()
+            createWidgetFunc?.let {
+                ListBoxCreateWidgetFuncFunc.reinterpret()
+            },
+            createWidgetFunc?.let {
+                StableRef.create(createWidgetFunc).asCPointer()
+            },
+            createWidgetFunc?.let { staticStableRefDestroy.reinterpret() }
         )
 
     /**
@@ -464,11 +468,15 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      *
      * @param filterFunc callback that lets you filter which rows to show
      */
-    public open fun setFilterFunc(filterFunc: ListBoxFilterFunc): Unit = gtk_list_box_set_filter_func(
+    public open fun setFilterFunc(filterFunc: ListBoxFilterFunc?): Unit = gtk_list_box_set_filter_func(
         gtkListBoxPointer.reinterpret(),
-        ListBoxFilterFuncFunc.reinterpret(),
-        StableRef.create(filterFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        filterFunc?.let {
+            ListBoxFilterFuncFunc.reinterpret()
+        },
+        filterFunc?.let {
+            StableRef.create(filterFunc).asCPointer()
+        },
+        filterFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**
@@ -500,11 +508,15 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      *
      * @param updateHeader callback that lets you add row headers
      */
-    public open fun setHeaderFunc(updateHeader: ListBoxUpdateHeaderFunc): Unit = gtk_list_box_set_header_func(
+    public open fun setHeaderFunc(updateHeader: ListBoxUpdateHeaderFunc?): Unit = gtk_list_box_set_header_func(
         gtkListBoxPointer.reinterpret(),
-        ListBoxUpdateHeaderFuncFunc.reinterpret(),
-        StableRef.create(updateHeader).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        updateHeader?.let {
+            ListBoxUpdateHeaderFuncFunc.reinterpret()
+        },
+        updateHeader?.let {
+            StableRef.create(updateHeader).asCPointer()
+        },
+        updateHeader?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**
@@ -532,11 +544,15 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      *
      * @param sortFunc the sort function
      */
-    public open fun setSortFunc(sortFunc: ListBoxSortFunc): Unit = gtk_list_box_set_sort_func(
+    public open fun setSortFunc(sortFunc: ListBoxSortFunc?): Unit = gtk_list_box_set_sort_func(
         gtkListBoxPointer.reinterpret(),
-        ListBoxSortFuncFunc.reinterpret(),
-        StableRef.create(sortFunc).asCPointer(),
-        staticStableRefDestroy.reinterpret()
+        sortFunc?.let {
+            ListBoxSortFuncFunc.reinterpret()
+        },
+        sortFunc?.let {
+            StableRef.create(sortFunc).asCPointer()
+        },
+        sortFunc?.let { staticStableRefDestroy.reinterpret() }
     )
 
     /**

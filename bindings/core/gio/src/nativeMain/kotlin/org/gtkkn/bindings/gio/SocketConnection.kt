@@ -124,13 +124,15 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     public open fun connectAsync(
         address: SocketAddress,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_socket_connection_connect_async(
         gioSocketConnectionPointer.reinterpret(),
         address.gioSocketAddressPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

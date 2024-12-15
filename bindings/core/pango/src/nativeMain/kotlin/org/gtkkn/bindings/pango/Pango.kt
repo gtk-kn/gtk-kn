@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
@@ -25,6 +24,7 @@ import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
@@ -110,13 +110,12 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `variant`: variant: Out parameter is not supported
  * - parameter `weight`: weight: Out parameter is not supported
  * - function `quantize_line_geometry`: In/Out parameter is not supported
- * - parameter `stream`: gpointer
+ * - parameter `stream`: Unsupported pointer to primitive type
  * - function `scan_int`: In/Out parameter is not supported
  * - function `scan_string`: In/Out parameter is not supported
  * - function `scan_word`: In/Out parameter is not supported
  * - function `skip_space`: In/Out parameter is not supported
  * - parameter `attrs`: LogAttr
- * - callback `AttrDataCopyFunc`: Return type gpointer is unsupported
  * - record `ContextClass`: glib type struct are ignored
  * - record `FontClass`: glib type struct are ignored
  * - record `FontFaceClass`: glib type struct are ignored
@@ -1249,12 +1248,17 @@ public object Pango {
     }
 }
 
+public val AttrDataCopyFuncFunc: CPointer<CFunction<() -> gpointer?>> = staticCFunction { userData: gpointer? ->
+    userData!!.asStableRef<() -> gpointer?>().get().invoke()
+}
+    .reinterpret()
+
 public val AttrFilterFuncFunc: CPointer<CFunction<(CPointer<PangoAttribute>) -> gboolean>> =
     staticCFunction {
             attribute: CPointer<PangoAttribute>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(attribute: Attribute) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(attribute: Attribute) -> Boolean>().get().invoke(
             attribute!!.run {
                 Attribute(reinterpret())
             }
@@ -1267,9 +1271,9 @@ public val FontsetForeachFuncFunc:
     staticCFunction {
             fontset: CPointer<PangoFontset>?,
             font: CPointer<PangoFont>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
             fontset!!.run {
                 Fontset(reinterpret())
             },
@@ -1279,6 +1283,13 @@ public val FontsetForeachFuncFunc:
         ).asGBoolean()
     }
         .reinterpret()
+
+/**
+ * Type of a function that can duplicate user data for an attribute.
+ *
+ * - return new copy of @user_data.
+ */
+public typealias AttrDataCopyFunc = () -> gpointer?
 
 /**
  * Type of a function filtering a list of attributes.

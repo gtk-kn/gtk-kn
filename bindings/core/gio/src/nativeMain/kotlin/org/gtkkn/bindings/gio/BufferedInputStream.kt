@@ -171,14 +171,16 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
         count: Long,
         ioPriority: gint,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_buffered_input_stream_fill_async(
         gioBufferedInputStreamPointer.reinterpret(),
         count,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

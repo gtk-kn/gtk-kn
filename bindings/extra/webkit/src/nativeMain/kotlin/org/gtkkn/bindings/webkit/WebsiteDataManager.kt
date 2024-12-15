@@ -140,14 +140,16 @@ public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
         types: WebsiteDataTypes,
         timespan: TimeSpan,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_website_data_manager_clear(
         webkitWebsiteDataManagerPointer.reinterpret(),
         types.mask,
         timespan,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -184,13 +186,15 @@ public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun fetch(types: WebsiteDataTypes, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun fetch(types: WebsiteDataTypes, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_website_data_manager_fetch(
             webkitWebsiteDataManagerPointer.reinterpret(),
             types.mask,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -255,12 +259,14 @@ public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getItpSummary(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_website_data_manager_get_itp_summary(
             webkitWebsiteDataManagerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -322,14 +328,16 @@ public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
         types: WebsiteDataTypes,
         websiteData: List,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = webkit_website_data_manager_remove(
         webkitWebsiteDataManagerPointer.reinterpret(),
         types.mask,
         websiteData.glibListPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

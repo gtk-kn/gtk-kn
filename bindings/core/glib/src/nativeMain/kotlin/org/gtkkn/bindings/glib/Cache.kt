@@ -7,8 +7,11 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GCache
 import org.gtkkn.native.glib.g_cache_destroy
+import org.gtkkn.native.glib.g_cache_insert
 import org.gtkkn.native.glib.g_cache_key_foreach
+import org.gtkkn.native.glib.g_cache_remove
 import org.gtkkn.native.glib.g_cache_value_foreach
+import org.gtkkn.native.glib.gpointer
 import kotlin.Unit
 
 /**
@@ -23,8 +26,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `key`: gpointer
- * - parameter `value`: gpointer
  * - parameter `value_new_func`: CacheNewFunc
  */
 public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
@@ -37,6 +38,21 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      * contained in the #GCache.
      */
     public fun destroy(): Unit = g_cache_destroy(glibCachePointer.reinterpret())
+
+    /**
+     * Gets the value corresponding to the given key, creating it if
+     * necessary. It first checks if the value already exists in the
+     * #GCache, by using the @key_equal_func function passed to
+     * g_cache_new(). If it does already exist it is returned, and its
+     * reference count is increased by one. If the value does not currently
+     * exist, if is created by calling the @value_new_func. The key is
+     * duplicated by calling @key_dup_func and the duplicated key and value
+     * are inserted into the #GCache.
+     *
+     * @param key a key describing a #GCache object
+     * @return a pointer to a #GCache value
+     */
+    public fun insert(key: gpointer? = null): gpointer? = g_cache_insert(glibCachePointer.reinterpret(), key)
 
     /**
      * Calls the given function for each of the keys in the #GCache.
@@ -53,6 +69,15 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
         HFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
+
+    /**
+     * Decreases the reference count of the given value. If it drops to 0
+     * then the value and its corresponding key are destroyed, using the
+     * @value_destroy_func and @key_destroy_func passed to g_cache_new().
+     *
+     * @param value the value to remove
+     */
+    public fun remove(`value`: gpointer? = null): Unit = g_cache_remove(glibCachePointer.reinterpret(), `value`)
 
     /**
      * Calls the given function for each of the values in the #GCache.

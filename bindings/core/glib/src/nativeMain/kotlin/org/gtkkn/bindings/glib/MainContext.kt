@@ -17,7 +17,9 @@ import org.gtkkn.native.glib.g_main_context_acquire
 import org.gtkkn.native.glib.g_main_context_add_poll
 import org.gtkkn.native.glib.g_main_context_default
 import org.gtkkn.native.glib.g_main_context_dispatch
+import org.gtkkn.native.glib.g_main_context_find_source_by_funcs_user_data
 import org.gtkkn.native.glib.g_main_context_find_source_by_id
+import org.gtkkn.native.glib.g_main_context_find_source_by_user_data
 import org.gtkkn.native.glib.g_main_context_get_thread_default
 import org.gtkkn.native.glib.g_main_context_invoke
 import org.gtkkn.native.glib.g_main_context_invoke_full
@@ -34,6 +36,7 @@ import org.gtkkn.native.glib.g_main_context_release
 import org.gtkkn.native.glib.g_main_context_remove_poll
 import org.gtkkn.native.glib.g_main_context_unref
 import org.gtkkn.native.glib.g_main_context_wakeup
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_main_context_get_type
 import org.gtkkn.native.gobject.gint
@@ -48,8 +51,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `fds`: PollFD
- * - parameter `user_data`: gpointer
- * - parameter `user_data`: gpointer
  * - method `get_poll_func`: Return type PollFunc is unsupported
  * - parameter `priority`: priority: Out parameter is not supported
  * - parameter `timeout`: timeout: Out parameter is not supported
@@ -105,6 +106,24 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
     public fun dispatch(): Unit = g_main_context_dispatch(glibMainContextPointer.reinterpret())
 
     /**
+     * Finds a source with the given source functions and user data.  If
+     * multiple sources exist with the same source function and user data,
+     * the first one found will be returned.
+     *
+     * @param funcs the @source_funcs passed to g_source_new().
+     * @param userData the user data from the callback.
+     * @return the source, if one was found, otherwise null
+     */
+    public fun findSourceByFuncsUserData(funcs: SourceFuncs, userData: gpointer? = null): Source =
+        g_main_context_find_source_by_funcs_user_data(
+            glibMainContextPointer.reinterpret(),
+            funcs.glibSourceFuncsPointer.reinterpret(),
+            userData
+        )!!.run {
+            Source(reinterpret())
+        }
+
+    /**
      * Finds a #GSource given a pair of context and ID.
      *
      * It is a programmer error to attempt to look up a non-existent source.
@@ -123,6 +142,19 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      */
     public fun findSourceById(sourceId: guint): Source =
         g_main_context_find_source_by_id(glibMainContextPointer.reinterpret(), sourceId)!!.run {
+            Source(reinterpret())
+        }
+
+    /**
+     * Finds a source with the given user data for the callback.  If
+     * multiple sources exist with the same user data, the first
+     * one found will be returned.
+     *
+     * @param userData the user_data for the callback.
+     * @return the source, if one was found, otherwise null
+     */
+    public fun findSourceByUserData(userData: gpointer? = null): Source =
+        g_main_context_find_source_by_user_data(glibMainContextPointer.reinterpret(), userData)!!.run {
             Source(reinterpret())
         }
 

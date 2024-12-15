@@ -148,12 +148,14 @@ import org.gtkkn.native.glib.GIOCondition
 import org.gtkkn.native.glib.GPid
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.GVariantType
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
@@ -183,7 +185,6 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - parameter `time_read`: time_read: Out parameter is not supported
  * - callback `DBusSubtreeIntrospectFunc`: Array parameter of type DBusInterfaceInfo is not supported
- * - callback `ReallocFunc`: Return type gpointer is unsupported
  * - record `ActionGroupInterface`: glib type struct are ignored
  * - record `ActionInterface`: glib type struct are ignored
  * - record `ActionMapInterface`: glib type struct are ignored
@@ -1614,12 +1615,14 @@ public object Gio {
      * @since 2.26
      */
     @GioVersion2_26
-    public fun busGet(busType: BusType, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun busGet(busType: BusType, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_bus_get(
             busType.nativeValue,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -2137,12 +2140,14 @@ public object Gio {
     public fun dbusAddressGetStream(
         address: String,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_dbus_address_get_stream(
         address,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -2740,12 +2745,14 @@ public object Gio {
      */
     public fun simpleAsyncReportGerrorInIdle(
         `object`: Object? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
         error: Error,
     ): Unit = g_simple_async_report_gerror_in_idle(
         `object`?.gPointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() },
         error.glibErrorPointer.reinterpret()
     )
 
@@ -2762,12 +2769,14 @@ public object Gio {
     @GioVersion2_28
     public fun simpleAsyncReportTakeGerrorInIdle(
         `object`: Object? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
         error: Error,
     ): Unit = g_simple_async_report_take_gerror_in_idle(
         `object`?.gPointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer(),
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() },
         error.glibErrorPointer.reinterpret()
     )
 
@@ -3039,32 +3048,46 @@ public object Gio {
     }
 }
 
-public val AsyncReadyCallbackFunc:
-    CPointer<CFunction<(CPointer<GObject>?, CPointer<GAsyncResult>) -> Unit>> =
-    staticCFunction {
-            sourceObject: CPointer<GObject>?,
-            res: CPointer<GAsyncResult>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(sourceObject: Object?, res: AsyncResult) -> Unit>().get().invoke(
-            sourceObject?.run {
-                Object(reinterpret())
-            },
-            res!!.run {
-                AsyncResult.wrap(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+public val AsyncReadyCallbackFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GObject>?,
+            CPointer<GAsyncResult>,
+            gpointer?,
+        ) -> Unit
+        >
+    > = staticCFunction {
+        sourceObject: CPointer<GObject>?,
+        res: CPointer<GAsyncResult>?,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            sourceObject: Object?,
+            res: AsyncResult,
+            `data`: gpointer?,
+        ) -> Unit
+        >().get().invoke(
+        sourceObject?.run {
+            Object(reinterpret())
+        },
+        res!!.run {
+            AsyncResult.wrap(reinterpret())
+        },
+        `data`
+    )
+}
+    .reinterpret()
 
 public val BusAcquiredCallbackFunc:
     CPointer<CFunction<(CPointer<GDBusConnection>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
+        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3078,9 +3101,9 @@ public val BusNameAcquiredCallbackFunc:
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
+        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3101,9 +3124,9 @@ public val BusNameAppearedCallbackFunc: CPointer<
         connection: CPointer<GDBusConnection>?,
         name: CPointer<ByteVar>?,
         nameOwner: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             name: String,
@@ -3124,9 +3147,9 @@ public val BusNameLostCallbackFunc:
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
+        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3140,9 +3163,9 @@ public val BusNameVanishedCallbackFunc:
     staticCFunction {
             connection: CPointer<GDBusConnection>?,
             name: CPointer<ByteVar>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
+        userData!!.asStableRef<(connection: DBusConnection, name: String) -> Unit>().get().invoke(
             connection!!.run {
                 DBusConnection(reinterpret())
             },
@@ -3151,15 +3174,17 @@ public val BusNameVanishedCallbackFunc:
     }
         .reinterpret()
 
-public val CancellableSourceFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> gboolean>> =
-    staticCFunction {
+public val CancellableSourceFuncFunc:
+    CPointer<CFunction<(CPointer<GCancellable>?, gpointer?) -> gboolean>> = staticCFunction {
             cancellable: CPointer<GCancellable>?,
+            `data`: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(cancellable: Cancellable?) -> Boolean>().get().invoke(
+        userData.asStableRef<(cancellable: Cancellable?, `data`: gpointer?) -> Boolean>().get().invoke(
             cancellable?.run {
                 Cancellable(reinterpret())
-            }
+            },
+            `data`
         ).asGBoolean()
     }
         .reinterpret()
@@ -3182,9 +3207,9 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<
         interfaceName: CPointer<ByteVar>?,
         propertyName: CPointer<ByteVar>?,
         error: CPointer<org.gtkkn.native.glib.GError>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             sender: String,
@@ -3228,9 +3253,9 @@ public val DBusInterfaceMethodCallFuncFunc: CPointer<
         methodName: CPointer<ByteVar>?,
         parameters: CPointer<GVariant>?,
         invocation: CPointer<GDBusMethodInvocation>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             sender: String,
@@ -3278,9 +3303,9 @@ public val DBusInterfaceSetPropertyFuncFunc: CPointer<
         propertyName: CPointer<ByteVar>?,
         `value`: CPointer<GVariant>?,
         error: CPointer<org.gtkkn.native.glib.GError>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             sender: String,
@@ -3320,9 +3345,9 @@ public val DBusMessageFilterFunctionFunc: CPointer<
         connection: CPointer<GDBusConnection>?,
         message: CPointer<GDBusMessage>?,
         incoming: gboolean,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             message: DBusMessage,
@@ -3346,12 +3371,14 @@ public val DBusProxyTypeFuncFunc: CPointer<
             CPointer<GDBusObjectManagerClient>,
             CPointer<ByteVar>,
             CPointer<ByteVar>?,
+            gpointer?,
         ) -> GType
         >
     > = staticCFunction {
         manager: CPointer<GDBusObjectManagerClient>?,
         objectPath: CPointer<ByteVar>?,
         interfaceName: CPointer<ByteVar>?,
+        `data`: gpointer?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<
@@ -3359,13 +3386,15 @@ public val DBusProxyTypeFuncFunc: CPointer<
             manager: DBusObjectManagerClient,
             objectPath: String,
             interfaceName: String?,
+            `data`: gpointer?,
         ) -> GType
         >().get().invoke(
         manager!!.run {
             DBusObjectManagerClient(reinterpret())
         },
         objectPath?.toKString() ?: error("Expected not null string"),
-        interfaceName?.toKString()
+        interfaceName?.toKString(),
+        `data`
     )
 }
     .reinterpret()
@@ -3388,9 +3417,9 @@ public val DBusSignalCallbackFunc: CPointer<
         interfaceName: CPointer<ByteVar>?,
         signalName: CPointer<ByteVar>?,
         parameters: CPointer<GVariant>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             senderName: String?,
@@ -3430,9 +3459,9 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<
         objectPath: CPointer<ByteVar>?,
         interfaceName: CPointer<ByteVar>?,
         node: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             connection: DBusConnection,
             sender: String,
@@ -3464,10 +3493,10 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
         connection: CPointer<GDBusConnection>?,
         sender: CPointer<ByteVar>?,
         objectPath: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
     memScoped {
-        userData.asStableRef<
+        userData!!.asStableRef<
             (
                 connection: DBusConnection,
                 sender: String,
@@ -3484,36 +3513,45 @@ public val DBusSubtreeEnumerateFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val DatagramBasedSourceFuncFunc:
-    CPointer<CFunction<(CPointer<GDatagramBased>, GIOCondition) -> gboolean>> =
-    staticCFunction {
-            datagramBased: CPointer<GDatagramBased>?,
-            condition: GIOCondition,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                datagramBased: DatagramBased,
-                condition: IOCondition,
-            ) -> Boolean
-            >().get().invoke(
-            datagramBased!!.run {
-                DatagramBased.wrap(reinterpret())
-            },
-            condition.run {
-                IOCondition(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+public val DatagramBasedSourceFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GDatagramBased>,
+            GIOCondition,
+            gpointer?,
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        datagramBased: CPointer<GDatagramBased>?,
+        condition: GIOCondition,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            datagramBased: DatagramBased,
+            condition: IOCondition,
+            `data`: gpointer?,
+        ) -> Boolean
+        >().get().invoke(
+        datagramBased!!.run {
+            DatagramBased.wrap(reinterpret())
+        },
+        condition.run {
+            IOCondition(this)
+        },
+        `data`
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val DesktopAppLaunchCallbackFunc:
     CPointer<CFunction<(CPointer<GDesktopAppInfo>, GPid) -> Unit>> = staticCFunction {
             appinfo: CPointer<GDesktopAppInfo>?,
             pid: GPid,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(
+        userData!!.asStableRef<(appinfo: DesktopAppInfo, pid: Pid) -> Unit>().get().invoke(
             appinfo!!.run {
                 DesktopAppInfo(reinterpret())
             },
@@ -3529,6 +3567,7 @@ public val FileMeasureProgressCallbackFunc: CPointer<
             guint64,
             guint64,
             guint64,
+            gpointer?,
         ) -> Unit
         >
     > = staticCFunction {
@@ -3536,6 +3575,7 @@ public val FileMeasureProgressCallbackFunc: CPointer<
         currentSize: guint64,
         numDirs: guint64,
         numFiles: guint64,
+        `data`: gpointer?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<
@@ -3544,72 +3584,110 @@ public val FileMeasureProgressCallbackFunc: CPointer<
             currentSize: guint64,
             numDirs: guint64,
             numFiles: guint64,
+            `data`: gpointer?,
         ) -> Unit
-        >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles)
+        >().get().invoke(reporting.asBoolean(), currentSize, numDirs, numFiles, `data`)
 }
     .reinterpret()
 
-public val FileProgressCallbackFunc: CPointer<CFunction<(gint64, gint64) -> Unit>> =
-    staticCFunction {
+public val FileProgressCallbackFunc: CPointer<
+    CFunction<
+        (
+            gint64,
+            gint64,
+            gpointer?,
+        ) -> Unit
+        >
+    > = staticCFunction {
+        currentNumBytes: gint64,
+        totalNumBytes: gint64,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
             currentNumBytes: gint64,
             totalNumBytes: gint64,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<
-            (
-                currentNumBytes: gint64,
-                totalNumBytes: gint64,
-            ) -> Unit
-            >().get().invoke(currentNumBytes, totalNumBytes)
-    }
-        .reinterpret()
+            `data`: gpointer?,
+        ) -> Unit
+        >().get().invoke(currentNumBytes, totalNumBytes, `data`)
+}
+    .reinterpret()
 
-public val FileReadMoreCallbackFunc: CPointer<CFunction<(CPointer<ByteVar>, gint64) -> gboolean>> =
-    staticCFunction {
-            fileContents: CPointer<ByteVar>?,
+public val FileReadMoreCallbackFunc: CPointer<
+    CFunction<
+        (
+            CPointer<ByteVar>,
+            gint64,
+            gpointer?,
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        fileContents: CPointer<ByteVar>?,
+        fileSize: gint64,
+        callbackData: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            fileContents: String,
             fileSize: gint64,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(fileContents: String, fileSize: gint64) -> Boolean>().get().invoke(
-            fileContents?.toKString() ?: error("Expected not null string"),
-            fileSize
-        ).asGBoolean()
-    }
-        .reinterpret()
+            callbackData: gpointer?,
+        ) -> Boolean
+        >().get().invoke(
+        fileContents?.toKString() ?: error("Expected not null string"),
+        fileSize,
+        callbackData
+    ).asGBoolean()
+}
+    .reinterpret()
 
-public val IOSchedulerJobFuncFunc: CPointer<CFunction<(CPointer<GCancellable>?) -> gboolean>> =
-    staticCFunction {
+public val IOSchedulerJobFuncFunc:
+    CPointer<CFunction<(CPointer<GCancellable>?, gpointer?) -> gboolean>> = staticCFunction {
             cancellable: CPointer<GCancellable>?,
+            `data`: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(cancellable: Cancellable?) -> Boolean>().get().invoke(
+        userData.asStableRef<(cancellable: Cancellable?, `data`: gpointer?) -> Boolean>().get().invoke(
             cancellable?.run {
                 Cancellable(reinterpret())
-            }
+            },
+            `data`
         ).asGBoolean()
     }
         .reinterpret()
 
-public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> gboolean>> =
+public val PollableSourceFuncFunc: CPointer<CFunction<(CPointer<GObject>, gpointer?) -> gboolean>> =
     staticCFunction {
             pollableStream: CPointer<GObject>?,
+            `data`: gpointer?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(pollableStream: Object) -> Boolean>().get().invoke(
+        userData.asStableRef<(pollableStream: Object, `data`: gpointer?) -> Boolean>().get().invoke(
             pollableStream!!.run {
                 Object(reinterpret())
-            }
+            },
+            `data`
         ).asGBoolean()
     }
         .reinterpret()
+
+public val ReallocFuncFunc: CPointer<CFunction<(gpointer?, gsize) -> gpointer?>> = staticCFunction {
+        `data`: gpointer?,
+        size: gsize,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`data`: gpointer?, size: gsize) -> gpointer?>().get().invoke(`data`, size)
+}
+    .reinterpret()
 
 public val SettingsBindGetMappingFunc:
     CPointer<CFunction<(CPointer<GValue>, CPointer<GVariant>) -> gboolean>> = staticCFunction {
             `value`: CPointer<GValue>?,
             variant: CPointer<GVariant>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(`value`: Value, variant: Variant) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(`value`: Value, variant: Variant) -> Boolean>().get().invoke(
             `value`!!.run {
                 Value(reinterpret())
             },
@@ -3625,9 +3703,9 @@ public val SettingsBindSetMappingFunc:
     staticCFunction {
             `value`: CPointer<GValue>?,
             expectedType: CPointer<GVariantType>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>().get().invoke(
+        userData!!.asStableRef<(`value`: Value, expectedType: VariantType) -> Variant>().get().invoke(
             `value`!!.run {
                 Value(reinterpret())
             },
@@ -3641,9 +3719,9 @@ public val SettingsBindSetMappingFunc:
 public val SettingsGetMappingFunc: CPointer<CFunction<(CPointer<GVariant>) -> gboolean>> =
     staticCFunction {
             `value`: CPointer<GVariant>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(`value`: Variant) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(`value`: Variant) -> Boolean>().get().invoke(
             `value`!!.run {
                 Variant(reinterpret())
             }
@@ -3685,34 +3763,51 @@ public val SimpleAsyncThreadFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val SocketSourceFuncFunc: CPointer<CFunction<(CPointer<GSocket>, GIOCondition) -> gboolean>> =
-    staticCFunction {
-            socket: CPointer<GSocket>?,
-            condition: GIOCondition,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(socket: Socket, condition: IOCondition) -> Boolean>().get().invoke(
-            socket!!.run {
-                Socket(reinterpret())
-            },
-            condition.run {
-                IOCondition(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+public val SocketSourceFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GSocket>,
+            GIOCondition,
+            gpointer?,
+        ) -> gboolean
+        >
+    > = staticCFunction {
+        socket: CPointer<GSocket>?,
+        condition: GIOCondition,
+        `data`: gpointer?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<
+        (
+            socket: Socket,
+            condition: IOCondition,
+            `data`: gpointer?,
+        ) -> Boolean
+        >().get().invoke(
+        socket!!.run {
+            Socket(reinterpret())
+        },
+        condition.run {
+            IOCondition(this)
+        },
+        `data`
+    ).asGBoolean()
+}
+    .reinterpret()
 
 public val TaskThreadFuncFunc: CPointer<
     CFunction<
         (
             CPointer<GTask>,
             CPointer<GObject>,
+            gpointer?,
             CPointer<GCancellable>?,
         ) -> Unit
         >
     > = staticCFunction {
         task: CPointer<GTask>?,
         sourceObject: CPointer<GObject>?,
+        taskData: gpointer?,
         cancellable: CPointer<GCancellable>?,
         userData: COpaquePointer,
     ->
@@ -3720,6 +3815,7 @@ public val TaskThreadFuncFunc: CPointer<
         (
             task: Task,
             sourceObject: Object,
+            taskData: gpointer?,
             cancellable: Cancellable?,
         ) -> Unit
         >().get().invoke(
@@ -3729,6 +3825,7 @@ public val TaskThreadFuncFunc: CPointer<
         sourceObject!!.run {
             Object(reinterpret())
         },
+        taskData,
         cancellable?.run {
             Cancellable(reinterpret())
         }
@@ -3741,9 +3838,9 @@ public val VfsFileLookupFuncFunc:
     staticCFunction {
             vfs: CPointer<GVfs>?,
             identifier: CPointer<ByteVar>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(
+        userData!!.asStableRef<(vfs: Vfs, identifier: String) -> File>().get().invoke(
             vfs!!.run {
                 Vfs(reinterpret())
             },
@@ -3768,8 +3865,13 @@ public val VfsFileLookupFuncFunc:
  *
  * - param `sourceObject` the object the asynchronous operation was started with.
  * - param `res` a #GAsyncResult.
+ * - param `data` user data passed to the callback.
  */
-public typealias AsyncReadyCallback = (sourceObject: Object?, res: AsyncResult) -> Unit
+public typealias AsyncReadyCallback = (
+    sourceObject: Object?,
+    res: AsyncResult,
+    `data`: gpointer?,
+) -> Unit
 
 /**
  * Invoked when a connection to a message bus has been obtained.
@@ -3827,9 +3929,10 @@ public typealias BusNameVanishedCallback = (connection: DBusConnection, name: St
  * returned by g_cancellable_source_new().
  *
  * - param `cancellable` the #GCancellable
+ * - param `data` data passed in by the user.
  * - return it should return false if the source should be removed.
  */
-public typealias CancellableSourceFunc = (cancellable: Cancellable?) -> Boolean
+public typealias CancellableSourceFunc = (cancellable: Cancellable?, `data`: gpointer?) -> Boolean
 
 /**
  * The type of the @get_property function in #GDBusInterfaceVTable.
@@ -3983,6 +4086,7 @@ public typealias DBusMessageFilterFunction = (
  * - param `manager` A #GDBusObjectManagerClient.
  * - param `objectPath` The object path of the remote object.
  * - param `interfaceName` The interface name of the remote object or null if a #GDBusObjectProxy #GType is requested.
+ * - param `data` data passed in by the user.
  * - return A #GType to use for the remote object. The returned type
  *   must be a #GDBusProxy or #GDBusObjectProxy -derived
  *   type.
@@ -3991,6 +4095,7 @@ public typealias DBusProxyTypeFunc = (
     manager: DBusObjectManagerClient,
     objectPath: String,
     interfaceName: String?,
+    `data`: gpointer?,
 ) -> GType
 
 /**
@@ -4064,10 +4169,15 @@ public typealias DBusSubtreeEnumerateFunc = (
  *
  * - param `datagramBased` the #GDatagramBased
  * - param `condition` the current condition at the source fired
+ * - param `data` data passed in by the user
  * - return %G_SOURCE_REMOVE if the source should be removed,
  *   %G_SOURCE_CONTINUE otherwise
  */
-public typealias DatagramBasedSourceFunc = (datagramBased: DatagramBased, condition: IOCondition) -> Boolean
+public typealias DatagramBasedSourceFunc = (
+    datagramBased: DatagramBased,
+    condition: IOCondition,
+    `data`: gpointer?,
+) -> Boolean
 
 /**
  * During invocation, g_desktop_app_info_launch_uris_as_manager() may
@@ -4112,12 +4222,14 @@ public typealias DesktopAppLaunchCallback = (appinfo: DesktopAppInfo, pid: Pid) 
  * - param `currentSize` the current cumulative size measurement
  * - param `numDirs` the number of directories visited so far
  * - param `numFiles` the number of non-directory files encountered
+ * - param `data` the data passed to the original request for this callback
  */
 public typealias FileMeasureProgressCallback = (
     reporting: Boolean,
     currentSize: guint64,
     numDirs: guint64,
     numFiles: guint64,
+    `data`: gpointer?,
 ) -> Unit
 
 /**
@@ -4127,8 +4239,13 @@ public typealias FileMeasureProgressCallback = (
  *
  * - param `currentNumBytes` the current number of bytes in the operation.
  * - param `totalNumBytes` the total number of bytes in the operation.
+ * - param `data` user data passed to the callback.
  */
-public typealias FileProgressCallback = (currentNumBytes: gint64, totalNumBytes: gint64) -> Unit
+public typealias FileProgressCallback = (
+    currentNumBytes: gint64,
+    totalNumBytes: gint64,
+    `data`: gpointer?,
+) -> Unit
 
 /**
  * When loading the partial contents of a file with g_file_load_partial_contents_async(),
@@ -4138,9 +4255,14 @@ public typealias FileProgressCallback = (currentNumBytes: gint64, totalNumBytes:
  *
  * - param `fileContents` the data as currently read.
  * - param `fileSize` the size of the data currently read.
+ * - param `callbackData` data passed to the callback.
  * - return true if more data should be read back. false otherwise.
  */
-public typealias FileReadMoreCallback = (fileContents: String, fileSize: gint64) -> Boolean
+public typealias FileReadMoreCallback = (
+    fileContents: String,
+    fileSize: gint64,
+    callbackData: gpointer?,
+) -> Boolean
 
 /**
  * I/O Job function.
@@ -4149,10 +4271,11 @@ public typealias FileReadMoreCallback = (fileContents: String, fileSize: gint64)
  * to see if they have been cancelled.
  *
  * - param `cancellable` optional #GCancellable object, null to ignore.
+ * - param `data` data passed to the callback function
  * - return true if this function should be called again to
  *    complete the job, false if the job is complete (or cancelled)
  */
-public typealias IOSchedulerJobFunc = (cancellable: Cancellable?) -> Boolean
+public typealias IOSchedulerJobFunc = (cancellable: Cancellable?, `data`: gpointer?) -> Boolean
 
 /**
  * This is the function type of the callback used for the #GSource
@@ -4160,9 +4283,22 @@ public typealias IOSchedulerJobFunc = (cancellable: Cancellable?) -> Boolean
  * g_pollable_output_stream_create_source().
  *
  * - param `pollableStream` the #GPollableInputStream or #GPollableOutputStream
+ * - param `data` data passed in by the user.
  * - return it should return false if the source should be removed.
  */
-public typealias PollableSourceFunc = (pollableStream: Object) -> Boolean
+public typealias PollableSourceFunc = (pollableStream: Object, `data`: gpointer?) -> Boolean
+
+/**
+ * Changes the size of the memory block pointed to by @data to
+ * @size bytes.
+ *
+ * The function should have the same semantics as realloc().
+ *
+ * - param `data` memory block to reallocate
+ * - param `size` size to reallocate @data to
+ * - return a pointer to the reallocated memory
+ */
+public typealias ReallocFunc = (`data`: gpointer?, size: gsize) -> gpointer?
 
 /**
  * The type for the function that is used to convert from #GSettings to
@@ -4223,9 +4359,14 @@ public typealias SimpleAsyncThreadFunc = (
  *
  * - param `socket` the #GSocket
  * - param `condition` the current condition at the source fired.
+ * - param `data` data passed in by the user.
  * - return it should return false if the source should be removed.
  */
-public typealias SocketSourceFunc = (socket: Socket, condition: IOCondition) -> Boolean
+public typealias SocketSourceFunc = (
+    socket: Socket,
+    condition: IOCondition,
+    `data`: gpointer?,
+) -> Boolean
 
 /**
  * The prototype for a task function to be run in a thread via
@@ -4246,11 +4387,13 @@ public typealias SocketSourceFunc = (socket: Socket, condition: IOCondition) -> 
  *
  * - param `task` the #GTask
  * - param `sourceObject` @task's source object
+ * - param `taskData` @task's task data
  * - param `cancellable` @task's #GCancellable, or null
  */
 public typealias TaskThreadFunc = (
     task: Task,
     sourceObject: Object,
+    taskData: gpointer?,
     cancellable: Cancellable?,
 ) -> Unit
 

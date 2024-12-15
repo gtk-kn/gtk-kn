@@ -2,13 +2,16 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_44
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_6
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GOptionGroup
 import org.gtkkn.native.glib.g_option_group_free
 import org.gtkkn.native.glib.g_option_group_ref
+import org.gtkkn.native.glib.g_option_group_set_translate_func
 import org.gtkkn.native.glib.g_option_group_set_translation_domain
 import org.gtkkn.native.glib.g_option_group_unref
 import org.gtkkn.native.gobject.GType
@@ -30,8 +33,7 @@ import kotlin.Unit
  * - parameter `entries`: OptionEntry
  * - parameter `error_func`: OptionErrorFunc
  * - parameter `pre_parse_func`: OptionParseFunc
- * - method `set_translate_func`: C function g_option_group_set_translate_func is ignored
- * - parameter `user_data`: gpointer
+ * - parameter `destroy`: DestroyNotify
  */
 public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointer) {
     public val glibOptionGroupPointer: CPointer<GOptionGroup> = pointer
@@ -55,6 +57,27 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
     public fun ref(): OptionGroup = g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
         OptionGroup(reinterpret())
     }
+
+    /**
+     * Sets the function which is used to translate user-visible strings,
+     * for `--help` output. Different groups can use different
+     * #GTranslateFuncs. If @func is null, strings are not translated.
+     *
+     * If you are using gettext(), you only need to set the translation
+     * domain, see g_option_group_set_translation_domain().
+     *
+     * @param func the #GTranslateFunc, or null
+     * @since 2.6
+     */
+    @GLibVersion2_6
+    public fun setTranslateFunc(func: TranslateFunc?): Unit = g_option_group_set_translate_func(
+        glibOptionGroupPointer.reinterpret(),
+        func?.let {
+            TranslateFuncFunc.reinterpret()
+        },
+        func?.let { StableRef.create(func).asCPointer() },
+        func?.let { staticStableRefDestroy.reinterpret() }
+    )
 
     /**
      * A convenience function to use gettext() for translating

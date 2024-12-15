@@ -97,14 +97,16 @@ public interface Proxy :
         connection: IOStream,
         proxyAddress: ProxyAddress,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_proxy_connect_async(
         gioProxyPointer.reinterpret(),
         connection.gioIOStreamPointer.reinterpret(),
         proxyAddress.gioProxyAddressPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

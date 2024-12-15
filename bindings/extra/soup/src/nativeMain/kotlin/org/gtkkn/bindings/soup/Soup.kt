@@ -3,7 +3,6 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.asStableRef
@@ -23,12 +22,15 @@ import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHashTable
+import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gchar
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupAuthDomain
 import org.gtkkn.native.soup.SoupAuthDomainBasic
+import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.SoupLogger
 import org.gtkkn.native.soup.SoupLoggerLogLevel
 import org.gtkkn.native.soup.SoupMessage
@@ -91,7 +93,6 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
  * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
  * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
- * - callback `AuthDomainDigestAuthCallback`: Callback with String return value is not supported
  * - record `AuthClass`: glib type struct are ignored
  * - record `AuthDomainBasicClass`: glib type struct are ignored
  * - record `AuthDomainClass`: glib type struct are ignored
@@ -671,9 +672,9 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<
         msg: CPointer<SoupServerMessage>?,
         username: CPointer<ByteVar>?,
         password: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             domain: AuthDomainBasic,
             msg: ServerMessage,
@@ -693,14 +694,46 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<
 }
     .reinterpret()
 
+public val AuthDomainDigestAuthCallbackFunc: CPointer<
+    CFunction<
+        (
+            CPointer<SoupAuthDomainDigest>,
+            CPointer<SoupServerMessage>,
+            CPointer<ByteVar>,
+        ) -> CPointer<ByteVar>?
+        >
+    > = staticCFunction {
+        domain: CPointer<SoupAuthDomainDigest>?,
+        msg: CPointer<SoupServerMessage>?,
+        username: CPointer<ByteVar>?,
+        userData: gpointer?,
+    ->
+    userData!!.asStableRef<
+        (
+            domain: AuthDomainDigest,
+            msg: ServerMessage,
+            username: KotlinString,
+        ) -> KotlinString?
+        >().get().invoke(
+        domain!!.run {
+            AuthDomainDigest(reinterpret())
+        },
+        msg!!.run {
+            ServerMessage(reinterpret())
+        },
+        username?.toKString() ?: error("Expected not null string")
+    )?.let { g_strdup(it) }
+}
+    .reinterpret()
+
 public val AuthDomainFilterFunc:
     CPointer<CFunction<(CPointer<SoupAuthDomain>, CPointer<SoupServerMessage>) -> gboolean>> =
     staticCFunction {
             domain: CPointer<SoupAuthDomain>?,
             msg: CPointer<SoupServerMessage>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(domain: AuthDomain, msg: ServerMessage) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(domain: AuthDomain, msg: ServerMessage) -> Boolean>().get().invoke(
             domain!!.run {
                 AuthDomain(reinterpret())
             },
@@ -723,9 +756,9 @@ public val AuthDomainGenericAuthCallbackFunc: CPointer<
         domain: CPointer<SoupAuthDomain>?,
         msg: CPointer<SoupServerMessage>?,
         username: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             domain: AuthDomain,
             msg: ServerMessage,
@@ -748,9 +781,9 @@ public val LoggerFilterFunc:
     staticCFunction {
             logger: CPointer<SoupLogger>?,
             msg: CPointer<SoupMessage>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(logger: Logger, msg: Message) -> LoggerLogLevel>().get().invoke(
+        userData!!.asStableRef<(logger: Logger, msg: Message) -> LoggerLogLevel>().get().invoke(
             logger!!.run {
                 Logger(reinterpret())
             },
@@ -775,9 +808,9 @@ public val LoggerPrinterFunc: CPointer<
         level: SoupLoggerLogLevel,
         direction: gchar,
         `data`: CPointer<ByteVar>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             logger: Logger,
             level: LoggerLogLevel,
@@ -801,9 +834,9 @@ public val MessageHeadersForeachFuncFunc:
     CPointer<CFunction<(CPointer<ByteVar>, CPointer<ByteVar>) -> Unit>> = staticCFunction {
             name: CPointer<ByteVar>?,
             `value`: CPointer<ByteVar>?,
-            userData: COpaquePointer,
+            userData: gpointer?,
         ->
-        userData.asStableRef<(name: KotlinString, `value`: KotlinString) -> Unit>().get().invoke(
+        userData!!.asStableRef<(name: KotlinString, `value`: KotlinString) -> Unit>().get().invoke(
             name?.toKString() ?: error("Expected not null string"),
             `value`?.toKString() ?: error("Expected not null string")
         )
@@ -824,9 +857,9 @@ public val ServerCallbackFunc: CPointer<
         msg: CPointer<SoupServerMessage>?,
         path: CPointer<ByteVar>?,
         query: CPointer<GHashTable>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             server: Server,
             msg: ServerMessage,
@@ -862,9 +895,9 @@ public val ServerWebsocketCallbackFunc: CPointer<
         msg: CPointer<SoupServerMessage>?,
         path: CPointer<ByteVar>?,
         connection: CPointer<SoupWebsocketConnection>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             server: Server,
             msg: ServerMessage,
@@ -915,6 +948,26 @@ public typealias AuthDomainBasicAuthCallback = (
     username: KotlinString,
     password: KotlinString,
 ) -> Boolean
+
+/**
+ * Callback used by #SoupAuthDomainDigest for authentication purposes.
+ *
+ * The application should look up @username in its password database,
+ * and return the corresponding encoded password (see
+ * [func@AuthDomainDigest.encode_password].
+ *
+ * - param `domain` the domain
+ * - param `msg` the message being authenticated
+ * - param `username` the username provided by the client
+ * - return the encoded password, or null if
+ *   @username is not a valid user. @domain will free the password when
+ *   it is done with it.
+ */
+public typealias AuthDomainDigestAuthCallback = (
+    domain: AuthDomainDigest,
+    msg: ServerMessage,
+    username: KotlinString,
+) -> KotlinString?
 
 /**
  * The prototype for a #SoupAuthDomain filter.

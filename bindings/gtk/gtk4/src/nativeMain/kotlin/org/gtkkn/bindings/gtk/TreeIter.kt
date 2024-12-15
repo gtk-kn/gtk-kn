@@ -10,6 +10,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeIter
@@ -28,12 +29,6 @@ import kotlin.native.ref.createCleaner
  * integer in the @stamp member, and put
  * model-specific data in the three @user_data
  * members.
- *
- * ## Skipped during bindings generation
- *
- * - field `user_data`: gpointer
- * - field `user_data2`: gpointer
- * - field `user_data3`: gpointer
  */
 public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtkTreeIterPointer: CPointer<GtkTreeIter> = pointer
@@ -47,6 +42,39 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
         @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.stamp = value
+        }
+
+    /**
+     * model-specific data
+     */
+    public var userData: gpointer
+        get() = gtkTreeIterPointer.pointed.user_data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gtkTreeIterPointer.pointed.user_data = value
+        }
+
+    /**
+     * model-specific data
+     */
+    public var userData2: gpointer
+        get() = gtkTreeIterPointer.pointed.user_data2!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gtkTreeIterPointer.pointed.user_data2 = value
+        }
+
+    /**
+     * model-specific data
+     */
+    public var userData3: gpointer
+        get() = gtkTreeIterPointer.pointed.user_data3!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gtkTreeIterPointer.pointed.user_data3 = value
         }
 
     /**
@@ -85,9 +113,20 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      * this class instance is garbage collected.
      *
      * @param stamp a unique stamp to catch invalid iterators
+     * @param userData model-specific data
+     * @param userData2 model-specific data
+     * @param userData3 model-specific data
      */
-    public constructor(stamp: gint) : this() {
+    public constructor(
+        stamp: gint,
+        userData: gpointer,
+        userData2: gpointer,
+        userData3: gpointer,
+    ) : this() {
         this.stamp = stamp
+        this.userData = userData
+        this.userData2 = userData2
+        this.userData3 = userData3
     }
 
     /**
@@ -96,10 +135,22 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
      * @param stamp a unique stamp to catch invalid iterators
+     * @param userData model-specific data
+     * @param userData2 model-specific data
+     * @param userData3 model-specific data
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
-    public constructor(stamp: gint, scope: AutofreeScope) : this(scope) {
+    public constructor(
+        stamp: gint,
+        userData: gpointer,
+        userData2: gpointer,
+        userData3: gpointer,
+        scope: AutofreeScope,
+    ) : this(scope) {
         this.stamp = stamp
+        this.userData = userData
+        this.userData2 = userData2
+        this.userData3 = userData3
     }
 
     /**
@@ -123,7 +174,8 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      */
     public fun free(): Unit = gtk_tree_iter_free(gtkTreeIterPointer.reinterpret())
 
-    override fun toString(): String = "TreeIter(stamp=$stamp)"
+    override fun toString(): String =
+        "TreeIter(stamp=$stamp, userData=$userData, userData2=$userData2, userData3=$userData3)"
 
     public companion object {
         /**

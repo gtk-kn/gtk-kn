@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CFunction
-import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
@@ -14,6 +13,7 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gsize
@@ -116,9 +116,9 @@ public val ParseErrorFuncFunc: CPointer<
         start: CPointer<GskParseLocation>?,
         end: CPointer<GskParseLocation>?,
         error: CPointer<GError>?,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             start: ParseLocation,
             end: ParseLocation,
@@ -152,9 +152,9 @@ public val PathForeachFuncFunc: CPointer<
         pts: CPointer<graphene_point_t>?,
         nPts: gsize,
         weight: gfloat,
-        userData: COpaquePointer,
+        userData: gpointer?,
     ->
-    userData.asStableRef<
+    userData!!.asStableRef<
         (
             op: PathOperation,
             pts: Point,

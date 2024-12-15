@@ -9,15 +9,20 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GNode
+import org.gtkkn.native.glib.g_node_child_index
 import org.gtkkn.native.glib.g_node_child_position
 import org.gtkkn.native.glib.g_node_children_foreach
 import org.gtkkn.native.glib.g_node_copy
+import org.gtkkn.native.glib.g_node_copy_deep
 import org.gtkkn.native.glib.g_node_depth
 import org.gtkkn.native.glib.g_node_destroy
+import org.gtkkn.native.glib.g_node_find
+import org.gtkkn.native.glib.g_node_find_child
 import org.gtkkn.native.glib.g_node_first_sibling
 import org.gtkkn.native.glib.g_node_get_root
 import org.gtkkn.native.glib.g_node_insert
@@ -29,12 +34,14 @@ import org.gtkkn.native.glib.g_node_last_sibling
 import org.gtkkn.native.glib.g_node_max_height
 import org.gtkkn.native.glib.g_node_n_children
 import org.gtkkn.native.glib.g_node_n_nodes
+import org.gtkkn.native.glib.g_node_new
 import org.gtkkn.native.glib.g_node_nth_child
 import org.gtkkn.native.glib.g_node_pop_allocator
 import org.gtkkn.native.glib.g_node_prepend
 import org.gtkkn.native.glib.g_node_reverse_children
 import org.gtkkn.native.glib.g_node_traverse
 import org.gtkkn.native.glib.g_node_unlink
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
@@ -49,16 +56,21 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `data`: gpointer
- * - method `copy_deep`: C function g_node_copy_deep is ignored
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
- * - parameter `data`: gpointer
  * - parameter `allocator`: Allocator
- * - field `data`: gpointer
  */
 public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibNodePointer: CPointer<GNode> = pointer
+
+    /**
+     * contains the actual data of the node.
+     */
+    public var `data`: gpointer
+        get() = glibNodePointer.pointed.data!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibNodePointer.pointed.data = value
+        }
 
     /**
      * points to the node's next sibling (a sibling is another
@@ -151,6 +163,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
+     * @param data contains the actual data of the node.
      * @param next points to the node's next sibling (a sibling is another
      *        #GNode with the same parent).
      * @param prev points to the node's previous sibling.
@@ -161,11 +174,13 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      *            child.
      */
     public constructor(
+        `data`: gpointer,
         next: Node?,
         prev: Node?,
         parent: Node?,
         children: Node?,
     ) : this() {
+        this.data = data
         this.next = next
         this.prev = prev
         this.parent = parent
@@ -177,6 +192,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
+     * @param data contains the actual data of the node.
      * @param next points to the node's next sibling (a sibling is another
      *        #GNode with the same parent).
      * @param prev points to the node's previous sibling.
@@ -188,17 +204,29 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
+        `data`: gpointer,
         next: Node?,
         prev: Node?,
         parent: Node?,
         children: Node?,
         scope: AutofreeScope,
     ) : this(scope) {
+        this.data = data
         this.next = next
         this.prev = prev
         this.parent = parent
         this.children = children
     }
+
+    /**
+     * Gets the position of the first child of a #GNode
+     * which contains the given data.
+     *
+     * @param data the data to find
+     * @return the index of the child of @node which contains
+     *     @data, or -1 if the data is not found
+     */
+    public fun childIndex(`data`: gpointer? = null): gint = g_node_child_index(glibNodePointer.reinterpret(), `data`)
 
     /**
      * Gets the position of a #GNode with respect to its siblings.
@@ -238,6 +266,23 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
     }
 
     /**
+     * Recursively copies a #GNode and its data.
+     *
+     * @param copyFunc the function which is called to copy the data
+     *   inside each node, or null to use the original data.
+     * @return a new #GNode containing copies of the data in @node.
+     * @since 2.4
+     */
+    @GLibVersion2_4
+    public fun copyDeep(copyFunc: CopyFunc): Node = g_node_copy_deep(
+        glibNodePointer.reinterpret(),
+        CopyFuncFunc.reinterpret(),
+        StableRef.create(copyFunc).asCPointer()
+    )!!.run {
+        Node(reinterpret())
+    }
+
+    /**
      * Gets the depth of a #GNode.
      *
      * If @node is null the depth is 0. The root node has a depth of 1.
@@ -252,6 +297,34 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * allocated.
      */
     public fun destroy(): Unit = g_node_destroy(glibNodePointer.reinterpret())
+
+    /**
+     * Finds a #GNode in a tree.
+     *
+     * @param order the order in which nodes are visited - %G_IN_ORDER,
+     *     %G_PRE_ORDER, %G_POST_ORDER, or %G_LEVEL_ORDER
+     * @param flags which types of children are to be searched, one of
+     *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
+     * @param data the data to find
+     * @return the found #GNode, or null if the data is not found
+     */
+    public fun find(order: TraverseType, flags: TraverseFlags, `data`: gpointer? = null): Node =
+        g_node_find(glibNodePointer.reinterpret(), order.nativeValue, flags.mask, `data`)!!.run {
+            Node(reinterpret())
+        }
+
+    /**
+     * Finds the first child of a #GNode with the given data.
+     *
+     * @param flags which types of children are to be searched, one of
+     *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
+     * @param data the data to find
+     * @return the found child #GNode, or null if the data is not found
+     */
+    public fun findChild(flags: TraverseFlags, `data`: gpointer? = null): Node =
+        g_node_find_child(glibNodePointer.reinterpret(), flags.mask, `data`)!!.run {
+            Node(reinterpret())
+        }
 
     /**
      * Gets the first sibling of a #GNode.
@@ -434,9 +507,20 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      */
     public fun unlink(): Unit = g_node_unlink(glibNodePointer.reinterpret())
 
-    override fun toString(): String = "Node(next=$next, prev=$prev, parent=$parent, children=$children)"
+    override fun toString(): String = "Node(data=$data, next=$next, prev=$prev, parent=$parent, children=$children)"
 
     public companion object {
+        /**
+         * Creates a new #GNode containing the given data.
+         * Used to create the first node in a tree.
+         *
+         * @param data the data of the new node
+         * @return a new #GNode
+         */
+        public fun new(`data`: gpointer? = null): Node = g_node_new(`data`)!!.run {
+            Node(reinterpret())
+        }
+
         public fun popAllocator(): Unit = g_node_pop_allocator()
     }
 }

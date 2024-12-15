@@ -2,8 +2,14 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.allocPointerTo
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
@@ -11,7 +17,12 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.gio.annotations.GioVersion2_42
 import org.gtkkn.bindings.gio.annotations.GioVersion2_56
+import org.gtkkn.bindings.gio.annotations.GioVersion2_58
+import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.KeyFile
+import org.gtkkn.bindings.glib.SpawnChildSetupFunc
+import org.gtkkn.bindings.glib.SpawnChildSetupFuncFunc
+import org.gtkkn.bindings.glib.SpawnFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.common.toKStringList
@@ -36,13 +47,18 @@ import org.gtkkn.native.gio.g_desktop_app_info_get_string
 import org.gtkkn.native.gio.g_desktop_app_info_get_type
 import org.gtkkn.native.gio.g_desktop_app_info_has_key
 import org.gtkkn.native.gio.g_desktop_app_info_launch_action
+import org.gtkkn.native.gio.g_desktop_app_info_launch_uris_as_manager
+import org.gtkkn.native.gio.g_desktop_app_info_launch_uris_as_manager_with_fds
 import org.gtkkn.native.gio.g_desktop_app_info_list_actions
 import org.gtkkn.native.gio.g_desktop_app_info_new
 import org.gtkkn.native.gio.g_desktop_app_info_new_from_filename
 import org.gtkkn.native.gio.g_desktop_app_info_new_from_keyfile
 import org.gtkkn.native.gio.g_desktop_app_info_set_desktop_env
+import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
+import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
+import kotlin.Result
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List as CollectionsList
@@ -59,8 +75,6 @@ import org.gtkkn.bindings.glib.List as GlibList
  * ## Skipped during bindings generation
  *
  * - parameter `length`: length: Out parameter is not supported
- * - parameter `pid_callback`: DesktopAppLaunchCallback
- * - parameter `pid_callback`: DesktopAppLaunchCallback
  * - function `search`: Nested array types are not supported
  */
 public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
@@ -304,6 +318,114 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
             actionName,
             launchContext?.gioAppLaunchContextPointer?.reinterpret()
         )
+
+    /**
+     * This function performs the equivalent of g_app_info_launch_uris(),
+     * but is intended primarily for operating system components that
+     * launch applications.  Ordinary applications should use
+     * g_app_info_launch_uris().
+     *
+     * If the application is launched via GSpawn, then @spawn_flags, @user_setup
+     * and @user_setup_data are used for the call to g_spawn_async().
+     * Additionally, @pid_callback (with @pid_callback_data) will be called to
+     * inform about the PID of the created process. See g_spawn_async_with_pipes()
+     * for information on certain parameter conditions that can enable an
+     * optimized posix_spawn() codepath to be used.
+     *
+     * If application launching occurs via some other mechanism (eg: D-Bus
+     * activation) then @spawn_flags, @user_setup, @user_setup_data,
+     * @pid_callback and @pid_callback_data are ignored.
+     *
+     * @param uris List of URIs
+     * @param launchContext a #GAppLaunchContext
+     * @param spawnFlags #GSpawnFlags, used for each process
+     * @param userSetup a #GSpawnChildSetupFunc, used once
+     *     for each process.
+     * @param pidCallback Callback for child processes
+     * @return true on successful launch, false otherwise.
+     */
+    public open fun launchUrisAsManager(
+        uris: GlibList,
+        launchContext: AppLaunchContext? = null,
+        spawnFlags: SpawnFlags,
+        userSetup: SpawnChildSetupFunc?,
+        pidCallback: DesktopAppLaunchCallback?,
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_desktop_app_info_launch_uris_as_manager(
+            gioDesktopAppInfoPointer.reinterpret(), uris.glibListPointer.reinterpret(), launchContext?.gioAppLaunchContextPointer?.reinterpret(), spawnFlags.mask,
+            userSetup?.let {
+                SpawnChildSetupFuncFunc.reinterpret()
+            },
+            userSetup?.let {
+                StableRef.create(userSetup).asCPointer()
+            },
+            pidCallback?.let {
+                DesktopAppLaunchCallbackFunc.reinterpret()
+            },
+            pidCallback?.let { StableRef.create(pidCallback).asCPointer() }, gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
+
+    /**
+     * Equivalent to g_desktop_app_info_launch_uris_as_manager() but allows
+     * you to pass in file descriptors for the stdin, stdout and stderr streams
+     * of the launched process.
+     *
+     * If application launching occurs via some non-spawn mechanism (e.g. D-Bus
+     * activation) then @stdin_fd, @stdout_fd and @stderr_fd are ignored.
+     *
+     * @param uris List of URIs
+     * @param launchContext a #GAppLaunchContext
+     * @param spawnFlags #GSpawnFlags, used for each process
+     * @param userSetup a #GSpawnChildSetupFunc, used once
+     *     for each process.
+     * @param pidCallback Callback for child processes
+     * @param stdinFd file descriptor to use for child's stdin, or -1
+     * @param stdoutFd file descriptor to use for child's stdout, or -1
+     * @param stderrFd file descriptor to use for child's stderr, or -1
+     * @return true on successful launch, false otherwise.
+     * @since 2.58
+     */
+    @GioVersion2_58
+    public open fun launchUrisAsManagerWithFds(
+        uris: GlibList,
+        launchContext: AppLaunchContext? = null,
+        spawnFlags: SpawnFlags,
+        userSetup: SpawnChildSetupFunc?,
+        pidCallback: DesktopAppLaunchCallback?,
+        stdinFd: gint,
+        stdoutFd: gint,
+        stderrFd: gint,
+    ): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_desktop_app_info_launch_uris_as_manager_with_fds(
+            gioDesktopAppInfoPointer.reinterpret(), uris.glibListPointer.reinterpret(), launchContext?.gioAppLaunchContextPointer?.reinterpret(), spawnFlags.mask,
+            userSetup?.let {
+                SpawnChildSetupFuncFunc.reinterpret()
+            },
+            userSetup?.let {
+                StableRef.create(userSetup).asCPointer()
+            },
+            pidCallback?.let {
+                DesktopAppLaunchCallbackFunc.reinterpret()
+            },
+            pidCallback?.let {
+                StableRef.create(pidCallback).asCPointer()
+            },
+            stdinFd, stdoutFd, stderrFd, gError.ptr
+        ).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Returns the list of "additional application actions" supported on the

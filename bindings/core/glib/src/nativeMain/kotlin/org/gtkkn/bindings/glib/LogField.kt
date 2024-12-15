@@ -14,6 +14,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GLogField
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gpointer
 import kotlin.Long
 import kotlin.Pair
 import kotlin.String
@@ -28,11 +29,6 @@ import kotlin.native.ref.createCleaner
  * bytes. If the field contains a string, the string must be UTF-8 encoded and
  * have a trailing nul byte. Otherwise, @length must be set to a non-negative
  * value.
- *
- * ## Skipped during bindings generation
- *
- * - field `value`: gpointer
- *
  * @since 2.50
  */
 @GLibVersion2_50
@@ -49,6 +45,17 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
         set(`value`) {
             glibLogFieldPointer.pointed.key?.let { g_free(it) }
             glibLogFieldPointer.pointed.key = value?.let { g_strdup(it) }
+        }
+
+    /**
+     * field value (arbitrary bytes)
+     */
+    public var `value`: gpointer
+        get() = glibLogFieldPointer.pointed.value!!
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibLogFieldPointer.pointed.value = value
         }
 
     /**
@@ -98,10 +105,16 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      * this class instance is garbage collected.
      *
      * @param key field name (UTF-8 string)
+     * @param value field value (arbitrary bytes)
      * @param length length of @value, in bytes, or -1 if it is nul-terminated
      */
-    public constructor(key: String?, length: Long) : this() {
+    public constructor(
+        key: String?,
+        `value`: gpointer,
+        length: Long,
+    ) : this() {
         this.key = key
+        this.value = value
         this.length = length
     }
 
@@ -111,17 +124,20 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
      * @param key field name (UTF-8 string)
+     * @param value field value (arbitrary bytes)
      * @param length length of @value, in bytes, or -1 if it is nul-terminated
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
         key: String?,
+        `value`: gpointer,
         length: Long,
         scope: AutofreeScope,
     ) : this(scope) {
         this.key = key
+        this.value = value
         this.length = length
     }
 
-    override fun toString(): String = "LogField(key=$key, length=$length)"
+    override fun toString(): String = "LogField(key=$key, value=$value, length=$length)"
 }

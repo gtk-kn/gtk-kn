@@ -50,14 +50,16 @@ public interface HoverProvider :
         context: HoverContext,
         display: HoverDisplay,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = gtk_source_hover_provider_populate_async(
         gtksourceHoverProviderPointer.reinterpret(),
         context.gtksourceHoverContextPointer.reinterpret(),
         display.gtksourceHoverDisplayPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     public fun populateFinish(result: AsyncResult): Result<Boolean> = memScoped {

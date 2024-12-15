@@ -110,7 +110,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `timet`: time_t
- * - parameter `tm`: gpointer
+ * - parameter `tm`: Unsupported pointer to primitive type
  */
 public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
     public val glibDatePointer: CPointer<GDate> = pointer

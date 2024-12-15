@@ -166,13 +166,15 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     public open fun lookupByAddressAsync(
         address: InetAddress,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_resolver_lookup_by_address_async(
         gioResolverPointer.reinterpret(),
         address.gioInetAddressPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -270,13 +272,15 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     public open fun lookupByNameAsync(
         hostname: String,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_resolver_lookup_by_name_async(
         gioResolverPointer.reinterpret(),
         hostname,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -366,14 +370,16 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         hostname: String,
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_resolver_lookup_by_name_with_flags_async(
         gioResolverPointer.reinterpret(),
         hostname,
         flags.mask,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -470,14 +476,16 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         rrname: String,
         recordType: ResolverRecordType,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_resolver_lookup_records_async(
         gioResolverPointer.reinterpret(),
         rrname,
         recordType.nativeValue,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**
@@ -594,15 +602,17 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         protocol: String,
         domain: String,
         cancellable: Cancellable? = null,
-        callback: AsyncReadyCallback,
+        callback: AsyncReadyCallback?,
     ): Unit = g_resolver_lookup_service_async(
         gioResolverPointer.reinterpret(),
         service,
         protocol,
         domain,
         cancellable?.gioCancellablePointer?.reinterpret(),
-        AsyncReadyCallbackFunc.reinterpret(),
-        StableRef.create(callback).asCPointer()
+        callback?.let {
+            AsyncReadyCallbackFunc.reinterpret()
+        },
+        callback?.let { StableRef.create(callback).asCPointer() }
     )
 
     /**

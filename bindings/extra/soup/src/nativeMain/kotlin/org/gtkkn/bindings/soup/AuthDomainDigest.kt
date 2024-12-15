@@ -2,8 +2,10 @@
 package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -11,7 +13,9 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.soup_auth_domain_digest_encode_password
 import org.gtkkn.native.soup.soup_auth_domain_digest_get_type
+import org.gtkkn.native.soup.soup_auth_domain_digest_set_auth_callback
 import kotlin.String
+import kotlin.Unit
 
 /**
  * Server-side "Digest" authentication.
@@ -21,8 +25,7 @@ import kotlin.String
  *
  * ## Skipped during bindings generation
  *
- * - method `set_auth_callback`: C function soup_auth_domain_digest_set_auth_callback is ignored
- * - method `auth-callback`: Property has no getter nor setter
+ * - method `auth-callback`: Property has no getter
  * - method `auth-data`: Property has no getter nor setter
  * - constructor `new`: Varargs parameter is not supported
  */
@@ -31,6 +34,29 @@ public class AuthDomainDigest(pointer: CPointer<SoupAuthDomainDigest>) :
     KGTyped {
     public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>
         get() = gPointer.reinterpret()
+
+    /**
+     * Sets the callback that @domain will use to authenticate incoming
+     * requests.
+     *
+     * For each request containing authorization, @domain will
+     * invoke the callback, and then either accept or reject the request
+     * based on @callback's return value.
+     *
+     * You can also set the auth callback by setting the
+     * [property@AuthDomainDigest:auth-callback] and
+     * [property@AuthDomainDigest:auth-data] properties, which can also be used to
+     * set the callback at construct time.
+     *
+     * @param callback the callback
+     */
+    public fun setAuthCallback(callback: AuthDomainDigestAuthCallback): Unit =
+        soup_auth_domain_digest_set_auth_callback(
+            soupAuthDomainDigestPointer.reinterpret(),
+            AuthDomainDigestAuthCallbackFunc.reinterpret(),
+            StableRef.create(callback).asCPointer(),
+            staticStableRefDestroy.reinterpret()
+        )
 
     public companion object : TypeCompanion<AuthDomainDigest> {
         override val type: GeneratedClassKGType<AuthDomainDigest> =

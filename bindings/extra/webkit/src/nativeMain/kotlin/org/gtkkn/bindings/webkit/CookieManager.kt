@@ -81,13 +81,15 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun addCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun addCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_add_cookie(
             webkitCookieManagerPointer.reinterpret(),
             cookie.soupCookiePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -124,13 +126,15 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun deleteCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun deleteCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_delete_cookie(
             webkitCookieManagerPointer.reinterpret(),
             cookie.soupCookiePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -168,12 +172,14 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @param cancellable a #GCancellable or null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public fun getAcceptPolicy(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getAcceptPolicy(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_get_accept_policy(
             webkitCookieManagerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -210,12 +216,14 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getAllCookies(cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getAllCookies(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_get_all_cookies(
             webkitCookieManagerPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -261,13 +269,15 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun getCookies(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun getCookies(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_get_cookies(
             webkitCookieManagerPointer.reinterpret(),
             uri,
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
@@ -310,13 +320,15 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun replaceCookies(cookies: List, cancellable: Cancellable? = null, callback: AsyncReadyCallback): Unit =
+    public fun replaceCookies(cookies: List, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_replace_cookies(
             webkitCookieManagerPointer.reinterpret(),
             cookies.glibListPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
-            AsyncReadyCallbackFunc.reinterpret(),
-            StableRef.create(callback).asCPointer()
+            callback?.let {
+                AsyncReadyCallbackFunc.reinterpret()
+            },
+            callback?.let { StableRef.create(callback).asCPointer() }
         )
 
     /**
