@@ -43,7 +43,6 @@ includeBuild("gradle-plugin")
 include("gir")
 include("coroutines")
 
-include("bindings:common")
 include("bindings:common-annotations")
 
 var configFile: String = if (properties.contains("org.gtkkn.configFile")) {
