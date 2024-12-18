@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -36,10 +40,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A bar with contextual information.
@@ -67,8 +67,9 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class Banner(pointer: CPointer<AdwBanner>) :
-    Widget(pointer.reinterpret()),
+public class Banner(
+    pointer: CPointer<AdwBanner>,
+) : Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val adwBannerPointer: CPointer<AdwBanner>
@@ -105,7 +106,6 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_button_label(adwBannerPointer.reinterpret())?.toKString()
-
         /**
          * Sets the button label for @self.
          *
@@ -134,7 +134,6 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_revealed(adwBannerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether a banner should be revealed
          *
@@ -160,7 +159,6 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
-
         /**
          * Sets the title for this banner.
          *
@@ -188,7 +186,6 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         get() = adw_banner_get_use_markup(adwBannerPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to use Pango markup for the banner title.
          *
@@ -219,23 +216,14 @@ public class Banner(pointer: CPointer<AdwBanner>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "button-clicked",
-            connectButtonClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "button-clicked", connectButtonClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Banner> {
         override val type: GeneratedClassKGType<Banner> =
-            GeneratedClassKGType(adw_banner_get_type()) { Banner(it.reinterpret()) }
+                GeneratedClassKGType(adw_banner_get_type()) { Banner(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Banner
@@ -247,9 +235,8 @@ public class Banner(pointer: CPointer<AdwBanner>) :
 }
 
 private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

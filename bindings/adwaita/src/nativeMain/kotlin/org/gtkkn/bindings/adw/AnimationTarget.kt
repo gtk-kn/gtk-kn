@@ -14,19 +14,19 @@ import org.gtkkn.native.gobject.GType
 /**
  * Represents a value [class@Animation] can animate.
  */
-public open class AnimationTarget(pointer: CPointer<AdwAnimationTarget>) :
-    Object(pointer.reinterpret()),
+public open class AnimationTarget(
+    pointer: CPointer<AdwAnimationTarget>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val adwAnimationTargetPointer: CPointer<AdwAnimationTarget>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<AnimationTarget> {
         override val type: GeneratedClassKGType<AnimationTarget> =
-            GeneratedClassKGType(adw_animation_target_get_type()) { AnimationTarget(it.reinterpret()) }
+                GeneratedClassKGType(adw_animation_target_get_type()) { AnimationTarget(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of AnimationTarget

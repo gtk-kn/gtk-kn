@@ -11,8 +11,9 @@ import org.gtkkn.native.gsk.GskGLRenderer
 import org.gtkkn.native.gsk.gsk_gl_renderer_get_type
 import org.gtkkn.native.gsk.gsk_gl_renderer_new
 
-public open class GlRenderer(pointer: CPointer<GskGLRenderer>) :
-    Renderer(pointer.reinterpret()),
+public open class GlRenderer(
+    pointer: CPointer<GskGLRenderer>,
+) : Renderer(pointer.reinterpret()),
     KGTyped {
     public val gskGLRendererPointer: CPointer<GskGLRenderer>
         get() = gPointer.reinterpret()
@@ -27,11 +28,10 @@ public open class GlRenderer(pointer: CPointer<GskGLRenderer>) :
 
     public companion object : TypeCompanion<GlRenderer> {
         override val type: GeneratedClassKGType<GlRenderer> =
-            GeneratedClassKGType(gsk_gl_renderer_get_type()) { GlRenderer(it.reinterpret()) }
+                GeneratedClassKGType(gsk_gl_renderer_get_type()) { GlRenderer(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of GLRenderer

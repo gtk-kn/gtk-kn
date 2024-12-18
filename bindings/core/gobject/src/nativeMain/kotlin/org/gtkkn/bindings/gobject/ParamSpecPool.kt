@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
@@ -14,9 +17,6 @@ import org.gtkkn.native.gobject.g_param_spec_pool_insert
 import org.gtkkn.native.gobject.g_param_spec_pool_list_owned
 import org.gtkkn.native.gobject.g_param_spec_pool_lookup
 import org.gtkkn.native.gobject.g_param_spec_pool_remove
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A #GParamSpecPool maintains a collection of #GParamSpecs which can be
@@ -30,7 +30,9 @@ import kotlin.Unit
  * - parameter `n_pspecs_p`: n_pspecs_p: Out parameter is not supported
  * - function `new`: Return type ParamSpecPool is unsupported
  */
-public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(pointer) {
+public class ParamSpecPool(
+    pointer: CPointer<GParamSpecPool>,
+) : ProxyInstance(pointer) {
     public val gobjectParamSpecPoolPointer: CPointer<GParamSpecPool> = pointer
 
     /**
@@ -47,8 +49,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @param pspec the #GParamSpec to insert
      * @param ownerType a #GType identifying the owner of @pspec
      */
-    public fun insert(pspec: ParamSpec, ownerType: GType): Unit =
-        g_param_spec_pool_insert(gobjectParamSpecPoolPointer.reinterpret(), pspec.gPointer.reinterpret(), ownerType)
+    public fun insert(pspec: ParamSpec, ownerType: GType): Unit = g_param_spec_pool_insert(gobjectParamSpecPoolPointer.reinterpret(), pspec.gPointer.reinterpret(), ownerType)
 
     /**
      * Gets an #GList of all #GParamSpecs owned by @owner_type in
@@ -59,10 +60,8 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      *          #GList of all #GParamSpecs owned by @owner_type in
      *          the pool#GParamSpecs.
      */
-    public fun listOwned(ownerType: GType): List =
-        g_param_spec_pool_list_owned(gobjectParamSpecPoolPointer.reinterpret(), ownerType)!!.run {
-            List(reinterpret())
-        }
+    public fun listOwned(ownerType: GType): List = g_param_spec_pool_list_owned(gobjectParamSpecPoolPointer.reinterpret(), ownerType)!!.run {
+        List(reinterpret())}
 
     /**
      * Looks up a #GParamSpec in the pool.
@@ -74,21 +73,17 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @return The found #GParamSpec, or null if no
      * matching #GParamSpec was found.
      */
-    public fun lookup(paramName: String, ownerType: GType, walkAncestors: Boolean): ParamSpec? =
-        g_param_spec_pool_lookup(
-            gobjectParamSpecPoolPointer.reinterpret(),
-            paramName,
-            ownerType,
-            walkAncestors.asGBoolean()
-        )?.run {
-            ParamSpec(reinterpret())
-        }
+    public fun lookup(
+        paramName: String,
+        ownerType: GType,
+        walkAncestors: Boolean,
+    ): ParamSpec? = g_param_spec_pool_lookup(gobjectParamSpecPoolPointer.reinterpret(), paramName, ownerType, walkAncestors.asGBoolean())?.run {
+        ParamSpec(reinterpret())}
 
     /**
      * Removes a #GParamSpec from the pool.
      *
      * @param pspec the #GParamSpec to remove
      */
-    public fun remove(pspec: ParamSpec): Unit =
-        g_param_spec_pool_remove(gobjectParamSpecPoolPointer.reinterpret(), pspec.gPointer.reinterpret())
+    public fun remove(pspec: ParamSpec): Unit = g_param_spec_pool_remove(gobjectParamSpecPoolPointer.reinterpret(), pspec.gPointer.reinterpret())
 }

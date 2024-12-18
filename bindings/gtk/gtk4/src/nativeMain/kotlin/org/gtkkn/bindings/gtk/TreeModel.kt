@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -49,10 +53,6 @@ import org.gtkkn.native.gtk.gtk_tree_model_row_deleted
 import org.gtkkn.native.gtk.gtk_tree_model_row_has_child_toggled
 import org.gtkkn.native.gtk.gtk_tree_model_row_inserted
 import org.gtkkn.native.gtk.gtk_tree_model_unref_node
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The tree interface used by GtkTreeView
@@ -258,9 +258,7 @@ import kotlin.Unit
  * - parameter `var_args`: va_list
  * - parameter `new_order`: Array parameter of type gint is not supported
  */
-public interface TreeModel :
-    Interface,
-    KGTyped {
+public interface TreeModel : Interface, KGTyped {
     public val gtkTreeModelPointer: CPointer<GtkTreeModel>
 
     /**
@@ -270,10 +268,8 @@ public interface TreeModel :
      * @param root A `GtkTreePath`
      * @return A new `GtkTreeModel`.
      */
-    public fun filterNew(root: TreePath? = null): TreeModel =
-        gtk_tree_model_filter_new(gtkTreeModelPointer.reinterpret(), root?.gtkTreePathPointer?.reinterpret())!!.run {
-            TreeModel.wrap(reinterpret())
-        }
+    public fun filterNew(root: TreePath? = null): TreeModel = gtk_tree_model_filter_new(gtkTreeModelPointer.reinterpret(), root?.gtkTreePathPointer?.reinterpret())!!.run {
+        TreeModel.wrap(reinterpret())}
 
     /**
      * Calls @func on each node in model in a depth-first fashion.
@@ -283,11 +279,7 @@ public interface TreeModel :
      *
      * @param func a function to be called on each row
      */
-    public fun foreach(func: TreeModelForeachFunc): Unit = gtk_tree_model_foreach(
-        gtkTreeModelPointer.reinterpret(),
-        TreeModelForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun foreach(func: TreeModelForeachFunc): Unit = gtk_tree_model_foreach(gtkTreeModelPointer.reinterpret(), TreeModelForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Returns the type of the column.
@@ -295,8 +287,7 @@ public interface TreeModel :
      * @param index the column index
      * @return the type of the column
      */
-    public fun getColumnType(index: gint): GType =
-        gtk_tree_model_get_column_type(gtkTreeModelPointer.reinterpret(), index)
+    public fun getColumnType(index: gint): GType = gtk_tree_model_get_column_type(gtkTreeModelPointer.reinterpret(), index)
 
     /**
      * Returns a set of flags supported by this interface.
@@ -308,8 +299,7 @@ public interface TreeModel :
      * @return the flags supported by this interface
      */
     public fun getFlags(): TreeModelFlags = gtk_tree_model_get_flags(gtkTreeModelPointer.reinterpret()).run {
-        TreeModelFlags(this)
-    }
+        TreeModelFlags(this)}
 
     /**
      * Sets @iter to a valid iterator pointing to @path.
@@ -321,11 +311,7 @@ public interface TreeModel :
      * @param path the `GtkTreePath`
      * @return true, if @iter was set
      */
-    public fun getIter(iter: TreeIter, path: TreePath): Boolean = gtk_tree_model_get_iter(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
-    ).asBoolean()
+    public fun getIter(iter: TreeIter, path: TreePath): Boolean = gtk_tree_model_get_iter(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), path.gtkTreePathPointer.reinterpret()).asBoolean()
 
     /**
      * Initializes @iter with the first iterator in the tree
@@ -336,10 +322,7 @@ public interface TreeModel :
      * @param iter the uninitialized `GtkTreeIter`
      * @return true, if @iter was set
      */
-    public fun getIterFirst(iter: TreeIter): Boolean = gtk_tree_model_get_iter_first(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    ).asBoolean()
+    public fun getIterFirst(iter: TreeIter): Boolean = gtk_tree_model_get_iter_first(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @iter to a valid iterator pointing to @path_string, if it
@@ -351,11 +334,7 @@ public interface TreeModel :
      * @param pathString a string representation of a `GtkTreePath`
      * @return true, if @iter was set
      */
-    public fun getIterFromString(iter: TreeIter, pathString: String): Boolean = gtk_tree_model_get_iter_from_string(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        pathString
-    ).asBoolean()
+    public fun getIterFromString(iter: TreeIter, pathString: String): Boolean = gtk_tree_model_get_iter_from_string(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), pathString).asBoolean()
 
     /**
      * Returns the number of columns supported by @tree_model.
@@ -372,10 +351,8 @@ public interface TreeModel :
      * @param iter the `GtkTreeIter`
      * @return a newly-created `GtkTreePath`
      */
-    public fun getPath(iter: TreeIter): TreePath =
-        gtk_tree_model_get_path(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())!!.run {
-            TreePath(reinterpret())
-        }
+    public fun getPath(iter: TreeIter): TreePath = gtk_tree_model_get_path(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())!!.run {
+        TreePath(reinterpret())}
 
     /**
      * Generates a string representation of the iter.
@@ -387,10 +364,7 @@ public interface TreeModel :
      * @param iter a `GtkTreeIter`
      * @return a newly-allocated string
      */
-    public fun getStringFromIter(iter: TreeIter): String? = gtk_tree_model_get_string_from_iter(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    )?.toKString()
+    public fun getStringFromIter(iter: TreeIter): String? = gtk_tree_model_get_string_from_iter(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())?.toKString()
 
     /**
      * Initializes and sets @value to that at @column.
@@ -402,12 +376,11 @@ public interface TreeModel :
      * @param column the column to lookup the value at
      * @param value an empty `GValue` to set
      */
-    public fun getValue(iter: TreeIter, column: gint, `value`: Value): Unit = gtk_tree_model_get_value(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        column,
-        `value`.gobjectValuePointer.reinterpret()
-    )
+    public fun getValue(
+        iter: TreeIter,
+        column: gint,
+        `value`: Value,
+    ): Unit = gtk_tree_model_get_value(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), column, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Sets @iter to point to the first child of @parent.
@@ -423,11 +396,7 @@ public interface TreeModel :
      * @param parent the `GtkTreeIter`
      * @return true, if @iter has been set to the first child
      */
-    public fun iterChildren(iter: TreeIter, parent: TreeIter? = null): Boolean = gtk_tree_model_iter_children(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        parent?.gtkTreeIterPointer?.reinterpret()
-    ).asBoolean()
+    public fun iterChildren(iter: TreeIter, parent: TreeIter? = null): Boolean = gtk_tree_model_iter_children(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), parent?.gtkTreeIterPointer?.reinterpret()).asBoolean()
 
     /**
      * Returns true if @iter has children, false otherwise.
@@ -435,10 +404,7 @@ public interface TreeModel :
      * @param iter the `GtkTreeIter` to test for children
      * @return true if @iter has children
      */
-    public fun iterHasChild(iter: TreeIter): Boolean = gtk_tree_model_iter_has_child(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    ).asBoolean()
+    public fun iterHasChild(iter: TreeIter): Boolean = gtk_tree_model_iter_has_child(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the number of children that @iter has.
@@ -449,8 +415,7 @@ public interface TreeModel :
      * @param iter the `GtkTreeIter`
      * @return the number of children of @iter
      */
-    public fun iterNChildren(iter: TreeIter? = null): gint =
-        gtk_tree_model_iter_n_children(gtkTreeModelPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
+    public fun iterNChildren(iter: TreeIter? = null): gint = gtk_tree_model_iter_n_children(gtkTreeModelPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
 
     /**
      * Sets @iter to point to the node following it at the current level.
@@ -461,8 +426,7 @@ public interface TreeModel :
      * @param iter the `GtkTreeIter`
      * @return true if @iter has been changed to the next node
      */
-    public fun iterNext(iter: TreeIter): Boolean =
-        gtk_tree_model_iter_next(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
+    public fun iterNext(iter: TreeIter): Boolean = gtk_tree_model_iter_next(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @iter to be the child of @parent, using the given index.
@@ -478,12 +442,11 @@ public interface TreeModel :
      * @param n the index of the desired child
      * @return true, if @parent has an @n-th child
      */
-    public fun iterNthChild(iter: TreeIter, parent: TreeIter? = null, n: gint): Boolean = gtk_tree_model_iter_nth_child(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        parent?.gtkTreeIterPointer?.reinterpret(),
-        n
-    ).asBoolean()
+    public fun iterNthChild(
+        iter: TreeIter,
+        parent: TreeIter? = null,
+        n: gint,
+    ): Boolean = gtk_tree_model_iter_nth_child(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), parent?.gtkTreeIterPointer?.reinterpret(), n).asBoolean()
 
     /**
      * Sets @iter to be the parent of @child.
@@ -500,11 +463,7 @@ public interface TreeModel :
      * @param child the `GtkTreeIter`
      * @return true, if @iter is set to the parent of @child
      */
-    public fun iterParent(iter: TreeIter, child: TreeIter): Boolean = gtk_tree_model_iter_parent(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret(),
-        child.gtkTreeIterPointer.reinterpret()
-    ).asBoolean()
+    public fun iterParent(iter: TreeIter, child: TreeIter): Boolean = gtk_tree_model_iter_parent(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret(), child.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @iter to point to the previous node at the current level.
@@ -515,10 +474,7 @@ public interface TreeModel :
      * @param iter the `GtkTreeIter`
      * @return true if @iter has been changed to the previous node
      */
-    public fun iterPrevious(iter: TreeIter): Boolean = gtk_tree_model_iter_previous(
-        gtkTreeModelPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    ).asBoolean()
+    public fun iterPrevious(iter: TreeIter): Boolean = gtk_tree_model_iter_previous(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret()).asBoolean()
 
     /**
      * Lets the tree ref the node.
@@ -541,8 +497,7 @@ public interface TreeModel :
      *
      * @param iter the `GtkTreeIter`
      */
-    public fun refNode(iter: TreeIter): Unit =
-        gtk_tree_model_ref_node(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+    public fun refNode(iter: TreeIter): Unit = gtk_tree_model_ref_node(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Emits the ::row-changed signal on @tree_model.
@@ -552,11 +507,7 @@ public interface TreeModel :
      * @param path a `GtkTreePath` pointing to the changed row
      * @param iter a valid `GtkTreeIter` pointing to the changed row
      */
-    public fun rowChanged(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_changed(
-        gtkTreeModelPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    )
+    public fun rowChanged(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_changed(gtkTreeModelPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Emits the ::row-deleted signal on @tree_model.
@@ -573,8 +524,7 @@ public interface TreeModel :
      * @param path a `GtkTreePath` pointing to the previous location of
      *   the deleted row
      */
-    public fun rowDeleted(path: TreePath): Unit =
-        gtk_tree_model_row_deleted(gtkTreeModelPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+    public fun rowDeleted(path: TreePath): Unit = gtk_tree_model_row_deleted(gtkTreeModelPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
     /**
      * Emits the ::row-has-child-toggled signal on @tree_model.
@@ -587,11 +537,7 @@ public interface TreeModel :
      * @param path a `GtkTreePath` pointing to the changed row
      * @param iter a valid `GtkTreeIter` pointing to the changed row
      */
-    public fun rowHasChildToggled(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_has_child_toggled(
-        gtkTreeModelPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    )
+    public fun rowHasChildToggled(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_has_child_toggled(gtkTreeModelPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Emits the ::row-inserted signal on @tree_model.
@@ -601,11 +547,7 @@ public interface TreeModel :
      * @param path a `GtkTreePath` pointing to the inserted row
      * @param iter a valid `GtkTreeIter` pointing to the inserted row
      */
-    public fun rowInserted(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_inserted(
-        gtkTreeModelPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    )
+    public fun rowInserted(path: TreePath, iter: TreeIter): Unit = gtk_tree_model_row_inserted(gtkTreeModelPointer.reinterpret(), path.gtkTreePathPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * Lets the tree unref the node.
@@ -619,8 +561,7 @@ public interface TreeModel :
      *
      * @param iter the `GtkTreeIter`
      */
-    public fun unrefNode(iter: TreeIter): Unit =
-        gtk_tree_model_unref_node(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+    public fun unrefNode(iter: TreeIter): Unit = gtk_tree_model_unref_node(gtkTreeModelPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
 
     /**
      * This signal is emitted when a row in the model has changed.
@@ -628,17 +569,7 @@ public interface TreeModel :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` a `GtkTreePath` identifying the changed row; `iter` a valid `GtkTreeIter` pointing to the changed row
      */
-    public fun connectRowChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: TreePath, iter: TreeIter) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkTreeModelPointer.reinterpret(),
-        "row-changed",
-        connectRowChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRowChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: TreePath, iter: TreeIter) -> Unit): ULong = g_signal_connect_data(gtkTreeModelPointer.reinterpret(), "row-changed", connectRowChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when a row has been deleted.
@@ -653,17 +584,7 @@ public interface TreeModel :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` a `GtkTreePath` identifying the row
      */
-    public fun connectRowDeleted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: TreePath) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkTreeModelPointer.reinterpret(),
-        "row-deleted",
-        connectRowDeletedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRowDeleted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: TreePath) -> Unit): ULong = g_signal_connect_data(gtkTreeModelPointer.reinterpret(), "row-deleted", connectRowDeletedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when a row has gotten the first child
@@ -672,17 +593,7 @@ public interface TreeModel :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` a `GtkTreePath` identifying the row; `iter` a valid `GtkTreeIter` pointing to the row
      */
-    public fun connectRowHasChildToggled(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: TreePath, iter: TreeIter) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkTreeModelPointer.reinterpret(),
-        "row-has-child-toggled",
-        connectRowHasChildToggledFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRowHasChildToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: TreePath, iter: TreeIter) -> Unit): ULong = g_signal_connect_data(gtkTreeModelPointer.reinterpret(), "row-has-child-toggled", connectRowHasChildToggledFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when a new row has been inserted in
@@ -695,17 +606,7 @@ public interface TreeModel :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` a `GtkTreePath` identifying the new row; `iter` a valid `GtkTreeIter` pointing to the new row
      */
-    public fun connectRowInserted(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: TreePath, iter: TreeIter) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkTreeModelPointer.reinterpret(),
-        "row-inserted",
-        connectRowInsertedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRowInserted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: TreePath, iter: TreeIter) -> Unit): ULong = g_signal_connect_data(gtkTreeModelPointer.reinterpret(), "row-inserted", connectRowInsertedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the children of a node in the
@@ -722,33 +623,24 @@ public interface TreeModel :
      *     of each child to its old position before the re-ordering,
      *     i.e. @new_order`[newpos] = oldpos`
      */
-    public fun connectRowsReordered(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            path: TreePath,
-            iter: TreeIter,
-            newOrder: gpointer?,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkTreeModelPointer.reinterpret(),
-        "rows-reordered",
-        connectRowsReorderedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectRowsReordered(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        path: TreePath,
+        iter: TreeIter,
+        newOrder: gpointer?,
+    ) -> Unit): ULong = g_signal_connect_data(gtkTreeModelPointer.reinterpret(), "rows-reordered", connectRowsReorderedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GtkTreeModel>) : TreeModel {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkTreeModel>,
+    ) : TreeModel {
         override val gtkTreeModelPointer: CPointer<GtkTreeModel> = pointer
     }
 
     public companion object : TypeCompanion<TreeModel> {
         override val type: GeneratedInterfaceKGType<TreeModel> =
-            GeneratedInterfaceKGType(gtk_tree_model_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_tree_model_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkTreeModel>): TreeModel = Wrapper(pointer)
 
@@ -762,105 +654,79 @@ public interface TreeModel :
 }
 
 private val connectRowChangedFunc:
-    CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeIter>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            path: CPointer<GtkTreePath>?,
-            iter: CPointer<GtkTreeIter>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(path: TreePath, iter: TreeIter) -> Unit>().get().invoke(
-            path!!.run {
-                TreePath(reinterpret())
-            },
-            iter!!.run {
-                TreeIter(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeIter>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<GtkTreePath>?,
+    iter: CPointer<GtkTreeIter>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(path: TreePath, iter: TreeIter) -> Unit>().get().invoke(path!!.run {
+        TreePath(reinterpret())}
+    , iter!!.run {
+        TreeIter(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectRowDeletedFunc: CPointer<CFunction<(CPointer<GtkTreePath>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            path: CPointer<GtkTreePath>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(path: TreePath) -> Unit>().get().invoke(
-            path!!.run {
-                TreePath(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<GtkTreePath>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(path: TreePath) -> Unit>().get().invoke(path!!.run {
+        TreePath(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectRowHasChildToggledFunc:
-    CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeIter>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            path: CPointer<GtkTreePath>?,
-            iter: CPointer<GtkTreeIter>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(path: TreePath, iter: TreeIter) -> Unit>().get().invoke(
-            path!!.run {
-                TreePath(reinterpret())
-            },
-            iter!!.run {
-                TreeIter(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeIter>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<GtkTreePath>?,
+    iter: CPointer<GtkTreeIter>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(path: TreePath, iter: TreeIter) -> Unit>().get().invoke(path!!.run {
+        TreePath(reinterpret())}
+    , iter!!.run {
+        TreeIter(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectRowInsertedFunc:
-    CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeIter>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            path: CPointer<GtkTreePath>?,
-            iter: CPointer<GtkTreeIter>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(path: TreePath, iter: TreeIter) -> Unit>().get().invoke(
-            path!!.run {
-                TreePath(reinterpret())
-            },
-            iter!!.run {
-                TreeIter(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
-
-private val connectRowsReorderedFunc: CPointer<
-    CFunction<
-        (
-            CPointer<GtkTreePath>,
-            CPointer<GtkTreeIter>,
-            gpointer?,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
-        path: CPointer<GtkTreePath>?,
-        iter: CPointer<GtkTreeIter>?,
-        newOrder: gpointer?,
-        userData: COpaquePointer,
+        CPointer<CFunction<(CPointer<GtkTreePath>, CPointer<GtkTreeIter>) -> Unit>> =
+        staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<GtkTreePath>?,
+    iter: CPointer<GtkTreeIter>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<
-        (
-            path: TreePath,
-            iter: TreeIter,
-            newOrder: gpointer?,
-        ) -> Unit
-        >().get().invoke(
-        path!!.run {
-            TreePath(reinterpret())
-        },
-        iter!!.run {
-            TreeIter(reinterpret())
-        },
-        newOrder
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(path: TreePath, iter: TreeIter) -> Unit>().get().invoke(path!!.run {
+        TreePath(reinterpret())}
+    , iter!!.run {
+        TreeIter(reinterpret())}
+    )}
+.reinterpret()
+
+private val connectRowsReorderedFunc: CPointer<CFunction<(
+    CPointer<GtkTreePath>,
+    CPointer<GtkTreeIter>,
+    gpointer?,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<GtkTreePath>?,
+    iter: CPointer<GtkTreeIter>?,
+    newOrder: gpointer?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
+        path: TreePath,
+        iter: TreeIter,
+        newOrder: gpointer?,
+    ) -> Unit>().get().invoke(path!!.run {
+        TreePath(reinterpret())}
+    , iter!!.run {
+        TreeIter(reinterpret())}
+    , newOrder)}
+.reinterpret()

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
@@ -36,9 +39,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GdkToplevel` is a freestanding toplevel surface.
@@ -60,9 +60,7 @@ import kotlin.Unit
  * - method `transient-for`: Property has no getter
  * - signal `compute-size`: Unsupported parameter `size` : ToplevelSize
  */
-public interface Toplevel :
-    Interface,
-    KGTyped {
+public interface Toplevel : Interface, KGTyped {
     public val gdkToplevelPointer: CPointer<GdkToplevel>
 
     /**
@@ -76,8 +74,7 @@ public interface Toplevel :
          * @return surface state bitfield
          */
         get() = gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
-            ToplevelState(this)
-        }
+            ToplevelState(this)}
 
     /**
      * Begins an interactive move operation.
@@ -91,15 +88,13 @@ public interface Toplevel :
      * @param timestamp timestamp of mouse click that began the drag (use
      *   [method@Gdk.Event.get_time])
      */
-    public fun beginMove(device: Device, button: gint, x: gdouble, y: gdouble, timestamp: guint): Unit =
-        gdk_toplevel_begin_move(
-            gdkToplevelPointer.reinterpret(),
-            device.gdkDevicePointer.reinterpret(),
-            button,
-            x,
-            y,
-            timestamp
-        )
+    public fun beginMove(
+        device: Device,
+        button: gint,
+        x: gdouble,
+        y: gdouble,
+        timestamp: guint,
+    ): Unit = gdk_toplevel_begin_move(gdkToplevelPointer.reinterpret(), device.gdkDevicePointer.reinterpret(), button, x, y, timestamp)
 
     /**
      * Begins an interactive resize operation.
@@ -121,15 +116,7 @@ public interface Toplevel :
         x: gdouble,
         y: gdouble,
         timestamp: guint,
-    ): Unit = gdk_toplevel_begin_resize(
-        gdkToplevelPointer.reinterpret(),
-        edge.nativeValue,
-        device?.gdkDevicePointer?.reinterpret(),
-        button,
-        x,
-        y,
-        timestamp
-    )
+    ): Unit = gdk_toplevel_begin_resize(gdkToplevelPointer.reinterpret(), edge.nativeValue, device?.gdkDevicePointer?.reinterpret(), button, x, y, timestamp)
 
     /**
      * Sets keyboard focus to @surface.
@@ -149,8 +136,7 @@ public interface Toplevel :
      * @return surface state bitfield
      */
     public fun getState(): ToplevelState = gdk_toplevel_get_state(gdkToplevelPointer.reinterpret()).run {
-        ToplevelState(this)
-    }
+        ToplevelState(this)}
 
     /**
      * Requests that the @toplevel inhibit the system shortcuts.
@@ -178,8 +164,7 @@ public interface Toplevel :
      * @param event the `GdkEvent` that is triggering the inhibit
      *   request, or null if none is available
      */
-    public fun inhibitSystemShortcuts(event: Event? = null): Unit =
-        gdk_toplevel_inhibit_system_shortcuts(gdkToplevelPointer.reinterpret(), event?.gPointer?.reinterpret())
+    public fun inhibitSystemShortcuts(event: Event? = null): Unit = gdk_toplevel_inhibit_system_shortcuts(gdkToplevelPointer.reinterpret(), event?.gPointer?.reinterpret())
 
     /**
      * Asks to lower the @toplevel below other windows.
@@ -214,8 +199,7 @@ public interface Toplevel :
      *
      * @param layout the `GdkToplevelLayout` object used to layout
      */
-    public fun present(layout: ToplevelLayout): Unit =
-        gdk_toplevel_present(gdkToplevelPointer.reinterpret(), layout.gdkToplevelLayoutPointer.reinterpret())
+    public fun present(layout: ToplevelLayout): Unit = gdk_toplevel_present(gdkToplevelPointer.reinterpret(), layout.gdkToplevelLayoutPointer.reinterpret())
 
     /**
      * Restore default system keyboard shortcuts which were previously
@@ -234,8 +218,7 @@ public interface Toplevel :
      *
      * @param decorated true to request decorations
      */
-    public fun setDecorated(decorated: Boolean): Unit =
-        gdk_toplevel_set_decorated(gdkToplevelPointer.reinterpret(), decorated.asGBoolean())
+    public fun setDecorated(decorated: Boolean): Unit = gdk_toplevel_set_decorated(gdkToplevelPointer.reinterpret(), decorated.asGBoolean())
 
     /**
      * Sets the toplevel to be deletable.
@@ -245,8 +228,7 @@ public interface Toplevel :
      *
      * @param deletable true to request a delete button
      */
-    public fun setDeletable(deletable: Boolean): Unit =
-        gdk_toplevel_set_deletable(gdkToplevelPointer.reinterpret(), deletable.asGBoolean())
+    public fun setDeletable(deletable: Boolean): Unit = gdk_toplevel_set_deletable(gdkToplevelPointer.reinterpret(), deletable.asGBoolean())
 
     /**
      * Sets a list of icons for the surface.
@@ -261,8 +243,7 @@ public interface Toplevel :
      *
      * @param surfaces A list of textures to use as icon, of different sizes
      */
-    public fun setIconList(surfaces: List): Unit =
-        gdk_toplevel_set_icon_list(gdkToplevelPointer.reinterpret(), surfaces.glibListPointer.reinterpret())
+    public fun setIconList(surfaces: List): Unit = gdk_toplevel_set_icon_list(gdkToplevelPointer.reinterpret(), surfaces.glibListPointer.reinterpret())
 
     /**
      * Sets the toplevel to be modal.
@@ -277,8 +258,7 @@ public interface Toplevel :
      *
      * @param modal true if the surface is modal, false otherwise.
      */
-    public fun setModal(modal: Boolean): Unit =
-        gdk_toplevel_set_modal(gdkToplevelPointer.reinterpret(), modal.asGBoolean())
+    public fun setModal(modal: Boolean): Unit = gdk_toplevel_set_modal(gdkToplevelPointer.reinterpret(), modal.asGBoolean())
 
     /**
      * Sets the startup notification ID.
@@ -289,8 +269,7 @@ public interface Toplevel :
      *
      * @param startupId a string with startup-notification identifier
      */
-    public fun setStartupId(startupId: String): Unit =
-        gdk_toplevel_set_startup_id(gdkToplevelPointer.reinterpret(), startupId)
+    public fun setStartupId(startupId: String): Unit = gdk_toplevel_set_startup_id(gdkToplevelPointer.reinterpret(), startupId)
 
     /**
      * Sets the title of a toplevel surface.
@@ -315,8 +294,7 @@ public interface Toplevel :
      *
      * @param parent another toplevel `GdkSurface`
      */
-    public fun setTransientFor(parent: Surface): Unit =
-        gdk_toplevel_set_transient_for(gdkToplevelPointer.reinterpret(), parent.gdkSurfacePointer.reinterpret())
+    public fun setTransientFor(parent: Surface): Unit = gdk_toplevel_set_transient_for(gdkToplevelPointer.reinterpret(), parent.gdkSurfacePointer.reinterpret())
 
     /**
      * Asks the windowing system to show the window menu.
@@ -329,8 +307,7 @@ public interface Toplevel :
      * @param event a `GdkEvent` to show the menu for
      * @return true if the window menu was shown and false otherwise.
      */
-    public fun showWindowMenu(event: Event): Boolean =
-        gdk_toplevel_show_window_menu(gdkToplevelPointer.reinterpret(), event.gPointer.reinterpret()).asBoolean()
+    public fun showWindowMenu(event: Event): Boolean = gdk_toplevel_show_window_menu(gdkToplevelPointer.reinterpret(), event.gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether the desktop environment supports
@@ -338,8 +315,7 @@ public interface Toplevel :
      *
      * @return true if the desktop environment supports tiled window states
      */
-    public fun supportsEdgeConstraints(): Boolean =
-        gdk_toplevel_supports_edge_constraints(gdkToplevelPointer.reinterpret()).asBoolean()
+    public fun supportsEdgeConstraints(): Boolean = gdk_toplevel_supports_edge_constraints(gdkToplevelPointer.reinterpret()).asBoolean()
 
     /**
      *
@@ -348,20 +324,20 @@ public interface Toplevel :
      * @since 4.4
      */
     @GdkVersion4_4
-    public fun titlebarGesture(gesture: TitlebarGesture): Boolean =
-        gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
+    public fun titlebarGesture(gesture: TitlebarGesture): Boolean = gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GdkToplevel>) : Toplevel {
+    private data class Wrapper(
+        private val pointer: CPointer<GdkToplevel>,
+    ) : Toplevel {
         override val gdkToplevelPointer: CPointer<GdkToplevel> = pointer
     }
 
     public companion object : TypeCompanion<Toplevel> {
         override val type: GeneratedInterfaceKGType<Toplevel> =
-            GeneratedInterfaceKGType(gdk_toplevel_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gdk_toplevel_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GdkToplevel>): Toplevel = Wrapper(pointer)
 

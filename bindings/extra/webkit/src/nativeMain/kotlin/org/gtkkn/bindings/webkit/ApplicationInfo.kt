@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -16,8 +18,6 @@ import org.gtkkn.native.webkit.webkit_application_info_ref
 import org.gtkkn.native.webkit.webkit_application_info_set_name
 import org.gtkkn.native.webkit.webkit_application_info_set_version
 import org.gtkkn.native.webkit.webkit_application_info_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Information about an application running in automation mode.
@@ -26,7 +26,9 @@ import kotlin.Unit
  *
  * - parameter `major`: major: Out parameter is not supported
  */
-public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyInstance(pointer) {
+public class ApplicationInfo(
+    pointer: CPointer<WebKitApplicationInfo>,
+) : ProxyInstance(pointer) {
     public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo> = pointer
 
     /**
@@ -39,9 +41,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getName(): String =
-        webkit_application_info_get_name(webkitApplicationInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getName(): String = webkit_application_info_get_name(webkitApplicationInfoPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @info by one.
@@ -54,8 +54,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      */
     @WebKitVersion2_18
     public fun ref(): ApplicationInfo = webkit_application_info_ref(webkitApplicationInfoPointer.reinterpret())!!.run {
-        ApplicationInfo(reinterpret())
-    }
+        ApplicationInfo(reinterpret())}
 
     /**
      * Set the name of the application.
@@ -67,8 +66,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setName(name: String): Unit =
-        webkit_application_info_set_name(webkitApplicationInfoPointer.reinterpret(), name)
+    public fun setName(name: String): Unit = webkit_application_info_set_name(webkitApplicationInfoPointer.reinterpret(), name)
 
     /**
      * Set the application version.
@@ -84,8 +82,11 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setVersion(major: guint64, minor: guint64, micro: guint64): Unit =
-        webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
+    public fun setVersion(
+        major: guint64,
+        minor: guint64,
+        micro: guint64,
+    ): Unit = webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
 
     /**
      * Atomically decrements the reference count of @info by one.

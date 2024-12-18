@@ -16,7 +16,9 @@ import org.gtkkn.native.gtk.gtk_tree_model_flags_get_type
  * of %GTK_TREE_MODEL_ITERS_PERSIST can be found in the overview of
  * this section.
  */
-public class TreeModelFlags(public val mask: GtkTreeModelFlags) : Bitfield<TreeModelFlags> {
+public class TreeModelFlags(
+    public val mask: GtkTreeModelFlags,
+) : Bitfield<TreeModelFlags> {
     override infix fun or(other: TreeModelFlags): TreeModelFlags = TreeModelFlags(mask or other.mask)
 
     public companion object {

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputMessage
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data output when sending multiple
@@ -34,7 +34,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.44
  */
 @GioVersion2_44
-public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class OutputMessage(
+    pointer: CPointer<GOutputMessage>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioOutputMessagePointer: CPointer<GOutputMessage> = pointer
 
     /**
@@ -42,9 +45,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var address: SocketAddress?
         get() = gioOutputMessagePointer.pointed.address?.run {
-            SocketAddress(reinterpret())
-        }
-
+            SocketAddress(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
@@ -55,9 +56,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var vectors: OutputVector?
         get() = gioOutputMessagePointer.pointed.vectors?.run {
-            OutputVector(reinterpret())
-        }
-
+            OutputVector(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.vectors = value?.gioOutputVectorPointer
@@ -68,7 +67,6 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var numVectors: guint
         get() = gioOutputMessagePointer.pointed.num_vectors
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.num_vectors = value
@@ -80,7 +78,6 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var bytesSent: guint
         get() = gioOutputMessagePointer.pointed.bytes_sent
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.bytes_sent = value
@@ -91,7 +88,6 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var numControlMessages: guint
         get() = gioOutputMessagePointer.pointed.num_control_messages
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputMessagePointer.pointed.num_control_messages = value
@@ -103,11 +99,10 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOutputMessage>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GOutputMessage>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -115,9 +110,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to OutputMessage and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GOutputMessage>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GOutputMessage>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new OutputMessage using the provided [AutofreeScope].
@@ -183,6 +176,5 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
         this.numControlMessages = numControlMessages
     }
 
-    override fun toString(): String =
-        "OutputMessage(address=$address, vectors=$vectors, numVectors=$numVectors, bytesSent=$bytesSent, numControlMessages=$numControlMessages)"
+    override fun toString(): String = "OutputMessage(address=$address, vectors=$vectors, numVectors=$numVectors, bytesSent=$bytesSent, numControlMessages=$numControlMessages)"
 }

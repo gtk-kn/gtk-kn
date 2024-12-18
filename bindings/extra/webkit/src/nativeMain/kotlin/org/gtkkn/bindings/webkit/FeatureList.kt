@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
@@ -13,7 +14,6 @@ import org.gtkkn.native.webkit.webkit_feature_list_get_length
 import org.gtkkn.native.webkit.webkit_feature_list_get_type
 import org.gtkkn.native.webkit.webkit_feature_list_ref
 import org.gtkkn.native.webkit.webkit_feature_list_unref
-import kotlin.Unit
 
 /**
  * Contains a set of toggle-able web engine features.
@@ -36,7 +36,9 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(pointer) {
+public class FeatureList(
+    pointer: CPointer<WebKitFeatureList>,
+) : ProxyInstance(pointer) {
     public val webkitFeatureListPointer: CPointer<WebKitFeatureList> = pointer
 
     /**
@@ -47,10 +49,8 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun `get`(index: gsize): Feature =
-        webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
-            Feature(reinterpret())
-        }
+    public fun `get`(index: gsize): Feature = webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
+        Feature(reinterpret())}
 
     /**
      * Gets the number of elements in the feature list.
@@ -71,8 +71,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      */
     @WebKitVersion2_42
     public fun ref(): FeatureList = webkit_feature_list_ref(webkitFeatureListPointer.reinterpret())!!.run {
-        FeatureList(reinterpret())
-    }
+        FeatureList(reinterpret())}
 
     /**
      * Atomically releases a reference on the given @feature_list.

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
@@ -22,9 +25,6 @@ import org.gtkkn.native.glib.g_variant_dict_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_dict_get_type
 import org.gtkkn.native.gobject.gsize
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * #GVariantDict is a mutable interface to #GVariant dictionaries.
@@ -127,14 +127,14 @@ import kotlin.Unit
  * @since 2.40
  */
 @GLibVersion2_40
-public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointer) {
+public class VariantDict(
+    pointer: CPointer<GVariantDict>,
+) : ProxyInstance(pointer) {
     public val glibVariantDictPointer: CPointer<GVariantDict> = pointer
 
     public var asv: Variant?
         get() = glibVariantDictPointer.pointed.u.s.asv?.run {
-            Variant(reinterpret())
-        }
-
+            Variant(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibVariantDictPointer.pointed.u.s.asv = value?.glibVariantPointer
@@ -142,7 +142,6 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
 
     public var partialMagic: gsize
         get() = glibVariantDictPointer.pointed.u.s.partial_magic
-
         @UnsafeFieldSetter
         set(`value`) {
             glibVariantDictPointer.pointed.u.s.partial_magic = value
@@ -177,8 +176,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun contains(key: String): Boolean =
-        g_variant_dict_contains(glibVariantDictPointer.reinterpret(), key).asBoolean()
+    public fun contains(key: String): Boolean = g_variant_dict_contains(glibVariantDictPointer.reinterpret(), key).asBoolean()
 
     /**
      * Returns the current value of @dict as a #GVariant of type
@@ -194,8 +192,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      */
     @GLibVersion2_40
     public fun end(): Variant = g_variant_dict_end(glibVariantDictPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Initialises a #GVariantDict structure.
@@ -219,8 +216,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun `init`(fromAsv: Variant? = null): Unit =
-        g_variant_dict_init(glibVariantDictPointer.reinterpret(), fromAsv?.glibVariantPointer?.reinterpret())
+    public fun `init`(fromAsv: Variant? = null): Unit = g_variant_dict_init(glibVariantDictPointer.reinterpret(), fromAsv?.glibVariantPointer?.reinterpret())
 
     /**
      * Inserts (or replaces) a key in a #GVariantDict.
@@ -232,8 +228,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun insertValue(key: String, `value`: Variant): Unit =
-        g_variant_dict_insert_value(glibVariantDictPointer.reinterpret(), key, `value`.glibVariantPointer.reinterpret())
+    public fun insertValue(key: String, `value`: Variant): Unit = g_variant_dict_insert_value(glibVariantDictPointer.reinterpret(), key, `value`.glibVariantPointer.reinterpret())
 
     /**
      * Looks up a value in a #GVariantDict.
@@ -254,13 +249,8 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant? = g_variant_dict_lookup_value(
-        glibVariantDictPointer.reinterpret(),
-        key,
-        expectedType?.glibVariantTypePointer?.reinterpret()
-    )?.run {
-        Variant(reinterpret())
-    }
+    public fun lookupValue(key: String, expectedType: VariantType? = null): Variant? = g_variant_dict_lookup_value(glibVariantDictPointer.reinterpret(), key, expectedType?.glibVariantTypePointer?.reinterpret())?.run {
+        Variant(reinterpret())}
 
     /**
      * Increases the reference count on @dict.
@@ -273,8 +263,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      */
     @GLibVersion2_40
     public fun ref(): VariantDict = g_variant_dict_ref(glibVariantDictPointer.reinterpret())!!.run {
-        VariantDict(reinterpret())
-    }
+        VariantDict(reinterpret())}
 
     /**
      * Removes a key and its associated value from a #GVariantDict.
@@ -284,8 +273,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun remove(key: String): Boolean =
-        g_variant_dict_remove(glibVariantDictPointer.reinterpret(), key).asBoolean()
+    public fun remove(key: String): Boolean = g_variant_dict_remove(glibVariantDictPointer.reinterpret(), key).asBoolean()
 
     /**
      * Decreases the reference count on @dict.
@@ -321,8 +309,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
          * @return a #GVariantDict
          * @since 2.40
          */
-        public fun new(fromAsv: Variant? = null): VariantDict =
-            VariantDict(g_variant_dict_new(fromAsv?.glibVariantPointer?.reinterpret())!!.reinterpret())
+        public fun new(fromAsv: Variant? = null): VariantDict = VariantDict(g_variant_dict_new(fromAsv?.glibVariantPointer?.reinterpret())!!.reinterpret())
 
         /**
          * Get the GType of VariantDict

@@ -8,22 +8,21 @@ import org.gtkkn.native.gsk.gsk_corner_get_type
 /**
  * The corner indices used by `GskRoundedRect`.
  */
-public enum class Corner(public val nativeValue: GskCorner) {
+public enum class Corner(
+    public val nativeValue: GskCorner,
+) {
     /**
      * The top left corner
      */
     TOP_LEFT(GskCorner.GSK_CORNER_TOP_LEFT),
-
     /**
      * The top right corner
      */
     TOP_RIGHT(GskCorner.GSK_CORNER_TOP_RIGHT),
-
     /**
      * The bottom right corner
      */
     BOTTOM_RIGHT(GskCorner.GSK_CORNER_BOTTOM_RIGHT),
-
     /**
      * The bottom left corner
      */

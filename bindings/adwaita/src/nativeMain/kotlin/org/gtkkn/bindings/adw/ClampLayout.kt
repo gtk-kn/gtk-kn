@@ -45,8 +45,9 @@ import org.gtkkn.native.gtk.GtkOrientable
  * `AdwClampLayout` can scale with the text scale factor, use the
  * [property@ClampLayout:unit] property to enable that behavior.
  */
-public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
-    LayoutManager(pointer.reinterpret()),
+public class ClampLayout(
+    pointer: CPointer<AdwClampLayout>,
+) : LayoutManager(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val adwClampLayoutPointer: CPointer<AdwClampLayout>
@@ -68,7 +69,6 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          * @return the maximum size to allocate to the children
          */
         get() = adw_clamp_layout_get_maximum_size(adwClampLayoutPointer.reinterpret())
-
         /**
          * Sets the maximum size allocated to the children.
          *
@@ -101,7 +101,6 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          * @return the size above which the children are clamped
          */
         get() = adw_clamp_layout_get_tightening_threshold(adwClampLayoutPointer.reinterpret())
-
         /**
          * Sets the size above which the children are clamped.
          *
@@ -120,9 +119,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(
-            tighteningThreshold
-        ) = adw_clamp_layout_set_tightening_threshold(adwClampLayoutPointer.reinterpret(), tighteningThreshold)
+        set(tighteningThreshold) = adw_clamp_layout_set_tightening_threshold(adwClampLayoutPointer.reinterpret(), tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -140,9 +137,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          * @since 1.4
          */
         get() = adw_clamp_layout_get_unit(adwClampLayoutPointer.reinterpret()).run {
-            LengthUnit.fromNativeValue(this)
-        }
-
+            LengthUnit.fromNativeValue(this)}
         /**
          * Sets the length unit for maximum size and tightening threshold.
          *
@@ -163,11 +158,10 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
 
     public companion object : TypeCompanion<ClampLayout> {
         override val type: GeneratedClassKGType<ClampLayout> =
-            GeneratedClassKGType(adw_clamp_layout_get_type()) { ClampLayout(it.reinterpret()) }
+                GeneratedClassKGType(adw_clamp_layout_get_type()) { ClampLayout(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ClampLayout

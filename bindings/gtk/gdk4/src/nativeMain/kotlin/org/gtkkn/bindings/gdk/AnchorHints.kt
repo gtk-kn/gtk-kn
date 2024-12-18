@@ -32,7 +32,9 @@ import org.gtkkn.native.gobject.GType
  * In general, when multiple flags are set, flipping should take precedence over
  * sliding, which should take precedence over resizing.
  */
-public class AnchorHints(public val mask: GdkAnchorHints) : Bitfield<AnchorHints> {
+public class AnchorHints(
+    public val mask: GdkAnchorHints,
+) : Bitfield<AnchorHints> {
     override infix fun or(other: AnchorHints): AnchorHints = AnchorHints(mask or other.mask)
 
     public companion object {

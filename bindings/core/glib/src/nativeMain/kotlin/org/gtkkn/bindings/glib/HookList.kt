@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -22,12 +28,6 @@ import org.gtkkn.native.glib.g_hook_list_marshal_check
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.gulong
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GHookList struct represents a list of hook functions.
@@ -37,7 +37,10 @@ import kotlin.native.ref.createCleaner
  * - field `finalize_hook`: HookFinalizeFunc
  * - field `dummy`: Array parameter of type gpointer is not supported
  */
-public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class HookList(
+    pointer: CPointer<GHookList>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibHookListPointer: CPointer<GHookList> = pointer
 
     /**
@@ -45,7 +48,6 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      */
     public var seqId: gulong
         get() = glibHookListPointer.pointed.seq_id
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.seq_id = value
@@ -56,7 +58,6 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      */
     public var hookSize: guint
         get() = glibHookListPointer.pointed.hook_size
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.hook_size = value
@@ -67,7 +68,6 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      */
     public var isSetup: guint
         get() = glibHookListPointer.pointed.is_setup
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.is_setup = value
@@ -78,9 +78,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      */
     public var hooks: Hook?
         get() = glibHookListPointer.pointed.hooks?.run {
-            Hook(reinterpret())
-        }
-
+            Hook(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.hooks = value?.glibHookPointer
@@ -91,7 +89,6 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      */
     public var dummy3: gpointer
         get() = glibHookListPointer.pointed.dummy3!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookListPointer.pointed.dummy3 = value
@@ -103,11 +100,10 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHookList>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GHookList>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -200,8 +196,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invoke(mayRecurse: Boolean): Unit =
-        g_hook_list_invoke(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean())
+    public fun invoke(mayRecurse: Boolean): Unit = g_hook_list_invoke(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean())
 
     /**
      * Calls all of the #GHook functions in a #GHookList.
@@ -211,8 +206,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invokeCheck(mayRecurse: Boolean): Unit =
-        g_hook_list_invoke_check(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean())
+    public fun invokeCheck(mayRecurse: Boolean): Unit = g_hook_list_invoke_check(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean())
 
     /**
      * Calls a function on each valid #GHook.
@@ -222,12 +216,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     these are skipped
      * @param marshaller the function to call for each #GHook
      */
-    public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(
-        glibHookListPointer.reinterpret(),
-        mayRecurse.asGBoolean(),
-        HookMarshallerFunc.reinterpret(),
-        StableRef.create(marshaller).asCPointer()
-    )
+    public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean(), HookMarshallerFunc.reinterpret(), StableRef.create(marshaller).asCPointer())
 
     /**
      * Calls a function on each valid #GHook and destroys it if the
@@ -238,13 +227,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     these are skipped
      * @param marshaller the function to call for each #GHook
      */
-    public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(
-        glibHookListPointer.reinterpret(),
-        mayRecurse.asGBoolean(),
-        HookCheckMarshallerFunc.reinterpret(),
-        StableRef.create(marshaller).asCPointer()
-    )
+    public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(glibHookListPointer.reinterpret(), mayRecurse.asGBoolean(), HookCheckMarshallerFunc.reinterpret(), StableRef.create(marshaller).asCPointer())
 
-    override fun toString(): String =
-        "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3)"
+    override fun toString(): String = "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3)"
 }

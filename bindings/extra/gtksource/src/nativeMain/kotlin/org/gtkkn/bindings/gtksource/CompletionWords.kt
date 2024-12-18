@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -15,8 +17,6 @@ import org.gtkkn.native.gtksource.gtk_source_completion_words_get_type
 import org.gtkkn.native.gtksource.gtk_source_completion_words_new
 import org.gtkkn.native.gtksource.gtk_source_completion_words_register
 import org.gtkkn.native.gtksource.gtk_source_completion_words_unregister
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A [iface@CompletionProvider] for the completion of words.
@@ -33,8 +33,9 @@ import kotlin.Unit
  * - method `scan-batch-size`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class CompletionWords(pointer: CPointer<GtkSourceCompletionWords>) :
-    Object(pointer.reinterpret()),
+public open class CompletionWords(
+    pointer: CPointer<GtkSourceCompletionWords>,
+) : Object(pointer.reinterpret()),
     CompletionProvider,
     KGTyped {
     public val gtksourceCompletionWordsPointer: CPointer<GtkSourceCompletionWords>
@@ -56,28 +57,21 @@ public open class CompletionWords(pointer: CPointer<GtkSourceCompletionWords>) :
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun register(buffer: TextBuffer): Unit = gtk_source_completion_words_register(
-        gtksourceCompletionWordsPointer.reinterpret(),
-        buffer.gtkTextBufferPointer.reinterpret()
-    )
+    public open fun register(buffer: TextBuffer): Unit = gtk_source_completion_words_register(gtksourceCompletionWordsPointer.reinterpret(), buffer.gtkTextBufferPointer.reinterpret())
 
     /**
      * Unregisters @buffer from the @words provider.
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun unregister(buffer: TextBuffer): Unit = gtk_source_completion_words_unregister(
-        gtksourceCompletionWordsPointer.reinterpret(),
-        buffer.gtkTextBufferPointer.reinterpret()
-    )
+    public open fun unregister(buffer: TextBuffer): Unit = gtk_source_completion_words_unregister(gtksourceCompletionWordsPointer.reinterpret(), buffer.gtkTextBufferPointer.reinterpret())
 
     public companion object : TypeCompanion<CompletionWords> {
         override val type: GeneratedClassKGType<CompletionWords> =
-            GeneratedClassKGType(gtk_source_completion_words_get_type()) { CompletionWords(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_completion_words_get_type()) { CompletionWords(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Get the GType of CompletionWords

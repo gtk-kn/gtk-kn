@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,17 +15,15 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GObjectConstructParam
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The GObjectConstructParam struct is an auxiliary structure used to hand
  * #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
  */
-public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class ObjectConstructParam(
+    pointer: CPointer<GObjectConstructParam>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectObjectConstructParamPointer: CPointer<GObjectConstructParam> = pointer
 
     /**
@@ -29,9 +31,7 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      */
     public var pspec: ParamSpec?
         get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
-            ParamSpec(reinterpret())
-        }
-
+            ParamSpec(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectObjectConstructParamPointer.pointed.pspec = value?.gPointer?.reinterpret()
@@ -42,9 +42,7 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      */
     public var `value`: Value?
         get() = gobjectObjectConstructParamPointer.pointed.value?.run {
-            Value(reinterpret())
-        }
-
+            Value(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectObjectConstructParamPointer.pointed.value = value?.gobjectValuePointer
@@ -56,11 +54,10 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GObjectConstructParam>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GObjectConstructParam>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -68,9 +65,7 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      *
      * @param pair A pair containing the pointer to ObjectConstructParam and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GObjectConstructParam>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GObjectConstructParam>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ObjectConstructParam using the provided [AutofreeScope].

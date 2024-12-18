@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,10 +14,6 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrClass
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrClass` structure stores the type and operations for
@@ -28,7 +28,10 @@ import kotlin.native.ref.createCleaner
  * - field `destroy`: Fields with callbacks are not supported
  * - field `equal`: Fields with callbacks are not supported
  */
-public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrClass(
+    pointer: CPointer<PangoAttrClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrClassPointer: CPointer<PangoAttrClass> = pointer
 
     /**
@@ -36,9 +39,7 @@ public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = nu
      */
     public var type: AttrType
         get() = pangoAttrClassPointer.pointed.type.run {
-            AttrType.fromNativeValue(this)
-        }
-
+            AttrType.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrClassPointer.pointed.type = value.nativeValue
@@ -50,11 +51,10 @@ public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -62,9 +62,7 @@ public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to AttrClass and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrClass>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAttrClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrClass using the provided [AutofreeScope].

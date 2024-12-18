@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,10 +20,6 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeValueTable
 import org.gtkkn.native.gobject.g_type_value_table_peek
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GTypeValueTable provides the functions required by the #GValue
@@ -34,7 +34,10 @@ import kotlin.native.ref.createCleaner
  * - field `collect_value`: TypeValueCollectFunc
  * - field `lcopy_value`: TypeValueLCopyFunc
  */
-public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TypeValueTable(
+    pointer: CPointer<GTypeValueTable>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable> = pointer
 
     /**
@@ -53,7 +56,6 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      */
     public var collectFormat: String?
         get() = gobjectTypeValueTablePointer.pointed.collect_format?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeValueTablePointer.pointed.collect_format?.let { g_free(it) }
@@ -67,7 +69,6 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      */
     public var lcopyFormat: String?
         get() = gobjectTypeValueTablePointer.pointed.lcopy_format?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeValueTablePointer.pointed.lcopy_format?.let { g_free(it) }
@@ -80,11 +81,10 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeValueTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTypeValueTable>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -92,9 +92,7 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to TypeValueTable and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GTypeValueTable>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GTypeValueTable>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeValueTable using the provided [AutofreeScope].
@@ -178,7 +176,6 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
          *     null if there is no #GTypeValueTable associated with @type
          */
         public fun peek(type: GType): TypeValueTable = g_type_value_table_peek(type)!!.run {
-            TypeValueTable(reinterpret())
-        }
+            TypeValueTable(reinterpret())}
     }
 }

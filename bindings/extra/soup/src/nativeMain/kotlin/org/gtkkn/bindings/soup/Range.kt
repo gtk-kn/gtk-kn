@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupRange
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a byte range as used in the Range header.
@@ -32,7 +32,10 @@ import kotlin.native.ref.createCleaner
  * range", referring to the last -@start bytes of the resource body.
  * (Eg, the last 500 bytes would be @start = -500 and @end = -1.)
  */
-public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Range(
+    pointer: CPointer<SoupRange>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val soupRangePointer: CPointer<SoupRange> = pointer
 
     /**
@@ -40,7 +43,6 @@ public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : Pro
      */
     public var start: gint64
         get() = soupRangePointer.pointed.start
-
         @UnsafeFieldSetter
         set(`value`) {
             soupRangePointer.pointed.start = value
@@ -51,7 +53,6 @@ public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : Pro
      */
     public var end: gint64
         get() = soupRangePointer.pointed.end
-
         @UnsafeFieldSetter
         set(`value`) {
             soupRangePointer.pointed.end = value
@@ -63,11 +64,10 @@ public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : Pro
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<SoupRange>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<SoupRange>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

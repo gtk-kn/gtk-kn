@@ -3,4 +3,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class BookmarkFileErrorException(error: Error, public val code: BookmarkFileError) : GLibException(error)
+public class BookmarkFileErrorException(
+    error: Error,
+    public val code: BookmarkFileError,
+) : GLibException(error)

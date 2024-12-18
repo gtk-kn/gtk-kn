@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
@@ -26,8 +28,6 @@ import org.gtkkn.native.gio.g_tls_backend_set_default_database
 import org.gtkkn.native.gio.g_tls_backend_supports_dtls
 import org.gtkkn.native.gio.g_tls_backend_supports_tls
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * TLS (Transport Layer Security, aka SSL) and DTLS backend. This is an
@@ -36,9 +36,7 @@ import kotlin.Unit
  * @since 2.28
  */
 @GioVersion2_28
-public interface TlsBackend :
-    Interface,
-    KGTyped {
+public interface TlsBackend : Interface, KGTyped {
     public val gioTlsBackendPointer: CPointer<GTlsBackend>
 
     /**
@@ -59,8 +57,7 @@ public interface TlsBackend :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getClientConnectionType(): GType =
-        g_tls_backend_get_client_connection_type(gioTlsBackendPointer.reinterpret())
+    public fun getClientConnectionType(): GType = g_tls_backend_get_client_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
      * Gets the default #GTlsDatabase used to verify TLS connections.
@@ -70,10 +67,8 @@ public interface TlsBackend :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getDefaultDatabase(): TlsDatabase =
-        g_tls_backend_get_default_database(gioTlsBackendPointer.reinterpret())!!.run {
-            TlsDatabase(reinterpret())
-        }
+    public fun getDefaultDatabase(): TlsDatabase = g_tls_backend_get_default_database(gioTlsBackendPointer.reinterpret())!!.run {
+        TlsDatabase(reinterpret())}
 
     /**
      * Gets the #GType of @backend’s #GDtlsClientConnection implementation.
@@ -83,8 +78,7 @@ public interface TlsBackend :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getDtlsClientConnectionType(): GType =
-        g_tls_backend_get_dtls_client_connection_type(gioTlsBackendPointer.reinterpret())
+    public fun getDtlsClientConnectionType(): GType = g_tls_backend_get_dtls_client_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
      * Gets the #GType of @backend’s #GDtlsServerConnection implementation.
@@ -94,8 +88,7 @@ public interface TlsBackend :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getDtlsServerConnectionType(): GType =
-        g_tls_backend_get_dtls_server_connection_type(gioTlsBackendPointer.reinterpret())
+    public fun getDtlsServerConnectionType(): GType = g_tls_backend_get_dtls_server_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
      * Gets the #GType of @backend's #GTlsFileDatabase implementation.
@@ -114,8 +107,7 @@ public interface TlsBackend :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getServerConnectionType(): GType =
-        g_tls_backend_get_server_connection_type(gioTlsBackendPointer.reinterpret())
+    public fun getServerConnectionType(): GType = g_tls_backend_get_server_connection_type(gioTlsBackendPointer.reinterpret())
 
     /**
      * Set the default #GTlsDatabase used to verify TLS connections
@@ -131,10 +123,7 @@ public interface TlsBackend :
      * @since 2.60
      */
     @GioVersion2_60
-    public fun setDefaultDatabase(database: TlsDatabase? = null): Unit = g_tls_backend_set_default_database(
-        gioTlsBackendPointer.reinterpret(),
-        database?.gioTlsDatabasePointer?.reinterpret()
-    )
+    public fun setDefaultDatabase(database: TlsDatabase? = null): Unit = g_tls_backend_set_default_database(gioTlsBackendPointer.reinterpret(), database?.gioTlsDatabasePointer?.reinterpret())
 
     /**
      * Checks if DTLS is supported. DTLS support may not be available even if TLS
@@ -156,17 +145,18 @@ public interface TlsBackend :
     @GioVersion2_28
     public fun supportsTls(): Boolean = g_tls_backend_supports_tls(gioTlsBackendPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GTlsBackend>) : TlsBackend {
+    private data class Wrapper(
+        private val pointer: CPointer<GTlsBackend>,
+    ) : TlsBackend {
         override val gioTlsBackendPointer: CPointer<GTlsBackend> = pointer
     }
 
     public companion object : TypeCompanion<TlsBackend> {
         override val type: GeneratedInterfaceKGType<TlsBackend> =
-            GeneratedInterfaceKGType(g_tls_backend_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_tls_backend_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GTlsBackend>): TlsBackend = Wrapper(pointer)
 
@@ -179,8 +169,7 @@ public interface TlsBackend :
          */
         @GioVersion2_28
         public fun getDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
-            TlsBackend.wrap(reinterpret())
-        }
+            TlsBackend.wrap(reinterpret())}
 
         /**
          * Get the GType of TlsBackend

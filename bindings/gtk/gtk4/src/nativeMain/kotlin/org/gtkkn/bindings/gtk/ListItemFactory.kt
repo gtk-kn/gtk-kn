@@ -61,19 +61,19 @@ import org.gtkkn.native.gtk.gtk_list_item_factory_get_type
  * [method@Gtk.ListView.set_factory]. Reusing factories across different
  * views is allowed, but very uncommon.
  */
-public open class ListItemFactory(pointer: CPointer<GtkListItemFactory>) :
-    Object(pointer.reinterpret()),
+public open class ListItemFactory(
+    pointer: CPointer<GtkListItemFactory>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkListItemFactoryPointer: CPointer<GtkListItemFactory>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<ListItemFactory> {
         override val type: GeneratedClassKGType<ListItemFactory> =
-            GeneratedClassKGType(gtk_list_item_factory_get_type()) { ListItemFactory(it.reinterpret()) }
+                GeneratedClassKGType(gtk_list_item_factory_get_type()) { ListItemFactory(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ListItemFactory

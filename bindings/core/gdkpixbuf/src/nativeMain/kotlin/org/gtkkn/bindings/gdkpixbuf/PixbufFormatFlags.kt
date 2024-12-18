@@ -13,7 +13,9 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufFormatFlags
  * operations.
  * @since 2.2
  */
-public class PixbufFormatFlags(public val mask: GdkPixbufFormatFlags) : Bitfield<PixbufFormatFlags> {
+public class PixbufFormatFlags(
+    public val mask: GdkPixbufFormatFlags,
+) : Bitfield<PixbufFormatFlags> {
     override infix fun or(other: PixbufFormatFlags): PixbufFormatFlags = PixbufFormatFlags(mask or other.mask)
 
     @GdkPixbufVersion2_2

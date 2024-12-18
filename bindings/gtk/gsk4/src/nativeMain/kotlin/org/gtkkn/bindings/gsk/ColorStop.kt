@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskColorStop
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A color stop in a gradient node.
@@ -23,7 +23,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `color`: Gdk.RGBA
  */
-public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ColorStop(
+    pointer: CPointer<GskColorStop>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskColorStopPointer: CPointer<GskColorStop> = pointer
 
     /**
@@ -31,7 +34,6 @@ public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null
      */
     public var offset: gfloat
         get() = gskColorStopPointer.pointed.offset
-
         @UnsafeFieldSetter
         set(`value`) {
             gskColorStopPointer.pointed.offset = value
@@ -43,11 +45,10 @@ public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskColorStop>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GskColorStop>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

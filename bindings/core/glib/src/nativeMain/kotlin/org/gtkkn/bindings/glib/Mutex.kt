@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -17,11 +22,6 @@ import org.gtkkn.native.glib.g_mutex_init
 import org.gtkkn.native.glib.g_mutex_lock
 import org.gtkkn.native.glib.g_mutex_trylock
 import org.gtkkn.native.glib.g_mutex_unlock
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GMutex struct is an opaque data structure to represent a mutex
@@ -73,7 +73,10 @@ import kotlin.native.ref.createCleaner
  *
  * - function `new`: Return type Mutex is unsupported
  */
-public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Mutex(
+    pointer: CPointer<GMutex>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibMutexPointer: CPointer<GMutex> = pointer
 
     /**
@@ -82,11 +85,10 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GMutex>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GMutex>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

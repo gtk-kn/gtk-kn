@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GParameter
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The GParameter struct is an auxiliary structure used
@@ -26,7 +26,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `value`: Value
  */
-public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Parameter(
+    pointer: CPointer<GParameter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectParameterPointer: CPointer<GParameter> = pointer
 
     /**
@@ -34,7 +37,6 @@ public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) 
      */
     public var name: String?
         get() = gobjectParameterPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectParameterPointer.pointed.name?.let { g_free(it) }
@@ -47,11 +49,10 @@ public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GParameter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GParameter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

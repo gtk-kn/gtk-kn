@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Short
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
@@ -90,11 +95,6 @@ import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gobject.guint8
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Short
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GVariant` is a variant datatype; it can contain one or more values
@@ -375,7 +375,9 @@ import kotlin.collections.List
  * @since 2.24
  */
 @GLibVersion2_24
-public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
+public class Variant(
+    pointer: CPointer<GVariant>,
+) : ProxyInstance(pointer) {
     public val glibVariantPointer: CPointer<GVariant> = pointer
 
     /**
@@ -402,8 +404,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun byteswap(): Variant = g_variant_byteswap(glibVariantPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Checks if calling g_variant_get() with @format_string on @value would
@@ -427,8 +428,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun checkFormatString(formatString: kotlin.String, copyOnly: Boolean): Boolean =
-        g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
+    public fun checkFormatString(formatString: kotlin.String, copyOnly: Boolean): Boolean = g_variant_check_format_string(glibVariantPointer.reinterpret(), formatString, copyOnly.asGBoolean()).asBoolean()
 
     /**
      * Classifies @value according to its top-level type.
@@ -438,8 +438,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun classify(): VariantClass = g_variant_classify(glibVariantPointer.reinterpret()).run {
-        VariantClass.fromNativeValue(this)
-    }
+        VariantClass.fromNativeValue(this)}
 
     /**
      * Returns the boolean value of @value.
@@ -495,10 +494,8 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getChildValue(index: gsize): Variant =
-        g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
-            Variant(reinterpret())
-        }
+    public fun getChildValue(index: gsize): Variant = g_variant_get_child_value(glibVariantPointer.reinterpret(), index)!!.run {
+        Variant(reinterpret())}
 
     /**
      * Returns a pointer to the serialized form of a #GVariant instance.
@@ -544,8 +541,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_36
     public fun getDataAsBytes(): Bytes = g_variant_get_data_as_bytes(glibVariantPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
-    }
+        Bytes(reinterpret())}
 
     /**
      * Returns the double precision floating point value of @value.
@@ -620,8 +616,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun getMaybe(): Variant? = g_variant_get_maybe(glibVariantPointer.reinterpret())?.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Gets a #GVariant instance that has the same value as @value and is
@@ -655,8 +650,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun getNormalForm(): Variant = g_variant_get_normal_form(glibVariantPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Determines the number of bytes that would be required to store @value
@@ -688,8 +682,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun getType(): VariantType = g_variant_get_type(glibVariantPointer.reinterpret())!!.run {
-        VariantType(reinterpret())
-    }
+        VariantType(reinterpret())}
 
     /**
      * Returns the type string of @value.  Unlike the result of calling
@@ -700,8 +693,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun getTypeString(): kotlin.String =
-        g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getTypeString(): kotlin.String = g_variant_get_type_string(glibVariantPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the 16-bit unsigned integer value of @value.
@@ -748,8 +740,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun getVariant(): Variant = g_variant_get_variant(glibVariantPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Generates a hash value for a #GVariant instance.
@@ -823,8 +814,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun isOfType(type: VariantType): Boolean =
-        g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer.reinterpret()).asBoolean()
+    public fun isOfType(type: VariantType): Boolean = g_variant_is_of_type(glibVariantPointer.reinterpret(), type.glibVariantTypePointer.reinterpret()).asBoolean()
 
     /**
      * Creates a heap-allocated #GVariantIter for iterating over the items
@@ -841,8 +831,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun iterNew(): VariantIter = g_variant_iter_new(glibVariantPointer.reinterpret())!!.run {
-        VariantIter(reinterpret())
-    }
+        VariantIter(reinterpret())}
 
     /**
      * Looks up a value in a dictionary #GVariant.
@@ -873,13 +862,8 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun lookupValue(key: kotlin.String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(
-        glibVariantPointer.reinterpret(),
-        key,
-        expectedType?.glibVariantTypePointer?.reinterpret()
-    )!!.run {
-        Variant(reinterpret())
-    }
+    public fun lookupValue(key: kotlin.String, expectedType: VariantType? = null): Variant = g_variant_lookup_value(glibVariantPointer.reinterpret(), key, expectedType?.glibVariantTypePointer?.reinterpret())!!.run {
+        Variant(reinterpret())}
 
     /**
      * Determines the number of children in a container #GVariant instance.
@@ -914,9 +898,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun print(typeAnnotate: Boolean): kotlin.String =
-        g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString()
-            ?: error("Expected not null string")
+    public fun print(typeAnnotate: Boolean): kotlin.String = g_variant_print(glibVariantPointer.reinterpret(), typeAnnotate.asGBoolean())?.toKString() ?: error("Expected not null string")
 
     /**
      * Behaves as g_variant_print(), but operates on a #GString.
@@ -931,13 +913,8 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun printString(string: String? = null, typeAnnotate: Boolean): String = g_variant_print_string(
-        glibVariantPointer.reinterpret(),
-        string?.glibStringPointer?.reinterpret(),
-        typeAnnotate.asGBoolean()
-    )!!.run {
-        String(reinterpret())
-    }
+    public fun printString(string: String? = null, typeAnnotate: Boolean): String = g_variant_print_string(glibVariantPointer.reinterpret(), string?.glibStringPointer?.reinterpret(), typeAnnotate.asGBoolean())!!.run {
+        String(reinterpret())}
 
     /**
      * Increases the reference count of @value.
@@ -947,8 +924,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun ref(): Variant = g_variant_ref(glibVariantPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * #GVariant uses a floating reference count system.  All functions with
@@ -979,8 +955,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_24
     public fun refSink(): Variant = g_variant_ref_sink(glibVariantPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Stores the serialized form of @value at @data.  @data should be
@@ -1039,8 +1014,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
      * @return the same @value
      */
     public fun takeRef(): Variant = g_variant_take_ref(glibVariantPointer.reinterpret())!!.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Decreases the reference count of @value.  When its reference count
@@ -1059,8 +1033,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a floating reference to a new boolean #GVariant instance
          * @since 2.24
          */
-        public fun newBoolean(`value`: Boolean): Variant =
-            Variant(g_variant_new_boolean(`value`.asGBoolean())!!.reinterpret())
+        public fun newBoolean(`value`: Boolean): Variant = Variant(g_variant_new_boolean(`value`.asGBoolean())!!.reinterpret())
 
         /**
          * Creates a new byte #GVariant instance.
@@ -1084,8 +1057,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          */
         public fun newBytestringArray(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
-                return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())
-            }
+                return Variant(g_variant_new_bytestring_array(strv.toCStringList(this), length)!!.reinterpret())}
         }
 
         /**
@@ -1100,12 +1072,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a floating reference to a new dictionary entry #GVariant
          * @since 2.24
          */
-        public fun newDictEntry(key: Variant, `value`: Variant): Variant = Variant(
-            g_variant_new_dict_entry(
-                key.glibVariantPointer.reinterpret(),
-                `value`.glibVariantPointer.reinterpret()
-            )!!.reinterpret()
-        )
+        public fun newDictEntry(key: Variant, `value`: Variant): Variant = Variant(g_variant_new_dict_entry(key.glibVariantPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a new double #GVariant instance.
@@ -1143,14 +1110,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
             elements: gpointer? = null,
             nElements: gsize,
             elementSize: gsize,
-        ): Variant = Variant(
-            g_variant_new_fixed_array(
-                elementType.glibVariantTypePointer.reinterpret(),
-                elements,
-                nElements,
-                elementSize
-            )!!.reinterpret()
-        )
+        ): Variant = Variant(g_variant_new_fixed_array(elementType.glibVariantTypePointer.reinterpret(), elements, nElements, elementSize)!!.reinterpret())
 
         /**
          * Constructs a new serialized-mode #GVariant instance.  This is the
@@ -1169,13 +1129,11 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a new #GVariant with a floating reference
          * @since 2.36
          */
-        public fun newFromBytes(type: VariantType, bytes: Bytes, trusted: Boolean): Variant = Variant(
-            g_variant_new_from_bytes(
-                type.glibVariantTypePointer.reinterpret(),
-                bytes.glibBytesPointer.reinterpret(),
-                trusted.asGBoolean()
-            )!!.reinterpret()
-        )
+        public fun newFromBytes(
+            type: VariantType,
+            bytes: Bytes,
+            trusted: Boolean,
+        ): Variant = Variant(g_variant_new_from_bytes(type.glibVariantTypePointer.reinterpret(), bytes.glibBytesPointer.reinterpret(), trusted.asGBoolean())!!.reinterpret())
 
         /**
          * Creates a new handle #GVariant instance.
@@ -1234,12 +1192,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a floating reference to a new #GVariant maybe instance
          * @since 2.24
          */
-        public fun newMaybe(childType: VariantType? = null, child: Variant? = null): Variant = Variant(
-            g_variant_new_maybe(
-                childType?.glibVariantTypePointer?.reinterpret(),
-                child?.glibVariantPointer?.reinterpret()
-            )!!.reinterpret()
-        )
+        public fun newMaybe(childType: VariantType? = null, child: Variant? = null): Variant = Variant(g_variant_new_maybe(childType?.glibVariantTypePointer?.reinterpret(), child?.glibVariantPointer?.reinterpret())!!.reinterpret())
 
         /**
          * Creates a D-Bus object path #GVariant with the contents of @object_path.
@@ -1250,8 +1203,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a floating reference to a new object path #GVariant instance
          * @since 2.24
          */
-        public fun newObjectPath(objectPath: kotlin.String): Variant =
-            Variant(g_variant_new_object_path(objectPath)!!.reinterpret())
+        public fun newObjectPath(objectPath: kotlin.String): Variant = Variant(g_variant_new_object_path(objectPath)!!.reinterpret())
 
         /**
          * Constructs an array of object paths #GVariant from the given array of
@@ -1269,8 +1221,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          */
         public fun newObjv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
-                return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())
-            }
+                return Variant(g_variant_new_objv(strv.toCStringList(this), length)!!.reinterpret())}
         }
 
         /**
@@ -1282,8 +1233,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a floating reference to a new signature #GVariant instance
          * @since 2.24
          */
-        public fun newSignature(signature: kotlin.String): Variant =
-            Variant(g_variant_new_signature(signature)!!.reinterpret())
+        public fun newSignature(signature: kotlin.String): Variant = Variant(g_variant_new_signature(signature)!!.reinterpret())
 
         /**
          * Creates a string #GVariant with the contents of @string.
@@ -1311,8 +1261,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          */
         public fun newStrv(strv: List<kotlin.String>, length: Long): Variant {
             memScoped {
-                return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())
-            }
+                return Variant(g_variant_new_strv(strv.toCStringList(this), length)!!.reinterpret())}
         }
 
         /**
@@ -1334,8 +1283,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          *   #GVariant instance
          * @since 2.38
          */
-        public fun newTakeString(string: kotlin.String): Variant =
-            Variant(g_variant_new_take_string(string.cstr)!!.reinterpret())
+        public fun newTakeString(string: kotlin.String): Variant = Variant(g_variant_new_take_string(string.cstr)!!.reinterpret())
 
         /**
          * Creates a new uint16 #GVariant instance.
@@ -1375,8 +1323,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @return a floating reference to a new variant #GVariant instance
          * @since 2.24
          */
-        public fun newVariant(`value`: Variant): Variant =
-            Variant(g_variant_new_variant(`value`.glibVariantPointer.reinterpret())!!.reinterpret())
+        public fun newVariant(`value`: Variant): Variant = Variant(g_variant_new_variant(`value`.glibVariantPointer.reinterpret())!!.reinterpret())
 
         /**
          * Determines if a given string is a valid D-Bus object path.  You
@@ -1447,9 +1394,7 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
          * @since 2.40
          */
         @GLibVersion2_40
-        public fun parseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String =
-            g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString()
-                ?: error("Expected not null string")
+        public fun parseErrorPrintContext(error: Error, sourceStr: kotlin.String): kotlin.String = g_variant_parse_error_print_context(error.glibErrorPointer.reinterpret(), sourceStr)?.toKString() ?: error("Expected not null string")
 
         public fun parseErrorQuark(): Quark = g_variant_parse_error_quark()
 

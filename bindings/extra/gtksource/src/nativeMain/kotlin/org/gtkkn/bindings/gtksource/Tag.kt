@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.TextTag
@@ -11,7 +12,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceTag
 import org.gtkkn.native.gtksource.gtk_source_tag_get_type
 import org.gtkkn.native.gtksource.gtk_source_tag_new
-import kotlin.String
 
 /**
  * A tag that can be applied to text in a [class@Buffer].
@@ -27,8 +27,9 @@ import kotlin.String
  * - method `draw-spaces`: Property has no getter nor setter
  * - method `draw-spaces-set`: Property has no getter nor setter
  */
-public open class Tag(pointer: CPointer<GtkSourceTag>) :
-    TextTag(pointer.reinterpret()),
+public open class Tag(
+    pointer: CPointer<GtkSourceTag>,
+) : TextTag(pointer.reinterpret()),
     KGTyped {
     public val gtksourceTagPointer: CPointer<GtkSourceTag>
         get() = gPointer.reinterpret()
@@ -48,11 +49,10 @@ public open class Tag(pointer: CPointer<GtkSourceTag>) :
 
     public companion object : TypeCompanion<Tag> {
         override val type: GeneratedClassKGType<Tag> =
-            GeneratedClassKGType(gtk_source_tag_get_type()) { Tag(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_tag_get_type()) { Tag(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Get the GType of Tag

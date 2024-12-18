@@ -17,8 +17,9 @@ import org.gtkkn.native.gsk.gsk_opacity_node_new
 /**
  * A render node controlling the opacity of its single child node.
  */
-public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class OpacityNode(
+    pointer: CPointer<GskOpacityNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskOpacityNodePointer: CPointer<GskOpacityNode>
         get() = gPointer.reinterpret()
@@ -31,10 +32,7 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
      * @param opacity The opacity to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        opacity: gfloat,
-    ) : this(gsk_opacity_node_new(child.gPointer.reinterpret(), opacity)!!.reinterpret())
+    public constructor(child: RenderNode, opacity: gfloat) : this(gsk_opacity_node_new(child.gPointer.reinterpret(), opacity)!!.reinterpret())
 
     /**
      * Gets the child node that is getting opacityed by the given @node.
@@ -42,8 +40,7 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
      * @return The child that is getting opacityed
      */
     public open fun getChild(): RenderNode = gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Gets the transparency factor for an opacity node.
@@ -54,11 +51,10 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
 
     public companion object : TypeCompanion<OpacityNode> {
         override val type: GeneratedClassKGType<OpacityNode> =
-            GeneratedClassKGType(gsk_opacity_node_get_type()) { OpacityNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_opacity_node_get_type()) { OpacityNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of OpacityNode

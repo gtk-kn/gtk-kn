@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GStaticMutex
 import org.gtkkn.native.glib.g_static_mutex_free
 import org.gtkkn.native.glib.g_static_mutex_init
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GStaticMutex works like a #GMutex.
@@ -69,7 +69,10 @@ import kotlin.native.ref.createCleaner
  * - method `get_mutex_impl`: Return type Mutex is unsupported
  * - field `mutex`: Mutex
  */
-public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class StaticMutex(
+    pointer: CPointer<GStaticMutex>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibStaticMutexPointer: CPointer<GStaticMutex> = pointer
 
     /**
@@ -78,11 +81,10 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticMutex>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GStaticMutex>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

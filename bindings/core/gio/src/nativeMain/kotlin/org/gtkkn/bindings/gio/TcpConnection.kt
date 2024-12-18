@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
@@ -14,7 +15,6 @@ import org.gtkkn.native.gio.g_tcp_connection_get_graceful_disconnect
 import org.gtkkn.native.gio.g_tcp_connection_get_type
 import org.gtkkn.native.gio.g_tcp_connection_set_graceful_disconnect
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * This is the subclass of [class@Gio.SocketConnection] that is created
@@ -22,8 +22,9 @@ import kotlin.Boolean
  * @since 2.22
  */
 @GioVersion2_22
-public open class TcpConnection(pointer: CPointer<GTcpConnection>) :
-    SocketConnection(pointer.reinterpret()),
+public open class TcpConnection(
+    pointer: CPointer<GTcpConnection>,
+) : SocketConnection(pointer.reinterpret()),
     KGTyped {
     public val gioTcpConnectionPointer: CPointer<GTcpConnection>
         get() = gPointer.reinterpret()
@@ -43,7 +44,6 @@ public open class TcpConnection(pointer: CPointer<GTcpConnection>) :
          * @since 2.22
          */
         get() = g_tcp_connection_get_graceful_disconnect(gioTcpConnectionPointer.reinterpret()).asBoolean()
-
         /**
          * This enables graceful disconnects on close. A graceful disconnect
          * means that we signal the receiving end that the connection is terminated
@@ -59,20 +59,14 @@ public open class TcpConnection(pointer: CPointer<GTcpConnection>) :
          * @since 2.22
          */
         @GioVersion2_22
-        set(
-            gracefulDisconnect
-        ) = g_tcp_connection_set_graceful_disconnect(
-            gioTcpConnectionPointer.reinterpret(),
-            gracefulDisconnect.asGBoolean()
-        )
+        set(gracefulDisconnect) = g_tcp_connection_set_graceful_disconnect(gioTcpConnectionPointer.reinterpret(), gracefulDisconnect.asGBoolean())
 
     public companion object : TypeCompanion<TcpConnection> {
         override val type: GeneratedClassKGType<TcpConnection> =
-            GeneratedClassKGType(g_tcp_connection_get_type()) { TcpConnection(it.reinterpret()) }
+                GeneratedClassKGType(g_tcp_connection_get_type()) { TcpConnection(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of TcpConnection

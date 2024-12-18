@@ -16,19 +16,19 @@ import org.gtkkn.native.gobject.GType
  *
  * The subclass of `GdkSnapshot` used by GTK is [GtkSnapshot](../gtk4/class.Snapshot.html).
  */
-public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
-    Object(pointer.reinterpret()),
+public open class Snapshot(
+    pointer: CPointer<GdkSnapshot>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gdkSnapshotPointer: CPointer<GdkSnapshot>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<Snapshot> {
         override val type: GeneratedClassKGType<Snapshot> =
-            GeneratedClassKGType(gdk_snapshot_get_type()) { Snapshot(it.reinterpret()) }
+                GeneratedClassKGType(gdk_snapshot_get_type()) { Snapshot(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of Snapshot

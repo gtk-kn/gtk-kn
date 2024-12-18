@@ -11,17 +11,17 @@ import org.gtkkn.native.webkit.webkit_download_error_quark
 /**
  * Enum values used to denote the various download errors.
  */
-public enum class DownloadError(public val nativeValue: WebKitDownloadError) {
+public enum class DownloadError(
+    public val nativeValue: WebKitDownloadError,
+) {
     /**
      * Download failure due to network error
      */
     NETWORK(WebKitDownloadError.WEBKIT_DOWNLOAD_ERROR_NETWORK),
-
     /**
      * Download was cancelled by user
      */
     CANCELLED_BY_USER(WebKitDownloadError.WEBKIT_DOWNLOAD_ERROR_CANCELLED_BY_USER),
-
     /**
      * Download failure due to destination error
      */

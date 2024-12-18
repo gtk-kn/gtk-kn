@@ -9,53 +9,47 @@ import org.gtkkn.native.gtk.gtk_print_status_get_type
  * The status gives a rough indication of the completion of a running
  * print operation.
  */
-public enum class PrintStatus(public val nativeValue: GtkPrintStatus) {
+public enum class PrintStatus(
+    public val nativeValue: GtkPrintStatus,
+) {
     /**
      * The printing has not started yet; this
      *   status is set initially, and while the print dialog is shown.
      */
     INITIAL(GtkPrintStatus.GTK_PRINT_STATUS_INITIAL),
-
     /**
      * This status is set while the begin-print
      *   signal is emitted and during pagination.
      */
     PREPARING(GtkPrintStatus.GTK_PRINT_STATUS_PREPARING),
-
     /**
      * This status is set while the
      *   pages are being rendered.
      */
     GENERATING_DATA(GtkPrintStatus.GTK_PRINT_STATUS_GENERATING_DATA),
-
     /**
      * The print job is being sent off to the
      *   printer.
      */
     SENDING_DATA(GtkPrintStatus.GTK_PRINT_STATUS_SENDING_DATA),
-
     /**
      * The print job has been sent to the printer,
      *   but is not printed for some reason, e.g. the printer may be stopped.
      */
     PENDING(GtkPrintStatus.GTK_PRINT_STATUS_PENDING),
-
     /**
      * Some problem has occurred during
      *   printing, e.g. a paper jam.
      */
     PENDING_ISSUE(GtkPrintStatus.GTK_PRINT_STATUS_PENDING_ISSUE),
-
     /**
      * The printer is processing the print job.
      */
     PRINTING(GtkPrintStatus.GTK_PRINT_STATUS_PRINTING),
-
     /**
      * The printing has been completed successfully.
      */
     FINISHED(GtkPrintStatus.GTK_PRINT_STATUS_FINISHED),
-
     /**
      * The printing has been aborted.
      */

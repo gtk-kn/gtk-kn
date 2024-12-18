@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -50,9 +53,6 @@ import org.gtkkn.native.gtk.gtk_range_set_round_digits
 import org.gtkkn.native.gtk.gtk_range_set_show_fill_level
 import org.gtkkn.native.gtk.gtk_range_set_slider_size_fixed
 import org.gtkkn.native.gtk.gtk_range_set_value
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkRange` is the common base class for widgets which visualize an
@@ -69,8 +69,9 @@ import kotlin.Unit
  *
  * - parameter `slider_start`: slider_start: Out parameter is not supported
  */
-public open class Range(pointer: CPointer<GtkRange>) :
-    Widget(pointer.reinterpret()),
+public open class Range(
+    pointer: CPointer<GtkRange>,
+) : Widget(pointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
@@ -102,9 +103,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
          * @return a `GtkAdjustment`
          */
         get() = gtk_range_get_adjustment(gtkRangePointer.reinterpret())!!.run {
-            Adjustment(reinterpret())
-        }
-
+            Adjustment(reinterpret())}
         /**
          * Sets the adjustment to be used as the “model” object for the `GtkRange`
          *
@@ -118,9 +117,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
          *
          * @param adjustment a `GtkAdjustment`
          */
-        set(
-            adjustment
-        ) = gtk_range_set_adjustment(gtkRangePointer.reinterpret(), adjustment.gtkAdjustmentPointer.reinterpret())
+        set(adjustment) = gtk_range_set_adjustment(gtkRangePointer.reinterpret(), adjustment.gtkAdjustmentPointer.reinterpret())
 
     /**
      * The fill level (e.g. prebuffering of a network stream).
@@ -132,7 +129,6 @@ public open class Range(pointer: CPointer<GtkRange>) :
          * @return The current fill level
          */
         get() = gtk_range_get_fill_level(gtkRangePointer.reinterpret())
-
         /**
          * Set the new position of the fill level indicator.
          *
@@ -168,7 +164,6 @@ public open class Range(pointer: CPointer<GtkRange>) :
          * @return true if the range is inverted
          */
         get() = gtk_range_get_inverted(gtkRangePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to invert the range.
          *
@@ -192,7 +187,6 @@ public open class Range(pointer: CPointer<GtkRange>) :
          * @return true if @range is restricted to the fill level.
          */
         get() = gtk_range_get_restrict_to_fill_level(gtkRangePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the slider is restricted to the fill level.
          *
@@ -201,9 +195,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
          *
          * @param restrictToFillLevel Whether the fill level restricts slider movement.
          */
-        set(
-            restrictToFillLevel
-        ) = gtk_range_set_restrict_to_fill_level(gtkRangePointer.reinterpret(), restrictToFillLevel.asGBoolean())
+        set(restrictToFillLevel) = gtk_range_set_restrict_to_fill_level(gtkRangePointer.reinterpret(), restrictToFillLevel.asGBoolean())
 
     /**
      * The number of digits to round the value to when
@@ -221,7 +213,6 @@ public open class Range(pointer: CPointer<GtkRange>) :
          * @return the number of digits to round to
          */
         get() = gtk_range_get_round_digits(gtkRangePointer.reinterpret())
-
         /**
          * Sets the number of digits to round the value to when
          * it changes.
@@ -243,7 +234,6 @@ public open class Range(pointer: CPointer<GtkRange>) :
          * @return true if @range shows the fill level.
          */
         get() = gtk_range_get_show_fill_level(gtkRangePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether a graphical fill level is show on the trough.
          *
@@ -271,8 +261,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      *
      * @param rangeRect return location for the range rectangle
      */
-    public open fun getRangeRect(rangeRect: Rectangle): Unit =
-        gtk_range_get_range_rect(gtkRangePointer.reinterpret(), rangeRect.gdkRectanglePointer.reinterpret())
+    public open fun getRangeRect(rangeRect: Rectangle): Unit = gtk_range_get_range_rect(gtkRangePointer.reinterpret(), rangeRect.gdkRectanglePointer.reinterpret())
 
     /**
      * This function is useful mainly for `GtkRange` subclasses.
@@ -281,8 +270,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      *
      * @return whether the range’s slider has a fixed size.
      */
-    public open fun getSliderSizeFixed(): Boolean =
-        gtk_range_get_slider_size_fixed(gtkRangePointer.reinterpret()).asBoolean()
+    public open fun getSliderSizeFixed(): Boolean = gtk_range_get_slider_size_fixed(gtkRangePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the current value of the range.
@@ -301,8 +289,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      *
      * @param flippable true to make the range flippable
      */
-    public open fun setFlippable(flippable: Boolean): Unit =
-        gtk_range_set_flippable(gtkRangePointer.reinterpret(), flippable.asGBoolean())
+    public open fun setFlippable(flippable: Boolean): Unit = gtk_range_set_flippable(gtkRangePointer.reinterpret(), flippable.asGBoolean())
 
     /**
      * Sets the step and page sizes for the range.
@@ -314,8 +301,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param step step size
      * @param page page size
      */
-    public open fun setIncrements(step: gdouble, page: gdouble): Unit =
-        gtk_range_set_increments(gtkRangePointer.reinterpret(), step, page)
+    public open fun setIncrements(step: gdouble, page: gdouble): Unit = gtk_range_set_increments(gtkRangePointer.reinterpret(), step, page)
 
     /**
      * Sets the allowable values in the `GtkRange`.
@@ -327,8 +313,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param min minimum range value
      * @param max maximum range value
      */
-    public open fun setRange(min: gdouble, max: gdouble): Unit =
-        gtk_range_set_range(gtkRangePointer.reinterpret(), min, max)
+    public open fun setRange(min: gdouble, max: gdouble): Unit = gtk_range_set_range(gtkRangePointer.reinterpret(), min, max)
 
     /**
      * Sets whether the range’s slider has a fixed size, or a size that
@@ -338,8 +323,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      *
      * @param sizeFixed true to make the slider size constant
      */
-    public open fun setSliderSizeFixed(sizeFixed: Boolean): Unit =
-        gtk_range_set_slider_size_fixed(gtkRangePointer.reinterpret(), sizeFixed.asGBoolean())
+    public open fun setSliderSizeFixed(sizeFixed: Boolean): Unit = gtk_range_set_slider_size_fixed(gtkRangePointer.reinterpret(), sizeFixed.asGBoolean())
 
     /**
      * Sets the current value of the range.
@@ -359,17 +343,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `value` the value before we clamp
      */
-    public fun connectAdjustBounds(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`value`: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "adjust-bounds",
-        connectAdjustBoundsFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectAdjustBounds(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`value`: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "adjust-bounds", connectAdjustBoundsFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a scroll action is performed on a range.
@@ -389,17 +363,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param handler the Callback to connect. Params: `scroll` the type of scroll action that was performed; `value` the new value resulting from the scroll action. Returns true to prevent other handlers from being invoked for
      *     the signal, false to propagate the signal further
      */
-    public fun connectChangeValue(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (scroll: ScrollType, `value`: gdouble) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "change-value",
-        connectChangeValueFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectChangeValue(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (scroll: ScrollType, `value`: gdouble) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "change-value", connectChangeValueFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Virtual function that moves the slider.
@@ -409,17 +373,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `step` how to move the slider
      */
-    public fun connectMoveSlider(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (step: ScrollType) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "move-slider",
-        connectMoveSliderFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectMoveSlider(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (step: ScrollType) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "move-slider", connectMoveSliderFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the range value changes.
@@ -427,23 +381,14 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "value-changed",
-            connectValueChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "value-changed", connectValueChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Range> {
         override val type: GeneratedClassKGType<Range> =
-            GeneratedClassKGType(gtk_range_get_type()) { Range(it.reinterpret()) }
+                GeneratedClassKGType(gtk_range_get_type()) { Range(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Range
@@ -455,47 +400,38 @@ public open class Range(pointer: CPointer<GtkRange>) :
 }
 
 private val connectAdjustBoundsFunc: CPointer<CFunction<(gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        `value`: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    `value`: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)
-}
-    .reinterpret()
+    userData.asStableRef<(`value`: gdouble) -> Unit>().get().invoke(`value`)}
+.reinterpret()
 
 private val connectChangeValueFunc: CPointer<CFunction<(GtkScrollType, gdouble) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            scroll: GtkScrollType,
-            `value`: gdouble,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(scroll: ScrollType, `value`: gdouble) -> Boolean>().get().invoke(
-            scroll.run {
-                ScrollType.fromNativeValue(this)
-            },
-            `value`
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    scroll: GtkScrollType,
+    `value`: gdouble,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(scroll: ScrollType, `value`: gdouble) -> Boolean>().get().invoke(scroll.run {
+        ScrollType.fromNativeValue(this)}
+    , `value`).asGBoolean()}
+.reinterpret()
 
 private val connectMoveSliderFunc: CPointer<CFunction<(GtkScrollType) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        step: GtkScrollType,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    step: GtkScrollType,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(step: ScrollType) -> Unit>().get().invoke(
-        step.run {
-            ScrollType.fromNativeValue(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(step: ScrollType) -> Unit>().get().invoke(step.run {
+        ScrollType.fromNativeValue(this)}
+    )}
+.reinterpret()
 
 private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

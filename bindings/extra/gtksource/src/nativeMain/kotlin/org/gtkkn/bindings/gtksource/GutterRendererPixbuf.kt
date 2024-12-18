@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -26,8 +28,6 @@ import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_gicon
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_icon_name
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_paintable
 import org.gtkkn.native.gtksource.gtk_source_gutter_renderer_pixbuf_set_pixbuf
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Renders a pixbuf in the gutter.
@@ -41,8 +41,9 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `pixbuf`: Property TypeInfo of getter and setter do not match
  */
-public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRendererPixbuf>) :
-    GutterRenderer(pointer.reinterpret()),
+public open class GutterRendererPixbuf(
+    pointer: CPointer<GtkSourceGutterRendererPixbuf>,
+) : GutterRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtksourceGutterRendererPixbufPointer: CPointer<GtkSourceGutterRendererPixbuf>
         get() = gPointer.reinterpret()
@@ -63,23 +64,14 @@ public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRenderer
          *
          * @return a #GdkPaintable or null
          */
-        get() = gtk_source_gutter_renderer_pixbuf_get_paintable(
-            gtksourceGutterRendererPixbufPointer.reinterpret()
-        )?.run {
-            Paintable.wrap(reinterpret())
-        }
-
+        get() = gtk_source_gutter_renderer_pixbuf_get_paintable(gtksourceGutterRendererPixbufPointer.reinterpret())?.run {
+            Paintable.wrap(reinterpret())}
         /**
          *
          *
          * @param paintable the paintable, or null.
          */
-        set(
-            paintable
-        ) = gtk_source_gutter_renderer_pixbuf_set_paintable(
-            gtksourceGutterRendererPixbufPointer.reinterpret(),
-            paintable?.gdkPaintablePointer
-        )
+        set(paintable) = gtk_source_gutter_renderer_pixbuf_set_paintable(gtksourceGutterRendererPixbufPointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * Create a new #GtkSourceGutterRendererPixbuf.
@@ -93,24 +85,18 @@ public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRenderer
      *
      * @return a #GIcon
      */
-    public open fun getGicon(): Icon =
-        gtk_source_gutter_renderer_pixbuf_get_gicon(gtksourceGutterRendererPixbufPointer.reinterpret())!!.run {
-            Icon.wrap(reinterpret())
-        }
+    public open fun getGicon(): Icon = gtk_source_gutter_renderer_pixbuf_get_gicon(gtksourceGutterRendererPixbufPointer.reinterpret())!!.run {
+        Icon.wrap(reinterpret())}
 
-    public open fun getIconName(): String =
-        gtk_source_gutter_renderer_pixbuf_get_icon_name(gtksourceGutterRendererPixbufPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getIconName(): String = gtk_source_gutter_renderer_pixbuf_get_icon_name(gtksourceGutterRendererPixbufPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the pixbuf of the renderer.
      *
      * @return a #GdkPixbuf
      */
-    public open fun getPixbuf(): Pixbuf =
-        gtk_source_gutter_renderer_pixbuf_get_pixbuf(gtksourceGutterRendererPixbufPointer.reinterpret())!!.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun getPixbuf(): Pixbuf = gtk_source_gutter_renderer_pixbuf_get_pixbuf(gtksourceGutterRendererPixbufPointer.reinterpret())!!.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Allows overlaying a paintable on top of any other image that
@@ -119,48 +105,35 @@ public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRenderer
      *
      * @param paintable a #GdkPaintable
      */
-    public open fun overlayPaintable(paintable: Paintable): Unit = gtk_source_gutter_renderer_pixbuf_overlay_paintable(
-        gtksourceGutterRendererPixbufPointer.reinterpret(),
-        paintable.gdkPaintablePointer
-    )
+    public open fun overlayPaintable(paintable: Paintable): Unit = gtk_source_gutter_renderer_pixbuf_overlay_paintable(gtksourceGutterRendererPixbufPointer.reinterpret(), paintable.gdkPaintablePointer)
 
     /**
      *
      *
      * @param icon the icon, or null.
      */
-    public open fun setGicon(icon: Icon? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_gicon(
-        gtksourceGutterRendererPixbufPointer.reinterpret(),
-        icon?.gioIconPointer
-    )
+    public open fun setGicon(icon: Icon? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_gicon(gtksourceGutterRendererPixbufPointer.reinterpret(), icon?.gioIconPointer)
 
     /**
      *
      *
      * @param iconName the icon name, or null.
      */
-    public open fun setIconName(iconName: String? = null): Unit =
-        gtk_source_gutter_renderer_pixbuf_set_icon_name(gtksourceGutterRendererPixbufPointer.reinterpret(), iconName)
+    public open fun setIconName(iconName: String? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_icon_name(gtksourceGutterRendererPixbufPointer.reinterpret(), iconName)
 
     /**
      *
      *
      * @param pixbuf the pixbuf, or null.
      */
-    public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_pixbuf(
-        gtksourceGutterRendererPixbufPointer.reinterpret(),
-        pixbuf?.gdkpixbufPixbufPointer?.reinterpret()
-    )
+    public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_pixbuf(gtksourceGutterRendererPixbufPointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
 
     public companion object : TypeCompanion<GutterRendererPixbuf> {
         override val type: GeneratedClassKGType<GutterRendererPixbuf> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_pixbuf_get_type()) {
-                GutterRendererPixbuf(it.reinterpret())
-            }
+                GeneratedClassKGType(gtk_source_gutter_renderer_pixbuf_get_type()) { GutterRendererPixbuf(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Get the GType of GutterRendererPixbuf

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputVector
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gsize
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data input.
@@ -26,7 +26,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.22
  */
 @GioVersion2_22
-public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class InputVector(
+    pointer: CPointer<GInputVector>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioInputVectorPointer: CPointer<GInputVector> = pointer
 
     /**
@@ -34,7 +37,6 @@ public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = nu
      */
     public var buffer: gpointer
         get() = gioInputVectorPointer.pointed.buffer!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gioInputVectorPointer.pointed.buffer = value
@@ -45,7 +47,6 @@ public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = nu
      */
     public var size: gsize
         get() = gioInputVectorPointer.pointed.size
-
         @UnsafeFieldSetter
         set(`value`) {
             gioInputVectorPointer.pointed.size = value
@@ -57,11 +58,10 @@ public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GInputVector>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GInputVector>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

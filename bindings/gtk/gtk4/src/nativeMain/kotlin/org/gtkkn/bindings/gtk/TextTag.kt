@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -16,9 +19,6 @@ import org.gtkkn.native.gtk.gtk_text_tag_get_priority
 import org.gtkkn.native.gtk.gtk_text_tag_get_type
 import org.gtkkn.native.gtk.gtk_text_tag_new
 import org.gtkkn.native.gtk.gtk_text_tag_set_priority
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A tag that can be applied to text contained in a `GtkTextBuffer`.
@@ -132,8 +132,9 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-mode-set`: Property has no getter nor setter
  */
-public open class TextTag(pointer: CPointer<GtkTextTag>) :
-    Object(pointer.reinterpret()),
+public open class TextTag(
+    pointer: CPointer<GtkTextTag>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTextTagPointer: CPointer<GtkTextTag>
         get() = gPointer.reinterpret()
@@ -155,8 +156,7 @@ public open class TextTag(pointer: CPointer<GtkTextTag>) :
      *
      * @param sizeChanged whether the change affects the `GtkTextView` layout
      */
-    public open fun changed(sizeChanged: Boolean): Unit =
-        gtk_text_tag_changed(gtkTextTagPointer.reinterpret(), sizeChanged.asGBoolean())
+    public open fun changed(sizeChanged: Boolean): Unit = gtk_text_tag_changed(gtkTextTagPointer.reinterpret(), sizeChanged.asGBoolean())
 
     /**
      * Get the tag priority.
@@ -183,16 +183,14 @@ public open class TextTag(pointer: CPointer<GtkTextTag>) :
      *
      * @param priority the new priority
      */
-    public open fun setPriority(priority: gint): Unit =
-        gtk_text_tag_set_priority(gtkTextTagPointer.reinterpret(), priority)
+    public open fun setPriority(priority: gint): Unit = gtk_text_tag_set_priority(gtkTextTagPointer.reinterpret(), priority)
 
     public companion object : TypeCompanion<TextTag> {
         override val type: GeneratedClassKGType<TextTag> =
-            GeneratedClassKGType(gtk_text_tag_get_type()) { TextTag(it.reinterpret()) }
+                GeneratedClassKGType(gtk_text_tag_get_type()) { TextTag(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TextTag

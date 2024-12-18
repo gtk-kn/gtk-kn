@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -14,14 +15,15 @@ import org.gtkkn.native.glib.g_mem_chunk_info
 import org.gtkkn.native.glib.g_mem_chunk_print
 import org.gtkkn.native.glib.g_mem_chunk_reset
 import org.gtkkn.native.glib.gpointer
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
  *
  * - function `new`: Return type MemChunk is unsupported
  */
-public class MemChunk(pointer: CPointer<GMemChunk>) : ProxyInstance(pointer) {
+public class MemChunk(
+    pointer: CPointer<GMemChunk>,
+) : ProxyInstance(pointer) {
     public val glibMemChunkPointer: CPointer<GMemChunk> = pointer
 
     public fun alloc(): gpointer? = g_mem_chunk_alloc(glibMemChunkPointer.reinterpret())

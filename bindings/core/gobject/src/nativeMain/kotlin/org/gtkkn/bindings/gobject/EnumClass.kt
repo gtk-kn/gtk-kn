@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GEnumClass
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class of an enumeration type holds information about its
@@ -26,7 +26,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: TypeClass
  */
-public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class EnumClass(
+    pointer: CPointer<GEnumClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectEnumClassPointer: CPointer<GEnumClass> = pointer
 
     /**
@@ -34,7 +37,6 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      */
     public var minimum: gint
         get() = gobjectEnumClassPointer.pointed.minimum
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.minimum = value
@@ -45,7 +47,6 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      */
     public var maximum: gint
         get() = gobjectEnumClassPointer.pointed.maximum
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.maximum = value
@@ -56,7 +57,6 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      */
     public var nValues: guint
         get() = gobjectEnumClassPointer.pointed.n_values
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.n_values = value
@@ -68,9 +68,7 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      */
     public var values: EnumValue?
         get() = gobjectEnumClassPointer.pointed.values?.run {
-            EnumValue(reinterpret())
-        }
-
+            EnumValue(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumClassPointer.pointed.values = value?.gobjectEnumValuePointer
@@ -82,11 +80,10 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GEnumClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GEnumClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

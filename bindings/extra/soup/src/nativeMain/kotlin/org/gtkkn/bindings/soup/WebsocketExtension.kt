@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -23,9 +26,6 @@ import org.gtkkn.native.soup.soup_websocket_extension_configure
 import org.gtkkn.native.soup.soup_websocket_extension_get_request_params
 import org.gtkkn.native.soup.soup_websocket_extension_get_response_params
 import org.gtkkn.native.soup.soup_websocket_extension_get_type
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
 
 /**
  * A WebSocket extension
@@ -37,8 +37,9 @@ import kotlin.String
  * - method `process_incoming_message`: In/Out parameter is not supported
  * - method `process_outgoing_message`: In/Out parameter is not supported
  */
-public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) :
-    Object(pointer.reinterpret()),
+public open class WebsocketExtension(
+    pointer: CPointer<SoupWebsocketExtension>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val soupWebsocketExtensionPointer: CPointer<SoupWebsocketExtension>
         get() = gPointer.reinterpret()
@@ -50,21 +51,16 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
      * @param params the parameters
      * @return true if extension could be configured with the given parameters, or false otherwise
      */
-    public open fun configure(connectionType: WebsocketConnectionType, params: HashTable? = null): Result<Boolean> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = soup_websocket_extension_configure(
-                soupWebsocketExtensionPointer.reinterpret(),
-                connectionType.nativeValue,
-                params?.glibHashTablePointer?.reinterpret(),
-                gError.ptr
-            ).asBoolean()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(gResult)
-            }
+    public open fun configure(connectionType: WebsocketConnectionType, params: HashTable? = null): Result<Boolean> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = soup_websocket_extension_configure(soupWebsocketExtensionPointer.reinterpret(), connectionType.nativeValue, params?.glibHashTablePointer?.reinterpret(), gError.ptr).asBoolean()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         }
+        else {
+            Result.success(gResult)
+        }
+    }
 
     /**
      * Get the parameters strings to be included in the request header.
@@ -74,8 +70,7 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
      *
      * @return a new allocated string with the parameters
      */
-    public open fun getRequestParams(): String? =
-        soup_websocket_extension_get_request_params(soupWebsocketExtensionPointer.reinterpret())?.toKString()
+    public open fun getRequestParams(): String? = soup_websocket_extension_get_request_params(soupWebsocketExtensionPointer.reinterpret())?.toKString()
 
     /**
      * Get the parameters strings to be included in the response header.
@@ -85,16 +80,14 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
      *
      * @return a new allocated string with the parameters
      */
-    public open fun getResponseParams(): String? =
-        soup_websocket_extension_get_response_params(soupWebsocketExtensionPointer.reinterpret())?.toKString()
+    public open fun getResponseParams(): String? = soup_websocket_extension_get_response_params(soupWebsocketExtensionPointer.reinterpret())?.toKString()
 
     public companion object : TypeCompanion<WebsocketExtension> {
         override val type: GeneratedClassKGType<WebsocketExtension> =
-            GeneratedClassKGType(soup_websocket_extension_get_type()) { WebsocketExtension(it.reinterpret()) }
+                GeneratedClassKGType(soup_websocket_extension_get_type()) { WebsocketExtension(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of WebsocketExtension

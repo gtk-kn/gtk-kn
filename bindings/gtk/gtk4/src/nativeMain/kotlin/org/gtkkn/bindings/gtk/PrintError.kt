@@ -12,22 +12,21 @@ import org.gtkkn.native.gtk.gtk_print_error_quark
  * Error codes that identify various errors that can occur while
  * using the GTK printing support.
  */
-public enum class PrintError(public val nativeValue: GtkPrintError) {
+public enum class PrintError(
+    public val nativeValue: GtkPrintError,
+) {
     /**
      * An unspecified error occurred.
      */
     GENERAL(GtkPrintError.GTK_PRINT_ERROR_GENERAL),
-
     /**
      * An internal error occurred.
      */
     INTERNAL_ERROR(GtkPrintError.GTK_PRINT_ERROR_INTERNAL_ERROR),
-
     /**
      * A memory allocation failed.
      */
     NOMEM(GtkPrintError.GTK_PRINT_ERROR_NOMEM),
-
     /**
      * An error occurred while loading a page setup
      *   or paper size from a key file.

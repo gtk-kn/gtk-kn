@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -13,7 +14,6 @@ import org.gtkkn.native.gtksource.GtkSourceStyle
 import org.gtkkn.native.gtksource.gtk_source_style_apply
 import org.gtkkn.native.gtksource.gtk_source_style_copy
 import org.gtkkn.native.gtksource.gtk_source_style_get_type
-import kotlin.Unit
 
 /**
  * Represents a style.
@@ -44,8 +44,9 @@ import kotlin.Unit
  * - method `weight`: Property has no getter nor setter
  * - method `weight-set`: Property has no getter nor setter
  */
-public open class Style(pointer: CPointer<GtkSourceStyle>) :
-    Object(pointer.reinterpret()),
+public open class Style(
+    pointer: CPointer<GtkSourceStyle>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceStylePointer: CPointer<GtkSourceStyle>
         get() = gPointer.reinterpret()
@@ -61,8 +62,7 @@ public open class Style(pointer: CPointer<GtkSourceStyle>) :
      *
      * @param tag a #GtkTextTag to apply styles to.
      */
-    public open fun apply(tag: TextTag): Unit =
-        gtk_source_style_apply(gtksourceStylePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
+    public open fun apply(tag: TextTag): Unit = gtk_source_style_apply(gtksourceStylePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
 
     /**
      * Creates a copy of @style, that is a new #GtkSourceStyle instance which
@@ -72,16 +72,14 @@ public open class Style(pointer: CPointer<GtkSourceStyle>) :
      * when you are done with it.
      */
     public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer.reinterpret())!!.run {
-        Style(reinterpret())
-    }
+        Style(reinterpret())}
 
     public companion object : TypeCompanion<Style> {
         override val type: GeneratedClassKGType<Style> =
-            GeneratedClassKGType(gtk_source_style_get_type()) { Style(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_style_get_type()) { Style(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Get the GType of Style

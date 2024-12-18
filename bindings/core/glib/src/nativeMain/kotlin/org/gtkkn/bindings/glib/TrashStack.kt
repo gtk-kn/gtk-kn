@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -17,11 +22,6 @@ import org.gtkkn.native.glib.g_trash_stack_pop
 import org.gtkkn.native.glib.g_trash_stack_push
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GTrashStack` is an efficient way to keep a stack of unused allocated
@@ -38,7 +38,10 @@ import kotlin.native.ref.createCleaner
  * There is no longer any good reason to use `GTrashStack`.  If you have
  * extra pieces of memory, `free()` them and allocate them again later.
  */
-public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TrashStack(
+    pointer: CPointer<GTrashStack>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTrashStackPointer: CPointer<GTrashStack> = pointer
 
     /**
@@ -48,9 +51,7 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
      */
     public var next: TrashStack?
         get() = glibTrashStackPointer.pointed.next?.run {
-            TrashStack(reinterpret())
-        }
-
+            TrashStack(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibTrashStackPointer.pointed.next = value?.glibTrashStackPointer
@@ -62,11 +63,10 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTrashStack>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTrashStack>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -150,7 +150,6 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
          * @param stackP a #GTrashStack
          * @param dataP the piece of memory to push on the stack
          */
-        public fun push(stackP: TrashStack, dataP: gpointer): Unit =
-            g_trash_stack_push(stackP.glibTrashStackPointer.reinterpret(), dataP)
+        public fun push(stackP: TrashStack, dataP: gpointer): Unit = g_trash_stack_push(stackP.glibTrashStackPointer.reinterpret(), dataP)
     }
 }

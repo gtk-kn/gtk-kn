@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -40,10 +44,6 @@ import org.gtkkn.native.gdk.gdk_device_has_bidi_layouts
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The `GdkDevice` object represents an input device, such
@@ -59,8 +59,9 @@ import kotlin.Unit
  * - method `n-axes`: Property has no getter nor setter
  * - method `tool`: Property has no getter nor setter
  */
-public open class Device(pointer: CPointer<GdkDevice>) :
-    Object(pointer.reinterpret()),
+public open class Device(
+    pointer: CPointer<GdkDevice>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDevicePointer: CPointer<GdkDevice>
         get() = gPointer.reinterpret()
@@ -99,8 +100,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *   otherwise
          */
         get() = gdk_device_get_direction(gdkDevicePointer.reinterpret()).run {
-            Direction.fromNativeValue(this)
-        }
+            Direction.fromNativeValue(this)}
 
     /**
      * The `GdkDisplay` the `GdkDevice` pertains to.
@@ -112,8 +112,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          * @return a `GdkDisplay`
          */
         get() = gdk_device_get_display(gdkDevicePointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
     /**
      * Whether the device is represented by a cursor on the screen.
@@ -143,8 +142,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          * @return the current modifier state
          */
         get() = gdk_device_get_modifier_state(gdkDevicePointer.reinterpret()).run {
-            ModifierType(this)
-        }
+            ModifierType(this)}
 
     /**
      * The device name.
@@ -227,8 +225,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          * @return a `GdkSeat`
          */
         get() = gdk_device_get_seat(gdkDevicePointer.reinterpret())!!.run {
-            Seat(reinterpret())
-        }
+            Seat(reinterpret())}
 
     /**
      * Source type for the device.
@@ -240,8 +237,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          * @return a `GdkInputSource`
          */
         get() = gdk_device_get_source(gdkDevicePointer.reinterpret()).run {
-            InputSource.fromNativeValue(this)
-        }
+            InputSource.fromNativeValue(this)}
 
     /**
      * Vendor ID of this device.
@@ -288,8 +284,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * @return the `GdkDeviceTool`
      */
     public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer.reinterpret())?.run {
-        DeviceTool(reinterpret())
-    }
+        DeviceTool(reinterpret())}
 
     /**
      * Returns the timestamp of the last activity for this device.
@@ -327,15 +322,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted on pen/eraser devices whenever tools enter or leave proximity.
@@ -343,25 +330,14 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `tool` The new current tool
      */
-    public fun connectToolChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (tool: DeviceTool) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "tool-changed",
-        connectToolChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectToolChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tool: DeviceTool) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "tool-changed", connectToolChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-            GeneratedClassKGType(gdk_device_get_type()) { Device(it.reinterpret()) }
+                GeneratedClassKGType(gdk_device_get_type()) { Device(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of Device
@@ -373,23 +349,19 @@ public open class Device(pointer: CPointer<GdkDevice>) :
 }
 
 private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            tool: CPointer<GdkDeviceTool>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(
-            tool!!.run {
-                DeviceTool(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    tool: CPointer<GdkDeviceTool>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(tool!!.run {
+        DeviceTool(reinterpret())}
+    )}
+.reinterpret()

@@ -11,7 +11,9 @@ import org.gtkkn.native.gtksource.GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT
 import org.gtkkn.native.gtksource.GtkSourceCompletionColumn
 import org.gtkkn.native.gtksource.gtk_source_completion_column_get_type
 
-public enum class CompletionColumn(public val nativeValue: GtkSourceCompletionColumn) {
+public enum class CompletionColumn(
+    public val nativeValue: GtkSourceCompletionColumn,
+) {
     ICON(GTK_SOURCE_COMPLETION_COLUMN_ICON),
     BEFORE(GTK_SOURCE_COMPLETION_COLUMN_BEFORE),
     TYPED_TEXT(GTK_SOURCE_COMPLETION_COLUMN_TYPED_TEXT),

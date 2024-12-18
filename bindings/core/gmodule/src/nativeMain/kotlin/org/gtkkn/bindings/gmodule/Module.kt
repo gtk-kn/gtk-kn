@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gmodule
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -15,9 +18,6 @@ import org.gtkkn.native.gmodule.g_module_error_quark
 import org.gtkkn.native.gmodule.g_module_make_resident
 import org.gtkkn.native.gmodule.g_module_name
 import org.gtkkn.native.gmodule.g_module_supported
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The #GModule struct is an opaque data structure to represent a
@@ -30,7 +30,9 @@ import kotlin.Unit
  * - function `open`: Return type Module is unsupported
  * - function `open_full`: Return type Module is unsupported
  */
-public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
+public class Module(
+    pointer: CPointer<GModule>,
+) : ProxyInstance(pointer) {
     public val gmoduleModulePointer: CPointer<GModule> = pointer
 
     /**
@@ -53,8 +55,7 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
      *
      * @return the filename of the module
      */
-    public fun name(): String =
-        g_module_name(gmoduleModulePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun name(): String = g_module_name(gmoduleModulePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -79,8 +80,7 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
          * @return the complete path of the module, including the standard library
          *     prefix and suffix. This should be freed when no longer needed
          */
-        public fun buildPath(directory: String? = null, moduleName: String): String =
-            g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
+        public fun buildPath(directory: String? = null, moduleName: String): String = g_module_build_path(directory, moduleName)?.toKString() ?: error("Expected not null string")
 
         /**
          * Gets a string describing the last module error.

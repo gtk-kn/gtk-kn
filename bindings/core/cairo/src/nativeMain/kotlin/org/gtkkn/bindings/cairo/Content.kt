@@ -8,7 +8,9 @@ import org.gtkkn.native.cairo.cairo_content_t
 import org.gtkkn.native.cairo.cairo_gobject_content_get_type
 import org.gtkkn.native.gobject.GType
 
-public enum class Content(public val nativeValue: cairo_content_t) {
+public enum class Content(
+    public val nativeValue: cairo_content_t,
+) {
     COLOR(CAIRO_CONTENT_COLOR),
     ALPHA(CAIRO_CONTENT_ALPHA),
     COLOR_ALPHA(CAIRO_CONTENT_COLOR_ALPHA),

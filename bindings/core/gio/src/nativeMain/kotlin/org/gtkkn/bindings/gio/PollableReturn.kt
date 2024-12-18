@@ -19,17 +19,17 @@ import org.gtkkn.native.gobject.GType
  * @since 2.60
  */
 @GioVersion2_60
-public enum class PollableReturn(public val nativeValue: GPollableReturn) {
+public enum class PollableReturn(
+    public val nativeValue: GPollableReturn,
+) {
     /**
      * Generic error condition for when an operation fails.
      */
     FAILED(GPollableReturn.G_POLLABLE_RETURN_FAILED),
-
     /**
      * The operation was successfully finished.
      */
     OK(GPollableReturn.G_POLLABLE_RETURN_OK),
-
     /**
      * The operation would block.
      */

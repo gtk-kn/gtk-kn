@@ -3,4 +3,7 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.extensions.glib.GLibException
 
-public class ThreadErrorException(error: Error, public val code: ThreadError) : GLibException(error)
+public class ThreadErrorException(
+    error: Error,
+    public val code: ThreadError,
+) : GLibException(error)

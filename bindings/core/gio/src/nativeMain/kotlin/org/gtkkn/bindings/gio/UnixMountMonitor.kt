@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -24,14 +26,13 @@ import org.gtkkn.native.gio.g_unix_mount_monitor_set_rate_limit
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gint
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Watches #GUnixMounts for changes.
  */
-public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
-    Object(pointer.reinterpret()),
+public open class UnixMountMonitor(
+    pointer: CPointer<GUnixMountMonitor>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioUnixMountMonitorPointer: CPointer<GUnixMountMonitor>
         get() = gPointer.reinterpret()
@@ -60,8 +61,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun setRateLimit(limitMsec: gint): Unit =
-        g_unix_mount_monitor_set_rate_limit(gioUnixMountMonitorPointer.reinterpret(), limitMsec)
+    public open fun setRateLimit(limitMsec: gint): Unit = g_unix_mount_monitor_set_rate_limit(gioUnixMountMonitorPointer.reinterpret(), limitMsec)
 
     /**
      * Emitted when the unix mount points have changed.
@@ -69,15 +69,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectMountpointsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "mountpoints-changed",
-            connectMountpointsChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectMountpointsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "mountpoints-changed", connectMountpointsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the unix mounts have changed.
@@ -85,23 +77,14 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectMountsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "mounts-changed",
-            connectMountsChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectMountsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "mounts-changed", connectMountsChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<UnixMountMonitor> {
         override val type: GeneratedClassKGType<UnixMountMonitor> =
-            GeneratedClassKGType(g_unix_mount_monitor_get_type()) { UnixMountMonitor(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_mount_monitor_get_type()) { UnixMountMonitor(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Gets the #GUnixMountMonitor for the current thread-default main
@@ -119,8 +102,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
          */
         @GioVersion2_44
         public fun `get`(): UnixMountMonitor = g_unix_mount_monitor_get()!!.run {
-            UnixMountMonitor(reinterpret())
-        }
+            UnixMountMonitor(reinterpret())}
 
         /**
          * Get the GType of UnixMountMonitor
@@ -132,17 +114,15 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
 }
 
 private val connectMountpointsChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectMountsChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

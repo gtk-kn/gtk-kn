@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -18,11 +23,6 @@ import org.gtkkn.native.glib.g_static_rec_mutex_trylock
 import org.gtkkn.native.glib.g_static_rec_mutex_unlock
 import org.gtkkn.native.glib.g_static_rec_mutex_unlock_full
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GStaticRecMutex works like a #GStaticMutex, but it can be locked
@@ -43,7 +43,10 @@ import kotlin.native.ref.createCleaner
  * from g_static_rec_mutex_trylock(), which does nothing but returning
  * true.
  */
-public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class StaticRecMutex(
+    pointer: CPointer<GStaticRecMutex>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibStaticRecMutexPointer: CPointer<GStaticRecMutex> = pointer
 
     /**
@@ -52,11 +55,10 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticRecMutex>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GStaticRecMutex>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -64,9 +66,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to StaticRecMutex and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GStaticRecMutex>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GStaticRecMutex>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new StaticRecMutex using the provided [AutofreeScope].
@@ -108,8 +108,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * @param depth number of times this mutex has to be unlocked to be
      *         completely unlocked.
      */
-    public fun lockFull(depth: guint): Unit =
-        g_static_rec_mutex_lock_full(glibStaticRecMutexPointer.reinterpret(), depth)
+    public fun lockFull(depth: guint): Unit = g_static_rec_mutex_lock_full(glibStaticRecMutexPointer.reinterpret(), depth)
 
     /**
      * Tries to lock @mutex. If @mutex is already locked by another thread,

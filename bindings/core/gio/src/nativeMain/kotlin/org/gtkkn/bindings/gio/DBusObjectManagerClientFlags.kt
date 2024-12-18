@@ -13,12 +13,10 @@ import org.gtkkn.native.gobject.GType
  * Flags used when constructing a #GDBusObjectManagerClient.
  * @since 2.30
  */
-public class DBusObjectManagerClientFlags(public val mask: GDBusObjectManagerClientFlags) :
-    Bitfield<DBusObjectManagerClientFlags> {
-    override infix fun or(other: DBusObjectManagerClientFlags): DBusObjectManagerClientFlags =
-        DBusObjectManagerClientFlags(
-            mask or other.mask
-        )
+public class DBusObjectManagerClientFlags(
+    public val mask: GDBusObjectManagerClientFlags,
+) : Bitfield<DBusObjectManagerClientFlags> {
+    override infix fun or(other: DBusObjectManagerClientFlags): DBusObjectManagerClientFlags = DBusObjectManagerClientFlags(mask or other.mask)
 
     @GioVersion2_30
     public companion object {
@@ -26,7 +24,7 @@ public class DBusObjectManagerClientFlags(public val mask: GDBusObjectManagerCli
          * No flags set.
          */
         public val NONE: DBusObjectManagerClientFlags =
-            DBusObjectManagerClientFlags(G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE)
+                DBusObjectManagerClientFlags(G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE)
 
         /**
          * If not set and the
@@ -35,7 +33,7 @@ public class DBusObjectManagerClientFlags(public val mask: GDBusObjectManagerCli
          *   be used in managers for well-known names.
          */
         public val DO_NOT_AUTO_START: DBusObjectManagerClientFlags =
-            DBusObjectManagerClientFlags(G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START)
+                DBusObjectManagerClientFlags(G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START)
 
         /**
          * Get the GType of DBusObjectManagerClientFlags

@@ -10,19 +10,19 @@ import org.gtkkn.native.gio.GNativeVolumeMonitor
 import org.gtkkn.native.gio.g_native_volume_monitor_get_type
 import org.gtkkn.native.gobject.GType
 
-public open class NativeVolumeMonitor(pointer: CPointer<GNativeVolumeMonitor>) :
-    VolumeMonitor(pointer.reinterpret()),
+public open class NativeVolumeMonitor(
+    pointer: CPointer<GNativeVolumeMonitor>,
+) : VolumeMonitor(pointer.reinterpret()),
     KGTyped {
     public val gioNativeVolumeMonitorPointer: CPointer<GNativeVolumeMonitor>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<NativeVolumeMonitor> {
         override val type: GeneratedClassKGType<NativeVolumeMonitor> =
-            GeneratedClassKGType(g_native_volume_monitor_get_type()) { NativeVolumeMonitor(it.reinterpret()) }
+                GeneratedClassKGType(g_native_volume_monitor_get_type()) { NativeVolumeMonitor(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of NativeVolumeMonitor

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -49,9 +52,6 @@ import org.gtkkn.native.adw.adw_tab_page_set_tooltip
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gtk.GtkAccessible
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * An auxiliary class used by [class@TabView].
@@ -61,8 +61,9 @@ import kotlin.Unit
  * - method `keyword`: Property TypeInfo of getter and setter do not match
  * - method `tooltip`: Property TypeInfo of getter and setter do not match
  */
-public class TabPage(pointer: CPointer<AdwTabPage>) :
-    Object(pointer.reinterpret()),
+public class TabPage(
+    pointer: CPointer<AdwTabPage>,
+) : Object(pointer.reinterpret()),
     Accessible,
     KGTyped {
     public val adwTabPagePointer: CPointer<AdwTabPage>
@@ -81,8 +82,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the child of @self
          */
         get() = adw_tab_page_get_child(adwTabPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+            Widget(reinterpret())}
 
     /**
      * The icon of the page.
@@ -100,9 +100,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the icon of @self
          */
         get() = adw_tab_page_get_icon(adwTabPagePointer.reinterpret())?.run {
-            Icon.wrap(reinterpret())
-        }
-
+            Icon.wrap(reinterpret())}
         /**
          * Sets the icon of @self.
          *
@@ -131,7 +129,6 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return whether the indicator is activatable
          */
         get() = adw_tab_page_get_indicator_activatable(adwTabPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the indicator of @self is activatable.
          *
@@ -142,9 +139,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          *
          * @param activatable whether the indicator is activatable
          */
-        set(
-            activatable
-        ) = adw_tab_page_set_indicator_activatable(adwTabPagePointer.reinterpret(), activatable.asGBoolean())
+        set(activatable) = adw_tab_page_set_indicator_activatable(adwTabPagePointer.reinterpret(), activatable.asGBoolean())
 
     /**
      * An indicator icon for the page.
@@ -172,9 +167,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the indicator icon of @self
          */
         get() = adw_tab_page_get_indicator_icon(adwTabPagePointer.reinterpret())?.run {
-            Icon.wrap(reinterpret())
-        }
-
+            Icon.wrap(reinterpret())}
         /**
          * Sets the indicator icon of @self.
          *
@@ -196,9 +189,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          *
          * @param indicatorIcon the indicator icon of @self
          */
-        set(
-            indicatorIcon
-        ) = adw_tab_page_set_indicator_icon(adwTabPagePointer.reinterpret(), indicatorIcon?.gioIconPointer)
+        set(indicatorIcon) = adw_tab_page_set_indicator_icon(adwTabPagePointer.reinterpret(), indicatorIcon?.gioIconPointer)
 
     /**
      * The tooltip of the indicator icon.
@@ -217,9 +208,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the indicator tooltip of @self
          * @since 1.2
          */
-        get() = adw_tab_page_get_indicator_tooltip(adwTabPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_tab_page_get_indicator_tooltip(adwTabPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the tooltip of the indicator icon of @self.
          *
@@ -255,7 +244,6 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @since 1.3
          */
         get() = adw_tab_page_get_live_thumbnail(adwTabPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether to enable live thumbnail for @self.
          *
@@ -271,9 +259,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(
-            liveThumbnail
-        ) = adw_tab_page_set_live_thumbnail(adwTabPagePointer.reinterpret(), liveThumbnail.asGBoolean())
+        set(liveThumbnail) = adw_tab_page_set_live_thumbnail(adwTabPagePointer.reinterpret(), liveThumbnail.asGBoolean())
 
     /**
      * Whether the page is loading.
@@ -291,7 +277,6 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return whether @self is loading
          */
         get() = adw_tab_page_get_loading(adwTabPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self is loading.
          *
@@ -325,7 +310,6 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return whether @self needs attention
          */
         get() = adw_tab_page_get_needs_attention(adwTabPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self needs attention.
          *
@@ -341,9 +325,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          *
          * @param needsAttention whether @self needs attention
          */
-        set(
-            needsAttention
-        ) = adw_tab_page_set_needs_attention(adwTabPagePointer.reinterpret(), needsAttention.asGBoolean())
+        set(needsAttention) = adw_tab_page_set_needs_attention(adwTabPagePointer.reinterpret(), needsAttention.asGBoolean())
 
     /**
      * The parent page of the page.
@@ -359,8 +341,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the parent page
          */
         get() = adw_tab_page_get_parent(adwTabPagePointer.reinterpret())?.run {
-            TabPage(reinterpret())
-        }
+            TabPage(reinterpret())}
 
     /**
      * Whether the page is pinned.
@@ -411,7 +392,6 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @since 1.3
          */
         get() = adw_tab_page_get_thumbnail_xalign(adwTabPagePointer.reinterpret())
-
         /**
          * Sets the horizontal alignment of the thumbnail for @self.
          *
@@ -453,7 +433,6 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @since 1.3
          */
         get() = adw_tab_page_get_thumbnail_yalign(adwTabPagePointer.reinterpret())
-
         /**
          * Sets the vertical alignment of the thumbnail for @self.
          *
@@ -488,9 +467,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          *
          * @return the title of @self
          */
-        get() = adw_tab_page_get_title(adwTabPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_tab_page_get_title(adwTabPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * [class@TabBar] will display it in the center of the tab unless it's pinned,
          * and will use it as a tooltip unless [property@TabPage:tooltip] is set.
@@ -564,11 +541,10 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
 
     public companion object : TypeCompanion<TabPage> {
         override val type: GeneratedClassKGType<TabPage> =
-            GeneratedClassKGType(adw_tab_page_get_type()) { TabPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_tab_page_get_type()) { TabPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of TabPage

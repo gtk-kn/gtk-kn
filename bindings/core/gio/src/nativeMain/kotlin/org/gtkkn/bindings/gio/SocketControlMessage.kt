@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
@@ -18,7 +19,6 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
-import kotlin.Unit
 
 /**
  * A `GSocketControlMessage` is a special-purpose utility message that
@@ -49,8 +49,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>) :
-    Object(pointer.reinterpret()),
+public open class SocketControlMessage(
+    pointer: CPointer<GSocketControlMessage>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>
         get() = gPointer.reinterpret()
@@ -73,8 +74,7 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getMsgType(): gint =
-        g_socket_control_message_get_msg_type(gioSocketControlMessagePointer.reinterpret())
+    public open fun getMsgType(): gint = g_socket_control_message_get_msg_type(gioSocketControlMessagePointer.reinterpret())
 
     /**
      * Returns the space required for the control message, not including
@@ -98,16 +98,14 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun serialize(`data`: gpointer): Unit =
-        g_socket_control_message_serialize(gioSocketControlMessagePointer.reinterpret(), `data`)
+    public open fun serialize(`data`: gpointer): Unit = g_socket_control_message_serialize(gioSocketControlMessagePointer.reinterpret(), `data`)
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =
-            GeneratedClassKGType(g_socket_control_message_get_type()) { SocketControlMessage(it.reinterpret()) }
+                GeneratedClassKGType(g_socket_control_message_get_type()) { SocketControlMessage(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketControlMessage

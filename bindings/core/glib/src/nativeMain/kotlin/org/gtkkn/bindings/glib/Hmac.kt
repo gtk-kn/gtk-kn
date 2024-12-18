@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -13,8 +15,6 @@ import org.gtkkn.native.glib.g_hmac_ref
 import org.gtkkn.native.glib.g_hmac_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_hmac_get_type
-import kotlin.String
-import kotlin.Unit
 
 /**
  * HMACs should be used when producing a cookie or hash based on data
@@ -42,7 +42,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GLibVersion2_30
-public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
+public class Hmac(
+    pointer: CPointer<GHmac>,
+) : ProxyInstance(pointer) {
     public val glibHmacPointer: CPointer<GHmac> = pointer
 
     /**
@@ -56,8 +58,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_30
     public fun copy(): Hmac = g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
-        Hmac(reinterpret())
-    }
+        Hmac(reinterpret())}
 
     /**
      * Gets the HMAC as a hexadecimal string.
@@ -73,8 +74,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun getString(): String =
-        g_hmac_get_string(glibHmacPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_hmac_get_string(glibHmacPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @hmac by one.
@@ -86,8 +86,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_30
     public fun ref(): Hmac = g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
-        Hmac(reinterpret())
-    }
+        Hmac(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @hmac by one.

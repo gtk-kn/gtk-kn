@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
@@ -20,7 +21,6 @@ import org.gtkkn.native.gio.g_inet_socket_address_new_from_string
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint16
-import kotlin.String
 
 /**
  * An IPv4 or IPv6 socket address. That is, the combination of a
@@ -29,8 +29,9 @@ import kotlin.String
  * In UNIX terms, `GInetSocketAddress` corresponds to a
  * [`struct sockaddr_in` or `struct sockaddr_in6`](man:sockaddr(3type)).
  */
-public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
-    SocketAddress(pointer.reinterpret()),
+public open class InetSocketAddress(
+    pointer: CPointer<GInetSocketAddress>,
+) : SocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>
         get() = gPointer.reinterpret()
@@ -53,8 +54,7 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
          * @since 2.22
          */
         get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer.reinterpret())!!.run {
-            InetAddress(reinterpret())
-        }
+            InetAddress(reinterpret())}
 
     /**
      * The `sin6_flowinfo` field, for IPv6 addresses.
@@ -111,10 +111,7 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
      * @return a new #GInetSocketAddress
      * @since 2.22
      */
-    public constructor(
-        address: InetAddress,
-        port: guint16,
-    ) : this(g_inet_socket_address_new(address.gioInetAddressPointer.reinterpret(), port)!!.reinterpret())
+    public constructor(address: InetAddress, port: guint16) : this(g_inet_socket_address_new(address.gioInetAddressPointer.reinterpret(), port)!!.reinterpret())
 
     /**
      * Creates a new #GInetSocketAddress for @address and @port.
@@ -128,18 +125,14 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
      * or null if @address cannot be parsed.
      * @since 2.40
      */
-    public constructor(
-        address: String,
-        port: guint,
-    ) : this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret())
+    public constructor(address: String, port: guint) : this(g_inet_socket_address_new_from_string(address, port)!!.reinterpret())
 
     public companion object : TypeCompanion<InetSocketAddress> {
         override val type: GeneratedClassKGType<InetSocketAddress> =
-            GeneratedClassKGType(g_inet_socket_address_get_type()) { InetSocketAddress(it.reinterpret()) }
+                GeneratedClassKGType(g_inet_socket_address_get_type()) { InetSocketAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of InetSocketAddress

@@ -15,7 +15,9 @@ import org.gtkkn.native.gtksource.gtk_source_space_type_flags_get_type
 /**
  * #GtkSourceSpaceTypeFlags contains flags for white space types.
  */
-public class SpaceTypeFlags(public val mask: GtkSourceSpaceTypeFlags) : Bitfield<SpaceTypeFlags> {
+public class SpaceTypeFlags(
+    public val mask: GtkSourceSpaceTypeFlags,
+) : Bitfield<SpaceTypeFlags> {
     override infix fun or(other: SpaceTypeFlags): SpaceTypeFlags = SpaceTypeFlags(mask or other.mask)
 
     public companion object {

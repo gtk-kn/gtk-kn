@@ -13,7 +13,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used when sending #GDBusMessages on a #GDBusConnection.
  * @since 2.26
  */
-public class DBusSendMessageFlags(public val mask: GDBusSendMessageFlags) : Bitfield<DBusSendMessageFlags> {
+public class DBusSendMessageFlags(
+    public val mask: GDBusSendMessageFlags,
+) : Bitfield<DBusSendMessageFlags> {
     override infix fun or(other: DBusSendMessageFlags): DBusSendMessageFlags = DBusSendMessageFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -29,7 +31,7 @@ public class DBusSendMessageFlags(public val mask: GDBusSendMessageFlags) : Bitf
          * sending a message.
          */
         public val PRESERVE_SERIAL: DBusSendMessageFlags =
-            DBusSendMessageFlags(G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL)
+                DBusSendMessageFlags(G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL)
 
         /**
          * Get the GType of DBusSendMessageFlags

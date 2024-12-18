@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,10 +18,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdkpixbuf.GdkPixbufModule
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkPixbufModule` contains the necessary functions to load and save
@@ -83,7 +83,10 @@ import kotlin.native.ref.createCleaner
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class PixbufModule(
+    pointer: CPointer<GdkPixbufModule>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gdkpixbufPixbufModulePointer: CPointer<GdkPixbufModule> = pointer
 
     /**
@@ -92,7 +95,6 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      */
     public var moduleName: String?
         get() = gdkpixbufPixbufModulePointer.pointed.module_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePointer.pointed.module_name?.let { g_free(it) }
@@ -104,7 +106,6 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      */
     public var modulePath: String?
         get() = gdkpixbufPixbufModulePointer.pointed.module_path?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePointer.pointed.module_path?.let { g_free(it) }
@@ -116,9 +117,7 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      */
     public var info: PixbufFormat?
         get() = gdkpixbufPixbufModulePointer.pointed.info?.run {
-            PixbufFormat(reinterpret())
-        }
-
+            PixbufFormat(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePointer.pointed.info = value?.gdkpixbufPixbufFormatPointer
@@ -130,11 +129,10 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkPixbufModule>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GdkPixbufModule>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -142,9 +140,7 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to PixbufModule and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GdkPixbufModule>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GdkPixbufModule>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PixbufModule using the provided [AutofreeScope].

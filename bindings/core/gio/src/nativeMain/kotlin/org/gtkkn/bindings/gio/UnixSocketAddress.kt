@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,8 +22,6 @@ import org.gtkkn.native.gio.g_unix_socket_address_get_type
 import org.gtkkn.native.gio.g_unix_socket_address_new
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * Support for UNIX-domain (also known as local) sockets, corresponding to
@@ -51,8 +51,9 @@ import kotlin.String
  * - parameter `path`: Array parameter of type gchar is not supported
  * - parameter `path`: Array parameter of type gchar is not supported
  */
-public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
-    SocketAddress(pointer.reinterpret()),
+public open class UnixSocketAddress(
+    pointer: CPointer<GUnixSocketAddress>,
+) : SocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioUnixSocketAddressPointer: CPointer<GUnixSocketAddress>
         get() = gPointer.reinterpret()
@@ -74,8 +75,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
          * @since 2.26
          */
         get() = g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer.reinterpret()).run {
-            UnixSocketAddressType.fromNativeValue(this)
-        }
+            UnixSocketAddressType.fromNativeValue(this)}
 
     /**
      * Unix socket path.
@@ -95,8 +95,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
          * @return the path for @address
          * @since 2.22
          */
-        get() = g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a new #GUnixSocketAddress for @path.
@@ -117,8 +116,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getIsAbstract(): Boolean =
-        g_unix_socket_address_get_is_abstract(gioUnixSocketAddressPointer.reinterpret()).asBoolean()
+    public open fun getIsAbstract(): Boolean = g_unix_socket_address_get_is_abstract(gioUnixSocketAddressPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the length of @address's path.
@@ -133,11 +131,10 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
 
     public companion object : TypeCompanion<UnixSocketAddress> {
         override val type: GeneratedClassKGType<UnixSocketAddress> =
-            GeneratedClassKGType(g_unix_socket_address_get_type()) { UnixSocketAddress(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_socket_address_get_type()) { UnixSocketAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Checks if abstract UNIX domain socket names are supported.

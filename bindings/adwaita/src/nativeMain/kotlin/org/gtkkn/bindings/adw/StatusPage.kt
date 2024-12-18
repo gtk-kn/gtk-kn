@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -26,7 +27,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.String
 
 /**
  * A page used for empty/error states and similar use-cases.
@@ -47,8 +47,9 @@ import kotlin.String
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
  */
-public class StatusPage(pointer: CPointer<AdwStatusPage>) :
-    Widget(pointer.reinterpret()),
+public class StatusPage(
+    pointer: CPointer<AdwStatusPage>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwStatusPagePointer: CPointer<AdwStatusPage>
         get() = gPointer.reinterpret()
@@ -72,17 +73,13 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          * @return the child widget of @self
          */
         get() = adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = adw_status_page_set_child(adwStatusPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_status_page_set_child(adwStatusPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The description markup to be displayed below the title.
@@ -94,7 +91,6 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          * @return the description
          */
         get() = adw_status_page_get_description(adwStatusPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the description markup for @self.
          *
@@ -116,7 +112,6 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          * @return the icon name
          */
         get() = adw_status_page_get_icon_name(adwStatusPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -138,9 +133,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          * @return the paintable
          */
         get() = adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
-
+            Paintable.wrap(reinterpret())}
         /**
          * Sets the paintable for @self.
          *
@@ -148,9 +141,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @param paintable the paintable
          */
-        set(
-            paintable
-        ) = adw_status_page_set_paintable(adwStatusPagePointer.reinterpret(), paintable?.gdkPaintablePointer)
+        set(paintable) = adw_status_page_set_paintable(adwStatusPagePointer.reinterpret(), paintable?.gdkPaintablePointer)
 
     /**
      * The title to be displayed below the icon.
@@ -163,9 +154,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @return the title
          */
-        get() = adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title for @self.
          *
@@ -184,11 +173,10 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
 
     public companion object : TypeCompanion<StatusPage> {
         override val type: GeneratedClassKGType<StatusPage> =
-            GeneratedClassKGType(adw_status_page_get_type()) { StatusPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_status_page_get_type()) { StatusPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of StatusPage

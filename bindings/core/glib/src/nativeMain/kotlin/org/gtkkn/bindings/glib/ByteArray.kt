@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.native.glib.GByteArray
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_byte_array_get_type
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Contains the public fields of a GByteArray.
@@ -41,7 +41,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
  * - field `data`: Unsupported pointer to primitive type
  */
-public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ByteArray(
+    pointer: CPointer<GByteArray>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibByteArrayPointer: CPointer<GByteArray> = pointer
 
     /**
@@ -49,7 +52,6 @@ public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) 
      */
     public var len: guint
         get() = glibByteArrayPointer.pointed.len
-
         @UnsafeFieldSetter
         set(`value`) {
             glibByteArrayPointer.pointed.len = value
@@ -61,11 +63,10 @@ public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GByteArray>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GByteArray>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

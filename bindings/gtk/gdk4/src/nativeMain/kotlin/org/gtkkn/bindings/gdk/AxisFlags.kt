@@ -20,7 +20,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * Flags describing the current capabilities of a device/tool.
  */
-public class AxisFlags(public val mask: GdkAxisFlags) : Bitfield<AxisFlags> {
+public class AxisFlags(
+    public val mask: GdkAxisFlags,
+) : Bitfield<AxisFlags> {
     override infix fun or(other: AxisFlags): AxisFlags = AxisFlags(mask or other.mask)
 
     public companion object {

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -18,7 +19,6 @@ import org.gtkkn.native.pango.pango_coverage_new
 import org.gtkkn.native.pango.pango_coverage_ref
 import org.gtkkn.native.pango.pango_coverage_set
 import org.gtkkn.native.pango.pango_coverage_unref
-import kotlin.Unit
 
 /**
  * A `PangoCoverage` structure is a map from Unicode characters
@@ -35,8 +35,9 @@ import kotlin.Unit
  * - parameter `bytes`: bytes: Out parameter is not supported
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
-public open class Coverage(pointer: CPointer<PangoCoverage>) :
-    Object(pointer.reinterpret()),
+public open class Coverage(
+    pointer: CPointer<PangoCoverage>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val pangoCoveragePointer: CPointer<PangoCoverage>
         get() = gPointer.reinterpret()
@@ -58,8 +59,7 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      *   [method@Pango.Coverage.unref].
      */
     public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer.reinterpret())!!.run {
-        Coverage(reinterpret())
-    }
+        Coverage(reinterpret())}
 
     /**
      * Determine whether a particular index is covered by @coverage.
@@ -67,10 +67,8 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      * @param index the index to check
      * @return the coverage level of @coverage for character @index_.
      */
-    public open fun `get`(index: gint): CoverageLevel =
-        pango_coverage_get(pangoCoveragePointer.reinterpret(), index).run {
-            CoverageLevel.fromNativeValue(this)
-        }
+    public open fun `get`(index: gint): CoverageLevel = pango_coverage_get(pangoCoveragePointer.reinterpret(), index).run {
+        CoverageLevel.fromNativeValue(this)}
 
     /**
      * Set the coverage for each index in @coverage to be the max (better)
@@ -79,8 +77,7 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      *
      * @param other another `PangoCoverage`
      */
-    public open fun max(other: Coverage): Unit =
-        pango_coverage_max(pangoCoveragePointer.reinterpret(), other.pangoCoveragePointer.reinterpret())
+    public open fun max(other: Coverage): Unit = pango_coverage_max(pangoCoveragePointer.reinterpret(), other.pangoCoveragePointer.reinterpret())
 
     /**
      * Increase the reference count on the `PangoCoverage` by one.
@@ -88,8 +85,7 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      * @return @coverage
      */
     override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer.reinterpret())!!.run {
-        Coverage(reinterpret())
-    }
+        Coverage(reinterpret())}
 
     /**
      * Modify a particular index within @coverage
@@ -97,8 +93,7 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      * @param index the index to modify
      * @param level the new level for @index_
      */
-    public open fun `set`(index: gint, level: CoverageLevel): Unit =
-        pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
+    public open fun `set`(index: gint, level: CoverageLevel): Unit = pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
 
     /**
      * Decrease the reference count on the `PangoCoverage` by one.
@@ -109,11 +104,10 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
 
     public companion object : TypeCompanion<Coverage> {
         override val type: GeneratedClassKGType<Coverage> =
-            GeneratedClassKGType(pango_coverage_get_type()) { Coverage(it.reinterpret()) }
+                GeneratedClassKGType(pango_coverage_get_type()) { Coverage(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of Coverage

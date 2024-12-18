@@ -5,12 +5,13 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceCompressionType
 import org.gtkkn.native.gtksource.gtk_source_compression_type_get_type
 
-public enum class CompressionType(public val nativeValue: GtkSourceCompressionType) {
+public enum class CompressionType(
+    public val nativeValue: GtkSourceCompressionType,
+) {
     /**
      * plain text.
      */
     NONE(GtkSourceCompressionType.GTK_SOURCE_COMPRESSION_TYPE_NONE),
-
     /**
      * gzip compression.
      */

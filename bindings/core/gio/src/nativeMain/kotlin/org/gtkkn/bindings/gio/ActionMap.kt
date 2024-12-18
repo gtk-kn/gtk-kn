@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
@@ -14,8 +16,6 @@ import org.gtkkn.native.gio.g_action_map_get_type
 import org.gtkkn.native.gio.g_action_map_lookup_action
 import org.gtkkn.native.gio.g_action_map_remove_action
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GActionMap` is an interface for action containers.
@@ -38,9 +38,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public interface ActionMap :
-    Interface,
-    KGTyped {
+public interface ActionMap : Interface, KGTyped {
     public val gioActionMapPointer: CPointer<GActionMap>
 
     /**
@@ -55,8 +53,7 @@ public interface ActionMap :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun addAction(action: Action): Unit =
-        g_action_map_add_action(gioActionMapPointer.reinterpret(), action.gioActionPointer)
+    public fun addAction(action: Action): Unit = g_action_map_add_action(gioActionMapPointer.reinterpret(), action.gioActionPointer)
 
     /**
      * Looks up the action with the name @action_name in @action_map.
@@ -68,10 +65,8 @@ public interface ActionMap :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookupAction(actionName: String): Action? =
-        g_action_map_lookup_action(gioActionMapPointer.reinterpret(), actionName)?.run {
-            Action.wrap(reinterpret())
-        }
+    public fun lookupAction(actionName: String): Action? = g_action_map_lookup_action(gioActionMapPointer.reinterpret(), actionName)?.run {
+        Action.wrap(reinterpret())}
 
     /**
      * Removes the named action from the action map.
@@ -82,20 +77,20 @@ public interface ActionMap :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun removeAction(actionName: String): Unit =
-        g_action_map_remove_action(gioActionMapPointer.reinterpret(), actionName)
+    public fun removeAction(actionName: String): Unit = g_action_map_remove_action(gioActionMapPointer.reinterpret(), actionName)
 
-    private data class Wrapper(private val pointer: CPointer<GActionMap>) : ActionMap {
+    private data class Wrapper(
+        private val pointer: CPointer<GActionMap>,
+    ) : ActionMap {
         override val gioActionMapPointer: CPointer<GActionMap> = pointer
     }
 
     public companion object : TypeCompanion<ActionMap> {
         override val type: GeneratedInterfaceKGType<ActionMap> =
-            GeneratedInterfaceKGType(g_action_map_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_action_map_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GActionMap>): ActionMap = Wrapper(pointer)
 

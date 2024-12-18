@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -16,7 +17,6 @@ import org.gtkkn.native.adw.adw_spring_params_ref
 import org.gtkkn.native.adw.adw_spring_params_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
-import kotlin.Unit
 
 /**
  * Physical parameters of a spring for [class@SpringAnimation].
@@ -50,7 +50,9 @@ import kotlin.Unit
  *
  * As such
  */
-public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(pointer) {
+public class SpringParams(
+    pointer: CPointer<AdwSpringParams>,
+) : ProxyInstance(pointer) {
     public val adwSpringParamsPointer: CPointer<AdwSpringParams> = pointer
 
     /**
@@ -87,8 +89,7 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(po
      * @return @self
      */
     public fun ref(): SpringParams = adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
-        SpringParams(reinterpret())
-    }
+        SpringParams(reinterpret())}
 
     /**
      * Decreases the reference count of @self.
@@ -120,8 +121,11 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(po
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun new(dampingRatio: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
-            SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
+        public fun new(
+            dampingRatio: gdouble,
+            mass: gdouble,
+            stiffness: gdouble,
+        ): SpringParams = SpringParams(adw_spring_params_new(dampingRatio, mass, stiffness)!!.reinterpret())
 
         /**
          * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
@@ -134,8 +138,11 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(po
          * @param stiffness the stiffness of the spring
          * @return the newly created spring parameters
          */
-        public fun newFull(damping: gdouble, mass: gdouble, stiffness: gdouble): SpringParams =
-            SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
+        public fun newFull(
+            damping: gdouble,
+            mass: gdouble,
+            stiffness: gdouble,
+        ): SpringParams = SpringParams(adw_spring_params_new_full(damping, mass, stiffness)!!.reinterpret())
 
         /**
          * Get the GType of SpringParams

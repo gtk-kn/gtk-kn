@@ -25,12 +25,13 @@ import org.gtkkn.native.webkit.webkit_notification_permission_request_get_type
  * @since 2.8
  */
 @WebKitVersion2_8
-public class NotificationPermissionRequest(pointer: CPointer<WebKitNotificationPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class NotificationPermissionRequest(
+    pointer: CPointer<WebKitNotificationPermissionRequest>,
+) : Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitNotificationPermissionRequestPointer:
-        CPointer<WebKitNotificationPermissionRequest>
+            CPointer<WebKitNotificationPermissionRequest>
         get() = gPointer.reinterpret()
 
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
@@ -38,13 +39,10 @@ public class NotificationPermissionRequest(pointer: CPointer<WebKitNotificationP
 
     public companion object : TypeCompanion<NotificationPermissionRequest> {
         override val type: GeneratedClassKGType<NotificationPermissionRequest> =
-            GeneratedClassKGType(webkit_notification_permission_request_get_type()) {
-                NotificationPermissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(webkit_notification_permission_request_get_type()) { NotificationPermissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of NotificationPermissionRequest

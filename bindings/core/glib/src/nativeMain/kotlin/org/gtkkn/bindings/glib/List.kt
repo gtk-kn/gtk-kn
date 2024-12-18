@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -47,11 +52,6 @@ import org.gtkkn.native.glib.g_list_sort_with_data
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GList struct is used for each element in a doubly-linked list.
@@ -64,7 +64,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `allocator`: Allocator
  * - parameter `compare_func`: CompareFunc
  */
-public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class List(
+    pointer: CPointer<GList>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibListPointer: CPointer<GList> = pointer
 
     /**
@@ -74,7 +77,6 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var `data`: gpointer
         get() = glibListPointer.pointed.data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibListPointer.pointed.data = value
@@ -85,9 +87,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var next: List?
         get() = glibListPointer.pointed.next?.run {
-            List(reinterpret())
-        }
-
+            List(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibListPointer.pointed.next = value?.glibListPointer
@@ -98,9 +98,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var prev: List?
         get() = glibListPointer.pointed.prev?.run {
-            List(reinterpret())
-        }
-
+            List(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibListPointer.pointed.prev = value?.glibListPointer
@@ -112,11 +110,10 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GList>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GList>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -191,8 +188,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @return a pointer to the newly-allocated #GList element
          */
         public fun alloc(): List = g_list_alloc()!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Adds a new element on to the end of the list.
@@ -222,10 +218,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param data the data for the new element
          * @return either @list or the new start of the #GList if @list was null
          */
-        public fun append(list: List, `data`: gpointer? = null): List =
-            g_list_append(list.glibListPointer.reinterpret(), `data`)!!.run {
-                List(reinterpret())
-            }
+        public fun append(list: List, `data`: gpointer? = null): List = g_list_append(list.glibListPointer.reinterpret(), `data`)!!.run {
+            List(reinterpret())}
 
         /**
          * Adds the second #GList onto the end of the first #GList.
@@ -244,10 +238,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          *     this must point  to the top of the list
          * @return the start of the new #GList, which equals @list1 if not null
          */
-        public fun concat(list1: List, list2: List): List =
-            g_list_concat(list1.glibListPointer.reinterpret(), list2.glibListPointer.reinterpret())!!.run {
-                List(reinterpret())
-            }
+        public fun concat(list1: List, list2: List): List = g_list_concat(list1.glibListPointer.reinterpret(), list2.glibListPointer.reinterpret())!!.run {
+            List(reinterpret())}
 
         /**
          * Copies a #GList.
@@ -261,8 +253,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @return the start of the new list that holds the same data as @list
          */
         public fun copy(list: List): List = g_list_copy(list.glibListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Makes a full (deep) copy of a #GList.
@@ -294,13 +285,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @since 2.34
          */
         @GLibVersion2_34
-        public fun copyDeep(list: List, func: CopyFunc): List = g_list_copy_deep(
-            list.glibListPointer.reinterpret(),
-            CopyFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )!!.run {
-            List(reinterpret())
-        }
+        public fun copyDeep(list: List, func: CopyFunc): List = g_list_copy_deep(list.glibListPointer.reinterpret(), CopyFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!.run {
+            List(reinterpret())}
 
         /**
          * Removes the node link_ from the list and frees it.
@@ -311,10 +297,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param link node to delete from @list
          * @return the (possibly changed) start of the #GList
          */
-        public fun deleteLink(list: List, link: List): List =
-            g_list_delete_link(list.glibListPointer.reinterpret(), link.glibListPointer.reinterpret())!!.run {
-                List(reinterpret())
-            }
+        public fun deleteLink(list: List, link: List): List = g_list_delete_link(list.glibListPointer.reinterpret(), link.glibListPointer.reinterpret())!!.run {
+            List(reinterpret())}
 
         /**
          * Finds the element in a #GList which contains the given data.
@@ -323,10 +307,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param data the element data to find
          * @return the found #GList element, or null if it is not found
          */
-        public fun find(list: List, `data`: gpointer? = null): List =
-            g_list_find(list.glibListPointer.reinterpret(), `data`)!!.run {
-                List(reinterpret())
-            }
+        public fun find(list: List, `data`: gpointer? = null): List = g_list_find(list.glibListPointer.reinterpret(), `data`)!!.run {
+            List(reinterpret())}
 
         /**
          * Gets the first element in a #GList.
@@ -336,8 +318,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          *     or null if the #GList has no elements
          */
         public fun first(list: List): List = g_list_first(list.glibListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Calls a function for each element of a #GList.
@@ -348,11 +329,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param list a #GList, this must point to the top of the list
          * @param func the function to call with each element's data
          */
-        public fun foreach(list: List, func: Func): Unit = g_list_foreach(
-            list.glibListPointer.reinterpret(),
-            FuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreach(list: List, func: Func): Unit = g_list_foreach(list.glibListPointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Frees all of the memory used by a #GList.
@@ -392,8 +369,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @return the index of the element containing the data,
          *     or -1 if the data is not found
          */
-        public fun index(list: List, `data`: gpointer? = null): gint =
-            g_list_index(list.glibListPointer.reinterpret(), `data`)
+        public fun index(list: List, `data`: gpointer? = null): gint = g_list_index(list.glibListPointer.reinterpret(), `data`)
 
         /**
          * Inserts a new element into the list at the given position.
@@ -405,10 +381,12 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          *     list, the new element is added on to the end of the list.
          * @return the (possibly changed) start of the #GList
          */
-        public fun insert(list: List, `data`: gpointer? = null, position: gint): List =
-            g_list_insert(list.glibListPointer.reinterpret(), `data`, position)!!.run {
-                List(reinterpret())
-            }
+        public fun insert(
+            list: List,
+            `data`: gpointer? = null,
+            position: gint,
+        ): List = g_list_insert(list.glibListPointer.reinterpret(), `data`, position)!!.run {
+            List(reinterpret())}
 
         /**
          * Inserts a new element into the list before the given position.
@@ -419,13 +397,12 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param data the data for the new element
          * @return the (possibly changed) start of the #GList
          */
-        public fun insertBefore(list: List, sibling: List, `data`: gpointer? = null): List = g_list_insert_before(
-            list.glibListPointer.reinterpret(),
-            sibling.glibListPointer.reinterpret(),
-            `data`
-        )!!.run {
-            List(reinterpret())
-        }
+        public fun insertBefore(
+            list: List,
+            sibling: List,
+            `data`: gpointer? = null,
+        ): List = g_list_insert_before(list.glibListPointer.reinterpret(), sibling.glibListPointer.reinterpret(), `data`)!!.run {
+            List(reinterpret())}
 
         /**
          * Inserts @link_ into the list before the given position.
@@ -439,13 +416,12 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @since 2.62
          */
         @GLibVersion2_62
-        public fun insertBeforeLink(list: List, sibling: List? = null, link: List): List = g_list_insert_before_link(
-            list.glibListPointer.reinterpret(),
-            sibling?.glibListPointer?.reinterpret(),
-            link.glibListPointer.reinterpret()
-        )!!.run {
-            List(reinterpret())
-        }
+        public fun insertBeforeLink(
+            list: List,
+            sibling: List? = null,
+            link: List,
+        ): List = g_list_insert_before_link(list.glibListPointer.reinterpret(), sibling?.glibListPointer?.reinterpret(), link.glibListPointer.reinterpret())!!.run {
+            List(reinterpret())}
 
         /**
          * Inserts a new element into the list, using the given comparison
@@ -466,15 +442,12 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun insertSortedWithData(list: List, `data`: gpointer? = null, func: CompareDataFunc): List =
-            g_list_insert_sorted_with_data(
-                list.glibListPointer.reinterpret(),
-                `data`,
-                CompareDataFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer()
-            )!!.run {
-                List(reinterpret())
-            }
+        public fun insertSortedWithData(
+            list: List,
+            `data`: gpointer? = null,
+            func: CompareDataFunc,
+        ): List = g_list_insert_sorted_with_data(list.glibListPointer.reinterpret(), `data`, CompareDataFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!.run {
+            List(reinterpret())}
 
         /**
          * Gets the last element in a #GList.
@@ -484,8 +457,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          *     or null if the #GList has no elements
          */
         public fun last(list: List): List = g_list_last(list.glibListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Gets the number of elements in a #GList.
@@ -513,8 +485,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          *     the end of the #GList
          */
         public fun nth(list: List, n: guint): List = g_list_nth(list.glibListPointer.reinterpret(), n)!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Gets the data of the element at the given position.
@@ -539,8 +510,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          *     off the end of the #GList
          */
         public fun nthPrev(list: List, n: guint): List = g_list_nth_prev(list.glibListPointer.reinterpret(), n)!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         public fun popAllocator(): Unit = g_list_pop_allocator()
 
@@ -553,8 +523,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @return the position of the element in the #GList,
          *     or -1 if the element is not found
          */
-        public fun position(list: List, llink: List): gint =
-            g_list_position(list.glibListPointer.reinterpret(), llink.glibListPointer.reinterpret())
+        public fun position(list: List, llink: List): gint = g_list_position(list.glibListPointer.reinterpret(), llink.glibListPointer.reinterpret())
 
         /**
          * Prepends a new element on to the start of the list.
@@ -578,10 +547,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @return a pointer to the newly prepended element, which is the new
          *     start of the #GList
          */
-        public fun prepend(list: List, `data`: gpointer? = null): List =
-            g_list_prepend(list.glibListPointer.reinterpret(), `data`)!!.run {
-                List(reinterpret())
-            }
+        public fun prepend(list: List, `data`: gpointer? = null): List = g_list_prepend(list.glibListPointer.reinterpret(), `data`)!!.run {
+            List(reinterpret())}
 
         /**
          * Removes an element from a #GList.
@@ -592,10 +559,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param data the data of the element to remove
          * @return the (possibly changed) start of the #GList
          */
-        public fun remove(list: List, `data`: gpointer? = null): List =
-            g_list_remove(list.glibListPointer.reinterpret(), `data`)!!.run {
-                List(reinterpret())
-            }
+        public fun remove(list: List, `data`: gpointer? = null): List = g_list_remove(list.glibListPointer.reinterpret(), `data`)!!.run {
+            List(reinterpret())}
 
         /**
          * Removes all list nodes with data equal to @data.
@@ -607,10 +572,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param data data to remove
          * @return the (possibly changed) start of the #GList
          */
-        public fun removeAll(list: List, `data`: gpointer? = null): List =
-            g_list_remove_all(list.glibListPointer.reinterpret(), `data`)!!.run {
-                List(reinterpret())
-            }
+        public fun removeAll(list: List, `data`: gpointer? = null): List = g_list_remove_all(list.glibListPointer.reinterpret(), `data`)!!.run {
+            List(reinterpret())}
 
         /**
          * Removes an element from a #GList, without freeing the element.
@@ -630,10 +593,8 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param llink an element in the #GList
          * @return the (possibly changed) start of the #GList
          */
-        public fun removeLink(list: List, llink: List): List =
-            g_list_remove_link(list.glibListPointer.reinterpret(), llink.glibListPointer.reinterpret())!!.run {
-                List(reinterpret())
-            }
+        public fun removeLink(list: List, llink: List): List = g_list_remove_link(list.glibListPointer.reinterpret(), llink.glibListPointer.reinterpret())!!.run {
+            List(reinterpret())}
 
         /**
          * Reverses a #GList.
@@ -643,8 +604,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @return the start of the reversed #GList
          */
         public fun reverse(list: List): List = g_list_reverse(list.glibListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Like g_list_sort(), but the comparison function accepts
@@ -654,12 +614,7 @@ public class List(pointer: CPointer<GList>, cleaner: Cleaner? = null) : ProxyIns
          * @param compareFunc comparison function
          * @return the (possibly changed) start of the #GList
          */
-        public fun sortWithData(list: List, compareFunc: CompareDataFunc): List = g_list_sort_with_data(
-            list.glibListPointer.reinterpret(),
-            CompareDataFuncFunc.reinterpret(),
-            StableRef.create(compareFunc).asCPointer()
-        )!!.run {
-            List(reinterpret())
-        }
+        public fun sortWithData(list: List, compareFunc: CompareDataFunc): List = g_list_sort_with_data(list.glibListPointer.reinterpret(), CompareDataFuncFunc.reinterpret(), StableRef.create(compareFunc).asCPointer())!!.run {
+            List(reinterpret())}
     }
 }

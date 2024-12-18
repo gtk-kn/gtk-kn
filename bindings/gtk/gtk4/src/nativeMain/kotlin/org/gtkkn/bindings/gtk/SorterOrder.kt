@@ -8,18 +8,18 @@ import org.gtkkn.native.gtk.gtk_sorter_order_get_type
 /**
  * Describes the type of order that a `GtkSorter` may produce.
  */
-public enum class SorterOrder(public val nativeValue: GtkSorterOrder) {
+public enum class SorterOrder(
+    public val nativeValue: GtkSorterOrder,
+) {
     /**
      * A partial order. Any `GtkOrdering` is possible.
      */
     PARTIAL(GtkSorterOrder.GTK_SORTER_ORDER_PARTIAL),
-
     /**
      * No order, all elements are considered equal.
      *   gtk_sorter_compare() will only return %GTK_ORDERING_EQUAL.
      */
     NONE(GtkSorterOrder.GTK_SORTER_ORDER_NONE),
-
     /**
      * A total order. gtk_sorter_compare() will only
      *   return %GTK_ORDERING_EQUAL if an item is compared with itself. Two

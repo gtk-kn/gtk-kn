@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.pango.PangoAttrString
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrString` structure is used to represent attributes with
@@ -26,7 +26,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Attribute
  */
-public class AttrString(pointer: CPointer<PangoAttrString>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrString(
+    pointer: CPointer<PangoAttrString>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrStringPointer: CPointer<PangoAttrString> = pointer
 
     /**
@@ -34,7 +37,6 @@ public class AttrString(pointer: CPointer<PangoAttrString>, cleaner: Cleaner? = 
      */
     public var `value`: String?
         get() = pangoAttrStringPointer.pointed.value?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrStringPointer.pointed.value?.let { g_free(it) }
@@ -47,11 +49,10 @@ public class AttrString(pointer: CPointer<PangoAttrString>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrString>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrString>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -59,9 +60,7 @@ public class AttrString(pointer: CPointer<PangoAttrString>, cleaner: Cleaner? = 
      *
      * @param pair A pair containing the pointer to AttrString and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrString>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAttrString>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrString using the provided [AutofreeScope].

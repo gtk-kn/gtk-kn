@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -28,9 +31,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GAsyncInitable` is an interface for asynchronously initializable objects.
@@ -143,9 +143,7 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public interface AsyncInitable :
-    Interface,
-    KGTyped {
+public interface AsyncInitable : Interface, KGTyped {
     public val gioAsyncInitablePointer: CPointer<GAsyncInitable>
 
     /**
@@ -192,16 +190,11 @@ public interface AsyncInitable :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun initAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_async_initable_init_async(
-            gioAsyncInitablePointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun initAsync(
+        ioPriority: gint,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_async_initable_init_async(gioAsyncInitablePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes asynchronous initialization and returns the result.
@@ -215,14 +208,11 @@ public interface AsyncInitable :
     @GioVersion2_22
     public fun initFinish(res: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_async_initable_init_finish(
-            gioAsyncInitablePointer.reinterpret(),
-            res.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_async_initable_init_finish(gioAsyncInitablePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -239,32 +229,29 @@ public interface AsyncInitable :
     @GioVersion2_22
     public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_async_initable_new_finish(
-            gioAsyncInitablePointer.reinterpret(),
-            res.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Object(reinterpret())
-        }
+        val gResult = g_async_initable_new_finish(gioAsyncInitablePointer.reinterpret(), res.gioAsyncResultPointer, gError.ptr)?.run {
+            Object(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GAsyncInitable>) : AsyncInitable {
+    private data class Wrapper(
+        private val pointer: CPointer<GAsyncInitable>,
+    ) : AsyncInitable {
         override val gioAsyncInitablePointer: CPointer<GAsyncInitable> = pointer
     }
 
     public companion object : TypeCompanion<AsyncInitable> {
         override val type: GeneratedInterfaceKGType<AsyncInitable> =
-            GeneratedInterfaceKGType(g_async_initable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_async_initable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GAsyncInitable>): AsyncInitable = Wrapper(pointer)
 
@@ -293,17 +280,7 @@ public interface AsyncInitable :
             ioPriority: gint,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = g_async_initable_newv_async(
-            objectType,
-            nParameters,
-            parameters.gobjectParameterPointer.reinterpret(),
-            ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = g_async_initable_newv_async(objectType, nParameters, parameters.gobjectParameterPointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Get the GType of AsyncInitable

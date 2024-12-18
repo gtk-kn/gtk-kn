@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GActionEntry
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * This struct defines a single action.  It is for use with
@@ -35,7 +35,10 @@ import kotlin.native.ref.createCleaner
  * - field `activate`: Fields with callbacks are not supported
  * - field `change_state`: Fields with callbacks are not supported
  */
-public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ActionEntry(
+    pointer: CPointer<GActionEntry>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioActionEntryPointer: CPointer<GActionEntry> = pointer
 
     /**
@@ -43,7 +46,6 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      */
     public var name: String?
         get() = gioActionEntryPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioActionEntryPointer.pointed.name?.let { g_free(it) }
@@ -57,7 +59,6 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      */
     public var parameterType: String?
         get() = gioActionEntryPointer.pointed.parameter_type?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioActionEntryPointer.pointed.parameter_type?.let { g_free(it) }
@@ -73,7 +74,6 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      */
     public var state: String?
         get() = gioActionEntryPointer.pointed.state?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioActionEntryPointer.pointed.state?.let { g_free(it) }
@@ -86,11 +86,10 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GActionEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GActionEntry>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

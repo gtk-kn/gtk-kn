@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,7 +20,6 @@ import org.gtkkn.native.gio.g_tls_server_connection_get_type
 import org.gtkkn.native.gio.g_tls_server_connection_new
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
 
 /**
  * `GTlsServerConnection` is the server-side subclass of
@@ -32,22 +32,21 @@ import kotlin.Result
  * @since 2.28
  */
 @GioVersion2_28
-public interface TlsServerConnection :
-    Interface,
-    KGTyped {
+public interface TlsServerConnection : Interface, KGTyped {
     public val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>
 
-    private data class Wrapper(private val pointer: CPointer<GTlsServerConnection>) : TlsServerConnection {
+    private data class Wrapper(
+        private val pointer: CPointer<GTlsServerConnection>,
+    ) : TlsServerConnection {
         override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection> = pointer
     }
 
     public companion object : TypeCompanion<TlsServerConnection> {
         override val type: GeneratedInterfaceKGType<TlsServerConnection> =
-            GeneratedInterfaceKGType(g_tls_server_connection_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_tls_server_connection_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GTlsServerConnection>): TlsServerConnection = Wrapper(pointer)
 
@@ -66,23 +65,18 @@ public interface TlsServerConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun new(baseIoStream: IoStream, certificate: TlsCertificate? = null): Result<TlsServerConnection> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_tls_server_connection_new(
-                    baseIoStream.gioIOStreamPointer.reinterpret(),
-                    certificate?.gioTlsCertificatePointer?.reinterpret(),
-                    gError.ptr
-                )?.run {
-                    TlsServerConnection.wrap(reinterpret())
-                }
+        public fun new(baseIoStream: IoStream, certificate: TlsCertificate? = null): Result<TlsServerConnection> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_tls_server_connection_new(baseIoStream.gioIOStreamPointer.reinterpret(), certificate?.gioTlsCertificatePointer?.reinterpret(), gError.ptr)?.run {
+                TlsServerConnection.wrap(reinterpret())}
 
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             }
+            else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Get the GType of TlsServerConnection

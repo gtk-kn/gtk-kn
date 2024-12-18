@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -8,9 +11,6 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GSourceFuncs
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `GSourceFuncs` struct contains a table of
@@ -41,7 +41,10 @@ import kotlin.native.ref.createCleaner
  * - field `dispatch`: Fields with callbacks are not supported
  * - field `finalize`: Fields with callbacks are not supported
  */
-public class SourceFuncs(pointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class SourceFuncs(
+    pointer: CPointer<GSourceFuncs>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibSourceFuncsPointer: CPointer<GSourceFuncs> = pointer
 
     /**
@@ -50,11 +53,10 @@ public class SourceFuncs(pointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GSourceFuncs>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GSourceFuncs>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

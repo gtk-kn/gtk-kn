@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Throws
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -40,11 +45,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gboolean
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Throws
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GDBusServer` is a helper for listening to and accepting D-Bus
@@ -77,8 +77,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusServer(pointer: CPointer<GDBusServer>) :
-    Object(pointer.reinterpret()),
+public open class DBusServer(
+    pointer: CPointer<GDBusServer>,
+) : Object(pointer.reinterpret()),
     Initable,
     KGTyped {
     public val gioDBusServerPointer: CPointer<GDBusServer>
@@ -105,8 +106,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
          * by @server.
          * @since 2.26
          */
-        get() = g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Flags from the #GDBusServerFlags enumeration.
@@ -122,8 +122,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
          * @since 2.26
          */
         get() = g_dbus_server_get_flags(gioDBusServerPointer.reinterpret()).run {
-            DBusServerFlags(this)
-        }
+            DBusServerFlags(this)}
 
     /**
      * The GUID of the server.
@@ -140,8 +139,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
          * @return A D-Bus GUID. Do not free this string, it is owned by @server.
          * @since 2.26
          */
-        get() = g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a new D-Bus server that listens on the first address in
@@ -181,23 +179,14 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
         guid: String,
         observer: DBusAuthObserver? = null,
         cancellable: Cancellable? = null,
-    ) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_dbus_server_new_sync(
-                    address,
-                    flags.mask,
-                    guid,
-                    observer?.gioDBusAuthObserverPointer?.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_dbus_server_new_sync(address, flags.mask, guid, observer?.gioDBusAuthObserverPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -254,25 +243,14 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun connectNewConnection(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (connection: DBusConnection) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "new-connection",
-        connectNewConnectionFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectNewConnection(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (connection: DBusConnection) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "new-connection", connectNewConnectionFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DBusServer> {
         override val type: GeneratedClassKGType<DBusServer> =
-            GeneratedClassKGType(g_dbus_server_get_type()) { DBusServer(it.reinterpret()) }
+                GeneratedClassKGType(g_dbus_server_get_type()) { DBusServer(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DBusServer
@@ -284,15 +262,12 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
 }
 
 private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            connection: CPointer<GDBusConnection>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(
-            connection!!.run {
-                DBusConnection(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    connection: CPointer<GDBusConnection>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(connection!!.run {
+        DBusConnection(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

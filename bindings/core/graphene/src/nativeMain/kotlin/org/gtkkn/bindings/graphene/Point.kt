@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -27,12 +33,6 @@ import org.gtkkn.native.graphene.graphene_point_near
 import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.graphene.graphene_point_to_vec2
 import org.gtkkn.native.graphene.graphene_point_zero
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A point with two coordinates.
@@ -44,7 +44,10 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Point(
+    pointer: CPointer<graphene_point_t>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val graphenePointPointer: CPointer<graphene_point_t> = pointer
 
     /**
@@ -52,7 +55,6 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      */
     public var x: gfloat
         get() = graphenePointPointer.pointed.x
-
         @UnsafeFieldSetter
         set(`value`) {
             graphenePointPointer.pointed.x = value
@@ -63,7 +65,6 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      */
     public var y: gfloat
         get() = graphenePointPointer.pointed.y
-
         @UnsafeFieldSetter
         set(`value`) {
             graphenePointPointer.pointed.y = value
@@ -75,11 +76,10 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<graphene_point_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<graphene_point_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -87,9 +87,7 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to Point and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<graphene_point_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<graphene_point_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Point using the provided [AutofreeScope].
@@ -145,8 +143,7 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Point): Boolean =
-        graphene_point_equal(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret())
+    public fun equal(b: Point): Boolean = graphene_point_equal(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_point_alloc().
@@ -167,10 +164,8 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(x: gfloat, y: gfloat): Point =
-        graphene_point_init(graphenePointPointer.reinterpret(), x, y)!!.run {
-            Point(reinterpret())
-        }
+    public fun `init`(x: gfloat, y: gfloat): Point = graphene_point_init(graphenePointPointer.reinterpret(), x, y)!!.run {
+        Point(reinterpret())}
 
     /**
      * Initializes @p with the same coordinates of @src.
@@ -180,12 +175,8 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromPoint(src: Point): Point = graphene_point_init_from_point(
-        graphenePointPointer.reinterpret(),
-        src.graphenePointPointer.reinterpret()
-    )!!.run {
-        Point(reinterpret())
-    }
+    public fun initFromPoint(src: Point): Point = graphene_point_init_from_point(graphenePointPointer.reinterpret(), src.graphenePointPointer.reinterpret())!!.run {
+        Point(reinterpret())}
 
     /**
      * Initializes @p with the coordinates inside the given #graphene_vec2_t.
@@ -195,10 +186,8 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun initFromVec2(src: Vec2): Point =
-        graphene_point_init_from_vec2(graphenePointPointer.reinterpret(), src.grapheneVec2Pointer.reinterpret())!!.run {
-            Point(reinterpret())
-        }
+    public fun initFromVec2(src: Vec2): Point = graphene_point_init_from_vec2(graphenePointPointer.reinterpret(), src.grapheneVec2Pointer.reinterpret())!!.run {
+        Point(reinterpret())}
 
     /**
      * Linearly interpolates the coordinates of @a and @b using the
@@ -211,12 +200,11 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun interpolate(b: Point, factor: gdouble, res: Point): Unit = graphene_point_interpolate(
-        graphenePointPointer.reinterpret(),
-        b.graphenePointPointer.reinterpret(),
-        factor,
-        res.graphenePointPointer.reinterpret()
-    )
+    public fun interpolate(
+        b: Point,
+        factor: gdouble,
+        res: Point,
+    ): Unit = graphene_point_interpolate(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), factor, res.graphenePointPointer.reinterpret())
 
     /**
      * Checks whether the two points @a and @b are within
@@ -228,8 +216,7 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun near(b: Point, epsilon: gfloat): Boolean =
-        graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
+    public fun near(b: Point, epsilon: gfloat): Boolean = graphene_point_near(graphenePointPointer.reinterpret(), b.graphenePointPointer.reinterpret(), epsilon)
 
     /**
      * Stores the coordinates of the given #graphene_point_t into a
@@ -239,8 +226,7 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun toVec2(v: Vec2): Unit =
-        graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer.reinterpret())
+    public fun toVec2(v: Vec2): Unit = graphene_point_to_vec2(graphenePointPointer.reinterpret(), v.grapheneVec2Pointer.reinterpret())
 
     override fun toString(): String = "Point(x=$x, y=$y)"
 
@@ -282,8 +268,7 @@ public class Point(pointer: CPointer<graphene_point_t>, cleaner: Cleaner? = null
          */
         @GrapheneVersion1_0
         public fun zero(): Point = graphene_point_zero()!!.run {
-            Point(reinterpret())
-        }
+            Point(reinterpret())}
 
         /**
          * Get the GType of Point

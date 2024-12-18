@@ -9,19 +9,19 @@ import org.gtkkn.native.gtk.gtk_shortcut_scope_get_type
  * Describes where [class@Shortcut]s added to a
  * [class@ShortcutController] get handled.
  */
-public enum class ShortcutScope(public val nativeValue: GtkShortcutScope) {
+public enum class ShortcutScope(
+    public val nativeValue: GtkShortcutScope,
+) {
     /**
      * Shortcuts are handled inside
      *   the widget the controller belongs to.
      */
     LOCAL(GtkShortcutScope.GTK_SHORTCUT_SCOPE_LOCAL),
-
     /**
      * Shortcuts are handled by
      *   the first ancestor that is a [iface@ShortcutManager]
      */
     MANAGED(GtkShortcutScope.GTK_SHORTCUT_SCOPE_MANAGED),
-
     /**
      * Shortcuts are handled by
      *   the root widget.

@@ -5,7 +5,9 @@ import org.gtkkn.native.cairo.cairo_font_slant_t
 import org.gtkkn.native.cairo.cairo_gobject_font_slant_get_type
 import org.gtkkn.native.gobject.GType
 
-public enum class FontSlant(public val nativeValue: cairo_font_slant_t) {
+public enum class FontSlant(
+    public val nativeValue: cairo_font_slant_t,
+) {
     NORMAL(cairo_font_slant_t.CAIRO_FONT_SLANT_NORMAL),
     ITALIC(cairo_font_slant_t.CAIRO_FONT_SLANT_ITALIC),
     OBLIQUE(cairo_font_slant_t.CAIRO_FONT_SLANT_OBLIQUE),

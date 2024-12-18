@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,10 +20,6 @@ import org.gtkkn.native.glib.g_variant_iter_init
 import org.gtkkn.native.glib.g_variant_iter_n_children
 import org.gtkkn.native.glib.g_variant_iter_next_value
 import org.gtkkn.native.gobject.gsize
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * #GVariantIter is an opaque data structure and can only be accessed
@@ -30,7 +30,10 @@ import kotlin.native.ref.createCleaner
  * - method `loop`: Varargs parameter is not supported
  * - method `next`: Varargs parameter is not supported
  */
-public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class VariantIter(
+    pointer: CPointer<GVariantIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibVariantIterPointer: CPointer<GVariantIter> = pointer
 
     /**
@@ -39,11 +42,10 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GVariantIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GVariantIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -79,8 +81,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      */
     @GLibVersion2_24
     public fun copy(): VariantIter = g_variant_iter_copy(glibVariantIterPointer.reinterpret())!!.run {
-        VariantIter(reinterpret())
-    }
+        VariantIter(reinterpret())}
 
     /**
      * Frees a heap-allocated #GVariantIter.  Only call this function on
@@ -105,8 +106,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `init`(`value`: Variant): gsize =
-        g_variant_iter_init(glibVariantIterPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
+    public fun `init`(`value`: Variant): gsize = g_variant_iter_init(glibVariantIterPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
 
     /**
      * Queries the number of child items in the container that we are
@@ -155,6 +155,5 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      */
     @GLibVersion2_24
     public fun nextValue(): Variant? = g_variant_iter_next_value(glibVariantIterPointer.reinterpret())?.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 }

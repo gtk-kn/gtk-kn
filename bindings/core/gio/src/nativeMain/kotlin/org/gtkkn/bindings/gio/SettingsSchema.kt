@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,10 +26,6 @@ import org.gtkkn.native.gio.g_settings_schema_list_keys
 import org.gtkkn.native.gio.g_settings_schema_ref
 import org.gtkkn.native.gio.g_settings_schema_unref
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * The [struct@Gio.SettingsSchemaSource] and `GSettingsSchema` APIs provide a
@@ -121,7 +121,9 @@ import kotlin.collections.List
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(pointer) {
+public class SettingsSchema(
+    pointer: CPointer<GSettingsSchema>,
+) : ProxyInstance(pointer) {
     public val gioSettingsSchemaPointer: CPointer<GSettingsSchema> = pointer
 
     /**
@@ -129,8 +131,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      *
      * @return the ID
      */
-    public fun getId(): String = g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getId(): String = g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the key named @name from @schema.
@@ -143,10 +144,8 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getKey(name: String): SettingsSchemaKey =
-        g_settings_schema_get_key(gioSettingsSchemaPointer.reinterpret(), name)!!.run {
-            SettingsSchemaKey(reinterpret())
-        }
+    public fun getKey(name: String): SettingsSchemaKey = g_settings_schema_get_key(gioSettingsSchemaPointer.reinterpret(), name)!!.run {
+        SettingsSchemaKey(reinterpret())}
 
     /**
      * Gets the path associated with @schema, or null.
@@ -173,8 +172,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun hasKey(name: String): Boolean =
-        g_settings_schema_has_key(gioSettingsSchemaPointer.reinterpret(), name).asBoolean()
+    public fun hasKey(name: String): Boolean = g_settings_schema_has_key(gioSettingsSchemaPointer.reinterpret(), name).asBoolean()
 
     /**
      * Gets the list of children in @schema.
@@ -187,9 +185,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.44
      */
     @GioVersion2_44
-    public fun listChildren(): List<String> =
-        g_settings_schema_list_children(gioSettingsSchemaPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun listChildren(): List<String> = g_settings_schema_list_children(gioSettingsSchemaPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Introspects the list of keys on @schema.
@@ -203,9 +199,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.46
      */
     @GioVersion2_46
-    public fun listKeys(): List<String> =
-        g_settings_schema_list_keys(gioSettingsSchemaPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun listKeys(): List<String> = g_settings_schema_list_keys(gioSettingsSchemaPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Increase the reference count of @schema, returning a new reference.
@@ -215,8 +209,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      */
     @GioVersion2_32
     public fun ref(): SettingsSchema = g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
-        SettingsSchema(reinterpret())
-    }
+        SettingsSchema(reinterpret())}
 
     /**
      * Decrease the reference count of @schema, possibly freeing it.

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -19,9 +22,6 @@ import org.gtkkn.native.gtk.gtk_editable_label_get_type
 import org.gtkkn.native.gtk.gtk_editable_label_new
 import org.gtkkn.native.gtk.gtk_editable_label_start_editing
 import org.gtkkn.native.gtk.gtk_editable_label_stop_editing
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkEditableLabel` is a label that allows users to
@@ -53,8 +53,9 @@ import kotlin.Unit
  * For all the subnodes added to the text node in various situations,
  * see [class@Gtk.Text].
  */
-public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
-    Widget(pointer.reinterpret()),
+public open class EditableLabel(
+    pointer: CPointer<GtkEditableLabel>,
+) : Widget(pointer.reinterpret()),
     Editable,
     KGTyped {
     public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>
@@ -106,16 +107,14 @@ public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
      *
      * @param commit whether to set the edited text on the label
      */
-    public open fun stopEditing(commit: Boolean): Unit =
-        gtk_editable_label_stop_editing(gtkEditableLabelPointer.reinterpret(), commit.asGBoolean())
+    public open fun stopEditing(commit: Boolean): Unit = gtk_editable_label_stop_editing(gtkEditableLabelPointer.reinterpret(), commit.asGBoolean())
 
     public companion object : TypeCompanion<EditableLabel> {
         override val type: GeneratedClassKGType<EditableLabel> =
-            GeneratedClassKGType(gtk_editable_label_get_type()) { EditableLabel(it.reinterpret()) }
+                GeneratedClassKGType(gtk_editable_label_get_type()) { EditableLabel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EditableLabel

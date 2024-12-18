@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -24,12 +30,6 @@ import org.gtkkn.native.gdk.gdk_rgba_to_string
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkRGBA` is used to represent a color, in a way that is compatible
@@ -46,7 +46,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `p2`: RGBA
  */
-public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Rgba(
+    pointer: CPointer<GdkRGBA>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gdkRGBAPointer: CPointer<GdkRGBA> = pointer
 
     /**
@@ -54,7 +57,6 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      */
     public var red: gfloat
         get() = gdkRGBAPointer.pointed.red
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.red = value
@@ -65,7 +67,6 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      */
     public var green: gfloat
         get() = gdkRGBAPointer.pointed.green
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.green = value
@@ -76,7 +77,6 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      */
     public var blue: gfloat
         get() = gdkRGBAPointer.pointed.blue
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.blue = value
@@ -88,7 +88,6 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      */
     public var alpha: gfloat
         get() = gdkRGBAPointer.pointed.alpha
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkRGBAPointer.pointed.alpha = value
@@ -100,11 +99,10 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkRGBA>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GdkRGBA>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -180,8 +178,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      * @return A newly allocated `GdkRGBA`, with the same contents as @rgba
      */
     public fun copy(): Rgba = gdk_rgba_copy(gdkRGBAPointer.reinterpret())!!.run {
-        Rgba(reinterpret())
-    }
+        Rgba(reinterpret())}
 
     /**
      * Frees a `GdkRGBA`.
@@ -259,8 +256,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return A newly allocated text string
      */
-    override fun toString(): String =
-        gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = gdk_rgba_to_string(gdkRGBAPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

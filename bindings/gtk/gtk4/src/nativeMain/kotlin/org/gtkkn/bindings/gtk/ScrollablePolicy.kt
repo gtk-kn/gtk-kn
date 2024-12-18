@@ -9,12 +9,13 @@ import org.gtkkn.native.gtk.gtk_scrollable_policy_get_type
  * Defines the policy to be used in a scrollable widget when updating
  * the scrolled window adjustments in a given orientation.
  */
-public enum class ScrollablePolicy(public val nativeValue: GtkScrollablePolicy) {
+public enum class ScrollablePolicy(
+    public val nativeValue: GtkScrollablePolicy,
+) {
     /**
      * Scrollable adjustments are based on the minimum size
      */
     MINIMUM(GtkScrollablePolicy.GTK_SCROLL_MINIMUM),
-
     /**
      * Scrollable adjustments are based on the natural size
      */

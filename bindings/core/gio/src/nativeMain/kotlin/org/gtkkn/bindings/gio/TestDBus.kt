@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,8 +22,6 @@ import org.gtkkn.native.gio.g_test_dbus_stop
 import org.gtkkn.native.gio.g_test_dbus_unset
 import org.gtkkn.native.gio.g_test_dbus_up
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A helper class for testing code which uses D-Bus without touching the user’s
@@ -106,8 +106,9 @@ import kotlin.Unit
  * @since 2.34
  */
 @GioVersion2_34
-public open class TestDBus(pointer: CPointer<GTestDBus>) :
-    Object(pointer.reinterpret()),
+public open class TestDBus(
+    pointer: CPointer<GTestDBus>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioTestDBusPointer: CPointer<GTestDBus>
         get() = gPointer.reinterpret()
@@ -125,8 +126,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
          * @return the value of #GTestDBus:flags property
          */
         get() = g_test_dbus_get_flags(gioTestDBusPointer.reinterpret()).run {
-            TestDBusFlags(this)
-        }
+            TestDBusFlags(this)}
 
     /**
      * Create a new #GTestDBus object.
@@ -142,8 +142,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      *
      * @param path path to a directory containing .service files
      */
-    public open fun addServiceDir(path: String): Unit =
-        g_test_dbus_add_service_dir(gioTestDBusPointer.reinterpret(), path)
+    public open fun addServiceDir(path: String): Unit = g_test_dbus_add_service_dir(gioTestDBusPointer.reinterpret(), path)
 
     /**
      * Stop the session bus started by g_test_dbus_up().
@@ -161,8 +160,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      *
      * @return the address of the bus, or null.
      */
-    public open fun getBusAddress(): String? =
-        g_test_dbus_get_bus_address(gioTestDBusPointer.reinterpret())?.toKString()
+    public open fun getBusAddress(): String? = g_test_dbus_get_bus_address(gioTestDBusPointer.reinterpret())?.toKString()
 
     /**
      * Stop the session bus started by g_test_dbus_up().
@@ -188,11 +186,10 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
 
     public companion object : TypeCompanion<TestDBus> {
         override val type: GeneratedClassKGType<TestDBus> =
-            GeneratedClassKGType(g_test_dbus_get_type()) { TestDBus(it.reinterpret()) }
+                GeneratedClassKGType(g_test_dbus_get_type()) { TestDBus(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Unset DISPLAY and DBUS_SESSION_BUS_ADDRESS env variables to ensure the test

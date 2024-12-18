@@ -11,12 +11,13 @@ import org.gtkkn.native.gobject.GType
  * @since 2.30
  */
 @GioVersion2_30
-public enum class IoModuleScopeFlags(public val nativeValue: GIOModuleScopeFlags) {
+public enum class IoModuleScopeFlags(
+    public val nativeValue: GIOModuleScopeFlags,
+) {
     /**
      * No module scan flags
      */
     NONE(GIOModuleScopeFlags.G_IO_MODULE_SCOPE_NONE),
-
     /**
      * When using this scope to load or
      *     scan modules, automatically block a modules which has the same base

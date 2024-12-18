@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -24,10 +28,6 @@ import org.gtkkn.native.gobject.g_type_class_unref
 import org.gtkkn.native.gobject.g_type_class_unref_uncached
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all classes.
@@ -36,7 +36,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `private_size_or_offset`: Unsupported pointer to primitive type
  */
-public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TypeClass(
+    pointer: CPointer<GTypeClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeClassPointer: CPointer<GTypeClass> = pointer
 
     /**
@@ -45,11 +48,10 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTypeClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -136,8 +138,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun addPrivate(privateSize: gsize): Unit =
-        g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
+    public fun addPrivate(privateSize: gsize): Unit = g_type_class_add_private(gobjectTypeClassPointer.reinterpret(), privateSize)
 
     /**
      * Gets the offset of the private data for instances of @g_class.
@@ -153,11 +154,9 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * @since 2.38
      */
     @GObjectVersion2_38
-    public fun getInstancePrivateOffset(): gint =
-        g_type_class_get_instance_private_offset(gobjectTypeClassPointer.reinterpret())
+    public fun getInstancePrivateOffset(): gint = g_type_class_get_instance_private_offset(gobjectTypeClassPointer.reinterpret())
 
-    public fun getPrivate(privateType: GType): gpointer? =
-        g_type_class_get_private(gobjectTypeClassPointer.reinterpret(), privateType)
+    public fun getPrivate(privateType: GType): gpointer? = g_type_class_get_private(gobjectTypeClassPointer.reinterpret(), privateType)
 
     /**
      * This is a convenience function often needed in class initializers.
@@ -173,8 +172,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      *     of @g_class
      */
     public fun peekParent(): TypeClass = g_type_class_peek_parent(gobjectTypeClassPointer.reinterpret())!!.run {
-        TypeClass(reinterpret())
-    }
+        TypeClass(reinterpret())}
 
     /**
      * Decrements the reference count of the class structure being passed in.
@@ -206,8 +204,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
          *     currently exist
          */
         public fun peek(type: GType): TypeClass = g_type_class_peek(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         /**
          * A more efficient version of g_type_class_peek() which works only for
@@ -221,8 +218,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
          */
         @GObjectVersion2_4
         public fun peekStatic(type: GType): TypeClass = g_type_class_peek_static(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
 
         /**
          * Increments the reference count of the class structure belonging to
@@ -234,7 +230,6 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
          *     structure for the given type ID
          */
         public fun ref(type: GType): TypeClass = g_type_class_ref(type)!!.run {
-            TypeClass(reinterpret())
-        }
+            TypeClass(reinterpret())}
     }
 }

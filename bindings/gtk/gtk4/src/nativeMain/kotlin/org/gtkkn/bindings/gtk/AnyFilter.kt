@@ -18,8 +18,9 @@ import org.gtkkn.native.gtk.gtk_any_filter_new
  *
  * To add filters to a `GtkAnyFilter`, use [method@Gtk.MultiFilter.append].
  */
-public open class AnyFilter(pointer: CPointer<GtkAnyFilter>) :
-    MultiFilter(pointer.reinterpret()),
+public open class AnyFilter(
+    pointer: CPointer<GtkAnyFilter>,
+) : MultiFilter(pointer.reinterpret()),
     KGTyped {
     public val gtkAnyFilterPointer: CPointer<GtkAnyFilter>
         get() = gPointer.reinterpret()
@@ -45,11 +46,10 @@ public open class AnyFilter(pointer: CPointer<GtkAnyFilter>) :
 
     public companion object : TypeCompanion<AnyFilter> {
         override val type: GeneratedClassKGType<AnyFilter> =
-            GeneratedClassKGType(gtk_any_filter_get_type()) { AnyFilter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_any_filter_get_type()) { AnyFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of AnyFilter

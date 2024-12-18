@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
@@ -15,16 +17,15 @@ import org.gtkkn.native.gio.g_io_module_new
 import org.gtkkn.native.gio.g_io_module_query
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypePlugin
-import kotlin.String
-import kotlin.collections.List
 
 /**
  * Provides an interface and default functions for loading and unloading
  * modules. This is used internally to make GIO extensible, but can also
  * be used by others to implement module loading.
  */
-public open class IoModule(pointer: CPointer<GIOModule>) :
-    TypeModule(pointer.reinterpret()),
+public open class IoModule(
+    pointer: CPointer<GIOModule>,
+) : TypeModule(pointer.reinterpret()),
     KGTyped {
     public val gioIOModulePointer: CPointer<GIOModule>
         get() = gPointer.reinterpret()
@@ -44,11 +45,10 @@ public open class IoModule(pointer: CPointer<GIOModule>) :
 
     public companion object : TypeCompanion<IoModule> {
         override val type: GeneratedClassKGType<IoModule> =
-            GeneratedClassKGType(g_io_module_get_type()) { IoModule(it.reinterpret()) }
+                GeneratedClassKGType(g_io_module_get_type()) { IoModule(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Optional API for GIO modules to implement.
@@ -89,8 +89,7 @@ public open class IoModule(pointer: CPointer<GIOModule>) :
          * @since 2.24
          */
         @GioVersion2_24
-        public fun query(): List<String> =
-            g_io_module_query()?.toKStringList() ?: error("Expected not null string array")
+        public fun query(): List<String> = g_io_module_query()?.toKStringList() ?: error("Expected not null string array")
 
         /**
          * Get the GType of IOModule

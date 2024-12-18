@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,11 +19,6 @@ import org.gtkkn.native.gobject.g_object_class_find_property
 import org.gtkkn.native.gobject.g_object_class_install_property
 import org.gtkkn.native.gobject.g_object_class_override_property
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class structure for the GObject type.
@@ -33,7 +33,7 @@ import kotlin.native.ref.createCleaner
  *                           GObjectConstructParam *construct_params)
  * {
  *   GObject *object;
- *
+ *   
  *   if (!the_singleton)
  *     {
  *       object = G_OBJECT_CLASS (parent_class)->constructor (type,
@@ -62,7 +62,10 @@ import kotlin.native.ref.createCleaner
  * - field `notify`: Fields with callbacks are not supported
  * - field `constructed`: Fields with callbacks are not supported
  */
-public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ObjectClass(
+    pointer: CPointer<GObjectClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectObjectClassPointer: CPointer<GObjectClass> = pointer
 
     /**
@@ -71,11 +74,10 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GObjectClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GObjectClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -101,10 +103,8 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      * @return the #GParamSpec for the property, or
      *          null if the class doesn't have a property of that name
      */
-    public fun findProperty(propertyName: String): ParamSpec =
-        g_object_class_find_property(gobjectObjectClassPointer.reinterpret(), propertyName)!!.run {
-            ParamSpec(reinterpret())
-        }
+    public fun findProperty(propertyName: String): ParamSpec = g_object_class_find_property(gobjectObjectClassPointer.reinterpret(), propertyName)!!.run {
+        ParamSpec(reinterpret())}
 
     /**
      * Installs a new property.
@@ -121,11 +121,7 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      * @param propertyId the id for the new property
      * @param pspec the #GParamSpec for the new property
      */
-    public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit = g_object_class_install_property(
-        gobjectObjectClassPointer.reinterpret(),
-        propertyId,
-        pspec.gPointer.reinterpret()
-    )
+    public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit = g_object_class_install_property(gobjectObjectClassPointer.reinterpret(), propertyId, pspec.gPointer.reinterpret())
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -151,6 +147,5 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun overrideProperty(propertyId: guint, name: String): Unit =
-        g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
+    public fun overrideProperty(propertyId: guint, name: String): Unit = g_object_class_override_property(gobjectObjectClassPointer.reinterpret(), propertyId, name)
 }

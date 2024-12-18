@@ -15,22 +15,21 @@ import org.gtkkn.native.gtk.gtk_font_level_get_type
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class FontLevel(public val nativeValue: GtkFontLevel) {
+public enum class FontLevel(
+    public val nativeValue: GtkFontLevel,
+) {
     /**
      * Select a font family
      */
     FAMILY(GtkFontLevel.GTK_FONT_LEVEL_FAMILY),
-
     /**
      * Select a font face (i.e. a family and a style)
      */
     FACE(GtkFontLevel.GTK_FONT_LEVEL_FACE),
-
     /**
      * Select a font (i.e. a face with a size, and possibly font variations)
      */
     FONT(GtkFontLevel.GTK_FONT_LEVEL_FONT),
-
     /**
      * Select a font and font features
      */

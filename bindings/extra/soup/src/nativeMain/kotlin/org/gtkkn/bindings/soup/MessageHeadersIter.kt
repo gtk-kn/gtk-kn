@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,10 +14,6 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.soup.SoupMessageHeadersIter
 import org.gtkkn.native.soup.soup_message_headers_iter_init
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque type used to iterate over a %SoupMessageHeaders
@@ -28,8 +28,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `name`: name: Out parameter is not supported
  */
-public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class MessageHeadersIter(
+    pointer: CPointer<SoupMessageHeadersIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val soupMessageHeadersIterPointer: CPointer<SoupMessageHeadersIter> = pointer
 
     /**
@@ -38,11 +40,10 @@ public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<SoupMessageHeadersIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<SoupMessageHeadersIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -50,9 +51,7 @@ public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, clean
      *
      * @param pair A pair containing the pointer to MessageHeadersIter and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<SoupMessageHeadersIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<SoupMessageHeadersIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new MessageHeadersIter using the provided [AutofreeScope].
@@ -71,9 +70,6 @@ public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, clean
          *   structure
          * @param hdrs a %SoupMessageHeaders
          */
-        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(
-            iter.soupMessageHeadersIterPointer.reinterpret(),
-            hdrs.soupMessageHeadersPointer.reinterpret()
-        )
+        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(iter.soupMessageHeadersIterPointer.reinterpret(), hdrs.soupMessageHeadersPointer.reinterpret())
     }
 }

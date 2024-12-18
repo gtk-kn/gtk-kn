@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,17 +16,16 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRequestedSize
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a request of a screen object in a given orientation. These
  * are primarily used in container implementations when allocating a natural
  * size for children calling. See [func@distribute_natural_allocation].
  */
-public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class RequestedSize(
+    pointer: CPointer<GtkRequestedSize>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkRequestedSizePointer: CPointer<GtkRequestedSize> = pointer
 
     /**
@@ -30,7 +33,6 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      */
     public var `data`: gpointer
         get() = gtkRequestedSizePointer.pointed.data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRequestedSizePointer.pointed.data = value
@@ -41,7 +43,6 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      */
     public var minimumSize: gint
         get() = gtkRequestedSizePointer.pointed.minimum_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRequestedSizePointer.pointed.minimum_size = value
@@ -52,7 +53,6 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      */
     public var naturalSize: gint
         get() = gtkRequestedSizePointer.pointed.natural_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRequestedSizePointer.pointed.natural_size = value
@@ -64,11 +64,10 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkRequestedSize>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkRequestedSize>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -76,9 +75,7 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to RequestedSize and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GtkRequestedSize>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GtkRequestedSize>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RequestedSize using the provided [AutofreeScope].

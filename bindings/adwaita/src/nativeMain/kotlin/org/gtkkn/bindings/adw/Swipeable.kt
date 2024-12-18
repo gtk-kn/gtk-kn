@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rectangle
@@ -17,8 +19,6 @@ import org.gtkkn.native.adw.adw_swipeable_get_swipe_area
 import org.gtkkn.native.adw.adw_swipeable_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * An interface for swipeable widgets.
@@ -31,9 +31,7 @@ import kotlin.Unit
  *
  * - parameter `n_snap_points`: n_snap_points: Out parameter is not supported
  */
-public interface Swipeable :
-    Interface,
-    KGTyped {
+public interface Swipeable : Interface, KGTyped {
     public val adwSwipeablePointer: CPointer<AdwSwipeable>
 
     /**
@@ -74,25 +72,24 @@ public interface Swipeable :
      * @param isDrag whether the swipe is caused by a dragging gesture
      * @param rect a pointer to a rectangle to store the swipe area
      */
-    public fun getSwipeArea(navigationDirection: NavigationDirection, isDrag: Boolean, rect: Rectangle): Unit =
-        adw_swipeable_get_swipe_area(
-            adwSwipeablePointer.reinterpret(),
-            navigationDirection.nativeValue,
-            isDrag.asGBoolean(),
-            rect.gdkRectanglePointer.reinterpret()
-        )
+    public fun getSwipeArea(
+        navigationDirection: NavigationDirection,
+        isDrag: Boolean,
+        rect: Rectangle,
+    ): Unit = adw_swipeable_get_swipe_area(adwSwipeablePointer.reinterpret(), navigationDirection.nativeValue, isDrag.asGBoolean(), rect.gdkRectanglePointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<AdwSwipeable>) : Swipeable {
+    private data class Wrapper(
+        private val pointer: CPointer<AdwSwipeable>,
+    ) : Swipeable {
         override val adwSwipeablePointer: CPointer<AdwSwipeable> = pointer
     }
 
     public companion object : TypeCompanion<Swipeable> {
         override val type: GeneratedInterfaceKGType<Swipeable> =
-            GeneratedInterfaceKGType(adw_swipeable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(adw_swipeable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<AdwSwipeable>): Swipeable = Wrapper(pointer)
 

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -44,10 +48,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A [class@Gtk.ListBoxRow] used to present actions.
@@ -89,8 +89,9 @@ import kotlin.Unit
  *
  * - method `subtitle`: Property TypeInfo of getter and setter do not match
  */
-public open class ActionRow(pointer: CPointer<AdwActionRow>) :
-    PreferencesRow(pointer.reinterpret()),
+public open class ActionRow(
+    pointer: CPointer<AdwActionRow>,
+) : PreferencesRow(pointer.reinterpret()),
     KGTyped {
     public val adwActionRowPointer: CPointer<AdwActionRow>
         get() = gPointer.reinterpret()
@@ -125,9 +126,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          * @return the activatable widget for @self
          */
         get() = adw_action_row_get_activatable_widget(adwActionRowPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the widget to activate when @self is activated.
          *
@@ -140,12 +139,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          *
          * @param widget the target widget
          */
-        set(
-            widget
-        ) = adw_action_row_set_activatable_widget(
-            adwActionRowPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(widget) = adw_action_row_set_activatable_widget(adwActionRowPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The icon name for this row.
@@ -157,7 +151,6 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          * @return the icon name for @self
          */
         get() = adw_action_row_get_icon_name(adwActionRowPointer.reinterpret())?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -180,7 +173,6 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          *   ellipsized
          */
         get() = adw_action_row_get_subtitle_lines(adwActionRowPointer.reinterpret())
-
         /**
          * Sets the number of lines at the end of which the subtitle label will be
          * ellipsized.
@@ -207,7 +199,6 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          * @since 1.3
          */
         get() = adw_action_row_get_subtitle_selectable(adwActionRowPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the user can copy the subtitle from the label
          *
@@ -217,9 +208,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(
-            subtitleSelectable
-        ) = adw_action_row_set_subtitle_selectable(adwActionRowPointer.reinterpret(), subtitleSelectable.asGBoolean())
+        set(subtitleSelectable) = adw_action_row_set_subtitle_selectable(adwActionRowPointer.reinterpret(), subtitleSelectable.asGBoolean())
 
     /**
      * The number of lines at the end of which the title label will be ellipsized.
@@ -235,7 +224,6 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          *   ellipsized
          */
         get() = adw_action_row_get_title_lines(adwActionRowPointer.reinterpret())
-
         /**
          * Sets the number of lines at the end of which the title label will be
          * ellipsized.
@@ -263,16 +251,14 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
      *
      * @param widget a widget
      */
-    public open fun addPrefix(widget: Widget): Unit =
-        adw_action_row_add_prefix(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun addPrefix(widget: Widget): Unit = adw_action_row_add_prefix(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Adds a suffix widget to @self.
      *
      * @param widget a widget
      */
-    public open fun addSuffix(widget: Widget): Unit =
-        adw_action_row_add_suffix(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun addSuffix(widget: Widget): Unit = adw_action_row_add_suffix(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Gets the subtitle for @self.
@@ -286,8 +272,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
      *
      * @param widget the child to be removed
      */
-    public open fun remove(widget: Widget): Unit =
-        adw_action_row_remove(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun remove(widget: Widget): Unit = adw_action_row_remove(adwActionRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
 
     /**
      * Sets the subtitle for @self.
@@ -297,8 +282,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
      *
      * @param subtitle the subtitle
      */
-    public open fun setSubtitle(subtitle: String): Unit =
-        adw_action_row_set_subtitle(adwActionRowPointer.reinterpret(), subtitle)
+    public open fun setSubtitle(subtitle: String): Unit = adw_action_row_set_subtitle(adwActionRowPointer.reinterpret(), subtitle)
 
     /**
      * This signal is emitted after the row has been activated.
@@ -306,23 +290,14 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activated",
-            connectActivatedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activated", connectActivatedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<ActionRow> {
         override val type: GeneratedClassKGType<ActionRow> =
-            GeneratedClassKGType(adw_action_row_get_type()) { ActionRow(it.reinterpret()) }
+                GeneratedClassKGType(adw_action_row_get_type()) { ActionRow(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ActionRow
@@ -334,9 +309,8 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
 }
 
 private val connectActivatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

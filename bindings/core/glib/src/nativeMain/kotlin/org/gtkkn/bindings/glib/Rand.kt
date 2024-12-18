@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
@@ -20,7 +21,6 @@ import org.gtkkn.native.gobject.g_rand_get_type
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Unit
 
 /**
  * The GRand struct is an opaque data structure. It should only be
@@ -31,7 +31,9 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  * - parameter `seed`: Unsupported pointer to primitive type
  */
-public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
+public class Rand(
+    pointer: CPointer<GRand>,
+) : ProxyInstance(pointer) {
     public val glibRandPointer: CPointer<GRand> = pointer
 
     /**
@@ -44,8 +46,7 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_4
     public fun copy(): Rand = g_rand_copy(glibRandPointer.reinterpret())!!.run {
-        Rand(reinterpret())
-    }
+        Rand(reinterpret())}
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -63,8 +64,7 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun doubleRange(begin: gdouble, end: gdouble): gdouble =
-        g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
+    public fun doubleRange(begin: gdouble, end: gdouble): gdouble = g_rand_double_range(glibRandPointer.reinterpret(), begin, end)
 
     /**
      * Frees the memory allocated for the #GRand.

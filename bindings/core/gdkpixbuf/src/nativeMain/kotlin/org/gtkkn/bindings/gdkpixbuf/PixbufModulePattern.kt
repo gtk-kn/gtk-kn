@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,10 +19,6 @@ import org.gtkkn.native.gdkpixbuf.GdkPixbufModulePattern
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.gint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The signature prefix for a module.
@@ -54,8 +54,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.2
  */
 @GdkPixbufVersion2_2
-public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class PixbufModulePattern(
+    pointer: CPointer<GdkPixbufModulePattern>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gdkpixbufPixbufModulePatternPointer: CPointer<GdkPixbufModulePattern> = pointer
 
     /**
@@ -63,7 +65,6 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      */
     public var prefix: String?
         get() = gdkpixbufPixbufModulePatternPointer.pointed.prefix?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.prefix?.let { g_free(it) }
@@ -76,7 +77,6 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      */
     public var mask: String?
         get() = gdkpixbufPixbufModulePatternPointer.pointed.mask?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.mask?.let { g_free(it) }
@@ -88,7 +88,6 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      */
     public var relevance: gint
         get() = gdkpixbufPixbufModulePatternPointer.pointed.relevance
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkpixbufPixbufModulePatternPointer.pointed.relevance = value
@@ -100,11 +99,10 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkPixbufModulePattern>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GdkPixbufModulePattern>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -112,9 +110,7 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      *
      * @param pair A pair containing the pointer to PixbufModulePattern and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GdkPixbufModulePattern>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GdkPixbufModulePattern>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PixbufModulePattern using the provided [AutofreeScope].

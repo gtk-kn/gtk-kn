@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -45,10 +49,6 @@ import org.gtkkn.native.gtk.gtk_print_dialog_set_print_settings
 import org.gtkkn.native.gtk.gtk_print_dialog_set_title
 import org.gtkkn.native.gtk.gtk_print_dialog_setup
 import org.gtkkn.native.gtk.gtk_print_dialog_setup_finish
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkPrintDialog` object collects the arguments that
@@ -62,8 +62,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
-    Object(pointer.reinterpret()),
+public open class PrintDialog(
+    pointer: CPointer<GtkPrintDialog>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPrintDialogPointer: CPointer<GtkPrintDialog>
         get() = gPointer.reinterpret()
@@ -83,9 +84,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @return the accept label
          * @since 4.14
          */
-        get() = gtk_print_dialog_get_accept_label(gtkPrintDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_print_dialog_get_accept_label(gtkPrintDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the label that will be shown on the
          * accept button of the print dialog shown for
@@ -113,7 +112,6 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @since 4.14
          */
         get() = gtk_print_dialog_get_modal(gtkPrintDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the print dialog blocks
          * interaction with the parent window while
@@ -139,9 +137,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @since 4.14
          */
         get() = gtk_print_dialog_get_page_setup(gtkPrintDialogPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
-
+            PageSetup(reinterpret())}
         /**
          * Set the page setup for the print dialog.
          *
@@ -149,12 +145,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @since 4.14
          */
         @GtkVersion4_14
-        set(
-            pageSetup
-        ) = gtk_print_dialog_set_page_setup(
-            gtkPrintDialogPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
-        )
+        set(pageSetup) = gtk_print_dialog_set_page_setup(gtkPrintDialogPointer.reinterpret(), pageSetup.gtkPageSetupPointer.reinterpret())
 
     /**
      * The print settings to use.
@@ -170,9 +161,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @since 4.14
          */
         get() = gtk_print_dialog_get_print_settings(gtkPrintDialogPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
-        }
-
+            PrintSettings(reinterpret())}
         /**
          * Sets the print settings for the print dialog.
          *
@@ -180,12 +169,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @since 4.14
          */
         @GtkVersion4_14
-        set(
-            printSettings
-        ) = gtk_print_dialog_set_print_settings(
-            gtkPrintDialogPointer.reinterpret(),
-            printSettings.gtkPrintSettingsPointer.reinterpret()
-        )
+        set(printSettings) = gtk_print_dialog_set_print_settings(gtkPrintDialogPointer.reinterpret(), printSettings.gtkPrintSettingsPointer.reinterpret())
 
     /**
      * A title that may be shown on the print dialog that is
@@ -202,9 +186,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
          * @return the title
          * @since 4.14
          */
-        get() = gtk_print_dialog_get_title(gtkPrintDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_print_dialog_get_title(gtkPrintDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title that will be shown on the print dialog.
          *
@@ -243,16 +225,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
         setup: PrintSetup? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_print_dialog_print(
-        gtkPrintDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        setup?.gtkPrintSetupPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_print_dialog_print(gtkPrintDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), setup?.gtkPrintSetupPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * This function prints a file.
@@ -277,17 +250,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
         `file`: File,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_print_dialog_print_file(
-        gtkPrintDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        setup?.gtkPrintSetupPointer?.reinterpret(),
-        `file`.gioFilePointer,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_print_dialog_print_file(gtkPrintDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), setup?.gtkPrintSetupPointer?.reinterpret(), `file`.gioFilePointer, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.PrintDialog.print_file] call and
@@ -300,14 +263,11 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
     @GtkVersion4_14
     public open fun printFileFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_print_dialog_print_file_finish(
-            gtkPrintDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_print_dialog_print_file_finish(gtkPrintDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -333,17 +293,13 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
     @GtkVersion4_14
     public open fun printFinish(result: AsyncResult): Result<OutputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_print_dialog_print_finish(
-            gtkPrintDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            OutputStream(reinterpret())
-        }
+        val gResult = gtk_print_dialog_print_finish(gtkPrintDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            OutputStream(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -373,15 +329,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_print_dialog_setup(
-        gtkPrintDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_print_dialog_setup(gtkPrintDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.PrintDialog.setup] call.
@@ -398,28 +346,23 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
     @GtkVersion4_14
     public open fun setupFinish(result: AsyncResult): Result<PrintSetup?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_print_dialog_setup_finish(
-            gtkPrintDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            PrintSetup(reinterpret())
-        }
+        val gResult = gtk_print_dialog_setup_finish(gtkPrintDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            PrintSetup(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<PrintDialog> {
         override val type: GeneratedClassKGType<PrintDialog> =
-            GeneratedClassKGType(gtk_print_dialog_get_type()) { PrintDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_print_dialog_get_type()) { PrintDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PrintDialog

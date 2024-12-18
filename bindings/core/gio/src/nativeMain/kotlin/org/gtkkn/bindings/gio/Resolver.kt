@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -53,10 +57,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.guint
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The object that handles DNS resolution. Use [func@Gio.Resolver.get_default]
@@ -79,8 +79,9 @@ import kotlin.Unit
  * This is an abstract type; subclasses of it implement different resolvers for
  * different platforms and situations.
  */
-public open class Resolver(pointer: CPointer<GResolver>) :
-    Object(pointer.reinterpret()),
+public open class Resolver(
+    pointer: CPointer<GResolver>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioResolverPointer: CPointer<GResolver>
         get() = gPointer.reinterpret()
@@ -108,7 +109,6 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          * @since 2.78
          */
         get() = g_resolver_get_timeout(gioResolverPointer.reinterpret())
-
         /**
          * Set the timeout applied to all resolver lookups. See #GResolver:timeout.
          *
@@ -136,21 +136,16 @@ public open class Resolver(pointer: CPointer<GResolver>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun lookupByAddress(address: InetAddress, cancellable: Cancellable? = null): Result<String> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_resolver_lookup_by_address(
-                gioResolverPointer.reinterpret(),
-                address.gioInetAddressPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )?.toKString()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public open fun lookupByAddress(address: InetAddress, cancellable: Cancellable? = null): Result<String> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_resolver_lookup_by_address(gioResolverPointer.reinterpret(), address.gioInetAddressPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.toKString()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         }
+        else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Begins asynchronously reverse-resolving @address to determine its
@@ -167,15 +162,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         address: InetAddress,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_resolver_lookup_by_address_async(
-        gioResolverPointer.reinterpret(),
-        address.gioInetAddressPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_resolver_lookup_by_address_async(gioResolverPointer.reinterpret(), address.gioInetAddressPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Retrieves the result of a previous call to
@@ -193,14 +180,11 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     @GioVersion2_22
     public open fun lookupByAddressFinish(result: AsyncResult): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_by_address_finish(
-            gioResolverPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.toKString()
+        val gResult = g_resolver_lookup_by_address_finish(gioResolverPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -241,18 +225,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     @GioVersion2_22
     public open fun lookupByName(hostname: String, cancellable: Cancellable? = null): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_by_name(
-            gioResolverPointer.reinterpret(),
-            hostname,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_by_name(gioResolverPointer.reinterpret(), hostname, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -273,15 +252,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         hostname: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_resolver_lookup_by_name_async(
-        gioResolverPointer.reinterpret(),
-        hostname,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_resolver_lookup_by_name_async(gioResolverPointer.reinterpret(), hostname, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Retrieves the result of a call to
@@ -300,17 +271,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     @GioVersion2_22
     public open fun lookupByNameFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_by_name_finish(
-            gioResolverPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_by_name_finish(gioResolverPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -336,19 +303,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         cancellable: Cancellable? = null,
     ): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_by_name_with_flags(
-            gioResolverPointer.reinterpret(),
-            hostname,
-            flags.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_by_name_with_flags(gioResolverPointer.reinterpret(), hostname, flags.mask, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -371,16 +332,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_resolver_lookup_by_name_with_flags_async(
-        gioResolverPointer.reinterpret(),
-        hostname,
-        flags.mask,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_resolver_lookup_by_name_with_flags_async(gioResolverPointer.reinterpret(), hostname, flags.mask, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Retrieves the result of a call to
@@ -399,17 +351,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     @GioVersion2_60
     public open fun lookupByNameWithFlagsFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_by_name_with_flags_finish(
-            gioResolverPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_by_name_with_flags_finish(gioResolverPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -442,19 +390,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         cancellable: Cancellable? = null,
     ): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_records(
-            gioResolverPointer.reinterpret(),
-            rrname,
-            recordType.nativeValue,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_records(gioResolverPointer.reinterpret(), rrname, recordType.nativeValue, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -477,16 +419,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         recordType: ResolverRecordType,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_resolver_lookup_records_async(
-        gioResolverPointer.reinterpret(),
-        rrname,
-        recordType.nativeValue,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_resolver_lookup_records_async(gioResolverPointer.reinterpret(), rrname, recordType.nativeValue, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Retrieves the result of a previous call to
@@ -508,17 +441,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     @GioVersion2_34
     public open fun lookupRecordsFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_records_finish(
-            gioResolverPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_records_finish(gioResolverPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -564,20 +493,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         cancellable: Cancellable? = null,
     ): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_service(
-            gioResolverPointer.reinterpret(),
-            service,
-            protocol,
-            domain,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_service(gioResolverPointer.reinterpret(), service, protocol, domain, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -603,17 +525,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
         domain: String,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_resolver_lookup_service_async(
-        gioResolverPointer.reinterpret(),
-        service,
-        protocol,
-        domain,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_resolver_lookup_service_async(gioResolverPointer.reinterpret(), service, protocol, domain, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Retrieves the result of a previous call to
@@ -632,17 +544,13 @@ public open class Resolver(pointer: CPointer<GResolver>) :
     @GioVersion2_22
     public open fun lookupServiceFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resolver_lookup_service_finish(
-            gioResolverPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = g_resolver_lookup_service_finish(gioResolverPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -670,23 +578,14 @@ public open class Resolver(pointer: CPointer<GResolver>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectReload(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "reload",
-            connectReloadFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectReload(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "reload", connectReloadFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Resolver> {
         override val type: GeneratedClassKGType<Resolver> =
-            GeneratedClassKGType(g_resolver_get_type()) { Resolver(it.reinterpret()) }
+                GeneratedClassKGType(g_resolver_get_type()) { Resolver(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Frees @addresses (which should be the return value from
@@ -698,8 +597,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          * @since 2.22
          */
         @GioVersion2_22
-        public fun freeAddresses(addresses: List): Unit =
-            g_resolver_free_addresses(addresses.glibListPointer.reinterpret())
+        public fun freeAddresses(addresses: List): Unit = g_resolver_free_addresses(addresses.glibListPointer.reinterpret())
 
         /**
          * Frees @targets (which should be the return value from
@@ -723,8 +621,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          */
         @GioVersion2_22
         public fun getDefault(): Resolver = g_resolver_get_default()!!.run {
-            Resolver(reinterpret())
-        }
+            Resolver(reinterpret())}
 
         /**
          * Get the GType of Resolver
@@ -736,9 +633,8 @@ public open class Resolver(pointer: CPointer<GResolver>) :
 }
 
 private val connectReloadFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

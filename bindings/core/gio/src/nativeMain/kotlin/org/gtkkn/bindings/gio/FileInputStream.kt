@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -22,9 +25,6 @@ import org.gtkkn.native.gio.g_file_input_stream_query_info_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GFileInputStream` provides input streams that take their
@@ -37,8 +37,9 @@ import kotlin.Unit
  * stream supports seeking, use [vfunc@Gio.Seekable.can_seek].
  * To position a file input stream, use [vfunc@Gio.Seekable.seek].
  */
-public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
-    InputStream(pointer.reinterpret()),
+public open class FileInputStream(
+    pointer: CPointer<GFileInputStream>,
+) : InputStream(pointer.reinterpret()),
     Seekable,
     KGTyped {
     public val gioFileInputStreamPointer: CPointer<GFileInputStream>
@@ -60,18 +61,13 @@ public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
      */
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_file_input_stream_query_info(
-            gioFileInputStreamPointer.reinterpret(),
-            attributes,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            FileInfo(reinterpret())
-        }
+        val gResult = g_file_input_stream_query_info(gioFileInputStreamPointer.reinterpret(), attributes, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            FileInfo(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -100,16 +96,7 @@ public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_file_input_stream_query_info_async(
-        gioFileInputStreamPointer.reinterpret(),
-        attributes,
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_file_input_stream_query_info_async(gioFileInputStreamPointer.reinterpret(), attributes, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes an asynchronous info query operation.
@@ -119,28 +106,23 @@ public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
      */
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_file_input_stream_query_info_finish(
-            gioFileInputStreamPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            FileInfo(reinterpret())
-        }
+        val gResult = g_file_input_stream_query_info_finish(gioFileInputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            FileInfo(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
 
     public companion object : TypeCompanion<FileInputStream> {
         override val type: GeneratedClassKGType<FileInputStream> =
-            GeneratedClassKGType(g_file_input_stream_get_type()) { FileInputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_file_input_stream_get_type()) { FileInputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FileInputStream

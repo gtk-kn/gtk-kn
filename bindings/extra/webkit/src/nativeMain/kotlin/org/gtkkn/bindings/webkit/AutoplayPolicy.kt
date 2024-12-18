@@ -11,18 +11,18 @@ import org.gtkkn.native.webkit.webkit_autoplay_policy_get_type
  * @since 2.30
  */
 @WebKitVersion2_30
-public enum class AutoplayPolicy(public val nativeValue: WebKitAutoplayPolicy) {
+public enum class AutoplayPolicy(
+    public val nativeValue: WebKitAutoplayPolicy,
+) {
     /**
      * Do not restrict autoplay.
      */
     ALLOW(WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_ALLOW),
-
     /**
      * Allow videos to autoplay if
      *     they have no audio track, or if their audio track is muted.
      */
     ALLOW_WITHOUT_SOUND(WebKitAutoplayPolicy.WEBKIT_AUTOPLAY_ALLOW_WITHOUT_SOUND),
-
     /**
      * Never allow autoplay.
      */

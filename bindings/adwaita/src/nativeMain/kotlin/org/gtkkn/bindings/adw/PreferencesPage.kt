@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -32,9 +35,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A page from [class@PreferencesDialog].
@@ -55,8 +55,9 @@ import kotlin.Unit
  *
  * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
-    Widget(pointer.reinterpret()),
+public open class PreferencesPage(
+    pointer: CPointer<AdwPreferencesPage>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>
         get() = gPointer.reinterpret()
@@ -83,9 +84,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          * @return the description of @self.
          * @since 1.4
          */
-        get() = adw_preferences_page_get_description(adwPreferencesPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_page_get_description(adwPreferencesPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the description of @self.
          *
@@ -107,7 +106,6 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          * @return the icon name for @self
          */
         get() = adw_preferences_page_get_icon_name(adwPreferencesPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the icon name for @self.
          *
@@ -125,7 +123,6 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          * @return the name of @self
          */
         get() = adw_preferences_page_get_name(adwPreferencesPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the name of @self.
          *
@@ -142,9 +139,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          *
          * @return the title of @self.
          */
-        get() = adw_preferences_page_get_title(adwPreferencesPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_page_get_title(adwPreferencesPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of @self.
          *
@@ -162,15 +157,12 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          * @return whether an embedded underline in the title indicates a mnemonic
          */
         get() = adw_preferences_page_get_use_underline(adwPreferencesPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
          */
-        set(
-            useUnderline
-        ) = adw_preferences_page_set_use_underline(adwPreferencesPagePointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_preferences_page_set_use_underline(adwPreferencesPagePointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesPage`.
@@ -184,20 +176,14 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
      *
      * @param group the group to add
      */
-    public open fun add(group: PreferencesGroup): Unit = adw_preferences_page_add(
-        adwPreferencesPagePointer.reinterpret(),
-        group.adwPreferencesGroupPointer.reinterpret()
-    )
+    public open fun add(group: PreferencesGroup): Unit = adw_preferences_page_add(adwPreferencesPagePointer.reinterpret(), group.adwPreferencesGroupPointer.reinterpret())
 
     /**
      * Removes a group from @self.
      *
      * @param group the group to remove
      */
-    public open fun remove(group: PreferencesGroup): Unit = adw_preferences_page_remove(
-        adwPreferencesPagePointer.reinterpret(),
-        group.adwPreferencesGroupPointer.reinterpret()
-    )
+    public open fun remove(group: PreferencesGroup): Unit = adw_preferences_page_remove(adwPreferencesPagePointer.reinterpret(), group.adwPreferencesGroupPointer.reinterpret())
 
     /**
      * Scrolls the scrolled window of @self to the top.
@@ -209,11 +195,10 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
 
     public companion object : TypeCompanion<PreferencesPage> {
         override val type: GeneratedClassKGType<PreferencesPage> =
-            GeneratedClassKGType(adw_preferences_page_get_type()) { PreferencesPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_preferences_page_get_type()) { PreferencesPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PreferencesPage

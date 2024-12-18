@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -9,7 +10,6 @@ import org.gtkkn.native.gdk.gdk_toplevel_size_set_min_size
 import org.gtkkn.native.gdk.gdk_toplevel_size_set_shadow_width
 import org.gtkkn.native.gdk.gdk_toplevel_size_set_size
 import org.gtkkn.native.gobject.gint
-import kotlin.Unit
 
 /**
  * The `GdkToplevelSize` struct contains information that is useful
@@ -19,7 +19,9 @@ import kotlin.Unit
  *
  * - parameter `bounds_width`: bounds_width: Out parameter is not supported
  */
-public class ToplevelSize(pointer: CPointer<GdkToplevelSize>) : ProxyInstance(pointer) {
+public class ToplevelSize(
+    pointer: CPointer<GdkToplevelSize>,
+) : ProxyInstance(pointer) {
     public val gdkToplevelSizePointer: CPointer<GdkToplevelSize> = pointer
 
     /**
@@ -36,8 +38,7 @@ public class ToplevelSize(pointer: CPointer<GdkToplevelSize>) : ProxyInstance(po
      * @param minWidth the minimum width
      * @param minHeight the minimum height
      */
-    public fun setMinSize(minWidth: gint, minHeight: gint): Unit =
-        gdk_toplevel_size_set_min_size(gdkToplevelSizePointer.reinterpret(), minWidth, minHeight)
+    public fun setMinSize(minWidth: gint, minHeight: gint): Unit = gdk_toplevel_size_set_min_size(gdkToplevelSizePointer.reinterpret(), minWidth, minHeight)
 
     /**
      * Sets the shadows size of the toplevel.
@@ -54,8 +55,12 @@ public class ToplevelSize(pointer: CPointer<GdkToplevelSize>) : ProxyInstance(po
      * @param top height of the top part of the shadow
      * @param bottom height of the bottom part of the shadow
      */
-    public fun setShadowWidth(left: gint, right: gint, top: gint, bottom: gint): Unit =
-        gdk_toplevel_size_set_shadow_width(gdkToplevelSizePointer.reinterpret(), left, right, top, bottom)
+    public fun setShadowWidth(
+        left: gint,
+        right: gint,
+        top: gint,
+        bottom: gint,
+    ): Unit = gdk_toplevel_size_set_shadow_width(gdkToplevelSizePointer.reinterpret(), left, right, top, bottom)
 
     /**
      * Sets the size the toplevel prefers to be resized to.
@@ -68,6 +73,5 @@ public class ToplevelSize(pointer: CPointer<GdkToplevelSize>) : ProxyInstance(po
      * @param width the width
      * @param height the height
      */
-    public fun setSize(width: gint, height: gint): Unit =
-        gdk_toplevel_size_set_size(gdkToplevelSizePointer.reinterpret(), width, height)
+    public fun setSize(width: gint, height: gint): Unit = gdk_toplevel_size_set_size(gdkToplevelSizePointer.reinterpret(), width, height)
 }

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
@@ -10,7 +11,6 @@ import org.gtkkn.native.gio.g_io_extension_point_get_extensions
 import org.gtkkn.native.gio.g_io_extension_point_get_required_type
 import org.gtkkn.native.gio.g_io_extension_point_set_required_type
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * `GIOExtensionPoint` provides a mechanism for modules to extend the
@@ -72,7 +72,9 @@ import kotlin.Unit
  * - function `lookup`: Return type IOExtensionPoint is unsupported
  * - function `register`: Return type IOExtensionPoint is unsupported
  */
-public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInstance(pointer) {
+public class IoExtensionPoint(
+    pointer: CPointer<GIOExtensionPoint>,
+) : ProxyInstance(pointer) {
     public val gioIOExtensionPointPointer: CPointer<GIOExtensionPoint> = pointer
 
     /**
@@ -83,10 +85,8 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      *     #GIOExtensions. The list is owned by GIO and should not be
      *     modified.
      */
-    public fun getExtensions(): List =
-        g_io_extension_point_get_extensions(gioIOExtensionPointPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getExtensions(): List = g_io_extension_point_get_extensions(gioIOExtensionPointPointer.reinterpret())!!.run {
+        List(reinterpret())}
 
     /**
      * Gets the required type for @extension_point.
@@ -94,8 +94,7 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      * @return the #GType that all implementations must have,
      *   or %G_TYPE_INVALID if the extension point has no required type
      */
-    public fun getRequiredType(): GType =
-        g_io_extension_point_get_required_type(gioIOExtensionPointPointer.reinterpret())
+    public fun getRequiredType(): GType = g_io_extension_point_get_required_type(gioIOExtensionPointPointer.reinterpret())
 
     /**
      * Sets the required type for @extension_point to @type.
@@ -103,6 +102,5 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      *
      * @param type the #GType to require
      */
-    public fun setRequiredType(type: GType): Unit =
-        g_io_extension_point_set_required_type(gioIOExtensionPointPointer.reinterpret(), type)
+    public fun setRequiredType(type: GType): Unit = g_io_extension_point_set_required_type(gioIOExtensionPointPointer.reinterpret(), type)
 }

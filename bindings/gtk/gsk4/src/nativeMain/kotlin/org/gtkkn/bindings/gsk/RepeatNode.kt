@@ -17,8 +17,9 @@ import org.gtkkn.native.gsk.gsk_repeat_node_new
 /**
  * A render node repeating its single child node.
  */
-public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class RepeatNode(
+    pointer: CPointer<GskRepeatNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRepeatNodePointer: CPointer<GskRepeatNode>
         get() = gPointer.reinterpret()
@@ -37,13 +38,7 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
         bounds: Rect,
         child: RenderNode,
         childBounds: Rect? = null,
-    ) : this(
-        gsk_repeat_node_new(
-            bounds.grapheneRectPointer.reinterpret(),
-            child.gPointer.reinterpret(),
-            childBounds?.grapheneRectPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_repeat_node_new(bounds.grapheneRectPointer.reinterpret(), child.gPointer.reinterpret(), childBounds?.grapheneRectPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Retrieves the child of @node.
@@ -51,26 +46,22 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
      * @return a `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the bounding rectangle of the child of @node.
      *
      * @return a bounding rectangle
      */
-    public open fun getChildBounds(): Rect =
-        gsk_repeat_node_get_child_bounds(gskRepeatNodePointer.reinterpret())!!.run {
-            Rect(reinterpret())
-        }
+    public open fun getChildBounds(): Rect = gsk_repeat_node_get_child_bounds(gskRepeatNodePointer.reinterpret())!!.run {
+        Rect(reinterpret())}
 
     public companion object : TypeCompanion<RepeatNode> {
         override val type: GeneratedClassKGType<RepeatNode> =
-            GeneratedClassKGType(gsk_repeat_node_get_type()) { RepeatNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_repeat_node_get_type()) { RepeatNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of RepeatNode

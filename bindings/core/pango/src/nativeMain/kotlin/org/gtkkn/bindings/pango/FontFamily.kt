@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,8 +24,6 @@ import org.gtkkn.native.pango.pango_font_family_get_name
 import org.gtkkn.native.pango.pango_font_family_get_type
 import org.gtkkn.native.pango.pango_font_family_is_monospace
 import org.gtkkn.native.pango.pango_font_family_is_variable
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A `PangoFontFamily` is used to represent a family of related
@@ -40,8 +40,9 @@ import kotlin.String
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
-    Object(pointer.reinterpret()),
+public open class FontFamily(
+    pointer: CPointer<PangoFontFamily>,
+) : Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val pangoFontFamilyPointer: CPointer<PangoFontFamily>
@@ -67,8 +68,7 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
          * @return the name of the family. This string is owned
          *   by the family object and must not be modified or freed.
          */
-        get() = pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `PangoFontFace` of @family with the given name.
@@ -81,10 +81,8 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFace(name: String? = null): FontFace? =
-        pango_font_family_get_face(pangoFontFamilyPointer.reinterpret(), name)?.run {
-            FontFace(reinterpret())
-        }
+    public open fun getFace(name: String? = null): FontFace? = pango_font_family_get_face(pangoFontFamilyPointer.reinterpret(), name)?.run {
+        FontFace(reinterpret())}
 
     /**
      * A monospace font is a font designed for text display where the the
@@ -106,8 +104,7 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
      * @since 1.4
      */
     @PangoVersion1_4
-    public open fun isMonospace(): Boolean =
-        pango_font_family_is_monospace(pangoFontFamilyPointer.reinterpret()).asBoolean()
+    public open fun isMonospace(): Boolean = pango_font_family_is_monospace(pangoFontFamilyPointer.reinterpret()).asBoolean()
 
     /**
      * A variable font is a font which has axes that can be modified to
@@ -120,16 +117,14 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun isVariable(): Boolean =
-        pango_font_family_is_variable(pangoFontFamilyPointer.reinterpret()).asBoolean()
+    public open fun isVariable(): Boolean = pango_font_family_is_variable(pangoFontFamilyPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<FontFamily> {
         override val type: GeneratedClassKGType<FontFamily> =
-            GeneratedClassKGType(pango_font_family_get_type()) { FontFamily(it.reinterpret()) }
+                GeneratedClassKGType(pango_font_family_get_type()) { FontFamily(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of FontFamily

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -22,9 +25,6 @@ import org.gtkkn.native.gtksource.gtk_source_snippet_manager_list_all
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_list_groups
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_list_matching
 import org.gtkkn.native.gtksource.gtk_source_snippet_manager_set_search_path
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * Provides access to [class@Snippet].
@@ -42,8 +42,9 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
-    Object(pointer.reinterpret()),
+public open class SnippetManager(
+    pointer: CPointer<GtkSourceSnippetManager>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>
         get() = gPointer.reinterpret()
@@ -55,9 +56,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      *   containing a list of snippet files directories.
      *   The array is owned by @lm and must not be modified.
      */
-    public open fun getSearchPath(): List<String> =
-        gtk_source_snippet_manager_get_search_path(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getSearchPath(): List<String> = gtk_source_snippet_manager_get_search_path(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Queries the known snippets for the first matching @group, @language_id,
@@ -71,15 +70,12 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      * @return a #GtkSourceSnippet or null if no
      *   matching snippet was found.
      */
-    public open fun getSnippet(group: String? = null, languageId: String? = null, trigger: String): Snippet? =
-        gtk_source_snippet_manager_get_snippet(
-            gtksourceSnippetManagerPointer.reinterpret(),
-            group,
-            languageId,
-            trigger
-        )?.run {
-            Snippet(reinterpret())
-        }
+    public open fun getSnippet(
+        group: String? = null,
+        languageId: String? = null,
+        trigger: String,
+    ): Snippet? = gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer.reinterpret(), group, languageId, trigger)?.run {
+        Snippet(reinterpret())}
 
     /**
      * Gets a [iface@Gio.ListModel] of all snippets.
@@ -91,10 +87,8 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public open fun listAll(): ListModel =
-        gtk_source_snippet_manager_list_all(gtksourceSnippetManagerPointer.reinterpret())!!.run {
-            ListModel.wrap(reinterpret())
-        }
+    public open fun listAll(): ListModel = gtk_source_snippet_manager_list_all(gtksourceSnippetManagerPointer.reinterpret())!!.run {
+        ListModel.wrap(reinterpret())}
 
     /**
      * List all the known groups within the snippet manager.
@@ -104,9 +98,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      *
      * @return An array of strings which should be freed with g_free().
      */
-    public open fun listGroups(): List<String> =
-        gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun listGroups(): List<String> = gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Queries the known snippets for those matching @group, @language_id, and/or
@@ -128,14 +120,8 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
         group: String? = null,
         languageId: String? = null,
         triggerPrefix: String? = null,
-    ): ListModel = gtk_source_snippet_manager_list_matching(
-        gtksourceSnippetManagerPointer.reinterpret(),
-        group,
-        languageId,
-        triggerPrefix
-    )!!.run {
-        ListModel.wrap(reinterpret())
-    }
+    ): ListModel = gtk_source_snippet_manager_list_matching(gtksourceSnippetManagerPointer.reinterpret(), group, languageId, triggerPrefix)!!.run {
+        ListModel.wrap(reinterpret())}
 
     /**
      * Sets the list of directories in which the `GtkSourceSnippetManager` looks for
@@ -152,19 +138,14 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      *   strings or null.
      */
     public open fun setSearchPath(dirs: List<String>? = null): Unit = memScoped {
-        return gtk_source_snippet_manager_set_search_path(
-            gtksourceSnippetManagerPointer.reinterpret(),
-            dirs?.toCStringList(this)
-        )
-    }
+        return gtk_source_snippet_manager_set_search_path(gtksourceSnippetManagerPointer.reinterpret(), dirs?.toCStringList(this))}
 
     public companion object : TypeCompanion<SnippetManager> {
         override val type: GeneratedClassKGType<SnippetManager> =
-            GeneratedClassKGType(gtk_source_snippet_manager_get_type()) { SnippetManager(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_snippet_manager_get_type()) { SnippetManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Returns the default #GtkSourceSnippetManager instance.
@@ -173,8 +154,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
          *   is owned by GtkSourceView library and must not be unref'd.
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
-            SnippetManager(reinterpret())
-        }
+            SnippetManager(reinterpret())}
 
         /**
          * Get the GType of SnippetManager

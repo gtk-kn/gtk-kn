@@ -26,22 +26,21 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
  * @since 1.18
  */
 @PangoCairoVersion1_18
-public interface Font :
-    Interface,
-    KGTyped {
+public interface Font : Interface, KGTyped {
     public val pangocairoFontPointer: CPointer<PangoCairoFont>
 
-    private data class Wrapper(private val pointer: CPointer<PangoCairoFont>) : Font {
+    private data class Wrapper(
+        private val pointer: CPointer<PangoCairoFont>,
+    ) : Font {
         override val pangocairoFontPointer: CPointer<PangoCairoFont> = pointer
     }
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedInterfaceKGType<Font> =
-            GeneratedInterfaceKGType(pango_cairo_font_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(pango_cairo_font_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            PangocairoTypeProvider.register()
-        }
+            PangocairoTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<PangoCairoFont>): Font = Wrapper(pointer)
 

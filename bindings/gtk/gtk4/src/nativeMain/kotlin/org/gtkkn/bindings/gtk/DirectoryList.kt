@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -29,8 +31,6 @@ import org.gtkkn.native.gtk.gtk_directory_list_set_attributes
 import org.gtkkn.native.gtk.gtk_directory_list_set_file
 import org.gtkkn.native.gtk.gtk_directory_list_set_io_priority
 import org.gtkkn.native.gtk.gtk_directory_list_set_monitored
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkDirectoryList` is a list model that wraps g_file_enumerate_children_async().
@@ -62,8 +62,9 @@ import kotlin.String
  * - method `loading`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
-    Object(pointer.reinterpret()),
+public open class DirectoryList(
+    pointer: CPointer<GtkDirectoryList>,
+) : Object(pointer.reinterpret()),
     ListModel,
     KGTyped {
     public val gtkDirectoryListPointer: CPointer<GtkDirectoryList>
@@ -82,7 +83,6 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
          * @return The queried attributes
          */
         get() = gtk_directory_list_get_attributes(gtkDirectoryListPointer.reinterpret())?.toKString()
-
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
          *
@@ -111,8 +111,7 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
          *   loading finished successfully
          */
         get() = gtk_directory_list_get_error(gtkDirectoryListPointer.reinterpret())?.run {
-            Error(reinterpret())
-        }
+            Error(reinterpret())}
 
     /**
      * File to query.
@@ -124,9 +123,7 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
          * @return The file whose children are enumerated
          */
         get() = gtk_directory_list_get_file(gtkDirectoryListPointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
+            File.wrap(reinterpret())}
         /**
          * Sets the @file to be enumerated and starts the enumeration.
          *
@@ -146,7 +143,6 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
          * @return The IO priority.
          */
         get() = gtk_directory_list_get_io_priority(gtkDirectoryListPointer.reinterpret())
-
         /**
          * Sets the IO priority to use while loading directories.
          *
@@ -173,7 +169,6 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
          * @return true if the directory is monitored
          */
         get() = gtk_directory_list_get_monitored(gtkDirectoryListPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the directory list will monitor the directory
          * for changes.
@@ -201,10 +196,7 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
      * @param file The file to query
      * @return a new `GtkDirectoryList`
      */
-    public constructor(
-        attributes: String? = null,
-        `file`: File? = null,
-    ) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!.reinterpret())
+    public constructor(attributes: String? = null, `file`: File? = null) : this(gtk_directory_list_new(attributes, `file`?.gioFilePointer)!!.reinterpret())
 
     /**
      * Returns true if the children enumeration is currently in
@@ -216,16 +208,14 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
      *
      * @return true if @self is loading
      */
-    public open fun isLoading(): Boolean =
-        gtk_directory_list_is_loading(gtkDirectoryListPointer.reinterpret()).asBoolean()
+    public open fun isLoading(): Boolean = gtk_directory_list_is_loading(gtkDirectoryListPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<DirectoryList> {
         override val type: GeneratedClassKGType<DirectoryList> =
-            GeneratedClassKGType(gtk_directory_list_get_type()) { DirectoryList(it.reinterpret()) }
+                GeneratedClassKGType(gtk_directory_list_get_type()) { DirectoryList(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of DirectoryList

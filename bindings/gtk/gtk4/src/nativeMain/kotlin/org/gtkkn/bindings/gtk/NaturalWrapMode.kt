@@ -14,20 +14,20 @@ import org.gtkkn.native.gtk.gtk_natural_wrap_mode_get_type
  * @since 4.6
  */
 @GtkVersion4_6
-public enum class NaturalWrapMode(public val nativeValue: GtkNaturalWrapMode) {
+public enum class NaturalWrapMode(
+    public val nativeValue: GtkNaturalWrapMode,
+) {
     /**
      * Inherit the minimum size request.
      *   In particular, this should be used with %PANGO_WRAP_CHAR.
      */
     INHERIT(GtkNaturalWrapMode.GTK_NATURAL_WRAP_INHERIT),
-
     /**
      * Try not to wrap the text. This mode is the
      *   closest to GTK3's behavior but can lead to a wide label leaving
      *   lots of empty space below the text.
      */
     NONE(GtkNaturalWrapMode.GTK_NATURAL_WRAP_NONE),
-
     /**
      * Attempt to wrap at word boundaries. This
      *   is useful in particular when using %PANGO_WRAP_WORD_CHAR as the

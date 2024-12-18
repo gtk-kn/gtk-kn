@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,18 +17,15 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GTestConfig
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TestConfig(
+    pointer: CPointer<GTestConfig>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTestConfigPointer: CPointer<GTestConfig> = pointer
 
     public var testInitialized: Boolean
         get() = glibTestConfigPointer.pointed.test_initialized.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_initialized = value.asGBoolean()
@@ -31,7 +33,6 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
 
     public var testQuick: Boolean
         get() = glibTestConfigPointer.pointed.test_quick.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_quick = value.asGBoolean()
@@ -39,7 +40,6 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
 
     public var testPerf: Boolean
         get() = glibTestConfigPointer.pointed.test_perf.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_perf = value.asGBoolean()
@@ -47,7 +47,6 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
 
     public var testVerbose: Boolean
         get() = glibTestConfigPointer.pointed.test_verbose.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_verbose = value.asGBoolean()
@@ -55,7 +54,6 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
 
     public var testQuiet: Boolean
         get() = glibTestConfigPointer.pointed.test_quiet.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_quiet = value.asGBoolean()
@@ -63,7 +61,6 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
 
     public var testUndefined: Boolean
         get() = glibTestConfigPointer.pointed.test_undefined.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestConfigPointer.pointed.test_undefined = value.asGBoolean()
@@ -75,11 +72,10 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTestConfig>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTestConfig>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -104,12 +100,12 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param testInitialized
-     * @param testQuick
-     * @param testPerf
-     * @param testVerbose
-     * @param testQuiet
-     * @param testUndefined
+     * @param testInitialized 
+     * @param testQuick 
+     * @param testPerf 
+     * @param testVerbose 
+     * @param testQuiet 
+     * @param testUndefined 
      */
     public constructor(
         testInitialized: Boolean,
@@ -132,12 +128,12 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param testInitialized
-     * @param testQuick
-     * @param testPerf
-     * @param testVerbose
-     * @param testQuiet
-     * @param testUndefined
+     * @param testInitialized 
+     * @param testQuick 
+     * @param testPerf 
+     * @param testVerbose 
+     * @param testQuiet 
+     * @param testUndefined 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
@@ -157,6 +153,5 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
         this.testUndefined = testUndefined
     }
 
-    override fun toString(): String =
-        "TestConfig(testInitialized=$testInitialized, testQuick=$testQuick, testPerf=$testPerf, testVerbose=$testVerbose, testQuiet=$testQuiet, testUndefined=$testUndefined)"
+    override fun toString(): String = "TestConfig(testInitialized=$testInitialized, testQuick=$testQuick, testPerf=$testPerf, testVerbose=$testVerbose, testQuiet=$testQuiet, testUndefined=$testUndefined)"
 }

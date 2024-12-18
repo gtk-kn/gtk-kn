@@ -10,7 +10,9 @@ import org.gtkkn.native.gtksource.GTK_SOURCE_SORT_FLAGS_REVERSE_ORDER
 import org.gtkkn.native.gtksource.GtkSourceSortFlags
 import org.gtkkn.native.gtksource.gtk_source_sort_flags_get_type
 
-public class SortFlags(public val mask: GtkSourceSortFlags) : Bitfield<SortFlags> {
+public class SortFlags(
+    public val mask: GtkSourceSortFlags,
+) : Bitfield<SortFlags> {
     override infix fun or(other: SortFlags): SortFlags = SortFlags(mask or other.mask)
 
     public companion object {

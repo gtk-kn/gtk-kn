@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -23,7 +24,6 @@ import org.gtkkn.native.gtk.gtk_tree_list_row_get_position
 import org.gtkkn.native.gtk.gtk_tree_list_row_get_type
 import org.gtkkn.native.gtk.gtk_tree_list_row_is_expandable
 import org.gtkkn.native.gtk.gtk_tree_list_row_set_expanded
-import kotlin.Boolean
 
 /**
  * `GtkTreeListRow` is used by `GtkTreeListModel` to represent items.
@@ -42,8 +42,9 @@ import kotlin.Boolean
  *
  * - method `expandable`: Property has no getter nor setter
  */
-public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
-    Object(pointer.reinterpret()),
+public open class TreeListRow(
+    pointer: CPointer<GtkTreeListRow>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>
         get() = gPointer.reinterpret()
@@ -63,8 +64,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          * @return The model containing the children
          */
         get() = gtk_tree_list_row_get_children(gtkTreeListRowPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
+            ListModel.wrap(reinterpret())}
 
     /**
      * The depth in the tree of this row.
@@ -94,7 +94,6 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          * @return true if the row is expanded
          */
         get() = gtk_tree_list_row_get_expanded(gtkTreeListRowPointer.reinterpret()).asBoolean()
-
         /**
          * Expands or collapses a row.
          *
@@ -121,8 +120,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          *   compatibility reasons.
          */
         get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * If @self is not expanded or @position is greater than the
@@ -131,10 +129,8 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      * @param position position of the child to get
      * @return the child in @position
      */
-    public open fun getChildRow(position: guint): TreeListRow? =
-        gtk_tree_list_row_get_child_row(gtkTreeListRowPointer.reinterpret(), position)?.run {
-            TreeListRow(reinterpret())
-        }
+    public open fun getChildRow(position: guint): TreeListRow? = gtk_tree_list_row_get_child_row(gtkTreeListRowPointer.reinterpret(), position)?.run {
+        TreeListRow(reinterpret())}
 
     /**
      * Gets the row representing the parent for @self.
@@ -152,8 +148,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      * @return The parent of @self
      */
     public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer.reinterpret())?.run {
-        TreeListRow(reinterpret())
-    }
+        TreeListRow(reinterpret())}
 
     /**
      * Returns the position in the `GtkTreeListModel` that @self occupies
@@ -174,16 +169,14 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      *
      * @return true if the row is expandable
      */
-    public open fun isExpandable(): Boolean =
-        gtk_tree_list_row_is_expandable(gtkTreeListRowPointer.reinterpret()).asBoolean()
+    public open fun isExpandable(): Boolean = gtk_tree_list_row_is_expandable(gtkTreeListRowPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<TreeListRow> {
         override val type: GeneratedClassKGType<TreeListRow> =
-            GeneratedClassKGType(gtk_tree_list_row_get_type()) { TreeListRow(it.reinterpret()) }
+                GeneratedClassKGType(gtk_tree_list_row_get_type()) { TreeListRow(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TreeListRow

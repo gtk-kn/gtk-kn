@@ -38,8 +38,9 @@ import org.gtkkn.native.gtk.gtk_widget_paintable_set_widget
  * [property@Gtk.Picture:can-shrink] property is set to true or you might
  * end up with an infinitely growing widget.
  */
-public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
-    Object(pointer.reinterpret()),
+public open class WidgetPaintable(
+    pointer: CPointer<GtkWidgetPaintable>,
+) : Object(pointer.reinterpret()),
     Paintable,
     KGTyped {
     public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>
@@ -58,20 +59,13 @@ public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
          * @return the observed widget.
          */
         get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the widget that should be observed.
          *
          * @param widget the widget to observe
          */
-        set(
-            widget
-        ) = gtk_widget_paintable_set_widget(
-            gtkWidgetPaintablePointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(widget) = gtk_widget_paintable_set_widget(gtkWidgetPaintablePointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new widget paintable observing the given widget.
@@ -79,17 +73,14 @@ public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
      * @param widget a `GtkWidget`
      * @return a new `GtkWidgetPaintable`
      */
-    public constructor(
-        widget: Widget? = null,
-    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
+    public constructor(widget: Widget? = null) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =
-            GeneratedClassKGType(gtk_widget_paintable_get_type()) { WidgetPaintable(it.reinterpret()) }
+                GeneratedClassKGType(gtk_widget_paintable_get_type()) { WidgetPaintable(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of WidgetPaintable

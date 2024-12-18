@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,16 +18,15 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GEnumValue
 import org.gtkkn.native.gobject.gint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure which contains a single enum value, its name, and its
  * nickname.
  */
-public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class EnumValue(
+    pointer: CPointer<GEnumValue>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectEnumValuePointer: CPointer<GEnumValue> = pointer
 
     /**
@@ -31,7 +34,6 @@ public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) 
      */
     public var `value`: gint
         get() = gobjectEnumValuePointer.pointed.value
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumValuePointer.pointed.value = value
@@ -42,7 +44,6 @@ public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) 
      */
     public var valueName: String?
         get() = gobjectEnumValuePointer.pointed.value_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumValuePointer.pointed.value_name?.let { g_free(it) }
@@ -54,7 +55,6 @@ public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) 
      */
     public var valueNick: String?
         get() = gobjectEnumValuePointer.pointed.value_nick?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectEnumValuePointer.pointed.value_nick?.let { g_free(it) }
@@ -67,11 +67,10 @@ public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GEnumValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GEnumValue>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

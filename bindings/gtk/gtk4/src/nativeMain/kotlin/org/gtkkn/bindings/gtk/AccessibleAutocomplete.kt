@@ -9,26 +9,25 @@ import org.gtkkn.native.gtk.gtk_accessible_autocomplete_get_type
  * The possible values for the %GTK_ACCESSIBLE_PROPERTY_AUTOCOMPLETE
  * accessible property.
  */
-public enum class AccessibleAutocomplete(public val nativeValue: GtkAccessibleAutocomplete) {
+public enum class AccessibleAutocomplete(
+    public val nativeValue: GtkAccessibleAutocomplete,
+) {
     /**
      * Automatic suggestions are not displayed.
      */
     NONE(GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_NONE),
-
     /**
      * When a user is providing input, text
      *    suggesting one way to complete the provided input may be dynamically
      *    inserted after the caret.
      */
     INLINE(GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_INLINE),
-
     /**
      * When a user is providing input, an element
      *    containing a collection of values that could complete the provided input
      *    may be displayed.
      */
     LIST(GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_LIST),
-
     /**
      * When a user is providing input, an element
      *    containing a collection of values that could complete the provided input
@@ -40,14 +39,13 @@ public enum class AccessibleAutocomplete(public val nativeValue: GtkAccessibleAu
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleAutocomplete): AccessibleAutocomplete =
-            when (nativeValue) {
-                GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_NONE -> NONE
-                GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_INLINE -> INLINE
-                GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_LIST -> LIST
-                GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_BOTH -> BOTH
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleAutocomplete): AccessibleAutocomplete = when (nativeValue) {
+            GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_NONE -> NONE
+            GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_INLINE -> INLINE
+            GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_LIST -> LIST
+            GtkAccessibleAutocomplete.GTK_ACCESSIBLE_AUTOCOMPLETE_BOTH -> BOTH
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of AccessibleAutocomplete

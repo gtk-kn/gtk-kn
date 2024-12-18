@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -23,7 +24,6 @@ import org.gtkkn.native.gio.g_unix_fd_list_new
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Result
 
 /**
  * A `GUnixFDList` contains a list of file descriptors.  It owns the file
@@ -47,8 +47,9 @@ import kotlin.Result
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `fds`: Array parameter of type gint is not supported
  */
-public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
-    Object(pointer.reinterpret()),
+public open class UnixFdList(
+    pointer: CPointer<GUnixFDList>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioUnixFDListPointer: CPointer<GUnixFDList>
         get() = gPointer.reinterpret()
@@ -86,7 +87,8 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
         val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -115,7 +117,8 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
         val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -132,11 +135,10 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
 
     public companion object : TypeCompanion<UnixFdList> {
         override val type: GeneratedClassKGType<UnixFdList> =
-            GeneratedClassKGType(g_unix_fd_list_get_type()) { UnixFdList(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_fd_list_get_type()) { UnixFdList(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of UnixFDList

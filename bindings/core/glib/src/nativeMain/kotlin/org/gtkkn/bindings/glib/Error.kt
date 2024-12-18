@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
@@ -18,9 +21,6 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_error_get_type
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The `GError` structure contains information about
@@ -33,7 +33,9 @@ import kotlin.Unit
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `error_type_init`: ErrorInitFunc
  */
-public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
+public class Error(
+    pointer: CPointer<GError>,
+) : ProxyInstance(pointer) {
     public val glibErrorPointer: CPointer<GError> = pointer
 
     /**
@@ -41,7 +43,6 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      */
     public var domain: Quark
         get() = glibErrorPointer.pointed.domain
-
         @UnsafeFieldSetter
         set(`value`) {
             glibErrorPointer.pointed.domain = value
@@ -52,7 +53,6 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      */
     public var code: gint
         get() = glibErrorPointer.pointed.code
-
         @UnsafeFieldSetter
         set(`value`) {
             glibErrorPointer.pointed.code = value
@@ -63,7 +63,6 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      */
     public var message: String?
         get() = glibErrorPointer.pointed.message?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibErrorPointer.pointed.message?.let { g_free(it) }
@@ -76,8 +75,7 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      * @return a new #GError
      */
     public fun copy(): Error = g_error_copy(glibErrorPointer.reinterpret())!!.run {
-        Error(reinterpret())
-    }
+        Error(reinterpret())}
 
     /**
      * Frees a #GError and associated resources.
@@ -100,8 +98,7 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      * @param code an error code
      * @return whether @error has @domain and @code
      */
-    public fun matches(domain: Quark, code: gint): Boolean =
-        g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
+    public fun matches(domain: Quark, code: gint): Boolean = g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
 
     override fun toString(): String = "Error(domain=$domain, code=$code, message=$message)"
 
@@ -117,8 +114,11 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
          * @param message error message
          * @return a new #GError
          */
-        public fun newLiteral(domain: Quark, code: gint, message: String): Error =
-            Error(g_error_new_literal(domain, code, message)!!.reinterpret())
+        public fun newLiteral(
+            domain: Quark,
+            code: gint,
+            message: String,
+        ): Error = Error(g_error_new_literal(domain, code, message)!!.reinterpret())
 
         /**
          * Get the GType of Error

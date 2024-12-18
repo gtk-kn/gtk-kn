@@ -37,8 +37,9 @@ import org.gtkkn.native.gobject.gsize
  * - method `realloc-function`: Property has no getter nor setter
  * - parameter `realloc_function`: ReallocFunc
  */
-public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class MemoryOutputStream(
+    pointer: CPointer<GMemoryOutputStream>,
+) : OutputStream(pointer.reinterpret()),
     PollableOutputStream,
     Seekable,
     KGTyped {
@@ -129,10 +130,8 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun stealAsBytes(): Bytes =
-        g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun stealAsBytes(): Bytes = g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
+        Bytes(reinterpret())}
 
     /**
      * Gets any loaded data from the @ostream. Ownership of the data
@@ -147,16 +146,14 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun stealData(): gpointer? =
-        g_memory_output_stream_steal_data(gioMemoryOutputStreamPointer.reinterpret())
+    public open fun stealData(): gpointer? = g_memory_output_stream_steal_data(gioMemoryOutputStreamPointer.reinterpret())
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =
-            GeneratedClassKGType(g_memory_output_stream_get_type()) { MemoryOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_memory_output_stream_get_type()) { MemoryOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of MemoryOutputStream

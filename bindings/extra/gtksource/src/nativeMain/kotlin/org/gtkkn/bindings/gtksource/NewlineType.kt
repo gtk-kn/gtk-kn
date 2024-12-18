@@ -5,17 +5,17 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceNewlineType
 import org.gtkkn.native.gtksource.gtk_source_newline_type_get_type
 
-public enum class NewlineType(public val nativeValue: GtkSourceNewlineType) {
+public enum class NewlineType(
+    public val nativeValue: GtkSourceNewlineType,
+) {
     /**
      * line feed, used on UNIX.
      */
     LF(GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_LF),
-
     /**
      * carriage return, used on Mac.
      */
     CR(GtkSourceNewlineType.GTK_SOURCE_NEWLINE_TYPE_CR),
-
     /**
      * carriage return followed by a line feed, used
      *   on Windows.

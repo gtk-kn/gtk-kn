@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -16,8 +18,6 @@ import org.gtkkn.native.gio.g_menu_link_iter_get_type
 import org.gtkkn.native.gio.g_menu_link_iter_get_value
 import org.gtkkn.native.gio.g_menu_link_iter_next
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * #GMenuLinkIter is an opaque structure type.  You must access it using
@@ -30,8 +30,9 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
-    Object(pointer.reinterpret()),
+public open class MenuLinkIter(
+    pointer: CPointer<GMenuLinkIter>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>
         get() = gPointer.reinterpret()
@@ -45,8 +46,7 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getName(): String = g_menu_link_iter_get_name(gioMenuLinkIterPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public open fun getName(): String = g_menu_link_iter_get_name(gioMenuLinkIterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the linked #GMenuModel at the current iterator position.
@@ -58,8 +58,7 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
      */
     @GioVersion2_32
     public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer.reinterpret())!!.run {
-        MenuModel(reinterpret())
-    }
+        MenuModel(reinterpret())}
 
     /**
      * Attempts to advance the iterator to the next (possibly first)
@@ -79,11 +78,10 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
 
     public companion object : TypeCompanion<MenuLinkIter> {
         override val type: GeneratedClassKGType<MenuLinkIter> =
-            GeneratedClassKGType(g_menu_link_iter_get_type()) { MenuLinkIter(it.reinterpret()) }
+                GeneratedClassKGType(g_menu_link_iter_get_type()) { MenuLinkIter(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of MenuLinkIter

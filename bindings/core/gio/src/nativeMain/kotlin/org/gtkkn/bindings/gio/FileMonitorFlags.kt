@@ -14,7 +14,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * Flags used to set what a #GFileMonitor will watch for.
  */
-public class FileMonitorFlags(public val mask: GFileMonitorFlags) : Bitfield<FileMonitorFlags> {
+public class FileMonitorFlags(
+    public val mask: GFileMonitorFlags,
+) : Bitfield<FileMonitorFlags> {
     override infix fun or(other: FileMonitorFlags): FileMonitorFlags = FileMonitorFlags(mask or other.mask)
 
     public companion object {
@@ -43,7 +45,7 @@ public class FileMonitorFlags(public val mask: GFileMonitorFlags) : Bitfield<Fil
          *   via another hard link. Since 2.36.
          */
         public val WATCH_HARD_LINKS: FileMonitorFlags =
-            FileMonitorFlags(G_FILE_MONITOR_WATCH_HARD_LINKS)
+                FileMonitorFlags(G_FILE_MONITOR_WATCH_HARD_LINKS)
 
         /**
          * Watch for rename operations on a

@@ -11,17 +11,17 @@ import org.gtkkn.native.gobject.GType
  * @since 2.28
  */
 @GioVersion2_28
-public enum class TlsAuthenticationMode(public val nativeValue: GTlsAuthenticationMode) {
+public enum class TlsAuthenticationMode(
+    public val nativeValue: GTlsAuthenticationMode,
+) {
     /**
      * client authentication not required
      */
     NONE(GTlsAuthenticationMode.G_TLS_AUTHENTICATION_NONE),
-
     /**
      * client authentication is requested
      */
     REQUESTED(GTlsAuthenticationMode.G_TLS_AUTHENTICATION_REQUESTED),
-
     /**
      * client authentication is required
      */

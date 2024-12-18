@@ -15,7 +15,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used when subscribing to signals via g_dbus_connection_signal_subscribe().
  * @since 2.26
  */
-public class DBusSignalFlags(public val mask: GDBusSignalFlags) : Bitfield<DBusSignalFlags> {
+public class DBusSignalFlags(
+    public val mask: GDBusSignalFlags,
+) : Bitfield<DBusSignalFlags> {
     override infix fun or(other: DBusSignalFlags): DBusSignalFlags = DBusSignalFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -31,14 +33,14 @@ public class DBusSignalFlags(public val mask: GDBusSignalFlags) : Bitfield<DBusS
          * over which match rules you add (but you must add them manually).
          */
         public val NO_MATCH_RULE: DBusSignalFlags =
-            DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE)
+                DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE)
 
         /**
          * Match first arguments that
          * contain a bus or interface name with the given namespace.
          */
         public val MATCH_ARG0_NAMESPACE: DBusSignalFlags =
-            DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE)
+                DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE)
 
         /**
          * Match first arguments that
@@ -46,7 +48,7 @@ public class DBusSignalFlags(public val mask: GDBusSignalFlags) : Bitfield<DBusS
          * or one of the paths is a subpath of the other.
          */
         public val MATCH_ARG0_PATH: DBusSignalFlags =
-            DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_PATH)
+                DBusSignalFlags(G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_PATH)
 
         /**
          * Get the GType of DBusSignalFlags

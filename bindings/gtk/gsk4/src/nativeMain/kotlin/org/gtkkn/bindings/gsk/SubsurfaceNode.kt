@@ -20,8 +20,9 @@ import org.gtkkn.native.gsk.gsk_subsurface_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class SubsurfaceNode(
+    pointer: CPointer<GskSubsurfaceNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>
         get() = gPointer.reinterpret()
@@ -39,10 +40,7 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
      * @return A new `GskRenderNode`
      * @since 4.14
      */
-    public constructor(
-        child: RenderNode,
-        subsurface: gpointer? = null,
-    ) : this(gsk_subsurface_node_new(child.gPointer.reinterpret(), subsurface)!!.reinterpret())
+    public constructor(child: RenderNode, subsurface: gpointer? = null) : this(gsk_subsurface_node_new(child.gPointer.reinterpret(), subsurface)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -51,18 +49,15 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
      * @since 4.14
      */
     @GskVersion4_14
-    public open fun getChild(): RenderNode =
-        gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())}
 
     public companion object : TypeCompanion<SubsurfaceNode> {
         override val type: GeneratedClassKGType<SubsurfaceNode> =
-            GeneratedClassKGType(gsk_subsurface_node_get_type()) { SubsurfaceNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_subsurface_node_get_type()) { SubsurfaceNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Gets the subsurface that was set on this node
@@ -72,8 +67,7 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
          * @since 4.14
          */
         @GskVersion4_14
-        public fun getSubsurface(node: DebugNode): gpointer? =
-            gsk_subsurface_node_get_subsurface(node.gskDebugNodePointer.reinterpret())
+        public fun getSubsurface(node: DebugNode): gpointer? = gsk_subsurface_node_get_subsurface(node.gskDebugNodePointer.reinterpret())
 
         /**
          * Get the GType of SubsurfaceNode

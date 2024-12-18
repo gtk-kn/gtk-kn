@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -30,10 +34,6 @@ import org.gtkkn.native.gtk.gtk_uri_launcher_launch
 import org.gtkkn.native.gtk.gtk_uri_launcher_launch_finish
 import org.gtkkn.native.gtk.gtk_uri_launcher_new
 import org.gtkkn.native.gtk.gtk_uri_launcher_set_uri
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkUriLauncher` object collects the arguments that are needed to open a uri
@@ -51,8 +51,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
-    Object(pointer.reinterpret()),
+public open class UriLauncher(
+    pointer: CPointer<GtkUriLauncher>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>
         get() = gPointer.reinterpret()
@@ -71,7 +72,6 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
          * @since 4.10
          */
         get() = gtk_uri_launcher_get_uri(gtkUriLauncherPointer.reinterpret())?.toKString()
-
         /**
          * Sets the uri that will be opened.
          *
@@ -109,15 +109,7 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
         parent: Window? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_uri_launcher_launch(
-        gtkUriLauncherPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_uri_launcher_launch(gtkUriLauncherPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.UriLauncher.launch] call and
@@ -131,25 +123,21 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
     @GtkVersion4_10
     public open fun launchFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_uri_launcher_launch_finish(
-            gtkUriLauncherPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_uri_launcher_launch_finish(gtkUriLauncherPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<UriLauncher> {
         override val type: GeneratedClassKGType<UriLauncher> =
-            GeneratedClassKGType(gtk_uri_launcher_get_type()) { UriLauncher(it.reinterpret()) }
+                GeneratedClassKGType(gtk_uri_launcher_get_type()) { UriLauncher(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of UriLauncher

@@ -28,8 +28,9 @@ import org.gtkkn.native.webkit.webkit_website_policies_new
  * @since 2.30
  */
 @WebKitVersion2_30
-public class WebsitePolicies(pointer: CPointer<WebKitWebsitePolicies>) :
-    Object(pointer.reinterpret()),
+public class WebsitePolicies(
+    pointer: CPointer<WebKitWebsitePolicies>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitWebsitePoliciesPointer: CPointer<WebKitWebsitePolicies>
         get() = gPointer.reinterpret()
@@ -49,18 +50,15 @@ public class WebsitePolicies(pointer: CPointer<WebKitWebsitePolicies>) :
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getAutoplayPolicy(): AutoplayPolicy =
-        webkit_website_policies_get_autoplay_policy(webkitWebsitePoliciesPointer.reinterpret()).run {
-            AutoplayPolicy.fromNativeValue(this)
-        }
+    public fun getAutoplayPolicy(): AutoplayPolicy = webkit_website_policies_get_autoplay_policy(webkitWebsitePoliciesPointer.reinterpret()).run {
+        AutoplayPolicy.fromNativeValue(this)}
 
     public companion object : TypeCompanion<WebsitePolicies> {
         override val type: GeneratedClassKGType<WebsitePolicies> =
-            GeneratedClassKGType(webkit_website_policies_get_type()) { WebsitePolicies(it.reinterpret()) }
+                GeneratedClassKGType(webkit_website_policies_get_type()) { WebsitePolicies(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of WebsitePolicies

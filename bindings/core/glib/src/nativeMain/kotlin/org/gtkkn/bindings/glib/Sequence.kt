@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -16,8 +18,6 @@ import org.gtkkn.native.glib.g_sequence_is_empty
 import org.gtkkn.native.glib.g_sequence_sort
 import org.gtkkn.native.glib.g_sequence_sort_iter
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The #GSequence struct is an opaque data type representing a
@@ -50,7 +50,9 @@ import kotlin.Unit
  * - parameter `iter`: SequenceIter
  * - parameter `a`: SequenceIter
  */
-public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
+public class Sequence(
+    pointer: CPointer<GSequence>,
+) : ProxyInstance(pointer) {
     public val glibSequencePointer: CPointer<GSequence> = pointer
 
     /**
@@ -61,11 +63,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun foreach(func: Func): Unit = g_sequence_foreach(
-        glibSequencePointer.reinterpret(),
-        FuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun foreach(func: Func): Unit = g_sequence_foreach(glibSequencePointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the memory allocated for @seq. If @seq has a data destroy
@@ -113,11 +111,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun sort(cmpFunc: CompareDataFunc): Unit = g_sequence_sort(
-        glibSequencePointer.reinterpret(),
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(cmpFunc).asCPointer()
-    )
+    public fun sort(cmpFunc: CompareDataFunc): Unit = g_sequence_sort(glibSequencePointer.reinterpret(), CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
 
     /**
      * Like g_sequence_sort(), but uses a #GSequenceIterCompareFunc instead
@@ -132,9 +126,5 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun sortIter(cmpFunc: SequenceIterCompareFunc): Unit = g_sequence_sort_iter(
-        glibSequencePointer.reinterpret(),
-        SequenceIterCompareFuncFunc.reinterpret(),
-        StableRef.create(cmpFunc).asCPointer()
-    )
+    public fun sortIter(cmpFunc: SequenceIterCompareFunc): Unit = g_sequence_sort_iter(glibSequencePointer.reinterpret(), SequenceIterCompareFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
 }

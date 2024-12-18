@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Throws
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -28,9 +31,6 @@ import org.gtkkn.native.gio.g_charset_converter_set_use_fallback
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Throws
 
 /**
  * `GCharsetConverter` is an implementation of [iface@Gio.Converter] based on
@@ -41,8 +41,9 @@ import kotlin.Throws
  * - method `from-charset`: Property has no getter nor setter
  * - method `to-charset`: Property has no getter nor setter
  */
-public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
-    Object(pointer.reinterpret()),
+public open class CharsetConverter(
+    pointer: CPointer<GCharsetConverter>,
+) : Object(pointer.reinterpret()),
     Converter,
     Initable,
     KGTyped {
@@ -69,7 +70,6 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
          * @since 2.24
          */
         get() = g_charset_converter_get_use_fallback(gioCharsetConverterPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the #GCharsetConverter:use-fallback property.
          *
@@ -77,9 +77,7 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
          * @since 2.24
          */
         @GioVersion2_24
-        set(
-            useFallback
-        ) = g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
+        set(useFallback) = g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
 
     /**
      * Creates a new #GCharsetConverter.
@@ -90,15 +88,14 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
      * @since 2.24
      */
     @Throws(GLibException::class)
-    public constructor(toCharset: String, fromCharset: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_charset_converter_new(toCharset, fromCharset, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(toCharset: String, fromCharset: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_charset_converter_new(toCharset, fromCharset, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -108,16 +105,14 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getNumFallbacks(): guint =
-        g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
+    public open fun getNumFallbacks(): guint = g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =
-            GeneratedClassKGType(g_charset_converter_get_type()) { CharsetConverter(it.reinterpret()) }
+                GeneratedClassKGType(g_charset_converter_get_type()) { CharsetConverter(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of CharsetConverter

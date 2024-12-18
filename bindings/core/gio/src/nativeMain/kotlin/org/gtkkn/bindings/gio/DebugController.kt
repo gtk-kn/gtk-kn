@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
@@ -16,8 +18,6 @@ import org.gtkkn.native.gio.g_debug_controller_get_debug_enabled
 import org.gtkkn.native.gio.g_debug_controller_get_type
 import org.gtkkn.native.gio.g_debug_controller_set_debug_enabled
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GDebugController` is an interface to expose control of debugging features and
@@ -39,10 +39,7 @@ import kotlin.Unit
  * @since 2.72
  */
 @GioVersion2_72
-public interface DebugController :
-    Interface,
-    Initable,
-    KGTyped {
+public interface DebugController : Interface, Initable, KGTyped {
     public val gioDebugControllerPointer: CPointer<GDebugController>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -63,7 +60,6 @@ public interface DebugController :
          * @since 2.72
          */
         get() = g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
-
         /**
          * Set the value of #GDebugController:debug-enabled.
          *
@@ -71,9 +67,7 @@ public interface DebugController :
          * @since 2.72
          */
         @GioVersion2_72
-        set(
-            debugEnabled
-        ) = g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
+        set(debugEnabled) = g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 
     /**
      * Get the value of #GDebugController:debug-enabled.
@@ -82,8 +76,7 @@ public interface DebugController :
      * @since 2.72
      */
     @GioVersion2_72
-    public fun getDebugEnabled(): Boolean =
-        g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
+    public fun getDebugEnabled(): Boolean = g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
 
     /**
      * Set the value of #GDebugController:debug-enabled.
@@ -92,20 +85,20 @@ public interface DebugController :
      * @since 2.72
      */
     @GioVersion2_72
-    public fun setDebugEnabled(debugEnabled: Boolean): Unit =
-        g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
+    public fun setDebugEnabled(debugEnabled: Boolean): Unit = g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
 
-    private data class Wrapper(private val pointer: CPointer<GDebugController>) : DebugController {
+    private data class Wrapper(
+        private val pointer: CPointer<GDebugController>,
+    ) : DebugController {
         override val gioDebugControllerPointer: CPointer<GDebugController> = pointer
     }
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =
-            GeneratedInterfaceKGType(g_debug_controller_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_debug_controller_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDebugController>): DebugController = Wrapper(pointer)
 

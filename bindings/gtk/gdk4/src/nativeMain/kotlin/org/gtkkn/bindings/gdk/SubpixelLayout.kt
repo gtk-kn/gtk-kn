@@ -9,32 +9,29 @@ import org.gtkkn.native.gobject.GType
  * This enumeration describes how the red, green and blue components
  * of physical pixels on an output device are laid out.
  */
-public enum class SubpixelLayout(public val nativeValue: GdkSubpixelLayout) {
+public enum class SubpixelLayout(
+    public val nativeValue: GdkSubpixelLayout,
+) {
     /**
      * The layout is not known
      */
     UNKNOWN(GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_UNKNOWN),
-
     /**
      * Not organized in this way
      */
     NONE(GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_NONE),
-
     /**
      * The layout is horizontal, the order is RGB
      */
     HORIZONTAL_RGB(GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB),
-
     /**
      * The layout is horizontal, the order is BGR
      */
     HORIZONTAL_BGR(GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR),
-
     /**
      * The layout is vertical, the order is RGB
      */
     VERTICAL_RGB(GdkSubpixelLayout.GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB),
-
     /**
      * The layout is vertical, the order is BGR
      */

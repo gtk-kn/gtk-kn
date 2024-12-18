@@ -15,18 +15,18 @@ import org.gtkkn.native.gobject.GType
  * @since 1.5
  */
 @AdwVersion1_5
-public enum class DialogPresentationMode(public val nativeValue: AdwDialogPresentationMode) {
+public enum class DialogPresentationMode(
+    public val nativeValue: AdwDialogPresentationMode,
+) {
     /**
      * Switch between `ADW_DIALOG_FLOATING` and
      *   `ADW_DIALOG_BOTTOM_SHEET` depending on available size.
      */
     AUTO(AdwDialogPresentationMode.ADW_DIALOG_AUTO),
-
     /**
      * Present dialog as a centered floating window.
      */
     FLOATING(AdwDialogPresentationMode.ADW_DIALOG_FLOATING),
-
     /**
      * Present dialog as a bottom sheet.
      */
@@ -34,13 +34,12 @@ public enum class DialogPresentationMode(public val nativeValue: AdwDialogPresen
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwDialogPresentationMode): DialogPresentationMode =
-            when (nativeValue) {
-                AdwDialogPresentationMode.ADW_DIALOG_AUTO -> AUTO
-                AdwDialogPresentationMode.ADW_DIALOG_FLOATING -> FLOATING
-                AdwDialogPresentationMode.ADW_DIALOG_BOTTOM_SHEET -> BOTTOM_SHEET
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwDialogPresentationMode): DialogPresentationMode = when (nativeValue) {
+            AdwDialogPresentationMode.ADW_DIALOG_AUTO -> AUTO
+            AdwDialogPresentationMode.ADW_DIALOG_FLOATING -> FLOATING
+            AdwDialogPresentationMode.ADW_DIALOG_BOTTOM_SHEET -> BOTTOM_SHEET
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of DialogPresentationMode

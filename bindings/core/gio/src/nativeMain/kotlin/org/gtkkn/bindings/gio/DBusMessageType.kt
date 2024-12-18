@@ -11,27 +11,25 @@ import org.gtkkn.native.gobject.GType
  * @since 2.26
  */
 @GioVersion2_26
-public enum class DBusMessageType(public val nativeValue: GDBusMessageType) {
+public enum class DBusMessageType(
+    public val nativeValue: GDBusMessageType,
+) {
     /**
      * Message is of invalid type.
      */
     INVALID(GDBusMessageType.G_DBUS_MESSAGE_TYPE_INVALID),
-
     /**
      * Method call.
      */
     METHOD_CALL(GDBusMessageType.G_DBUS_MESSAGE_TYPE_METHOD_CALL),
-
     /**
      * Method reply.
      */
     METHOD_RETURN(GDBusMessageType.G_DBUS_MESSAGE_TYPE_METHOD_RETURN),
-
     /**
      * Error reply.
      */
     ERROR(GDBusMessageType.G_DBUS_MESSAGE_TYPE_ERROR),
-
     /**
      * Signal emission.
      */

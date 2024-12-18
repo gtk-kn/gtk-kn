@@ -8,17 +8,17 @@ import org.gtkkn.native.gtk.gtk_constraint_relation_get_type
 /**
  * The relation between two terms of a constraint.
  */
-public enum class ConstraintRelation(public val nativeValue: GtkConstraintRelation) {
+public enum class ConstraintRelation(
+    public val nativeValue: GtkConstraintRelation,
+) {
     /**
      * Less than, or equal
      */
     LE(GtkConstraintRelation.GTK_CONSTRAINT_RELATION_LE),
-
     /**
      * Equal
      */
     EQ(GtkConstraintRelation.GTK_CONSTRAINT_RELATION_EQ),
-
     /**
      * Greater than, or equal
      */

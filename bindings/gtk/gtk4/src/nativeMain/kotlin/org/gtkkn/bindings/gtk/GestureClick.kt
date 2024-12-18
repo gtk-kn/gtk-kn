@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -23,8 +25,6 @@ import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkGestureClick
 import org.gtkkn.native.gtk.gtk_gesture_click_get_type
 import org.gtkkn.native.gtk.gtk_gesture_click_new
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGestureClick` is a `GtkGesture` implementation for clicks.
@@ -35,8 +35,9 @@ import kotlin.Unit
  * defaults, [signal@Gtk.GestureClick::stopped] is emitted, and the
  * click counter is reset.
  */
-public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureClick(
+    pointer: CPointer<GtkGestureClick>,
+) : GestureSingle(pointer.reinterpret()),
     KGTyped {
     public val gtkGestureClickPointer: CPointer<GtkGestureClick>
         get() = gPointer.reinterpret()
@@ -55,21 +56,11 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `nPress` how many touch/button presses happened with this one; `x` The X coordinate, in widget allocation coordinates; `y` The Y coordinate, in widget allocation coordinates
      */
-    public fun connectPressed(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            nPress: gint,
-            x: gdouble,
-            y: gdouble,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "pressed",
-        connectPressedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectPressed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        nPress: gint,
+        x: gdouble,
+        y: gdouble,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "pressed", connectPressedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when a button or touch is released.
@@ -82,21 +73,11 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `nPress` number of press that is paired with this release; `x` The X coordinate, in widget allocation coordinates; `y` The Y coordinate, in widget allocation coordinates
      */
-    public fun connectReleased(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            nPress: gint,
-            x: gdouble,
-            y: gdouble,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "released",
-        connectReleasedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectReleased(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        nPress: gint,
+        x: gdouble,
+        y: gdouble,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "released", connectReleasedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever any time/distance threshold has been exceeded.
@@ -104,15 +85,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "stopped",
-            connectStoppedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectStopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "stopped", connectStoppedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever the gesture receives a release
@@ -125,30 +98,19 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` X coordinate of the event; `y` Y coordinate of the event; `button` Button being released; `sequence` Sequence being released
      */
-    public fun connectUnpairedRelease(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (
-            x: gdouble,
-            y: gdouble,
-            button: guint,
-            sequence: EventSequence?,
-        ) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "unpaired-release",
-        connectUnpairedReleaseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectUnpairedRelease(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (
+        x: gdouble,
+        y: gdouble,
+        button: guint,
+        sequence: EventSequence?,
+    ) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "unpaired-release", connectUnpairedReleaseFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GestureClick> {
         override val type: GeneratedClassKGType<GestureClick> =
-            GeneratedClassKGType(gtk_gesture_click_get_type()) { GestureClick(it.reinterpret()) }
+                GeneratedClassKGType(gtk_gesture_click_get_type()) { GestureClick(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GestureClick
@@ -159,95 +121,68 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
     }
 }
 
-private val connectPressedFunc: CPointer<
-    CFunction<
-        (
-            gint,
-            gdouble,
-            gdouble,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val connectPressedFunc: CPointer<CFunction<(
+    gint,
+    gdouble,
+    gdouble,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    nPress: gint,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         nPress: gint,
         x: gdouble,
         y: gdouble,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            nPress: gint,
-            x: gdouble,
-            y: gdouble,
-        ) -> Unit
-        >().get().invoke(nPress, x, y)
-}
-    .reinterpret()
+    ) -> Unit>().get().invoke(nPress, x, y)}
+.reinterpret()
 
-private val connectReleasedFunc: CPointer<
-    CFunction<
-        (
-            gint,
-            gdouble,
-            gdouble,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val connectReleasedFunc: CPointer<CFunction<(
+    gint,
+    gdouble,
+    gdouble,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    nPress: gint,
+    x: gdouble,
+    y: gdouble,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         nPress: gint,
         x: gdouble,
         y: gdouble,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            nPress: gint,
-            x: gdouble,
-            y: gdouble,
-        ) -> Unit
-        >().get().invoke(nPress, x, y)
-}
-    .reinterpret()
+    ) -> Unit>().get().invoke(nPress, x, y)}
+.reinterpret()
 
 private val connectStoppedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
-private val connectUnpairedReleaseFunc: CPointer<
-    CFunction<
-        (
-            gdouble,
-            gdouble,
-            guint,
-            CPointer<GdkEventSequence>?,
-        ) -> Unit
-        >
-    > = staticCFunction {
-        _: COpaquePointer,
+private val connectUnpairedReleaseFunc: CPointer<CFunction<(
+    gdouble,
+    gdouble,
+    guint,
+    CPointer<GdkEventSequence>?,
+) -> Unit>> = staticCFunction {
+    _: COpaquePointer,
+    x: gdouble,
+    y: gdouble,
+    button: guint,
+    sequence: CPointer<GdkEventSequence>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(
         x: gdouble,
         y: gdouble,
         button: guint,
-        sequence: CPointer<GdkEventSequence>?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<
-        (
-            x: gdouble,
-            y: gdouble,
-            button: guint,
-            sequence: EventSequence?,
-        ) -> Unit
-        >().get().invoke(
-        x,
-        y,
-        button,
-        sequence?.run {
-            EventSequence(reinterpret())
-        }
-    )
-}
-    .reinterpret()
+        sequence: EventSequence?,
+    ) -> Unit>().get().invoke(x, y, button, sequence?.run {
+        EventSequence(reinterpret())}
+    )}
+.reinterpret()

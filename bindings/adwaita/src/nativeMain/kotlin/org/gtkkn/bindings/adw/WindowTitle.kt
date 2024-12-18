@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,7 +20,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.String
 
 /**
  * A helper widget for setting a window's title and subtitle.
@@ -36,8 +36,9 @@ import kotlin.String
  *
  * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
  */
-public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
-    Widget(pointer.reinterpret()),
+public class WindowTitle(
+    pointer: CPointer<AdwWindowTitle>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwWindowTitlePointer: CPointer<AdwWindowTitle>
         get() = gPointer.reinterpret()
@@ -62,9 +63,7 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
          *
          * @return the subtitle
          */
-        get() = adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the subtitle of @self.
          *
@@ -86,9 +85,7 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
          *
          * @return the title
          */
-        get() = adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of @self.
          *
@@ -110,11 +107,10 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
 
     public companion object : TypeCompanion<WindowTitle> {
         override val type: GeneratedClassKGType<WindowTitle> =
-            GeneratedClassKGType(adw_window_title_get_type()) { WindowTitle(it.reinterpret()) }
+                GeneratedClassKGType(adw_window_title_get_type()) { WindowTitle(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of WindowTitle

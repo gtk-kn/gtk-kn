@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -40,9 +43,6 @@ import org.gtkkn.native.gtk.gtk_picture_set_keep_aspect_ratio
 import org.gtkkn.native.gtk.gtk_picture_set_paintable
 import org.gtkkn.native.gtk.gtk_picture_set_pixbuf
 import org.gtkkn.native.gtk.gtk_picture_set_resource
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The `GtkPicture` widget displays a `GdkPaintable`.
@@ -92,8 +92,9 @@ import kotlin.Unit
  *
  * `GtkPicture` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
  */
-public open class Picture(pointer: CPointer<GtkPicture>) :
-    Widget(pointer.reinterpret()),
+public open class Picture(
+    pointer: CPointer<GtkPicture>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkPicturePointer: CPointer<GtkPicture>
         get() = gPointer.reinterpret()
@@ -119,7 +120,6 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return the alternative textual description of @self.
          */
         get() = gtk_picture_get_alternative_text(gtkPicturePointer.reinterpret())?.toKString()
-
         /**
          * Sets an alternative textual description for the picture contents.
          *
@@ -143,7 +143,6 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return true if the picture can be made smaller than its contents
          */
         get() = gtk_picture_get_can_shrink(gtkPicturePointer.reinterpret()).asBoolean()
-
         /**
          * If set to true, the @self can be made smaller than its contents.
          *
@@ -176,9 +175,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @since 4.8
          */
         get() = gtk_picture_get_content_fit(gtkPicturePointer.reinterpret()).run {
-            ContentFit.fromNativeValue(this)
-        }
-
+            ContentFit.fromNativeValue(this)}
         /**
          * Sets how the content should be resized to fit the `GtkPicture`.
          *
@@ -203,9 +200,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return The `GFile` displayed by @self.
          */
         get() = gtk_picture_get_file(gtkPicturePointer.reinterpret())?.run {
-            File.wrap(reinterpret())
-        }
-
+            File.wrap(reinterpret())}
         /**
          * Makes @self load and display @file.
          *
@@ -226,7 +221,6 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return true if the self tries to keep the contents' aspect ratio
          */
         get() = gtk_picture_get_keep_aspect_ratio(gtkPicturePointer.reinterpret()).asBoolean()
-
         /**
          * If set to true, the @self will render its contents according to
          * their aspect ratio.
@@ -239,9 +233,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          *
          * @param keepAspectRatio whether to keep aspect ratio
          */
-        set(
-            keepAspectRatio
-        ) = gtk_picture_set_keep_aspect_ratio(gtkPicturePointer.reinterpret(), keepAspectRatio.asGBoolean())
+        set(keepAspectRatio) = gtk_picture_set_keep_aspect_ratio(gtkPicturePointer.reinterpret(), keepAspectRatio.asGBoolean())
 
     /**
      * The `GdkPaintable` to be displayed by this `GtkPicture`.
@@ -253,9 +245,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return the displayed paintable
          */
         get() = gtk_picture_get_paintable(gtkPicturePointer.reinterpret())?.run {
-            Paintable.wrap(reinterpret())
-        }
-
+            Paintable.wrap(reinterpret())}
         /**
          * Makes @self display the given @paintable.
          *
@@ -309,9 +299,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      * @param paintable a `GdkPaintable`
      * @return a new `GtkPicture`
      */
-    public constructor(
-        paintable: Paintable? = null,
-    ) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
+    public constructor(paintable: Paintable? = null) : this(gtk_picture_new_for_paintable(paintable?.gdkPaintablePointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkPicture` displaying @pixbuf.
@@ -324,9 +312,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GtkPicture`
      */
-    public constructor(
-        pixbuf: Pixbuf? = null,
-    ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
+    public constructor(pixbuf: Pixbuf? = null) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Makes @self load and display the given @filename.
@@ -335,8 +321,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      *
      * @param filename the filename to play
      */
-    public open fun setFilename(filename: String? = null): Unit =
-        gtk_picture_set_filename(gtkPicturePointer.reinterpret(), filename)
+    public open fun setFilename(filename: String? = null): Unit = gtk_picture_set_filename(gtkPicturePointer.reinterpret(), filename)
 
     /**
      * Sets a `GtkPicture` to show a `GdkPixbuf`.
@@ -347,8 +332,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      *
      * @param pixbuf a `GdkPixbuf`
      */
-    public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_picture_set_pixbuf(gtkPicturePointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
+    public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit = gtk_picture_set_pixbuf(gtkPicturePointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
 
     /**
      * Makes @self load and display the resource at the given
@@ -358,16 +342,14 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      *
      * @param resourcePath the resource to set
      */
-    public open fun setResource(resourcePath: String? = null): Unit =
-        gtk_picture_set_resource(gtkPicturePointer.reinterpret(), resourcePath)
+    public open fun setResource(resourcePath: String? = null): Unit = gtk_picture_set_resource(gtkPicturePointer.reinterpret(), resourcePath)
 
     public companion object : TypeCompanion<Picture> {
         override val type: GeneratedClassKGType<Picture> =
-            GeneratedClassKGType(gtk_picture_get_type()) { Picture(it.reinterpret()) }
+                GeneratedClassKGType(gtk_picture_get_type()) { Picture(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new `GtkPicture` displaying the file @filename.
@@ -378,8 +360,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @param filename a filename
          * @return a new `GtkPicture`
          */
-        public fun newForFilename(filename: String? = null): Picture =
-            Picture(gtk_picture_new_for_filename(filename)!!.reinterpret())
+        public fun newForFilename(filename: String? = null): Picture = Picture(gtk_picture_new_for_filename(filename)!!.reinterpret())
 
         /**
          * Creates a new `GtkPicture` displaying the resource at @resource_path.
@@ -390,8 +371,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @param resourcePath resource path to play back
          * @return a new `GtkPicture`
          */
-        public fun newForResource(resourcePath: String? = null): Picture =
-            Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret())
+        public fun newForResource(resourcePath: String? = null): Picture = Picture(gtk_picture_new_for_resource(resourcePath)!!.reinterpret())
 
         /**
          * Get the GType of Picture

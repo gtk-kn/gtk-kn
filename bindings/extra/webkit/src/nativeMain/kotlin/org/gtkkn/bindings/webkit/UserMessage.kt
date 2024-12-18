@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,8 +22,6 @@ import org.gtkkn.native.webkit.webkit_user_message_get_type
 import org.gtkkn.native.webkit.webkit_user_message_new
 import org.gtkkn.native.webkit.webkit_user_message_new_with_fd_list
 import org.gtkkn.native.webkit.webkit_user_message_send_reply
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Message that can be sent between the UI process and web process extensions.
@@ -35,8 +35,9 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public class UserMessage(
+    pointer: CPointer<WebKitUserMessage>,
+) : InitiallyUnowned(pointer.reinterpret()),
     KGTyped {
     public val webkitUserMessagePointer: CPointer<WebKitUserMessage>
         get() = gPointer.reinterpret()
@@ -55,8 +56,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @since 2.28
          */
         get() = webkit_user_message_get_fd_list(webkitUserMessagePointer.reinterpret())?.run {
-            UnixFdList(reinterpret())
-        }
+            UnixFdList(reinterpret())}
 
     /**
      * The name of the user message.
@@ -71,8 +71,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @return the message name
          * @since 2.28
          */
-        get() = webkit_user_message_get_name(webkitUserMessagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_user_message_get_name(webkitUserMessagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The parameters of the user message as a #GVariant, or null
@@ -90,8 +89,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @since 2.28
          */
         get() = webkit_user_message_get_parameters(webkitUserMessagePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+            Variant(reinterpret())}
 
     /**
      * Create a new #WebKitUserMessage with @name.
@@ -101,10 +99,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
      * @return the newly created #WebKitUserMessage object.
      * @since 2.28
      */
-    public constructor(
-        name: String,
-        parameters: Variant? = null,
-    ) : this(webkit_user_message_new(name, parameters?.glibVariantPointer?.reinterpret())!!.reinterpret())
+    public constructor(name: String, parameters: Variant? = null) : this(webkit_user_message_new(name, parameters?.glibVariantPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Create a new #WebKitUserMessage including also a list of UNIX file descriptors to be sent.
@@ -119,13 +114,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
         name: String,
         parameters: Variant? = null,
         fdList: UnixFdList? = null,
-    ) : this(
-        webkit_user_message_new_with_fd_list(
-            name,
-            parameters?.glibVariantPointer?.reinterpret(),
-            fdList?.gioUnixFDListPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(webkit_user_message_new_with_fd_list(name, parameters?.glibVariantPointer?.reinterpret(), fdList?.gioUnixFDListPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Send a reply to an user message.
@@ -138,18 +127,14 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun sendReply(reply: UserMessage): Unit = webkit_user_message_send_reply(
-        webkitUserMessagePointer.reinterpret(),
-        reply.webkitUserMessagePointer.reinterpret()
-    )
+    public fun sendReply(reply: UserMessage): Unit = webkit_user_message_send_reply(webkitUserMessagePointer.reinterpret(), reply.webkitUserMessagePointer.reinterpret())
 
     public companion object : TypeCompanion<UserMessage> {
         override val type: GeneratedClassKGType<UserMessage> =
-            GeneratedClassKGType(webkit_user_message_get_type()) { UserMessage(it.reinterpret()) }
+                GeneratedClassKGType(webkit_user_message_get_type()) { UserMessage(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of UserMessage

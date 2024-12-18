@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -37,11 +42,6 @@ import org.gtkkn.native.gobject.g_cclosure_marshal_VOID__VARIANT
 import org.gtkkn.native.gobject.g_cclosure_marshal_VOID__VOID
 import org.gtkkn.native.gobject.g_cclosure_marshal_generic
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GCClosure is a specialization of #GClosure for C function callbacks.
@@ -77,7 +77,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `destroy_data`: ClosureNotify
  * - field `closure`: Closure
  */
-public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class CClosure(
+    pointer: CPointer<GCClosure>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectCClosurePointer: CPointer<GCClosure> = pointer
 
     /**
@@ -85,7 +88,6 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
      */
     public var callback: gpointer
         get() = gobjectCClosurePointer.pointed.callback!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectCClosurePointer.pointed.callback = value
@@ -97,11 +99,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCClosure>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GCClosure>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -172,14 +173,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_BOOLEAN__BOXED_BOXED(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_BOOLEAN__BOXED_BOXED(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with handlers that
@@ -206,14 +200,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_BOOLEAN__FLAGS(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_BOOLEAN__FLAGS(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with handlers that
@@ -239,14 +226,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_STRING__OBJECT_POINTER(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_STRING__OBJECT_POINTER(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -271,14 +251,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__BOOLEAN(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__BOOLEAN(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -303,14 +276,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__BOXED(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__BOXED(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -335,14 +301,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__CHAR(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__CHAR(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with one
@@ -367,14 +326,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__DOUBLE(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__DOUBLE(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -399,14 +351,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__ENUM(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__ENUM(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -431,14 +376,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__FLAGS(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__FLAGS(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with one
@@ -463,14 +401,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__FLOAT(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__FLOAT(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -495,14 +426,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__INT(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__INT(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with with a single
@@ -527,14 +451,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__LONG(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__LONG(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -559,14 +476,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__OBJECT(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__OBJECT(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -591,14 +501,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__PARAM(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__PARAM(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single raw
@@ -627,14 +530,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__POINTER(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__POINTER(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single string
@@ -659,14 +555,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__STRING(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__STRING(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -691,14 +580,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__UCHAR(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__UCHAR(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with with a single
@@ -723,14 +605,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__UINT(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__UINT(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with an unsigned int
@@ -755,14 +630,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__UINT_POINTER(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__UINT_POINTER(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -787,14 +655,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__ULONG(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__ULONG(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with a single
@@ -819,14 +680,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__VARIANT(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__VARIANT(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A #GClosureMarshal function for use with signals with no arguments.
@@ -850,14 +704,7 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_VOID__VOID(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnValue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_VOID__VOID(closure.gobjectClosurePointer.reinterpret(), returnValue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
 
         /**
          * A generic marshaller function implemented via
@@ -887,13 +734,6 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             paramValues: Value,
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
-        ): Unit = g_cclosure_marshal_generic(
-            closure.gobjectClosurePointer.reinterpret(),
-            returnGvalue.gobjectValuePointer.reinterpret(),
-            nParamValues,
-            paramValues.gobjectValuePointer.reinterpret(),
-            invocationHint,
-            marshalData
-        )
+        ): Unit = g_cclosure_marshal_generic(closure.gobjectClosurePointer.reinterpret(), returnGvalue.gobjectValuePointer.reinterpret(), nParamValues, paramValues.gobjectValuePointer.reinterpret(), invocationHint, marshalData)
     }
 }

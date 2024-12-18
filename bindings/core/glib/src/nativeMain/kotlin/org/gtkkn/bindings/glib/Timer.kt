@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
@@ -14,8 +16,6 @@ import org.gtkkn.native.glib.g_timer_is_active
 import org.gtkkn.native.glib.g_timer_reset
 import org.gtkkn.native.glib.g_timer_start
 import org.gtkkn.native.glib.g_timer_stop
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GTimer` records a start time, and counts microseconds elapsed since
@@ -29,7 +29,9 @@ import kotlin.Unit
  * - parameter `microseconds`: Unsupported pointer to primitive type
  * - function `new`: Return type Timer is unsupported
  */
-public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
+public class Timer(
+    pointer: CPointer<GTimer>,
+) : ProxyInstance(pointer) {
     public val glibTimerPointer: CPointer<GTimer> = pointer
 
     /**

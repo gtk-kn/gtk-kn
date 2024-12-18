@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,10 +16,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GOnce
 import org.gtkkn.native.glib.gpointer
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A #GOnce struct controls a one-time initialization function. Any
@@ -34,7 +34,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.4
  */
 @GLibVersion2_4
-public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Once(
+    pointer: CPointer<GOnce>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibOncePointer: CPointer<GOnce> = pointer
 
     /**
@@ -42,9 +45,7 @@ public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var status: OnceStatus
         get() = glibOncePointer.pointed.status.run {
-            OnceStatus.fromNativeValue(this)
-        }
-
+            OnceStatus.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibOncePointer.pointed.status = value.nativeValue
@@ -56,7 +57,6 @@ public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var retval: gpointer
         get() = glibOncePointer.pointed.retval!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOncePointer.pointed.retval = value
@@ -68,11 +68,10 @@ public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOnce>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GOnce>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

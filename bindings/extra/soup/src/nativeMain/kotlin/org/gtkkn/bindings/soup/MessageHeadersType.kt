@@ -9,17 +9,17 @@ import org.gtkkn.native.soup.soup_message_headers_type_get_type
  * Value passed to [ctor@MessageHeaders.new] to set certain default
  * behaviors.
  */
-public enum class MessageHeadersType(public val nativeValue: SoupMessageHeadersType) {
+public enum class MessageHeadersType(
+    public val nativeValue: SoupMessageHeadersType,
+) {
     /**
      * request headers
      */
     REQUEST(SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_REQUEST),
-
     /**
      * response headers
      */
     RESPONSE(SoupMessageHeadersType.SOUP_MESSAGE_HEADERS_RESPONSE),
-
     /**
      * multipart body part headers
      */

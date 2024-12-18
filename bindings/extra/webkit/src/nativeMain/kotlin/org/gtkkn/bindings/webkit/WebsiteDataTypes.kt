@@ -24,7 +24,9 @@ import org.gtkkn.native.webkit.webkit_website_data_types_get_type
  * Enum values with flags representing types of Website data.
  * @since 2.16
  */
-public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfield<WebsiteDataTypes> {
+public class WebsiteDataTypes(
+    public val mask: WebKitWebsiteDataTypes,
+) : Bitfield<WebsiteDataTypes> {
     override infix fun or(other: WebsiteDataTypes): WebsiteDataTypes = WebsiteDataTypes(mask or other.mask)
 
     @WebKitVersion2_16
@@ -33,7 +35,7 @@ public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfiel
          * Memory cache.
          */
         public val MEMORY_CACHE: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_MEMORY_CACHE)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_MEMORY_CACHE)
 
         /**
          * HTTP disk cache.
@@ -44,25 +46,25 @@ public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfiel
          * Offline web application cache.
          */
         public val OFFLINE_APPLICATION_CACHE: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_OFFLINE_APPLICATION_CACHE)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_OFFLINE_APPLICATION_CACHE)
 
         /**
          * Session storage data.
          */
         public val SESSION_STORAGE: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_SESSION_STORAGE)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_SESSION_STORAGE)
 
         /**
          * Local storage data.
          */
         public val LOCAL_STORAGE: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_LOCAL_STORAGE)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_LOCAL_STORAGE)
 
         /**
          * IndexedDB databases.
          */
         public val INDEXEDDB_DATABASES: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_INDEXEDDB_DATABASES)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_INDEXEDDB_DATABASES)
 
         /**
          * Cookies.
@@ -73,7 +75,7 @@ public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfiel
          * Hash salt used to generate the device ids used by webpages.
          */
         public val DEVICE_ID_HASH_SALT: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_DEVICE_ID_HASH_SALT)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_DEVICE_ID_HASH_SALT)
 
         /**
          * HSTS cache.
@@ -89,7 +91,7 @@ public class WebsiteDataTypes(public val mask: WebKitWebsiteDataTypes) : Bitfiel
          * Service worker registrations.
          */
         public val SERVICE_WORKER_REGISTRATIONS: WebsiteDataTypes =
-            WebsiteDataTypes(WEBKIT_WEBSITE_DATA_SERVICE_WORKER_REGISTRATIONS)
+                WebsiteDataTypes(WEBKIT_WEBSITE_DATA_SERVICE_WORKER_REGISTRATIONS)
 
         /**
          * DOM (CacheStorage) cache.

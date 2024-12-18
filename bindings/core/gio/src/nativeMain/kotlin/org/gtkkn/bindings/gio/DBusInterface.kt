@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
@@ -15,7 +16,6 @@ import org.gtkkn.native.gio.g_dbus_interface_get_info
 import org.gtkkn.native.gio.g_dbus_interface_get_type
 import org.gtkkn.native.gio.g_dbus_interface_set_object
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * Base type for D-Bus interfaces.
@@ -26,9 +26,7 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public interface DBusInterface :
-    Interface,
-    KGTyped {
+public interface DBusInterface : Interface, KGTyped {
     public val gioDBusInterfacePointer: CPointer<GDBusInterface>
 
     /**
@@ -40,8 +38,7 @@ public interface DBusInterface :
      */
     @GioVersion2_32
     public fun getObject(): DBusObject? = g_dbus_interface_dup_object(gioDBusInterfacePointer.reinterpret())?.run {
-        DBusObject.wrap(reinterpret())
-    }
+        DBusObject.wrap(reinterpret())}
 
     /**
      * Gets D-Bus introspection information for the D-Bus interface
@@ -52,8 +49,7 @@ public interface DBusInterface :
      */
     @GioVersion2_30
     public fun getInfo(): DBusInterfaceInfo = g_dbus_interface_get_info(gioDBusInterfacePointer.reinterpret())!!.run {
-        DBusInterfaceInfo(reinterpret())
-    }
+        DBusInterfaceInfo(reinterpret())}
 
     /**
      * Sets the #GDBusObject for @interface_ to @object.
@@ -64,20 +60,20 @@ public interface DBusInterface :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun setObject(`object`: DBusObject? = null): Unit =
-        g_dbus_interface_set_object(gioDBusInterfacePointer.reinterpret(), `object`?.gioDBusObjectPointer)
+    public fun setObject(`object`: DBusObject? = null): Unit = g_dbus_interface_set_object(gioDBusInterfacePointer.reinterpret(), `object`?.gioDBusObjectPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GDBusInterface>) : DBusInterface {
+    private data class Wrapper(
+        private val pointer: CPointer<GDBusInterface>,
+    ) : DBusInterface {
         override val gioDBusInterfacePointer: CPointer<GDBusInterface> = pointer
     }
 
     public companion object : TypeCompanion<DBusInterface> {
         override val type: GeneratedInterfaceKGType<DBusInterface> =
-            GeneratedInterfaceKGType(g_dbus_interface_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_dbus_interface_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDBusInterface>): DBusInterface = Wrapper(pointer)
 

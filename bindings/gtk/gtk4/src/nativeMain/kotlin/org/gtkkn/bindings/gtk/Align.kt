@@ -23,39 +23,35 @@ import org.gtkkn.native.gtk.gtk_align_get_type
  * are treated similar to `GTK_ALIGN_CENTER` and `GTK_ALIGN_FILL`, except that it
  * positions the widget to line up the baselines, where that is supported.
  */
-public enum class Align(public val nativeValue: GtkAlign) {
+public enum class Align(
+    public val nativeValue: GtkAlign,
+) {
     /**
      * stretch to fill all space if possible, center if
      *   no meaningful way to stretch
      */
     FILL(GtkAlign.GTK_ALIGN_FILL),
-
     /**
      * snap to left or top side, leaving space on right or bottom
      */
     START(GtkAlign.GTK_ALIGN_START),
-
     /**
      * snap to right or bottom side, leaving space on left or top
      */
     END(GtkAlign.GTK_ALIGN_END),
-
     /**
      * center natural width of widget inside the allocation
      */
     CENTER(GtkAlign.GTK_ALIGN_CENTER),
-
     /**
      * a different name for `GTK_ALIGN_BASELINE`.
      * @since 4.12
      */
     BASELINE_FILL(GtkAlign.GTK_ALIGN_BASELINE_FILL),
-
     /**
      * align the widget according to the baseline.
      */
     BASELINE(GtkAlign.GTK_ALIGN_BASELINE),
-
     /**
      * stretch to fill all space, but align the baseline.
      * @since 4.12

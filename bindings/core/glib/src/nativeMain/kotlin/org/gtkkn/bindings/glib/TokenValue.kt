@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -19,15 +23,14 @@ import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gobject.guint8
 import org.gtkkn.native.gobject.gulong
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A union holding the value of the token.
  */
-public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TokenValue(
+    pointer: CPointer<GTokenValue>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTokenValuePointer: CPointer<GTokenValue> = pointer
 
     /**
@@ -35,7 +38,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vSymbol: gpointer
         get() = glibTokenValuePointer.pointed.v_symbol!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_symbol = value
@@ -46,7 +48,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vIdentifier: String?
         get() = glibTokenValuePointer.pointed.v_identifier?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_identifier?.let { g_free(it) }
@@ -58,7 +59,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vBinary: gulong
         get() = glibTokenValuePointer.pointed.v_binary
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_binary = value
@@ -69,7 +69,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vOctal: gulong
         get() = glibTokenValuePointer.pointed.v_octal
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_octal = value
@@ -80,7 +79,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vInt: gulong
         get() = glibTokenValuePointer.pointed.v_int
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_int = value
@@ -91,7 +89,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vInt64: guint64
         get() = glibTokenValuePointer.pointed.v_int64
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_int64 = value
@@ -102,7 +99,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vFloat: gdouble
         get() = glibTokenValuePointer.pointed.v_float
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_float = value
@@ -113,7 +109,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vHex: gulong
         get() = glibTokenValuePointer.pointed.v_hex
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_hex = value
@@ -124,7 +119,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vString: String?
         get() = glibTokenValuePointer.pointed.v_string?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_string?.let { g_free(it) }
@@ -136,7 +130,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vComment: String?
         get() = glibTokenValuePointer.pointed.v_comment?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_comment?.let { g_free(it) }
@@ -148,7 +141,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vChar: guint8
         get() = glibTokenValuePointer.pointed.v_char
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_char = value
@@ -159,7 +151,6 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      */
     public var vError: guint
         get() = glibTokenValuePointer.pointed.v_error
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTokenValuePointer.pointed.v_error = value
@@ -171,11 +162,10 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTokenValue>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTokenValue>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -289,6 +279,5 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
         this.vError = vError
     }
 
-    override fun toString(): String =
-        "TokenValue(vSymbol=$vSymbol, vIdentifier=$vIdentifier, vBinary=$vBinary, vOctal=$vOctal, vInt=$vInt, vInt64=$vInt64, vFloat=$vFloat, vHex=$vHex, vString=$vString, vComment=$vComment, vChar=$vChar, vError=$vError)"
+    override fun toString(): String = "TokenValue(vSymbol=$vSymbol, vIdentifier=$vIdentifier, vBinary=$vBinary, vOctal=$vOctal, vInt=$vInt, vInt64=$vInt64, vFloat=$vFloat, vHex=$vHex, vString=$vString, vComment=$vComment, vChar=$vChar, vError=$vError)"
 }

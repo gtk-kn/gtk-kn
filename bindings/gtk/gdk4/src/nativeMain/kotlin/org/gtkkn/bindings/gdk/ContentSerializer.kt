@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -29,8 +31,6 @@ import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GdkContentSerializer` is used to serialize content for
@@ -50,8 +50,9 @@ import kotlin.Unit
  *
  * - parameter `notify`: GLib.DestroyNotify
  */
-public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
-    Object(pointer.reinterpret()),
+public open class ContentSerializer(
+    pointer: CPointer<GdkContentSerializer>,
+) : Object(pointer.reinterpret()),
     AsyncResult,
     KGTyped {
     public val gdkContentSerializerPointer: CPointer<GdkContentSerializer>
@@ -67,10 +68,8 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      *
      * @return the cancellable for the current operation
      */
-    public open fun getCancellable(): Cancellable? =
-        gdk_content_serializer_get_cancellable(gdkContentSerializerPointer.reinterpret())?.run {
-            Cancellable(reinterpret())
-        }
+    public open fun getCancellable(): Cancellable? = gdk_content_serializer_get_cancellable(gdkContentSerializerPointer.reinterpret())?.run {
+        Cancellable(reinterpret())}
 
     /**
      * Gets the `GType` to of the object to serialize.
@@ -84,9 +83,7 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      *
      * @return the mime type for the current operation
      */
-    public open fun getMimeType(): String =
-        gdk_content_serializer_get_mime_type(gdkContentSerializerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getMimeType(): String = gdk_content_serializer_get_mime_type(gdkContentSerializerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the output stream for the current operation.
@@ -95,10 +92,8 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      *
      * @return the output stream for the current operation
      */
-    public open fun getOutputStream(): OutputStream =
-        gdk_content_serializer_get_output_stream(gdkContentSerializerPointer.reinterpret())!!.run {
-            OutputStream(reinterpret())
-        }
+    public open fun getOutputStream(): OutputStream = gdk_content_serializer_get_output_stream(gdkContentSerializerPointer.reinterpret())!!.run {
+        OutputStream(reinterpret())}
 
     /**
      * Gets the I/O priority for the current operation.
@@ -116,26 +111,22 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      *
      * @return the task data for @serializer
      */
-    public open fun getTaskData(): gpointer? =
-        gdk_content_serializer_get_task_data(gdkContentSerializerPointer.reinterpret())
+    public open fun getTaskData(): gpointer? = gdk_content_serializer_get_task_data(gdkContentSerializerPointer.reinterpret())
 
     /**
      * Gets the user data that was passed when the serializer was registered.
      *
      * @return the user data for this serializer
      */
-    override fun getUserData(): gpointer? =
-        gdk_content_serializer_get_user_data(gdkContentSerializerPointer.reinterpret())
+    override fun getUserData(): gpointer? = gdk_content_serializer_get_user_data(gdkContentSerializerPointer.reinterpret())
 
     /**
      * Gets the `GValue` to read the object to serialize from.
      *
      * @return the `GValue` for the current operation
      */
-    public open fun getValue(): Value =
-        gdk_content_serializer_get_value(gdkContentSerializerPointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public open fun getValue(): Value = gdk_content_serializer_get_value(gdkContentSerializerPointer.reinterpret())!!.run {
+        Value(reinterpret())}
 
     /**
      * Indicate that the serialization has ended with an error.
@@ -144,24 +135,19 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      *
      * @param error a `GError`
      */
-    public open fun returnError(error: Error): Unit = gdk_content_serializer_return_error(
-        gdkContentSerializerPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
-    )
+    public open fun returnError(error: Error): Unit = gdk_content_serializer_return_error(gdkContentSerializerPointer.reinterpret(), error.glibErrorPointer.reinterpret())
 
     /**
      * Indicate that the serialization has been successfully completed.
      */
-    public open fun returnSuccess(): Unit =
-        gdk_content_serializer_return_success(gdkContentSerializerPointer.reinterpret())
+    public open fun returnSuccess(): Unit = gdk_content_serializer_return_success(gdkContentSerializerPointer.reinterpret())
 
     public companion object : TypeCompanion<ContentSerializer> {
         override val type: GeneratedClassKGType<ContentSerializer> =
-            GeneratedClassKGType(gdk_content_serializer_get_type()) { ContentSerializer(it.reinterpret()) }
+                GeneratedClassKGType(gdk_content_serializer_get_type()) { ContentSerializer(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of ContentSerializer

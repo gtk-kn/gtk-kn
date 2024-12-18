@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Throws
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -34,10 +38,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gboolean
-import kotlin.Boolean
-import kotlin.Throws
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GDebugControllerDBus` is an implementation of [iface@Gio.DebugController]
@@ -158,8 +158,9 @@ import kotlin.Unit
  * @since 2.72
  */
 @GioVersion2_72
-public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
-    Object(pointer.reinterpret()),
+public open class DebugControllerDBus(
+    pointer: CPointer<GDebugControllerDBus>,
+) : Object(pointer.reinterpret()),
     DebugController,
     Initable,
     KGTyped {
@@ -188,20 +189,14 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
      * @since 2.72
      */
     @Throws(GLibException::class)
-    public constructor(connection: DBusConnection, cancellable: Cancellable? = null) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                g_debug_controller_dbus_new(
-                    connection.gioDBusConnectionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(connection: DBusConnection, cancellable: Cancellable? = null) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_debug_controller_dbus_new(connection.gioDBusConnectionPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -251,25 +246,14 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
      * @since 2.72
      */
     @GioVersion2_72
-    public fun connectAuthorize(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (invocation: DBusMethodInvocation) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "authorize",
-        connectAuthorizeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectAuthorize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (invocation: DBusMethodInvocation) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "authorize", connectAuthorizeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<DebugControllerDBus> {
         override val type: GeneratedClassKGType<DebugControllerDBus> =
-            GeneratedClassKGType(g_debug_controller_dbus_get_type()) { DebugControllerDBus(it.reinterpret()) }
+                GeneratedClassKGType(g_debug_controller_dbus_get_type()) { DebugControllerDBus(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of DebugControllerDBus
@@ -280,16 +264,13 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
     }
 }
 
-private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            invocation: CPointer<GDBusMethodInvocation>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
-            invocation!!.run {
-                DBusMethodInvocation(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>>
+        = staticCFunction {
+    _: COpaquePointer,
+    invocation: CPointer<GDBusMethodInvocation>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(invocation!!.run {
+        DBusMethodInvocation(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()

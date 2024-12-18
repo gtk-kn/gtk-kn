@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -9,9 +12,6 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusSubtreeVTable
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Virtual table for handling subtrees registered with g_dbus_connection_register_subtree().
@@ -25,8 +25,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class DBusSubtreeVTable(
+    pointer: CPointer<GDBusSubtreeVTable>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable> = pointer
 
     /**
@@ -35,11 +37,10 @@ public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>, cleaner: C
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusSubtreeVTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusSubtreeVTable>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -47,9 +48,7 @@ public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>, cleaner: C
      *
      * @param pair A pair containing the pointer to DBusSubtreeVTable and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GDBusSubtreeVTable>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GDBusSubtreeVTable>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusSubtreeVTable using the provided [AutofreeScope].

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,11 +18,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogMsg
 import org.gtkkn.native.glib.g_test_log_msg_free
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * ## Skipped during bindings generation
@@ -25,14 +25,15 @@ import kotlin.native.ref.createCleaner
  * - field `strings`: Unsupported string with cType gchar**
  * - field `nums`: long double
  */
-public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TestLogMsg(
+    pointer: CPointer<GTestLogMsg>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTestLogMsgPointer: CPointer<GTestLogMsg> = pointer
 
     public var logType: TestLogType
         get() = glibTestLogMsgPointer.pointed.log_type.run {
-            TestLogType.fromNativeValue(this)
-        }
-
+            TestLogType.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.log_type = value.nativeValue
@@ -40,7 +41,6 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
 
     public var nStrings: guint
         get() = glibTestLogMsgPointer.pointed.n_strings
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_strings = value
@@ -48,7 +48,6 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
 
     public var nNums: guint
         get() = glibTestLogMsgPointer.pointed.n_nums
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTestLogMsgPointer.pointed.n_nums = value
@@ -60,11 +59,10 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTestLogMsg>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTestLogMsg>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -89,9 +87,9 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param logType
-     * @param nStrings
-     * @param nNums
+     * @param logType 
+     * @param nStrings 
+     * @param nNums 
      */
     public constructor(
         logType: TestLogType,
@@ -108,9 +106,9 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param logType
-     * @param nStrings
-     * @param nNums
+     * @param logType 
+     * @param nStrings 
+     * @param nNums 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(

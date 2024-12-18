@@ -9,12 +9,13 @@ import org.gtkkn.native.soup.soup_cache_type_get_type
  * The type of cache; this affects what kinds of responses will be
  * saved.
  */
-public enum class CacheType(public val nativeValue: SoupCacheType) {
+public enum class CacheType(
+    public val nativeValue: SoupCacheType,
+) {
     /**
      * a single-user cache
      */
     SINGLE_USER(SoupCacheType.SOUP_CACHE_SINGLE_USER),
-
     /**
      * a shared cache
      */

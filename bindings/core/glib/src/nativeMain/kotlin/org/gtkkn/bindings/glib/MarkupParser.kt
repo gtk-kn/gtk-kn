@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -8,9 +11,6 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMarkupParser
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Any of the fields in #GMarkupParser can be null, in which case they
@@ -29,7 +29,10 @@ import kotlin.native.ref.createCleaner
  * - field `passthrough`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class MarkupParser(pointer: CPointer<GMarkupParser>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class MarkupParser(
+    pointer: CPointer<GMarkupParser>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibMarkupParserPointer: CPointer<GMarkupParser> = pointer
 
     /**
@@ -38,11 +41,10 @@ public class MarkupParser(pointer: CPointer<GMarkupParser>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GMarkupParser>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GMarkupParser>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -50,9 +52,7 @@ public class MarkupParser(pointer: CPointer<GMarkupParser>, cleaner: Cleaner? = 
      *
      * @param pair A pair containing the pointer to MarkupParser and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GMarkupParser>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GMarkupParser>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new MarkupParser using the provided [AutofreeScope].

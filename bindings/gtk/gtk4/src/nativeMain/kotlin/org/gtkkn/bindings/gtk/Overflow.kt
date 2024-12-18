@@ -12,13 +12,14 @@ import org.gtkkn.native.gtk.gtk_overflow_get_type
  * [property@Gtk.Widget:overflow] property is modeled after the
  * CSS overflow property, but implements it only partially.
  */
-public enum class Overflow(public val nativeValue: GtkOverflow) {
+public enum class Overflow(
+    public val nativeValue: GtkOverflow,
+) {
     /**
      * No change is applied. Content is drawn at the specified
      *   position.
      */
     VISIBLE(GtkOverflow.GTK_OVERFLOW_VISIBLE),
-
     /**
      * Content is clipped to the bounds of the area. Content
      *   outside the area is not drawn and cannot be interacted with.

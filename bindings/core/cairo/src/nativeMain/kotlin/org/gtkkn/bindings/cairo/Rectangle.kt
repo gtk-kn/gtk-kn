@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.cairo
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,17 +17,15 @@ import org.gtkkn.native.cairo.cairo_gobject_rectangle_get_type
 import org.gtkkn.native.cairo.cairo_rectangle_t
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
-public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Rectangle(
+    pointer: CPointer<cairo_rectangle_t>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val cairoRectanglePointer: CPointer<cairo_rectangle_t> = pointer
 
     public var x: gdouble
         get() = cairoRectanglePointer.pointed.x
-
         @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.x = value
@@ -31,7 +33,6 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
 
     public var y: gdouble
         get() = cairoRectanglePointer.pointed.y
-
         @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.y = value
@@ -39,7 +40,6 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
 
     public var width: gdouble
         get() = cairoRectanglePointer.pointed.width
-
         @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.width = value
@@ -47,7 +47,6 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
 
     public var height: gdouble
         get() = cairoRectanglePointer.pointed.height
-
         @UnsafeFieldSetter
         set(`value`) {
             cairoRectanglePointer.pointed.height = value
@@ -59,11 +58,10 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<cairo_rectangle_t>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<cairo_rectangle_t>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -71,9 +69,7 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
      *
      * @param pair A pair containing the pointer to Rectangle and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<cairo_rectangle_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<cairo_rectangle_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rectangle using the provided [AutofreeScope].
@@ -90,10 +86,10 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * @param x 
+     * @param y 
+     * @param width 
+     * @param height 
      */
     public constructor(
         x: gdouble,
@@ -112,10 +108,10 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * @param x 
+     * @param y 
+     * @param width 
+     * @param height 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(

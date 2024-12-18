@@ -17,8 +17,9 @@ import org.gtkkn.native.gsk.gsk_blur_node_new
 /**
  * A render node applying a blur effect to its single child.
  */
-public open class BlurNode(pointer: CPointer<GskBlurNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class BlurNode(
+    pointer: CPointer<GskBlurNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBlurNodePointer: CPointer<GskBlurNode>
         get() = gPointer.reinterpret()
@@ -30,10 +31,7 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
      * @param radius the blur radius. Must be positive
      * @return a new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        radius: gfloat,
-    ) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
+    public constructor(child: RenderNode, radius: gfloat) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` of the blur @node.
@@ -41,8 +39,7 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
      * @return the blurred child node
      */
     public open fun getChild(): RenderNode = gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the blur radius of the @node.
@@ -53,11 +50,10 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
 
     public companion object : TypeCompanion<BlurNode> {
         override val type: GeneratedClassKGType<BlurNode> =
-            GeneratedClassKGType(gsk_blur_node_get_type()) { BlurNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_blur_node_get_type()) { BlurNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of BlurNode

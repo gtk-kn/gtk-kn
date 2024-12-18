@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,17 +18,16 @@ import org.gtkkn.native.gtksource.GtkSourceRegionIter
 import org.gtkkn.native.gtksource.gtk_source_region_iter_get_subregion
 import org.gtkkn.native.gtksource.gtk_source_region_iter_is_end
 import org.gtkkn.native.gtksource.gtk_source_region_iter_next
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque datatype.
  *
  * Ignore all its fields and initialize the iter with [method@Region.get_start_region_iter].
  */
-public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class RegionIter(
+    pointer: CPointer<GtkSourceRegionIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter> = pointer
 
     /**
@@ -33,11 +36,10 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkSourceRegionIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkSourceRegionIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -45,9 +47,7 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to RegionIter and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GtkSourceRegionIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GtkSourceRegionIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RegionIter using the provided [AutofreeScope].
@@ -66,11 +66,7 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * @return true if @start and @end have been set successfully (if non-null),
      *   or false if @iter is the end iterator or if the region is empty.
      */
-    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(
-        gtksourceRegionIterPointer.reinterpret(),
-        start?.gtkTextIterPointer?.reinterpret(),
-        end?.gtkTextIterPointer?.reinterpret()
-    ).asBoolean()
+    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(gtksourceRegionIterPointer.reinterpret(), start?.gtkTextIterPointer?.reinterpret(), end?.gtkTextIterPointer?.reinterpret()).asBoolean()
 
     /**
      *

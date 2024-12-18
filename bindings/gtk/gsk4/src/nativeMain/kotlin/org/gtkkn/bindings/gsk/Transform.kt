@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -37,8 +39,6 @@ import org.gtkkn.native.gsk.gsk_transform_transform_point
 import org.gtkkn.native.gsk.gsk_transform_translate
 import org.gtkkn.native.gsk.gsk_transform_translate_3d
 import org.gtkkn.native.gsk.gsk_transform_unref
-import kotlin.Boolean
-import kotlin.Unit
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -61,7 +61,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - parameter `out_dx`: out_dx: Out parameter is not supported
  * - parameter `out_transform`: out_transform: Out parameter is not supported
  */
-public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer) {
+public class Transform(
+    pointer: CPointer<GskTransform>,
+) : ProxyInstance(pointer) {
     public val gskTransformPointer: CPointer<GskTransform> = pointer
 
     /**
@@ -70,8 +72,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param second the second transform
      * @return true if the two transforms perform the same operation
      */
-    public fun equal(second: Transform? = null): Boolean =
-        gsk_transform_equal(gskTransformPointer.reinterpret(), second?.gskTransformPointer?.reinterpret()).asBoolean()
+    public fun equal(second: Transform? = null): Boolean = gsk_transform_equal(gskTransformPointer.reinterpret(), second?.gskTransformPointer?.reinterpret()).asBoolean()
 
     /**
      * Returns the category this transform belongs to.
@@ -79,8 +80,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @return The category of the transform
      */
     public fun getCategory(): TransformCategory = gsk_transform_get_category(gskTransformPointer.reinterpret()).run {
-        TransformCategory.fromNativeValue(this)
-    }
+        TransformCategory.fromNativeValue(this)}
 
     /**
      * Inverts the given transform.
@@ -94,8 +94,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @return The inverted transform
      */
     public fun invert(): Transform? = gsk_transform_invert(gskTransformPointer.reinterpret())?.run {
-        Transform(reinterpret())
-    }
+        Transform(reinterpret())}
 
     /**
      * Multiplies @next with the given @matrix.
@@ -103,10 +102,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param matrix the matrix to multiply @next with
      * @return The new transform
      */
-    public fun matrix(matrix: Matrix): Transform =
-        gsk_transform_matrix(gskTransformPointer.reinterpret(), matrix.grapheneMatrixPointer.reinterpret())!!.run {
-            Transform(reinterpret())
-        }
+    public fun matrix(matrix: Matrix): Transform = gsk_transform_matrix(gskTransformPointer.reinterpret(), matrix.grapheneMatrixPointer.reinterpret())!!.run {
+        Transform(reinterpret())}
 
     /**
      * Applies a perspective projection transform.
@@ -121,10 +118,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      *   perspective effect.
      * @return The new transform
      */
-    public fun perspective(depth: gfloat): Transform =
-        gsk_transform_perspective(gskTransformPointer.reinterpret(), depth)!!.run {
-            Transform(reinterpret())
-        }
+    public fun perspective(depth: gfloat): Transform = gsk_transform_perspective(gskTransformPointer.reinterpret(), depth)!!.run {
+        Transform(reinterpret())}
 
     /**
      * Converts @self into a human-readable string representation suitable
@@ -135,8 +130,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      *
      * @param string The string to print into
      */
-    public fun print(string: GlibString): Unit =
-        gsk_transform_print(gskTransformPointer.reinterpret(), string.glibStringPointer.reinterpret())
+    public fun print(string: GlibString): Unit = gsk_transform_print(gskTransformPointer.reinterpret(), string.glibStringPointer.reinterpret())
 
     /**
      * Acquires a reference on the given `GskTransform`.
@@ -144,8 +138,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @return the `GskTransform` with an additional reference
      */
     public fun ref(): Transform? = gsk_transform_ref(gskTransformPointer.reinterpret())?.run {
-        Transform(reinterpret())
-    }
+        Transform(reinterpret())}
 
     /**
      * Rotates @next @angle degrees in 2D - or in 3D-speak, around the Z axis.
@@ -155,8 +148,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @return The new transform
      */
     public fun rotate(angle: gfloat): Transform? = gsk_transform_rotate(gskTransformPointer.reinterpret(), angle)?.run {
-        Transform(reinterpret())
-    }
+        Transform(reinterpret())}
 
     /**
      * Rotates @next @angle degrees around @axis.
@@ -167,10 +159,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param axis The rotation axis
      * @return The new transform
      */
-    public fun rotate3d(angle: gfloat, axis: Vec3): Transform? =
-        gsk_transform_rotate_3d(gskTransformPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public fun rotate3d(angle: gfloat, axis: Vec3): Transform? = gsk_transform_rotate_3d(gskTransformPointer.reinterpret(), angle, axis.grapheneVec3Pointer.reinterpret())?.run {
+        Transform(reinterpret())}
 
     /**
      * Scales @next in 2-dimensional space by the given factors.
@@ -181,10 +171,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param factorY scaling factor on the Y axis
      * @return The new transform
      */
-    public fun scale(factorX: gfloat, factorY: gfloat): Transform? =
-        gsk_transform_scale(gskTransformPointer.reinterpret(), factorX, factorY)?.run {
-            Transform(reinterpret())
-        }
+    public fun scale(factorX: gfloat, factorY: gfloat): Transform? = gsk_transform_scale(gskTransformPointer.reinterpret(), factorX, factorY)?.run {
+        Transform(reinterpret())}
 
     /**
      * Scales @next by the given factors.
@@ -194,10 +182,12 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param factorZ scaling factor on the Z axis
      * @return The new transform
      */
-    public fun scale3d(factorX: gfloat, factorY: gfloat, factorZ: gfloat): Transform? =
-        gsk_transform_scale_3d(gskTransformPointer.reinterpret(), factorX, factorY, factorZ)?.run {
-            Transform(reinterpret())
-        }
+    public fun scale3d(
+        factorX: gfloat,
+        factorY: gfloat,
+        factorZ: gfloat,
+    ): Transform? = gsk_transform_scale_3d(gskTransformPointer.reinterpret(), factorX, factorY, factorZ)?.run {
+        Transform(reinterpret())}
 
     /**
      * Applies a skew transform.
@@ -208,10 +198,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @since 4.6
      */
     @GskVersion4_6
-    public fun skew(skewX: gfloat, skewY: gfloat): Transform? =
-        gsk_transform_skew(gskTransformPointer.reinterpret(), skewX, skewY)?.run {
-            Transform(reinterpret())
-        }
+    public fun skew(skewX: gfloat, skewY: gfloat): Transform? = gsk_transform_skew(gskTransformPointer.reinterpret(), skewX, skewY)?.run {
+        Transform(reinterpret())}
 
     /**
      * Computes the actual value of @self and stores it in @out_matrix.
@@ -220,8 +208,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      *
      * @param outMatrix The matrix to set
      */
-    public fun toMatrix(outMatrix: Matrix): Unit =
-        gsk_transform_to_matrix(gskTransformPointer.reinterpret(), outMatrix.grapheneMatrixPointer.reinterpret())
+    public fun toMatrix(outMatrix: Matrix): Unit = gsk_transform_to_matrix(gskTransformPointer.reinterpret(), outMatrix.grapheneMatrixPointer.reinterpret())
 
     /**
      * Converts a matrix into a string that is suitable for printing.
@@ -232,8 +219,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      *
      * @return A new string for @self
      */
-    override fun toString(): KotlinString =
-        gsk_transform_to_string(gskTransformPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): KotlinString = gsk_transform_to_string(gskTransformPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Applies all the operations from @other to @next.
@@ -241,10 +227,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param other Transform to apply
      * @return The new transform
      */
-    public fun transform(other: Transform? = null): Transform? =
-        gsk_transform_transform(gskTransformPointer.reinterpret(), other?.gskTransformPointer?.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public fun transform(other: Transform? = null): Transform? = gsk_transform_transform(gskTransformPointer.reinterpret(), other?.gskTransformPointer?.reinterpret())?.run {
+        Transform(reinterpret())}
 
     /**
      * Transforms a `graphene_rect_t` using the given transform @self.
@@ -255,11 +239,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param outRect return location for the bounds
      *   of the transformed rectangle
      */
-    public fun transformBounds(rect: Rect, outRect: Rect): Unit = gsk_transform_transform_bounds(
-        gskTransformPointer.reinterpret(),
-        rect.grapheneRectPointer.reinterpret(),
-        outRect.grapheneRectPointer.reinterpret()
-    )
+    public fun transformBounds(rect: Rect, outRect: Rect): Unit = gsk_transform_transform_bounds(gskTransformPointer.reinterpret(), rect.grapheneRectPointer.reinterpret(), outRect.grapheneRectPointer.reinterpret())
 
     /**
      * Transforms a `graphene_point_t` using the given transform @self.
@@ -268,11 +248,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param outPoint return location for
      *   the transformed point
      */
-    public fun transformPoint(point: Point, outPoint: Point): Unit = gsk_transform_transform_point(
-        gskTransformPointer.reinterpret(),
-        point.graphenePointPointer.reinterpret(),
-        outPoint.graphenePointPointer.reinterpret()
-    )
+    public fun transformPoint(point: Point, outPoint: Point): Unit = gsk_transform_transform_point(gskTransformPointer.reinterpret(), point.graphenePointPointer.reinterpret(), outPoint.graphenePointPointer.reinterpret())
 
     /**
      * Translates @next in 2-dimensional space by @point.
@@ -280,10 +256,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param point the point to translate the transform by
      * @return The new transform
      */
-    public fun translate(point: Point): Transform? =
-        gsk_transform_translate(gskTransformPointer.reinterpret(), point.graphenePointPointer.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public fun translate(point: Point): Transform? = gsk_transform_translate(gskTransformPointer.reinterpret(), point.graphenePointPointer.reinterpret())?.run {
+        Transform(reinterpret())}
 
     /**
      * Translates @next by @point.
@@ -291,10 +265,8 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param point the point to translate the transform by
      * @return The new transform
      */
-    public fun translate3d(point: Point3d): Transform? =
-        gsk_transform_translate_3d(gskTransformPointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public fun translate3d(point: Point3d): Transform? = gsk_transform_translate_3d(gskTransformPointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())?.run {
+        Transform(reinterpret())}
 
     /**
      * Releases a reference on the given `GskTransform`.

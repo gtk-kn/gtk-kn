@@ -28,8 +28,9 @@ import org.gtkkn.native.gobject.guint
  *
  * - parameter `dx`: dx: Out parameter is not supported
  */
-public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
-    Event(pointer.reinterpret()),
+public open class TouchpadEvent(
+    pointer: CPointer<GdkTouchpadEvent>,
+) : Event(pointer.reinterpret()),
     KGTyped {
     public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>
         get() = gPointer.reinterpret()
@@ -39,10 +40,8 @@ public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
      *
      * @return the gesture phase of @event
      */
-    public open fun getGesturePhase(): TouchpadGesturePhase =
-        gdk_touchpad_event_get_gesture_phase(gdkTouchpadEventPointer.reinterpret()).run {
-            TouchpadGesturePhase.fromNativeValue(this)
-        }
+    public open fun getGesturePhase(): TouchpadGesturePhase = gdk_touchpad_event_get_gesture_phase(gdkTouchpadEventPointer.reinterpret()).run {
+        TouchpadGesturePhase.fromNativeValue(this)}
 
     /**
      * Extracts the number of fingers from a touchpad event.
@@ -56,8 +55,7 @@ public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
      *
      * @return the angle delta of @event
      */
-    public open fun getPinchAngleDelta(): gdouble =
-        gdk_touchpad_event_get_pinch_angle_delta(gdkTouchpadEventPointer.reinterpret())
+    public open fun getPinchAngleDelta(): gdouble = gdk_touchpad_event_get_pinch_angle_delta(gdkTouchpadEventPointer.reinterpret())
 
     /**
      * Extracts the scale from a touchpad pinch event.
@@ -68,11 +66,10 @@ public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
 
     public companion object : TypeCompanion<TouchpadEvent> {
         override val type: GeneratedClassKGType<TouchpadEvent> =
-            GeneratedClassKGType(gdk_touchpad_event_get_type()) { TouchpadEvent(it.reinterpret()) }
+                GeneratedClassKGType(gdk_touchpad_event_get_type()) { TouchpadEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of TouchpadEvent

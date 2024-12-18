@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.ULong
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -49,8 +51,6 @@ import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.ULong
 
 /**
  * A tab bar for [class@TabView].
@@ -78,8 +78,9 @@ import kotlin.ULong
  *
  * - parameter `types`: Array parameter of type GType is not supported
  */
-public class TabBar(pointer: CPointer<AdwTabBar>) :
-    Widget(pointer.reinterpret()),
+public class TabBar(
+    pointer: CPointer<AdwTabBar>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwTabBarPointer: CPointer<AdwTabBar>
         get() = gPointer.reinterpret()
@@ -108,7 +109,6 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return whether the tabs automatically hide
          */
         get() = adw_tab_bar_get_autohide(adwTabBarPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the tabs automatically hide.
          *
@@ -131,17 +131,13 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return the widget shown after the tabs
          */
         get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the widget to show after the tabs.
          *
          * @param widget the widget to show after the tabs
          */
-        set(
-            widget
-        ) = adw_tab_bar_set_end_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        set(widget) = adw_tab_bar_set_end_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether tabs expand to full width.
@@ -156,7 +152,6 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return whether tabs expand to full width.
          */
         get() = adw_tab_bar_get_expand_tabs(adwTabBarPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether tabs expand to full width.
          *
@@ -186,8 +181,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @since 1.4
          */
         get() = adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer.reinterpret()).run {
-            DragAction(this)
-        }
+            DragAction(this)}
 
     /**
      * Whether the drop data should be preloaded on hover.
@@ -205,7 +199,6 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @since 1.3
          */
         get() = adw_tab_bar_get_extra_drag_preload(adwTabBarPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether drop data should be preloaded on hover.
          *
@@ -230,7 +223,6 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return whether tabs use inverted layout
          */
         get() = adw_tab_bar_get_inverted(adwTabBarPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether tabs tabs use inverted layout.
          *
@@ -266,17 +258,13 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return the widget shown before the tabs
          */
         get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the widget to show before the tabs.
          *
          * @param widget the widget to show before the tabs
          */
-        set(
-            widget
-        ) = adw_tab_bar_set_start_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        set(widget) = adw_tab_bar_set_start_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the tabs are currently revealed.
@@ -303,9 +291,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return the view @self controls
          */
         get() = adw_tab_bar_get_view(adwTabBarPointer.reinterpret())?.run {
-            TabView(reinterpret())
-        }
-
+            TabView(reinterpret())}
         /**
          * Sets the tab view @self controls.
          *
@@ -331,17 +317,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for @page
      */
-    public fun connectExtraDragDrop(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage, `value`: Value) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "extra-drag-drop",
-        connectExtraDragDropFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectExtraDragDrop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage, `value`: Value) -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "extra-drag-drop", connectExtraDragDropFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the dropped content is preloaded.
@@ -359,25 +335,14 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectExtraDragValue(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: TabPage, `value`: Value) -> DragAction,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "extra-drag-value",
-        connectExtraDragValueFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectExtraDragValue(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: TabPage, `value`: Value) -> DragAction): ULong = g_signal_connect_data(gPointer.reinterpret(), "extra-drag-value", connectExtraDragValueFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<TabBar> {
         override val type: GeneratedClassKGType<TabBar> =
-            GeneratedClassKGType(adw_tab_bar_get_type()) { TabBar(it.reinterpret()) }
+                GeneratedClassKGType(adw_tab_bar_get_type()) { TabBar(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of TabBar
@@ -389,39 +354,31 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
 }
 
 private val connectExtraDragDropFunc:
-    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            `value`: CPointer<GValue>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            `value`!!.run {
-                Value(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> gboolean>> =
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    `value`: CPointer<GValue>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    , `value`!!.run {
+        Value(reinterpret())}
+    ).asGBoolean()}
+.reinterpret()
 
 private val connectExtraDragValueFunc:
-    CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> GdkDragAction>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<AdwTabPage>?,
-            `value`: CPointer<GValue>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(
-            page!!.run {
-                TabPage(reinterpret())
-            },
-            `value`!!.run {
-                Value(reinterpret())
-            }
-        ).mask
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> GdkDragAction>> =
+        staticCFunction {
+    _: COpaquePointer,
+    page: CPointer<AdwTabPage>?,
+    `value`: CPointer<GValue>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(page!!.run {
+        TabPage(reinterpret())}
+    , `value`!!.run {
+        Value(reinterpret())}
+    ).mask}
+.reinterpret()

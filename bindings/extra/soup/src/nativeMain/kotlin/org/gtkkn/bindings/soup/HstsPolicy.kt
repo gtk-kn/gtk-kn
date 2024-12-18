@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -25,9 +28,6 @@ import org.gtkkn.native.soup.soup_hsts_policy_new
 import org.gtkkn.native.soup.soup_hsts_policy_new_from_response
 import org.gtkkn.native.soup.soup_hsts_policy_new_full
 import org.gtkkn.native.soup.soup_hsts_policy_new_session_policy
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * #SoupHSTSPolicy implements HTTP policies, as described by
@@ -48,7 +48,9 @@ import kotlin.Unit
  * If @include_subdomains is true, the Strict Transport Security policy
  * must also be enforced on subdomains of @domain.
  */
-public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(pointer) {
+public class HstsPolicy(
+    pointer: CPointer<SoupHSTSPolicy>,
+) : ProxyInstance(pointer) {
     public val soupHSTSPolicyPointer: CPointer<SoupHSTSPolicy> = pointer
 
     /**
@@ -57,8 +59,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      * @return a copy of @policy
      */
     public fun copy(): HstsPolicy = soup_hsts_policy_copy(soupHSTSPolicyPointer.reinterpret())!!.run {
-        HstsPolicy(reinterpret())
-    }
+        HstsPolicy(reinterpret())}
 
     /**
      * Tests if @policy1 and @policy2 are equal.
@@ -66,10 +67,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      * @param policy2 a #SoupHSTSPolicy
      * @return whether the policies are equal.
      */
-    public fun equal(policy2: HstsPolicy): Boolean = soup_hsts_policy_equal(
-        soupHSTSPolicyPointer.reinterpret(),
-        policy2.soupHSTSPolicyPointer.reinterpret()
-    ).asBoolean()
+    public fun equal(policy2: HstsPolicy): Boolean = soup_hsts_policy_equal(soupHSTSPolicyPointer.reinterpret(), policy2.soupHSTSPolicyPointer.reinterpret()).asBoolean()
 
     /**
      * Frees @policy.
@@ -81,8 +79,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return @policy's domain.
      */
-    public fun getDomain(): String = soup_hsts_policy_get_domain(soupHSTSPolicyPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getDomain(): String = soup_hsts_policy_get_domain(soupHSTSPolicyPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the expiration date for @policy.
@@ -90,8 +87,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      * @return A #GDateTime or null if unset
      */
     public fun getExpires(): DateTime = soup_hsts_policy_get_expires(soupHSTSPolicyPointer.reinterpret())!!.run {
-        DateTime(reinterpret())
-    }
+        DateTime(reinterpret())}
 
     /**
      * Returns the max age for @policy.
@@ -105,8 +101,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return true if @policy includes subdomains, false otherwise.
      */
-    public fun includesSubdomains(): Boolean =
-        soup_hsts_policy_includes_subdomains(soupHSTSPolicyPointer.reinterpret()).asBoolean()
+    public fun includesSubdomains(): Boolean = soup_hsts_policy_includes_subdomains(soupHSTSPolicyPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether @policy is expired.
@@ -124,8 +119,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return true if @policy is permanent, false otherwise
      */
-    public fun isSessionPolicy(): Boolean =
-        soup_hsts_policy_is_session_policy(soupHSTSPolicyPointer.reinterpret()).asBoolean()
+    public fun isSessionPolicy(): Boolean = soup_hsts_policy_is_session_policy(soupHSTSPolicyPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**
@@ -146,8 +140,11 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
          * @param includeSubdomains true if the policy applies on subdomains
          * @return a new #SoupHSTSPolicy.
          */
-        public fun new(domain: String, maxAge: gulong, includeSubdomains: Boolean): HstsPolicy =
-            HstsPolicy(soup_hsts_policy_new(domain, maxAge, includeSubdomains.asGBoolean())!!.reinterpret())
+        public fun new(
+            domain: String,
+            maxAge: gulong,
+            includeSubdomains: Boolean,
+        ): HstsPolicy = HstsPolicy(soup_hsts_policy_new(domain, maxAge, includeSubdomains.asGBoolean())!!.reinterpret())
 
         /**
          * Parses @msg's first "Strict-Transport-Security" response header and
@@ -157,8 +154,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
          * @return a new #SoupHSTSPolicy, or null if no valid
          *   "Strict-Transport-Security" response header was found.
          */
-        public fun newFromResponse(msg: Message): HstsPolicy? =
-            HstsPolicy(soup_hsts_policy_new_from_response(msg.soupMessagePointer.reinterpret())!!.reinterpret())
+        public fun newFromResponse(msg: Message): HstsPolicy? = HstsPolicy(soup_hsts_policy_new_from_response(msg.soupMessagePointer.reinterpret())!!.reinterpret())
 
         /**
          * Full version of [ctor@HSTSPolicy.new], to use with an existing
@@ -172,15 +168,12 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
          * @param includeSubdomains true if the policy applies on subdomains
          * @return a new #SoupHSTSPolicy.
          */
-        public fun newFull(domain: String, maxAge: gulong, expires: DateTime, includeSubdomains: Boolean): HstsPolicy =
-            HstsPolicy(
-                soup_hsts_policy_new_full(
-                    domain,
-                    maxAge,
-                    expires.glibDateTimePointer.reinterpret(),
-                    includeSubdomains.asGBoolean()
-                )!!.reinterpret()
-            )
+        public fun newFull(
+            domain: String,
+            maxAge: gulong,
+            expires: DateTime,
+            includeSubdomains: Boolean,
+        ): HstsPolicy = HstsPolicy(soup_hsts_policy_new_full(domain, maxAge, expires.glibDateTimePointer.reinterpret(), includeSubdomains.asGBoolean())!!.reinterpret())
 
         /**
          * Creates a new session #SoupHSTSPolicy with the given attributes.
@@ -201,8 +194,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
          * @param includeSubdomains true if the policy applies on sub domains
          * @return a new #SoupHSTSPolicy.
          */
-        public fun newSessionPolicy(domain: String, includeSubdomains: Boolean): HstsPolicy =
-            HstsPolicy(soup_hsts_policy_new_session_policy(domain, includeSubdomains.asGBoolean())!!.reinterpret())
+        public fun newSessionPolicy(domain: String, includeSubdomains: Boolean): HstsPolicy = HstsPolicy(soup_hsts_policy_new_session_policy(domain, includeSubdomains.asGBoolean())!!.reinterpret())
 
         /**
          * Get the GType of HSTSPolicy

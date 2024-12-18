@@ -15,7 +15,9 @@ import org.gtkkn.native.gobject.GType
  * GIOStreamSpliceFlags determine how streams should be spliced.
  * @since 2.28
  */
-public class IoStreamSpliceFlags(public val mask: GIOStreamSpliceFlags) : Bitfield<IoStreamSpliceFlags> {
+public class IoStreamSpliceFlags(
+    public val mask: GIOStreamSpliceFlags,
+) : Bitfield<IoStreamSpliceFlags> {
     override infix fun or(other: IoStreamSpliceFlags): IoStreamSpliceFlags = IoStreamSpliceFlags(mask or other.mask)
 
     @GioVersion2_28
@@ -30,21 +32,21 @@ public class IoStreamSpliceFlags(public val mask: GIOStreamSpliceFlags) : Bitfie
          *     the splice.
          */
         public val CLOSE_STREAM1: IoStreamSpliceFlags =
-            IoStreamSpliceFlags(G_IO_STREAM_SPLICE_CLOSE_STREAM1)
+                IoStreamSpliceFlags(G_IO_STREAM_SPLICE_CLOSE_STREAM1)
 
         /**
          * Close the second stream after
          *     the splice.
          */
         public val CLOSE_STREAM2: IoStreamSpliceFlags =
-            IoStreamSpliceFlags(G_IO_STREAM_SPLICE_CLOSE_STREAM2)
+                IoStreamSpliceFlags(G_IO_STREAM_SPLICE_CLOSE_STREAM2)
 
         /**
          * Wait for both splice operations to finish
          *     before calling the callback.
          */
         public val WAIT_FOR_BOTH: IoStreamSpliceFlags =
-            IoStreamSpliceFlags(G_IO_STREAM_SPLICE_WAIT_FOR_BOTH)
+                IoStreamSpliceFlags(G_IO_STREAM_SPLICE_WAIT_FOR_BOTH)
 
         /**
          * Get the GType of IOStreamSpliceFlags

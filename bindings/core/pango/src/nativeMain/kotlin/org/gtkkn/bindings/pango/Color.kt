@@ -1,6 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Suppress
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -21,13 +28,6 @@ import org.gtkkn.native.pango.pango_color_free
 import org.gtkkn.native.pango.pango_color_get_type
 import org.gtkkn.native.pango.pango_color_parse
 import org.gtkkn.native.pango.pango_color_to_string
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Suppress
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoColor` structure is used to
@@ -37,7 +37,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `alpha`: alpha: Out parameter is not supported
  */
-public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Color(
+    pointer: CPointer<PangoColor>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoColorPointer: CPointer<PangoColor> = pointer
 
     /**
@@ -45,7 +48,6 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      */
     public var red: guint16
         get() = pangoColorPointer.pointed.red
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoColorPointer.pointed.red = value
@@ -56,7 +58,6 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      */
     public var green: guint16
         get() = pangoColorPointer.pointed.green
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoColorPointer.pointed.green = value
@@ -67,7 +68,6 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      */
     public var blue: guint16
         get() = pangoColorPointer.pointed.blue
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoColorPointer.pointed.blue = value
@@ -79,11 +79,10 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoColor>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoColor>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -155,8 +154,7 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      *   which should be freed with [method@Pango.Color.free]
      */
     public fun copy(): Color? = pango_color_copy(pangoColorPointer.reinterpret())?.run {
-        Color(reinterpret())
-    }
+        Color(reinterpret())}
 
     /**
      * Frees a color allocated by [method@Pango.Color.copy].
@@ -193,8 +191,7 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_16
-    override fun toString(): String =
-        pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_color_to_string(pangoColorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

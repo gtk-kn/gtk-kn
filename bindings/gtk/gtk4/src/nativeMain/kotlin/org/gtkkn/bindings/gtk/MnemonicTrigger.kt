@@ -19,8 +19,9 @@ import org.gtkkn.native.gtk.gtk_mnemonic_trigger_new
  * Mnemonics require a *mnemonic modifier* (typically <kbd>Alt</kbd>) to be
  * pressed together with the mnemonic key.
  */
-public open class MnemonicTrigger(pointer: CPointer<GtkMnemonicTrigger>) :
-    ShortcutTrigger(pointer.reinterpret()),
+public open class MnemonicTrigger(
+    pointer: CPointer<GtkMnemonicTrigger>,
+) : ShortcutTrigger(pointer.reinterpret()),
     KGTyped {
     public val gtkMnemonicTriggerPointer: CPointer<GtkMnemonicTrigger>
         get() = gPointer.reinterpret()
@@ -50,11 +51,10 @@ public open class MnemonicTrigger(pointer: CPointer<GtkMnemonicTrigger>) :
 
     public companion object : TypeCompanion<MnemonicTrigger> {
         override val type: GeneratedClassKGType<MnemonicTrigger> =
-            GeneratedClassKGType(gtk_mnemonic_trigger_get_type()) { MnemonicTrigger(it.reinterpret()) }
+                GeneratedClassKGType(gtk_mnemonic_trigger_get_type()) { MnemonicTrigger(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of MnemonicTrigger

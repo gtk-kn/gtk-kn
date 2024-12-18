@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -21,7 +22,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Unit
 
 /**
  * A widget that changes layout based on available size.
@@ -138,8 +138,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
-    Widget(pointer.reinterpret()),
+public open class BreakpointBin(
+    pointer: CPointer<AdwBreakpointBin>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>
         get() = gPointer.reinterpret()
@@ -167,9 +168,7 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_child(adwBreakpointBinPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
@@ -177,9 +176,7 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            child
-        ) = adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The current breakpoint.
@@ -195,8 +192,7 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_current_breakpoint(adwBreakpointBinPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
-        }
+            Breakpoint(reinterpret())}
 
     /**
      * Creates a new `AdwBreakpointBin`.
@@ -213,10 +209,7 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_add_breakpoint(
-        adwBreakpointBinPointer.reinterpret(),
-        breakpoint.adwBreakpointPointer.reinterpret()
-    )
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_add_breakpoint(adwBreakpointBinPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
 
     /**
      * Removes @breakpoint from @self.
@@ -225,18 +218,14 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun removeBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_remove_breakpoint(
-        adwBreakpointBinPointer.reinterpret(),
-        breakpoint.adwBreakpointPointer.reinterpret()
-    )
+    public open fun removeBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_remove_breakpoint(adwBreakpointBinPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
 
     public companion object : TypeCompanion<BreakpointBin> {
         override val type: GeneratedClassKGType<BreakpointBin> =
-            GeneratedClassKGType(adw_breakpoint_bin_get_type()) { BreakpointBin(it.reinterpret()) }
+                GeneratedClassKGType(adw_breakpoint_bin_get_type()) { BreakpointBin(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of BreakpointBin

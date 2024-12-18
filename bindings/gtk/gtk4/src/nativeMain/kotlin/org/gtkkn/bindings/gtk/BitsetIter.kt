@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,10 +19,6 @@ import org.gtkkn.native.gtk.GtkBitsetIter
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_type
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_value
 import org.gtkkn.native.gtk.gtk_bitset_iter_is_valid
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque, stack-allocated struct for iterating
@@ -36,7 +36,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
  */
-public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class BitsetIter(
+    pointer: CPointer<GtkBitsetIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkBitsetIterPointer: CPointer<GtkBitsetIter> = pointer
 
     /**
@@ -45,11 +48,10 @@ public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkBitsetIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkBitsetIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -57,9 +59,7 @@ public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to BitsetIter and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GtkBitsetIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GtkBitsetIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new BitsetIter using the provided [AutofreeScope].

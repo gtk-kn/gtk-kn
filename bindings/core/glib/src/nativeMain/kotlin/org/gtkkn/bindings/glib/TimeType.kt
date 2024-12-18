@@ -13,17 +13,17 @@ import org.gtkkn.native.glib.GTimeType
  * where the same local time occurs twice (during daylight savings time
  * transitions, for example).
  */
-public enum class TimeType(public val nativeValue: GTimeType) {
+public enum class TimeType(
+    public val nativeValue: GTimeType,
+) {
     /**
      * the time is in local standard time
      */
     STANDARD(GTimeType.G_TIME_TYPE_STANDARD),
-
     /**
      * the time is in local daylight time
      */
     DAYLIGHT(GTimeType.G_TIME_TYPE_DAYLIGHT),
-
     /**
      * the time is in UTC
      */

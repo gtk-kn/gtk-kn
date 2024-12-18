@@ -28,8 +28,9 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_button_new
  * In `GtkSourceStyleSchemeChooserButton`, a [class@StyleSchemeChooserWidget]
  * is used to provide a dialog for selecting style schemes.
  */
-public open class StyleSchemeChooserButton(pointer: CPointer<GtkSourceStyleSchemeChooserButton>) :
-    Button(pointer.reinterpret()),
+public open class StyleSchemeChooserButton(
+    pointer: CPointer<GtkSourceStyleSchemeChooserButton>,
+) : Button(pointer.reinterpret()),
     StyleSchemeChooser,
     KGTyped {
     public val gtksourceStyleSchemeChooserButtonPointer: CPointer<GtkSourceStyleSchemeChooserButton>
@@ -59,13 +60,10 @@ public open class StyleSchemeChooserButton(pointer: CPointer<GtkSourceStyleSchem
 
     public companion object : TypeCompanion<StyleSchemeChooserButton> {
         override val type: GeneratedClassKGType<StyleSchemeChooserButton> =
-            GeneratedClassKGType(gtk_source_style_scheme_chooser_button_get_type()) {
-                StyleSchemeChooserButton(it.reinterpret())
-            }
+                GeneratedClassKGType(gtk_source_style_scheme_chooser_button_get_type()) { StyleSchemeChooserButton(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Get the GType of StyleSchemeChooserButton

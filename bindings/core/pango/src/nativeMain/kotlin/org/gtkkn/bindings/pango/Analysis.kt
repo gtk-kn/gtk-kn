@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,16 +17,15 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.guint8
 import org.gtkkn.native.pango.PangoAnalysis
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAnalysis` structure stores information about
  * the properties of a segment of text.
  */
-public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Analysis(
+    pointer: CPointer<PangoAnalysis>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAnalysisPointer: CPointer<PangoAnalysis> = pointer
 
     /**
@@ -30,9 +33,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var font: Font?
         get() = pangoAnalysisPointer.pointed.font?.run {
-            Font(reinterpret())
-        }
-
+            Font(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.font = value?.pangoFontPointer?.reinterpret()
@@ -43,7 +44,6 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var level: guint8
         get() = pangoAnalysisPointer.pointed.level
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.level = value
@@ -54,7 +54,6 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var gravity: guint8
         get() = pangoAnalysisPointer.pointed.gravity
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.gravity = value
@@ -65,7 +64,6 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var flags: guint8
         get() = pangoAnalysisPointer.pointed.flags
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.flags = value
@@ -76,7 +74,6 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var script: guint8
         get() = pangoAnalysisPointer.pointed.script
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.script = value
@@ -87,9 +84,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var language: Language?
         get() = pangoAnalysisPointer.pointed.language?.run {
-            Language(reinterpret())
-        }
-
+            Language(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.language = value?.pangoLanguagePointer
@@ -100,9 +95,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var extraAttrs: SList?
         get() = pangoAnalysisPointer.pointed.extra_attrs?.run {
-            SList(reinterpret())
-        }
-
+            SList(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAnalysisPointer.pointed.extra_attrs = value?.glibSListPointer
@@ -114,11 +107,10 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAnalysis>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAnalysis>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -126,9 +118,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to Analysis and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAnalysis>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAnalysis>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Analysis using the provided [AutofreeScope].
@@ -204,6 +194,5 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
         this.extraAttrs = extraAttrs
     }
 
-    override fun toString(): String =
-        "Analysis(font=$font, level=$level, gravity=$gravity, flags=$flags, script=$script, language=$language, extraAttrs=$extraAttrs)"
+    override fun toString(): String = "Analysis(font=$font, level=$level, gravity=$gravity, flags=$flags, script=$script, language=$language, extraAttrs=$extraAttrs)"
 }

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.javascriptcore.Value
@@ -13,8 +15,6 @@ import org.gtkkn.native.webkit.webkit_script_message_reply_ref
 import org.gtkkn.native.webkit.webkit_script_message_reply_return_error_message
 import org.gtkkn.native.webkit.webkit_script_message_reply_return_value
 import org.gtkkn.native.webkit.webkit_script_message_reply_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A reply for a script message received.
@@ -23,7 +23,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : ProxyInstance(pointer) {
+public class ScriptMessageReply(
+    pointer: CPointer<WebKitScriptMessageReply>,
+) : ProxyInstance(pointer) {
     public val webkitScriptMessageReplyPointer: CPointer<WebKitScriptMessageReply> = pointer
 
     /**
@@ -33,10 +35,8 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun ref(): ScriptMessageReply =
-        webkit_script_message_reply_ref(webkitScriptMessageReplyPointer.reinterpret())!!.run {
-            ScriptMessageReply(reinterpret())
-        }
+    public fun ref(): ScriptMessageReply = webkit_script_message_reply_ref(webkitScriptMessageReplyPointer.reinterpret())!!.run {
+        ScriptMessageReply(reinterpret())}
 
     /**
      * Reply to a script message with an error message.
@@ -45,8 +45,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun returnErrorMessage(errorMessage: String): Unit =
-        webkit_script_message_reply_return_error_message(webkitScriptMessageReplyPointer.reinterpret(), errorMessage)
+    public fun returnErrorMessage(errorMessage: String): Unit = webkit_script_message_reply_return_error_message(webkitScriptMessageReplyPointer.reinterpret(), errorMessage)
 
     /**
      * Reply to a script message with a value.
@@ -57,10 +56,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun returnValue(replyValue: Value): Unit = webkit_script_message_reply_return_value(
-        webkitScriptMessageReplyPointer.reinterpret(),
-        replyValue.javascriptcoreValuePointer.reinterpret()
-    )
+    public fun returnValue(replyValue: Value): Unit = webkit_script_message_reply_return_value(webkitScriptMessageReplyPointer.reinterpret(), replyValue.javascriptcoreValuePointer.reinterpret())
 
     /**
      * Atomically decrements the reference count of @script_message_reply by one.

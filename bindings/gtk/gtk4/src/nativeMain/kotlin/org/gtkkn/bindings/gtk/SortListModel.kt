@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.ListModel
@@ -27,7 +28,6 @@ import org.gtkkn.native.gtk.gtk_sort_list_model_set_incremental
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_model
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_section_sorter
 import org.gtkkn.native.gtk.gtk_sort_list_model_set_sorter
-import kotlin.Boolean
 
 /**
  * A `GListModel` that sorts the elements of an underlying model
@@ -62,8 +62,9 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
-    Object(pointer.reinterpret()),
+public open class SortListModel(
+    pointer: CPointer<GtkSortListModel>,
+) : Object(pointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
@@ -88,7 +89,6 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          * @return true if incremental sorting is enabled
          */
         get() = gtk_sort_list_model_get_incremental(gtkSortListModelPointer.reinterpret()).asBoolean()
-
         /**
          * Sets the sort model to do an incremental sort.
          *
@@ -109,9 +109,7 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          *
          * @param incremental true to sort incrementally
          */
-        set(
-            incremental
-        ) = gtk_sort_list_model_set_incremental(gtkSortListModelPointer.reinterpret(), incremental.asGBoolean())
+        set(incremental) = gtk_sort_list_model_set_incremental(gtkSortListModelPointer.reinterpret(), incremental.asGBoolean())
 
     /**
      * The model being sorted.
@@ -123,9 +121,7 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          * @return The model that gets sorted
          */
         get() = gtk_sort_list_model_get_model(gtkSortListModelPointer.reinterpret())?.run {
-            ListModel.wrap(reinterpret())
-        }
-
+            ListModel.wrap(reinterpret())}
         /**
          * Sets the model to be sorted.
          *
@@ -177,9 +173,7 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          * @since 4.12
          */
         get() = gtk_sort_list_model_get_section_sorter(gtkSortListModelPointer.reinterpret())?.run {
-            Sorter(reinterpret())
-        }
-
+            Sorter(reinterpret())}
         /**
          * Sets a new section sorter on @self.
          *
@@ -187,12 +181,7 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            sorter
-        ) = gtk_sort_list_model_set_section_sorter(
-            gtkSortListModelPointer.reinterpret(),
-            sorter?.gtkSorterPointer?.reinterpret()
-        )
+        set(sorter) = gtk_sort_list_model_set_section_sorter(gtkSortListModelPointer.reinterpret(), sorter?.gtkSorterPointer?.reinterpret())
 
     /**
      * The sorter for this model.
@@ -204,20 +193,13 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          * @return the sorter of #self
          */
         get() = gtk_sort_list_model_get_sorter(gtkSortListModelPointer.reinterpret())?.run {
-            Sorter(reinterpret())
-        }
-
+            Sorter(reinterpret())}
         /**
          * Sets a new sorter on @self.
          *
          * @param sorter the `GtkSorter` to sort @model with
          */
-        set(
-            sorter
-        ) = gtk_sort_list_model_set_sorter(
-            gtkSortListModelPointer.reinterpret(),
-            sorter?.gtkSorterPointer?.reinterpret()
-        )
+        set(sorter) = gtk_sort_list_model_set_sorter(gtkSortListModelPointer.reinterpret(), sorter?.gtkSorterPointer?.reinterpret())
 
     /**
      * Creates a new sort list model that uses the @sorter to sort @model.
@@ -226,20 +208,14 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
      * @param sorter the `GtkSorter` to sort @model with,
      * @return a new `GtkSortListModel`
      */
-    public constructor(
-        model: ListModel? = null,
-        sorter: Sorter? = null,
-    ) : this(
-        gtk_sort_list_model_new(model?.gioListModelPointer, sorter?.gtkSorterPointer?.reinterpret())!!.reinterpret()
-    )
+    public constructor(model: ListModel? = null, sorter: Sorter? = null) : this(gtk_sort_list_model_new(model?.gioListModelPointer, sorter?.gtkSorterPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<SortListModel> {
         override val type: GeneratedClassKGType<SortListModel> =
-            GeneratedClassKGType(gtk_sort_list_model_get_type()) { SortListModel(it.reinterpret()) }
+                GeneratedClassKGType(gtk_sort_list_model_get_type()) { SortListModel(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SortListModel

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -21,9 +24,6 @@ import org.gtkkn.native.gtk.gtk_event_controller_focus_contains_focus
 import org.gtkkn.native.gtk.gtk_event_controller_focus_get_type
 import org.gtkkn.native.gtk.gtk_event_controller_focus_is_focus
 import org.gtkkn.native.gtk.gtk_event_controller_focus_new
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkEventControllerFocus` is an event controller to keep track of
@@ -41,8 +41,9 @@ import kotlin.Unit
  * - method `contains-focus`: Property has no getter nor setter
  * - method `is-focus`: Property has no getter nor setter
  */
-public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerFocus(
+    pointer: CPointer<GtkEventControllerFocus>,
+) : EventController(pointer.reinterpret()),
     KGTyped {
     public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>
         get() = gPointer.reinterpret()
@@ -59,16 +60,14 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      *
      * @return true if focus is within @self or one of its children
      */
-    public open fun containsFocus(): Boolean =
-        gtk_event_controller_focus_contains_focus(gtkEventControllerFocusPointer.reinterpret()).asBoolean()
+    public open fun containsFocus(): Boolean = gtk_event_controller_focus_contains_focus(gtkEventControllerFocusPointer.reinterpret()).asBoolean()
 
     /**
      * Returns true if focus is within @self, but not one of its children.
      *
      * @return true if focus is within @self, but not one of its children
      */
-    public open fun isFocus(): Boolean =
-        gtk_event_controller_focus_is_focus(gtkEventControllerFocusPointer.reinterpret()).asBoolean()
+    public open fun isFocus(): Boolean = gtk_event_controller_focus_is_focus(gtkEventControllerFocusPointer.reinterpret()).asBoolean()
 
     /**
      * Emitted whenever the focus enters into the widget or one
@@ -85,15 +84,7 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "enter",
-            connectEnterFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "enter", connectEnterFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted whenever the focus leaves the widget hierarchy
@@ -109,23 +100,14 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "leave",
-            connectLeaveFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "leave", connectLeaveFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<EventControllerFocus> {
         override val type: GeneratedClassKGType<EventControllerFocus> =
-            GeneratedClassKGType(gtk_event_controller_focus_get_type()) { EventControllerFocus(it.reinterpret()) }
+                GeneratedClassKGType(gtk_event_controller_focus_get_type()) { EventControllerFocus(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of EventControllerFocus
@@ -137,17 +119,15 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
 }
 
 private val connectEnterFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

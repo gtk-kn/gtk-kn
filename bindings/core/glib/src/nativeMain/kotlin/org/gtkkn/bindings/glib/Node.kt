@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -44,12 +50,6 @@ import org.gtkkn.native.glib.g_node_unlink
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GNode struct represents one node in a [n-ary tree][glib-N-ary-Trees].
@@ -58,7 +58,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `allocator`: Allocator
  */
-public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Node(
+    pointer: CPointer<GNode>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibNodePointer: CPointer<GNode> = pointer
 
     /**
@@ -66,7 +69,6 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var `data`: gpointer
         get() = glibNodePointer.pointed.data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.data = value
@@ -78,9 +80,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var next: Node?
         get() = glibNodePointer.pointed.next?.run {
-            Node(reinterpret())
-        }
-
+            Node(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.next = value?.glibNodePointer
@@ -91,9 +91,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var prev: Node?
         get() = glibNodePointer.pointed.prev?.run {
-            Node(reinterpret())
-        }
-
+            Node(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.prev = value?.glibNodePointer
@@ -105,9 +103,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var parent: Node?
         get() = glibNodePointer.pointed.parent?.run {
-            Node(reinterpret())
-        }
-
+            Node(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.parent = value?.glibNodePointer
@@ -120,9 +116,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var children: Node?
         get() = glibNodePointer.pointed.children?.run {
-            Node(reinterpret())
-        }
-
+            Node(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibNodePointer.pointed.children = value?.glibNodePointer
@@ -134,11 +128,10 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GNode>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GNode>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -236,8 +229,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param child a child of @node
      * @return the position of @child with respect to its siblings
      */
-    public fun childPosition(child: Node): gint =
-        g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
+    public fun childPosition(child: Node): gint = g_node_child_position(glibNodePointer.reinterpret(), child.glibNodePointer.reinterpret())
 
     /**
      * Calls a function for each of the children of a #GNode. Note that it
@@ -248,12 +240,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      *     %G_TRAVERSE_ALL, %G_TRAVERSE_LEAVES and %G_TRAVERSE_NON_LEAVES
      * @param func the function to call for each visited node
      */
-    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(
-        glibNodePointer.reinterpret(),
-        flags.mask,
-        NodeForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun childrenForeach(flags: TraverseFlags, func: NodeForeachFunc): Unit = g_node_children_foreach(glibNodePointer.reinterpret(), flags.mask, NodeForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Recursively copies a #GNode (but does not deep-copy the data inside the
@@ -262,8 +249,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @return a new #GNode containing the same data pointers
      */
     public fun copy(): Node = g_node_copy(glibNodePointer.reinterpret())!!.run {
-        Node(reinterpret())
-    }
+        Node(reinterpret())}
 
     /**
      * Recursively copies a #GNode and its data.
@@ -274,13 +260,8 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun copyDeep(copyFunc: CopyFunc): Node = g_node_copy_deep(
-        glibNodePointer.reinterpret(),
-        CopyFuncFunc.reinterpret(),
-        StableRef.create(copyFunc).asCPointer()
-    )!!.run {
-        Node(reinterpret())
-    }
+    public fun copyDeep(copyFunc: CopyFunc): Node = g_node_copy_deep(glibNodePointer.reinterpret(), CopyFuncFunc.reinterpret(), StableRef.create(copyFunc).asCPointer())!!.run {
+        Node(reinterpret())}
 
     /**
      * Gets the depth of a #GNode.
@@ -308,10 +289,12 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param data the data to find
      * @return the found #GNode, or null if the data is not found
      */
-    public fun find(order: TraverseType, flags: TraverseFlags, `data`: gpointer? = null): Node =
-        g_node_find(glibNodePointer.reinterpret(), order.nativeValue, flags.mask, `data`)!!.run {
-            Node(reinterpret())
-        }
+    public fun find(
+        order: TraverseType,
+        flags: TraverseFlags,
+        `data`: gpointer? = null,
+    ): Node = g_node_find(glibNodePointer.reinterpret(), order.nativeValue, flags.mask, `data`)!!.run {
+        Node(reinterpret())}
 
     /**
      * Finds the first child of a #GNode with the given data.
@@ -321,10 +304,8 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param data the data to find
      * @return the found child #GNode, or null if the data is not found
      */
-    public fun findChild(flags: TraverseFlags, `data`: gpointer? = null): Node =
-        g_node_find_child(glibNodePointer.reinterpret(), flags.mask, `data`)!!.run {
-            Node(reinterpret())
-        }
+    public fun findChild(flags: TraverseFlags, `data`: gpointer? = null): Node = g_node_find_child(glibNodePointer.reinterpret(), flags.mask, `data`)!!.run {
+        Node(reinterpret())}
 
     /**
      * Gets the first sibling of a #GNode.
@@ -333,8 +314,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @return the first sibling of @node
      */
     public fun firstSibling(): Node = g_node_first_sibling(glibNodePointer.reinterpret())!!.run {
-        Node(reinterpret())
-    }
+        Node(reinterpret())}
 
     /**
      * Gets the root of a tree.
@@ -342,8 +322,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @return the root of the tree
      */
     public fun getRoot(): Node = g_node_get_root(glibNodePointer.reinterpret())!!.run {
-        Node(reinterpret())
-    }
+        Node(reinterpret())}
 
     /**
      * Inserts a #GNode beneath the parent at the given position.
@@ -353,10 +332,8 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun insert(position: gint, node: Node): Node =
-        g_node_insert(glibNodePointer.reinterpret(), position, node.glibNodePointer.reinterpret())!!.run {
-            Node(reinterpret())
-        }
+    public fun insert(position: gint, node: Node): Node = g_node_insert(glibNodePointer.reinterpret(), position, node.glibNodePointer.reinterpret())!!.run {
+        Node(reinterpret())}
 
     /**
      * Inserts a #GNode beneath the parent after the given sibling.
@@ -366,13 +343,8 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun insertAfter(sibling: Node, node: Node): Node = g_node_insert_after(
-        glibNodePointer.reinterpret(),
-        sibling.glibNodePointer.reinterpret(),
-        node.glibNodePointer.reinterpret()
-    )!!.run {
-        Node(reinterpret())
-    }
+    public fun insertAfter(sibling: Node, node: Node): Node = g_node_insert_after(glibNodePointer.reinterpret(), sibling.glibNodePointer.reinterpret(), node.glibNodePointer.reinterpret())!!.run {
+        Node(reinterpret())}
 
     /**
      * Inserts a #GNode beneath the parent before the given sibling.
@@ -382,13 +354,8 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun insertBefore(sibling: Node, node: Node): Node = g_node_insert_before(
-        glibNodePointer.reinterpret(),
-        sibling.glibNodePointer.reinterpret(),
-        node.glibNodePointer.reinterpret()
-    )!!.run {
-        Node(reinterpret())
-    }
+    public fun insertBefore(sibling: Node, node: Node): Node = g_node_insert_before(glibNodePointer.reinterpret(), sibling.glibNodePointer.reinterpret(), node.glibNodePointer.reinterpret())!!.run {
+        Node(reinterpret())}
 
     /**
      * Returns true if @node is an ancestor of @descendant.
@@ -398,8 +365,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param descendant a #GNode
      * @return true if @node is an ancestor of @descendant
      */
-    public fun isAncestor(descendant: Node): Boolean =
-        g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer.reinterpret()).asBoolean()
+    public fun isAncestor(descendant: Node): Boolean = g_node_is_ancestor(glibNodePointer.reinterpret(), descendant.glibNodePointer.reinterpret()).asBoolean()
 
     /**
      * Gets the last child of a #GNode.
@@ -407,8 +373,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @return the last child of @node, or null if @node has no children
      */
     public fun lastChild(): Node = g_node_last_child(glibNodePointer.reinterpret())!!.run {
-        Node(reinterpret())
-    }
+        Node(reinterpret())}
 
     /**
      * Gets the last sibling of a #GNode.
@@ -417,8 +382,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @return the last sibling of @node
      */
     public fun lastSibling(): Node = g_node_last_sibling(glibNodePointer.reinterpret())!!.run {
-        Node(reinterpret())
-    }
+        Node(reinterpret())}
 
     /**
      * Gets the maximum height of all branches beneath a #GNode.
@@ -456,8 +420,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @return the child of @node at index @n
      */
     public fun nthChild(n: guint): Node = g_node_nth_child(glibNodePointer.reinterpret(), n)!!.run {
-        Node(reinterpret())
-    }
+        Node(reinterpret())}
 
     /**
      * Inserts a #GNode as the first child of the given parent.
@@ -465,10 +428,8 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      * @param node the #GNode to insert
      * @return the inserted #GNode
      */
-    public fun prepend(node: Node): Node =
-        g_node_prepend(glibNodePointer.reinterpret(), node.glibNodePointer.reinterpret())!!.run {
-            Node(reinterpret())
-        }
+    public fun prepend(node: Node): Node = g_node_prepend(glibNodePointer.reinterpret(), node.glibNodePointer.reinterpret())!!.run {
+        Node(reinterpret())}
 
     /**
      * Reverses the order of the children of a #GNode.
@@ -492,15 +453,12 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
      *     If depth is 2, the root and its children are visited. And so on.
      * @param func the function to call for each visited #GNode
      */
-    public fun traverse(order: TraverseType, flags: TraverseFlags, maxDepth: gint, func: NodeTraverseFunc): Unit =
-        g_node_traverse(
-            glibNodePointer.reinterpret(),
-            order.nativeValue,
-            flags.mask,
-            maxDepth,
-            NodeTraverseFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+    public fun traverse(
+        order: TraverseType,
+        flags: TraverseFlags,
+        maxDepth: gint,
+        func: NodeTraverseFunc,
+    ): Unit = g_node_traverse(glibNodePointer.reinterpret(), order.nativeValue, flags.mask, maxDepth, NodeTraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Unlinks a #GNode from a tree, resulting in two separate trees.
@@ -518,8 +476,7 @@ public class Node(pointer: CPointer<GNode>, cleaner: Cleaner? = null) : ProxyIns
          * @return a new #GNode
          */
         public fun new(`data`: gpointer? = null): Node = g_node_new(`data`)!!.run {
-            Node(reinterpret())
-        }
+            Node(reinterpret())}
 
         public fun popAllocator(): Unit = g_node_pop_allocator()
     }

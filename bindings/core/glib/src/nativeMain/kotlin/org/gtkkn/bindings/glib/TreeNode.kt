@@ -21,7 +21,9 @@ import org.gtkkn.native.glib.gpointer
  * @since 2.68
  */
 @GLibVersion2_68
-public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
+public class TreeNode(
+    pointer: CPointer<GTreeNode>,
+) : ProxyInstance(pointer) {
     public val glibTreeNodePointer: CPointer<GTreeNode> = pointer
 
     /**

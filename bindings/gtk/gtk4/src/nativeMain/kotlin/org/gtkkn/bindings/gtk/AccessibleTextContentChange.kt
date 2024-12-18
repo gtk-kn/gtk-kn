@@ -11,13 +11,14 @@ import org.gtkkn.native.gtk.gtk_accessible_text_content_change_get_type
  * @since 4.14
  */
 @GtkVersion4_14
-public enum class AccessibleTextContentChange(public val nativeValue: GtkAccessibleTextContentChange) {
+public enum class AccessibleTextContentChange(
+    public val nativeValue: GtkAccessibleTextContentChange,
+) {
     /**
      * contents change as the result of
      *   an insert operation
      */
     INSERT(GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_INSERT),
-
     /**
      * contents change as the result of
      *   a remove operation
@@ -26,12 +27,11 @@ public enum class AccessibleTextContentChange(public val nativeValue: GtkAccessi
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleTextContentChange): AccessibleTextContentChange =
-            when (nativeValue) {
-                GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_INSERT -> INSERT
-                GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_REMOVE -> REMOVE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleTextContentChange): AccessibleTextContentChange = when (nativeValue) {
+            GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_INSERT -> INSERT
+            GtkAccessibleTextContentChange.GTK_ACCESSIBLE_TEXT_CONTENT_CHANGE_REMOVE -> REMOVE
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of AccessibleTextContentChange

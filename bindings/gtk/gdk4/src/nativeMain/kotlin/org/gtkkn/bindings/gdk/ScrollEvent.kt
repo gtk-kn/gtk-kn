@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_8
@@ -14,7 +15,6 @@ import org.gtkkn.native.gdk.gdk_scroll_event_get_type
 import org.gtkkn.native.gdk.gdk_scroll_event_get_unit
 import org.gtkkn.native.gdk.gdk_scroll_event_is_stop
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * An event related to a scrolling motion.
@@ -23,8 +23,9 @@ import kotlin.Boolean
  *
  * - parameter `delta_x`: delta_x: Out parameter is not supported
  */
-public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
-    Event(pointer.reinterpret()),
+public open class ScrollEvent(
+    pointer: CPointer<GdkScrollEvent>,
+) : Event(pointer.reinterpret()),
     KGTyped {
     public val gdkScrollEventPointer: CPointer<GdkScrollEvent>
         get() = gPointer.reinterpret()
@@ -34,10 +35,8 @@ public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
      *
      * @return the scroll direction of @event
      */
-    public open fun getDirection(): ScrollDirection =
-        gdk_scroll_event_get_direction(gdkScrollEventPointer.reinterpret()).run {
-            ScrollDirection.fromNativeValue(this)
-        }
+    public open fun getDirection(): ScrollDirection = gdk_scroll_event_get_direction(gdkScrollEventPointer.reinterpret()).run {
+        ScrollDirection.fromNativeValue(this)}
 
     /**
      * Extracts the scroll delta unit of a scroll event.
@@ -50,8 +49,7 @@ public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
      */
     @GdkVersion4_8
     public open fun getUnit(): ScrollUnit = gdk_scroll_event_get_unit(gdkScrollEventPointer.reinterpret()).run {
-        ScrollUnit.fromNativeValue(this)
-    }
+        ScrollUnit.fromNativeValue(this)}
 
     /**
      * Check whether a scroll event is a stop scroll event.
@@ -70,11 +68,10 @@ public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
 
     public companion object : TypeCompanion<ScrollEvent> {
         override val type: GeneratedClassKGType<ScrollEvent> =
-            GeneratedClassKGType(gdk_scroll_event_get_type()) { ScrollEvent(it.reinterpret()) }
+                GeneratedClassKGType(gdk_scroll_event_get_type()) { ScrollEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of ScrollEvent

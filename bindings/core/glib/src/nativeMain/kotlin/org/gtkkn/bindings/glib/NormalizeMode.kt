@@ -12,29 +12,27 @@ import org.gtkkn.native.gobject.g_normalize_mode_get_type
  * accent or as a single precomposed character. Unicode strings
  * should generally be normalized before comparing them.
  */
-public enum class NormalizeMode(public val nativeValue: GNormalizeMode) {
+public enum class NormalizeMode(
+    public val nativeValue: GNormalizeMode,
+) {
     /**
      * standardize differences that do not affect the
      *     text content, such as the above-mentioned accent representation
      */
     DEFAULT(GNormalizeMode.G_NORMALIZE_DEFAULT),
-
     /**
      * another name for %G_NORMALIZE_DEFAULT
      */
     NFD(GNormalizeMode.G_NORMALIZE_NFD),
-
     /**
      * like %G_NORMALIZE_DEFAULT, but with
      *     composed forms rather than a maximally decomposed form
      */
     DEFAULT_COMPOSE(GNormalizeMode.G_NORMALIZE_DEFAULT_COMPOSE),
-
     /**
      * another name for %G_NORMALIZE_DEFAULT_COMPOSE
      */
     NFC(GNormalizeMode.G_NORMALIZE_NFC),
-
     /**
      * beyond %G_NORMALIZE_DEFAULT also standardize the
      *     "compatibility" characters in Unicode, such as SUPERSCRIPT THREE
@@ -43,18 +41,15 @@ public enum class NormalizeMode(public val nativeValue: GNormalizeMode) {
      *     characters should be considered the same
      */
     ALL(GNormalizeMode.G_NORMALIZE_ALL),
-
     /**
      * another name for %G_NORMALIZE_ALL
      */
     NFKD(GNormalizeMode.G_NORMALIZE_NFKD),
-
     /**
      * like %G_NORMALIZE_ALL, but with composed
      *     forms rather than a maximally decomposed form
      */
     ALL_COMPOSE(GNormalizeMode.G_NORMALIZE_ALL_COMPOSE),
-
     /**
      * another name for %G_NORMALIZE_ALL_COMPOSE
      */

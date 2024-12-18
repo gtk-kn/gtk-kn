@@ -10,22 +10,21 @@ import org.gtkkn.native.gobject.GType
  *
  * To make them easier to use, their numerical values are the actual degrees.
  */
-public enum class PixbufRotation(public val nativeValue: GdkPixbufRotation) {
+public enum class PixbufRotation(
+    public val nativeValue: GdkPixbufRotation,
+) {
     /**
      * No rotation.
      */
     NONE(GdkPixbufRotation.GDK_PIXBUF_ROTATE_NONE),
-
     /**
      * Rotate by 90 degrees.
      */
     COUNTERCLOCKWISE(GdkPixbufRotation.GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE),
-
     /**
      * Rotate by 180 degrees.
      */
     UPSIDEDOWN(GdkPixbufRotation.GDK_PIXBUF_ROTATE_UPSIDEDOWN),
-
     /**
      * Rotate by 270 degrees.
      */

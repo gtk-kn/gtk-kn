@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_2
@@ -16,7 +17,6 @@ import org.gtkkn.native.adw.adw_property_animation_target_get_type
 import org.gtkkn.native.adw.adw_property_animation_target_new
 import org.gtkkn.native.adw.adw_property_animation_target_new_for_pspec
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * An [class@AnimationTarget] changing the value of a property of a
@@ -24,8 +24,9 @@ import kotlin.String
  * @since 1.2
  */
 @AdwVersion1_2
-public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarget>) :
-    AnimationTarget(pointer.reinterpret()),
+public class PropertyAnimationTarget(
+    pointer: CPointer<AdwPropertyAnimationTarget>,
+) : AnimationTarget(pointer.reinterpret()),
     KGTyped {
     public val adwPropertyAnimationTargetPointer: CPointer<AdwPropertyAnimationTarget>
         get() = gPointer.reinterpret()
@@ -52,8 +53,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
          * @since 1.2
          */
         get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * The `GParamSpec` of the property to be animated.
@@ -69,8 +69,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
          * @since 1.2
          */
         get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
-        }
+            ParamSpec(reinterpret())}
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @property_name property on
@@ -81,10 +80,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
      * @return the newly created `AdwPropertyAnimationTarget`
      * @since 1.2
      */
-    public constructor(
-        `object`: Object,
-        propertyName: String,
-    ) : this(adw_property_animation_target_new(`object`.gPointer.reinterpret(), propertyName)!!.reinterpret())
+    public constructor(`object`: Object, propertyName: String) : this(adw_property_animation_target_new(`object`.gPointer.reinterpret(), propertyName)!!.reinterpret())
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
@@ -95,25 +91,14 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
      * @return new newly created `AdwPropertyAnimationTarget`
      * @since 1.2
      */
-    public constructor(
-        `object`: Object,
-        pspec: ParamSpec,
-    ) : this(
-        adw_property_animation_target_new_for_pspec(
-            `object`.gPointer.reinterpret(),
-            pspec.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(`object`: Object, pspec: ParamSpec) : this(adw_property_animation_target_new_for_pspec(`object`.gPointer.reinterpret(), pspec.gPointer.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =
-            GeneratedClassKGType(adw_property_animation_target_get_type()) {
-                PropertyAnimationTarget(it.reinterpret())
-            }
+                GeneratedClassKGType(adw_property_animation_target_get_type()) { PropertyAnimationTarget(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PropertyAnimationTarget

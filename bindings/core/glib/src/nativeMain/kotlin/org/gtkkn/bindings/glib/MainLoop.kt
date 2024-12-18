@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -16,14 +18,14 @@ import org.gtkkn.native.glib.g_main_loop_run
 import org.gtkkn.native.glib.g_main_loop_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_main_loop_get_type
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GMainLoop` struct is an opaque data type
  * representing the main event loop of a GLib or GTK application.
  */
-public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
+public class MainLoop(
+    pointer: CPointer<GMainLoop>,
+) : ProxyInstance(pointer) {
     public val glibMainLoopPointer: CPointer<GMainLoop> = pointer
 
     /**
@@ -32,8 +34,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      * @return the #GMainContext of @loop
      */
     public fun getContext(): MainContext = g_main_loop_get_context(glibMainLoopPointer.reinterpret())!!.run {
-        MainContext(reinterpret())
-    }
+        MainContext(reinterpret())}
 
     /**
      * Checks to see if the main loop is currently being run via g_main_loop_run().
@@ -57,8 +58,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      * @return @loop
      */
     public fun ref(): MainLoop = g_main_loop_ref(glibMainLoopPointer.reinterpret())!!.run {
-        MainLoop(reinterpret())
-    }
+        MainLoop(reinterpret())}
 
     /**
      * Runs a main loop until g_main_loop_quit() is called on the loop.
@@ -85,9 +85,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
          * true anyway.
          * @return a new #GMainLoop.
          */
-        public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop = MainLoop(
-            g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret()
-        )
+        public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop = MainLoop(g_main_loop_new(context?.glibMainContextPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret())
 
         /**
          * Get the GType of MainLoop

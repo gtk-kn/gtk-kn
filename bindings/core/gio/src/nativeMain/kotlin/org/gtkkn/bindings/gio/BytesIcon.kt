@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
  * @since 2.38
  */
 @GioVersion2_38
-public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
-    Object(pointer.reinterpret()),
+public open class BytesIcon(
+    pointer: CPointer<GBytesIcon>,
+) : Object(pointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
@@ -48,8 +49,7 @@ public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
          * @since 2.38
          */
         get() = g_bytes_icon_get_bytes(gioBytesIconPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+            Bytes(reinterpret())}
 
     /**
      * Creates a new icon for a bytes.
@@ -66,11 +66,10 @@ public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
 
     public companion object : TypeCompanion<BytesIcon> {
         override val type: GeneratedClassKGType<BytesIcon> =
-            GeneratedClassKGType(g_bytes_icon_get_type()) { BytesIcon(it.reinterpret()) }
+                GeneratedClassKGType(g_bytes_icon_get_type()) { BytesIcon(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of BytesIcon

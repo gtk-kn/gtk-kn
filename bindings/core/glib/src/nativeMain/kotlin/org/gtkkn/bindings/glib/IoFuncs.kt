@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -8,9 +11,6 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GIOFuncs
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A table of functions used to handle different types of #GIOChannel
@@ -27,7 +27,10 @@ import kotlin.native.ref.createCleaner
  * - field `io_set_flags`: Fields with callbacks are not supported
  * - field `io_get_flags`: Fields with callbacks are not supported
  */
-public class IoFuncs(pointer: CPointer<GIOFuncs>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class IoFuncs(
+    pointer: CPointer<GIOFuncs>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibIOFuncsPointer: CPointer<GIOFuncs> = pointer
 
     /**
@@ -36,11 +39,10 @@ public class IoFuncs(pointer: CPointer<GIOFuncs>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GIOFuncs>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GIOFuncs>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

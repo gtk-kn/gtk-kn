@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,16 +17,15 @@ import org.gtkkn.native.gio.GStaticResource
 import org.gtkkn.native.gio.g_static_resource_fini
 import org.gtkkn.native.gio.g_static_resource_get_resource
 import org.gtkkn.native.gio.g_static_resource_init
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * #GStaticResource is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class StaticResource(
+    pointer: CPointer<GStaticResource>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioStaticResourcePointer: CPointer<GStaticResource> = pointer
 
     /**
@@ -31,11 +34,10 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GStaticResource>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GStaticResource>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -43,9 +45,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to StaticResource and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GStaticResource>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GStaticResource>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new StaticResource using the provided [AutofreeScope].
@@ -80,8 +80,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      */
     @GioVersion2_32
     public fun getResource(): Resource = g_static_resource_get_resource(gioStaticResourcePointer.reinterpret())!!.run {
-        Resource(reinterpret())
-    }
+        Resource(reinterpret())}
 
     /**
      * Initializes a GResource from static data using a

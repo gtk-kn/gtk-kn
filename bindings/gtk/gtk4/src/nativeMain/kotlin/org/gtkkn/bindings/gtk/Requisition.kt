@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
@@ -13,15 +15,15 @@ import org.gtkkn.native.gtk.gtk_requisition_copy
 import org.gtkkn.native.gtk.gtk_requisition_free
 import org.gtkkn.native.gtk.gtk_requisition_get_type
 import org.gtkkn.native.gtk.gtk_requisition_new
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkRequisition` represents the desired size of a widget. See
  * [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management) for
  * more information.
  */
-public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(pointer) {
+public class Requisition(
+    pointer: CPointer<GtkRequisition>,
+) : ProxyInstance(pointer) {
     public val gtkRequisitionPointer: CPointer<GtkRequisition> = pointer
 
     /**
@@ -29,7 +31,6 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
      */
     public var width: gint
         get() = gtkRequisitionPointer.pointed.width
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRequisitionPointer.pointed.width = value
@@ -40,7 +41,6 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
      */
     public var height: gint
         get() = gtkRequisitionPointer.pointed.height
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkRequisitionPointer.pointed.height = value
@@ -52,8 +52,7 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
      * @return a copy of @requisition
      */
     public fun copy(): Requisition = gtk_requisition_copy(gtkRequisitionPointer.reinterpret())!!.run {
-        Requisition(reinterpret())
-    }
+        Requisition(reinterpret())}
 
     /**
      * Frees a `GtkRequisition`.

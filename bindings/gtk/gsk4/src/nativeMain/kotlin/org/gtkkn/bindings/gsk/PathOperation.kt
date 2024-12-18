@@ -13,38 +13,35 @@ import org.gtkkn.native.gsk.gsk_path_operation_get_type
  * @since 4.14
  */
 @GskVersion4_14
-public enum class PathOperation(public val nativeValue: GskPathOperation) {
+public enum class PathOperation(
+    public val nativeValue: GskPathOperation,
+) {
     /**
      * A move-to operation, with 1 point describing the target point.
      */
     MOVE(GskPathOperation.GSK_PATH_MOVE),
-
     /**
      * A close operation ending the current contour with a line back
      *   to the starting point. Two points describe the start and end of the line.
      */
     CLOSE(GskPathOperation.GSK_PATH_CLOSE),
-
     /**
      * A line-to operation, with 2 points describing the start and
      *   end point of a straight line.
      */
     LINE(GskPathOperation.GSK_PATH_LINE),
-
     /**
      * A curve-to operation describing a quadratic Bézier curve
      *   with 3 points describing the start point, the control point and the end
      *   point of the curve.
      */
     QUAD(GskPathOperation.GSK_PATH_QUAD),
-
     /**
      * A curve-to operation describing a cubic Bézier curve with 4
      *   points describing the start point, the two control points and the end point
      *   of the curve.
      */
     CUBIC(GskPathOperation.GSK_PATH_CUBIC),
-
     /**
      * A rational quadratic Bézier curve with 3 points describing
      *   the start point, control point and end point of the curve. A weight for the

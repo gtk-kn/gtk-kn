@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputVector
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gsize
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data output.
@@ -26,7 +26,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.22
  */
 @GioVersion2_22
-public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class OutputVector(
+    pointer: CPointer<GOutputVector>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioOutputVectorPointer: CPointer<GOutputVector> = pointer
 
     /**
@@ -34,7 +37,6 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      */
     public var buffer: gpointer
         get() = gioOutputVectorPointer.pointed.buffer!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputVectorPointer.pointed.buffer = value
@@ -45,7 +47,6 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      */
     public var size: gsize
         get() = gioOutputVectorPointer.pointed.size
-
         @UnsafeFieldSetter
         set(`value`) {
             gioOutputVectorPointer.pointed.size = value
@@ -57,11 +58,10 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOutputVector>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GOutputVector>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -69,9 +69,7 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      *
      * @param pair A pair containing the pointer to OutputVector and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GOutputVector>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GOutputVector>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new OutputVector using the provided [AutofreeScope].

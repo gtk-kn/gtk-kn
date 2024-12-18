@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
@@ -15,7 +16,6 @@ import org.gtkkn.native.gio.g_power_profile_monitor_dup_default
 import org.gtkkn.native.gio.g_power_profile_monitor_get_power_saver_enabled
 import org.gtkkn.native.gio.g_power_profile_monitor_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * `GPowerProfileMonitor` makes it possible for applications as well as OS
@@ -44,10 +44,7 @@ import kotlin.Boolean
  * @since 2.70
  */
 @GioVersion2_70
-public interface PowerProfileMonitor :
-    Interface,
-    Initable,
-    KGTyped {
+public interface PowerProfileMonitor : Interface, Initable, KGTyped {
     public val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor>
 
     override val gioInitablePointer: CPointer<GInitable>
@@ -83,20 +80,20 @@ public interface PowerProfileMonitor :
      * @since 2.70
      */
     @GioVersion2_70
-    public fun getPowerSaverEnabled(): Boolean =
-        g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
+    public fun getPowerSaverEnabled(): Boolean = g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GPowerProfileMonitor>) : PowerProfileMonitor {
+    private data class Wrapper(
+        private val pointer: CPointer<GPowerProfileMonitor>,
+    ) : PowerProfileMonitor {
         override val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor> = pointer
     }
 
     public companion object : TypeCompanion<PowerProfileMonitor> {
         override val type: GeneratedInterfaceKGType<PowerProfileMonitor> =
-            GeneratedInterfaceKGType(g_power_profile_monitor_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_power_profile_monitor_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GPowerProfileMonitor>): PowerProfileMonitor = Wrapper(pointer)
 
@@ -108,8 +105,7 @@ public interface PowerProfileMonitor :
          */
         @GioVersion2_70
         public fun dupDefault(): PowerProfileMonitor = g_power_profile_monitor_dup_default()!!.run {
-            PowerProfileMonitor.wrap(reinterpret())
-        }
+            PowerProfileMonitor.wrap(reinterpret())}
 
         /**
          * Get the GType of PowerProfileMonitor

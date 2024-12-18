@@ -12,7 +12,9 @@ import org.gtkkn.native.gtk.gtk_popover_menu_flags_get_type
  * Flags that affect how [class@Gtk.PopoverMenu] widgets built from
  * a [class@Gio.MenuModel] are created and displayed.
  */
-public class PopoverMenuFlags(public val mask: GtkPopoverMenuFlags) : Bitfield<PopoverMenuFlags> {
+public class PopoverMenuFlags(
+    public val mask: GtkPopoverMenuFlags,
+) : Bitfield<PopoverMenuFlags> {
     override infix fun or(other: PopoverMenuFlags): PopoverMenuFlags = PopoverMenuFlags(mask or other.mask)
 
     public companion object {

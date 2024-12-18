@@ -11,29 +11,25 @@ import org.gtkkn.native.webkit.webkit_policy_error_quark
 /**
  * Enum values used to denote the various policy errors.
  */
-public enum class PolicyError(public val nativeValue: WebKitPolicyError) {
+public enum class PolicyError(
+    public val nativeValue: WebKitPolicyError,
+) {
     /**
      * Generic load failure due to policy error
      */
     FAILED(WebKitPolicyError.WEBKIT_POLICY_ERROR_FAILED),
-
     /**
      * Load failure due to unsupported mime type
      */
     CANNOT_SHOW_MIME_TYPE(WebKitPolicyError.WEBKIT_POLICY_ERROR_CANNOT_SHOW_MIME_TYPE),
-
     /**
      * Load failure due to URI that can not be shown
      */
     CANNOT_SHOW_URI(WebKitPolicyError.WEBKIT_POLICY_ERROR_CANNOT_SHOW_URI),
-
     /**
      * Load failure due to frame load interruption by policy change
      */
-    FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE(
-        WebKitPolicyError.WEBKIT_POLICY_ERROR_FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE
-    ),
-
+    FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE(WebKitPolicyError.WEBKIT_POLICY_ERROR_FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE),
     /**
      * Load failure due to port restriction
      */

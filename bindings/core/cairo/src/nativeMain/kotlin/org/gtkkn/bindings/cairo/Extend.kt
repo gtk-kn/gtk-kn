@@ -5,7 +5,9 @@ import org.gtkkn.native.cairo.cairo_extend_t
 import org.gtkkn.native.cairo.cairo_gobject_extend_get_type
 import org.gtkkn.native.gobject.GType
 
-public enum class Extend(public val nativeValue: cairo_extend_t) {
+public enum class Extend(
+    public val nativeValue: cairo_extend_t,
+) {
     NONE(cairo_extend_t.CAIRO_EXTEND_NONE),
     REPEAT(cairo_extend_t.CAIRO_EXTEND_REPEAT),
     REFLECT(cairo_extend_t.CAIRO_EXTEND_REFLECT),

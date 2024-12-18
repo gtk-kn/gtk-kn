@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskShadow
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The shadow parameters in a shadow node.
@@ -23,7 +23,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `color`: Gdk.RGBA
  */
-public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Shadow(
+    pointer: CPointer<GskShadow>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskShadowPointer: CPointer<GskShadow> = pointer
 
     /**
@@ -31,7 +34,6 @@ public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : Pr
      */
     public var dx: gfloat
         get() = gskShadowPointer.pointed.dx
-
         @UnsafeFieldSetter
         set(`value`) {
             gskShadowPointer.pointed.dx = value
@@ -42,7 +44,6 @@ public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : Pr
      */
     public var dy: gfloat
         get() = gskShadowPointer.pointed.dy
-
         @UnsafeFieldSetter
         set(`value`) {
             gskShadowPointer.pointed.dy = value
@@ -53,7 +54,6 @@ public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : Pr
      */
     public var radius: gfloat
         get() = gskShadowPointer.pointed.radius
-
         @UnsafeFieldSetter
         set(`value`) {
             gskShadowPointer.pointed.radius = value
@@ -65,11 +65,10 @@ public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskShadow>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GskShadow>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

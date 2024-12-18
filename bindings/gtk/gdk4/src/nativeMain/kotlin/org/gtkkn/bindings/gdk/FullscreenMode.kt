@@ -8,12 +8,13 @@ import org.gtkkn.native.gobject.GType
 /**
  * Indicates which monitor a surface should span over when in fullscreen mode.
  */
-public enum class FullscreenMode(public val nativeValue: GdkFullscreenMode) {
+public enum class FullscreenMode(
+    public val nativeValue: GdkFullscreenMode,
+) {
     /**
      * Fullscreen on current monitor only.
      */
     CURRENT_MONITOR(GdkFullscreenMode.GDK_FULLSCREEN_ON_CURRENT_MONITOR),
-
     /**
      * Span across all monitors when fullscreen.
      */

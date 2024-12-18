@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -20,11 +25,6 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about an argument for a method or a signal.
@@ -36,7 +36,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class DBusArgInfo(
+    pointer: CPointer<GDBusArgInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo> = pointer
 
     /**
@@ -44,7 +47,6 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      */
     public var refCount: gint
         get() = gioDBusArgInfoPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusArgInfoPointer.pointed.ref_count = value
@@ -55,7 +57,6 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      */
     public var name: String?
         get() = gioDBusArgInfoPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusArgInfoPointer.pointed.name?.let { g_free(it) }
@@ -67,7 +68,6 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      */
     public var signature: String?
         get() = gioDBusArgInfoPointer.pointed.signature?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusArgInfoPointer.pointed.signature?.let { g_free(it) }
@@ -80,11 +80,10 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusArgInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusArgInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -153,8 +152,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      */
     @GioVersion2_26
     public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gioDBusArgInfoPointer.reinterpret())!!.run {
-        DBusArgInfo(reinterpret())
-    }
+        DBusArgInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

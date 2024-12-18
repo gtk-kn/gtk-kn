@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -19,8 +21,6 @@ import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkGestureSwipe
 import org.gtkkn.native.gtk.gtk_gesture_swipe_get_type
 import org.gtkkn.native.gtk.gtk_gesture_swipe_new
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGestureSwipe` is a `GtkGesture` for swipe gestures.
@@ -40,8 +40,9 @@ import kotlin.Unit
  *
  * - parameter `velocity_x`: velocity_x: Out parameter is not supported
  */
-public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureSwipe(
+    pointer: CPointer<GtkGestureSwipe>,
+) : GestureSingle(pointer.reinterpret()),
     KGTyped {
     public val gtkGestureSwipePointer: CPointer<GtkGestureSwipe>
         get() = gPointer.reinterpret()
@@ -61,25 +62,14 @@ public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velocityX` velocity in the X axis, in pixels/sec; `velocityY` velocity in the Y axis, in pixels/sec
      */
-    public fun connectSwipe(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (velocityX: gdouble, velocityY: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "swipe",
-        connectSwipeFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (velocityX: gdouble, velocityY: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "swipe", connectSwipeFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GestureSwipe> {
         override val type: GeneratedClassKGType<GestureSwipe> =
-            GeneratedClassKGType(gtk_gesture_swipe_get_type()) { GestureSwipe(it.reinterpret()) }
+                GeneratedClassKGType(gtk_gesture_swipe_get_type()) { GestureSwipe(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GestureSwipe
@@ -91,11 +81,10 @@ public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
 }
 
 private val connectSwipeFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        velocityX: gdouble,
-        velocityY: gdouble,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    velocityX: gdouble,
+    velocityY: gdouble,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(velocityX: gdouble, velocityY: gdouble) -> Unit>().get().invoke(velocityX, velocityY)
-}
-    .reinterpret()
+    userData.asStableRef<(velocityX: gdouble, velocityY: gdouble) -> Unit>().get().invoke(velocityX, velocityY)}
+.reinterpret()

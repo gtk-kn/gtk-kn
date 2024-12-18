@@ -12,7 +12,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used when starting a drive.
  * @since 2.22
  */
-public class DriveStartFlags(public val mask: GDriveStartFlags) : Bitfield<DriveStartFlags> {
+public class DriveStartFlags(
+    public val mask: GDriveStartFlags,
+) : Bitfield<DriveStartFlags> {
     override infix fun or(other: DriveStartFlags): DriveStartFlags = DriveStartFlags(mask or other.mask)
 
     @GioVersion2_22

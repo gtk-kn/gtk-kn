@@ -20,8 +20,9 @@ import org.gtkkn.native.gobject.guint
  * - parameter `index`: index: Out parameter is not supported
  * - parameter `group`: group: Out parameter is not supported
  */
-public open class PadEvent(pointer: CPointer<GdkPadEvent>) :
-    Event(pointer.reinterpret()),
+public open class PadEvent(
+    pointer: CPointer<GdkPadEvent>,
+) : Event(pointer.reinterpret()),
     KGTyped {
     public val gdkPadEventPointer: CPointer<GdkPadEvent>
         get() = gPointer.reinterpret()
@@ -36,11 +37,10 @@ public open class PadEvent(pointer: CPointer<GdkPadEvent>) :
 
     public companion object : TypeCompanion<PadEvent> {
         override val type: GeneratedClassKGType<PadEvent> =
-            GeneratedClassKGType(gdk_pad_event_get_type()) { PadEvent(it.reinterpret()) }
+                GeneratedClassKGType(gdk_pad_event_get_type()) { PadEvent(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of PadEvent

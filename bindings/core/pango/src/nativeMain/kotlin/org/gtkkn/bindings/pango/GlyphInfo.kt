@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,10 +14,6 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoGlyphInfo
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoGlyphInfo` structure represents a single glyph with
@@ -24,7 +24,10 @@ import kotlin.native.ref.createCleaner
  * - field `geometry`: GlyphGeometry
  * - field `attr`: GlyphVisAttr
  */
-public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class GlyphInfo(
+    pointer: CPointer<PangoGlyphInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoGlyphInfoPointer: CPointer<PangoGlyphInfo> = pointer
 
     /**
@@ -32,7 +35,6 @@ public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = nu
      */
     public var glyph: Glyph
         get() = pangoGlyphInfoPointer.pointed.glyph
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphInfoPointer.pointed.glyph = value
@@ -44,11 +46,10 @@ public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoGlyphInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoGlyphInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -56,9 +57,7 @@ public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to GlyphInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoGlyphInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoGlyphInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphInfo using the provided [AutofreeScope].

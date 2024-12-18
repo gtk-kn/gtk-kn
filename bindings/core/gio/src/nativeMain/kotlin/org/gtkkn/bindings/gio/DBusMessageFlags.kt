@@ -15,7 +15,9 @@ import org.gtkkn.native.gobject.GType
  * Message flags used in #GDBusMessage.
  * @since 2.26
  */
-public class DBusMessageFlags(public val mask: GDBusMessageFlags) : Bitfield<DBusMessageFlags> {
+public class DBusMessageFlags(
+    public val mask: GDBusMessageFlags,
+) : Bitfield<DBusMessageFlags> {
     override infix fun or(other: DBusMessageFlags): DBusMessageFlags = DBusMessageFlags(mask or other.mask)
 
     @GioVersion2_26
@@ -29,14 +31,14 @@ public class DBusMessageFlags(public val mask: GDBusMessageFlags) : Bitfield<DBu
          * A reply is not expected.
          */
         public val NO_REPLY_EXPECTED: DBusMessageFlags =
-            DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED)
+                DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED)
 
         /**
          * The bus must not launch an
          * owner for the destination name in response to this message.
          */
         public val NO_AUTO_START: DBusMessageFlags =
-            DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_NO_AUTO_START)
+                DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_NO_AUTO_START)
 
         /**
          * If set on a method
@@ -44,7 +46,7 @@ public class DBusMessageFlags(public val mask: GDBusMessageFlags) : Bitfield<DBu
          * authorization. Since 2.46.
          */
         public val ALLOW_INTERACTIVE_AUTHORIZATION: DBusMessageFlags =
-            DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION)
+                DBusMessageFlags(G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION)
 
         /**
          * Get the GType of DBusMessageFlags

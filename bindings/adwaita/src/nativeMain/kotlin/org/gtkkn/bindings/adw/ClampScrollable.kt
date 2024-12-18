@@ -38,8 +38,9 @@ import org.gtkkn.native.gtk.GtkScrollable
  * The primary use case for `AdwClampScrollable` is clamping
  * [class@Gtk.ListView].
  */
-public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
-    Widget(pointer.reinterpret()),
+public class ClampScrollable(
+    pointer: CPointer<AdwClampScrollable>,
+) : Widget(pointer.reinterpret()),
     Orientable,
     Scrollable,
     KGTyped {
@@ -71,20 +72,13 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @return the child widget of @self
          */
         get() = adw_clamp_scrollable_get_child(adwClampScrollablePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = adw_clamp_scrollable_set_child(
-            adwClampScrollablePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = adw_clamp_scrollable_set_child(adwClampScrollablePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The maximum size allocated to the child.
@@ -98,7 +92,6 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @return the maximum size to allocate to the child
          */
         get() = adw_clamp_scrollable_get_maximum_size(adwClampScrollablePointer.reinterpret())
-
         /**
          * Sets the maximum size allocated to the child.
          *
@@ -131,7 +124,6 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @return the size above which the child is clamped
          */
         get() = adw_clamp_scrollable_get_tightening_threshold(adwClampScrollablePointer.reinterpret())
-
         /**
          * Sets the size above which the child is clamped.
          *
@@ -150,9 +142,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(
-            tighteningThreshold
-        ) = adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer.reinterpret(), tighteningThreshold)
+        set(tighteningThreshold) = adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer.reinterpret(), tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -170,9 +160,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @since 1.4
          */
         get() = adw_clamp_scrollable_get_unit(adwClampScrollablePointer.reinterpret()).run {
-            LengthUnit.fromNativeValue(this)
-        }
-
+            LengthUnit.fromNativeValue(this)}
         /**
          * Sets the length unit for maximum size and tightening threshold.
          *
@@ -193,11 +181,10 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
 
     public companion object : TypeCompanion<ClampScrollable> {
         override val type: GeneratedClassKGType<ClampScrollable> =
-            GeneratedClassKGType(adw_clamp_scrollable_get_type()) { ClampScrollable(it.reinterpret()) }
+                GeneratedClassKGType(adw_clamp_scrollable_get_type()) { ClampScrollable(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ClampScrollable

@@ -25,39 +25,35 @@ import org.gtkkn.native.pango.pango_direction_get_type
  * directly. `PangoDirection` is only retained because it is used in some
  * public apis.
  */
-public enum class Direction(public val nativeValue: PangoDirection) {
+public enum class Direction(
+    public val nativeValue: PangoDirection,
+) {
     /**
      * A strong left-to-right direction
      */
     LTR(PangoDirection.PANGO_DIRECTION_LTR),
-
     /**
      * A strong right-to-left direction
      */
     RTL(PangoDirection.PANGO_DIRECTION_RTL),
-
     /**
      * Deprecated value; treated the
      *   same as `PANGO_DIRECTION_RTL`.
      */
     TTB_LTR(PangoDirection.PANGO_DIRECTION_TTB_LTR),
-
     /**
      * Deprecated value; treated the
      *   same as `PANGO_DIRECTION_LTR`
      */
     TTB_RTL(PangoDirection.PANGO_DIRECTION_TTB_RTL),
-
     /**
      * A weak left-to-right direction
      */
     WEAK_LTR(PangoDirection.PANGO_DIRECTION_WEAK_LTR),
-
     /**
      * A weak right-to-left direction
      */
     WEAK_RTL(PangoDirection.PANGO_DIRECTION_WEAK_RTL),
-
     /**
      * No direction specified
      */

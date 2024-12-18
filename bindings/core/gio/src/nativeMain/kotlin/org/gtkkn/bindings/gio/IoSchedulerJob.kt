@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -12,13 +14,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GIOSchedulerJob
 import org.gtkkn.native.gio.g_io_scheduler_job_send_to_mainloop
 import org.gtkkn.native.gio.g_io_scheduler_job_send_to_mainloop_async
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * Opaque class for defining and scheduling IO jobs.
  */
-public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(pointer) {
+public class IoSchedulerJob(
+    pointer: CPointer<GIOSchedulerJob>,
+) : ProxyInstance(pointer) {
     public val gioIOSchedulerJobPointer: CPointer<GIOSchedulerJob> = pointer
 
     /**
@@ -29,12 +31,7 @@ public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(
      * @param func a #GSourceFunc callback that will be called in the original thread
      * @return The return value of @func
      */
-    public fun sendToMainloop(func: SourceFunc): Boolean = g_io_scheduler_job_send_to_mainloop(
-        gioIOSchedulerJobPointer.reinterpret(),
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    ).asBoolean()
+    public fun sendToMainloop(func: SourceFunc): Boolean = g_io_scheduler_job_send_to_mainloop(gioIOSchedulerJobPointer.reinterpret(), SourceFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret()).asBoolean()
 
     /**
      * Used from an I/O job to send a callback to be run asynchronously in
@@ -49,10 +46,5 @@ public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(
      *
      * @param func a #GSourceFunc callback that will be called in the original thread
      */
-    public fun sendToMainloopAsync(func: SourceFunc): Unit = g_io_scheduler_job_send_to_mainloop_async(
-        gioIOSchedulerJobPointer.reinterpret(),
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun sendToMainloopAsync(func: SourceFunc): Unit = g_io_scheduler_job_send_to_mainloop_async(gioIOSchedulerJobPointer.reinterpret(), SourceFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret())
 }

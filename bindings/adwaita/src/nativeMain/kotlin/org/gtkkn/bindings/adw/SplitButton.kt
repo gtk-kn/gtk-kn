@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -52,10 +56,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A combined button and dropdown widget.
@@ -100,8 +100,9 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public class SplitButton(pointer: CPointer<AdwSplitButton>) :
-    Widget(pointer.reinterpret()),
+public class SplitButton(
+    pointer: CPointer<AdwSplitButton>,
+) : Widget(pointer.reinterpret()),
     Actionable,
     KGTyped {
     public val adwSplitButtonPointer: CPointer<AdwSplitButton>
@@ -138,7 +139,6 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @since 1.4
          */
         get() = adw_split_button_get_can_shrink(adwSplitButtonPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the button can be smaller than the natural size of its contents.
          *
@@ -166,9 +166,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the child widget
          */
         get() = adw_split_button_get_child(adwSplitButtonPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget.
          *
@@ -177,9 +175,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          *
          * @param child the new child widget
          */
-        set(
-            child
-        ) = adw_split_button_set_child(adwSplitButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_split_button_set_child(adwSplitButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The direction in which the popup will be popped up.
@@ -198,9 +194,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the direction
          */
         get() = adw_split_button_get_direction(adwSplitButtonPointer.reinterpret()).run {
-            ArrowType.fromNativeValue(this)
-        }
-
+            ArrowType.fromNativeValue(this)}
         /**
          * Sets the direction in which the popup will be popped up.
          *
@@ -230,9 +224,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the dropdown tooltip of @self
          * @since 1.2
          */
-        get() = adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_split_button_get_dropdown_tooltip(adwSplitButtonPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the tooltip of the dropdown button of @self.
          *
@@ -263,9 +255,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the menu model
          */
         get() = adw_split_button_get_menu_model(adwSplitButtonPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
+            MenuModel(reinterpret())}
         /**
          * Sets the menu model from which the popup will be created.
          *
@@ -280,12 +270,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          *
          * @param menuModel the menu model
          */
-        set(
-            menuModel
-        ) = adw_split_button_set_menu_model(
-            adwSplitButtonPointer.reinterpret(),
-            menuModel?.gioMenuModelPointer?.reinterpret()
-        )
+        set(menuModel) = adw_split_button_set_menu_model(adwSplitButtonPointer.reinterpret(), menuModel?.gioMenuModelPointer?.reinterpret())
 
     /**
      * The `GtkPopover` that will be popped up when the dropdown is clicked.
@@ -302,9 +287,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the popover
          */
         get() = adw_split_button_get_popover(adwSplitButtonPointer.reinterpret())?.run {
-            Popover(reinterpret())
-        }
-
+            Popover(reinterpret())}
         /**
          * Sets the popover that will be popped up when the dropdown is clicked.
          *
@@ -315,9 +298,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          *
          * @param popover the popover
          */
-        set(
-            popover
-        ) = adw_split_button_set_popover(adwSplitButtonPointer.reinterpret(), popover?.gtkPopoverPointer?.reinterpret())
+        set(popover) = adw_split_button_set_popover(adwSplitButtonPointer.reinterpret(), popover?.gtkPopoverPointer?.reinterpret())
 
     /**
      * Whether an underline in the text indicates a mnemonic.
@@ -331,7 +312,6 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return whether an underline in the text indicates a mnemonic
          */
         get() = adw_split_button_get_use_underline(adwSplitButtonPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether an underline in the text indicates a mnemonic.
          *
@@ -339,9 +319,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          *
          * @param useUnderline whether an underline in the text indicates a mnemonic
          */
-        set(
-            useUnderline
-        ) = adw_split_button_set_use_underline(adwSplitButtonPointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_split_button_set_use_underline(adwSplitButtonPointer.reinterpret(), useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwSplitButton`.
@@ -382,8 +360,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      *
      * @param iconName the icon name to set
      */
-    public fun setIconName(iconName: String): Unit =
-        adw_split_button_set_icon_name(adwSplitButtonPointer.reinterpret(), iconName)
+    public fun setIconName(iconName: String): Unit = adw_split_button_set_icon_name(adwSplitButtonPointer.reinterpret(), iconName)
 
     /**
      * Sets the label for @self.
@@ -404,15 +381,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the button has been activated (pressed and released).
@@ -420,23 +389,14 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "clicked",
-            connectClickedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "clicked", connectClickedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SplitButton> {
         override val type: GeneratedClassKGType<SplitButton> =
-            GeneratedClassKGType(adw_split_button_get_type()) { SplitButton(it.reinterpret()) }
+                GeneratedClassKGType(adw_split_button_get_type()) { SplitButton(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of SplitButton
@@ -448,17 +408,15 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

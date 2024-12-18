@@ -26,9 +26,7 @@ import org.gtkkn.native.gobject.gint
  * @since 2.24
  */
 @GioVersion2_24
-public interface FileDescriptorBased :
-    Interface,
-    KGTyped {
+public interface FileDescriptorBased : Interface, KGTyped {
     public val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
 
     /**
@@ -40,17 +38,18 @@ public interface FileDescriptorBased :
     @GioVersion2_24
     public fun getFd(): gint = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GFileDescriptorBased>) : FileDescriptorBased {
+    private data class Wrapper(
+        private val pointer: CPointer<GFileDescriptorBased>,
+    ) : FileDescriptorBased {
         override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased> = pointer
     }
 
     public companion object : TypeCompanion<FileDescriptorBased> {
         override val type: GeneratedInterfaceKGType<FileDescriptorBased> =
-            GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GFileDescriptorBased>): FileDescriptorBased = Wrapper(pointer)
 

@@ -20,8 +20,9 @@ import org.gtkkn.native.gsk.gsk_mask_node_new
  * @since 4.10
  */
 @GskVersion4_10
-public open class MaskNode(pointer: CPointer<GskMaskNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class MaskNode(
+    pointer: CPointer<GskMaskNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskMaskNodePointer: CPointer<GskMaskNode>
         get() = gPointer.reinterpret()
@@ -43,13 +44,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
         source: RenderNode,
         mask: RenderNode,
         maskMode: MaskMode,
-    ) : this(
-        gsk_mask_node_new(
-            source.gPointer.reinterpret(),
-            mask.gPointer.reinterpret(),
-            maskMode.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_mask_node_new(source.gPointer.reinterpret(), mask.gPointer.reinterpret(), maskMode.nativeValue)!!.reinterpret())
 
     /**
      * Retrieves the mask `GskRenderNode` child of the @node.
@@ -59,8 +54,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getMask(): RenderNode = gsk_mask_node_get_mask(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the mask mode used by @node.
@@ -70,8 +64,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getMaskMode(): MaskMode = gsk_mask_node_get_mask_mode(gskMaskNodePointer.reinterpret()).run {
-        MaskMode.fromNativeValue(this)
-    }
+        MaskMode.fromNativeValue(this)}
 
     /**
      * Retrieves the source `GskRenderNode` child of the @node.
@@ -81,16 +74,14 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getSource(): RenderNode = gsk_mask_node_get_source(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     public companion object : TypeCompanion<MaskNode> {
         override val type: GeneratedClassKGType<MaskNode> =
-            GeneratedClassKGType(gsk_mask_node_get_type()) { MaskNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_mask_node_get_type()) { MaskNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of MaskNode

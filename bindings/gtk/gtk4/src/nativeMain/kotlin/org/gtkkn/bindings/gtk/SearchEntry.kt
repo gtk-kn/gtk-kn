@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -37,9 +40,6 @@ import org.gtkkn.native.gtk.gtk_search_entry_set_input_purpose
 import org.gtkkn.native.gtk.gtk_search_entry_set_key_capture_widget
 import org.gtkkn.native.gtk.gtk_search_entry_set_placeholder_text
 import org.gtkkn.native.gtk.gtk_search_entry_set_search_delay
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkSearchEntry` is an entry widget that has been tailored for use
@@ -91,8 +91,9 @@ import kotlin.Unit
  *
  * - method `activates-default`: Property has no getter nor setter
  */
-public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
-    Widget(pointer.reinterpret()),
+public open class SearchEntry(
+    pointer: CPointer<GtkSearchEntry>,
+) : Widget(pointer.reinterpret()),
     Editable,
     KGTyped {
     public val gtkSearchEntryPointer: CPointer<GtkSearchEntry>
@@ -125,9 +126,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
          * @since 4.14
          */
         get() = gtk_search_entry_get_input_hints(gtkSearchEntryPointer.reinterpret()).run {
-            InputHints(this)
-        }
-
+            InputHints(this)}
         /**
          * Sets the input hints for @entry.
          *
@@ -152,9 +151,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
          * @since 4.14
          */
         get() = gtk_search_entry_get_input_purpose(gtkSearchEntryPointer.reinterpret()).run {
-            InputPurpose.fromNativeValue(this)
-        }
-
+            InputPurpose.fromNativeValue(this)}
         /**
          * Sets the input purpose of @entry.
          *
@@ -176,7 +173,6 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
          * @since 4.10
          */
         get() = gtk_search_entry_get_placeholder_text(gtkSearchEntryPointer.reinterpret())?.toKString()
-
         /**
          * Sets the placeholder text associated with @entry.
          *
@@ -202,7 +198,6 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
          * @since 4.8
          */
         get() = gtk_search_entry_get_search_delay(gtkSearchEntryPointer.reinterpret())
-
         /**
          * Set the delay to be used between the last keypress and the
          * [signal@Gtk.SearchEntry::search-changed] signal being emitted.
@@ -225,10 +220,8 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      *
      * @return The key capture widget.
      */
-    public open fun getKeyCaptureWidget(): Widget? =
-        gtk_search_entry_get_key_capture_widget(gtkSearchEntryPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getKeyCaptureWidget(): Widget? = gtk_search_entry_get_key_capture_widget(gtkSearchEntryPointer.reinterpret())?.run {
+        Widget(reinterpret())}
 
     /**
      * Sets @widget as the widget that @entry will capture key
@@ -251,10 +244,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      *
      * @param widget a `GtkWidget`
      */
-    public open fun setKeyCaptureWidget(widget: Widget? = null): Unit = gtk_search_entry_set_key_capture_widget(
-        gtkSearchEntryPointer.reinterpret(),
-        widget?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun setKeyCaptureWidget(widget: Widget? = null): Unit = gtk_search_entry_set_key_capture_widget(gtkSearchEntryPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Emitted when the entry is activated.
@@ -264,15 +254,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user initiates a move to the next match
@@ -288,15 +270,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectNextMatch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "next-match",
-            connectNextMatchFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectNextMatch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "next-match", connectNextMatchFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user initiates a move to the previous match
@@ -312,15 +286,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPreviousMatch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "previous-match",
-            connectPreviousMatchFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectPreviousMatch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "previous-match", connectPreviousMatchFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted with a delay. The length of the delay can be
@@ -330,15 +296,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSearchChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "search-changed",
-            connectSearchChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSearchChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "search-changed", connectSearchChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user initiated a search on the entry.
@@ -346,15 +304,7 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSearchStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "search-started",
-            connectSearchStartedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectSearchStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "search-started", connectSearchStartedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the user stops a search via keyboard input.
@@ -369,23 +319,14 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStopSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "stop-search",
-            connectStopSearchFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectStopSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "stop-search", connectStopSearchFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<SearchEntry> {
         override val type: GeneratedClassKGType<SearchEntry> =
-            GeneratedClassKGType(gtk_search_entry_get_type()) { SearchEntry(it.reinterpret()) }
+                GeneratedClassKGType(gtk_search_entry_get_type()) { SearchEntry(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SearchEntry
@@ -397,49 +338,43 @@ public open class SearchEntry(pointer: CPointer<GtkSearchEntry>) :
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectNextMatchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectPreviousMatchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSearchChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectSearchStartedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectStopSearchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Orientable
@@ -52,7 +53,6 @@ import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.GtkOrientable
-import kotlin.Boolean
 
 /**
  * An adaptive container acting like a box or an overlay.
@@ -113,8 +113,9 @@ import kotlin.Boolean
  * `AdwFlap` has a single CSS node with name `flap`. The node will get the style
  * classes `.folded` when it is folded, and `.unfolded` when it's not.
  */
-public class Flap(pointer: CPointer<AdwFlap>) :
-    Widget(pointer.reinterpret()),
+public class Flap(
+    pointer: CPointer<AdwFlap>,
+) : Widget(pointer.reinterpret()),
     Swipeable,
     Orientable,
     KGTyped {
@@ -148,9 +149,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the content widget for @self
          */
         get() = adw_flap_get_content(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the content widget for @self.
          *
@@ -172,9 +171,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the flap widget for @self
          */
         get() = adw_flap_get_flap(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the flap widget for @self.
          *
@@ -197,9 +194,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the flap position for @self
          */
         get() = adw_flap_get_flap_position(adwFlapPointer.reinterpret()).run {
-            PackType.fromNativeValue(this)
-        }
-
+            PackType.fromNativeValue(this)}
         /**
          * Sets the flap position for @self.
          *
@@ -220,7 +215,6 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the fold transition duration
          */
         get() = adw_flap_get_fold_duration(adwFlapPointer.reinterpret())
-
         /**
          * Sets the fold transition animation duration for @self, in milliseconds.
          *
@@ -238,9 +232,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the fold policy for @self
          */
         get() = adw_flap_get_fold_policy(adwFlapPointer.reinterpret()).run {
-            FlapFoldPolicy.fromNativeValue(this)
-        }
-
+            FlapFoldPolicy.fromNativeValue(this)}
         /**
          * Sets the fold policy for @self.
          *
@@ -263,9 +255,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * Gets the fold threshold policy for @self.
          */
         get() = adw_flap_get_fold_threshold_policy(adwFlapPointer.reinterpret()).run {
-            FoldThresholdPolicy.fromNativeValue(this)
-        }
-
+            FoldThresholdPolicy.fromNativeValue(this)}
         /**
          * Sets the fold threshold policy for @self.
          *
@@ -309,7 +299,6 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return `TRUE` if @self is locked
          */
         get() = adw_flap_get_locked(adwFlapPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self is locked.
          *
@@ -335,7 +324,6 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return `TRUE` if @self is modal
          */
         get() = adw_flap_get_modal(adwFlapPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self is modal.
          *
@@ -357,7 +345,6 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return `TRUE` if the flap widget is revealed
          */
         get() = adw_flap_get_reveal_flap(adwFlapPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the flap widget is revealed for @self.
          *
@@ -381,9 +368,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the reveal animation parameters
          */
         get() = adw_flap_get_reveal_params(adwFlapPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
-        }
-
+            SpringParams(reinterpret())}
         /**
          * Sets the reveal animation spring parameters for @self.
          *
@@ -395,9 +380,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param params the new parameters
          */
-        set(
-            params
-        ) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
+        set(params) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
 
     /**
      * The current reveal transition progress.
@@ -432,9 +415,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the separator widget for @self
          */
         get() = adw_flap_get_separator(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the separator widget for @self.
          *
@@ -444,9 +425,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param separator the separator widget
          */
-        set(
-            separator
-        ) = adw_flap_set_separator(adwFlapPointer.reinterpret(), separator?.gtkWidgetPointer?.reinterpret())
+        set(separator) = adw_flap_set_separator(adwFlapPointer.reinterpret(), separator?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether the flap can be closed with a swipe gesture.
@@ -461,7 +440,6 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return `TRUE` if @self can be closed with a swipe gesture
          */
         get() = adw_flap_get_swipe_to_close(adwFlapPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self can be closed with a swipe gesture.
          *
@@ -485,7 +463,6 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return `TRUE` if @self can be opened with a swipe gesture
          */
         get() = adw_flap_get_swipe_to_open(adwFlapPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self can be opened with a swipe gesture.
          *
@@ -511,9 +488,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the current transition type of @self
          */
         get() = adw_flap_get_transition_type(adwFlapPointer.reinterpret()).run {
-            FlapTransitionType.fromNativeValue(this)
-        }
-
+            FlapTransitionType.fromNativeValue(this)}
         /**
          * Sets the type of animation used for reveal and fold transitions in @self.
          *
@@ -535,11 +510,10 @@ public class Flap(pointer: CPointer<AdwFlap>) :
 
     public companion object : TypeCompanion<Flap> {
         override val type: GeneratedClassKGType<Flap> =
-            GeneratedClassKGType(adw_flap_get_type()) { Flap(it.reinterpret()) }
+                GeneratedClassKGType(adw_flap_get_type()) { Flap(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Flap

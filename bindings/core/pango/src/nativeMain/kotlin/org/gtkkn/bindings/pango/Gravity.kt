@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
@@ -13,7 +14,6 @@ import org.gtkkn.native.pango.pango_gravity_get_for_script
 import org.gtkkn.native.pango.pango_gravity_get_for_script_and_width
 import org.gtkkn.native.pango.pango_gravity_get_type
 import org.gtkkn.native.pango.pango_gravity_to_rotation
-import kotlin.Boolean
 
 /**
  * `PangoGravity` represents the orientation of glyphs in a segment
@@ -32,27 +32,25 @@ import kotlin.Boolean
  * @since 1.16
  */
 @PangoVersion1_16
-public enum class Gravity(public val nativeValue: PangoGravity) {
+public enum class Gravity(
+    public val nativeValue: PangoGravity,
+) {
     /**
      * Glyphs stand upright (default) <img align="right" valign="center" src="m-south.png">
      */
     SOUTH(PangoGravity.PANGO_GRAVITY_SOUTH),
-
     /**
      * Glyphs are rotated 90 degrees counter-clockwise. <img align="right" valign="center" src="m-east.png">
      */
     EAST(PangoGravity.PANGO_GRAVITY_EAST),
-
     /**
      * Glyphs are upside-down. <img align="right" valign="cener" src="m-north.png">
      */
     NORTH(PangoGravity.PANGO_GRAVITY_NORTH),
-
     /**
      * Glyphs are rotated 90 degrees clockwise. <img align="right" valign="center" src="m-west.png">
      */
     WEST(PangoGravity.PANGO_GRAVITY_WEST),
-
     /**
      * Gravity is resolved from the context matrix
      */
@@ -79,10 +77,8 @@ public enum class Gravity(public val nativeValue: PangoGravity) {
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun getForMatrix(matrix: Matrix? = null): Gravity =
-            pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer?.reinterpret()).run {
-                Gravity.fromNativeValue(this)
-            }
+        public fun getForMatrix(matrix: Matrix? = null): Gravity = pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer?.reinterpret()).run {
+            Gravity.fromNativeValue(this)}
 
         /**
          * Returns the gravity to use in laying out a `PangoItem`.
@@ -101,10 +97,12 @@ public enum class Gravity(public val nativeValue: PangoGravity) {
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun getForScript(script: Script, baseGravity: Gravity, hint: GravityHint): Gravity =
-            pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
-                Gravity.fromNativeValue(this)
-            }
+        public fun getForScript(
+            script: Script,
+            baseGravity: Gravity,
+            hint: GravityHint,
+        ): Gravity = pango_gravity_get_for_script(script.nativeValue, baseGravity.nativeValue, hint.nativeValue).run {
+            Gravity.fromNativeValue(this)}
 
         /**
          * Returns the gravity to use in laying out a single character
@@ -137,14 +135,8 @@ public enum class Gravity(public val nativeValue: PangoGravity) {
             wide: Boolean,
             baseGravity: Gravity,
             hint: GravityHint,
-        ): Gravity = pango_gravity_get_for_script_and_width(
-            script.nativeValue,
-            wide.asGBoolean(),
-            baseGravity.nativeValue,
-            hint.nativeValue
-        ).run {
-            Gravity.fromNativeValue(this)
-        }
+        ): Gravity = pango_gravity_get_for_script_and_width(script.nativeValue, wide.asGBoolean(), baseGravity.nativeValue, hint.nativeValue).run {
+            Gravity.fromNativeValue(this)}
 
         /**
          * Converts a `PangoGravity` value to its natural rotation in radians.

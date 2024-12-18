@@ -15,10 +15,10 @@ import org.gtkkn.native.pango.pango_layout_deserialize_flags_get_type
  * New members may be added to this enumeration over time.
  * @since 1.50
  */
-public class LayoutDeserializeFlags(public val mask: PangoLayoutDeserializeFlags) : Bitfield<LayoutDeserializeFlags> {
-    override infix fun or(other: LayoutDeserializeFlags): LayoutDeserializeFlags = LayoutDeserializeFlags(
-        mask or other.mask
-    )
+public class LayoutDeserializeFlags(
+    public val mask: PangoLayoutDeserializeFlags,
+) : Bitfield<LayoutDeserializeFlags> {
+    override infix fun or(other: LayoutDeserializeFlags): LayoutDeserializeFlags = LayoutDeserializeFlags(mask or other.mask)
 
     @PangoVersion1_50
     public companion object {
@@ -26,14 +26,14 @@ public class LayoutDeserializeFlags(public val mask: PangoLayoutDeserializeFlags
          * Default behavior
          */
         public val DEFAULT: LayoutDeserializeFlags =
-            LayoutDeserializeFlags(PANGO_LAYOUT_DESERIALIZE_DEFAULT)
+                LayoutDeserializeFlags(PANGO_LAYOUT_DESERIALIZE_DEFAULT)
 
         /**
          * Apply context information
          *   from the serialization to the `PangoContext`
          */
         public val CONTEXT: LayoutDeserializeFlags =
-            LayoutDeserializeFlags(PANGO_LAYOUT_DESERIALIZE_CONTEXT)
+                LayoutDeserializeFlags(PANGO_LAYOUT_DESERIALIZE_CONTEXT)
 
         /**
          * Get the GType of LayoutDeserializeFlags

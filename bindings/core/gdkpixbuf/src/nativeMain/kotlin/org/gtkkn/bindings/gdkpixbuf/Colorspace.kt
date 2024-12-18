@@ -11,7 +11,9 @@ import org.gtkkn.native.gobject.GType
  *
  * Currently only RGB is supported.
  */
-public enum class Colorspace(public val nativeValue: GdkColorspace) {
+public enum class Colorspace(
+    public val nativeValue: GdkColorspace,
+) {
     /**
      * Indicates a red/green/blue additive color space.
      */

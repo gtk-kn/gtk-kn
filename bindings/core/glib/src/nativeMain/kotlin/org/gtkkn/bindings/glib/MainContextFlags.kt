@@ -12,7 +12,9 @@ import org.gtkkn.native.glib.G_MAIN_CONTEXT_FLAGS_OWNERLESS_POLLING
  * of a #GMainContext.
  * @since 2.72
  */
-public class MainContextFlags(public val mask: GMainContextFlags) : Bitfield<MainContextFlags> {
+public class MainContextFlags(
+    public val mask: GMainContextFlags,
+) : Bitfield<MainContextFlags> {
     override infix fun or(other: MainContextFlags): MainContextFlags = MainContextFlags(mask or other.mask)
 
     @GLibVersion2_72
@@ -29,6 +31,6 @@ public class MainContextFlags(public val mask: GMainContextFlags) : Bitfield<Mai
          * other event loops.
          */
         public val OWNERLESS_POLLING: MainContextFlags =
-            MainContextFlags(G_MAIN_CONTEXT_FLAGS_OWNERLESS_POLLING)
+                MainContextFlags(G_MAIN_CONTEXT_FLAGS_OWNERLESS_POLLING)
     }
 }

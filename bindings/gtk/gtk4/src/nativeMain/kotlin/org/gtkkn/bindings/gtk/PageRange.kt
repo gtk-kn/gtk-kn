@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,17 +15,16 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPageRange
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A range of pages to print.
  *
  * See also [method@Gtk.PrintSettings.set_page_ranges].
  */
-public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class PageRange(
+    pointer: CPointer<GtkPageRange>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkPageRangePointer: CPointer<GtkPageRange> = pointer
 
     /**
@@ -29,7 +32,6 @@ public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null
      */
     public var start: gint
         get() = gtkPageRangePointer.pointed.start
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPageRangePointer.pointed.start = value
@@ -40,7 +42,6 @@ public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null
      */
     public var end: gint
         get() = gtkPageRangePointer.pointed.end
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPageRangePointer.pointed.end = value
@@ -52,11 +53,10 @@ public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkPageRange>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkPageRange>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

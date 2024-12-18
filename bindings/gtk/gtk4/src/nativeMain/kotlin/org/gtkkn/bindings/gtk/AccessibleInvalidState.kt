@@ -13,22 +13,21 @@ import org.gtkkn.native.gtk.gtk_accessible_invalid_state_get_type
  * %GTK_ACCESSIBLE_INVALID_TRUE have the same values
  * as false and true.
  */
-public enum class AccessibleInvalidState(public val nativeValue: GtkAccessibleInvalidState) {
+public enum class AccessibleInvalidState(
+    public val nativeValue: GtkAccessibleInvalidState,
+) {
     /**
      * There are no detected errors in the value
      */
     FALSE(GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_FALSE),
-
     /**
      * The value entered by the user has failed validation
      */
     TRUE(GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_TRUE),
-
     /**
      * A grammatical error was detected
      */
     GRAMMAR(GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_GRAMMAR),
-
     /**
      * A spelling error was detected
      */
@@ -36,14 +35,13 @@ public enum class AccessibleInvalidState(public val nativeValue: GtkAccessibleIn
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkAccessibleInvalidState): AccessibleInvalidState =
-            when (nativeValue) {
-                GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_FALSE -> FALSE
-                GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_TRUE -> TRUE
-                GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_GRAMMAR -> GRAMMAR
-                GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_SPELLING -> SPELLING
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkAccessibleInvalidState): AccessibleInvalidState = when (nativeValue) {
+            GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_FALSE -> FALSE
+            GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_TRUE -> TRUE
+            GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_GRAMMAR -> GRAMMAR
+            GtkAccessibleInvalidState.GTK_ACCESSIBLE_INVALID_SPELLING -> SPELLING
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of AccessibleInvalidState

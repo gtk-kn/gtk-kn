@@ -11,7 +11,9 @@ import org.gtkkn.native.gtk.gtk_content_fit_get_type
  * @since 4.8
  */
 @GtkVersion4_8
-public enum class ContentFit(public val nativeValue: GtkContentFit) {
+public enum class ContentFit(
+    public val nativeValue: GtkContentFit,
+) {
     /**
      * Make the content fill the entire allocation,
      *   without taking its aspect ratio in consideration. The resulting
@@ -19,7 +21,6 @@ public enum class ContentFit(public val nativeValue: GtkContentFit) {
      *   from the allocation aspect ratio.
      */
     FILL(GtkContentFit.GTK_CONTENT_FIT_FILL),
-
     /**
      * Scale the content to fit the allocation,
      *   while taking its aspect ratio in consideration. The resulting
@@ -27,7 +28,6 @@ public enum class ContentFit(public val nativeValue: GtkContentFit) {
      *   from the allocation aspect ratio.
      */
     CONTAIN(GtkContentFit.GTK_CONTENT_FIT_CONTAIN),
-
     /**
      * Cover the entire allocation, while taking
      *   the content aspect ratio in consideration. The resulting content
@@ -35,7 +35,6 @@ public enum class ContentFit(public val nativeValue: GtkContentFit) {
      *   allocation aspect ratio.
      */
     COVER(GtkContentFit.GTK_CONTENT_FIT_COVER),
-
     /**
      * The content is scaled down to fit the
      *   allocation, if needed, otherwise its original size is used.

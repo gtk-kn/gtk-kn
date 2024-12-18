@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -17,8 +19,6 @@ import org.gtkkn.native.gio.g_menu_attribute_iter_get_type
 import org.gtkkn.native.gio.g_menu_attribute_iter_get_value
 import org.gtkkn.native.gio.g_menu_attribute_iter_next
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * #GMenuAttributeIter is an opaque structure type.  You must access it
@@ -31,8 +31,9 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
-    Object(pointer.reinterpret()),
+public open class MenuAttributeIter(
+    pointer: CPointer<GMenuAttributeIter>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>
         get() = gPointer.reinterpret()
@@ -47,9 +48,7 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getName(): String =
-        g_menu_attribute_iter_get_name(gioMenuAttributeIterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getName(): String = g_menu_attribute_iter_get_name(gioMenuAttributeIterPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the value of the attribute at the current iterator position.
@@ -60,10 +59,8 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getValue(): Variant =
-        g_menu_attribute_iter_get_value(gioMenuAttributeIterPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getValue(): Variant = g_menu_attribute_iter_get_value(gioMenuAttributeIterPointer.reinterpret())!!.run {
+        Variant(reinterpret())}
 
     /**
      * Attempts to advance the iterator to the next (possibly first)
@@ -84,11 +81,10 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
 
     public companion object : TypeCompanion<MenuAttributeIter> {
         override val type: GeneratedClassKGType<MenuAttributeIter> =
-            GeneratedClassKGType(g_menu_attribute_iter_get_type()) { MenuAttributeIter(it.reinterpret()) }
+                GeneratedClassKGType(g_menu_attribute_iter_get_type()) { MenuAttributeIter(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of MenuAttributeIter

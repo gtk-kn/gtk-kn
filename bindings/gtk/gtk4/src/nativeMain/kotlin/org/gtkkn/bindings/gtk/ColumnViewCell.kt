@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -21,7 +22,6 @@ import org.gtkkn.native.gtk.gtk_column_view_cell_get_selected
 import org.gtkkn.native.gtk.gtk_column_view_cell_get_type
 import org.gtkkn.native.gtk.gtk_column_view_cell_set_child
 import org.gtkkn.native.gtk.gtk_column_view_cell_set_focusable
-import kotlin.Boolean
 
 /**
  * `GtkColumnViewCell` is used by [class@Gtk.ColumnViewColumn] to represent items
@@ -42,8 +42,9 @@ import kotlin.Boolean
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
-    ListItem(pointer.reinterpret()),
+public open class ColumnViewCell(
+    pointer: CPointer<GtkColumnViewCell>,
+) : ListItem(pointer.reinterpret()),
     KGTyped {
     public val gtkColumnViewCellPointer: CPointer<GtkColumnViewCell>
         get() = gPointer.reinterpret()
@@ -63,9 +64,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_child(gtkColumnViewCellPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child to be used for this listitem.
          *
@@ -77,12 +76,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            child
-        ) = gtk_column_view_cell_set_child(
-            gtkColumnViewCellPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = gtk_column_view_cell_set_child(gtkColumnViewCellPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * If the item can be focused with the keyboard.
@@ -99,7 +93,6 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_focusable(gtkColumnViewCellPointer.reinterpret()).asBoolean()
-
         /**
          * Sets @self to be focusable.
          *
@@ -115,9 +108,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            focusable
-        ) = gtk_column_view_cell_set_focusable(gtkColumnViewCellPointer.reinterpret(), focusable.asGBoolean())
+        set(focusable) = gtk_column_view_cell_set_focusable(gtkColumnViewCellPointer.reinterpret(), focusable.asGBoolean())
 
     /**
      * Displayed item.
@@ -135,8 +126,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_item(gtkColumnViewCellPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Position of the item.
@@ -175,11 +165,10 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
 
     public companion object : TypeCompanion<ColumnViewCell> {
         override val type: GeneratedClassKGType<ColumnViewCell> =
-            GeneratedClassKGType(gtk_column_view_cell_get_type()) { ColumnViewCell(it.reinterpret()) }
+                GeneratedClassKGType(gtk_column_view_cell_get_type()) { ColumnViewCell(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ColumnViewCell

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -17,11 +22,6 @@ import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_tree_iter_copy
 import org.gtkkn.native.gtk.gtk_tree_iter_free
 import org.gtkkn.native.gtk.gtk_tree_iter_get_type
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `GtkTreeIter` is the primary structure
@@ -30,7 +30,10 @@ import kotlin.native.ref.createCleaner
  * model-specific data in the three @user_data
  * members.
  */
-public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TreeIter(
+    pointer: CPointer<GtkTreeIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkTreeIterPointer: CPointer<GtkTreeIter> = pointer
 
     /**
@@ -38,7 +41,6 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      */
     public var stamp: gint
         get() = gtkTreeIterPointer.pointed.stamp
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.stamp = value
@@ -49,7 +51,6 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      */
     public var userData: gpointer
         get() = gtkTreeIterPointer.pointed.user_data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.user_data = value
@@ -60,7 +61,6 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      */
     public var userData2: gpointer
         get() = gtkTreeIterPointer.pointed.user_data2!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.user_data2 = value
@@ -71,7 +71,6 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      */
     public var userData3: gpointer
         get() = gtkTreeIterPointer.pointed.user_data3!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkTreeIterPointer.pointed.user_data3 = value
@@ -83,11 +82,10 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkTreeIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkTreeIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -164,8 +162,7 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      * @return a newly-allocated copy of @iter
      */
     public fun copy(): TreeIter = gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
-        TreeIter(reinterpret())
-    }
+        TreeIter(reinterpret())}
 
     /**
      * Frees an iterator that has been allocated by gtk_tree_iter_copy().
@@ -174,8 +171,7 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      */
     public fun free(): Unit = gtk_tree_iter_free(gtkTreeIterPointer.reinterpret())
 
-    override fun toString(): String =
-        "TreeIter(stamp=$stamp, userData=$userData, userData2=$userData2, userData3=$userData3)"
+    override fun toString(): String = "TreeIter(stamp=$stamp, userData=$userData, userData2=$userData2, userData3=$userData3)"
 
     public companion object {
         /**

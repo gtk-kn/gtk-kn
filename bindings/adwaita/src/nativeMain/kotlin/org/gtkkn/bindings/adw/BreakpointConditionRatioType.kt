@@ -15,13 +15,14 @@ import org.gtkkn.native.gobject.GType
  * @since 1.4
  */
 @AdwVersion1_4
-public enum class BreakpointConditionRatioType(public val nativeValue: AdwBreakpointConditionRatioType) {
+public enum class BreakpointConditionRatioType(
+    public val nativeValue: AdwBreakpointConditionRatioType,
+) {
     /**
      * true if the aspect ratio is
      *   greater than or equal to the condition value
      */
     MIN_ASPECT_RATIO(AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO),
-
     /**
      * true if the aspect ratio is
      *   less than or equal to the condition value
@@ -30,12 +31,11 @@ public enum class BreakpointConditionRatioType(public val nativeValue: AdwBreakp
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: AdwBreakpointConditionRatioType): BreakpointConditionRatioType =
-            when (nativeValue) {
-                AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO -> MIN_ASPECT_RATIO
-                AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO -> MAX_ASPECT_RATIO
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: AdwBreakpointConditionRatioType): BreakpointConditionRatioType = when (nativeValue) {
+            AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO -> MIN_ASPECT_RATIO
+            AdwBreakpointConditionRatioType.ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO -> MAX_ASPECT_RATIO
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of BreakpointConditionRatioType

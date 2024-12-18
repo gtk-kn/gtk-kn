@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,10 +20,6 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_array_get_type
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Contains the public fields of a GArray.
@@ -48,7 +48,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `array`: GLib.Array parameter of type gpointer is not supported
  * - parameter `array`: GLib.Array parameter of type gpointer is not supported
  */
-public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Array(
+    pointer: CPointer<GArray>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibArrayPointer: CPointer<GArray> = pointer
 
     /**
@@ -57,7 +60,6 @@ public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyI
      */
     public var `data`: String?
         get() = glibArrayPointer.pointed.data?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibArrayPointer.pointed.data?.let { g_free(it) }
@@ -70,7 +72,6 @@ public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyI
      */
     public var len: guint
         get() = glibArrayPointer.pointed.len
-
         @UnsafeFieldSetter
         set(`value`) {
             glibArrayPointer.pointed.len = value
@@ -82,11 +83,10 @@ public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyI
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GArray>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GArray>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

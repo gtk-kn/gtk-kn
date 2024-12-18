@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,10 +18,6 @@ import org.gtkkn.native.glib.g_private_get
 import org.gtkkn.native.glib.g_private_replace
 import org.gtkkn.native.glib.g_private_set
 import org.gtkkn.native.glib.gpointer
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GPrivate struct is an opaque data structure to represent a
@@ -42,7 +42,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `notify`: DestroyNotify
  */
-public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Private(
+    pointer: CPointer<GPrivate>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibPrivatePointer: CPointer<GPrivate> = pointer
 
     /**
@@ -51,11 +54,10 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPrivate>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GPrivate>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

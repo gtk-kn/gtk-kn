@@ -19,8 +19,9 @@ import org.gtkkn.native.gobject.guint64
 /**
  * A physical tool associated to a `GdkDevice`.
  */
-public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
-    Object(pointer.reinterpret()),
+public open class DeviceTool(
+    pointer: CPointer<GdkDeviceTool>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gdkDeviceToolPointer: CPointer<GdkDeviceTool>
         get() = gPointer.reinterpret()
@@ -35,8 +36,7 @@ public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
          * @return the axes of @tool
          */
         get() = gdk_device_tool_get_axes(gdkDeviceToolPointer.reinterpret()).run {
-            AxisFlags(this)
-        }
+            AxisFlags(this)}
 
     /**
      * The hardware ID of the tool.
@@ -85,16 +85,14 @@ public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
          *   or a pencil.
          */
         get() = gdk_device_tool_get_tool_type(gdkDeviceToolPointer.reinterpret()).run {
-            DeviceToolType.fromNativeValue(this)
-        }
+            DeviceToolType.fromNativeValue(this)}
 
     public companion object : TypeCompanion<DeviceTool> {
         override val type: GeneratedClassKGType<DeviceTool> =
-            GeneratedClassKGType(gdk_device_tool_get_type()) { DeviceTool(it.reinterpret()) }
+                GeneratedClassKGType(gdk_device_tool_get_type()) { DeviceTool(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of DeviceTool

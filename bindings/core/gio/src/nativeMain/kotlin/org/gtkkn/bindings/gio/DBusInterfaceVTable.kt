@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -9,9 +12,6 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusInterfaceVTable
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Virtual table for handling properties and method calls for a D-Bus
@@ -65,8 +65,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusInterfaceVTable(pointer: CPointer<GDBusInterfaceVTable>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class DBusInterfaceVTable(
+    pointer: CPointer<GDBusInterfaceVTable>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable> = pointer
 
     /**
@@ -75,11 +77,10 @@ public class DBusInterfaceVTable(pointer: CPointer<GDBusInterfaceVTable>, cleane
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusInterfaceVTable>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusInterfaceVTable>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -87,9 +88,7 @@ public class DBusInterfaceVTable(pointer: CPointer<GDBusInterfaceVTable>, cleane
      *
      * @param pair A pair containing the pointer to DBusInterfaceVTable and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GDBusInterfaceVTable>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GDBusInterfaceVTable>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusInterfaceVTable using the provided [AutofreeScope].

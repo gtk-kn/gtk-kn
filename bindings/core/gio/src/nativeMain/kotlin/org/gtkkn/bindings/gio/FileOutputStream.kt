@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -24,9 +27,6 @@ import org.gtkkn.native.gio.g_file_output_stream_query_info_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GFileOutputStream` provides output streams that write their
@@ -44,8 +44,9 @@ import kotlin.Unit
  * truncating, use [method@Gio.Seekable.can_truncate]. To truncate a file output
  * stream, use [method@Gio.Seekable.truncate].
  */
-public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class FileOutputStream(
+    pointer: CPointer<GFileOutputStream>,
+) : OutputStream(pointer.reinterpret()),
     Seekable,
     KGTyped {
     public val gioFileOutputStreamPointer: CPointer<GFileOutputStream>
@@ -61,8 +62,7 @@ public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
      *
      * @return the entity tag for the stream.
      */
-    public open fun getEtag(): String? =
-        g_file_output_stream_get_etag(gioFileOutputStreamPointer.reinterpret())?.toKString()
+    public open fun getEtag(): String? = g_file_output_stream_get_etag(gioFileOutputStreamPointer.reinterpret())?.toKString()
 
     /**
      * Queries a file output stream for the given @attributes.
@@ -89,18 +89,13 @@ public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
      */
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_file_output_stream_query_info(
-            gioFileOutputStreamPointer.reinterpret(),
-            attributes,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            FileInfo(reinterpret())
-        }
+        val gResult = g_file_output_stream_query_info(gioFileOutputStreamPointer.reinterpret(), attributes, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.run {
+            FileInfo(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -124,16 +119,7 @@ public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_file_output_stream_query_info_async(
-        gioFileOutputStreamPointer.reinterpret(),
-        attributes,
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_file_output_stream_query_info_async(gioFileOutputStreamPointer.reinterpret(), attributes, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finalizes the asynchronous query started
@@ -144,28 +130,23 @@ public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
      */
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_file_output_stream_query_info_finish(
-            gioFileOutputStreamPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            FileInfo(reinterpret())
-        }
+        val gResult = g_file_output_stream_query_info_finish(gioFileOutputStreamPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            FileInfo(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
 
     public companion object : TypeCompanion<FileOutputStream> {
         override val type: GeneratedClassKGType<FileOutputStream> =
-            GeneratedClassKGType(g_file_output_stream_get_type()) { FileOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_file_output_stream_get_type()) { FileOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FileOutputStream

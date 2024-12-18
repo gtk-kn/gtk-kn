@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -22,8 +24,6 @@ import org.gtkkn.native.gtk.gtk_gesture_pan_get_orientation
 import org.gtkkn.native.gtk.gtk_gesture_pan_get_type
 import org.gtkkn.native.gtk.gtk_gesture_pan_new
 import org.gtkkn.native.gtk.gtk_gesture_pan_set_orientation
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkGesturePan` is a `GtkGesture` for pan gestures.
@@ -41,8 +41,9 @@ import kotlin.Unit
  * the [signal@Gtk.GesturePan::pan] signal will be emitted as input
  * events are received, containing the offset in the given axis.
  */
-public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
-    GestureDrag(pointer.reinterpret()),
+public open class GesturePan(
+    pointer: CPointer<GtkGesturePan>,
+) : GestureDrag(pointer.reinterpret()),
     KGTyped {
     public val gtkGesturePanPointer: CPointer<GtkGesturePan>
         get() = gPointer.reinterpret()
@@ -57,9 +58,7 @@ public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
          * @return the expected orientation for pan gestures
          */
         get() = gtk_gesture_pan_get_orientation(gtkGesturePanPointer.reinterpret()).run {
-            Orientation.fromNativeValue(this)
-        }
-
+            Orientation.fromNativeValue(this)}
         /**
          * Sets the orientation to be expected on pan gestures.
          *
@@ -81,25 +80,14 @@ public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `direction` current direction of the pan gesture; `offset` Offset along the gesture orientation
      */
-    public fun connectPan(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (direction: PanDirection, offset: gdouble) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "pan",
-        connectPanFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectPan(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (direction: PanDirection, offset: gdouble) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "pan", connectPanFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<GesturePan> {
         override val type: GeneratedClassKGType<GesturePan> =
-            GeneratedClassKGType(gtk_gesture_pan_get_type()) { GesturePan(it.reinterpret()) }
+                GeneratedClassKGType(gtk_gesture_pan_get_type()) { GesturePan(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GesturePan
@@ -111,17 +99,13 @@ public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
 }
 
 private val connectPanFunc: CPointer<CFunction<(GtkPanDirection, gdouble) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            direction: GtkPanDirection,
-            offset: gdouble,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(direction: PanDirection, offset: gdouble) -> Unit>().get().invoke(
-            direction.run {
-                PanDirection.fromNativeValue(this)
-            },
-            offset
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    direction: GtkPanDirection,
+    offset: gdouble,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(direction: PanDirection, offset: gdouble) -> Unit>().get().invoke(direction.run {
+        PanDirection.fromNativeValue(this)}
+    , offset)}
+.reinterpret()

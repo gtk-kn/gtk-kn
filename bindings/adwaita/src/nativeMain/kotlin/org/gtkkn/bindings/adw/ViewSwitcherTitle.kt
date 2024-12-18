@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -26,8 +28,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A view switcher title.
@@ -90,8 +90,9 @@ import kotlin.String
  *
  * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
  */
-public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
-    Widget(pointer.reinterpret()),
+public class ViewSwitcherTitle(
+    pointer: CPointer<AdwViewSwitcherTitle>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwViewSwitcherTitlePointer: CPointer<AdwViewSwitcherTitle>
         get() = gPointer.reinterpret()
@@ -115,20 +116,13 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          * @return the stack
          */
         get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer.reinterpret())?.run {
-            ViewStack(reinterpret())
-        }
-
+            ViewStack(reinterpret())}
         /**
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
          */
-        set(
-            stack
-        ) = adw_view_switcher_title_set_stack(
-            adwViewSwitcherTitlePointer.reinterpret(),
-            stack?.adwViewStackPointer?.reinterpret()
-        )
+        set(stack) = adw_view_switcher_title_set_stack(adwViewSwitcherTitlePointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
 
     /**
      * The subtitle to display.
@@ -141,9 +135,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return the subtitle
          */
-        get() = adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the subtitle of @self.
          *
@@ -165,9 +157,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return the title
          */
-        get() = adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of @self.
          *
@@ -212,7 +202,6 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          * @return whether the view switcher is enabled
          */
         get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self's view switcher is enabled.
          *
@@ -225,12 +214,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @param enabled whether the view switcher is enabled
          */
-        set(
-            enabled
-        ) = adw_view_switcher_title_set_view_switcher_enabled(
-            adwViewSwitcherTitlePointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+        set(enabled) = adw_view_switcher_title_set_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Creates a new `AdwViewSwitcherTitle`.
@@ -241,11 +225,10 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
 
     public companion object : TypeCompanion<ViewSwitcherTitle> {
         override val type: GeneratedClassKGType<ViewSwitcherTitle> =
-            GeneratedClassKGType(adw_view_switcher_title_get_type()) { ViewSwitcherTitle(it.reinterpret()) }
+                GeneratedClassKGType(adw_view_switcher_title_get_type()) { ViewSwitcherTitle(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ViewSwitcherTitle

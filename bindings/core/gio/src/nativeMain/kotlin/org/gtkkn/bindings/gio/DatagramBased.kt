@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -25,8 +27,6 @@ import org.gtkkn.native.gio.g_datagram_based_get_type
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * Interface for socket-like objects with datagram semantics.
@@ -87,9 +87,7 @@ import kotlin.Result
  * @since 2.48
  */
 @GioVersion2_48
-public interface DatagramBased :
-    Interface,
-    KGTyped {
+public interface DatagramBased : Interface, KGTyped {
     public val gioDatagramBasedPointer: CPointer<GDatagramBased>
 
     /**
@@ -135,10 +133,8 @@ public interface DatagramBased :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun conditionCheck(condition: IoCondition): IoCondition =
-        g_datagram_based_condition_check(gioDatagramBasedPointer.reinterpret(), condition.mask).run {
-            IoCondition(this)
-        }
+    public fun conditionCheck(condition: IoCondition): IoCondition = g_datagram_based_condition_check(gioDatagramBasedPointer.reinterpret(), condition.mask).run {
+        IoCondition(this)}
 
     /**
      * Waits for up to @timeout microseconds for condition to become true on
@@ -162,16 +158,11 @@ public interface DatagramBased :
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_datagram_based_condition_wait(
-            gioDatagramBasedPointer.reinterpret(),
-            condition.mask,
-            timeout,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_datagram_based_condition_wait(gioDatagramBasedPointer.reinterpret(), condition.mask, timeout, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -198,26 +189,21 @@ public interface DatagramBased :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun createSource(condition: IoCondition, cancellable: Cancellable? = null): Source =
-        g_datagram_based_create_source(
-            gioDatagramBasedPointer.reinterpret(),
-            condition.mask,
-            cancellable?.gioCancellablePointer?.reinterpret()
-        )!!.run {
-            Source(reinterpret())
-        }
+    public fun createSource(condition: IoCondition, cancellable: Cancellable? = null): Source = g_datagram_based_create_source(gioDatagramBasedPointer.reinterpret(), condition.mask, cancellable?.gioCancellablePointer?.reinterpret())!!.run {
+        Source(reinterpret())}
 
-    private data class Wrapper(private val pointer: CPointer<GDatagramBased>) : DatagramBased {
+    private data class Wrapper(
+        private val pointer: CPointer<GDatagramBased>,
+    ) : DatagramBased {
         override val gioDatagramBasedPointer: CPointer<GDatagramBased> = pointer
     }
 
     public companion object : TypeCompanion<DatagramBased> {
         override val type: GeneratedInterfaceKGType<DatagramBased> =
-            GeneratedInterfaceKGType(g_datagram_based_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_datagram_based_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GDatagramBased>): DatagramBased = Wrapper(pointer)
 

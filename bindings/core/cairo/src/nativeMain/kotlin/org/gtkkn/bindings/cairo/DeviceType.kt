@@ -14,7 +14,9 @@ import org.gtkkn.native.cairo.cairo_device_type_t
 import org.gtkkn.native.cairo.cairo_gobject_device_type_get_type
 import org.gtkkn.native.gobject.GType
 
-public enum class DeviceType(public val nativeValue: cairo_device_type_t) {
+public enum class DeviceType(
+    public val nativeValue: cairo_device_type_t,
+) {
     DRM(CAIRO_DEVICE_TYPE_DRM),
     GL(CAIRO_DEVICE_TYPE_GL),
     SCRIPT(CAIRO_DEVICE_TYPE_SCRIPT),

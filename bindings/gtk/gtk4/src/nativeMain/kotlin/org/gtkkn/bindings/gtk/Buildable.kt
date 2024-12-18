@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,7 +13,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.gtk_buildable_get_buildable_id
 import org.gtkkn.native.gtk.gtk_buildable_get_type
-import kotlin.String
 
 /**
  * `GtkBuildable` allows objects to extend and customize their deserialization
@@ -29,9 +29,7 @@ import kotlin.String
  * An object only needs to implement this interface if it needs to extend the
  * `GtkBuilder` XML format or run any extra routines at deserialization time.
  */
-public interface Buildable :
-    Interface,
-    KGTyped {
+public interface Buildable : Interface, KGTyped {
     public val gtkBuildablePointer: CPointer<GtkBuildable>
 
     /**
@@ -42,20 +40,20 @@ public interface Buildable :
      *
      * @return the ID of the buildable object
      */
-    public fun getBuildableId(): String? =
-        gtk_buildable_get_buildable_id(gtkBuildablePointer.reinterpret())?.toKString()
+    public fun getBuildableId(): String? = gtk_buildable_get_buildable_id(gtkBuildablePointer.reinterpret())?.toKString()
 
-    private data class Wrapper(private val pointer: CPointer<GtkBuildable>) : Buildable {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkBuildable>,
+    ) : Buildable {
         override val gtkBuildablePointer: CPointer<GtkBuildable> = pointer
     }
 
     public companion object : TypeCompanion<Buildable> {
         override val type: GeneratedInterfaceKGType<Buildable> =
-            GeneratedInterfaceKGType(gtk_buildable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_buildable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkBuildable>): Buildable = Wrapper(pointer)
 

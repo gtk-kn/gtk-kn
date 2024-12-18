@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
@@ -22,7 +23,6 @@ import org.gtkkn.native.gsk.gsk_text_node_get_offset
 import org.gtkkn.native.gsk.gsk_text_node_get_type
 import org.gtkkn.native.gsk.gsk_text_node_has_color_glyphs
 import org.gtkkn.native.gsk.gsk_text_node_new
-import kotlin.Boolean
 
 /**
  * A render node drawing a set of glyphs.
@@ -31,8 +31,9 @@ import kotlin.Boolean
  *
  * - parameter `n_glyphs`: n_glyphs: Out parameter is not supported
  */
-public open class TextNode(pointer: CPointer<GskTextNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class TextNode(
+    pointer: CPointer<GskTextNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskTextNodePointer: CPointer<GskTextNode>
         get() = gPointer.reinterpret()
@@ -54,14 +55,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
         glyphs: GlyphString,
         color: Rgba,
         offset: Point,
-    ) : this(
-        gsk_text_node_new(
-            font.pangoFontPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret(),
-            color.gdkRGBAPointer.reinterpret(),
-            offset.graphenePointPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_text_node_new(font.pangoFontPointer.reinterpret(), glyphs.pangoGlyphStringPointer.reinterpret(), color.gdkRGBAPointer.reinterpret(), offset.graphenePointPointer.reinterpret())!!.reinterpret())
 
     /**
      * Retrieves the color used by the text @node.
@@ -69,8 +63,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return the text color
      */
     public open fun getColor(): Rgba = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
-        Rgba(reinterpret())
-    }
+        Rgba(reinterpret())}
 
     /**
      * Returns the font used by the text @node.
@@ -78,8 +71,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        Font(reinterpret())
-    }
+        Font(reinterpret())}
 
     /**
      * Retrieves the number of glyphs in the text node.
@@ -94,8 +86,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return a point with the horizontal and vertical offsets
      */
     public open fun getOffset(): Point = gsk_text_node_get_offset(gskTextNodePointer.reinterpret())!!.run {
-        Point(reinterpret())
-    }
+        Point(reinterpret())}
 
     /**
      * Checks whether the text @node has color glyphs.
@@ -104,16 +95,14 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @since 4.2
      */
     @GskVersion4_2
-    public open fun hasColorGlyphs(): Boolean =
-        gsk_text_node_has_color_glyphs(gskTextNodePointer.reinterpret()).asBoolean()
+    public open fun hasColorGlyphs(): Boolean = gsk_text_node_has_color_glyphs(gskTextNodePointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<TextNode> {
         override val type: GeneratedClassKGType<TextNode> =
-            GeneratedClassKGType(gsk_text_node_get_type()) { TextNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_text_node_get_type()) { TextNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of TextNode

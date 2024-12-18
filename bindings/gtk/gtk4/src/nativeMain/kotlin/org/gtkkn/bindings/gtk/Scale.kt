@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -35,9 +38,6 @@ import org.gtkkn.native.gtk.gtk_scale_set_draw_value
 import org.gtkkn.native.gtk.gtk_scale_set_format_value_func
 import org.gtkkn.native.gtk.gtk_scale_set_has_origin
 import org.gtkkn.native.gtk.gtk_scale_set_value_pos
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkScale` is a slider control used to select a numeric value.
@@ -125,8 +125,9 @@ import kotlin.Unit
  *
  * - parameter `x`: x: Out parameter is not supported
  */
-public open class Scale(pointer: CPointer<GtkScale>) :
-    Range(pointer.reinterpret()),
+public open class Scale(
+    pointer: CPointer<GtkScale>,
+) : Range(pointer.reinterpret()),
     KGTyped {
     public val gtkScalePointer: CPointer<GtkScale>
         get() = gPointer.reinterpret()
@@ -156,7 +157,6 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          * @return the number of decimal places that are displayed
          */
         get() = gtk_scale_get_digits(gtkScalePointer.reinterpret())
-
         /**
          * Sets the number of decimal places that are displayed in the value.
          *
@@ -187,7 +187,6 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          * @return whether the current value is displayed as a string
          */
         get() = gtk_scale_get_draw_value(gtkScalePointer.reinterpret()).asBoolean()
-
         /**
          * Specifies whether the current value is displayed as a string next
          * to the slider.
@@ -206,7 +205,6 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          * @return true if the scale has an origin.
          */
         get() = gtk_scale_get_has_origin(gtkScalePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the scale has an origin.
          *
@@ -228,9 +226,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          * @return the position in which the current value is displayed
          */
         get() = gtk_scale_get_value_pos(gtkScalePointer.reinterpret()).run {
-            PositionType.fromNativeValue(this)
-        }
-
+            PositionType.fromNativeValue(this)}
         /**
          * Sets the position in which the current value is displayed.
          *
@@ -246,10 +242,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      *   the range of the scale, or null to create a new adjustment.
      * @return a new `GtkScale`
      */
-    public constructor(
-        orientation: Orientation,
-        adjustment: Adjustment? = null,
-    ) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer?.reinterpret())!!.reinterpret())
+    public constructor(orientation: Orientation, adjustment: Adjustment? = null) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new scale widget with a range from @min to @max.
@@ -296,8 +289,11 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      *   the left of the scale, anything else to the right.
      * @param markup Text to be shown at the mark, using Pango markup
      */
-    public open fun addMark(`value`: gdouble, position: PositionType, markup: String? = null): Unit =
-        gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
+    public open fun addMark(
+        `value`: gdouble,
+        position: PositionType,
+        markup: String? = null,
+    ): Unit = gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
 
     /**
      * Removes any marks that have been added.
@@ -315,8 +311,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      *   property is false.
      */
     public open fun getLayout(): Layout? = gtk_scale_get_layout(gtkScalePointer.reinterpret())?.run {
-        Layout(reinterpret())
-    }
+        Layout(reinterpret())}
 
     /**
      * @func allows you to change how the scale value is displayed.
@@ -330,22 +325,14 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      *
      * @param func function that formats the value
      */
-    public open fun setFormatValueFunc(func: ScaleFormatValueFunc?): Unit = gtk_scale_set_format_value_func(
-        gtkScalePointer.reinterpret(),
-        func?.let {
-            ScaleFormatValueFuncFunc.reinterpret()
-        },
-        func?.let { StableRef.create(func).asCPointer() },
-        func?.let { staticStableRefDestroy.reinterpret() }
-    )
+    public open fun setFormatValueFunc(func: ScaleFormatValueFunc?): Unit = gtk_scale_set_format_value_func(gtkScalePointer.reinterpret(), func?.let { ScaleFormatValueFuncFunc.reinterpret() }, func?.let { StableRef.create(func).asCPointer() }, func?.let { staticStableRefDestroy.reinterpret() })
 
     public companion object : TypeCompanion<Scale> {
         override val type: GeneratedClassKGType<Scale> =
-            GeneratedClassKGType(gtk_scale_get_type()) { Scale(it.reinterpret()) }
+                GeneratedClassKGType(gtk_scale_get_type()) { Scale(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Scale

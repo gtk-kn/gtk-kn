@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -26,11 +31,6 @@ import org.gtkkn.native.gio.g_proxy_resolver_lookup_async
 import org.gtkkn.native.gio.g_proxy_resolver_lookup_finish
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GProxyResolver` provides synchronous and asynchronous network proxy
@@ -44,9 +44,7 @@ import kotlin.collections.List
  * @since 2.26
  */
 @GioVersion2_26
-public interface ProxyResolver :
-    Interface,
-    KGTyped {
+public interface ProxyResolver : Interface, KGTyped {
     public val gioProxyResolverPointer: CPointer<GProxyResolver>
 
     /**
@@ -87,15 +85,11 @@ public interface ProxyResolver :
     @GioVersion2_26
     public fun lookup(uri: String, cancellable: Cancellable? = null): Result<List<String>> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_proxy_resolver_lookup(
-            gioProxyResolverPointer.reinterpret(),
-            uri,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.toKStringList()
+        val gResult = g_proxy_resolver_lookup(gioProxyResolverPointer.reinterpret(), uri, cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.toKStringList()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -110,16 +104,11 @@ public interface ProxyResolver :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupAsync(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_proxy_resolver_lookup_async(
-            gioProxyResolverPointer.reinterpret(),
-            uri,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun lookupAsync(
+        uri: String,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_proxy_resolver_lookup_async(gioProxyResolverPointer.reinterpret(), uri, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Call this function to obtain the array of proxy URIs when
@@ -135,29 +124,27 @@ public interface ProxyResolver :
     @GioVersion2_26
     public fun lookupFinish(result: AsyncResult): Result<List<String>> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_proxy_resolver_lookup_finish(
-            gioProxyResolverPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.toKStringList()
+        val gResult = g_proxy_resolver_lookup_finish(gioProxyResolverPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.toKStringList()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GProxyResolver>) : ProxyResolver {
+    private data class Wrapper(
+        private val pointer: CPointer<GProxyResolver>,
+    ) : ProxyResolver {
         override val gioProxyResolverPointer: CPointer<GProxyResolver> = pointer
     }
 
     public companion object : TypeCompanion<ProxyResolver> {
         override val type: GeneratedInterfaceKGType<ProxyResolver> =
-            GeneratedInterfaceKGType(g_proxy_resolver_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_proxy_resolver_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GProxyResolver>): ProxyResolver = Wrapper(pointer)
 
@@ -170,8 +157,7 @@ public interface ProxyResolver :
          */
         @GioVersion2_26
         public fun getDefault(): ProxyResolver = g_proxy_resolver_get_default()!!.run {
-            ProxyResolver.wrap(reinterpret())
-        }
+            ProxyResolver.wrap(reinterpret())}
 
         /**
          * Get the GType of ProxyResolver

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.Result
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -29,11 +34,6 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.Result
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 import kotlin.String as KotlinString
 import org.gtkkn.bindings.glib.String as GlibString
 
@@ -49,7 +49,10 @@ import org.gtkkn.bindings.glib.String as GlibString
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class DBusNodeInfo(
+    pointer: CPointer<GDBusNodeInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo> = pointer
 
     /**
@@ -57,7 +60,6 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      */
     public var refCount: gint
         get() = gioDBusNodeInfoPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusNodeInfoPointer.pointed.ref_count = value
@@ -68,7 +70,6 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      */
     public var path: KotlinString?
         get() = gioDBusNodeInfoPointer.pointed.path?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusNodeInfoPointer.pointed.path?.let { g_free(it) }
@@ -81,11 +82,10 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusNodeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusNodeInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -93,9 +93,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      *
      * @param pair A pair containing the pointer to DBusNodeInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GDBusNodeInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GDBusNodeInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusNodeInfo using the provided [AutofreeScope].
@@ -149,11 +147,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(
-        gioDBusNodeInfoPointer.reinterpret(),
-        indent,
-        stringBuilder.glibStringPointer.reinterpret()
-    )
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(gioDBusNodeInfoPointer.reinterpret(), indent, stringBuilder.glibStringPointer.reinterpret())
 
     /**
      * Looks up information about an interface.
@@ -165,10 +159,8 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? =
-        g_dbus_node_info_lookup_interface(gioDBusNodeInfoPointer.reinterpret(), name)?.run {
-            DBusInterfaceInfo(reinterpret())
-        }
+    public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? = g_dbus_node_info_lookup_interface(gioDBusNodeInfoPointer.reinterpret(), name)?.run {
+        DBusInterfaceInfo(reinterpret())}
 
     /**
      * If @info is statically allocated does nothing. Otherwise increases
@@ -179,8 +171,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      */
     @GioVersion2_26
     public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
-        DBusNodeInfo(reinterpret())
-    }
+        DBusNodeInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -216,7 +207,8 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
                 val gResult = g_dbus_node_info_new_for_xml(xmlData, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
+                }
+                else {
                     Result.success(DBusNodeInfo(checkNotNull(gResult)))
                 }
             }

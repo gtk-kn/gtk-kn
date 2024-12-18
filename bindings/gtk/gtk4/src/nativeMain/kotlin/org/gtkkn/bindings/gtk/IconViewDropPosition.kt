@@ -8,32 +8,29 @@ import org.gtkkn.native.gtk.gtk_icon_view_drop_position_get_type
 /**
  * An enum for determining where a dropped item goes.
  */
-public enum class IconViewDropPosition(public val nativeValue: GtkIconViewDropPosition) {
+public enum class IconViewDropPosition(
+    public val nativeValue: GtkIconViewDropPosition,
+) {
     /**
      * no drop possible
      */
     NO_DROP(GtkIconViewDropPosition.GTK_ICON_VIEW_NO_DROP),
-
     /**
      * dropped item replaces the item
      */
     DROP_INTO(GtkIconViewDropPosition.GTK_ICON_VIEW_DROP_INTO),
-
     /**
      * dropped item is inserted to the left
      */
     DROP_LEFT(GtkIconViewDropPosition.GTK_ICON_VIEW_DROP_LEFT),
-
     /**
      * dropped item is inserted to the right
      */
     DROP_RIGHT(GtkIconViewDropPosition.GTK_ICON_VIEW_DROP_RIGHT),
-
     /**
      * dropped item is inserted above
      */
     DROP_ABOVE(GtkIconViewDropPosition.GTK_ICON_VIEW_DROP_ABOVE),
-
     /**
      * dropped item is inserted below
      */

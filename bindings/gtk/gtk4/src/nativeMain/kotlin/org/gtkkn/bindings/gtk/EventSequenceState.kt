@@ -8,17 +8,17 @@ import org.gtkkn.native.gtk.gtk_event_sequence_state_get_type
 /**
  * Describes the state of a [struct@Gdk.EventSequence] in a [class@Gesture].
  */
-public enum class EventSequenceState(public val nativeValue: GtkEventSequenceState) {
+public enum class EventSequenceState(
+    public val nativeValue: GtkEventSequenceState,
+) {
     /**
      * The sequence is handled, but not grabbed.
      */
     NONE(GtkEventSequenceState.GTK_EVENT_SEQUENCE_NONE),
-
     /**
      * The sequence is handled and grabbed.
      */
     CLAIMED(GtkEventSequenceState.GTK_EVENT_SEQUENCE_CLAIMED),
-
     /**
      * The sequence is denied.
      */

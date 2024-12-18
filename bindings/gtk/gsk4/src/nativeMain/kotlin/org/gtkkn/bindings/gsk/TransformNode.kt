@@ -16,8 +16,9 @@ import org.gtkkn.native.gsk.gsk_transform_node_new
 /**
  * A render node applying a `GskTransform` to its single child node.
  */
-public open class TransformNode(pointer: CPointer<GskTransformNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class TransformNode(
+    pointer: CPointer<GskTransformNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskTransformNodePointer: CPointer<GskTransformNode>
         get() = gPointer.reinterpret()
@@ -30,15 +31,7 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
      * @param transform The transform to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        transform: Transform,
-    ) : this(
-        gsk_transform_node_new(
-            child.gPointer.reinterpret(),
-            transform.gskTransformPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(child: RenderNode, transform: Transform) : this(gsk_transform_node_new(child.gPointer.reinterpret(), transform.gskTransformPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child node that is getting transformed by the given @node.
@@ -46,26 +39,22 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
      * @return The child that is getting transformed
      */
     public open fun getChild(): RenderNode = gsk_transform_node_get_child(gskTransformNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the `GskTransform` used by the @node.
      *
      * @return a `GskTransform`
      */
-    public open fun getTransform(): Transform =
-        gsk_transform_node_get_transform(gskTransformNodePointer.reinterpret())!!.run {
-            Transform(reinterpret())
-        }
+    public open fun getTransform(): Transform = gsk_transform_node_get_transform(gskTransformNodePointer.reinterpret())!!.run {
+        Transform(reinterpret())}
 
     public companion object : TypeCompanion<TransformNode> {
         override val type: GeneratedClassKGType<TransformNode> =
-            GeneratedClassKGType(gsk_transform_node_get_type()) { TransformNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_transform_node_get_type()) { TransformNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of TransformNode

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Texture
@@ -30,9 +33,6 @@ import org.gtkkn.native.gtk.gtk_cell_view_set_displayed_row
 import org.gtkkn.native.gtk.gtk_cell_view_set_draw_sensitive
 import org.gtkkn.native.gtk.gtk_cell_view_set_fit_model
 import org.gtkkn.native.gtk.gtk_cell_view_set_model
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A widget displaying a single row of a GtkTreeModel
@@ -60,8 +60,9 @@ import kotlin.Unit
  * - method `cell-area`: Property has no getter nor setter
  * - method `cell-area-context`: Property has no getter nor setter
  */
-public open class CellView(pointer: CPointer<GtkCellView>) :
-    Widget(pointer.reinterpret()),
+public open class CellView(
+    pointer: CPointer<GtkCellView>,
+) : Widget(pointer.reinterpret()),
     CellLayout,
     Orientable,
     KGTyped {
@@ -99,7 +100,6 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
          * cells in a sensitive state
          */
         get() = gtk_cell_view_get_draw_sensitive(gtkCellViewPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @cell_view should draw all of its
          * cells in a sensitive state, this is used by `GtkComboBox` menus
@@ -108,9 +108,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
          *
          * @param drawSensitive whether to draw all cells in a sensitive state.
          */
-        set(
-            drawSensitive
-        ) = gtk_cell_view_set_draw_sensitive(gtkCellViewPointer.reinterpret(), drawSensitive.asGBoolean())
+        set(drawSensitive) = gtk_cell_view_set_draw_sensitive(gtkCellViewPointer.reinterpret(), drawSensitive.asGBoolean())
 
     /**
      * Whether the view should request enough space to always fit
@@ -129,7 +127,6 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
          * the entire `GtkTreeModel`.
          */
         get() = gtk_cell_view_get_fit_model(gtkCellViewPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @cell_view should request space to fit the entire `GtkTreeModel`.
          *
@@ -154,9 +151,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
          * @return a `GtkTreeModel` used
          */
         get() = gtk_cell_view_get_model(gtkCellViewPointer.reinterpret())?.run {
-            TreeModel.wrap(reinterpret())
-        }
-
+            TreeModel.wrap(reinterpret())}
         /**
          * Sets the model for @cell_view.  If @cell_view already has a model
          * set, it will remove it before setting the new model.  If @model is
@@ -186,15 +181,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
      * @param context the `GtkCellAreaContext` in which to calculate cell geometry
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(
-        area: CellArea,
-        context: CellAreaContext,
-    ) : this(
-        gtk_cell_view_new_with_context(
-            area.gtkCellAreaPointer.reinterpret(),
-            context.gtkCellAreaContextPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(area: CellArea, context: CellAreaContext) : this(gtk_cell_view_new_with_context(area.gtkCellAreaPointer.reinterpret(), context.gtkCellAreaContextPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
@@ -212,9 +199,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
      * @param texture the image to display in the cell view
      * @return A newly created `GtkCellView` widget.
      */
-    public constructor(
-        texture: Texture,
-    ) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
+    public constructor(texture: Texture) : this(gtk_cell_view_new_with_texture(texture.gdkTexturePointer.reinterpret())!!.reinterpret())
 
     /**
      * Returns a `GtkTreePath` referring to the currently
@@ -223,10 +208,8 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
      *
      * @return the currently displayed row
      */
-    public open fun getDisplayedRow(): TreePath? =
-        gtk_cell_view_get_displayed_row(gtkCellViewPointer.reinterpret())?.run {
-            TreePath(reinterpret())
-        }
+    public open fun getDisplayedRow(): TreePath? = gtk_cell_view_get_displayed_row(gtkCellViewPointer.reinterpret())?.run {
+        TreePath(reinterpret())}
 
     /**
      * Sets the row of the model that is currently displayed
@@ -238,16 +221,14 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
      *
      * @param path a `GtkTreePath` or null to unset.
      */
-    public open fun setDisplayedRow(path: TreePath? = null): Unit =
-        gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer?.reinterpret())
+    public open fun setDisplayedRow(path: TreePath? = null): Unit = gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer?.reinterpret())
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =
-            GeneratedClassKGType(gtk_cell_view_get_type()) { CellView(it.reinterpret()) }
+                GeneratedClassKGType(gtk_cell_view_get_type()) { CellView(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Creates a new `GtkCellView` widget, adds a `GtkCellRendererText`
@@ -266,8 +247,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
          * @param markup the text to display in the cell view
          * @return A newly created `GtkCellView` widget.
          */
-        public fun newWithMarkup(markup: String): CellView =
-            CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
+        public fun newWithMarkup(markup: String): CellView = CellView(gtk_cell_view_new_with_markup(markup)!!.reinterpret())
 
         /**
          * Get the GType of CellView

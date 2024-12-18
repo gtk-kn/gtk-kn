@@ -11,17 +11,17 @@ import org.gtkkn.native.webkit.webkit_web_process_termination_reason_get_type
  * @since 2.20
  */
 @WebKitVersion2_20
-public enum class WebProcessTerminationReason(public val nativeValue: WebKitWebProcessTerminationReason) {
+public enum class WebProcessTerminationReason(
+    public val nativeValue: WebKitWebProcessTerminationReason,
+) {
     /**
      * the web process crashed.
      */
     CRASHED(WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_CRASHED),
-
     /**
      * the web process exceeded the memory limit.
      */
     EXCEEDED_MEMORY_LIMIT(WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_EXCEEDED_MEMORY_LIMIT),
-
     /**
      * the web process termination was requested by an API call. Since: 2.34
      */
@@ -29,13 +29,12 @@ public enum class WebProcessTerminationReason(public val nativeValue: WebKitWebP
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitWebProcessTerminationReason): WebProcessTerminationReason =
-            when (nativeValue) {
-                WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_CRASHED -> CRASHED
-                WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_EXCEEDED_MEMORY_LIMIT -> EXCEEDED_MEMORY_LIMIT
-                WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_TERMINATED_BY_API -> TERMINATED_BY_API
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitWebProcessTerminationReason): WebProcessTerminationReason = when (nativeValue) {
+            WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_CRASHED -> CRASHED
+            WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_EXCEEDED_MEMORY_LIMIT -> EXCEEDED_MEMORY_LIMIT
+            WebKitWebProcessTerminationReason.WEBKIT_WEB_PROCESS_TERMINATED_BY_API -> TERMINATED_BY_API
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of WebProcessTerminationReason

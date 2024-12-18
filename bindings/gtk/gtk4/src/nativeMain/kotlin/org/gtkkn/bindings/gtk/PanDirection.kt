@@ -8,22 +8,21 @@ import org.gtkkn.native.gtk.gtk_pan_direction_get_type
 /**
  * Describes the panning direction of a [class@GesturePan].
  */
-public enum class PanDirection(public val nativeValue: GtkPanDirection) {
+public enum class PanDirection(
+    public val nativeValue: GtkPanDirection,
+) {
     /**
      * panned towards the left
      */
     LEFT(GtkPanDirection.GTK_PAN_DIRECTION_LEFT),
-
     /**
      * panned towards the right
      */
     RIGHT(GtkPanDirection.GTK_PAN_DIRECTION_RIGHT),
-
     /**
      * panned upwards
      */
     UP(GtkPanDirection.GTK_PAN_DIRECTION_UP),
-
     /**
      * panned downwards
      */

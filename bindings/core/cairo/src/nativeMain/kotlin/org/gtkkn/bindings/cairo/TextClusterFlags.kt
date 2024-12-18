@@ -6,7 +6,9 @@ import org.gtkkn.native.cairo.cairo_gobject_text_cluster_flags_get_type
 import org.gtkkn.native.cairo.cairo_text_cluster_flags_t
 import org.gtkkn.native.gobject.GType
 
-public enum class TextClusterFlags(public val nativeValue: cairo_text_cluster_flags_t) {
+public enum class TextClusterFlags(
+    public val nativeValue: cairo_text_cluster_flags_t,
+) {
     BACKWARD(CAIRO_TEXT_CLUSTER_FLAG_BACKWARD),
     ;
 

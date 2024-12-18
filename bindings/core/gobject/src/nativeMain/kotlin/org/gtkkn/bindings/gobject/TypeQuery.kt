@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,17 +19,16 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeQuery
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure holding information for a specific type.
  *
  * See also: g_type_query()
  */
-public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TypeQuery(
+    pointer: CPointer<GTypeQuery>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeQueryPointer: CPointer<GTypeQuery> = pointer
 
     /**
@@ -33,7 +36,6 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
      */
     public var type: GType
         get() = gobjectTypeQueryPointer.pointed.type
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.type = value
@@ -44,7 +46,6 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
      */
     public var typeName: String?
         get() = gobjectTypeQueryPointer.pointed.type_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.type_name?.let { g_free(it) }
@@ -56,7 +57,6 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
      */
     public var classSize: guint
         get() = gobjectTypeQueryPointer.pointed.class_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.class_size = value
@@ -67,7 +67,6 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
      */
     public var instanceSize: guint
         get() = gobjectTypeQueryPointer.pointed.instance_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeQueryPointer.pointed.instance_size = value
@@ -79,11 +78,10 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeQuery>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTypeQuery>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -149,6 +147,5 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
         this.instanceSize = instanceSize
     }
 
-    override fun toString(): String =
-        "TypeQuery(type=$type, typeName=$typeName, classSize=$classSize, instanceSize=$instanceSize)"
+    override fun toString(): String = "TypeQuery(type=$type, typeName=$typeName, classSize=$classSize, instanceSize=$instanceSize)"
 }

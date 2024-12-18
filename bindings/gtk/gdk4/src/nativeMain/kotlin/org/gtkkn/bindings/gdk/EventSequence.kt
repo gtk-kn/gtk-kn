@@ -11,7 +11,9 @@ import org.gtkkn.native.gobject.GType
  * `GdkEventSequence` is an opaque type representing a sequence
  * of related touch events.
  */
-public class EventSequence(pointer: CPointer<GdkEventSequence>) : ProxyInstance(pointer) {
+public class EventSequence(
+    pointer: CPointer<GdkEventSequence>,
+) : ProxyInstance(pointer) {
     public val gdkEventSequencePointer: CPointer<GdkEventSequence> = pointer
 
     public companion object {

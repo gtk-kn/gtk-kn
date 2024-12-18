@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Long
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,11 +20,6 @@ import org.gtkkn.native.glib.GLogField
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gpointer
-import kotlin.Long
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure representing a single field in a structured log entry. See
@@ -32,7 +32,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.50
  */
 @GLibVersion2_50
-public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class LogField(
+    pointer: CPointer<GLogField>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibLogFieldPointer: CPointer<GLogField> = pointer
 
     /**
@@ -40,7 +43,6 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      */
     public var key: String?
         get() = glibLogFieldPointer.pointed.key?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibLogFieldPointer.pointed.key?.let { g_free(it) }
@@ -52,7 +54,6 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      */
     public var `value`: gpointer
         get() = glibLogFieldPointer.pointed.value!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibLogFieldPointer.pointed.value = value
@@ -63,7 +64,6 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      */
     public var length: Long
         get() = glibLogFieldPointer.pointed.length
-
         @UnsafeFieldSetter
         set(`value`) {
             glibLogFieldPointer.pointed.length = value
@@ -75,11 +75,10 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GLogField>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GLogField>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

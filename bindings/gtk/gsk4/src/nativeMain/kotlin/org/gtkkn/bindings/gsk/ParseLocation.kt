@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,15 +15,14 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskParseLocation
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A location in a parse buffer.
  */
-public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ParseLocation(
+    pointer: CPointer<GskParseLocation>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gskParseLocationPointer: CPointer<GskParseLocation> = pointer
 
     /**
@@ -27,7 +30,6 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      */
     public var bytes: gsize
         get() = gskParseLocationPointer.pointed.bytes
-
         @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.bytes = value
@@ -38,7 +40,6 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      */
     public var chars: gsize
         get() = gskParseLocationPointer.pointed.chars
-
         @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.chars = value
@@ -49,7 +50,6 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      */
     public var lines: gsize
         get() = gskParseLocationPointer.pointed.lines
-
         @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.lines = value
@@ -60,7 +60,6 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      */
     public var lineBytes: gsize
         get() = gskParseLocationPointer.pointed.line_bytes
-
         @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.line_bytes = value
@@ -71,7 +70,6 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      */
     public var lineChars: gsize
         get() = gskParseLocationPointer.pointed.line_chars
-
         @UnsafeFieldSetter
         set(`value`) {
             gskParseLocationPointer.pointed.line_chars = value
@@ -83,11 +81,10 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GskParseLocation>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GskParseLocation>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -95,9 +92,7 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to ParseLocation and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GskParseLocation>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GskParseLocation>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ParseLocation using the provided [AutofreeScope].
@@ -161,6 +156,5 @@ public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner
         this.lineChars = lineChars
     }
 
-    override fun toString(): String =
-        "ParseLocation(bytes=$bytes, chars=$chars, lines=$lines, lineBytes=$lineBytes, lineChars=$lineChars)"
+    override fun toString(): String = "ParseLocation(bytes=$bytes, chars=$chars, lines=$lines, lineBytes=$lineBytes, lineChars=$lineChars)"
 }

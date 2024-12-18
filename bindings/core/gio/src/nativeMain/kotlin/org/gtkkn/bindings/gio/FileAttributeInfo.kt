@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,16 +17,14 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GFileAttributeInfo
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a specific attribute.
  */
-public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class FileAttributeInfo(
+    pointer: CPointer<GFileAttributeInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo> = pointer
 
     /**
@@ -30,7 +32,6 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: C
      */
     public var name: String?
         get() = gioFileAttributeInfoPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.name?.let { g_free(it) }
@@ -42,9 +43,7 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: C
      */
     public var type: FileAttributeType
         get() = gioFileAttributeInfoPointer.pointed.type.run {
-            FileAttributeType.fromNativeValue(this)
-        }
-
+            FileAttributeType.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.type = value.nativeValue
@@ -55,9 +54,7 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: C
      */
     public var flags: FileAttributeInfoFlags
         get() = gioFileAttributeInfoPointer.pointed.flags.run {
-            FileAttributeInfoFlags(this)
-        }
-
+            FileAttributeInfoFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gioFileAttributeInfoPointer.pointed.flags = value.mask
@@ -69,11 +66,10 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: C
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFileAttributeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GFileAttributeInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -81,9 +77,7 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: C
      *
      * @param pair A pair containing the pointer to FileAttributeInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GFileAttributeInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GFileAttributeInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FileAttributeInfo using the provided [AutofreeScope].

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
@@ -17,8 +19,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint64
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * The `GdkDmabufFormats` struct provides information about
@@ -49,7 +49,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GdkVersion4_14
-public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(pointer) {
+public class DmabufFormats(
+    pointer: CPointer<GdkDmabufFormats>,
+) : ProxyInstance(pointer) {
     public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats> = pointer
 
     /**
@@ -62,8 +64,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun contains(fourcc: guint, modifier: guint64): Boolean =
-        gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
+    public fun contains(fourcc: guint, modifier: guint64): Boolean = gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -74,10 +75,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(
-        gdkDmabufFormatsPointer.reinterpret(),
-        formats2?.gdkDmabufFormatsPointer?.reinterpret()
-    ).asBoolean()
+    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(gdkDmabufFormatsPointer.reinterpret(), formats2?.gdkDmabufFormatsPointer?.reinterpret()).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object
@@ -101,8 +99,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      */
     @GdkVersion4_14
     public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer.reinterpret())!!.run {
-        DmabufFormats(reinterpret())
-    }
+        DmabufFormats(reinterpret())}
 
     /**
      * Decreases the reference count of @formats.

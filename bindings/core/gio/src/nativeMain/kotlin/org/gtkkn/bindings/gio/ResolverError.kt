@@ -15,19 +15,19 @@ import org.gtkkn.native.gobject.GType
  * @since 2.22
  */
 @GioVersion2_22
-public enum class ResolverError(public val nativeValue: GResolverError) {
+public enum class ResolverError(
+    public val nativeValue: GResolverError,
+) {
     /**
      * the requested name/address/service was not
      *     found
      */
     NOT_FOUND(GResolverError.G_RESOLVER_ERROR_NOT_FOUND),
-
     /**
      * the requested information could not
      *     be looked up due to a network error or similar problem
      */
     TEMPORARY_FAILURE(GResolverError.G_RESOLVER_ERROR_TEMPORARY_FAILURE),
-
     /**
      * unknown error
      */

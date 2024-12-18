@@ -8,12 +8,13 @@ import org.gtkkn.native.soup.soup_websocket_data_type_get_type
 /**
  * The type of data contained in a [signal@WebsocketConnection::message] signal.
  */
-public enum class WebsocketDataType(public val nativeValue: SoupWebsocketDataType) {
+public enum class WebsocketDataType(
+    public val nativeValue: SoupWebsocketDataType,
+) {
     /**
      * UTF-8 text
      */
     TEXT(SoupWebsocketDataType.SOUP_WEBSOCKET_DATA_TEXT),
-
     /**
      * binary data
      */

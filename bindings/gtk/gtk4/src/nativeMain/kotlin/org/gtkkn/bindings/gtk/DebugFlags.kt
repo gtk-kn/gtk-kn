@@ -32,7 +32,9 @@ import org.gtkkn.native.gtk.gtk_debug_flags_get_type
  * types of debugging information. Some of these flags are
  * only available when GTK has been configured with `-Ddebug=true`.
  */
-public class DebugFlags(public val mask: GtkDebugFlags) : Bitfield<DebugFlags> {
+public class DebugFlags(
+    public val mask: GtkDebugFlags,
+) : Bitfield<DebugFlags> {
     override infix fun or(other: DebugFlags): DebugFlags = DebugFlags(mask or other.mask)
 
     public companion object {

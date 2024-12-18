@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Icon
@@ -17,8 +19,6 @@ import org.gtkkn.native.gdk.gdk_app_launch_context_set_timestamp
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GdkAppLaunchContext` handles launching an application in a graphical context.
@@ -41,8 +41,9 @@ import kotlin.Unit
  * g_object_unref (context);
  * ```
  */
-public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
-    org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
+public open class AppLaunchContext(
+    pointer: CPointer<GdkAppLaunchContext>,
+) : org.gtkkn.bindings.gio.AppLaunchContext(pointer.reinterpret()),
     KGTyped {
     public val gdkAppLaunchContextPointer: CPointer<GdkAppLaunchContext>
         get() = gPointer.reinterpret()
@@ -57,8 +58,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
          * @return the display of @context
          */
         get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
     /**
      * Sets the workspace on which applications will be launched.
@@ -77,8 +77,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      *
      * @param desktop the number of a workspace, or -1
      */
-    public open fun setDesktop(desktop: gint): Unit =
-        gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer.reinterpret(), desktop)
+    public open fun setDesktop(desktop: gint): Unit = gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer.reinterpret(), desktop)
 
     /**
      * Sets the icon for applications that are launched with this
@@ -91,8 +90,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      *
      * @param icon a `GIcon`
      */
-    public open fun setIcon(icon: Icon? = null): Unit =
-        gdk_app_launch_context_set_icon(gdkAppLaunchContextPointer.reinterpret(), icon?.gioIconPointer)
+    public open fun setIcon(icon: Icon? = null): Unit = gdk_app_launch_context_set_icon(gdkAppLaunchContextPointer.reinterpret(), icon?.gioIconPointer)
 
     /**
      * Sets the icon for applications that are launched with this context.
@@ -107,8 +105,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      *
      * @param iconName an icon name
      */
-    public open fun setIconName(iconName: String? = null): Unit =
-        gdk_app_launch_context_set_icon_name(gdkAppLaunchContextPointer.reinterpret(), iconName)
+    public open fun setIconName(iconName: String? = null): Unit = gdk_app_launch_context_set_icon_name(gdkAppLaunchContextPointer.reinterpret(), iconName)
 
     /**
      * Sets the timestamp of @context.
@@ -123,16 +120,14 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      *
      * @param timestamp a timestamp
      */
-    public open fun setTimestamp(timestamp: guint): Unit =
-        gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
+    public open fun setTimestamp(timestamp: guint): Unit = gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
-            GeneratedClassKGType(gdk_app_launch_context_get_type()) { AppLaunchContext(it.reinterpret()) }
+                GeneratedClassKGType(gdk_app_launch_context_get_type()) { AppLaunchContext(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of AppLaunchContext

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoGlyphVisAttr
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoGlyphVisAttr` structure communicates information between
@@ -28,7 +28,10 @@ import kotlin.native.ref.createCleaner
  * that is, in Arabic text, accent glyphs follow the glyphs for the
  * base character.
  */
-public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class GlyphVisAttr(
+    pointer: CPointer<PangoGlyphVisAttr>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoGlyphVisAttrPointer: CPointer<PangoGlyphVisAttr> = pointer
 
     /**
@@ -36,7 +39,6 @@ public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner
      */
     public var isClusterStart: guint
         get() = pangoGlyphVisAttrPointer.pointed.is_cluster_start
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphVisAttrPointer.pointed.is_cluster_start = value
@@ -47,7 +49,6 @@ public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner
      */
     public var isColor: guint
         get() = pangoGlyphVisAttrPointer.pointed.is_color
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphVisAttrPointer.pointed.is_color = value
@@ -59,11 +60,10 @@ public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoGlyphVisAttr>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoGlyphVisAttr>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -71,9 +71,7 @@ public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to GlyphVisAttr and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoGlyphVisAttr>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoGlyphVisAttr>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphVisAttr using the provided [AutofreeScope].

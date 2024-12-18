@@ -15,22 +15,21 @@ import org.gtkkn.native.gtk.gtk_image_type_get_type
  * For empty images, you can request any storage type (call any of the "get"
  * functions), but they will all return null values.
  */
-public enum class ImageType(public val nativeValue: GtkImageType) {
+public enum class ImageType(
+    public val nativeValue: GtkImageType,
+) {
     /**
      * there is no image displayed by the widget
      */
     EMPTY(GtkImageType.GTK_IMAGE_EMPTY),
-
     /**
      * the widget contains a named icon
      */
     ICON_NAME(GtkImageType.GTK_IMAGE_ICON_NAME),
-
     /**
      * the widget contains a `GIcon`
      */
     GICON(GtkImageType.GTK_IMAGE_GICON),
-
     /**
      * the widget contains a `GdkPaintable`
      */

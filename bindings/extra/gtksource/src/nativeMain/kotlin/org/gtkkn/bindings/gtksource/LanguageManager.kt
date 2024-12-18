@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -23,9 +26,6 @@ import org.gtkkn.native.gtksource.gtk_source_language_manager_guess_language
 import org.gtkkn.native.gtksource.gtk_source_language_manager_new
 import org.gtkkn.native.gtksource.gtk_source_language_manager_prepend_search_path
 import org.gtkkn.native.gtksource.gtk_source_language_manager_set_search_path
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * Provides access to [class@Language]s.
@@ -43,8 +43,9 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
-    Object(pointer.reinterpret()),
+public open class LanguageManager(
+    pointer: CPointer<GtkSourceLanguageManager>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceLanguageManagerPointer: CPointer<GtkSourceLanguageManager>
         get() = gPointer.reinterpret()
@@ -58,9 +59,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
          * The array is sorted alphabetically according to the language name.
          * The array is owned by @lm and must not be modified.
          */
-        get() = gtk_source_language_manager_get_language_ids(
-            gtksourceLanguageManagerPointer.reinterpret()
-        )?.toKStringList()
+        get() = gtk_source_language_manager_get_language_ids(gtksourceLanguageManagerPointer.reinterpret())?.toKStringList()
 
     /**
      * Creates a new language manager.
@@ -82,8 +81,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public open fun appendSearchPath(path: String): Unit =
-        gtk_source_language_manager_append_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
+    public open fun appendSearchPath(path: String): Unit = gtk_source_language_manager_append_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
 
     /**
      * Gets the [class@Language] identified by the given @id in the language
@@ -94,10 +92,8 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * if there is no language identified by the given @id. Return value is
      * owned by @lm and should not be freed.
      */
-    public open fun getLanguage(id: String): Language? =
-        gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer.reinterpret(), id)?.run {
-            Language(reinterpret())
-        }
+    public open fun getLanguage(id: String): Language? = gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer.reinterpret(), id)?.run {
+        Language(reinterpret())}
 
     /**
      * Gets the list directories where @lm looks for language files.
@@ -106,9 +102,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * containing a list of language files directories.
      * The array is owned by @lm and must not be modified.
      */
-    public open fun getSearchPath(): List<String> =
-        gtk_source_language_manager_get_search_path(gtksourceLanguageManagerPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public open fun getSearchPath(): List<String> = gtk_source_language_manager_get_search_path(gtksourceLanguageManagerPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Picks a [class@Language] for given file name and content type,
@@ -155,14 +149,8 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * is no suitable language for given @filename and/or @content_type. Return
      * value is owned by @lm and should not be freed.
      */
-    public open fun guessLanguage(filename: String? = null, contentType: String? = null): Language? =
-        gtk_source_language_manager_guess_language(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            filename,
-            contentType
-        )?.run {
-            Language(reinterpret())
-        }
+    public open fun guessLanguage(filename: String? = null, contentType: String? = null): Language? = gtk_source_language_manager_guess_language(gtksourceLanguageManagerPointer.reinterpret(), filename, contentType)?.run {
+        Language(reinterpret())}
 
     /**
      * Prepends @path to the list of directories where the @manager looks
@@ -174,8 +162,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public open fun prependSearchPath(path: String): Unit =
-        gtk_source_language_manager_prepend_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
+    public open fun prependSearchPath(path: String): Unit = gtk_source_language_manager_prepend_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
 
     /**
      * Sets the list of directories where the @lm looks for
@@ -196,19 +183,14 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      *   strings or null.
      */
     public open fun setSearchPath(dirs: List<String>? = null): Unit = memScoped {
-        return gtk_source_language_manager_set_search_path(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            dirs?.toCStringList(this)
-        )
-    }
+        return gtk_source_language_manager_set_search_path(gtksourceLanguageManagerPointer.reinterpret(), dirs?.toCStringList(this))}
 
     public companion object : TypeCompanion<LanguageManager> {
         override val type: GeneratedClassKGType<LanguageManager> =
-            GeneratedClassKGType(gtk_source_language_manager_get_type()) { LanguageManager(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_language_manager_get_type()) { LanguageManager(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Returns the default #GtkSourceLanguageManager instance.
@@ -217,8 +199,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
          * Return value is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): LanguageManager = gtk_source_language_manager_get_default()!!.run {
-            LanguageManager(reinterpret())
-        }
+            LanguageManager(reinterpret())}
 
         /**
          * Get the GType of LanguageManager

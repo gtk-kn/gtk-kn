@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -48,11 +53,6 @@ import org.gtkkn.native.webkit.webkit_cookie_manager_replace_cookies
 import org.gtkkn.native.webkit.webkit_cookie_manager_replace_cookies_finish
 import org.gtkkn.native.webkit.webkit_cookie_manager_set_accept_policy
 import org.gtkkn.native.webkit.webkit_cookie_manager_set_persistent_storage
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Defines how to handle cookies in a #WebKitWebContext.
@@ -63,8 +63,9 @@ import kotlin.Unit
  * store cookies with webkit_cookie_manager_set_persistent_storage(),
  * or to set the acceptance policy, with webkit_cookie_manager_get_accept_policy().
  */
-public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
-    Object(pointer.reinterpret()),
+public class CookieManager(
+    pointer: CPointer<WebKitCookieManager>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitCookieManagerPointer: CPointer<WebKitCookieManager>
         get() = gPointer.reinterpret()
@@ -81,16 +82,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun addCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_cookie_manager_add_cookie(
-            webkitCookieManagerPointer.reinterpret(),
-            cookie.soupCookiePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun addCookie(
+        cookie: Cookie,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = webkit_cookie_manager_add_cookie(webkitCookieManagerPointer.reinterpret(), cookie.soupCookiePointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_cookie_manager_add_cookie().
@@ -102,14 +98,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     @WebKitVersion2_20
     public fun addCookieFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_cookie_manager_add_cookie_finish(
-            webkitCookieManagerPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = webkit_cookie_manager_add_cookie_finish(webkitCookieManagerPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -126,16 +119,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun deleteCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_cookie_manager_delete_cookie(
-            webkitCookieManagerPointer.reinterpret(),
-            cookie.soupCookiePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun deleteCookie(
+        cookie: Cookie,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = webkit_cookie_manager_delete_cookie(webkitCookieManagerPointer.reinterpret(), cookie.soupCookiePointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_cookie_manager_delete_cookie().
@@ -147,14 +135,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     @WebKitVersion2_20
     public fun deleteCookieFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_cookie_manager_delete_cookie_finish(
-            webkitCookieManagerPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = webkit_cookie_manager_delete_cookie_finish(webkitCookieManagerPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -172,15 +157,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @param cancellable a #GCancellable or null to ignore
      * @param callback a #GAsyncReadyCallback to call when the request is satisfied
      */
-    public fun getAcceptPolicy(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_cookie_manager_get_accept_policy(
-            webkitCookieManagerPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun getAcceptPolicy(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = webkit_cookie_manager_get_accept_policy(webkitCookieManagerPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_cookie_manager_get_accept_policy().
@@ -190,17 +167,13 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      */
     public fun getAcceptPolicyFinish(result: AsyncResult): Result<CookieAcceptPolicy> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_cookie_manager_get_accept_policy_finish(
-            webkitCookieManagerPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).run {
-            CookieAcceptPolicy.fromNativeValue(this)
-        }
+        val gResult = webkit_cookie_manager_get_accept_policy_finish(webkitCookieManagerPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).run {
+            CookieAcceptPolicy.fromNativeValue(this)}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -216,15 +189,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getAllCookies(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_cookie_manager_get_all_cookies(
-            webkitCookieManagerPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun getAllCookies(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit = webkit_cookie_manager_get_all_cookies(webkitCookieManagerPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_cookie_manager_get_all_cookies().
@@ -239,17 +204,13 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     @WebKitVersion2_42
     public fun getAllCookiesFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_cookie_manager_get_all_cookies_finish(
-            webkitCookieManagerPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = webkit_cookie_manager_get_all_cookies_finish(webkitCookieManagerPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -269,16 +230,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun getCookies(uri: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_cookie_manager_get_cookies(
-            webkitCookieManagerPointer.reinterpret(),
-            uri,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun getCookies(
+        uri: String,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = webkit_cookie_manager_get_cookies(webkitCookieManagerPointer.reinterpret(), uri, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_cookie_manager_get_cookies().
@@ -293,17 +249,13 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     @WebKitVersion2_20
     public fun getCookiesFinish(result: AsyncResult): Result<List> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_cookie_manager_get_cookies_finish(
-            webkitCookieManagerPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            List(reinterpret())
-        }
+        val gResult = webkit_cookie_manager_get_cookies_finish(webkitCookieManagerPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            List(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -320,16 +272,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun replaceCookies(cookies: List, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        webkit_cookie_manager_replace_cookies(
-            webkitCookieManagerPointer.reinterpret(),
-            cookies.glibListPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun replaceCookies(
+        cookies: List,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = webkit_cookie_manager_replace_cookies(webkitCookieManagerPointer.reinterpret(), cookies.glibListPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finish an asynchronous operation started with webkit_cookie_manager_replace_cookies().
@@ -341,14 +288,11 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     @WebKitVersion2_42
     public fun replaceCookiesFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = webkit_cookie_manager_replace_cookies_finish(
-            webkitCookieManagerPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = webkit_cookie_manager_replace_cookies_finish(webkitCookieManagerPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -363,8 +307,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      *
      * @param policy a #WebKitCookieAcceptPolicy
      */
-    public fun setAcceptPolicy(policy: CookieAcceptPolicy): Unit =
-        webkit_cookie_manager_set_accept_policy(webkitCookieManagerPointer.reinterpret(), policy.nativeValue)
+    public fun setAcceptPolicy(policy: CookieAcceptPolicy): Unit = webkit_cookie_manager_set_accept_policy(webkitCookieManagerPointer.reinterpret(), policy.nativeValue)
 
     /**
      * Set non-session cookies.
@@ -382,12 +325,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @param filename the filename to read to/write from
      * @param storage a #WebKitCookiePersistentStorage
      */
-    public fun setPersistentStorage(filename: String, storage: CookiePersistentStorage): Unit =
-        webkit_cookie_manager_set_persistent_storage(
-            webkitCookieManagerPointer.reinterpret(),
-            filename,
-            storage.nativeValue
-        )
+    public fun setPersistentStorage(filename: String, storage: CookiePersistentStorage): Unit = webkit_cookie_manager_set_persistent_storage(webkitCookieManagerPointer.reinterpret(), filename, storage.nativeValue)
 
     /**
      * This signal is emitted when cookies are added, removed or modified.
@@ -395,23 +333,14 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<CookieManager> {
         override val type: GeneratedClassKGType<CookieManager> =
-            GeneratedClassKGType(webkit_cookie_manager_get_type()) { CookieManager(it.reinterpret()) }
+                GeneratedClassKGType(webkit_cookie_manager_get_type()) { CookieManager(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of CookieManager
@@ -423,9 +352,8 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
 }
 
 private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

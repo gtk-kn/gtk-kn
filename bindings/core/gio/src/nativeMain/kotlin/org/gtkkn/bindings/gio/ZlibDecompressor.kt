@@ -23,8 +23,9 @@ import org.gtkkn.native.gobject.GType
  *
  * - method `format`: Property has no getter nor setter
  */
-public open class ZlibDecompressor(pointer: CPointer<GZlibDecompressor>) :
-    Object(pointer.reinterpret()),
+public open class ZlibDecompressor(
+    pointer: CPointer<GZlibDecompressor>,
+) : Object(pointer.reinterpret()),
     Converter,
     KGTyped {
     public val gioZlibDecompressorPointer: CPointer<GZlibDecompressor>
@@ -54,8 +55,7 @@ public open class ZlibDecompressor(pointer: CPointer<GZlibDecompressor>) :
          * @since 2.26
          */
         get() = g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer.reinterpret())?.run {
-            FileInfo(reinterpret())
-        }
+            FileInfo(reinterpret())}
 
     /**
      * Creates a new #GZlibDecompressor.
@@ -68,11 +68,10 @@ public open class ZlibDecompressor(pointer: CPointer<GZlibDecompressor>) :
 
     public companion object : TypeCompanion<ZlibDecompressor> {
         override val type: GeneratedClassKGType<ZlibDecompressor> =
-            GeneratedClassKGType(g_zlib_decompressor_get_type()) { ZlibDecompressor(it.reinterpret()) }
+                GeneratedClassKGType(g_zlib_decompressor_get_type()) { ZlibDecompressor(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ZlibDecompressor

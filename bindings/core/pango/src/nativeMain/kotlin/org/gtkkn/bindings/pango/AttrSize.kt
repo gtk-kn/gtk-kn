@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,10 +20,6 @@ import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoAttrSize
 import org.gtkkn.native.pango.pango_attr_size_new
 import org.gtkkn.native.pango.pango_attr_size_new_absolute
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrSize` structure is used to represent attributes which
@@ -29,7 +29,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Attribute
  */
-public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrSize(
+    pointer: CPointer<PangoAttrSize>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrSizePointer: CPointer<PangoAttrSize> = pointer
 
     /**
@@ -38,7 +41,6 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      */
     public var size: gint
         get() = pangoAttrSizePointer.pointed.size
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrSizePointer.pointed.size = value
@@ -52,7 +54,6 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      */
     public var absolute: guint
         get() = pangoAttrSizePointer.pointed.absolute
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrSizePointer.pointed.absolute = value
@@ -64,11 +65,10 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrSize>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrSize>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -76,9 +76,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to AttrSize and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrSize>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAttrSize>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrSize using the provided [AutofreeScope].
@@ -141,8 +139,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(size: gint): Attribute = pango_attr_size_new(size)!!.run {
-            Attribute(reinterpret())
-        }
+            Attribute(reinterpret())}
 
         /**
          * Create a new font-size attribute in device units.
@@ -155,7 +152,6 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
          */
         @PangoVersion1_8
         public fun newAbsolute(size: gint): Attribute = pango_attr_size_new_absolute(size)!!.run {
-            Attribute(reinterpret())
-        }
+            Attribute(reinterpret())}
     }
 }

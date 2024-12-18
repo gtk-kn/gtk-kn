@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -18,8 +20,6 @@ import org.gtkkn.native.gtk.gtk_tree_row_reference_inserted
 import org.gtkkn.native.gtk.gtk_tree_row_reference_new
 import org.gtkkn.native.gtk.gtk_tree_row_reference_new_proxy
 import org.gtkkn.native.gtk.gtk_tree_row_reference_valid
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A GtkTreeRowReference tracks model changes so that it always refers to the
@@ -30,7 +30,9 @@ import kotlin.Unit
  *
  * - parameter `new_order`: Array parameter of type gint is not supported
  */
-public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyInstance(pointer) {
+public class TreeRowReference(
+    pointer: CPointer<GtkTreeRowReference>,
+) : ProxyInstance(pointer) {
     public val gtkTreeRowReferencePointer: CPointer<GtkTreeRowReference> = pointer
 
     /**
@@ -39,8 +41,7 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
      * @return a copy of @reference
      */
     public fun copy(): TreeRowReference = gtk_tree_row_reference_copy(gtkTreeRowReferencePointer.reinterpret())!!.run {
-        TreeRowReference(reinterpret())
-    }
+        TreeRowReference(reinterpret())}
 
     /**
      * Free’s @reference. @reference may be null
@@ -52,10 +53,8 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
      *
      * @return the model
      */
-    public fun getModel(): TreeModel =
-        gtk_tree_row_reference_get_model(gtkTreeRowReferencePointer.reinterpret())!!.run {
-            TreeModel.wrap(reinterpret())
-        }
+    public fun getModel(): TreeModel = gtk_tree_row_reference_get_model(gtkTreeRowReferencePointer.reinterpret())!!.run {
+        TreeModel.wrap(reinterpret())}
 
     /**
      * Returns a path that the row reference currently points to,
@@ -64,8 +63,7 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
      * @return a current path
      */
     public fun getPath(): TreePath? = gtk_tree_row_reference_get_path(gtkTreeRowReferencePointer.reinterpret())?.run {
-        TreePath(reinterpret())
-    }
+        TreePath(reinterpret())}
 
     /**
      * Returns true if the @reference is non-null and refers to
@@ -88,12 +86,7 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
          * @param path a valid `GtkTreePath` to monitor
          * @return a newly allocated `GtkTreeRowReference`
          */
-        public fun new(model: TreeModel, path: TreePath): TreeRowReference? = TreeRowReference(
-            gtk_tree_row_reference_new(
-                model.gtkTreeModelPointer,
-                path.gtkTreePathPointer.reinterpret()
-            )!!.reinterpret()
-        )
+        public fun new(model: TreeModel, path: TreePath): TreeRowReference? = TreeRowReference(gtk_tree_row_reference_new(model.gtkTreeModelPointer, path.gtkTreePathPointer.reinterpret())!!.reinterpret())
 
         /**
          * You do not need to use this function.
@@ -126,13 +119,11 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
          * @param path a valid `GtkTreePath` to monitor
          * @return a newly allocated `GtkTreeRowReference`
          */
-        public fun newProxy(proxy: Object, model: TreeModel, path: TreePath): TreeRowReference? = TreeRowReference(
-            gtk_tree_row_reference_new_proxy(
-                proxy.gPointer.reinterpret(),
-                model.gtkTreeModelPointer,
-                path.gtkTreePathPointer.reinterpret()
-            )!!.reinterpret()
-        )
+        public fun newProxy(
+            proxy: Object,
+            model: TreeModel,
+            path: TreePath,
+        ): TreeRowReference? = TreeRowReference(gtk_tree_row_reference_new_proxy(proxy.gPointer.reinterpret(), model.gtkTreeModelPointer, path.gtkTreePathPointer.reinterpret())!!.reinterpret())
 
         /**
          * Lets a set of row reference created by
@@ -142,8 +133,7 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
          * @param proxy a `GObject`
          * @param path the path position that was deleted
          */
-        public fun deleted(proxy: Object, path: TreePath): Unit =
-            gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        public fun deleted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_deleted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
         /**
          * Lets a set of row reference created by
@@ -153,8 +143,7 @@ public class TreeRowReference(pointer: CPointer<GtkTreeRowReference>) : ProxyIns
          * @param proxy a `GObject`
          * @param path the row position that was inserted
          */
-        public fun inserted(proxy: Object, path: TreePath): Unit =
-            gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        public fun inserted(proxy: Object, path: TreePath): Unit = gtk_tree_row_reference_inserted(proxy.gPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
 
         /**
          * Get the GType of TreeRowReference

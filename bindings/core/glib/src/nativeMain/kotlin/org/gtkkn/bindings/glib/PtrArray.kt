@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.native.glib.GPtrArray
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_ptr_array_get_type
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Contains the public fields of a pointer array.
@@ -60,7 +60,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
  * - field `pdata`: Unsupported pointer to primitive type
  */
-public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class PtrArray(
+    pointer: CPointer<GPtrArray>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibPtrArrayPointer: CPointer<GPtrArray> = pointer
 
     /**
@@ -68,7 +71,6 @@ public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : 
      */
     public var len: guint
         get() = glibPtrArrayPointer.pointed.len
-
         @UnsafeFieldSetter
         set(`value`) {
             glibPtrArrayPointer.pointed.len = value
@@ -80,11 +82,10 @@ public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GPtrArray>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GPtrArray>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

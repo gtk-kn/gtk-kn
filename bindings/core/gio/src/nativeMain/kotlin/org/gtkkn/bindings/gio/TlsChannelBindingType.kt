@@ -14,19 +14,19 @@ import org.gtkkn.native.gobject.GType
  * @since 2.66
  */
 @GioVersion2_66
-public enum class TlsChannelBindingType(public val nativeValue: GTlsChannelBindingType) {
+public enum class TlsChannelBindingType(
+    public val nativeValue: GTlsChannelBindingType,
+) {
     /**
      * [`tls-unique`](https://tools.ietf.org/html/rfc5929#section-3) binding
      *    type
      */
     UNIQUE(GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_UNIQUE),
-
     /**
      * [`tls-server-end-point`](https://tools.ietf.org/html/rfc5929#section-4)
      *    binding type
      */
     SERVER_END_POINT(GTlsChannelBindingType.G_TLS_CHANNEL_BINDING_TLS_SERVER_END_POINT),
-
     /**
      * [`tls-exporter`](https://www.rfc-editor.org/rfc/rfc9266.html) binding
      *    type. Since: 2.74

@@ -8,22 +8,21 @@ import org.gtkkn.native.gtk.gtk_print_pages_get_type
 /**
  * See also gtk_print_job_set_pages()
  */
-public enum class PrintPages(public val nativeValue: GtkPrintPages) {
+public enum class PrintPages(
+    public val nativeValue: GtkPrintPages,
+) {
     /**
      * All pages.
      */
     ALL(GtkPrintPages.GTK_PRINT_PAGES_ALL),
-
     /**
      * Current page.
      */
     CURRENT(GtkPrintPages.GTK_PRINT_PAGES_CURRENT),
-
     /**
      * Range of pages.
      */
     RANGES(GtkPrintPages.GTK_PRINT_PAGES_RANGES),
-
     /**
      * Selected pages.
      */

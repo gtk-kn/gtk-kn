@@ -16,8 +16,9 @@ import org.gtkkn.native.gsk.gsk_rounded_clip_node_new
 /**
  * A render node applying a rounded rectangle clip to its single child.
  */
-public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class RoundedClipNode(
+    pointer: CPointer<GskRoundedClipNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskRoundedClipNodePointer: CPointer<GskRoundedClipNode>
         get() = gPointer.reinterpret()
@@ -30,43 +31,30 @@ public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
      * @param clip The clip to apply
      * @return A new `GskRenderNode`
      */
-    public constructor(
-        child: RenderNode,
-        clip: RoundedRect,
-    ) : this(
-        gsk_rounded_clip_node_new(
-            child.gPointer.reinterpret(),
-            clip.gskRoundedRectPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    public constructor(child: RenderNode, clip: RoundedRect) : this(gsk_rounded_clip_node_new(child.gPointer.reinterpret(), clip.gskRoundedRectPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.
      *
      * @return The child that is getting clipped
      */
-    public open fun getChild(): RenderNode =
-        gsk_rounded_clip_node_get_child(gskRoundedClipNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
-        }
+    public open fun getChild(): RenderNode = gsk_rounded_clip_node_get_child(gskRoundedClipNodePointer.reinterpret())!!.run {
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the rounded rectangle used to clip the contents of the @node.
      *
      * @return a rounded rectangle
      */
-    public open fun getClip(): RoundedRect =
-        gsk_rounded_clip_node_get_clip(gskRoundedClipNodePointer.reinterpret())!!.run {
-            RoundedRect(reinterpret())
-        }
+    public open fun getClip(): RoundedRect = gsk_rounded_clip_node_get_clip(gskRoundedClipNodePointer.reinterpret())!!.run {
+        RoundedRect(reinterpret())}
 
     public companion object : TypeCompanion<RoundedClipNode> {
         override val type: GeneratedClassKGType<RoundedClipNode> =
-            GeneratedClassKGType(gsk_rounded_clip_node_get_type()) { RoundedClipNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_rounded_clip_node_get_type()) { RoundedClipNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of RoundedClipNode

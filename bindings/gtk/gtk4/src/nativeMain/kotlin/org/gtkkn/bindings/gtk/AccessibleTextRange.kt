@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,18 +16,16 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A range inside the text of an accessible object.
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class AccessibleTextRange(
+    pointer: CPointer<GtkAccessibleTextRange>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange> = pointer
 
     /**
@@ -31,7 +33,6 @@ public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, clea
      */
     public var start: gsize
         get() = gtkAccessibleTextRangePointer.pointed.start
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkAccessibleTextRangePointer.pointed.start = value
@@ -42,7 +43,6 @@ public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, clea
      */
     public var length: gsize
         get() = gtkAccessibleTextRangePointer.pointed.length
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkAccessibleTextRangePointer.pointed.length = value
@@ -54,11 +54,10 @@ public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, clea
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkAccessibleTextRange>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkAccessibleTextRange>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -66,9 +65,7 @@ public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, clea
      *
      * @param pair A pair containing the pointer to AccessibleTextRange and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GtkAccessibleTextRange>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GtkAccessibleTextRange>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AccessibleTextRange using the provided [AutofreeScope].

@@ -11,33 +11,31 @@ import org.gtkkn.native.soup.soup_tld_error_quark
 /**
  * Error codes for %SOUP_TLD_ERROR.
  */
-public enum class TldError(public val nativeValue: SoupTLDError) {
+public enum class TldError(
+    public val nativeValue: SoupTLDError,
+) {
     /**
      * A hostname was syntactically
      *   invalid.
      */
     INVALID_HOSTNAME(SoupTLDError.SOUP_TLD_ERROR_INVALID_HOSTNAME),
-
     /**
      * The passed-in "hostname" was
      *   actually an IP address (and thus has no base domain or
      *   public suffix).
      */
     IS_IP_ADDRESS(SoupTLDError.SOUP_TLD_ERROR_IS_IP_ADDRESS),
-
     /**
      * The passed-in hostname
      *   did not have enough components. Eg, calling
      *   [func@tld_get_base_domain] on <literal>"co.uk"</literal>.
      */
     NOT_ENOUGH_DOMAINS(SoupTLDError.SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS),
-
     /**
      * The passed-in hostname has
      *   no recognized public suffix.
      */
     NO_BASE_DOMAIN(SoupTLDError.SOUP_TLD_ERROR_NO_BASE_DOMAIN),
-
     /**
      * The Public Suffix List was not
      *   available.

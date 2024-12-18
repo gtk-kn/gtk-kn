@@ -195,8 +195,9 @@ import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
  *
  * - constructor `new`: Varargs parameter is not supported
  */
-public open class FileChooserDialog(pointer: CPointer<GtkFileChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class FileChooserDialog(
+    pointer: CPointer<GtkFileChooserDialog>,
+) : Dialog(pointer.reinterpret()),
     FileChooser,
     KGTyped {
     public val gtkFileChooserDialogPointer: CPointer<GtkFileChooserDialog>
@@ -225,11 +226,10 @@ public open class FileChooserDialog(pointer: CPointer<GtkFileChooserDialog>) :
 
     public companion object : TypeCompanion<FileChooserDialog> {
         override val type: GeneratedClassKGType<FileChooserDialog> =
-            GeneratedClassKGType(gtk_file_chooser_dialog_get_type()) { FileChooserDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_file_chooser_dialog_get_type()) { FileChooserDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FileChooserDialog

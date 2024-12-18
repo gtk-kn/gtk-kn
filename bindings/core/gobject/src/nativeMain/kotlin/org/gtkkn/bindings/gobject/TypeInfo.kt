@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -13,10 +17,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GTypeInfo
 import org.gtkkn.native.gobject.guint16
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * This structure is used to provide the type system with the information
@@ -37,7 +37,10 @@ import kotlin.native.ref.createCleaner
  * - field `class_finalize`: ClassFinalizeFunc
  * - field `instance_init`: InstanceInitFunc
  */
-public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TypeInfo(
+    pointer: CPointer<GTypeInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeInfoPointer: CPointer<GTypeInfo> = pointer
 
     /**
@@ -45,7 +48,6 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public var classSize: guint16
         get() = gobjectTypeInfoPointer.pointed.class_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.class_size = value
@@ -56,7 +58,6 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public var classData: gpointer
         get() = gobjectTypeInfoPointer.pointed.class_data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.class_data = value
@@ -67,7 +68,6 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public var instanceSize: guint16
         get() = gobjectTypeInfoPointer.pointed.instance_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.instance_size = value
@@ -78,7 +78,6 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public var nPreallocs: guint16
         get() = gobjectTypeInfoPointer.pointed.n_preallocs
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.n_preallocs = value
@@ -90,9 +89,7 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public var valueTable: TypeValueTable?
         get() = gobjectTypeInfoPointer.pointed.value_table?.run {
-            TypeValueTable(reinterpret())
-        }
-
+            TypeValueTable(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectTypeInfoPointer.pointed.value_table = value?.gobjectTypeValueTablePointer
@@ -104,11 +101,10 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTypeInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -182,6 +178,5 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
         this.valueTable = valueTable
     }
 
-    override fun toString(): String =
-        "TypeInfo(classSize=$classSize, classData=$classData, instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueTable=$valueTable)"
+    override fun toString(): String = "TypeInfo(classSize=$classSize, classData=$classData, instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueTable=$valueTable)"
 }

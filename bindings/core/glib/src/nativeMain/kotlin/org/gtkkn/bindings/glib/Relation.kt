@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -12,7 +13,6 @@ import org.gtkkn.native.glib.g_relation_print
 import org.gtkkn.native.glib.g_relation_select
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
-import kotlin.Unit
 
 /**
  * A `GRelation` is a table of data which can be indexed on any number
@@ -62,7 +62,9 @@ import kotlin.Unit
  * - method `insert`: Varargs parameter is not supported
  * - function `new`: Return type Relation is unsupported
  */
-public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
+public class Relation(
+    pointer: CPointer<GRelation>,
+) : ProxyInstance(pointer) {
     public val glibRelationPointer: CPointer<GRelation> = pointer
 
     /**
@@ -73,8 +75,7 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @param field the field of each record to match.
      * @return the number of matches.
      */
-    public fun count(key: gpointer? = null, `field`: gint): gint =
-        g_relation_count(glibRelationPointer.reinterpret(), key, `field`)
+    public fun count(key: gpointer? = null, `field`: gint): gint = g_relation_count(glibRelationPointer.reinterpret(), key, `field`)
 
     /**
      * Deletes any records from a #GRelation that have the given key value
@@ -84,8 +85,7 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @param field the field of each record to match.
      * @return the number of records deleted.
      */
-    public fun delete(key: gpointer? = null, `field`: gint): gint =
-        g_relation_delete(glibRelationPointer.reinterpret(), key, `field`)
+    public fun delete(key: gpointer? = null, `field`: gint): gint = g_relation_delete(glibRelationPointer.reinterpret(), key, `field`)
 
     /**
      * Destroys the #GRelation, freeing all memory allocated. However, it
@@ -109,8 +109,6 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @param field the field of each record to match.
      * @return the records (tuples) that matched.
      */
-    public fun select(key: gpointer? = null, `field`: gint): Tuples =
-        g_relation_select(glibRelationPointer.reinterpret(), key, `field`)!!.run {
-            Tuples(reinterpret())
-        }
+    public fun select(key: gpointer? = null, `field`: gint): Tuples = g_relation_select(glibRelationPointer.reinterpret(), key, `field`)!!.run {
+        Tuples(reinterpret())}
 }

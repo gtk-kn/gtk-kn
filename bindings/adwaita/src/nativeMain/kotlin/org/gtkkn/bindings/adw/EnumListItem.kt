@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -15,13 +16,13 @@ import org.gtkkn.native.adw.adw_enum_list_item_get_type
 import org.gtkkn.native.adw.adw_enum_list_item_get_value
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.String
 
 /**
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
  */
-public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
-    Object(pointer.reinterpret()),
+public class EnumListItem(
+    pointer: CPointer<AdwEnumListItem>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val adwEnumListItemPointer: CPointer<AdwEnumListItem>
         get() = gPointer.reinterpret()
@@ -35,8 +36,7 @@ public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
          *
          * @return the enum value name
          */
-        get() = adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The enum value nick.
@@ -47,8 +47,7 @@ public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
          *
          * @return the enum value nick
          */
-        get() = adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The enum value.
@@ -63,11 +62,10 @@ public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
 
     public companion object : TypeCompanion<EnumListItem> {
         override val type: GeneratedClassKGType<EnumListItem> =
-            GeneratedClassKGType(adw_enum_list_item_get_type()) { EnumListItem(it.reinterpret()) }
+                GeneratedClassKGType(adw_enum_list_item_get_type()) { EnumListItem(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of EnumListItem

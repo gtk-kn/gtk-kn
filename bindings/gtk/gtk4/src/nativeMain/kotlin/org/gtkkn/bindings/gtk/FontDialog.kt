@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -49,10 +53,6 @@ import org.gtkkn.native.gtk.gtk_font_dialog_set_font_map
 import org.gtkkn.native.gtk.gtk_font_dialog_set_language
 import org.gtkkn.native.gtk.gtk_font_dialog_set_modal
 import org.gtkkn.native.gtk.gtk_font_dialog_set_title
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `GtkFontDialog` object collects the arguments that
@@ -76,8 +76,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
-    Object(pointer.reinterpret()),
+public open class FontDialog(
+    pointer: CPointer<GtkFontDialog>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkFontDialogPointer: CPointer<GtkFontDialog>
         get() = gPointer.reinterpret()
@@ -98,9 +99,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
          * @since 4.10
          */
         get() = gtk_font_dialog_get_filter(gtkFontDialogPointer.reinterpret())?.run {
-            Filter(reinterpret())
-        }
-
+            Filter(reinterpret())}
         /**
          * Adds a filter that decides which fonts to display
          * in the font chooser dialog.
@@ -112,9 +111,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(
-            filter
-        ) = gtk_font_dialog_set_filter(gtkFontDialogPointer.reinterpret(), filter?.gtkFilterPointer?.reinterpret())
+        set(filter) = gtk_font_dialog_set_filter(gtkFontDialogPointer.reinterpret(), filter?.gtkFilterPointer?.reinterpret())
 
     /**
      * Sets a custom font map to select fonts from.
@@ -134,9 +131,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
          * @since 4.10
          */
         get() = gtk_font_dialog_get_font_map(gtkFontDialogPointer.reinterpret())?.run {
-            FontMap(reinterpret())
-        }
-
+            FontMap(reinterpret())}
         /**
          * Sets the fontmap from which fonts are selected.
          *
@@ -146,12 +141,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(
-            fontmap
-        ) = gtk_font_dialog_set_font_map(
-            gtkFontDialogPointer.reinterpret(),
-            fontmap?.pangoFontMapPointer?.reinterpret()
-        )
+        set(fontmap) = gtk_font_dialog_set_font_map(gtkFontDialogPointer.reinterpret(), fontmap?.pangoFontMapPointer?.reinterpret())
 
     /**
      * Whether the font chooser dialog is modal.
@@ -169,7 +159,6 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
          * @since 4.10
          */
         get() = gtk_font_dialog_get_modal(gtkFontDialogPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the font chooser dialog
          * blocks interaction with the parent window
@@ -196,9 +185,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
          * @return the title
          * @since 4.10
          */
-        get() = gtk_font_dialog_get_title(gtkFontDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_font_dialog_get_title(gtkFontDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title that will be shown on the
          * font chooser dialog.
@@ -238,16 +225,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         initialValue: FontFace? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_font_dialog_choose_face(
-        gtkFontDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        initialValue?.pangoFontFacePointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_font_dialog_choose_face(gtkFontDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), initialValue?.pangoFontFacePointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FontDialog.choose_face] call
@@ -260,17 +238,13 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
     @GtkVersion4_10
     public open fun chooseFaceFinish(result: AsyncResult): Result<FontFace?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_font_dialog_choose_face_finish(
-            gtkFontDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            FontFace(reinterpret())
-        }
+        val gResult = gtk_font_dialog_choose_face_finish(gtkFontDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            FontFace(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -295,16 +269,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         initialValue: FontFamily? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_font_dialog_choose_family(
-        gtkFontDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        initialValue?.pangoFontFamilyPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_font_dialog_choose_family(gtkFontDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), initialValue?.pangoFontFamilyPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FontDialog.choose_family] call
@@ -321,17 +286,13 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
     @GtkVersion4_10
     public open fun chooseFamilyFinish(result: AsyncResult): Result<FontFamily?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_font_dialog_choose_family_finish(
-            gtkFontDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            FontFamily(reinterpret())
-        }
+        val gResult = gtk_font_dialog_choose_family_finish(gtkFontDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            FontFamily(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -359,16 +320,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         initialValue: FontDescription? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_font_dialog_choose_font(
-        gtkFontDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        initialValue?.pangoFontDescriptionPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_font_dialog_choose_font(gtkFontDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), initialValue?.pangoFontDescriptionPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * This function initiates a font selection operation by
@@ -394,16 +346,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
         initialValue: FontDescription? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gtk_font_dialog_choose_font_and_features(
-        gtkFontDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        initialValue?.pangoFontDescriptionPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gtk_font_dialog_choose_font_and_features(gtkFontDialogPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret(), initialValue?.pangoFontDescriptionPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes the [method@Gtk.FontDialog.choose_font] call
@@ -416,17 +359,13 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
     @GtkVersion4_10
     public open fun chooseFontFinish(result: AsyncResult): Result<FontDescription?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_font_dialog_choose_font_finish(
-            gtkFontDialogPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            FontDescription(reinterpret())
-        }
+        val gResult = gtk_font_dialog_choose_font_finish(gtkFontDialogPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.run {
+            FontDescription(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -439,8 +378,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
      */
     @GtkVersion4_10
     public open fun getLanguage(): Language? = gtk_font_dialog_get_language(gtkFontDialogPointer.reinterpret())?.run {
-        Language(reinterpret())
-    }
+        Language(reinterpret())}
 
     /**
      * Sets the language for which font features are applied.
@@ -449,16 +387,14 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun setLanguage(language: Language): Unit =
-        gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.pangoLanguagePointer.reinterpret())
+    public open fun setLanguage(language: Language): Unit = gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.pangoLanguagePointer.reinterpret())
 
     public companion object : TypeCompanion<FontDialog> {
         override val type: GeneratedClassKGType<FontDialog> =
-            GeneratedClassKGType(gtk_font_dialog_get_type()) { FontDialog(it.reinterpret()) }
+                GeneratedClassKGType(gtk_font_dialog_get_type()) { FontDialog(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FontDialog

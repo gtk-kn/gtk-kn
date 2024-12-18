@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -21,11 +26,6 @@ import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GClosure` represents a callback supplied by the programmer.
@@ -85,7 +85,10 @@ import kotlin.native.ref.createCleaner
  * - method `set_meta_marshal`: Callback gpointer not found
  * - field `marshal`: Fields with callbacks are not supported
  */
-public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Closure(
+    pointer: CPointer<GClosure>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectClosurePointer: CPointer<GClosure> = pointer
 
     /**
@@ -94,7 +97,6 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      */
     public var inMarshal: guint
         get() = gobjectClosurePointer.pointed.in_marshal
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectClosurePointer.pointed.in_marshal = value
@@ -106,7 +108,6 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      */
     public var isInvalid: guint
         get() = gobjectClosurePointer.pointed.is_invalid
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectClosurePointer.pointed.is_invalid = value
@@ -118,11 +119,10 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GClosure>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GClosure>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -203,8 +203,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * @return The @closure passed in, for convenience
      */
     public fun ref(): Closure = g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
-        Closure(reinterpret())
-    }
+        Closure(reinterpret())}
 
     /**
      * Takes over the initial ownership of a closure.
@@ -281,8 +280,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
          *  allocated #GClosure
          * @return a newly allocated #GClosure
          */
-        public fun newObject(sizeofClosure: guint, `object`: Object): Closure =
-            Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
+        public fun newObject(sizeofClosure: guint, `object`: Object): Closure = Closure(g_closure_new_object(sizeofClosure, `object`.gPointer.reinterpret())!!.reinterpret())
 
         /**
          * Allocates a struct of the given size and initializes the initial
@@ -328,8 +326,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
          * @param data data to store in the @data field of the newly allocated #GClosure
          * @return a floating reference to a new #GClosure
          */
-        public fun newSimple(sizeofClosure: guint, `data`: gpointer? = null): Closure =
-            Closure(g_closure_new_simple(sizeofClosure, `data`)!!.reinterpret())
+        public fun newSimple(sizeofClosure: guint, `data`: gpointer? = null): Closure = Closure(g_closure_new_simple(sizeofClosure, `data`)!!.reinterpret())
 
         /**
          * Get the GType of Closure

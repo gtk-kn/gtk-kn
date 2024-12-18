@@ -21,8 +21,9 @@ import org.gtkkn.native.gsk.gsk_fill_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class FillNode(pointer: CPointer<GskFillNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class FillNode(
+    pointer: CPointer<GskFillNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskFillNodePointer: CPointer<GskFillNode>
         get() = gPointer.reinterpret()
@@ -41,13 +42,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
         child: RenderNode,
         path: Path,
         fillRule: FillRule,
-    ) : this(
-        gsk_fill_node_new(
-            child.gPointer.reinterpret(),
-            path.gskPathPointer.reinterpret(),
-            fillRule.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_fill_node_new(child.gPointer.reinterpret(), path.gskPathPointer.reinterpret(), fillRule.nativeValue)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -57,8 +52,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_fill_node_get_child(gskFillNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
-    }
+        RenderNode(reinterpret())}
 
     /**
      * Retrieves the fill rule used to determine how the path is filled.
@@ -68,8 +62,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
      */
     @GskVersion4_14
     public open fun getFillRule(): FillRule = gsk_fill_node_get_fill_rule(gskFillNodePointer.reinterpret()).run {
-        FillRule.fromNativeValue(this)
-    }
+        FillRule.fromNativeValue(this)}
 
     /**
      * Retrieves the path used to describe the area filled with the contents of
@@ -80,16 +73,14 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
      */
     @GskVersion4_14
     public open fun getPath(): Path = gsk_fill_node_get_path(gskFillNodePointer.reinterpret())!!.run {
-        Path(reinterpret())
-    }
+        Path(reinterpret())}
 
     public companion object : TypeCompanion<FillNode> {
         override val type: GeneratedClassKGType<FillNode> =
-            GeneratedClassKGType(gsk_fill_node_get_type()) { FillNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_fill_node_get_type()) { FillNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of FillNode

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -16,7 +17,6 @@ import org.gtkkn.native.pango.pango_fontset_foreach
 import org.gtkkn.native.pango.pango_fontset_get_font
 import org.gtkkn.native.pango.pango_fontset_get_metrics
 import org.gtkkn.native.pango.pango_fontset_get_type
-import kotlin.Unit
 
 /**
  * A `PangoFontset` represents a set of `PangoFont` to use when rendering text.
@@ -26,8 +26,9 @@ import kotlin.Unit
  * component font for a particular Unicode character, and for finding a
  * composite set of metrics for the entire fontset.
  */
-public open class Fontset(pointer: CPointer<PangoFontset>) :
-    Object(pointer.reinterpret()),
+public open class Fontset(
+    pointer: CPointer<PangoFontset>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val pangoFontsetPointer: CPointer<PangoFontset>
         get() = gPointer.reinterpret()
@@ -42,11 +43,7 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      * @since 1.4
      */
     @PangoVersion1_4
-    public open fun foreach(func: FontsetForeachFunc): Unit = pango_fontset_foreach(
-        pangoFontsetPointer.reinterpret(),
-        FontsetForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public open fun foreach(func: FontsetForeachFunc): Unit = pango_fontset_foreach(pangoFontsetPointer.reinterpret(), FontsetForeachFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Returns the font in the fontset that contains the best
@@ -56,8 +53,7 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      * @return a `PangoFont`
      */
     public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer.reinterpret(), wc)!!.run {
-        Font(reinterpret())
-    }
+        Font(reinterpret())}
 
     /**
      * Get overall metric information for the fonts in the fontset.
@@ -65,16 +61,14 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      * @return a `PangoFontMetrics` object
      */
     public open fun getMetrics(): FontMetrics = pango_fontset_get_metrics(pangoFontsetPointer.reinterpret())!!.run {
-        FontMetrics(reinterpret())
-    }
+        FontMetrics(reinterpret())}
 
     public companion object : TypeCompanion<Fontset> {
         override val type: GeneratedClassKGType<Fontset> =
-            GeneratedClassKGType(pango_fontset_get_type()) { Fontset(it.reinterpret()) }
+                GeneratedClassKGType(pango_fontset_get_type()) { Fontset(it.reinterpret()) }
 
         init {
-            PangoTypeProvider.register()
-        }
+            PangoTypeProvider.register()}
 
         /**
          * Get the GType of Fontset

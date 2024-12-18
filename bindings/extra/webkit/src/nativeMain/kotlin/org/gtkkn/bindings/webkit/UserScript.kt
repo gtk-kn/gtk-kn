@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
@@ -14,16 +17,15 @@ import org.gtkkn.native.webkit.webkit_user_script_new
 import org.gtkkn.native.webkit.webkit_user_script_new_for_world
 import org.gtkkn.native.webkit.webkit_user_script_ref
 import org.gtkkn.native.webkit.webkit_user_script_unref
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A JavaScript snippet which can be injected in loaded pages.
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(pointer) {
+public class UserScript(
+    pointer: CPointer<WebKitUserScript>,
+) : ProxyInstance(pointer) {
     public val webkitUserScriptPointer: CPointer<WebKitUserScript> = pointer
 
     /**
@@ -36,8 +38,7 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
      */
     @WebKitVersion2_6
     public fun ref(): UserScript = webkit_user_script_ref(webkitUserScriptPointer.reinterpret())!!.run {
-        UserScript(reinterpret())
-    }
+        UserScript(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @user_script by one.
@@ -79,16 +80,7 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
             blockList: List<String>? = null,
         ): UserScript {
             memScoped {
-                return UserScript(
-                    webkit_user_script_new(
-                        source,
-                        injectedFrames.nativeValue,
-                        injectionTime.nativeValue,
-                        allowList?.toCStringList(this),
-                        blockList?.toCStringList(this)
-                    )!!.reinterpret()
-                )
-            }
+                return UserScript(webkit_user_script_new(source, injectedFrames.nativeValue, injectionTime.nativeValue, allowList?.toCStringList(this), blockList?.toCStringList(this))!!.reinterpret())}
         }
 
         /**
@@ -114,17 +106,7 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
             blockList: List<String>? = null,
         ): UserScript {
             memScoped {
-                return UserScript(
-                    webkit_user_script_new_for_world(
-                        source,
-                        injectedFrames.nativeValue,
-                        injectionTime.nativeValue,
-                        worldName,
-                        allowList?.toCStringList(this),
-                        blockList?.toCStringList(this)
-                    )!!.reinterpret()
-                )
-            }
+                return UserScript(webkit_user_script_new_for_world(source, injectedFrames.nativeValue, injectionTime.nativeValue, worldName, allowList?.toCStringList(this), blockList?.toCStringList(this))!!.reinterpret())}
         }
 
         /**

@@ -8,22 +8,21 @@ import org.gtkkn.native.gtk.gtk_unit_get_type
 /**
  * See also gtk_print_settings_set_paper_width().
  */
-public enum class Unit(public val nativeValue: GtkUnit) {
+public enum class Unit(
+    public val nativeValue: GtkUnit,
+) {
     /**
      * No units.
      */
     NONE(GtkUnit.GTK_UNIT_NONE),
-
     /**
      * Dimensions in points.
      */
     POINTS(GtkUnit.GTK_UNIT_POINTS),
-
     /**
      * Dimensions in inches.
      */
     INCH(GtkUnit.GTK_UNIT_INCH),
-
     /**
      * Dimensions in millimeters
      */

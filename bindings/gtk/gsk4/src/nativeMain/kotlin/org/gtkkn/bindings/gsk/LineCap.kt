@@ -24,19 +24,19 @@ import org.gtkkn.native.gsk.gsk_line_cap_get_type
  * @since 4.14
  */
 @GskVersion4_14
-public enum class LineCap(public val nativeValue: GskLineCap) {
+public enum class LineCap(
+    public val nativeValue: GskLineCap,
+) {
     /**
      * Start and stop the line exactly at the start
      *   and end point
      */
     BUTT(GskLineCap.GSK_LINE_CAP_BUTT),
-
     /**
      * Use a round ending, the center of the circle
      *   is the start or end point
      */
     ROUND(GskLineCap.GSK_LINE_CAP_ROUND),
-
     /**
      * use squared ending, the center of the square
      *   is the start or end point

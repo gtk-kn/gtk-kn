@@ -3,7 +3,9 @@ package org.gtkkn.bindings.glib
 
 import org.gtkkn.native.glib.GSliceConfig
 
-public enum class SliceConfig(public val nativeValue: GSliceConfig) {
+public enum class SliceConfig(
+    public val nativeValue: GSliceConfig,
+) {
     ALWAYS_MALLOC(GSliceConfig.G_SLICE_CONFIG_ALWAYS_MALLOC),
     BYPASS_MAGAZINES(GSliceConfig.G_SLICE_CONFIG_BYPASS_MAGAZINES),
     WORKING_SET_MSECS(GSliceConfig.G_SLICE_CONFIG_WORKING_SET_MSECS),

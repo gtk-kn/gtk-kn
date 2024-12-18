@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -20,7 +21,6 @@ import org.gtkkn.native.soup.soup_logger_set_max_body_size
 import org.gtkkn.native.soup.soup_logger_set_printer
 import org.gtkkn.native.soup.soup_logger_set_request_filter
 import org.gtkkn.native.soup.soup_logger_set_response_filter
-import kotlin.Unit
 
 /**
  * Debug logging support
@@ -86,8 +86,9 @@ import kotlin.Unit
  *
  * - method `level`: Property has no getter nor setter
  */
-public class Logger(pointer: CPointer<SoupLogger>) :
-    Object(pointer.reinterpret()),
+public class Logger(
+    pointer: CPointer<SoupLogger>,
+) : Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
     public val soupLoggerPointer: CPointer<SoupLogger>
@@ -108,7 +109,6 @@ public class Logger(pointer: CPointer<SoupLogger>) :
          * @return the maximum body size, or -1 if unlimited
          */
         get() = soup_logger_get_max_body_size(soupLoggerPointer.reinterpret())
-
         /**
          * Sets the maximum body size for @logger (-1 means no limit).
          *
@@ -134,12 +134,7 @@ public class Logger(pointer: CPointer<SoupLogger>) :
      *
      * @param printer the callback for printing logging output
      */
-    public fun setPrinter(printer: LoggerPrinter): Unit = soup_logger_set_printer(
-        soupLoggerPointer.reinterpret(),
-        LoggerPrinterFunc.reinterpret(),
-        StableRef.create(printer).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setPrinter(printer: LoggerPrinter): Unit = soup_logger_set_printer(soupLoggerPointer.reinterpret(), LoggerPrinterFunc.reinterpret(), StableRef.create(printer).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets up a filter to determine the log level for a given request.
@@ -151,12 +146,7 @@ public class Logger(pointer: CPointer<SoupLogger>) :
      *
      * @param requestFilter the callback for request debugging
      */
-    public fun setRequestFilter(requestFilter: LoggerFilter): Unit = soup_logger_set_request_filter(
-        soupLoggerPointer.reinterpret(),
-        LoggerFilterFunc.reinterpret(),
-        StableRef.create(requestFilter).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setRequestFilter(requestFilter: LoggerFilter): Unit = soup_logger_set_request_filter(soupLoggerPointer.reinterpret(), LoggerFilterFunc.reinterpret(), StableRef.create(requestFilter).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets up a filter to determine the log level for a given response.
@@ -168,20 +158,14 @@ public class Logger(pointer: CPointer<SoupLogger>) :
      *
      * @param responseFilter the callback for response debugging
      */
-    public fun setResponseFilter(responseFilter: LoggerFilter): Unit = soup_logger_set_response_filter(
-        soupLoggerPointer.reinterpret(),
-        LoggerFilterFunc.reinterpret(),
-        StableRef.create(responseFilter).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public fun setResponseFilter(responseFilter: LoggerFilter): Unit = soup_logger_set_response_filter(soupLoggerPointer.reinterpret(), LoggerFilterFunc.reinterpret(), StableRef.create(responseFilter).asCPointer(), staticStableRefDestroy.reinterpret())
 
     public companion object : TypeCompanion<Logger> {
         override val type: GeneratedClassKGType<Logger> =
-            GeneratedClassKGType(soup_logger_get_type()) { Logger(it.reinterpret()) }
+                GeneratedClassKGType(soup_logger_get_type()) { Logger(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of Logger

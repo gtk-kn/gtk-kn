@@ -12,23 +12,22 @@ import org.gtkkn.native.gobject.GType
  * @since 2.22
  */
 @GioVersion2_22
-public enum class SocketType(public val nativeValue: GSocketType) {
+public enum class SocketType(
+    public val nativeValue: GSocketType,
+) {
     /**
      * Type unknown or wrong
      */
     INVALID(GSocketType.G_SOCKET_TYPE_INVALID),
-
     /**
      * Reliable connection-based byte streams (e.g. TCP).
      */
     STREAM(GSocketType.G_SOCKET_TYPE_STREAM),
-
     /**
      * Connectionless, unreliable datagram passing.
      *     (e.g. UDP)
      */
     DATAGRAM(GSocketType.G_SOCKET_TYPE_DATAGRAM),
-
     /**
      * Reliable connection-based passing of datagrams
      *     of fixed maximum length (e.g. SCTP).

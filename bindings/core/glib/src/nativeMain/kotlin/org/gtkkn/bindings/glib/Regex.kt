@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -39,11 +44,6 @@ import org.gtkkn.native.glib.g_regex_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_regex_get_type
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A `GRegex` is the "compiled" form of a regular expression pattern.
@@ -115,7 +115,9 @@ import kotlin.collections.List
  * @since 2.14
  */
 @GLibVersion2_14
-public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
+public class Regex(
+    pointer: CPointer<GRegex>,
+) : ProxyInstance(pointer) {
     public val glibRegexPointer: CPointer<GRegex> = pointer
 
     /**
@@ -139,8 +141,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun getCompileFlags(): RegexCompileFlags = g_regex_get_compile_flags(glibRegexPointer.reinterpret()).run {
-        RegexCompileFlags(this)
-    }
+        RegexCompileFlags(this)}
 
     /**
      * Checks whether the pattern contains explicit CR or LF references.
@@ -159,8 +160,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun getMatchFlags(): RegexMatchFlags = g_regex_get_match_flags(glibRegexPointer.reinterpret()).run {
-        RegexMatchFlags(this)
-    }
+        RegexMatchFlags(this)}
 
     /**
      * Returns the number of the highest back reference
@@ -192,8 +192,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getPattern(): String =
-        g_regex_get_pattern(glibRegexPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getPattern(): String = g_regex_get_pattern(glibRegexPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the number of the subexpression named @name.
@@ -214,8 +213,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun ref(): Regex = g_regex_ref(glibRegexPointer.reinterpret())!!.run {
-        Regex(reinterpret())
-    }
+        Regex(reinterpret())}
 
     /**
      * Breaks the string on the pattern, and returns an array of the tokens.
@@ -243,9 +241,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun split(string: String, matchOptions: RegexMatchFlags): List<String> =
-        g_regex_split(glibRegexPointer.reinterpret(), string, matchOptions.mask)?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun split(string: String, matchOptions: RegexMatchFlags): List<String> = g_regex_split(glibRegexPointer.reinterpret(), string, matchOptions.mask)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Decreases reference count of @regex by 1. When reference count drops
@@ -278,7 +274,8 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
                 val gResult = g_regex_new(pattern, compileOptions.mask, matchOptions.mask, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
+                }
+                else {
                     Result.success(Regex(checkNotNull(gResult)))
                 }
             }
@@ -299,8 +296,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
          * @since 2.30
          */
         @GLibVersion2_30
-        public fun escapeNul(string: String, length: gint): String =
-            g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
+        public fun escapeNul(string: String, length: gint): String = g_regex_escape_nul(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Escapes the special characters used for regular expressions
@@ -317,8 +313,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun escapeString(string: String, length: gint): String =
-            g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
+        public fun escapeString(string: String, length: gint): String = g_regex_escape_string(string, length)?.toKString() ?: error("Expected not null string")
 
         /**
          * Scans for a match in @string for @pattern.
@@ -390,8 +385,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
             string: String,
             compileOptions: RegexCompileFlags,
             matchOptions: RegexMatchFlags,
-        ): List<String> = g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList()
-            ?: error("Expected not null string array")
+        ): List<String> = g_regex_split_simple(pattern, string, compileOptions.mask, matchOptions.mask)?.toKStringList() ?: error("Expected not null string array")
 
         /**
          * Get the GType of Regex

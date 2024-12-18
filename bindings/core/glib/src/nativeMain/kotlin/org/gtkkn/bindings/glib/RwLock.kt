@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -19,11 +24,6 @@ import org.gtkkn.native.glib.g_rw_lock_reader_unlock
 import org.gtkkn.native.glib.g_rw_lock_writer_lock
 import org.gtkkn.native.glib.g_rw_lock_writer_trylock
 import org.gtkkn.native.glib.g_rw_lock_writer_unlock
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The GRWLock struct is an opaque data structure to represent a
@@ -92,7 +92,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.32
  */
 @GLibVersion2_32
-public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class RwLock(
+    pointer: CPointer<GRWLock>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibRWLockPointer: CPointer<GRWLock> = pointer
 
     /**
@@ -101,11 +104,10 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GRWLock>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GRWLock>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

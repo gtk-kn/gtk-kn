@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,10 +16,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrLanguage
 import org.gtkkn.native.pango.pango_attr_language_new
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrLanguage` structure is used to represent attributes that
@@ -25,7 +25,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Attribute
  */
-public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrLanguage(
+    pointer: CPointer<PangoAttrLanguage>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrLanguagePointer: CPointer<PangoAttrLanguage> = pointer
 
     /**
@@ -33,9 +36,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
      */
     public var `value`: Language?
         get() = pangoAttrLanguagePointer.pointed.value?.run {
-            Language(reinterpret())
-        }
-
+            Language(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrLanguagePointer.pointed.value = value?.pangoLanguagePointer
@@ -47,11 +48,10 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrLanguage>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrLanguage>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -59,9 +59,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to AttrLanguage and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrLanguage>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAttrLanguage>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrLanguage using the provided [AutofreeScope].
@@ -107,9 +105,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(language: Language): Attribute =
-            pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(language: Language): Attribute = pango_attr_language_new(language.pangoLanguagePointer.reinterpret())!!.run {
+            Attribute(reinterpret())}
     }
 }

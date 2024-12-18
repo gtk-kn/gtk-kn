@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
@@ -25,9 +28,6 @@ import org.gtkkn.native.gio.g_notification_set_priority
 import org.gtkkn.native.gio.g_notification_set_title
 import org.gtkkn.native.gio.g_notification_set_urgent
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * `GNotification` is a mechanism for creating a notification to be shown
@@ -78,8 +78,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @GioVersion2_40
-public open class Notification(pointer: CPointer<GNotification>) :
-    Object(pointer.reinterpret()),
+public open class Notification(
+    pointer: CPointer<GNotification>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioNotificationPointer: CPointer<GNotification>
         get() = gPointer.reinterpret()
@@ -113,8 +114,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun addButton(label: String, detailedAction: String): Unit =
-        g_notification_add_button(gioNotificationPointer.reinterpret(), label, detailedAction)
+    public open fun addButton(label: String, detailedAction: String): Unit = g_notification_add_button(gioNotificationPointer.reinterpret(), label, detailedAction)
 
     /**
      * Adds a button to @notification that activates @action when clicked.
@@ -129,13 +129,11 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun addButtonWithTarget(label: String, action: String, target: Variant? = null): Unit =
-        g_notification_add_button_with_target_value(
-            gioNotificationPointer.reinterpret(),
-            label,
-            action,
-            target?.glibVariantPointer?.reinterpret()
-        )
+    public open fun addButtonWithTarget(
+        label: String,
+        action: String,
+        target: Variant? = null,
+    ): Unit = g_notification_add_button_with_target_value(gioNotificationPointer.reinterpret(), label, action, target?.glibVariantPointer?.reinterpret())
 
     /**
      * Sets the body of @notification to @body.
@@ -144,8 +142,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setBody(body: String? = null): Unit =
-        g_notification_set_body(gioNotificationPointer.reinterpret(), body)
+    public open fun setBody(body: String? = null): Unit = g_notification_set_body(gioNotificationPointer.reinterpret(), body)
 
     /**
      * Sets the type of @notification to @category. Categories have a main
@@ -159,8 +156,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun setCategory(category: String? = null): Unit =
-        g_notification_set_category(gioNotificationPointer.reinterpret(), category)
+    public open fun setCategory(category: String? = null): Unit = g_notification_set_category(gioNotificationPointer.reinterpret(), category)
 
     /**
      * Sets the default action of @notification to @detailed_action. This
@@ -179,8 +175,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setDefaultAction(detailedAction: String): Unit =
-        g_notification_set_default_action(gioNotificationPointer.reinterpret(), detailedAction)
+    public open fun setDefaultAction(detailedAction: String): Unit = g_notification_set_default_action(gioNotificationPointer.reinterpret(), detailedAction)
 
     /**
      * Sets the default action of @notification to @action. This action is
@@ -198,12 +193,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setDefaultActionAndTarget(action: String, target: Variant? = null): Unit =
-        g_notification_set_default_action_and_target_value(
-            gioNotificationPointer.reinterpret(),
-            action,
-            target?.glibVariantPointer?.reinterpret()
-        )
+    public open fun setDefaultActionAndTarget(action: String, target: Variant? = null): Unit = g_notification_set_default_action_and_target_value(gioNotificationPointer.reinterpret(), action, target?.glibVariantPointer?.reinterpret())
 
     /**
      * Sets the icon of @notification to @icon.
@@ -212,8 +202,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setIcon(icon: Icon): Unit =
-        g_notification_set_icon(gioNotificationPointer.reinterpret(), icon.gioIconPointer)
+    public open fun setIcon(icon: Icon): Unit = g_notification_set_icon(gioNotificationPointer.reinterpret(), icon.gioIconPointer)
 
     /**
      * Sets the priority of @notification to @priority. See
@@ -221,8 +210,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      *
      * @param priority a #GNotificationPriority
      */
-    public open fun setPriority(priority: NotificationPriority): Unit =
-        g_notification_set_priority(gioNotificationPointer.reinterpret(), priority.nativeValue)
+    public open fun setPriority(priority: NotificationPriority): Unit = g_notification_set_priority(gioNotificationPointer.reinterpret(), priority.nativeValue)
 
     /**
      * Sets the title of @notification to @title.
@@ -231,8 +219,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setTitle(title: String): Unit =
-        g_notification_set_title(gioNotificationPointer.reinterpret(), title)
+    public open fun setTitle(title: String): Unit = g_notification_set_title(gioNotificationPointer.reinterpret(), title)
 
     /**
      * Deprecated in favor of g_notification_set_priority().
@@ -241,16 +228,14 @@ public open class Notification(pointer: CPointer<GNotification>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setUrgent(urgent: Boolean): Unit =
-        g_notification_set_urgent(gioNotificationPointer.reinterpret(), urgent.asGBoolean())
+    public open fun setUrgent(urgent: Boolean): Unit = g_notification_set_urgent(gioNotificationPointer.reinterpret(), urgent.asGBoolean())
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
-            GeneratedClassKGType(g_notification_get_type()) { Notification(it.reinterpret()) }
+                GeneratedClassKGType(g_notification_get_type()) { Notification(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of Notification

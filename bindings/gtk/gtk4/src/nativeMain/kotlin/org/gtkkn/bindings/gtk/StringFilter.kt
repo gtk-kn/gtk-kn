@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -21,8 +23,6 @@ import org.gtkkn.native.gtk.gtk_string_filter_set_expression
 import org.gtkkn.native.gtk.gtk_string_filter_set_ignore_case
 import org.gtkkn.native.gtk.gtk_string_filter_set_match_mode
 import org.gtkkn.native.gtk.gtk_string_filter_set_search
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkStringFilter` determines whether to include items by comparing
@@ -39,8 +39,9 @@ import kotlin.String
  * It is also possible to make case-insensitive comparisons, with
  * [method@Gtk.StringFilter.set_ignore_case].
  */
-public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
-    Filter(pointer.reinterpret()),
+public open class StringFilter(
+    pointer: CPointer<GtkStringFilter>,
+) : Filter(pointer.reinterpret()),
     KGTyped {
     public val gtkStringFilterPointer: CPointer<GtkStringFilter>
         get() = gPointer.reinterpret()
@@ -56,9 +57,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          * @return a `GtkExpression`
          */
         get() = gtk_string_filter_get_expression(gtkStringFilterPointer.reinterpret())?.run {
-            Expression(reinterpret())
-        }
-
+            Expression(reinterpret())}
         /**
          * Sets the expression that the string filter uses to
          * obtain strings from items.
@@ -67,9 +66,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(
-            expression
-        ) = gtk_string_filter_set_expression(gtkStringFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = gtk_string_filter_set_expression(gtkStringFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     /**
      * If matching is case sensitive.
@@ -81,15 +78,12 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          * @return true if the filter ignores case
          */
         get() = gtk_string_filter_get_ignore_case(gtkStringFilterPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the filter ignores case differences.
          *
          * @param ignoreCase true to ignore case
          */
-        set(
-            ignoreCase
-        ) = gtk_string_filter_set_ignore_case(gtkStringFilterPointer.reinterpret(), ignoreCase.asGBoolean())
+        set(ignoreCase) = gtk_string_filter_set_ignore_case(gtkStringFilterPointer.reinterpret(), ignoreCase.asGBoolean())
 
     /**
      * If exact matches are necessary or if substrings are allowed.
@@ -101,9 +95,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          * @return the match mode of the filter
          */
         get() = gtk_string_filter_get_match_mode(gtkStringFilterPointer.reinterpret()).run {
-            StringFilterMatchMode.fromNativeValue(this)
-        }
-
+            StringFilterMatchMode.fromNativeValue(this)}
         /**
          * Sets the match mode for the filter.
          *
@@ -121,7 +113,6 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          * @return The search term
          */
         get() = gtk_string_filter_get_search(gtkStringFilterPointer.reinterpret())?.toKString()
-
         /**
          * Sets the string to search for.
          *
@@ -139,17 +130,14 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
      * @param expression The expression to evaluate
      * @return a new `GtkStringFilter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_string_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_string_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<StringFilter> {
         override val type: GeneratedClassKGType<StringFilter> =
-            GeneratedClassKGType(gtk_string_filter_get_type()) { StringFilter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_string_filter_get_type()) { StringFilter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of StringFilter

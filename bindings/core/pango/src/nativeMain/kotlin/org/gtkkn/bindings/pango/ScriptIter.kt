@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
@@ -13,9 +16,6 @@ import org.gtkkn.native.pango.pango_script_iter_free
 import org.gtkkn.native.pango.pango_script_iter_get_type
 import org.gtkkn.native.pango.pango_script_iter_new
 import org.gtkkn.native.pango.pango_script_iter_next
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A `PangoScriptIter` is used to iterate through a string
@@ -25,7 +25,9 @@ import kotlin.Unit
  *
  * - parameter `start`: start: Out parameter is not supported
  */
-public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(pointer) {
+public class ScriptIter(
+    pointer: CPointer<PangoScriptIter>,
+) : ProxyInstance(pointer) {
     public val pangoScriptIterPointer: CPointer<PangoScriptIter> = pointer
 
     /**
@@ -65,8 +67,7 @@ public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(poin
          *  empty, it will point at an empty range.
          * @since 1.4
          */
-        public fun new(text: String, length: gint): ScriptIter =
-            ScriptIter(pango_script_iter_new(text, length)!!.reinterpret())
+        public fun new(text: String, length: gint): ScriptIter = ScriptIter(pango_script_iter_new(text, length)!!.reinterpret())
 
         /**
          * Get the GType of ScriptIter

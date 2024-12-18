@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.Widget
@@ -20,7 +21,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
 
 /**
  * A view switcher action bar.
@@ -85,8 +85,9 @@ import kotlin.Boolean
  *
  * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
  */
-public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
-    Widget(pointer.reinterpret()),
+public class ViewSwitcherBar(
+    pointer: CPointer<AdwViewSwitcherBar>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwViewSwitcherBarPointer: CPointer<AdwViewSwitcherBar>
         get() = gPointer.reinterpret()
@@ -110,7 +111,6 @@ public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
          * @return whether @self is revealed
          */
         get() = adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self should be revealed or hidden.
          *
@@ -128,20 +128,13 @@ public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
          * @return the stack
          */
         get() = adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer.reinterpret())?.run {
-            ViewStack(reinterpret())
-        }
-
+            ViewStack(reinterpret())}
         /**
          * Sets the stack controlled by @self.
          *
          * @param stack a stack
          */
-        set(
-            stack
-        ) = adw_view_switcher_bar_set_stack(
-            adwViewSwitcherBarPointer.reinterpret(),
-            stack?.adwViewStackPointer?.reinterpret()
-        )
+        set(stack) = adw_view_switcher_bar_set_stack(adwViewSwitcherBarPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
 
     /**
      * Creates a new `AdwViewSwitcherBar`.
@@ -152,11 +145,10 @@ public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
 
     public companion object : TypeCompanion<ViewSwitcherBar> {
         override val type: GeneratedClassKGType<ViewSwitcherBar> =
-            GeneratedClassKGType(adw_view_switcher_bar_get_type()) { ViewSwitcherBar(it.reinterpret()) }
+                GeneratedClassKGType(adw_view_switcher_bar_get_type()) { ViewSwitcherBar(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ViewSwitcherBar

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -20,11 +25,6 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a method on an D-Bus interface.
@@ -38,7 +38,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class DBusMethodInfo(
+    pointer: CPointer<GDBusMethodInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusMethodInfoPointer: CPointer<GDBusMethodInfo> = pointer
 
     /**
@@ -46,7 +49,6 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      */
     public var refCount: gint
         get() = gioDBusMethodInfoPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusMethodInfoPointer.pointed.ref_count = value
@@ -57,7 +59,6 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      */
     public var name: String?
         get() = gioDBusMethodInfoPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusMethodInfoPointer.pointed.name?.let { g_free(it) }
@@ -70,11 +71,10 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusMethodInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusMethodInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -82,9 +82,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to DBusMethodInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GDBusMethodInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GDBusMethodInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusMethodInfo using the provided [AutofreeScope].
@@ -136,8 +134,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      */
     @GioVersion2_26
     public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gioDBusMethodInfoPointer.reinterpret())!!.run {
-        DBusMethodInfo(reinterpret())
-    }
+        DBusMethodInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

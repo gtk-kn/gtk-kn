@@ -8,12 +8,13 @@ import org.gtkkn.native.gtk.gtk_notebook_tab_get_type
 /**
  * The parameter used in the action signals of `GtkNotebook`.
  */
-public enum class NotebookTab(public val nativeValue: GtkNotebookTab) {
+public enum class NotebookTab(
+    public val nativeValue: GtkNotebookTab,
+) {
     /**
      * the first tab in the notebook
      */
     FIRST(GtkNotebookTab.GTK_NOTEBOOK_TAB_FIRST),
-
     /**
      * the last tab in the notebook
      */

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -11,7 +12,6 @@ import org.gtkkn.native.soup.SoupHSTSEnforcerDB
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_hsts_enforcer_db_get_type
 import org.gtkkn.native.soup.soup_hsts_enforcer_db_new
-import kotlin.String
 
 /**
  * Persistent HTTP Strict Transport Security enforcer.
@@ -23,8 +23,9 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class HstsEnforcerDb(pointer: CPointer<SoupHSTSEnforcerDB>) :
-    HstsEnforcer(pointer.reinterpret()),
+public class HstsEnforcerDb(
+    pointer: CPointer<SoupHSTSEnforcerDB>,
+) : HstsEnforcer(pointer.reinterpret()),
     KGTyped {
     public val soupHSTSEnforcerDBPointer: CPointer<SoupHSTSEnforcerDB>
         get() = gPointer.reinterpret()
@@ -49,11 +50,10 @@ public class HstsEnforcerDb(pointer: CPointer<SoupHSTSEnforcerDB>) :
 
     public companion object : TypeCompanion<HstsEnforcerDb> {
         override val type: GeneratedClassKGType<HstsEnforcerDb> =
-            GeneratedClassKGType(soup_hsts_enforcer_db_get_type()) { HstsEnforcerDb(it.reinterpret()) }
+                GeneratedClassKGType(soup_hsts_enforcer_db_get_type()) { HstsEnforcerDb(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of HSTSEnforcerDB

@@ -56,8 +56,9 @@ import org.gtkkn.native.gtk.gtk_column_view_sorter_get_type
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class ColumnViewSorter(
+    pointer: CPointer<GtkColumnViewSorter>,
+) : Sorter(pointer.reinterpret()),
     KGTyped {
     public val gtkColumnViewSorterPointer: CPointer<GtkColumnViewSorter>
         get() = gPointer.reinterpret()
@@ -82,8 +83,7 @@ public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
          * @since 4.10
          */
         get() = gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer.reinterpret())?.run {
-            ColumnViewColumn(reinterpret())
-        }
+            ColumnViewColumn(reinterpret())}
 
     /**
      * The primary sort order.
@@ -110,8 +110,7 @@ public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
          * @since 4.10
          */
         get() = gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer.reinterpret()).run {
-            SortType.fromNativeValue(this)
-        }
+            SortType.fromNativeValue(this)}
 
     /**
      * Returns the number of columns by which the sorter sorts.
@@ -127,16 +126,14 @@ public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getNSortColumns(): guint =
-        gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
+    public open fun getNSortColumns(): guint = gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
 
     public companion object : TypeCompanion<ColumnViewSorter> {
         override val type: GeneratedClassKGType<ColumnViewSorter> =
-            GeneratedClassKGType(gtk_column_view_sorter_get_type()) { ColumnViewSorter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_column_view_sorter_get_type()) { ColumnViewSorter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ColumnViewSorter

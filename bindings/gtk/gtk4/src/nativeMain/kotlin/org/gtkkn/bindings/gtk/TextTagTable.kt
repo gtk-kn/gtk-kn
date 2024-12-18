@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,10 +33,6 @@ import org.gtkkn.native.gtk.gtk_text_tag_table_get_type
 import org.gtkkn.native.gtk.gtk_text_tag_table_lookup
 import org.gtkkn.native.gtk.gtk_text_tag_table_new
 import org.gtkkn.native.gtk.gtk_text_tag_table_remove
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The collection of tags in a `GtkTextBuffer`
@@ -57,8 +57,9 @@ import kotlin.Unit
  * </object>
  * ```
  */
-public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
-    Object(pointer.reinterpret()),
+public open class TextTagTable(
+    pointer: CPointer<GtkTextTagTable>,
+) : Object(pointer.reinterpret()),
     Buildable,
     KGTyped {
     public val gtkTextTagTablePointer: CPointer<GtkTextTagTable>
@@ -87,8 +88,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param tag a `GtkTextTag`
      * @return true on success.
      */
-    public open fun add(tag: TextTag): Boolean =
-        gtk_text_tag_table_add(gtkTextTagTablePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret()).asBoolean()
+    public open fun add(tag: TextTag): Boolean = gtk_text_tag_table_add(gtkTextTagTablePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret()).asBoolean()
 
     /**
      * Calls @func on each tag in @table, with user data @data.
@@ -98,11 +98,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      *
      * @param func a function to call on each tag
      */
-    public open fun foreach(func: TextTagTableForeach): Unit = gtk_text_tag_table_foreach(
-        gtkTextTagTablePointer.reinterpret(),
-        TextTagTableForeachFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public open fun foreach(func: TextTagTableForeach): Unit = gtk_text_tag_table_foreach(gtkTextTagTablePointer.reinterpret(), TextTagTableForeachFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Returns the size of the table (number of tags)
@@ -117,10 +113,8 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param name name of a tag
      * @return The tag
      */
-    public open fun lookup(name: String): TextTag? =
-        gtk_text_tag_table_lookup(gtkTextTagTablePointer.reinterpret(), name)?.run {
-            TextTag(reinterpret())
-        }
+    public open fun lookup(name: String): TextTag? = gtk_text_tag_table_lookup(gtkTextTagTablePointer.reinterpret(), name)?.run {
+        TextTag(reinterpret())}
 
     /**
      * Remove a tag from the table.
@@ -132,8 +126,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      *
      * @param tag a `GtkTextTag`
      */
-    public open fun remove(tag: TextTag): Unit =
-        gtk_text_tag_table_remove(gtkTextTagTablePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
+    public open fun remove(tag: TextTag): Unit = gtk_text_tag_table_remove(gtkTextTagTablePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
 
     /**
      * Emitted every time a new tag is added in the `GtkTextTagTable`.
@@ -141,15 +134,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `tag` the added tag.
      */
-    public fun connectTagAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tag: TextTag) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "tag-added",
-            connectTagAddedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectTagAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tag: TextTag) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "tag-added", connectTagAddedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted every time a tag in the `GtkTextTagTable` changes.
@@ -157,17 +142,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `tag` the changed tag.; `sizeChanged` whether the change affects the `GtkTextView` layout.
      */
-    public fun connectTagChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (tag: TextTag, sizeChanged: Boolean) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "tag-changed",
-        connectTagChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectTagChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tag: TextTag, sizeChanged: Boolean) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "tag-changed", connectTagChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted every time a tag is removed from the `GtkTextTagTable`.
@@ -178,25 +153,14 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `tag` the removed tag.
      */
-    public fun connectTagRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (tag: TextTag) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "tag-removed",
-        connectTagRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectTagRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tag: TextTag) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "tag-removed", connectTagRemovedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<TextTagTable> {
         override val type: GeneratedClassKGType<TextTagTable> =
-            GeneratedClassKGType(gtk_text_tag_table_get_type()) { TextTagTable(it.reinterpret()) }
+                GeneratedClassKGType(gtk_text_tag_table_get_type()) { TextTagTable(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TextTagTable
@@ -208,45 +172,35 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
 }
 
 private val connectTagAddedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            tag: CPointer<GtkTextTag>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(tag: TextTag) -> Unit>().get().invoke(
-            tag!!.run {
-                TextTag(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    tag: CPointer<GtkTextTag>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(tag: TextTag) -> Unit>().get().invoke(tag!!.run {
+        TextTag(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectTagChangedFunc: CPointer<CFunction<(CPointer<GtkTextTag>, gboolean) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            tag: CPointer<GtkTextTag>?,
-            sizeChanged: gboolean,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(tag: TextTag, sizeChanged: Boolean) -> Unit>().get().invoke(
-            tag!!.run {
-                TextTag(reinterpret())
-            },
-            sizeChanged.asBoolean()
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    tag: CPointer<GtkTextTag>?,
+    sizeChanged: gboolean,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(tag: TextTag, sizeChanged: Boolean) -> Unit>().get().invoke(tag!!.run {
+        TextTag(reinterpret())}
+    , sizeChanged.asBoolean())}
+.reinterpret()
 
 private val connectTagRemovedFunc: CPointer<CFunction<(CPointer<GtkTextTag>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            tag: CPointer<GtkTextTag>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(tag: TextTag) -> Unit>().get().invoke(
-            tag!!.run {
-                TextTag(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    tag: CPointer<GtkTextTag>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(tag: TextTag) -> Unit>().get().invoke(tag!!.run {
+        TextTag(reinterpret())}
+    )}
+.reinterpret()

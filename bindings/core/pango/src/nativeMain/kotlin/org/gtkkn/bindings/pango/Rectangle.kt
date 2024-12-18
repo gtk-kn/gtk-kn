@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoRectangle
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoRectangle` structure represents a rectangle.
@@ -23,7 +23,10 @@ import kotlin.native.ref.createCleaner
  * extents of a single glyph or section of text. (See, for instance,
  * [method@Pango.Font.get_glyph_extents].)
  */
-public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Rectangle(
+    pointer: CPointer<PangoRectangle>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoRectanglePointer: CPointer<PangoRectangle> = pointer
 
     /**
@@ -31,7 +34,6 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      */
     public var x: gint
         get() = pangoRectanglePointer.pointed.x
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.x = value
@@ -42,7 +44,6 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      */
     public var y: gint
         get() = pangoRectanglePointer.pointed.y
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.y = value
@@ -53,7 +54,6 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      */
     public var width: gint
         get() = pangoRectanglePointer.pointed.width
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.width = value
@@ -64,7 +64,6 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      */
     public var height: gint
         get() = pangoRectanglePointer.pointed.height
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoRectanglePointer.pointed.height = value
@@ -76,11 +75,10 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoRectangle>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoRectangle>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -88,9 +86,7 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to Rectangle and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoRectangle>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoRectangle>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rectangle using the provided [AutofreeScope].

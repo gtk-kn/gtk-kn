@@ -13,7 +13,9 @@ import org.gtkkn.native.gobject.GType
  * @since 2.40
  */
 @GioVersion2_40
-public enum class TlsCertificateRequestFlags(public val nativeValue: GTlsCertificateRequestFlags) {
+public enum class TlsCertificateRequestFlags(
+    public val nativeValue: GTlsCertificateRequestFlags,
+) {
     /**
      * No flags
      */
@@ -21,11 +23,10 @@ public enum class TlsCertificateRequestFlags(public val nativeValue: GTlsCertifi
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GTlsCertificateRequestFlags): TlsCertificateRequestFlags =
-            when (nativeValue) {
-                GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE -> NONE
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GTlsCertificateRequestFlags): TlsCertificateRequestFlags = when (nativeValue) {
+            GTlsCertificateRequestFlags.G_TLS_CERTIFICATE_REQUEST_NONE -> NONE
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of TlsCertificateRequestFlags

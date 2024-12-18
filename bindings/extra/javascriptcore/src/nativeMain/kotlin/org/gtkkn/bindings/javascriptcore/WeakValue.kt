@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.javascriptcore
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -20,8 +22,6 @@ import org.gtkkn.native.javascriptcore.JSCWeakValue
 import org.gtkkn.native.javascriptcore.jsc_weak_value_get_type
 import org.gtkkn.native.javascriptcore.jsc_weak_value_get_value
 import org.gtkkn.native.javascriptcore.jsc_weak_value_new
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * JSCWeakValue represents a weak reference to a value in a #JSCContext. It can be used
@@ -32,8 +32,9 @@ import kotlin.Unit
  *
  * - method `value`: Property has no getter nor setter
  */
-public class WeakValue(pointer: CPointer<JSCWeakValue>) :
-    Object(pointer.reinterpret()),
+public class WeakValue(
+    pointer: CPointer<JSCWeakValue>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val javascriptcoreWeakValuePointer: CPointer<JSCWeakValue>
         get() = gPointer.reinterpret()
@@ -44,9 +45,7 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
      * @param value a #JSCValue
      * @return a new #JSCWeakValue
      */
-    public constructor(
-        `value`: Value,
-    ) : this(jsc_weak_value_new(`value`.javascriptcoreValuePointer.reinterpret())!!.reinterpret())
+    public constructor(`value`: Value) : this(jsc_weak_value_new(`value`.javascriptcoreValuePointer.reinterpret())!!.reinterpret())
 
     /**
      * Get a #JSCValue referencing the JavaScript value of @weak_value.
@@ -54,8 +53,7 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
      * @return a new #JSCValue or null if @weak_value was cleared.
      */
     public fun getValue(): Value = jsc_weak_value_get_value(javascriptcoreWeakValuePointer.reinterpret())!!.run {
-        Value(reinterpret())
-    }
+        Value(reinterpret())}
 
     /**
      * This signal is emitted when the JavaScript value is destroyed.
@@ -63,23 +61,14 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "cleared",
-            connectClearedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "cleared", connectClearedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<WeakValue> {
         override val type: GeneratedClassKGType<WeakValue> =
-            GeneratedClassKGType(jsc_weak_value_get_type()) { WeakValue(it.reinterpret()) }
+                GeneratedClassKGType(jsc_weak_value_get_type()) { WeakValue(it.reinterpret()) }
 
         init {
-            JavascriptcoreTypeProvider.register()
-        }
+            JavascriptcoreTypeProvider.register()}
 
         /**
          * Get the GType of WeakValue
@@ -91,9 +80,8 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
 }
 
 private val connectClearedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

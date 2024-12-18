@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,15 +23,15 @@ import org.gtkkn.native.gio.g_proxy_address_get_username
 import org.gtkkn.native.gio.g_proxy_address_new
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
-import kotlin.String
 
 /**
  * A [class@Gio.InetSocketAddress] representing a connection via a proxy server.
  * @since 2.26
  */
 @GioVersion2_26
-public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
-    InetSocketAddress(pointer.reinterpret()),
+public open class ProxyAddress(
+    pointer: CPointer<GProxyAddress>,
+) : InetSocketAddress(pointer.reinterpret()),
     KGTyped {
     public val gioProxyAddressPointer: CPointer<GProxyAddress>
         get() = gPointer.reinterpret()
@@ -53,8 +54,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's destination hostname
          * @since 2.26
          */
-        get() = g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The proxy destination port.
@@ -88,8 +88,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's destination protocol
          * @since 2.34
          */
-        get() = g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The proxy password.
@@ -119,8 +118,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's protocol
          * @since 2.26
          */
-        get() = g_proxy_address_get_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_proxy_address_get_protocol(gioProxyAddressPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * The URI string that the proxy was constructed from (or null
@@ -181,25 +179,14 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
         destPort: guint16,
         username: String? = null,
         password: String? = null,
-    ) : this(
-        g_proxy_address_new(
-            inetaddr.gioInetAddressPointer.reinterpret(),
-            port,
-            protocol,
-            destHostname,
-            destPort,
-            username,
-            password
-        )!!.reinterpret()
-    )
+    ) : this(g_proxy_address_new(inetaddr.gioInetAddressPointer.reinterpret(), port, protocol, destHostname, destPort, username, password)!!.reinterpret())
 
     public companion object : TypeCompanion<ProxyAddress> {
         override val type: GeneratedClassKGType<ProxyAddress> =
-            GeneratedClassKGType(g_proxy_address_get_type()) { ProxyAddress(it.reinterpret()) }
+                GeneratedClassKGType(g_proxy_address_get_type()) { ProxyAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of ProxyAddress

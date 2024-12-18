@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -31,9 +34,6 @@ import org.gtkkn.native.gio.g_tls_client_connection_set_use_ssl3
 import org.gtkkn.native.gio.g_tls_client_connection_set_validation_flags
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.Unit
 
 /**
  * `GTlsClientConnection` is the client-side subclass of
@@ -46,9 +46,7 @@ import kotlin.Unit
  * @since 2.28
  */
 @GioVersion2_28
-public interface TlsClientConnection :
-    Interface,
-    KGTyped {
+public interface TlsClientConnection : Interface, KGTyped {
     public val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection>
 
     /**
@@ -79,8 +77,7 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         get() = g_tls_client_connection_get_accepted_cas(gioTlsClientConnectionPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
     /**
      * SSL 3.0 is no longer supported. See
@@ -98,7 +95,6 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         get() = g_tls_client_connection_get_use_ssl3(gioTlsClientConnectionPointer.reinterpret()).asBoolean()
-
         /**
          * Since GLib 2.42.1, SSL 3.0 is no longer supported.
          *
@@ -115,9 +111,7 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        set(
-            useSsl3
-        ) = g_tls_client_connection_set_use_ssl3(gioTlsClientConnectionPointer.reinterpret(), useSsl3.asGBoolean())
+        set(useSsl3) = g_tls_client_connection_set_use_ssl3(gioTlsClientConnectionPointer.reinterpret(), useSsl3.asGBoolean())
 
     /**
      * What steps to perform when validating a certificate received from
@@ -152,9 +146,7 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         get() = g_tls_client_connection_get_validation_flags(gioTlsClientConnectionPointer.reinterpret()).run {
-            TlsCertificateFlags(this)
-        }
-
+            TlsCertificateFlags(this)}
         /**
          * Sets @conn's validation flags, to override the default set of
          * checks performed when validating a server certificate. By default,
@@ -168,9 +160,7 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        set(
-            flags
-        ) = g_tls_client_connection_set_validation_flags(gioTlsClientConnectionPointer.reinterpret(), flags.mask)
+        set(flags) = g_tls_client_connection_set_validation_flags(gioTlsClientConnectionPointer.reinterpret(), flags.mask)
 
     /**
      * Possibly copies session state from one connection to another, for use
@@ -206,10 +196,7 @@ public interface TlsClientConnection :
      * @since 2.46
      */
     @GioVersion2_46
-    public fun copySessionState(source: TlsClientConnection): Unit = g_tls_client_connection_copy_session_state(
-        gioTlsClientConnectionPointer.reinterpret(),
-        source.gioTlsClientConnectionPointer
-    )
+    public fun copySessionState(source: TlsClientConnection): Unit = g_tls_client_connection_copy_session_state(gioTlsClientConnectionPointer.reinterpret(), source.gioTlsClientConnectionPointer)
 
     /**
      * Gets the list of distinguished names of the Certificate Authorities
@@ -226,10 +213,8 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getAcceptedCas(): List =
-        g_tls_client_connection_get_accepted_cas(gioTlsClientConnectionPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getAcceptedCas(): List = g_tls_client_connection_get_accepted_cas(gioTlsClientConnectionPointer.reinterpret())!!.run {
+        List(reinterpret())}
 
     /**
      * Gets @conn's expected server identity
@@ -240,10 +225,8 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getServerIdentity(): SocketConnectable? =
-        g_tls_client_connection_get_server_identity(gioTlsClientConnectionPointer.reinterpret())?.run {
-            SocketConnectable.wrap(reinterpret())
-        }
+    public fun getServerIdentity(): SocketConnectable? = g_tls_client_connection_get_server_identity(gioTlsClientConnectionPointer.reinterpret())?.run {
+        SocketConnectable.wrap(reinterpret())}
 
     /**
      * SSL 3.0 is no longer supported. See
@@ -253,8 +236,7 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getUseSsl3(): Boolean =
-        g_tls_client_connection_get_use_ssl3(gioTlsClientConnectionPointer.reinterpret()).asBoolean()
+    public fun getUseSsl3(): Boolean = g_tls_client_connection_get_use_ssl3(gioTlsClientConnectionPointer.reinterpret()).asBoolean()
 
     /**
      * Gets @conn's validation flags
@@ -267,10 +249,8 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getValidationFlags(): TlsCertificateFlags =
-        g_tls_client_connection_get_validation_flags(gioTlsClientConnectionPointer.reinterpret()).run {
-            TlsCertificateFlags(this)
-        }
+    public fun getValidationFlags(): TlsCertificateFlags = g_tls_client_connection_get_validation_flags(gioTlsClientConnectionPointer.reinterpret()).run {
+        TlsCertificateFlags(this)}
 
     /**
      * Sets @conn's expected server identity, which is used both to tell
@@ -282,10 +262,7 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun setServerIdentity(identity: SocketConnectable): Unit = g_tls_client_connection_set_server_identity(
-        gioTlsClientConnectionPointer.reinterpret(),
-        identity.gioSocketConnectablePointer
-    )
+    public fun setServerIdentity(identity: SocketConnectable): Unit = g_tls_client_connection_set_server_identity(gioTlsClientConnectionPointer.reinterpret(), identity.gioSocketConnectablePointer)
 
     /**
      * Since GLib 2.42.1, SSL 3.0 is no longer supported.
@@ -303,8 +280,7 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun setUseSsl3(useSsl3: Boolean): Unit =
-        g_tls_client_connection_set_use_ssl3(gioTlsClientConnectionPointer.reinterpret(), useSsl3.asGBoolean())
+    public fun setUseSsl3(useSsl3: Boolean): Unit = g_tls_client_connection_set_use_ssl3(gioTlsClientConnectionPointer.reinterpret(), useSsl3.asGBoolean())
 
     /**
      * Sets @conn's validation flags, to override the default set of
@@ -319,20 +295,20 @@ public interface TlsClientConnection :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
-        g_tls_client_connection_set_validation_flags(gioTlsClientConnectionPointer.reinterpret(), flags.mask)
+    public fun setValidationFlags(flags: TlsCertificateFlags): Unit = g_tls_client_connection_set_validation_flags(gioTlsClientConnectionPointer.reinterpret(), flags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GTlsClientConnection>) : TlsClientConnection {
+    private data class Wrapper(
+        private val pointer: CPointer<GTlsClientConnection>,
+    ) : TlsClientConnection {
         override val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection> = pointer
     }
 
     public companion object : TypeCompanion<TlsClientConnection> {
         override val type: GeneratedInterfaceKGType<TlsClientConnection> =
-            GeneratedInterfaceKGType(g_tls_client_connection_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_tls_client_connection_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GTlsClientConnection>): TlsClientConnection = Wrapper(pointer)
 
@@ -352,23 +328,18 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun new(baseIoStream: IoStream, serverIdentity: SocketConnectable? = null): Result<TlsClientConnection> =
-            memScoped {
-                val gError = allocPointerTo<GError>()
-                val gResult = g_tls_client_connection_new(
-                    baseIoStream.gioIOStreamPointer.reinterpret(),
-                    serverIdentity?.gioSocketConnectablePointer,
-                    gError.ptr
-                )?.run {
-                    TlsClientConnection.wrap(reinterpret())
-                }
+        public fun new(baseIoStream: IoStream, serverIdentity: SocketConnectable? = null): Result<TlsClientConnection> = memScoped {
+            val gError = allocPointerTo<GError>()
+            val gResult = g_tls_client_connection_new(baseIoStream.gioIOStreamPointer.reinterpret(), serverIdentity?.gioSocketConnectablePointer, gError.ptr)?.run {
+                TlsClientConnection.wrap(reinterpret())}
 
-                return if (gError.pointed != null) {
-                    Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
-                    Result.success(checkNotNull(gResult))
-                }
+            return if (gError.pointed != null) {
+                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             }
+            else {
+                Result.success(checkNotNull(gResult))
+            }
+        }
 
         /**
          * Get the GType of TlsClientConnection

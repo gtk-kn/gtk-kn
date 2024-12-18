@@ -15,10 +15,10 @@ import org.gtkkn.native.gtk.gtk_application_inhibit_flags_get_type
  *
  * See [method@Gtk.Application.inhibit].
  */
-public class ApplicationInhibitFlags(public val mask: GtkApplicationInhibitFlags) : Bitfield<ApplicationInhibitFlags> {
-    override infix fun or(other: ApplicationInhibitFlags): ApplicationInhibitFlags = ApplicationInhibitFlags(
-        mask or other.mask
-    )
+public class ApplicationInhibitFlags(
+    public val mask: GtkApplicationInhibitFlags,
+) : Bitfield<ApplicationInhibitFlags> {
+    override infix fun or(other: ApplicationInhibitFlags): ApplicationInhibitFlags = ApplicationInhibitFlags(mask or other.mask)
 
     public companion object {
         /**
@@ -26,27 +26,27 @@ public class ApplicationInhibitFlags(public val mask: GtkApplicationInhibitFlags
          *   by logging out or by shutting down the computer
          */
         public val LOGOUT: ApplicationInhibitFlags =
-            ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_LOGOUT)
+                ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_LOGOUT)
 
         /**
          * Inhibit user switching
          */
         public val SWITCH: ApplicationInhibitFlags =
-            ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_SWITCH)
+                ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_SWITCH)
 
         /**
          * Inhibit suspending the
          *   session or computer
          */
         public val SUSPEND: ApplicationInhibitFlags =
-            ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_SUSPEND)
+                ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_SUSPEND)
 
         /**
          * Inhibit the session being
          *   marked as idle (and possibly locked)
          */
         public val IDLE: ApplicationInhibitFlags =
-            ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_IDLE)
+                ApplicationInhibitFlags(GTK_APPLICATION_INHIBIT_IDLE)
 
         /**
          * Get the GType of ApplicationInhibitFlags

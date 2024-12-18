@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
@@ -8,8 +10,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GIOModuleScope
 import org.gtkkn.native.gio.g_io_module_scope_block
 import org.gtkkn.native.gio.g_io_module_scope_free
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Represents a scope for loading IO modules. A scope can be used for blocking
@@ -25,7 +25,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(pointer) {
+public class IoModuleScope(
+    pointer: CPointer<GIOModuleScope>,
+) : ProxyInstance(pointer) {
     public val gioIOModuleScopePointer: CPointer<GIOModuleScope> = pointer
 
     /**

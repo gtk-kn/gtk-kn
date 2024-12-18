@@ -1,15 +1,21 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdkpixbuf
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Throws
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.`value`
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdkpixbuf.GdkPixbuf.resolveException
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_12
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
@@ -105,12 +111,6 @@ import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint8
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Throws
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * A pixel buffer.
@@ -266,8 +266,9 @@ import kotlin.collections.List
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `width`: width: Out parameter is not supported
  */
-public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
-    Object(pointer.reinterpret()),
+public open class Pixbuf(
+    pointer: CPointer<GdkPixbuf>,
+) : Object(pointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
@@ -305,8 +306,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
          * @return Color space.
          */
         get() = gdk_pixbuf_get_colorspace(gdkpixbufPixbufPointer.reinterpret()).run {
-            Colorspace.fromNativeValue(this)
-        }
+            Colorspace.fromNativeValue(this)}
 
     /**
      * Whether the pixbuf has an alpha channel.
@@ -391,9 +391,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         bitsPerSample: gint,
         width: gint,
         height: gint,
-    ) : this(
-        gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret()
-    )
+    ) : this(gdk_pixbuf_new(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)!!.reinterpret())
 
     /**
      * Creates a new #GdkPixbuf out of in-memory readonly image data.
@@ -421,17 +419,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         width: gint,
         height: gint,
         rowstride: gint,
-    ) : this(
-        gdk_pixbuf_new_from_bytes(
-            `data`.glibBytesPointer.reinterpret(),
-            colorspace.nativeValue,
-            hasAlpha.asGBoolean(),
-            bitsPerSample,
-            width,
-            height,
-            rowstride
-        )!!.reinterpret()
-    )
+    ) : this(gdk_pixbuf_new_from_bytes(`data`.glibBytesPointer.reinterpret(), colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height, rowstride)!!.reinterpret())
 
     /**
      * Creates a new pixbuf by loading an image from a file.
@@ -452,15 +440,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @return A newly-created pixbuf
      */
     @Throws(GLibException::class)
-    public constructor(filename: String) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_pixbuf_new_from_file(filename, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(filename: String) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_new_from_file(filename, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -501,16 +488,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         width: gint,
         height: gint,
         preserveAspectRatio: Boolean,
-    ) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -545,15 +530,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         filename: String,
         width: gint,
         height: gint,
-    ) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_pixbuf_new_from_file_at_size(filename, width, height, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_new_from_file_at_size(filename, width, height, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -576,20 +560,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.14
      */
     @Throws(GLibException::class)
-    public constructor(stream: InputStream, cancellable: Cancellable? = null) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_new_from_stream(
-                    stream.gioInputStreamPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(stream: InputStream, cancellable: Cancellable? = null) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_new_from_stream(stream.gioInputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -630,23 +608,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         height: gint,
         preserveAspectRatio: Boolean,
         cancellable: Cancellable? = null,
-    ) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult =
-                gdk_pixbuf_new_from_stream_at_scale(
-                    stream.gioInputStreamPointer.reinterpret(),
-                    width,
-                    height,
-                    preserveAspectRatio.asGBoolean(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
-                    gError.ptr
-                )
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    ) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_new_from_stream_at_scale(stream.gioInputStreamPointer.reinterpret(), width, height, preserveAspectRatio.asGBoolean(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -658,15 +627,14 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.24
      */
     @Throws(GLibException::class)
-    public constructor(asyncResult: AsyncResult) : this(
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = gdk_pixbuf_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
-            if (gError.pointed != null) {
-                throw resolveException(Error(gError.pointed!!.ptr))
-            }
-            gResult!!.reinterpret()
+    public constructor(asyncResult: AsyncResult) : this(memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gdk_pixbuf_new_from_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr)
+        if (gError.pointed != null) {
+            throw resolveException(Error(gError.pointed!!.ptr))
         }
+        gResult!!.reinterpret()
+    }
     )
 
     /**
@@ -678,10 +646,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @param data Pointer to inline XPM data.
      * @return A newly-created pixbuf
      */
-    public constructor(`data`: List<String>) : this(
-        memScoped {
-            gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!.reinterpret()
-        }
+    public constructor(`data`: List<String>) : this(memScoped {
+        gdk_pixbuf_new_from_xpm_data(`data`.toCStringList(this))!!.reinterpret()}
     )
 
     /**
@@ -705,10 +671,13 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @param b Blue value to substitute.
      * @return A newly-created pixbuf
      */
-    public open fun addAlpha(substituteColor: Boolean, r: guint8, g: guint8, b: guint8): Pixbuf =
-        gdk_pixbuf_add_alpha(gdkpixbufPixbufPointer.reinterpret(), substituteColor.asGBoolean(), r, g, b)!!.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun addAlpha(
+        substituteColor: Boolean,
+        r: guint8,
+        g: guint8,
+        b: guint8,
+    ): Pixbuf = gdk_pixbuf_add_alpha(gdkpixbufPixbufPointer.reinterpret(), substituteColor.asGBoolean(), r, g, b)!!.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Takes an existing pixbuf and checks for the presence of an
@@ -726,10 +695,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.12
      */
     @GdkPixbufVersion2_12
-    public open fun applyEmbeddedOrientation(): Pixbuf? =
-        gdk_pixbuf_apply_embedded_orientation(gdkpixbufPixbufPointer.reinterpret())?.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun applyEmbeddedOrientation(): Pixbuf? = gdk_pixbuf_apply_embedded_orientation(gdkpixbufPixbufPointer.reinterpret())?.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Creates a transformation of the source image @src by scaling by
@@ -770,8 +737,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         scaleY: gdouble,
         interpType: InterpType,
         overallAlpha: gint,
-    ): Unit =
-        gdk_pixbuf_composite(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha)
+    ): Unit = gdk_pixbuf_composite(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha)
 
     /**
      * Creates a transformation of the source image @src by scaling by
@@ -821,8 +787,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         checkSize: gint,
         color1: guint,
         color2: guint,
-    ): Unit =
-        gdk_pixbuf_composite_color(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha, checkX, checkY, checkSize, color1, color2)
+    ): Unit = gdk_pixbuf_composite_color(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue, overallAlpha, checkX, checkY, checkSize, color1, color2)
 
     /**
      * Creates a new pixbuf by scaling `src` to `dest_width` x `dest_height`
@@ -846,18 +811,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         checkSize: gint,
         color1: guint,
         color2: guint,
-    ): Pixbuf? = gdk_pixbuf_composite_color_simple(
-        gdkpixbufPixbufPointer.reinterpret(),
-        destWidth,
-        destHeight,
-        interpType.nativeValue,
-        overallAlpha,
-        checkSize,
-        color1,
-        color2
-    )?.run {
-        Pixbuf(reinterpret())
-    }
+    ): Pixbuf? = gdk_pixbuf_composite_color_simple(gdkpixbufPixbufPointer.reinterpret(), destWidth, destHeight, interpType.nativeValue, overallAlpha, checkSize, color1, color2)?.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Creates a new `GdkPixbuf` with a copy of the information in the specified
@@ -869,8 +824,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @return A newly-created pixbuf
      */
     public open fun copy(): Pixbuf? = gdk_pixbuf_copy(gdkpixbufPixbufPointer.reinterpret())?.run {
-        Pixbuf(reinterpret())
-    }
+        Pixbuf(reinterpret())}
 
     /**
      * Copies a rectangular area from `src_pixbuf` to `dest_pixbuf`.
@@ -897,16 +851,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         destPixbuf: Pixbuf,
         destX: gint,
         destY: gint,
-    ): Unit = gdk_pixbuf_copy_area(
-        gdkpixbufPixbufPointer.reinterpret(),
-        srcX,
-        srcY,
-        width,
-        height,
-        destPixbuf.gdkpixbufPixbufPointer.reinterpret(),
-        destX,
-        destY
-    )
+    ): Unit = gdk_pixbuf_copy_area(gdkpixbufPixbufPointer.reinterpret(), srcX, srcY, width, height, destPixbuf.gdkpixbufPixbufPointer.reinterpret(), destX, destY)
 
     /**
      * Copies the key/value pair options attached to a `GdkPixbuf` to another
@@ -921,10 +866,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.36
      */
     @GdkPixbufVersion2_36
-    public open fun copyOptions(destPixbuf: Pixbuf): Boolean = gdk_pixbuf_copy_options(
-        gdkpixbufPixbufPointer.reinterpret(),
-        destPixbuf.gdkpixbufPixbufPointer.reinterpret()
-    ).asBoolean()
+    public open fun copyOptions(destPixbuf: Pixbuf): Boolean = gdk_pixbuf_copy_options(gdkpixbufPixbufPointer.reinterpret(), destPixbuf.gdkpixbufPixbufPointer.reinterpret()).asBoolean()
 
     /**
      * Clears a pixbuf to the given RGBA value, converting the RGBA value into
@@ -947,10 +889,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.6
      */
     @GdkPixbufVersion2_6
-    public open fun flip(horizontal: Boolean): Pixbuf? =
-        gdk_pixbuf_flip(gdkpixbufPixbufPointer.reinterpret(), horizontal.asGBoolean())?.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun flip(horizontal: Boolean): Pixbuf? = gdk_pixbuf_flip(gdkpixbufPixbufPointer.reinterpret(), horizontal.asGBoolean())?.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Returns the length of the pixel data, in bytes.
@@ -981,8 +921,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @param key a nul-terminated string.
      * @return the value associated with `key`
      */
-    public open fun getOption(key: String): String? =
-        gdk_pixbuf_get_option(gdkpixbufPixbufPointer.reinterpret(), key)?.toKString()
+    public open fun getOption(key: String): String? = gdk_pixbuf_get_option(gdkpixbufPixbufPointer.reinterpret(), key)?.toKString()
 
     /**
      * Returns a `GHashTable` with a list of all the options that may have been
@@ -995,8 +934,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      */
     @GdkPixbufVersion2_32
     public open fun getOptions(): HashTable = gdk_pixbuf_get_options(gdkpixbufPixbufPointer.reinterpret())!!.run {
-        HashTable(reinterpret())
-    }
+        HashTable(reinterpret())}
 
     /**
      * Creates a new pixbuf which represents a sub-region of `src_pixbuf`.
@@ -1015,10 +953,13 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @param height height of region in @src_pixbuf
      * @return a new pixbuf
      */
-    public open fun newSubpixbuf(srcX: gint, srcY: gint, width: gint, height: gint): Pixbuf =
-        gdk_pixbuf_new_subpixbuf(gdkpixbufPixbufPointer.reinterpret(), srcX, srcY, width, height)!!.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun newSubpixbuf(
+        srcX: gint,
+        srcY: gint,
+        width: gint,
+        height: gint,
+    ): Pixbuf = gdk_pixbuf_new_subpixbuf(gdkpixbufPixbufPointer.reinterpret(), srcX, srcY, width, height)!!.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Provides a #GBytes buffer containing the raw pixel data; the data
@@ -1035,8 +976,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      */
     @GdkPixbufVersion2_32
     public open fun readPixelBytes(): Bytes = gdk_pixbuf_read_pixel_bytes(gdkpixbufPixbufPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
-    }
+        Bytes(reinterpret())}
 
     /**
      * Adds a reference to a pixbuf.
@@ -1044,8 +984,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @return The same as the @pixbuf argument.
      */
     override fun ref(): Pixbuf = gdk_pixbuf_ref(gdkpixbufPixbufPointer.reinterpret())!!.run {
-        Pixbuf(reinterpret())
-    }
+        Pixbuf(reinterpret())}
 
     /**
      * Removes the key/value pair option attached to a `GdkPixbuf`.
@@ -1055,8 +994,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.36
      */
     @GdkPixbufVersion2_36
-    public open fun removeOption(key: String): Boolean =
-        gdk_pixbuf_remove_option(gdkpixbufPixbufPointer.reinterpret(), key).asBoolean()
+    public open fun removeOption(key: String): Boolean = gdk_pixbuf_remove_option(gdkpixbufPixbufPointer.reinterpret(), key).asBoolean()
 
     /**
      * Rotates a pixbuf by a multiple of 90 degrees, and returns the
@@ -1069,10 +1007,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.6
      */
     @GdkPixbufVersion2_6
-    public open fun rotateSimple(angle: PixbufRotation): Pixbuf? =
-        gdk_pixbuf_rotate_simple(gdkpixbufPixbufPointer.reinterpret(), angle.nativeValue)?.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun rotateSimple(angle: PixbufRotation): Pixbuf? = gdk_pixbuf_rotate_simple(gdkpixbufPixbufPointer.reinterpret(), angle.nativeValue)?.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Modifies saturation and optionally pixelates `src`, placing the result in
@@ -1094,13 +1030,11 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @param saturation saturation factor
      * @param pixelate whether to pixelate
      */
-    public open fun saturateAndPixelate(dest: Pixbuf, saturation: gfloat, pixelate: Boolean): Unit =
-        gdk_pixbuf_saturate_and_pixelate(
-            gdkpixbufPixbufPointer.reinterpret(),
-            dest.gdkpixbufPixbufPointer.reinterpret(),
-            saturation,
-            pixelate.asGBoolean()
-        )
+    public open fun saturateAndPixelate(
+        dest: Pixbuf,
+        saturation: gfloat,
+        pixelate: Boolean,
+    ): Unit = gdk_pixbuf_saturate_and_pixelate(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), saturation, pixelate.asGBoolean())
 
     /**
      * Vector version of `gdk_pixbuf_save_to_callback()`.
@@ -1128,18 +1062,11 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         optionValues: List<String>? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_pixbuf_save_to_callbackv(
-            gdkpixbufPixbufPointer.reinterpret(),
-            PixbufSaveFuncFunc.reinterpret(),
-            StableRef.create(saveFunc).asCPointer(),
-            type,
-            optionKeys?.toCStringList(this),
-            optionValues?.toCStringList(this),
-            gError.ptr
-        ).asBoolean()
+        val gResult = gdk_pixbuf_save_to_callbackv(gdkpixbufPixbufPointer.reinterpret(), PixbufSaveFuncFunc.reinterpret(), StableRef.create(saveFunc).asCPointer(), type, optionKeys?.toCStringList(this), optionValues?.toCStringList(this), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -1170,18 +1097,11 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_pixbuf_save_to_streamv(
-            gdkpixbufPixbufPointer.reinterpret(),
-            stream.gioOutputStreamPointer.reinterpret(),
-            type,
-            optionKeys?.toCStringList(this),
-            optionValues?.toCStringList(this),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = gdk_pixbuf_save_to_streamv(gdkpixbufPixbufPointer.reinterpret(), stream.gioOutputStreamPointer.reinterpret(), type, optionKeys?.toCStringList(this), optionValues?.toCStringList(this), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -1214,19 +1134,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = memScoped {
-        return gdk_pixbuf_save_to_streamv_async(
-            gdkpixbufPixbufPointer.reinterpret(),
-            stream.gioOutputStreamPointer.reinterpret(),
-            type,
-            optionKeys?.toCStringList(this),
-            optionValues?.toCStringList(this),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
-    }
+        return gdk_pixbuf_save_to_streamv_async(gdkpixbufPixbufPointer.reinterpret(), stream.gioOutputStreamPointer.reinterpret(), type, optionKeys?.toCStringList(this), optionValues?.toCStringList(this), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })}
 
     /**
      * Vector version of `gdk_pixbuf_save()`.
@@ -1250,17 +1158,11 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         optionValues: List<String>? = null,
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_pixbuf_savev(
-            gdkpixbufPixbufPointer.reinterpret(),
-            filename,
-            type,
-            optionKeys?.toCStringList(this),
-            optionValues?.toCStringList(this),
-            gError.ptr
-        ).asBoolean()
+        val gResult = gdk_pixbuf_savev(gdkpixbufPixbufPointer.reinterpret(), filename, type, optionKeys?.toCStringList(this), optionValues?.toCStringList(this), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -1302,8 +1204,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         scaleX: gdouble,
         scaleY: gdouble,
         interpType: InterpType,
-    ): Unit =
-        gdk_pixbuf_scale(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue)
+    ): Unit = gdk_pixbuf_scale(gdkpixbufPixbufPointer.reinterpret(), dest.gdkpixbufPixbufPointer.reinterpret(), destX, destY, destWidth, destHeight, offsetX, offsetY, scaleX, scaleY, interpType.nativeValue)
 
     /**
      * Create a new pixbuf containing a copy of `src` scaled to
@@ -1330,15 +1231,12 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @param interpType the interpolation type for the transformation.
      * @return the new pixbuf
      */
-    public open fun scaleSimple(destWidth: gint, destHeight: gint, interpType: InterpType): Pixbuf? =
-        gdk_pixbuf_scale_simple(
-            gdkpixbufPixbufPointer.reinterpret(),
-            destWidth,
-            destHeight,
-            interpType.nativeValue
-        )?.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun scaleSimple(
+        destWidth: gint,
+        destHeight: gint,
+        interpType: InterpType,
+    ): Pixbuf? = gdk_pixbuf_scale_simple(gdkpixbufPixbufPointer.reinterpret(), destWidth, destHeight, interpType.nativeValue)?.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Attaches a key/value pair as an option to a `GdkPixbuf`.
@@ -1352,8 +1250,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public open fun setOption(key: String, `value`: String): Boolean =
-        gdk_pixbuf_set_option(gdkpixbufPixbufPointer.reinterpret(), key, `value`).asBoolean()
+    public open fun setOption(key: String, `value`: String): Boolean = gdk_pixbuf_set_option(gdkpixbufPixbufPointer.reinterpret(), key, `value`).asBoolean()
 
     /**
      * Removes a reference from a pixbuf.
@@ -1362,11 +1259,10 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
 
     public companion object : TypeCompanion<Pixbuf> {
         override val type: GeneratedClassKGType<Pixbuf> =
-            GeneratedClassKGType(gdk_pixbuf_get_type()) { Pixbuf(it.reinterpret()) }
+                GeneratedClassKGType(gdk_pixbuf_get_type()) { Pixbuf(it.reinterpret()) }
 
         init {
-            GdkpixbufTypeProvider.register()
-        }
+            GdkpixbufTypeProvider.register()}
 
         /**
          * Creates a new pixbuf by loading an image from a file.
@@ -1392,7 +1288,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             val gResult = gdk_pixbuf_new_from_file(filename, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
             }
         }
@@ -1413,7 +1310,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             val gResult = gdk_pixbuf_new_from_resource(resourcePath, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
             }
         }
@@ -1458,11 +1356,11 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         ): Result<Pixbuf> = memScoped {
             val gError = allocPointerTo<GError>()
             gError.`value` = null
-            val gResult =
-                gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
+            val gResult = gdk_pixbuf_new_from_file_at_scale(filename, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
             }
         }
@@ -1497,17 +1395,11 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         ): Result<Pixbuf> = memScoped {
             val gError = allocPointerTo<GError>()
             gError.`value` = null
-            val gResult =
-                gdk_pixbuf_new_from_resource_at_scale(
-                    resourcePath,
-                    width,
-                    height,
-                    preserveAspectRatio.asGBoolean(),
-                    gError.ptr
-                )
+            val gResult = gdk_pixbuf_new_from_resource_at_scale(resourcePath, width, height, preserveAspectRatio.asGBoolean(), gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(Pixbuf(checkNotNull(gResult).reinterpret()))
             }
         }
@@ -1534,8 +1426,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             bitsPerSample: gint,
             width: gint,
             height: gint,
-        ): gint =
-            gdk_pixbuf_calculate_rowstride(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)
+        ): gint = gdk_pixbuf_calculate_rowstride(colorspace.nativeValue, hasAlpha.asGBoolean(), bitsPerSample, width, height)
 
         /**
          * Asynchronously parses an image file far enough to determine its
@@ -1558,14 +1449,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             filename: String,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = gdk_pixbuf_get_file_info_async(
-            filename,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = gdk_pixbuf_get_file_info_async(filename, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Obtains the available information about the image formats supported
@@ -1577,8 +1461,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
          */
         @GdkPixbufVersion2_2
         public fun getFormats(): SList = gdk_pixbuf_get_formats()!!.run {
-            SList(reinterpret())
-        }
+            SList(reinterpret())}
 
         /**
          * Initalizes the gdk-pixbuf loader modules referenced by the `loaders.cache`
@@ -1604,7 +1487,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             val gResult = gdk_pixbuf_init_modules(path, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(gResult)
             }
         }
@@ -1629,14 +1513,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             stream: InputStream,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = gdk_pixbuf_new_from_stream_async(
-            stream.gioInputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = gdk_pixbuf_new_from_stream_async(stream.gioInputStreamPointer.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Creates a new pixbuf by asynchronously loading an image from an input stream.
@@ -1663,17 +1540,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             preserveAspectRatio: Boolean,
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
-        ): Unit = gdk_pixbuf_new_from_stream_at_scale_async(
-            stream.gioInputStreamPointer.reinterpret(),
-            width,
-            height,
-            preserveAspectRatio.asGBoolean(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+        ): Unit = gdk_pixbuf_new_from_stream_at_scale_async(stream.gioInputStreamPointer.reinterpret(), width, height, preserveAspectRatio.asGBoolean(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
         /**
          * Finishes an asynchronous pixbuf save operation started with
@@ -1689,7 +1556,8 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
             val gResult = gdk_pixbuf_save_to_stream_finish(asyncResult.gioAsyncResultPointer, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(gResult)
             }
         }

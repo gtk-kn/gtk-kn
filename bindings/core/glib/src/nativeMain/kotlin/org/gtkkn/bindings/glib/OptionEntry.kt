@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Char
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,18 +20,16 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
-import kotlin.Char
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A GOptionEntry struct defines a single option. To have an effect, they
  * must be added to a #GOptionGroup with g_option_context_add_main_entries()
  * or g_option_group_add_entries().
  */
-public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class OptionEntry(
+    pointer: CPointer<GOptionEntry>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibOptionEntryPointer: CPointer<GOptionEntry> = pointer
 
     /**
@@ -38,7 +41,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var longName: String?
         get() = glibOptionEntryPointer.pointed.long_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.long_name?.let { g_free(it) }
@@ -53,7 +55,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var shortName: Char
         get() = glibOptionEntryPointer.pointed.short_name.toInt().toChar()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.short_name = value.code.toByte()
@@ -64,7 +65,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var flags: gint
         get() = glibOptionEntryPointer.pointed.flags
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.flags = value
@@ -75,9 +75,7 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var arg: OptionArg
         get() = glibOptionEntryPointer.pointed.arg.run {
-            OptionArg.fromNativeValue(this)
-        }
-
+            OptionArg.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.arg = value.nativeValue
@@ -104,7 +102,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var argData: gpointer
         get() = glibOptionEntryPointer.pointed.arg_data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.arg_data = value
@@ -117,7 +114,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var description: String?
         get() = glibOptionEntryPointer.pointed.description?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.description?.let { g_free(it) }
@@ -132,7 +128,6 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      */
     public var argDescription: String?
         get() = glibOptionEntryPointer.pointed.arg_description?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibOptionEntryPointer.pointed.arg_description?.let { g_free(it) }
@@ -145,11 +140,10 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GOptionEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GOptionEntry>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -289,6 +283,5 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
         this.argDescription = argDescription
     }
 
-    override fun toString(): String =
-        "OptionEntry(longName=$longName, shortName=$shortName, flags=$flags, arg=$arg, argData=$argData, description=$description, argDescription=$argDescription)"
+    override fun toString(): String = "OptionEntry(longName=$longName, shortName=$shortName, flags=$flags, arg=$arg, argData=$argData, description=$description, argDescription=$argDescription)"
 }

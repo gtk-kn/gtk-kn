@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
@@ -30,8 +32,6 @@ import org.gtkkn.native.pango.pango_layout_iter_next_char
 import org.gtkkn.native.pango.pango_layout_iter_next_cluster
 import org.gtkkn.native.pango.pango_layout_iter_next_line
 import org.gtkkn.native.pango.pango_layout_iter_next_run
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * A `PangoLayoutIter` can be used to iterate over the visual
@@ -47,7 +47,9 @@ import kotlin.Unit
  * - method `get_run`: Return type LayoutRun is unsupported
  * - method `get_run_readonly`: Return type LayoutRun is unsupported
  */
-public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(pointer) {
+public class LayoutIter(
+    pointer: CPointer<PangoLayoutIter>,
+) : ProxyInstance(pointer) {
     public val pangoLayoutIterPointer: CPointer<PangoLayoutIter> = pointer
 
     /**
@@ -65,8 +67,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      */
     @PangoVersion1_20
     public fun copy(): LayoutIter? = pango_layout_iter_copy(pangoLayoutIterPointer.reinterpret())?.run {
-        LayoutIter(reinterpret())
-    }
+        LayoutIter(reinterpret())}
 
     /**
      * Frees an iterator that's no longer in use.
@@ -94,10 +95,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @param logicalRect rectangle to fill with
      *   logical extents
      */
-    public fun getCharExtents(logicalRect: Rectangle): Unit = pango_layout_iter_get_char_extents(
-        pangoLayoutIterPointer.reinterpret(),
-        logicalRect.pangoRectanglePointer.reinterpret()
-    )
+    public fun getCharExtents(logicalRect: Rectangle): Unit = pango_layout_iter_get_char_extents(pangoLayoutIterPointer.reinterpret(), logicalRect.pangoRectanglePointer.reinterpret())
 
     /**
      * Gets the extents of the current cluster, in layout coordinates.
@@ -107,12 +105,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @param inkRect rectangle to fill with ink extents
      * @param logicalRect rectangle to fill with logical extents
      */
-    public fun getClusterExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_iter_get_cluster_extents(
-            pangoLayoutIterPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public fun getClusterExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_iter_get_cluster_extents(pangoLayoutIterPointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Gets the current byte index.
@@ -134,8 +127,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      */
     @PangoVersion1_20
     public fun getLayout(): Layout? = pango_layout_iter_get_layout(pangoLayoutIterPointer.reinterpret())?.run {
-        Layout(reinterpret())
-    }
+        Layout(reinterpret())}
 
     /**
      * Obtains the extents of the `PangoLayout` being iterated over.
@@ -143,12 +135,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @param inkRect rectangle to fill with ink extents
      * @param logicalRect rectangle to fill with logical extents
      */
-    public fun getLayoutExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_iter_get_layout_extents(
-            pangoLayoutIterPointer.reinterpret(),
-            inkRect?.pangoRectanglePointer?.reinterpret(),
-            logicalRect?.pangoRectanglePointer?.reinterpret()
-        )
+    public fun getLayoutExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_iter_get_layout_extents(pangoLayoutIterPointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Gets the current line.
@@ -160,8 +147,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @return the current line
      */
     public fun getLine(): LayoutLine? = pango_layout_iter_get_line(pangoLayoutIterPointer.reinterpret())?.run {
-        LayoutLine(reinterpret())
-    }
+        LayoutLine(reinterpret())}
 
     /**
      * Obtains the extents of the current line.
@@ -174,11 +160,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @param inkRect rectangle to fill with ink extents
      * @param logicalRect rectangle to fill with logical extents
      */
-    public fun getLineExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_iter_get_line_extents(
-        pangoLayoutIterPointer.reinterpret(),
-        inkRect?.pangoRectanglePointer?.reinterpret(),
-        logicalRect?.pangoRectanglePointer?.reinterpret()
-    )
+    public fun getLineExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_iter_get_line_extents(pangoLayoutIterPointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Gets the current line for read-only access.
@@ -192,10 +174,8 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun getLineReadonly(): LayoutLine? =
-        pango_layout_iter_get_line_readonly(pangoLayoutIterPointer.reinterpret())?.run {
-            LayoutLine(reinterpret())
-        }
+    public fun getLineReadonly(): LayoutLine? = pango_layout_iter_get_line_readonly(pangoLayoutIterPointer.reinterpret())?.run {
+        LayoutLine(reinterpret())}
 
     /**
      * Gets the Y position of the current run's baseline, in layout
@@ -219,11 +199,7 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
      * @param inkRect rectangle to fill with ink extents
      * @param logicalRect rectangle to fill with logical extents
      */
-    public fun getRunExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_iter_get_run_extents(
-        pangoLayoutIterPointer.reinterpret(),
-        inkRect?.pangoRectanglePointer?.reinterpret(),
-        logicalRect?.pangoRectanglePointer?.reinterpret()
-    )
+    public fun getRunExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_iter_get_run_extents(pangoLayoutIterPointer.reinterpret(), inkRect?.pangoRectanglePointer?.reinterpret(), logicalRect?.pangoRectanglePointer?.reinterpret())
 
     /**
      * Moves @iter forward to the next character in visual order.

@@ -12,27 +12,25 @@ import org.gtkkn.native.pango.pango_render_part_get_type
  * @since 1.8
  */
 @PangoVersion1_8
-public enum class RenderPart(public val nativeValue: PangoRenderPart) {
+public enum class RenderPart(
+    public val nativeValue: PangoRenderPart,
+) {
     /**
      * the text itself
      */
     FOREGROUND(PangoRenderPart.PANGO_RENDER_PART_FOREGROUND),
-
     /**
      * the area behind the text
      */
     BACKGROUND(PangoRenderPart.PANGO_RENDER_PART_BACKGROUND),
-
     /**
      * underlines
      */
     UNDERLINE(PangoRenderPart.PANGO_RENDER_PART_UNDERLINE),
-
     /**
      * strikethrough lines
      */
     STRIKETHROUGH(PangoRenderPart.PANGO_RENDER_PART_STRIKETHROUGH),
-
     /**
      * overlines
      */

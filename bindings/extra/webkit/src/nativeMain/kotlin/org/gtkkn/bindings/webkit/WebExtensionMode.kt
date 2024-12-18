@@ -12,17 +12,17 @@ import org.gtkkn.native.webkit.webkit_web_extension_mode_get_type
  * @since 2.38
  */
 @WebKitVersion2_38
-public enum class WebExtensionMode(public val nativeValue: WebKitWebExtensionMode) {
+public enum class WebExtensionMode(
+    public val nativeValue: WebKitWebExtensionMode,
+) {
     /**
      * Not for an extension.
      */
     NONE(WebKitWebExtensionMode.WEBKIT_WEB_EXTENSION_MODE_NONE),
-
     /**
      * For a ManifestV2 extension.
      */
     MANIFESTV2(WebKitWebExtensionMode.WEBKIT_WEB_EXTENSION_MODE_MANIFESTV2),
-
     /**
      * For a ManifestV3 extension.
      */

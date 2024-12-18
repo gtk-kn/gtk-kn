@@ -26,57 +26,49 @@ import org.gtkkn.native.gtk.gtk_input_purpose_get_type
  * This enumeration may be extended in the future; input methods should
  * interpret unknown values as “free form”.
  */
-public enum class InputPurpose(public val nativeValue: GtkInputPurpose) {
+public enum class InputPurpose(
+    public val nativeValue: GtkInputPurpose,
+) {
     /**
      * Allow any character
      */
     FREE_FORM(GtkInputPurpose.GTK_INPUT_PURPOSE_FREE_FORM),
-
     /**
      * Allow only alphabetic characters
      */
     ALPHA(GtkInputPurpose.GTK_INPUT_PURPOSE_ALPHA),
-
     /**
      * Allow only digits
      */
     DIGITS(GtkInputPurpose.GTK_INPUT_PURPOSE_DIGITS),
-
     /**
      * Edited field expects numbers
      */
     NUMBER(GtkInputPurpose.GTK_INPUT_PURPOSE_NUMBER),
-
     /**
      * Edited field expects phone number
      */
     PHONE(GtkInputPurpose.GTK_INPUT_PURPOSE_PHONE),
-
     /**
      * Edited field expects URL
      */
     URL(GtkInputPurpose.GTK_INPUT_PURPOSE_URL),
-
     /**
      * Edited field expects email address
      */
     EMAIL(GtkInputPurpose.GTK_INPUT_PURPOSE_EMAIL),
-
     /**
      * Edited field expects the name of a person
      */
     NAME(GtkInputPurpose.GTK_INPUT_PURPOSE_NAME),
-
     /**
      * Like %GTK_INPUT_PURPOSE_FREE_FORM, but characters are hidden
      */
     PASSWORD(GtkInputPurpose.GTK_INPUT_PURPOSE_PASSWORD),
-
     /**
      * Like %GTK_INPUT_PURPOSE_DIGITS, but characters are hidden
      */
     PIN(GtkInputPurpose.GTK_INPUT_PURPOSE_PIN),
-
     /**
      * Allow any character, in addition to control codes
      */

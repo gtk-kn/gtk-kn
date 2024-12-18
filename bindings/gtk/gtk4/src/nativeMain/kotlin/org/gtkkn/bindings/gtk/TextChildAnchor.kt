@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
@@ -14,8 +16,6 @@ import org.gtkkn.native.gtk.gtk_text_child_anchor_get_deleted
 import org.gtkkn.native.gtk.gtk_text_child_anchor_get_type
 import org.gtkkn.native.gtk.gtk_text_child_anchor_new
 import org.gtkkn.native.gtk.gtk_text_child_anchor_new_with_replacement
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * A `GtkTextChildAnchor` is a spot in a `GtkTextBuffer` where child widgets can
@@ -27,8 +27,9 @@ import kotlin.String
  *
  * - parameter `out_len`: out_len: Out parameter is not supported
  */
-public open class TextChildAnchor(pointer: CPointer<GtkTextChildAnchor>) :
-    Object(pointer.reinterpret()),
+public open class TextChildAnchor(
+    pointer: CPointer<GtkTextChildAnchor>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkTextChildAnchorPointer: CPointer<GtkTextChildAnchor>
         get() = gPointer.reinterpret()
@@ -51,7 +52,7 @@ public open class TextChildAnchor(pointer: CPointer<GtkTextChildAnchor>) :
      * Usually you would then insert it into a `GtkTextBuffer` with
      * [method@Gtk.TextBuffer.insert_child_anchor].
      *
-     * @param character
+     * @param character 
      * @return a new `GtkTextChildAnchor`
      * @since 4.6
      */
@@ -69,16 +70,14 @@ public open class TextChildAnchor(pointer: CPointer<GtkTextChildAnchor>) :
      *
      * @return true if the child anchor has been deleted from its buffer
      */
-    public open fun getDeleted(): Boolean =
-        gtk_text_child_anchor_get_deleted(gtkTextChildAnchorPointer.reinterpret()).asBoolean()
+    public open fun getDeleted(): Boolean = gtk_text_child_anchor_get_deleted(gtkTextChildAnchorPointer.reinterpret()).asBoolean()
 
     public companion object : TypeCompanion<TextChildAnchor> {
         override val type: GeneratedClassKGType<TextChildAnchor> =
-            GeneratedClassKGType(gtk_text_child_anchor_get_type()) { TextChildAnchor(it.reinterpret()) }
+                GeneratedClassKGType(gtk_text_child_anchor_get_type()) { TextChildAnchor(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of TextChildAnchor

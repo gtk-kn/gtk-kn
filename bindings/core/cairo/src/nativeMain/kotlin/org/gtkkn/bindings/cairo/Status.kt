@@ -44,7 +44,9 @@ import org.gtkkn.native.cairo.cairo_gobject_status_get_type
 import org.gtkkn.native.cairo.cairo_status_t
 import org.gtkkn.native.gobject.GType
 
-public enum class Status(public val nativeValue: cairo_status_t) {
+public enum class Status(
+    public val nativeValue: cairo_status_t,
+) {
     SUCCESS(CAIRO_STATUS_SUCCESS),
     NO_MEMORY(CAIRO_STATUS_NO_MEMORY),
     INVALID_RESTORE(CAIRO_STATUS_INVALID_RESTORE),

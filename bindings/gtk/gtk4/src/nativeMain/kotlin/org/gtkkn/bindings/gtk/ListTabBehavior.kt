@@ -13,19 +13,19 @@ import org.gtkkn.native.gtk.gtk_list_tab_behavior_get_type
  * @since 4.12
  */
 @GtkVersion4_12
-public enum class ListTabBehavior(public val nativeValue: GtkListTabBehavior) {
+public enum class ListTabBehavior(
+    public val nativeValue: GtkListTabBehavior,
+) {
     /**
      * Cycle through all focusable items of the list
      */
     ALL(GtkListTabBehavior.GTK_LIST_TAB_ALL),
-
     /**
      * Cycle through a single list element, then move
      *   focus out of the list. Moving focus between items needs to be
      *   done with the arrow keys.
      */
     ITEM(GtkListTabBehavior.GTK_LIST_TAB_ITEM),
-
     /**
      * Cycle only through a single cell, then
      *   move focus out of the list. Moving focus between cells needs to

@@ -17,27 +17,25 @@ import org.gtkkn.native.gobject.GType
  * @since 2.22
  */
 @GioVersion2_22
-public enum class SocketProtocol(public val nativeValue: GSocketProtocol) {
+public enum class SocketProtocol(
+    public val nativeValue: GSocketProtocol,
+) {
     /**
      * The protocol type is unknown
      */
     UNKNOWN(GSocketProtocol.G_SOCKET_PROTOCOL_UNKNOWN),
-
     /**
      * The default protocol for the family/type
      */
     DEFAULT(GSocketProtocol.G_SOCKET_PROTOCOL_DEFAULT),
-
     /**
      * TCP over IP
      */
     TCP(GSocketProtocol.G_SOCKET_PROTOCOL_TCP),
-
     /**
      * UDP over IP
      */
     UDP(GSocketProtocol.G_SOCKET_PROTOCOL_UDP),
-
     /**
      * SCTP over IP
      */

@@ -15,19 +15,19 @@ import org.gtkkn.native.gtk.gtk_dialog_error_quark
  * @since 4.10
  */
 @GtkVersion4_10
-public enum class DialogError(public val nativeValue: GtkDialogError) {
+public enum class DialogError(
+    public val nativeValue: GtkDialogError,
+) {
     /**
      * Generic error condition for when
      *   an operation fails and no more specific code is applicable
      */
     FAILED(GtkDialogError.GTK_DIALOG_ERROR_FAILED),
-
     /**
      * The async function call was cancelled
      *   via its `GCancellable`
      */
     CANCELLED(GtkDialogError.GTK_DIALOG_ERROR_CANCELLED),
-
     /**
      * The operation was cancelled
      *   by the user (via a Cancel or Close button)

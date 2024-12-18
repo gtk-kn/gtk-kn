@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_20
@@ -19,7 +20,6 @@ import org.gtkkn.native.gio.g_unix_output_stream_new
 import org.gtkkn.native.gio.g_unix_output_stream_set_close_fd
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
 
 /**
  * `GUnixOutputStream` implements [class@Gio.OutputStream] for writing to a UNIX
@@ -32,8 +32,9 @@ import kotlin.Boolean
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config file
  * file or the `GioUnix-2.0` GIR namespace when using it.
  */
-public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class UnixOutputStream(
+    pointer: CPointer<GUnixOutputStream>,
+) : OutputStream(pointer.reinterpret()),
     FileDescriptorBased,
     PollableOutputStream,
     KGTyped {
@@ -61,7 +62,6 @@ public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
          * @since 2.20
          */
         get() = g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the file descriptor of @stream shall be closed
          * when the stream is closed.
@@ -97,18 +97,14 @@ public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
      * @param closeFd true to close the file descriptor when done
      * @return a new #GOutputStream
      */
-    public constructor(
-        fd: gint,
-        closeFd: Boolean,
-    ) : this(g_unix_output_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
+    public constructor(fd: gint, closeFd: Boolean) : this(g_unix_output_stream_new(fd, closeFd.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<UnixOutputStream> {
         override val type: GeneratedClassKGType<UnixOutputStream> =
-            GeneratedClassKGType(g_unix_output_stream_get_type()) { UnixOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_unix_output_stream_get_type()) { UnixOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of UnixOutputStream

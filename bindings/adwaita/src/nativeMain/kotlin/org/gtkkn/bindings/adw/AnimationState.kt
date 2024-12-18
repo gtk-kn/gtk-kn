@@ -12,22 +12,21 @@ import org.gtkkn.native.gobject.GType
  * [method@Animation.pause], [method@Animation.resume],
  * [method@Animation.reset] and [method@Animation.skip].
  */
-public enum class AnimationState(public val nativeValue: AdwAnimationState) {
+public enum class AnimationState(
+    public val nativeValue: AdwAnimationState,
+) {
     /**
      * The animation hasn't started yet.
      */
     IDLE(AdwAnimationState.ADW_ANIMATION_IDLE),
-
     /**
      * The animation has been paused.
      */
     PAUSED(AdwAnimationState.ADW_ANIMATION_PAUSED),
-
     /**
      * The animation is currently playing.
      */
     PLAYING(AdwAnimationState.ADW_ANIMATION_PLAYING),
-
     /**
      * The animation has finished.
      */

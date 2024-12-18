@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -25,10 +29,6 @@ import org.gtkkn.native.pango.pango_font_metrics_get_underline_position
 import org.gtkkn.native.pango.pango_font_metrics_get_underline_thickness
 import org.gtkkn.native.pango.pango_font_metrics_ref
 import org.gtkkn.native.pango.pango_font_metrics_unref
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoFontMetrics` structure holds the overall metric information
@@ -46,7 +46,10 @@ import kotlin.native.ref.createCleaner
  *   <img alt="Font metrics" src="fontmetrics-light.png">
  * </picture>
  */
-public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class FontMetrics(
+    pointer: CPointer<PangoFontMetrics>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoFontMetricsPointer: CPointer<PangoFontMetrics> = pointer
 
     /**
@@ -55,11 +58,10 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoFontMetrics>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoFontMetrics>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -67,9 +69,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to FontMetrics and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoFontMetrics>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoFontMetrics>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FontMetrics using the provided [AutofreeScope].
@@ -89,8 +89,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @return the character width, in Pango units.
      */
-    public fun getApproximateCharWidth(): gint =
-        pango_font_metrics_get_approximate_char_width(pangoFontMetricsPointer.reinterpret())
+    public fun getApproximateCharWidth(): gint = pango_font_metrics_get_approximate_char_width(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the approximate digit width for a font metrics structure.
@@ -103,8 +102,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @return the digit width, in Pango units.
      */
-    public fun getApproximateDigitWidth(): gint =
-        pango_font_metrics_get_approximate_digit_width(pangoFontMetricsPointer.reinterpret())
+    public fun getApproximateDigitWidth(): gint = pango_font_metrics_get_approximate_digit_width(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the ascent from a font metrics structure.
@@ -154,8 +152,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughPosition(): gint =
-        pango_font_metrics_get_strikethrough_position(pangoFontMetricsPointer.reinterpret())
+    public fun getStrikethroughPosition(): gint = pango_font_metrics_get_strikethrough_position(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the suggested thickness to draw for the strikethrough.
@@ -164,8 +161,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughThickness(): gint =
-        pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer.reinterpret())
+    public fun getStrikethroughThickness(): gint = pango_font_metrics_get_strikethrough_thickness(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the suggested position to draw the underline.
@@ -178,8 +174,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getUnderlinePosition(): gint =
-        pango_font_metrics_get_underline_position(pangoFontMetricsPointer.reinterpret())
+    public fun getUnderlinePosition(): gint = pango_font_metrics_get_underline_position(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Gets the suggested thickness to draw for the underline.
@@ -188,8 +183,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getUnderlineThickness(): gint =
-        pango_font_metrics_get_underline_thickness(pangoFontMetricsPointer.reinterpret())
+    public fun getUnderlineThickness(): gint = pango_font_metrics_get_underline_thickness(pangoFontMetricsPointer.reinterpret())
 
     /**
      * Increase the reference count of a font metrics structure by one.
@@ -197,8 +191,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @return @metrics
      */
     public fun ref(): FontMetrics? = pango_font_metrics_ref(pangoFontMetricsPointer.reinterpret())?.run {
-        FontMetrics(reinterpret())
-    }
+        FontMetrics(reinterpret())}
 
     /**
      * Decrease the reference count of a font metrics structure by one.

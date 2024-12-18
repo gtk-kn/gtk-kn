@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -30,8 +32,6 @@ import org.gtkkn.native.webkit.webkit_print_operation_print
 import org.gtkkn.native.webkit.webkit_print_operation_run_dialog
 import org.gtkkn.native.webkit.webkit_print_operation_set_page_setup
 import org.gtkkn.native.webkit.webkit_print_operation_set_print_settings
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Controls a print operation.
@@ -45,8 +45,9 @@ import kotlin.Unit
  *
  * - method `web-view`: Property has no getter nor setter
  */
-public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
-    Object(pointer.reinterpret()),
+public class PrintOperation(
+    pointer: CPointer<WebKitPrintOperation>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>
         get() = gPointer.reinterpret()
@@ -65,9 +66,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          * @return the current #GtkPageSetup of @print_operation.
          */
         get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
-
+            PageSetup(reinterpret())}
         /**
          * Set the current page setup of @print_operation.
          *
@@ -76,12 +75,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          *
          * @param pageSetup a #GtkPageSetup to set
          */
-        set(
-            pageSetup
-        ) = webkit_print_operation_set_page_setup(
-            webkitPrintOperationPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
-        )
+        set(pageSetup) = webkit_print_operation_set_page_setup(webkitPrintOperationPointer.reinterpret(), pageSetup.gtkPageSetupPointer.reinterpret())
 
     /**
      * The initial #GtkPrintSettings for the print operation.
@@ -97,9 +91,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          * @return the current #GtkPrintSettings of @print_operation.
          */
         get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
-        }
-
+            PrintSettings(reinterpret())}
         /**
          * Set the current print settings of @print_operation.
          *
@@ -108,12 +100,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          *
          * @param printSettings a #GtkPrintSettings to set
          */
-        set(
-            printSettings
-        ) = webkit_print_operation_set_print_settings(
-            webkitPrintOperationPointer.reinterpret(),
-            printSettings.gtkPrintSettingsPointer.reinterpret()
-        )
+        set(printSettings) = webkit_print_operation_set_print_settings(webkitPrintOperationPointer.reinterpret(), printSettings.gtkPrintSettingsPointer.reinterpret())
 
     /**
      * Create a new #WebKitPrintOperation to print @web_view contents.
@@ -121,9 +108,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * @param webView a #WebKitWebView
      * @return a new #WebKitPrintOperation.
      */
-    public constructor(
-        webView: WebView,
-    ) : this(webkit_print_operation_new(webView.webkitWebViewPointer.reinterpret())!!.reinterpret())
+    public constructor(webView: WebView) : this(webkit_print_operation_new(webView.webkitWebViewPointer.reinterpret())!!.reinterpret())
 
     /**
      * Start a print operation using current print settings and page setup.
@@ -163,12 +148,8 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * @param parent transient parent of the print dialog
      * @return the #WebKitPrintOperationResponse of the print dialog
      */
-    public fun runDialog(parent: Window? = null): PrintOperationResponse = webkit_print_operation_run_dialog(
-        webkitPrintOperationPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret()
-    ).run {
-        PrintOperationResponse.fromNativeValue(this)
-    }
+    public fun runDialog(parent: Window? = null): PrintOperationResponse = webkit_print_operation_run_dialog(webkitPrintOperationPointer.reinterpret(), parent?.gtkWindowPointer?.reinterpret()).run {
+        PrintOperationResponse.fromNativeValue(this)}
 
     /**
      * Emitted when an error occurs while printing. The given @error, of the domain
@@ -178,15 +159,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun connectFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "failed",
-            connectFailedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "failed", connectFailedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the print operation has finished doing everything
@@ -195,23 +168,14 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "finished",
-            connectFinishedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "finished", connectFinishedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<PrintOperation> {
         override val type: GeneratedClassKGType<PrintOperation> =
-            GeneratedClassKGType(webkit_print_operation_get_type()) { PrintOperation(it.reinterpret()) }
+                GeneratedClassKGType(webkit_print_operation_get_type()) { PrintOperation(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of PrintOperation
@@ -223,22 +187,18 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
 }
 
 private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        error: CPointer<GError>?,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    error: CPointer<GError>?,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(error: Error) -> Unit>().get().invoke(
-        error!!.run {
-            Error(reinterpret())
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(error: Error) -> Unit>().get().invoke(error!!.run {
+        Error(reinterpret())}
+    )}
+.reinterpret()
 
 private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

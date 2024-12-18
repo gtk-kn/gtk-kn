@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
@@ -12,7 +13,6 @@ import org.gtkkn.native.gio.GConverter
 import org.gtkkn.native.gio.g_converter_get_type
 import org.gtkkn.native.gio.g_converter_reset
 import org.gtkkn.native.gobject.GType
-import kotlin.Unit
 
 /**
  * `GConverter` is an interface for streaming conversions.
@@ -32,9 +32,7 @@ import kotlin.Unit
  * @since 2.24
  */
 @GioVersion2_24
-public interface Converter :
-    Interface,
-    KGTyped {
+public interface Converter : Interface, KGTyped {
     public val gioConverterPointer: CPointer<GConverter>
 
     /**
@@ -47,17 +45,18 @@ public interface Converter :
     @GioVersion2_24
     public fun reset(): Unit = g_converter_reset(gioConverterPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GConverter>) : Converter {
+    private data class Wrapper(
+        private val pointer: CPointer<GConverter>,
+    ) : Converter {
         override val gioConverterPointer: CPointer<GConverter> = pointer
     }
 
     public companion object : TypeCompanion<Converter> {
         override val type: GeneratedInterfaceKGType<Converter> =
-            GeneratedInterfaceKGType(g_converter_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_converter_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GConverter>): Converter = Wrapper(pointer)
 

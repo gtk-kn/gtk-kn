@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -30,8 +32,6 @@ import org.gtkkn.native.gtk.gtk_list_item_set_activatable
 import org.gtkkn.native.gtk.gtk_list_item_set_child
 import org.gtkkn.native.gtk.gtk_list_item_set_focusable
 import org.gtkkn.native.gtk.gtk_list_item_set_selectable
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkListItem` is used by list widgets to represent items in a
@@ -50,8 +50,9 @@ import kotlin.String
  * 2. The bound stage where the listitem references an item from the list.
  *    The [property@Gtk.ListItem:item] property is not null.
  */
-public open class ListItem(pointer: CPointer<GtkListItem>) :
-    Object(pointer.reinterpret()),
+public open class ListItem(
+    pointer: CPointer<GtkListItem>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkListItemPointer: CPointer<GtkListItem>
         get() = gPointer.reinterpret()
@@ -69,9 +70,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return the accessible description
          * @since 4.12
          */
-        get() = gtk_list_item_get_accessible_description(gtkListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_list_item_get_accessible_description(gtkListItemPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the accessible description for the list item,
          * which may be used by e.g. screen readers.
@@ -95,9 +94,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return the accessible label
          * @since 4.12
          */
-        get() = gtk_list_item_get_accessible_label(gtkListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_list_item_get_accessible_label(gtkListItemPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the accessible label for the list item,
          * which may be used by e.g. screen readers.
@@ -119,7 +116,6 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return true if the item is activatable
          */
         get() = gtk_list_item_get_activatable(gtkListItemPointer.reinterpret()).asBoolean()
-
         /**
          * Sets @self to be activatable.
          *
@@ -146,9 +142,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return The child
          */
         get() = gtk_list_item_get_child(gtkListItemPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child to be used for this listitem.
          *
@@ -175,7 +169,6 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @since 4.12
          */
         get() = gtk_list_item_get_focusable(gtkListItemPointer.reinterpret()).asBoolean()
-
         /**
          * Sets @self to be focusable.
          *
@@ -205,8 +198,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return The item displayed
          */
         get() = gtk_list_item_get_item(gtkListItemPointer.reinterpret())?.run {
-            Object(reinterpret())
-        }
+            Object(reinterpret())}
 
     /**
      * Position of the item.
@@ -234,7 +226,6 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return true if the item is selectable
          */
         get() = gtk_list_item_get_selectable(gtkListItemPointer.reinterpret()).asBoolean()
-
         /**
          * Sets @self to be selectable.
          *
@@ -269,11 +260,10 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
 
     public companion object : TypeCompanion<ListItem> {
         override val type: GeneratedClassKGType<ListItem> =
-            GeneratedClassKGType(gtk_list_item_get_type()) { ListItem(it.reinterpret()) }
+                GeneratedClassKGType(gtk_list_item_get_type()) { ListItem(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of ListItem

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -15,14 +16,14 @@ import org.gtkkn.native.gtk.GtkCustomSorter
 import org.gtkkn.native.gtk.gtk_custom_sorter_get_type
 import org.gtkkn.native.gtk.gtk_custom_sorter_new
 import org.gtkkn.native.gtk.gtk_custom_sorter_set_sort_func
-import kotlin.Unit
 
 /**
  * `GtkCustomSorter` is a `GtkSorter` implementation that sorts via a callback
  * function.
  */
-public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class CustomSorter(
+    pointer: CPointer<GtkCustomSorter>,
+) : Sorter(pointer.reinterpret()),
     KGTyped {
     public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>
         get() = gPointer.reinterpret()
@@ -36,19 +37,7 @@ public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
      * @param sortFunc the `GCompareDataFunc` to use for sorting
      * @return a new `GtkCustomSorter`
      */
-    public constructor(
-        sortFunc: CompareDataFunc?,
-    ) : this(
-        gtk_custom_sorter_new(
-            sortFunc?.let {
-                CompareDataFuncFunc.reinterpret()
-            },
-            sortFunc?.let {
-                StableRef.create(sortFunc).asCPointer()
-            },
-            sortFunc?.let { staticStableRefDestroy.reinterpret() }
-        )!!.reinterpret()
-    )
+    public constructor(sortFunc: CompareDataFunc?) : this(gtk_custom_sorter_new(sortFunc?.let { CompareDataFuncFunc.reinterpret() }, sortFunc?.let { StableRef.create(sortFunc).asCPointer() }, sortFunc?.let { staticStableRefDestroy.reinterpret() })!!.reinterpret())
 
     /**
      * Sets (or unsets) the function used for sorting items.
@@ -63,24 +52,14 @@ public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
      *
      * @param sortFunc function to sort items
      */
-    public open fun setSortFunc(sortFunc: CompareDataFunc?): Unit = gtk_custom_sorter_set_sort_func(
-        gtkCustomSorterPointer.reinterpret(),
-        sortFunc?.let {
-            CompareDataFuncFunc.reinterpret()
-        },
-        sortFunc?.let {
-            StableRef.create(sortFunc).asCPointer()
-        },
-        sortFunc?.let { staticStableRefDestroy.reinterpret() }
-    )
+    public open fun setSortFunc(sortFunc: CompareDataFunc?): Unit = gtk_custom_sorter_set_sort_func(gtkCustomSorterPointer.reinterpret(), sortFunc?.let { CompareDataFuncFunc.reinterpret() }, sortFunc?.let { StableRef.create(sortFunc).asCPointer() }, sortFunc?.let { staticStableRefDestroy.reinterpret() })
 
     public companion object : TypeCompanion<CustomSorter> {
         override val type: GeneratedClassKGType<CustomSorter> =
-            GeneratedClassKGType(gtk_custom_sorter_get_type()) { CustomSorter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_custom_sorter_get_type()) { CustomSorter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CustomSorter

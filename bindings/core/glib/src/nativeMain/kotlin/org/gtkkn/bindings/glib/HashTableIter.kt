@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -17,10 +21,6 @@ import org.gtkkn.native.glib.g_hash_table_iter_remove
 import org.gtkkn.native.glib.g_hash_table_iter_replace
 import org.gtkkn.native.glib.g_hash_table_iter_steal
 import org.gtkkn.native.glib.gpointer
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A GHashTableIter structure represents an iterator that can be used
@@ -35,7 +35,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `key`: key: Out parameter is not supported
  */
-public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class HashTableIter(
+    pointer: CPointer<GHashTableIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibHashTableIterPointer: CPointer<GHashTableIter> = pointer
 
     /**
@@ -44,11 +47,10 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHashTableIter>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GHashTableIter>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -56,9 +58,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to HashTableIter and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GHashTableIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GHashTableIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new HashTableIter using the provided [AutofreeScope].
@@ -76,10 +76,8 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getHashTable(): HashTable =
-        g_hash_table_iter_get_hash_table(glibHashTableIterPointer.reinterpret())!!.run {
-            HashTable(reinterpret())
-        }
+    public fun getHashTable(): HashTable = g_hash_table_iter_get_hash_table(glibHashTableIterPointer.reinterpret())!!.run {
+        HashTable(reinterpret())}
 
     /**
      * Initializes a key/value pair iterator and associates it with
@@ -104,8 +102,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun `init`(hashTable: HashTable): Unit =
-        g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer.reinterpret())
+    public fun `init`(hashTable: HashTable): Unit = g_hash_table_iter_init(glibHashTableIterPointer.reinterpret(), hashTable.glibHashTablePointer.reinterpret())
 
     /**
      * Removes the key/value pair currently pointed to by the iterator
@@ -144,8 +141,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun replace(`value`: gpointer? = null): Unit =
-        g_hash_table_iter_replace(glibHashTableIterPointer.reinterpret(), `value`)
+    public fun replace(`value`: gpointer? = null): Unit = g_hash_table_iter_replace(glibHashTableIterPointer.reinterpret(), `value`)
 
     /**
      * Removes the key/value pair currently pointed to by the

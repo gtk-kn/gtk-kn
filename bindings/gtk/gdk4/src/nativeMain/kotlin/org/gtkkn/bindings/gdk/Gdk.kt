@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -51,10 +55,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.guint8
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -4722,17 +4722,7 @@ public object Gdk {
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gdk_content_deserialize_async(
-        stream.gioInputStreamPointer.reinterpret(),
-        mimeType,
-        type,
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gdk_content_deserialize_async(stream.gioInputStreamPointer.reinterpret(), mimeType, type, ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes a content deserialization operation.
@@ -4745,14 +4735,11 @@ public object Gdk {
      */
     public fun contentDeserializeFinish(result: AsyncResult, `value`: Value): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_content_deserialize_finish(
-            result.gioAsyncResultPointer,
-            `value`.gobjectValuePointer.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = gdk_content_deserialize_finish(result.gioAsyncResultPointer, `value`.gobjectValuePointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gdk.Gdk.resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -4764,14 +4751,11 @@ public object Gdk {
      * @param type the type of objects that the function creates
      * @param deserialize the callback
      */
-    public fun contentRegisterDeserializer(mimeType: String, type: GType, deserialize: ContentDeserializeFunc): Unit =
-        gdk_content_register_deserializer(
-            mimeType,
-            type,
-            ContentDeserializeFuncFunc.reinterpret(),
-            StableRef.create(deserialize).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun contentRegisterDeserializer(
+        mimeType: String,
+        type: GType,
+        deserialize: ContentDeserializeFunc,
+    ): Unit = gdk_content_register_deserializer(mimeType, type, ContentDeserializeFuncFunc.reinterpret(), StableRef.create(deserialize).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Registers a function to serialize objects of a given type.
@@ -4780,14 +4764,11 @@ public object Gdk {
      * @param mimeType the mime type to serialize to
      * @param serialize the callback
      */
-    public fun contentRegisterSerializer(type: GType, mimeType: String, serialize: ContentSerializeFunc): Unit =
-        gdk_content_register_serializer(
-            type,
-            mimeType,
-            ContentSerializeFuncFunc.reinterpret(),
-            StableRef.create(serialize).asCPointer(),
-            staticStableRefDestroy.reinterpret()
-        )
+    public fun contentRegisterSerializer(
+        type: GType,
+        mimeType: String,
+        serialize: ContentSerializeFunc,
+    ): Unit = gdk_content_register_serializer(type, mimeType, ContentSerializeFuncFunc.reinterpret(), StableRef.create(serialize).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Serialize content and write it to the given output stream, asynchronously.
@@ -4812,17 +4793,7 @@ public object Gdk {
         ioPriority: gint,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = gdk_content_serialize_async(
-        stream.gioOutputStreamPointer.reinterpret(),
-        mimeType,
-        `value`.gobjectValuePointer.reinterpret(),
-        ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = gdk_content_serialize_async(stream.gioOutputStreamPointer.reinterpret(), mimeType, `value`.gobjectValuePointer.reinterpret(), ioPriority, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes a content serialization operation.
@@ -4836,7 +4807,8 @@ public object Gdk {
         val gResult = gdk_content_serialize_finish(result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(org.gtkkn.bindings.gdk.Gdk.resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -4941,10 +4913,8 @@ public object Gdk {
      * @param texture a `GdkTexture`
      * @return a new `GdkPixbuf`
      */
-    public fun pixbufGetFromTexture(texture: Texture): Pixbuf? =
-        gdk_pixbuf_get_from_texture(texture.gdkTexturePointer.reinterpret())?.run {
-            Pixbuf(reinterpret())
-        }
+    public fun pixbufGetFromTexture(texture: Texture): Pixbuf? = gdk_pixbuf_get_from_texture(texture.gdkTexturePointer.reinterpret())?.run {
+        Pixbuf(reinterpret())}
 
     /**
      * Sets a list of backends that GDK should try to use.
@@ -4999,21 +4969,21 @@ public object Gdk {
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
             DmabufError.quark() -> DmabufError.fromErrorOrNull(error)
-                ?.let {
-                    DmabufErrorException(error, it)
-                }
+            ?.let {
+                DmabufErrorException(error, it)
+            }
             GlError.quark() -> GlError.fromErrorOrNull(error)
-                ?.let {
-                    GlErrorException(error, it)
-                }
+            ?.let {
+                GlErrorException(error, it)
+            }
             TextureError.quark() -> TextureError.fromErrorOrNull(error)
-                ?.let {
-                    TextureErrorException(error, it)
-                }
+            ?.let {
+                TextureErrorException(error, it)
+            }
             VulkanError.quark() -> VulkanError.fromErrorOrNull(error)
-                ?.let {
-                    VulkanErrorException(error, it)
-                }
+            ?.let {
+                VulkanErrorException(error, it)
+            }
             else -> null
         }
         return ex ?: GLibException(error)
@@ -5021,30 +4991,24 @@ public object Gdk {
 }
 
 public val ContentDeserializeFuncFunc:
-    CPointer<CFunction<(CPointer<GdkContentDeserializer>) -> Unit>> = staticCFunction {
-            deserializer: CPointer<GdkContentDeserializer>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(deserializer: ContentDeserializer) -> Unit>().get().invoke(
-            deserializer!!.run {
-                ContentDeserializer(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        CPointer<CFunction<(CPointer<GdkContentDeserializer>) -> Unit>> = staticCFunction {
+    deserializer: CPointer<GdkContentDeserializer>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(deserializer: ContentDeserializer) -> Unit>().get().invoke(deserializer!!.run {
+        ContentDeserializer(reinterpret())}
+    )}
+.reinterpret()
 
 public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSerializer>) -> Unit>> =
-    staticCFunction {
-            serializer: CPointer<GdkContentSerializer>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(serializer: ContentSerializer) -> Unit>().get().invoke(
-            serializer!!.run {
-                ContentSerializer(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    serializer: CPointer<GdkContentSerializer>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(serializer: ContentSerializer) -> Unit>().get().invoke(serializer!!.run {
+        ContentSerializer(reinterpret())}
+    )}
+.reinterpret()
 
 /**
  * The type of a function that can be registered with gdk_content_register_deserializer().

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,17 +19,16 @@ import org.gtkkn.native.gio.GDBusErrorEntry
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.gint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Struct used in g_dbus_error_register_error_domain().
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class DBusErrorEntry(
+    pointer: CPointer<GDBusErrorEntry>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusErrorEntryPointer: CPointer<GDBusErrorEntry> = pointer
 
     /**
@@ -33,7 +36,6 @@ public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner
      */
     public var errorCode: gint
         get() = gioDBusErrorEntryPointer.pointed.error_code
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusErrorEntryPointer.pointed.error_code = value
@@ -44,7 +46,6 @@ public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner
      */
     public var dbusErrorName: String?
         get() = gioDBusErrorEntryPointer.pointed.dbus_error_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusErrorEntryPointer.pointed.dbus_error_name?.let { g_free(it) }
@@ -57,11 +58,10 @@ public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusErrorEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusErrorEntry>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -69,9 +69,7 @@ public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to DBusErrorEntry and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GDBusErrorEntry>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GDBusErrorEntry>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusErrorEntry using the provided [AutofreeScope].

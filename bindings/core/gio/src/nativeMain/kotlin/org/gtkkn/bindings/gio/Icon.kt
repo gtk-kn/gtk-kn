@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -29,9 +32,6 @@ import org.gtkkn.native.gio.g_icon_to_string
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
 
 /**
  * `GIcon` is a very minimal interface for icons. It provides functions
@@ -65,9 +65,7 @@ import kotlin.String
  * understood by [func@Gio.Icon.deserialize], yielding one of the built-in
  * icon types.
  */
-public interface Icon :
-    Interface,
-    KGTyped {
+public interface Icon : Interface, KGTyped {
     public val gioIconPointer: CPointer<GIcon>
 
     /**
@@ -76,8 +74,7 @@ public interface Icon :
      * @param icon2 pointer to the second #GIcon.
      * @return true if @icon1 is equal to @icon2. false otherwise.
      */
-    public fun equal(icon2: Icon? = null): Boolean =
-        g_icon_equal(gioIconPointer.reinterpret(), icon2?.gioIconPointer).asBoolean()
+    public fun equal(icon2: Icon? = null): Boolean = g_icon_equal(gioIconPointer.reinterpret(), icon2?.gioIconPointer).asBoolean()
 
     /**
      * Gets a hash for an icon.
@@ -99,8 +96,7 @@ public interface Icon :
      */
     @GioVersion2_38
     public fun serialize(): Variant? = g_icon_serialize(gioIconPointer.reinterpret())?.run {
-        Variant(reinterpret())
-    }
+        Variant(reinterpret())}
 
     /**
      * Generates a textual representation of @icon that can be used for
@@ -127,17 +123,18 @@ public interface Icon :
     @GioVersion2_20
     public fun toStringIcon(): String? = g_icon_to_string(gioIconPointer.reinterpret())?.toKString()
 
-    private data class Wrapper(private val pointer: CPointer<GIcon>) : Icon {
+    private data class Wrapper(
+        private val pointer: CPointer<GIcon>,
+    ) : Icon {
         override val gioIconPointer: CPointer<GIcon> = pointer
     }
 
     public companion object : TypeCompanion<Icon> {
         override val type: GeneratedInterfaceKGType<Icon> =
-            GeneratedInterfaceKGType(g_icon_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_icon_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GIcon>): Icon = Wrapper(pointer)
 
@@ -149,10 +146,8 @@ public interface Icon :
          * @since 2.38
          */
         @GioVersion2_38
-        public fun deserialize(`value`: Variant): Icon? =
-            g_icon_deserialize(`value`.glibVariantPointer.reinterpret())?.run {
-                Icon.wrap(reinterpret())
-            }
+        public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.glibVariantPointer.reinterpret())?.run {
+            Icon.wrap(reinterpret())}
 
         /**
          * Generate a #GIcon instance from @str. This function can fail if
@@ -171,12 +166,12 @@ public interface Icon :
         public fun newForString(str: String): Result<Icon> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_icon_new_for_string(str, gError.ptr)?.run {
-                Icon.wrap(reinterpret())
-            }
+                Icon.wrap(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }

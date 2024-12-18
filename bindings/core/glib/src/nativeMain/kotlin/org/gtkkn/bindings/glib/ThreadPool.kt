@@ -1,6 +1,13 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -41,13 +48,6 @@ import org.gtkkn.native.glib.g_thread_pool_unprocessed
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `GThreadPool` struct represents a thread pool.
@@ -81,7 +81,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `func`: Func
  */
-public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ThreadPool(
+    pointer: CPointer<GThreadPool>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibThreadPoolPointer: CPointer<GThreadPool> = pointer
 
     /**
@@ -89,7 +92,6 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public var userData: gpointer
         get() = glibThreadPoolPointer.pointed.user_data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibThreadPoolPointer.pointed.user_data = value
@@ -100,7 +102,6 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public var exclusive: Boolean
         get() = glibThreadPoolPointer.pointed.exclusive.asBoolean()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibThreadPoolPointer.pointed.exclusive = value.asGBoolean()
@@ -112,11 +113,10 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GThreadPool>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GThreadPool>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -186,8 +186,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      * @param immediate should @pool shut down immediately?
      * @param wait should the function wait for all tasks to be finished?
      */
-    public fun free(immediate: Boolean, wait: Boolean): Unit =
-        g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
+    public fun free(immediate: Boolean, wait: Boolean): Unit = g_thread_pool_free(glibThreadPoolPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
 
     /**
      * Returns the maximal number of threads for @pool.
@@ -212,8 +211,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      * @since 2.46
      */
     @GLibVersion2_46
-    public fun moveToFront(`data`: gpointer? = null): Boolean =
-        g_thread_pool_move_to_front(glibThreadPoolPointer.reinterpret(), `data`).asBoolean()
+    public fun moveToFront(`data`: gpointer? = null): Boolean = g_thread_pool_move_to_front(glibThreadPoolPointer.reinterpret(), `data`).asBoolean()
 
     /**
      * Inserts @data into the list of tasks to be executed by @pool.
@@ -239,7 +237,8 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
         val gResult = g_thread_pool_push(glibThreadPoolPointer.reinterpret(), `data`, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -272,14 +271,11 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public fun setMaxThreads(maxThreads: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_thread_pool_set_max_threads(
-            glibThreadPoolPointer.reinterpret(),
-            maxThreads,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_thread_pool_set_max_threads(glibThreadPoolPointer.reinterpret(), maxThreads, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -304,11 +300,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      * @since 2.10
      */
     @GLibVersion2_10
-    public fun setSortFunction(func: CompareDataFunc): Unit = g_thread_pool_set_sort_function(
-        glibThreadPoolPointer.reinterpret(),
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun setSortFunction(func: CompareDataFunc): Unit = g_thread_pool_set_sort_function(glibThreadPoolPointer.reinterpret(), CompareDataFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Returns the number of tasks still unprocessed in @pool.
@@ -398,21 +390,19 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
          * @param exclusive should this thread pool be exclusive?
          * @return the new #GThreadPool
          */
-        public fun new(func: Func, maxThreads: gint, exclusive: Boolean): Result<ThreadPool> = memScoped {
+        public fun new(
+            func: Func,
+            maxThreads: gint,
+            exclusive: Boolean,
+        ): Result<ThreadPool> = memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_thread_pool_new(
-                FuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer(),
-                maxThreads,
-                exclusive.asGBoolean(),
-                gError.ptr
-            )?.run {
-                ThreadPool(reinterpret())
-            }
+            val gResult = g_thread_pool_new(FuncFunc.reinterpret(), StableRef.create(func).asCPointer(), maxThreads, exclusive.asGBoolean(), gError.ptr)?.run {
+                ThreadPool(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }
@@ -434,22 +424,19 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
          * @since 2.70
          */
         @GLibVersion2_70
-        public fun newFull(func: Func, maxThreads: gint, exclusive: Boolean): Result<ThreadPool> = memScoped {
+        public fun newFull(
+            func: Func,
+            maxThreads: gint,
+            exclusive: Boolean,
+        ): Result<ThreadPool> = memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_thread_pool_new_full(
-                FuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer(),
-                staticStableRefDestroy.reinterpret(),
-                maxThreads,
-                exclusive.asGBoolean(),
-                gError.ptr
-            )?.run {
-                ThreadPool(reinterpret())
-            }
+            val gResult = g_thread_pool_new_full(FuncFunc.reinterpret(), StableRef.create(func).asCPointer(), staticStableRefDestroy.reinterpret(), maxThreads, exclusive.asGBoolean(), gError.ptr)?.run {
+                ThreadPool(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }

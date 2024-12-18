@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rgba
@@ -14,14 +15,15 @@ import org.gtkkn.native.webkit.webkit_input_method_underline_free
 import org.gtkkn.native.webkit.webkit_input_method_underline_get_type
 import org.gtkkn.native.webkit.webkit_input_method_underline_new
 import org.gtkkn.native.webkit.webkit_input_method_underline_set_color
-import kotlin.Unit
 
 /**
  * Range of text in an preedit string to be shown underlined.
  * @since 2.28
  */
 @WebKitVersion2_28
-public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>) : ProxyInstance(pointer) {
+public class InputMethodUnderline(
+    pointer: CPointer<WebKitInputMethodUnderline>,
+) : ProxyInstance(pointer) {
     public val webkitInputMethodUnderlinePointer: CPointer<WebKitInputMethodUnderline> = pointer
 
     /**
@@ -31,10 +33,8 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun copy(): InputMethodUnderline =
-        webkit_input_method_underline_copy(webkitInputMethodUnderlinePointer.reinterpret())!!.run {
-            InputMethodUnderline(reinterpret())
-        }
+    public fun copy(): InputMethodUnderline = webkit_input_method_underline_copy(webkitInputMethodUnderlinePointer.reinterpret())!!.run {
+        InputMethodUnderline(reinterpret())}
 
     /**
      * Free the #WebKitInputMethodUnderline.
@@ -54,10 +54,7 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun setColor(rgba: Rgba? = null): Unit = webkit_input_method_underline_set_color(
-        webkitInputMethodUnderlinePointer.reinterpret(),
-        rgba?.gdkRGBAPointer?.reinterpret()
-    )
+    public fun setColor(rgba: Rgba? = null): Unit = webkit_input_method_underline_set_color(webkitInputMethodUnderlinePointer.reinterpret(), rgba?.gdkRGBAPointer?.reinterpret())
 
     public companion object {
         /**
@@ -68,8 +65,7 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
          * @return A newly created #WebKitInputMethodUnderline
          * @since 2.28
          */
-        public fun new(startOffset: guint, endOffset: guint): InputMethodUnderline =
-            InputMethodUnderline(webkit_input_method_underline_new(startOffset, endOffset)!!.reinterpret())
+        public fun new(startOffset: guint, endOffset: guint): InputMethodUnderline = InputMethodUnderline(webkit_input_method_underline_new(startOffset, endOffset)!!.reinterpret())
 
         /**
          * Get the GType of InputMethodUnderline

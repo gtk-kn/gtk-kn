@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,10 +19,6 @@ import org.gtkkn.native.gio.GInputMessage
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Structure used for scatter/gather data input when receiving multiple
@@ -50,7 +50,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.48
  */
 @GioVersion2_48
-public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class InputMessage(
+    pointer: CPointer<GInputMessage>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioInputMessagePointer: CPointer<GInputMessage> = pointer
 
     /**
@@ -59,9 +62,7 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      */
     public var address: SocketAddress?
         get() = gioInputMessagePointer.pointed.address?.run {
-            SocketAddress(reinterpret())
-        }
-
+            SocketAddress(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
@@ -72,7 +73,6 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      */
     public var numVectors: guint
         get() = gioInputMessagePointer.pointed.num_vectors
-
         @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.num_vectors = value
@@ -84,7 +84,6 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      */
     public var bytesReceived: gsize
         get() = gioInputMessagePointer.pointed.bytes_received
-
         @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.bytes_received = value
@@ -96,7 +95,6 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      */
     public var flags: gint
         get() = gioInputMessagePointer.pointed.flags
-
         @UnsafeFieldSetter
         set(`value`) {
             gioInputMessagePointer.pointed.flags = value
@@ -108,11 +106,10 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GInputMessage>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GInputMessage>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -120,9 +117,7 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *
      * @param pair A pair containing the pointer to InputMessage and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GInputMessage>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GInputMessage>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new InputMessage using the provided [AutofreeScope].
@@ -186,6 +181,5 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
         this.flags = flags
     }
 
-    override fun toString(): String =
-        "InputMessage(address=$address, numVectors=$numVectors, bytesReceived=$bytesReceived, flags=$flags)"
+    override fun toString(): String = "InputMessage(address=$address, numVectors=$numVectors, bytesReceived=$bytesReceived, flags=$flags)"
 }

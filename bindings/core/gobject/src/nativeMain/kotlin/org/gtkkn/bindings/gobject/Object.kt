@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -61,10 +65,6 @@ import org.gtkkn.native.gobject.g_object_weak_ref
 import org.gtkkn.native.gobject.g_object_weak_unref
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gsize
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * The base object type.
@@ -112,7 +112,9 @@ import kotlin.Unit
  * - parameter `parameters`: Parameter
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
-public open class Object(pointer: CPointer<GObject>) : KGTyped {
+public open class Object(
+    pointer: CPointer<GObject>,
+) : KGTyped {
     public val gPointer: CPointer<GObject>
     init {
         gPointer = pointer.reinterpret()
@@ -162,11 +164,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @since 2.8
      */
     @GObjectVersion2_8
-    public open fun addToggleRef(notify: ToggleNotify): Unit = g_object_add_toggle_ref(
-        gPointer.reinterpret(),
-        ToggleNotifyFunc.reinterpret(),
-        StableRef.create(notify).asCPointer()
-    )
+    public open fun addToggleRef(notify: ToggleNotify): Unit = g_object_add_toggle_ref(gPointer.reinterpret(), ToggleNotifyFunc.reinterpret(), StableRef.create(notify).asCPointer())
 
     /**
      * Creates a binding between @source_property on @source and @target_property
@@ -216,15 +214,8 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
         target: Object,
         targetProperty: String,
         flags: BindingFlags,
-    ): Binding = g_object_bind_property(
-        gPointer.reinterpret(),
-        sourceProperty,
-        target.gPointer.reinterpret(),
-        targetProperty,
-        flags.mask
-    )!!.run {
-        Binding(reinterpret())
-    }
+    ): Binding = g_object_bind_property(gPointer.reinterpret(), sourceProperty, target.gPointer.reinterpret(), targetProperty, flags.mask)!!.run {
+        Binding(reinterpret())}
 
     /**
      * Creates a binding between @source_property on @source and @target_property
@@ -256,17 +247,8 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
         flags: BindingFlags,
         transformTo: Closure,
         transformFrom: Closure,
-    ): Binding = g_object_bind_property_with_closures(
-        gPointer.reinterpret(),
-        sourceProperty,
-        target.gPointer.reinterpret(),
-        targetProperty,
-        flags.mask,
-        transformTo.gobjectClosurePointer.reinterpret(),
-        transformFrom.gobjectClosurePointer.reinterpret()
-    )!!.run {
-        Binding(reinterpret())
-    }
+    ): Binding = g_object_bind_property_with_closures(gPointer.reinterpret(), sourceProperty, target.gPointer.reinterpret(), targetProperty, flags.mask, transformTo.gobjectClosurePointer.reinterpret(), transformFrom.gobjectClosurePointer.reinterpret())!!.run {
+        Binding(reinterpret())}
 
     /**
      * This is a variant of g_object_get_data() which returns
@@ -293,14 +275,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @since 2.34
      */
     @GObjectVersion2_34
-    public open fun dupData(key: String, dupFunc: DuplicateFunc?): gpointer? = g_object_dup_data(
-        gPointer.reinterpret(),
-        key,
-        dupFunc?.let {
-            DuplicateFuncFunc.reinterpret()
-        },
-        dupFunc?.let { StableRef.create(dupFunc).asCPointer() }
-    )
+    public open fun dupData(key: String, dupFunc: DuplicateFunc?): gpointer? = g_object_dup_data(gPointer.reinterpret(), key, dupFunc?.let { DuplicateFuncFunc.reinterpret() }, dupFunc?.let { StableRef.create(dupFunc).asCPointer() })
 
     /**
      * This is a variant of g_object_get_qdata() which returns
@@ -327,14 +302,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @since 2.34
      */
     @GObjectVersion2_34
-    public open fun dupQdata(quark: Quark, dupFunc: DuplicateFunc?): gpointer? = g_object_dup_qdata(
-        gPointer.reinterpret(),
-        quark,
-        dupFunc?.let {
-            DuplicateFuncFunc.reinterpret()
-        },
-        dupFunc?.let { StableRef.create(dupFunc).asCPointer() }
-    )
+    public open fun dupQdata(quark: Quark, dupFunc: DuplicateFunc?): gpointer? = g_object_dup_qdata(gPointer.reinterpret(), quark, dupFunc?.let { DuplicateFuncFunc.reinterpret() }, dupFunc?.let { StableRef.create(dupFunc).asCPointer() })
 
     /**
      * This function is intended for #GObject implementations to re-enforce
@@ -390,8 +358,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param propertyName the name of the property to get
      * @param value return location for the property value
      */
-    public open fun getProperty(propertyName: String, `value`: Value): Unit =
-        g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+    public open fun getProperty(propertyName: String, `value`: Value): Unit = g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * This function gets back user data pointers stored via
@@ -470,8 +437,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @since 2.26
      */
     @GObjectVersion2_26
-    public open fun notifyByPspec(pspec: ParamSpec): Unit =
-        g_object_notify_by_pspec(gPointer.reinterpret(), pspec.gPointer.reinterpret())
+    public open fun notifyByPspec(pspec: ParamSpec): Unit = g_object_notify_by_pspec(gPointer.reinterpret(), pspec.gPointer.reinterpret())
 
     /**
      * Increases the reference count of @object.
@@ -484,8 +450,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @return the same @object
      */
     public open fun ref(): Object = g_object_ref(gPointer.reinterpret())!!.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Increase the reference count of @object, and possibly remove the
@@ -505,8 +470,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      */
     @GObjectVersion2_10
     public open fun refSink(): Object = g_object_ref_sink(gPointer.reinterpret())!!.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Removes a reference added with g_object_add_toggle_ref(). The
@@ -523,11 +487,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @since 2.8
      */
     @GObjectVersion2_8
-    public open fun removeToggleRef(notify: ToggleNotify): Unit = g_object_remove_toggle_ref(
-        gPointer.reinterpret(),
-        ToggleNotifyFunc.reinterpret(),
-        StableRef.create(notify).asCPointer()
-    )
+    public open fun removeToggleRef(notify: ToggleNotify): Unit = g_object_remove_toggle_ref(gPointer.reinterpret(), ToggleNotifyFunc.reinterpret(), StableRef.create(notify).asCPointer())
 
     /**
      * Releases all references to other objects. This can be used to break
@@ -552,8 +512,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param key name of the key
      * @param data data to associate with that key
      */
-    public open fun setData(key: String, `data`: gpointer? = null): Unit =
-        g_object_set_data(gPointer.reinterpret(), key, `data`)
+    public open fun setData(key: String, `data`: gpointer? = null): Unit = g_object_set_data(gPointer.reinterpret(), key, `data`)
 
     /**
      * Sets a property on an object.
@@ -561,8 +520,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param propertyName the name of the property to set
      * @param value the value
      */
-    public open fun setProperty(propertyName: String, `value`: Value): Unit =
-        g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+    public open fun setProperty(propertyName: String, `value`: Value): Unit = g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * This sets an opaque, named pointer on an object.
@@ -577,8 +535,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param quark A #GQuark, naming the user data pointer
      * @param data An opaque user data pointer
      */
-    public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit =
-        g_object_set_qdata(gPointer.reinterpret(), quark, `data`)
+    public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit = g_object_set_qdata(gPointer.reinterpret(), quark, `data`)
 
     /**
      * Remove a specified datum from the object's data associations,
@@ -674,8 +631,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      */
     @GObjectVersion2_70
     public open fun takeRef(): Object = g_object_take_ref(gPointer.reinterpret())!!.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Reverts the effect of a previous call to
@@ -714,8 +670,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      *
      * @param closure #GClosure to watch
      */
-    public open fun watchClosure(closure: Closure): Unit =
-        g_object_watch_closure(gPointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
+    public open fun watchClosure(closure: Closure): Unit = g_object_watch_closure(gPointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
 
     /**
      * Adds a weak reference callback to an object. Weak references are
@@ -731,16 +686,14 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      *
      * @param notify callback to invoke before the object is freed
      */
-    public open fun weakRef(notify: WeakNotify): Unit =
-        g_object_weak_ref(gPointer.reinterpret(), WeakNotifyFunc.reinterpret(), StableRef.create(notify).asCPointer())
+    public open fun weakRef(notify: WeakNotify): Unit = g_object_weak_ref(gPointer.reinterpret(), WeakNotifyFunc.reinterpret(), StableRef.create(notify).asCPointer())
 
     /**
      * Removes a weak reference callback to an object.
      *
      * @param notify callback to search for
      */
-    public open fun weakUnref(notify: WeakNotify): Unit =
-        g_object_weak_unref(gPointer.reinterpret(), WeakNotifyFunc.reinterpret(), StableRef.create(notify).asCPointer())
+    public open fun weakUnref(notify: WeakNotify): Unit = g_object_weak_unref(gPointer.reinterpret(), WeakNotifyFunc.reinterpret(), StableRef.create(notify).asCPointer())
 
     /**
      * The notify signal is emitted on an object when one of its properties has
@@ -772,25 +725,14 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `pspec` the #GParamSpec of the property which changed.
      */
-    public fun connectNotify(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (pspec: ParamSpec) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "notify",
-        connectNotifyFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectNotify(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (pspec: ParamSpec) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "notify", connectNotifyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Object> {
         override val type: GeneratedClassKGType<Object> =
-            GeneratedClassKGType(g_object_get_type()) { Object(it.reinterpret()) }
+                GeneratedClassKGType(g_object_get_type()) { Object(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GobjectTypeProvider.register()}
 
         public fun compatControl(what: gsize, `data`: gpointer? = null): gsize = g_object_compat_control(what, `data`)
 
@@ -810,10 +752,8 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
          * @since 2.4
          */
         @GObjectVersion2_4
-        public fun interfaceFindProperty(gIface: TypeInterface, propertyName: String): ParamSpec =
-            g_object_interface_find_property(gIface.gobjectTypeInterfacePointer.reinterpret(), propertyName)!!.run {
-                ParamSpec(reinterpret())
-            }
+        public fun interfaceFindProperty(gIface: TypeInterface, propertyName: String): ParamSpec = g_object_interface_find_property(gIface.gobjectTypeInterfacePointer.reinterpret(), propertyName)!!.run {
+            ParamSpec(reinterpret())}
 
         /**
          * Add a property to an interface; this is only useful for interfaces
@@ -840,11 +780,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
          * @since 2.4
          */
         @GObjectVersion2_4
-        public fun interfaceInstallProperty(gIface: TypeInterface, pspec: ParamSpec): Unit =
-            g_object_interface_install_property(
-                gIface.gobjectTypeInterfacePointer.reinterpret(),
-                pspec.gPointer.reinterpret()
-            )
+        public fun interfaceInstallProperty(gIface: TypeInterface, pspec: ParamSpec): Unit = g_object_interface_install_property(gIface.gobjectTypeInterfacePointer.reinterpret(), pspec.gPointer.reinterpret())
 
         /**
          * Get the GType of Object
@@ -856,15 +792,12 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
 }
 
 private val connectNotifyFunc: CPointer<CFunction<(CPointer<GParamSpec>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            pspec: CPointer<GParamSpec>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(pspec: ParamSpec) -> Unit>().get().invoke(
-            pspec!!.run {
-                ParamSpec(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    pspec: CPointer<GParamSpec>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(pspec: ParamSpec) -> Unit>().get().invoke(pspec!!.run {
+        ParamSpec(reinterpret())}
+    )}
+.reinterpret()

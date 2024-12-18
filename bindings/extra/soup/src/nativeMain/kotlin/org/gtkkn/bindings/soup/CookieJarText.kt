@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -12,8 +14,6 @@ import org.gtkkn.native.soup.SoupCookieJarText
 import org.gtkkn.native.soup.SoupSessionFeature
 import org.gtkkn.native.soup.soup_cookie_jar_text_get_type
 import org.gtkkn.native.soup.soup_cookie_jar_text_new
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * Text-file-based ("cookies.txt") Cookie Jar
@@ -25,8 +25,9 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class CookieJarText(pointer: CPointer<SoupCookieJarText>) :
-    CookieJar(pointer.reinterpret()),
+public class CookieJarText(
+    pointer: CPointer<SoupCookieJarText>,
+) : CookieJar(pointer.reinterpret()),
     KGTyped {
     public val soupCookieJarTextPointer: CPointer<SoupCookieJarText>
         get() = gPointer.reinterpret()
@@ -47,18 +48,14 @@ public class CookieJarText(pointer: CPointer<SoupCookieJarText>) :
      * @param readOnly true if @filename is read-only
      * @return the new #SoupCookieJar
      */
-    public constructor(
-        filename: String,
-        readOnly: Boolean,
-    ) : this(soup_cookie_jar_text_new(filename, readOnly.asGBoolean())!!.reinterpret())
+    public constructor(filename: String, readOnly: Boolean) : this(soup_cookie_jar_text_new(filename, readOnly.asGBoolean())!!.reinterpret())
 
     public companion object : TypeCompanion<CookieJarText> {
         override val type: GeneratedClassKGType<CookieJarText> =
-            GeneratedClassKGType(soup_cookie_jar_text_get_type()) { CookieJarText(it.reinterpret()) }
+                GeneratedClassKGType(soup_cookie_jar_text_get_type()) { CookieJarText(it.reinterpret()) }
 
         init {
-            SoupTypeProvider.register()
-        }
+            SoupTypeProvider.register()}
 
         /**
          * Get the GType of CookieJarText

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -33,10 +37,6 @@ import org.gtkkn.native.webkit.webkit_web_inspector_get_type
 import org.gtkkn.native.webkit.webkit_web_inspector_get_web_view
 import org.gtkkn.native.webkit.webkit_web_inspector_is_attached
 import org.gtkkn.native.webkit.webkit_web_inspector_show
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Access to the WebKit inspector.
@@ -63,8 +63,9 @@ import kotlin.Unit
  * webkit_web_inspector_show (WEBKIT_WEB_INSPECTOR(inspector));
  * ```
  */
-public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
-    Object(pointer.reinterpret()),
+public class WebInspector(
+    pointer: CPointer<WebKitWebInspector>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitWebInspectorPointer: CPointer<WebKitWebInspector>
         get() = gPointer.reinterpret()
@@ -116,8 +117,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
          *
          * @return the URI that is currently being inspected or null
          */
-        get() = webkit_web_inspector_get_inspected_uri(webkitWebInspectorPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_web_inspector_get_inspected_uri(webkitWebInspectorPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Request @inspector to be attached.
@@ -148,10 +148,8 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      *
      * @return the #WebKitWebViewBase used to display the inspector or null
      */
-    public fun getWebView(): WebViewBase =
-        webkit_web_inspector_get_web_view(webkitWebInspectorPointer.reinterpret())!!.run {
-            WebViewBase(reinterpret())
-        }
+    public fun getWebView(): WebViewBase = webkit_web_inspector_get_web_view(webkitWebInspectorPointer.reinterpret())!!.run {
+        WebViewBase(reinterpret())}
 
     /**
      * Whether the @inspector view is currently attached to the same window that contains
@@ -159,8 +157,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      *
      * @return true if @inspector is currently attached or false otherwise
      */
-    public fun isAttached(): Boolean =
-        webkit_web_inspector_is_attached(webkitWebInspectorPointer.reinterpret()).asBoolean()
+    public fun isAttached(): Boolean = webkit_web_inspector_is_attached(webkitWebInspectorPointer.reinterpret()).asBoolean()
 
     /**
      * Request @inspector to be shown.
@@ -182,15 +179,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectAttach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "attach",
-            connectAttachFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectAttach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "attach", connectAttachFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the inspector should be shown.
@@ -209,15 +198,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectBringToFront(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "bring-to-front",
-            connectBringToFrontFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectBringToFront(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "bring-to-front", connectBringToFrontFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the inspector page is closed. If you are using your own
@@ -227,15 +208,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "closed",
-            connectClosedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "closed", connectClosedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the inspector is requested to be detached from the window
@@ -252,15 +225,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectDetach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "detach",
-            connectDetachFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectDetach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "detach", connectDetachFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the inspector is requested to open in a separate window.
@@ -277,23 +242,14 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectOpenWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "open-window",
-            connectOpenWindowFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectOpenWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong = g_signal_connect_data(gPointer.reinterpret(), "open-window", connectOpenWindowFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<WebInspector> {
         override val type: GeneratedClassKGType<WebInspector> =
-            GeneratedClassKGType(webkit_web_inspector_get_type()) { WebInspector(it.reinterpret()) }
+                GeneratedClassKGType(webkit_web_inspector_get_type()) { WebInspector(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of WebInspector
@@ -305,41 +261,36 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
 }
 
 private val connectAttachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()
 
 private val connectBringToFrontFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()
 
 private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectDetachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()
 
 private val connectOpenWindowFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Boolean>().get().invoke().asGBoolean()}
+.reinterpret()

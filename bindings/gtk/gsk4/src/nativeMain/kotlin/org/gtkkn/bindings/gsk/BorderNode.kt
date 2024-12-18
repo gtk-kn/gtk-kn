@@ -21,8 +21,9 @@ import org.gtkkn.native.gsk.gsk_border_node_get_type
  * - method `get_widths`: Array parameter of type gfloat is not supported
  * - parameter `border_width`: Array parameter of type gfloat is not supported
  */
-public open class BorderNode(pointer: CPointer<GskBorderNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class BorderNode(
+    pointer: CPointer<GskBorderNode>,
+) : RenderNode(pointer.reinterpret()),
     KGTyped {
     public val gskBorderNodePointer: CPointer<GskBorderNode>
         get() = gPointer.reinterpret()
@@ -34,8 +35,7 @@ public open class BorderNode(pointer: CPointer<GskBorderNode>) :
      *     for the top, right, bottom and left color of the border
      */
     public open fun getColors(): Rgba = gsk_border_node_get_colors(gskBorderNodePointer.reinterpret())!!.run {
-        Rgba(reinterpret())
-    }
+        Rgba(reinterpret())}
 
     /**
      * Retrieves the outline of the border.
@@ -43,16 +43,14 @@ public open class BorderNode(pointer: CPointer<GskBorderNode>) :
      * @return the outline of the border
      */
     public open fun getOutline(): RoundedRect = gsk_border_node_get_outline(gskBorderNodePointer.reinterpret())!!.run {
-        RoundedRect(reinterpret())
-    }
+        RoundedRect(reinterpret())}
 
     public companion object : TypeCompanion<BorderNode> {
         override val type: GeneratedClassKGType<BorderNode> =
-            GeneratedClassKGType(gsk_border_node_get_type()) { BorderNode(it.reinterpret()) }
+                GeneratedClassKGType(gsk_border_node_get_type()) { BorderNode(it.reinterpret()) }
 
         init {
-            GskTypeProvider.register()
-        }
+            GskTypeProvider.register()}
 
         /**
          * Get the GType of BorderNode

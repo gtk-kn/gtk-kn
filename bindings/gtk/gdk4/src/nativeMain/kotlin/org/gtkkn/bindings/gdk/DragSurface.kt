@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Interface
@@ -13,7 +14,6 @@ import org.gtkkn.native.gdk.gdk_drag_surface_get_type
 import org.gtkkn.native.gdk.gdk_drag_surface_present
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
 
 /**
  * A `GdkDragSurface` is an interface for surfaces used during DND.
@@ -22,9 +22,7 @@ import kotlin.Boolean
  *
  * - signal `compute-size`: Unsupported parameter `size` : DragSurfaceSize
  */
-public interface DragSurface :
-    Interface,
-    KGTyped {
+public interface DragSurface : Interface, KGTyped {
     public val gdkDragSurfacePointer: CPointer<GdkDragSurface>
 
     /**
@@ -34,20 +32,20 @@ public interface DragSurface :
      * @param height the unconstrained drag_surface height to layout
      * @return false if it failed to be presented, otherwise true.
      */
-    public fun present(width: gint, height: gint): Boolean =
-        gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
+    public fun present(width: gint, height: gint): Boolean = gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GdkDragSurface>) : DragSurface {
+    private data class Wrapper(
+        private val pointer: CPointer<GdkDragSurface>,
+    ) : DragSurface {
         override val gdkDragSurfacePointer: CPointer<GdkDragSurface> = pointer
     }
 
     public companion object : TypeCompanion<DragSurface> {
         override val type: GeneratedInterfaceKGType<DragSurface> =
-            GeneratedInterfaceKGType(gdk_drag_surface_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gdk_drag_surface_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GdkDragSurface>): DragSurface = Wrapper(pointer)
 

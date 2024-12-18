@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -15,8 +17,6 @@ import org.gtkkn.native.webkit.webkit_website_data_get_type
 import org.gtkkn.native.webkit.webkit_website_data_get_types
 import org.gtkkn.native.webkit.webkit_website_data_ref
 import org.gtkkn.native.webkit.webkit_website_data_unref
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Data stored locally by a web site.
@@ -37,7 +37,9 @@ import kotlin.Unit
  * @since 2.16
  */
 @WebKitVersion2_16
-public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(pointer) {
+public class WebsiteData(
+    pointer: CPointer<WebKitWebsiteData>,
+) : ProxyInstance(pointer) {
     public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData> = pointer
 
     /**
@@ -51,8 +53,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getName(): String = webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getName(): String = webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the size of the data of types @types in a #WebKitWebsiteData.
@@ -65,8 +66,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getSize(types: WebsiteDataTypes): guint64 =
-        webkit_website_data_get_size(webkitWebsiteDataPointer.reinterpret(), types.mask)
+    public fun getSize(types: WebsiteDataTypes): guint64 = webkit_website_data_get_size(webkitWebsiteDataPointer.reinterpret(), types.mask)
 
     /**
      * Gets the types of data stored in the client for a #WebKitWebsiteData.
@@ -78,10 +78,8 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getTypes(): WebsiteDataTypes =
-        webkit_website_data_get_types(webkitWebsiteDataPointer.reinterpret()).run {
-            WebsiteDataTypes(this)
-        }
+    public fun getTypes(): WebsiteDataTypes = webkit_website_data_get_types(webkitWebsiteDataPointer.reinterpret()).run {
+        WebsiteDataTypes(this)}
 
     /**
      * Atomically increments the reference count of @website_data by one.
@@ -93,8 +91,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      */
     @WebKitVersion2_16
     public fun ref(): WebsiteData = webkit_website_data_ref(webkitWebsiteDataPointer.reinterpret())!!.run {
-        WebsiteData(reinterpret())
-    }
+        WebsiteData(reinterpret())}
 
     /**
      * Atomically decrements the reference count of @website_data by one.

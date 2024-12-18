@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtksource
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -23,9 +26,6 @@ import org.gtkkn.native.gtksource.gtk_source_language_get_style_fallback
 import org.gtkkn.native.gtksource.gtk_source_language_get_style_ids
 import org.gtkkn.native.gtksource.gtk_source_language_get_style_name
 import org.gtkkn.native.gtksource.gtk_source_language_get_type
-import kotlin.Boolean
-import kotlin.String
-import kotlin.collections.List
 
 /**
  * Represents a syntax highlighted language.
@@ -36,8 +36,9 @@ import kotlin.collections.List
  * Use [class@LanguageManager] to obtain a `GtkSourceLanguage` instance, and
  * [method@Buffer.set_language] to apply it to a [class@Buffer].
  */
-public open class Language(pointer: CPointer<GtkSourceLanguage>) :
-    Object(pointer.reinterpret()),
+public open class Language(
+    pointer: CPointer<GtkSourceLanguage>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtksourceLanguagePointer: CPointer<GtkSourceLanguage>
         get() = gPointer.reinterpret()
@@ -59,8 +60,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
          *
          * @return the ID of @language.
          */
-        get() = gtk_source_language_get_id(gtksourceLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_language_get_id(gtksourceLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public open val name: String
         /**
@@ -71,8 +71,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
          *
          * @return the name of @language.
          */
-        get() = gtk_source_language_get_name(gtksourceLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_language_get_name(gtksourceLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public open val section: String
         /**
@@ -85,8 +84,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
          *
          * @return the section of @language.
          */
-        get() = gtk_source_language_get_section(gtksourceLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_language_get_section(gtksourceLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the globs associated to this language.
@@ -98,8 +96,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
      * if no globs are found.
      * The returned array must be freed with g_strfreev().
      */
-    public open fun getGlobs(): List<String>? =
-        gtk_source_language_get_globs(gtksourceLanguagePointer.reinterpret())?.toKStringList()
+    public open fun getGlobs(): List<String>? = gtk_source_language_get_globs(gtksourceLanguagePointer.reinterpret())?.toKStringList()
 
     /**
      *
@@ -111,8 +108,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
      * The returned string is owned by @language and should not be freed
      * or modified.
      */
-    public open fun getMetadata(name: String): String? =
-        gtk_source_language_get_metadata(gtksourceLanguagePointer.reinterpret(), name)?.toKString()
+    public open fun getMetadata(name: String): String? = gtk_source_language_get_metadata(gtksourceLanguagePointer.reinterpret(), name)?.toKString()
 
     /**
      * Returns the mime types associated to this language.
@@ -125,8 +121,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
      * or null if no mime types are found.
      * The returned array must be freed with g_strfreev().
      */
-    public open fun getMimeTypes(): List<String>? =
-        gtk_source_language_get_mime_types(gtksourceLanguagePointer.reinterpret())?.toKStringList()
+    public open fun getMimeTypes(): List<String>? = gtk_source_language_get_mime_types(gtksourceLanguagePointer.reinterpret())?.toKStringList()
 
     /**
      * Returns the ID of the style to use if the specified @style_id
@@ -138,8 +133,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
      * if the style has no fallback defined.
      * The returned string is owned by the @language and must not be modified.
      */
-    public open fun getStyleFallback(styleId: String): String? =
-        gtk_source_language_get_style_fallback(gtksourceLanguagePointer.reinterpret(), styleId)?.toKString()
+    public open fun getStyleFallback(styleId: String): String? = gtk_source_language_get_style_fallback(gtksourceLanguagePointer.reinterpret(), styleId)?.toKString()
 
     /**
      * Returns the ids of the styles defined by this @language.
@@ -148,8 +142,7 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
      * styles defined by this @language or null if no style is defined.
      * The returned array must be freed with g_strfreev().
      */
-    public open fun getStyleIds(): List<String>? =
-        gtk_source_language_get_style_ids(gtksourceLanguagePointer.reinterpret())?.toKStringList()
+    public open fun getStyleIds(): List<String>? = gtk_source_language_get_style_ids(gtksourceLanguagePointer.reinterpret())?.toKStringList()
 
     /**
      * Returns the name of the style with ID @style_id defined by this @language.
@@ -160,16 +153,14 @@ public open class Language(pointer: CPointer<GtkSourceLanguage>) :
      * style with ID @style_id defined by this @language.
      * The returned string is owned by the @language and must not be modified.
      */
-    public open fun getStyleName(styleId: String): String? =
-        gtk_source_language_get_style_name(gtksourceLanguagePointer.reinterpret(), styleId)?.toKString()
+    public open fun getStyleName(styleId: String): String? = gtk_source_language_get_style_name(gtksourceLanguagePointer.reinterpret(), styleId)?.toKString()
 
     public companion object : TypeCompanion<Language> {
         override val type: GeneratedClassKGType<Language> =
-            GeneratedClassKGType(gtk_source_language_get_type()) { Language(it.reinterpret()) }
+                GeneratedClassKGType(gtk_source_language_get_type()) { Language(it.reinterpret()) }
 
         init {
-            GtksourceTypeProvider.register()
-        }
+            GtksourceTypeProvider.register()}
 
         /**
          * Get the GType of Language

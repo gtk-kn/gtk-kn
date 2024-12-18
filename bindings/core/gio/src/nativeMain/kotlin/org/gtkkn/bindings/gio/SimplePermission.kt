@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asGBoolean
@@ -11,7 +12,6 @@ import org.gtkkn.native.gio.GSimplePermission
 import org.gtkkn.native.gio.g_simple_permission_get_type
 import org.gtkkn.native.gio.g_simple_permission_new
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * `GSimplePermission` is a trivial implementation of [class@Gio.Permission]
@@ -21,8 +21,9 @@ import kotlin.Boolean
  * Calling [method@Gio.Permission.acquire] or [method@Gio.Permission.release]
  * on a `GSimplePermission` will result in errors.
  */
-public open class SimplePermission(pointer: CPointer<GSimplePermission>) :
-    Permission(pointer.reinterpret()),
+public open class SimplePermission(
+    pointer: CPointer<GSimplePermission>,
+) : Permission(pointer.reinterpret()),
     KGTyped {
     public val gioSimplePermissionPointer: CPointer<GSimplePermission>
         get() = gPointer.reinterpret()
@@ -39,11 +40,10 @@ public open class SimplePermission(pointer: CPointer<GSimplePermission>) :
 
     public companion object : TypeCompanion<SimplePermission> {
         override val type: GeneratedClassKGType<SimplePermission> =
-            GeneratedClassKGType(g_simple_permission_get_type()) { SimplePermission(it.reinterpret()) }
+                GeneratedClassKGType(g_simple_permission_get_type()) { SimplePermission(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SimplePermission

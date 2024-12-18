@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,17 +18,16 @@ import org.gtkkn.native.glib.GScannerConfig
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Specifies the #GScanner parser configuration. Most settings can
  * be changed during the parsing phase and will affect the lexical
  * parsing of the next unpeeked token.
  */
-public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class ScannerConfig(
+    pointer: CPointer<GScannerConfig>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibScannerConfigPointer: CPointer<GScannerConfig> = pointer
 
     /**
@@ -34,7 +37,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var csetSkipCharacters: String?
         get() = glibScannerConfigPointer.pointed.cset_skip_characters?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cset_skip_characters?.let { g_free(it) }
@@ -47,7 +49,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var csetIdentifierFirst: String?
         get() = glibScannerConfigPointer.pointed.cset_identifier_first?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cset_identifier_first?.let { g_free(it) }
@@ -62,7 +63,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var csetIdentifierNth: String?
         get() = glibScannerConfigPointer.pointed.cset_identifier_nth?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cset_identifier_nth?.let { g_free(it) }
@@ -77,7 +77,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var cpairCommentSingle: String?
         get() = glibScannerConfigPointer.pointed.cpair_comment_single?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.cpair_comment_single?.let { g_free(it) }
@@ -90,7 +89,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var caseSensitive: guint
         get() = glibScannerConfigPointer.pointed.case_sensitive
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.case_sensitive = value
@@ -102,7 +100,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var skipCommentMulti: guint
         get() = glibScannerConfigPointer.pointed.skip_comment_multi
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.skip_comment_multi = value
@@ -114,7 +111,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var skipCommentSingle: guint
         get() = glibScannerConfigPointer.pointed.skip_comment_single
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.skip_comment_single = value
@@ -126,7 +122,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanCommentMulti: guint
         get() = glibScannerConfigPointer.pointed.scan_comment_multi
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_comment_multi = value
@@ -138,7 +133,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanIdentifier: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier = value
@@ -150,7 +144,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanIdentifier1char: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier_1char
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier_1char = value
@@ -162,7 +155,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanIdentifierNull: guint
         get() = glibScannerConfigPointer.pointed.scan_identifier_NULL
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_identifier_NULL = value
@@ -174,7 +166,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanSymbols: guint
         get() = glibScannerConfigPointer.pointed.scan_symbols
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_symbols = value
@@ -186,7 +177,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanBinary: guint
         get() = glibScannerConfigPointer.pointed.scan_binary
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_binary = value
@@ -198,7 +188,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanOctal: guint
         get() = glibScannerConfigPointer.pointed.scan_octal
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_octal = value
@@ -210,7 +199,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanFloat: guint
         get() = glibScannerConfigPointer.pointed.scan_float
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_float = value
@@ -222,7 +210,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanHex: guint
         get() = glibScannerConfigPointer.pointed.scan_hex
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_hex = value
@@ -234,7 +221,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanHexDollar: guint
         get() = glibScannerConfigPointer.pointed.scan_hex_dollar
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_hex_dollar = value
@@ -246,7 +232,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanStringSq: guint
         get() = glibScannerConfigPointer.pointed.scan_string_sq
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_string_sq = value
@@ -258,7 +243,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scanStringDq: guint
         get() = glibScannerConfigPointer.pointed.scan_string_dq
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scan_string_dq = value
@@ -270,7 +254,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var numbers2Int: guint
         get() = glibScannerConfigPointer.pointed.numbers_2_int
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.numbers_2_int = value
@@ -282,7 +265,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var int2Float: guint
         get() = glibScannerConfigPointer.pointed.int_2_float
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.int_2_float = value
@@ -294,7 +276,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var identifier2String: guint
         get() = glibScannerConfigPointer.pointed.identifier_2_string
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.identifier_2_string = value
@@ -306,7 +287,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var char2Token: guint
         get() = glibScannerConfigPointer.pointed.char_2_token
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.char_2_token = value
@@ -318,7 +298,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var symbol2Token: guint
         get() = glibScannerConfigPointer.pointed.symbol_2_token
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.symbol_2_token = value
@@ -330,7 +309,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var scope0Fallback: guint
         get() = glibScannerConfigPointer.pointed.scope_0_fallback
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.scope_0_fallback = value
@@ -341,7 +319,6 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      */
     public var storeInt64: guint
         get() = glibScannerConfigPointer.pointed.store_int64
-
         @UnsafeFieldSetter
         set(`value`) {
             glibScannerConfigPointer.pointed.store_int64 = value
@@ -353,11 +330,10 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GScannerConfig>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GScannerConfig>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -365,9 +341,7 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to ScannerConfig and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GScannerConfig>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GScannerConfig>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ScannerConfig using the provided [AutofreeScope].
@@ -617,6 +591,5 @@ public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? 
         this.storeInt64 = storeInt64
     }
 
-    override fun toString(): String =
-        "ScannerConfig(csetSkipCharacters=$csetSkipCharacters, csetIdentifierFirst=$csetIdentifierFirst, csetIdentifierNth=$csetIdentifierNth, cpairCommentSingle=$cpairCommentSingle, caseSensitive=$caseSensitive, skipCommentMulti=$skipCommentMulti, skipCommentSingle=$skipCommentSingle, scanCommentMulti=$scanCommentMulti, scanIdentifier=$scanIdentifier, scanIdentifier1char=$scanIdentifier1char, scanIdentifierNull=$scanIdentifierNull, scanSymbols=$scanSymbols, scanBinary=$scanBinary, scanOctal=$scanOctal, scanFloat=$scanFloat, scanHex=$scanHex, scanHexDollar=$scanHexDollar, scanStringSq=$scanStringSq, scanStringDq=$scanStringDq, numbers2Int=$numbers2Int, int2Float=$int2Float, identifier2String=$identifier2String, char2Token=$char2Token, symbol2Token=$symbol2Token, scope0Fallback=$scope0Fallback, storeInt64=$storeInt64)"
+    override fun toString(): String = "ScannerConfig(csetSkipCharacters=$csetSkipCharacters, csetIdentifierFirst=$csetIdentifierFirst, csetIdentifierNth=$csetIdentifierNth, cpairCommentSingle=$cpairCommentSingle, caseSensitive=$caseSensitive, skipCommentMulti=$skipCommentMulti, skipCommentSingle=$skipCommentSingle, scanCommentMulti=$scanCommentMulti, scanIdentifier=$scanIdentifier, scanIdentifier1char=$scanIdentifier1char, scanIdentifierNull=$scanIdentifierNull, scanSymbols=$scanSymbols, scanBinary=$scanBinary, scanOctal=$scanOctal, scanFloat=$scanFloat, scanHex=$scanHex, scanHexDollar=$scanHexDollar, scanStringSq=$scanStringSq, scanStringDq=$scanStringDq, numbers2Int=$numbers2Int, int2Float=$int2Float, identifier2String=$identifier2String, char2Token=$char2Token, symbol2Token=$symbol2Token, scope0Fallback=$scope0Fallback, storeInt64=$storeInt64)"
 }

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -29,9 +32,6 @@ import org.gtkkn.native.gtk.gtk_password_entry_get_type
 import org.gtkkn.native.gtk.gtk_password_entry_new
 import org.gtkkn.native.gtk.gtk_password_entry_set_extra_menu
 import org.gtkkn.native.gtk.gtk_password_entry_set_show_peek_icon
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkPasswordEntry` is an entry that has been tailored for entering secrets.
@@ -72,8 +72,9 @@ import kotlin.Unit
  * - method `activates-default`: Property has no getter nor setter
  * - method `placeholder-text`: Property has no getter nor setter
  */
-public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
-    Widget(pointer.reinterpret()),
+public open class PasswordEntry(
+    pointer: CPointer<GtkPasswordEntry>,
+) : Widget(pointer.reinterpret()),
     Editable,
     KGTyped {
     public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>
@@ -102,21 +103,14 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          * @return the menu model
          */
         get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
-        }
-
+            MenuModel(reinterpret())}
         /**
          * Sets a menu model to add when constructing
          * the context menu for @entry.
          *
          * @param model a `GMenuModel`
          */
-        set(
-            model
-        ) = gtk_password_entry_set_extra_menu(
-            gtkPasswordEntryPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        set(model) = gtk_password_entry_set_extra_menu(gtkPasswordEntryPointer.reinterpret(), model?.gioMenuModelPointer?.reinterpret())
 
     /**
      * Whether to show an icon for revealing the content.
@@ -129,7 +123,6 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          * @return true if an icon is shown
          */
         get() = gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the entry should have a clickable icon
          * to reveal the contents.
@@ -138,9 +131,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          *
          * @param showPeekIcon whether to show the peek icon
          */
-        set(
-            showPeekIcon
-        ) = gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer.reinterpret(), showPeekIcon.asGBoolean())
+        set(showPeekIcon) = gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer.reinterpret(), showPeekIcon.asGBoolean())
 
     /**
      * Creates a `GtkPasswordEntry`.
@@ -157,23 +148,14 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<PasswordEntry> {
         override val type: GeneratedClassKGType<PasswordEntry> =
-            GeneratedClassKGType(gtk_password_entry_get_type()) { PasswordEntry(it.reinterpret()) }
+                GeneratedClassKGType(gtk_password_entry_get_type()) { PasswordEntry(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PasswordEntry
@@ -185,9 +167,8 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

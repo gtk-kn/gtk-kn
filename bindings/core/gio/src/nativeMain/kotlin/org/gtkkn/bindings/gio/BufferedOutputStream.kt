@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -19,7 +20,6 @@ import org.gtkkn.native.gio.g_buffered_output_stream_set_auto_grow
 import org.gtkkn.native.gio.g_buffered_output_stream_set_buffer_size
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
-import kotlin.Boolean
 
 /**
  * Buffered output stream implements [class@Gio.FilterOutputStream] and provides
@@ -36,8 +36,9 @@ import kotlin.Boolean
  * buffered output stream's buffer, use [method@Gio.BufferedOutputStream.set_buffer_size].
  * Note that the buffer's size cannot be reduced below the size of the data within the buffer.
  */
-public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>) :
-    FilterOutputStream(pointer.reinterpret()),
+public open class BufferedOutputStream(
+    pointer: CPointer<GBufferedOutputStream>,
+) : FilterOutputStream(pointer.reinterpret()),
     Seekable,
     KGTyped {
     public val gioBufferedOutputStreamPointer: CPointer<GBufferedOutputStream>
@@ -57,7 +58,6 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
          * false otherwise.
          */
         get() = g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether or not the @stream's buffer should automatically grow.
          * If @auto_grow is true, then each write will just make the buffer
@@ -66,9 +66,7 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
          *
          * @param autoGrow a #gboolean.
          */
-        set(
-            autoGrow
-        ) = g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer.reinterpret(), autoGrow.asGBoolean())
+        set(autoGrow) = g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer.reinterpret(), autoGrow.asGBoolean())
 
     /**
      * The size of the backend buffer, in bytes.
@@ -80,7 +78,6 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
          * @return the current size of the buffer.
          */
         get() = g_buffered_output_stream_get_buffer_size(gioBufferedOutputStreamPointer.reinterpret())
-
         /**
          * Sets the size of the internal buffer to @size.
          *
@@ -94,9 +91,7 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
      * @param baseStream a #GOutputStream.
      * @return a #GOutputStream for the given @base_stream.
      */
-    public constructor(
-        baseStream: OutputStream,
-    ) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
+    public constructor(baseStream: OutputStream) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new buffered output stream with a given buffer size.
@@ -105,18 +100,14 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
      * @param size a #gsize.
      * @return a #GOutputStream with an internal buffer set to @size.
      */
-    public constructor(
-        baseStream: OutputStream,
-        size: gsize,
-    ) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
+    public constructor(baseStream: OutputStream, size: gsize) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
 
     public companion object : TypeCompanion<BufferedOutputStream> {
         override val type: GeneratedClassKGType<BufferedOutputStream> =
-            GeneratedClassKGType(g_buffered_output_stream_get_type()) { BufferedOutputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_buffered_output_stream_get_type()) { BufferedOutputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of BufferedOutputStream

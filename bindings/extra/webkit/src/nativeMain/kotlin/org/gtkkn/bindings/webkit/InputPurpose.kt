@@ -11,37 +11,33 @@ import org.gtkkn.native.webkit.webkit_input_purpose_get_type
  * @since 2.28
  */
 @WebKitVersion2_28
-public enum class InputPurpose(public val nativeValue: WebKitInputPurpose) {
+public enum class InputPurpose(
+    public val nativeValue: WebKitInputPurpose,
+) {
     /**
      * Editable element expects any characters
      */
     FREE_FORM(WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_FREE_FORM),
-
     /**
      * Editable element expects digits
      */
     DIGITS(WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_DIGITS),
-
     /**
      * Editable element expects a number
      */
     NUMBER(WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_NUMBER),
-
     /**
      * Editable element expects a telephone
      */
     PHONE(WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_PHONE),
-
     /**
      * Editable element expects a URL
      */
     URL(WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_URL),
-
     /**
      * Editable element expects an email
      */
     EMAIL(WebKitInputPurpose.WEBKIT_INPUT_PURPOSE_EMAIL),
-
     /**
      * Editable element expects a password
      */

@@ -8,12 +8,13 @@ import org.gtkkn.native.gobject.GType
 /**
  * Describes title centering behavior of a [class@HeaderBar] widget.
  */
-public enum class CenteringPolicy(public val nativeValue: AdwCenteringPolicy) {
+public enum class CenteringPolicy(
+    public val nativeValue: AdwCenteringPolicy,
+) {
     /**
      * Keep the title centered when possible
      */
     LOOSE(AdwCenteringPolicy.ADW_CENTERING_POLICY_LOOSE),
-
     /**
      * Keep the title centered at all cost
      */

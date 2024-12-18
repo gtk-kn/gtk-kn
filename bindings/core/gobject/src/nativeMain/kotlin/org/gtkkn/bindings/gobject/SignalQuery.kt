@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -15,10 +19,6 @@ import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GSignalQuery
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure holding in-depth information for a specific signal.
@@ -29,7 +29,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `param_types`: Array parameter of type GType is not supported
  */
-public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class SignalQuery(
+    pointer: CPointer<GSignalQuery>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectSignalQueryPointer: CPointer<GSignalQuery> = pointer
 
     /**
@@ -38,7 +41,6 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      */
     public var signalId: guint
         get() = gobjectSignalQueryPointer.pointed.signal_id
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_id = value
@@ -49,7 +51,6 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      */
     public var signalName: String?
         get() = gobjectSignalQueryPointer.pointed.signal_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_name?.let { g_free(it) }
@@ -61,7 +62,6 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      */
     public var itype: GType
         get() = gobjectSignalQueryPointer.pointed.itype
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.itype = value
@@ -72,9 +72,7 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      */
     public var signalFlags: SignalFlags
         get() = gobjectSignalQueryPointer.pointed.signal_flags.run {
-            SignalFlags(this)
-        }
-
+            SignalFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.signal_flags = value.mask
@@ -85,7 +83,6 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      */
     public var returnType: GType
         get() = gobjectSignalQueryPointer.pointed.return_type
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.return_type = value
@@ -96,7 +93,6 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      */
     public var nParams: guint
         get() = gobjectSignalQueryPointer.pointed.n_params
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectSignalQueryPointer.pointed.n_params = value
@@ -108,11 +104,10 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GSignalQuery>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GSignalQuery>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -192,6 +187,5 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
         this.nParams = nParams
     }
 
-    override fun toString(): String =
-        "SignalQuery(signalId=$signalId, signalName=$signalName, itype=$itype, signalFlags=$signalFlags, returnType=$returnType, nParams=$nParams)"
+    override fun toString(): String = "SignalQuery(signalId=$signalId, signalName=$signalName, itype=$itype, signalFlags=$signalFlags, returnType=$returnType, nParams=$nParams)"
 }

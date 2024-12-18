@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,10 +16,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrFontDesc
 import org.gtkkn.native.pango.pango_attr_font_desc_new
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrFontDesc` structure is used to store an attribute that
@@ -25,7 +25,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Attribute
  */
-public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrFontDesc(
+    pointer: CPointer<PangoAttrFontDesc>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrFontDescPointer: CPointer<PangoAttrFontDesc> = pointer
 
     /**
@@ -33,9 +36,7 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
      */
     public var desc: FontDescription?
         get() = pangoAttrFontDescPointer.pointed.desc?.run {
-            FontDescription(reinterpret())
-        }
-
+            FontDescription(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrFontDescPointer.pointed.desc = value?.pangoFontDescriptionPointer
@@ -47,11 +48,10 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrFontDesc>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrFontDesc>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -59,9 +59,7 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to AttrFontDesc and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrFontDesc>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAttrFontDesc>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrFontDesc using the provided [AutofreeScope].
@@ -110,9 +108,7 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(desc: FontDescription): Attribute =
-            pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(desc: FontDescription): Attribute = pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
+            Attribute(reinterpret())}
     }
 }

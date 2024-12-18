@@ -16,7 +16,9 @@ import org.gtkkn.native.gobject.gint
  * - method `iconv`: In/Out parameter is not supported
  * - function `open`: Return type IConv is unsupported
  */
-public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
+public class IConv(
+    pointer: GIConv,
+) : ProxyInstance(pointer) {
     public val glibIConvPointer: GIConv = pointer
 
     /**

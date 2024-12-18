@@ -1,52 +1,47 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GConvertError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Error codes returned by character set conversion routines.
  */
-public enum class ConvertError(public val nativeValue: GConvertError) {
+public enum class ConvertError(
+    public val nativeValue: GConvertError,
+) {
     /**
      * Conversion between the requested character
      *     sets is not supported.
      */
     NO_CONVERSION(GConvertError.G_CONVERT_ERROR_NO_CONVERSION),
-
     /**
      * Invalid byte sequence in conversion input;
      *    or the character sequence could not be represented in the target
      *    character set.
      */
     ILLEGAL_SEQUENCE(GConvertError.G_CONVERT_ERROR_ILLEGAL_SEQUENCE),
-
     /**
      * Conversion failed for some reason.
      */
     FAILED(GConvertError.G_CONVERT_ERROR_FAILED),
-
     /**
      * Partial character sequence at end of input.
      */
     PARTIAL_INPUT(GConvertError.G_CONVERT_ERROR_PARTIAL_INPUT),
-
     /**
      * URI is invalid.
      */
     BAD_URI(GConvertError.G_CONVERT_ERROR_BAD_URI),
-
     /**
      * Pathname is not an absolute path.
      */
     NOT_ABSOLUTE_PATH(GConvertError.G_CONVERT_ERROR_NOT_ABSOLUTE_PATH),
-
     /**
      * No memory available. Since: 2.40
      */
     NO_MEMORY(GConvertError.G_CONVERT_ERROR_NO_MEMORY),
-
     /**
      * An embedded NUL character is present in
      *     conversion output where a NUL-terminated string is expected.

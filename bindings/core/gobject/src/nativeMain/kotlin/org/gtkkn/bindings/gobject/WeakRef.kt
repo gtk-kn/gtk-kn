@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,10 +18,6 @@ import org.gtkkn.native.gobject.g_weak_ref_clear
 import org.gtkkn.native.gobject.g_weak_ref_get
 import org.gtkkn.native.gobject.g_weak_ref_init
 import org.gtkkn.native.gobject.g_weak_ref_set
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure containing a weak reference to a #GObject.
@@ -45,7 +45,10 @@ import kotlin.native.ref.createCleaner
  * It is invalid to take a #GWeakRef on an object during #GObjectClass.dispose
  * without first having or creating a strong reference to the object.
  */
-public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class WeakRef(
+    pointer: CPointer<GWeakRef>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectWeakRefPointer: CPointer<GWeakRef> = pointer
 
     /**
@@ -54,11 +57,10 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GWeakRef>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GWeakRef>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -106,8 +108,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      */
     @GObjectVersion2_32
     public fun `get`(): Object = g_weak_ref_get(gobjectWeakRefPointer.reinterpret())!!.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Initialise a non-statically-allocated #GWeakRef.
@@ -124,8 +125,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun `init`(`object`: Object? = null): Unit =
-        g_weak_ref_init(gobjectWeakRefPointer.reinterpret(), `object`?.gPointer?.reinterpret())
+    public fun `init`(`object`: Object? = null): Unit = g_weak_ref_init(gobjectWeakRefPointer.reinterpret(), `object`?.gPointer?.reinterpret())
 
     /**
      * Change the object to which @weak_ref points, or set it to
@@ -138,6 +138,5 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun `set`(`object`: Object? = null): Unit =
-        g_weak_ref_set(gobjectWeakRefPointer.reinterpret(), `object`?.gPointer?.reinterpret())
+    public fun `set`(`object`: Object? = null): Unit = g_weak_ref_set(gobjectWeakRefPointer.reinterpret(), `object`?.gPointer?.reinterpret())
 }

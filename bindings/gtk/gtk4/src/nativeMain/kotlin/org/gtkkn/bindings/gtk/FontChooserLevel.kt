@@ -18,7 +18,9 @@ import org.gtkkn.native.gtk.gtk_font_chooser_level_get_type
  * This enumeration may be extended in the future; applications should
  * ignore unknown values.
  */
-public class FontChooserLevel(public val mask: GtkFontChooserLevel) : Bitfield<FontChooserLevel> {
+public class FontChooserLevel(
+    public val mask: GtkFontChooserLevel,
+) : Bitfield<FontChooserLevel> {
     override infix fun or(other: FontChooserLevel): FontChooserLevel = FontChooserLevel(mask or other.mask)
 
     public companion object {
@@ -41,7 +43,7 @@ public class FontChooserLevel(public val mask: GtkFontChooserLevel) : Bitfield<F
          * Allow changing OpenType font variation axes
          */
         public val VARIATIONS: FontChooserLevel =
-            FontChooserLevel(GTK_FONT_CHOOSER_LEVEL_VARIATIONS)
+                FontChooserLevel(GTK_FONT_CHOOSER_LEVEL_VARIATIONS)
 
         /**
          * Allow selecting specific OpenType font features

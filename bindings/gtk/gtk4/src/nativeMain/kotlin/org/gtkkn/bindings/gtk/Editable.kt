@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -54,10 +58,6 @@ import org.gtkkn.native.gtk.gtk_editable_set_max_width_chars
 import org.gtkkn.native.gtk.gtk_editable_set_position
 import org.gtkkn.native.gtk.gtk_editable_set_text
 import org.gtkkn.native.gtk.gtk_editable_set_width_chars
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkEditable` is an interface for text editing widgets.
@@ -198,9 +198,7 @@ import kotlin.Unit
  * - method `xalign`: Property has no getter nor setter
  * - signal `insert-text`: Unsupported parameter `position` : position: In/Out parameter is not supported
  */
-public interface Editable :
-    Interface,
-    KGTyped {
+public interface Editable : Interface, KGTyped {
     public val gtkEditablePointer: CPointer<GtkEditable>
 
     /**
@@ -213,7 +211,6 @@ public interface Editable :
          * @return true if @editable is editable.
          */
         get() = gtk_editable_get_editable(gtkEditablePointer.reinterpret()).asBoolean()
-
         /**
          * Determines if the user can edit the text in the editable widget.
          *
@@ -232,7 +229,6 @@ public interface Editable :
          * @return true if undo is enabled
          */
         get() = gtk_editable_get_enable_undo(gtkEditablePointer.reinterpret()).asBoolean()
-
         /**
          * If enabled, changes to @editable will be saved for undo/redo
          * actions.
@@ -255,7 +251,6 @@ public interface Editable :
          * @return the maximum width of the entry, in characters
          */
         get() = gtk_editable_get_max_width_chars(gtkEditablePointer.reinterpret())
-
         /**
          * Sets the desired maximum width in characters of @editable.
          *
@@ -274,9 +269,7 @@ public interface Editable :
          *
          * @return a pointer to the contents of the editable
          */
-        get() = gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the text in the editable to the given value.
          *
@@ -297,7 +290,6 @@ public interface Editable :
          * @return number of chars to request space for, or negative if unset
          */
         get() = gtk_editable_get_width_chars(gtkEditablePointer.reinterpret())
-
         /**
          * Changes the size request of the editable to be about the
          * right size for @n_chars characters.
@@ -339,11 +331,7 @@ public interface Editable :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun delegateGetAccessiblePlatformState(state: AccessiblePlatformState): Boolean =
-        gtk_editable_delegate_get_accessible_platform_state(
-            gtkEditablePointer.reinterpret(),
-            state.nativeValue
-        ).asBoolean()
+    public fun delegateGetAccessiblePlatformState(state: AccessiblePlatformState): Boolean = gtk_editable_delegate_get_accessible_platform_state(gtkEditablePointer.reinterpret(), state.nativeValue).asBoolean()
 
     /**
      * Deletes the currently selected text of the editable.
@@ -365,8 +353,7 @@ public interface Editable :
      * @param startPos start position
      * @param endPos end position
      */
-    public fun deleteText(startPos: gint, endPos: gint): Unit =
-        gtk_editable_delete_text(gtkEditablePointer.reinterpret(), startPos, endPos)
+    public fun deleteText(startPos: gint, endPos: gint): Unit = gtk_editable_delete_text(gtkEditablePointer.reinterpret(), startPos, endPos)
 
     /**
      * Undoes the setup done by [method@Gtk.Editable.init_delegate].
@@ -399,9 +386,7 @@ public interface Editable :
      *   string. This string is allocated by the `GtkEditable` implementation
      *   and should be freed by the caller.
      */
-    public fun getChars(startPos: gint, endPos: gint): String =
-        gtk_editable_get_chars(gtkEditablePointer.reinterpret(), startPos, endPos)?.toKString()
-            ?: error("Expected not null string")
+    public fun getChars(startPos: gint, endPos: gint): String = gtk_editable_get_chars(gtkEditablePointer.reinterpret(), startPos, endPos)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `GtkEditable` that @editable is delegating its
@@ -412,8 +397,7 @@ public interface Editable :
      * @return the delegate `GtkEditable`
      */
     public fun getDelegate(): Editable? = gtk_editable_get_delegate(gtkEditablePointer.reinterpret())?.run {
-        Editable.wrap(reinterpret())
-    }
+        Editable.wrap(reinterpret())}
 
     /**
      * Retrieves whether @editable is editable.
@@ -453,8 +437,7 @@ public interface Editable :
      *
      * @return a pointer to the contents of the editable
      */
-    public fun getText(): String =
-        gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getText(): String = gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the number of characters of space reserved
@@ -488,8 +471,7 @@ public interface Editable :
      * @param startPos start of region
      * @param endPos end of region
      */
-    public fun selectRegion(startPos: gint, endPos: gint): Unit =
-        gtk_editable_select_region(gtkEditablePointer.reinterpret(), startPos, endPos)
+    public fun selectRegion(startPos: gint, endPos: gint): Unit = gtk_editable_select_region(gtkEditablePointer.reinterpret(), startPos, endPos)
 
     /**
      * Sets the alignment for the contents of the editable.
@@ -508,8 +490,7 @@ public interface Editable :
      * @param isEditable true if the user is allowed to edit the text
      *   in the widget
      */
-    public fun setEditable(isEditable: Boolean): Unit =
-        gtk_editable_set_editable(gtkEditablePointer.reinterpret(), isEditable.asGBoolean())
+    public fun setEditable(isEditable: Boolean): Unit = gtk_editable_set_editable(gtkEditablePointer.reinterpret(), isEditable.asGBoolean())
 
     /**
      * If enabled, changes to @editable will be saved for undo/redo
@@ -521,16 +502,14 @@ public interface Editable :
      *
      * @param enableUndo if undo/redo should be enabled
      */
-    public fun setEnableUndo(enableUndo: Boolean): Unit =
-        gtk_editable_set_enable_undo(gtkEditablePointer.reinterpret(), enableUndo.asGBoolean())
+    public fun setEnableUndo(enableUndo: Boolean): Unit = gtk_editable_set_enable_undo(gtkEditablePointer.reinterpret(), enableUndo.asGBoolean())
 
     /**
      * Sets the desired maximum width in characters of @editable.
      *
      * @param nChars the new desired maximum width, in characters
      */
-    public fun setMaxWidthChars(nChars: gint): Unit =
-        gtk_editable_set_max_width_chars(gtkEditablePointer.reinterpret(), nChars)
+    public fun setMaxWidthChars(nChars: gint): Unit = gtk_editable_set_max_width_chars(gtkEditablePointer.reinterpret(), nChars)
 
     /**
      * Sets the cursor position in the editable to the given value.
@@ -564,8 +543,7 @@ public interface Editable :
      *
      * @param nChars width in chars
      */
-    public fun setWidthChars(nChars: gint): Unit =
-        gtk_editable_set_width_chars(gtkEditablePointer.reinterpret(), nChars)
+    public fun setWidthChars(nChars: gint): Unit = gtk_editable_set_width_chars(gtkEditablePointer.reinterpret(), nChars)
 
     /**
      * Emitted at the end of a single user-visible operation on the
@@ -580,15 +558,7 @@ public interface Editable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkEditablePointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkEditablePointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when text is deleted from the widget by the user.
@@ -604,29 +574,20 @@ public interface Editable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `startPos` the starting position; `endPos` the end position
      */
-    public fun connectDeleteText(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (startPos: gint, endPos: gint) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gtkEditablePointer.reinterpret(),
-        "delete-text",
-        connectDeleteTextFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectDeleteText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (startPos: gint, endPos: gint) -> Unit): ULong = g_signal_connect_data(gtkEditablePointer.reinterpret(), "delete-text", connectDeleteTextFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GtkEditable>) : Editable {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkEditable>,
+    ) : Editable {
         override val gtkEditablePointer: CPointer<GtkEditable> = pointer
     }
 
     public companion object : TypeCompanion<Editable> {
         override val type: GeneratedInterfaceKGType<Editable> =
-            GeneratedInterfaceKGType(gtk_editable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_editable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkEditable>): Editable = Wrapper(pointer)
 
@@ -643,13 +604,12 @@ public interface Editable :
          * @param pspec the `GParamSpec` for the property
          * @return true if the property was found
          */
-        public fun delegateGetProperty(`object`: Object, propId: guint, `value`: Value, pspec: ParamSpec): Boolean =
-            gtk_editable_delegate_get_property(
-                `object`.gPointer.reinterpret(),
-                propId,
-                `value`.gobjectValuePointer.reinterpret(),
-                pspec.gPointer.reinterpret()
-            ).asBoolean()
+        public fun delegateGetProperty(
+            `object`: Object,
+            propId: guint,
+            `value`: Value,
+            pspec: ParamSpec,
+        ): Boolean = gtk_editable_delegate_get_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
 
         /**
          * Sets a property on the `GtkEditable` delegate for @object.
@@ -664,13 +624,12 @@ public interface Editable :
          * @param pspec the `GParamSpec` for the property
          * @return true if the property was found
          */
-        public fun delegateSetProperty(`object`: Object, propId: guint, `value`: Value, pspec: ParamSpec): Boolean =
-            gtk_editable_delegate_set_property(
-                `object`.gPointer.reinterpret(),
-                propId,
-                `value`.gobjectValuePointer.reinterpret(),
-                pspec.gPointer.reinterpret()
-            ).asBoolean()
+        public fun delegateSetProperty(
+            `object`: Object,
+            propId: guint,
+            `value`: Value,
+            pspec: ParamSpec,
+        ): Boolean = gtk_editable_delegate_set_property(`object`.gPointer.reinterpret(), propId, `value`.gobjectValuePointer.reinterpret(), pspec.gPointer.reinterpret()).asBoolean()
 
         /**
          * Overrides the `GtkEditable` properties for @class.
@@ -693,8 +652,7 @@ public interface Editable :
          * @param firstProp property ID to use for the first property
          * @return the number of properties that were installed
          */
-        public fun installProperties(objectClass: ObjectClass, firstProp: guint): guint =
-            gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
+        public fun installProperties(objectClass: ObjectClass, firstProp: guint): guint = gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
 
         /**
          * Get the GType of Editable
@@ -706,19 +664,17 @@ public interface Editable :
 }
 
 private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectDeleteTextFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        startPos: gint,
-        endPos: gint,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    startPos: gint,
+    endPos: gint,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(startPos: gint, endPos: gint) -> Unit>().get().invoke(startPos, endPos)
-}
-    .reinterpret()
+    userData.asStableRef<(startPos: gint, endPos: gint) -> Unit>().get().invoke(startPos, endPos)}
+.reinterpret()

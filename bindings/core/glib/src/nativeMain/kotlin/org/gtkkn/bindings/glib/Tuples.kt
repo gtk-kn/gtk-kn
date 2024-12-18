@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,11 +21,6 @@ import org.gtkkn.native.glib.g_tuples_index
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GTuples struct is used to return records (or tuples) from the
@@ -28,7 +28,10 @@ import kotlin.native.ref.createCleaner
  * member - the number of records that matched. To access the matched
  * records, you must use g_tuples_index().
  */
-public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Tuples(
+    pointer: CPointer<GTuples>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTuplesPointer: CPointer<GTuples> = pointer
 
     /**
@@ -36,7 +39,6 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      */
     public var len: guint
         get() = glibTuplesPointer.pointed.len
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTuplesPointer.pointed.len = value
@@ -48,11 +50,10 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTuples>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTuples>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -112,8 +113,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * @param field the field to return.
      * @return the field of the record.
      */
-    public fun index(index: gint, `field`: gint): gpointer? =
-        g_tuples_index(glibTuplesPointer.reinterpret(), index, `field`)
+    public fun index(index: gint, `field`: gint): gpointer? = g_tuples_index(glibTuplesPointer.reinterpret(), index, `field`)
 
     override fun toString(): String = "Tuples(len=$len)"
 }

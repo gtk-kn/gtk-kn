@@ -22,7 +22,9 @@ import org.gtkkn.native.gobject.GType
  * Flags used to define the behaviour of a #GApplication.
  * @since 2.28
  */
-public class ApplicationFlags(public val mask: GApplicationFlags) : Bitfield<ApplicationFlags> {
+public class ApplicationFlags(
+    public val mask: GApplicationFlags,
+) : Bitfield<ApplicationFlags> {
     override infix fun or(other: ApplicationFlags): ApplicationFlags = ApplicationFlags(mask or other.mask)
 
     @GioVersion2_28
@@ -67,7 +69,7 @@ public class ApplicationFlags(public val mask: GApplicationFlags) : Bitfield<App
          *     See g_application_run() for details.
          */
         public val HANDLES_COMMAND_LINE: ApplicationFlags =
-            ApplicationFlags(G_APPLICATION_HANDLES_COMMAND_LINE)
+                ApplicationFlags(G_APPLICATION_HANDLES_COMMAND_LINE)
 
         /**
          * Send the environment of the
@@ -80,7 +82,7 @@ public class ApplicationFlags(public val mask: GApplicationFlags) : Bitfield<App
          *     g_application_command_line_getenv().
          */
         public val SEND_ENVIRONMENT: ApplicationFlags =
-            ApplicationFlags(G_APPLICATION_SEND_ENVIRONMENT)
+                ApplicationFlags(G_APPLICATION_SEND_ENVIRONMENT)
 
         /**
          * Make no attempts to do any of the typical
@@ -98,14 +100,14 @@ public class ApplicationFlags(public val mask: GApplicationFlags) : Bitfield<App
          *     Since: 2.48
          */
         public val CAN_OVERRIDE_APP_ID: ApplicationFlags =
-            ApplicationFlags(G_APPLICATION_CAN_OVERRIDE_APP_ID)
+                ApplicationFlags(G_APPLICATION_CAN_OVERRIDE_APP_ID)
 
         /**
          * Allow another instance to take over
          *     the bus name. Since: 2.60
          */
         public val ALLOW_REPLACEMENT: ApplicationFlags =
-            ApplicationFlags(G_APPLICATION_ALLOW_REPLACEMENT)
+                ApplicationFlags(G_APPLICATION_ALLOW_REPLACEMENT)
 
         /**
          * Take over from another instance. This flag is

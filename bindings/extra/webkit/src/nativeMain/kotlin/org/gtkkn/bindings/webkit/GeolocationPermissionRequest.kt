@@ -38,12 +38,13 @@ import org.gtkkn.native.webkit.webkit_geolocation_permission_request_get_type
  * during initialization is needed when the name of the executable on disk
  * does not match the name of a valid `.desktop` file.
  */
-public class GeolocationPermissionRequest(pointer: CPointer<WebKitGeolocationPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class GeolocationPermissionRequest(
+    pointer: CPointer<WebKitGeolocationPermissionRequest>,
+) : Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitGeolocationPermissionRequestPointer:
-        CPointer<WebKitGeolocationPermissionRequest>
+            CPointer<WebKitGeolocationPermissionRequest>
         get() = gPointer.reinterpret()
 
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
@@ -51,13 +52,10 @@ public class GeolocationPermissionRequest(pointer: CPointer<WebKitGeolocationPer
 
     public companion object : TypeCompanion<GeolocationPermissionRequest> {
         override val type: GeneratedClassKGType<GeolocationPermissionRequest> =
-            GeneratedClassKGType(webkit_geolocation_permission_request_get_type()) {
-                GeolocationPermissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(webkit_geolocation_permission_request_get_type()) { GeolocationPermissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of GeolocationPermissionRequest

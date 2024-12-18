@@ -11,13 +11,14 @@ import org.gtkkn.native.webkit.webkit_user_style_level_get_type
  * @since 2.6
  */
 @WebKitVersion2_6
-public enum class UserStyleLevel(public val nativeValue: WebKitUserStyleLevel) {
+public enum class UserStyleLevel(
+    public val nativeValue: WebKitUserStyleLevel,
+) {
     /**
      * The style sheet is an user style sheet,
      *   its contents always override other style sheets. This is the default.
      */
     USER(WebKitUserStyleLevel.WEBKIT_USER_STYLE_LEVEL_USER),
-
     /**
      * The style sheet will be treated as if
      *   it was provided by the loaded documents. That means other user style

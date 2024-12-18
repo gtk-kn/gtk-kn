@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,10 +16,6 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GParamSpecTypeInfo
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * This structure is used to provide the type system with the information
@@ -35,8 +35,10 @@ import kotlin.native.ref.createCleaner
  * - field `value_validate`: Fields with callbacks are not supported
  * - field `values_cmp`: Fields with callbacks are not supported
  */
-public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
+public class ParamSpecTypeInfo(
+    pointer: CPointer<GParamSpecTypeInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo> = pointer
 
     /**
@@ -44,7 +46,6 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
      */
     public var instanceSize: guint16
         get() = gobjectParamSpecTypeInfoPointer.pointed.instance_size
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.instance_size = value
@@ -55,7 +56,6 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
      */
     public var nPreallocs: guint16
         get() = gobjectParamSpecTypeInfoPointer.pointed.n_preallocs
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.n_preallocs = value
@@ -66,7 +66,6 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
      */
     public var valueType: GType
         get() = gobjectParamSpecTypeInfoPointer.pointed.value_type
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectParamSpecTypeInfoPointer.pointed.value_type = value
@@ -78,11 +77,10 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GParamSpecTypeInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GParamSpecTypeInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -90,9 +88,7 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
      *
      * @param pair A pair containing the pointer to ParamSpecTypeInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GParamSpecTypeInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GParamSpecTypeInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ParamSpecTypeInfo using the provided [AutofreeScope].
@@ -144,6 +140,5 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
         this.valueType = valueType
     }
 
-    override fun toString(): String =
-        "ParamSpecTypeInfo(instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueType=$valueType)"
+    override fun toString(): String = "ParamSpecTypeInfo(instanceSize=$instanceSize, nPreallocs=$nPreallocs, valueType=$valueType)"
 }

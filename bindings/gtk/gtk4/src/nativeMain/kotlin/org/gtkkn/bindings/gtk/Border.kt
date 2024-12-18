@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Short
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
@@ -12,16 +15,15 @@ import org.gtkkn.native.gtk.gtk_border_copy
 import org.gtkkn.native.gtk.gtk_border_free
 import org.gtkkn.native.gtk.gtk_border_get_type
 import org.gtkkn.native.gtk.gtk_border_new
-import kotlin.Short
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A struct that specifies a border around a rectangular area.
  *
  * Each side can have different width.
  */
-public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
+public class Border(
+    pointer: CPointer<GtkBorder>,
+) : ProxyInstance(pointer) {
     public val gtkBorderPointer: CPointer<GtkBorder> = pointer
 
     /**
@@ -29,7 +31,6 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      */
     public var left: Short
         get() = gtkBorderPointer.pointed.left
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.left = value
@@ -40,7 +41,6 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      */
     public var right: Short
         get() = gtkBorderPointer.pointed.right
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.right = value
@@ -51,7 +51,6 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      */
     public var top: Short
         get() = gtkBorderPointer.pointed.top
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.top = value
@@ -62,7 +61,6 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      */
     public var bottom: Short
         get() = gtkBorderPointer.pointed.bottom
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkBorderPointer.pointed.bottom = value
@@ -74,8 +72,7 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      * @return a copy of @border_.
      */
     public fun copy(): Border = gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
-        Border(reinterpret())
-    }
+        Border(reinterpret())}
 
     /**
      * Frees a `GtkBorder`.

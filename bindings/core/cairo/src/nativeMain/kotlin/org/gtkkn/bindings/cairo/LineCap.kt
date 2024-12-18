@@ -5,7 +5,9 @@ import org.gtkkn.native.cairo.cairo_gobject_line_cap_get_type
 import org.gtkkn.native.cairo.cairo_line_cap_t
 import org.gtkkn.native.gobject.GType
 
-public enum class LineCap(public val nativeValue: cairo_line_cap_t) {
+public enum class LineCap(
+    public val nativeValue: cairo_line_cap_t,
+) {
     BUTT(cairo_line_cap_t.CAIRO_LINE_CAP_BUTT),
     ROUND(cairo_line_cap_t.CAIRO_LINE_CAP_ROUND),
     SQUARE(cairo_line_cap_t.CAIRO_LINE_CAP_SQUARE),

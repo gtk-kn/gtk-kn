@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gsk
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
@@ -18,8 +20,6 @@ import org.gtkkn.native.gsk.gsk_path_measure_new
 import org.gtkkn.native.gsk.gsk_path_measure_new_with_tolerance
 import org.gtkkn.native.gsk.gsk_path_measure_ref
 import org.gtkkn.native.gsk.gsk_path_measure_unref
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * `GskPathMeasure` is an object that allows measurements
@@ -35,7 +35,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GskVersion4_14
-public class PathMeasure(pointer: CPointer<GskPathMeasure>) : ProxyInstance(pointer) {
+public class PathMeasure(
+    pointer: CPointer<GskPathMeasure>,
+) : ProxyInstance(pointer) {
     public val gskPathMeasurePointer: CPointer<GskPathMeasure> = pointer
 
     /**
@@ -57,8 +59,7 @@ public class PathMeasure(pointer: CPointer<GskPathMeasure>) : ProxyInstance(poin
      */
     @GskVersion4_14
     public fun getPath(): Path = gsk_path_measure_get_path(gskPathMeasurePointer.reinterpret())!!.run {
-        Path(reinterpret())
-    }
+        Path(reinterpret())}
 
     /**
      * Sets @result to the point at the given distance into the path.
@@ -71,11 +72,7 @@ public class PathMeasure(pointer: CPointer<GskPathMeasure>) : ProxyInstance(poin
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPoint(distance: gfloat, result: PathPoint): Boolean = gsk_path_measure_get_point(
-        gskPathMeasurePointer.reinterpret(),
-        distance,
-        result.gskPathPointPointer.reinterpret()
-    ).asBoolean()
+    public fun getPoint(distance: gfloat, result: PathPoint): Boolean = gsk_path_measure_get_point(gskPathMeasurePointer.reinterpret(), distance, result.gskPathPointPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the tolerance that the measure was created with.
@@ -94,8 +91,7 @@ public class PathMeasure(pointer: CPointer<GskPathMeasure>) : ProxyInstance(poin
      */
     @GskVersion4_14
     public fun ref(): PathMeasure = gsk_path_measure_ref(gskPathMeasurePointer.reinterpret())!!.run {
-        PathMeasure(reinterpret())
-    }
+        PathMeasure(reinterpret())}
 
     /**
      * Decreases the reference count of a `GskPathMeasure` by one.
@@ -116,8 +112,7 @@ public class PathMeasure(pointer: CPointer<GskPathMeasure>) : ProxyInstance(poin
          * @return a new `GskPathMeasure` representing @path
          * @since 4.14
          */
-        public fun new(path: Path): PathMeasure =
-            PathMeasure(gsk_path_measure_new(path.gskPathPointer.reinterpret())!!.reinterpret())
+        public fun new(path: Path): PathMeasure = PathMeasure(gsk_path_measure_new(path.gskPathPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a measure object for the given @path and @tolerance.
@@ -127,9 +122,7 @@ public class PathMeasure(pointer: CPointer<GskPathMeasure>) : ProxyInstance(poin
          * @return a new `GskPathMeasure` representing @path
          * @since 4.14
          */
-        public fun newWithTolerance(path: Path, tolerance: gfloat): PathMeasure = PathMeasure(
-            gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret()
-        )
+        public fun newWithTolerance(path: Path, tolerance: gfloat): PathMeasure = PathMeasure(gsk_path_measure_new_with_tolerance(path.gskPathPointer.reinterpret(), tolerance)!!.reinterpret())
 
         /**
          * Get the GType of PathMeasure

@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -43,11 +48,6 @@ import org.gtkkn.native.gtk.gtk_icon_theme_new
 import org.gtkkn.native.gtk.gtk_icon_theme_set_resource_path
 import org.gtkkn.native.gtk.gtk_icon_theme_set_search_path
 import org.gtkkn.native.gtk.gtk_icon_theme_set_theme_name
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GtkIconTheme` provides a facility for loading themed icons.
@@ -88,8 +88,9 @@ import kotlin.collections.List
  * - method `get_icon_sizes`: Array parameter of type gint is not supported
  * - method `theme-name`: Property TypeInfo of getter and setter do not match
  */
-public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
-    Object(pointer.reinterpret()),
+public open class IconTheme(
+    pointer: CPointer<GtkIconTheme>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkIconThemePointer: CPointer<GtkIconTheme>
         get() = gPointer.reinterpret()
@@ -105,8 +106,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          * @return the display of @icon_theme
          */
         get() = gtk_icon_theme_get_display(gtkIconThemePointer.reinterpret())?.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
     /**
      * The icon names that are supported by the icon theme.
@@ -119,8 +119,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          *   holding the names of all the icons in the theme. You must
          *   free the array using g_strfreev().
          */
-        get() = gtk_icon_theme_get_icon_names(gtkIconThemePointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+        get() = gtk_icon_theme_get_icon_names(gtkIconThemePointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Resource paths that will be looked at when looking for icons,
@@ -141,7 +140,6 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          * @return A list of resource paths
          */
         get() = gtk_icon_theme_get_resource_path(gtkIconThemePointer.reinterpret())?.toKStringList()
-
         /**
          * Sets the resource paths that will be looked at when
          * looking for icons, similar to search paths.
@@ -159,8 +157,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          *   that are searched for icons
          */
         set(path) = memScoped {
-            return gtk_icon_theme_set_resource_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))
-        }
+            return gtk_icon_theme_set_resource_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))}
 
     /**
      * The search path for this icon theme.
@@ -180,7 +177,6 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          * @return a list of icon theme path directories
          */
         get() = gtk_icon_theme_get_search_path(gtkIconThemePointer.reinterpret())?.toKStringList()
-
         /**
          * Sets the search path for the icon theme object.
          *
@@ -202,8 +198,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          *   array of directories that are searched for icon themes
          */
         set(path) = memScoped {
-            return gtk_icon_theme_set_search_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))
-        }
+            return gtk_icon_theme_set_search_path(gtkIconThemePointer.reinterpret(), path?.toCStringList(this))}
 
     /**
      * Creates a new icon theme object.
@@ -228,8 +223,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      *
      * @param path a resource path
      */
-    public open fun addResourcePath(path: String): Unit =
-        gtk_icon_theme_add_resource_path(gtkIconThemePointer.reinterpret(), path)
+    public open fun addResourcePath(path: String): Unit = gtk_icon_theme_add_resource_path(gtkIconThemePointer.reinterpret(), path)
 
     /**
      * Appends a directory to the search path.
@@ -238,17 +232,14 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      *
      * @param path directory name to append to the icon path
      */
-    public open fun addSearchPath(path: String): Unit =
-        gtk_icon_theme_add_search_path(gtkIconThemePointer.reinterpret(), path)
+    public open fun addSearchPath(path: String): Unit = gtk_icon_theme_add_search_path(gtkIconThemePointer.reinterpret(), path)
 
     /**
      * Gets the current icon theme name.
      *
      * Returns (transfer full): the current icon theme name,
      */
-    public open fun getThemeName(): String =
-        gtk_icon_theme_get_theme_name(gtkIconThemePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public open fun getThemeName(): String = gtk_icon_theme_get_theme_name(gtkIconThemePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Checks whether an icon theme includes an icon
@@ -259,8 +250,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      * @since 4.2
      */
     @GtkVersion4_2
-    public open fun hasGicon(gicon: Icon): Boolean =
-        gtk_icon_theme_has_gicon(gtkIconThemePointer.reinterpret(), gicon.gioIconPointer).asBoolean()
+    public open fun hasGicon(gicon: Icon): Boolean = gtk_icon_theme_has_gicon(gtkIconThemePointer.reinterpret(), gicon.gioIconPointer).asBoolean()
 
     /**
      * Checks whether an icon theme includes an icon
@@ -270,8 +260,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      * @return true if @self includes an
      *  icon for @icon_name.
      */
-    public open fun hasIcon(iconName: String): Boolean =
-        gtk_icon_theme_has_icon(gtkIconThemePointer.reinterpret(), iconName).asBoolean()
+    public open fun hasIcon(iconName: String): Boolean = gtk_icon_theme_has_icon(gtkIconThemePointer.reinterpret(), iconName).asBoolean()
 
     /**
      * Looks up a icon for a desired size and window scale.
@@ -293,16 +282,8 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
         scale: gint,
         direction: TextDirection,
         flags: IconLookupFlags,
-    ): IconPaintable = gtk_icon_theme_lookup_by_gicon(
-        gtkIconThemePointer.reinterpret(),
-        icon.gioIconPointer,
-        size,
-        scale,
-        direction.nativeValue,
-        flags.mask
-    )!!.run {
-        IconPaintable(reinterpret())
-    }
+    ): IconPaintable = gtk_icon_theme_lookup_by_gicon(gtkIconThemePointer.reinterpret(), icon.gioIconPointer, size, scale, direction.nativeValue, flags.mask)!!.run {
+        IconPaintable(reinterpret())}
 
     /**
      * Looks up a named icon for a desired size and window scale,
@@ -323,7 +304,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      * GtkWidgetClass.css-changed() function.
      *
      * @param iconName the name of the icon to lookup
-     * @param fallbacks
+     * @param fallbacks 
      * @param size desired icon size.
      * @param scale the window scale this will be displayed on
      * @param direction text direction the icon will be displayed in
@@ -339,17 +320,8 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
         direction: TextDirection,
         flags: IconLookupFlags,
     ): IconPaintable = memScoped {
-        return gtk_icon_theme_lookup_icon(
-            gtkIconThemePointer.reinterpret(),
-            iconName,
-            fallbacks?.toCStringList(this),
-            size,
-            scale,
-            direction.nativeValue,
-            flags.mask
-        )!!.run {
-            IconPaintable(reinterpret())
-        }
+        return gtk_icon_theme_lookup_icon(gtkIconThemePointer.reinterpret(), iconName, fallbacks?.toCStringList(this), size, scale, direction.nativeValue, flags.mask)!!.run {
+            IconPaintable(reinterpret())}
     }
 
     /**
@@ -362,8 +334,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      * @param themeName name of icon theme to use instead of
      *   configured theme, or null to unset a previously set custom theme
      */
-    public open fun setThemeName(themeName: String? = null): Unit =
-        gtk_icon_theme_set_theme_name(gtkIconThemePointer.reinterpret(), themeName)
+    public open fun setThemeName(themeName: String? = null): Unit = gtk_icon_theme_set_theme_name(gtkIconThemePointer.reinterpret(), themeName)
 
     /**
      * Emitted when the icon theme changes.
@@ -375,23 +346,14 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<IconTheme> {
         override val type: GeneratedClassKGType<IconTheme> =
-            GeneratedClassKGType(gtk_icon_theme_get_type()) { IconTheme(it.reinterpret()) }
+                GeneratedClassKGType(gtk_icon_theme_get_type()) { IconTheme(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Gets the icon theme object associated with @display.
@@ -408,10 +370,8 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
          *   the given display. This icon theme is associated with the display
          *   and can be used as long as the display is open. Do not ref or unref it.
          */
-        public fun getForDisplay(display: Display): IconTheme =
-            gtk_icon_theme_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
-                IconTheme(reinterpret())
-            }
+        public fun getForDisplay(display: Display): IconTheme = gtk_icon_theme_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
+            IconTheme(reinterpret())}
 
         /**
          * Get the GType of IconTheme
@@ -423,9 +383,8 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
 }
 
 private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

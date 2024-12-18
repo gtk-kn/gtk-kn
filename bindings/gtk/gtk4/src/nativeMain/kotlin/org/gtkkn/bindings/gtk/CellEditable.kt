@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -22,8 +24,6 @@ import org.gtkkn.native.gtk.gtk_cell_editable_editing_done
 import org.gtkkn.native.gtk.gtk_cell_editable_get_type
 import org.gtkkn.native.gtk.gtk_cell_editable_remove_widget
 import org.gtkkn.native.gtk.gtk_cell_editable_start_editing
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Interface for widgets that can be used for editing cells
@@ -36,9 +36,7 @@ import kotlin.Unit
  *
  * - method `editing-canceled`: Property has no getter nor setter
  */
-public interface CellEditable :
-    Interface,
-    KGTyped {
+public interface CellEditable : Interface, KGTyped {
     public val gtkCellEditablePointer: CPointer<GtkCellEditable>
 
     /**
@@ -66,8 +64,7 @@ public interface CellEditable :
      * @param event The `GdkEvent` that began the editing process, or
      *   null if editing was initiated programmatically
      */
-    public fun startEditing(event: Event? = null): Unit =
-        gtk_cell_editable_start_editing(gtkCellEditablePointer.reinterpret(), event?.gPointer?.reinterpret())
+    public fun startEditing(event: Event? = null): Unit = gtk_cell_editable_start_editing(gtkCellEditablePointer.reinterpret(), event?.gPointer?.reinterpret())
 
     /**
      * This signal is a sign for the cell renderer to update its
@@ -85,15 +82,7 @@ public interface CellEditable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEditingDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCellEditablePointer.reinterpret(),
-            "editing-done",
-            connectEditingDoneFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectEditingDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCellEditablePointer.reinterpret(), "editing-done", connectEditingDoneFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is meant to indicate that the cell is finished
@@ -112,27 +101,20 @@ public interface CellEditable :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectRemoveWidget(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gtkCellEditablePointer.reinterpret(),
-            "remove-widget",
-            connectRemoveWidgetFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectRemoveWidget(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gtkCellEditablePointer.reinterpret(), "remove-widget", connectRemoveWidgetFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GtkCellEditable>) : CellEditable {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkCellEditable>,
+    ) : CellEditable {
         override val gtkCellEditablePointer: CPointer<GtkCellEditable> = pointer
     }
 
     public companion object : TypeCompanion<CellEditable> {
         override val type: GeneratedInterfaceKGType<CellEditable> =
-            GeneratedInterfaceKGType(gtk_cell_editable_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_cell_editable_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkCellEditable>): CellEditable = Wrapper(pointer)
 
@@ -146,17 +128,15 @@ public interface CellEditable :
 }
 
 private val connectEditingDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

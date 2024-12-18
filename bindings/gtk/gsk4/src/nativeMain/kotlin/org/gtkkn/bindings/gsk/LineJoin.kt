@@ -23,18 +23,18 @@ import org.gtkkn.native.gsk.gsk_line_join_get_type
  * @since 4.14
  */
 @GskVersion4_14
-public enum class LineJoin(public val nativeValue: GskLineJoin) {
+public enum class LineJoin(
+    public val nativeValue: GskLineJoin,
+) {
     /**
      * Use a sharp angled corner
      */
     MITER(GskLineJoin.GSK_LINE_JOIN_MITER),
-
     /**
      * Use a round join, the center of the circle is
      *   the join point
      */
     ROUND(GskLineJoin.GSK_LINE_JOIN_ROUND),
-
     /**
      * use a cut-off join, the join is cut off at half
      *   the line width from the joint point

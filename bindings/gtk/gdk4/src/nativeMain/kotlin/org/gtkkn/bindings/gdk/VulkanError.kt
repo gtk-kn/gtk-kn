@@ -11,13 +11,14 @@ import org.gtkkn.native.gobject.GType
 /**
  * Error enumeration for `GdkVulkanContext`.
  */
-public enum class VulkanError(public val nativeValue: GdkVulkanError) {
+public enum class VulkanError(
+    public val nativeValue: GdkVulkanError,
+) {
     /**
      * Vulkan is not supported on this backend or has not been
      *   compiled in.
      */
     UNSUPPORTED(GdkVulkanError.GDK_VULKAN_ERROR_UNSUPPORTED),
-
     /**
      * Vulkan support is not available on this Surface
      */

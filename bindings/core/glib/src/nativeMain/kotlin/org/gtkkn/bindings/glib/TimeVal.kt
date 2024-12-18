@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -18,12 +24,6 @@ import org.gtkkn.native.glib.g_time_val_add
 import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_time_val_to_iso8601
 import org.gtkkn.native.gobject.glong
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Represents a precise time, with seconds and microseconds.
@@ -37,7 +37,10 @@ import kotlin.native.ref.createCleaner
  * `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
  * problem.
  */
-public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TimeVal(
+    pointer: CPointer<GTimeVal>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTimeValPointer: CPointer<GTimeVal> = pointer
 
     /**
@@ -45,7 +48,6 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      */
     public var tvSec: glong
         get() = glibTimeValPointer.pointed.tv_sec
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_sec = value
@@ -56,7 +58,6 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      */
     public var tvUsec: glong
         get() = glibTimeValPointer.pointed.tv_usec
-
         @UnsafeFieldSetter
         set(`value`) {
             glibTimeValPointer.pointed.tv_usec = value
@@ -68,11 +69,10 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTimeVal>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTimeVal>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -202,7 +202,6 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
-            g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
+        public fun fromIso8601(isoDate: String, time: TimeVal): Boolean = g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
     }
 }

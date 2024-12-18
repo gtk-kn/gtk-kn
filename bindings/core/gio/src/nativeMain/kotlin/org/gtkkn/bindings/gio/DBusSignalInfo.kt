@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -20,11 +25,6 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Information about a signal on a D-Bus interface.
@@ -37,7 +37,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class DBusSignalInfo(
+    pointer: CPointer<GDBusSignalInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gioDBusSignalInfoPointer: CPointer<GDBusSignalInfo> = pointer
 
     /**
@@ -45,7 +48,6 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      */
     public var refCount: gint
         get() = gioDBusSignalInfoPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusSignalInfoPointer.pointed.ref_count = value
@@ -56,7 +58,6 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      */
     public var name: String?
         get() = gioDBusSignalInfoPointer.pointed.name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gioDBusSignalInfoPointer.pointed.name?.let { g_free(it) }
@@ -69,11 +70,10 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDBusSignalInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDBusSignalInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -81,9 +81,7 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      *
      * @param pair A pair containing the pointer to DBusSignalInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GDBusSignalInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GDBusSignalInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusSignalInfo using the provided [AutofreeScope].
@@ -135,8 +133,7 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      */
     @GioVersion2_26
     public fun ref(): DBusSignalInfo = g_dbus_signal_info_ref(gioDBusSignalInfoPointer.reinterpret())!!.run {
-        DBusSignalInfo(reinterpret())
-    }
+        DBusSignalInfo(reinterpret())}
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases

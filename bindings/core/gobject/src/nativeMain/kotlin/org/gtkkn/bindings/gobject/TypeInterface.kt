@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,10 +20,6 @@ import org.gtkkn.native.gobject.g_type_interface_get_plugin
 import org.gtkkn.native.gobject.g_type_interface_instantiatable_prerequisite
 import org.gtkkn.native.gobject.g_type_interface_peek
 import org.gtkkn.native.gobject.g_type_interface_peek_parent
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all interface types.
@@ -28,7 +28,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  */
-public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TypeInterface(
+    pointer: CPointer<GTypeInterface>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypeInterfacePointer: CPointer<GTypeInterface> = pointer
 
     /**
@@ -37,11 +40,10 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypeInterface>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTypeInterface>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -49,9 +51,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to TypeInterface and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GTypeInterface>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GTypeInterface>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeInterface using the provided [AutofreeScope].
@@ -73,10 +73,8 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      *     instance type to which @g_iface belongs, or null if the parent
      *     type doesn't conform to the interface
      */
-    public fun peekParent(): TypeInterface =
-        g_type_interface_peek_parent(gobjectTypeInterfacePointer.reinterpret())!!.run {
-            TypeInterface(reinterpret())
-        }
+    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gobjectTypeInterfacePointer.reinterpret())!!.run {
+        TypeInterface(reinterpret())}
 
     public companion object {
         /**
@@ -89,8 +87,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          * @param interfaceType #GType value of an interface type
          * @param prerequisiteType #GType value of an interface or instantiatable type
          */
-        public fun addPrerequisite(interfaceType: GType, prerequisiteType: GType): Unit =
-            g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
+        public fun addPrerequisite(interfaceType: GType, prerequisiteType: GType): Unit = g_type_interface_add_prerequisite(interfaceType, prerequisiteType)
 
         /**
          * Returns the #GTypePlugin structure for the dynamic interface
@@ -103,10 +100,8 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          * @return the #GTypePlugin for the dynamic
          *     interface @interface_type of @instance_type
          */
-        public fun getPlugin(instanceType: GType, interfaceType: GType): TypePlugin =
-            g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
-                TypePlugin.wrap(reinterpret())
-            }
+        public fun getPlugin(instanceType: GType, interfaceType: GType): TypePlugin = g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
+            TypePlugin.wrap(reinterpret())}
 
         /**
          * Returns the most specific instantiatable prerequisite of an
@@ -121,8 +116,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          * @since 2.68
          */
         @GObjectVersion2_68
-        public fun instantiatablePrerequisite(interfaceType: GType): GType =
-            g_type_interface_instantiatable_prerequisite(interfaceType)
+        public fun instantiatablePrerequisite(interfaceType: GType): GType = g_type_interface_instantiatable_prerequisite(interfaceType)
 
         /**
          * Returns the #GTypeInterface structure of an interface to which the
@@ -134,9 +128,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          *     structure of @iface_type if implemented by @instance_class, null
          *     otherwise
          */
-        public fun peek(instanceClass: TypeClass, ifaceType: GType): TypeInterface =
-            g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
-                TypeInterface(reinterpret())
-            }
+        public fun peek(instanceClass: TypeClass, ifaceType: GType): TypeInterface = g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
+            TypeInterface(reinterpret())}
     }
 }

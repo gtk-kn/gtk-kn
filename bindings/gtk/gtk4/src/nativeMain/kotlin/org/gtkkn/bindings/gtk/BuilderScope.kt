@@ -31,22 +31,21 @@ import org.gtkkn.native.gtk.gtk_builder_scope_get_type
  * may want to (partially) derive from or fall back to a [class@Gtk.BuilderCScope],
  * as that class implements support for automatic lookups from C symbols.
  */
-public interface BuilderScope :
-    Interface,
-    KGTyped {
+public interface BuilderScope : Interface, KGTyped {
     public val gtkBuilderScopePointer: CPointer<GtkBuilderScope>
 
-    private data class Wrapper(private val pointer: CPointer<GtkBuilderScope>) : BuilderScope {
+    private data class Wrapper(
+        private val pointer: CPointer<GtkBuilderScope>,
+    ) : BuilderScope {
         override val gtkBuilderScopePointer: CPointer<GtkBuilderScope> = pointer
     }
 
     public companion object : TypeCompanion<BuilderScope> {
         override val type: GeneratedInterfaceKGType<BuilderScope> =
-            GeneratedInterfaceKGType(gtk_builder_scope_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(gtk_builder_scope_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GtkBuilderScope>): BuilderScope = Wrapper(pointer)
 

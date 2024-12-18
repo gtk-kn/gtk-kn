@@ -32,7 +32,9 @@ import org.gtkkn.native.gobject.GType
  * will give an indication of tiledness without any of the per-edge states
  * being set.
  */
-public class ToplevelState(public val mask: GdkToplevelState) : Bitfield<ToplevelState> {
+public class ToplevelState(
+    public val mask: GdkToplevelState,
+) : Bitfield<ToplevelState> {
     override infix fun or(other: ToplevelState): ToplevelState = ToplevelState(mask or other.mask)
 
     public companion object {
@@ -95,7 +97,7 @@ public class ToplevelState(public val mask: GdkToplevelState) : Bitfield<Topleve
          * whether the right edge is resizable
          */
         public val RIGHT_RESIZABLE: ToplevelState =
-            ToplevelState(GDK_TOPLEVEL_STATE_RIGHT_RESIZABLE)
+                ToplevelState(GDK_TOPLEVEL_STATE_RIGHT_RESIZABLE)
 
         /**
          * whether the bottom edge is tiled
@@ -106,7 +108,7 @@ public class ToplevelState(public val mask: GdkToplevelState) : Bitfield<Topleve
          * whether the bottom edge is resizable
          */
         public val BOTTOM_RESIZABLE: ToplevelState =
-            ToplevelState(GDK_TOPLEVEL_STATE_BOTTOM_RESIZABLE)
+                ToplevelState(GDK_TOPLEVEL_STATE_BOTTOM_RESIZABLE)
 
         /**
          * whether the left edge is tiled

@@ -18,7 +18,6 @@ public enum class AutomationBrowsingContextPresentation(
      * a window
      */
     WINDOW(WebKitAutomationBrowsingContextPresentation.WEBKIT_AUTOMATION_BROWSING_CONTEXT_PRESENTATION_WINDOW),
-
     /**
      * a tab
      */
@@ -26,9 +25,7 @@ public enum class AutomationBrowsingContextPresentation(
     ;
 
     public companion object {
-        public fun fromNativeValue(
-            nativeValue: WebKitAutomationBrowsingContextPresentation,
-        ): AutomationBrowsingContextPresentation = when (nativeValue) {
+        public fun fromNativeValue(nativeValue: WebKitAutomationBrowsingContextPresentation): AutomationBrowsingContextPresentation = when (nativeValue) {
             WebKitAutomationBrowsingContextPresentation.WEBKIT_AUTOMATION_BROWSING_CONTEXT_PRESENTATION_WINDOW -> WINDOW
             WebKitAutomationBrowsingContextPresentation.WEBKIT_AUTOMATION_BROWSING_CONTEXT_PRESENTATION_TAB -> TAB
             else -> error("invalid nativeValue")

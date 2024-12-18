@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
@@ -24,7 +25,6 @@ import org.gtkkn.native.gtk.gtk_box_layout_set_baseline_child
 import org.gtkkn.native.gtk.gtk_box_layout_set_baseline_position
 import org.gtkkn.native.gtk.gtk_box_layout_set_homogeneous
 import org.gtkkn.native.gtk.gtk_box_layout_set_spacing
-import kotlin.Boolean
 
 /**
  * `GtkBoxLayout` is a layout manager that arranges children in a single
@@ -42,8 +42,9 @@ import kotlin.Boolean
  * If you want to specify the amount of space placed between each child,
  * you can use the [property@Gtk.BoxLayout:spacing] property.
  */
-public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
-    LayoutManager(pointer.reinterpret()),
+public open class BoxLayout(
+    pointer: CPointer<GtkBoxLayout>,
+) : LayoutManager(pointer.reinterpret()),
     Orientable,
     KGTyped {
     public val gtkBoxLayoutPointer: CPointer<GtkBoxLayout>
@@ -72,7 +73,6 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          * @since 4.12
          */
         get() = gtk_box_layout_get_baseline_child(gtkBoxLayoutPointer.reinterpret())
-
         /**
          * Sets the index of the child that determines the baseline
          * in vertical layout.
@@ -97,9 +97,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          * @return the baseline position
          */
         get() = gtk_box_layout_get_baseline_position(gtkBoxLayoutPointer.reinterpret()).run {
-            BaselinePosition.fromNativeValue(this)
-        }
-
+            BaselinePosition.fromNativeValue(this)}
         /**
          * Sets the baseline position of a box layout.
          *
@@ -124,7 +122,6 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          * @return true if the layout is homogeneous
          */
         get() = gtk_box_layout_get_homogeneous(gtkBoxLayoutPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the box layout will allocate the same
          * size to all children.
@@ -143,7 +140,6 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          * @return the spacing of the layout
          */
         get() = gtk_box_layout_get_spacing(gtkBoxLayoutPointer.reinterpret())
-
         /**
          * Sets how much spacing to put between children.
          *
@@ -161,11 +157,10 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
 
     public companion object : TypeCompanion<BoxLayout> {
         override val type: GeneratedClassKGType<BoxLayout> =
-            GeneratedClassKGType(gtk_box_layout_get_type()) { BoxLayout(it.reinterpret()) }
+                GeneratedClassKGType(gtk_box_layout_get_type()) { BoxLayout(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of BoxLayout

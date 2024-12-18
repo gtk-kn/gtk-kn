@@ -15,17 +15,17 @@ import org.gtkkn.native.pango.pango_alignment_get_type
  * See [method@Pango.Layout.set_auto_dir] for how text direction affects
  * the interpretation of `PangoAlignment` values.
  */
-public enum class Alignment(public val nativeValue: PangoAlignment) {
+public enum class Alignment(
+    public val nativeValue: PangoAlignment,
+) {
     /**
      * Put all available space on the right
      */
     LEFT(PangoAlignment.PANGO_ALIGN_LEFT),
-
     /**
      * Center the line within the available space
      */
     CENTER(PangoAlignment.PANGO_ALIGN_CENTER),
-
     /**
      * Put all available space on the left
      */

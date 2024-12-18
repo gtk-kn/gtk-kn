@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Long
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -26,9 +29,6 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gsize
-import kotlin.Boolean
-import kotlin.Long
-import kotlin.Result
 
 /**
  * `GSocketAddress` is the equivalent of
@@ -36,8 +36,9 @@ import kotlin.Result
  * API. This is an abstract class; use [class@Gio.InetSocketAddress] for
  * internet sockets, or [class@Gio.UnixSocketAddress] for UNIX domain sockets.
  */
-public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
-    Object(pointer.reinterpret()),
+public open class SocketAddress(
+    pointer: CPointer<GSocketAddress>,
+) : Object(pointer.reinterpret()),
     SocketConnectable,
     KGTyped {
     public val gioSocketAddressPointer: CPointer<GSocketAddress>
@@ -60,8 +61,7 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
          * @since 2.22
          */
         get() = g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
-            SocketFamily.fromNativeValue(this)
-        }
+            SocketFamily.fromNativeValue(this)}
 
     /**
      * Creates a #GSocketAddress subclass corresponding to the native
@@ -73,10 +73,7 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
      *     be converted, otherwise null
      * @since 2.22
      */
-    public constructor(
-        native: gpointer,
-        len: gsize,
-    ) : this(g_socket_address_new_from_native(native, len)!!.reinterpret())
+    public constructor(native: gpointer, len: gsize) : this(g_socket_address_new_from_native(native, len)!!.reinterpret())
 
     /**
      * Gets the size of @address's native struct sockaddr.
@@ -108,26 +105,21 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
     @GioVersion2_22
     public open fun toNative(dest: gpointer? = null, destlen: gsize): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_address_to_native(
-            gioSocketAddressPointer.reinterpret(),
-            dest,
-            destlen,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_address_to_native(gioSocketAddressPointer.reinterpret(), dest, destlen, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-            GeneratedClassKGType(g_socket_address_get_type()) { SocketAddress(it.reinterpret()) }
+                GeneratedClassKGType(g_socket_address_get_type()) { SocketAddress(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SocketAddress

@@ -15,17 +15,17 @@ import org.gtkkn.native.gtk.gtk_baseline_position_get_type
  * `GtkBaselinePosition` to select where to put the baseline inside the
  * extra available space.
  */
-public enum class BaselinePosition(public val nativeValue: GtkBaselinePosition) {
+public enum class BaselinePosition(
+    public val nativeValue: GtkBaselinePosition,
+) {
     /**
      * Align the baseline at the top
      */
     TOP(GtkBaselinePosition.GTK_BASELINE_POSITION_TOP),
-
     /**
      * Center the baseline
      */
     CENTER(GtkBaselinePosition.GTK_BASELINE_POSITION_CENTER),
-
     /**
      * Align the baseline at the bottom
      */

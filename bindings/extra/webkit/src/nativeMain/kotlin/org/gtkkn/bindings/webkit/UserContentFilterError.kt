@@ -14,12 +14,13 @@ import org.gtkkn.native.webkit.webkit_user_content_filter_error_quark
  * @since 2.24
  */
 @WebKitVersion2_24
-public enum class UserContentFilterError(public val nativeValue: WebKitUserContentFilterError) {
+public enum class UserContentFilterError(
+    public val nativeValue: WebKitUserContentFilterError,
+) {
     /**
      * The JSON source for a content filter is invalid.
      */
     INVALID_SOURCE(WebKitUserContentFilterError.WEBKIT_USER_CONTENT_FILTER_ERROR_INVALID_SOURCE),
-
     /**
      * The requested content filter could not be found.
      */
@@ -27,12 +28,11 @@ public enum class UserContentFilterError(public val nativeValue: WebKitUserConte
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: WebKitUserContentFilterError): UserContentFilterError =
-            when (nativeValue) {
-                WebKitUserContentFilterError.WEBKIT_USER_CONTENT_FILTER_ERROR_INVALID_SOURCE -> INVALID_SOURCE
-                WebKitUserContentFilterError.WEBKIT_USER_CONTENT_FILTER_ERROR_NOT_FOUND -> NOT_FOUND
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: WebKitUserContentFilterError): UserContentFilterError = when (nativeValue) {
+            WebKitUserContentFilterError.WEBKIT_USER_CONTENT_FILTER_ERROR_INVALID_SOURCE -> INVALID_SOURCE
+            WebKitUserContentFilterError.WEBKIT_USER_CONTENT_FILTER_ERROR_NOT_FOUND -> NOT_FOUND
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Gets the quark for the domain of user content filter errors.

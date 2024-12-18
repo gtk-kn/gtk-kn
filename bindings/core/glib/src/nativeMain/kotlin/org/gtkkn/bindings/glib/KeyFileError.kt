@@ -1,40 +1,37 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.UInt
 import org.gtkkn.native.glib.GKeyFileError
 import org.gtkkn.native.glib.g_quark_from_string
-import kotlin.UInt
 
 /**
  * Error codes returned by key file parsing.
  */
-public enum class KeyFileError(public val nativeValue: GKeyFileError) {
+public enum class KeyFileError(
+    public val nativeValue: GKeyFileError,
+) {
     /**
      * the text being parsed was in
      *   an unknown encoding
      */
     UNKNOWN_ENCODING(GKeyFileError.G_KEY_FILE_ERROR_UNKNOWN_ENCODING),
-
     /**
      * document was ill-formed
      */
     PARSE(GKeyFileError.G_KEY_FILE_ERROR_PARSE),
-
     /**
      * the file was not found
      */
     NOT_FOUND(GKeyFileError.G_KEY_FILE_ERROR_NOT_FOUND),
-
     /**
      * a requested key was not found
      */
     KEY_NOT_FOUND(GKeyFileError.G_KEY_FILE_ERROR_KEY_NOT_FOUND),
-
     /**
      * a requested group was not found
      */
     GROUP_NOT_FOUND(GKeyFileError.G_KEY_FILE_ERROR_GROUP_NOT_FOUND),
-
     /**
      * a value could not be parsed
      */

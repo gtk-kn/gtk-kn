@@ -8,13 +8,14 @@ import org.gtkkn.native.gobject.GType
 /**
  * [class@Toast] behavior when another toast is already displayed.
  */
-public enum class ToastPriority(public val nativeValue: AdwToastPriority) {
+public enum class ToastPriority(
+    public val nativeValue: AdwToastPriority,
+) {
     /**
      * the toast will be queued if another toast is
      *   already displayed.
      */
     NORMAL(AdwToastPriority.ADW_TOAST_PRIORITY_NORMAL),
-
     /**
      * the toast will be displayed immediately, pushing
      *   the previous toast into the queue instead.

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -12,7 +13,6 @@ import org.gtkkn.native.gtk.GtkSignalAction
 import org.gtkkn.native.gtk.gtk_signal_action_get_signal_name
 import org.gtkkn.native.gtk.gtk_signal_action_get_type
 import org.gtkkn.native.gtk.gtk_signal_action_new
-import kotlin.String
 
 /**
  * A `GtkShortcut`Action that emits a signal.
@@ -20,8 +20,9 @@ import kotlin.String
  * Signals that are used in this way are referred to as keybinding signals,
  * and they are expected to be defined with the %G_SIGNAL_ACTION flag.
  */
-public open class SignalAction(pointer: CPointer<GtkSignalAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class SignalAction(
+    pointer: CPointer<GtkSignalAction>,
+) : ShortcutAction(pointer.reinterpret()),
     KGTyped {
     public val gtkSignalActionPointer: CPointer<GtkSignalAction>
         get() = gPointer.reinterpret()
@@ -35,8 +36,7 @@ public open class SignalAction(pointer: CPointer<GtkSignalAction>) :
          *
          * @return the name of the signal to emit
          */
-        get() = gtk_signal_action_get_signal_name(gtkSignalActionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_signal_action_get_signal_name(gtkSignalActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates an action that when activated, emits the given action signal
@@ -51,11 +51,10 @@ public open class SignalAction(pointer: CPointer<GtkSignalAction>) :
 
     public companion object : TypeCompanion<SignalAction> {
         override val type: GeneratedClassKGType<SignalAction> =
-            GeneratedClassKGType(gtk_signal_action_get_type()) { SignalAction(it.reinterpret()) }
+                GeneratedClassKGType(gtk_signal_action_get_type()) { SignalAction(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of SignalAction

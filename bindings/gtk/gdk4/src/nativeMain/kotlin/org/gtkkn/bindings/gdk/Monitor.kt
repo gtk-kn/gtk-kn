@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -37,10 +41,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GdkMonitor` objects represent the individual outputs that are
@@ -56,8 +56,9 @@ import kotlin.Unit
  * - method `geometry`: Property has no getter nor setter
  * - method `valid`: Property has no getter nor setter
  */
-public open class Monitor(pointer: CPointer<GdkMonitor>) :
-    Object(pointer.reinterpret()),
+public open class Monitor(
+    pointer: CPointer<GdkMonitor>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gdkMonitorPointer: CPointer<GdkMonitor>
         get() = gPointer.reinterpret()
@@ -104,8 +105,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          * @return the display
          */
         get() = gdk_monitor_get_display(gdkMonitorPointer.reinterpret())!!.run {
-            Display(reinterpret())
-        }
+            Display(reinterpret())}
 
     /**
      * The height of the monitor, in millimeters.
@@ -213,8 +213,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          * @return the subpixel layout
          */
         get() = gdk_monitor_get_subpixel_layout(gdkMonitorPointer.reinterpret()).run {
-            SubpixelLayout.fromNativeValue(this)
-        }
+            SubpixelLayout.fromNativeValue(this)}
 
     /**
      * The width of the monitor, in millimeters.
@@ -236,8 +235,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      *
      * @param geometry a `GdkRectangle` to be filled with the monitor geometry
      */
-    public open fun getGeometry(geometry: Rectangle): Unit =
-        gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gdkRectanglePointer.reinterpret())
+    public open fun getGeometry(geometry: Rectangle): Unit = gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gdkRectanglePointer.reinterpret())
 
     /**
      * Returns true if the @monitor object corresponds to a
@@ -256,23 +254,14 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectInvalidate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "invalidate",
-            connectInvalidateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectInvalidate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "invalidate", connectInvalidateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Monitor> {
         override val type: GeneratedClassKGType<Monitor> =
-            GeneratedClassKGType(gdk_monitor_get_type()) { Monitor(it.reinterpret()) }
+                GeneratedClassKGType(gdk_monitor_get_type()) { Monitor(it.reinterpret()) }
 
         init {
-            GdkTypeProvider.register()
-        }
+            GdkTypeProvider.register()}
 
         /**
          * Get the GType of Monitor
@@ -284,9 +273,8 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
 }
 
 private val connectInvalidateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

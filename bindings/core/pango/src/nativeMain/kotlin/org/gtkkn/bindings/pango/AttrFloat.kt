@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoAttrFloat
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrFloat` structure is used to represent attributes with
@@ -24,7 +24,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Attribute
  */
-public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrFloat(
+    pointer: CPointer<PangoAttrFloat>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrFloatPointer: CPointer<PangoAttrFloat> = pointer
 
     /**
@@ -32,7 +35,6 @@ public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = nu
      */
     public var `value`: gdouble
         get() = pangoAttrFloatPointer.pointed.value
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrFloatPointer.pointed.value = value
@@ -44,11 +46,10 @@ public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = nu
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrFloat>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrFloat>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -56,9 +57,7 @@ public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to AttrFloat and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoAttrFloat>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoAttrFloat>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrFloat using the provided [AutofreeScope].

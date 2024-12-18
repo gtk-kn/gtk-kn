@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.InputStream
@@ -19,8 +21,6 @@ import org.gtkkn.native.webkit.webkit_uri_scheme_response_new
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_set_content_type
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_set_http_headers
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_set_status
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Represents a URI scheme response.
@@ -41,8 +41,9 @@ import kotlin.Unit
  * - method `stream`: Property has no getter nor setter
  * - method `stream-length`: Property has no getter nor setter
  */
-public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
-    Object(pointer.reinterpret()),
+public class UriSchemeResponse(
+    pointer: CPointer<WebKitURISchemeResponse>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val webkitURISchemeResponsePointer: CPointer<WebKitURISchemeResponse>
         get() = gPointer.reinterpret()
@@ -55,12 +56,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      * @return the newly created #WebKitURISchemeResponse.
      * @since 2.36
      */
-    public constructor(
-        inputStream: InputStream,
-        streamLength: gint64,
-    ) : this(
-        webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer.reinterpret(), streamLength)!!.reinterpret()
-    )
+    public constructor(inputStream: InputStream, streamLength: gint64) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer.reinterpret(), streamLength)!!.reinterpret())
 
     /**
      * Sets the content type for the @response
@@ -69,8 +65,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setContentType(contentType: String): Unit =
-        webkit_uri_scheme_response_set_content_type(webkitURISchemeResponsePointer.reinterpret(), contentType)
+    public fun setContentType(contentType: String): Unit = webkit_uri_scheme_response_set_content_type(webkitURISchemeResponsePointer.reinterpret(), contentType)
 
     /**
      * Assign the provided #SoupMessageHeaders to the response.
@@ -82,10 +77,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setHttpHeaders(headers: MessageHeaders): Unit = webkit_uri_scheme_response_set_http_headers(
-        webkitURISchemeResponsePointer.reinterpret(),
-        headers.soupMessageHeadersPointer.reinterpret()
-    )
+    public fun setHttpHeaders(headers: MessageHeaders): Unit = webkit_uri_scheme_response_set_http_headers(webkitURISchemeResponsePointer.reinterpret(), headers.soupMessageHeadersPointer.reinterpret())
 
     /**
      * Sets the status code and reason phrase for the @response.
@@ -97,16 +89,14 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit =
-        webkit_uri_scheme_response_set_status(webkitURISchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
+    public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit = webkit_uri_scheme_response_set_status(webkitURISchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
 
     public companion object : TypeCompanion<UriSchemeResponse> {
         override val type: GeneratedClassKGType<UriSchemeResponse> =
-            GeneratedClassKGType(webkit_uri_scheme_response_get_type()) { UriSchemeResponse(it.reinterpret()) }
+                GeneratedClassKGType(webkit_uri_scheme_response_get_type()) { UriSchemeResponse(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of URISchemeResponse

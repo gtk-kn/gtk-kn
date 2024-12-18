@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -19,8 +21,6 @@ import org.gtkkn.native.gio.g_srv_target_list_sort
 import org.gtkkn.native.gio.g_srv_target_new
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint16
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A single target host/port that a network service is running on.
@@ -40,7 +40,9 @@ import kotlin.Unit
  * [iface@Gio.SocketConnectable] interface and not need to worry about
  * `GSrvTarget` at all.
  */
-public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
+public class SrvTarget(
+    pointer: CPointer<GSrvTarget>,
+) : ProxyInstance(pointer) {
     public val gioSrvTargetPointer: CPointer<GSrvTarget> = pointer
 
     /**
@@ -51,8 +53,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      */
     @GioVersion2_22
     public fun copy(): SrvTarget = g_srv_target_copy(gioSrvTargetPointer.reinterpret())!!.run {
-        SrvTarget(reinterpret())
-    }
+        SrvTarget(reinterpret())}
 
     /**
      * Frees @target
@@ -72,8 +73,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getHostname(): String =
-        g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getHostname(): String = g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @target's port
@@ -120,8 +120,12 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
          * @return a new #GSrvTarget.
          * @since 2.22
          */
-        public fun new(hostname: String, port: guint16, priority: guint16, weight: guint16): SrvTarget =
-            SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
+        public fun new(
+            hostname: String,
+            port: guint16,
+            priority: guint16,
+            weight: guint16,
+        ): SrvTarget = SrvTarget(g_srv_target_new(hostname, port, priority, weight)!!.reinterpret())
 
         /**
          * Sorts @targets in place according to the algorithm in RFC 2782.
@@ -132,8 +136,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
          */
         @GioVersion2_22
         public fun listSort(targets: List): List = g_srv_target_list_sort(targets.glibListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+            List(reinterpret())}
 
         /**
          * Get the GType of SrvTarget

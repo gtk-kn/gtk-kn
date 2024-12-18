@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gsk.Transform
@@ -12,7 +13,6 @@ import org.gtkkn.native.gtk.GtkFixedLayoutChild
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_transform
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_get_type
 import org.gtkkn.native.gtk.gtk_fixed_layout_child_set_transform
-import kotlin.Unit
 
 /**
  * `GtkLayoutChild` subclass for children in a `GtkFixedLayout`.
@@ -21,8 +21,9 @@ import kotlin.Unit
  *
  * - method `transform`: Property TypeInfo of getter and setter do not match
  */
-public open class FixedLayoutChild(pointer: CPointer<GtkFixedLayoutChild>) :
-    LayoutChild(pointer.reinterpret()),
+public open class FixedLayoutChild(
+    pointer: CPointer<GtkFixedLayoutChild>,
+) : LayoutChild(pointer.reinterpret()),
     KGTyped {
     public val gtkFixedLayoutChildPointer: CPointer<GtkFixedLayoutChild>
         get() = gPointer.reinterpret()
@@ -32,28 +33,22 @@ public open class FixedLayoutChild(pointer: CPointer<GtkFixedLayoutChild>) :
      *
      * @return a `GskTransform`
      */
-    public open fun getTransform(): Transform? =
-        gtk_fixed_layout_child_get_transform(gtkFixedLayoutChildPointer.reinterpret())?.run {
-            Transform(reinterpret())
-        }
+    public open fun getTransform(): Transform? = gtk_fixed_layout_child_get_transform(gtkFixedLayoutChildPointer.reinterpret())?.run {
+        Transform(reinterpret())}
 
     /**
      * Sets the transformation of the child of a `GtkFixedLayout`.
      *
      * @param transform a `GskTransform`
      */
-    public open fun setTransform(transform: Transform): Unit = gtk_fixed_layout_child_set_transform(
-        gtkFixedLayoutChildPointer.reinterpret(),
-        transform.gskTransformPointer.reinterpret()
-    )
+    public open fun setTransform(transform: Transform): Unit = gtk_fixed_layout_child_set_transform(gtkFixedLayoutChildPointer.reinterpret(), transform.gskTransformPointer.reinterpret())
 
     public companion object : TypeCompanion<FixedLayoutChild> {
         override val type: GeneratedClassKGType<FixedLayoutChild> =
-            GeneratedClassKGType(gtk_fixed_layout_child_get_type()) { FixedLayoutChild(it.reinterpret()) }
+                GeneratedClassKGType(gtk_fixed_layout_child_get_type()) { FixedLayoutChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FixedLayoutChild

@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pangocairo
 
+import kotlin.Boolean
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -20,8 +22,6 @@ import org.gtkkn.native.pango.PangoAttrShape
 import org.gtkkn.native.pangocairo.pango_cairo_context_get_resolution
 import org.gtkkn.native.pangocairo.pango_cairo_context_set_resolution
 import org.gtkkn.native.pangocairo.pango_cairo_context_set_shape_renderer
-import kotlin.Boolean
-import kotlin.Unit
 
 /**
  * ## Skipped during bindings generation
@@ -55,8 +55,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextGetResolution(context: Context): gdouble =
-        pango_cairo_context_get_resolution(context.pangoContextPointer.reinterpret())
+    public fun contextGetResolution(context: Context): gdouble = pango_cairo_context_get_resolution(context.pangoContextPointer.reinterpret())
 
     /**
      * Sets the resolution for the context.
@@ -72,8 +71,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun contextSetResolution(context: Context, dpi: gdouble): Unit =
-        pango_cairo_context_set_resolution(context.pangoContextPointer.reinterpret(), dpi)
+    public fun contextSetResolution(context: Context, dpi: gdouble): Unit = pango_cairo_context_set_resolution(context.pangoContextPointer.reinterpret(), dpi)
 
     /**
      * Sets callback function for context to use for rendering attributes
@@ -87,31 +85,19 @@ public object PangoCairo {
      * @since 1.18
      */
     @PangoCairoVersion1_18
-    public fun contextSetShapeRenderer(context: Context, func: ShapeRendererFunc?): Unit =
-        pango_cairo_context_set_shape_renderer(
-            context.pangoContextPointer.reinterpret(),
-            func?.let {
-                ShapeRendererFuncFunc.reinterpret()
-            },
-            func?.let { StableRef.create(func).asCPointer() },
-            func?.let { staticStableRefDestroy.reinterpret() }
-        )
+    public fun contextSetShapeRenderer(context: Context, func: ShapeRendererFunc?): Unit = pango_cairo_context_set_shape_renderer(context.pangoContextPointer.reinterpret(), func?.let { ShapeRendererFuncFunc.reinterpret() }, func?.let { StableRef.create(func).asCPointer() }, func?.let { staticStableRefDestroy.reinterpret() })
 }
 
-public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, gboolean) -> Unit>> =
-    staticCFunction {
-            attr: CPointer<PangoAttrShape>?,
-            doPath: gboolean,
-            `data`: gpointer?,
-        ->
-        data!!.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(
-            attr!!.run {
-                AttrShape(reinterpret())
-            },
-            doPath.asBoolean()
-        )
-    }
-        .reinterpret()
+public val ShapeRendererFuncFunc: CPointer<CFunction<(CPointer<PangoAttrShape>, gboolean) -> Unit>>
+        = staticCFunction {
+    attr: CPointer<PangoAttrShape>?,
+    doPath: gboolean,
+    `data`: gpointer?,
+    ->
+    data!!.asStableRef<(attr: AttrShape, doPath: Boolean) -> Unit>().get().invoke(attr!!.run {
+        AttrShape(reinterpret())}
+    , doPath.asBoolean())}
+.reinterpret()
 
 /**
  * Function type for rendering attributes of type %PANGO_ATTR_SHAPE

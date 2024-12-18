@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
@@ -19,9 +22,6 @@ import org.gtkkn.native.glib.g_strv_builder_take
 import org.gtkkn.native.glib.g_strv_builder_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_builder_get_type
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * `GStrvBuilder` is a helper object to build a null-terminated string arrays.
@@ -42,7 +42,9 @@ import kotlin.collections.List
  * @since 2.68
  */
 @GLibVersion2_68
-public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointer) {
+public class StrvBuilder(
+    pointer: CPointer<GStrvBuilder>,
+) : ProxyInstance(pointer) {
     public val glibStrvBuilderPointer: CPointer<GStrvBuilder> = pointer
 
     /**
@@ -62,8 +64,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      * @param value the vector of strings to add
      */
     public fun addv(`value`: List<String>): Unit = memScoped {
-        return g_strv_builder_addv(glibStrvBuilderPointer.reinterpret(), `value`.toCStringList(this))
-    }
+        return g_strv_builder_addv(glibStrvBuilderPointer.reinterpret(), `value`.toCStringList(this))}
 
     /**
      * Ends the builder process and returns the constructed NULL-terminated string
@@ -74,8 +75,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      *
      * Since 2.68
      */
-    public fun end(): List<String> = g_strv_builder_end(glibStrvBuilderPointer.reinterpret())?.toKStringList()
-        ?: error("Expected not null string array")
+    public fun end(): List<String> = g_strv_builder_end(glibStrvBuilderPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Atomically increments the reference count of @builder by one.
@@ -86,8 +86,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      */
     @GLibVersion2_68
     public fun ref(): StrvBuilder = g_strv_builder_ref(glibStrvBuilderPointer.reinterpret())!!.run {
-        StrvBuilder(reinterpret())
-    }
+        StrvBuilder(reinterpret())}
 
     /**
      * Add a string to the end of the array. After @value belongs to the

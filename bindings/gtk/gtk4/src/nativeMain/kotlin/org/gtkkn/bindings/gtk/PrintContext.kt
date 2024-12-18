@@ -100,8 +100,9 @@ import org.gtkkn.native.gtk.gtk_print_context_get_width
  * - parameter `top`: top: Out parameter is not supported
  * - parameter `cr`: cairo.Context
  */
-public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
-    Object(pointer.reinterpret()),
+public open class PrintContext(
+    pointer: CPointer<GtkPrintContext>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkPrintContextPointer: CPointer<GtkPrintContext>
         get() = gPointer.reinterpret()
@@ -112,10 +113,8 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return a new Pango context for @context
      */
-    public open fun createPangoContext(): Context =
-        gtk_print_context_create_pango_context(gtkPrintContextPointer.reinterpret())!!.run {
-            Context(reinterpret())
-        }
+    public open fun createPangoContext(): Context = gtk_print_context_create_pango_context(gtkPrintContextPointer.reinterpret())!!.run {
+        Context(reinterpret())}
 
     /**
      * Creates a new `PangoLayout` that is suitable for use
@@ -123,10 +122,8 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return a new Pango layout for @context
      */
-    public open fun createPangoLayout(): Layout =
-        gtk_print_context_create_pango_layout(gtkPrintContextPointer.reinterpret())!!.run {
-            Layout(reinterpret())
-        }
+    public open fun createPangoLayout(): Layout = gtk_print_context_create_pango_layout(gtkPrintContextPointer.reinterpret())!!.run {
+        Layout(reinterpret())}
 
     /**
      * Obtains the horizontal resolution of the `GtkPrintContext`,
@@ -157,10 +154,8 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return the page setup of @context
      */
-    public open fun getPageSetup(): PageSetup =
-        gtk_print_context_get_page_setup(gtkPrintContextPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
+    public open fun getPageSetup(): PageSetup = gtk_print_context_get_page_setup(gtkPrintContextPointer.reinterpret())!!.run {
+        PageSetup(reinterpret())}
 
     /**
      * Returns a `PangoFontMap` that is suitable for use
@@ -168,10 +163,8 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return the font map of @context
      */
-    public open fun getPangoFontmap(): FontMap =
-        gtk_print_context_get_pango_fontmap(gtkPrintContextPointer.reinterpret())!!.run {
-            FontMap(reinterpret())
-        }
+    public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer.reinterpret())!!.run {
+        FontMap(reinterpret())}
 
     /**
      * Obtains the width of the `GtkPrintContext`, in pixels.
@@ -182,11 +175,10 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =
-            GeneratedClassKGType(gtk_print_context_get_type()) { PrintContext(it.reinterpret()) }
+                GeneratedClassKGType(gtk_print_context_get_type()) { PrintContext(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of PrintContext

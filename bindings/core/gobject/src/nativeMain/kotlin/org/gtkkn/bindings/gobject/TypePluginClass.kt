@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -8,9 +11,6 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GTypePluginClass
-import kotlin.Pair
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GTypePlugin interface is used by the type system in order to handle
@@ -23,7 +23,10 @@ import kotlin.native.ref.createCleaner
  * - field `complete_type_info`: TypePluginCompleteTypeInfo
  * - field `complete_interface_info`: TypePluginCompleteInterfaceInfo
  */
-public class TypePluginClass(pointer: CPointer<GTypePluginClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TypePluginClass(
+    pointer: CPointer<GTypePluginClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectTypePluginClassPointer: CPointer<GTypePluginClass> = pointer
 
     /**
@@ -32,11 +35,10 @@ public class TypePluginClass(pointer: CPointer<GTypePluginClass>, cleaner: Clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTypePluginClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTypePluginClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -44,9 +46,7 @@ public class TypePluginClass(pointer: CPointer<GTypePluginClass>, cleaner: Clean
      *
      * @param pair A pair containing the pointer to TypePluginClass and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GTypePluginClass>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GTypePluginClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypePluginClass using the provided [AutofreeScope].

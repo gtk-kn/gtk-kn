@@ -7,17 +7,17 @@ import org.gtkkn.native.glib.GSeekType
  * An enumeration specifying the base position for a
  * g_io_channel_seek_position() operation.
  */
-public enum class SeekType(public val nativeValue: GSeekType) {
+public enum class SeekType(
+    public val nativeValue: GSeekType,
+) {
     /**
      * the current position in the file.
      */
     CUR(GSeekType.G_SEEK_CUR),
-
     /**
      * the start of the file.
      */
     SET(GSeekType.G_SEEK_SET),
-
     /**
      * the end of the file.
      */

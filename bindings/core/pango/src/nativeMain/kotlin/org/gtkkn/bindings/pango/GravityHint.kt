@@ -16,19 +16,19 @@ import org.gtkkn.native.pango.pango_gravity_hint_get_type
  * @since 1.16
  */
 @PangoVersion1_16
-public enum class GravityHint(public val nativeValue: PangoGravityHint) {
+public enum class GravityHint(
+    public val nativeValue: PangoGravityHint,
+) {
     /**
      * scripts will take their natural gravity based
      *   on the base gravity and the script.  This is the default.
      */
     NATURAL(PangoGravityHint.PANGO_GRAVITY_HINT_NATURAL),
-
     /**
      * always use the base gravity set, regardless of
      *   the script.
      */
     STRONG(PangoGravityHint.PANGO_GRAVITY_HINT_STRONG),
-
     /**
      * for scripts not in their natural direction (eg.
      *   Latin in East gravity), choose per-script gravity such that every script

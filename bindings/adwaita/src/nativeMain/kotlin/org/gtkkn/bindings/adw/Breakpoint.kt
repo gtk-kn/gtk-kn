@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -26,9 +29,6 @@ import org.gtkkn.native.adw.adw_breakpoint_set_condition
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkBuildable
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Describes a breakpoint for [class@Window] or [class@Dialog].
@@ -86,8 +86,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
-    Object(pointer.reinterpret()),
+public class Breakpoint(
+    pointer: CPointer<AdwBreakpoint>,
+) : Object(pointer.reinterpret()),
     Buildable,
     KGTyped {
     public val adwBreakpointPointer: CPointer<AdwBreakpoint>
@@ -110,9 +111,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
          * @since 1.4
          */
         get() = adw_breakpoint_get_condition(adwBreakpointPointer.reinterpret())?.run {
-            BreakpointCondition(reinterpret())
-        }
-
+            BreakpointCondition(reinterpret())}
         /**
          * Sets the condition for @self.
          *
@@ -120,12 +119,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            condition
-        ) = adw_breakpoint_set_condition(
-            adwBreakpointPointer.reinterpret(),
-            condition?.adwBreakpointConditionPointer?.reinterpret()
-        )
+        set(condition) = adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.adwBreakpointConditionPointer?.reinterpret())
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -134,9 +128,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @return the newly created `AdwBreakpoint`
      * @since 1.4
      */
-    public constructor(
-        condition: BreakpointCondition,
-    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer.reinterpret())!!.reinterpret())
+    public constructor(condition: BreakpointCondition) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a setter to @self.
@@ -182,12 +174,11 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit = adw_breakpoint_add_setter(
-        adwBreakpointPointer.reinterpret(),
-        `object`.gPointer.reinterpret(),
-        `property`,
-        `value`.gobjectValuePointer.reinterpret()
-    )
+    public fun addSetter(
+        `object`: Object,
+        `property`: String,
+        `value`: Value,
+    ): Unit = adw_breakpoint_add_setter(adwBreakpointPointer.reinterpret(), `object`.gPointer.reinterpret(), `property`, `value`.gobjectValuePointer.reinterpret())
 
     /**
      * Emitted when the breakpoint is applied.
@@ -199,15 +190,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "apply",
-            connectApplyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "apply", connectApplyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the breakpoint is unapplied.
@@ -219,23 +202,14 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "unapply",
-            connectUnapplyFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "unapply", connectUnapplyFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Breakpoint> {
         override val type: GeneratedClassKGType<Breakpoint> =
-            GeneratedClassKGType(adw_breakpoint_get_type()) { Breakpoint(it.reinterpret()) }
+                GeneratedClassKGType(adw_breakpoint_get_type()) { Breakpoint(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of Breakpoint
@@ -247,17 +221,15 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
 }
 
 private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectUnapplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

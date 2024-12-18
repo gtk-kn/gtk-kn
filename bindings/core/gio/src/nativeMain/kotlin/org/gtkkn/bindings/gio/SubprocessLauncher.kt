@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -44,11 +49,6 @@ import org.gtkkn.native.gio.g_subprocess_launcher_unsetenv
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * This class contains a set of options for launching child processes,
@@ -68,8 +68,9 @@ import kotlin.collections.List
  * @since 2.40
  */
 @GioVersion2_40
-public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
-    Object(pointer.reinterpret()),
+public open class SubprocessLauncher(
+    pointer: CPointer<GSubprocessLauncher>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>
         get() = gPointer.reinterpret()
@@ -116,8 +117,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun getenv(variable: String): String? =
-        g_subprocess_launcher_getenv(gioSubprocessLauncherPointer.reinterpret(), variable)?.toKString()
+    public open fun getenv(variable: String): String? = g_subprocess_launcher_getenv(gioSubprocessLauncherPointer.reinterpret(), variable)?.toKString()
 
     /**
      * Sets up a child setup function.
@@ -138,12 +138,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setChildSetup(childSetup: SpawnChildSetupFunc): Unit = g_subprocess_launcher_set_child_setup(
-        gioSubprocessLauncherPointer.reinterpret(),
-        SpawnChildSetupFuncFunc.reinterpret(),
-        StableRef.create(childSetup).asCPointer(),
-        staticStableRefDestroy.reinterpret()
-    )
+    public open fun setChildSetup(childSetup: SpawnChildSetupFunc): Unit = g_subprocess_launcher_set_child_setup(gioSubprocessLauncherPointer.reinterpret(), SpawnChildSetupFuncFunc.reinterpret(), StableRef.create(childSetup).asCPointer(), staticStableRefDestroy.reinterpret())
 
     /**
      * Sets the current working directory that processes will be launched
@@ -156,8 +151,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setCwd(cwd: String): Unit =
-        g_subprocess_launcher_set_cwd(gioSubprocessLauncherPointer.reinterpret(), cwd)
+    public open fun setCwd(cwd: String): Unit = g_subprocess_launcher_set_cwd(gioSubprocessLauncherPointer.reinterpret(), cwd)
 
     /**
      * Replace the entire environment of processes launched from this
@@ -185,8 +179,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      */
     @GioVersion2_40
     public open fun setEnviron(env: List<String>): Unit = memScoped {
-        return g_subprocess_launcher_set_environ(gioSubprocessLauncherPointer.reinterpret(), env.toCStringList(this))
-    }
+        return g_subprocess_launcher_set_environ(gioSubprocessLauncherPointer.reinterpret(), env.toCStringList(this))}
 
     /**
      * Sets the flags on the launcher.
@@ -206,8 +199,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setFlags(flags: SubprocessFlags): Unit =
-        g_subprocess_launcher_set_flags(gioSubprocessLauncherPointer.reinterpret(), flags.mask)
+    public open fun setFlags(flags: SubprocessFlags): Unit = g_subprocess_launcher_set_flags(gioSubprocessLauncherPointer.reinterpret(), flags.mask)
 
     /**
      * Sets the file path to use as the stderr for spawned processes.
@@ -229,8 +221,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setStderrFilePath(path: String? = null): Unit =
-        g_subprocess_launcher_set_stderr_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
+    public open fun setStderrFilePath(path: String? = null): Unit = g_subprocess_launcher_set_stderr_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
     /**
      * Sets the file path to use as the stdin for spawned processes.
@@ -248,8 +239,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setStdinFilePath(path: String? = null): Unit =
-        g_subprocess_launcher_set_stdin_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
+    public open fun setStdinFilePath(path: String? = null): Unit = g_subprocess_launcher_set_stdin_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
     /**
      * Sets the file path to use as the stdout for spawned processes.
@@ -268,8 +258,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setStdoutFilePath(path: String? = null): Unit =
-        g_subprocess_launcher_set_stdout_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
+    public open fun setStdoutFilePath(path: String? = null): Unit = g_subprocess_launcher_set_stdout_file_path(gioSubprocessLauncherPointer.reinterpret(), path)
 
     /**
      * Sets the environment variable @variable in the environment of
@@ -286,12 +275,11 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun setenv(variable: String, `value`: String, overwrite: Boolean): Unit = g_subprocess_launcher_setenv(
-        gioSubprocessLauncherPointer.reinterpret(),
-        variable,
-        `value`,
-        overwrite.asGBoolean()
-    )
+    public open fun setenv(
+        variable: String,
+        `value`: String,
+        overwrite: Boolean,
+    ): Unit = g_subprocess_launcher_setenv(gioSubprocessLauncherPointer.reinterpret(), variable, `value`, overwrite.asGBoolean())
 
     /**
      * Creates a #GSubprocess given a provided array of arguments.
@@ -303,17 +291,13 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
     @GioVersion2_40
     public open fun spawnv(argv: List<String>): Result<Subprocess> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_subprocess_launcher_spawnv(
-            gioSubprocessLauncherPointer.reinterpret(),
-            argv.toCStringList(this),
-            gError.ptr
-        )?.run {
-            Subprocess(reinterpret())
-        }
+        val gResult = g_subprocess_launcher_spawnv(gioSubprocessLauncherPointer.reinterpret(), argv.toCStringList(this), gError.ptr)?.run {
+            Subprocess(reinterpret())}
 
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -335,8 +319,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @param sourceFd File descriptor in parent process
      * @param targetFd Target descriptor for child process
      */
-    public open fun takeFd(sourceFd: gint, targetFd: gint): Unit =
-        g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
+    public open fun takeFd(sourceFd: gint, targetFd: gint): Unit = g_subprocess_launcher_take_fd(gioSubprocessLauncherPointer.reinterpret(), sourceFd, targetFd)
 
     /**
      * Sets the file descriptor to use as the stderr for spawned processes.
@@ -360,8 +343,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStderrFd(fd: gint): Unit =
-        g_subprocess_launcher_take_stderr_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
+    public open fun takeStderrFd(fd: gint): Unit = g_subprocess_launcher_take_stderr_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
      * Sets the file descriptor to use as the stdin for spawned processes.
@@ -387,8 +369,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStdinFd(fd: gint): Unit =
-        g_subprocess_launcher_take_stdin_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
+    public open fun takeStdinFd(fd: gint): Unit = g_subprocess_launcher_take_stdin_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
      * Sets the file descriptor to use as the stdout for spawned processes.
@@ -413,8 +394,7 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun takeStdoutFd(fd: gint): Unit =
-        g_subprocess_launcher_take_stdout_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
+    public open fun takeStdoutFd(fd: gint): Unit = g_subprocess_launcher_take_stdout_fd(gioSubprocessLauncherPointer.reinterpret(), fd)
 
     /**
      * Removes the environment variable @variable from the environment of
@@ -428,16 +408,14 @@ public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public open fun unsetenv(variable: String): Unit =
-        g_subprocess_launcher_unsetenv(gioSubprocessLauncherPointer.reinterpret(), variable)
+    public open fun unsetenv(variable: String): Unit = g_subprocess_launcher_unsetenv(gioSubprocessLauncherPointer.reinterpret(), variable)
 
     public companion object : TypeCompanion<SubprocessLauncher> {
         override val type: GeneratedClassKGType<SubprocessLauncher> =
-            GeneratedClassKGType(g_subprocess_launcher_get_type()) { SubprocessLauncher(it.reinterpret()) }
+                GeneratedClassKGType(g_subprocess_launcher_get_type()) { SubprocessLauncher(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of SubprocessLauncher

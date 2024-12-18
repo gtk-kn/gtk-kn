@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,16 +18,15 @@ import org.gtkkn.native.glib.GDebugKey
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Associates a string with a bit flag.
  * Used in g_parse_debug_string().
  */
-public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class DebugKey(
+    pointer: CPointer<GDebugKey>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibDebugKeyPointer: CPointer<GDebugKey> = pointer
 
     /**
@@ -31,7 +34,6 @@ public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : 
      */
     public var key: String?
         get() = glibDebugKeyPointer.pointed.key?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibDebugKeyPointer.pointed.key?.let { g_free(it) }
@@ -43,7 +45,6 @@ public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : 
      */
     public var `value`: guint
         get() = glibDebugKeyPointer.pointed.value
-
         @UnsafeFieldSetter
         set(`value`) {
             glibDebugKeyPointer.pointed.value = value
@@ -55,11 +56,10 @@ public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GDebugKey>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GDebugKey>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

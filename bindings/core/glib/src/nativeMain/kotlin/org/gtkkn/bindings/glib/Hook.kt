@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
@@ -34,12 +40,6 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gobject.gulong
-import kotlin.Boolean
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GHook struct represents a single hook function in a #GHookList.
@@ -49,7 +49,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `func`: HookCompareFunc
  * - field `destroy`: DestroyNotify
  */
-public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Hook(
+    pointer: CPointer<GHook>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibHookPointer: CPointer<GHook> = pointer
 
     /**
@@ -57,7 +60,6 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var `data`: gpointer
         get() = glibHookPointer.pointed.data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.data = value
@@ -68,9 +70,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var next: Hook?
         get() = glibHookPointer.pointed.next?.run {
-            Hook(reinterpret())
-        }
-
+            Hook(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.next = value?.glibHookPointer
@@ -81,9 +81,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var prev: Hook?
         get() = glibHookPointer.pointed.prev?.run {
-            Hook(reinterpret())
-        }
-
+            Hook(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.prev = value?.glibHookPointer
@@ -94,7 +92,6 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var refCount: guint
         get() = glibHookPointer.pointed.ref_count
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.ref_count = value
@@ -105,7 +102,6 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var hookId: gulong
         get() = glibHookPointer.pointed.hook_id
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.hook_id = value
@@ -117,7 +113,6 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var flags: guint
         get() = glibHookPointer.pointed.flags
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.flags = value
@@ -129,7 +124,6 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      */
     public var func: gpointer
         get() = glibHookPointer.pointed.func!!
-
         @UnsafeFieldSetter
         set(`value`) {
             glibHookPointer.pointed.func = value
@@ -141,11 +135,10 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GHook>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GHook>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -240,11 +233,9 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
      * @param sibling a #GHook to compare with @new_hook
      * @return a value <= 0 if the id of @sibling is >= the id of @new_hook
      */
-    public fun compareIds(sibling: Hook): gint =
-        g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
+    public fun compareIds(sibling: Hook): gint = g_hook_compare_ids(glibHookPointer.reinterpret(), sibling.glibHookPointer.reinterpret())
 
-    override fun toString(): String =
-        "Hook(data=$data, next=$next, prev=$prev, refCount=$refCount, hookId=$hookId, flags=$flags, func=$func)"
+    override fun toString(): String = "Hook(data=$data, next=$next, prev=$prev, refCount=$refCount, hookId=$hookId, flags=$flags, func=$func)"
 
     public companion object {
         /**
@@ -254,8 +245,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @return a new #GHook
          */
         public fun alloc(hookList: HookList): Hook = g_hook_alloc(hookList.glibHookListPointer.reinterpret())!!.run {
-            Hook(reinterpret())
-        }
+            Hook(reinterpret())}
 
         /**
          * Destroys a #GHook, given its ID.
@@ -264,8 +254,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hookId a hook ID
          * @return true if the #GHook was found in the #GHookList and destroyed
          */
-        public fun destroy(hookList: HookList, hookId: gulong): Boolean =
-            g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
+        public fun destroy(hookList: HookList, hookId: gulong): Boolean = g_hook_destroy(hookList.glibHookListPointer.reinterpret(), hookId).asBoolean()
 
         /**
          * Removes one #GHook from a #GHookList, marking it
@@ -274,8 +263,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hookList a #GHookList
          * @param hook the #GHook to remove
          */
-        public fun destroyLink(hookList: HookList, hook: Hook): Unit =
-            g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun destroyLink(hookList: HookList, hook: Hook): Unit = g_hook_destroy_link(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Finds a #GHook in a #GHookList using the given function to
@@ -288,14 +276,12 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          *     true when the #GHook has been found
          * @return the found #GHook or null if no matching #GHook is found
          */
-        public fun find(hookList: HookList, needValids: Boolean, func: HookFindFunc): Hook = g_hook_find(
-            hookList.glibHookListPointer.reinterpret(),
-            needValids.asGBoolean(),
-            HookFindFuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )!!.run {
-            Hook(reinterpret())
-        }
+        public fun find(
+            hookList: HookList,
+            needValids: Boolean,
+            func: HookFindFunc,
+        ): Hook = g_hook_find(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), HookFindFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!.run {
+            Hook(reinterpret())}
 
         /**
          * Finds a #GHook in a #GHookList with the given data.
@@ -307,10 +293,12 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @return the #GHook with the given @data or null if no matching
          *     #GHook is found
          */
-        public fun findData(hookList: HookList, needValids: Boolean, `data`: gpointer? = null): Hook =
-            g_hook_find_data(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), `data`)!!.run {
-                Hook(reinterpret())
-            }
+        public fun findData(
+            hookList: HookList,
+            needValids: Boolean,
+            `data`: gpointer? = null,
+        ): Hook = g_hook_find_data(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), `data`)!!.run {
+            Hook(reinterpret())}
 
         /**
          * Finds a #GHook in a #GHookList with the given function.
@@ -322,10 +310,12 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @return the #GHook with the given @func or null if no matching
          *     #GHook is found
          */
-        public fun findFunc(hookList: HookList, needValids: Boolean, func: gpointer? = null): Hook =
-            g_hook_find_func(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), func)!!.run {
-                Hook(reinterpret())
-            }
+        public fun findFunc(
+            hookList: HookList,
+            needValids: Boolean,
+            func: gpointer? = null,
+        ): Hook = g_hook_find_func(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), func)!!.run {
+            Hook(reinterpret())}
 
         /**
          * Finds a #GHook in a #GHookList with the given function and data.
@@ -343,14 +333,8 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
             needValids: Boolean,
             func: gpointer,
             `data`: gpointer? = null,
-        ): Hook = g_hook_find_func_data(
-            hookList.glibHookListPointer.reinterpret(),
-            needValids.asGBoolean(),
-            func,
-            `data`
-        )!!.run {
-            Hook(reinterpret())
-        }
+        ): Hook = g_hook_find_func_data(hookList.glibHookListPointer.reinterpret(), needValids.asGBoolean(), func, `data`)!!.run {
+            Hook(reinterpret())}
 
         /**
          * Returns the first #GHook in a #GHookList which has not been destroyed.
@@ -364,10 +348,8 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          *     these are skipped
          * @return the first valid #GHook, or null if none are valid
          */
-        public fun firstValid(hookList: HookList, mayBeInCall: Boolean): Hook =
-            g_hook_first_valid(hookList.glibHookListPointer.reinterpret(), mayBeInCall.asGBoolean())!!.run {
-                Hook(reinterpret())
-            }
+        public fun firstValid(hookList: HookList, mayBeInCall: Boolean): Hook = g_hook_first_valid(hookList.glibHookListPointer.reinterpret(), mayBeInCall.asGBoolean())!!.run {
+            Hook(reinterpret())}
 
         /**
          * Calls the #GHookList @finalize_hook function if it exists,
@@ -376,8 +358,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hookList a #GHookList
          * @param hook the #GHook to free
          */
-        public fun free(hookList: HookList, hook: Hook): Unit =
-            g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun free(hookList: HookList, hook: Hook): Unit = g_hook_free(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Returns the #GHook with the given id, or null if it is not found.
@@ -386,10 +367,8 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hookId a hook id
          * @return the #GHook with the given id, or null if it is not found
          */
-        public fun `get`(hookList: HookList, hookId: gulong): Hook =
-            g_hook_get(hookList.glibHookListPointer.reinterpret(), hookId)!!.run {
-                Hook(reinterpret())
-            }
+        public fun `get`(hookList: HookList, hookId: gulong): Hook = g_hook_get(hookList.glibHookListPointer.reinterpret(), hookId)!!.run {
+            Hook(reinterpret())}
 
         /**
          * Inserts a #GHook into a #GHookList, before a given #GHook.
@@ -398,11 +377,11 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param sibling the #GHook to insert the new #GHook before
          * @param hook the #GHook to insert
          */
-        public fun insertBefore(hookList: HookList, sibling: Hook? = null, hook: Hook): Unit = g_hook_insert_before(
-            hookList.glibHookListPointer.reinterpret(),
-            sibling?.glibHookPointer?.reinterpret(),
-            hook.glibHookPointer.reinterpret()
-        )
+        public fun insertBefore(
+            hookList: HookList,
+            sibling: Hook? = null,
+            hook: Hook,
+        ): Unit = g_hook_insert_before(hookList.glibHookListPointer.reinterpret(), sibling?.glibHookPointer?.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Returns the next #GHook in a #GHookList which has not been destroyed.
@@ -417,13 +396,12 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          *     these are skipped
          * @return the next valid #GHook, or null if none are valid
          */
-        public fun nextValid(hookList: HookList, hook: Hook, mayBeInCall: Boolean): Hook = g_hook_next_valid(
-            hookList.glibHookListPointer.reinterpret(),
-            hook.glibHookPointer.reinterpret(),
-            mayBeInCall.asGBoolean()
-        )!!.run {
-            Hook(reinterpret())
-        }
+        public fun nextValid(
+            hookList: HookList,
+            hook: Hook,
+            mayBeInCall: Boolean,
+        ): Hook = g_hook_next_valid(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret(), mayBeInCall.asGBoolean())!!.run {
+            Hook(reinterpret())}
 
         /**
          * Prepends a #GHook on the start of a #GHookList.
@@ -431,8 +409,7 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hookList a #GHookList
          * @param hook the #GHook to add to the start of @hook_list
          */
-        public fun prepend(hookList: HookList, hook: Hook): Unit =
-            g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun prepend(hookList: HookList, hook: Hook): Unit = g_hook_prepend(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
 
         /**
          * Increments the reference count for a #GHook.
@@ -441,10 +418,8 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hook the #GHook to increment the reference count of
          * @return the @hook that was passed in (since 2.6)
          */
-        public fun ref(hookList: HookList, hook: Hook): Hook =
-            g_hook_ref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())!!.run {
-                Hook(reinterpret())
-            }
+        public fun ref(hookList: HookList, hook: Hook): Hook = g_hook_ref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())!!.run {
+            Hook(reinterpret())}
 
         /**
          * Decrements the reference count of a #GHook.
@@ -454,7 +429,6 @@ public class Hook(pointer: CPointer<GHook>, cleaner: Cleaner? = null) : ProxyIns
          * @param hookList a #GHookList
          * @param hook the #GHook to unref
          */
-        public fun unref(hookList: HookList, hook: Hook): Unit =
-            g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
+        public fun unref(hookList: HookList, hook: Hook): Unit = g_hook_unref(hookList.glibHookListPointer.reinterpret(), hook.glibHookPointer.reinterpret())
     }
 }

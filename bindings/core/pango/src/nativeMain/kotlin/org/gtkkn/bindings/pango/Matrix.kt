@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -25,11 +30,6 @@ import org.gtkkn.native.pango.pango_matrix_get_type
 import org.gtkkn.native.pango.pango_matrix_rotate
 import org.gtkkn.native.pango.pango_matrix_scale
 import org.gtkkn.native.pango.pango_matrix_translate
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `PangoMatrix` specifies a transformation between user-space
@@ -53,7 +53,10 @@ import kotlin.native.ref.createCleaner
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Matrix(
+    pointer: CPointer<PangoMatrix>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoMatrixPointer: CPointer<PangoMatrix> = pointer
 
     /**
@@ -61,7 +64,6 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     public var xx: gdouble
         get() = pangoMatrixPointer.pointed.xx
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xx = value
@@ -72,7 +74,6 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     public var xy: gdouble
         get() = pangoMatrixPointer.pointed.xy
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.xy = value
@@ -83,7 +84,6 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     public var yx: gdouble
         get() = pangoMatrixPointer.pointed.yx
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yx = value
@@ -94,7 +94,6 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     public var yy: gdouble
         get() = pangoMatrixPointer.pointed.yy
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.yy = value
@@ -105,7 +104,6 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     public var x0: gdouble
         get() = pangoMatrixPointer.pointed.x0
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.x0 = value
@@ -116,7 +114,6 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     public var y0: gdouble
         get() = pangoMatrixPointer.pointed.y0
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoMatrixPointer.pointed.y0 = value
@@ -128,11 +125,10 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoMatrix>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoMatrix>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -219,8 +215,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun concat(newMatrix: Matrix): Unit =
-        pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer.reinterpret())
+    public fun concat(newMatrix: Matrix): Unit = pango_matrix_concat(pangoMatrixPointer.reinterpret(), newMatrix.pangoMatrixPointer.reinterpret())
 
     /**
      * Copies a `PangoMatrix`.
@@ -230,8 +225,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      */
     @PangoVersion1_6
     public fun copy(): Matrix? = pango_matrix_copy(pangoMatrixPointer.reinterpret())?.run {
-        Matrix(reinterpret())
-    }
+        Matrix(reinterpret())}
 
     /**
      * Free a `PangoMatrix`.
@@ -293,8 +287,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit =
-        pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
+    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit = pango_matrix_scale(pangoMatrixPointer.reinterpret(), scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -306,8 +299,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(tx: gdouble, ty: gdouble): Unit =
-        pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit = pango_matrix_translate(pangoMatrixPointer.reinterpret(), tx, ty)
 
     override fun toString(): String = "Matrix(xx=$xx, xy=$xy, yx=$yx, yy=$yy, x0=$x0, y0=$y0)"
 

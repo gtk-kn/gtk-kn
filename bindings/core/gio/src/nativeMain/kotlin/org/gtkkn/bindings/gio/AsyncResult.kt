@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -25,8 +27,6 @@ import org.gtkkn.native.gio.g_async_result_legacy_propagate_error
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
-import kotlin.Result
 
 /**
  * `GAsyncResult` provides a base class for implementing asynchronous function results.
@@ -115,9 +115,7 @@ import kotlin.Result
  * `G_PRIORITY_LOW` and `G_PRIORITY_HIGH`, with `G_PRIORITY_DEFAULT`
  * as a default.
  */
-public interface AsyncResult :
-    Interface,
-    KGTyped {
+public interface AsyncResult : Interface, KGTyped {
     public val gioAsyncResultPointer: CPointer<GAsyncResult>
 
     /**
@@ -127,8 +125,7 @@ public interface AsyncResult :
      *    object for the @res, or null if there is none.
      */
     public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer.reinterpret())?.run {
-        Object(reinterpret())
-    }
+        Object(reinterpret())}
 
     /**
      * Gets the user data from a #GAsyncResult.
@@ -147,8 +144,7 @@ public interface AsyncResult :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun isTagged(sourceTag: gpointer? = null): Boolean =
-        g_async_result_is_tagged(gioAsyncResultPointer.reinterpret(), sourceTag).asBoolean()
+    public fun isTagged(sourceTag: gpointer? = null): Boolean = g_async_result_is_tagged(gioAsyncResultPointer.reinterpret(), sourceTag).asBoolean()
 
     /**
      * If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -172,22 +168,24 @@ public interface AsyncResult :
         val gResult = g_async_result_legacy_propagate_error(gioAsyncResultPointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GAsyncResult>) : AsyncResult {
+    private data class Wrapper(
+        private val pointer: CPointer<GAsyncResult>,
+    ) : AsyncResult {
         override val gioAsyncResultPointer: CPointer<GAsyncResult> = pointer
     }
 
     public companion object : TypeCompanion<AsyncResult> {
         override val type: GeneratedInterfaceKGType<AsyncResult> =
-            GeneratedInterfaceKGType(g_async_result_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_async_result_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GAsyncResult>): AsyncResult = Wrapper(pointer)
 

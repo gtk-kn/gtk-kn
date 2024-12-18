@@ -9,12 +9,13 @@ import org.gtkkn.native.glib.GUnixPipeEnd
  * @since 2.80
  */
 @GLibVersion2_80
-public enum class UnixPipeEnd(public val nativeValue: GUnixPipeEnd) {
+public enum class UnixPipeEnd(
+    public val nativeValue: GUnixPipeEnd,
+) {
     /**
      * The readable file descriptor 0
      */
     READ(GUnixPipeEnd.G_UNIX_PIPE_END_READ),
-
     /**
      * The writable file descriptor 1
      */

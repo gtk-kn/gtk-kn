@@ -1,6 +1,11 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -18,11 +23,6 @@ import org.gtkkn.native.glib.g_completion_free
 import org.gtkkn.native.glib.g_completion_remove_items
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import kotlin.Pair
-import kotlin.String
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * `GCompletion` provides support for automatic completion of a string
@@ -56,7 +56,10 @@ import kotlin.native.ref.createCleaner
  * - field `func`: CompletionFunc
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
-public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Completion(
+    pointer: CPointer<GCompletion>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibCompletionPointer: CPointer<GCompletion> = pointer
 
     /**
@@ -64,9 +67,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      */
     public var items: List?
         get() = glibCompletionPointer.pointed.items?.run {
-            List(reinterpret())
-        }
-
+            List(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.items = value?.glibListPointer
@@ -78,7 +79,6 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      */
     public var prefix: String?
         get() = glibCompletionPointer.pointed.prefix?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.prefix?.let { g_free(it) }
@@ -90,9 +90,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      */
     public var cache: List?
         get() = glibCompletionPointer.pointed.cache?.run {
-            List(reinterpret())
-        }
-
+            List(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             glibCompletionPointer.pointed.cache = value?.glibListPointer
@@ -104,11 +102,10 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCompletion>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GCompletion>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -175,8 +172,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      *
      * @param items the list of items to add.
      */
-    public fun addItems(items: List): Unit =
-        g_completion_add_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
+    public fun addItems(items: List): Unit = g_completion_add_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
 
     /**
      * Removes all items from the #GCompletion. The items are not freed, so if the
@@ -199,8 +195,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      *
      * @param items the items to remove.
      */
-    public fun removeItems(items: List): Unit =
-        g_completion_remove_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
+    public fun removeItems(items: List): Unit = g_completion_remove_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
 
     override fun toString(): String = "Completion(items=$items, prefix=$prefix, cache=$cache)"
 }

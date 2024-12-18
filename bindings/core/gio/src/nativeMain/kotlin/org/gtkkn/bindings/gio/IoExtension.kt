@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -13,13 +14,14 @@ import org.gtkkn.native.gio.g_io_extension_get_type
 import org.gtkkn.native.gio.g_io_extension_ref_class
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
-import kotlin.String
 
 /**
  * #GIOExtension is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class IoExtension(pointer: CPointer<GIOExtension>) : ProxyInstance(pointer) {
+public class IoExtension(
+    pointer: CPointer<GIOExtension>,
+) : ProxyInstance(pointer) {
     public val gioIOExtensionPointer: CPointer<GIOExtension> = pointer
 
     /**
@@ -30,8 +32,7 @@ public class IoExtension(pointer: CPointer<GIOExtension>) : ProxyInstance(pointe
      *
      * @return the name of @extension.
      */
-    public fun getName(): String =
-        g_io_extension_get_name(gioIOExtensionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_io_extension_get_name(gioIOExtensionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the priority with which @extension was registered.
@@ -54,6 +55,5 @@ public class IoExtension(pointer: CPointer<GIOExtension>) : ProxyInstance(pointe
      * @return the #GTypeClass for the type of @extension
      */
     public fun refClass(): TypeClass = g_io_extension_ref_class(gioIOExtensionPointer.reinterpret())!!.run {
-        TypeClass(reinterpret())
-    }
+        TypeClass(reinterpret())}
 }

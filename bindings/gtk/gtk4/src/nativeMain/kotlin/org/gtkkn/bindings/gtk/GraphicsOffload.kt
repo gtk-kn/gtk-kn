@@ -59,8 +59,9 @@ import org.gtkkn.native.gtk.gtk_graphics_offload_set_enabled
  * @since 4.14
  */
 @GtkVersion4_14
-public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
-    Widget(pointer.reinterpret()),
+public open class GraphicsOffload(
+    pointer: CPointer<GtkGraphicsOffload>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>
         get() = gPointer.reinterpret()
@@ -88,9 +89,7 @@ public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
          * @since 4.14
          */
         get() = gtk_graphics_offload_get_child(gtkGraphicsOffloadPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child of @self.
          *
@@ -98,12 +97,7 @@ public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
          * @since 4.14
          */
         @GtkVersion4_14
-        set(
-            child
-        ) = gtk_graphics_offload_set_child(
-            gtkGraphicsOffloadPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = gtk_graphics_offload_set_child(gtkGraphicsOffloadPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Whether graphics offload is enabled.
@@ -119,9 +113,7 @@ public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
          * @since 4.14
          */
         get() = gtk_graphics_offload_get_enabled(gtkGraphicsOffloadPointer.reinterpret()).run {
-            GraphicsOffloadEnabled.fromNativeValue(this)
-        }
-
+            GraphicsOffloadEnabled.fromNativeValue(this)}
         /**
          * Sets whether this GtkGraphicsOffload widget will attempt
          * to offload the content of its child widget.
@@ -139,17 +131,14 @@ public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
      * @return the new widget
      * @since 4.14
      */
-    public constructor(
-        child: Widget? = null,
-    ) : this(gtk_graphics_offload_new(child?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
+    public constructor(child: Widget? = null) : this(gtk_graphics_offload_new(child?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<GraphicsOffload> {
         override val type: GeneratedClassKGType<GraphicsOffload> =
-            GeneratedClassKGType(gtk_graphics_offload_get_type()) { GraphicsOffload(it.reinterpret()) }
+                GeneratedClassKGType(gtk_graphics_offload_get_type()) { GraphicsOffload(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of GraphicsOffload

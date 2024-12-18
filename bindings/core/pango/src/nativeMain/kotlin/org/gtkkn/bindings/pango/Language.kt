@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -17,8 +19,6 @@ import org.gtkkn.native.pango.pango_language_get_type
 import org.gtkkn.native.pango.pango_language_includes_script
 import org.gtkkn.native.pango.pango_language_matches
 import org.gtkkn.native.pango.pango_language_to_string
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * The `PangoLanguage` structure is used to
@@ -32,7 +32,9 @@ import kotlin.String
  * - parameter `num_scripts`: num_scripts: Out parameter is not supported
  * - function `get_preferred`: Array parameter of type Language is not supported
  */
-public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer) {
+public class Language(
+    pointer: CPointer<PangoLanguage>,
+) : ProxyInstance(pointer) {
     public val pangoLanguagePointer: CPointer<PangoLanguage> = pointer
 
     /**
@@ -58,9 +60,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      *
      * @return the sample string
      */
-    public fun getSampleString(): String =
-        pango_language_get_sample_string(pangoLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getSampleString(): String = pango_language_get_sample_string(pangoLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines if @script is one of the scripts used to
@@ -84,8 +84,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun includesScript(script: Script): Boolean =
-        pango_language_includes_script(pangoLanguagePointer.reinterpret(), script.nativeValue).asBoolean()
+    public fun includesScript(script: Script): Boolean = pango_language_includes_script(pangoLanguagePointer.reinterpret(), script.nativeValue).asBoolean()
 
     /**
      * Checks if a language tag matches one of the elements in a list of
@@ -101,16 +100,14 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      *   canonicalized as by [func@Pango.Language.from_string]
      * @return true if a match was found
      */
-    public fun matches(rangeList: String): Boolean =
-        pango_language_matches(pangoLanguagePointer.reinterpret(), rangeList).asBoolean()
+    public fun matches(rangeList: String): Boolean = pango_language_matches(pangoLanguagePointer.reinterpret(), rangeList).asBoolean()
 
     /**
      * Gets the RFC-3066 format string representing the given language tag.
      *
      * Returns (transfer none): a string representing the language tag
      */
-    override fun toString(): String =
-        pango_language_to_string(pangoLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_language_to_string(pangoLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -131,8 +128,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
          * @return a `PangoLanguage`
          */
         public fun fromString(language: String? = null): Language? = pango_language_from_string(language)?.run {
-            Language(reinterpret())
-        }
+            Language(reinterpret())}
 
         /**
          * Returns the `PangoLanguage` for the current locale of the process.
@@ -172,8 +168,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
          */
         @PangoVersion1_16
         public fun getDefault(): Language = pango_language_get_default()!!.run {
-            Language(reinterpret())
-        }
+            Language(reinterpret())}
 
         /**
          * Get the GType of Language

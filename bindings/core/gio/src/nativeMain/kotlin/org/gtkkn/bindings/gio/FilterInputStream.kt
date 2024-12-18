@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -14,7 +15,6 @@ import org.gtkkn.native.gio.g_filter_input_stream_get_close_base_stream
 import org.gtkkn.native.gio.g_filter_input_stream_get_type
 import org.gtkkn.native.gio.g_filter_input_stream_set_close_base_stream
 import org.gtkkn.native.gobject.GType
-import kotlin.Boolean
 
 /**
  * Base class for input stream implementations that perform some
@@ -22,8 +22,9 @@ import kotlin.Boolean
  * of filtering operations are character set conversion, compression
  * and byte order flipping.
  */
-public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
-    InputStream(pointer.reinterpret()),
+public open class FilterInputStream(
+    pointer: CPointer<GFilterInputStream>,
+) : InputStream(pointer.reinterpret()),
     KGTyped {
     public val gioFilterInputStreamPointer: CPointer<GFilterInputStream>
         get() = gPointer.reinterpret()
@@ -38,8 +39,7 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
          * @return a #GInputStream.
          */
         get() = g_filter_input_stream_get_base_stream(gioFilterInputStreamPointer.reinterpret())!!.run {
-            InputStream(reinterpret())
-        }
+            InputStream(reinterpret())}
 
     /**
      * Whether the base stream should be closed when the filter stream is closed.
@@ -52,26 +52,19 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
          * @return true if the base stream will be closed.
          */
         get() = g_filter_input_stream_get_close_base_stream(gioFilterInputStreamPointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether the base stream will be closed when @stream is closed.
          *
          * @param closeBase true to close the base stream.
          */
-        set(
-            closeBase
-        ) = g_filter_input_stream_set_close_base_stream(
-            gioFilterInputStreamPointer.reinterpret(),
-            closeBase.asGBoolean()
-        )
+        set(closeBase) = g_filter_input_stream_set_close_base_stream(gioFilterInputStreamPointer.reinterpret(), closeBase.asGBoolean())
 
     public companion object : TypeCompanion<FilterInputStream> {
         override val type: GeneratedClassKGType<FilterInputStream> =
-            GeneratedClassKGType(g_filter_input_stream_get_type()) { FilterInputStream(it.reinterpret()) }
+                GeneratedClassKGType(g_filter_input_stream_get_type()) { FilterInputStream(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Get the GType of FilterInputStream

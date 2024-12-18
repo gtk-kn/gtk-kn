@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,17 +16,16 @@ import org.gtkkn.native.glib.GTestLogBuffer
 import org.gtkkn.native.glib.g_test_log_buffer_free
 import org.gtkkn.native.glib.g_test_log_buffer_new
 import org.gtkkn.native.glib.g_test_log_buffer_pop
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * ## Skipped during bindings generation
  *
  * - parameter `bytes`: Unsupported pointer to primitive type
  */
-public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TestLogBuffer(
+    pointer: CPointer<GTestLogBuffer>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibTestLogBufferPointer: CPointer<GTestLogBuffer> = pointer
 
     /**
@@ -31,11 +34,10 @@ public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GTestLogBuffer>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GTestLogBuffer>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -43,9 +45,7 @@ public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to TestLogBuffer and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GTestLogBuffer>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GTestLogBuffer>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TestLogBuffer using the provided [AutofreeScope].
@@ -65,15 +65,13 @@ public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? 
      * Internal function for gtester to retrieve test log messages, no ABI guarantees provided.
      */
     public fun pop(): TestLogMsg = g_test_log_buffer_pop(glibTestLogBufferPointer.reinterpret())!!.run {
-        TestLogMsg(reinterpret())
-    }
+        TestLogMsg(reinterpret())}
 
     public companion object {
         /**
          * Internal function for gtester to decode test log messages, no ABI guarantees provided.
          */
         public fun new(): TestLogBuffer = g_test_log_buffer_new()!!.run {
-            TestLogBuffer(reinterpret())
-        }
+            TestLogBuffer(reinterpret())}
     }
 }

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.soup
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
@@ -25,9 +28,6 @@ import org.gtkkn.native.soup.soup_message_body_set_accumulate
 import org.gtkkn.native.soup.soup_message_body_truncate
 import org.gtkkn.native.soup.soup_message_body_unref
 import org.gtkkn.native.soup.soup_message_body_wrote_chunk
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * #SoupMessageBody represents the request or response body of a
@@ -49,7 +49,9 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - field `data`: Array parameter of type guint8 is not supported
  */
-public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(pointer) {
+public class MessageBody(
+    pointer: CPointer<SoupMessageBody>,
+) : ProxyInstance(pointer) {
     public val soupMessageBodyPointer: CPointer<SoupMessageBody> = pointer
 
     /**
@@ -57,7 +59,6 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      */
     public var length: gint64
         get() = soupMessageBodyPointer.pointed.length
-
         @UnsafeFieldSetter
         set(`value`) {
             soupMessageBodyPointer.pointed.length = value
@@ -68,8 +69,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param buffer a #GBytes
      */
-    public fun appendBytes(buffer: Bytes): Unit =
-        soup_message_body_append_bytes(soupMessageBodyPointer.reinterpret(), buffer.glibBytesPointer.reinterpret())
+    public fun appendBytes(buffer: Bytes): Unit = soup_message_body_append_bytes(soupMessageBodyPointer.reinterpret(), buffer.glibBytesPointer.reinterpret())
 
     /**
      * Tags @body as being complete.
@@ -89,8 +89,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *   (You must [method@GLib.Bytes.unref] this if you do not want it.)
      */
     public fun flatten(): Bytes = soup_message_body_flatten(soupMessageBodyPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
-    }
+        Bytes(reinterpret())}
 
     /**
      * Gets the accumulate flag on @body.
@@ -99,8 +98,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @return the accumulate flag for @body.
      */
-    public fun getAccumulate(): Boolean =
-        soup_message_body_get_accumulate(soupMessageBodyPointer.reinterpret()).asBoolean()
+    public fun getAccumulate(): Boolean = soup_message_body_get_accumulate(soupMessageBodyPointer.reinterpret()).asBoolean()
 
     /**
      * Gets a [struct@GLib.Bytes] containing data from @body starting at @offset.
@@ -123,10 +121,8 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param offset an offset
      * @return a #GBytes
      */
-    public fun getChunk(offset: gint64): Bytes? =
-        soup_message_body_get_chunk(soupMessageBodyPointer.reinterpret(), offset)?.run {
-            Bytes(reinterpret())
-        }
+    public fun getChunk(offset: gint64): Bytes? = soup_message_body_get_chunk(soupMessageBodyPointer.reinterpret(), offset)?.run {
+        Bytes(reinterpret())}
 
     /**
      * Handles the #SoupMessageBody part of receiving a chunk of data from
@@ -141,8 +137,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param chunk a #GBytes received from the network
      */
-    public fun gotChunk(chunk: Bytes): Unit =
-        soup_message_body_got_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
+    public fun gotChunk(chunk: Bytes): Unit = soup_message_body_got_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
 
     /**
      * Atomically increments the reference count of @body by one.
@@ -150,8 +145,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @return the passed in #SoupMessageBody
      */
     public fun ref(): MessageBody = soup_message_body_ref(soupMessageBodyPointer.reinterpret())!!.run {
-        MessageBody(reinterpret())
-    }
+        MessageBody(reinterpret())}
 
     /**
      * Sets or clears the accumulate flag on @body.
@@ -170,8 +164,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param accumulate whether or not to accumulate body chunks in @body
      */
-    public fun setAccumulate(accumulate: Boolean): Unit =
-        soup_message_body_set_accumulate(soupMessageBodyPointer.reinterpret(), accumulate.asGBoolean())
+    public fun setAccumulate(accumulate: Boolean): Unit = soup_message_body_set_accumulate(soupMessageBodyPointer.reinterpret(), accumulate.asGBoolean())
 
     /**
      * Deletes all of the data in @body.
@@ -199,8 +192,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param chunk a #GBytes returned from [method@MessageBody.get_chunk]
      */
-    public fun wroteChunk(chunk: Bytes): Unit =
-        soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
+    public fun wroteChunk(chunk: Bytes): Unit = soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
 
     override fun toString(): String = "MessageBody(length=$length)"
 

@@ -14,53 +14,47 @@ import org.gtkkn.native.gobject.GType
  * @since 2.32
  */
 @GioVersion2_32
-public enum class SocketClientEvent(public val nativeValue: GSocketClientEvent) {
+public enum class SocketClientEvent(
+    public val nativeValue: GSocketClientEvent,
+) {
     /**
      * The client is doing a DNS lookup.
      */
     RESOLVING(GSocketClientEvent.G_SOCKET_CLIENT_RESOLVING),
-
     /**
      * The client has completed a DNS lookup.
      */
     RESOLVED(GSocketClientEvent.G_SOCKET_CLIENT_RESOLVED),
-
     /**
      * The client is connecting to a remote
      *   host (either a proxy or the destination server).
      */
     CONNECTING(GSocketClientEvent.G_SOCKET_CLIENT_CONNECTING),
-
     /**
      * The client has connected to a remote
      *   host.
      */
     CONNECTED(GSocketClientEvent.G_SOCKET_CLIENT_CONNECTED),
-
     /**
      * The client is negotiating
      *   with a proxy to connect to the destination server.
      */
     PROXY_NEGOTIATING(GSocketClientEvent.G_SOCKET_CLIENT_PROXY_NEGOTIATING),
-
     /**
      * The client has negotiated
      *   with the proxy server.
      */
     PROXY_NEGOTIATED(GSocketClientEvent.G_SOCKET_CLIENT_PROXY_NEGOTIATED),
-
     /**
      * The client is performing a
      *   TLS handshake.
      */
     TLS_HANDSHAKING(GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKING),
-
     /**
      * The client has performed a
      *   TLS handshake.
      */
     TLS_HANDSHAKED(GSocketClientEvent.G_SOCKET_CLIENT_TLS_HANDSHAKED),
-
     /**
      * The client is done with a particular
      *   #GSocketConnectable.

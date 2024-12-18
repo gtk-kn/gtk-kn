@@ -5,12 +5,13 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtksource.GtkSourceBackgroundPatternType
 import org.gtkkn.native.gtksource.gtk_source_background_pattern_type_get_type
 
-public enum class BackgroundPatternType(public val nativeValue: GtkSourceBackgroundPatternType) {
+public enum class BackgroundPatternType(
+    public val nativeValue: GtkSourceBackgroundPatternType,
+) {
     /**
      * no pattern
      */
     NONE(GtkSourceBackgroundPatternType.GTK_SOURCE_BACKGROUND_PATTERN_TYPE_NONE),
-
     /**
      * grid pattern
      */
@@ -18,12 +19,11 @@ public enum class BackgroundPatternType(public val nativeValue: GtkSourceBackgro
     ;
 
     public companion object {
-        public fun fromNativeValue(nativeValue: GtkSourceBackgroundPatternType): BackgroundPatternType =
-            when (nativeValue) {
-                GtkSourceBackgroundPatternType.GTK_SOURCE_BACKGROUND_PATTERN_TYPE_NONE -> NONE
-                GtkSourceBackgroundPatternType.GTK_SOURCE_BACKGROUND_PATTERN_TYPE_GRID -> GRID
-                else -> error("invalid nativeValue")
-            }
+        public fun fromNativeValue(nativeValue: GtkSourceBackgroundPatternType): BackgroundPatternType = when (nativeValue) {
+            GtkSourceBackgroundPatternType.GTK_SOURCE_BACKGROUND_PATTERN_TYPE_NONE -> NONE
+            GtkSourceBackgroundPatternType.GTK_SOURCE_BACKGROUND_PATTERN_TYPE_GRID -> GRID
+            else -> error("invalid nativeValue")
+        }
 
         /**
          * Get the GType of BackgroundPatternType

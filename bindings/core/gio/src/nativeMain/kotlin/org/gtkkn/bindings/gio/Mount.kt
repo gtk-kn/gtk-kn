@@ -1,6 +1,12 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
+import kotlin.collections.List
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -61,12 +67,6 @@ import org.gtkkn.native.gio.g_mount_unshadow
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
-import kotlin.collections.List
 
 /**
  * The `GMount` interface represents user-visible mounts. Note, when
@@ -91,9 +91,7 @@ import kotlin.collections.List
  * [method@Gio.Mount.unmount_with_operation_finish] is called, then it will be
  * filled with any error information.
  */
-public interface Mount :
-    Interface,
-    KGTyped {
+public interface Mount : Interface, KGTyped {
     public val gioMountPointer: CPointer<GMount>
 
     /**
@@ -119,16 +117,11 @@ public interface Mount :
      * @param cancellable optional #GCancellable object, null to ignore.
      * @param callback a #GAsyncReadyCallback, or null.
      */
-    public fun eject(flags: MountUnmountFlags, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
-        g_mount_eject(
-            gioMountPointer.reinterpret(),
-            flags.mask,
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            callback?.let {
-                AsyncReadyCallbackFunc.reinterpret()
-            },
-            callback?.let { StableRef.create(callback).asCPointer() }
-        )
+    public fun eject(
+        flags: MountUnmountFlags,
+        cancellable: Cancellable? = null,
+        callback: AsyncReadyCallback?,
+    ): Unit = g_mount_eject(gioMountPointer.reinterpret(), flags.mask, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes ejecting a mount. If any errors occurred during the operation,
@@ -139,14 +132,11 @@ public interface Mount :
      */
     public fun ejectFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_mount_eject_finish(
-            gioMountPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_mount_eject_finish(gioMountPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -169,16 +159,7 @@ public interface Mount :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_mount_eject_with_operation(
-        gioMountPointer.reinterpret(),
-        flags.mask,
-        mountOperation?.gioMountOperationPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_mount_eject_with_operation(gioMountPointer.reinterpret(), flags.mask, mountOperation?.gioMountOperationPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes ejecting a mount. If any errors occurred during the operation,
@@ -191,14 +172,11 @@ public interface Mount :
     @GioVersion2_22
     public fun ejectWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_mount_eject_with_operation_finish(
-            gioMountPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_mount_eject_with_operation_finish(gioMountPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -213,8 +191,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getDefaultLocation(): File = g_mount_get_default_location(gioMountPointer.reinterpret())!!.run {
-        File.wrap(reinterpret())
-    }
+        File.wrap(reinterpret())}
 
     /**
      * Gets the drive for the @mount.
@@ -228,8 +205,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getDrive(): Drive? = g_mount_get_drive(gioMountPointer.reinterpret())?.run {
-        Drive.wrap(reinterpret())
-    }
+        Drive.wrap(reinterpret())}
 
     /**
      * Gets the icon for @mount.
@@ -239,8 +215,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getIcon(): Icon = g_mount_get_icon(gioMountPointer.reinterpret())!!.run {
-        Icon.wrap(reinterpret())
-    }
+        Icon.wrap(reinterpret())}
 
     /**
      * Gets the name of @mount.
@@ -249,8 +224,7 @@ public interface Mount :
      *     The returned string should be freed with g_free()
      *     when no longer needed.
      */
-    public fun getName(): String =
-        g_mount_get_name(gioMountPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_mount_get_name(gioMountPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the root directory on @mount.
@@ -260,8 +234,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getRoot(): File = g_mount_get_root(gioMountPointer.reinterpret())!!.run {
-        File.wrap(reinterpret())
-    }
+        File.wrap(reinterpret())}
 
     /**
      * Gets the sort key for @mount, if any.
@@ -282,8 +255,7 @@ public interface Mount :
      */
     @GioVersion2_34
     public fun getSymbolicIcon(): Icon = g_mount_get_symbolic_icon(gioMountPointer.reinterpret())!!.run {
-        Icon.wrap(reinterpret())
-    }
+        Icon.wrap(reinterpret())}
 
     /**
      * Gets the UUID for the @mount. The reference is typically based on
@@ -307,8 +279,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getVolume(): Volume? = g_mount_get_volume(gioMountPointer.reinterpret())?.run {
-        Volume.wrap(reinterpret())
-    }
+        Volume.wrap(reinterpret())}
 
     /**
      * Tries to guess the type of content stored on @mount. Returns one or
@@ -334,15 +305,7 @@ public interface Mount :
         forceRescan: Boolean,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_mount_guess_content_type(
-        gioMountPointer.reinterpret(),
-        forceRescan.asGBoolean(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_mount_guess_content_type(gioMountPointer.reinterpret(), forceRescan.asGBoolean(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes guessing content types of @mount. If any errors occurred
@@ -359,14 +322,11 @@ public interface Mount :
     @GioVersion2_18
     public fun guessContentTypeFinish(result: AsyncResult): Result<List<String>> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_mount_guess_content_type_finish(
-            gioMountPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.toKStringList()
+        val gResult = g_mount_guess_content_type_finish(gioMountPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr)?.toKStringList()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(checkNotNull(gResult))
         }
     }
@@ -390,21 +350,16 @@ public interface Mount :
      * @since 2.18
      */
     @GioVersion2_18
-    public fun guessContentTypeSync(forceRescan: Boolean, cancellable: Cancellable? = null): Result<List<String>> =
-        memScoped {
-            val gError = allocPointerTo<GError>()
-            val gResult = g_mount_guess_content_type_sync(
-                gioMountPointer.reinterpret(),
-                forceRescan.asGBoolean(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )?.toKStringList()
-            return if (gError.pointed != null) {
-                Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
-                Result.success(checkNotNull(gResult))
-            }
+    public fun guessContentTypeSync(forceRescan: Boolean, cancellable: Cancellable? = null): Result<List<String>> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = g_mount_guess_content_type_sync(gioMountPointer.reinterpret(), forceRescan.asGBoolean(), cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr)?.toKStringList()
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         }
+        else {
+            Result.success(checkNotNull(gResult))
+        }
+    }
 
     /**
      * Determines if @mount is shadowed. Applications or libraries should
@@ -459,16 +414,7 @@ public interface Mount :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_mount_remount(
-        gioMountPointer.reinterpret(),
-        flags.mask,
-        mountOperation?.gioMountOperationPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_mount_remount(gioMountPointer.reinterpret(), flags.mask, mountOperation?.gioMountOperationPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes remounting a mount. If any errors occurred during the operation,
@@ -479,14 +425,11 @@ public interface Mount :
      */
     public fun remountFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_mount_remount_finish(
-            gioMountPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_mount_remount_finish(gioMountPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -515,15 +458,7 @@ public interface Mount :
         flags: MountUnmountFlags,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_mount_unmount(
-        gioMountPointer.reinterpret(),
-        flags.mask,
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_mount_unmount(gioMountPointer.reinterpret(), flags.mask, cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes unmounting a mount. If any errors occurred during the operation,
@@ -534,14 +469,11 @@ public interface Mount :
      */
     public fun unmountFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_mount_unmount_finish(
-            gioMountPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_mount_unmount_finish(gioMountPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -564,16 +496,7 @@ public interface Mount :
         mountOperation: MountOperation? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
-    ): Unit = g_mount_unmount_with_operation(
-        gioMountPointer.reinterpret(),
-        flags.mask,
-        mountOperation?.gioMountOperationPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
-        callback?.let {
-            AsyncReadyCallbackFunc.reinterpret()
-        },
-        callback?.let { StableRef.create(callback).asCPointer() }
-    )
+    ): Unit = g_mount_unmount_with_operation(gioMountPointer.reinterpret(), flags.mask, mountOperation?.gioMountOperationPointer?.reinterpret(), cancellable?.gioCancellablePointer?.reinterpret(), callback?.let { AsyncReadyCallbackFunc.reinterpret() }, callback?.let { StableRef.create(callback).asCPointer() })
 
     /**
      * Finishes unmounting a mount. If any errors occurred during the operation,
@@ -586,14 +509,11 @@ public interface Mount :
     @GioVersion2_22
     public fun unmountWithOperationFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_mount_unmount_with_operation_finish(
-            gioMountPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_mount_unmount_with_operation_finish(gioMountPointer.reinterpret(), result.gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-        } else {
+        }
+        else {
             Result.success(gResult)
         }
     }
@@ -615,15 +535,7 @@ public interface Mount :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioMountPointer.reinterpret(),
-            "changed",
-            connectChangedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioMountPointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal may be emitted when the #GMount is about to be
@@ -637,15 +549,7 @@ public interface Mount :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun connectPreUnmount(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioMountPointer.reinterpret(),
-            "pre-unmount",
-            connectPreUnmountFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectPreUnmount(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioMountPointer.reinterpret(), "pre-unmount", connectPreUnmountFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * This signal is emitted when the #GMount have been
@@ -656,27 +560,20 @@ public interface Mount :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectUnmounted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gioMountPointer.reinterpret(),
-            "unmounted",
-            connectUnmountedFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectUnmounted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gioMountPointer.reinterpret(), "unmounted", connectUnmountedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GMount>) : Mount {
+    private data class Wrapper(
+        private val pointer: CPointer<GMount>,
+    ) : Mount {
         override val gioMountPointer: CPointer<GMount> = pointer
     }
 
     public companion object : TypeCompanion<Mount> {
         override val type: GeneratedInterfaceKGType<Mount> =
-            GeneratedInterfaceKGType(g_mount_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_mount_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GMount>): Mount = Wrapper(pointer)
 
@@ -690,25 +587,22 @@ public interface Mount :
 }
 
 private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectPreUnmountFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectUnmountedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

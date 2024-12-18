@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.Interface
@@ -14,7 +15,6 @@ import org.gtkkn.native.gobject.g_type_plugin_complete_type_info
 import org.gtkkn.native.gobject.g_type_plugin_get_type
 import org.gtkkn.native.gobject.g_type_plugin_unuse
 import org.gtkkn.native.gobject.g_type_plugin_use
-import kotlin.Unit
 
 /**
  * An interface that handles the lifecycle of dynamically loaded types.
@@ -66,9 +66,7 @@ import kotlin.Unit
  * already implements most of this except for the actual module loading and
  * unloading. It even handles multiple registered types per module.
  */
-public interface TypePlugin :
-    Interface,
-    KGTyped {
+public interface TypePlugin : Interface, KGTyped {
     public val gobjectTypePluginPointer: CPointer<GTypePlugin>
 
     /**
@@ -81,13 +79,11 @@ public interface TypePlugin :
      * @param interfaceType the #GType of the interface whose info is completed
      * @param info the #GInterfaceInfo to fill in
      */
-    public fun completeInterfaceInfo(instanceType: GType, interfaceType: GType, info: InterfaceInfo): Unit =
-        g_type_plugin_complete_interface_info(
-            gobjectTypePluginPointer.reinterpret(),
-            instanceType,
-            interfaceType,
-            info.gobjectInterfaceInfoPointer.reinterpret()
-        )
+    public fun completeInterfaceInfo(
+        instanceType: GType,
+        interfaceType: GType,
+        info: InterfaceInfo,
+    ): Unit = g_type_plugin_complete_interface_info(gobjectTypePluginPointer.reinterpret(), instanceType, interfaceType, info.gobjectInterfaceInfoPointer.reinterpret())
 
     /**
      * Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
@@ -98,13 +94,11 @@ public interface TypePlugin :
      * @param info the #GTypeInfo struct to fill in
      * @param valueTable the #GTypeValueTable to fill in
      */
-    public fun completeTypeInfo(gType: GType, info: TypeInfo, valueTable: TypeValueTable): Unit =
-        g_type_plugin_complete_type_info(
-            gobjectTypePluginPointer.reinterpret(),
-            gType,
-            info.gobjectTypeInfoPointer.reinterpret(),
-            valueTable.gobjectTypeValueTablePointer.reinterpret()
-        )
+    public fun completeTypeInfo(
+        gType: GType,
+        info: TypeInfo,
+        valueTable: TypeValueTable,
+    ): Unit = g_type_plugin_complete_type_info(gobjectTypePluginPointer.reinterpret(), gType, info.gobjectTypeInfoPointer.reinterpret(), valueTable.gobjectTypeValueTablePointer.reinterpret())
 
     /**
      * Calls the @unuse_plugin function from the #GTypePluginClass of
@@ -120,17 +114,18 @@ public interface TypePlugin :
      */
     public fun use(): Unit = g_type_plugin_use(gobjectTypePluginPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GTypePlugin>) : TypePlugin {
+    private data class Wrapper(
+        private val pointer: CPointer<GTypePlugin>,
+    ) : TypePlugin {
         override val gobjectTypePluginPointer: CPointer<GTypePlugin> = pointer
     }
 
     public companion object : TypeCompanion<TypePlugin> {
         override val type: GeneratedInterfaceKGType<TypePlugin> =
-            GeneratedInterfaceKGType(g_type_plugin_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_type_plugin_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GobjectTypeProvider.register()
-        }
+            GobjectTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GTypePlugin>): TypePlugin = Wrapper(pointer)
 

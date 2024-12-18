@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
@@ -22,9 +25,6 @@ import org.gtkkn.native.gtk.GtkCellRendererText
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_new
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_set_fixed_height_from_font
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * Renders text in a cell
@@ -85,8 +85,9 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-width`: Property has no getter nor setter
  */
-public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
-    CellRenderer(pointer.reinterpret()),
+public open class CellRendererText(
+    pointer: CPointer<GtkCellRendererText>,
+) : CellRenderer(pointer.reinterpret()),
     KGTyped {
     public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>
         get() = gPointer.reinterpret()
@@ -115,8 +116,7 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
      *
      * @param numberOfRows Number of rows of text each cell renderer is allocated, or -1
      */
-    public open fun setFixedHeightFromFont(numberOfRows: gint): Unit =
-        gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
+    public open fun setFixedHeightFromFont(numberOfRows: gint): Unit = gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
 
     /**
      * This signal is emitted after @renderer has been edited.
@@ -127,25 +127,14 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` the path identifying the edited cell; `newText` the new text
      */
-    public fun connectEdited(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: String, newText: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "edited",
-        connectEditedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectEdited(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String, newText: String) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "edited", connectEditedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
-            GeneratedClassKGType(gtk_cell_renderer_text_get_type()) { CellRendererText(it.reinterpret()) }
+                GeneratedClassKGType(gtk_cell_renderer_text_get_type()) { CellRendererText(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of CellRendererText
@@ -157,15 +146,11 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
 }
 
 private val connectEditedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            path: CPointer<ByteVar>?,
-            newText: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(path: String, newText: String) -> Unit>().get().invoke(
-            path?.toKString() ?: error("Expected not null string"),
-            newText?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+        staticCFunction {
+    _: COpaquePointer,
+    path: CPointer<ByteVar>?,
+    newText: CPointer<ByteVar>?,
+    userData: COpaquePointer
+    ->
+    userData.asStableRef<(path: String, newText: String) -> Unit>().get().invoke(path?.toKString() ?: error("Expected not null string"), newText?.toKString() ?: error("Expected not null string"))}
+.reinterpret()

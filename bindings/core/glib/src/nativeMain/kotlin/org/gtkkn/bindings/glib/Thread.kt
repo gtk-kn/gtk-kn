@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
+import kotlin.Result
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
@@ -37,10 +41,6 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_thread_get_type
 import org.gtkkn.native.gobject.gulong
-import kotlin.Boolean
-import kotlin.Result
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The #GThread struct represents a running thread. This struct
@@ -57,7 +57,9 @@ import kotlin.Unit
  * The structure is opaque -- none of its fields may be directly
  * accessed.
  */
-public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
+public class Thread(
+    pointer: CPointer<GThread>,
+) : ProxyInstance(pointer) {
     public val glibThreadPointer: CPointer<GThread> = pointer
 
     /**
@@ -90,16 +92,14 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_32
     public fun ref(): Thread = g_thread_ref(glibThreadPointer.reinterpret())!!.run {
-        Thread(reinterpret())
-    }
+        Thread(reinterpret())}
 
     /**
      * This function does nothing.
      *
      * @param priority ignored
      */
-    public fun setPriority(priority: ThreadPriority): Unit =
-        g_thread_set_priority(glibThreadPointer.reinterpret(), priority.nativeValue)
+    public fun setPriority(priority: ThreadPriority): Unit = g_thread_set_priority(glibThreadPointer.reinterpret(), priority.nativeValue)
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -149,9 +149,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
          * @return the new #GThread
          * @since 2.32
          */
-        public fun new(name: String? = null, func: ThreadFunc): Thread = Thread(
-            g_thread_new(name, ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!.reinterpret()
-        )
+        public fun new(name: String? = null, func: ThreadFunc): Thread = Thread(g_thread_new(name, ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer())!!.reinterpret())
 
         /**
          * This function is the same as g_thread_new() except that
@@ -168,16 +166,11 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
         public fun tryNew(name: String? = null, func: ThreadFunc): Result<Thread> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult =
-                    g_thread_try_new(
-                        name,
-                        ThreadFuncFunc.reinterpret(),
-                        StableRef.create(func).asCPointer(),
-                        gError.ptr
-                    )
+                val gResult = g_thread_try_new(name, ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-                } else {
+                }
+                else {
                     Result.success(Thread(checkNotNull(gResult)))
                 }
             }
@@ -203,18 +196,13 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
          */
         public fun create(func: ThreadFunc, joinable: Boolean): Result<Thread> = memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_thread_create(
-                ThreadFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer(),
-                joinable.asGBoolean(),
-                gError.ptr
-            )?.run {
-                Thread(reinterpret())
-            }
+            val gResult = g_thread_create(ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), joinable.asGBoolean(), gError.ptr)?.run {
+                Thread(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }
@@ -237,21 +225,13 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
             priority: ThreadPriority,
         ): Result<Thread> = memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_thread_create_full(
-                ThreadFuncFunc.reinterpret(),
-                StableRef.create(func).asCPointer(),
-                stackSize,
-                joinable.asGBoolean(),
-                bound.asGBoolean(),
-                priority.nativeValue,
-                gError.ptr
-            )?.run {
-                Thread(reinterpret())
-            }
+            val gResult = g_thread_create_full(ThreadFuncFunc.reinterpret(), StableRef.create(func).asCPointer(), stackSize, joinable.asGBoolean(), bound.asGBoolean(), priority.nativeValue, gError.ptr)?.run {
+                Thread(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }
@@ -294,8 +274,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun foreach(threadFunc: Func): Unit =
-            g_thread_foreach(FuncFunc.reinterpret(), StableRef.create(threadFunc).asCPointer())
+        public fun foreach(threadFunc: Func): Unit = g_thread_foreach(FuncFunc.reinterpret(), StableRef.create(threadFunc).asCPointer())
 
         /**
          * Indicates if g_thread_init() has been called.
@@ -332,8 +311,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
          */
         public fun `init`(vtable: gpointer? = null): Unit = g_thread_init(vtable)
 
-        public fun initWithErrorcheckMutexes(vtable: gpointer? = null): Unit =
-            g_thread_init_with_errorcheck_mutexes(vtable)
+        public fun initWithErrorcheckMutexes(vtable: gpointer? = null): Unit = g_thread_init_with_errorcheck_mutexes(vtable)
 
         /**
          * This function returns the #GThread corresponding to the
@@ -349,8 +327,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
          * @return the #GThread representing the current thread
          */
         public fun self(): Thread = g_thread_self()!!.run {
-            Thread(reinterpret())
-        }
+            Thread(reinterpret())}
 
         /**
          * Causes the calling thread to voluntarily relinquish the CPU, so

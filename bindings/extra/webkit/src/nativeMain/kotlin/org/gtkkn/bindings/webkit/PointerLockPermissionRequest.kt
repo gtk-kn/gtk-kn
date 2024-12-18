@@ -25,12 +25,13 @@ import org.gtkkn.native.webkit.webkit_pointer_lock_permission_request_get_type
  * @since 2.28
  */
 @WebKitVersion2_28
-public class PointerLockPermissionRequest(pointer: CPointer<WebKitPointerLockPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class PointerLockPermissionRequest(
+    pointer: CPointer<WebKitPointerLockPermissionRequest>,
+) : Object(pointer.reinterpret()),
     PermissionRequest,
     KGTyped {
     public val webkitPointerLockPermissionRequestPointer:
-        CPointer<WebKitPointerLockPermissionRequest>
+            CPointer<WebKitPointerLockPermissionRequest>
         get() = gPointer.reinterpret()
 
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
@@ -38,13 +39,10 @@ public class PointerLockPermissionRequest(pointer: CPointer<WebKitPointerLockPer
 
     public companion object : TypeCompanion<PointerLockPermissionRequest> {
         override val type: GeneratedClassKGType<PointerLockPermissionRequest> =
-            GeneratedClassKGType(webkit_pointer_lock_permission_request_get_type()) {
-                PointerLockPermissionRequest(it.reinterpret())
-            }
+                GeneratedClassKGType(webkit_pointer_lock_permission_request_get_type()) { PointerLockPermissionRequest(it.reinterpret()) }
 
         init {
-            WebkitTypeProvider.register()
-        }
+            WebkitTypeProvider.register()}
 
         /**
          * Get the GType of PointerLockPermissionRequest

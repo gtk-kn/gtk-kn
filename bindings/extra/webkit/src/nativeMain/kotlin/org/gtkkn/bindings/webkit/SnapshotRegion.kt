@@ -9,13 +9,14 @@ import org.gtkkn.native.webkit.webkit_snapshot_region_get_type
  * Enum values used to specify the region from which to get a #WebKitWebView
  * snapshot
  */
-public enum class SnapshotRegion(public val nativeValue: WebKitSnapshotRegion) {
+public enum class SnapshotRegion(
+    public val nativeValue: WebKitSnapshotRegion,
+) {
     /**
      * Specifies a snapshot only for the area that is
      * visible in the webview
      */
     VISIBLE(WebKitSnapshotRegion.WEBKIT_SNAPSHOT_REGION_VISIBLE),
-
     /**
      * A snapshot of the entire document.
      */

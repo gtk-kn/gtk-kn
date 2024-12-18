@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -35,10 +39,6 @@ import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.Boolean
-import kotlin.String
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A page within [class@NavigationView] or [class@NavigationSplitView].
@@ -70,8 +70,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
-    Widget(pointer.reinterpret()),
+public open class NavigationPage(
+    pointer: CPointer<AdwNavigationPage>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwNavigationPagePointer: CPointer<AdwNavigationPage>
         get() = gPointer.reinterpret()
@@ -108,7 +109,6 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
          * @since 1.4
          */
         get() = adw_navigation_page_get_can_pop(adwNavigationPagePointer.reinterpret()).asBoolean()
-
         /**
          * Sets whether @self can be popped from navigation stack.
          *
@@ -141,9 +141,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
          * @since 1.4
          */
         get() = adw_navigation_page_get_child(adwNavigationPagePointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
@@ -151,12 +149,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            child
-        ) = adw_navigation_page_set_child(
-            adwNavigationPagePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = adw_navigation_page_set_child(adwNavigationPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The page tag.
@@ -181,7 +174,6 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
          * @since 1.4
          */
         get() = adw_navigation_page_get_tag(adwNavigationPagePointer.reinterpret())?.toKString()
-
         /**
          * Sets the tag for @self.
          *
@@ -216,9 +208,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
          * @return the title of @self
          * @since 1.4
          */
-        get() = adw_navigation_page_get_title(adwNavigationPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_navigation_page_get_title(adwNavigationPagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title of @self.
          *
@@ -239,10 +229,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      * @return the new created `AdwNavigationPage`
      * @since 1.4
      */
-    public constructor(
-        child: Widget,
-        title: String,
-    ) : this(adw_navigation_page_new(child.gtkWidgetPointer.reinterpret(), title)!!.reinterpret())
+    public constructor(child: Widget, title: String) : this(adw_navigation_page_new(child.gtkWidgetPointer.reinterpret(), title)!!.reinterpret())
 
     /**
      * Creates a new `AdwNavigationPage` with provided tag.
@@ -271,15 +258,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "hidden",
-            connectHiddenFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "hidden", connectHiddenFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the page starts hiding at the beginning of the navigation view
@@ -293,15 +272,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectHiding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "hiding",
-            connectHidingFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectHiding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "hiding", connectHidingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the page shows at the beginning of the navigation view
@@ -315,15 +286,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectShowing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "showing",
-            connectShowingFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectShowing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "showing", connectShowingFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     /**
      * Emitted when the navigation view transition has been completed and the page
@@ -337,23 +300,14 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectShown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "shown",
-            connectShownFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectShown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "shown", connectShownFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<NavigationPage> {
         override val type: GeneratedClassKGType<NavigationPage> =
-            GeneratedClassKGType(adw_navigation_page_get_type()) { NavigationPage(it.reinterpret()) }
+                GeneratedClassKGType(adw_navigation_page_get_type()) { NavigationPage(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of NavigationPage
@@ -365,33 +319,29 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
 }
 
 private val connectHiddenFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectHidingFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectShowingFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()
 
 private val connectShownFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

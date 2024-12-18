@@ -8,23 +8,22 @@ import org.gtkkn.native.gtk.gtk_delete_type_get_type
 /**
  * Passed to various keybinding signals for deleting text.
  */
-public enum class DeleteType(public val nativeValue: GtkDeleteType) {
+public enum class DeleteType(
+    public val nativeValue: GtkDeleteType,
+) {
     /**
      * Delete characters.
      */
     CHARS(GtkDeleteType.GTK_DELETE_CHARS),
-
     /**
      * Delete only the portion of the word to the
      *   left/right of cursor if we’re in the middle of a word.
      */
     WORD_ENDS(GtkDeleteType.GTK_DELETE_WORD_ENDS),
-
     /**
      * Delete words.
      */
     WORDS(GtkDeleteType.GTK_DELETE_WORDS),
-
     /**
      * Delete display-lines. Display-lines
      *   refers to the visible lines, with respect to the current line
@@ -32,24 +31,20 @@ public enum class DeleteType(public val nativeValue: GtkDeleteType) {
      *   breaks in the input.
      */
     DISPLAY_LINES(GtkDeleteType.GTK_DELETE_DISPLAY_LINES),
-
     /**
      * Delete only the portion of the
      *   display-line to the left/right of cursor.
      */
     DISPLAY_LINE_ENDS(GtkDeleteType.GTK_DELETE_DISPLAY_LINE_ENDS),
-
     /**
      * Delete to the end of the
      *   paragraph. Like C-k in Emacs (or its reverse).
      */
     PARAGRAPH_ENDS(GtkDeleteType.GTK_DELETE_PARAGRAPH_ENDS),
-
     /**
      * Delete entire line. Like C-k in pico.
      */
     PARAGRAPHS(GtkDeleteType.GTK_DELETE_PARAGRAPHS),
-
     /**
      * Delete only whitespace. Like M-\ in Emacs.
      */

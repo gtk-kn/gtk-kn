@@ -11,28 +11,27 @@ import org.gtkkn.native.gobject.GType
  * @since 2.42
  */
 @GioVersion2_42
-public enum class NotificationPriority(public val nativeValue: GNotificationPriority) {
+public enum class NotificationPriority(
+    public val nativeValue: GNotificationPriority,
+) {
     /**
      * the default priority, to be used for the
      *   majority of notifications (for example email messages, software updates,
      *   completed download/sync operations)
      */
     NORMAL(GNotificationPriority.G_NOTIFICATION_PRIORITY_NORMAL),
-
     /**
      * for notifications that do not require
      *   immediate attention - typically used for contextual background
      *   information, such as contact birthdays or local weather
      */
     LOW(GNotificationPriority.G_NOTIFICATION_PRIORITY_LOW),
-
     /**
      * for events that require more attention,
      *   usually because responses are time-sensitive (for example chat and SMS
      *   messages or alarms)
      */
     HIGH(GNotificationPriority.G_NOTIFICATION_PRIORITY_HIGH),
-
     /**
      * for urgent notifications, or notifications
      *   that require a response in a short space of time (for example phone calls

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Suppress
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -26,10 +30,6 @@ import org.gtkkn.native.pango.pango_tab_array_set_positions_in_pixels
 import org.gtkkn.native.pango.pango_tab_array_set_tab
 import org.gtkkn.native.pango.pango_tab_array_sort
 import org.gtkkn.native.pango.pango_tab_array_to_string
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Suppress
-import kotlin.Unit
 
 /**
  * A `PangoTabArray` contains an array of tab stops.
@@ -44,7 +44,9 @@ import kotlin.Unit
  * - parameter `alignments`: alignments: Out parameter is not supported
  * - constructor `new_with_positions`: Varargs parameter is not supported
  */
-public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer) {
+public class TabArray(
+    pointer: CPointer<PangoTabArray>,
+) : ProxyInstance(pointer) {
     public val pangoTabArrayPointer: CPointer<PangoTabArray> = pointer
 
     /**
@@ -54,8 +56,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      *   be freed with [method@Pango.TabArray.free].
      */
     public fun copy(): TabArray = pango_tab_array_copy(pangoTabArrayPointer.reinterpret())!!.run {
-        TabArray(reinterpret())
-    }
+        TabArray(reinterpret())}
 
     /**
      * Frees a tab array and associated resources.
@@ -76,8 +77,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getDecimalPoint(tabIndex: gint): gunichar =
-        pango_tab_array_get_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex)
+    public fun getDecimalPoint(tabIndex: gint): gunichar = pango_tab_array_get_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex)
 
     /**
      * Returns true if the tab positions are in pixels,
@@ -85,8 +85,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      *
      * @return whether positions are in pixels.
      */
-    public fun getPositionsInPixels(): Boolean =
-        pango_tab_array_get_positions_in_pixels(pangoTabArrayPointer.reinterpret()).asBoolean()
+    public fun getPositionsInPixels(): Boolean = pango_tab_array_get_positions_in_pixels(pangoTabArrayPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the number of tab stops in @tab_array.
@@ -120,8 +119,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun setDecimalPoint(tabIndex: gint, decimalPoint: gunichar): Unit =
-        pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
+    public fun setDecimalPoint(tabIndex: gint, decimalPoint: gunichar): Unit = pango_tab_array_set_decimal_point(pangoTabArrayPointer.reinterpret(), tabIndex, decimalPoint)
 
     /**
      * Sets whether positions in this array are specified in
@@ -131,8 +129,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun setPositionsInPixels(positionsInPixels: Boolean): Unit =
-        pango_tab_array_set_positions_in_pixels(pangoTabArrayPointer.reinterpret(), positionsInPixels.asGBoolean())
+    public fun setPositionsInPixels(positionsInPixels: Boolean): Unit = pango_tab_array_set_positions_in_pixels(pangoTabArrayPointer.reinterpret(), positionsInPixels.asGBoolean())
 
     /**
      * Sets the alignment and location of a tab stop.
@@ -141,8 +138,11 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      * @param alignment tab alignment
      * @param location tab location in Pango units
      */
-    public fun setTab(tabIndex: gint, alignment: TabAlign, location: gint): Unit =
-        pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
+    public fun setTab(
+        tabIndex: gint,
+        alignment: TabAlign,
+        location: gint,
+    ): Unit = pango_tab_array_set_tab(pangoTabArrayPointer.reinterpret(), tabIndex, alignment.nativeValue, location)
 
     /**
      * Utility function to ensure that the tab stops are in increasing order.
@@ -167,8 +167,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_50
-    override fun toString(): String =
-        pango_tab_array_to_string(pangoTabArrayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_tab_array_to_string(pangoTabArrayPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -182,8 +181,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
          * @return the newly allocated `PangoTabArray`, which should
          *   be freed with [method@Pango.TabArray.free].
          */
-        public fun new(initialSize: gint, positionsInPixels: Boolean): TabArray =
-            TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
+        public fun new(initialSize: gint, positionsInPixels: Boolean): TabArray = TabArray(pango_tab_array_new(initialSize, positionsInPixels.asGBoolean())!!.reinterpret())
 
         /**
          * Deserializes a `PangoTabArray` from a string.
@@ -197,8 +195,7 @@ public class TabArray(pointer: CPointer<PangoTabArray>) : ProxyInstance(pointer)
          */
         @PangoVersion1_50
         public fun fromString(text: String): TabArray? = pango_tab_array_from_string(text)?.run {
-            TabArray(reinterpret())
-        }
+            TabArray(reinterpret())}
 
         /**
          * Get the GType of TabArray

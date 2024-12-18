@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,10 +16,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GFlagsClass
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The class of a flags type holds information about its
@@ -25,7 +25,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: TypeClass
  */
-public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class FlagsClass(
+    pointer: CPointer<GFlagsClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectFlagsClassPointer: CPointer<GFlagsClass> = pointer
 
     /**
@@ -33,7 +36,6 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      */
     public var mask: guint
         get() = gobjectFlagsClassPointer.pointed.mask
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.mask = value
@@ -44,7 +46,6 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      */
     public var nValues: guint
         get() = gobjectFlagsClassPointer.pointed.n_values
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.n_values = value
@@ -56,9 +57,7 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      */
     public var values: FlagsValue?
         get() = gobjectFlagsClassPointer.pointed.values?.run {
-            FlagsValue(reinterpret())
-        }
-
+            FlagsValue(reinterpret())}
         @UnsafeFieldSetter
         set(`value`) {
             gobjectFlagsClassPointer.pointed.values = value?.gobjectFlagsValuePointer
@@ -70,11 +69,10 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GFlagsClass>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GFlagsClass>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

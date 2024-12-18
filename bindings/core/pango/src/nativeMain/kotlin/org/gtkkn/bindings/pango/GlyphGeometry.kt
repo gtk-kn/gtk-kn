@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -10,10 +14,6 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoGlyphGeometry
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoGlyphGeometry` structure contains width and positioning
@@ -32,7 +32,10 @@ import kotlin.native.ref.createCleaner
  * 3. Advance the current point to (x + width, y)
  * 4. Render the next glyph
  */
-public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class GlyphGeometry(
+    pointer: CPointer<PangoGlyphGeometry>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry> = pointer
 
     /**
@@ -40,7 +43,6 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Clean
      */
     public var width: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.width
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.width = value
@@ -51,7 +53,6 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Clean
      */
     public var xOffset: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.x_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.x_offset = value
@@ -62,7 +63,6 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Clean
      */
     public var yOffset: GlyphUnit
         get() = pangoGlyphGeometryPointer.pointed.y_offset
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoGlyphGeometryPointer.pointed.y_offset = value
@@ -74,11 +74,10 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoGlyphGeometry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoGlyphGeometry>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -86,9 +85,7 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Clean
      *
      * @param pair A pair containing the pointer to GlyphGeometry and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<PangoGlyphGeometry>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<PangoGlyphGeometry>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphGeometry using the provided [AutofreeScope].

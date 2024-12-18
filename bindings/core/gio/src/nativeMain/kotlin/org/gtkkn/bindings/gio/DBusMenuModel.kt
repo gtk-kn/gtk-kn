@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
@@ -11,26 +12,25 @@ import org.gtkkn.native.gio.GDBusMenuModel
 import org.gtkkn.native.gio.g_dbus_menu_model_get
 import org.gtkkn.native.gio.g_dbus_menu_model_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.String
 
 /**
  * `GDBusMenuModel` is an implementation of [class@Gio.MenuModel] that can be
  * used as a proxy for a menu model that is exported over D-Bus with
  * [method@Gio.DBusConnection.export_menu_model].
  */
-public open class DBusMenuModel(pointer: CPointer<GDBusMenuModel>) :
-    MenuModel(pointer.reinterpret()),
+public open class DBusMenuModel(
+    pointer: CPointer<GDBusMenuModel>,
+) : MenuModel(pointer.reinterpret()),
     KGTyped {
     public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>
         get() = gPointer.reinterpret()
 
     public companion object : TypeCompanion<DBusMenuModel> {
         override val type: GeneratedClassKGType<DBusMenuModel> =
-            GeneratedClassKGType(g_dbus_menu_model_get_type()) { DBusMenuModel(it.reinterpret()) }
+                GeneratedClassKGType(g_dbus_menu_model_get_type()) { DBusMenuModel(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         /**
          * Obtains a #GDBusMenuModel for the menu model which is exported
@@ -51,10 +51,12 @@ public open class DBusMenuModel(pointer: CPointer<GDBusMenuModel>) :
          * @since 2.32
          */
         @GioVersion2_32
-        public fun `get`(connection: DBusConnection, busName: String? = null, objectPath: String): DBusMenuModel =
-            g_dbus_menu_model_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
-                DBusMenuModel(reinterpret())
-            }
+        public fun `get`(
+            connection: DBusConnection,
+            busName: String? = null,
+            objectPath: String,
+        ): DBusMenuModel = g_dbus_menu_model_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
+            DBusMenuModel(reinterpret())}
 
         /**
          * Get the GType of DBusMenuModel

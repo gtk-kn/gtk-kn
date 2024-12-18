@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -12,15 +16,14 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkKeymapKey
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
-public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class KeymapKey(
+    pointer: CPointer<GdkKeymapKey>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey> = pointer
 
     /**
@@ -29,7 +32,6 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      */
     public var keycode: guint
         get() = gdkKeymapKeyPointer.pointed.keycode
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.keycode = value
@@ -43,7 +45,6 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      */
     public var group: gint
         get() = gdkKeymapKeyPointer.pointed.group
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.group = value
@@ -59,7 +60,6 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      */
     public var level: gint
         get() = gdkKeymapKeyPointer.pointed.level
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkKeymapKeyPointer.pointed.level = value
@@ -71,11 +71,10 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkKeymapKey>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GdkKeymapKey>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

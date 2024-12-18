@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoAttrInt
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The `PangoAttrInt` structure is used to represent attributes with
@@ -24,7 +24,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Attribute
  */
-public class AttrInt(pointer: CPointer<PangoAttrInt>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class AttrInt(
+    pointer: CPointer<PangoAttrInt>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val pangoAttrIntPointer: CPointer<PangoAttrInt> = pointer
 
     /**
@@ -32,7 +35,6 @@ public class AttrInt(pointer: CPointer<PangoAttrInt>, cleaner: Cleaner? = null) 
      */
     public var `value`: gint
         get() = pangoAttrIntPointer.pointed.value
-
         @UnsafeFieldSetter
         set(`value`) {
             pangoAttrIntPointer.pointed.value = value
@@ -44,11 +46,10 @@ public class AttrInt(pointer: CPointer<PangoAttrInt>, cleaner: Cleaner? = null) 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<PangoAttrInt>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<PangoAttrInt>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

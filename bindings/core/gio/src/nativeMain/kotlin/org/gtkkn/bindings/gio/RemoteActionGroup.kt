@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
@@ -15,8 +17,6 @@ import org.gtkkn.native.gio.g_remote_action_group_activate_action_full
 import org.gtkkn.native.gio.g_remote_action_group_change_action_state_full
 import org.gtkkn.native.gio.g_remote_action_group_get_type
 import org.gtkkn.native.gobject.GType
-import kotlin.String
-import kotlin.Unit
 
 /**
  * The `GRemoteActionGroup` interface is implemented by [iface@Gio.ActionGroup]
@@ -43,10 +43,7 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public interface RemoteActionGroup :
-    Interface,
-    ActionGroup,
-    KGTyped {
+public interface RemoteActionGroup : Interface, ActionGroup, KGTyped {
     public val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>
 
     override val gioActionGroupPointer: CPointer<GActionGroup>
@@ -69,13 +66,11 @@ public interface RemoteActionGroup :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun activateActionFull(actionName: String, parameter: Variant? = null, platformData: Variant): Unit =
-        g_remote_action_group_activate_action_full(
-            gioRemoteActionGroupPointer.reinterpret(),
-            actionName,
-            parameter?.glibVariantPointer?.reinterpret(),
-            platformData.glibVariantPointer.reinterpret()
-        )
+    public fun activateActionFull(
+        actionName: String,
+        parameter: Variant? = null,
+        platformData: Variant,
+    ): Unit = g_remote_action_group_activate_action_full(gioRemoteActionGroupPointer.reinterpret(), actionName, parameter?.glibVariantPointer?.reinterpret(), platformData.glibVariantPointer.reinterpret())
 
     /**
      * Changes the state of a remote action.
@@ -94,25 +89,24 @@ public interface RemoteActionGroup :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun changeActionStateFull(actionName: String, `value`: Variant, platformData: Variant): Unit =
-        g_remote_action_group_change_action_state_full(
-            gioRemoteActionGroupPointer.reinterpret(),
-            actionName,
-            `value`.glibVariantPointer.reinterpret(),
-            platformData.glibVariantPointer.reinterpret()
-        )
+    public fun changeActionStateFull(
+        actionName: String,
+        `value`: Variant,
+        platformData: Variant,
+    ): Unit = g_remote_action_group_change_action_state_full(gioRemoteActionGroupPointer.reinterpret(), actionName, `value`.glibVariantPointer.reinterpret(), platformData.glibVariantPointer.reinterpret())
 
-    private data class Wrapper(private val pointer: CPointer<GRemoteActionGroup>) : RemoteActionGroup {
+    private data class Wrapper(
+        private val pointer: CPointer<GRemoteActionGroup>,
+    ) : RemoteActionGroup {
         override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup> = pointer
     }
 
     public companion object : TypeCompanion<RemoteActionGroup> {
         override val type: GeneratedInterfaceKGType<RemoteActionGroup> =
-            GeneratedInterfaceKGType(g_remote_action_group_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_remote_action_group_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GRemoteActionGroup>): RemoteActionGroup = Wrapper(pointer)
 

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
@@ -12,7 +13,6 @@ import org.gtkkn.native.glib.g_cache_key_foreach
 import org.gtkkn.native.glib.g_cache_remove
 import org.gtkkn.native.glib.g_cache_value_foreach
 import org.gtkkn.native.glib.gpointer
-import kotlin.Unit
 
 /**
  * A `GCache` allows sharing of complex data structures, in order to
@@ -28,7 +28,9 @@ import kotlin.Unit
  *
  * - parameter `value_new_func`: CacheNewFunc
  */
-public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
+public class Cache(
+    pointer: CPointer<GCache>,
+) : ProxyInstance(pointer) {
     public val glibCachePointer: CPointer<GCache> = pointer
 
     /**
@@ -64,11 +66,7 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      *
      * @param func the function to call with each #GCache key
      */
-    public fun keyForeach(func: HFunc): Unit = g_cache_key_foreach(
-        glibCachePointer.reinterpret(),
-        HFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun keyForeach(func: HFunc): Unit = g_cache_key_foreach(glibCachePointer.reinterpret(), HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Decreases the reference count of the given value. If it drops to 0
@@ -84,9 +82,5 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      *
      * @param func the function to call with each #GCache value
      */
-    public fun valueForeach(func: HFunc): Unit = g_cache_value_foreach(
-        glibCachePointer.reinterpret(),
-        HFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun valueForeach(func: HFunc): Unit = g_cache_value_foreach(glibCachePointer.reinterpret(), HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 }

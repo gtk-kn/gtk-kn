@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -28,15 +31,13 @@ import org.gtkkn.native.gtk.gtk_flow_box_child_get_type
 import org.gtkkn.native.gtk.gtk_flow_box_child_is_selected
 import org.gtkkn.native.gtk.gtk_flow_box_child_new
 import org.gtkkn.native.gtk.gtk_flow_box_child_set_child
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * `GtkFlowBoxChild` is the kind of widget that can be added to a `GtkFlowBox`.
  */
-public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
-    Widget(pointer.reinterpret()),
+public open class FlowBoxChild(
+    pointer: CPointer<GtkFlowBoxChild>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>
         get() = gPointer.reinterpret()
@@ -60,17 +61,13 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
          * @return the child widget of @self
          */
         get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the child widget of @self.
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = gtk_flow_box_child_set_child(gtkFlowBoxChildPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_flow_box_child_set_child(gtkFlowBoxChildPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Creates a new `GtkFlowBoxChild`.
@@ -118,8 +115,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      *
      * @return true if @child is selected
      */
-    public open fun isSelected(): Boolean =
-        gtk_flow_box_child_is_selected(gtkFlowBoxChildPointer.reinterpret()).asBoolean()
+    public open fun isSelected(): Boolean = gtk_flow_box_child_is_selected(gtkFlowBoxChildPointer.reinterpret()).asBoolean()
 
     /**
      * Emitted when the user activates a child widget in a `GtkFlowBox`.
@@ -135,23 +131,14 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "activate",
-            connectActivateFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "activate", connectActivateFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<FlowBoxChild> {
         override val type: GeneratedClassKGType<FlowBoxChild> =
-            GeneratedClassKGType(gtk_flow_box_child_get_type()) { FlowBoxChild(it.reinterpret()) }
+                GeneratedClassKGType(gtk_flow_box_child_get_type()) { FlowBoxChild(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of FlowBoxChild
@@ -163,9 +150,8 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
 }
 
 private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<() -> Unit>().get().invoke()
-}
-    .reinterpret()
+    userData.asStableRef<() -> Unit>().get().invoke()}
+.reinterpret()

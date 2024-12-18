@@ -23,7 +23,9 @@ import org.gtkkn.native.gtk.gtk_print_capabilities_get_type
  * %GTK_PRINT_CAPABILITY_GENERATE_PS is specified, GTK assumes that all
  * formats are supported.
  */
-public class PrintCapabilities(public val mask: GtkPrintCapabilities) : Bitfield<PrintCapabilities> {
+public class PrintCapabilities(
+    public val mask: GtkPrintCapabilities,
+) : Bitfield<PrintCapabilities> {
     override infix fun or(other: PrintCapabilities): PrintCapabilities = PrintCapabilities(mask or other.mask)
 
     public companion object {
@@ -57,14 +59,14 @@ public class PrintCapabilities(public val mask: GtkPrintCapabilities) : Bitfield
          *   the printer in PDF format
          */
         public val GENERATE_PDF: PrintCapabilities =
-            PrintCapabilities(GTK_PRINT_CAPABILITY_GENERATE_PDF)
+                PrintCapabilities(GTK_PRINT_CAPABILITY_GENERATE_PDF)
 
         /**
          * The program will send the document to
          *   the printer in Postscript format
          */
         public val GENERATE_PS: PrintCapabilities =
-            PrintCapabilities(GTK_PRINT_CAPABILITY_GENERATE_PS)
+                PrintCapabilities(GTK_PRINT_CAPABILITY_GENERATE_PS)
 
         /**
          * Print dialog will offer a preview
@@ -82,7 +84,7 @@ public class PrintCapabilities(public val mask: GtkPrintCapabilities) : Bitfield
          *   pages when printing multiple pages per sheet
          */
         public val NUMBER_UP_LAYOUT: PrintCapabilities =
-            PrintCapabilities(GTK_PRINT_CAPABILITY_NUMBER_UP_LAYOUT)
+                PrintCapabilities(GTK_PRINT_CAPABILITY_NUMBER_UP_LAYOUT)
 
         /**
          * Get the GType of PrintCapabilities

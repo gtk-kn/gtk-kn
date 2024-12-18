@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -24,8 +26,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
-import kotlin.String
-import kotlin.Unit
 
 /**
  * A group of preference rows.
@@ -60,8 +60,9 @@ import kotlin.Unit
  *
  * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
-    Widget(pointer.reinterpret()),
+public open class PreferencesGroup(
+    pointer: CPointer<AdwPreferencesGroup>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>
         get() = gPointer.reinterpret()
@@ -85,7 +86,6 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          * @return the description of @self
          */
         get() = adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
-
         /**
          * Sets the description for @self.
          *
@@ -112,9 +112,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          * @since 1.1
          */
         get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
-
+            Widget(reinterpret())}
         /**
          * Sets the suffix for @self's header.
          *
@@ -126,12 +124,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          * @since 1.1
          */
         @AdwVersion1_1
-        set(
-            suffix
-        ) = adw_preferences_group_set_header_suffix(
-            adwPreferencesGroupPointer.reinterpret(),
-            suffix?.gtkWidgetPointer?.reinterpret()
-        )
+        set(suffix) = adw_preferences_group_set_header_suffix(adwPreferencesGroupPointer.reinterpret(), suffix?.gtkWidgetPointer?.reinterpret())
 
     /**
      * The title for this group of preferences.
@@ -142,9 +135,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          *
          * @return the title of @self
          */
-        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
-
+        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString() ?: error("Expected not null string")
         /**
          * Sets the title for @self.
          *
@@ -164,24 +155,21 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
      *
      * @param child the widget to add
      */
-    public open fun add(child: Widget): Unit =
-        adw_preferences_group_add(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun add(child: Widget): Unit = adw_preferences_group_add(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     /**
      * Removes a child from @self.
      *
      * @param child the child to remove
      */
-    public open fun remove(child: Widget): Unit =
-        adw_preferences_group_remove(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = adw_preferences_group_remove(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =
-            GeneratedClassKGType(adw_preferences_group_get_type()) { PreferencesGroup(it.reinterpret()) }
+                GeneratedClassKGType(adw_preferences_group_get_type()) { PreferencesGroup(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of PreferencesGroup

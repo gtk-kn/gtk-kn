@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -14,15 +18,14 @@ import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPadActionEntry
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * Struct defining a pad action entry.
  */
-public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class PadActionEntry(
+    pointer: CPointer<GtkPadActionEntry>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry> = pointer
 
     /**
@@ -30,9 +33,7 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      */
     public var type: PadActionType
         get() = gtkPadActionEntryPointer.pointed.type.run {
-            PadActionType.fromNativeValue(this)
-        }
-
+            PadActionType.fromNativeValue(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.type = value.nativeValue
@@ -44,7 +45,6 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      */
     public var index: gint
         get() = gtkPadActionEntryPointer.pointed.index
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.index = value
@@ -55,7 +55,6 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      */
     public var mode: gint
         get() = gtkPadActionEntryPointer.pointed.mode
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.mode = value
@@ -67,7 +66,6 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      */
     public var label: String?
         get() = gtkPadActionEntryPointer.pointed.label?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.label?.let { g_free(it) }
@@ -79,7 +77,6 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      */
     public var actionName: String?
         get() = gtkPadActionEntryPointer.pointed.action_name?.toKString()
-
         @UnsafeFieldSetter
         set(`value`) {
             gtkPadActionEntryPointer.pointed.action_name?.let { g_free(it) }
@@ -92,11 +89,10 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GtkPadActionEntry>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GtkPadActionEntry>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -104,9 +100,7 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      *
      * @param pair A pair containing the pointer to PadActionEntry and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GtkPadActionEntry>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GtkPadActionEntry>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PadActionEntry using the provided [AutofreeScope].
@@ -174,6 +168,5 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
         this.actionName = actionName
     }
 
-    override fun toString(): String =
-        "PadActionEntry(type=$type, index=$index, mode=$mode, label=$label, actionName=$actionName)"
+    override fun toString(): String = "PadActionEntry(type=$type, index=$index, mode=$mode, label=$label, actionName=$actionName)"
 }

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Boolean
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
@@ -11,7 +12,6 @@ import org.gtkkn.native.glib.g_sequence_iter_get_position
 import org.gtkkn.native.glib.g_sequence_iter_is_begin
 import org.gtkkn.native.glib.g_sequence_iter_is_end
 import org.gtkkn.native.gobject.gint
-import kotlin.Boolean
 
 /**
  * The #GSequenceIter struct is an opaque data type representing an
@@ -25,7 +25,9 @@ import kotlin.Boolean
  * - method `next`: Return type SequenceIter is unsupported
  * - method `prev`: Return type SequenceIter is unsupported
  */
-public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(pointer) {
+public class SequenceIter(
+    pointer: CPointer<GSequenceIter>,
+) : ProxyInstance(pointer) {
     public val glibSequenceIterPointer: CPointer<GSequenceIter> = pointer
 
     /**

@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.ULong
+import kotlin.Unit
 import kotlinx.cinterop.CFunction
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
@@ -23,9 +26,6 @@ import org.gtkkn.native.gtk.gtk_filter_changed
 import org.gtkkn.native.gtk.gtk_filter_get_strictness
 import org.gtkkn.native.gtk.gtk_filter_get_type
 import org.gtkkn.native.gtk.gtk_filter_match
-import kotlin.Boolean
-import kotlin.ULong
-import kotlin.Unit
 
 /**
  * A `GtkFilter` object describes the filtering to be performed by a
@@ -47,8 +47,9 @@ import kotlin.Unit
  * However, in particular for large lists or complex search methods, it is
  * also possible to subclass `GtkFilter` and provide one's own filter.
  */
-public open class Filter(pointer: CPointer<GtkFilter>) :
-    Object(pointer.reinterpret()),
+public open class Filter(
+    pointer: CPointer<GtkFilter>,
+) : Object(pointer.reinterpret()),
     KGTyped {
     public val gtkFilterPointer: CPointer<GtkFilter>
         get() = gPointer.reinterpret()
@@ -69,8 +70,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      *
      * @param change How the filter changed
      */
-    public open fun changed(change: FilterChange): Unit =
-        gtk_filter_changed(gtkFilterPointer.reinterpret(), change.nativeValue)
+    public open fun changed(change: FilterChange): Unit = gtk_filter_changed(gtkFilterPointer.reinterpret(), change.nativeValue)
 
     /**
      * Gets the known strictness of @filters.
@@ -86,8 +86,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      * @return the strictness of @self
      */
     public open fun getStrictness(): FilterMatch = gtk_filter_get_strictness(gtkFilterPointer.reinterpret()).run {
-        FilterMatch.fromNativeValue(this)
-    }
+        FilterMatch.fromNativeValue(this)}
 
     /**
      * Checks if the given @item is matched by the filter or not.
@@ -96,8 +95,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      * @return true if the filter matches the item and a filter model should
      *   keep it, false if not.
      */
-    public open fun match(item: Object): Boolean =
-        gtk_filter_match(gtkFilterPointer.reinterpret(), item.gPointer.reinterpret()).asBoolean()
+    public open fun match(item: Object): Boolean = gtk_filter_match(gtkFilterPointer.reinterpret(), item.gPointer.reinterpret()).asBoolean()
 
     /**
      * Emitted whenever the filter changed.
@@ -114,25 +112,14 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      * @param connectFlags A combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `change` how the filter changed
      */
-    public fun connectChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (change: FilterChange) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "changed",
-        connectChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (change: FilterChange) -> Unit): ULong = g_signal_connect_data(gPointer.reinterpret(), "changed", connectChangedFunc.reinterpret(), StableRef.create(handler).asCPointer(), staticStableRefDestroy.reinterpret(), connectFlags.mask)
 
     public companion object : TypeCompanion<Filter> {
         override val type: GeneratedClassKGType<Filter> =
-            GeneratedClassKGType(gtk_filter_get_type()) { Filter(it.reinterpret()) }
+                GeneratedClassKGType(gtk_filter_get_type()) { Filter(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of Filter
@@ -144,14 +131,11 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
 }
 
 private val connectChangedFunc: CPointer<CFunction<(GtkFilterChange) -> Unit>> = staticCFunction {
-        _: COpaquePointer,
-        change: GtkFilterChange,
-        userData: COpaquePointer,
+    _: COpaquePointer,
+    change: GtkFilterChange,
+    userData: COpaquePointer
     ->
-    userData.asStableRef<(change: FilterChange) -> Unit>().get().invoke(
-        change.run {
-            FilterChange.fromNativeValue(this)
-        }
-    )
-}
-    .reinterpret()
+    userData.asStableRef<(change: FilterChange) -> Unit>().get().invoke(change.run {
+        FilterChange.fromNativeValue(this)}
+    )}
+.reinterpret()

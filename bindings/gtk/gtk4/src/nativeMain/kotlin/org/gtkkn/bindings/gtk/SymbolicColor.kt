@@ -14,22 +14,21 @@ import org.gtkkn.native.gtk.gtk_symbolic_color_get_type
  * @since 4.6
  */
 @GtkVersion4_6
-public enum class SymbolicColor(public val nativeValue: GtkSymbolicColor) {
+public enum class SymbolicColor(
+    public val nativeValue: GtkSymbolicColor,
+) {
     /**
      * The default foreground color
      */
     FOREGROUND(GtkSymbolicColor.GTK_SYMBOLIC_COLOR_FOREGROUND),
-
     /**
      * Indication color for errors
      */
     ERROR(GtkSymbolicColor.GTK_SYMBOLIC_COLOR_ERROR),
-
     /**
      * Indication color for warnings
      */
     WARNING(GtkSymbolicColor.GTK_SYMBOLIC_COLOR_WARNING),
-
     /**
      * Indication color for success
      */

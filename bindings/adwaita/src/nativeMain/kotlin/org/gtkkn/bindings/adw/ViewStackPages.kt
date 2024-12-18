@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
@@ -17,7 +18,6 @@ import org.gtkkn.native.adw.adw_view_stack_pages_set_selected_page
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkSelectionModel
-import kotlin.Unit
 
 /**
  * An auxiliary class used by [class@ViewStack].
@@ -31,8 +31,9 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
-    Object(pointer.reinterpret()),
+public class ViewStackPages(
+    pointer: CPointer<AdwViewStackPages>,
+) : Object(pointer.reinterpret()),
     ListModel,
     SelectionModel,
     KGTyped {
@@ -56,10 +57,8 @@ public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun getSelectedPage(): ViewStackPage? =
-        adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer.reinterpret())?.run {
-            ViewStackPage(reinterpret())
-        }
+    public fun getSelectedPage(): ViewStackPage? = adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer.reinterpret())?.run {
+        ViewStackPage(reinterpret())}
 
     /**
      * Sets the visible child in the associated [class@ViewStack].
@@ -70,18 +69,14 @@ public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun setSelectedPage(page: ViewStackPage): Unit = adw_view_stack_pages_set_selected_page(
-        adwViewStackPagesPointer.reinterpret(),
-        page.adwViewStackPagePointer.reinterpret()
-    )
+    public fun setSelectedPage(page: ViewStackPage): Unit = adw_view_stack_pages_set_selected_page(adwViewStackPagesPointer.reinterpret(), page.adwViewStackPagePointer.reinterpret())
 
     public companion object : TypeCompanion<ViewStackPages> {
         override val type: GeneratedClassKGType<ViewStackPages> =
-            GeneratedClassKGType(adw_view_stack_pages_get_type()) { ViewStackPages(it.reinterpret()) }
+                GeneratedClassKGType(adw_view_stack_pages_get_type()) { ViewStackPages(it.reinterpret()) }
 
         init {
-            AdwTypeProvider.register()
-        }
+            AdwTypeProvider.register()}
 
         /**
          * Get the GType of ViewStackPages

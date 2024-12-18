@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
+import kotlin.Result
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
@@ -19,8 +21,6 @@ import org.gtkkn.native.gio.g_tls_file_database_get_type
 import org.gtkkn.native.gio.g_tls_file_database_new
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
-import kotlin.Result
-import kotlin.String
 
 /**
  * `GTlsFileDatabase` is implemented by [class@Gio.TlsDatabase] objects which
@@ -34,22 +34,21 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public interface TlsFileDatabase :
-    Interface,
-    KGTyped {
+public interface TlsFileDatabase : Interface, KGTyped {
     public val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>
 
-    private data class Wrapper(private val pointer: CPointer<GTlsFileDatabase>) : TlsFileDatabase {
+    private data class Wrapper(
+        private val pointer: CPointer<GTlsFileDatabase>,
+    ) : TlsFileDatabase {
         override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase> = pointer
     }
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =
-            GeneratedInterfaceKGType(g_tls_file_database_get_type()) { Wrapper(it.reinterpret()) }
+                GeneratedInterfaceKGType(g_tls_file_database_get_type()) { Wrapper(it.reinterpret()) }
 
         init {
-            GioTypeProvider.register()
-        }
+            GioTypeProvider.register()}
 
         public fun wrap(pointer: CPointer<GTlsFileDatabase>): TlsFileDatabase = Wrapper(pointer)
 
@@ -68,12 +67,12 @@ public interface TlsFileDatabase :
         public fun new(anchors: String): Result<TlsFileDatabase> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_tls_file_database_new(anchors, gError.ptr)?.run {
-                TlsFileDatabase.wrap(reinterpret())
-            }
+                TlsFileDatabase.wrap(reinterpret())}
 
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
-            } else {
+            }
+            else {
                 Result.success(checkNotNull(gResult))
             }
         }

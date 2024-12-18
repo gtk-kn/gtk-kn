@@ -1,6 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gtk
 
+import kotlin.Boolean
+import kotlin.String
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -20,8 +22,6 @@ import org.gtkkn.native.gtk.gtk_window_controls_get_type
 import org.gtkkn.native.gtk.gtk_window_controls_new
 import org.gtkkn.native.gtk.gtk_window_controls_set_decoration_layout
 import org.gtkkn.native.gtk.gtk_window_controls_set_side
-import kotlin.Boolean
-import kotlin.String
 
 /**
  * `GtkWindowControls` shows window frame controls.
@@ -75,8 +75,9 @@ import kotlin.String
  *
  * `GtkWindowControls` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
-    Widget(pointer.reinterpret()),
+public open class WindowControls(
+    pointer: CPointer<GtkWindowControls>,
+) : Widget(pointer.reinterpret()),
     KGTyped {
     public val gtkWindowControlsPointer: CPointer<GtkWindowControls>
         get() = gPointer.reinterpret()
@@ -103,7 +104,6 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          * @return the decoration layout or null if it is unset
          */
         get() = gtk_window_controls_get_decoration_layout(gtkWindowControlsPointer.reinterpret())?.toKString()
-
         /**
          * Sets the decoration layout for the title buttons.
          *
@@ -148,9 +148,7 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          * @return the side
          */
         get() = gtk_window_controls_get_side(gtkWindowControlsPointer.reinterpret()).run {
-            PackType.fromNativeValue(this)
-        }
-
+            PackType.fromNativeValue(this)}
         /**
          * Determines which part of decoration layout the `GtkWindowControls` uses.
          *
@@ -170,11 +168,10 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
 
     public companion object : TypeCompanion<WindowControls> {
         override val type: GeneratedClassKGType<WindowControls> =
-            GeneratedClassKGType(gtk_window_controls_get_type()) { WindowControls(it.reinterpret()) }
+                GeneratedClassKGType(gtk_window_controls_get_type()) { WindowControls(it.reinterpret()) }
 
         init {
-            GtkTypeProvider.register()
-        }
+            GtkTypeProvider.register()}
 
         /**
          * Get the GType of WindowControls

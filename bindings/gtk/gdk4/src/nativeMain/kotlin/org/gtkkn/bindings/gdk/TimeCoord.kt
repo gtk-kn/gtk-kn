@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTimeCoord
 import org.gtkkn.native.gobject.guint
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A `GdkTimeCoord` stores a single event in a motion history.
@@ -28,7 +28,10 @@ import kotlin.native.ref.createCleaner
  *
  * - field `axes`: Array parameter of type gdouble is not supported
  */
-public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class TimeCoord(
+    pointer: CPointer<GdkTimeCoord>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gdkTimeCoordPointer: CPointer<GdkTimeCoord> = pointer
 
     /**
@@ -36,7 +39,6 @@ public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null
      */
     public var time: guint
         get() = gdkTimeCoordPointer.pointed.time
-
         @UnsafeFieldSetter
         set(`value`) {
             gdkTimeCoordPointer.pointed.time = value
@@ -47,9 +49,7 @@ public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null
      */
     public var flags: AxisFlags
         get() = gdkTimeCoordPointer.pointed.flags.run {
-            AxisFlags(this)
-        }
-
+            AxisFlags(this)}
         @UnsafeFieldSetter
         set(`value`) {
             gdkTimeCoordPointer.pointed.flags = value.mask
@@ -61,11 +61,10 @@ public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GdkTimeCoord>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GdkTimeCoord>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**

@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
@@ -18,7 +19,6 @@ import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_bytes_get_type
 import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gobject.guint
-import kotlin.Unit
 
 /**
  * A simple refcounted data type representing an immutable sequence of zero or
@@ -61,7 +61,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GLibVersion2_32
-public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
+public class Bytes(
+    pointer: CPointer<GBytes>,
+) : ProxyInstance(pointer) {
     public val glibBytesPointer: CPointer<GBytes> = pointer
 
     /**
@@ -93,8 +95,11 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun getRegion(elementSize: gsize, offset: gsize, nElements: gsize): gpointer? =
-        g_bytes_get_region(glibBytesPointer.reinterpret(), elementSize, offset, nElements)
+    public fun getRegion(
+        elementSize: gsize,
+        offset: gsize,
+        nElements: gsize,
+    ): gpointer? = g_bytes_get_region(glibBytesPointer.reinterpret(), elementSize, offset, nElements)
 
     /**
      * Get the size of the byte data in the #GBytes.
@@ -138,10 +143,8 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun newFromBytes(offset: gsize, length: gsize): Bytes =
-        g_bytes_new_from_bytes(glibBytesPointer.reinterpret(), offset, length)!!.run {
-            Bytes(reinterpret())
-        }
+    public fun newFromBytes(offset: gsize, length: gsize): Bytes = g_bytes_new_from_bytes(glibBytesPointer.reinterpret(), offset, length)!!.run {
+        Bytes(reinterpret())}
 
     /**
      * Increase the reference count on @bytes.
@@ -151,8 +154,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_32
     public fun ref(): Bytes = g_bytes_ref(glibBytesPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
-    }
+        Bytes(reinterpret())}
 
     /**
      * Releases a reference on @bytes.  This may result in the bytes being

@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gobject
 
+import kotlin.Pair
+import kotlin.String
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -11,10 +15,6 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GInterfaceInfo
-import kotlin.Pair
-import kotlin.String
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * A structure that provides information to the type system which is
@@ -25,7 +25,10 @@ import kotlin.native.ref.createCleaner
  * - field `interface_init`: InterfaceInitFunc
  * - field `interface_finalize`: InterfaceFinalizeFunc
  */
-public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class InterfaceInfo(
+    pointer: CPointer<GInterfaceInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val gobjectInterfaceInfoPointer: CPointer<GInterfaceInfo> = pointer
 
     /**
@@ -33,7 +36,6 @@ public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? 
      */
     public var interfaceData: gpointer
         get() = gobjectInterfaceInfoPointer.pointed.interface_data!!
-
         @UnsafeFieldSetter
         set(`value`) {
             gobjectInterfaceInfoPointer.pointed.interface_data = value
@@ -45,11 +47,10 @@ public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GInterfaceInfo>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GInterfaceInfo>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -57,9 +58,7 @@ public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? 
      *
      * @param pair A pair containing the pointer to InterfaceInfo and a [Cleaner] instance.
      */
-    private constructor(
-        pair: Pair<CPointer<GInterfaceInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(pair: Pair<CPointer<GInterfaceInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new InterfaceInfo using the provided [AutofreeScope].

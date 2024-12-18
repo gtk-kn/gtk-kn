@@ -1,6 +1,9 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.webkit
 
+import kotlin.Boolean
+import kotlin.String
+import kotlin.Unit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
@@ -22,16 +25,15 @@ import org.gtkkn.native.webkit.webkit_credential_has_password
 import org.gtkkn.native.webkit.webkit_credential_new
 import org.gtkkn.native.webkit.webkit_credential_new_for_certificate
 import org.gtkkn.native.webkit.webkit_credential_new_for_certificate_pin
-import kotlin.Boolean
-import kotlin.String
-import kotlin.Unit
 
 /**
  * Groups information used for user authentication.
  * @since 2.2
  */
 @WebKitVersion2_2
-public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(pointer) {
+public class Credential(
+    pointer: CPointer<WebKitCredential>,
+) : ProxyInstance(pointer) {
     public val webkitCredentialPointer: CPointer<WebKitCredential> = pointer
 
     /**
@@ -42,8 +44,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      */
     @WebKitVersion2_2
     public fun copy(): Credential = webkit_credential_copy(webkitCredentialPointer.reinterpret())!!.run {
-        Credential(reinterpret())
-    }
+        Credential(reinterpret())}
 
     /**
      * Free the #WebKitCredential.
@@ -60,10 +61,8 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getCertificate(): TlsCertificate =
-        webkit_credential_get_certificate(webkitCredentialPointer.reinterpret())!!.run {
-            TlsCertificate(reinterpret())
-        }
+    public fun getCertificate(): TlsCertificate = webkit_credential_get_certificate(webkitCredentialPointer.reinterpret())!!.run {
+        TlsCertificate(reinterpret())}
 
     /**
      * Get the password currently held by this #WebKitCredential.
@@ -72,9 +71,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getPassword(): String =
-        webkit_credential_get_password(webkitCredentialPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getPassword(): String = webkit_credential_get_password(webkitCredentialPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the persistence mode currently held by this #WebKitCredential.
@@ -83,10 +80,8 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getPersistence(): CredentialPersistence =
-        webkit_credential_get_persistence(webkitCredentialPointer.reinterpret()).run {
-            CredentialPersistence.fromNativeValue(this)
-        }
+    public fun getPersistence(): CredentialPersistence = webkit_credential_get_persistence(webkitCredentialPointer.reinterpret()).run {
+        CredentialPersistence.fromNativeValue(this)}
 
     /**
      * Get the username currently held by this #WebKitCredential.
@@ -95,9 +90,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getUsername(): String =
-        webkit_credential_get_username(webkitCredentialPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getUsername(): String = webkit_credential_get_username(webkitCredentialPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determine whether this credential has a password stored.
@@ -106,8 +99,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun hasPassword(): Boolean =
-        webkit_credential_has_password(webkitCredentialPointer.reinterpret()).asBoolean()
+    public fun hasPassword(): Boolean = webkit_credential_has_password(webkitCredentialPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**
@@ -119,8 +111,11 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
          * @return A #WebKitCredential.
          * @since 2.2
          */
-        public fun new(username: String, password: String, persistence: CredentialPersistence): Credential =
-            Credential(webkit_credential_new(username, password, persistence.nativeValue)!!.reinterpret())
+        public fun new(
+            username: String,
+            password: String,
+            persistence: CredentialPersistence,
+        ): Credential = Credential(webkit_credential_new(username, password, persistence.nativeValue)!!.reinterpret())
 
         /**
          * Create a new credential from the @certificate and persistence mode.
@@ -132,15 +127,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
          * @return A #WebKitCredential.
          * @since 2.34
          */
-        public fun newForCertificate(
-            certificate: TlsCertificate? = null,
-            persistence: CredentialPersistence,
-        ): Credential = Credential(
-            webkit_credential_new_for_certificate(
-                certificate?.gioTlsCertificatePointer?.reinterpret(),
-                persistence.nativeValue
-            )!!.reinterpret()
-        )
+        public fun newForCertificate(certificate: TlsCertificate? = null, persistence: CredentialPersistence): Credential = Credential(webkit_credential_new_for_certificate(certificate?.gioTlsCertificatePointer?.reinterpret(), persistence.nativeValue)!!.reinterpret())
 
         /**
          * Create a new credential from the provided PIN and persistence mode.
@@ -152,8 +139,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
          * @return A #WebKitCredential.
          * @since 2.34
          */
-        public fun newForCertificatePin(pin: String, persistence: CredentialPersistence): Credential =
-            Credential(webkit_credential_new_for_certificate_pin(pin, persistence.nativeValue)!!.reinterpret())
+        public fun newForCertificatePin(pin: String, persistence: CredentialPersistence): Credential = Credential(webkit_credential_new_for_certificate_pin(pin, persistence.nativeValue)!!.reinterpret())
 
         /**
          * Get the GType of Credential

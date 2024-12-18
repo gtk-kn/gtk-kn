@@ -1,6 +1,10 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
+import kotlin.Pair
+import kotlin.Unit
+import kotlin.native.ref.Cleaner
+import kotlin.native.ref.createCleaner
 import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
@@ -16,10 +20,6 @@ import org.gtkkn.native.glib.g_cond_free
 import org.gtkkn.native.glib.g_cond_init
 import org.gtkkn.native.glib.g_cond_new
 import org.gtkkn.native.glib.g_cond_signal
-import kotlin.Pair
-import kotlin.Unit
-import kotlin.native.ref.Cleaner
-import kotlin.native.ref.createCleaner
 
 /**
  * The #GCond struct is an opaque data structure that represents a
@@ -94,7 +94,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `mutex`: Mutex
  * - parameter `mutex`: Mutex
  */
-public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
+public class Cond(
+    pointer: CPointer<GCond>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pointer) {
     public val glibCondPointer: CPointer<GCond> = pointer
 
     /**
@@ -103,11 +106,10 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      */
-    public constructor() : this(
-        nativeHeap.alloc<GCond>().run {
-            val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
-            ptr to cleaner
-        }
+    public constructor() : this(nativeHeap.alloc<GCond>().run {
+        val cleaner = createCleaner(rawPtr) { nativeHeap.free(it) }
+        ptr to cleaner
+    }
     )
 
     /**
@@ -189,7 +191,6 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
          * @return a newly allocated #GCond. Free with g_cond_free()
          */
         public fun new(): Cond = g_cond_new()!!.run {
-            Cond(reinterpret())
-        }
+            Cond(reinterpret())}
     }
 }
