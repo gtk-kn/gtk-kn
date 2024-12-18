@@ -52,4 +52,4 @@ jobs:
           path: .cache
 
       - name: Build and deploy Pages
-        run: mkdocs gh-deploy --force --strict --verbose
+        run: mkdocs gh-deploy --force --strict
