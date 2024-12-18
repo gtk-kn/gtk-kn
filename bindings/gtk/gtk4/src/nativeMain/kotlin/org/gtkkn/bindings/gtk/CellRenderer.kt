@@ -14,8 +14,8 @@ import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gdk.Rectangle
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -99,7 +99,7 @@ import kotlin.Unit
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
- * - parameter `snapshot`: missing cType for class Snapshot
+ * - parameter `snapshot`: missing cType for GirClass Snapshot
  * - method `cell-background`: Property has no getter nor setter
  * - method `cell-background-rgba`: Property has no getter nor setter
  * - method `cell-background-set`: Property has no getter nor setter

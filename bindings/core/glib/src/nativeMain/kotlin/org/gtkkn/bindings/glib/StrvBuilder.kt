@@ -6,9 +6,9 @@ import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
-import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.glib.GStrvBuilder
 import org.gtkkn.native.glib.g_strv_builder_add
 import org.gtkkn.native.glib.g_strv_builder_addv

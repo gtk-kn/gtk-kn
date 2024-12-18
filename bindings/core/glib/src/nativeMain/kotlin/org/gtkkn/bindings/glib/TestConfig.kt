@@ -7,10 +7,10 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GTestConfig
 import kotlin.Boolean
 import kotlin.Pair

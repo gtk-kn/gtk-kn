@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_58
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GTimeZone
 import org.gtkkn.native.glib.g_time_zone_find_interval
 import org.gtkkn.native.glib.g_time_zone_get_abbreviation

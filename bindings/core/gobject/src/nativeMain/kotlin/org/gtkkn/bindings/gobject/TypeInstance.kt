@@ -18,10 +18,6 @@ import kotlin.native.ref.createCleaner
 
 /**
  * An opaque structure used as the base of all type instances.
- *
- * ## Skipped during bindings generation
- *
- * - field `g_class`: Record field g_class is private
  */
 public class TypeInstance(pointer: CPointer<GTypeInstance>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectTypeInstancePointer: CPointer<GTypeInstance> = pointer

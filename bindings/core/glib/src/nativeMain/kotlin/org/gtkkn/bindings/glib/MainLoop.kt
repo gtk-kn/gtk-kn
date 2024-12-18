@@ -3,9 +3,9 @@ package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GMainLoop
 import org.gtkkn.native.glib.g_main_loop_get_context
 import org.gtkkn.native.glib.g_main_loop_is_running

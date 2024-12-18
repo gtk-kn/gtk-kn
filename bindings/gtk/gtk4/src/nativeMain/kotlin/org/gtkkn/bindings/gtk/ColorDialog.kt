@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -18,8 +18,8 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -171,7 +171,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
     @GtkVersion4_10
     public open fun chooseRgba(
         parent: Window? = null,
-        initialColor: RGBA? = null,
+        initialColor: Rgba? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_color_dialog_choose_rgba(
@@ -195,14 +195,14 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun chooseRgbaFinish(result: AsyncResult): Result<RGBA?> = memScoped {
+    public open fun chooseRgbaFinish(result: AsyncResult): Result<Rgba?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_color_dialog_choose_rgba_finish(
             gtkColorDialogPointer.reinterpret(),
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            RGBA(reinterpret())
+            Rgba(reinterpret())
         }
 
         return if (gError.pointed != null) {

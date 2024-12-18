@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
-import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitNetworkProxySettings
 import org.gtkkn.native.webkit.webkit_network_proxy_settings_add_proxy_for_scheme

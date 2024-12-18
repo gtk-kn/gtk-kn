@@ -13,11 +13,11 @@ import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_2
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_22
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_36
 import org.gtkkn.bindings.gdkpixbuf.annotations.GdkPixbufVersion2_6
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_copy
 import org.gtkkn.native.gdkpixbuf.gdk_pixbuf_format_free
@@ -50,12 +50,6 @@ import kotlin.native.ref.createCleaner
  *
  * Only modules should access the fields directly, applications should
  * use the `gdk_pixbuf_format_*` family of functions.
- *
- * ## Skipped during bindings generation
- *
- * - field `mime_types`: Fields with arrays are not supported
- * - field `extensions`: Fields with arrays are not supported
- *
  * @since 2.2
  */
 @GdkPixbufVersion2_2
@@ -110,6 +104,23 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
             gdkpixbufPixbufFormatPointer.pointed.description?.let { g_free(it) }
             gdkpixbufPixbufFormatPointer.pointed.description = value?.let { g_strdup(it) }
         }
+
+    /**
+     * the MIME types for the image format
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val mimeTypes: List<String>?
+        get() = gdkpixbufPixbufFormatPointer.pointed.mime_types?.toKStringList()
+
+    /**
+     * typical filename extensions for the
+     *   image format
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val extensions: List<String>?
+        get() = gdkpixbufPixbufFormatPointer.pointed.extensions?.toKStringList()
 
     /**
      * a combination of `GdkPixbufFormatFlags`
@@ -391,7 +402,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
         gdk_pixbuf_format_set_disabled(gdkpixbufPixbufFormatPointer.reinterpret(), disabled.asGBoolean())
 
     override fun toString(): String =
-        "PixbufFormat(name=$name, signature=$signature, domain=$domain, description=$description, flags=$flags, disabled=$disabled, license=$license)"
+        "PixbufFormat(name=$name, signature=$signature, domain=$domain, description=$description, mimeTypes=$mimeTypes, extensions=$extensions, flags=$flags, disabled=$disabled, license=$license)"
 
     public companion object {
         /**

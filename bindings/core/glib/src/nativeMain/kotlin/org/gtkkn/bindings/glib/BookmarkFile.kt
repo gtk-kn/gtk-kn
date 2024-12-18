@@ -12,10 +12,10 @@ import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.native.glib.GBookmarkFile
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_bookmark_file_add_application

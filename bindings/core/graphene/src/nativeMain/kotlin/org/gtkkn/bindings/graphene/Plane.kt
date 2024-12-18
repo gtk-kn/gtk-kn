@@ -39,12 +39,6 @@ import kotlin.native.ref.createCleaner
  *
  * The contents of the `graphene_plane_t` are private, and should not be
  * modified directly.
- *
- * ## Skipped during bindings generation
- *
- * - field `normal`: Record field normal is private
- * - field `constant`: Record field constant is private
- *
  * @since 1.2
  */
 @GrapheneVersion1_2
@@ -90,7 +84,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3D): gfloat =
+    public fun distance(point: Point3d): gfloat =
         graphene_plane_distance(graphenePlanePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -180,7 +174,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromPoint(normal: Vec3, point: Point3D): Plane = graphene_plane_init_from_point(
+    public fun initFromPoint(normal: Vec3, point: Point3d): Plane = graphene_plane_init_from_point(
         graphenePlanePointer.reinterpret(),
         normal.grapheneVec3Pointer.reinterpret(),
         point.graphenePoint3DPointer.reinterpret()
@@ -202,7 +196,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromPoints(a: Point3D, b: Point3D, c: Point3D): Plane = graphene_plane_init_from_points(
+    public fun initFromPoints(a: Point3d, b: Point3d, c: Point3d): Plane = graphene_plane_init_from_points(
         graphenePlanePointer.reinterpret(),
         a.graphenePoint3DPointer.reinterpret(),
         b.graphenePoint3DPointer.reinterpret(),

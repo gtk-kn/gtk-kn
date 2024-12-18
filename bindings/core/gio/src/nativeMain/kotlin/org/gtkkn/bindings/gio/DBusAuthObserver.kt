@@ -14,8 +14,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -135,7 +135,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun authorizeAuthenticatedPeer(stream: IOStream, credentials: Credentials? = null): Boolean =
+    public open fun authorizeAuthenticatedPeer(stream: IoStream, credentials: Credentials? = null): Boolean =
         g_dbus_auth_observer_authorize_authenticated_peer(
             gioDBusAuthObserverPointer.reinterpret(),
             stream.gioIOStreamPointer.reinterpret(),
@@ -173,7 +173,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
     @GioVersion2_26
     public fun connectAuthorizeAuthenticatedPeer(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (stream: IOStream, credentials: Credentials?) -> Boolean,
+        handler: (stream: IoStream, credentials: Credentials?) -> Boolean,
     ): ULong = g_signal_connect_data(
         gPointer.reinterpret(),
         "authorize-authenticated-peer",
@@ -220,9 +220,9 @@ private val connectAuthorizeAuthenticatedPeerFunc:
             credentials: CPointer<GCredentials>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(stream: IOStream, credentials: Credentials?) -> Boolean>().get().invoke(
+        userData.asStableRef<(stream: IoStream, credentials: Credentials?) -> Boolean>().get().invoke(
             stream!!.run {
-                IOStream(reinterpret())
+                IoStream(reinterpret())
             },
             credentials?.run {
                 Credentials(reinterpret())

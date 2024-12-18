@@ -35,7 +35,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `private_size_or_offset`: Unsupported pointer to primitive type
- * - field `g_type`: Record field g_type is private
  */
 public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectTypeClassPointer: CPointer<GTypeClass> = pointer

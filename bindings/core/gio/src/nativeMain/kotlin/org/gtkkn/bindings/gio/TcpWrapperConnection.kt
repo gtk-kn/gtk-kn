@@ -35,14 +35,14 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
      * @since 2.28
      */
     @GioVersion2_28
-    public open val baseIoStream: IOStream
+    public open val baseIoStream: IoStream
         /**
          * Gets @conn's base #GIOStream
          *
          * @return @conn's base #GIOStream
          */
         get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer.reinterpret())!!.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
 
     /**
@@ -54,7 +54,7 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
      * @since 2.28
      */
     public constructor(
-        baseIoStream: IOStream,
+        baseIoStream: IoStream,
         socket: Socket,
     ) : this(
         g_tcp_wrapper_connection_new(

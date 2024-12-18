@@ -14,8 +14,8 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -130,7 +130,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
     /**
      * The #WebKitURIResponse associated with this download.
      */
-    public val response: URIResponse
+    public val response: UriResponse
         /**
          * Retrieves the #WebKitURIResponse object that backs the download process.
          *
@@ -143,7 +143,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
          *     the response hasn't been received yet.
          */
         get() = webkit_download_get_response(webkitDownloadPointer.reinterpret())!!.run {
-            URIResponse(reinterpret())
+            UriResponse(reinterpret())
         }
 
     /**
@@ -183,8 +183,8 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      *
      * @return the #WebKitURIRequest of @download
      */
-    public fun getRequest(): URIRequest = webkit_download_get_request(webkitDownloadPointer.reinterpret())!!.run {
-        URIRequest(reinterpret())
+    public fun getRequest(): UriRequest = webkit_download_get_request(webkitDownloadPointer.reinterpret())!!.run {
+        UriRequest(reinterpret())
     }
 
     /**

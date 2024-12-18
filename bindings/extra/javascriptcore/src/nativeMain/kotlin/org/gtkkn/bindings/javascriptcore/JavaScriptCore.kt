@@ -15,9 +15,9 @@ import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.OptionGroup
 import org.gtkkn.bindings.javascriptcore.annotations.JavaScriptCoreVersion2_24
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gobject.gdouble

@@ -9,8 +9,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GPathBuf
 import org.gtkkn.native.glib.g_path_buf_clear
 import org.gtkkn.native.glib.g_path_buf_clear_to_path
@@ -66,11 +66,6 @@ import kotlin.native.ref.createCleaner
  * g_autofree char *sh = g_path_buf_to_path (&path);
  * g_assert_cmpstr (sh, ==, "/usr/bin/sh");
  * ```
- *
- * ## Skipped during bindings generation
- *
- * - field `dummy`: Record field dummy is private
- *
  * @since 2.76
  */
 @GLibVersion2_76

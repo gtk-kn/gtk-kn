@@ -11,8 +11,8 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.gio.GResource
 import org.gtkkn.native.gio.g_resource_enumerate_children
 import org.gtkkn.native.gio.g_resource_get_type

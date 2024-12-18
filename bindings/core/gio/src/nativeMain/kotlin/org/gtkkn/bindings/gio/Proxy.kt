@@ -11,8 +11,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -61,10 +61,10 @@ public interface Proxy :
      */
     @GioVersion2_26
     public fun connect(
-        connection: IOStream,
+        connection: IoStream,
         proxyAddress: ProxyAddress,
         cancellable: Cancellable? = null,
-    ): Result<IOStream> = memScoped {
+    ): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect(
             gioProxyPointer.reinterpret(),
@@ -73,7 +73,7 @@ public interface Proxy :
             cancellable?.gioCancellablePointer?.reinterpret(),
             gError.ptr
         )?.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -94,7 +94,7 @@ public interface Proxy :
      */
     @GioVersion2_26
     public fun connectAsync(
-        connection: IOStream,
+        connection: IoStream,
         proxyAddress: ProxyAddress,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
@@ -117,14 +117,14 @@ public interface Proxy :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun connectFinish(result: AsyncResult): Result<IOStream> = memScoped {
+    public fun connectFinish(result: AsyncResult): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect_finish(
             gioProxyPointer.reinterpret(),
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {

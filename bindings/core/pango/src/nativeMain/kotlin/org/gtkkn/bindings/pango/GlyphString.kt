@@ -34,9 +34,8 @@ import kotlin.Unit
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `x_pos`: x_pos: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
- * - field `glyphs`: Fields with arrays are not supported
+ * - field `glyphs`: GlyphInfo
  * - field `log_clusters`: Unsupported pointer to primitive type
- * - field `space`: Record field space is private
  */
 public class GlyphString(pointer: CPointer<PangoGlyphString>) : ProxyInstance(pointer) {
     public val pangoGlyphStringPointer: CPointer<PangoGlyphString> = pointer

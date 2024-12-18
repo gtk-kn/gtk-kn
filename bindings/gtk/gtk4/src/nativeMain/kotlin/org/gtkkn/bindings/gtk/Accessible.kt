@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -137,8 +137,8 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getAtContext(): ATContext = gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
-        ATContext(reinterpret())
+    public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
+        AtContext(reinterpret())
     }
 
     /**

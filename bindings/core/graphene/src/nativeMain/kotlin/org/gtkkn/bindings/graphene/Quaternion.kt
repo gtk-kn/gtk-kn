@@ -53,10 +53,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `angle`: angle: Out parameter is not supported
  * - parameter `deg_x`: deg_x: Out parameter is not supported
  * - parameter `rad_x`: rad_x: Out parameter is not supported
- * - field `x`: Record field x is private
- * - field `y`: Record field y is private
- * - field `z`: Record field z is private
- * - field `w`: Record field w is private
  *
  * @since 1.0
  */

@@ -49,10 +49,6 @@ import kotlin.Unit
  *   GArray *array = g_array_sized_new (FALSE, TRUE, sizeof (GValue), 10);
  *   g_array_set_clear_func (array, (GDestroyNotify) g_value_unset);
  * ```
- *
- * ## Skipped during bindings generation
- *
- * - field `n_prealloced`: Record field n_prealloced is private
  */
 public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer) {
     public val gobjectValueArrayPointer: CPointer<GValueArray> = pointer

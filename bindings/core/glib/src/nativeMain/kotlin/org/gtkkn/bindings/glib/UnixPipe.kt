@@ -20,7 +20,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `fds`: Fields with arrays are not supported
+ * - field `fds`: Array parameter of type gint is not supported
  *
  * @since 2.80
  */

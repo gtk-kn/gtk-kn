@@ -14,8 +14,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.bindings.gdk.Rectangle
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
@@ -44,9 +44,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -1028,7 +1028,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public open fun getBackgroundColor(rgba: RGBA): Unit =
+    public open fun getBackgroundColor(rgba: Rgba): Unit =
         webkit_web_view_get_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
 
     /**
@@ -1377,7 +1377,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      *
      * @param request a #WebKitURIRequest to load
      */
-    public open fun loadRequest(request: URIRequest): Unit =
+    public open fun loadRequest(request: UriRequest): Unit =
         webkit_web_view_load_request(webkitWebViewPointer.reinterpret(), request.webkitURIRequestPointer.reinterpret())
 
     /**
@@ -1582,7 +1582,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public open fun setBackgroundColor(rgba: RGBA): Unit =
+    public open fun setBackgroundColor(rgba: Rgba): Unit =
         webkit_web_view_set_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
 
     /**
@@ -2282,7 +2282,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      */
     public fun connectResourceLoadStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (resource: WebResource, request: URIRequest) -> Unit,
+        handler: (resource: WebResource, request: UriRequest) -> Unit,
     ): ULong = g_signal_connect_data(
         gPointer.reinterpret(),
         "resource-load-started",
@@ -2844,12 +2844,12 @@ private val connectResourceLoadStartedFunc:
             request: CPointer<WebKitURIRequest>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(resource: WebResource, request: URIRequest) -> Unit>().get().invoke(
+        userData.asStableRef<(resource: WebResource, request: UriRequest) -> Unit>().get().invoke(
             resource!!.run {
                 WebResource(reinterpret())
             },
             request!!.run {
-                URIRequest(reinterpret())
+                UriRequest(reinterpret())
             }
         )
     }

@@ -3,7 +3,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -33,8 +33,8 @@ public open class BorderNode(pointer: CPointer<GskBorderNode>) :
      * @return an array of 4 `GdkRGBA` structs
      *     for the top, right, bottom and left color of the border
      */
-    public open fun getColors(): RGBA = gsk_border_node_get_colors(gskBorderNodePointer.reinterpret())!!.run {
-        RGBA(reinterpret())
+    public open fun getColors(): Rgba = gsk_border_node_get_colors(gskBorderNodePointer.reinterpret())!!.run {
+        Rgba(reinterpret())
     }
 
     /**

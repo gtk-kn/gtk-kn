@@ -10,8 +10,8 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_72
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GHashTable
 import org.gtkkn.native.glib.g_hash_table_add
 import org.gtkkn.native.glib.g_hash_table_contains
@@ -48,13 +48,13 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `length`: length: Out parameter is not supported
- * - function `get_keys_as_ptr_array`: Array parameter of type gpointer is not supported
- * - function `get_values_as_ptr_array`: Array parameter of type gpointer is not supported
+ * - function `get_keys_as_ptr_array`: Array GLib.PtrArray parameter of type gpointer is not supported
+ * - function `get_values_as_ptr_array`: Array GLib.PtrArray parameter of type gpointer is not supported
  * - parameter `orig_key`: orig_key: Out parameter is not supported
  * - parameter `hash_func`: HashFunc
  * - parameter `hash_func`: HashFunc
- * - function `steal_all_keys`: Array parameter of type gpointer is not supported
- * - function `steal_all_values`: Array parameter of type gpointer is not supported
+ * - function `steal_all_keys`: Array GLib.PtrArray parameter of type gpointer is not supported
+ * - function `steal_all_values`: Array GLib.PtrArray parameter of type gpointer is not supported
  * - parameter `stolen_key`: stolen_key: Out parameter is not supported
  */
 public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
@@ -135,9 +135,9 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @since 2.4
          */
         @GLibVersion2_4
-        public fun find(hashTable: HashTable, predicate: HRFunc): gpointer? = g_hash_table_find(
+        public fun find(hashTable: HashTable, predicate: HrFunc): gpointer? = g_hash_table_find(
             hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
+            HrFuncFunc.reinterpret(),
             StableRef.create(predicate).asCPointer()
         )
 
@@ -178,9 +178,9 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed
          */
-        public fun foreachRemove(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_remove(
+        public fun foreachRemove(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_remove(
             hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
+            HrFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
 
@@ -197,9 +197,9 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @param func the function to call for each key/value pair
          * @return the number of key/value pairs removed.
          */
-        public fun foreachSteal(hashTable: HashTable, func: HRFunc): guint = g_hash_table_foreach_steal(
+        public fun foreachSteal(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_steal(
             hashTable.glibHashTablePointer.reinterpret(),
-            HRFuncFunc.reinterpret(),
+            HrFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
 

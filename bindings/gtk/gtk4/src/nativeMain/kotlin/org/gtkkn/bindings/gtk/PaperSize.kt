@@ -13,9 +13,9 @@ import org.gtkkn.bindings.glib.KeyFile
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gdouble

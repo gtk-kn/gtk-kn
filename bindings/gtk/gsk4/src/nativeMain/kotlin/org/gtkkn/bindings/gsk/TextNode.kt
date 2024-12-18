@@ -3,12 +3,12 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.bindings.pango.Font
 import org.gtkkn.bindings.pango.GlyphString
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -52,7 +52,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
     public constructor(
         font: Font,
         glyphs: GlyphString,
-        color: RGBA,
+        color: Rgba,
         offset: Point,
     ) : this(
         gsk_text_node_new(
@@ -68,8 +68,8 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      *
      * @return the text color
      */
-    public open fun getColor(): RGBA = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
-        RGBA(reinterpret())
+    public open fun getColor(): Rgba = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
+        Rgba(reinterpret())
     }
 
     /**

@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.gobject.GParamSpecPool
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_param_spec_pool_free

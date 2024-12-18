@@ -17,8 +17,8 @@ import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -292,10 +292,10 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      *
      * @return the newly created `GdkGLContext`
      */
-    public open fun createGlContext(): Result<GLContext> = memScoped {
+    public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_gl_context(gdkSurfacePointer.reinterpret(), gError.ptr)?.run {
-            GLContext(reinterpret())
+            GlContext(reinterpret())
         }
 
         return if (gError.pointed != null) {

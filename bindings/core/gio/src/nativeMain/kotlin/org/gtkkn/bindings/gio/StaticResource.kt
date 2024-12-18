@@ -21,14 +21,6 @@ import kotlin.native.ref.createCleaner
 /**
  * #GStaticResource is an opaque data structure and can only be accessed
  * using the following functions.
- *
- * ## Skipped during bindings generation
- *
- * - field `data`: Record field data is private
- * - field `data_len`: Record field data_len is private
- * - field `resource`: Record field resource is private
- * - field `next`: Record field next is private
- * - field `padding`: Record field padding is private
  */
 public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gioStaticResourcePointer: CPointer<GStaticResource> = pointer

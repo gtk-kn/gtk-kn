@@ -15,9 +15,9 @@ import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextMark
 import org.gtkkn.bindings.gtk.TextTagTable
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_10
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped

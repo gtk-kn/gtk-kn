@@ -8,8 +8,8 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.TextIter
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gtksource.GtkSourceRegionIter
 import org.gtkkn.native.gtksource.gtk_source_region_iter_get_subregion
 import org.gtkkn.native.gtksource.gtk_source_region_iter_is_end
@@ -23,12 +23,6 @@ import kotlin.native.ref.createCleaner
  * An opaque datatype.
  *
  * Ignore all its fields and initialize the iter with [method@Region.get_start_region_iter].
- *
- * ## Skipped during bindings generation
- *
- * - field `dummy1`: Record field dummy1 is private
- * - field `dummy2`: Record field dummy2 is private
- * - field `dummy3`: Record field dummy3 is private
  */
 public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter> = pointer

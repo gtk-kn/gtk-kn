@@ -51,7 +51,7 @@ import kotlin.Unit
  * - parameter `bytes2`: Bytes
  * - parameter `bytes2`: Bytes
  * - parameter `size`: size: Out parameter is not supported
- * - method `unref_to_array`: Array parameter of type guint8 is not supported
+ * - method `unref_to_array`: GLib.ByteArray parameter of type guint8 is not supported
  * - parameter `size`: size: Out parameter is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported

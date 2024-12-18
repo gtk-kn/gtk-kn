@@ -11,7 +11,7 @@ import org.gtkkn.bindings.pango.AttrShape
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean

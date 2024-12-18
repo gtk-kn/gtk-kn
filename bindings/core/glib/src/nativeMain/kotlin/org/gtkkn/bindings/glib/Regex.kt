@@ -14,9 +14,9 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_38
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GRegex
 import org.gtkkn.native.glib.g_regex_error_quark

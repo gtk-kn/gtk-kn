@@ -21,7 +21,6 @@ import kotlin.native.ref.createCleaner
  * - field `enumerate`: DBusSubtreeEnumerateFunc
  * - field `introspect`: DBusSubtreeIntrospectFunc
  * - field `dispatch`: DBusSubtreeDispatchFunc
- * - field `padding`: Record field padding is private
  *
  * @since 2.26
  */

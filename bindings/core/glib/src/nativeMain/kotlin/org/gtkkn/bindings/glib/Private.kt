@@ -41,9 +41,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `notify`: DestroyNotify
- * - field `p`: Record field p is private
- * - field `notify`: Record field notify is private
- * - field `future`: Record field future is private
  */
 public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibPrivatePointer: CPointer<GPrivate> = pointer

@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gio.GFileAttributeMatcher
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_namespace
 import org.gtkkn.native.gio.g_file_attribute_matcher_enumerate_next

@@ -8,9 +8,9 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GMainContext
 import org.gtkkn.native.glib.g_main_context_acquire
@@ -91,7 +91,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(fd: PollFD, priority: gint): Unit =
+    public fun addPoll(fd: PollFd, priority: gint): Unit =
         g_main_context_add_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret(), priority)
 
     /**
@@ -334,7 +334,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      *
      * @param fd a #GPollFD descriptor previously added with g_main_context_add_poll()
      */
-    public fun removePoll(fd: PollFD): Unit =
+    public fun removePoll(fd: PollFd): Unit =
         g_main_context_remove_poll(glibMainContextPointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**

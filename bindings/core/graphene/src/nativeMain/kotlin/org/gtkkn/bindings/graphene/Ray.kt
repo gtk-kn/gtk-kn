@@ -46,8 +46,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `t_out`: t_out: Out parameter is not supported
  * - parameter `t_out`: t_out: Out parameter is not supported
  * - parameter `t_out`: t_out: Out parameter is not supported
- * - field `origin`: Record field origin is private
- * - field `direction`: Record field direction is private
  *
  * @since 1.4
  */
@@ -114,7 +112,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getClosestPointToPoint(p: Point3D, res: Point3D): Unit = graphene_ray_get_closest_point_to_point(
+    public fun getClosestPointToPoint(p: Point3d, res: Point3d): Unit = graphene_ray_get_closest_point_to_point(
         grapheneRayPointer.reinterpret(),
         p.graphenePoint3DPointer.reinterpret(),
         res.graphenePoint3DPointer.reinterpret()
@@ -157,7 +155,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getDistanceToPoint(p: Point3D): gfloat =
+    public fun getDistanceToPoint(p: Point3d): gfloat =
         graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -167,7 +165,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getOrigin(origin: Point3D): Unit =
+    public fun getOrigin(origin: Point3d): Unit =
         graphene_ray_get_origin(grapheneRayPointer.reinterpret(), origin.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -179,7 +177,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun getPositionAt(t: gfloat, position: Point3D): Unit =
+    public fun getPositionAt(t: gfloat, position: Point3d): Unit =
         graphene_ray_get_position_at(grapheneRayPointer.reinterpret(), t, position.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -192,7 +190,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun `init`(origin: Point3D? = null, direction: Vec3? = null): Ray = graphene_ray_init(
+    public fun `init`(origin: Point3d? = null, direction: Vec3? = null): Ray = graphene_ray_init(
         grapheneRayPointer.reinterpret(),
         origin?.graphenePoint3DPointer?.reinterpret(),
         direction?.grapheneVec3Pointer?.reinterpret()

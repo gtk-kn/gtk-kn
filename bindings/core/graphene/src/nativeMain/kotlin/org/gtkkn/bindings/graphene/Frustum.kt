@@ -37,7 +37,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `planes`: planes: Out parameter is not supported
- * - field `planes`: Record field planes is private
  *
  * @since 1.2
  */
@@ -85,7 +84,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(point: Point3D): Boolean = graphene_frustum_contains_point(
+    public fun containsPoint(point: Point3d): Boolean = graphene_frustum_contains_point(
         grapheneFrustumPointer.reinterpret(),
         point.graphenePoint3DPointer.reinterpret()
     )

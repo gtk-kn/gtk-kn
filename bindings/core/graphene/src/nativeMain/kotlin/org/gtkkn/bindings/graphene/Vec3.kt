@@ -64,7 +64,6 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `src`: Array parameter of type gfloat is not supported
  * - parameter `dest`: dest: Out parameter is not supported
- * - field `value`: Record field value is private
  */
 public class Vec3(pointer: CPointer<graphene_vec3_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val grapheneVec3Pointer: CPointer<graphene_vec3_t> = pointer

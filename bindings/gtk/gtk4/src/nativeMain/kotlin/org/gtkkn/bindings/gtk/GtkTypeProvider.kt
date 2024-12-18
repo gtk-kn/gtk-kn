@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
 
 public object GtkTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = mapOf(
-        ATContext::class to ATContext.type,
+        AtContext::class to AtContext.type,
         AboutDialog::class to AboutDialog.type,
         ActionBar::class to ActionBar.type,
         ActivateAction::class to ActivateAction.type,
@@ -116,7 +116,7 @@ public object GtkTypeProvider : TypeProvider {
         FontDialog::class to FontDialog.type,
         FontDialogButton::class to FontDialogButton.type,
         Frame::class to Frame.type,
-        GLArea::class to GLArea.type,
+        GlArea::class to GlArea.type,
         Gesture::class to Gesture.type,
         GestureClick::class to GestureClick.type,
         GestureDrag::class to GestureDrag.type,
@@ -133,9 +133,9 @@ public object GtkTypeProvider : TypeProvider {
         GridLayoutChild::class to GridLayoutChild.type,
         GridView::class to GridView.type,
         HeaderBar::class to HeaderBar.type,
-        IMContext::class to IMContext.type,
-        IMContextSimple::class to IMContextSimple.type,
-        IMMulticontext::class to IMMulticontext.type,
+        ImContext::class to ImContext.type,
+        ImContextSimple::class to ImContextSimple.type,
+        ImMulticontext::class to ImMulticontext.type,
         IconPaintable::class to IconPaintable.type,
         IconTheme::class to IconTheme.type,
         IconView::class to IconView.type,

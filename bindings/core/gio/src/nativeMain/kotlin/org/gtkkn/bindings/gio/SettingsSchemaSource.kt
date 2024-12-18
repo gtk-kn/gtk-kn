@@ -10,8 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.gio.GSettingsSchemaSource
 import org.gtkkn.native.gio.g_settings_schema_source_get_default
 import org.gtkkn.native.gio.g_settings_schema_source_get_type

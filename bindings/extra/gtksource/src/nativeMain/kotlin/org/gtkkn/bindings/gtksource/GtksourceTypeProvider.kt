@@ -46,7 +46,7 @@ public object GtksourceTypeProvider : TypeProvider {
         StyleSchemePreview::class to StyleSchemePreview.type,
         Tag::class to Tag.type,
         View::class to View.type,
-        VimIMContext::class to VimIMContext.type,
+        VimImContext::class to VimImContext.type,
         CompletionProposal::class to CompletionProposal.type,
         CompletionProvider::class to CompletionProvider.type,
         HoverProvider::class to HoverProvider.type,

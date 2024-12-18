@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -37,7 +37,7 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
      * This property contains the #WebKitURIRequest associated with this
      * policy decision.
      */
-    public val request: URIRequest
+    public val request: UriRequest
         /**
          * Return the #WebKitURIRequest associated with the response decision.
          *
@@ -50,21 +50,21 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
          * @return The URI request that is associated with this policy decision.
          */
         get() = webkit_response_policy_decision_get_request(webkitResponsePolicyDecisionPointer.reinterpret())!!.run {
-            URIRequest(reinterpret())
+            UriRequest(reinterpret())
         }
 
     /**
      * This property contains the #WebKitURIResponse associated with this
      * policy decision.
      */
-    public val response: URIResponse
+    public val response: UriResponse
         /**
          * Gets the value of the #WebKitResponsePolicyDecision:response property.
          *
          * @return The URI response that is associated with this policy decision.
          */
         get() = webkit_response_policy_decision_get_response(webkitResponsePolicyDecisionPointer.reinterpret())!!.run {
-            URIResponse(reinterpret())
+            UriResponse(reinterpret())
         }
 
     /**

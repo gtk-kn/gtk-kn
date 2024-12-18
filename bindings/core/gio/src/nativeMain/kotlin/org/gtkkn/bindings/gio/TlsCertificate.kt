@@ -17,8 +17,8 @@ import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -54,8 +54,8 @@ import kotlin.Throws
  *
  * ## Skipped during bindings generation
  *
- * - method `get_dns_names`: Array parameter of type GLib.Bytes is not supported
- * - method `get_ip_addresses`: Array parameter of type InetAddress is not supported
+ * - method `get_dns_names`: GLib.PtrArray parameter of type GLib.Bytes is not supported
+ * - method `get_ip_addresses`: GLib.PtrArray parameter of type InetAddress is not supported
  * - method `certificate`: Property has no getter nor setter
  * - method `certificate-pem`: Property has no getter nor setter
  * - method `dns-names`: Property has no getter nor setter

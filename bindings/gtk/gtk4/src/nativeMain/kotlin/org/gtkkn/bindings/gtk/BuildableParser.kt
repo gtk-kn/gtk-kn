@@ -21,7 +21,6 @@ import kotlin.native.ref.createCleaner
  * - field `end_element`: Fields with callbacks are not supported
  * - field `text`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
- * - field `padding`: Record field padding is private
  */
 public class BuildableParser(pointer: CPointer<GtkBuildableParser>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {

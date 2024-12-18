@@ -8,8 +8,8 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.gdk.RGBA
 import org.gtkkn.bindings.gdk.Rectangle
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
@@ -102,7 +102,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun getRgba(rgba: RGBA): Unit = webkit_color_chooser_request_get_rgba(
+    public fun getRgba(rgba: Rgba): Unit = webkit_color_chooser_request_get_rgba(
         webkitColorChooserRequestPointer.reinterpret(),
         rgba.gdkRGBAPointer.reinterpret()
     )
@@ -114,7 +114,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun setRgba(rgba: RGBA): Unit = webkit_color_chooser_request_set_rgba(
+    public fun setRgba(rgba: Rgba): Unit = webkit_color_chooser_request_set_rgba(
         webkitColorChooserRequestPointer.reinterpret(),
         rgba.gdkRGBAPointer.reinterpret()
     )

@@ -3,7 +3,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -32,7 +32,7 @@ public open class ColorNode(pointer: CPointer<GskColorNode>) :
      * @return A new `GskRenderNode`
      */
     public constructor(
-        rgba: RGBA,
+        rgba: Rgba,
         bounds: Rect,
     ) : this(
         gsk_color_node_new(rgba.gdkRGBAPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret())!!.reinterpret()
@@ -43,8 +43,8 @@ public open class ColorNode(pointer: CPointer<GskColorNode>) :
      *
      * @return the color of the node
      */
-    public open fun getColor(): RGBA = gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {
-        RGBA(reinterpret())
+    public open fun getColor(): Rgba = gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {
+        Rgba(reinterpret())
     }
 
     public companion object : TypeCompanion<ColorNode> {

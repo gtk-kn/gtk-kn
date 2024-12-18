@@ -93,8 +93,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `mutex`: Mutex
  * - parameter `mutex`: Mutex
  * - parameter `mutex`: Mutex
- * - field `p`: Record field p is private
- * - field `i`: Record field i is private
  */
 public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibCondPointer: CPointer<GCond> = pointer

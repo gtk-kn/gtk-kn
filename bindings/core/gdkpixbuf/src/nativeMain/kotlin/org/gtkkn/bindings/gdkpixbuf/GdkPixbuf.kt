@@ -13,9 +13,9 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.gdkpixbuf.GdkPixbuf
 import org.gtkkn.native.gdkpixbuf.GdkPixbufAnimation
 import org.gtkkn.native.gdkpixbuf.GdkPixbufFormat

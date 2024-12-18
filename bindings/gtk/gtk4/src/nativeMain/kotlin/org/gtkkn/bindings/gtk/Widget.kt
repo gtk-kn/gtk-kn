@@ -14,7 +14,7 @@ import org.gtkkn.bindings.gdk.Clipboard
 import org.gtkkn.bindings.gdk.Cursor
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.FrameClock
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Variant
@@ -31,10 +31,10 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -619,7 +619,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `minimum`: minimum: Out parameter is not supported
  * - parameter `options`: cairo.FontOptions
  * - parameter `allocation`: Gdk.Rectangle
- * - parameter `snapshot`: missing cType for class Snapshot
+ * - parameter `snapshot`: missing cType for GirClass Snapshot
  * - parameter `dest_x`: dest_x: Out parameter is not supported
  * - method `has-default`: Property has no getter nor setter
  * - method `has-focus`: Property has no getter nor setter
@@ -1977,7 +1977,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getColor(color: RGBA): Unit =
+    public open fun getColor(color: Rgba): Unit =
         gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**

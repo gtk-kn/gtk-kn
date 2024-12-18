@@ -23,10 +23,6 @@ import kotlin.native.ref.createCleaner
  * Specifies the #GScanner parser configuration. Most settings can
  * be changed during the parsing phase and will affect the lexical
  * parsing of the next unpeeked token.
- *
- * ## Skipped during bindings generation
- *
- * - field `padding_dummy`: Record field padding_dummy is private
  */
 public class ScannerConfig(pointer: CPointer<GScannerConfig>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibScannerConfigPointer: CPointer<GScannerConfig> = pointer

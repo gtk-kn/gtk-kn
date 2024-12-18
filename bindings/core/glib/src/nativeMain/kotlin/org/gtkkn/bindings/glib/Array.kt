@@ -26,27 +26,27 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - function `new`: Array parameter of type gpointer is not supported
- * - parameter `data`: Array parameter of type gpointer is not supported
- * - parameter `data`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - function `sized_new`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - function `new`: Array GLib.Array parameter of type gpointer is not supported
+ * - function `new_take`: Array GLib.Array parameter of type gpointer is not supported
+ * - function `new_take_zero_terminated`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - function `sized_new`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
+ * - parameter `array`: Array GLib.Array parameter of type gpointer is not supported
  */
 public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibArrayPointer: CPointer<GArray> = pointer

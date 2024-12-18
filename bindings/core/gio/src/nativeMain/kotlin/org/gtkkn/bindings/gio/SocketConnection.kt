@@ -12,7 +12,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -55,7 +55,7 @@ import kotlin.Unit
  */
 @GioVersion2_22
 public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
-    IOStream(pointer.reinterpret()),
+    IoStream(pointer.reinterpret()),
     KGTyped {
     public val gioSocketConnectionPointer: CPointer<GSocketConnection>
         get() = gPointer.reinterpret()

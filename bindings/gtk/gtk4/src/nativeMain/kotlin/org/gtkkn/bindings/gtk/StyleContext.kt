@@ -5,9 +5,9 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Display
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -169,7 +169,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      *
      * @param color return value for the foreground color
      */
-    public open fun getColor(color: RGBA): Unit =
+    public open fun getColor(color: Rgba): Unit =
         gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
@@ -227,7 +227,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param color Return location for the looked up color
      * @return true if @color_name was found and resolved, false otherwise
      */
-    public open fun lookupColor(colorName: String, color: RGBA): Boolean = gtk_style_context_lookup_color(
+    public open fun lookupColor(colorName: String, color: Rgba): Boolean = gtk_style_context_lookup_color(
         gtkStyleContextPointer.reinterpret(),
         colorName,
         color.gdkRGBAPointer.reinterpret()

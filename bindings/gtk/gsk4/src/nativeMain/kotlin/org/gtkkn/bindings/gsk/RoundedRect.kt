@@ -10,8 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Size
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskRoundedRect
 import org.gtkkn.native.gsk.gsk_rounded_rect_contains_point
@@ -47,7 +47,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - field `bounds`: Graphene.Rect
- * - field `corner`: Fields with arrays are not supported
+ * - field `corner`: Graphene.Size
  */
 public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gskRoundedRectPointer: CPointer<GskRoundedRect> = pointer

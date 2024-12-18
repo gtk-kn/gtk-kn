@@ -40,10 +40,10 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * ## Skipped during bindings generation
  *
- * - field `methods`: Fields with arrays are not supported
- * - field `signals`: Fields with arrays are not supported
- * - field `properties`: Fields with arrays are not supported
- * - field `annotations`: Fields with arrays are not supported
+ * - field `methods`: Array parameter of type DBusMethodInfo is not supported
+ * - field `signals`: Array parameter of type DBusSignalInfo is not supported
+ * - field `properties`: Array parameter of type DBusPropertyInfo is not supported
+ * - field `annotations`: Array parameter of type DBusAnnotationInfo is not supported
  *
  * @since 2.26
  */

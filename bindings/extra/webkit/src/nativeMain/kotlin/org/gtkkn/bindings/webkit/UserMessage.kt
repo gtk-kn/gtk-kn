@@ -4,7 +4,7 @@ package org.gtkkn.bindings.webkit
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gio.UnixFDList
+import org.gtkkn.bindings.gio.UnixFdList
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
@@ -47,7 +47,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
      * @since 2.28
      */
     @WebKitVersion2_28
-    public val fdList: UnixFDList?
+    public val fdList: UnixFdList?
         /**
          * Get the @message list of file descritpor.
          *
@@ -55,7 +55,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @since 2.28
          */
         get() = webkit_user_message_get_fd_list(webkitUserMessagePointer.reinterpret())?.run {
-            UnixFDList(reinterpret())
+            UnixFdList(reinterpret())
         }
 
     /**
@@ -118,7 +118,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
     public constructor(
         name: String,
         parameters: Variant? = null,
-        fdList: UnixFDList? = null,
+        fdList: UnixFdList? = null,
     ) : this(
         webkit_user_message_new_with_fd_list(
             name,

@@ -2,10 +2,12 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_40
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GVariantDict
 import org.gtkkn.native.glib.g_variant_dict_clear
 import org.gtkkn.native.glib.g_variant_dict_contains
@@ -19,6 +21,7 @@ import org.gtkkn.native.glib.g_variant_dict_remove
 import org.gtkkn.native.glib.g_variant_dict_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_dict_get_type
+import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -118,12 +121,32 @@ import kotlin.Unit
  *
  * - method `insert`: Varargs parameter is not supported
  * - method `lookup`: Varargs parameter is not supported
+ * - field `x`: guintptr
+ * - field `y`: guintptr
  *
  * @since 2.40
  */
 @GLibVersion2_40
 public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointer) {
     public val glibVariantDictPointer: CPointer<GVariantDict> = pointer
+
+    public var asv: Variant?
+        get() = glibVariantDictPointer.pointed.u.s.asv?.run {
+            Variant(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibVariantDictPointer.pointed.u.s.asv = value?.glibVariantPointer
+        }
+
+    public var partialMagic: gsize
+        get() = glibVariantDictPointer.pointed.u.s.partial_magic
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibVariantDictPointer.pointed.u.s.partial_magic = value
+        }
 
     /**
      * Releases all memory associated with a #GVariantDict without freeing
@@ -277,6 +300,8 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      */
     @GLibVersion2_40
     public fun unref(): Unit = g_variant_dict_unref(glibVariantDictPointer.reinterpret())
+
+    override fun toString(): String = "VariantDict(asv=$asv, partialMagic=$partialMagic)"
 
     public companion object {
         /**

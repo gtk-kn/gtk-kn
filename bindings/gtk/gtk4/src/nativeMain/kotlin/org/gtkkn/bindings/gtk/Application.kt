@@ -13,8 +13,8 @@ import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gio.Menu
 import org.gtkkn.bindings.gio.MenuModel
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped

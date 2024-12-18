@@ -21,8 +21,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `bytes`: Unsupported pointer to primitive type
- * - field `data`: Record field data is private
- * - field `msgs`: Record field msgs is private
  */
 public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibTestLogBufferPointer: CPointer<GTestLogBuffer> = pointer

@@ -10,7 +10,7 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_38
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_46
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GType

@@ -37,8 +37,6 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `points`: Point3D
  * - parameter `vectors`: Vec3
- * - field `center`: Record field center is private
- * - field `radius`: Record field radius is private
  *
  * @since 1.2
  */
@@ -86,7 +84,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(point: Point3D): Boolean =
+    public fun containsPoint(point: Point3d): Boolean =
         graphene_sphere_contains_point(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -98,7 +96,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3D): gfloat =
+    public fun distance(point: Point3d): gfloat =
         graphene_sphere_distance(grapheneSpherePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -139,7 +137,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getCenter(center: Point3D): Unit =
+    public fun getCenter(center: Point3d): Unit =
         graphene_sphere_get_center(grapheneSpherePointer.reinterpret(), center.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -160,7 +158,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(center: Point3D? = null, radius: gfloat): Sphere = graphene_sphere_init(
+    public fun `init`(center: Point3d? = null, radius: gfloat): Sphere = graphene_sphere_init(
         grapheneSpherePointer.reinterpret(),
         center?.graphenePoint3DPointer?.reinterpret(),
         radius
@@ -186,7 +184,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun translate(point: Point3D, res: Sphere): Unit = graphene_sphere_translate(
+    public fun translate(point: Point3d, res: Sphere): Unit = graphene_sphere_translate(
         grapheneSpherePointer.reinterpret(),
         point.graphenePoint3DPointer.reinterpret(),
         res.grapheneSpherePointer.reinterpret()

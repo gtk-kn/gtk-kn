@@ -27,8 +27,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
- * - field `g_type`: Record field g_type is private
- * - field `g_instance_type`: Record field g_instance_type is private
  */
 public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectTypeInterfacePointer: CPointer<GTypeInterface> = pointer

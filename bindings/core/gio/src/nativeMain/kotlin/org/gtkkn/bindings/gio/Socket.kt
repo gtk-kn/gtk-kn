@@ -16,12 +16,12 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_56
 import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.IOCondition
+import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -746,9 +746,9 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    override fun conditionCheck(condition: IOCondition): IOCondition =
+    override fun conditionCheck(condition: IoCondition): IoCondition =
         g_socket_condition_check(gioSocketPointer.reinterpret(), condition.mask).run {
-            IOCondition(this)
+            IoCondition(this)
         }
 
     /**
@@ -777,7 +777,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      */
     @GioVersion2_32
     public open fun conditionTimedWait(
-        condition: IOCondition,
+        condition: IoCondition,
         timeoutUs: gint64,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
@@ -814,7 +814,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun conditionWait(condition: IOCondition, cancellable: Cancellable? = null): Result<Boolean> =
+    public open fun conditionWait(condition: IoCondition, cancellable: Cancellable? = null): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_socket_condition_wait(
@@ -910,7 +910,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    override fun createSource(condition: IOCondition, cancellable: Cancellable?): Source = g_socket_create_source(
+    override fun createSource(condition: IoCondition, cancellable: Cancellable?): Source = g_socket_create_source(
         gioSocketPointer.reinterpret(),
         condition.mask,
         cancellable?.gioCancellablePointer?.reinterpret()

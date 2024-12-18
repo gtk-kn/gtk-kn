@@ -42,9 +42,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * ## Skipped during bindings generation
  *
- * - field `interfaces`: Fields with arrays are not supported
- * - field `nodes`: Fields with arrays are not supported
- * - field `annotations`: Fields with arrays are not supported
+ * - field `interfaces`: Array parameter of type DBusInterfaceInfo is not supported
+ * - field `nodes`: Array parameter of type DBusNodeInfo is not supported
+ * - field `annotations`: Array parameter of type DBusAnnotationInfo is not supported
  *
  * @since 2.26
  */

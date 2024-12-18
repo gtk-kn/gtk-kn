@@ -50,11 +50,11 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_78
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_80
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHook
@@ -3659,12 +3659,12 @@ public object GLib {
      * @param func the function to call when the condition is satisfied
      * @return the event source id
      */
-    public fun ioAddWatch(channel: IOChannel, priority: gint, condition: IOCondition, func: IOFunc): guint =
+    public fun ioAddWatch(channel: IoChannel, priority: gint, condition: IoCondition, func: IoFunc): guint =
         g_io_add_watch_full(
             channel.glibIOChannelPointer.reinterpret(),
             priority,
             condition.mask,
-            IOFuncFunc.reinterpret(),
+            IoFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer(),
             staticStableRefDestroy.reinterpret()
         )
@@ -3689,7 +3689,7 @@ public object GLib {
      * @param condition conditions to watch for
      * @return a new #GSource
      */
-    public fun ioCreateWatch(channel: IOChannel, condition: IOCondition): Source =
+    public fun ioCreateWatch(channel: IoChannel, condition: IoCondition): Source =
         g_io_create_watch(channel.glibIOChannelPointer.reinterpret(), condition.mask)!!.run {
             Source(reinterpret())
         }
@@ -4626,7 +4626,7 @@ public object GLib {
      * @since 2.20
      */
     @GLibVersion2_20
-    public fun poll(fds: PollFD, nfds: guint, timeout: gint): gint =
+    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint =
         g_poll(fds.glibPollFDPointer.reinterpret(), nfds, timeout)
 
     /**
@@ -7237,8 +7237,8 @@ public object GLib {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun unixFdAdd(fd: gint, condition: IOCondition, function: UnixFDSourceFunc): guint =
-        g_unix_fd_add(fd, condition.mask, UnixFDSourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
+    public fun unixFdAdd(fd: gint, condition: IoCondition, function: UnixFdSourceFunc): guint =
+        g_unix_fd_add(fd, condition.mask, UnixFdSourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
 
     /**
      * Sets a function to be called when the IO condition, as specified by
@@ -7256,12 +7256,12 @@ public object GLib {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun unixFdAddFull(priority: gint, fd: gint, condition: IOCondition, function: UnixFDSourceFunc): guint =
+    public fun unixFdAddFull(priority: gint, fd: gint, condition: IoCondition, function: UnixFdSourceFunc): guint =
         g_unix_fd_add_full(
             priority,
             fd,
             condition.mask,
-            UnixFDSourceFuncFunc.reinterpret(),
+            UnixFdSourceFuncFunc.reinterpret(),
             StableRef.create(function).asCPointer(),
             staticStableRefDestroy.reinterpret()
         )
@@ -7281,7 +7281,7 @@ public object GLib {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun unixFdSourceNew(fd: gint, condition: IOCondition): Source =
+    public fun unixFdSourceNew(fd: gint, condition: IoCondition): Source =
         g_unix_fd_source_new(fd, condition.mask)!!.run {
             Source(reinterpret())
         }
@@ -7892,9 +7892,9 @@ public object GLib {
                 ?.let {
                     FileErrorException(error, it)
                 }
-            IOChannelError.quark() -> IOChannelError.fromErrorOrNull(error)
+            IoChannelError.quark() -> IoChannelError.fromErrorOrNull(error)
                 ?.let {
-                    IOChannelErrorException(error, it)
+                    IoChannelErrorException(error, it)
                 }
             KeyFileError.quark() -> KeyFileError.fromErrorOrNull(error)
                 ?.let {
@@ -8162,7 +8162,7 @@ public val HFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> Unit>> = stat
 }
     .reinterpret()
 
-public val HRFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gboolean>> = staticCFunction {
+public val HrFuncFunc: CPointer<CFunction<(gpointer?, gpointer?) -> gboolean>> = staticCFunction {
         key: gpointer?,
         `value`: gpointer?,
         userData: gpointer?,
@@ -8274,7 +8274,7 @@ public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>, gpointer?) -
     }
         .reinterpret()
 
-public val IOFuncFunc: CPointer<
+public val IoFuncFunc: CPointer<
     CFunction<
         (
             CPointer<GIOChannel>,
@@ -8290,16 +8290,16 @@ public val IOFuncFunc: CPointer<
     ->
     userData.asStableRef<
         (
-            source: IOChannel,
-            condition: IOCondition,
+            source: IoChannel,
+            condition: IoCondition,
             `data`: gpointer?,
         ) -> Boolean
         >().get().invoke(
         source!!.run {
-            IOChannel(reinterpret())
+            IoChannel(reinterpret())
         },
         condition.run {
-            IOCondition(this)
+            IoCondition(this)
         },
         `data`
     ).asGBoolean()
@@ -8397,13 +8397,13 @@ public val PollFuncFunc: CPointer<
     ->
     userData.asStableRef<
         (
-            ufds: PollFD,
+            ufds: PollFd,
             nfsd: guint,
             timeout: gint,
         ) -> gint
         >().get().invoke(
         ufds!!.run {
-            PollFD(reinterpret())
+            PollFd(reinterpret())
         },
         nfsd,
         timeout
@@ -8614,16 +8614,16 @@ public val TraverseNodeFuncFunc: CPointer<CFunction<(gpointer?) -> gboolean>> = 
 }
     .reinterpret()
 
-public val UnixFDSourceFuncFunc: CPointer<CFunction<(gint, GIOCondition) -> gboolean>> =
+public val UnixFdSourceFuncFunc: CPointer<CFunction<(gint, GIOCondition) -> gboolean>> =
     staticCFunction {
             fd: gint,
             condition: GIOCondition,
             userData: gpointer?,
         ->
-        userData!!.asStableRef<(fd: gint, condition: IOCondition) -> Boolean>().get().invoke(
+        userData!!.asStableRef<(fd: gint, condition: IoCondition) -> Boolean>().get().invoke(
             fd,
             condition.run {
-                IOCondition(this)
+                IoCondition(this)
             }
         ).asGBoolean()
     }
@@ -8890,7 +8890,7 @@ public typealias HFunc = (key: gpointer?, `value`: gpointer?) -> Unit
  * - return true if the key/value pair should be removed from the
  *     #GHashTable
  */
-public typealias HRFunc = (key: gpointer?, `value`: gpointer?) -> Boolean
+public typealias HrFunc = (key: gpointer?, `value`: gpointer?) -> Boolean
 
 /**
  * Specifies the type of the hash function which is passed to
@@ -9002,9 +9002,9 @@ public typealias HookMarshaller = (hook: Hook, marshalData: gpointer?) -> Unit
  * - return the function should return false if the event source
  *          should be removed
  */
-public typealias IOFunc = (
-    source: IOChannel,
-    condition: IOCondition,
+public typealias IoFunc = (
+    source: IoChannel,
+    condition: IoCondition,
     `data`: gpointer?,
 ) -> Boolean
 
@@ -9092,7 +9092,7 @@ public typealias NodeTraverseFunc = (node: Node, `data`: gpointer?) -> Boolean
  *     reported, or -1 if an error occurred.
  */
 public typealias PollFunc = (
-    ufds: PollFD,
+    ufds: PollFd,
     nfsd: guint,
     timeout: gint,
 ) -> gint
@@ -9313,7 +9313,7 @@ public typealias TraverseNodeFunc = (`data`: gpointer?) -> Boolean
  * - param `condition` the IO conditions reported on @fd
  * - return false if the source should be removed
  */
-public typealias UnixFDSourceFunc = (fd: gint, condition: IOCondition) -> Boolean
+public typealias UnixFdSourceFunc = (fd: gint, condition: IoCondition) -> Boolean
 
 /**
  * Declares a type of function which takes no arguments
@@ -9394,12 +9394,12 @@ public typealias Quark = guint
 /**
  * Opaque type. See g_rw_lock_reader_locker_new() for details.
  */
-public typealias RWLockReaderLocker = Unit
+public typealias RwLockReaderLocker = Unit
 
 /**
  * Opaque type. See g_rw_lock_writer_locker_new() for details.
  */
-public typealias RWLockWriterLocker = Unit
+public typealias RwLockWriterLocker = Unit
 
 /**
  * Opaque type. See g_rec_mutex_locker_new() for details.

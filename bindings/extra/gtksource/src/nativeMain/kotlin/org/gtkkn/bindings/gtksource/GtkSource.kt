@@ -12,9 +12,9 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.MountOperation
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GMountOperation
 import org.gtkkn.native.glib.gpointer

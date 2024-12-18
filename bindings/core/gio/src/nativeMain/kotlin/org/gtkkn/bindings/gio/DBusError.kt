@@ -6,7 +6,7 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gio.GDBusError
 import org.gtkkn.native.gio.g_dbus_error_encode_gerror
 import org.gtkkn.native.gio.g_dbus_error_get_remote_error

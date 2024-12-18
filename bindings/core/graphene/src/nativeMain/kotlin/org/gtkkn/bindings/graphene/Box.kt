@@ -55,8 +55,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `vertices`: vertices: Out parameter is not supported
  * - parameter `points`: Point3D
  * - parameter `vectors`: Vec3
- * - field `min`: Record field min is private
- * - field `max`: Record field max is private
  *
  * @since 1.2
  */
@@ -115,7 +113,7 @@ public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(point: Point3D): Boolean =
+    public fun containsPoint(point: Point3d): Boolean =
         graphene_box_contains_point(grapheneBoxPointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -137,7 +135,7 @@ public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun expand(point: Point3D, res: Box): Unit = graphene_box_expand(
+    public fun expand(point: Point3d, res: Box): Unit = graphene_box_expand(
         grapheneBoxPointer.reinterpret(),
         point.graphenePoint3DPointer.reinterpret(),
         res.grapheneBoxPointer.reinterpret()
@@ -199,7 +197,7 @@ public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getCenter(center: Point3D): Unit =
+    public fun getCenter(center: Point3d): Unit =
         graphene_box_get_center(grapheneBoxPointer.reinterpret(), center.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -228,7 +226,7 @@ public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getMax(max: Point3D): Unit =
+    public fun getMax(max: Point3d): Unit =
         graphene_box_get_max(grapheneBoxPointer.reinterpret(), max.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -239,7 +237,7 @@ public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getMin(min: Point3D): Unit =
+    public fun getMin(min: Point3d): Unit =
         graphene_box_get_min(grapheneBoxPointer.reinterpret(), min.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -271,7 +269,7 @@ public class Box(pointer: CPointer<graphene_box_t>, cleaner: Cleaner? = null) : 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(min: Point3D? = null, max: Point3D? = null): Box = graphene_box_init(
+    public fun `init`(min: Point3d? = null, max: Point3d? = null): Box = graphene_box_init(
         grapheneBoxPointer.reinterpret(),
         min?.graphenePoint3DPointer?.reinterpret(),
         max?.graphenePoint3DPointer?.reinterpret()

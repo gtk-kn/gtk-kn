@@ -64,7 +64,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
     /**
      * The #WebKitURIResponse associated with this resource.
      */
-    public val response: URIResponse
+    public val response: UriResponse
         /**
          * Retrieves the #WebKitURIResponse of the resource load operation.
          *
@@ -76,7 +76,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
          *     the response hasn't been received yet.
          */
         get() = webkit_web_resource_get_response(webkitWebResourcePointer.reinterpret())!!.run {
-            URIResponse(reinterpret())
+            UriResponse(reinterpret())
         }
 
     /**
@@ -205,7 +205,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      */
     public fun connectSentRequest(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (request: URIRequest, redirectedResponse: URIResponse) -> Unit,
+        handler: (request: UriRequest, redirectedResponse: UriResponse) -> Unit,
     ): ULong = g_signal_connect_data(
         gPointer.reinterpret(),
         "sent-request",
@@ -285,12 +285,12 @@ private val connectSentRequestFunc:
             redirectedResponse: CPointer<WebKitURIResponse>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(request: URIRequest, redirectedResponse: URIResponse) -> Unit>().get().invoke(
+        userData.asStableRef<(request: UriRequest, redirectedResponse: UriResponse) -> Unit>().get().invoke(
             request!!.run {
-                URIRequest(reinterpret())
+                UriRequest(reinterpret())
             },
             redirectedResponse!!.run {
-                URIResponse(reinterpret())
+                UriResponse(reinterpret())
             }
         )
     }

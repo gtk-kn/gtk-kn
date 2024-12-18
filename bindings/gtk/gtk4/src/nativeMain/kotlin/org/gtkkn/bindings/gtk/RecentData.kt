@@ -8,26 +8,24 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.gtk.GtkRecentData
 import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
+import kotlin.collections.List
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 /**
  * Meta-data to be passed to gtk_recent_manager_add_full() when
  * registering a recently used resource.
- *
- * ## Skipped during bindings generation
- *
- * - field `groups`: Fields with arrays are not supported
  */
 public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtkRecentDataPointer: CPointer<GtkRecentData> = pointer
@@ -97,6 +95,15 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
             gtkRecentDataPointer.pointed.app_exec?.let { g_free(it) }
             gtkRecentDataPointer.pointed.app_exec = value?.let { g_strdup(it) }
         }
+
+    /**
+     * a vector of strings containing
+     *   groups names;
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val groups: List<String>?
+        get() = gtkRecentDataPointer.pointed.groups?.toKStringList()
 
     /**
      * whether this resource should be displayed only by the
@@ -215,5 +222,5 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
     }
 
     override fun toString(): String =
-        "RecentData(displayName=$displayName, description=$description, mimeType=$mimeType, appName=$appName, appExec=$appExec, isPrivate=$isPrivate)"
+        "RecentData(displayName=$displayName, description=$description, mimeType=$mimeType, appName=$appName, appExec=$appExec, groups=$groups, isPrivate=$isPrivate)"
 }

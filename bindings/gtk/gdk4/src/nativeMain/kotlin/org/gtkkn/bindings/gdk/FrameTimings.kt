@@ -3,8 +3,8 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkFrameTimings
 import org.gtkkn.native.gdk.gdk_frame_timings_get_complete
 import org.gtkkn.native.gdk.gdk_frame_timings_get_frame_counter

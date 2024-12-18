@@ -6,12 +6,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.graphene.Matrix
 import org.gtkkn.bindings.graphene.Point
-import org.gtkkn.bindings.graphene.Point3D
+import org.gtkkn.bindings.graphene.Point3d
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskTransform
@@ -291,7 +291,7 @@ public class Transform(pointer: CPointer<GskTransform>) : ProxyInstance(pointer)
      * @param point the point to translate the transform by
      * @return The new transform
      */
-    public fun translate3d(point: Point3D): Transform? =
+    public fun translate3d(point: Point3d): Transform? =
         gsk_transform_translate_3d(gskTransformPointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())?.run {
             Transform(reinterpret())
         }

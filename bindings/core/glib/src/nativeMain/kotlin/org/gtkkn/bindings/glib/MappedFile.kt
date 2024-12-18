@@ -12,8 +12,8 @@ import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_22
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_34
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_8
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GMappedFile
 import org.gtkkn.native.glib.g_mapped_file_free

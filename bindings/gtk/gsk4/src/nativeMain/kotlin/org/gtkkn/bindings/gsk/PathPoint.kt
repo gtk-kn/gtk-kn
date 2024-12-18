@@ -5,16 +5,21 @@ import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.toGPointerList
+import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskPathPoint
 import org.gtkkn.native.gsk.gsk_path_point_compare
 import org.gtkkn.native.gsk.gsk_path_point_copy
@@ -28,7 +33,9 @@ import org.gtkkn.native.gsk.gsk_path_point_get_tangent
 import org.gtkkn.native.gsk.gsk_path_point_get_type
 import kotlin.Boolean
 import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
+import kotlin.collections.List
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
@@ -46,11 +53,48 @@ import kotlin.native.ref.createCleaner
  * and don't hold a reference to the path object they are obtained from.
  * It is the callers responsibility to keep a reference to the path
  * as long as the `GskPathPoint` is used.
+ *
+ * ## Skipped during bindings generation
+ *
+ * - field `alignment`: Graphene.Vec4
+ *
  * @since 4.14
  */
 @GskVersion4_14
 public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gskPathPointPointer: CPointer<GskPathPoint> = pointer
+
+    /**
+     *
+     *
+     * Note: this property is writeable but the setter binding is not supported yet.
+     */
+    public val padding: List<gpointer?>
+        get() = gskPathPointPointer.pointed.padding.toGPointerList(8)
+
+    public var contour: gsize
+        get() = gskPathPointPointer.pointed.contour
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gskPathPointPointer.pointed.contour = value
+        }
+
+    public var idx: gsize
+        get() = gskPathPointPointer.pointed.idx
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gskPathPointPointer.pointed.idx = value
+        }
+
+    public var t: gfloat
+        get() = gskPathPointPointer.pointed.t
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gskPathPointPointer.pointed.t = value
+        }
 
     /**
      * Allocate a new PathPoint.
@@ -80,6 +124,47 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(scope: AutofreeScope) : this(scope.alloc<GskPathPoint>().ptr)
+
+    /**
+     * Allocate a new PathPoint.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param contour
+     * @param idx
+     * @param t
+     */
+    public constructor(
+        contour: gsize,
+        idx: gsize,
+        t: gfloat,
+    ) : this() {
+        this.contour = contour
+        this.idx = idx
+        this.t = t
+    }
+
+    /**
+     * Allocate a new PathPoint using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param contour
+     * @param idx
+     * @param t
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(
+        contour: gsize,
+        idx: gsize,
+        t: gfloat,
+        scope: AutofreeScope,
+    ) : this(scope) {
+        this.contour = contour
+        this.idx = idx
+        this.t = t
+    }
 
     /**
      * Returns whether @point1 is before or after @point2.
@@ -232,6 +317,8 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
         direction.nativeValue,
         tangent.grapheneVec2Pointer.reinterpret()
     )
+
+    override fun toString(): String = "PathPoint(padding=$padding, contour=$contour, idx=$idx, t=$t)"
 
     public companion object {
         /**

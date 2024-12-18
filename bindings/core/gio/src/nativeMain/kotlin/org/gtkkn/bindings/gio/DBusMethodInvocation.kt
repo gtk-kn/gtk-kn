@@ -318,7 +318,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFDList? = null): Unit =
+    public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFdList? = null): Unit =
         g_dbus_method_invocation_return_value_with_unix_fd_list(
             gioDBusMethodInvocationPointer.reinterpret(),
             parameters?.glibVariantPointer?.reinterpret(),

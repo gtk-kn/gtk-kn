@@ -3,7 +3,7 @@ package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
@@ -54,7 +54,7 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun setColor(rgba: RGBA? = null): Unit = webkit_input_method_underline_set_color(
+    public fun setColor(rgba: Rgba? = null): Unit = webkit_input_method_underline_set_color(
         webkitInputMethodUnderlinePointer.reinterpret(),
         rgba?.gdkRGBAPointer?.reinterpret()
     )
