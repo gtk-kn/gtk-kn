@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.UNIT
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirInterface
@@ -45,7 +46,7 @@ class PropertyBlueprintBuilder(
 
         checkSkippedProperty(getter, setter)
 
-        val kotlinName = context.kotlinizeMethodName(girProperty.name)
+        val kotlinName = girProperty.name.toCamelCase()
 
         // check for overrides
         val superProperties = superClasses.flatMap { it.properties } + superInterfaces.flatMap { it.properties }

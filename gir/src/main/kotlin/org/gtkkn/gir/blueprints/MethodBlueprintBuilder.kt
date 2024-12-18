@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirAnyTypeOrVarargs
 import org.gtkkn.gir.model.GirArrayType
@@ -47,7 +48,7 @@ class MethodBlueprintBuilder(
     override fun buildInternal(): MethodBlueprint {
         checkSkippedMethod()
 
-        val kotlinName = context.kotlinizeMethodName(girMethod.callable.getName())
+        val kotlinName = girMethod.callable.getName().toCamelCase()
 
         // parameters
         girMethod.parameters?.let { addParameters(it) }

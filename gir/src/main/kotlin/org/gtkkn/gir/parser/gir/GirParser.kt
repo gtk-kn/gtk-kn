@@ -282,13 +282,13 @@ class GirParser(
     }
 
     private fun parseGirRecord(node: Node): GirRecord {
-        val name = node.attributeValue("name")
+        val name = node.attributeValueOrNull("name")
         val glibGetType = node.attributeValueOrNull("glib:get-type")
         val functions = node.childNodesWithName("function").map { parseGirFunction(it) }.toMutableList()
-        getTypeGirFunction(glibGetType, name)?.let { functions.add(it) }
+        getTypeGirFunction(glibGetType, name ?: "the record")?.let { functions.add(it) }
         return GirRecord(
             info = parseGirInfo(node),
-            name = name,
+            name = name.orEmpty(),
             cType = node.attributeValueOrNull("c:type"),
             disguised = node.attributeBooleanValueOrNull("disguised"),
             opaque = node.attributeBooleanValueOrNull("opaque"),
@@ -371,10 +371,7 @@ class GirParser(
             methodInlines = node.childNodesWithName("method-inline").map { parseGirMethodInline(it) },
             functions = functions,
             functionInlines = node.childNodesWithName("function-inline").map { parseGirFunctionInline(it) },
-            records = node.childNodesWithName("record").mapNotNull { record ->
-                // ignoring records without name for now: https://gitlab.com/gtk-kn/gtk-kn/-/issues/99
-                record.attributeValueOrNull("name")?.let { parseGirRecord(record) }
-            },
+            records = node.childNodesWithName("record").map { parseGirRecord(it) },
         )
     }
 

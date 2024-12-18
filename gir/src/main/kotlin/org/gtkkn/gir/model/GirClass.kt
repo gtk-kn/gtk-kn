@@ -54,7 +54,7 @@ package org.gtkkn.gir.model
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirClass(
     val info: GirInfo,
-    val name: String,
+    override val name: String,
     val glibTypeName: String,
     val glibGetType: String,
     val parent: String? = null,
@@ -63,7 +63,7 @@ data class GirClass(
     val glibUnrefFunc: String? = null,
     val glibSetValueFunc: String? = null,
     val glibGetValueFunc: String? = null,
-    val cType: String? = null,
+    override val cType: String? = null,
     val cSymbolPrefix: String? = null,
     val abstract: Boolean? = null,
     val glibFundamental: Boolean? = null,
@@ -84,7 +84,7 @@ data class GirClass(
     val constants: List<GirConstant> = emptyList(),
     val records: List<GirRecord> = emptyList(),
     val callbacks: List<GirCallback> = emptyList(),
-) : GirNode {
+) : GirNode, GirNamedElement {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {

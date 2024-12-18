@@ -33,8 +33,8 @@ package org.gtkkn.gir.model
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirBitfield(
     val info: GirInfo,
-    val name: String,
-    val cType: String,
+    override val name: String,
+    override val cType: String,
     val glibTypeName: String? = null,
     val glibGetType: String? = null,
     val doc: GirDoc? = null,
@@ -42,7 +42,7 @@ data class GirBitfield(
     val members: List<GirMember> = emptyList(),
     val functions: List<GirFunction> = emptyList(),
     val functionInlines: List<GirFunctionInline> = emptyList(),
-) : GirNode {
+) : GirNode, GirNamedElement {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {

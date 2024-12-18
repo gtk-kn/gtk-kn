@@ -23,7 +23,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.BitfieldBlueprint
 
-interface BitfieldGenerator : MiscGenerator, KDocGenerator {
+interface BitfieldGenerator : ConstructorGenerator, FunctionGenerator {
     fun buildBitfield(bitfield: BitfieldBlueprint): TypeSpec =
         TypeSpec.classBuilder(bitfield.kotlinName).apply {
             val companionSpecBuilder = TypeSpec.companionObjectBuilder()
@@ -42,15 +42,11 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
                 )
             }
 
-            val constructorSpec = FunSpec.constructorBuilder()
-                .addParameter("mask", bitfield.nativeValueTypeName)
-                .build()
-
             val orFuncSpec = FunSpec.builder("or")
                 .addModifiers(KModifier.INFIX, KModifier.OVERRIDE)
                 .addParameter("other", bitfield.kotlinTypeName)
                 .returns(bitfield.kotlinTypeName)
-                .addStatement("return·%T(mask·or·other.mask)", bitfield.kotlinTypeName)
+                .addStatement("return %T(mask or other.mask)", bitfield.kotlinTypeName)
                 .build()
 
             val genericMarkerType = BindingsGenerator.GLIB_BITFIELD_MARKER_TYPE
@@ -58,14 +54,15 @@ interface BitfieldGenerator : MiscGenerator, KDocGenerator {
 
             addSuperinterface(genericMarkerType)
             addKdoc(buildTypeKDoc(bitfield.kdoc, bitfield.optInVersionBlueprint))
-            primaryConstructor(constructorSpec)
+            primaryConstructor(buildSimplePrimaryConstructor("mask", bitfield.nativeValueTypeName))
             addProperty(
                 PropertySpec.builder("mask", bitfield.nativeValueTypeName)
                     .initializer("mask")
                     .build(),
             )
             addFunction(orFuncSpec)
-            // add functions
+
+            // Add functions
             bitfield.functionBlueprints.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
             addType(companionSpecBuilder.build())
         }.build()

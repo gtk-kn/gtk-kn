@@ -31,14 +31,14 @@ package org.gtkkn.gir.model
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirCallback(
     val info: GirInfo,
-    val name: String,
-    val cType: String? = null,
+    override val name: String,
+    override val cType: String? = null,
     val throws: Boolean? = null,
     val doc: GirDoc? = null,
     val annotations: List<GirAnnotation> = emptyList(),
     val parameters: GirParameters? = null,
     val returnValue: GirReturnValue? = null,
-) : GirFieldType {
+) : GirFieldType, GirNamedElement {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {

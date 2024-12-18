@@ -17,6 +17,7 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.CodeBlock
+import org.gtkkn.gir.blueprints.ListSize
 import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
@@ -31,7 +32,7 @@ interface ConversionBlockGenerator {
      *
      * Nullability is handled.
      */
-    @Suppress("LongMethod")
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock =
         CodeBlock.builder().apply {
             val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
@@ -127,6 +128,11 @@ interface ConversionBlockGenerator {
                 }
 
                 is TypeInfo.GPointer -> add("%N", param.kotlinName)
+                is TypeInfo.GPointerList -> add(
+                    "%N$safeCall.%M(this)",
+                    param.kotlinName,
+                    BindingsGenerator.TO_G_POINTER_C_ARRAY,
+                )
             }
         }.build()
 
@@ -160,19 +166,16 @@ interface ConversionBlockGenerator {
                 }
 
                 is TypeInfo.Alias,
+                is TypeInfo.GPointer,
                 is TypeInfo.Primitive -> Unit
 
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
+                is TypeInfo.GPointerList -> add("$safeCall.%M(this)", BindingsGenerator.TO_G_POINTER_C_ARRAY)
                 is TypeInfo.KString -> add("$safeCall.let { %M(it) }", BindingsGenerator.G_STRDUP_FUNC)
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
-                is TypeInfo.StringList -> add(
-                    "$safeCall.%M(this)",
-                    BindingsGenerator.TO_C_STRING_LIST,
-                )
-
+                is TypeInfo.StringList -> add("$safeCall.%M(this)", BindingsGenerator.TO_C_STRING_LIST)
                 is TypeInfo.CallbackWithDestroy -> error("CallbackWithDestroy conversion not supported")
-                is TypeInfo.GPointer -> Unit
             }
         }.build()
 
@@ -198,25 +201,24 @@ interface ConversionBlockGenerator {
                 is TypeInfo.Alias,
                 is TypeInfo.Primitive -> Unit
 
+                is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, returnTypeInfo)
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
                 is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
-                is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
-                is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, returnTypeInfo)
-                is TypeInfo.StringList -> {
-                    if (returnTypeInfo.fixedSize != null) {
-                        error("Unsupported native to kotlin conversion because string array is fixed size")
-                    }
-                    if (!returnTypeInfo.nullTerminated) {
-                        error("Unsupported native to kotlin conversion because string array is not null terminated")
-                    }
-                    NativeToKotlinConversions.buildKStringList(isNullable, this)
-                }
-
-                is TypeInfo.CallbackWithDestroy -> {
-                    error("CallbackWithDestroy unsupported for native to Kotlin conversion")
-                }
-
                 is TypeInfo.GPointer -> NativeToKotlinConversions.buildGPointer(isNullable, this)
+                is TypeInfo.GPointerList -> NativeToKotlinConversions.buildGPointerList(
+                    codeBlockBuilder = this,
+                    listSize = returnTypeInfo.listSize,
+                )
+
+                is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
+                is TypeInfo.StringList -> NativeToKotlinConversions.buildKStringList(
+                    isNullable = isNullable,
+                    codeBlockBuilder = this,
+                    listSize = returnTypeInfo.listSize,
+                )
+
+                is TypeInfo.CallbackWithDestroy ->
+                    error("CallbackWithDestroy unsupported for native to Kotlin conversion")
             }
         }.build()
 }
@@ -344,17 +346,23 @@ private object NativeToKotlinConversions {
             .endControlFlow()
     }
 
-    fun buildKStringList(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder) {
+    fun buildKStringList(isNullable: Boolean, codeBlockBuilder: CodeBlock.Builder, listSize: ListSize) {
         // cinterop seems to map all string returning functions as nullable  so here we return a nullable string
         // if the gir says nullable or error() when we encounter an unexpected null when the gir says non-null
+        val size = if (listSize is ListSize.FixedSize) listSize.size.toString() else ""
         if (isNullable) {
-            codeBlockBuilder.add("?.%M()", BindingsGenerator.TO_K_STRING_LIST)
+            codeBlockBuilder.add("?.%M($size)", BindingsGenerator.TO_K_STRING_LIST)
         } else {
             codeBlockBuilder.add(
-                "?.%M() ?: error(%S)",
+                "?.%M($size) ?: error(%S)",
                 BindingsGenerator.TO_K_STRING_LIST,
                 "Expected not null string array",
             )
         }
+    }
+
+    fun buildGPointerList(codeBlockBuilder: CodeBlock.Builder, listSize: ListSize) {
+        val size = if (listSize is ListSize.FixedSize) listSize.size.toString() else ""
+        codeBlockBuilder.add(".%M($size)", BindingsGenerator.TO_G_POINTER_LIST)
     }
 }

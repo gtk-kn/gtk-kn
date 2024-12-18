@@ -25,7 +25,7 @@ import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 
-interface TypeProviderGenerator : MiscGenerator {
+interface TypeProviderGenerator {
     fun buildTypeProvider(repository: RepositoryBlueprint): TypeSpec = TypeSpec.objectBuilder(
         repository.repositoryTypeProviderTypeName.simpleName,
     ).apply {

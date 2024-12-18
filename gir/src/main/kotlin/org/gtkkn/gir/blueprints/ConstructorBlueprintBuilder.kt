@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirConstructor
@@ -71,7 +72,7 @@ class ConstructorBlueprintBuilder(
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
 
         return ConstructorBlueprint(
-            kotlinName = context.kotlinizeMethodName(girConstructor.callable.getName()),
+            kotlinName = girConstructor.callable.getName().toCamelCase(),
             nativeName = nativeMethodName,
             nativeMemberName = nativeMemberName,
             returnTypeInfo = returnTypeInfo,

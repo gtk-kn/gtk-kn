@@ -27,78 +27,72 @@ import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
-import org.gtkkn.gir.processor.UnresolvableTypeException
 
-class RecordBlueprintBuilder(
+class UnionBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girRecord: GirRecord,
-) : BlueprintBuilder<RecordBlueprint>(context) {
+    private val girUnion: GirUnion,
+) : BlueprintBuilder<UnionBlueprint>(context) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
-    private val methodBluePrints = mutableListOf<MethodBlueprint>()
+    private val methodBlueprints = mutableListOf<MethodBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val fieldBlueprints = mutableListOf<FieldBlueprint>()
 
-    override fun blueprintObjectType(): String = "record"
+    override fun blueprintObjectType(): String = "union"
 
-    override fun blueprintObjectName(): String = girRecord.name
+    override fun blueprintObjectName(): String =
+        girUnion.name ?: throw NotIntrospectableException("Unnamed union cannot be built")
 
-    override fun buildInternal(): RecordBlueprint {
-        if (girRecord.shouldNotBeGenerated()) {
-            throw NotIntrospectableException(girRecord.name)
+    override fun buildInternal(): UnionBlueprint {
+        if (!girUnion.shouldBeGenerated() || girUnion.name.isNullOrBlank()) {
+            throw NotIntrospectableException(girUnion.name ?: "UnnamedUnion")
         }
 
-        girRecord.cType?.let { context.checkIgnoredType(it) }
-
-        if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
-        if (girRecord.glibIsGTypeStructFor != null && girRecord.glibIsGTypeStructFor != "Object") {
-            throw UnresolvableTypeException("glib type struct are ignored")
-        }
+        girUnion.cType?.let { context.checkIgnoredType(it) }
 
         // Add top-level methods, constructors, functions
-        girRecord.methods.forEach { addMethod(it) }
-        girRecord.constructors.forEach { addConstructor(it) }
-        girRecord.functions.forEach { addFunction(it) }
+        girUnion.methods.forEach { addMethod(it) }
+        girUnion.constructors.forEach { addConstructor(it) }
+        girUnion.functions.forEach { addFunction(it) }
 
         // Add top-level fields (no prefix for top-level)
-        girRecord.fields.forEach { addField(it, prefix = null) }
+        girUnion.fields.forEach { addField(it, prefix = null) }
 
-        // Recursively merge all union fields and their nested records' fields
-        girRecord.unions.forEach { addUnionFields(it, prefix = null) }
+        // If there are nested records, process their fields as well
+        girUnion.records.forEach { addRecordFields(it, prefix = null) }
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girRecord.name}Pointer"
-        val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
+        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girUnion.name}Pointer"
+        val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girUnion)
 
-        val kotlinName = girRecord.name.toPascalCase()
+        val kotlinName = girUnion.name.toPascalCase()
+        val nativeTypeName = context.buildNativeClassName(girNamespace, girUnion)
 
-        return RecordBlueprint(
+        return UnionBlueprint(
             kotlinName = kotlinName,
             kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
-            nativeTypeName = context.buildNativeClassName(girNamespace, girRecord),
-            constructors = constructorBlueprints,
-            functions = functionBlueprints,
-            methods = methodBluePrints,
-            fields = fieldBlueprints,
+            nativeTypeName = nativeTypeName,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            constructors = constructorBlueprints,
+            functions = functionBlueprints,
+            methods = methodBlueprints,
+            fields = fieldBlueprints,
             cStructTypeName = ClassName(
                 context.namespaceNativePackageName(girNamespace),
-                girRecord.cType ?: error("unknown cType"),
+                girUnion.cType ?: error("unknown cType"),
             ),
-            isOpaque = girRecord.opaque == true,
-            isDisguised = girRecord.disguised == true,
-            hasNewConstructor = girRecord.constructors.any { it.callable.getName() == "new" },
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
+            hasNewConstructor = girUnion.constructors.any { it.callable.getName() == "new" },
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girUnion.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
+            kdoc = context.processKdoc(girUnion.doc?.doc?.text),
             skippedObjects = skippedObjects,
         )
     }
 
     private fun addMethod(method: GirMethod) {
         when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
-            is BlueprintResult.Ok -> methodBluePrints.add(result.blueprint)
+            is BlueprintResult.Ok -> methodBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
@@ -128,10 +122,9 @@ class RecordBlueprintBuilder(
     }
 
     /**
-     * Recursively add fields from a GirRecord and its unions.
+     * Recursively add fields from a GirRecord and its unions, since Unions can contain Records.
      */
     private fun addRecordFields(record: GirRecord, prefix: String?) {
-        // Append the record name to the current path, if it exists
         val currentPrefix = if (record.name.isNotBlank()) {
             if (prefix.isNullOrBlank()) record.name else "$prefix.${record.name}"
         } else {
@@ -158,8 +151,4 @@ class RecordBlueprintBuilder(
             girUnion.records.forEach { addRecordFields(it, currentPrefix) }
         }
     }
-
-    private fun GirRecord.shouldNotBeGenerated(): Boolean =
-        !info.shouldBeGenerated() ||
-            cType != "GPrivate" && name.endsWith("Private")
 }

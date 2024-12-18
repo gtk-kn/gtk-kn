@@ -29,12 +29,12 @@ package org.gtkkn.gir.model
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirAlias(
     val info: GirInfo,
-    val name: String,
-    val cType: String,
+    override val name: String,
+    override val cType: String,
     val doc: GirDoc? = null,
     val annotations: List<GirAnnotation> = emptyList(),
     val type: GirAnyType,
-) : GirNode {
+) : GirNode, GirNamedElement {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {

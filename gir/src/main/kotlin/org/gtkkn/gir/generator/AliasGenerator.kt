@@ -14,20 +14,14 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-package org.gtkkn.gir.ext
+package org.gtkkn.gir.generator
 
-fun String.capitalized() = replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+import com.squareup.kotlinpoet.TypeAliasSpec
+import org.gtkkn.gir.blueprints.AliasBlueprint
 
-/**
- * Escapes the string by doubling every backslash.
- *
- * @return A new string with all backslashes doubled.
- */
-fun String.escape(): String = this.replace("\\", "\\\\")
-
-/**
- * Compresses the string by converting doubled backslashes back to single backslashes.
- *
- * @return A new string with doubled backslashes replaced by single backslashes.
- */
-fun String.compress(): String = this.replace("\\\\", "\\")
+interface AliasGenerator : KDocGenerator {
+    fun buildAliasTypeAlias(alias: AliasBlueprint) =
+        TypeAliasSpec.builder(alias.kotlinName, alias.parentTypeName)
+            .addKdoc(buildTypeKDoc(alias.kdoc, alias.optInVersionBlueprint))
+            .build()
+}

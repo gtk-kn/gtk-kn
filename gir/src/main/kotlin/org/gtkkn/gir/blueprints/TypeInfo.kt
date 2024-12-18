@@ -17,8 +17,12 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
+import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.generator.G_POINTER
 
 /**
@@ -144,6 +148,19 @@ sealed class TypeInfo {
         )
     }
 
+    data class GPointerList(
+        val listSize: ListSize,
+        override val nativeTypeName: TypeName = BindingsGenerator.KP_GPOINTER_ARRAY,
+        override val kotlinTypeName: TypeName = LIST.parameterizedBy(G_POINTER.copy(nullable = true)),
+    ) : TypeInfo() {
+        override val isCinteropNullable = false
+
+        override fun withNullable(nullable: Boolean): TypeInfo = copy(
+            nativeTypeName = nativeTypeName.copy(nullable),
+            kotlinTypeName = kotlinTypeName.copy(nullable),
+        )
+    }
+
     /**
      * Native type is a CPointer and kotlin type is a generated wrapper class.
      *
@@ -160,7 +177,6 @@ sealed class TypeInfo {
         val objectPointerName: String,
     ) : TypeInfo() {
         override val isCinteropNullable = true
-
         override fun withNullable(nullable: Boolean): InterfacePointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -173,7 +189,6 @@ sealed class TypeInfo {
         val immutable: Boolean,
     ) : TypeInfo() {
         override val isCinteropNullable = true
-
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -196,7 +211,6 @@ sealed class TypeInfo {
         val objectPointerName: String,
     ) : TypeInfo() {
         override val isCinteropNullable = true
-
         override fun withNullable(nullable: Boolean): ObjectPointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -211,8 +225,8 @@ sealed class TypeInfo {
     ) : TypeInfo() {
         override val nativeTypeName = typeName
         override val kotlinTypeName = typeName
-        override val isCinteropNullable = false
 
+        override val isCinteropNullable = false
         override fun withNullable(nullable: Boolean): Primitive = copy(
             typeName = typeName.copy(nullable),
         )
@@ -224,7 +238,6 @@ sealed class TypeInfo {
         val objectPointerName: String,
     ) : TypeInfo() {
         override val isCinteropNullable: Boolean = true
-
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
@@ -232,10 +245,9 @@ sealed class TypeInfo {
     }
 
     data class StringList(
-        override val nativeTypeName: TypeName,
-        override val kotlinTypeName: TypeName,
-        val nullTerminated: Boolean,
-        val fixedSize: Int?
+        val listSize: ListSize,
+        override val nativeTypeName: TypeName = BindingsGenerator.KP_STRING_ARRAY,
+        override val kotlinTypeName: TypeName = LIST.parameterizedBy(STRING),
     ) : TypeInfo() {
         override val isCinteropNullable = true
 

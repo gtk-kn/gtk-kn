@@ -19,6 +19,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirFunction
@@ -166,8 +167,8 @@ class ClassBlueprintBuilder(
         girClass.functions.forEach { addFunction(it) }
         propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
 
-        val kotlinClassName = context.kotlinizeClassName(girClass.name)
-        val kotlinPackageName = context.kotlinizePackageName(checkNotNull(girNamespace.name))
+        val kotlinClassName = girClass.name.toPascalCase()
+        val kotlinPackageName = context.getKotlinPackageName(checkNotNull(girNamespace.name))
 
         val objectPointerName = if (girClass.parent != null) {
             "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
@@ -321,8 +322,8 @@ class ClassBlueprintBuilder(
         allImplementingInterfaces.forEach { pair ->
             val namespace = pair.first
             val iface = pair.second
-            val kotlinInterfaceName = context.kotlinizeClassName(checkNotNull(iface.name))
-            val kotlinPackageName = context.kotlinizePackageName(checkNotNull(namespace.name))
+            val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
+            val kotlinPackageName = context.getKotlinPackageName(checkNotNull(namespace.name))
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
             val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"

@@ -16,11 +16,14 @@
 
 package org.gtkkn.gir.model
 
+import org.gtkkn.gir.blueprints.ListSize
+
 /**
  * An array type of data where each element is of the same type.
  *
  * @property name Name of the array type.
- * @property zeroTerminated Indicates if the last element of the array is zero.
+ * @property zeroTerminated Indicates if the last element of the array is zero (or `null` in Kotlin). If neither
+ *                          `zeroTerminated` nor `fixedSize` is set, this property should be treated as `true`.
  * @property fixedSize Fixed size of the array, if predetermined.
  * @property introspectable Indicates if the array type is introspectable.
  * @property length Index of the parameter element specifying the array's length.
@@ -42,4 +45,6 @@ data class GirArrayType(
     override fun initializeChildren(namespace: GirNamespace) {
         type.initialize(this, namespace)
     }
+
+    fun toListSize(): ListSize = if (fixedSize != null) ListSize.FixedSize(fixedSize) else ListSize.NullTerminated
 }

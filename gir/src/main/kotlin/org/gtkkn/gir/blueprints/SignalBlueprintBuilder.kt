@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.ParameterSpec
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
@@ -76,7 +77,7 @@ class SignalBlueprintBuilder(
                 returnType = returnTypeInfo.kotlinTypeName,
             )
 
-        val kotlinConnectName = context.kotlinizeSignalConnectName(girSignal.name)
+        val kotlinConnectName = "connect${girSignal.name.toPascalCase()}"
         return SignalBlueprint(
             signalName = girSignal.name,
             kotlinConnectName = kotlinConnectName,

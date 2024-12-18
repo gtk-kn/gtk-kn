@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
@@ -63,7 +64,7 @@ class FunctionBlueprintBuilder(
             }
         }
 
-        val kotlinName = context.kotlinizeMethodName(girFunction.callable.getName())
+        val kotlinName = girFunction.callable.getName().toCamelCase()
         val nativeName = girFunction.callable.cIdentifier
         val nativeMemberPackageName =
             if (kotlinName == "getType" && girNamespace.name == "GLib" ||

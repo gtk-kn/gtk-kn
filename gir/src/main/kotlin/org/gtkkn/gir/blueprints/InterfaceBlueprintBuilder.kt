@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
@@ -101,8 +102,8 @@ class InterfaceBlueprintBuilder(
         girInterface.signals.forEach { addSignal(it) }
         girInterface.functions.forEach { addFunction(it) }
 
-        val kotlinInterfaceName = context.kotlinizeClassName(girInterface.name)
-        val kotlinPackageName = context.kotlinizePackageName(girNamespace.name)
+        val kotlinInterfaceName = girInterface.name.toPascalCase()
+        val kotlinPackageName = context.getKotlinPackageName(girNamespace.name)
 
         val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
         val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
@@ -142,8 +143,8 @@ class InterfaceBlueprintBuilder(
                 null
             }
         }.map { (namespace, iface) ->
-            val kotlinInterfaceName = context.kotlinizeClassName(checkNotNull(iface.name))
-            val kotlinPackageName = context.kotlinizePackageName(checkNotNull(namespace.name))
+            val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
+            val kotlinPackageName = context.getKotlinPackageName(checkNotNull(namespace.name))
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
             val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"

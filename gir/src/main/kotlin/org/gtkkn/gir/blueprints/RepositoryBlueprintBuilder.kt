@@ -28,6 +28,7 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirRepository
+import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.ProcessorContext
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
@@ -47,6 +48,7 @@ class RepositoryBlueprintBuilder(
     private val bitfieldBlueprints = mutableListOf<BitfieldBlueprint>()
     private val constantBlueprints = mutableListOf<ConstantBlueprint>()
     private val recordBlueprints = mutableListOf<RecordBlueprint>()
+    private val unionBlueprints = mutableListOf<UnionBlueprint>()
 
     private fun addAlias(girAlias: GirAlias) {
         when (val result = AliasBlueprintBuilder(context, namespace, girAlias).build()) {
@@ -111,6 +113,13 @@ class RepositoryBlueprintBuilder(
         }
     }
 
+    private fun addUnion(girUnion: GirUnion) {
+        when (val result = UnionBlueprintBuilder(context, namespace, girUnion).build()) {
+            is BlueprintResult.Ok -> unionBlueprints.add(result.blueprint)
+            is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
+        }
+    }
+
     override fun blueprintObjectType(): String = "repository"
     override fun blueprintObjectName(): String = checkNotNull(girRepository.namespaces.first().name)
 
@@ -124,6 +133,7 @@ class RepositoryBlueprintBuilder(
         namespace.bitfields.forEach { addBitfield(it) }
         namespace.constants.forEach { addConstant(it) }
         namespace.records.forEach { addRecord(it) }
+        namespace.unions.forEach { addUnion(it) }
 
         girRepository.includes.forEach { include ->
             if (context.findRepositoryByNameOrNull(include.name) == null) {
@@ -157,6 +167,7 @@ class RepositoryBlueprintBuilder(
             bitfieldBlueprints = bitfieldBlueprints,
             constantBlueprints = constantBlueprints,
             recordBlueprints = recordBlueprints,
+            unionBlueprints = unionBlueprints,
             skippedObjects = skippedObjects,
             repositoryObjectName = repositoryObjectName,
             repositoryCallbacksName = repositoryCallbacksName,

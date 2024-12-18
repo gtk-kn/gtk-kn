@@ -27,7 +27,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.KGType
 import org.gtkkn.extensions.gobject.ObjectType
 import org.gtkkn.native.gobject.GObjectClass

@@ -18,19 +18,21 @@ package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.InterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 
-interface InterfaceGenerator : KDocGenerator, MiscGenerator {
+interface InterfaceGenerator :
+    KGTypeGenerator,
+    PropertyGenerator,
+    MethodGenerator,
+    SignalGenerator,
+    FunctionGenerator {
     @Suppress("LongMethod")
     fun buildInterface(iface: InterfaceBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.interfaceBuilder(iface.typeName).apply {
-            addProperty(buildAbstractInterfacePointerProperty(iface.objectPointerName, iface.objectPointerTypeName))
-
             // kdoc
             addKdoc(buildTypeKDoc(iface.kdoc, iface.optInVersionBlueprint, iface.skippedObjects))
 
@@ -38,6 +40,9 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             iface.optInVersionBlueprint?.typeName?.let { annotationClassName ->
                 addAnnotation(annotationClassName)
             }
+
+            // add property for interface pointer
+            addProperty(buildAbstractInterfacePointerProperty(iface.objectPointerName, iface.objectPointerTypeName))
 
             // marker interface
             addSuperinterface(BindingsGenerator.GLIB_INTERFACE_MARKER_TYPE)
@@ -69,6 +74,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
                 addFunction(buildSignalConnectFunction(signal, iface.objectPointerName))
             }
 
+            // wrapper class
             val wrapperClass = TypeSpec.classBuilder("Wrapper")
                 .addModifiers(KModifier.PRIVATE, KModifier.DATA)
                 .addSuperinterface(iface.typeName)
@@ -94,7 +100,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             // Add companion with factory wrapper function
             val companionBuilder = TypeSpec.companionObjectBuilder()
 
-            buildKGTypeProperty(iface)?.let { property ->
+            buildInterfaceKGTypeProperty(iface)?.let { property ->
                 addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
                 companionBuilder.addKGTypeInit(iface.typeName, property, repository)
             }
@@ -103,7 +109,7 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             val factoryFunc = FunSpec.builder("wrap")
                 .addParameter("pointer", iface.objectPointerTypeName)
                 .returns(iface.typeName)
-                .addStatement("return·Wrapper(pointer)")
+                .addStatement("return Wrapper(pointer)")
             companionBuilder.addFunction(factoryFunc.build())
 
             iface.functions.forEach { companionBuilder.addFunction(buildFunction(it)) }
@@ -124,26 +130,11 @@ interface InterfaceGenerator : KDocGenerator, MiscGenerator {
             .getter(
                 FunSpec.getterBuilder()
                     .addStatement(
-                        "return·%L.%M()",
+                        "return %L.%M()",
                         objectPointerName,
                         BindingsGenerator.REINTERPRET_FUNC,
                     )
                     .build(),
             )
             .build()
-
-    /**
-     * Build the KGType property for a class. If no glibGetType is defined, we skip this property.
-     */
-    fun buildKGTypeProperty(iface: InterfaceBlueprint): PropertySpec? = if (iface.glibGetTypeFunc == null) {
-        null
-    } else {
-        val propertyType = BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE.parameterizedBy(iface.typeName)
-        PropertySpec.builder("type", propertyType, KModifier.OVERRIDE).initializer(
-            "%T(%M())·{ Wrapper(it.%M()) }",
-            BindingsGenerator.GOBJECT_GEN_IFACE_KG_TYPE,
-            iface.glibGetTypeFunc,
-            BindingsGenerator.REINTERPRET_FUNC,
-        ).build()
-    }
 }

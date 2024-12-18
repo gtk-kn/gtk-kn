@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.blueprints
 
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirAlias
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
@@ -40,7 +41,7 @@ class AliasBlueprintBuilder(
         val parentTypeName = context.resolveTypeInfo(girNamespace, girAlias.type, false).kotlinTypeName
 
         return AliasBlueprint(
-            kotlinName = context.kotlinizeClassName(girAlias.name),
+            kotlinName = girAlias.name.toPascalCase(),
             parentTypeName = parentTypeName,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girAlias.info)
                 .build()

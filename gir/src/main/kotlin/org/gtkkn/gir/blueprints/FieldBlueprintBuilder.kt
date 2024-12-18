@@ -16,12 +16,12 @@
 
 package org.gtkkn.gir.blueprints
 
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirType
-import org.gtkkn.gir.processor.IgnoredFieldException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
@@ -30,6 +30,7 @@ class FieldBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
     private val girField: GirField,
+    private val accessPath: String? = null,
 ) : BlueprintBuilder<FieldBlueprint>(context) {
     override fun blueprintObjectType(): String = "field"
 
@@ -37,14 +38,8 @@ class FieldBlueprintBuilder(
 
     override fun buildInternal(): FieldBlueprint {
         checkNotNull(girField.name)
-        if (!girField.info.shouldBeGenerated()) {
+        if (!girField.shouldBeGenerated()) {
             throw NotIntrospectableException(girField.name)
-        }
-        if (girField.private == true) {
-            throw IgnoredFieldException(girField.name, "private")
-        }
-        if (girField.readable == false) {
-            throw IgnoredFieldException(girField.name, "not readable")
         }
 
         val typeInfo = when (girField.type) {
@@ -55,15 +50,20 @@ class FieldBlueprintBuilder(
                 typeInfo.withNullable(typeInfo.isCinteropNullable)
             }
 
-            is GirArrayType -> throw UnresolvableTypeException("Fields with arrays are not supported")
+            is GirArrayType -> {
+                val typeInfo = context.resolveTypeInfo(girNamespace, girField.type, false)
+                typeInfo.withNullable(typeInfo.isCinteropNullable)
+            }
+
             is GirCallback -> throw UnresolvableTypeException("Fields with callbacks are not supported")
         }
 
         return FieldBlueprint(
-            kotlinName = context.kotlinizeFieldName(girField.name),
+            kotlinName = girField.name.toCamelCase(),
             nativeName = girField.name,
             typeInfo = typeInfo,
             writeable = girField.writable == true,
+            accessPath = accessPath,
             kdoc = context.processKdoc(girField.doc?.doc?.text),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girField.info)
                 .build()

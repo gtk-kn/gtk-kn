@@ -19,7 +19,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 
-data class RecordBlueprint(
+data class UnionBlueprint(
     override val kotlinName: String,
     override val kotlinTypeName: ClassName,
     override val nativeTypeName: TypeName,
@@ -30,10 +30,8 @@ data class RecordBlueprint(
     override val methods: List<MethodBlueprint>,
     override val fields: List<FieldBlueprint>,
     override val cStructTypeName: ClassName,
-    override val skippedObjects: List<SkippedObject>,
-    val isOpaque: Boolean,
-    val isDisguised: Boolean,
     override val hasNewConstructor: Boolean,
     override val optInVersionBlueprint: OptInVersionBlueprint?,
     override val kdoc: String?,
+    override val skippedObjects: List<SkippedObject>,
 ) : RecordUnionCommonBlueprint
