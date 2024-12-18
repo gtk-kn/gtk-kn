@@ -14,7 +14,6 @@
 [![separator](https://docs.gtk.org/gtk4/separator.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-separator/index.html)
 [![textview](https://docs.gtk.org/gtk4/multiline-text.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-text-view/index.html)
 [![scale](https://docs.gtk.org/gtk4/scales.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-scale/index.html)
-[![glarea](https://docs.gtk.org/gtk4/glarea.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-g-l-area/index.html)
 [![drawingarea](https://docs.gtk.org/gtk4/drawingarea.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-drawing-area/index.html)
 [![video](https://docs.gtk.org/gtk4/video.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-video/index.html)
 [![mediacontrols](https://docs.gtk.org/gtk4/media-controls.png)](../../../dokka/bindings/gtk/gtk4/org.gtkkn.bindings.gtk/-media-controls/index.html)
