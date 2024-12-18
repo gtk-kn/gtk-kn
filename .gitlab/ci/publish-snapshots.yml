@@ -2,6 +2,8 @@ snapshots:
   extends: .build-base
   image: "$REGISTRY_PATH/fedora:41"
   stage: deploy
+  variables:
+    ORG_GRADLE_PROJECT_org.gtkkn.samples.disable: "true"
   script:
     - ./gradlew :gir:run
     - ./gradlew assemble
