@@ -10,10 +10,10 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.IOCondition
+import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Source
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -135,9 +135,9 @@ public interface DatagramBased :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun conditionCheck(condition: IOCondition): IOCondition =
+    public fun conditionCheck(condition: IoCondition): IoCondition =
         g_datagram_based_condition_check(gioDatagramBasedPointer.reinterpret(), condition.mask).run {
-            IOCondition(this)
+            IoCondition(this)
         }
 
     /**
@@ -157,7 +157,7 @@ public interface DatagramBased :
      */
     @GioVersion2_48
     public fun conditionWait(
-        condition: IOCondition,
+        condition: IoCondition,
         timeout: gint64,
         cancellable: Cancellable? = null,
     ): Result<Boolean> = memScoped {
@@ -198,7 +198,7 @@ public interface DatagramBased :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun createSource(condition: IOCondition, cancellable: Cancellable? = null): Source =
+    public fun createSource(condition: IoCondition, cancellable: Cancellable? = null): Source =
         g_datagram_based_create_source(
             gioDatagramBasedPointer.reinterpret(),
             condition.mask,

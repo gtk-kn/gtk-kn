@@ -7,8 +7,8 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.graphene.Vec3
 import org.gtkkn.bindings.graphene.Vec4
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gint
@@ -183,7 +183,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
          * @return The newly allocated builder, free with
          *     [method@Gsk.ShaderArgsBuilder.unref]
          */
-        public fun new(shader: GLShader, initialValues: Bytes? = null): ShaderArgsBuilder = ShaderArgsBuilder(
+        public fun new(shader: GlShader, initialValues: Bytes? = null): ShaderArgsBuilder = ShaderArgsBuilder(
             gsk_shader_args_builder_new(
                 shader.gskGLShaderPointer.reinterpret(),
                 initialValues?.glibBytesPointer?.reinterpret()

@@ -24,7 +24,7 @@ kotlin {
     sourceSets {
         nativeMain {
             dependencies {
-                api(projects.bindings.common)
+                api(projects.bindings.commonAnnotations)
                 api(projects.bindings.core.gobject)
                 // transitive
                 api(projects.bindings.core.glib)

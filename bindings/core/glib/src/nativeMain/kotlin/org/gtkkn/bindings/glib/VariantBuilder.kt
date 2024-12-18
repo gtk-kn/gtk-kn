@@ -2,8 +2,10 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantBuilder
 import org.gtkkn.native.glib.g_variant_builder_add_value
@@ -17,6 +19,8 @@ import org.gtkkn.native.glib.g_variant_builder_ref
 import org.gtkkn.native.glib.g_variant_builder_unref
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_variant_builder_get_type
+import org.gtkkn.native.gobject.gsize
+import kotlin.String
 import kotlin.Unit
 
 /**
@@ -32,9 +36,29 @@ import kotlin.Unit
  *
  * - method `add`: Varargs parameter is not supported
  * - method `add_parsed`: Varargs parameter is not supported
+ * - field `x`: guintptr
+ * - field `y`: guintptr
  */
 public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(pointer) {
     public val glibVariantBuilderPointer: CPointer<GVariantBuilder> = pointer
+
+    public var partialMagic: gsize
+        get() = glibVariantBuilderPointer.pointed.u.s.partial_magic
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibVariantBuilderPointer.pointed.u.s.partial_magic = value
+        }
+
+    public var type: VariantType?
+        get() = glibVariantBuilderPointer.pointed.u.s.type?.run {
+            VariantType(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            glibVariantBuilderPointer.pointed.u.s.type = value?.glibVariantTypePointer
+        }
 
     /**
      * Adds @value to @builder.
@@ -226,6 +250,8 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      */
     @GLibVersion2_24
     public fun unref(): Unit = g_variant_builder_unref(glibVariantBuilderPointer.reinterpret())
+
+    override fun toString(): String = "VariantBuilder(partialMagic=$partialMagic, type=$type)"
 
     public companion object {
         /**

@@ -11,7 +11,7 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion

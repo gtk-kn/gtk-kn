@@ -21,8 +21,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_36
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -947,7 +947,7 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
         handler: (
             event: SocketClientEvent,
             connectable: SocketConnectable,
-            connection: IOStream?,
+            connection: IoStream?,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
         gPointer.reinterpret(),
@@ -994,7 +994,7 @@ private val connectEventFunc: CPointer<
         (
             event: SocketClientEvent,
             connectable: SocketConnectable,
-            connection: IOStream?,
+            connection: IoStream?,
         ) -> Unit
         >().get().invoke(
         event.run {
@@ -1004,7 +1004,7 @@ private val connectEventFunc: CPointer<
             SocketConnectable.wrap(reinterpret())
         },
         connection?.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
     )
 }

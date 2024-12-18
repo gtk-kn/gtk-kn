@@ -7,8 +7,8 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GStaticRecMutex
 import org.gtkkn.native.glib.g_static_rec_mutex_free
 import org.gtkkn.native.glib.g_static_rec_mutex_init
@@ -42,11 +42,6 @@ import kotlin.native.ref.createCleaner
  * g_thread_init() has not been called. Then they do nothing, apart
  * from g_static_rec_mutex_trylock(), which does nothing but returning
  * true.
- *
- * ## Skipped during bindings generation
- *
- * - field `mutex`: Record field mutex is private
- * - field `depth`: Record field depth is private
  */
 public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibStaticRecMutexPointer: CPointer<GStaticRecMutex> = pointer

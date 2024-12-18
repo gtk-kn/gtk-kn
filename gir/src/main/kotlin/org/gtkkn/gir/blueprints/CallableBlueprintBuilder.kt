@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.blueprints
 
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirDirection
 import org.gtkkn.gir.model.GirNamespace
@@ -210,7 +211,7 @@ abstract class CallableBlueprintBuilder<T : Any>(
         ) ?: throw UnresolvableTypeException("Callback ${callbackType.name} not found")
 
         return ParameterBlueprint(
-            kotlinName = context.kotlinizeParameterName(callbackParam.name ?: error("Callback name missing")),
+            kotlinName = callbackParam.name?.toCamelCase() ?: error("Callback name missing"),
             nativeName = callbackParam.name,
             typeInfo = TypeInfo.CallbackWithDestroy(
                 kotlinTypeName = kotlinTypeName,

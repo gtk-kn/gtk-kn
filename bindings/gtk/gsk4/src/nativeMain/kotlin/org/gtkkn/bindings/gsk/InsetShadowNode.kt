@@ -3,7 +3,7 @@ package org.gtkkn.bindings.gsk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -42,7 +42,7 @@ public open class InsetShadowNode(pointer: CPointer<GskInsetShadowNode>) :
      */
     public constructor(
         outline: RoundedRect,
-        color: RGBA,
+        color: Rgba,
         dx: gfloat,
         dy: gfloat,
         spread: gfloat,
@@ -71,8 +71,8 @@ public open class InsetShadowNode(pointer: CPointer<GskInsetShadowNode>) :
      *
      * @return the color of the shadow
      */
-    public open fun getColor(): RGBA = gsk_inset_shadow_node_get_color(gskInsetShadowNodePointer.reinterpret())!!.run {
-        RGBA(reinterpret())
+    public open fun getColor(): Rgba = gsk_inset_shadow_node_get_color(gskInsetShadowNodePointer.reinterpret())!!.run {
+        Rgba(reinterpret())
     }
 
     /**

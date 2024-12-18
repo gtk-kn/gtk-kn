@@ -14,7 +14,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_80
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -372,9 +372,9 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun getUnixFdList(): UnixFDList? =
+    public open fun getUnixFdList(): UnixFdList? =
         g_dbus_message_get_unix_fd_list(gioDBusMessagePointer.reinterpret())?.run {
-            UnixFDList(reinterpret())
+            UnixFdList(reinterpret())
         }
 
     /**
@@ -631,7 +631,7 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setUnixFdList(fdList: UnixFDList? = null): Unit = g_dbus_message_set_unix_fd_list(
+    public open fun setUnixFdList(fdList: UnixFdList? = null): Unit = g_dbus_message_set_unix_fd_list(
         gioDBusMessagePointer.reinterpret(),
         fdList?.gioUnixFDListPointer?.reinterpret()
     )

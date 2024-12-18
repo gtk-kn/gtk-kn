@@ -40,7 +40,7 @@ kotlin {
         }
         nativeMain {
             dependencies {
-                api(projects.bindings.common)
+                api(projects.bindings.commonAnnotations)
             }
         }
     }

@@ -16,8 +16,8 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -400,7 +400,7 @@ import kotlin.Unit
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
- * - parameter `snapshot`: missing cType for class Snapshot
+ * - parameter `snapshot`: missing cType for GirClass Snapshot
  */
 public open class CellArea(pointer: CPointer<GtkCellArea>) :
     InitiallyUnowned(pointer.reinterpret()),

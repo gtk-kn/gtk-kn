@@ -46,12 +46,6 @@ import kotlin.native.ref.createCleaner
  *
  * The contents of the #graphene_euler_t structure are private
  * and should never be accessed directly.
- *
- * ## Skipped during bindings generation
- *
- * - field `angles`: Record field angles is private
- * - field `order`: Record field order is private
- *
  * @since 1.2
  */
 @GrapheneVersion1_2

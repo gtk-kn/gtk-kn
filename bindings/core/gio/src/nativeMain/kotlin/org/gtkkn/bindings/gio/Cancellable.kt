@@ -16,13 +16,13 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.bindings.glib.PollFD
+import org.gtkkn.bindings.glib.PollFd
 import org.gtkkn.bindings.glib.Source
 import org.gtkkn.bindings.gobject.Callback
 import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -210,7 +210,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun makePollfd(pollfd: PollFD): Boolean = g_cancellable_make_pollfd(
+    public open fun makePollfd(pollfd: PollFd): Boolean = g_cancellable_make_pollfd(
         gioCancellablePointer.reinterpret(),
         pollfd.glibPollFDPointer.reinterpret()
     ).asBoolean()

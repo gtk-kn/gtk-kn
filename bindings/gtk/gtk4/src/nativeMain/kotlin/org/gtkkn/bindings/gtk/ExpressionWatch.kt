@@ -4,8 +4,8 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkExpressionWatch
 import org.gtkkn.native.gtk.gtk_expression_watch_evaluate

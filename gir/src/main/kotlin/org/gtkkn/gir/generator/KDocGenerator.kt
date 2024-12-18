@@ -20,6 +20,7 @@ import com.squareup.kotlinpoet.CodeBlock
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.SkippedObject
+import org.gtkkn.gir.blueprints.TypeInfo
 
 interface KDocGenerator {
     fun buildTypeKDoc(
@@ -106,4 +107,27 @@ interface KDocGenerator {
         }
         returnTypeKDoc?.let { add("\n- return %L", it) }
     }.build()
+
+    fun getAutofreeScopeConstructorKdoc(kotlinName: String) =
+        """
+            Allocate a new $kotlinName using the provided [AutofreeScope].
+
+            The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+        """.trimIndent()
+
+    fun getNoArgConstructorKdoc(kotlinName: String) =
+        """
+            Allocate a new $kotlinName.
+
+            This instance will be allocated on the native heap and automatically freed when
+            this class instance is garbage collected.
+        """.trimIndent()
+
+    fun getAutofreeScopeParamForKdoc() = ParameterBlueprint(
+        kotlinName = "scope",
+        nativeName = "scope",
+        typeInfo = TypeInfo.Primitive(BindingsGenerator.AUTOFREE_SCOPE),
+        defaultNull = false,
+        kdoc = "The [AutofreeScope] to allocate this structure in.",
+    )
 }

@@ -31,8 +31,8 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `args`: Fields with arrays are not supported
- * - field `annotations`: Fields with arrays are not supported
+ * - field `args`: Array parameter of type DBusArgInfo is not supported
+ * - field `annotations`: Array parameter of type DBusAnnotationInfo is not supported
  *
  * @since 2.26
  */

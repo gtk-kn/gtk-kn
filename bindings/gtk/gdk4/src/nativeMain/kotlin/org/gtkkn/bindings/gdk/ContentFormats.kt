@@ -6,9 +6,9 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.native.gdk.GdkContentFormats
 import org.gtkkn.native.gdk.gdk_content_formats_contain_gtype
 import org.gtkkn.native.gdk.gdk_content_formats_contain_mime_type

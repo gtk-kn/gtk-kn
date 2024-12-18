@@ -16,9 +16,9 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_42
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_80
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
@@ -125,8 +125,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `transform_func`: ValueTransform
- * - field `g_type`: Record field g_type is private
- * - field `data`: Fields with arrays are not supported
+ * - field `data`: _Value__data__union
  */
 public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectValuePointer: CPointer<GValue> = pointer

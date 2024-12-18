@@ -23,22 +23,22 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - function `new`: Array parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - function `new`: GLib.ByteArray parameter of type guint8 is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - function `sized_new`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
- * - parameter `array`: Array parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - function `sized_new`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
  * - field `data`: Unsupported pointer to primitive type
  */
 public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {

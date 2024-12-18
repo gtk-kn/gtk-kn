@@ -25,10 +25,10 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -737,7 +737,7 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun createReadwrite(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileIOStream> =
+    public fun createReadwrite(flags: FileCreateFlags, cancellable: Cancellable? = null): Result<FileIoStream> =
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_file_create_readwrite(
@@ -746,7 +746,7 @@ public interface File :
                 cancellable?.gioCancellablePointer?.reinterpret(),
                 gError.ptr
             )?.run {
-                FileIOStream(reinterpret())
+                FileIoStream(reinterpret())
             }
 
             return if (gError.pointed != null) {
@@ -802,14 +802,14 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun createReadwriteFinish(res: AsyncResult): Result<FileIOStream> = memScoped {
+    public fun createReadwriteFinish(res: AsyncResult): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_create_readwrite_finish(
             gioFilePointer.reinterpret(),
             res.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            FileIOStream(reinterpret())
+            FileIoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -2193,14 +2193,14 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun openReadwrite(cancellable: Cancellable? = null): Result<FileIOStream> = memScoped {
+    public fun openReadwrite(cancellable: Cancellable? = null): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_open_readwrite(
             gioFilePointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             gError.ptr
         )?.run {
-            FileIOStream(reinterpret())
+            FileIoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -2252,14 +2252,14 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun openReadwriteFinish(res: AsyncResult): Result<FileIOStream> = memScoped {
+    public fun openReadwriteFinish(res: AsyncResult): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_open_readwrite_finish(
             gioFilePointer.reinterpret(),
             res.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            FileIOStream(reinterpret())
+            FileIoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -3067,7 +3067,7 @@ public interface File :
         makeBackup: Boolean,
         flags: FileCreateFlags,
         cancellable: Cancellable? = null,
-    ): Result<FileIOStream> = memScoped {
+    ): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_replace_readwrite(
             gioFilePointer.reinterpret(),
@@ -3077,7 +3077,7 @@ public interface File :
             cancellable?.gioCancellablePointer?.reinterpret(),
             gError.ptr
         )?.run {
-            FileIOStream(reinterpret())
+            FileIoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -3141,14 +3141,14 @@ public interface File :
      * @since 2.22
      */
     @GioVersion2_22
-    public fun replaceReadwriteFinish(res: AsyncResult): Result<FileIOStream> = memScoped {
+    public fun replaceReadwriteFinish(res: AsyncResult): Result<FileIoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_replace_readwrite_finish(
             gioFilePointer.reinterpret(),
             res.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            FileIOStream(reinterpret())
+            FileIoStream(reinterpret())
         }
 
         return if (gError.pointed != null) {

@@ -79,6 +79,7 @@ gradle.projectsEvaluated {
 dependencies {
     implementation(libs.bundles.kotlin.logging.jvm)
     implementation(libs.bundles.ktlint)
+    implementation(libs.kasechange)
     implementation(libs.kotlin.inject.runtime)
     implementation(libs.kotlinpoet)
     implementation(libs.kotlinx.cli)

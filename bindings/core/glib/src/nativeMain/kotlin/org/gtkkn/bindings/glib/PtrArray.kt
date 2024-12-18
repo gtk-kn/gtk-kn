@@ -23,17 +23,17 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array_to_extend`: Array parameter of type gpointer is not supported
- * - parameter `array_to_extend`: Array parameter of type gpointer is not supported
- * - parameter `haystack`: Array parameter of type gpointer is not supported
- * - parameter `haystack`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - function `new`: Array parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array_to_extend`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array_to_extend`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `haystack`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `haystack`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - function `new`: GLib.PtrArray parameter of type gpointer is not supported
  * - parameter `data`: Array parameter of type gpointer is not supported
  * - parameter `data`: Array parameter of type gpointer is not supported
  * - parameter `element_free_func`: DestroyNotify
@@ -41,23 +41,23 @@ import kotlin.native.ref.createCleaner
  * - parameter `data`: Array parameter of type gpointer is not supported
  * - parameter `data`: Array parameter of type gpointer is not supported
  * - parameter `element_free_func`: DestroyNotify
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - function `sized_new`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
- * - parameter `array`: Array parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - function `sized_new`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
  * - field `pdata`: Unsupported pointer to primitive type
  */
 public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {

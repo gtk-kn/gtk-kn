@@ -18,8 +18,8 @@ import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -55,7 +55,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `list_alternates`: Array parameter of type CompletionProposal is not supported
+ * - method `list_alternates`: GLib.PtrArray parameter of type CompletionProposal is not supported
  */
 public interface CompletionProvider :
     Interface,

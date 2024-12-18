@@ -18,7 +18,6 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `base_iface`: Record field base_iface is private
  * - field `use_plugin`: TypePluginUse
  * - field `unuse_plugin`: TypePluginUnuse
  * - field `complete_type_info`: TypePluginCompleteTypeInfo

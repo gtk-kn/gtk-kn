@@ -35,7 +35,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `points`: Point
- * - field `points`: Record field points is private
  *
  * @since 1.0
  */

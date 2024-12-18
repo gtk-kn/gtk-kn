@@ -4,8 +4,8 @@ package org.gtkkn.bindings.gdk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkDmabufFormats
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_contains
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_equal

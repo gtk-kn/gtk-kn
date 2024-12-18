@@ -10,9 +10,9 @@ import org.gtkkn.bindings.glib.annotations.GLibVersion2_26
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_28
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_36
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.g_source_add_child_source
@@ -66,19 +66,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `dispose`: SourceDisposeFunc
- * - field `callback_data`: Record field callback_data is private
- * - field `callback_funcs`: Record field callback_funcs is private
- * - field `source_funcs`: Record field source_funcs is private
- * - field `ref_count`: Record field ref_count is private
- * - field `context`: Record field context is private
- * - field `priority`: Record field priority is private
- * - field `flags`: Record field flags is private
- * - field `source_id`: Record field source_id is private
- * - field `poll_fds`: Record field poll_fds is private
- * - field `prev`: Record field prev is private
- * - field `next`: Record field next is private
- * - field `name`: Record field name is private
- * - field `priv`: Record field priv is private
  */
 public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
     public val glibSourcePointer: CPointer<GSource> = pointer
@@ -126,7 +113,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @param fd a #GPollFD structure holding information about a file
      *      descriptor to watch.
      */
-    public fun addPoll(fd: PollFD): Unit =
+    public fun addPoll(fd: PollFd): Unit =
         g_source_add_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**
@@ -150,7 +137,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun addUnixFd(fd: gint, events: IOCondition): gpointer =
+    public fun addUnixFd(fd: gint, events: IoCondition): gpointer =
         g_source_add_unix_fd(glibSourcePointer.reinterpret(), fd, events.mask)!!
 
     /**
@@ -383,7 +370,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun modifyUnixFd(tag: gpointer, newEvents: IOCondition): Unit =
+    public fun modifyUnixFd(tag: gpointer, newEvents: IoCondition): Unit =
         g_source_modify_unix_fd(glibSourcePointer.reinterpret(), tag, newEvents.mask)
 
     /**
@@ -403,9 +390,9 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun queryUnixFd(tag: gpointer): IOCondition =
+    public fun queryUnixFd(tag: gpointer): IoCondition =
         g_source_query_unix_fd(glibSourcePointer.reinterpret(), tag).run {
-            IOCondition(this)
+            IoCondition(this)
         }
 
     /**
@@ -440,7 +427,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @param fd a #GPollFD structure previously passed to g_source_add_poll().
      */
-    public fun removePoll(fd: PollFD): Unit =
+    public fun removePoll(fd: PollFd): Unit =
         g_source_remove_poll(glibSourcePointer.reinterpret(), fd.glibPollFDPointer.reinterpret())
 
     /**

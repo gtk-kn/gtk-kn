@@ -10,8 +10,8 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gboolean

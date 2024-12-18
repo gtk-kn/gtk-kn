@@ -30,7 +30,7 @@ import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.ParamFlags
 import org.gtkkn.bindings.gobject.TypeQuery
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.properties.BooleanProperty
 import org.gtkkn.extensions.gobject.properties.ClassProperties
 import org.gtkkn.extensions.gobject.properties.ClassPropertyDelegateProvider

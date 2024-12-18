@@ -8,9 +8,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.native.gio.GSettingsSchema
 import org.gtkkn.native.gio.g_settings_schema_get_id
 import org.gtkkn.native.gio.g_settings_schema_get_key

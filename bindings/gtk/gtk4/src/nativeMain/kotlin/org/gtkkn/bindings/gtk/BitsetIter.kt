@@ -7,8 +7,8 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBitsetIter
@@ -35,7 +35,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `value`: value: Out parameter is not supported
- * - field `private_data`: Record field private_data is private
  */
 public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtkBitsetIterPointer: CPointer<GtkBitsetIter> = pointer

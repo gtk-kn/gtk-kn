@@ -12,9 +12,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -352,7 +352,7 @@ public interface TlsClientConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun new(baseIoStream: IOStream, serverIdentity: SocketConnectable? = null): Result<TlsClientConnection> =
+        public fun new(baseIoStream: IoStream, serverIdentity: SocketConnectable? = null): Result<TlsClientConnection> =
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_tls_client_connection_new(

@@ -17,9 +17,9 @@ import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.glib.Uri
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GHashTable
 import org.gtkkn.native.glib.g_strdup
@@ -89,10 +89,10 @@ import org.gtkkn.bindings.glib.String as GlibString
  * - parameter `ver`: ver: Out parameter is not supported
  * - function `uri_copy`: Varargs parameter is not supported
  * - parameter `content_type`: content_type: Out parameter is not supported
- * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
- * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
- * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
- * - parameter `supported_extensions`: Array parameter of type GObject.TypeClass is not supported
+ * - parameter `supported_extensions`: GLib.PtrArray parameter of type GObject.TypeClass is not supported
+ * - parameter `supported_extensions`: GLib.PtrArray parameter of type GObject.TypeClass is not supported
+ * - parameter `supported_extensions`: GLib.PtrArray parameter of type GObject.TypeClass is not supported
+ * - parameter `supported_extensions`: GLib.PtrArray parameter of type GObject.TypeClass is not supported
  * - record `AuthClass`: glib type struct are ignored
  * - record `AuthDomainBasicClass`: glib type struct are ignored
  * - record `AuthDomainClass`: glib type struct are ignored
@@ -644,9 +644,9 @@ public object Soup {
                 ?.let {
                     SessionErrorException(error, it)
                 }
-            TLDError.quark() -> TLDError.fromErrorOrNull(error)
+            TldError.quark() -> TldError.fromErrorOrNull(error)
                 ?.let {
-                    TLDErrorException(error, it)
+                    TldErrorException(error, it)
                 }
             WebsocketError.quark() -> WebsocketError.fromErrorOrNull(error)
                 ?.let {

@@ -12,7 +12,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.gio.IOStream
+import org.gtkkn.bindings.gio.IoStream
 import org.gtkkn.bindings.gio.Socket
 import org.gtkkn.bindings.gio.SocketAddress
 import org.gtkkn.bindings.gio.TlsAuthenticationMode
@@ -23,8 +23,8 @@ import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.Soup.resolveException
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -201,7 +201,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      *   set).
      */
     public open fun acceptIostream(
-        stream: IOStream,
+        stream: IoStream,
         localAddr: SocketAddress? = null,
         remoteAddr: SocketAddress? = null,
     ): Result<Boolean> = memScoped {

@@ -99,7 +99,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `v`: Array parameter of type gfloat is not supported
  * - parameter `xx`: xx: Out parameter is not supported
  * - parameter `v`: v: Out parameter is not supported
- * - field `value`: Record field value is private
  */
 public class Matrix(pointer: CPointer<graphene_matrix_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val grapheneMatrixPointer: CPointer<graphene_matrix_t> = pointer
@@ -539,7 +538,7 @@ public class Matrix(pointer: CPointer<graphene_matrix_t>, cleaner: Cleaner? = nu
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initTranslate(p: Point3D): Matrix = graphene_matrix_init_translate(
+    public fun initTranslate(p: Point3d): Matrix = graphene_matrix_init_translate(
         grapheneMatrixPointer.reinterpret(),
         p.graphenePoint3DPointer.reinterpret()
     )!!.run {
@@ -928,7 +927,7 @@ public class Matrix(pointer: CPointer<graphene_matrix_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun transformPoint3d(p: Point3D, res: Point3D): Unit = graphene_matrix_transform_point3d(
+    public fun transformPoint3d(p: Point3d, res: Point3d): Unit = graphene_matrix_transform_point3d(
         grapheneMatrixPointer.reinterpret(),
         p.graphenePoint3DPointer.reinterpret(),
         res.graphenePoint3DPointer.reinterpret()
@@ -1031,7 +1030,7 @@ public class Matrix(pointer: CPointer<graphene_matrix_t>, cleaner: Cleaner? = nu
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun translate(pos: Point3D): Unit =
+    public fun translate(pos: Point3d): Unit =
         graphene_matrix_translate(grapheneMatrixPointer.reinterpret(), pos.graphenePoint3DPointer.reinterpret())
 
     /**
@@ -1057,7 +1056,7 @@ public class Matrix(pointer: CPointer<graphene_matrix_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun unprojectPoint3d(modelview: Matrix, point: Point3D, res: Point3D): Unit =
+    public fun unprojectPoint3d(modelview: Matrix, point: Point3d, res: Point3d): Unit =
         graphene_matrix_unproject_point3d(
             grapheneMatrixPointer.reinterpret(),
             modelview.grapheneMatrixPointer.reinterpret(),

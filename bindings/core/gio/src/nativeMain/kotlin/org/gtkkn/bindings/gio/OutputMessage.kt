@@ -29,7 +29,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `control_messages`: Fields with arrays are not supported
+ * - field `control_messages`: Array parameter of type SocketControlMessage is not supported
  *
  * @since 2.44
  */

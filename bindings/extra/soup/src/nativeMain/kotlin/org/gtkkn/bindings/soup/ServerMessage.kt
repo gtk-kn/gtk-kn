@@ -9,7 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gio.IOStream
+import org.gtkkn.bindings.gio.IoStream
 import org.gtkkn.bindings.gio.Socket
 import org.gtkkn.bindings.gio.SocketAddress
 import org.gtkkn.bindings.gio.TlsCertificate
@@ -19,8 +19,8 @@ import org.gtkkn.bindings.glib.Uri
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_2
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -129,9 +129,9 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      *
      * @return a #SoupHTTPVersion.
      */
-    public fun getHttpVersion(): HTTPVersion =
+    public fun getHttpVersion(): HttpVersion =
         soup_server_message_get_http_version(soupServerMessagePointer.reinterpret()).run {
-            HTTPVersion.fromNativeValue(this)
+            HttpVersion.fromNativeValue(this)
         }
 
     /**
@@ -285,7 +285,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      *
      * @param version a #SoupHTTPVersion
      */
-    public fun setHttpVersion(version: HTTPVersion): Unit =
+    public fun setHttpVersion(version: HttpVersion): Unit =
         soup_server_message_set_http_version(soupServerMessagePointer.reinterpret(), version.nativeValue)
 
     /**
@@ -333,9 +333,9 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      *   connection). No guarantees are made about what kind of #GIOStream
      *   is returned.
      */
-    public fun stealConnection(): IOStream =
+    public fun stealConnection(): IoStream =
         soup_server_message_steal_connection(soupServerMessagePointer.reinterpret())!!.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
 
     /**

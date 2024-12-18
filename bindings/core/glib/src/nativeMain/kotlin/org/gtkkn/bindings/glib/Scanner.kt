@@ -10,9 +10,9 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GScanner
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_scanner_cur_line
@@ -68,12 +68,6 @@ import kotlin.native.ref.createCleaner
  * - field `qdata`: Data
  * - field `value`: TokenValue
  * - field `next_value`: TokenValue
- * - field `symbol_table`: Record field symbol_table is private
- * - field `input_fd`: Record field input_fd is private
- * - field `text`: Record field text is private
- * - field `text_end`: Record field text_end is private
- * - field `buffer`: Record field buffer is private
- * - field `scope_id`: Record field scope_id is private
  * - field `msg_handler`: ScannerMsgFunc
  */
 public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {

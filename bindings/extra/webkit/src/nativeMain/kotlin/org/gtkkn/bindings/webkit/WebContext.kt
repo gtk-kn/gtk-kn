@@ -20,10 +20,10 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_28
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_38
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_4
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -307,11 +307,11 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
      * @param scheme the network scheme to register
      * @param callback a #WebKitURISchemeRequestCallback
      */
-    public fun registerUriScheme(scheme: String, callback: URISchemeRequestCallback): Unit =
+    public fun registerUriScheme(scheme: String, callback: UriSchemeRequestCallback): Unit =
         webkit_web_context_register_uri_scheme(
             webkitWebContextPointer.reinterpret(),
             scheme,
-            URISchemeRequestCallbackFunc.reinterpret(),
+            UriSchemeRequestCallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer(),
             staticStableRefDestroy.reinterpret()
         )

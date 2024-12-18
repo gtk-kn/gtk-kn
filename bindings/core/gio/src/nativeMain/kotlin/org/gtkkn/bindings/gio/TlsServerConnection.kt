@@ -66,7 +66,7 @@ public interface TlsServerConnection :
          * @since 2.28
          */
         @GioVersion2_28
-        public fun new(baseIoStream: IOStream, certificate: TlsCertificate? = null): Result<TlsServerConnection> =
+        public fun new(baseIoStream: IoStream, certificate: TlsCertificate? = null): Result<TlsServerConnection> =
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_tls_server_connection_new(

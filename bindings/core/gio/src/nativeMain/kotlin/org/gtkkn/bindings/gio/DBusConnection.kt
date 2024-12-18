@@ -26,9 +26,9 @@ import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -304,7 +304,7 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open val stream: IOStream
+    public open val stream: IoStream
         /**
          * Gets the underlying stream used for IO.
          *
@@ -316,7 +316,7 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
          * @since 2.26
          */
         get() = g_dbus_connection_get_stream(gioDBusConnectionPointer.reinterpret())!!.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
 
     /**
@@ -439,7 +439,7 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
      */
     @Throws(GLibException::class)
     public constructor(
-        stream: IOStream,
+        stream: IoStream,
         guid: String? = null,
         flags: DBusConnectionFlags,
         observer: DBusAuthObserver? = null,
@@ -739,7 +739,7 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
         replyType: VariantType? = null,
         flags: DBusCallFlags,
         timeoutMsec: gint,
-        fdList: UnixFDList? = null,
+        fdList: UnixFdList? = null,
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_dbus_connection_call_with_unix_fd_list(
@@ -1473,7 +1473,7 @@ public open class DBusConnection(pointer: CPointer<GDBusConnection>) :
          */
         @GioVersion2_26
         public fun new(
-            stream: IOStream,
+            stream: IoStream,
             guid: String? = null,
             flags: DBusConnectionFlags,
             observer: DBusAuthObserver? = null,

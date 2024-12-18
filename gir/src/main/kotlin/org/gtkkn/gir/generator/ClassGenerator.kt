@@ -16,27 +16,21 @@
 
 package org.gtkkn.gir.generator
 
-import com.squareup.kotlinpoet.AnnotationSpec
-import com.squareup.kotlinpoet.CodeBlock
-import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.ParameterSpec
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.ClassBlueprint
-import org.gtkkn.gir.blueprints.ConstructorBlueprint
-import org.gtkkn.gir.blueprints.ImplementsInterfaceBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
-import org.gtkkn.gir.blueprints.TypeInfo
 
-interface ClassGenerator : MiscGenerator, KDocGenerator {
+interface ClassGenerator :
+    ConstructorGenerator,
+    KGTypeGenerator,
+    PropertyGenerator,
+    MethodGenerator,
+    SignalGenerator,
+    FunctionGenerator {
     @Suppress("LongMethod", "CyclomaticComplexMethod")
     fun buildClass(clazz: ClassBlueprint, repository: RepositoryBlueprint): TypeSpec =
         TypeSpec.classBuilder(clazz.typeName).apply {
-            // companion object
-            val companionSpecBuilder = TypeSpec.companionObjectBuilder()
-
             // kdoc
             addKdoc(buildTypeKDoc(clazz.kdoc, clazz.optInVersionBlueprint, clazz.skippedObjects))
 
@@ -51,13 +45,13 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             }
 
             // parent class
-            if (clazz.parentTypeName != null) {
-                superclass(clazz.parentTypeName)
-            }
+            clazz.parentTypeName?.let { superclass(it) }
 
             // interfaces
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
 
+            // KGType property and companion init
+            val companionSpecBuilder = TypeSpec.companionObjectBuilder()
             buildKGTypeProperty(clazz)?.let { property ->
                 addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
                 companionSpecBuilder.addKGTypeInit(clazz.typeName, property, repository)
@@ -78,9 +72,21 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 .sortedBy { it.nativeName.length }
                 .forEachIndexed { index, constructor ->
                     if (index == 0) {
-                        addFunction(buildClassConstructor(constructor))
+                        // main no-arg constructor
+                        val primaryConstructor = buildClassConstructor(constructor) { codeBlock ->
+                            callThisConstructor(codeBlock)
+                        }
+                        addFunction(primaryConstructor)
                     } else {
-                        companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+                        // conflicting no-arg constructor: add as factory method in companion
+                        val factory = buildClassConstructorFactoryMethod(
+                            clazz,
+                            constructor,
+                            appendSignatureParameters = { params -> appendSignatureParameters(params) },
+                            addGErrorAllocation = { addGErrorAllocation() },
+                            addErrorHandling = { ctor, name -> addErrorHandling(ctor, name) },
+                        )
+                        companionSpecBuilder.addFunction(factory)
                     }
                 }
 
@@ -88,12 +94,16 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
             val groupBySignature = argumentConstructors.groupBy { constructor ->
                 constructor.parameters.joinToString(",") { it.typeInfo.kotlinTypeName.toString() }
             }
+
             groupBySignature.values.forEach { group ->
                 when (group.size) {
                     0 -> error("Should not happen")
                     1 -> {
                         // non-conflicting constructor
-                        addFunction(buildClassConstructor(group.first()))
+                        val primaryConstructor = buildClassConstructor(group.first()) { codeBlock ->
+                            callThisConstructor(codeBlock)
+                        }
+                        addFunction(primaryConstructor)
                     }
 
                     else -> {
@@ -102,11 +112,21 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                             if (index == 0) {
                                 // add the shortest conflicting method name as an actual constructor
                                 // this isn't the best heuristic but it works for most use cases
-                                addFunction(buildClassConstructor(constructor))
+                                val primaryConstructor = buildClassConstructor(constructor) { codeBlock ->
+                                    callThisConstructor(codeBlock)
+                                }
+                                addFunction(primaryConstructor)
                             }
                             // add all conflicting as constructors as factory functions
                             // this helps with developer discoverability (for example Gtk4 Button)
-                            companionSpecBuilder.addFunction(buildClassConstructorFactoryMethod(clazz, constructor))
+                            val factory = buildClassConstructorFactoryMethod(
+                                clazz,
+                                constructor,
+                                appendSignatureParameters = { params -> appendSignatureParameters(params) },
+                                addGErrorAllocation = { addGErrorAllocation() },
+                                addErrorHandling = { ctor, name -> addErrorHandling(ctor, name) },
+                            )
+                            companionSpecBuilder.addFunction(factory)
                         }
                     }
                 }
@@ -140,325 +160,11 @@ interface ClassGenerator : MiscGenerator, KDocGenerator {
                 addFunction(buildSignalConnectFunction(signal, "gPointer"))
             }
 
-            // add companion functions
+            // companion functions
             clazz.functions.forEach { companionSpecBuilder.addFunction(buildFunction(it)) }
 
             if (companionSpecBuilder.propertySpecs.isNotEmpty() || companionSpecBuilder.funSpecs.isNotEmpty()) {
                 addType(companionSpecBuilder.build())
             }
         }.build()
-
-    /**
-     * Build the constructor for pointer wrapping.
-     */
-    private fun buildPointerConstructor(builder: TypeSpec.Builder, clazz: ClassBlueprint) {
-        val constructorSpecBuilder = FunSpec.constructorBuilder()
-
-        val pointerParamSpec = ParameterSpec.builder("pointer", clazz.objectPointerTypeName).build()
-        constructorSpecBuilder.addParameter(pointerParamSpec)
-
-        if (clazz.hasParent) {
-            // call superclass constructor
-            builder.addSuperclassConstructorParameter(CodeBlock.of("pointer.%M()", BindingsGenerator.REINTERPRET_FUNC))
-        } else {
-            // init pointer property
-            constructorSpecBuilder.addStatement("gPointer·= pointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
-            if (clazz.kotlinName == "Object") {
-                constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
-            }
-        }
-
-        builder.primaryConstructor(constructorSpecBuilder.build())
-    }
-
-    /**
-     * Build a class constructor based on a [ConstructorBlueprint].
-     */
-    @Suppress("LongMethod")
-    private fun buildClassConstructor(constructor: ConstructorBlueprint): FunSpec =
-        FunSpec.constructorBuilder().apply {
-            if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
-                error("Invalid constructor return type")
-            }
-
-            buildMethodKDoc(
-                kdoc = constructor.kdoc,
-                parameters = constructor.parameters,
-                optInVersionBlueprint = constructor.optInVersionBlueprint,
-                returnTypeKDoc = constructor.returnTypeKDoc,
-            )?.let { addKdoc(it) }
-
-            if (constructor.throws) {
-                // add throw annotation
-                addAnnotation(
-                    AnnotationSpec.builder(BindingsGenerator.THROWS_TYPE)
-                        .addMember("%T::class", BindingsGenerator.GLIB_EXCEPTION_TYPE)
-                        .build(),
-                )
-            }
-
-            if (constructor.parameters.isEmpty()) {
-                if (constructor.throws) error("Throwing no-argument constructors are not supported")
-                // no arg constructor
-                callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
-            } else {
-                // constructor with arguments
-                appendSignatureParameters(constructor.parameters)
-                val codeBlockBuilder = CodeBlock.builder()
-
-                if (constructor.needsMemscoped) {
-                    codeBlockBuilder.beginControlFlow("%M", BindingsGenerator.MEMSCOPED)
-                }
-
-                if (constructor.throws) {
-                    // prepare error pointer
-                    codeBlockBuilder.addStatement(
-                        "val gError = %M<%M>()",
-                        BindingsGenerator.ALLOC_POINTER_TO,
-                        BindingsGenerator.G_ERROR_MEMBER,
-                    )
-                    // open native method call into intermediate val
-                    codeBlockBuilder.add("val gResult = %M(", constructor.nativeMemberName) // open native function call
-                } else {
-                    // if not throws, we can return directly without intermediate
-                    codeBlockBuilder.add("%M(", constructor.nativeMemberName) // open native func call
-                }
-
-                constructor.parameters.forEachIndexed { index, param ->
-                    if (index > 0) {
-                        codeBlockBuilder.add(", ")
-                    }
-                    codeBlockBuilder.add(buildParameterConversionBlock(param))
-                }
-
-                if (constructor.throws) {
-                    codeBlockBuilder.add(", gError.%M", BindingsGenerator.PTR_FUNC)
-                }
-
-                codeBlockBuilder.add(")") // close native func call
-
-                if (constructor.throws) {
-                    codeBlockBuilder.addStatement("")
-                    // error handling
-                    codeBlockBuilder.beginControlFlow("if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
-                    // throw the exception
-                    codeBlockBuilder.addStatement(
-                        "throw·%M(%T(gError.%M!!.%M))",
-                        constructor.exceptionResolvingFunctionMember,
-                        BindingsGenerator.GLIB_ERROR_TYPE,
-                        BindingsGenerator.POINTED_FUNC,
-                        BindingsGenerator.PTR_FUNC,
-                    )
-                    codeBlockBuilder.endControlFlow()
-                    // if no error, use the result
-                    codeBlockBuilder.addStatement("gResult!!.reinterpret()")
-                } else {
-                    codeBlockBuilder.add("!!.reinterpret()")
-                }
-
-                if (constructor.needsMemscoped) {
-                    codeBlockBuilder.endControlFlow()
-                }
-
-                callThisConstructor(codeBlockBuilder.build())
-            }
-        }.build()
-
-    /**
-     * Build a constructor factory method based on a [ConstructorBlueprint].
-     */
-    @Suppress("LongMethod")
-    private fun buildClassConstructorFactoryMethod(clazz: ClassBlueprint, constructor: ConstructorBlueprint): FunSpec =
-        FunSpec.builder(constructor.kotlinName).apply {
-            // Determine the return type
-            val returnTypeName = if (constructor.throws) {
-                BindingsGenerator.RESULT_TYPE.parameterizedBy(clazz.typeName)
-            } else {
-                clazz.typeName
-            }
-            returns(returnTypeName)
-
-            // Ensure the constructor returns an object pointer
-            if (constructor.returnTypeInfo !is TypeInfo.ObjectPointer) {
-                error("Invalid constructor return type for ${constructor.nativeName}")
-            }
-
-            // Add KDoc to the method
-            buildMethodKDoc(
-                kdoc = constructor.kdoc,
-                parameters = constructor.parameters,
-                optInVersionBlueprint = constructor.optInVersionBlueprint,
-                returnTypeKDoc = constructor.returnTypeKDoc,
-            )?.let { addKdoc(it) }
-
-            // Use memScoped if needed
-            if (constructor.needsMemscoped) {
-                beginControlFlow("return·%M", BindingsGenerator.MEMSCOPED)
-            }
-
-            // Handle constructors without parameters
-            if (constructor.parameters.isEmpty()) {
-                if (constructor.throws) {
-                    // Allocate GError** and initialize
-                    addGErrorAllocation()
-
-                    // Call the native constructor function with gError
-                    addStatement(
-                        "val gResult = %M(gError.%M)",
-                        constructor.nativeMemberName,
-                        BindingsGenerator.PTR_FUNC,
-                    )
-
-                    // Add error handling
-                    addErrorHandling(constructor)
-                } else {
-                    // Non-throwing no-arg factory method
-                    addStatement(
-                        "return·%T(%M()!!.%M())",
-                        clazz.typeName,
-                        constructor.nativeMemberName,
-                        BindingsGenerator.REINTERPRET_FUNC,
-                    )
-                }
-
-                if (constructor.needsMemscoped) {
-                    endControlFlow()
-                }
-            } else {
-                // Handle constructors with parameters
-                appendSignatureParameters(constructor.parameters)
-
-                if (constructor.throws) {
-                    // Allocate GError** and initialize
-                    addGErrorAllocation()
-
-                    // Begin native function call
-                    addCode("val gResult = %M(", constructor.nativeMemberName)
-                } else {
-                    // Return directly if the constructor doesn't throw
-                    addCode("return·%T(%M(", clazz.typeName, constructor.nativeMemberName)
-                }
-
-                // Add parameters to the native function call
-                constructor.parameters.forEachIndexed { index, param ->
-                    if (index > 0) {
-                        addCode(", ")
-                    }
-                    addCode(buildParameterConversionBlock(param))
-                }
-
-                // Add the error parameter if needed
-                if (constructor.throws) {
-                    addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
-                }
-
-                // Close the native function call
-                if (constructor.throws) {
-                    addCode(")")
-                    addStatement("")
-
-                    // Add error handling
-                    addErrorHandling(constructor)
-                } else {
-                    addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
-                }
-
-                if (constructor.needsMemscoped) {
-                    endControlFlow()
-                }
-            }
-        }.build()
-
-    private fun FunSpec.Builder.addGErrorAllocation() {
-        // Allocate GError**
-        addStatement(
-            "val gError = %M<%M>()",
-            BindingsGenerator.ALLOC_POINTER_TO,
-            BindingsGenerator.G_ERROR_MEMBER,
-        )
-        // Initialize gError to null
-        addStatement("gError.%M = null", BindingsGenerator.VALUE_PROPERTY)
-    }
-
-    private fun FunSpec.Builder.addErrorHandling(
-        constructor: ConstructorBlueprint,
-        gResultVariableName: String = "gResult"
-    ) {
-        // Check for errors
-        beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
-        addStatement(
-            "%T.failure(%M(%T(gError.%M!!.%M)))",
-            BindingsGenerator.RESULT_TYPE,
-            constructor.exceptionResolvingFunctionMember,
-            BindingsGenerator.GLIB_ERROR_TYPE,
-            BindingsGenerator.POINTED_FUNC,
-            BindingsGenerator.PTR_FUNC,
-        )
-        endControlFlow()
-        beginControlFlow("else")
-        val returnTypeName = if (!constructor.returnTypeInfo.kotlinTypeName.isNullable) {
-            constructor.returnTypeInfo.kotlinTypeName
-        } else {
-            constructor.returnTypeInfo.withNullable(false).kotlinTypeName
-        }
-        addStatement(
-            "%T.success(%T(checkNotNull($gResultVariableName).%M()))",
-            BindingsGenerator.RESULT_TYPE,
-            returnTypeName,
-            BindingsGenerator.REINTERPRET_FUNC,
-        )
-        endControlFlow()
-    }
-
-    /**
-     * Build the pointer property for a class.
-     */
-    private fun buildClassObjectPointerProperty(clazz: ClassBlueprint): PropertySpec {
-        val propertyBuilder = PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
-
-        if (clazz.hasParent) {
-            // if class has a parent, we can downcast the gPointer from parent, using a getter
-            propertyBuilder.getter(
-                FunSpec.getterBuilder()
-                    .addStatement("return·gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
-                    .build(),
-            )
-        }
-
-        return propertyBuilder.build()
-    }
-
-    /**
-     * Build the interface pointer property for classes implementing an interface.
-     *
-     * This is the pointer that needs to be overridden to conform to the interface.
-     */
-    private fun buildClassInterfacePointerProperty(iface: ImplementsInterfaceBlueprint): PropertySpec {
-        val propertyBuilder = PropertySpec.builder(iface.interfacePointerName, iface.interfacePointerTypeName)
-            .addModifiers(KModifier.OVERRIDE)
-
-        propertyBuilder.getter(
-            FunSpec.getterBuilder()
-                .addStatement("return·gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
-                .build(),
-        )
-
-        return propertyBuilder.build()
-    }
-
-    /**
-     * Build the KGType property for a class. If no glibGetType is defined, we skip this property.
-     */
-    fun buildKGTypeProperty(clazz: ClassBlueprint): PropertySpec? = if (clazz.glibGetTypeFunc == null) {
-        null
-    } else {
-        val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
-        PropertySpec.builder("type", propertyType, KModifier.OVERRIDE).initializer(
-            "%T(%M())·{ %T(it.%M()) }",
-            BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE,
-            clazz.glibGetTypeFunc,
-            clazz.typeName,
-            BindingsGenerator.REINTERPRET_FUNC,
-        ).build()
-    }
 }

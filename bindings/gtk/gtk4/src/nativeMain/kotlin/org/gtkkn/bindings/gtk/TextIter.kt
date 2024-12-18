@@ -12,9 +12,9 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.Language
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.gunichar
@@ -124,23 +124,6 @@ import kotlin.native.ref.createCleaner
  * [text widget conceptual overview](section-text-widget.html),
  * which gives an overview of all the objects and data types
  * related to the text widget and how they work together.
- *
- * ## Skipped during bindings generation
- *
- * - field `dummy1`: Record field dummy1 is private
- * - field `dummy2`: Record field dummy2 is private
- * - field `dummy3`: Record field dummy3 is private
- * - field `dummy4`: Record field dummy4 is private
- * - field `dummy5`: Record field dummy5 is private
- * - field `dummy6`: Record field dummy6 is private
- * - field `dummy7`: Record field dummy7 is private
- * - field `dummy8`: Record field dummy8 is private
- * - field `dummy9`: Record field dummy9 is private
- * - field `dummy10`: Record field dummy10 is private
- * - field `dummy11`: Record field dummy11 is private
- * - field `dummy12`: Record field dummy12 is private
- * - field `dummy13`: Record field dummy13 is private
- * - field `dummy14`: Record field dummy14 is private
  */
 public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gtkTextIterPointer: CPointer<GtkTextIter> = pointer

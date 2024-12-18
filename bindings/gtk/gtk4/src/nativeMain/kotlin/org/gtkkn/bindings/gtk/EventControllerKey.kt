@@ -10,8 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -79,9 +79,9 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
      *
      * @return the `GtkIMContext`
      */
-    public open fun getImContext(): IMContext? =
+    public open fun getImContext(): ImContext? =
         gtk_event_controller_key_get_im_context(gtkEventControllerKeyPointer.reinterpret())?.run {
-            IMContext(reinterpret())
+            ImContext(reinterpret())
         }
 
     /**
@@ -89,7 +89,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
      *
      * @param imContext a `GtkIMContext`
      */
-    public open fun setImContext(imContext: IMContext? = null): Unit = gtk_event_controller_key_set_im_context(
+    public open fun setImContext(imContext: ImContext? = null): Unit = gtk_event_controller_key_set_im_context(
         gtkEventControllerKeyPointer.reinterpret(),
         imContext?.gtkIMContextPointer?.reinterpret()
     )

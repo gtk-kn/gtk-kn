@@ -49,8 +49,8 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `issuer_raw_dn`: Array parameter of type guint8 is not supported
- * - parameter `issuer_raw_dn`: Array parameter of type guint8 is not supported
+ * - parameter `issuer_raw_dn`: GLib.ByteArray parameter of type guint8 is not supported
+ * - parameter `issuer_raw_dn`: GLib.ByteArray parameter of type guint8 is not supported
  *
  * @since 2.30
  */

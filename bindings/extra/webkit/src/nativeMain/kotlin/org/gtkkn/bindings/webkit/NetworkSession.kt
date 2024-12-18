@@ -23,8 +23,8 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.webkit.WebKit.resolveException
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -237,9 +237,9 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getTlsErrorsPolicy(): TLSErrorsPolicy =
+    public fun getTlsErrorsPolicy(): TlsErrorsPolicy =
         webkit_network_session_get_tls_errors_policy(webkitNetworkSessionPointer.reinterpret()).run {
-            TLSErrorsPolicy.fromNativeValue(this)
+            TlsErrorsPolicy.fromNativeValue(this)
         }
 
     /**
@@ -339,7 +339,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun setTlsErrorsPolicy(policy: TLSErrorsPolicy): Unit =
+    public fun setTlsErrorsPolicy(policy: TlsErrorsPolicy): Unit =
         webkit_network_session_set_tls_errors_policy(webkitNetworkSessionPointer.reinterpret(), policy.nativeValue)
 
     /**

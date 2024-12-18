@@ -32,10 +32,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `attribute`: attribute: Out parameter is not supported
- * - field `dummy0`: Record field dummy0 is private
- * - field `dummy1`: Record field dummy1 is private
- * - field `dummy2`: Record field dummy2 is private
- * - field `dummy3`: Record field dummy3 is private
  *
  * @since 2.66
  */

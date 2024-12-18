@@ -9,8 +9,8 @@ import org.gtkkn.bindings.gtk.PrintContext
 import org.gtkkn.bindings.gtk.TextTag
 import org.gtkkn.bindings.gtk.WrapMode
 import org.gtkkn.bindings.gtksource.annotations.GtkSourceVersion5_2
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion

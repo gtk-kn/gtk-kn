@@ -40,8 +40,8 @@ package org.gtkkn.gir.model
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirUnion(
     val info: GirInfo,
-    val name: String? = null,
-    val cType: String? = null,
+    override val name: String? = null,
+    override val cType: String? = null,
     val cSymbolPrefix: String? = null,
     val glibTypeName: String? = null,
     val glibGetType: String? = null,
@@ -56,7 +56,7 @@ data class GirUnion(
     val functions: List<GirFunction> = emptyList(),
     val functionInlines: List<GirFunctionInline> = emptyList(),
     val records: List<GirRecord> = emptyList(),
-) : GirNode {
+) : GirNode, GirNamedElement {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {
@@ -71,4 +71,7 @@ data class GirUnion(
         functionInlines.forEach { it.initialize(this, namespace) }
         records.forEach { it.initialize(this, namespace) }
     }
+
+    fun shouldBeGenerated(): Boolean =
+        info.shouldBeGenerated() && name != "priv" && cType != "priv"
 }

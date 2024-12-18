@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
-import org.gtkkn.extensions.common.toCStringList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.webkit.WebKitUserStyleSheet
 import org.gtkkn.native.webkit.webkit_user_style_sheet_get_type

@@ -16,3 +16,9 @@ signal_set_va_marshaller#function ignore
 // The method "g_type_module_use" overrides "g_type_plugin_use" with a different return type,
 // which is not allowed in Kotlin. To resolve this, it is renamed from "use" to "use_type_module".
 TypeModule.use#method name="use_type_module"
+
+// Private field
+WeakRef.priv ignore
+
+// Cannot pass forward declaration 'GTypeCValue /* = _GTypeCValue */' for reified type parameter
+TypeCValue.*#field ignore

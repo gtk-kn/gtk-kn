@@ -61,7 +61,6 @@ import kotlin.native.ref.createCleaner
  * - field `method_call`: DBusInterfaceMethodCallFunc
  * - field `get_property`: DBusInterfaceGetPropertyFunc
  * - field `set_property`: DBusInterfaceSetPropertyFunc
- * - field `padding`: Record field padding is private
  *
  * @since 2.26
  */

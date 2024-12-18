@@ -40,8 +40,6 @@ import kotlin.native.ref.createCleaner
  * - field `check`: Fields with callbacks are not supported
  * - field `dispatch`: Fields with callbacks are not supported
  * - field `finalize`: Fields with callbacks are not supported
- * - field `closure_callback`: Record field closure_callback is private
- * - field `closure_marshal`: Record field closure_marshal is private
  */
 public class SourceFuncs(pointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibSourceFuncsPointer: CPointer<GSourceFuncs> = pointer

@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.ParameterSpec
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirCallback
 import org.gtkkn.gir.model.GirNamespace
@@ -83,7 +84,7 @@ class CallbackBlueprintBuilder(
             )
 
         return CallbackBlueprint(
-            kotlinName = girCallback.name,
+            kotlinName = girCallback.name.toPascalCase(),
             returnTypeInfo = returnTypeInfo,
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,

@@ -24,7 +24,7 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -153,10 +153,10 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @since 4.6
      */
     @GdkVersion4_6
-    public open fun createGlContext(): Result<GLContext> = memScoped {
+    public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_display_create_gl_context(gdkDisplayPointer.reinterpret(), gError.ptr)?.run {
-            GLContext(reinterpret())
+            GlContext(reinterpret())
         }
 
         return if (gError.pointed != null) {

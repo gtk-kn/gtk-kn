@@ -26,7 +26,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `axes`: Fields with arrays are not supported
+ * - field `axes`: Array parameter of type gdouble is not supported
  */
 public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gdkTimeCoordPointer: CPointer<GdkTimeCoord> = pointer

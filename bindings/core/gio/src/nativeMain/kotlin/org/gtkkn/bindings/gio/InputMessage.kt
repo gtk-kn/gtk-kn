@@ -43,8 +43,8 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `vectors`: Fields with arrays are not supported
- * - field `control_messages`: Fields with arrays are not supported
+ * - field `vectors`: InputVector
+ * - field `control_messages`: Array parameter of type SocketControlMessage is not supported
  * - field `num_control_messages`: Unsupported pointer to primitive type
  *
  * @since 2.48

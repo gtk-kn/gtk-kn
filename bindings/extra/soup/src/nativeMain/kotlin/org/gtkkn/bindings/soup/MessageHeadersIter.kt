@@ -27,7 +27,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `name`: name: Out parameter is not supported
- * - field `dummy`: Record field dummy is private
  */
 public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {

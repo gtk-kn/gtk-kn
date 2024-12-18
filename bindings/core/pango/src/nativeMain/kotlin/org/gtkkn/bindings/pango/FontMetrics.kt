@@ -45,19 +45,6 @@ import kotlin.native.ref.createCleaner
  *   <source srcset="fontmetrics-dark.png" media="(prefers-color-scheme: dark)">
  *   <img alt="Font metrics" src="fontmetrics-light.png">
  * </picture>
- *
- * ## Skipped during bindings generation
- *
- * - field `ref_count`: Record field ref_count is private
- * - field `ascent`: Record field ascent is private
- * - field `descent`: Record field descent is private
- * - field `height`: Record field height is private
- * - field `approximate_char_width`: Record field approximate_char_width is private
- * - field `approximate_digit_width`: Record field approximate_digit_width is private
- * - field `underline_position`: Record field underline_position is private
- * - field `underline_thickness`: Record field underline_thickness is private
- * - field `strikethrough_position`: Record field strikethrough_position is private
- * - field `strikethrough_thickness`: Record field strikethrough_thickness is private
  */
 public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val pangoFontMetricsPointer: CPointer<PangoFontMetrics> = pointer

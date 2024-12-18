@@ -4,8 +4,8 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gtk.GtkTreeRowReference
 import org.gtkkn.native.gtk.gtk_tree_row_reference_copy

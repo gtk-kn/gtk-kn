@@ -27,7 +27,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `param_types`: Fields with arrays are not supported
+ * - field `param_types`: Array parameter of type GType is not supported
  */
 public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectSignalQueryPointer: CPointer<GSignalQuery> = pointer

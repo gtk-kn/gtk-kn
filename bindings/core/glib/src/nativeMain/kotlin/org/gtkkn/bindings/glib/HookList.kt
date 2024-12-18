@@ -9,9 +9,9 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GHookList
 import org.gtkkn.native.glib.g_hook_list_clear
 import org.gtkkn.native.glib.g_hook_list_init
@@ -35,7 +35,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - field `finalize_hook`: HookFinalizeFunc
- * - field `dummy`: Fields with arrays are not supported
+ * - field `dummy`: Array parameter of type gpointer is not supported
  */
 public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibHookListPointer: CPointer<GHookList> = pointer

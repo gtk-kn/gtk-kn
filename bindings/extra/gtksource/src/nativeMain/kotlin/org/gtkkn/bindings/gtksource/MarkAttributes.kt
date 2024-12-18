@@ -5,12 +5,12 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -167,7 +167,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      * @param background a #GdkRGBA.
      * @return whether background color for @attributes was set.
      */
-    public open fun getBackground(background: RGBA): Boolean = gtk_source_mark_attributes_get_background(
+    public open fun getBackground(background: Rgba): Boolean = gtk_source_mark_attributes_get_background(
         gtksourceMarkAttributesPointer.reinterpret(),
         background.gdkRGBAPointer.reinterpret()
     ).asBoolean()
@@ -231,7 +231,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      *
      * @param background a #GdkRGBA.
      */
-    public open fun setBackground(background: RGBA): Unit = gtk_source_mark_attributes_set_background(
+    public open fun setBackground(background: Rgba): Unit = gtk_source_mark_attributes_set_background(
         gtksourceMarkAttributesPointer.reinterpret(),
         background.gdkRGBAPointer.reinterpret()
     )

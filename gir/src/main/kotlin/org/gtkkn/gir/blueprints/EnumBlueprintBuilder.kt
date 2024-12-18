@@ -19,6 +19,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirEnumeration
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirMember
@@ -50,7 +51,7 @@ class EnumBlueprintBuilder(
         }
 
         var memberBlueprint = EnumMemberBlueprint(
-            kotlinName = context.kotlinzeEnumMemberName(girMember.name),
+            kotlinName = girMember.name.uppercase(),
             nativeName = girMember.name,
             nativeValue = nativeValue,
             nativeMemberName = nativeMemberName,
@@ -92,7 +93,7 @@ class EnumBlueprintBuilder(
         girEnum.members.forEach { addMember(it) }
         girEnum.functions.forEach { addFunction(it) }
 
-        val kotlinName = context.kotlinizeEnumName(girEnum.name)
+        val kotlinName = girEnum.name.toPascalCase()
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
         val nativeValueTypeName = ClassName(nativePackageName, girEnum.cType)
 
@@ -101,7 +102,7 @@ class EnumBlueprintBuilder(
         }
 
         return EnumBlueprint(
-            kotlinName = context.kotlinizeEnumName(girEnum.name),
+            kotlinName = girEnum.name.toPascalCase(),
             kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
             nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girEnum.cType),
             nativeValueTypeName = nativeValueTypeName,

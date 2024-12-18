@@ -53,7 +53,6 @@ import kotlin.native.ref.createCleaner
  * - parameter `pspecs`: Array parameter of type ParamSpec is not supported
  * - parameter `n_properties`: n_properties: Out parameter is not supported
  * - field `g_type_class`: TypeClass
- * - field `construct_properties`: Record field construct_properties is private
  * - field `constructor`: Fields with callbacks are not supported
  * - field `set_property`: Fields with callbacks are not supported
  * - field `get_property`: Fields with callbacks are not supported
@@ -62,11 +61,6 @@ import kotlin.native.ref.createCleaner
  * - field `dispatch_properties_changed`: Fields with callbacks are not supported
  * - field `notify`: Fields with callbacks are not supported
  * - field `constructed`: Fields with callbacks are not supported
- * - field `flags`: Record field flags is private
- * - field `n_construct_properties`: Record field n_construct_properties is private
- * - field `pspecs`: Record field pspecs is private
- * - field `n_pspecs`: Record field n_pspecs is private
- * - field `pdummy`: Record field pdummy is private
  */
 public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectObjectClassPointer: CPointer<GObjectClass> = pointer

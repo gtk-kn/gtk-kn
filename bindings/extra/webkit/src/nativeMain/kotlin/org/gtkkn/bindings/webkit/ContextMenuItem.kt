@@ -7,7 +7,7 @@ import org.gtkkn.bindings.gio.Action
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.InitiallyUnowned
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
-import org.gtkkn.extensions.common.asBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion

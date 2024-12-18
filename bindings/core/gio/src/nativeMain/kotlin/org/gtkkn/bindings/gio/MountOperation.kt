@@ -18,9 +18,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gio.annotations.GioVersion2_58
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toKStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -86,7 +86,7 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - signal `show-processes`: Unsupported parameter `processes` : Array parameter of type GLib.Pid is not supported
+ * - signal `show-processes`: Unsupported parameter `processes` : GLib.Array parameter of type GLib.Pid is not supported
  */
 public open class MountOperation(pointer: CPointer<GMountOperation>) :
     Object(pointer.reinterpret()),

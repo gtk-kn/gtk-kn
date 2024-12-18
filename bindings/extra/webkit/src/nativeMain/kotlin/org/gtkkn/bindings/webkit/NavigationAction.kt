@@ -7,8 +7,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_20
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitNavigationAction
@@ -115,9 +115,9 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getRequest(): URIRequest =
+    public fun getRequest(): UriRequest =
         webkit_navigation_action_get_request(webkitNavigationActionPointer.reinterpret())!!.run {
-            URIRequest(reinterpret())
+            UriRequest(reinterpret())
         }
 
     /**

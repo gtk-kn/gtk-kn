@@ -8,8 +8,8 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GRecMutex
 import org.gtkkn.native.glib.g_rec_mutex_clear
 import org.gtkkn.native.glib.g_rec_mutex_init
@@ -35,12 +35,6 @@ import kotlin.native.ref.createCleaner
  *
  * A GRecMutex should only be accessed with the
  * g_rec_mutex_ functions.
- *
- * ## Skipped during bindings generation
- *
- * - field `p`: Record field p is private
- * - field `i`: Record field i is private
- *
  * @since 2.32
  */
 @GLibVersion2_32

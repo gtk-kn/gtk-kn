@@ -12,8 +12,8 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gobject.guint
@@ -355,14 +355,14 @@ public object WebKit {
     }
 }
 
-public val URISchemeRequestCallbackFunc:
+public val UriSchemeRequestCallbackFunc:
     CPointer<CFunction<(CPointer<WebKitURISchemeRequest>) -> Unit>> = staticCFunction {
             request: CPointer<WebKitURISchemeRequest>?,
             userData: gpointer?,
         ->
-        userData!!.asStableRef<(request: URISchemeRequest) -> Unit>().get().invoke(
+        userData!!.asStableRef<(request: UriSchemeRequest) -> Unit>().get().invoke(
             request!!.run {
-                URISchemeRequest(reinterpret())
+                UriSchemeRequest(reinterpret())
             }
         )
     }
@@ -374,4 +374,4 @@ public val URISchemeRequestCallbackFunc:
  *
  * - param `request` the #WebKitURISchemeRequest
  */
-public typealias URISchemeRequestCallback = (request: URISchemeRequest) -> Unit
+public typealias UriSchemeRequestCallback = (request: UriSchemeRequest) -> Unit

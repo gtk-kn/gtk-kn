@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
@@ -50,15 +51,15 @@ class BitfieldBlueprintBuilder(
             throw NotIntrospectableException(girBitfield.cType)
         }
 
-        val kotlinName = context.kotlinizeBitfieldName(girBitfield.name)
-        val kotlinPackageName = context.kotlinizePackageName(checkNotNull(girNamespace.name))
+        val kotlinName = girBitfield.name.toPascalCase()
+        val kotlinPackageName = context.getKotlinPackageName(checkNotNull(girNamespace.name))
         val kotlinTypeName = ClassName(kotlinPackageName, kotlinName)
 
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
         val nativeValueTypeName = ClassName(nativePackageName, girBitfield.cType)
 
         girBitfield.members.forEach { member ->
-            val memberKotlinName = context.kotlinizeBitfieldMemberName(member.name)
+            val memberKotlinName = member.name.uppercase()
             members.add(
                 BitfieldMemberBlueprint(
                     kotlinName = memberKotlinName,
@@ -75,7 +76,7 @@ class BitfieldBlueprintBuilder(
         girBitfield.functions.forEach { addFunction(it) }
 
         return BitfieldBlueprint(
-            kotlinName = context.kotlinizeClassName(girBitfield.name),
+            kotlinName = girBitfield.name.toPascalCase(),
             members = members,
             functionBlueprints = functionBlueprints,
             kotlinTypeName = kotlinTypeName,

@@ -24,8 +24,8 @@ import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_44
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_54
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_66
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_74
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.glib.g_strdup
 import org.gtkkn.native.glib.gpointer
@@ -207,6 +207,7 @@ import kotlin.Unit
  * - record `InitiallyUnownedClass`: glib type struct are ignored
  * - record `ParamSpecClass`: glib type struct are ignored
  * - record `TypeModuleClass`: glib type struct are ignored
+ * - union `_Value__data__union`: Missing cType on union
  */
 public object GObject {
     /**

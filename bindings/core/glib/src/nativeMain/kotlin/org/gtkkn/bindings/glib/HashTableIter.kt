@@ -34,12 +34,6 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `key`: key: Out parameter is not supported
- * - field `dummy1`: Record field dummy1 is private
- * - field `dummy2`: Record field dummy2 is private
- * - field `dummy3`: Record field dummy3 is private
- * - field `dummy4`: Record field dummy4 is private
- * - field `dummy5`: Record field dummy5 is private
- * - field `dummy6`: Record field dummy6 is private
  */
 public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibHashTableIterPointer: CPointer<GHashTableIter> = pointer

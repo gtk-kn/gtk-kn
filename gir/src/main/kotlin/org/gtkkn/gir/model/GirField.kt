@@ -49,4 +49,7 @@ data class GirField(
         annotations.forEach { it.initialize(this, namespace) }
         type.initialize(this, namespace)
     }
+
+    fun shouldBeGenerated(): Boolean =
+        info.shouldBeGenerated() && private != false && readable != false
 }

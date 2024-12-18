@@ -42,14 +42,18 @@ import java.io.File
 @Inject
 class BindingsGenerator(
     private val config: Config,
-) : ClassGenerator,
-    InterfaceGenerator,
-    EnumGenerator,
+) :
+    AliasGenerator,
     BitfieldGenerator,
-    RepositoryObjectGenerator,
+    CallbackGenerator,
+    ClassGenerator,
+    EnumGenerator,
+    InterfaceGenerator,
+    OptInAnnotationGenerator,
     RecordGenerator,
+    RepositoryObjectGenerator,
     TypeProviderGenerator,
-    OptInAnnotationGenerator {
+    UnionGenerator {
     @Suppress("LongMethod")
     suspend fun generate(repository: RepositoryBlueprint, moduleOutputDir: File) {
         val repositoryOutputDir = repositoryBuildDir(moduleOutputDir)
@@ -171,6 +175,21 @@ class BindingsGenerator(
                         writeType(
                             record.kotlinTypeName,
                             buildRecord(record),
+                            repositorySrcDir(moduleOutputDir),
+                            ktLintFormatter = ktLintFormatter,
+                        )
+                    }
+                },
+            )
+
+            // Process unions
+            tasks.addAll(
+                repository.unionBlueprints.map { union ->
+                    async {
+                        val ktLintFormatter = KtLintFormatter(config.outputDir)
+                        writeType(
+                            union.kotlinTypeName,
+                            buildUnion(union),
                             repositorySrcDir(moduleOutputDir),
                             ktLintFormatter = ktLintFormatter,
                         )
@@ -320,8 +339,8 @@ class BindingsGenerator(
         private val optInAnnotationsFileMutex = Mutex()
 
         // gtk-kn common function members
-        internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asBoolean")
-        internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.common", "asGBoolean")
+        internal val AS_BOOLEAN_FUNC = MemberName("org.gtkkn.extensions.glib.ext", "asBoolean")
+        internal val AS_GBOOLEAN_FUNC = MemberName("org.gtkkn.extensions.glib.ext", "asGBoolean")
         internal val GLIB_ERROR_TYPE = ClassName("org.gtkkn.bindings.glib", "Error")
         internal val GLIB_EXCEPTION_TYPE = ClassName("org.gtkkn.extensions.glib", "GLibException")
         internal val GLIB_RECORD_COMPANION_TYPE = ClassName("org.gtkkn.extensions.glib", "RecordCompanion")
@@ -334,8 +353,10 @@ class BindingsGenerator(
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
         internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
-        internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toCStringList")
-        internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.common", "toKStringList")
+        internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toCStringList")
+        internal val TO_K_STRING_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toKStringList")
+        internal val TO_G_POINTER_C_ARRAY = MemberName("org.gtkkn.extensions.glib.ext", "toGPointerCArray")
+        internal val TO_G_POINTER_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toGPointerList")
         internal val TYPE_PROVIDER_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "TypeProvider")
         internal val UNSAFE_FIELD_SETTER_TYPE = ClassName("org.gtkkn.extensions.glib.annotations", "UnsafeFieldSetter")
 
@@ -356,6 +377,7 @@ class BindingsGenerator(
         internal val KP_STRING_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(
             ClassName("kotlinx.cinterop", "CPointerVarOf").parameterizedBy(cpointerOf(KP_BYTEVAR)),
         )
+        internal val KP_GPOINTER_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(G_POINTER_VAR)
         internal val KP_WILDCARD_CPOINTER = cpointerOf(WildcardTypeName.producerOf(KP_CPOINTED))
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
@@ -387,7 +409,7 @@ class BindingsGenerator(
         internal val G_OBJECT = ClassName("org.gtkkn.bindings.gobject", "GObject")
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
 
-        // glib members
+        // glib
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
         internal val G_FREE_FUNC = MemberName("org.gtkkn.native.glib", "g_free")
         internal val G_QUARK_FROM_STRING_FUNC = MemberName("org.gtkkn.native.glib", "g_quark_from_string")
@@ -410,6 +432,7 @@ internal val G_INT64 = ClassName("org.gtkkn.native.gobject", "gint64")
 internal val G_INT8 = ClassName("org.gtkkn.native.gobject", "gint8")
 internal val G_LONG = ClassName("org.gtkkn.native.gobject", "glong")
 internal val G_POINTER = ClassName("org.gtkkn.native.glib", "gpointer")
+internal val G_POINTER_VAR = ClassName("org.gtkkn.native.glib", "gpointerVar")
 internal val G_SIZE = ClassName("org.gtkkn.native.gobject", "gsize")
 internal val G_TYPE = ClassName("org.gtkkn.native.gobject", "GType")
 internal val G_UINT = ClassName("org.gtkkn.native.gobject", "guint")

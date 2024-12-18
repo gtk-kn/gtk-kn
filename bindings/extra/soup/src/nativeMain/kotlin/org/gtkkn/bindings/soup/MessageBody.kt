@@ -5,10 +5,10 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.Bytes
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupMessageBody
@@ -47,7 +47,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `data`: Array parameter of type guint8 is not supported
- * - field `data`: Fields with arrays are not supported
+ * - field `data`: Array parameter of type guint8 is not supported
  */
 public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(pointer) {
     public val soupMessageBodyPointer: CPointer<SoupMessageBody> = pointer

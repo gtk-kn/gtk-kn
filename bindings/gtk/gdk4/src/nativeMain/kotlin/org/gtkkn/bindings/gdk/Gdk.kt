@@ -22,8 +22,8 @@ import org.gtkkn.bindings.gio.InputStream
 import org.gtkkn.bindings.gio.OutputStream
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
@@ -5002,9 +5002,9 @@ public object Gdk {
                 ?.let {
                     DmabufErrorException(error, it)
                 }
-            GLError.quark() -> GLError.fromErrorOrNull(error)
+            GlError.quark() -> GlError.fromErrorOrNull(error)
                 ?.let {
-                    GLErrorException(error, it)
+                    GlErrorException(error, it)
                 }
             TextureError.quark() -> TextureError.fromErrorOrNull(error)
                 ?.let {

@@ -35,7 +35,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.FileError
-import org.gtkkn.bindings.glib.IOCondition
+import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Pid
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.bindings.glib.Source
@@ -44,11 +44,11 @@ import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.Closure
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Value
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
-import org.gtkkn.extensions.common.toKStringList
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GAsyncResult
 import org.gtkkn.native.gio.GCancellable
@@ -2374,8 +2374,8 @@ public object Gio {
      * @param errNo Error number as defined in errno.h.
      * @return #GIOErrorEnum value for the given `errno.h` error number
      */
-    public fun ioErrorFromErrno(errNo: gint): IOErrorEnum = g_io_error_from_errno(errNo).run {
-        IOErrorEnum.fromNativeValue(this)
+    public fun ioErrorFromErrno(errNo: gint): IoErrorEnum = g_io_error_from_errno(errNo).run {
+        IoErrorEnum.fromNativeValue(this)
     }
 
     /**
@@ -2386,9 +2386,9 @@ public object Gio {
      * @since 2.74
      */
     @GioVersion2_74
-    public fun ioErrorFromFileError(fileError: FileError): IOErrorEnum =
+    public fun ioErrorFromFileError(fileError: FileError): IoErrorEnum =
         g_io_error_from_file_error(fileError.nativeValue).run {
-            IOErrorEnum.fromNativeValue(this)
+            IoErrorEnum.fromNativeValue(this)
         }
 
     /**
@@ -2463,11 +2463,11 @@ public object Gio {
      * @param cancellable optional #GCancellable object, null to ignore.
      */
     public fun ioSchedulerPushJob(
-        jobFunc: IOSchedulerJobFunc,
+        jobFunc: IoSchedulerJobFunc,
         ioPriority: gint,
         cancellable: Cancellable? = null,
     ): Unit = g_io_scheduler_push_job(
-        IOSchedulerJobFuncFunc.reinterpret(),
+        IoSchedulerJobFuncFunc.reinterpret(),
         StableRef.create(jobFunc).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         ioPriority,
@@ -3022,9 +3022,9 @@ public object Gio {
                 ?.let {
                     DBusErrorException(error, it)
                 }
-            IOErrorEnum.quark() -> IOErrorEnum.fromErrorOrNull(error)
+            IoErrorEnum.quark() -> IoErrorEnum.fromErrorOrNull(error)
                 ?.let {
-                    IOErrorEnumException(error, it)
+                    IoErrorEnumException(error, it)
                 }
             ResolverError.quark() -> ResolverError.fromErrorOrNull(error)
                 ?.let {
@@ -3530,7 +3530,7 @@ public val DatagramBasedSourceFuncFunc: CPointer<
     userData.asStableRef<
         (
             datagramBased: DatagramBased,
-            condition: IOCondition,
+            condition: IoCondition,
             `data`: gpointer?,
         ) -> Boolean
         >().get().invoke(
@@ -3538,7 +3538,7 @@ public val DatagramBasedSourceFuncFunc: CPointer<
             DatagramBased.wrap(reinterpret())
         },
         condition.run {
-            IOCondition(this)
+            IoCondition(this)
         },
         `data`
     ).asGBoolean()
@@ -3642,7 +3642,7 @@ public val FileReadMoreCallbackFunc: CPointer<
 }
     .reinterpret()
 
-public val IOSchedulerJobFuncFunc:
+public val IoSchedulerJobFuncFunc:
     CPointer<CFunction<(CPointer<GCancellable>?, gpointer?) -> gboolean>> = staticCFunction {
             cancellable: CPointer<GCancellable>?,
             `data`: gpointer?,
@@ -3780,7 +3780,7 @@ public val SocketSourceFuncFunc: CPointer<
     userData.asStableRef<
         (
             socket: Socket,
-            condition: IOCondition,
+            condition: IoCondition,
             `data`: gpointer?,
         ) -> Boolean
         >().get().invoke(
@@ -3788,7 +3788,7 @@ public val SocketSourceFuncFunc: CPointer<
             Socket(reinterpret())
         },
         condition.run {
-            IOCondition(this)
+            IoCondition(this)
         },
         `data`
     ).asGBoolean()
@@ -4175,7 +4175,7 @@ public typealias DBusSubtreeEnumerateFunc = (
  */
 public typealias DatagramBasedSourceFunc = (
     datagramBased: DatagramBased,
-    condition: IOCondition,
+    condition: IoCondition,
     `data`: gpointer?,
 ) -> Boolean
 
@@ -4275,7 +4275,7 @@ public typealias FileReadMoreCallback = (
  * - return true if this function should be called again to
  *    complete the job, false if the job is complete (or cancelled)
  */
-public typealias IOSchedulerJobFunc = (cancellable: Cancellable?, `data`: gpointer?) -> Boolean
+public typealias IoSchedulerJobFunc = (cancellable: Cancellable?, `data`: gpointer?) -> Boolean
 
 /**
  * This is the function type of the callback used for the #GSource
@@ -4364,7 +4364,7 @@ public typealias SimpleAsyncThreadFunc = (
  */
 public typealias SocketSourceFunc = (
     socket: Socket,
-    condition: IOCondition,
+    condition: IoCondition,
     `data`: gpointer?,
 ) -> Boolean
 

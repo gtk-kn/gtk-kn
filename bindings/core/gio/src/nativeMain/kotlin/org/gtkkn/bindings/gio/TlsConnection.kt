@@ -20,9 +20,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
-import org.gtkkn.extensions.common.toCStringList
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -85,7 +85,7 @@ import kotlin.collections.List
  */
 @GioVersion2_28
 public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
-    IOStream(pointer.reinterpret()),
+    IoStream(pointer.reinterpret()),
     KGTyped {
     public val gioTlsConnectionPointer: CPointer<GTlsConnection>
         get() = gPointer.reinterpret()

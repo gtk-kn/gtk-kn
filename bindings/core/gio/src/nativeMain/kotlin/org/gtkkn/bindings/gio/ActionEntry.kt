@@ -34,7 +34,6 @@ import kotlin.native.ref.createCleaner
  *
  * - field `activate`: Fields with callbacks are not supported
  * - field `change_state`: Fields with callbacks are not supported
- * - field `padding`: Record field padding is private
  */
 public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gioActionEntryPointer: CPointer<GActionEntry> = pointer

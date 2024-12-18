@@ -16,6 +16,7 @@
 
 package org.gtkkn.gir.blueprints
 
+import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.model.GirArrayType
 import org.gtkkn.gir.model.GirDirection
 import org.gtkkn.gir.model.GirNamespace
@@ -68,7 +69,7 @@ class ParameterBlueprintBuilder(
             }
         }
 
-        val paramKotlinName = context.kotlinizeParameterName(checkNotNull(girParam.name))
+        val paramKotlinName = checkNotNull(girParam.name).toCamelCase()
 
         val typeInfo = when (girParam.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, girParam.type, girParam.isNullable())

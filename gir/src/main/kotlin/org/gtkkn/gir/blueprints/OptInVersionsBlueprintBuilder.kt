@@ -37,7 +37,7 @@ class OptInVersionsBlueprintBuilder(
         }
         val namespaceName = girNamespace.name
         val kotlinClassName = "${namespaceName}Version${girInfo.version.replace(".", "_")}"
-        val kotlinPackageName = context.kotlinizePackageName("${girNamespace.name}.annotations")
+        val kotlinPackageName = context.getKotlinPackageName("${girNamespace.name}.annotations")
 
         val optInVersionBlueprint = OptInVersionBlueprint(
             kotlinName = kotlinClassName,

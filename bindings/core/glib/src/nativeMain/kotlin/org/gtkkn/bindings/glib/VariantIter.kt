@@ -29,7 +29,6 @@ import kotlin.native.ref.createCleaner
  *
  * - method `loop`: Varargs parameter is not supported
  * - method `next`: Varargs parameter is not supported
- * - field `x`: Record field x is private
  */
 public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibVariantIterPointer: CPointer<GVariantIter> = pointer

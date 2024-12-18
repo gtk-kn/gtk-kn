@@ -19,18 +19,16 @@ package org.gtkkn.gir.processor
 import com.squareup.kotlinpoet.BOOLEAN
 import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.LONG
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.UNIT
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 import org.gtkkn.gir.config.Config
-import org.gtkkn.gir.ext.toCamelCase
-import org.gtkkn.gir.ext.toPascalCase
 import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.generator.G_BOOLEAN
 import org.gtkkn.gir.generator.G_CHAR
@@ -55,10 +53,12 @@ import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirEnumeration
 import org.gtkkn.gir.model.GirInterface
+import org.gtkkn.gir.model.GirNamedElement
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirType
+import org.gtkkn.gir.model.GirUnion
 
 /**
  * A context object that has all the Gir information available so any phase 2 processing
@@ -79,40 +79,7 @@ class ProcessorContext(
         findRepositoryByNameOrNull(name)?.namespaces?.first()
             ?: throw UnresolvableTypeException("Namespace $name not found")
 
-    // kotlin names
-    fun kotlinizeMethodName(nativeMethodName: String): String =
-        nativeMethodName
-            .replace("-", "_")
-            .replace("__", "_")
-            .lowercase()
-            .toCamelCase()
-
-    fun kotlinizeClassName(nativeClassName: String): String = nativeClassName.toPascalCase()
-
-    fun kotlinizeInterfaceName(nativeInterfaceName: String): String = nativeInterfaceName.toPascalCase()
-
-    fun kotlinizeRecordName(nativeClassName: String): String = nativeClassName.toPascalCase()
-
-    fun kotlinizeEnumName(nativeEnumName: String): String = nativeEnumName.toPascalCase()
-
-    fun kotlinzeEnumMemberName(nativeEnumMemberName: String): String = nativeEnumMemberName.uppercase()
-
-    fun kotlinizePackageName(nativePackageName: String): String = "org.gtkkn.bindings.${nativePackageName.lowercase()}"
-
-    fun kotlinizeParameterName(nativeParameterName: String): String = nativeParameterName.toCamelCase()
-
-    fun kotlinizeFieldName(nativeParameterName: String): String =
-        nativeParameterName
-            .replace("NULL", "null")
-            .toCamelCase()
-
-    fun kotlinizeBitfieldName(nativeBitfieldName: String): String =
-        nativeBitfieldName.toPascalCase()
-
-    fun kotlinizeBitfieldMemberName(nativeMemberName: String): String = nativeMemberName.uppercase()
-
-    fun kotlinizeSignalConnectName(nativeSignalName: String): String =
-        "connect${nativeSignalName.replace("-", "_").toPascalCase()}"
+    fun getKotlinPackageName(nativePackageName: String): String = "org.gtkkn.bindings.${nativePackageName.lowercase()}"
 
     // namespace naming
     fun namespacePrefix(namespace: GirNamespace): String = checkNotNull(namespace.name).lowercase()
@@ -151,6 +118,18 @@ class ProcessorContext(
         } else {
             BindingsGenerator.cpointerOf(className)
         }
+    }
+
+    /**
+     * Resolve the [TypeName] for the objectPointer we have in all unions.
+     */
+    @Throws(UnresolvableTypeException::class)
+    fun resolveUnionObjectPointerTypeName(namespace: GirNamespace, union: GirUnion): TypeName {
+        val className = ClassName(
+            namespaceNativePackageName(namespace),
+            union.cType ?: throw UnresolvableTypeException("Missing cType on union"),
+        )
+        return BindingsGenerator.cpointerOf(className)
     }
 
     /**
@@ -201,7 +180,7 @@ class ProcessorContext(
         return alias?.run {
             TypeInfo.Alias(
                 nativeTypeName = ClassName(namespaceNativePackageName(namespace), cType),
-                kotlinTypeName = ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(name)),
+                kotlinTypeName = ClassName(namespaceBindingsPackageName(namespace), name.toPascalCase()),
                 baseTypeInfo = resolveTypeInfo(type.namespace, type, false),
             )
         }
@@ -221,13 +200,13 @@ class ProcessorContext(
     fun resolveClassTypeName(targetNamespace: GirNamespace, nativeClassName: String): TypeName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeClassName)
         val clazz = namespace.classes.find { it.name == simpleName }
-        return clazz?.let { ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(it.name)) }
+        return clazz?.let { ClassName(namespaceBindingsPackageName(namespace), it.name.toPascalCase()) }
     }
 
     fun resolveCallbackTypeName(targetNamespace: GirNamespace, nativeCallbackName: String): ClassName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeCallbackName)
         val callback = namespace.callbacks.find { it.name == simpleName }
-        return callback?.let { ClassName(namespaceBindingsPackageName(namespace), kotlinizeClassName(callback.name)) }
+        return callback?.let { ClassName(namespaceBindingsPackageName(namespace), callback.name.toPascalCase()) }
     }
 
     /**
@@ -245,7 +224,7 @@ class ProcessorContext(
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeInterfaceName)
         val iface = namespace.interfaces.find { it.name == simpleName }
         return iface?.let {
-            ClassName(namespaceBindingsPackageName(namespace), kotlinizeInterfaceName(checkNotNull(iface.name)))
+            ClassName(namespaceBindingsPackageName(namespace), checkNotNull(iface.name).toPascalCase())
         }
     }
 
@@ -255,7 +234,7 @@ class ProcessorContext(
         return enum?.let {
             Pair(
                 ClassName(namespaceNativePackageName(namespace), enum.cType),
-                ClassName(namespaceBindingsPackageName(namespace), kotlinizeEnumName(enum.name)),
+                ClassName(namespaceBindingsPackageName(namespace), enum.name.toPascalCase()),
             )
         }
     }
@@ -267,7 +246,7 @@ class ProcessorContext(
         return bitfield?.let {
             Pair(
                 ClassName(namespaceNativePackageName(namespace), bitfield.cType),
-                ClassName(namespaceBindingsPackageName(namespace), kotlinizeBitfieldName(bitfield.name)),
+                ClassName(namespaceBindingsPackageName(namespace), bitfield.name.toPascalCase()),
             )
         }
     }
@@ -275,7 +254,7 @@ class ProcessorContext(
     fun resolveRecordTypeName(targetNamespace: GirNamespace, nativeRecordName: String): TypeName? {
         val (namespace, simpleName) = extractFullyQualifiedName(targetNamespace, nativeRecordName)
         val clazz = namespace.records.find { it.name == simpleName }
-        return clazz?.let { ClassName(namespaceBindingsPackageName(namespace), kotlinizeRecordName(it.name)) }
+        return clazz?.let { ClassName(namespaceBindingsPackageName(namespace), it.name.toPascalCase()) }
     }
 
     /**
@@ -421,41 +400,22 @@ class ProcessorContext(
     fun resolveTypeInfo(girNamespace: GirNamespace, array: GirArrayType, nullable: Boolean): TypeInfo =
         when (array.type) {
             is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
-            is GirType -> {
-                val arrayTypeInfo = resolveTypeInfo(girNamespace, array.type, false)
-                if (arrayTypeInfo is TypeInfo.KString) {
-                    val nullTerminated = array.zeroTerminated == null || array.zeroTerminated == true
-                    TypeInfo.StringList(
-                        nativeTypeName = BindingsGenerator.KP_STRING_ARRAY,
-                        kotlinTypeName = LIST.parameterizedBy(STRING),
-                        nullTerminated,
-                        array.fixedSize,
-                    ).withNullable(nullable)
-                } else {
-                    throw UnresolvableTypeException("Array parameter of type ${array.type.name} is not supported")
-                }
+            is GirType -> if (resolveTypeInfo(girNamespace, array.type, false) is TypeInfo.KString) {
+                TypeInfo.StringList(listSize = array.toListSize()).withNullable(nullable)
+            } else {
+                throw UnresolvableTypeException(
+                    "${array.name ?: "Array"} parameter of type ${array.type.name} is not supported",
+                )
             }
         }
 
-    private fun buildNativeClassName(girNamespace: GirNamespace, girClass: GirClass) =
+    fun buildNativeClassName(girNamespace: GirNamespace, girElement: GirNamedElement) =
         ClassName(
             namespaceNativePackageName(girNamespace),
-            girClass.cType
-                ?: throw UnresolvableTypeException("missing cType for class ${girClass.name}"),
-        )
-
-    private fun buildNativeClassName(girNamespace: GirNamespace, girInterface: GirInterface) =
-        ClassName(
-            namespaceNativePackageName(girNamespace),
-            girInterface.cType
-                ?: throw UnresolvableTypeException("missing cType for interface ${girInterface.name}"),
-        )
-
-    fun buildNativeClassName(girNamespace: GirNamespace, girRecord: GirRecord) =
-        ClassName(
-            namespaceNativePackageName(girNamespace),
-            girRecord.cType
-                ?: throw UnresolvableTypeException("missing cType for interface ${girRecord.name}"),
+            girElement.cType
+                ?: throw UnresolvableTypeException(
+                    "missing cType for ${girElement::class.simpleName} ${girElement.name}",
+                ),
         )
 
     @Throws(UnresolvableTypeException::class)

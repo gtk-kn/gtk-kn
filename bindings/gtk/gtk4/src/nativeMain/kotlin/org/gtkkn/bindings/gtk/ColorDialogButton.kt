@@ -8,7 +8,7 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
@@ -86,7 +86,7 @@ public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open var rgba: RGBA
+    public open var rgba: Rgba
         /**
          * Returns the color of the button.
          *
@@ -98,7 +98,7 @@ public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
          * @since 4.10
          */
         get() = gtk_color_dialog_button_get_rgba(gtkColorDialogButtonPointer.reinterpret())!!.run {
-            RGBA(reinterpret())
+            Rgba(reinterpret())
         }
 
         /**

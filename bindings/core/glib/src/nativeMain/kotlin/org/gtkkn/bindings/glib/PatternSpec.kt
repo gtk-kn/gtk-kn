@@ -4,8 +4,8 @@ package org.gtkkn.bindings.glib
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GPatternSpec
 import org.gtkkn.native.glib.g_pattern_spec_copy
 import org.gtkkn.native.glib.g_pattern_spec_equal

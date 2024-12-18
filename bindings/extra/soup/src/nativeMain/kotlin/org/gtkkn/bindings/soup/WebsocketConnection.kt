@@ -9,7 +9,7 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gio.IOStream
+import org.gtkkn.bindings.gio.IoStream
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
@@ -115,14 +115,14 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      *
      * The input and output streams must be pollable streams.
      */
-    public val ioStream: IOStream
+    public val ioStream: IoStream
         /**
          * Get the I/O stream the WebSocket is communicating over.
          *
          * @return the WebSocket's I/O stream.
          */
         get() = soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer.reinterpret())!!.run {
-            IOStream(reinterpret())
+            IoStream(reinterpret())
         }
 
     /**
@@ -248,7 +248,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * @return a new #SoupWebsocketConnection
      */
     public constructor(
-        stream: IOStream,
+        stream: IoStream,
         uri: Uri,
         type: WebsocketConnectionType,
         origin: String? = null,

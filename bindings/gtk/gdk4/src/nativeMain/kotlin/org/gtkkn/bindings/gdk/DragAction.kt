@@ -1,8 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
-import org.gtkkn.extensions.common.asBoolean
 import org.gtkkn.extensions.glib.Bitfield
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GDK_ACTION_ASK
 import org.gtkkn.native.gdk.GDK_ACTION_COPY
 import org.gtkkn.native.gdk.GDK_ACTION_LINK

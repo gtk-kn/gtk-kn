@@ -83,17 +83,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `notify_func`: ClosureNotify
  * - parameter `marshal`: ClosureMarshal
  * - method `set_meta_marshal`: Callback gpointer not found
- * - field `ref_count`: Record field ref_count is private
- * - field `meta_marshal_nouse`: Record field meta_marshal_nouse is private
- * - field `n_guards`: Record field n_guards is private
- * - field `n_fnotifiers`: Record field n_fnotifiers is private
- * - field `n_inotifiers`: Record field n_inotifiers is private
- * - field `in_inotify`: Record field in_inotify is private
- * - field `floating`: Record field floating is private
- * - field `derivative_flag`: Record field derivative_flag is private
  * - field `marshal`: Fields with callbacks are not supported
- * - field `data`: Record field data is private
- * - field `notifiers`: Record field notifiers is private
  */
 public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gobjectClosurePointer: CPointer<GClosure> = pointer

@@ -8,11 +8,11 @@ import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
-import org.gtkkn.bindings.gdk.RGBA
+import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -81,7 +81,7 @@ public interface ColorChooser :
      *
      * @param color a `GdkRGBA` to fill in with the current color
      */
-    public fun getRgba(color: RGBA): Unit =
+    public fun getRgba(color: Rgba): Unit =
         gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
@@ -98,7 +98,7 @@ public interface ColorChooser :
      *
      * @param color the new color
      */
-    public fun setRgba(color: RGBA): Unit =
+    public fun setRgba(color: Rgba): Unit =
         gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
 
     /**
@@ -121,7 +121,7 @@ public interface ColorChooser :
      */
     public fun connectColorActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (color: RGBA) -> Unit,
+        handler: (color: Rgba) -> Unit,
     ): ULong = g_signal_connect_data(
         gtkColorChooserPointer.reinterpret(),
         "color-activated",
@@ -160,9 +160,9 @@ private val connectColorActivatedFunc: CPointer<CFunction<(CPointer<GdkRGBA>) ->
             color: CPointer<GdkRGBA>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(color: RGBA) -> Unit>().get().invoke(
+        userData.asStableRef<(color: Rgba) -> Unit>().get().invoke(
             color!!.run {
-                RGBA(reinterpret())
+                Rgba(reinterpret())
             }
         )
     }

@@ -11,8 +11,8 @@ import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.gio.IOStream
 import org.gtkkn.bindings.gio.InputStream
+import org.gtkkn.bindings.gio.IoStream
 import org.gtkkn.bindings.gio.SocketAddress
 import org.gtkkn.bindings.gio.SocketClientEvent
 import org.gtkkn.bindings.gio.TlsCertificate
@@ -27,8 +27,8 @@ import org.gtkkn.bindings.gobject.CallbackFunc
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.soup.annotations.SoupVersion3_4
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -185,7 +185,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
     /**
      * The HTTP protocol version to use.
      */
-    public val httpVersion: HTTPVersion
+    public val httpVersion: HttpVersion
         /**
          * Gets the HTTP version of @msg.
          *
@@ -195,7 +195,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          * @return the HTTP version
          */
         get() = soup_message_get_http_version(soupMessagePointer.reinterpret()).run {
-            HTTPVersion.fromNativeValue(this)
+            HttpVersion.fromNativeValue(this)
         }
 
     /**
@@ -997,7 +997,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun connectNetworkEvent(
         connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (event: SocketClientEvent, connection: IOStream) -> Unit,
+        handler: (event: SocketClientEvent, connection: IoStream) -> Unit,
     ): ULong = g_signal_connect_data(
         gPointer.reinterpret(),
         "network-event",
@@ -1285,12 +1285,12 @@ private val connectNetworkEventFunc:
             connection: CPointer<GIOStream>?,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<(event: SocketClientEvent, connection: IOStream) -> Unit>().get().invoke(
+        userData.asStableRef<(event: SocketClientEvent, connection: IoStream) -> Unit>().get().invoke(
             event.run {
                 SocketClientEvent.fromNativeValue(this)
             },
             connection!!.run {
-                IOStream(reinterpret())
+                IoStream(reinterpret())
             }
         )
     }

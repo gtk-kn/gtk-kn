@@ -12,9 +12,9 @@ import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_10
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_20
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
-import org.gtkkn.extensions.common.asBoolean
-import org.gtkkn.extensions.common.asGBoolean
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GThread
 import org.gtkkn.native.glib.g_thread_create
@@ -56,13 +56,6 @@ import kotlin.Unit
  *
  * The structure is opaque -- none of its fields may be directly
  * accessed.
- *
- * ## Skipped during bindings generation
- *
- * - field `func`: Record field func is private
- * - field `data`: Record field data is private
- * - field `joinable`: Record field joinable is private
- * - field `priority`: Record field priority is private
  */
 public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
     public val glibThreadPointer: CPointer<GThread> = pointer
