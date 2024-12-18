@@ -40,6 +40,9 @@ test-fedora-41:
   stage: build
   script:
     - .ci/gtk-kt-check.sh
+    - pip install -r mkdocs-requirements.txt --break-system-packages --ignore-installed PyYAML
+    - ./gradlew dokkaHtmlMultiModule
+    - mkdocs build --strict
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
