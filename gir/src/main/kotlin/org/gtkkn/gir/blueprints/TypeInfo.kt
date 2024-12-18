@@ -148,19 +148,6 @@ sealed class TypeInfo {
         )
     }
 
-    data class GPointerList(
-        val listSize: ListSize,
-        override val nativeTypeName: TypeName = BindingsGenerator.KP_GPOINTER_ARRAY,
-        override val kotlinTypeName: TypeName = LIST.parameterizedBy(G_POINTER.copy(nullable = true)),
-    ) : TypeInfo() {
-        override val isCinteropNullable = false
-
-        override fun withNullable(nullable: Boolean): TypeInfo = copy(
-            nativeTypeName = nativeTypeName.copy(nullable),
-            kotlinTypeName = kotlinTypeName.copy(nullable),
-        )
-    }
-
     /**
      * Native type is a CPointer and kotlin type is a generated wrapper class.
      *

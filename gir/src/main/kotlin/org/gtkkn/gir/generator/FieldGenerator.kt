@@ -96,7 +96,6 @@ interface FieldGenerator : ConversionBlockGenerator, KDocGenerator {
 
         is TypeInfo.CallbackWithDestroy,
         is TypeInfo.InterfacePointer,
-        is TypeInfo.GPointerList,
         is TypeInfo.StringList -> false
     }
 }

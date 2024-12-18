@@ -12,7 +12,6 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asGBoolean
-import org.gtkkn.extensions.glib.ext.toGPointerList
 import org.gtkkn.native.glib.GHookList
 import org.gtkkn.native.glib.g_hook_list_clear
 import org.gtkkn.native.glib.g_hook_list_init
@@ -27,7 +26,6 @@ import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.collections.List
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
@@ -37,6 +35,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - field `finalize_hook`: HookFinalizeFunc
+ * - field `dummy`: Array parameter of type gpointer is not supported
  */
 public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val glibHookListPointer: CPointer<GHookList> = pointer
@@ -97,14 +96,6 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
         set(`value`) {
             glibHookListPointer.pointed.dummy3 = value
         }
-
-    /**
-     * unused
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
-     */
-    public val dummy: List<gpointer?>
-        get() = glibHookListPointer.pointed.dummy.toGPointerList(2)
 
     /**
      * Allocate a new HookList.
@@ -255,5 +246,5 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
     )
 
     override fun toString(): String =
-        "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3, dummy=$dummy)"
+        "HookList(seqId=$seqId, hookSize=$hookSize, isSetup=$isSetup, hooks=$hooks, dummy3=$dummy3)"
 }

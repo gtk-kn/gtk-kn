@@ -400,17 +400,10 @@ class ProcessorContext(
     fun resolveTypeInfo(girNamespace: GirNamespace, array: GirArrayType, nullable: Boolean): TypeInfo =
         when (array.type) {
             is GirArrayType -> throw UnresolvableTypeException("Nested array types are not supported")
-            is GirType -> when (resolveTypeInfo(girNamespace, array.type, false)) {
-                is TypeInfo.KString -> TypeInfo.StringList(listSize = array.toListSize()).withNullable(nullable)
-                is TypeInfo.GPointer -> if (array.name.isNullOrEmpty()) {
-                    TypeInfo.GPointerList(listSize = array.toListSize()).withNullable(nullable)
-                } else {
-                    throw UnresolvableTypeException(
-                        "Array ${array.name} parameter of type ${array.type.name} is not supported",
-                    )
-                }
-
-                else -> throw UnresolvableTypeException(
+            is GirType -> if (resolveTypeInfo(girNamespace, array.type, false) is TypeInfo.KString) {
+                TypeInfo.StringList(listSize = array.toListSize()).withNullable(nullable)
+            } else {
+                throw UnresolvableTypeException(
                     "${array.name ?: "Array"} parameter of type ${array.type.name} is not supported",
                 )
             }

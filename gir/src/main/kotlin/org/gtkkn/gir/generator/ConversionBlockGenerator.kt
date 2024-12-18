@@ -128,11 +128,6 @@ interface ConversionBlockGenerator {
                 }
 
                 is TypeInfo.GPointer -> add("%N", param.kotlinName)
-                is TypeInfo.GPointerList -> add(
-                    "%N$safeCall.%M(this)",
-                    param.kotlinName,
-                    BindingsGenerator.TO_G_POINTER_C_ARRAY,
-                )
             }
         }.build()
 
@@ -171,7 +166,6 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.GBoolean -> add("$safeCall.%M()", BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("$safeCall.code.toByte()")
-                is TypeInfo.GPointerList -> add("$safeCall.%M(this)", BindingsGenerator.TO_G_POINTER_C_ARRAY)
                 is TypeInfo.KString -> add("$safeCall.let { %M(it) }", BindingsGenerator.G_STRDUP_FUNC)
                 is TypeInfo.Bitfield -> add("$safeCall.mask")
                 is TypeInfo.StringList -> add("$safeCall.%M(this)", BindingsGenerator.TO_C_STRING_LIST)
@@ -205,11 +199,6 @@ interface ConversionBlockGenerator {
                 is TypeInfo.GBoolean -> NativeToKotlinConversions.buildGBoolean(this)
                 is TypeInfo.GChar -> NativeToKotlinConversions.buildGChar(this)
                 is TypeInfo.GPointer -> NativeToKotlinConversions.buildGPointer(isNullable, this)
-                is TypeInfo.GPointerList -> NativeToKotlinConversions.buildGPointerList(
-                    codeBlockBuilder = this,
-                    listSize = returnTypeInfo.listSize,
-                )
-
                 is TypeInfo.KString -> NativeToKotlinConversions.buildKString(isNullable, this)
                 is TypeInfo.StringList -> NativeToKotlinConversions.buildKStringList(
                     isNullable = isNullable,
@@ -359,10 +348,5 @@ private object NativeToKotlinConversions {
                 "Expected not null string array",
             )
         }
-    }
-
-    fun buildGPointerList(codeBlockBuilder: CodeBlock.Builder, listSize: ListSize) {
-        val size = if (listSize is ListSize.FixedSize) listSize.size.toString() else ""
-        codeBlockBuilder.add(".%M($size)", BindingsGenerator.TO_G_POINTER_LIST)
     }
 }

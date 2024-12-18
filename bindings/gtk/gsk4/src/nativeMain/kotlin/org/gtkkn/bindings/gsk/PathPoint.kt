@@ -14,8 +14,6 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.extensions.glib.ext.toGPointerList
-import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gobject.gint
@@ -35,7 +33,6 @@ import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
-import kotlin.collections.List
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
@@ -56,6 +53,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
+ * - field `padding`: Array parameter of type gpointer is not supported
  * - field `alignment`: Graphene.Vec4
  *
  * @since 4.14
@@ -63,14 +61,6 @@ import kotlin.native.ref.createCleaner
 @GskVersion4_14
 public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gskPathPointPointer: CPointer<GskPathPoint> = pointer
-
-    /**
-     *
-     *
-     * Note: this property is writeable but the setter binding is not supported yet.
-     */
-    public val padding: List<gpointer?>
-        get() = gskPathPointPointer.pointed.padding.toGPointerList(8)
 
     public var contour: gsize
         get() = gskPathPointPointer.pointed.contour
@@ -318,7 +308,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
         tangent.grapheneVec2Pointer.reinterpret()
     )
 
-    override fun toString(): String = "PathPoint(padding=$padding, contour=$contour, idx=$idx, t=$t)"
+    override fun toString(): String = "PathPoint(contour=$contour, idx=$idx, t=$t)"
 
     public companion object {
         /**

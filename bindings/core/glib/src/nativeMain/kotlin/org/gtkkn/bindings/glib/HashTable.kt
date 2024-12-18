@@ -48,13 +48,13 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `length`: length: Out parameter is not supported
- * - function `get_keys_as_ptr_array`: Array GLib.PtrArray parameter of type gpointer is not supported
- * - function `get_values_as_ptr_array`: Array GLib.PtrArray parameter of type gpointer is not supported
+ * - function `get_keys_as_ptr_array`: GLib.PtrArray parameter of type gpointer is not supported
+ * - function `get_values_as_ptr_array`: GLib.PtrArray parameter of type gpointer is not supported
  * - parameter `orig_key`: orig_key: Out parameter is not supported
  * - parameter `hash_func`: HashFunc
  * - parameter `hash_func`: HashFunc
- * - function `steal_all_keys`: Array GLib.PtrArray parameter of type gpointer is not supported
- * - function `steal_all_values`: Array GLib.PtrArray parameter of type gpointer is not supported
+ * - function `steal_all_keys`: GLib.PtrArray parameter of type gpointer is not supported
+ * - function `steal_all_values`: GLib.PtrArray parameter of type gpointer is not supported
  * - parameter `stolen_key`: stolen_key: Out parameter is not supported
  */
 public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
