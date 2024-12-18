@@ -3,7 +3,7 @@ pages:
   image: "$REGISTRY_PATH/fedora:41"
   stage: deploy
   variables:
-    ORG_GRADLE_PROJECT_org.gtkkn.samples.disable: "true"
+    GRADLE_OPTS: "-Dorg.gradle.project.org.gtkkn.samples.disable=true"
   script:
     - pip install -r mkdocs-requirements.txt --break-system-packages --ignore-installed PyYAML
     - ./gradlew :gir:run
