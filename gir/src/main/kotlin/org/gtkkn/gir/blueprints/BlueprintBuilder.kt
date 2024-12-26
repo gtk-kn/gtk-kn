@@ -24,6 +24,7 @@ import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 /**
@@ -66,7 +67,7 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
 
     protected fun GirNamespace.exceptionResolvingFunction() =
         MemberName(
-            packageName = context.namespaceBindingsPackageName(this) + "." + checkNotNull(name).capitalizeAsciiOnly(),
+            packageName = namespaceBindingsPackageName(this) + "." + checkNotNull(name).capitalizeAsciiOnly(),
             simpleName = "resolveException",
         )
 

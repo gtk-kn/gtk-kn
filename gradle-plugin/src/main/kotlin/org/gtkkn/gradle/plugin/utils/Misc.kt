@@ -40,17 +40,10 @@ internal fun configureOptInAnnotations(project: Project) {
     val gtkExt = project.extensions.getByType(GtkExt::class.java)
     val repositoryVersions = gtkExt.targetLibraryVersions.getOrElse(emptyMap())
 
-    // Path to the optInAnnotations.txt file
-    val optInAnnotationsFile = project.rootProject.file("bindings/optInAnnotations.txt")
-
-    if (!optInAnnotationsFile.exists()) {
-        project.logger.warn("optInAnnotations.txt not found at ${optInAnnotationsFile.path}")
-        return
-    }
-
-    // Parse the annotations
-
     val annotationsToOptIn = mutableSetOf<String>()
+
+    // default annotations
+    annotationsToOptIn.add("kotlinx.cinterop.ExperimentalForeignApi")
 
     repositoryVersions.forEach { (repositoryName, userVersion) ->
         val annotations = repositoryAnnotations[repositoryName].orEmpty()

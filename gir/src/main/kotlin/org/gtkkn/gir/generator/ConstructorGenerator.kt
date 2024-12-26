@@ -56,8 +56,6 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
             // If class has a parent, pass the pointer to the superclass constructor
             builder.addSuperclassConstructorParameter(CodeBlock.of("pointer.%M()", BindingsGenerator.REINTERPRET_FUNC))
         } else {
-            // No parent: initialize pointer directly
-            constructorSpecBuilder.addStatement("gPointer = pointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
             if (clazz.kotlinName == "Object") {
                 constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
             }
@@ -250,10 +248,12 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         if (clazz.hasParent) {
             // if class has a parent, use a getter
             propertyBuilder.getter(
-                FunSpec.getterBuilder()
-                    .addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
-                    .build(),
+                FunSpec.getterBuilder().apply {
+                    addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+                }.build(),
             )
+        } else {
+            propertyBuilder.initializer("pointer")
         }
         return propertyBuilder.build()
     }

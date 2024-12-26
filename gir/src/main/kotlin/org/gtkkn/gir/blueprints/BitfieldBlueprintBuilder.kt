@@ -24,6 +24,7 @@ import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class BitfieldBlueprintBuilder(
     context: ProcessorContext,
@@ -53,7 +54,7 @@ class BitfieldBlueprintBuilder(
 
         val kotlinTypeName = context.typeRegistry.get(girNode).className
 
-        val nativePackageName = context.namespaceNativePackageName(girNamespace)
+        val nativePackageName = namespaceNativePackageName(girNamespace)
         val nativeValueTypeName = ClassName(nativePackageName, girNode.cType)
 
         girNode.members.forEach { member ->

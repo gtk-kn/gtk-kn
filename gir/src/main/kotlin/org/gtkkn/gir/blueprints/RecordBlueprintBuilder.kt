@@ -17,7 +17,6 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
-import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirFunction
@@ -28,6 +27,7 @@ import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class RecordBlueprintBuilder(
     context: ProcessorContext,
@@ -68,7 +68,7 @@ class RecordBlueprintBuilder(
 
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        val objectPointerName = "gPointer"
         val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girNode)
 
         return RecordBlueprint(
@@ -82,7 +82,7 @@ class RecordBlueprintBuilder(
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
             cStructTypeName = ClassName(
-                context.namespaceNativePackageName(girNamespace),
+                namespaceNativePackageName(girNamespace),
                 girNode.cType ?: error("unknown cType"),
             ),
             isOpaque = girNode.opaque == true,

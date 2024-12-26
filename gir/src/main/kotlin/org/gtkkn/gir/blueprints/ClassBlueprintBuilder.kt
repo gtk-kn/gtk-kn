@@ -30,6 +30,9 @@ import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+import org.gtkkn.gir.processor.namespaceNativePackageName
+import org.gtkkn.gir.processor.namespacePrefix
 
 class ClassBlueprintBuilder(
     context: ProcessorContext,
@@ -98,14 +101,14 @@ class ClassBlueprintBuilder(
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
         val objectPointerName = if (girNode.parent != null) {
-            "${context.namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+            "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
         } else {
             "gPointer"
         }
         val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girNode)
 
         val glibGetTypeMember = if (girNode.glibGetType != "intern") {
-            MemberName(context.namespaceNativePackageName(girNamespace), girNode.glibGetType)
+            MemberName(namespaceNativePackageName(girNamespace), girNode.glibGetType)
         } else {
             null
         }
@@ -294,7 +297,7 @@ class ClassBlueprintBuilder(
 
         classUniqueInterfaceTypes.forEach { type ->
             val interfacePointerName =
-                "${context.namespacePrefix(type.namespace)}${type.className.simpleName}Pointer"
+                "${namespacePrefix(type.namespace)}${type.className.simpleName}Pointer"
             val interfacePointerTypeName =
                 context.resolveInterfaceObjectPointerTypeName(
                     namespace = type.namespace,
@@ -325,10 +328,10 @@ class ClassBlueprintBuilder(
             val namespace = pair.first
             val iface = pair.second
             val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
-            val kotlinPackageName = context.namespaceBindingsPackageName(namespace)
+            val kotlinPackageName = namespaceBindingsPackageName(namespace)
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
-            val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name.toPascalCase()}Pointer"
+            val objectPointerName = "${namespacePrefix(namespace)}${iface.name.toPascalCase()}Pointer"
             val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
                 namespace = namespace,
                 cType = checkNotNull(iface.cType),

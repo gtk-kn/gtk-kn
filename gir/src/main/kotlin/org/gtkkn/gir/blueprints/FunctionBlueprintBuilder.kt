@@ -26,6 +26,7 @@ import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class FunctionBlueprintBuilder(
     context: ProcessorContext,
@@ -74,7 +75,7 @@ class FunctionBlueprintBuilder(
                 // these native functions are defined in `gobject/glib-types.h` but used in GLib
                 "org.gtkkn.native.gobject"
             } else {
-                context.namespaceNativePackageName(girNamespace)
+                namespaceNativePackageName(girNamespace)
             }
         val nativeMemberName = MemberName(nativeMemberPackageName, nativeName)
 

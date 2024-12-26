@@ -27,6 +27,8 @@ import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.namespaceNativePackageName
+import org.gtkkn.gir.processor.namespacePrefix
 
 class UnionBlueprintBuilder(
     context: ProcessorContext,
@@ -63,7 +65,7 @@ class UnionBlueprintBuilder(
 
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
         val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girNode)
 
         val nativeTypeName = context.buildNativeClassName(girNamespace, girNode)
@@ -79,7 +81,7 @@ class UnionBlueprintBuilder(
             methods = methodBlueprints,
             fields = fieldBlueprints,
             cStructTypeName = ClassName(
-                context.namespaceNativePackageName(girNamespace),
+                namespaceNativePackageName(girNamespace),
                 girNode.cType ?: error("unknown cType"),
             ),
             hasNewConstructor = girNode.constructors.any { it.callable.getName() == "new" },

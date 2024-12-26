@@ -28,6 +28,9 @@ import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+import org.gtkkn.gir.processor.namespaceNativePackageName
+import org.gtkkn.gir.processor.namespacePrefix
 
 class InterfaceBlueprintBuilder(
     context: ProcessorContext,
@@ -104,7 +107,7 @@ class InterfaceBlueprintBuilder(
 
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
         val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
             namespace = girNamespace,
             cType = checkNotNull(girNode.cType),
@@ -113,7 +116,7 @@ class InterfaceBlueprintBuilder(
         addParentInterfaces()
 
         val glibGetTypeMember = if (girNode.glibGetType != "intern") {
-            MemberName(context.namespaceNativePackageName(girNamespace), girNode.glibGetType)
+            MemberName(namespaceNativePackageName(girNamespace), girNode.glibGetType)
         } else {
             null
         }
@@ -151,10 +154,10 @@ class InterfaceBlueprintBuilder(
             }
         }.map { (namespace, iface) ->
             val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
-            val kotlinPackageName = context.namespaceBindingsPackageName(namespace)
+            val kotlinPackageName = namespaceBindingsPackageName(namespace)
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
-            val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name.toPascalCase()}Pointer"
+            val objectPointerName = "${namespacePrefix(namespace)}${iface.name.toPascalCase()}Pointer"
             val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
                 namespace = namespace,
                 cType = checkNotNull(iface.cType),

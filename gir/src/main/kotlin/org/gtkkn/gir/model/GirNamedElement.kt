@@ -18,9 +18,9 @@ package org.gtkkn.gir.model
 
 import com.squareup.kotlinpoet.ClassName
 import net.pearx.kasechange.toPascalCase
-import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.RegisteredType
 import org.gtkkn.gir.processor.TypeRegistry
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
 
 sealed interface GirNamedElement {
     val name: String?
@@ -32,7 +32,7 @@ sealed interface GirNamedElement {
     fun registerType(typeRegistry: TypeRegistry) {
         if (shouldBeGenerated()) {
             val kotlinClassName = checkNotNull(name).toPascalCase()
-            val kotlinPackageName = ProcessorContext.getKotlinPackageName(checkNotNull(namespace.name))
+            val kotlinPackageName = namespaceBindingsPackageName(namespace)
             val className = ClassName(kotlinPackageName, kotlinClassName)
             var registeredType = RegisteredType(
                 className = className,

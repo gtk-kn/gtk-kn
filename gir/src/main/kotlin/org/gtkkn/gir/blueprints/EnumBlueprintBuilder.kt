@@ -25,6 +25,8 @@ import org.gtkkn.gir.model.GirMember
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class EnumBlueprintBuilder(
     context: ProcessorContext,
@@ -41,10 +43,10 @@ class EnumBlueprintBuilder(
     private fun addMember(girMember: GirMember) {
         val nativeValue = girMember.value.toLong()
         val nativeMemberName = if (context.needsEnumMemberPackageImport(girNode)) {
-            MemberName(context.namespaceNativePackageName(girNamespace), girMember.cIdentifier)
+            MemberName(namespaceNativePackageName(girNamespace), girMember.cIdentifier)
         } else {
             MemberName(
-                context.namespaceNativePackageName(girNamespace) + "." + girNode.cType,
+                namespaceNativePackageName(girNamespace) + "." + girNode.cType,
                 girMember.cIdentifier,
             )
         }
@@ -94,17 +96,17 @@ class EnumBlueprintBuilder(
 
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val nativePackageName = context.namespaceNativePackageName(girNamespace)
+        val nativePackageName = namespaceNativePackageName(girNamespace)
         val nativeValueTypeName = ClassName(nativePackageName, girNode.cType)
 
         val exceptionTypeName = girNode.glibErrorDomain?.let {
-            ClassName(context.namespaceBindingsPackageName(girNamespace), "${kotlinClassName.simpleName}Exception")
+            ClassName(namespaceBindingsPackageName(girNamespace), "${kotlinClassName.simpleName}Exception")
         }
 
         return EnumBlueprint(
             kotlinName = kotlinClassName.simpleName,
             kotlinTypeName = kotlinClassName,
-            nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girNode.cType),
+            nativeTypeName = ClassName(namespaceNativePackageName(girNamespace), girNode.cType),
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
             functionBlueprints = functionBlueprints,

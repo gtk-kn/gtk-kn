@@ -37,6 +37,16 @@ data class RegisteredType(
     val isGObject: Boolean
         get() = allAncestors.any { it.fullName == "GObject.Object" }
 
+    /**
+     * Returns the first `RegisteredType` in the ancestry chain with a non-null `cType`.
+     * If the current type has a non-null `cType`, it returns itself.
+     * Otherwise, it checks its ancestors recursively.
+     */
+    fun findFirstWithCType(): RegisteredType? {
+        if (cType != null) return this
+        return allAncestors.firstOrNull { it.cType != null }
+    }
+
     companion object {
         private fun buildFullName(namespace: String, rawName: String): String =
             "$namespace.$rawName"

@@ -87,16 +87,6 @@ class ProcessorContext(
         findRepositoryByNameOrNull(name)?.namespaces?.first()
             ?: throw UnresolvableTypeException("Namespace $name not found")
 
-    // namespace naming
-    fun namespacePrefix(namespace: GirNamespace): String = checkNotNull(namespace.mainSymbolPrefix)
-        .replace("_", "")
-        .lowercase()
-
-    fun namespaceNativePackageName(namespace: GirNamespace): String = "org.gtkkn.native.${namespacePrefix(namespace)}"
-
-    fun namespaceBindingsPackageName(namespace: GirNamespace): String =
-        "org.gtkkn.bindings.${namespacePrefix(namespace)}"
-
     /**
      * Resolve the [TypeName] for the objectPointer we have in all classes.
      *
@@ -217,15 +207,17 @@ class ProcessorContext(
         } else {
             "gPointer"
         }
-        return TypeInfo.ObjectPointer(
+        val nativeTypeName =
             BindingsGenerator.KP_CPOINTER.parameterizedBy(
                 buildNativeClassName(
                     registeredType.namespace,
-                    registeredType.girNamedElement,
+                    registeredType.findFirstWithCType()?.girNamedElement ?: registeredType.girNamedElement,
                 ),
-            ),
-            registeredType.className,
-            objectPointerName,
+            )
+        return TypeInfo.ObjectPointer(
+            nativeTypeName = nativeTypeName,
+            kotlinTypeName = registeredType.className,
+            objectPointerName = objectPointerName,
         )
     }
 
@@ -248,8 +240,7 @@ class ProcessorContext(
         if (registeredType.girNamedElement is GirRecord && registeredType.girNamedElement.foreign == true) {
             throw UnresolvableTypeException("Foreign record ${registeredType.rawName} is ignored")
         }
-        val objectPointerName =
-            "${namespacePrefix(registeredType.namespace)}${registeredType.className.simpleName}Pointer"
+        val objectPointerName = "gPointer"
         return TypeInfo.RecordPointer(
             kotlinTypeName = registeredType.className,
             nativeTypeName = BindingsGenerator.KP_CPOINTER.parameterizedBy(
@@ -298,7 +289,7 @@ class ProcessorContext(
         }
 
         // strings
-        if (type.name == "utf8" || type.name == "filename") {
+        if (type.name == "utf8" || type.name == "filename" || type.name == "const char*") {
             return when (type.cType) {
                 "const char*",
                 "const gchar*",
@@ -512,9 +503,6 @@ class ProcessorContext(
          * A set of C functions that should not be generated.
          */
         private val ignoredFunctions = hashSetOf(
-            // problems with mismatched return type
-            "cairo_image_surface_create",
-
             // Argument type mismatch: is 'CPointer<CapturedType(out CPointed)>', but 'GTraverseType' was expected.
             "g_tree_traverse",
 
@@ -557,8 +545,16 @@ class ProcessorContext(
             "GtkSourceCompletionColumn",
             "GtkSourceViewGutterPosition",
         )
-
-        fun getKotlinPackageName(nativePackageName: String): String =
-            "org.gtkkn.bindings.${nativePackageName.lowercase()}"
     }
 }
+
+// namespace naming
+fun namespacePrefix(namespace: GirNamespace): String = checkNotNull(namespace.mainSymbolPrefix)
+    .replace("_", "")
+    .lowercase()
+
+fun namespaceNativePackageName(namespace: GirNamespace): String =
+    "org.gtkkn.native.${namespacePrefix(namespace)}"
+
+fun namespaceBindingsPackageName(namespace: GirNamespace): String =
+    "org.gtkkn.bindings.${namespacePrefix(namespace)}"

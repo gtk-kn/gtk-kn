@@ -57,6 +57,9 @@ interface ClassGenerator :
                 companionSpecBuilder.addKGTypeInit(clazz.typeName, property, repository)
             }
 
+            // object pointer
+            addProperty(buildClassObjectPointerProperty(clazz))
+
             // pointer constructor
             buildPointerConstructor(this, clazz)
 
@@ -131,9 +134,6 @@ interface ClassGenerator :
                     }
                 }
             }
-
-            // object pointer
-            addProperty(buildClassObjectPointerProperty(clazz))
 
             // interface pointers
             clazz.implementsInterfaces.forEach {

@@ -32,6 +32,7 @@ import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class MethodBlueprintBuilder(
     context: ProcessorContext,
@@ -85,7 +86,7 @@ class MethodBlueprintBuilder(
             "native method ${girNode.callable.getName()} does not have cIdentifier",
         )
 
-        val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
+        val nativeMemberName = MemberName(namespaceNativePackageName(girNamespace), nativeMethodName)
 
         return MethodBlueprint(
             kotlinName = kotlinName,
