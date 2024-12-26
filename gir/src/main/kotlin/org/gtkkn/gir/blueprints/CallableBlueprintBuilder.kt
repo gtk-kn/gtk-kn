@@ -38,20 +38,20 @@ abstract class CallableBlueprintBuilder<T : Any>(
 ) : BlueprintBuilder<T>(context) {
     protected val parameterBlueprints = mutableListOf<ParameterBlueprint>()
 
-    protected fun addParameters(parameters: GirParameters) {
+    protected fun addParameters(parameters: GirParameters, noStringConversion: Boolean = false) {
         parameters.parameters.forEach { validateParam(it) }
 
         val processedParams = processParameters(parameters)
         processedParams.forEach { param ->
             when (param) {
-                is SimpleParam -> addParameter(param.param)
+                is SimpleParam -> addParameter(param.param, noStringConversion)
                 is CallbackParam -> parameterBlueprints.add(param.toBlueprint())
             }
         }
     }
 
-    private fun addParameter(param: GirParameter) {
-        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
+    private fun addParameter(param: GirParameter, noStringConversion: Boolean) {
+        when (val result = ParameterBlueprintBuilder(context, girNamespace, param, noStringConversion).build()) {
             is BlueprintResult.Ok -> parameterBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> throw SkippedObjectException(result.skippedObject)
         }

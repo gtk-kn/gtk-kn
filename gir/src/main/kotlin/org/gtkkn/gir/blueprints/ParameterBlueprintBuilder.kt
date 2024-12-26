@@ -29,16 +29,17 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class ParameterBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girParam: GirParameter,
+    private val girNode: GirParameter,
+    private val noStringConversion: Boolean = false
 ) : BlueprintBuilder<ParameterBlueprint>(context) {
     override fun blueprintObjectType(): String = "parameter"
 
-    override fun blueprintObjectName(): String = checkNotNull(girParam.name)
+    override fun blueprintObjectName(): String = checkNotNull(girNode.name)
 
     override fun buildInternal(): ParameterBlueprint {
-        val paramCType = when (girParam.type) {
-            is GirArrayType -> girParam.type.cType
-            is GirType -> girParam.type.cType
+        val paramCType = when (girNode.type) {
+            is GirArrayType -> girNode.type.cType
+            is GirType -> girNode.type.cType
             is GirVarArgs -> null
         }
         if (paramCType != null) {
@@ -48,43 +49,48 @@ class ParameterBlueprintBuilder(
         }
 
         when {
-            girParam.direction == GirDirection.OUT -> {
+            girNode.direction == GirDirection.OUT -> {
                 // support OUT parameters if the param is a record and callerAllocates
-                val record = if (girParam.type is GirType) {
-                    context.findRecordByNameOrNull(girNamespace, girParam.type.name ?: error("unknown type name"))
+                val record = if (girNode.type is GirType) {
+                    context.findRecordByNameOrNull(girNamespace, girNode.type.name ?: error("unknown type name"))
                 } else {
                     null
                 }
-                if (record == null || girParam.callerAllocates != true) {
-                    throw UnresolvableTypeException("${girParam.name}: Out parameter is not supported")
+                if (record == null || girNode.callerAllocates != true) {
+                    throw UnresolvableTypeException("${girNode.name}: Out parameter is not supported")
                 }
             }
 
-            girParam.direction == GirDirection.IN_OUT -> {
-                throw UnresolvableTypeException("${girParam.name}: In/Out parameter is not supported")
+            girNode.direction == GirDirection.IN_OUT -> {
+                throw UnresolvableTypeException("${girNode.name}: In/Out parameter is not supported")
             }
 
-            girParam.type is GirVarArgs -> {
-                throw UnresolvableTypeException("${girParam.name}: Varargs parameter is not supported")
+            girNode.type is GirVarArgs -> {
+                throw UnresolvableTypeException("${girNode.name}: Varargs parameter is not supported")
             }
         }
 
-        val paramKotlinName = checkNotNull(girParam.name).toCamelCase()
+        val paramKotlinName = checkNotNull(girNode.name).toCamelCase()
 
-        val typeInfo = when (girParam.type) {
-            is GirArrayType -> context.resolveTypeInfo(girNamespace, girParam.type, girParam.isNullable())
-            is GirType -> context.resolveTypeInfo(girNamespace, girParam.type, girParam.isNullable())
+        var typeInfo = when (girNode.type) {
+            is GirArrayType -> context.resolveTypeInfo(girNamespace, girNode.type, girNode.isNullable())
+            is GirType -> context.resolveTypeInfo(girNamespace, girNode.type, girNode.isNullable())
             GirVarArgs -> throw UnresolvableTypeException("Varargs parameter is not supported")
+        }
+
+        if (typeInfo is TypeInfo.KString && noStringConversion) {
+            typeInfo = typeInfo.copy(noStringConversion = noStringConversion)
         }
 
         return ParameterBlueprint(
             kotlinName = paramKotlinName,
-            nativeName = girParam.name,
+            nativeName = girNode.name,
             typeInfo = typeInfo,
-            defaultNull = girParam.isDefaultNull(),
-            isUserData = girParam.closure != null,
-            isDestroyData = girParam.destroy != null,
-            kdoc = context.processKdoc(girParam.doc?.doc?.text),
+            defaultNull = girNode.isDefaultNull(),
+            isUserData = girNode.closure != null,
+            isDestroyData = girNode.destroy != null,
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+            needsRawValueForEnums = girNode.gtkKnRawValue == true,
         )
     }
 }

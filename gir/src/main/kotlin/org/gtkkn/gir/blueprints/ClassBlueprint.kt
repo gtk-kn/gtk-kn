@@ -24,7 +24,7 @@ data class ClassBlueprint(
     val kotlinName: String,
     val nativeName: String,
     val typeName: ClassName,
-    val parentTypeName: TypeName?,
+    val parentClassName: ClassName?,
     val implementsInterfaces: List<ImplementsInterfaceBlueprint>,
     val methods: List<MethodBlueprint>,
     val properties: List<PropertyBlueprint>,
@@ -40,5 +40,5 @@ data class ClassBlueprint(
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 ) {
-    val hasParent: Boolean get() = parentTypeName != null
+    val hasParent: Boolean get() = parentClassName != null
 }

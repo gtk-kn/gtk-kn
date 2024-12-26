@@ -21,20 +21,40 @@ import org.gtkkn.gir.blueprints.BlueprintResult
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprintBuilder
 import org.gtkkn.gir.config.Config
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirRepository
 
 @Inject
-class Phase2Processor(private val config: Config) {
+class Phase2Processor(
+    private val config: Config,
+    private val typeRegistry: TypeRegistry,
+) {
     /**
      * Process a list of [GirRepository] into [RepositoryBlueprint]
      */
     fun process(repositories: List<GirRepository>): List<RepositoryBlueprint> {
-        val context = ProcessorContext(repositories, config)
-        return repositories.map { repo ->
+        val context = ProcessorContext(repositories, config, typeRegistry)
+        logger.info { "Registering Types" }
+        repositories.forEach { repository ->
+            repository.namespaces.forEach { namespace ->
+                namespace.aliases.forEach { it.registerType(typeRegistry) }
+                namespace.bitfields.forEach { it.registerType(typeRegistry) }
+                namespace.callbacks.forEach { it.registerType(typeRegistry) }
+                namespace.classes.forEach { it.registerType(typeRegistry) }
+                namespace.enumerations.forEach { it.registerType(typeRegistry) }
+                namespace.interfaces.forEach { it.registerType(typeRegistry) }
+                namespace.records.forEach { it.registerType(typeRegistry) }
+                namespace.unions.forEach { it.registerType(typeRegistry) }
+            }
+        }
+        logger.info { "Resolving Types' Inheritance" }
+        typeRegistry.resolveInheritance()
+        val result = repositories.map { repo ->
             when (val result = RepositoryBlueprintBuilder(context, repo).build()) {
                 is BlueprintResult.Ok -> result.blueprint
                 is BlueprintResult.Skip -> error("Could not process repository")
             }
         }
+        return result
     }
 }

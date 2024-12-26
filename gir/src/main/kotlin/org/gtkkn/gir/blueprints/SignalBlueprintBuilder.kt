@@ -31,13 +31,13 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class SignalBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
-    private val girSignal: GirSignal,
+    private val girNode: GirSignal,
 ) : CallableBlueprintBuilder<SignalBlueprint>(context, girNamespace) {
     private val signalParameters = mutableListOf<ParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "signal"
 
-    override fun blueprintObjectName(): String = girSignal.name
+    override fun blueprintObjectName(): String = girNode.name
 
     private fun addParameter(param: GirParameter) {
         when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
@@ -51,12 +51,12 @@ class SignalBlueprintBuilder(
     }
 
     override fun buildInternal(): SignalBlueprint {
-        context.checkIgnoredSignal(girSignal.name)
+        context.checkIgnoredSignal(girNode.name)
 
-        girSignal.parameters?.parameters?.forEach { addParameter(it) }
+        girNode.parameters?.parameters?.forEach { addParameter(it) }
 
         // return value
-        val returnValue = girSignal.returnValue ?: error("Signal has no return value")
+        val returnValue = girNode.returnValue ?: error("Signal has no return value")
 
         val returnTypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
@@ -77,20 +77,20 @@ class SignalBlueprintBuilder(
                 returnType = returnTypeInfo.kotlinTypeName,
             )
 
-        val kotlinConnectName = "connect${girSignal.name.toPascalCase()}"
+        val kotlinConnectName = "connect${girNode.name.toPascalCase()}"
         return SignalBlueprint(
-            signalName = girSignal.name,
+            signalName = girNode.name,
             kotlinConnectName = kotlinConnectName,
             returnTypeInfo = returnTypeInfo,
             parameters = signalParameters,
             lambdaTypeName = handlerLambdaTypeName,
             throws = false, // signals cannot throw
             exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girSignal.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girSignal.doc?.doc?.text),
-            returnTypeKDoc = context.processKdoc(girSignal.returnValue.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girNode.returnValue.doc?.doc?.text),
         )
     }
 }

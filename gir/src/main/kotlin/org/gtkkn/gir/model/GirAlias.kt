@@ -43,4 +43,6 @@ data class GirAlias(
         annotations.forEach { it.initialize(this, namespace) }
         type.initialize(this, namespace)
     }
+
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true
 }

@@ -23,12 +23,13 @@ interface CallableBlueprint {
     val returnTypeInfo: TypeInfo
     val throws: Boolean
     val exceptionResolvingFunctionMember: MemberName
+    val noStringConversion: Boolean
 
     /**
      * Determine if this callable implementation needs to be wrapped in a memscoped block.
      */
     val needsMemscoped: Boolean
-        get() = throws || parameters.any { it.typeInfo is TypeInfo.StringList }
+        get() = throws || parameters.any { it.typeInfo is TypeInfo.StringList } || noStringConversion
 
     val needsMemscopedReturnValue: Boolean
         get() = returnTypeInfo is TypeInfo.StringList

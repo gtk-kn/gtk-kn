@@ -1,4 +1,6 @@
-headers = hb.h hb-aat.h hb-ft.h hb-glib.h hb-ot.h
+# Harfbuzz headers require only "hb.h" to be included directly. Including other internal headers
+# (e.g., hb-blob.h, hb-buffer.h) triggers errors due to a #error directive in those files.
+headers = hb.h hb-aat.h hb-gobject.h
 package = org.gtkkn.native.harfbuzz
 headerFilter = hb.h hb-*.h
 
@@ -18,11 +20,7 @@ compilerOpts.linux_x64 = \
 
 # pkg-config --libs harfbuzz | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -L/usr/local/lib \
     -lharfbuzz
-
-linkerOpts.linux_x64 = \
-    -L/usr/lib/x86_64-linux-gnu
 
 strictEnums = \
     hb_aat_layout_feature_selector_t \

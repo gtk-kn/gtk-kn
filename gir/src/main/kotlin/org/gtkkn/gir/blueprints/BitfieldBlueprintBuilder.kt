@@ -28,14 +28,14 @@ import org.gtkkn.gir.processor.ProcessorContext
 class BitfieldBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girBitfield: GirBitfield,
+    private val girNode: GirBitfield,
 ) : BlueprintBuilder<BitfieldBlueprint>(context) {
     private val members = mutableListOf<BitfieldMemberBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
     override fun blueprintObjectType(): String = "bitfield"
 
-    override fun blueprintObjectName(): String = girBitfield.name
+    override fun blueprintObjectName(): String = girNode.name
 
     private fun addFunction(function: GirFunction) {
         when (val result = FunctionBlueprintBuilder(context, girNamespace, function).build()) {
@@ -45,20 +45,18 @@ class BitfieldBlueprintBuilder(
     }
 
     override fun buildInternal(): BitfieldBlueprint {
-        context.checkIgnoredType(girBitfield.cType)
+        context.checkIgnoredType(girNode.cType)
 
-        if (!girBitfield.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girBitfield.cType)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.cType)
         }
 
-        val kotlinName = girBitfield.name.toPascalCase()
-        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace)
-        val kotlinTypeName = ClassName(kotlinPackageName, kotlinName)
+        val kotlinTypeName = context.typeRegistry.get(girNode).className
 
         val nativePackageName = context.namespaceNativePackageName(girNamespace)
-        val nativeValueTypeName = ClassName(nativePackageName, girBitfield.cType)
+        val nativeValueTypeName = ClassName(nativePackageName, girNode.cType)
 
-        girBitfield.members.forEach { member ->
+        girNode.members.forEach { member ->
             val memberKotlinName = member.name.uppercase()
             members.add(
                 BitfieldMemberBlueprint(
@@ -73,18 +71,18 @@ class BitfieldBlueprintBuilder(
             )
         }
 
-        girBitfield.functions.forEach { addFunction(it) }
+        girNode.functions.forEach { addFunction(it) }
 
         return BitfieldBlueprint(
-            kotlinName = girBitfield.name.toPascalCase(),
+            kotlinName = girNode.name.toPascalCase(),
             members = members,
             functionBlueprints = functionBlueprints,
             kotlinTypeName = kotlinTypeName,
             nativeValueTypeName = nativeValueTypeName,
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girBitfield.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girBitfield.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }
 }

@@ -55,4 +55,6 @@ data class GirEnumeration(
         functions.forEach { it.initialize(this, namespace) }
         functionInlines.forEach { it.initialize(this, namespace) }
     }
+
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true
 }

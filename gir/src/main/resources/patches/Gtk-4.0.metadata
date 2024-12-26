@@ -55,3 +55,6 @@ TreePath.to_string#method name="to_string_tree_path"
 // calling this function with named arguments.
 TreeViewColumn.add_attribute.cell_renderer#parameter name="cell"
 TreeViewColumn.clear_attributes.cell_renderer#parameter name="cell"
+
+// gtk_snapshot_push_blend is expecting a UInt instead of a org.gtkkn.native.gsk.GskBlendMod
+Snapshot.push_blend.blend_mode enum_raw_value

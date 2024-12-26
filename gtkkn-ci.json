@@ -91,5 +91,12 @@
       "module": "extra:webkit",
       "girPrefix": "WebKit-6.0"
     }
+  ],
+  "ignoredLibraries": [
+    {
+      "name": "harfbuzz",
+      "module": "core:harfbuzz",
+      "girPrefix": "HarfBuzz-"
+    }
   ]
 }

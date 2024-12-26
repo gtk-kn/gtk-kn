@@ -29,29 +29,29 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class FieldBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girField: GirField,
+    private val girNode: GirField,
     private val accessPath: String? = null,
 ) : BlueprintBuilder<FieldBlueprint>(context) {
     override fun blueprintObjectType(): String = "field"
 
-    override fun blueprintObjectName(): String = checkNotNull(girField.name)
+    override fun blueprintObjectName(): String = checkNotNull(girNode.name)
 
     override fun buildInternal(): FieldBlueprint {
-        checkNotNull(girField.name)
-        if (!girField.shouldBeGenerated()) {
-            throw NotIntrospectableException(girField.name)
+        checkNotNull(girNode.name)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.name)
         }
 
-        val typeInfo = when (girField.type) {
+        val typeInfo = when (girNode.type) {
             is GirType -> {
                 // assuming not nullable here, we might need to revisit this when adding array, callback and
                 // embedded structs
-                val typeInfo = context.resolveTypeInfo(girNamespace, girField.type, false)
+                val typeInfo = context.resolveTypeInfo(girNamespace, girNode.type, false)
                 typeInfo.withNullable(typeInfo.isCinteropNullable)
             }
 
             is GirArrayType -> {
-                val typeInfo = context.resolveTypeInfo(girNamespace, girField.type, false)
+                val typeInfo = context.resolveTypeInfo(girNamespace, girNode.type, false)
                 typeInfo.withNullable(typeInfo.isCinteropNullable)
             }
 
@@ -59,13 +59,13 @@ class FieldBlueprintBuilder(
         }
 
         return FieldBlueprint(
-            kotlinName = girField.name.toCamelCase(),
-            nativeName = girField.name,
+            kotlinName = girNode.name.toCamelCase(),
+            nativeName = girNode.name,
             typeInfo = typeInfo,
-            writeable = girField.writable == true,
+            writeable = girNode.writable == true,
             accessPath = accessPath,
-            kdoc = context.processKdoc(girField.doc?.doc?.text),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girField.info)
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
         )

@@ -573,6 +573,50 @@ class MetadataProcessorTest {
     }
 
     @Test
+    fun `test apply ENUM_RAW_VALUE argument to parameter node`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <parameters>
+                          <parameter name="param1" />
+                        </parameters>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method.param1 enum_raw_value
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node
+        val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
+        assertNotNull(paramNode)
+
+        val enumRawValueAttr = paramNode.attributes.getNamedItem("gtk-kn-enum-raw-value")?.nodeValue?.toBoolean()
+        assertTrue(enumRawValueAttr == true, "The 'gtk-kn-enum-raw-value' attribute should be true")
+    }
+
+    @Test
     fun `test apply ERRORDOMAIN argument to enumeration node`() {
         // Prepare the XML document
         val xmlContent =
@@ -1027,6 +1071,36 @@ class MetadataProcessorTest {
         val noAccessorMethodAttr =
             methodNode.attributes.getNamedItem("gtk-kn-no-accessor-method")?.nodeValue?.toBoolean()
         assertTrue(noAccessorMethodAttr == true, "The 'gtk-kn-no-accessor-method' attribute should be true")
+    }
+
+    @Test
+    fun `test apply NO_STRING_CONVERSION argument to property node`() {
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                       <function name="test_function" />
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        val metadataContent =
+            """
+                TestClass.test_function no_string_conversion
+            """.trimIndent()
+
+        document = parseXml(xmlContent)
+        val metadata = metadataParser.parse(metadataContent)
+        processor = MetadataProcessor(metadata, document)
+        processor.apply()
+
+        val functionNode = findNodeByName(document.documentElement, "function", "test_function")
+        assertNotNull(functionNode)
+        val noStringConversionAttr =
+            functionNode.attributes.getNamedItem("gtk-kn-no-string-conversion")?.nodeValue?.toBoolean()
+        assertTrue(noStringConversionAttr == true, "The 'gtk-kn-no-string-conversion' attribute should be true")
     }
 
     @Test

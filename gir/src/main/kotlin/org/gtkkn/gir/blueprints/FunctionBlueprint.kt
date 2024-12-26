@@ -26,7 +26,8 @@ data class FunctionBlueprint(
     override val returnTypeInfo: TypeInfo,
     override val throws: Boolean,
     override val exceptionResolvingFunctionMember: MemberName,
+    override val noStringConversion: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
-    val returnTypeKDoc: String?,
+    val returnTypeKDoc: String?
 ) : CallableBlueprint

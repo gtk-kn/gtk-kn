@@ -72,6 +72,5 @@ data class GirUnion(
         records.forEach { it.initialize(this, namespace) }
     }
 
-    fun shouldBeGenerated(): Boolean =
-        info.shouldBeGenerated() && name != "priv" && cType != "priv"
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true && name != "priv" && cType != "priv"
 }

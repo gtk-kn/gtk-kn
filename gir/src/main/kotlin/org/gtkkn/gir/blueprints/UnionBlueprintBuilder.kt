@@ -31,7 +31,7 @@ import org.gtkkn.gir.processor.ProcessorContext
 class UnionBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girUnion: GirUnion,
+    private val girNode: GirUnion,
 ) : BlueprintBuilder<UnionBlueprint>(context) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBlueprints = mutableListOf<MethodBlueprint>()
@@ -41,35 +41,36 @@ class UnionBlueprintBuilder(
     override fun blueprintObjectType(): String = "union"
 
     override fun blueprintObjectName(): String =
-        girUnion.name ?: throw NotIntrospectableException("Unnamed union cannot be built")
+        girNode.name ?: throw NotIntrospectableException("Unnamed union cannot be built")
 
     override fun buildInternal(): UnionBlueprint {
-        if (!girUnion.shouldBeGenerated() || girUnion.name.isNullOrBlank()) {
-            throw NotIntrospectableException(girUnion.name ?: "UnnamedUnion")
+        if (!girNode.shouldBeGenerated() || girNode.name.isNullOrBlank()) {
+            throw NotIntrospectableException(girNode.name ?: "UnnamedUnion")
         }
 
-        girUnion.cType?.let { context.checkIgnoredType(it) }
+        girNode.cType?.let { context.checkIgnoredType(it) }
 
         // Add top-level methods, constructors, functions
-        girUnion.methods.forEach { addMethod(it) }
-        girUnion.constructors.forEach { addConstructor(it) }
-        girUnion.functions.forEach { addFunction(it) }
+        girNode.methods.forEach { addMethod(it) }
+        girNode.constructors.forEach { addConstructor(it) }
+        girNode.functions.forEach { addFunction(it) }
 
         // Add top-level fields (no prefix for top-level)
-        girUnion.fields.forEach { addField(it, prefix = null) }
+        girNode.fields.forEach { addField(it, prefix = null) }
 
         // If there are nested records, process their fields as well
-        girUnion.records.forEach { addRecordFields(it, prefix = null) }
+        girNode.records.forEach { addRecordFields(it, prefix = null) }
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girUnion.name}Pointer"
-        val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girUnion)
+        val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val kotlinName = girUnion.name.toPascalCase()
-        val nativeTypeName = context.buildNativeClassName(girNamespace, girUnion)
+        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girNode)
+
+        val nativeTypeName = context.buildNativeClassName(girNamespace, girNode)
 
         return UnionBlueprint(
-            kotlinName = kotlinName,
-            kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
+            kotlinName = kotlinClassName.simpleName,
+            kotlinTypeName = kotlinClassName,
             nativeTypeName = nativeTypeName,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
@@ -79,13 +80,13 @@ class UnionBlueprintBuilder(
             fields = fieldBlueprints,
             cStructTypeName = ClassName(
                 context.namespaceNativePackageName(girNamespace),
-                girUnion.cType ?: error("unknown cType"),
+                girNode.cType ?: error("unknown cType"),
             ),
-            hasNewConstructor = girUnion.constructors.any { it.callable.getName() == "new" },
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girUnion.info)
+            hasNewConstructor = girNode.constructors.any { it.callable.getName() == "new" },
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girUnion.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
             skippedObjects = skippedObjects,
         )
     }

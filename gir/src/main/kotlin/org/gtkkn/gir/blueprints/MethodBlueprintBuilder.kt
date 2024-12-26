@@ -36,25 +36,25 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class MethodBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
-    private val girMethod: GirMethod,
+    private val girNode: GirMethod,
     private val superClasses: List<GirClass> = emptyList(),
     private val superInterfaces: List<GirInterface> = emptyList(),
     private val isOpen: Boolean = false,
 ) : CallableBlueprintBuilder<MethodBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "method"
 
-    override fun blueprintObjectName(): String = girMethod.callable.getName()
+    override fun blueprintObjectName(): String = girNode.callable.getName()
 
     override fun buildInternal(): MethodBlueprint {
         checkSkippedMethod()
 
-        val kotlinName = girMethod.callable.getName().toCamelCase()
+        val kotlinName = girNode.callable.getName().toCamelCase()
 
         // parameters
-        girMethod.parameters?.let { addParameters(it) }
+        girNode.parameters?.let { addParameters(it) }
 
         // return value
-        val returnValue = girMethod.returnValue ?: throw UnresolvableTypeException("Method has no return value")
+        val returnValue = girNode.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
         val returnTypeInfo: TypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
@@ -70,19 +70,19 @@ class MethodBlueprintBuilder(
         // check for overrides
         val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
         val nameMatchingSuperMethods = superMethods.filter { method ->
-            method.callable.shouldBeGenerated() && method.callable.getName() == girMethod.callable.getName()
+            method.callable.shouldBeGenerated() && method.callable.getName() == girNode.callable.getName()
         }
 
         val isOverride = nameMatchingSuperMethods.any {
-            it.debugParameterSignature() == girMethod.debugParameterSignature()
+            it.debugParameterSignature() == girNode.debugParameterSignature()
         } || kotlinName == "toString" && parameterBlueprints.isEmpty()
         if (isOverride) {
-            logger.debug { "Detected method override: ${girMethod.callable.getName()}" }
+            logger.debug { "Detected method override: ${girNode.callable.getName()}" }
         }
 
         // method name
-        val nativeMethodName = girMethod.callable.cIdentifier ?: throw UnresolvableTypeException(
-            "native method ${girMethod.callable.getName()} does not have cIdentifier",
+        val nativeMethodName = girNode.callable.cIdentifier ?: throw UnresolvableTypeException(
+            "native method ${girNode.callable.getName()} does not have cIdentifier",
         )
 
         val nativeMemberName = MemberName(context.namespaceNativePackageName(girNamespace), nativeMethodName)
@@ -95,28 +95,28 @@ class MethodBlueprintBuilder(
             returnTypeInfo = returnTypeInfo,
             isOverride = isOverride,
             isOpen = isOpen,
-            throws = girMethod.callable.throws == true,
+            throws = girNode.callable.throws == true,
             exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girMethod.callable.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.callable.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girMethod.doc?.doc?.text),
-            returnTypeKDoc = context.processKdoc(girMethod.returnValue.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girNode.returnValue.doc?.doc?.text),
         )
     }
 
     private fun checkSkippedMethod() {
-        if (!girMethod.callable.shouldBeGenerated()) {
-            throw NotIntrospectableException(girMethod.callable.cIdentifier ?: girMethod.callable.getName())
+        if (!girNode.callable.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.callable.cIdentifier ?: girNode.callable.getName())
         }
 
-        girMethod.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
+        girNode.callable.cIdentifier?.let { context.checkIgnoredFunction(it) }
 
-        if (girMethod.parameters == null) {
+        if (girNode.parameters == null) {
             throw UnresolvableTypeException("Method has no parameters object")
         }
 
-        if (girMethod.parameters.instanceParameter == null) {
+        if (girNode.parameters.instanceParameter == null) {
             throw UnresolvableTypeException("Method has no instance parameter")
         }
     }

@@ -25,28 +25,28 @@ import org.gtkkn.gir.processor.ProcessorContext
 class AliasBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girAlias: GirAlias,
+    private val girNode: GirAlias,
 ) : BlueprintBuilder<AliasBlueprint>(context) {
     override fun blueprintObjectType(): String = "alias"
 
-    override fun blueprintObjectName(): String = girAlias.name
+    override fun blueprintObjectName(): String = girNode.name
 
     override fun buildInternal(): AliasBlueprint {
-        context.checkIgnoredType(girAlias.cType)
+        context.checkIgnoredType(girNode.cType)
 
-        if (!girAlias.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girAlias.cType)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.cType)
         }
 
-        val parentTypeName = context.resolveTypeInfo(girNamespace, girAlias.type, false).kotlinTypeName
+        val parentTypeName = context.resolveTypeInfo(girNamespace, girNode.type, false).kotlinTypeName
 
         return AliasBlueprint(
-            kotlinName = girAlias.name.toPascalCase(),
+            kotlinName = girNode.name.toPascalCase(),
             parentTypeName = parentTypeName,
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girAlias.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girAlias.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }
 }

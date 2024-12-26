@@ -32,13 +32,13 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class CallbackBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
-    private val girCallback: GirCallback,
+    private val girNode: GirCallback,
 ) : CallableBlueprintBuilder<CallbackBlueprint>(context, girNamespace) {
     private val callbackParameters = mutableListOf<ParameterBlueprint>()
 
     override fun blueprintObjectType(): String = "callback"
 
-    override fun blueprintObjectName(): String = girCallback.name
+    override fun blueprintObjectName(): String = girNode.name
 
     private fun addParameter(param: GirParameter) {
         when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
@@ -48,19 +48,19 @@ class CallbackBlueprintBuilder(
     }
 
     override fun buildInternal(): CallbackBlueprint {
-        if (!girCallback.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girCallback.cType ?: girCallback.name)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.cType ?: girNode.name)
         }
 
-        if (girCallback.throws == true) {
+        if (girNode.throws == true) {
             throw UnresolvableTypeException("Callbacks that throw are not supported")
         }
 
-        if (girCallback.parameters?.instanceParameter != null) {
+        if (girNode.parameters?.instanceParameter != null) {
             error("Callback with instance parameter")
         }
 
-        val returnValue = girCallback.returnValue ?: error("Callback has no return value")
+        val returnValue = girNode.returnValue ?: error("Callback has no return value")
 
         val returnTypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
@@ -71,7 +71,7 @@ class CallbackBlueprintBuilder(
             }
         }
 
-        girCallback.parameters?.parameters?.forEach { addParameter(it) }
+        girNode.parameters?.parameters?.forEach { addParameter(it) }
 
         val callbackLambdaTypeName =
             LambdaTypeName.get(
@@ -84,14 +84,14 @@ class CallbackBlueprintBuilder(
             )
 
         return CallbackBlueprint(
-            kotlinName = girCallback.name.toPascalCase(),
+            kotlinName = girNode.name.toPascalCase(),
             returnTypeInfo = returnTypeInfo,
             lambdaTypeName = callbackLambdaTypeName,
             parameters = callbackParameters,
-            throws = girCallback.throws == true,
+            throws = girNode.throws == true,
             exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
-            kdoc = context.processKdoc(girCallback.doc?.doc?.text),
-            returnTypeKDoc = context.processKdoc(girCallback.returnValue.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girNode.returnValue.doc?.doc?.text),
         )
     }
 }

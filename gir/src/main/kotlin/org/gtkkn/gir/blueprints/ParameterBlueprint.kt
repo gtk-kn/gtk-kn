@@ -24,4 +24,5 @@ data class ParameterBlueprint(
     val kdoc: String?,
     val isUserData: Boolean = false,
     val isDestroyData: Boolean = false,
+    val needsRawValueForEnums: Boolean = false
 )

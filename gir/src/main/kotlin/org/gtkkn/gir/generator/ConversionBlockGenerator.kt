@@ -71,10 +71,16 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
                 is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
-                is TypeInfo.KString -> if (type.immutable) {
-                    add("%N", param.kotlinName)
-                } else {
-                    add("%N$safeCall.%M", param.kotlinName, BindingsGenerator.CSTR_FUNC)
+                is TypeInfo.KString -> when {
+                    type.noStringConversion -> add(
+                        "%N$safeCall.%M$safeCall.%M",
+                        param.kotlinName,
+                        BindingsGenerator.CSTR_FUNC,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+                    type.immutable -> add("%N", param.kotlinName)
+
+                    else -> add("%N$safeCall.%M", param.kotlinName, BindingsGenerator.CSTR_FUNC)
                 }
 
                 is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)

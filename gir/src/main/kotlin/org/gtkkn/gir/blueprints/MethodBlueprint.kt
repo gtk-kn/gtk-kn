@@ -31,4 +31,6 @@ data class MethodBlueprint(
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,
-) : CallableBlueprint
+) : CallableBlueprint {
+    override val noStringConversion: Boolean = false
+}

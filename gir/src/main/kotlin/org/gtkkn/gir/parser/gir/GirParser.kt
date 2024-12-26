@@ -521,6 +521,7 @@ class GirParser(
         version = node.attributeValueOrNull("version"),
         stability = node.attributeValueOrNull("stability")?.let { GirInfo.Stability.fromString(it) },
         gtkKnIgnore = node.attributeBooleanValueOrNull("gtk-kn-ignore"),
+        gtkKnNoStringConversion = node.attributeBooleanValueOrNull("gtk-kn-no-string-conversion"),
     )
 
     private fun parseGirCallable(node: Node): GirCallable = GirCallable(
@@ -562,6 +563,7 @@ class GirParser(
             doc = parseGirDocElements(node),
             annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
             type = childTypes.first(),
+            gtkKnRawValue = node.attributeBooleanValueOrNull("gtk-kn-enum-raw-value"),
         )
     }
 

@@ -57,7 +57,5 @@ data class GirCallable(
     }
 
     fun shouldBeGenerated(): Boolean =
-        info.shouldBeGenerated() &&
-            shadowedBy.isNullOrEmpty() &&
-            movedTo?.contains(".") != true
+        info.gtkKnIgnore != true && shadowedBy.isNullOrEmpty() && movedTo?.contains(".") != true
 }

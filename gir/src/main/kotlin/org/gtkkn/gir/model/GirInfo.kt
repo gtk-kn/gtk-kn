@@ -25,6 +25,8 @@ package org.gtkkn.gir.model
  * @property version Version number of an element.
  * @property stability Stability status of the element. Can be "Stable", "Unstable", or "Private".
  * @property gtkKnIgnore Binary attribute which is "1" (true) if the element should be ignored.
+ * @property gtkKnNoStringConversion Binary attribute which is "1" (true) if the element automatic conversion is skipped
+ *                                   and raw pointers are used in the bindings.
  */
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirInfo(
@@ -34,14 +36,13 @@ data class GirInfo(
     val version: String? = null,
     val stability: Stability? = null,
     val gtkKnIgnore: Boolean? = null,
+    val gtkKnNoStringConversion: Boolean? = null,
 ) : GirNode {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace
     override fun initializeChildren(namespace: GirNamespace) {
         // No children
     }
-
-    fun shouldBeGenerated() = gtkKnIgnore != true
 
     enum class Stability {
         STABLE,

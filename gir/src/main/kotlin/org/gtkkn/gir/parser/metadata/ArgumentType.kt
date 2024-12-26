@@ -106,6 +106,11 @@ enum class ArgumentType {
     DESTROY_NOTIFY_CNAME,
 
     /**
+     * Whether the enum should use raw value or not.
+     */
+    ENUM_RAW_VALUE,
+
+    /**
      * Whether the enumeration is an error domain or not.
      */
     ERRORDOMAIN,
@@ -159,6 +164,11 @@ enum class ArgumentType {
      * Whether the accessor method is omitted.
      */
     NO_ACCESSOR_METHOD,
+
+    /**
+     * If automatic conversion is skipped and raw pointers are used in the bindings.
+     */
+    NO_STRING_CONVERSION,
 
     /**
      * Whether the type is nullable or not.

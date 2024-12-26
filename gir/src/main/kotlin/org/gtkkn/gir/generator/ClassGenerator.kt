@@ -45,7 +45,7 @@ interface ClassGenerator :
             }
 
             // parent class
-            clazz.parentTypeName?.let { superclass(it) }
+            clazz.parentClassName?.let { superclass(it) }
 
             // interfaces
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })

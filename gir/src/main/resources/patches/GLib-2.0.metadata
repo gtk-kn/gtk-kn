@@ -15,10 +15,12 @@ Date.strftime ignore
 chmod ignore
 creat ignore
 fsync ignore
+lstat ignore
 mkdir ignore
 open ignore
 remove ignore
 rename ignore
+stat ignore
 
 // Missing nullable annotation https://gitlab.gnome.org/GNOME/glib/-/issues/3552
 LogFunc.log_domain nullable
@@ -26,3 +28,12 @@ LogFunc.log_domain nullable
 // K/N cinterop can't find it, maybe something is missing in the glib.def file?
 TestCase ignore
 TestSuite ignore
+test_create_suite ignore
+test_get_root ignore
+test_run_suite ignore
+
+// https://youtrack.jetbrains.com/issue/KT-73948/Corrupted-String-Returned-by-gettext-in-Kotlin-Native
+dcgettext no_string_conversion
+dgettext no_string_conversion
+dngettext no_string_conversion
+dpgettext no_string_conversion
