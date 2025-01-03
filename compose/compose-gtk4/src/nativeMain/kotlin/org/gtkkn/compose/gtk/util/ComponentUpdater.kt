@@ -18,7 +18,6 @@ package org.gtkkn.compose.gtk.util
 
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 
-
 /**
  * Stores the previous applied state, and provide ability to update component if the new state is
  * changed.

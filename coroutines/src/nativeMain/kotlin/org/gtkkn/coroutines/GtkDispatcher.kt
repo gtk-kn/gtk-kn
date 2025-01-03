@@ -57,7 +57,7 @@ import kotlin.coroutines.CoroutineContext
  *
  *     // Inject GtkDispatcher as the Main dispatcher
  *     @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
- *     Dispatchers.setMain(GtkDispatcher)
+ *     Dispatchers.injectMain(GtkDispatcher)
  *
  *     // Start the GTK application
  *     withContext(gtkMainThread) {

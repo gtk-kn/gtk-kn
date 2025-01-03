@@ -445,6 +445,7 @@ complexity:
     excludes: [ '**/src/test*/**', '**/src/androidTest*/**', '**/*Test.kt' ] # Custom
     ignoreAnnotated: # Custom
       - 'Composable'
+      - 'GtkComposeInternalApi'
   LongParameterList:
     active: false # Custom
     functionThreshold: 6
@@ -455,6 +456,7 @@ complexity:
     ignoreAnnotated: # Custom
       - 'AssistedInject'
       - 'Composable'
+      - 'GtkComposeInternalApi'
       - 'Inject'
       - 'Provides'
   MethodOverloading:
@@ -729,6 +731,7 @@ naming:
     excludeClassPattern: '$^'
     ignoreAnnotated: # Custom
       - 'Composable'
+      - 'GtkComposeInternalApi'
   FunctionParameterNaming:
     active: true
     parameterPattern: '`?[a-z][A-Za-z0-9]*`?' # Custom
@@ -1064,6 +1067,7 @@ style:
       - '2'
     ignoreAnnotated: # Custom
       - 'Composable'
+      - 'GtkComposeInternalApi'
     ignoreHashCodeFunction: false # Custom
     ignorePropertyDeclaration: true # Custom
     ignoreLocalVariableDeclaration: false

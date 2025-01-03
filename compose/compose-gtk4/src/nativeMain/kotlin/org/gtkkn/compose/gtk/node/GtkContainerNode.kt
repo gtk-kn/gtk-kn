@@ -18,11 +18,9 @@ package org.gtkkn.compose.gtk.node
 
 import androidx.compose.runtime.Composition
 import androidx.compose.runtime.CompositionContext
-import co.touchlab.kermit.Logger
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 import org.gtkkn.compose.gtk.internal.GtkNodeApplier
-
 
 @GtkComposeInternalApi
 public typealias AnyGtkContainerNode = GtkContainerNode<Widget>
@@ -48,7 +46,6 @@ public abstract class GtkContainerNode<out TWidget : Widget> : GtkNode<TWidget>(
             val fromIndex = if (from > to) from + i else from
             val toIndex = if (from > to) to + i else to + count - 2
 
-
             val child = children[fromIndex]
             remove(fromIndex, 1)
             insert(toIndex, child)
@@ -66,10 +63,9 @@ public abstract class GtkContainerNode<out TWidget : Widget> : GtkNode<TWidget>(
 @GtkComposeInternalApi
 public fun <TWidget : Widget> GtkContainerNode<TWidget>.setContent(
     parentComposition: CompositionContext,
-    logger: Logger,
     content: ContentBuilder<TWidget>
 ): Composition {
-    val applier = GtkNodeApplier(this, logger)
+    val applier = GtkNodeApplier(this)
     val scope = StaticNodeScope(this)
     val composition = Composition(applier, parentComposition)
     composition.setContent {

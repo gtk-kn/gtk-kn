@@ -16,7 +16,6 @@
 
 package org.gtkkn.compose.gtk.util
 
-
 /**
  * Value holder general purpose class.
  */

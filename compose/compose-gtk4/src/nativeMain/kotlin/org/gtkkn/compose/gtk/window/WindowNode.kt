@@ -37,14 +37,14 @@ import org.gtkkn.compose.gtk.node.GtkParentNode
 import org.gtkkn.compose.gtk.node.setContent
 import org.gtkkn.compose.gtk.platform.LocalApplication
 import org.gtkkn.compose.gtk.platform.LocalWindow
-import org.gtkkn.compose.gtk.platform.rememberLogger
 import org.gtkkn.compose.gtk.props.PropsScope
 import org.gtkkn.compose.gtk.props.SyntheticProperty
 import org.gtkkn.compose.gtk.props.getValue
 import org.gtkkn.compose.gtk.props.setValue
 import org.gtkkn.compose.gtk.props.signal
 import org.gtkkn.compose.gtk.util.ComponentUpdater
-
+import org.gtkkn.extensions.glib.util.LogPriority.INFO
+import org.gtkkn.extensions.glib.util.log
 
 @GtkComposeInternalApi
 internal open class WindowNode<TWidget : Window>(override val widget: TWidget) : GtkParentNode<TWidget>() {
@@ -171,7 +171,9 @@ public var PropsScope<out Window>.transientFor: Window? by Window::transientFor
  * @see Window.connectActivateDefault
  */
 @OptIn(GtkComposeInternalApi::class)
-public var PropsScope<out Window>.onActivateDefault: () -> Unit by signal { widget.connectActivateDefault(handler = it) }
+public var PropsScope<out Window>.onActivateDefault: () -> Unit by signal {
+    widget.connectActivateDefault(handler = it)
+}
 
 /**
  * @see Window.connectActivateFocus
@@ -231,7 +233,6 @@ internal fun <TWidget : Window, TNode : GtkContainerNode<TWidget>> Window(
     props: PropsScope<TWidget>.() -> Unit,
     child: ContentBuilder<Window>,
 ) {
-    val logger = rememberLogger { "Window" }
     val currentOnCloseRequest by rememberUpdatedState(onCloseRequest)
 
     val application = LocalApplication.current
@@ -244,7 +245,7 @@ internal fun <TWidget : Window, TNode : GtkContainerNode<TWidget>> Window(
         visible = visible,
         create = {
             node.apply {
-                setContent(parentComposition, logger) {
+                setContent(parentComposition) {
                     CompositionLocalProvider(LocalWindow provides this@apply.widget) {
                         refEffect?.let { effect ->
                             DisposableEffect(Unit) {
@@ -273,16 +274,16 @@ internal fun <TWidget : Window, TNode : GtkContainerNode<TWidget>> Window(
 
             updater.update {
                 set(propsScope.properties) { properties ->
-                    logger.d { "Updating properties" }
+                    log("Window", INFO) { "Updating properties" }
                     properties.forEach { (key, property) ->
-                        logger.v { "Updating property[$key]" }
+                        log("Window") { "Updating property[$key]" }
                         property.updater(node, property.value)
                     }
                 }
                 set(propsScope.signals) { signals ->
-                    logger.d { "Updating signals" }
+                    log("Window", INFO) { "Updating signals" }
                     val newSignals = signals.map { (key, signal) ->
-                        logger.v { "Updating signal[$key]" }
+                        log("Window") { "Updating signal[$key]" }
                         signal.connector(node, signal.handler)
                     }
                     node.signals = newSignals

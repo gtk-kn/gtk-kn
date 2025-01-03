@@ -23,14 +23,13 @@ import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 import org.gtkkn.compose.gtk.node.ContentBuilder
 import org.gtkkn.compose.gtk.props.PropsScope
 
-
 @GtkComposeInternalApi
 private class ApplicationWindowNode(
     override val widget: ApplicationWindow
 ) : WindowNode<ApplicationWindow>(widget)
 
 // region properties
-//public var PropsScope<out ApplicationWindow>.showMenubar: Boolean by ApplicationWindow::showMenubar
+// public var PropsScope<out ApplicationWindow>.showMenubar: Boolean by ApplicationWindow::showMenubar
 // endregion
 
 @OptIn(GtkComposeInternalApi::class)

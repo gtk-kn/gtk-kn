@@ -19,7 +19,6 @@ package org.gtkkn.compose.gtk.node
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 
-
 @GtkComposeInternalApi
 public typealias AnyGtkParentNode = GtkParentNode<Widget>
 

@@ -29,15 +29,14 @@ import org.gtkkn.bindings.gobject.GObject
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 import org.gtkkn.compose.gtk.internal.GtkNodeApplier
-import org.gtkkn.compose.gtk.platform.rememberLogger
 import org.gtkkn.compose.gtk.props.PropsBuilder
 import org.gtkkn.compose.gtk.props.PropsScope
-
+import org.gtkkn.extensions.glib.util.LogPriority.INFO
+import org.gtkkn.extensions.glib.util.log
 
 @GtkComposeInternalApi
 public typealias AnyGtkNode = GtkNode<Widget>
 
-@OptIn(ExperimentalStdlibApi::class)
 @GtkComposeInternalApi
 public sealed class GtkNode<out TWidget : Widget> : AutoCloseable {
     internal var signals: List<ULong> = emptyList()
@@ -122,8 +121,7 @@ public fun <TWidget : Widget, TNode : GtkNode<TWidget>> GtkNode(
 ) {
     val node = remember(factory)
     val scope = remember(node) { StaticNodeScope(node) }
-    val logger = rememberLogger(node) { "GtkNode(${node})" }
-
+    val logDomain = remember(node) { "GtkNode($node)" }
 
     val aFactory = { node }
     var refEffect: (DisposableEffectScope.(GtkNode<TWidget>) -> DisposableEffectResult)? = null
@@ -148,16 +146,16 @@ public fun <TWidget : Widget, TNode : GtkNode<TWidget>> GtkNode(
 
             update {
                 set(propsScope.properties) { properties ->
-                    logger.d { "Updating properties" }
+                    log(logDomain, INFO) { "Updating properties" }
                     properties.forEach { (key, property) ->
-                        logger.v { "Updating property[$key]" }
+                        log(logDomain) { "Updating property[$key]" }
                         property.updater(node, property.value)
                     }
                 }
                 set(propsScope.signals) { signals ->
-                    logger.d { "Updating signals" }
+                    log(logDomain, INFO) { "Updating signals" }
                     val newSignals = signals.map { (key, signal) ->
-                        logger.v { "Updating signal[$key]" }
+                        log(logDomain) { "Updating signal[$key]" }
                         signal.connector(node, signal.handler)
                     }
                     node.signals = newSignals

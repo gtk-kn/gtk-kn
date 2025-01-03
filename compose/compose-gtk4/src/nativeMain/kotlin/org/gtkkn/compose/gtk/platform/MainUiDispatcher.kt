@@ -21,7 +21,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
-
+import org.gtkkn.compose.gtk.LOG_DOMAIN
 
 /**
  * Dedicated thread to bootstrap GTK. After bootstrapping,
@@ -32,4 +32,4 @@ import kotlinx.coroutines.newSingleThreadContext
  * @see Dispatchers.Main
  */
 @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
-internal val MainUiThread: CloseableCoroutineDispatcher = newSingleThreadContext("GTK-Compose")
+internal val MainUiThread: CloseableCoroutineDispatcher = newSingleThreadContext(LOG_DOMAIN)
