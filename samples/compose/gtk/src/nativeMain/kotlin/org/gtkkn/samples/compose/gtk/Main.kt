@@ -24,12 +24,12 @@ package org.gtkkn.samples.compose.gtk
 
 import androidx.compose.runtime.SideEffect
 import org.gtkkn.bindings.gio.ApplicationFlags
-import org.gtkkn.compose.gtk.application
-import org.gtkkn.compose.gtk.foundation.HBox
-import org.gtkkn.compose.gtk.foundation.spacing
-import org.gtkkn.compose.gtk.platform.LocalApplication
-import org.gtkkn.compose.gtk.window.ApplicationWindow
-import org.gtkkn.compose.gtk.window.title
+import org.gtkkn.compose.gtk4.application
+import org.gtkkn.compose.gtk4.foundation.HBox
+import org.gtkkn.compose.gtk4.foundation.spacing
+import org.gtkkn.compose.gtk4.platform.LocalApplication
+import org.gtkkn.compose.gtk4.window.ApplicationWindow
+import org.gtkkn.compose.gtk4.window.title
 import org.gtkkn.extensions.glib.util.log
 import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger
 
