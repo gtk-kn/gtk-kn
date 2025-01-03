@@ -27,7 +27,6 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty
 
-
 @DslMarker
 public annotation class GtkComposePropsScope
 
@@ -48,14 +47,16 @@ public class PropsScope<TWidget : Widget>(
     @OptIn(GtkComposeInternalApi::class)
     internal var refEffect: (DisposableEffectScope.(GtkNode<TWidget>) -> DisposableEffectResult)? = null
 
+    @PublishedApi
+    internal val properties: MutableMap<String, Property<TWidget, Any?>> = mutableMapOf()
+
+    @PublishedApi
+    internal val signals: MutableMap<String, Signal<TWidget, Any?>> = mutableMapOf()
+
     @OptIn(GtkComposeInternalApi::class)
     public fun ref(effect: (DisposableEffectScope.(GtkNode<TWidget>) -> DisposableEffectResult)) {
         refEffect = effect
     }
-
-    @PublishedApi
-    internal val properties: MutableMap<String, Property<TWidget, Any?>> = mutableMapOf()
-
 
     @PublishedApi
     @OptIn(GtkComposeInternalApi::class)
@@ -67,9 +68,6 @@ public class PropsScope<TWidget : Widget>(
         @Suppress("UNCHECKED_CAST")
         (properties as MutableMap<String, Property<*, *>>)[key] = Property(value, updater)
     }
-
-    @PublishedApi
-    internal val signals: MutableMap<String, Signal<TWidget, Any?>> = mutableMapOf()
 
     @PublishedApi
     @OptIn(GtkComposeInternalApi::class)
@@ -84,14 +82,14 @@ public class PropsScope<TWidget : Widget>(
 
     @PublishedApi
     @OptIn(GtkComposeInternalApi::class)
-    internal class Property<TWidget : Widget, TValue>(
+    internal data class Property<TWidget : Widget, TValue>(
         val value: TValue,
         val updater: GtkNode<TWidget>.(TValue) -> Unit
     )
 
     @PublishedApi
     @OptIn(GtkComposeInternalApi::class)
-    internal class Signal<TWidget : Widget, TValue>(
+    internal data class Signal<TWidget : Widget, TValue>(
         val handler: TValue,
         val connector: GtkNode<TWidget>.(TValue) -> ULong
     )
@@ -107,9 +105,8 @@ public class SyntheticProperty<TWidget : Widget, TValue>(
         property: KProperty<*>
     ): ReadWriteProperty<PropsScope<out TWidget>, TValue> =
         object : ReadWriteProperty<PropsScope<out TWidget>, TValue> {
-            override fun getValue(thisRef: PropsScope<out TWidget>, property: KProperty<*>): TValue {
-                return get.invoke(thisRef.node.widget)
-            }
+            override fun getValue(thisRef: PropsScope<out TWidget>, property: KProperty<*>): TValue =
+                get.invoke(thisRef.node.widget)
 
             override fun setValue(thisRef: PropsScope<out TWidget>, property: KProperty<*>, value: TValue) {
                 val key = property.name
@@ -122,9 +119,7 @@ public class SyntheticProperty<TWidget : Widget, TValue>(
 public inline operator fun <TWidget : Widget, reified TValue : Any?> KMutableProperty1<TWidget, TValue>.getValue(
     thisRef: PropsScope<out TWidget>,
     property: KProperty<*>
-): TValue {
-    return get(thisRef.node.widget)
-}
+): TValue = get(thisRef.node.widget)
 
 @OptIn(GtkComposeInternalApi::class)
 public inline operator fun <TWidget : Widget, reified TValue : Any?> KMutableProperty1<TWidget, TValue>.setValue(

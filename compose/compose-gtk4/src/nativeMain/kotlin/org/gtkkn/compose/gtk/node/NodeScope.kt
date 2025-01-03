@@ -21,7 +21,6 @@ import androidx.compose.runtime.DisposableEffectScope
 import org.gtkkn.bindings.gtk.Widget
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 
-
 @DslMarker
 public annotation class GtkComposeNodeScope
 
@@ -47,6 +46,7 @@ public interface ContainerScope<out TWidget : Widget> : NodeScope<TWidget>
  */
 @GtkComposeInternalApi
 public class LazyNodeScope<TWidget : Widget> : ElementScope<TWidget>, ContainerScope<TWidget> {
+    @Suppress("LateinitUsage")
     @PublishedApi
     internal lateinit var node: GtkNode<TWidget>
 
@@ -58,7 +58,7 @@ public class LazyNodeScope<TWidget : Widget> : ElementScope<TWidget>, ContainerS
  * A [NodeScope] that demands [node] property to be during scope creation
  */
 @GtkComposeInternalApi
-public class StaticNodeScope<TWidget : Widget>(
+public data class StaticNodeScope<TWidget : Widget>(
     @PublishedApi
     internal val node: GtkNode<TWidget>
 ) : ElementScope<TWidget>, ContainerScope<TWidget> {
@@ -70,5 +70,4 @@ public class StaticNodeScope<TWidget : Widget>(
  * Wraps a nullable [ContentBuilder] into potentially noop non-nullable [ContentBuilder]
  */
 @GtkComposeInternalApi
-public inline fun <TWidget : Widget> ContentBuilder<TWidget>?.wrap(): ContentBuilder<TWidget> =
-    { this@wrap?.invoke(this) }
+public fun <TWidget : Widget> ContentBuilder<TWidget>?.wrap(): ContentBuilder<TWidget> = { this@wrap?.invoke(this) }

@@ -16,22 +16,21 @@
 
 package org.gtkkn.compose.gtk.platform
 
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import org.gtkkn.compose.gtk.LOG_DOMAIN
 import org.gtkkn.coroutines.GtkDispatcher
-
+import org.gtkkn.extensions.glib.util.LogPriority.INFO
+import org.gtkkn.extensions.glib.util.log
 
 /**
  * Sets up required side effects on the platform that the compose tree later depends on.
  *
  * **Must be called as early in the program as possible**
  */
-internal fun loadPlatformSideEffects(
-    logger: Logger,
-) {
-    logger.d { "Loading platform side effects" }
+internal fun loadPlatformSideEffects() {
+    log(LOG_DOMAIN, INFO) { "Loading platform side effects" }
 
-    logger.v { "Injecting GioMainDispatcher as Dispatchers.Main" }
+    log(LOG_DOMAIN) { "Injecting GioMainDispatcher as Dispatchers.Main" }
     @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
     Dispatchers.injectMain(GtkDispatcher)
 }

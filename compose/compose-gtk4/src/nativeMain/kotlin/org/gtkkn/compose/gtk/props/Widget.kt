@@ -123,10 +123,10 @@ public var PropsScope<out Widget>.overflow: Overflow by Widget::overflow
  */
 public var PropsScope<out Widget>.receivesDefault: Boolean by Widget::receivesDefault
 
-///**
+// /**
 // * @see Widget.sensitive
 // */
-//public var PropsScope<out Widget>.sensitive: Boolean by Widget::sensitive
+// public var PropsScope<out Widget>.sensitive: Boolean by Widget::sensitive
 
 /**
  * @see Widget.tooltipMarkup
@@ -153,10 +153,10 @@ public var PropsScope<out Widget>.vexpand: Boolean by Widget::vexpand
  */
 public var PropsScope<out Widget>.vexpandSet: Boolean by Widget::vexpandSet
 
-///**
+// /**
 // * @see Widget.visible
 // */
-//public var PropsScope<out Widget>.visible: Boolean by Widget::visible
+// public var PropsScope<out Widget>.visible: Boolean by Widget::visible
 // endregion
 
 // region signals

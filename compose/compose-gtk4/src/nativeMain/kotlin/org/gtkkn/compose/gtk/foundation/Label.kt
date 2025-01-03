@@ -35,7 +35,6 @@ import org.gtkkn.compose.gtk.props.getValue
 import org.gtkkn.compose.gtk.props.setValue
 import org.gtkkn.compose.gtk.props.signal
 
-
 @GtkComposeInternalApi
 private class LabelNode(override val widget: Label) : GtkElementNode<Label>()
 
@@ -136,13 +135,17 @@ public var PropsScope<out Label>.yalign: Float by Label::yalign
  * @see Label.onActivateCurrentLink
  */
 @OptIn(GtkComposeInternalApi::class)
-public var PropsScope<out Label>.onActivateCurrentLink: () -> Unit by signal { widget.onActivateCurrentLink(handler = it) }
+public var PropsScope<out Label>.onActivateCurrentLink: () -> Unit by signal {
+    widget.onActivateCurrentLink(handler = it)
+}
 
 /**
  * @see Label.onActivateLink
  */
 @OptIn(GtkComposeInternalApi::class)
-public var PropsScope<out Label>.onActivateLink: (uri: String) -> Boolean by signal { widget.onActivateLink(handler = it) }
+public var PropsScope<out Label>.onActivateLink: (uri: String) -> Boolean by signal {
+    widget.onActivateLink(handler = it)
+}
 
 /**
  * @see Label.onCopyClipboard
@@ -154,7 +157,11 @@ public var PropsScope<out Label>.onCopyClipboard: () -> Unit by signal { widget.
  * @see Label.onMoveCursor
  */
 @OptIn(GtkComposeInternalApi::class)
-public var PropsScope<out Label>.onMoveCursor: (step: MovementStep, count: Int, extendSelection: Boolean) -> Unit by signal {
+public var PropsScope<out Label>.onMoveCursor: (
+    step: MovementStep,
+    count: Int,
+    extendSelection: Boolean
+) -> Unit by signal {
     widget.onMoveCursor(handler = it)
 }
 //endregion

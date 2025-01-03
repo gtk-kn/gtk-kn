@@ -1,7 +1,7 @@
 # Sharing dependency versions between projects
 # https://docs.gradle.org/current/userguide/platforms.html
 [versions]
-compose = "1.7.1"
+compose = "1.7.3"
 coroutines = "1.9.0"
 detekt = "1.23.7"
 dokka = "1.9.20"

@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 import org.gtkkn.coroutines.Gtk
 import kotlin.concurrent.AtomicInt
 
-
 private inline val GlobalSnapshotManagerDispatcher: CoroutineDispatcher get() = Dispatchers.Gtk
 
 internal object GlobalSnapshotManager {

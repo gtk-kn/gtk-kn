@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 /*
  * Copyright (c) 2024 gtk-kn
  *
@@ -23,6 +25,8 @@ plugins {
 
 version = config.versions.compose.get()
 
+val optInAnnotationsFile = file("${rootProject.projectDir}/bindings/optInAnnotations.txt")
+
 kotlin {
     sourceSets {
         nativeMain {
@@ -30,9 +34,13 @@ kotlin {
                 api(projects.bindings.gtk.gtk4)
                 api(projects.coroutines)
                 api(libs.compose.runtime)
-
-                // Temporary until #106 or any other first-party logging integrated into GTK
-                implementation("co.touchlab:kermit:2.0.4")
+            }
+        }
+        all {
+            // Configure the language settings to opt in to generated annotations for all source sets
+            if (optInAnnotationsFile.exists()) {
+                val optInAnnotations = Files.readAllLines(optInAnnotationsFile.toPath()).filter { it.isNotBlank() }
+                languageSettings { optInAnnotations.forEach { annotationFqName -> optIn(annotationFqName) } }
             }
         }
     }

@@ -25,7 +25,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshots.SnapshotStateObserver
 import kotlinx.coroutines.channels.Channel
 
-
 /**
  * When [UpdateEffect] enters the composition it will call [update] and will capture all state
  * which is used in this function.
@@ -51,6 +50,7 @@ internal fun UpdateEffect(update: () -> Unit) {
         }
         snapshotObserver.start()
 
+        @Suppress("LateinitUsage")
         lateinit var sendUpdate: (Unit) -> Unit
         fun performUpdate() {
             snapshotObserver.observeReads(

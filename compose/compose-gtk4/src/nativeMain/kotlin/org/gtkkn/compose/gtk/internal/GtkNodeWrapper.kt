@@ -18,9 +18,8 @@ package org.gtkkn.compose.gtk.internal
 
 import org.gtkkn.bindings.gtk.Widget
 
-
 @GtkComposeInternalApi
-public class GtkNodeWrapper(public open val widget: Widget) {
+public class GtkNodeWrapper(public val widget: Widget) {
     private val children = buildList {
         var next: Widget? = widget.getFirstChild()
         while (next != null) {
@@ -70,9 +69,11 @@ public class GtkNodeWrapper(public open val widget: Widget) {
         children.clear()
     }
 
-    private var currentListeners = emptyList<NamedEventListener>()
+//    private var currentListeners = emptyList<NamedEventListener>()
 
-    public fun updateEventListeners(list: List<NamedEventListener>) {
+    public fun updateEventListeners(
+//    list: List<NamedEventListener>
+    ) {
 //        currentListeners.forEach {
 //            widget.removeEventListener(it.name, it)
 //        }
@@ -90,7 +91,9 @@ public class GtkNodeWrapper(public open val widget: Widget) {
         }
     }
 
-    public fun updateAttrs(attrs: Map<String, String>) {
+    public fun updateAttrs(
+//        attrs: Map<String, String>
+    ) {
 //        widget.getAttributeNames().forEach { name ->
 //            when (name) {
 //                "style", "class" -> {

@@ -26,11 +26,11 @@ import kotlinx.coroutines.launch
 import org.gtkkn.bindings.gtk.Window
 import org.gtkkn.compose.gtk.internal.GtkComposeInternalApi
 import org.gtkkn.compose.gtk.node.GtkContainerNode
-import org.gtkkn.compose.gtk.platform.rememberLogger
 import org.gtkkn.compose.gtk.util.Ref
 import org.gtkkn.compose.gtk.util.UpdateEffect
 import org.gtkkn.coroutines.Gtk
-
+import org.gtkkn.extensions.glib.util.LogPriority.INFO
+import org.gtkkn.extensions.glib.util.log
 
 /**
  * Compose [GtkWindow] obtained from [create]. The [create] block will be called
@@ -49,26 +49,25 @@ import org.gtkkn.coroutines.Gtk
  * the default Compose functions [Window] or
  * [DialogWindow].
  *
- * @param visible Is [Window] visible to user.
- * Note that if we set `false` - native resources will not be released. They will be released
- * only when [Window] will leave the composition.
+ * @param TNode The type of Node
  * @param create The block creating the [Window] to be composed.
- * @param dispose The block to dispose [Window] and free native resources. Usually it is simple
- * `Window::dispose`
+ * @param dispose The block to dispose [Window] and free native resources. Usually it is simple`Window::dispose`
+ * @param visible Is [Window] visible to user. Note that if we set `false` - native resources will not be released.
+ *                They will be released only when [Window] will leave the composition.
  * @param update The callback to be invoked after the layout is inflated.
  */
 @OptIn(DelicateCoroutinesApi::class, GtkComposeInternalApi::class)
 @Composable
 internal fun <TNode : GtkContainerNode<Window>> GtkWindow(
-    visible: Boolean = true,
     create: () -> TNode,
     dispose: (TNode) -> Unit,
+    visible: Boolean = true,
     update: (TNode) -> Unit = {}
 ) {
     val windowRef = remember { Ref<TNode>() }
     fun window() = windowRef.value!!
 
-    val logger = rememberLogger(windowRef.value) { "${windowRef.value ?: "GtkWindow"}" }
+    val logDomain = remember(windowRef.value) { "${windowRef.value ?: "GtkWindow"}" }
 
     DisposableEffect(Unit) {
         windowRef.value = create()
@@ -108,20 +107,21 @@ internal fun <TNode : GtkContainerNode<Window>> GtkWindow(
         // 4. window1.isVisible = true
         //
         // So we will have the wrong window active (window1).
-        logger.d { "Scheduling show job" }
+        log(logDomain, INFO) { "Scheduling show job" }
+        @Suppress("GlobalCoroutineUsage")
         val showJob = GlobalScope.launch(Dispatchers.Gtk) {
             val window = window().widget
             if (visible) {
-                logger.v { "Presenting" }
+                log(logDomain) { "Presenting" }
                 window.present()
             } else {
                 println("Hiding")
                 window.hide()
             }
         }
-        logger.v { "Show job scheduled" }
+        log(logDomain) { "Show job scheduled" }
         onDispose {
-            logger.d { "Cancelling show job" }
+            log(logDomain, INFO) { "Cancelling show job" }
             showJob.cancel()
         }
     }
