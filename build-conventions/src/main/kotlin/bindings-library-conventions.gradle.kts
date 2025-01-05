@@ -40,14 +40,6 @@ kotlin {
             compilation.compileTaskProvider {
                 mustRunAfter(girTask)
             }
-
-            // Configure the language settings to opt in to generated annotations for all source sets
-            if (optInAnnotationsFile.exists()) {
-                val optInAnnotations = Files.readAllLines(optInAnnotationsFile.toPath()).filter { it.isNotBlank() }
-                compilation.defaultSourceSet.languageSettings {
-                    optInAnnotations.forEach { annotationFqName -> optIn(annotationFqName) }
-                }
-            }
         }
 
         tasks.named("${name}SourcesJar") {
@@ -56,6 +48,11 @@ kotlin {
     }
     sourceSets {
         all {
+            // Configure the language settings to opt in to generated annotations for all source sets
+            if (optInAnnotationsFile.exists()) {
+                val optInAnnotations = Files.readAllLines(optInAnnotationsFile.toPath()).filter { it.isNotBlank() }
+                languageSettings { optInAnnotations.forEach { annotationFqName -> optIn(annotationFqName) } }
+            }
             languageSettings.optIn("org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter")
         }
     }

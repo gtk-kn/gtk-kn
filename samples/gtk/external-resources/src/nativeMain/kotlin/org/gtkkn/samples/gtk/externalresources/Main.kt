@@ -22,7 +22,7 @@
 
 package org.gtkkn.samples.gtk.externalresources
 
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.bindings.gio.Gio
 import org.gtkkn.bindings.gio.Resource

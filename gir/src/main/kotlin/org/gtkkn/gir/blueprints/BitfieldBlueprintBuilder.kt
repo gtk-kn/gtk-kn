@@ -52,7 +52,7 @@ class BitfieldBlueprintBuilder(
         }
 
         val kotlinName = girBitfield.name.toPascalCase()
-        val kotlinPackageName = context.getKotlinPackageName(checkNotNull(girNamespace.name))
+        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace)
         val kotlinTypeName = ClassName(kotlinPackageName, kotlinName)
 
         val nativePackageName = context.namespaceNativePackageName(girNamespace)

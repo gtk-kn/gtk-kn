@@ -71,6 +71,8 @@ data class GirNamespace(
     override lateinit var parentNode: GirNode
     override var namespace: GirNamespace = this
 
+    val mainSymbolPrefix: String? = cSymbolPrefixes?.substringBefore(",")
+
     override fun initializeChildren(namespace: GirNamespace) {
         aliases.forEach { it.initialize(this, this) }
         classes.forEach { it.initialize(this, this) }

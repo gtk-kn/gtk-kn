@@ -1,5 +1,5 @@
 headers = jsc/jsc.h
-package = org.gtkkn.native.javascriptcore
+package = org.gtkkn.native.jsc
 headerFilter = jsc/*.h
 
 # pkg-config --cflags javascriptcoregtk-6.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
