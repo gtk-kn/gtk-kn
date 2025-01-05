@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -310,7 +310,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      */
     public constructor(
         pixbuf: Pixbuf? = null,
-    ) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkPixbufPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Resets the image to be empty.
@@ -369,7 +369,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      * @param pixbuf a `GdkPixbuf` or `NULL`
      */
     public open fun setFromPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_image_set_from_pixbuf(gtkImagePointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
+        gtk_image_set_from_pixbuf(gtkImagePointer.reinterpret(), pixbuf?.gdkPixbufPointer?.reinterpret())
 
     /**
      * Sets a `GtkImage` to show a resource.

@@ -26,7 +26,6 @@ import com.squareup.kotlinpoet.MAP
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.STRING
-import org.gtkkn.gir.ext.capitalized
 import org.gtkkn.gir.generator.BindingsGenerator.Companion.PAIR_TYPE
 import org.gtkkn.gir.generator.KtLintFormatter
 import java.io.File
@@ -90,11 +89,10 @@ internal fun parseOptInAnnotationsFile(optInAnnotationsFile: File): Map<String, 
         if (annotationFqName.isNotEmpty()) {
             val parts = annotationFqName.split('.')
             if (parts.size >= 6) {
-                val repositoryName = parts[3]
                 val className = parts[5]
+                val repositoryName = className.substringBeforeLast("Version").lowercase()
 
-                val prefix = repositoryName.capitalized() + "Version"
-                val versionPart = className.removePrefix(prefix)
+                val versionPart = className.substringAfterLast("Version")
                 val version = versionPart.replace('_', '.')
 
                 val annotationsList = repositoryAnnotations.getOrPut(repositoryName) { mutableListOf() }

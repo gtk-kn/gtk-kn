@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -326,7 +326,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      */
     public constructor(
         pixbuf: Pixbuf? = null,
-    ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkpixbufPixbufPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_picture_new_for_pixbuf(pixbuf?.gdkPixbufPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Makes @self load and display the given @filename.
@@ -348,7 +348,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
      * @param pixbuf a `GdkPixbuf`
      */
     public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_picture_set_pixbuf(gtkPicturePointer.reinterpret(), pixbuf?.gdkpixbufPixbufPointer?.reinterpret())
+        gtk_picture_set_pixbuf(gtkPicturePointer.reinterpret(), pixbuf?.gdkPixbufPointer?.reinterpret())
 
     /**
      * Makes @self load and display the resource at the given

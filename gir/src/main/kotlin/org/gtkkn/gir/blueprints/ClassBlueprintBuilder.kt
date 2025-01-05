@@ -168,7 +168,7 @@ class ClassBlueprintBuilder(
         propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
 
         val kotlinClassName = girClass.name.toPascalCase()
-        val kotlinPackageName = context.getKotlinPackageName(checkNotNull(girNamespace.name))
+        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace)
 
         val objectPointerName = if (girClass.parent != null) {
             "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
@@ -323,7 +323,7 @@ class ClassBlueprintBuilder(
             val namespace = pair.first
             val iface = pair.second
             val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
-            val kotlinPackageName = context.getKotlinPackageName(checkNotNull(namespace.name))
+            val kotlinPackageName = context.namespaceBindingsPackageName(namespace)
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
             val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"

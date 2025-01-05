@@ -79,10 +79,10 @@ class ProcessorContext(
         findRepositoryByNameOrNull(name)?.namespaces?.first()
             ?: throw UnresolvableTypeException("Namespace $name not found")
 
-    fun getKotlinPackageName(nativePackageName: String): String = "org.gtkkn.bindings.${nativePackageName.lowercase()}"
-
     // namespace naming
-    fun namespacePrefix(namespace: GirNamespace): String = checkNotNull(namespace.name).lowercase()
+    fun namespacePrefix(namespace: GirNamespace): String = checkNotNull(namespace.mainSymbolPrefix)
+        .replace("_", "")
+        .lowercase()
 
     fun namespaceNativePackageName(namespace: GirNamespace): String = "org.gtkkn.native.${namespacePrefix(namespace)}"
 

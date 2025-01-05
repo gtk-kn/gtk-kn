@@ -103,7 +103,7 @@ class InterfaceBlueprintBuilder(
         girInterface.functions.forEach { addFunction(it) }
 
         val kotlinInterfaceName = girInterface.name.toPascalCase()
-        val kotlinPackageName = context.getKotlinPackageName(girNamespace.name)
+        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace)
 
         val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
         val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
@@ -144,7 +144,7 @@ class InterfaceBlueprintBuilder(
             }
         }.map { (namespace, iface) ->
             val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
-            val kotlinPackageName = context.getKotlinPackageName(checkNotNull(namespace.name))
+            val kotlinPackageName = context.namespaceBindingsPackageName(namespace)
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
             val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"
