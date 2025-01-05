@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
+import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gdk.Rgba
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Widget
@@ -151,7 +151,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
             pixbuf
         ) = gtk_source_mark_attributes_set_pixbuf(
             gtksourceMarkAttributesPointer.reinterpret(),
-            pixbuf.gdkpixbufPixbufPointer.reinterpret()
+            pixbuf.gdkPixbufPointer.reinterpret()
         )
 
     /**

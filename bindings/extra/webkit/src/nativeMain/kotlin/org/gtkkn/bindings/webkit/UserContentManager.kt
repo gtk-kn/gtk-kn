@@ -10,7 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.javascriptcore.Value
+import org.gtkkn.bindings.jsc.Value
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_26
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_32
@@ -26,7 +26,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
 import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.javascriptcore.JSCValue
+import org.gtkkn.native.jsc.JSCValue
 import org.gtkkn.native.webkit.WebKitScriptMessageReply
 import org.gtkkn.native.webkit.WebKitUserContentManager
 import org.gtkkn.native.webkit.webkit_user_content_manager_add_filter

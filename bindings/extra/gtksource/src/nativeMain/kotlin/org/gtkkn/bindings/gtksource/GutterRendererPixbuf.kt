@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gdk.Paintable
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
+import org.gtkkn.bindings.gdk.Pixbuf
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -149,7 +149,7 @@ public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRenderer
      */
     public open fun setPixbuf(pixbuf: Pixbuf? = null): Unit = gtk_source_gutter_renderer_pixbuf_set_pixbuf(
         gtksourceGutterRendererPixbufPointer.reinterpret(),
-        pixbuf?.gdkpixbufPixbufPointer?.reinterpret()
+        pixbuf?.gdkPixbufPointer?.reinterpret()
     )
 
     public companion object : TypeCompanion<GutterRendererPixbuf> {

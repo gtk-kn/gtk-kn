@@ -3,7 +3,7 @@ package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.bindings.javascriptcore.Value
+import org.gtkkn.bindings.jsc.Value
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
@@ -59,7 +59,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
     @WebKitVersion2_40
     public fun returnValue(replyValue: Value): Unit = webkit_script_message_reply_return_value(
         webkitScriptMessageReplyPointer.reinterpret(),
-        replyValue.javascriptcoreValuePointer.reinterpret()
+        replyValue.jscValuePointer.reinterpret()
     )
 
     /**

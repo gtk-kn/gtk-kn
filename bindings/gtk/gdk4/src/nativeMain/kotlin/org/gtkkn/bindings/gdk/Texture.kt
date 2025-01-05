@@ -11,7 +11,6 @@ import kotlinx.cinterop.`value`
 import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_10
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_6
-import org.gtkkn.bindings.gdkpixbuf.Pixbuf
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.Icon
 import org.gtkkn.bindings.gio.LoadableIcon
@@ -121,7 +120,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      */
     public constructor(
         pixbuf: Pixbuf,
-    ) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkpixbufPixbufPointer.reinterpret())!!.reinterpret())
+    ) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new texture by loading an image from memory,
