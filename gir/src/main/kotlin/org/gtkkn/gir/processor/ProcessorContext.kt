@@ -474,6 +474,7 @@ class ProcessorContext(
             "gushort" -> TypeInfo.Primitive(G_USHORT)
             "long double" -> TypeInfo.Primitive(DOUBLE)
             "none" -> TypeInfo.Primitive(UNIT)
+            "pid_t" -> TypeInfo.Primitive(LONG)
             "time_t" -> TypeInfo.Primitive(LONG)
             "gboolean" -> when (type.cType) {
                 "gboolean" -> TypeInfo.GBoolean(G_BOOLEAN, BOOLEAN)
