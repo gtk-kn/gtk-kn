@@ -112,7 +112,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
             // Append parameters
             constructor.parameters.forEachIndexed { index, param ->
                 if (index > 0) codeBlockBuilder.add(", ")
-                codeBlockBuilder.add(buildParameterConversionBlock(param))
+                codeBlockBuilder.add(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
             }
 
             if (constructor.throws) {
@@ -216,7 +216,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
                 if (index > 0) {
                     funBuilder.addCode(", ")
                 }
-                funBuilder.addCode(buildParameterConversionBlock(param))
+                funBuilder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
             }
 
             if (constructor.throws) {
@@ -470,7 +470,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         builder.addCode("return %T(%M(", kotlinTypeName, constructor.nativeMemberName)
         constructor.parameters.forEachIndexed { index, param ->
             if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param))
+            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
         }
         builder.addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
     }
@@ -488,7 +488,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
 
         constructor.parameters.forEachIndexed { index, param ->
             if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param))
+            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
         }
 
         builder.addCode(", gError.%M", BindingsGenerator.PTR_FUNC)

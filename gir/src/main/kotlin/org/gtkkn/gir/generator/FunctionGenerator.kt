@@ -126,7 +126,7 @@ interface FunctionGenerator : MethodGenerator, ConversionBlockGenerator, KDocGen
     private fun appendNativeCallParameters(builder: FunSpec.Builder, func: FunctionBlueprint) {
         func.parameters.forEachIndexed { index, param ->
             if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param))
+            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
         }
 
         // If the function throws, add the error parameter at the end

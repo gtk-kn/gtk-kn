@@ -229,7 +229,7 @@ interface MethodGenerator : ConversionBlockGenerator, KDocGenerator {
 
         method.parameters.forEach { param ->
             if (needsComma) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param))
+            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
             if (param.needsRawValueForEnums) {
                 builder.addCode(".value")
             }
