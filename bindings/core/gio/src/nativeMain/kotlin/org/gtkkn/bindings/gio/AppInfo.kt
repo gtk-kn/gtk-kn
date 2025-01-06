@@ -333,7 +333,7 @@ public interface AppInfo :
         val gError = allocPointerTo<GError>()
         val gResult = g_app_info_launch(
             gioAppInfoPointer.reinterpret(),
-            files?.glibListPointer?.reinterpret(),
+            files?.gPointer?.reinterpret(),
             context?.gioAppLaunchContextPointer?.reinterpret(),
             gError.ptr
         ).asBoolean()
@@ -366,7 +366,7 @@ public interface AppInfo :
         val gError = allocPointerTo<GError>()
         val gResult = g_app_info_launch_uris(
             gioAppInfoPointer.reinterpret(),
-            uris?.glibListPointer?.reinterpret(),
+            uris?.gPointer?.reinterpret(),
             context?.gioAppLaunchContextPointer?.reinterpret(),
             gError.ptr
         ).asBoolean()
@@ -399,7 +399,7 @@ public interface AppInfo :
         callback: AsyncReadyCallback?,
     ): Unit = g_app_info_launch_uris_async(
         gioAppInfoPointer.reinterpret(),
-        uris?.glibListPointer?.reinterpret(),
+        uris?.gPointer?.reinterpret(),
         context?.gioAppLaunchContextPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {

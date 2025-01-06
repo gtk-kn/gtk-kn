@@ -17,8 +17,8 @@ import org.gtkkn.native.gio.g_dbus_error_quark
 import org.gtkkn.native.gio.g_dbus_error_register_error
 import org.gtkkn.native.gio.g_dbus_error_strip_remote_error
 import org.gtkkn.native.gio.g_dbus_error_unregister_error
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.String
 
@@ -334,8 +334,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          */
         @GioVersion2_26
         public fun encodeGerror(error: Error): String =
-            g_dbus_error_encode_gerror(error.glibErrorPointer.reinterpret())?.toKString()
-                ?: error("Expected not null string")
+            g_dbus_error_encode_gerror(error.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
         /**
          * Gets the D-Bus error name used for @error, if any.
@@ -352,7 +351,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          */
         @GioVersion2_26
         public fun getRemoteError(error: Error): String? =
-            g_dbus_error_get_remote_error(error.glibErrorPointer.reinterpret())?.toKString()
+            g_dbus_error_get_remote_error(error.gPointer.reinterpret())?.toKString()
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -365,7 +364,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          */
         @GioVersion2_26
         public fun isRemoteError(error: Error): Boolean =
-            g_dbus_error_is_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
+            g_dbus_error_is_remote_error(error.gPointer.reinterpret()).asBoolean()
 
         /**
          * Creates a #GError based on the contents of @dbus_error_name and
@@ -440,7 +439,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          */
         @GioVersion2_26
         public fun stripRemoteError(error: Error): Boolean =
-            g_dbus_error_strip_remote_error(error.glibErrorPointer.reinterpret()).asBoolean()
+            g_dbus_error_strip_remote_error(error.gPointer.reinterpret()).asBoolean()
 
         /**
          * Destroys an association previously set up with g_dbus_error_register_error().

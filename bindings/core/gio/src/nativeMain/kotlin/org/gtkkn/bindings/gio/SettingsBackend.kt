@@ -104,11 +104,8 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun changedTree(tree: Tree, originTag: gpointer? = null): Unit = g_settings_backend_changed_tree(
-        gioSettingsBackendPointer.reinterpret(),
-        tree.glibTreePointer.reinterpret(),
-        originTag
-    )
+    public open fun changedTree(tree: Tree, originTag: gpointer? = null): Unit =
+        g_settings_backend_changed_tree(gioSettingsBackendPointer.reinterpret(), tree.gPointer.reinterpret(), originTag)
 
     /**
      * Signals that a list of keys have possibly changed.  Backend

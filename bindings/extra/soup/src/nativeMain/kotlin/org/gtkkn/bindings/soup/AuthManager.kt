@@ -68,7 +68,7 @@ public class AuthManager(pointer: CPointer<SoupAuthManager>) :
      */
     public fun useAuth(uri: Uri, auth: Auth): Unit = soup_auth_manager_use_auth(
         soupAuthManagerPointer.reinterpret(),
-        uri.glibUriPointer.reinterpret(),
+        uri.gPointer.reinterpret(),
         auth.soupAuthPointer.reinterpret()
     )
 

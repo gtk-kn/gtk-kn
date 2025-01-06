@@ -23,9 +23,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.jsc.JSCValue
 import org.gtkkn.native.webkit.WebKitScriptMessageReply
 import org.gtkkn.native.webkit.WebKitUserContentManager
@@ -94,7 +94,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_24
     public fun addFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_add_filter(
         webkitUserContentManagerPointer.reinterpret(),
-        filter.webkitUserContentFilterPointer.reinterpret()
+        filter.gPointer.reinterpret()
     )
 
     /**
@@ -109,7 +109,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_6
     public fun addScript(script: UserScript): Unit = webkit_user_content_manager_add_script(
         webkitUserContentManagerPointer.reinterpret(),
-        script.webkitUserScriptPointer.reinterpret()
+        script.gPointer.reinterpret()
     )
 
     /**
@@ -124,7 +124,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_6
     public fun addStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_add_style_sheet(
         webkitUserContentManagerPointer.reinterpret(),
-        stylesheet.webkitUserStyleSheetPointer.reinterpret()
+        stylesheet.gPointer.reinterpret()
     )
 
     /**
@@ -236,7 +236,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     public fun removeFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_remove_filter(
         webkitUserContentManagerPointer.reinterpret(),
-        filter.webkitUserContentFilterPointer.reinterpret()
+        filter.gPointer.reinterpret()
     )
 
     /**
@@ -264,7 +264,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_32
     public fun removeScript(script: UserScript): Unit = webkit_user_content_manager_remove_script(
         webkitUserContentManagerPointer.reinterpret(),
-        script.webkitUserScriptPointer.reinterpret()
+        script.gPointer.reinterpret()
     )
 
     /**
@@ -278,7 +278,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_32
     public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_remove_style_sheet(
         webkitUserContentManagerPointer.reinterpret(),
-        stylesheet.webkitUserStyleSheetPointer.reinterpret()
+        stylesheet.gPointer.reinterpret()
     )
 
     /**

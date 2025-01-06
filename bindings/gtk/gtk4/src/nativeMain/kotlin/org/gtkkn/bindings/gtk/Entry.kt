@@ -24,13 +24,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint16
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint16
-import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -579,7 +579,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
          *
          * @param tabs a `PangoTabArray`
          */
-        set(tabs) = gtk_entry_set_tabs(gtkEntryPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
+        set(tabs) = gtk_entry_set_tabs(gtkEntryPointer.reinterpret(), tabs?.gPointer?.reinterpret())
 
     /**
      * The length of the text in the `GtkEntry`.
@@ -700,11 +700,8 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param iconPos Icon position
      * @param iconArea Return location for the icon’s area
      */
-    public open fun getIconArea(iconPos: EntryIconPosition, iconArea: Rectangle): Unit = gtk_entry_get_icon_area(
-        gtkEntryPointer.reinterpret(),
-        iconPos.nativeValue,
-        iconArea.gdkRectanglePointer.reinterpret()
-    )
+    public open fun getIconArea(iconPos: EntryIconPosition, iconArea: Rectangle): Unit =
+        gtk_entry_get_icon_area(gtkEntryPointer.reinterpret(), iconPos.nativeValue, iconArea.gPointer.reinterpret())
 
     /**
      * Finds the icon at the given position and return its index.
@@ -864,7 +861,7 @@ public open class Entry(pointer: CPointer<GtkEntry>) :
      * @param attrs a `PangoAttrList`
      */
     public open fun setAttributes(attrs: AttrList): Unit =
-        gtk_entry_set_attributes(gtkEntryPointer.reinterpret(), attrs.pangoAttrListPointer.reinterpret())
+        gtk_entry_set_attributes(gtkEntryPointer.reinterpret(), attrs.gPointer.reinterpret())
 
     /**
      * Sets whether the icon is activatable.

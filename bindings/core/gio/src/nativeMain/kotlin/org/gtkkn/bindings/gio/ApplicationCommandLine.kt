@@ -32,8 +32,8 @@ import org.gtkkn.native.gio.g_application_command_line_getenv
 import org.gtkkn.native.gio.g_application_command_line_print_literal
 import org.gtkkn.native.gio.g_application_command_line_printerr_literal
 import org.gtkkn.native.gio.g_application_command_line_set_exit_status
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit

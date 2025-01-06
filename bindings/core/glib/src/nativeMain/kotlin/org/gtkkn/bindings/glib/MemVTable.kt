@@ -29,7 +29,7 @@ import kotlin.native.ref.createCleaner
  * - field `try_realloc`: Fields with callbacks are not supported
  */
 public class MemVTable(pointer: CPointer<GMemVTable>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibMemVTablePointer: CPointer<GMemVTable> = pointer
+    public val gPointer: CPointer<GMemVTable> = pointer
 
     /**
      * Allocate a new MemVTable.

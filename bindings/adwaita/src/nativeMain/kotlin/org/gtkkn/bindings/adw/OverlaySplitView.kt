@@ -39,8 +39,8 @@ import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar
 import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar_position
 import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar_width_fraction
 import org.gtkkn.native.adw.adw_overlay_split_view_set_sidebar_width_unit
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

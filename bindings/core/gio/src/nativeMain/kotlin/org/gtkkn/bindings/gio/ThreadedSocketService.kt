@@ -20,11 +20,11 @@ import org.gtkkn.native.gio.GSocketConnection
 import org.gtkkn.native.gio.GThreadedSocketService
 import org.gtkkn.native.gio.g_threaded_socket_service_get_type
 import org.gtkkn.native.gio.g_threaded_socket_service_new
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.ULong
 

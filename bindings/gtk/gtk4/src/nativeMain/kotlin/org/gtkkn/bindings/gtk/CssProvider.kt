@@ -98,7 +98,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      */
     @GtkVersion4_12
     public open fun loadFromBytes(`data`: Bytes): Unit =
-        gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.glibBytesPointer.reinterpret())
+        gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.gPointer.reinterpret())
 
     /**
      * Loads @data into @css_provider.

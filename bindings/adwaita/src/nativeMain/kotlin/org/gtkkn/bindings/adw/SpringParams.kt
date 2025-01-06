@@ -14,8 +14,8 @@ import org.gtkkn.native.adw.adw_spring_params_new
 import org.gtkkn.native.adw.adw_spring_params_new_full
 import org.gtkkn.native.adw.adw_spring_params_ref
 import org.gtkkn.native.adw.adw_spring_params_unref
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import kotlin.Unit
 
 /**
@@ -51,42 +51,42 @@ import kotlin.Unit
  * As such
  */
 public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(pointer) {
-    public val adwSpringParamsPointer: CPointer<AdwSpringParams> = pointer
+    public val gPointer: CPointer<AdwSpringParams> = pointer
 
     /**
      * Gets the damping of @self.
      *
      * @return the damping
      */
-    public fun getDamping(): gdouble = adw_spring_params_get_damping(adwSpringParamsPointer.reinterpret())
+    public fun getDamping(): gdouble = adw_spring_params_get_damping(gPointer.reinterpret())
 
     /**
      * Gets the damping ratio of @self.
      *
      * @return the damping ratio
      */
-    public fun getDampingRatio(): gdouble = adw_spring_params_get_damping_ratio(adwSpringParamsPointer.reinterpret())
+    public fun getDampingRatio(): gdouble = adw_spring_params_get_damping_ratio(gPointer.reinterpret())
 
     /**
      * Gets the mass of @self.
      *
      * @return the mass
      */
-    public fun getMass(): gdouble = adw_spring_params_get_mass(adwSpringParamsPointer.reinterpret())
+    public fun getMass(): gdouble = adw_spring_params_get_mass(gPointer.reinterpret())
 
     /**
      * Gets the stiffness of @self.
      *
      * @return the stiffness
      */
-    public fun getStiffness(): gdouble = adw_spring_params_get_stiffness(adwSpringParamsPointer.reinterpret())
+    public fun getStiffness(): gdouble = adw_spring_params_get_stiffness(gPointer.reinterpret())
 
     /**
      * Increases the reference count of @self.
      *
      * @return @self
      */
-    public fun ref(): SpringParams = adw_spring_params_ref(adwSpringParamsPointer.reinterpret())!!.run {
+    public fun ref(): SpringParams = adw_spring_params_ref(gPointer.reinterpret())!!.run {
         SpringParams(reinterpret())
     }
 
@@ -95,7 +95,7 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(po
      *
      * If the last reference is dropped, the structure is freed.
      */
-    public fun unref(): Unit = adw_spring_params_unref(adwSpringParamsPointer.reinterpret())
+    public fun unref(): Unit = adw_spring_params_unref(gPointer.reinterpret())
 
     public companion object {
         /**

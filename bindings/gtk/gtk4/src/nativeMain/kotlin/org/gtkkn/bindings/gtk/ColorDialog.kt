@@ -177,7 +177,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
     ): Unit = gtk_color_dialog_choose_rgba(
         gtkColorDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
-        initialColor?.gdkRGBAPointer?.reinterpret(),
+        initialColor?.gPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

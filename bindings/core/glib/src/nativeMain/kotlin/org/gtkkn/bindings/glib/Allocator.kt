@@ -6,15 +6,19 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GAllocator
 import org.gtkkn.native.glib.g_allocator_free
+import org.gtkkn.native.glib.g_allocator_new
+import org.gtkkn.native.glib.guint
+import kotlin.String
 import kotlin.Unit
 
-/**
- * ## Skipped during bindings generation
- *
- * - function `new`: Return type Allocator is unsupported
- */
 public class Allocator(pointer: CPointer<GAllocator>) : ProxyInstance(pointer) {
-    public val glibAllocatorPointer: CPointer<GAllocator> = pointer
+    public val gPointer: CPointer<GAllocator> = pointer
 
-    public fun free(): Unit = g_allocator_free(glibAllocatorPointer.reinterpret())
+    public fun free(): Unit = g_allocator_free(gPointer.reinterpret())
+
+    public companion object {
+        public fun new(name: String, nPreallocs: guint): Allocator = g_allocator_new(name, nPreallocs)!!.run {
+            Allocator(reinterpret())
+        }
+    }
 }

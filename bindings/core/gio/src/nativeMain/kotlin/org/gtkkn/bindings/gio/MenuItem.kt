@@ -28,8 +28,8 @@ import org.gtkkn.native.gio.g_menu_item_set_label
 import org.gtkkn.native.gio.g_menu_item_set_link
 import org.gtkkn.native.gio.g_menu_item_set_section
 import org.gtkkn.native.gio.g_menu_item_set_submenu
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 
@@ -178,7 +178,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
         g_menu_item_get_attribute_value(
             gioMenuItemPointer.reinterpret(),
             attribute,
-            expectedType?.glibVariantTypePointer?.reinterpret()
+            expectedType?.gPointer?.reinterpret()
         )?.run {
             Variant(reinterpret())
         }
@@ -243,7 +243,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
         g_menu_item_set_action_and_target_value(
             gioMenuItemPointer.reinterpret(),
             action,
-            targetValue?.glibVariantPointer?.reinterpret()
+            targetValue?.gPointer?.reinterpret()
         )
 
     /**
@@ -273,11 +273,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setAttributeValue(attribute: String, `value`: Variant? = null): Unit =
-        g_menu_item_set_attribute_value(
-            gioMenuItemPointer.reinterpret(),
-            attribute,
-            `value`?.glibVariantPointer?.reinterpret()
-        )
+        g_menu_item_set_attribute_value(gioMenuItemPointer.reinterpret(), attribute, `value`?.gPointer?.reinterpret())
 
     /**
      * Sets the "action" and possibly the "target" attribute of @menu_item.

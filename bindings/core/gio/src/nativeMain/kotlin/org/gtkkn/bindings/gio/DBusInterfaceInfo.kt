@@ -25,9 +25,9 @@ import org.gtkkn.native.gio.g_dbus_interface_info_ref
 import org.gtkkn.native.gio.g_dbus_interface_info_unref
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.Unit
 import kotlin.native.ref.Cleaner
@@ -50,29 +50,29 @@ import org.gtkkn.bindings.glib.String as GlibString
 @GioVersion2_26
 public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gioDBusInterfaceInfoPointer: CPointer<GDBusInterfaceInfo> = pointer
+    public val gPointer: CPointer<GDBusInterfaceInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gioDBusInterfaceInfoPointer.pointed.ref_count
+        get() = gPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusInterfaceInfoPointer.pointed.ref_count = value
+            gPointer.pointed.ref_count = value
         }
 
     /**
      * The name of the D-Bus interface, e.g. "org.freedesktop.DBus.Properties".
      */
     public var name: KotlinString?
-        get() = gioDBusInterfaceInfoPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusInterfaceInfoPointer.pointed.name?.let { g_free(it) }
-            gioDBusInterfaceInfoPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -153,7 +153,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      * @since 2.30
      */
     @GioVersion2_30
-    public fun cacheBuild(): Unit = g_dbus_interface_info_cache_build(gioDBusInterfaceInfoPointer.reinterpret())
+    public fun cacheBuild(): Unit = g_dbus_interface_info_cache_build(gPointer.reinterpret())
 
     /**
      * Decrements the usage count for the cache for @info built by
@@ -163,7 +163,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      * @since 2.30
      */
     @GioVersion2_30
-    public fun cacheRelease(): Unit = g_dbus_interface_info_cache_release(gioDBusInterfaceInfoPointer.reinterpret())
+    public fun cacheRelease(): Unit = g_dbus_interface_info_cache_release(gPointer.reinterpret())
 
     /**
      * Appends an XML representation of @info (and its children) to @string_builder.
@@ -178,11 +178,8 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_interface_info_generate_xml(
-        gioDBusInterfaceInfoPointer.reinterpret(),
-        indent,
-        stringBuilder.glibStringPointer.reinterpret()
-    )
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit =
+        g_dbus_interface_info_generate_xml(gPointer.reinterpret(), indent, stringBuilder.gPointer.reinterpret())
 
     /**
      * Looks up information about a method.
@@ -196,7 +193,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      */
     @GioVersion2_26
     public fun lookupMethod(name: KotlinString): DBusMethodInfo? =
-        g_dbus_interface_info_lookup_method(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
+        g_dbus_interface_info_lookup_method(gPointer.reinterpret(), name)?.run {
             DBusMethodInfo(reinterpret())
         }
 
@@ -212,7 +209,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      */
     @GioVersion2_26
     public fun lookupProperty(name: KotlinString): DBusPropertyInfo? =
-        g_dbus_interface_info_lookup_property(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
+        g_dbus_interface_info_lookup_property(gPointer.reinterpret(), name)?.run {
             DBusPropertyInfo(reinterpret())
         }
 
@@ -228,7 +225,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      */
     @GioVersion2_26
     public fun lookupSignal(name: KotlinString): DBusSignalInfo? =
-        g_dbus_interface_info_lookup_signal(gioDBusInterfaceInfoPointer.reinterpret(), name)?.run {
+        g_dbus_interface_info_lookup_signal(gPointer.reinterpret(), name)?.run {
             DBusSignalInfo(reinterpret())
         }
 
@@ -240,7 +237,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusInterfaceInfo = g_dbus_interface_info_ref(gioDBusInterfaceInfoPointer.reinterpret())!!.run {
+    public fun ref(): DBusInterfaceInfo = g_dbus_interface_info_ref(gPointer.reinterpret())!!.run {
         DBusInterfaceInfo(reinterpret())
     }
 
@@ -252,7 +249,7 @@ public class DBusInterfaceInfo(pointer: CPointer<GDBusInterfaceInfo>, cleaner: C
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_interface_info_unref(gioDBusInterfaceInfoPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_interface_info_unref(gPointer.reinterpret())
 
     override fun toString(): KotlinString = "DBusInterfaceInfo(refCount=$refCount, name=$name)"
 

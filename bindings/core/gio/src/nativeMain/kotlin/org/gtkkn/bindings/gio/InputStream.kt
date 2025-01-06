@@ -34,9 +34,9 @@ import org.gtkkn.native.gio.g_input_stream_skip
 import org.gtkkn.native.gio.g_input_stream_skip_async
 import org.gtkkn.native.gio.g_input_stream_skip_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result

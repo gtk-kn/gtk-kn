@@ -20,10 +20,10 @@ import org.gtkkn.native.gdk.GdkPixbuf
 import org.gtkkn.native.gdk.GdkPixbufAnimation
 import org.gtkkn.native.gdk.GdkPixbufFormat
 import org.gtkkn.native.gdk.GdkPixbufModule
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -32,8 +32,6 @@ import kotlin.collections.List
 /**
  * ## Skipped during bindings generation
  *
- * - class `PixbufNonAnim`: Missing cType on class
- * - class `PixbufSimpleAnimIter`: Missing cType on class
  * - callback `PixbufModuleBeginLoadFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleIncrementLoadFunc`: Callbacks that throw are not supported
  * - callback `PixbufModuleLoadAnimationFunc`: Callbacks that throw are not supported

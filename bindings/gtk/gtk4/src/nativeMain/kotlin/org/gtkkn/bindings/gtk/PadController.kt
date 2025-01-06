@@ -8,8 +8,8 @@ import org.gtkkn.bindings.gio.ActionGroup
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPadController
 import org.gtkkn.native.gtk.gtk_pad_controller_get_type
 import org.gtkkn.native.gtk.gtk_pad_controller_new
@@ -68,7 +68,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: PadActionEntry
+ * - parameter `entries`: Not-pointer record PadActionEntry is ignored
  * - method `action-group`: Property has no getter nor setter
  * - method `pad`: Property has no getter nor setter
  */

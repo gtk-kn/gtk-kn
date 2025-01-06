@@ -8,9 +8,9 @@ import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkGridLayout
 import org.gtkkn.native.gtk.gtk_grid_layout_get_baseline_row
 import org.gtkkn.native.gtk.gtk_grid_layout_get_column_homogeneous

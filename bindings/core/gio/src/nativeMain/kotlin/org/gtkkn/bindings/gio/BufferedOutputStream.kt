@@ -17,8 +17,8 @@ import org.gtkkn.native.gio.g_buffered_output_stream_new
 import org.gtkkn.native.gio.g_buffered_output_stream_new_sized
 import org.gtkkn.native.gio.g_buffered_output_stream_set_auto_grow
 import org.gtkkn.native.gio.g_buffered_output_stream_set_buffer_size
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 
 /**

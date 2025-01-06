@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.pango.PangoGlyphVisAttr
 import kotlin.Pair
 import kotlin.String
@@ -29,28 +29,28 @@ import kotlin.native.ref.createCleaner
  * base character.
  */
 public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoGlyphVisAttrPointer: CPointer<PangoGlyphVisAttr> = pointer
+    public val gPointer: CPointer<PangoGlyphVisAttr> = pointer
 
     /**
      * set for the first logical glyph in each cluster.
      */
     public var isClusterStart: guint
-        get() = pangoGlyphVisAttrPointer.pointed.is_cluster_start
+        get() = gPointer.pointed.is_cluster_start
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphVisAttrPointer.pointed.is_cluster_start = value
+            gPointer.pointed.is_cluster_start = value
         }
 
     /**
      * set if the the font will render this glyph with color. Since 1.50
      */
     public var isColor: guint
-        get() = pangoGlyphVisAttrPointer.pointed.is_color
+        get() = gPointer.pointed.is_color
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphVisAttrPointer.pointed.is_color = value
+            gPointer.pointed.is_color = value
         }
 
     /**

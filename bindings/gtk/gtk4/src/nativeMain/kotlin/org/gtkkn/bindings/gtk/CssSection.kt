@@ -29,7 +29,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  * [method@CssSection.get_parent] to get the containing region.
  */
 public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointer) {
-    public val gtkCssSectionPointer: CPointer<GtkCssSection> = pointer
+    public val gPointer: CPointer<GtkCssSection> = pointer
 
     /**
      * Returns the location in the CSS document where this section ends.
@@ -37,10 +37,9 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
      * @return The end location of
      *   this section
      */
-    public fun getEndLocation(): CssLocation =
-        gtk_css_section_get_end_location(gtkCssSectionPointer.reinterpret())!!.run {
-            CssLocation(reinterpret())
-        }
+    public fun getEndLocation(): CssLocation = gtk_css_section_get_end_location(gPointer.reinterpret())!!.run {
+        CssLocation(reinterpret())
+    }
 
     /**
      * Gets the file that @section was parsed from.
@@ -51,7 +50,7 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
      * @return the `GFile` from which the `section`
      *   was parsed
      */
-    public fun getFile(): File? = gtk_css_section_get_file(gtkCssSectionPointer.reinterpret())?.run {
+    public fun getFile(): File? = gtk_css_section_get_file(gPointer.reinterpret())?.run {
         File.wrap(reinterpret())
     }
 
@@ -67,7 +66,7 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
      *
      * @return the parent section
      */
-    public fun getParent(): CssSection? = gtk_css_section_get_parent(gtkCssSectionPointer.reinterpret())?.run {
+    public fun getParent(): CssSection? = gtk_css_section_get_parent(gPointer.reinterpret())?.run {
         CssSection(reinterpret())
     }
 
@@ -77,10 +76,9 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
      * @return The start location of
      *   this section
      */
-    public fun getStartLocation(): CssLocation =
-        gtk_css_section_get_start_location(gtkCssSectionPointer.reinterpret())!!.run {
-            CssLocation(reinterpret())
-        }
+    public fun getStartLocation(): CssLocation = gtk_css_section_get_start_location(gPointer.reinterpret())!!.run {
+        CssLocation(reinterpret())
+    }
 
     /**
      * Prints the `section` into `string` in a human-readable form.
@@ -91,14 +89,14 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
      * @param string a `GString` to print to
      */
     public fun print(string: GlibString): Unit =
-        gtk_css_section_print(gtkCssSectionPointer.reinterpret(), string.glibStringPointer.reinterpret())
+        gtk_css_section_print(gPointer.reinterpret(), string.gPointer.reinterpret())
 
     /**
      * Increments the reference count on `section`.
      *
      * @return the CSS section itself.
      */
-    public fun ref(): CssSection = gtk_css_section_ref(gtkCssSectionPointer.reinterpret())!!.run {
+    public fun ref(): CssSection = gtk_css_section_ref(gPointer.reinterpret())!!.run {
         CssSection(reinterpret())
     }
 
@@ -109,13 +107,13 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
      * @return A new string.
      */
     override fun toString(): KotlinString =
-        gtk_css_section_to_string(gtkCssSectionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_css_section_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Decrements the reference count on `section`, freeing the
      * structure if the reference count reaches 0.
      */
-    public fun unref(): Unit = gtk_css_section_unref(gtkCssSectionPointer.reinterpret())
+    public fun unref(): Unit = gtk_css_section_unref(gPointer.reinterpret())
 
     public companion object {
         /**
@@ -131,8 +129,8 @@ public class CssSection(pointer: CPointer<GtkCssSection>) : ProxyInstance(pointe
         public fun new(`file`: File? = null, start: CssLocation, end: CssLocation): CssSection = CssSection(
             gtk_css_section_new(
                 `file`?.gioFilePointer,
-                start.gtkCssLocationPointer.reinterpret(),
-                end.gtkCssLocationPointer.reinterpret()
+                start.gPointer.reinterpret(),
+                end.gPointer.reinterpret()
             )!!.reinterpret()
         )
 

@@ -15,8 +15,8 @@ import org.gtkkn.native.adw.adw_swipeable_get_distance
 import org.gtkkn.native.adw.adw_swipeable_get_progress
 import org.gtkkn.native.adw.adw_swipeable_get_swipe_area
 import org.gtkkn.native.adw.adw_swipeable_get_type
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -79,7 +79,7 @@ public interface Swipeable :
             adwSwipeablePointer.reinterpret(),
             navigationDirection.nativeValue,
             isDrag.asGBoolean(),
-            rect.gdkRectanglePointer.reinterpret()
+            rect.gPointer.reinterpret()
         )
 
     private data class Wrapper(private val pointer: CPointer<AdwSwipeable>) : Swipeable {

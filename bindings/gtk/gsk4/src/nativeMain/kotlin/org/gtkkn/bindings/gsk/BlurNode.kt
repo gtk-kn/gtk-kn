@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskBlurNode
 import org.gtkkn.native.gsk.gsk_blur_node_get_child
 import org.gtkkn.native.gsk.gsk_blur_node_get_radius

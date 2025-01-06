@@ -5,7 +5,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GIConv
 import org.gtkkn.native.glib.g_iconv_close
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 
 /**
  * The GIConv struct wraps an iconv() conversion descriptor. It contains
@@ -17,7 +17,7 @@ import org.gtkkn.native.gobject.gint
  * - function `open`: Return type IConv is unsupported
  */
 public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
-    public val glibIConvPointer: GIConv = pointer
+    public val gPointer: GIConv = pointer
 
     /**
      * Same as the standard UNIX routine iconv_close(), but
@@ -31,5 +31,5 @@ public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
      *
      * @return -1 on error, 0 on success
      */
-    public fun close(): gint = g_iconv_close(glibIConvPointer.reinterpret())
+    public fun close(): gint = g_iconv_close(gPointer.reinterpret())
 }

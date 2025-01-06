@@ -12,8 +12,8 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GFlagsValue
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -24,41 +24,41 @@ import kotlin.native.ref.createCleaner
  * nickname.
  */
 public class FlagsValue(pointer: CPointer<GFlagsValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectFlagsValuePointer: CPointer<GFlagsValue> = pointer
+    public val gPointer: CPointer<GFlagsValue> = pointer
 
     /**
      * the flags value
      */
     public var `value`: guint
-        get() = gobjectFlagsValuePointer.pointed.value
+        get() = gPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectFlagsValuePointer.pointed.value = value
+            gPointer.pointed.value = value
         }
 
     /**
      * the name of the value
      */
     public var valueName: String?
-        get() = gobjectFlagsValuePointer.pointed.value_name?.toKString()
+        get() = gPointer.pointed.value_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectFlagsValuePointer.pointed.value_name?.let { g_free(it) }
-            gobjectFlagsValuePointer.pointed.value_name = value?.let { g_strdup(it) }
+            gPointer.pointed.value_name?.let { g_free(it) }
+            gPointer.pointed.value_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the nickname of the value
      */
     public var valueNick: String?
-        get() = gobjectFlagsValuePointer.pointed.value_nick?.toKString()
+        get() = gPointer.pointed.value_nick?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectFlagsValuePointer.pointed.value_nick?.let { g_free(it) }
-            gobjectFlagsValuePointer.pointed.value_nick = value?.let { g_strdup(it) }
+            gPointer.pointed.value_nick?.let { g_free(it) }
+            gPointer.pointed.value_nick = value?.let { g_strdup(it) }
         }
 
     /**

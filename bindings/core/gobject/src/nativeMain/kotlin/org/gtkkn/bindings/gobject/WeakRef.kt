@@ -46,7 +46,7 @@ import kotlin.native.ref.createCleaner
  * without first having or creating a strong reference to the object.
  */
 public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectWeakRefPointer: CPointer<GWeakRef> = pointer
+    public val gPointer: CPointer<GWeakRef> = pointer
 
     /**
      * Allocate a new WeakRef.
@@ -87,7 +87,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun clear(): Unit = g_weak_ref_clear(gobjectWeakRefPointer.reinterpret())
+    public fun clear(): Unit = g_weak_ref_clear(gPointer.reinterpret())
 
     /**
      * If @weak_ref is not empty, atomically acquire a strong
@@ -105,7 +105,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun `get`(): Object = g_weak_ref_get(gobjectWeakRefPointer.reinterpret())!!.run {
+    public fun `get`(): Object = g_weak_ref_get(gPointer.reinterpret())!!.run {
         Object(reinterpret())
     }
 
@@ -125,7 +125,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      */
     @GObjectVersion2_32
     public fun `init`(`object`: Object? = null): Unit =
-        g_weak_ref_init(gobjectWeakRefPointer.reinterpret(), `object`?.gPointer?.reinterpret())
+        g_weak_ref_init(gPointer.reinterpret(), `object`?.gPointer?.reinterpret())
 
     /**
      * Change the object to which @weak_ref points, or set it to
@@ -139,5 +139,5 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      */
     @GObjectVersion2_32
     public fun `set`(`object`: Object? = null): Unit =
-        g_weak_ref_set(gobjectWeakRefPointer.reinterpret(), `object`?.gPointer?.reinterpret())
+        g_weak_ref_set(gPointer.reinterpret(), `object`?.gPointer?.reinterpret())
 }

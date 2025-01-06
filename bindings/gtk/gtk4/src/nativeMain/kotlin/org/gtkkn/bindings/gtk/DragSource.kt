@@ -23,11 +23,11 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkContentProvider
 import org.gtkkn.native.gdk.GdkDrag
 import org.gtkkn.native.gdk.GdkDragCancelReason
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkDragSource
 import org.gtkkn.native.gtk.gtk_drag_source_drag_cancel
 import org.gtkkn.native.gtk.gtk_drag_source_get_actions

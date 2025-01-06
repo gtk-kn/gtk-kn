@@ -35,7 +35,7 @@ import kotlin.native.ref.createCleaner
  * - field `lcopy_value`: TypeValueLCopyFunc
  */
 public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable> = pointer
+    public val gPointer: CPointer<GTypeValueTable> = pointer
 
     /**
      * A string format describing how to collect the contents of
@@ -52,12 +52,12 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      *   needs to be used, and for collection of floats `'d'`.
      */
     public var collectFormat: String?
-        get() = gobjectTypeValueTablePointer.pointed.collect_format?.toKString()
+        get() = gPointer.pointed.collect_format?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeValueTablePointer.pointed.collect_format?.let { g_free(it) }
-            gobjectTypeValueTablePointer.pointed.collect_format = value?.let { g_strdup(it) }
+            gPointer.pointed.collect_format?.let { g_free(it) }
+            gPointer.pointed.collect_format = value?.let { g_strdup(it) }
         }
 
     /**
@@ -66,12 +66,12 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      *   only of `'p'`s to provide lcopy_value() with pointers to storage locations.
      */
     public var lcopyFormat: String?
-        get() = gobjectTypeValueTablePointer.pointed.lcopy_format?.toKString()
+        get() = gPointer.pointed.lcopy_format?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeValueTablePointer.pointed.lcopy_format?.let { g_free(it) }
-            gobjectTypeValueTablePointer.pointed.lcopy_format = value?.let { g_strdup(it) }
+            gPointer.pointed.lcopy_format?.let { g_free(it) }
+            gPointer.pointed.lcopy_format = value?.let { g_strdup(it) }
         }
 
     /**

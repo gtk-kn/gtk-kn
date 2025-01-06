@@ -22,13 +22,13 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
 import org.gtkkn.native.gdk.GdkRectangle
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -258,8 +258,8 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
         nPresses: gint,
     ): Unit = gtk_source_gutter_renderer_activate(
         gtksourceGutterRendererPointer.reinterpret(),
-        iter.gtkTextIterPointer.reinterpret(),
-        area.gdkRectanglePointer.reinterpret(),
+        iter.gPointer.reinterpret(),
+        area.gPointer.reinterpret(),
         button,
         state.mask,
         nPresses
@@ -287,8 +287,8 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
     public open fun queryActivatable(iter: TextIter, area: Rectangle): Boolean =
         gtk_source_gutter_renderer_query_activatable(
             gtksourceGutterRendererPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
-            area.gdkRectanglePointer.reinterpret()
+            iter.gPointer.reinterpret(),
+            area.gPointer.reinterpret()
         ).asBoolean()
 
     /**

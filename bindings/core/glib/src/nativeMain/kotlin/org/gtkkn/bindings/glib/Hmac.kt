@@ -43,7 +43,7 @@ import kotlin.Unit
  */
 @GLibVersion2_30
 public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
-    public val glibHmacPointer: CPointer<GHmac> = pointer
+    public val gPointer: CPointer<GHmac> = pointer
 
     /**
      * Copies a #GHmac. If @hmac has been closed, by calling
@@ -55,7 +55,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun copy(): Hmac = g_hmac_copy(glibHmacPointer.reinterpret())!!.run {
+    public fun copy(): Hmac = g_hmac_copy(gPointer.reinterpret())!!.run {
         Hmac(reinterpret())
     }
 
@@ -74,7 +74,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_30
     public fun getString(): String =
-        g_hmac_get_string(glibHmacPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_hmac_get_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @hmac by one.
@@ -85,7 +85,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun ref(): Hmac = g_hmac_ref(glibHmacPointer.reinterpret())!!.run {
+    public fun ref(): Hmac = g_hmac_ref(gPointer.reinterpret())!!.run {
         Hmac(reinterpret())
     }
 
@@ -100,7 +100,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unref(): Unit = g_hmac_unref(glibHmacPointer.reinterpret())
+    public fun unref(): Unit = g_hmac_unref(gPointer.reinterpret())
 
     public companion object {
         /**

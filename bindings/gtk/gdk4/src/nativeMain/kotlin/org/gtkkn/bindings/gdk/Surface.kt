@@ -12,6 +12,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
+import org.gtkkn.bindings.cairo.Content
+import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.Gdk.resolveException
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.glib.Error
@@ -29,6 +31,7 @@ import org.gtkkn.native.gdk.GdkSurface
 import org.gtkkn.native.gdk.gdk_surface_beep
 import org.gtkkn.native.gdk.gdk_surface_create_cairo_context
 import org.gtkkn.native.gdk.gdk_surface_create_gl_context
+import org.gtkkn.native.gdk.gdk_surface_create_similar_surface
 import org.gtkkn.native.gdk.gdk_surface_create_vulkan_context
 import org.gtkkn.native.gdk.gdk_surface_destroy
 import org.gtkkn.native.gdk.gdk_surface_get_cursor
@@ -49,12 +52,14 @@ import org.gtkkn.native.gdk.gdk_surface_queue_render
 import org.gtkkn.native.gdk.gdk_surface_request_layout
 import org.gtkkn.native.gdk.gdk_surface_set_cursor
 import org.gtkkn.native.gdk.gdk_surface_set_device_cursor
+import org.gtkkn.native.gdk.gdk_surface_set_input_region
+import org.gtkkn.native.gdk.gdk_surface_set_opaque_region
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.ULong
@@ -73,10 +78,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `create_similar_surface`: Return type cairo.Surface is unsupported
  * - parameter `x`: x: Out parameter is not supported
- * - parameter `region`: cairo.Region
- * - parameter `region`: cairo.Region
  * - method `translate_coordinates`: In/Out parameter is not supported
  * - signal `render`: Signal render is ignored
  */
@@ -306,6 +308,39 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
     }
 
     /**
+     * Create a new Cairo surface that is as compatible as possible with the
+     * given @surface.
+     *
+     * For example the new surface will have the same fallback resolution
+     * and font options as @surface. Generally, the new surface will also
+     * use the same backend as @surface, unless that is not possible for
+     * some reason. The type of the returned surface may be examined with
+     * cairo_surface_get_type().
+     *
+     * Initially the surface contents are all 0 (transparent if contents
+     * have transparency, black otherwise.)
+     *
+     * This function always returns a valid pointer, but it will return a
+     * pointer to a “nil” surface if @other is already in an error state
+     * or any other error occurs.
+     *
+     * @param content the content for the new surface
+     * @param width width of the new surface
+     * @param height height of the new surface
+     * @return a pointer to the newly allocated surface. The caller
+     *   owns the surface and should call cairo_surface_destroy() when done
+     *   with it.
+     */
+    public open fun createSimilarSurface(
+        content: Content,
+        width: gint,
+        height: gint,
+    ): org.gtkkn.bindings.cairo.Surface =
+        gdk_surface_create_similar_surface(gdkSurfacePointer.reinterpret(), content.nativeValue, width, height)!!.run {
+            org.gtkkn.bindings.cairo.Surface(reinterpret())
+        }
+
+    /**
      * Sets an error and returns null.
      *
      * @return null
@@ -403,6 +438,50 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
         device.gdkDevicePointer.reinterpret(),
         cursor.gdkCursorPointer.reinterpret()
     )
+
+    /**
+     * Apply the region to the surface for the purpose of event
+     * handling.
+     *
+     * Mouse events which happen while the pointer position corresponds
+     * to an unset bit in the mask will be passed on the surface below
+     * @surface.
+     *
+     * An input region is typically used with RGBA surfaces. The alpha
+     * channel of the surface defines which pixels are invisible and
+     * allows for nicely antialiased borders, and the input region
+     * controls where the surface is “clickable”.
+     *
+     * Use [method@Gdk.Display.supports_input_shapes] to find out if
+     * a particular backend supports input regions.
+     *
+     * @param region region of surface to be reactive
+     */
+    public open fun setInputRegion(region: Region): Unit =
+        gdk_surface_set_input_region(gdkSurfacePointer.reinterpret(), region.gPointer.reinterpret())
+
+    /**
+     * Marks a region of the `GdkSurface` as opaque.
+     *
+     * For optimisation purposes, compositing window managers may
+     * like to not draw obscured regions of surfaces, or turn off blending
+     * during for these regions. With RGB windows with no transparency,
+     * this is just the shape of the window, but with ARGB32 windows, the
+     * compositor does not know what regions of the window are transparent
+     * or not.
+     *
+     * This function only works for toplevel surfaces.
+     *
+     * GTK will update this property automatically if the @surface background
+     * is opaque, as we know where the opaque regions are. If your surface
+     * background is not opaque, please update this property in your
+     * [GtkWidgetClass.css_changed](../gtk4/vfunc.Widget.css_changed.html) handler.
+     *
+     * @param region a region, or null to make the entire
+     *   surface opaque
+     */
+    public open fun setOpaqueRegion(region: Region? = null): Unit =
+        gdk_surface_set_opaque_region(gdkSurfacePointer.reinterpret(), region?.gPointer?.reinterpret())
 
     /**
      * Emitted when @surface starts being present on the monitor.

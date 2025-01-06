@@ -13,12 +13,12 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTokenValue
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
-import org.gtkkn.native.gobject.guint8
-import org.gtkkn.native.gobject.gulong
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
+import org.gtkkn.native.glib.guint8
+import org.gtkkn.native.glib.gulong
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner

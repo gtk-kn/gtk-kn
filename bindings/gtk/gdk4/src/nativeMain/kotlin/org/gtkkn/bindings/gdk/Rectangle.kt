@@ -17,8 +17,8 @@ import org.gtkkn.native.gdk.gdk_rectangle_equal
 import org.gtkkn.native.gdk.gdk_rectangle_get_type
 import org.gtkkn.native.gdk.gdk_rectangle_intersect
 import org.gtkkn.native.gdk.gdk_rectangle_union
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
@@ -44,50 +44,50 @@ import kotlin.native.ref.createCleaner
  * volumes in 2D and 3D.
  */
 public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gdkRectanglePointer: CPointer<GdkRectangle> = pointer
+    public val gPointer: CPointer<GdkRectangle> = pointer
 
     /**
      * the x coordinate of the top left corner
      */
     public var x: gint
-        get() = gdkRectanglePointer.pointed.x
+        get() = gPointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkRectanglePointer.pointed.x = value
+            gPointer.pointed.x = value
         }
 
     /**
      * the y coordinate of the top left corner
      */
     public var y: gint
-        get() = gdkRectanglePointer.pointed.y
+        get() = gPointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkRectanglePointer.pointed.y = value
+            gPointer.pointed.y = value
         }
 
     /**
      * the width of the rectangle
      */
     public var width: gint
-        get() = gdkRectanglePointer.pointed.width
+        get() = gPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkRectanglePointer.pointed.width = value
+            gPointer.pointed.width = value
         }
 
     /**
      * the height of the rectangle
      */
     public var height: gint
-        get() = gdkRectanglePointer.pointed.height
+        get() = gPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkRectanglePointer.pointed.height = value
+            gPointer.pointed.height = value
         }
 
     /**
@@ -174,7 +174,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @return true if @rect contains the point
      */
     public fun containsPoint(x: gint, y: gint): Boolean =
-        gdk_rectangle_contains_point(gdkRectanglePointer.reinterpret(), x, y).asBoolean()
+        gdk_rectangle_contains_point(gPointer.reinterpret(), x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -183,7 +183,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @return true if the rectangles are equal.
      */
     public fun equal(rect2: Rectangle): Boolean =
-        gdk_rectangle_equal(gdkRectanglePointer.reinterpret(), rect2.gdkRectanglePointer.reinterpret()).asBoolean()
+        gdk_rectangle_equal(gPointer.reinterpret(), rect2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Calculates the intersection of two rectangles.
@@ -200,9 +200,9 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @return true if the rectangles intersect.
      */
     public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean = gdk_rectangle_intersect(
-        gdkRectanglePointer.reinterpret(),
-        src2.gdkRectanglePointer.reinterpret(),
-        dest?.gdkRectanglePointer?.reinterpret()
+        gPointer.reinterpret(),
+        src2.gPointer.reinterpret(),
+        dest?.gPointer?.reinterpret()
     ).asBoolean()
 
     /**
@@ -218,11 +218,8 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param src2 a `GdkRectangle`
      * @param dest return location for the union of @src1 and @src2
      */
-    public fun union(src2: Rectangle, dest: Rectangle): Unit = gdk_rectangle_union(
-        gdkRectanglePointer.reinterpret(),
-        src2.gdkRectanglePointer.reinterpret(),
-        dest.gdkRectanglePointer.reinterpret()
-    )
+    public fun union(src2: Rectangle, dest: Rectangle): Unit =
+        gdk_rectangle_union(gPointer.reinterpret(), src2.gPointer.reinterpret(), dest.gPointer.reinterpret())
 
     override fun toString(): String = "Rectangle(x=$x, y=$y, width=$width, height=$height)"
 

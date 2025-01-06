@@ -42,7 +42,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `colors`: Gdk.RGBA
+ * - parameter `colors`: Not-pointer record RGBA is ignored
  * - method `rgba`: Property has no getter
  */
 public interface ColorChooser :
@@ -82,7 +82,7 @@ public interface ColorChooser :
      * @param color a `GdkRGBA` to fill in with the current color
      */
     public fun getRgba(color: Rgba): Unit =
-        gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+        gtk_color_chooser_get_rgba(gtkColorChooserPointer.reinterpret(), color.gPointer.reinterpret())
 
     /**
      * Returns whether the color chooser shows the alpha channel.
@@ -99,7 +99,7 @@ public interface ColorChooser :
      * @param color the new color
      */
     public fun setRgba(color: Rgba): Unit =
-        gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+        gtk_color_chooser_set_rgba(gtkColorChooserPointer.reinterpret(), color.gPointer.reinterpret())
 
     /**
      * Sets whether or not the color chooser should use the alpha channel.

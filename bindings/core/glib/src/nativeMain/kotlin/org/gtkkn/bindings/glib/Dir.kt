@@ -21,9 +21,9 @@ import org.gtkkn.native.glib.g_dir_read_name
 import org.gtkkn.native.glib.g_dir_ref
 import org.gtkkn.native.glib.g_dir_rewind
 import org.gtkkn.native.glib.g_dir_unref
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_dir_get_type
-import org.gtkkn.native.gobject.guint
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -32,7 +32,7 @@ import kotlin.Unit
  * An opaque structure representing an opened directory.
  */
 public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
-    public val glibDirPointer: CPointer<GDir> = pointer
+    public val gPointer: CPointer<GDir> = pointer
 
     /**
      * Closes the directory immediately and decrements the reference count.
@@ -44,7 +44,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * [method@GLib.Dir.ref] and [method@GLib.Dir.unref] on a `GDir` after calling
      * [method@GLib.Dir.close] on it.
      */
-    public fun close(): Unit = g_dir_close(glibDirPointer.reinterpret())
+    public fun close(): Unit = g_dir_close(gPointer.reinterpret())
 
     /**
      * Retrieves the name of another entry in the directory, or null.
@@ -66,7 +66,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      *   must not be modified or freed.
      */
     public fun readName(): String =
-        g_dir_read_name(glibDirPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_dir_read_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Increment the reference count of `dir`.
@@ -75,7 +75,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun ref(): Dir = g_dir_ref(glibDirPointer.reinterpret())!!.run {
+    public fun ref(): Dir = g_dir_ref(gPointer.reinterpret())!!.run {
         Dir(reinterpret())
     }
 
@@ -83,7 +83,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * Resets the given directory. The next call to g_dir_read_name()
      * will return the first entry again.
      */
-    public fun rewind(): Unit = g_dir_rewind(glibDirPointer.reinterpret())
+    public fun rewind(): Unit = g_dir_rewind(gPointer.reinterpret())
 
     /**
      * Decrements the reference count of `dir`.
@@ -101,7 +101,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun unref(): Unit = g_dir_unref(glibDirPointer.reinterpret())
+    public fun unref(): Unit = g_dir_unref(gPointer.reinterpret())
 
     public companion object {
         /**

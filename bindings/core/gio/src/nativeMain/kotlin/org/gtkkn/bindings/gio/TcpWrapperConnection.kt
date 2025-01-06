@@ -58,7 +58,7 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
         socket: Socket,
     ) : this(
         g_tcp_wrapper_connection_new(
-            baseIoStream.gioIOStreamPointer.reinterpret(),
+            baseIoStream.gioIoStreamPointer.reinterpret(),
             socket.gioSocketPointer.reinterpret()
         )!!.reinterpret()
     )

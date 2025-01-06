@@ -80,7 +80,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - parameter `objects`: Array parameter of type GObject.Object is not supported
  *
  * @since 1.4
@@ -122,10 +122,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
         @AdwVersion1_4
         set(
             condition
-        ) = adw_breakpoint_set_condition(
-            adwBreakpointPointer.reinterpret(),
-            condition?.adwBreakpointConditionPointer?.reinterpret()
-        )
+        ) = adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.gPointer?.reinterpret())
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -136,7 +133,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      */
     public constructor(
         condition: BreakpointCondition,
-    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer.reinterpret())!!.reinterpret())
+    ) : this(adw_breakpoint_new(condition.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a setter to @self.
@@ -186,7 +183,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
         adwBreakpointPointer.reinterpret(),
         `object`.gPointer.reinterpret(),
         `property`,
-        `value`.gobjectValuePointer.reinterpret()
+        `value`.gPointer.reinterpret()
     )
 
     /**

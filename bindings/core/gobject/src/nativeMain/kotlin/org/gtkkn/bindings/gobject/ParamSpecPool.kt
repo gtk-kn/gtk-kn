@@ -13,6 +13,7 @@ import org.gtkkn.native.gobject.g_param_spec_pool_free
 import org.gtkkn.native.gobject.g_param_spec_pool_insert
 import org.gtkkn.native.gobject.g_param_spec_pool_list_owned
 import org.gtkkn.native.gobject.g_param_spec_pool_lookup
+import org.gtkkn.native.gobject.g_param_spec_pool_new
 import org.gtkkn.native.gobject.g_param_spec_pool_remove
 import kotlin.Boolean
 import kotlin.String
@@ -28,10 +29,9 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `n_pspecs_p`: n_pspecs_p: Out parameter is not supported
- * - function `new`: Return type ParamSpecPool is unsupported
  */
 public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(pointer) {
-    public val gobjectParamSpecPoolPointer: CPointer<GParamSpecPool> = pointer
+    public val gPointer: CPointer<GParamSpecPool> = pointer
 
     /**
      * Frees the resources allocated by a #GParamSpecPool.
@@ -39,7 +39,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @since 2.80
      */
     @GObjectVersion2_80
-    public fun free(): Unit = g_param_spec_pool_free(gobjectParamSpecPoolPointer.reinterpret())
+    public fun free(): Unit = g_param_spec_pool_free(gPointer.reinterpret())
 
     /**
      * Inserts a #GParamSpec in the pool.
@@ -48,7 +48,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @param ownerType a #GType identifying the owner of @pspec
      */
     public fun insert(pspec: ParamSpec, ownerType: GType): Unit =
-        g_param_spec_pool_insert(gobjectParamSpecPoolPointer.reinterpret(), pspec.gPointer.reinterpret(), ownerType)
+        g_param_spec_pool_insert(gPointer.reinterpret(), pspec.gPointer.reinterpret(), ownerType)
 
     /**
      * Gets an #GList of all #GParamSpecs owned by @owner_type in
@@ -60,7 +60,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      *          the pool#GParamSpecs.
      */
     public fun listOwned(ownerType: GType): List =
-        g_param_spec_pool_list_owned(gobjectParamSpecPoolPointer.reinterpret(), ownerType)!!.run {
+        g_param_spec_pool_list_owned(gPointer.reinterpret(), ownerType)!!.run {
             List(reinterpret())
         }
 
@@ -75,12 +75,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * matching #GParamSpec was found.
      */
     public fun lookup(paramName: String, ownerType: GType, walkAncestors: Boolean): ParamSpec? =
-        g_param_spec_pool_lookup(
-            gobjectParamSpecPoolPointer.reinterpret(),
-            paramName,
-            ownerType,
-            walkAncestors.asGBoolean()
-        )?.run {
+        g_param_spec_pool_lookup(gPointer.reinterpret(), paramName, ownerType, walkAncestors.asGBoolean())?.run {
             ParamSpec(reinterpret())
         }
 
@@ -90,5 +85,23 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @param pspec the #GParamSpec to remove
      */
     public fun remove(pspec: ParamSpec): Unit =
-        g_param_spec_pool_remove(gobjectParamSpecPoolPointer.reinterpret(), pspec.gPointer.reinterpret())
+        g_param_spec_pool_remove(gPointer.reinterpret(), pspec.gPointer.reinterpret())
+
+    public companion object {
+        /**
+         * Creates a new #GParamSpecPool.
+         *
+         * If @type_prefixing is true, lookups in the newly created pool will
+         * allow to specify the owner as a colon-separated prefix of the
+         * property name, like "GtkContainer:border-width". This feature is
+         * deprecated, so you should always set @type_prefixing to false.
+         *
+         * @param typePrefixing Whether the pool will support type-prefixed property names.
+         * @return a newly allocated #GParamSpecPool.
+         */
+        public fun new(typePrefixing: Boolean): ParamSpecPool =
+            g_param_spec_pool_new(typePrefixing.asGBoolean())!!.run {
+                ParamSpecPool(reinterpret())
+            }
+    }
 }

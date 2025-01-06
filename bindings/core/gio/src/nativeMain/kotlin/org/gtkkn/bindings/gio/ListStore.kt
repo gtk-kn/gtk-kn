@@ -22,8 +22,8 @@ import org.gtkkn.native.gio.g_list_store_new
 import org.gtkkn.native.gio.g_list_store_remove
 import org.gtkkn.native.gio.g_list_store_remove_all
 import org.gtkkn.native.gio.g_list_store_sort
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Unit
 
 /**

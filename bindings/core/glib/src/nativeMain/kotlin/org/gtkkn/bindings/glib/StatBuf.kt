@@ -12,5 +12,5 @@ import org.gtkkn.native.glib.GStatBuf
  * See g_stat() for more information.
  */
 public class StatBuf(pointer: CPointer<GStatBuf>) : ProxyInstance(pointer) {
-    public val glibStatBufPointer: CPointer<GStatBuf> = pointer
+    public val gPointer: CPointer<GStatBuf> = pointer
 }

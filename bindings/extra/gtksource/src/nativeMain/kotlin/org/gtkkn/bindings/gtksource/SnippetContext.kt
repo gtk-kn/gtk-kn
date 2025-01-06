@@ -16,9 +16,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceSnippetContext
 import org.gtkkn.native.gtksource.gtk_source_snippet_context_clear_variables
 import org.gtkkn.native.gtksource.gtk_source_snippet_context_expand

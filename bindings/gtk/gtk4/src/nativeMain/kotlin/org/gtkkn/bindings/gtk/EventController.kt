@@ -12,8 +12,8 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkEventController
 import org.gtkkn.native.gtk.gtk_event_controller_get_current_event
 import org.gtkkn.native.gtk.gtk_event_controller_get_current_event_device

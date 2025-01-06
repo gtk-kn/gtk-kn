@@ -175,7 +175,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
      */
     public fun getGeometry(geometry: Rectangle): Unit = webkit_window_properties_get_geometry(
         webkitWindowPropertiesPointer.reinterpret(),
-        geometry.gdkRectanglePointer.reinterpret()
+        geometry.gPointer.reinterpret()
     )
 
     public companion object : TypeCompanion<WindowProperties> {

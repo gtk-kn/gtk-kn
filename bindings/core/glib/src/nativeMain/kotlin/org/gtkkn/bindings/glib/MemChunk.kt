@@ -11,34 +11,38 @@ import org.gtkkn.native.glib.g_mem_chunk_clean
 import org.gtkkn.native.glib.g_mem_chunk_destroy
 import org.gtkkn.native.glib.g_mem_chunk_free
 import org.gtkkn.native.glib.g_mem_chunk_info
+import org.gtkkn.native.glib.g_mem_chunk_new
 import org.gtkkn.native.glib.g_mem_chunk_print
 import org.gtkkn.native.glib.g_mem_chunk_reset
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
+import kotlin.String
 import kotlin.Unit
 
-/**
- * ## Skipped during bindings generation
- *
- * - function `new`: Return type MemChunk is unsupported
- */
 public class MemChunk(pointer: CPointer<GMemChunk>) : ProxyInstance(pointer) {
-    public val glibMemChunkPointer: CPointer<GMemChunk> = pointer
+    public val gPointer: CPointer<GMemChunk> = pointer
 
-    public fun alloc(): gpointer? = g_mem_chunk_alloc(glibMemChunkPointer.reinterpret())
+    public fun alloc(): gpointer? = g_mem_chunk_alloc(gPointer.reinterpret())
 
-    public fun alloc0(): gpointer? = g_mem_chunk_alloc0(glibMemChunkPointer.reinterpret())
+    public fun alloc0(): gpointer? = g_mem_chunk_alloc0(gPointer.reinterpret())
 
-    public fun clean(): Unit = g_mem_chunk_clean(glibMemChunkPointer.reinterpret())
+    public fun clean(): Unit = g_mem_chunk_clean(gPointer.reinterpret())
 
-    public fun destroy(): Unit = g_mem_chunk_destroy(glibMemChunkPointer.reinterpret())
+    public fun destroy(): Unit = g_mem_chunk_destroy(gPointer.reinterpret())
 
-    public fun free(mem: gpointer? = null): Unit = g_mem_chunk_free(glibMemChunkPointer.reinterpret(), mem)
+    public fun free(mem: gpointer? = null): Unit = g_mem_chunk_free(gPointer.reinterpret(), mem)
 
-    public fun print(): Unit = g_mem_chunk_print(glibMemChunkPointer.reinterpret())
+    public fun print(): Unit = g_mem_chunk_print(gPointer.reinterpret())
 
-    public fun reset(): Unit = g_mem_chunk_reset(glibMemChunkPointer.reinterpret())
+    public fun reset(): Unit = g_mem_chunk_reset(gPointer.reinterpret())
 
     public companion object {
         public fun info(): Unit = g_mem_chunk_info()
+
+        public fun new(name: String, atomSize: gint, areaSize: gsize, type: gint): MemChunk =
+            g_mem_chunk_new(name, atomSize, areaSize, type)!!.run {
+                MemChunk(reinterpret())
+            }
     }
 }

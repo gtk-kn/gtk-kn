@@ -15,8 +15,8 @@ import org.gtkkn.native.gdk.gdk_pixbuf_animation_iter_get_delay_time
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_iter_get_pixbuf
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_iter_get_type
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_iter_on_currently_loading_frame
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 
 /**
@@ -57,7 +57,7 @@ public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>)
      */
     public open fun advance(currentTime: TimeVal? = null): Boolean = gdk_pixbuf_animation_iter_advance(
         gdkPixbufAnimationIterPointer.reinterpret(),
-        currentTime?.glibTimeValPointer?.reinterpret()
+        currentTime?.gPointer?.reinterpret()
     ).asBoolean()
 
     /**

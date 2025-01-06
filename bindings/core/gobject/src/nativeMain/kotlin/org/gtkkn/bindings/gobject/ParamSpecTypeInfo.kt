@@ -9,9 +9,9 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GParamSpecTypeInfo
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint16
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -37,39 +37,39 @@ import kotlin.native.ref.createCleaner
  */
 public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo> = pointer
+    public val gPointer: CPointer<GParamSpecTypeInfo> = pointer
 
     /**
      * Size of the instance (object) structure.
      */
     public var instanceSize: guint16
-        get() = gobjectParamSpecTypeInfoPointer.pointed.instance_size
+        get() = gPointer.pointed.instance_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectParamSpecTypeInfoPointer.pointed.instance_size = value
+            gPointer.pointed.instance_size = value
         }
 
     /**
      * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
      */
     public var nPreallocs: guint16
-        get() = gobjectParamSpecTypeInfoPointer.pointed.n_preallocs
+        get() = gPointer.pointed.n_preallocs
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectParamSpecTypeInfoPointer.pointed.n_preallocs = value
+            gPointer.pointed.n_preallocs = value
         }
 
     /**
      * The #GType of values conforming to this #GParamSpec
      */
     public var valueType: GType
-        get() = gobjectParamSpecTypeInfoPointer.pointed.value_type
+        get() = gPointer.pointed.value_type
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectParamSpecTypeInfoPointer.pointed.value_type = value
+            gPointer.pointed.value_type = value
         }
 
     /**

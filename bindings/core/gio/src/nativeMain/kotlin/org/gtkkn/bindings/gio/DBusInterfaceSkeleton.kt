@@ -45,9 +45,9 @@ import org.gtkkn.native.gio.g_dbus_interface_skeleton_set_flags
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport
 import org.gtkkn.native.gio.g_dbus_interface_skeleton_unexport_from_connection
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String

@@ -13,9 +13,9 @@ import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkShortcutTrigger
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_compare
 import org.gtkkn.native.gtk.gtk_shortcut_trigger_equal
@@ -129,7 +129,7 @@ public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer.reinterpret(), string.glibStringPointer.reinterpret())
+        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer.reinterpret(), string.gPointer.reinterpret())
 
     /**
      * Prints the given trigger into a string.
@@ -153,7 +153,7 @@ public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
     public open fun printLabel(display: Display, string: GlibString): Boolean = gtk_shortcut_trigger_print_label(
         gtkShortcutTriggerPointer.reinterpret(),
         display.gdkDisplayPointer.reinterpret(),
-        string.glibStringPointer.reinterpret()
+        string.gPointer.reinterpret()
     ).asBoolean()
 
     /**

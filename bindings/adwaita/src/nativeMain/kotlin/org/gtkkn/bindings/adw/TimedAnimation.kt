@@ -26,9 +26,9 @@ import org.gtkkn.native.adw.adw_timed_animation_set_repeat_count
 import org.gtkkn.native.adw.adw_timed_animation_set_reverse
 import org.gtkkn.native.adw.adw_timed_animation_set_value_from
 import org.gtkkn.native.adw.adw_timed_animation_set_value_to
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 
 /**

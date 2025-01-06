@@ -10,9 +10,9 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GPtrArray
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_ptr_array_get_type
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -61,17 +61,17 @@ import kotlin.native.ref.createCleaner
  * - field `pdata`: Unsupported pointer to primitive type
  */
 public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibPtrArrayPointer: CPointer<GPtrArray> = pointer
+    public val gPointer: CPointer<GPtrArray> = pointer
 
     /**
      * number of pointers in the array
      */
     public var len: guint
-        get() = glibPtrArrayPointer.pointed.len
+        get() = gPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibPtrArrayPointer.pointed.len = value
+            gPointer.pointed.len = value
         }
 
     /**

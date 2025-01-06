@@ -25,10 +25,10 @@ import org.gtkkn.native.gdk.gdk_frame_clock_get_history_start
 import org.gtkkn.native.gdk.gdk_frame_clock_get_timings
 import org.gtkkn.native.gdk.gdk_frame_clock_get_type
 import org.gtkkn.native.gdk.gdk_frame_clock_request_phase
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint64
 import kotlin.ULong
 import kotlin.Unit
 

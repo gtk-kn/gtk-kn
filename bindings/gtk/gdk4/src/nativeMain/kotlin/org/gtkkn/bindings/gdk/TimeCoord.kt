@@ -10,7 +10,7 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkTimeCoord
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -29,30 +29,30 @@ import kotlin.native.ref.createCleaner
  * - field `axes`: Array parameter of type gdouble is not supported
  */
 public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gdkTimeCoordPointer: CPointer<GdkTimeCoord> = pointer
+    public val gPointer: CPointer<GdkTimeCoord> = pointer
 
     /**
      * The timestamp for this event
      */
     public var time: guint
-        get() = gdkTimeCoordPointer.pointed.time
+        get() = gPointer.pointed.time
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkTimeCoordPointer.pointed.time = value
+            gPointer.pointed.time = value
         }
 
     /**
      * Flags indicating what axes are present, see [flags@Gdk.AxisFlags]
      */
     public var flags: AxisFlags
-        get() = gdkTimeCoordPointer.pointed.flags.run {
+        get() = gPointer.pointed.flags.run {
             AxisFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkTimeCoordPointer.pointed.flags = value.mask
+            gPointer.pointed.flags = value.mask
         }
 
     /**

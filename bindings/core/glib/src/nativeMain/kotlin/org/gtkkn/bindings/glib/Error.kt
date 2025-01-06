@@ -15,9 +15,9 @@ import org.gtkkn.native.glib.g_error_matches
 import org.gtkkn.native.glib.g_error_new_literal
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_error_get_type
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -29,45 +29,45 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - constructor `new`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `error_type_init`: ErrorInitFunc
  */
 public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
-    public val glibErrorPointer: CPointer<GError> = pointer
+    public val gPointer: CPointer<GError> = pointer
 
     /**
      * error domain, e.g. %G_FILE_ERROR
      */
     public var domain: Quark
-        get() = glibErrorPointer.pointed.domain
+        get() = gPointer.pointed.domain
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibErrorPointer.pointed.domain = value
+            gPointer.pointed.domain = value
         }
 
     /**
      * error code, e.g. %G_FILE_ERROR_NOENT
      */
     public var code: gint
-        get() = glibErrorPointer.pointed.code
+        get() = gPointer.pointed.code
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibErrorPointer.pointed.code = value
+            gPointer.pointed.code = value
         }
 
     /**
      * human-readable informative error message
      */
     public var message: String?
-        get() = glibErrorPointer.pointed.message?.toKString()
+        get() = gPointer.pointed.message?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibErrorPointer.pointed.message?.let { g_free(it) }
-            glibErrorPointer.pointed.message = value?.let { g_strdup(it) }
+            gPointer.pointed.message?.let { g_free(it) }
+            gPointer.pointed.message = value?.let { g_strdup(it) }
         }
 
     /**
@@ -75,14 +75,14 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      *
      * @return a new #GError
      */
-    public fun copy(): Error = g_error_copy(glibErrorPointer.reinterpret())!!.run {
+    public fun copy(): Error = g_error_copy(gPointer.reinterpret())!!.run {
         Error(reinterpret())
     }
 
     /**
      * Frees a #GError and associated resources.
      */
-    public fun free(): Unit = g_error_free(glibErrorPointer.reinterpret())
+    public fun free(): Unit = g_error_free(gPointer.reinterpret())
 
     /**
      * Returns true if @error matches @domain and @code, false
@@ -101,7 +101,7 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      * @return whether @error has @domain and @code
      */
     public fun matches(domain: Quark, code: gint): Boolean =
-        g_error_matches(glibErrorPointer.reinterpret(), domain, code).asBoolean()
+        g_error_matches(gPointer.reinterpret(), domain, code).asBoolean()
 
     override fun toString(): String = "Error(domain=$domain, code=$code, message=$message)"
 

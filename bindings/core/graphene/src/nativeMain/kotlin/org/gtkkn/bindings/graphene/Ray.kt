@@ -10,8 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_4
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_ray_alloc
 import org.gtkkn.native.graphene.graphene_ray_equal
 import org.gtkkn.native.graphene.graphene_ray_free
@@ -51,7 +51,7 @@ import kotlin.native.ref.createCleaner
  */
 @GrapheneVersion1_4
 public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val grapheneRayPointer: CPointer<graphene_ray_t> = pointer
+    public val gPointer: CPointer<graphene_ray_t> = pointer
 
     /**
      * Allocate a new Ray.
@@ -92,8 +92,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun equal(b: Ray): Boolean =
-        graphene_ray_equal(grapheneRayPointer.reinterpret(), b.grapheneRayPointer.reinterpret())
+    public fun equal(b: Ray): Boolean = graphene_ray_equal(gPointer.reinterpret(), b.gPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_ray_alloc().
@@ -101,7 +100,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun free(): Unit = graphene_ray_free(grapheneRayPointer.reinterpret())
+    public fun free(): Unit = graphene_ray_free(gPointer.reinterpret())
 
     /**
      * Computes the point on the given #graphene_ray_t that is closest to the
@@ -113,9 +112,9 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun getClosestPointToPoint(p: Point3d, res: Point3d): Unit = graphene_ray_get_closest_point_to_point(
-        grapheneRayPointer.reinterpret(),
-        p.graphenePoint3DPointer.reinterpret(),
-        res.graphenePoint3DPointer.reinterpret()
+        gPointer.reinterpret(),
+        p.gPointer.reinterpret(),
+        res.gPointer.reinterpret()
     )
 
     /**
@@ -126,7 +125,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun getDirection(direction: Vec3): Unit =
-        graphene_ray_get_direction(grapheneRayPointer.reinterpret(), direction.grapheneVec3Pointer.reinterpret())
+        graphene_ray_get_direction(gPointer.reinterpret(), direction.gPointer.reinterpret())
 
     /**
      * Computes the distance of the origin of the given #graphene_ray_t from the
@@ -140,7 +139,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun getDistanceToPlane(p: Plane): gfloat =
-        graphene_ray_get_distance_to_plane(grapheneRayPointer.reinterpret(), p.graphenePlanePointer.reinterpret())
+        graphene_ray_get_distance_to_plane(gPointer.reinterpret(), p.gPointer.reinterpret())
 
     /**
      * Computes the distance of the closest approach between the
@@ -156,7 +155,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun getDistanceToPoint(p: Point3d): gfloat =
-        graphene_ray_get_distance_to_point(grapheneRayPointer.reinterpret(), p.graphenePoint3DPointer.reinterpret())
+        graphene_ray_get_distance_to_point(gPointer.reinterpret(), p.gPointer.reinterpret())
 
     /**
      * Retrieves the origin of the given #graphene_ray_t.
@@ -166,7 +165,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun getOrigin(origin: Point3d): Unit =
-        graphene_ray_get_origin(grapheneRayPointer.reinterpret(), origin.graphenePoint3DPointer.reinterpret())
+        graphene_ray_get_origin(gPointer.reinterpret(), origin.gPointer.reinterpret())
 
     /**
      * Retrieves the coordinates of a point at the distance @t along the
@@ -178,7 +177,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun getPositionAt(t: gfloat, position: Point3d): Unit =
-        graphene_ray_get_position_at(grapheneRayPointer.reinterpret(), t, position.graphenePoint3DPointer.reinterpret())
+        graphene_ray_get_position_at(gPointer.reinterpret(), t, position.gPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_ray_t using the given @origin
@@ -191,9 +190,9 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun `init`(origin: Point3d? = null, direction: Vec3? = null): Ray = graphene_ray_init(
-        grapheneRayPointer.reinterpret(),
-        origin?.graphenePoint3DPointer?.reinterpret(),
-        direction?.grapheneVec3Pointer?.reinterpret()
+        gPointer.reinterpret(),
+        origin?.gPointer?.reinterpret(),
+        direction?.gPointer?.reinterpret()
     )!!.run {
         Ray(reinterpret())
     }
@@ -208,7 +207,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun initFromRay(src: Ray): Ray =
-        graphene_ray_init_from_ray(grapheneRayPointer.reinterpret(), src.grapheneRayPointer.reinterpret())!!.run {
+        graphene_ray_init_from_ray(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
             Ray(reinterpret())
         }
 
@@ -222,9 +221,9 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_4
     public fun initFromVec3(origin: Vec3? = null, direction: Vec3? = null): Ray = graphene_ray_init_from_vec3(
-        grapheneRayPointer.reinterpret(),
-        origin?.grapheneVec3Pointer?.reinterpret(),
-        direction?.grapheneVec3Pointer?.reinterpret()
+        gPointer.reinterpret(),
+        origin?.gPointer?.reinterpret(),
+        direction?.gPointer?.reinterpret()
     )!!.run {
         Ray(reinterpret())
     }
@@ -241,7 +240,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_10
     public fun intersectsBox(b: Box): Boolean =
-        graphene_ray_intersects_box(grapheneRayPointer.reinterpret(), b.grapheneBoxPointer.reinterpret())
+        graphene_ray_intersects_box(gPointer.reinterpret(), b.gPointer.reinterpret())
 
     /**
      * Checks if the given #graphene_ray_t @r intersects the
@@ -255,7 +254,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_10
     public fun intersectsSphere(s: Sphere): Boolean =
-        graphene_ray_intersects_sphere(grapheneRayPointer.reinterpret(), s.grapheneSpherePointer.reinterpret())
+        graphene_ray_intersects_sphere(gPointer.reinterpret(), s.gPointer.reinterpret())
 
     /**
      * Checks whether the given #graphene_ray_t @r intersects the
@@ -269,7 +268,7 @@ public class Ray(pointer: CPointer<graphene_ray_t>, cleaner: Cleaner? = null) : 
      */
     @GrapheneVersion1_10
     public fun intersectsTriangle(t: Triangle): Boolean =
-        graphene_ray_intersects_triangle(grapheneRayPointer.reinterpret(), t.grapheneTrianglePointer.reinterpret())
+        graphene_ray_intersects_triangle(gPointer.reinterpret(), t.gPointer.reinterpret())
 
     public companion object {
         /**

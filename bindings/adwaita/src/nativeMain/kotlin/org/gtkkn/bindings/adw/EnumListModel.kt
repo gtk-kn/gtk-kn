@@ -14,9 +14,9 @@ import org.gtkkn.native.adw.adw_enum_list_model_get_enum_type
 import org.gtkkn.native.adw.adw_enum_list_model_get_type
 import org.gtkkn.native.adw.adw_enum_list_model_new
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 
 /**
  * A [iface@Gio.ListModel] representing values of a given enum.

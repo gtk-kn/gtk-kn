@@ -38,8 +38,8 @@ import org.gtkkn.native.gdk.gdk_gl_context_set_forward_compatible
 import org.gtkkn.native.gdk.gdk_gl_context_set_required_version
 import org.gtkkn.native.gdk.gdk_gl_context_set_use_es
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit
@@ -103,7 +103,7 @@ import kotlin.Unit
 public open class GlContext(pointer: CPointer<GdkGLContext>) :
     DrawContext(pointer.reinterpret()),
     KGTyped {
-    public val gdkGLContextPointer: CPointer<GdkGLContext>
+    public val gdkGlContextPointer: CPointer<GdkGLContext>
         get() = gPointer.reinterpret()
 
     /**
@@ -119,7 +119,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          * @return the allowed APIs
          * @since 4.6
          */
-        get() = gdk_gl_context_get_allowed_apis(gdkGLContextPointer.reinterpret()).run {
+        get() = gdk_gl_context_get_allowed_apis(gdkGlContextPointer.reinterpret()).run {
             Glapi(this)
         }
 
@@ -136,7 +136,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          * @since 4.6
          */
         @GdkVersion4_6
-        set(apis) = gdk_gl_context_set_allowed_apis(gdkGLContextPointer.reinterpret(), apis.mask)
+        set(apis) = gdk_gl_context_set_allowed_apis(gdkGlContextPointer.reinterpret(), apis.mask)
 
     /**
      * The API currently in use.
@@ -153,7 +153,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          * @return the currently used API
          * @since 4.6
          */
-        get() = gdk_gl_context_get_api(gdkGLContextPointer.reinterpret()).run {
+        get() = gdk_gl_context_get_api(gdkGlContextPointer.reinterpret()).run {
             Glapi(this)
         }
 
@@ -172,7 +172,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          *
          * @return null
          */
-        get() = gdk_gl_context_get_shared_context(gdkGLContextPointer.reinterpret())?.run {
+        get() = gdk_gl_context_get_shared_context(gdkGlContextPointer.reinterpret())?.run {
             GlContext(reinterpret())
         }
 
@@ -185,7 +185,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          *
          * @return a `GdkDisplay`
          */
-        get() = gdk_gl_context_get_display(gdkGLContextPointer.reinterpret())?.run {
+        get() = gdk_gl_context_get_display(gdkGlContextPointer.reinterpret())?.run {
             Display(reinterpret())
         }
 
@@ -198,7 +198,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          *
          * @return a `GdkSurface`
          */
-        get() = gdk_gl_context_get_surface(gdkGLContextPointer.reinterpret())?.run {
+        get() = gdk_gl_context_get_surface(gdkGlContextPointer.reinterpret())?.run {
             Surface(reinterpret())
         }
 
@@ -210,7 +210,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * @return true if debugging is enabled
      */
     public open fun getDebugEnabled(): Boolean =
-        gdk_gl_context_get_debug_enabled(gdkGLContextPointer.reinterpret()).asBoolean()
+        gdk_gl_context_get_debug_enabled(gdkGlContextPointer.reinterpret()).asBoolean()
 
     /**
      * Retrieves whether the context is forward-compatible.
@@ -220,7 +220,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * @return true if the context should be forward-compatible
      */
     public open fun getForwardCompatible(): Boolean =
-        gdk_gl_context_get_forward_compatible(gdkGLContextPointer.reinterpret()).asBoolean()
+        gdk_gl_context_get_forward_compatible(gdkGlContextPointer.reinterpret()).asBoolean()
 
     /**
      * Checks whether the @context is using an OpenGL or OpenGL ES profile.
@@ -229,7 +229,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * false if other profile is in use of if the @context has not yet
      * been realized.
      */
-    public open fun getUseEs(): Boolean = gdk_gl_context_get_use_es(gdkGLContextPointer.reinterpret()).asBoolean()
+    public open fun getUseEs(): Boolean = gdk_gl_context_get_use_es(gdkGlContextPointer.reinterpret()).asBoolean()
 
     /**
      * Whether the `GdkGLContext` is in legacy mode or not.
@@ -251,7 +251,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      *
      * @return true if the GL context is in legacy mode
      */
-    public open fun isLegacy(): Boolean = gdk_gl_context_is_legacy(gdkGLContextPointer.reinterpret()).asBoolean()
+    public open fun isLegacy(): Boolean = gdk_gl_context_is_legacy(gdkGlContextPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if the two GL contexts can share resources.
@@ -273,12 +273,12 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      */
     @GdkVersion4_4
     public open fun isShared(other: GlContext): Boolean =
-        gdk_gl_context_is_shared(gdkGLContextPointer.reinterpret(), other.gdkGLContextPointer.reinterpret()).asBoolean()
+        gdk_gl_context_is_shared(gdkGlContextPointer.reinterpret(), other.gdkGlContextPointer.reinterpret()).asBoolean()
 
     /**
      * Makes the @context the current one.
      */
-    public open fun makeCurrent(): Unit = gdk_gl_context_make_current(gdkGLContextPointer.reinterpret())
+    public open fun makeCurrent(): Unit = gdk_gl_context_make_current(gdkGlContextPointer.reinterpret())
 
     /**
      * Realizes the given `GdkGLContext`.
@@ -289,7 +289,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      */
     public open fun realize(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_gl_context_realize(gdkGLContextPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = gdk_gl_context_realize(gdkGlContextPointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -309,7 +309,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * @param enabled whether to enable debugging in the context
      */
     public open fun setDebugEnabled(enabled: Boolean): Unit =
-        gdk_gl_context_set_debug_enabled(gdkGLContextPointer.reinterpret(), enabled.asGBoolean())
+        gdk_gl_context_set_debug_enabled(gdkGlContextPointer.reinterpret(), enabled.asGBoolean())
 
     /**
      * Sets whether the `GdkGLContext` should be forward-compatible.
@@ -325,7 +325,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * @param compatible whether the context should be forward-compatible
      */
     public open fun setForwardCompatible(compatible: Boolean): Unit =
-        gdk_gl_context_set_forward_compatible(gdkGLContextPointer.reinterpret(), compatible.asGBoolean())
+        gdk_gl_context_set_forward_compatible(gdkGlContextPointer.reinterpret(), compatible.asGBoolean())
 
     /**
      * Sets the major and minor version of OpenGL to request.
@@ -342,7 +342,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * @param minor the minor version to request
      */
     public open fun setRequiredVersion(major: gint, minor: gint): Unit =
-        gdk_gl_context_set_required_version(gdkGLContextPointer.reinterpret(), major, minor)
+        gdk_gl_context_set_required_version(gdkGlContextPointer.reinterpret(), major, minor)
 
     /**
      * Requests that GDK create an OpenGL ES context instead of an OpenGL one.
@@ -362,7 +362,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      * @param useEs whether the context should use OpenGL ES instead of OpenGL,
      *   or -1 to allow auto-detection
      */
-    public open fun setUseEs(useEs: gint): Unit = gdk_gl_context_set_use_es(gdkGLContextPointer.reinterpret(), useEs)
+    public open fun setUseEs(useEs: gint): Unit = gdk_gl_context_set_use_es(gdkGlContextPointer.reinterpret(), useEs)
 
     public companion object : TypeCompanion<GlContext> {
         override val type: GeneratedClassKGType<GlContext> =

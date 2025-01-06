@@ -12,9 +12,9 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputMessage
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -43,7 +43,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `vectors`: InputVector
+ * - field `vectors`: Not-pointer record InputVector is ignored
  * - field `control_messages`: Array parameter of type SocketControlMessage is not supported
  * - field `num_control_messages`: Unsupported pointer to primitive type
  *
@@ -51,31 +51,31 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_48
 public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioInputMessagePointer: CPointer<GInputMessage> = pointer
+    public val gPointer: CPointer<GInputMessage> = pointer
 
     /**
      * return location
      *   for a #GSocketAddress, or null
      */
     public var address: SocketAddress?
-        get() = gioInputMessagePointer.pointed.address?.run {
+        get() = gPointer.pointed.address?.run {
             SocketAddress(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioInputMessagePointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
+            gPointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
         }
 
     /**
      * the number of input vectors pointed to by @vectors
      */
     public var numVectors: guint
-        get() = gioInputMessagePointer.pointed.num_vectors
+        get() = gPointer.pointed.num_vectors
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioInputMessagePointer.pointed.num_vectors = value
+            gPointer.pointed.num_vectors = value
         }
 
     /**
@@ -83,11 +83,11 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *   received
      */
     public var bytesReceived: gsize
-        get() = gioInputMessagePointer.pointed.bytes_received
+        get() = gPointer.pointed.bytes_received
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioInputMessagePointer.pointed.bytes_received = value
+            gPointer.pointed.bytes_received = value
         }
 
     /**
@@ -95,11 +95,11 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *   outputted by the call
      */
     public var flags: gint
-        get() = gioInputMessagePointer.pointed.flags
+        get() = gPointer.pointed.flags
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioInputMessagePointer.pointed.flags = value
+            gPointer.pointed.flags = value
         }
 
     /**

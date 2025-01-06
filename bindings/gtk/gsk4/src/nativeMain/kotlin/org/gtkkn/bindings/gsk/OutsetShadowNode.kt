@@ -7,8 +7,8 @@ import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gsk.GskOutsetShadowNode
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_blur_radius
 import org.gtkkn.native.gsk.gsk_outset_shadow_node_get_color
@@ -49,8 +49,8 @@ public open class OutsetShadowNode(pointer: CPointer<GskOutsetShadowNode>) :
         blurRadius: gfloat,
     ) : this(
         gsk_outset_shadow_node_new(
-            outline.gskRoundedRectPointer.reinterpret(),
-            color.gdkRGBAPointer.reinterpret(),
+            outline.gPointer.reinterpret(),
+            color.gPointer.reinterpret(),
             dx,
             dy,
             spread,

@@ -14,9 +14,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoFontMap
 import org.gtkkn.native.pango.pango_font_map_changed
 import org.gtkkn.native.pango.pango_font_map_create_context
@@ -130,7 +130,7 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
     public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(
         pangoFontMapPointer.reinterpret(),
         context.pangoContextPointer.reinterpret(),
-        desc.pangoFontDescriptionPointer.reinterpret()
+        desc.gPointer.reinterpret()
     )?.run {
         Font(reinterpret())
     }
@@ -149,8 +149,8 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
         pango_font_map_load_fontset(
             pangoFontMapPointer.reinterpret(),
             context.pangoContextPointer.reinterpret(),
-            desc.pangoFontDescriptionPointer.reinterpret(),
-            language.pangoLanguagePointer.reinterpret()
+            desc.gPointer.reinterpret(),
+            language.gPointer.reinterpret()
         )?.run {
             Fontset(reinterpret())
         }

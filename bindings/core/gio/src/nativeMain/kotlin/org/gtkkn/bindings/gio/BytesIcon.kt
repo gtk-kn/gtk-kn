@@ -62,7 +62,7 @@ public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
      *   @bytes.
      * @since 2.38
      */
-    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.glibBytesPointer.reinterpret())!!.reinterpret())
+    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.gPointer.reinterpret())!!.reinterpret())
 
     public companion object : TypeCompanion<BytesIcon> {
         override val type: GeneratedClassKGType<BytesIcon> =

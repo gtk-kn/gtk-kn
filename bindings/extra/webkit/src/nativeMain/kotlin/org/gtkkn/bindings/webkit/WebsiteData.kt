@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitWebsiteData
 import org.gtkkn.native.webkit.webkit_website_data_get_name
 import org.gtkkn.native.webkit.webkit_website_data_get_size
@@ -38,7 +38,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_16
 public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(pointer) {
-    public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData> = pointer
+    public val gPointer: CPointer<WebKitWebsiteData> = pointer
 
     /**
      * Gets the name of #WebKitWebsiteData.
@@ -51,8 +51,8 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getName(): String = webkit_website_data_get_name(webkitWebsiteDataPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getName(): String =
+        webkit_website_data_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the size of the data of types @types in a #WebKitWebsiteData.
@@ -66,7 +66,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      */
     @WebKitVersion2_16
     public fun getSize(types: WebsiteDataTypes): guint64 =
-        webkit_website_data_get_size(webkitWebsiteDataPointer.reinterpret(), types.mask)
+        webkit_website_data_get_size(gPointer.reinterpret(), types.mask)
 
     /**
      * Gets the types of data stored in the client for a #WebKitWebsiteData.
@@ -78,10 +78,9 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getTypes(): WebsiteDataTypes =
-        webkit_website_data_get_types(webkitWebsiteDataPointer.reinterpret()).run {
-            WebsiteDataTypes(this)
-        }
+    public fun getTypes(): WebsiteDataTypes = webkit_website_data_get_types(gPointer.reinterpret()).run {
+        WebsiteDataTypes(this)
+    }
 
     /**
      * Atomically increments the reference count of @website_data by one.
@@ -92,7 +91,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): WebsiteData = webkit_website_data_ref(webkitWebsiteDataPointer.reinterpret())!!.run {
+    public fun ref(): WebsiteData = webkit_website_data_ref(gPointer.reinterpret())!!.run {
         WebsiteData(reinterpret())
     }
 
@@ -106,7 +105,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun unref(): Unit = webkit_website_data_unref(webkitWebsiteDataPointer.reinterpret())
+    public fun unref(): Unit = webkit_website_data_unref(gPointer.reinterpret())
 
     public companion object {
         /**

@@ -26,7 +26,7 @@ import kotlin.collections.List
 public open class IoModule(pointer: CPointer<GIOModule>) :
     TypeModule(pointer.reinterpret()),
     KGTyped {
-    public val gioIOModulePointer: CPointer<GIOModule>
+    public val gioIoModulePointer: CPointer<GIOModule>
         get() = gPointer.reinterpret()
 
     override val gobjectTypePluginPointer: CPointer<GTypePlugin>

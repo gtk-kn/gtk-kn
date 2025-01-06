@@ -77,11 +77,11 @@ import org.gtkkn.native.gio.g_socket_set_ttl
 import org.gtkkn.native.gio.g_socket_shutdown
 import org.gtkkn.native.gio.g_socket_speaks_ipv4
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result
@@ -167,12 +167,12 @@ import kotlin.Throws
  * - parameter `address`: address: Out parameter is not supported
  * - parameter `address`: address: Out parameter is not supported
  * - method `receive_message`: In/Out parameter is not supported
- * - parameter `messages`: InputMessage
+ * - parameter `messages`: Not-pointer record InputMessage is ignored
  * - parameter `buffer`: buffer: Out parameter is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
- * - parameter `vectors`: OutputVector
- * - parameter `vectors`: OutputVector
- * - parameter `messages`: OutputMessage
+ * - parameter `vectors`: Not-pointer record OutputVector is ignored
+ * - parameter `vectors`: Not-pointer record OutputVector is ignored
+ * - parameter `messages`: Not-pointer record OutputMessage is ignored
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - method `local-address`: Property getter throws

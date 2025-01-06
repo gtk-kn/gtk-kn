@@ -7,8 +7,8 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkColumnViewSorter
 import org.gtkkn.native.gtk.gtk_column_view_sorter_get_n_sort_columns
 import org.gtkkn.native.gtk.gtk_column_view_sorter_get_primary_sort_column

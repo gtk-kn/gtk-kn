@@ -12,7 +12,7 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GInputVector
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -27,28 +27,28 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_22
 public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioInputVectorPointer: CPointer<GInputVector> = pointer
+    public val gPointer: CPointer<GInputVector> = pointer
 
     /**
      * Pointer to a buffer where data will be written.
      */
     public var buffer: gpointer
-        get() = gioInputVectorPointer.pointed.buffer!!
+        get() = gPointer.pointed.buffer!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioInputVectorPointer.pointed.buffer = value
+            gPointer.pointed.buffer = value
         }
 
     /**
      * the available size in @buffer.
      */
     public var size: gsize
-        get() = gioInputVectorPointer.pointed.size
+        get() = gPointer.pointed.size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioInputVectorPointer.pointed.size = value
+            gPointer.pointed.size = value
         }
 
     /**

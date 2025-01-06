@@ -6,8 +6,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRequisition
 import org.gtkkn.native.gtk.gtk_requisition_copy
 import org.gtkkn.native.gtk.gtk_requisition_free
@@ -22,28 +22,28 @@ import kotlin.Unit
  * more information.
  */
 public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(pointer) {
-    public val gtkRequisitionPointer: CPointer<GtkRequisition> = pointer
+    public val gPointer: CPointer<GtkRequisition> = pointer
 
     /**
      * the widget’s desired width
      */
     public var width: gint
-        get() = gtkRequisitionPointer.pointed.width
+        get() = gPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkRequisitionPointer.pointed.width = value
+            gPointer.pointed.width = value
         }
 
     /**
      * the widget’s desired height
      */
     public var height: gint
-        get() = gtkRequisitionPointer.pointed.height
+        get() = gPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkRequisitionPointer.pointed.height = value
+            gPointer.pointed.height = value
         }
 
     /**
@@ -51,14 +51,14 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
      *
      * @return a copy of @requisition
      */
-    public fun copy(): Requisition = gtk_requisition_copy(gtkRequisitionPointer.reinterpret())!!.run {
+    public fun copy(): Requisition = gtk_requisition_copy(gPointer.reinterpret())!!.run {
         Requisition(reinterpret())
     }
 
     /**
      * Frees a `GtkRequisition`.
      */
-    public fun free(): Unit = gtk_requisition_free(gtkRequisitionPointer.reinterpret())
+    public fun free(): Unit = gtk_requisition_free(gPointer.reinterpret())
 
     override fun toString(): String = "Requisition(width=$width, height=$height)"
 

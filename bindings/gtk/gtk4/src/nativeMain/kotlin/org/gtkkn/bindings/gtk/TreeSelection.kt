@@ -15,10 +15,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeSelection
 import org.gtkkn.native.gtk.gtk_tree_selection_count_selected_rows
 import org.gtkkn.native.gtk.gtk_tree_selection_get_mode
@@ -138,7 +138,7 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      */
     public open fun iterIsSelected(iter: TreeIter): Boolean = gtk_tree_selection_iter_is_selected(
         gtkTreeSelectionPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
+        iter.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -150,7 +150,7 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      */
     public open fun pathIsSelected(path: TreePath): Boolean = gtk_tree_selection_path_is_selected(
         gtkTreeSelectionPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
+        path.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -165,7 +165,7 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      * @param iter The `GtkTreeIter` to be selected.
      */
     public open fun selectIter(iter: TreeIter): Unit =
-        gtk_tree_selection_select_iter(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+        gtk_tree_selection_select_iter(gtkTreeSelectionPointer.reinterpret(), iter.gPointer.reinterpret())
 
     /**
      * Select the row at @path.
@@ -173,7 +173,7 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      * @param path The `GtkTreePath` to be selected.
      */
     public open fun selectPath(path: TreePath): Unit =
-        gtk_tree_selection_select_path(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_tree_selection_select_path(gtkTreeSelectionPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Selects a range of nodes, determined by @start_path and @end_path inclusive.
@@ -184,8 +184,8 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      */
     public open fun selectRange(startPath: TreePath, endPath: TreePath): Unit = gtk_tree_selection_select_range(
         gtkTreeSelectionPointer.reinterpret(),
-        startPath.gtkTreePathPointer.reinterpret(),
-        endPath.gtkTreePathPointer.reinterpret()
+        startPath.gPointer.reinterpret(),
+        endPath.gPointer.reinterpret()
     )
 
     /**
@@ -231,7 +231,7 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      * @param iter The `GtkTreeIter` to be unselected.
      */
     public open fun unselectIter(iter: TreeIter): Unit =
-        gtk_tree_selection_unselect_iter(gtkTreeSelectionPointer.reinterpret(), iter.gtkTreeIterPointer.reinterpret())
+        gtk_tree_selection_unselect_iter(gtkTreeSelectionPointer.reinterpret(), iter.gPointer.reinterpret())
 
     /**
      * Unselects the row at @path.
@@ -239,7 +239,7 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      * @param path The `GtkTreePath` to be unselected.
      */
     public open fun unselectPath(path: TreePath): Unit =
-        gtk_tree_selection_unselect_path(gtkTreeSelectionPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_tree_selection_unselect_path(gtkTreeSelectionPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Unselects a range of nodes, determined by @start_path and @end_path
@@ -250,8 +250,8 @@ public open class TreeSelection(pointer: CPointer<GtkTreeSelection>) :
      */
     public open fun unselectRange(startPath: TreePath, endPath: TreePath): Unit = gtk_tree_selection_unselect_range(
         gtkTreeSelectionPointer.reinterpret(),
-        startPath.gtkTreePathPointer.reinterpret(),
-        endPath.gtkTreePathPointer.reinterpret()
+        startPath.gPointer.reinterpret(),
+        endPath.gPointer.reinterpret()
     )
 
     /**

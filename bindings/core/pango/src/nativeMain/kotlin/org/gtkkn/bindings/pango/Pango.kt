@@ -24,14 +24,14 @@ import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint16
-import org.gtkkn.native.gobject.guint32
-import org.gtkkn.native.gobject.gunichar
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint16
+import org.gtkkn.native.glib.guint32
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.pango.PangoAttribute
 import org.gtkkn.native.pango.PangoFont
 import org.gtkkn.native.pango.PangoFontset
@@ -95,11 +95,11 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * ## Skipped during bindings generation
  *
- * - alias `LayoutRun`: GlyphItem
- * - parameter `attrs`: LogAttr
- * - parameter `attrs`: LogAttr
+ * - alias `LayoutRun`: Not-pointer record GlyphItem is ignored
+ * - parameter `attrs`: Not-pointer record LogAttr is ignored
+ * - parameter `attrs`: Not-pointer record LogAttr is ignored
  * - parameter `paragraph_delimiter_index`: paragraph_delimiter_index: Out parameter is not supported
- * - parameter `attrs`: LogAttr
+ * - parameter `attrs`: Not-pointer record LogAttr is ignored
  * - parameter `mirrored_ch`: Unsupported pointer to primitive type
  * - function `log2vis_get_embedding_levels`: Return type guint8 is unsupported
  * - parameter `attr_list`: attr_list: Out parameter is not supported
@@ -115,7 +115,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - function `scan_string`: In/Out parameter is not supported
  * - function `scan_word`: In/Out parameter is not supported
  * - function `skip_space`: In/Out parameter is not supported
- * - parameter `attrs`: LogAttr
+ * - parameter `attrs`: Not-pointer record LogAttr is ignored
  * - record `ContextClass`: glib type struct are ignored
  * - record `FontClass`: glib type struct are ignored
  * - record `FontFaceClass`: glib type struct are ignored
@@ -735,13 +735,8 @@ public object Pango {
         analysis: Analysis? = null,
         attrs: LogAttr,
         attrsLen: gint,
-    ): Unit = pango_default_break(
-        text,
-        length,
-        analysis?.pangoAnalysisPointer?.reinterpret(),
-        attrs.pangoLogAttrPointer.reinterpret(),
-        attrsLen
-    )
+    ): Unit =
+        pango_default_break(text, length, analysis?.gPointer?.reinterpret(), attrs.gPointer.reinterpret(), attrsLen)
 
     /**
      * Converts extents from Pango units to device units.
@@ -768,10 +763,7 @@ public object Pango {
      */
     @PangoVersion1_16
     public fun extentsToPixels(inclusive: Rectangle? = null, nearest: Rectangle? = null): Unit =
-        pango_extents_to_pixels(
-            inclusive?.pangoRectanglePointer?.reinterpret(),
-            nearest?.pangoRectanglePointer?.reinterpret()
-        )
+        pango_extents_to_pixels(inclusive?.gPointer?.reinterpret(), nearest?.gPointer?.reinterpret())
 
     /**
      * Searches a string the first character that has a strong
@@ -841,8 +833,8 @@ public object Pango {
         text,
         startIndex,
         length,
-        attrs.pangoAttrListPointer.reinterpret(),
-        cachedIter?.pangoAttrIteratorPointer?.reinterpret()
+        attrs.gPointer.reinterpret(),
+        cachedIter?.gPointer?.reinterpret()
     )!!.run {
         GlibList(reinterpret())
     }
@@ -883,8 +875,8 @@ public object Pango {
         text,
         startIndex,
         length,
-        attrs.pangoAttrListPointer.reinterpret(),
-        cachedIter?.pangoAttrIteratorPointer?.reinterpret()
+        attrs.gPointer.reinterpret(),
+        cachedIter?.gPointer?.reinterpret()
     )!!.run {
         GlibList(reinterpret())
     }
@@ -938,10 +930,9 @@ public object Pango {
      * @return a `GList`
      *   of `PangoItem` structures in visual order.
      */
-    public fun reorderItems(items: GlibList): GlibList =
-        pango_reorder_items(items.glibListPointer.reinterpret())!!.run {
-            GlibList(reinterpret())
-        }
+    public fun reorderItems(items: GlibList): GlibList = pango_reorder_items(items.gPointer.reinterpret())!!.run {
+        GlibList(reinterpret())
+    }
 
     /**
      * Convert the characters in @text into glyphs.
@@ -968,12 +959,8 @@ public object Pango {
      * @param analysis `PangoAnalysis` structure from [func@Pango.itemize]
      * @param glyphs glyph string in which to store results
      */
-    public fun shape(text: String, length: gint, analysis: Analysis, glyphs: GlyphString): Unit = pango_shape(
-        text,
-        length,
-        analysis.pangoAnalysisPointer.reinterpret(),
-        glyphs.pangoGlyphStringPointer.reinterpret()
-    )
+    public fun shape(text: String, length: gint, analysis: Analysis, glyphs: GlyphString): Unit =
+        pango_shape(text, length, analysis.gPointer.reinterpret(), glyphs.gPointer.reinterpret())
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1019,8 +1006,8 @@ public object Pango {
         itemLength,
         paragraphText,
         paragraphLength,
-        analysis.pangoAnalysisPointer.reinterpret(),
-        glyphs.pangoGlyphStringPointer.reinterpret()
+        analysis.gPointer.reinterpret(),
+        glyphs.gPointer.reinterpret()
     )
 
     /**
@@ -1056,11 +1043,11 @@ public object Pango {
         glyphs: GlyphString,
         flags: ShapeFlags,
     ): Unit = pango_shape_item(
-        item.pangoItemPointer.reinterpret(),
+        item.gPointer.reinterpret(),
         paragraphText,
         paragraphLength,
-        logAttrs?.pangoLogAttrPointer?.reinterpret(),
-        glyphs.pangoGlyphStringPointer.reinterpret(),
+        logAttrs?.gPointer?.reinterpret(),
+        glyphs.gPointer.reinterpret(),
         flags.mask
     )
 
@@ -1109,8 +1096,8 @@ public object Pango {
         itemLength,
         paragraphText,
         paragraphLength,
-        analysis.pangoAnalysisPointer.reinterpret(),
-        glyphs.pangoGlyphStringPointer.reinterpret(),
+        analysis.gPointer.reinterpret(),
+        glyphs.gPointer.reinterpret(),
         flags.mask
     )
 

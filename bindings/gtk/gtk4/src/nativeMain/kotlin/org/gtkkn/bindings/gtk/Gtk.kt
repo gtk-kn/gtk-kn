@@ -14,11 +14,13 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.cairo.Context
 import org.gtkkn.bindings.gdk.ContentProvider
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.FrameClock
 import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gdk.Rectangle
+import org.gtkkn.bindings.gdk.Texture
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -34,25 +36,27 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.pango.FontFace
 import org.gtkkn.bindings.pango.FontFamily
 import org.gtkkn.bindings.pango.Language
+import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
+import org.gtkkn.native.cairo.cairo_t
 import org.gtkkn.native.gdk.GdkFrameClock
 import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gio.GListModel
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint32
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GValue
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint32
-import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkCellLayout
 import org.gtkkn.native.gtk.GtkCellRenderer
 import org.gtkkn.native.gtk.GtkDrawingArea
@@ -100,6 +104,18 @@ import org.gtkkn.native.gtk.gtk_is_initialized
 import org.gtkkn.native.gtk.gtk_param_spec_expression
 import org.gtkkn.native.gtk.gtk_print_run_page_setup_dialog
 import org.gtkkn.native.gtk.gtk_print_run_page_setup_dialog_async
+import org.gtkkn.native.gtk.gtk_render_activity
+import org.gtkkn.native.gtk.gtk_render_arrow
+import org.gtkkn.native.gtk.gtk_render_background
+import org.gtkkn.native.gtk.gtk_render_check
+import org.gtkkn.native.gtk.gtk_render_expander
+import org.gtkkn.native.gtk.gtk_render_focus
+import org.gtkkn.native.gtk.gtk_render_frame
+import org.gtkkn.native.gtk.gtk_render_handle
+import org.gtkkn.native.gtk.gtk_render_icon
+import org.gtkkn.native.gtk.gtk_render_layout
+import org.gtkkn.native.gtk.gtk_render_line
+import org.gtkkn.native.gtk.gtk_render_option
 import org.gtkkn.native.gtk.gtk_set_debug_flags
 import org.gtkkn.native.gtk.gtk_show_uri
 import org.gtkkn.native.gtk.gtk_show_uri_full
@@ -126,24 +142,11 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - alias `Allocation`: Gdk.Rectangle
- * - class `Snapshot`: Missing cType on class
+ * - alias `Allocation`: Not-pointer record Rectangle is ignored
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
- * - parameter `sizes`: RequestedSize
+ * - parameter `sizes`: Not-pointer record RequestedSize is ignored
  * - parameter `r`: r: Out parameter is not supported
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
  * - parameter `h`: h: Out parameter is not supported
  * - function `show_about_dialog`: Varargs parameter is not supported
  * - function `test_accessible_check_property`: Varargs parameter is not supported
@@ -1332,6 +1335,308 @@ public object Gtk {
     )
 
     /**
+     * Renders an activity indicator (such as in `GtkSpinner`).
+     * The state %GTK_STATE_FLAG_CHECKED determines whether there is
+     * activity going on.
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderActivity(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit = gtk_render_activity(
+        context.gtkStyleContextPointer.reinterpret(),
+        cr.gPointer.reinterpret(),
+        x,
+        y,
+        width,
+        height
+    )
+
+    /**
+     * Renders an arrow pointing to @angle.
+     *
+     * Typical arrow rendering at 0, 1⁄2 π;, π; and 3⁄2 π:
+     *
+     * ![](arrows.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param angle arrow angle from 0 to 2 * %G_PI, being 0 the arrow pointing to the north
+     * @param x X origin of the render area
+     * @param y Y origin of the render area
+     * @param size square side for render area
+     */
+    public fun renderArrow(
+        context: StyleContext,
+        cr: Context,
+        angle: gdouble,
+        x: gdouble,
+        y: gdouble,
+        size: gdouble,
+    ): Unit =
+        gtk_render_arrow(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), angle, x, y, size)
+
+    /**
+     * Renders the background of an element.
+     *
+     * Typical background rendering, showing the effect of
+     * `background-image`, `border-width` and `border-radius`:
+     *
+     * ![](background.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderBackground(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit = gtk_render_background(
+        context.gtkStyleContextPointer.reinterpret(),
+        cr.gPointer.reinterpret(),
+        x,
+        y,
+        width,
+        height
+    )
+
+    /**
+     * Renders a checkmark (as in a `GtkCheckButton`).
+     *
+     * The %GTK_STATE_FLAG_CHECKED state determines whether the check is
+     * on or off, and %GTK_STATE_FLAG_INCONSISTENT determines whether it
+     * should be marked as undefined.
+     *
+     * Typical checkmark rendering:
+     *
+     * ![](checks.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderCheck(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit =
+        gtk_render_check(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), x, y, width, height)
+
+    /**
+     * Renders an expander (as used in `GtkTreeView` and `GtkExpander`) in the area
+     * defined by @x, @y, @width, @height. The state %GTK_STATE_FLAG_CHECKED
+     * determines whether the expander is collapsed or expanded.
+     *
+     * Typical expander rendering:
+     *
+     * ![](expanders.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderExpander(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit = gtk_render_expander(
+        context.gtkStyleContextPointer.reinterpret(),
+        cr.gPointer.reinterpret(),
+        x,
+        y,
+        width,
+        height
+    )
+
+    /**
+     * Renders a focus indicator on the rectangle determined by @x, @y, @width, @height.
+     *
+     * Typical focus rendering:
+     *
+     * ![](focus.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderFocus(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit =
+        gtk_render_focus(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), x, y, width, height)
+
+    /**
+     * Renders a frame around the rectangle defined by @x, @y, @width, @height.
+     *
+     * Examples of frame rendering, showing the effect of `border-image`,
+     * `border-color`, `border-width`, `border-radius` and junctions:
+     *
+     * ![](frames.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderFrame(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit =
+        gtk_render_frame(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), x, y, width, height)
+
+    /**
+     * Renders a handle (as in `GtkPaned` and `GtkWindow`’s resize grip),
+     * in the rectangle determined by @x, @y, @width, @height.
+     *
+     * Handles rendered for the paned and grip classes:
+     *
+     * ![](handles.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderHandle(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit =
+        gtk_render_handle(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), x, y, width, height)
+
+    /**
+     * Renders the icon in @texture at the specified @x and @y coordinates.
+     *
+     * This function will render the icon in @texture at exactly its size,
+     * regardless of scaling factors, which may not be appropriate when
+     * drawing on displays with high pixel densities.
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param texture a `GdkTexture` containing the icon to draw
+     * @param x X position for the @texture
+     * @param y Y position for the @texture
+     */
+    public fun renderIcon(context: StyleContext, cr: Context, texture: Texture, x: gdouble, y: gdouble): Unit =
+        gtk_render_icon(
+            context.gtkStyleContextPointer.reinterpret(),
+            cr.gPointer.reinterpret(),
+            texture.gdkTexturePointer.reinterpret(),
+            x,
+            y
+        )
+
+    /**
+     * Renders @layout on the coordinates @x, @y
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin
+     * @param y Y origin
+     * @param layout the `PangoLayout` to render
+     */
+    public fun renderLayout(context: StyleContext, cr: Context, x: gdouble, y: gdouble, layout: Layout): Unit =
+        gtk_render_layout(
+            context.gtkStyleContextPointer.reinterpret(),
+            cr.gPointer.reinterpret(),
+            x,
+            y,
+            layout.pangoLayoutPointer.reinterpret()
+        )
+
+    /**
+     * Renders a line from (x0, y0) to (x1, y1).
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x0 X coordinate for the origin of the line
+     * @param y0 Y coordinate for the origin of the line
+     * @param x1 X coordinate for the end of the line
+     * @param y1 Y coordinate for the end of the line
+     */
+    public fun renderLine(
+        context: StyleContext,
+        cr: Context,
+        x0: gdouble,
+        y0: gdouble,
+        x1: gdouble,
+        y1: gdouble,
+    ): Unit = gtk_render_line(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), x0, y0, x1, y1)
+
+    /**
+     * Renders an option mark (as in a radio button), the %GTK_STATE_FLAG_CHECKED
+     * state will determine whether the option is on or off, and
+     * %GTK_STATE_FLAG_INCONSISTENT whether it should be marked as undefined.
+     *
+     * Typical option mark rendering:
+     *
+     * ![](options.png)
+     *
+     * @param context a `GtkStyleContext`
+     * @param cr a `cairo_t`
+     * @param x X origin of the rectangle
+     * @param y Y origin of the rectangle
+     * @param width rectangle width
+     * @param height rectangle height
+     */
+    public fun renderOption(
+        context: StyleContext,
+        cr: Context,
+        x: gdouble,
+        y: gdouble,
+        width: gdouble,
+        height: gdouble,
+    ): Unit =
+        gtk_render_option(context.gtkStyleContextPointer.reinterpret(), cr.gPointer.reinterpret(), x, y, width, height)
+
+    /**
      * Sets the GTK debug flags.
      *
      * @param flags the debug flags to set
@@ -1497,7 +1802,7 @@ public object Gtk {
      * @return a new `GdkContentProvider`
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider =
-        gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer.reinterpret())!!.run {
+        gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gPointer.reinterpret())!!.run {
             ContentProvider(reinterpret())
         }
 
@@ -1509,7 +1814,7 @@ public object Gtk {
      * @return a `GtkExpression`
      */
     public fun valueDupExpression(`value`: Value): Expression? =
-        gtk_value_dup_expression(`value`.gobjectValuePointer.reinterpret())?.run {
+        gtk_value_dup_expression(`value`.gPointer.reinterpret())?.run {
             Expression(reinterpret())
         }
 
@@ -1520,7 +1825,7 @@ public object Gtk {
      * @return a `GtkExpression`
      */
     public fun valueGetExpression(`value`: Value): Expression? =
-        gtk_value_get_expression(`value`.gobjectValuePointer.reinterpret())?.run {
+        gtk_value_get_expression(`value`.gPointer.reinterpret())?.run {
             Expression(reinterpret())
         }
 
@@ -1533,7 +1838,7 @@ public object Gtk {
      * @param expression a `GtkExpression`
      */
     public fun valueSetExpression(`value`: Value, expression: Expression): Unit =
-        gtk_value_set_expression(`value`.gobjectValuePointer.reinterpret(), expression.gPointer.reinterpret())
+        gtk_value_set_expression(`value`.gPointer.reinterpret(), expression.gPointer.reinterpret())
 
     /**
      * Stores the given `GtkExpression` inside `value`.
@@ -1544,7 +1849,7 @@ public object Gtk {
      * @param expression a `GtkExpression`
      */
     public fun valueTakeExpression(`value`: Value, expression: Expression? = null): Unit =
-        gtk_value_take_expression(`value`.gobjectValuePointer.reinterpret(), expression?.gPointer?.reinterpret())
+        gtk_value_take_expression(`value`.gPointer.reinterpret(), expression?.gPointer?.reinterpret())
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -1698,12 +2003,14 @@ public val DrawingAreaDrawFuncFunc: CPointer<
     CFunction<
         (
             CPointer<GtkDrawingArea>,
+            CPointer<cairo_t>,
             gint,
             gint,
         ) -> Unit
         >
     > = staticCFunction {
         drawingArea: CPointer<GtkDrawingArea>?,
+        cr: CPointer<cairo_t>?,
         width: gint,
         height: gint,
         userData: gpointer?,
@@ -1711,12 +2018,16 @@ public val DrawingAreaDrawFuncFunc: CPointer<
     userData!!.asStableRef<
         (
             drawingArea: DrawingArea,
+            cr: Context,
             width: gint,
             height: gint,
         ) -> Unit
         >().get().invoke(
         drawingArea!!.run {
             DrawingArea(reinterpret())
+        },
+        cr!!.run {
+            Context(reinterpret())
         },
         width,
         height
@@ -2561,6 +2872,7 @@ public typealias CustomFilterFunc = (item: Object) -> Boolean
  * and must not call any widget functions that cause changes.
  *
  * - param `drawingArea` the `GtkDrawingArea` to redraw
+ * - param `cr` the context to draw to
  * - param `width` the actual width of the contents. This value will be at least
  *   as wide as GtkDrawingArea:width.
  * - param `height` the actual height of the contents. This value will be at least
@@ -2568,6 +2880,7 @@ public typealias CustomFilterFunc = (item: Object) -> Boolean
  */
 public typealias DrawingAreaDrawFunc = (
     drawingArea: DrawingArea,
+    cr: Context,
     width: gint,
     height: gint,
 ) -> Unit

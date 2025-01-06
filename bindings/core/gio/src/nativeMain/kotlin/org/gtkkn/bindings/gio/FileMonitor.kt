@@ -23,9 +23,9 @@ import org.gtkkn.native.gio.g_file_monitor_emit_event
 import org.gtkkn.native.gio.g_file_monitor_get_type
 import org.gtkkn.native.gio.g_file_monitor_is_cancelled
 import org.gtkkn.native.gio.g_file_monitor_set_rate_limit
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.ULong
 import kotlin.Unit

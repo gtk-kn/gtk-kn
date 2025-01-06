@@ -21,8 +21,8 @@ import org.gtkkn.native.gio.g_memory_output_stream_new_resizable
 import org.gtkkn.native.gio.g_memory_output_stream_steal_as_bytes
 import org.gtkkn.native.gio.g_memory_output_stream_steal_data
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 
 /**
  * `GMemoryOutputStream` is a class for using arbitrary

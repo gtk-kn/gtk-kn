@@ -60,9 +60,9 @@ import org.gtkkn.native.gio.g_task_set_return_on_cancel
 import org.gtkkn.native.gio.g_task_set_source_tag
 import org.gtkkn.native.gio.g_task_set_static_name
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result
@@ -883,7 +883,7 @@ public open class Task(pointer: CPointer<GTask>) :
         val gError = allocPointerTo<GError>()
         val gResult = g_task_propagate_value(
             gioTaskPointer.reinterpret(),
-            `value`.gobjectValuePointer.reinterpret(),
+            `value`.gPointer.reinterpret(),
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -924,7 +924,7 @@ public open class Task(pointer: CPointer<GTask>) :
      */
     @GioVersion2_36
     public open fun returnError(error: Error): Unit =
-        g_task_return_error(gioTaskPointer.reinterpret(), error.glibErrorPointer.reinterpret())
+        g_task_return_error(gioTaskPointer.reinterpret(), error.gPointer.reinterpret())
 
     /**
      * Checks if @task's #GCancellable has been cancelled, and if so, sets
@@ -984,7 +984,7 @@ public open class Task(pointer: CPointer<GTask>) :
      */
     @GioVersion2_64
     public open fun returnValue(result: Value? = null): Unit =
-        g_task_return_value(gioTaskPointer.reinterpret(), result?.gobjectValuePointer?.reinterpret())
+        g_task_return_value(gioTaskPointer.reinterpret(), result?.gPointer?.reinterpret())
 
     /**
      * Sets or clears @task's check-cancellable flag. If this is true
@@ -1171,7 +1171,7 @@ public open class Task(pointer: CPointer<GTask>) :
             },
             callback?.let { StableRef.create(callback).asCPointer() },
             sourceTag,
-            error.glibErrorPointer.reinterpret()
+            error.gPointer.reinterpret()
         )
 
         /**

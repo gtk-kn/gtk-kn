@@ -12,7 +12,7 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputVector
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -27,28 +27,28 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_22
 public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioOutputVectorPointer: CPointer<GOutputVector> = pointer
+    public val gPointer: CPointer<GOutputVector> = pointer
 
     /**
      * Pointer to a buffer of data to read.
      */
     public var buffer: gpointer
-        get() = gioOutputVectorPointer.pointed.buffer!!
+        get() = gPointer.pointed.buffer!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputVectorPointer.pointed.buffer = value
+            gPointer.pointed.buffer = value
         }
 
     /**
      * the size of @buffer.
      */
     public var size: gsize
-        get() = gioOutputVectorPointer.pointed.size
+        get() = gPointer.pointed.size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputVectorPointer.pointed.size = value
+            gPointer.pointed.size = value
         }
 
     /**

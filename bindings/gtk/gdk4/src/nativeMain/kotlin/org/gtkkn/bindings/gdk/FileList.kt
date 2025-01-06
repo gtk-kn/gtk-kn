@@ -23,7 +23,7 @@ import org.gtkkn.native.gobject.GType
  */
 @GdkVersion4_6
 public class FileList(pointer: CPointer<GdkFileList>) : ProxyInstance(pointer) {
-    public val gdkFileListPointer: CPointer<GdkFileList> = pointer
+    public val gPointer: CPointer<GdkFileList> = pointer
 
     /**
      * Retrieves the list of files inside a `GdkFileList`.
@@ -34,7 +34,7 @@ public class FileList(pointer: CPointer<GdkFileList>) : ProxyInstance(pointer) {
      * @since 4.6
      */
     @GdkVersion4_6
-    public fun getFiles(): SList = gdk_file_list_get_files(gdkFileListPointer.reinterpret())!!.run {
+    public fun getFiles(): SList = gdk_file_list_get_files(gPointer.reinterpret())!!.run {
         SList(reinterpret())
     }
 
@@ -50,7 +50,7 @@ public class FileList(pointer: CPointer<GdkFileList>) : ProxyInstance(pointer) {
          * @since 4.8
          */
         public fun newFromList(files: SList): FileList =
-            FileList(gdk_file_list_new_from_list(files.glibSListPointer.reinterpret())!!.reinterpret())
+            FileList(gdk_file_list_new_from_list(files.gPointer.reinterpret())!!.reinterpret())
 
         /**
          * Get the GType of FileList

@@ -4,8 +4,8 @@ package org.gtkkn.bindings.adw
 import org.gtkkn.native.adw.AdwEasing
 import org.gtkkn.native.adw.adw_easing_ease
 import org.gtkkn.native.adw.adw_easing_get_type
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 
 /**
  * Describes the available easing functions for use with

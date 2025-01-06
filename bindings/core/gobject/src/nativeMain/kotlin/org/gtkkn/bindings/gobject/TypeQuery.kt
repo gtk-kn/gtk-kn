@@ -12,9 +12,9 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GTypeQuery
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -26,51 +26,51 @@ import kotlin.native.ref.createCleaner
  * See also: g_type_query()
  */
 public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectTypeQueryPointer: CPointer<GTypeQuery> = pointer
+    public val gPointer: CPointer<GTypeQuery> = pointer
 
     /**
      * the #GType value of the type
      */
     public var type: GType
-        get() = gobjectTypeQueryPointer.pointed.type
+        get() = gPointer.pointed.type
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeQueryPointer.pointed.type = value
+            gPointer.pointed.type = value
         }
 
     /**
      * the name of the type
      */
     public var typeName: String?
-        get() = gobjectTypeQueryPointer.pointed.type_name?.toKString()
+        get() = gPointer.pointed.type_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeQueryPointer.pointed.type_name?.let { g_free(it) }
-            gobjectTypeQueryPointer.pointed.type_name = value?.let { g_strdup(it) }
+            gPointer.pointed.type_name?.let { g_free(it) }
+            gPointer.pointed.type_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the size of the class structure
      */
     public var classSize: guint
-        get() = gobjectTypeQueryPointer.pointed.class_size
+        get() = gPointer.pointed.class_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeQueryPointer.pointed.class_size = value
+            gPointer.pointed.class_size = value
         }
 
     /**
      * the size of the instance structure
      */
     public var instanceSize: guint
-        get() = gobjectTypeQueryPointer.pointed.instance_size
+        get() = gPointer.pointed.instance_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeQueryPointer.pointed.instance_size = value
+            gPointer.pointed.instance_size = value
         }
 
     /**

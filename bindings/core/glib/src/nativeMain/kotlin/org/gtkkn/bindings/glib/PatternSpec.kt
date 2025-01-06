@@ -13,9 +13,9 @@ import org.gtkkn.native.glib.g_pattern_spec_free
 import org.gtkkn.native.glib.g_pattern_spec_match
 import org.gtkkn.native.glib.g_pattern_spec_match_string
 import org.gtkkn.native.glib.g_pattern_spec_new
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_pattern_spec_get_type
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -39,7 +39,7 @@ import kotlin.Unit
  * pattern compilation.
  */
 public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointer) {
-    public val glibPatternSpecPointer: CPointer<GPatternSpec> = pointer
+    public val gPointer: CPointer<GPatternSpec> = pointer
 
     /**
      * Copies @pspec in a new #GPatternSpec.
@@ -48,7 +48,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun copy(): PatternSpec = g_pattern_spec_copy(glibPatternSpecPointer.reinterpret())!!.run {
+    public fun copy(): PatternSpec = g_pattern_spec_copy(gPointer.reinterpret())!!.run {
         PatternSpec(reinterpret())
     }
 
@@ -59,15 +59,13 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @param pspec2 another #GPatternSpec
      * @return Whether the compiled patterns are equal
      */
-    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(
-        glibPatternSpecPointer.reinterpret(),
-        pspec2.glibPatternSpecPointer.reinterpret()
-    ).asBoolean()
+    public fun equal(pspec2: PatternSpec): Boolean =
+        g_pattern_spec_equal(gPointer.reinterpret(), pspec2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
      */
-    public fun free(): Unit = g_pattern_spec_free(glibPatternSpecPointer.reinterpret())
+    public fun free(): Unit = g_pattern_spec_free(gPointer.reinterpret())
 
     /**
      * Matches a string against a compiled pattern. Passing the correct
@@ -97,7 +95,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      */
     @GLibVersion2_70
     public fun match(stringLength: gsize, string: String, stringReversed: String? = null): Boolean =
-        g_pattern_spec_match(glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
+        g_pattern_spec_match(gPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a compiled pattern. If the string is to be
@@ -110,7 +108,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      */
     @GLibVersion2_70
     public fun matchString(string: String): Boolean =
-        g_pattern_spec_match_string(glibPatternSpecPointer.reinterpret(), string).asBoolean()
+        g_pattern_spec_match_string(gPointer.reinterpret(), string).asBoolean()
 
     public companion object {
         /**

@@ -16,6 +16,17 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
         "1.4" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_4",
         "1.5" to "org.gtkkn.bindings.adw.annotations.AdwVersion1_5"
     ),
+    "cairo" to listOf(
+        "1.10" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_10",
+        "1.12" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_12",
+        "1.14" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_14",
+        "1.16" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_16",
+        "1.18" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_18",
+        "1.2" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_2",
+        "1.4" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_4",
+        "1.6" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_6",
+        "1.8" to "org.gtkkn.bindings.cairo.annotations.CairoVersion1_8"
+    ),
     "gdkpixbuf" to listOf(
         "2.12" to "org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_12",
         "2.14" to "org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_14",
@@ -209,6 +220,7 @@ internal val repositoryAnnotations: Map<String, List<Pair<String, String>>> = ma
     ),
     "pangocairo" to listOf(
         "1.10" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10",
+        "1.14" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_14",
         "1.18" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18",
         "1.22" to "org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22"
     ),

@@ -122,15 +122,15 @@ import kotlin.collections.List
  */
 @GioVersion2_32
 public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(pointer) {
-    public val gioSettingsSchemaPointer: CPointer<GSettingsSchema> = pointer
+    public val gPointer: CPointer<GSettingsSchema> = pointer
 
     /**
      * Get the ID of @schema.
      *
      * @return the ID
      */
-    public fun getId(): String = g_settings_schema_get_id(gioSettingsSchemaPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getId(): String =
+        g_settings_schema_get_id(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the key named @name from @schema.
@@ -143,10 +143,9 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getKey(name: String): SettingsSchemaKey =
-        g_settings_schema_get_key(gioSettingsSchemaPointer.reinterpret(), name)!!.run {
-            SettingsSchemaKey(reinterpret())
-        }
+    public fun getKey(name: String): SettingsSchemaKey = g_settings_schema_get_key(gPointer.reinterpret(), name)!!.run {
+        SettingsSchemaKey(reinterpret())
+    }
 
     /**
      * Gets the path associated with @schema, or null.
@@ -163,7 +162,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getPath(): String? = g_settings_schema_get_path(gioSettingsSchemaPointer.reinterpret())?.toKString()
+    public fun getPath(): String? = g_settings_schema_get_path(gPointer.reinterpret())?.toKString()
 
     /**
      * Checks if @schema has a key named @name.
@@ -173,8 +172,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun hasKey(name: String): Boolean =
-        g_settings_schema_has_key(gioSettingsSchemaPointer.reinterpret(), name).asBoolean()
+    public fun hasKey(name: String): Boolean = g_settings_schema_has_key(gPointer.reinterpret(), name).asBoolean()
 
     /**
      * Gets the list of children in @schema.
@@ -187,9 +185,8 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.44
      */
     @GioVersion2_44
-    public fun listChildren(): List<String> =
-        g_settings_schema_list_children(gioSettingsSchemaPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun listChildren(): List<String> = g_settings_schema_list_children(gPointer.reinterpret())?.toKStringList()
+        ?: error("Expected not null string array")
 
     /**
      * Introspects the list of keys on @schema.
@@ -204,8 +201,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      */
     @GioVersion2_46
     public fun listKeys(): List<String> =
-        g_settings_schema_list_keys(gioSettingsSchemaPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+        g_settings_schema_list_keys(gPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Increase the reference count of @schema, returning a new reference.
@@ -214,7 +210,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchema = g_settings_schema_ref(gioSettingsSchemaPointer.reinterpret())!!.run {
+    public fun ref(): SettingsSchema = g_settings_schema_ref(gPointer.reinterpret())!!.run {
         SettingsSchema(reinterpret())
     }
 
@@ -224,7 +220,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unref(): Unit = g_settings_schema_unref(gioSettingsSchemaPointer.reinterpret())
+    public fun unref(): Unit = g_settings_schema_unref(gPointer.reinterpret())
 
     public companion object {
         /**

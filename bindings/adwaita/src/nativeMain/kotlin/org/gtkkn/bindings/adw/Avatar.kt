@@ -26,8 +26,8 @@ import org.gtkkn.native.adw.adw_avatar_set_icon_name
 import org.gtkkn.native.adw.adw_avatar_set_show_initials
 import org.gtkkn.native.adw.adw_avatar_set_size
 import org.gtkkn.native.adw.adw_avatar_set_text
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

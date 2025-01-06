@@ -65,8 +65,8 @@ import org.gtkkn.native.gio.g_dbus_message_set_signature
 import org.gtkkn.native.gio.g_dbus_message_set_unix_fd_list
 import org.gtkkn.native.gio.g_dbus_message_to_gerror
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -80,7 +80,7 @@ import kotlin.Unit
  *
  * - method `get_header_fields`: Array parameter of type guint8 is not supported
  * - method `new_method_error`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
+ * - parameter `var_args`: va_list type is not supported
  * - parameter `out_size`: out_size: Out parameter is not supported
  * - parameter `blob`: Array parameter of type guint8 is not supported
  * - parameter `blob`: Array parameter of type guint8 is not supported
@@ -466,7 +466,7 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
      */
     @GioVersion2_26
     public open fun setBody(body: Variant): Unit =
-        g_dbus_message_set_body(gioDBusMessagePointer.reinterpret(), body.glibVariantPointer.reinterpret())
+        g_dbus_message_set_body(gioDBusMessagePointer.reinterpret(), body.gPointer.reinterpret())
 
     /**
      * Sets the byte order of @message.
@@ -521,7 +521,7 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
         g_dbus_message_set_header(
             gioDBusMessagePointer.reinterpret(),
             headerField.nativeValue,
-            `value`?.glibVariantPointer?.reinterpret()
+            `value`?.gPointer?.reinterpret()
         )
 
     /**
@@ -633,7 +633,7 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
     @GioVersion2_26
     public open fun setUnixFdList(fdList: UnixFdList? = null): Unit = g_dbus_message_set_unix_fd_list(
         gioDBusMessagePointer.reinterpret(),
-        fdList?.gioUnixFDListPointer?.reinterpret()
+        fdList?.gioUnixFdListPointer?.reinterpret()
     )
 
     /**

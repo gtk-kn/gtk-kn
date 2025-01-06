@@ -30,7 +30,7 @@ import kotlin.native.ref.createCleaner
  */
 public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val soupMessageHeadersIterPointer: CPointer<SoupMessageHeadersIter> = pointer
+    public val gPointer: CPointer<SoupMessageHeadersIter> = pointer
 
     /**
      * Allocate a new MessageHeadersIter.
@@ -71,9 +71,7 @@ public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, clean
          *   structure
          * @param hdrs a %SoupMessageHeaders
          */
-        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit = soup_message_headers_iter_init(
-            iter.soupMessageHeadersIterPointer.reinterpret(),
-            hdrs.soupMessageHeadersPointer.reinterpret()
-        )
+        public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit =
+            soup_message_headers_iter_init(iter.gPointer.reinterpret(), hdrs.gPointer.reinterpret())
     }
 }

@@ -25,7 +25,7 @@ import kotlin.native.ref.createCleaner
  * Ignore all its fields and initialize the iter with [method@Region.get_start_region_iter].
  */
 public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter> = pointer
+    public val gPointer: CPointer<GtkSourceRegionIter> = pointer
 
     /**
      * Allocate a new RegionIter.
@@ -67,9 +67,9 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      *   or false if @iter is the end iterator or if the region is empty.
      */
     public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(
-        gtksourceRegionIterPointer.reinterpret(),
-        start?.gtkTextIterPointer?.reinterpret(),
-        end?.gtkTextIterPointer?.reinterpret()
+        gPointer.reinterpret(),
+        start?.gPointer?.reinterpret(),
+        end?.gPointer?.reinterpret()
     ).asBoolean()
 
     /**
@@ -77,7 +77,7 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      *
      * @return whether @iter is the end iterator.
      */
-    public fun isEnd(): Boolean = gtk_source_region_iter_is_end(gtksourceRegionIterPointer.reinterpret()).asBoolean()
+    public fun isEnd(): Boolean = gtk_source_region_iter_is_end(gPointer.reinterpret()).asBoolean()
 
     /**
      * Moves @iter to the next subregion.
@@ -85,5 +85,5 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * @return true if @iter moved and is dereferenceable, or false if @iter has
      *   been set to the end iterator.
      */
-    public fun next(): Boolean = gtk_source_region_iter_next(gtksourceRegionIterPointer.reinterpret()).asBoolean()
+    public fun next(): Boolean = gtk_source_region_iter_next(gPointer.reinterpret()).asBoolean()
 }

@@ -17,8 +17,8 @@ import org.gtkkn.native.gio.g_srv_target_get_type
 import org.gtkkn.native.gio.g_srv_target_get_weight
 import org.gtkkn.native.gio.g_srv_target_list_sort
 import org.gtkkn.native.gio.g_srv_target_new
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint16
 import kotlin.String
 import kotlin.Unit
 
@@ -41,7 +41,7 @@ import kotlin.Unit
  * `GSrvTarget` at all.
  */
 public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
-    public val gioSrvTargetPointer: CPointer<GSrvTarget> = pointer
+    public val gPointer: CPointer<GSrvTarget> = pointer
 
     /**
      * Copies @target
@@ -50,7 +50,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun copy(): SrvTarget = g_srv_target_copy(gioSrvTargetPointer.reinterpret())!!.run {
+    public fun copy(): SrvTarget = g_srv_target_copy(gPointer.reinterpret())!!.run {
         SrvTarget(reinterpret())
     }
 
@@ -60,7 +60,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun free(): Unit = g_srv_target_free(gioSrvTargetPointer.reinterpret())
+    public fun free(): Unit = g_srv_target_free(gPointer.reinterpret())
 
     /**
      * Gets @target's hostname (in ASCII form; if you are going to present
@@ -73,7 +73,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      */
     @GioVersion2_22
     public fun getHostname(): String =
-        g_srv_target_get_hostname(gioSrvTargetPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_srv_target_get_hostname(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @target's port
@@ -82,7 +82,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getPort(): guint16 = g_srv_target_get_port(gioSrvTargetPointer.reinterpret())
+    public fun getPort(): guint16 = g_srv_target_get_port(gPointer.reinterpret())
 
     /**
      * Gets @target's priority. You should not need to look at this;
@@ -93,7 +93,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getPriority(): guint16 = g_srv_target_get_priority(gioSrvTargetPointer.reinterpret())
+    public fun getPriority(): guint16 = g_srv_target_get_priority(gPointer.reinterpret())
 
     /**
      * Gets @target's weight. You should not need to look at this;
@@ -104,7 +104,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GioVersion2_22
-    public fun getWeight(): guint16 = g_srv_target_get_weight(gioSrvTargetPointer.reinterpret())
+    public fun getWeight(): guint16 = g_srv_target_get_weight(gPointer.reinterpret())
 
     public companion object {
         /**
@@ -131,7 +131,7 @@ public class SrvTarget(pointer: CPointer<GSrvTarget>) : ProxyInstance(pointer) {
          * @since 2.22
          */
         @GioVersion2_22
-        public fun listSort(targets: List): List = g_srv_target_list_sort(targets.glibListPointer.reinterpret())!!.run {
+        public fun listSort(targets: List): List = g_srv_target_list_sort(targets.gPointer.reinterpret())!!.run {
             List(reinterpret())
         }
 

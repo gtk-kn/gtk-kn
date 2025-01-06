@@ -4,17 +4,17 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pango.FontMap
 import org.gtkkn.bindings.pango.Layout
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkPrintContext
 import org.gtkkn.native.gtk.gtk_print_context_create_pango_context
 import org.gtkkn.native.gtk.gtk_print_context_create_pango_layout
+import org.gtkkn.native.gtk.gtk_print_context_get_cairo_context
 import org.gtkkn.native.gtk.gtk_print_context_get_dpi_x
 import org.gtkkn.native.gtk.gtk_print_context_get_dpi_y
 import org.gtkkn.native.gtk.gtk_print_context_get_height
@@ -22,6 +22,10 @@ import org.gtkkn.native.gtk.gtk_print_context_get_page_setup
 import org.gtkkn.native.gtk.gtk_print_context_get_pango_fontmap
 import org.gtkkn.native.gtk.gtk_print_context_get_type
 import org.gtkkn.native.gtk.gtk_print_context_get_width
+import org.gtkkn.native.gtk.gtk_print_context_set_cairo_context
+import kotlin.Unit
+import org.gtkkn.bindings.cairo.Context as CairoContext
+import org.gtkkn.bindings.pango.Context as PangoContext
 
 /**
  * A `GtkPrintContext` encapsulates context information that is required when
@@ -96,9 +100,7 @@ import org.gtkkn.native.gtk.gtk_print_context_get_width
  *
  * ## Skipped during bindings generation
  *
- * - method `get_cairo_context`: Return type cairo.Context is unsupported
  * - parameter `top`: top: Out parameter is not supported
- * - parameter `cr`: cairo.Context
  */
 public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
     Object(pointer.reinterpret()),
@@ -112,9 +114,9 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return a new Pango context for @context
      */
-    public open fun createPangoContext(): Context =
+    public open fun createPangoContext(): PangoContext =
         gtk_print_context_create_pango_context(gtkPrintContextPointer.reinterpret())!!.run {
-            Context(reinterpret())
+            PangoContext(reinterpret())
         }
 
     /**
@@ -126,6 +128,17 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
     public open fun createPangoLayout(): Layout =
         gtk_print_context_create_pango_layout(gtkPrintContextPointer.reinterpret())!!.run {
             Layout(reinterpret())
+        }
+
+    /**
+     * Obtains the cairo context that is associated with the
+     * `GtkPrintContext`.
+     *
+     * @return the cairo context of @context
+     */
+    public open fun getCairoContext(): CairoContext =
+        gtk_print_context_get_cairo_context(gtkPrintContextPointer.reinterpret())!!.run {
+            CairoContext(reinterpret())
         }
 
     /**
@@ -179,6 +192,21 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      * @return the width of @context
      */
     public open fun getWidth(): gdouble = gtk_print_context_get_width(gtkPrintContextPointer.reinterpret())
+
+    /**
+     * Sets a new cairo context on a print context.
+     *
+     * This function is intended to be used when implementing
+     * an internal print preview, it is not needed for printing,
+     * since GTK itself creates a suitable cairo context in that
+     * case.
+     *
+     * @param cr the cairo context
+     * @param dpiX the horizontal resolution to use with @cr
+     * @param dpiY the vertical resolution to use with @cr
+     */
+    public open fun setCairoContext(cr: CairoContext, dpiX: gdouble, dpiY: gdouble): Unit =
+        gtk_print_context_set_cairo_context(gtkPrintContextPointer.reinterpret(), cr.gPointer.reinterpret(), dpiX, dpiY)
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =

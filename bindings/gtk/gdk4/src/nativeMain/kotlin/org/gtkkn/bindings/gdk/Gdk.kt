@@ -13,6 +13,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.cairo.Context
+import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gio.AsyncReadyCallback
 import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
@@ -26,6 +28,12 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gdk.GdkContentDeserializer
 import org.gtkkn.native.gdk.GdkContentSerializer
+import org.gtkkn.native.gdk.gdk_cairo_draw_from_gl
+import org.gtkkn.native.gdk.gdk_cairo_rectangle
+import org.gtkkn.native.gdk.gdk_cairo_region
+import org.gtkkn.native.gdk.gdk_cairo_region_create_from_surface
+import org.gtkkn.native.gdk.gdk_cairo_set_source_pixbuf
+import org.gtkkn.native.gdk.gdk_cairo_set_source_rgba
 import org.gtkkn.native.gdk.gdk_content_deserialize_async
 import org.gtkkn.native.gdk.gdk_content_deserialize_finish
 import org.gtkkn.native.gdk.gdk_content_register_deserializer
@@ -41,15 +49,17 @@ import org.gtkkn.native.gdk.gdk_keyval_name
 import org.gtkkn.native.gdk.gdk_keyval_to_lower
 import org.gtkkn.native.gdk.gdk_keyval_to_unicode
 import org.gtkkn.native.gdk.gdk_keyval_to_upper
+import org.gtkkn.native.gdk.gdk_pixbuf_get_from_surface
 import org.gtkkn.native.gdk.gdk_pixbuf_get_from_texture
 import org.gtkkn.native.gdk.gdk_set_allowed_backends
 import org.gtkkn.native.gdk.gdk_toplevel_size_get_type
 import org.gtkkn.native.gdk.gdk_unicode_to_keyval
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint8
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -58,19 +68,12 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
- * - parameter `surface`: cairo.Surface
- * - parameter `cr`: cairo.Context
- * - parameter `cr`: cairo.Context
  * - parameter `angle`: angle: Out parameter is not supported
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `distance`: distance: Out parameter is not supported
  * - parameter `lower`: lower: Out parameter is not supported
  * - parameter `index_ranges`: Unsupported pointer to primitive type
  * - parameter `index_ranges`: Array parameter of type gint is not supported
- * - parameter `surface`: cairo.Surface
  * - record `ContentProviderClass`: glib type struct are ignored
  * - record `DevicePadInterface`: glib type struct are ignored
  * - record `DmabufTextureBuilderClass`: glib type struct are ignored
@@ -4699,6 +4702,105 @@ public object Gdk {
     public const val PRIORITY_REDRAW: gint = 120
 
     /**
+     * The main way to not draw GL content in GTK.
+     *
+     * It takes a render buffer ID (@source_type == GL_RENDERBUFFER) or a texture
+     * id (@source_type == GL_TEXTURE) and draws it onto @cr with an OVER operation,
+     * respecting the current clip. The top left corner of the rectangle specified
+     * by @x, @y, @width and @height will be drawn at the current (0,0) position of
+     * the `cairo_t`.
+     *
+     * This will work for *all* `cairo_t`, as long as @surface is realized, but the
+     * fallback implementation that reads back the pixels from the buffer may be
+     * used in the general case. In the case of direct drawing to a surface with
+     * no special effects applied to @cr it will however use a more efficient
+     * approach.
+     *
+     * For GL_RENDERBUFFER the code will always fall back to software for buffers
+     * with alpha components, so make sure you use GL_TEXTURE if using alpha.
+     *
+     * Calling this may change the current GL context.
+     *
+     * @param cr a cairo context
+     * @param surface The surface we're rendering for (not necessarily into)
+     * @param source The GL ID of the source buffer
+     * @param sourceType The type of the @source
+     * @param bufferScale The scale-factor that the @source buffer is allocated for
+     * @param x The source x position in @source to start copying from in GL coordinates
+     * @param y The source y position in @source to start copying from in GL coordinates
+     * @param width The width of the region to draw
+     * @param height The height of the region to draw
+     */
+    public fun cairoDrawFromGl(
+        cr: Context,
+        surface: Surface,
+        source: gint,
+        sourceType: gint,
+        bufferScale: gint,
+        x: gint,
+        y: gint,
+        width: gint,
+        height: gint,
+    ): Unit =
+        gdk_cairo_draw_from_gl(cr.gPointer.reinterpret(), surface.gdkSurfacePointer.reinterpret(), source, sourceType, bufferScale, x, y, width, height)
+
+    /**
+     * Adds the given rectangle to the current path of @cr.
+     *
+     * @param cr a cairo context
+     * @param rectangle a `GdkRectangle`
+     */
+    public fun cairoRectangle(cr: Context, rectangle: Rectangle): Unit =
+        gdk_cairo_rectangle(cr.gPointer.reinterpret(), rectangle.gPointer.reinterpret())
+
+    /**
+     * Adds the given region to the current path of @cr.
+     *
+     * @param cr a cairo context
+     * @param region a `cairo_region_t`
+     */
+    public fun cairoRegion(cr: Context, region: Region): Unit =
+        gdk_cairo_region(cr.gPointer.reinterpret(), region.gPointer.reinterpret())
+
+    /**
+     * Creates region that covers the area where the given
+     * @surface is more than 50% opaque.
+     *
+     * This function takes into account device offsets that might be
+     * set with cairo_surface_set_device_offset().
+     *
+     * @param surface a cairo surface
+     * @return A `cairo_region_t`
+     */
+    public fun cairoRegionCreateFromSurface(surface: org.gtkkn.bindings.cairo.Surface): Region =
+        gdk_cairo_region_create_from_surface(surface.gPointer.reinterpret())!!.run {
+            Region(reinterpret())
+        }
+
+    /**
+     * Sets the given pixbuf as the source pattern for @cr.
+     *
+     * The pattern has an extend mode of %CAIRO_EXTEND_NONE and is aligned
+     * so that the origin of @pixbuf is @pixbuf_x, @pixbuf_y.
+     *
+     * @param cr a cairo context
+     * @param pixbuf a `GdkPixbuf`
+     * @param pixbufX X coordinate of location to place upper left corner of @pixbuf
+     * @param pixbufY Y coordinate of location to place upper left corner of @pixbuf
+     */
+    public fun cairoSetSourcePixbuf(cr: Context, pixbuf: Pixbuf, pixbufX: gdouble, pixbufY: gdouble): Unit =
+        gdk_cairo_set_source_pixbuf(cr.gPointer.reinterpret(), pixbuf.gdkPixbufPointer.reinterpret(), pixbufX, pixbufY)
+
+    /**
+     * Sets the specified `GdkRGBA` as the source color of @cr.
+     *
+     * @param cr a cairo context
+     * @param rgba a `GdkRGBA`
+     */
+    public fun cairoSetSourceRgba(cr: Context, rgba: Rgba): Unit =
+        gdk_cairo_set_source_rgba(cr.gPointer.reinterpret(), rgba.gPointer.reinterpret())
+
+    /**
      * Read content from the given input stream and deserialize it, asynchronously.
      *
      * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
@@ -4746,7 +4848,7 @@ public object Gdk {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_content_deserialize_finish(
             result.gioAsyncResultPointer,
-            `value`.gobjectValuePointer.reinterpret(),
+            `value`.gPointer.reinterpret(),
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -4814,7 +4916,7 @@ public object Gdk {
     ): Unit = gdk_content_serialize_async(
         stream.gioOutputStreamPointer.reinterpret(),
         mimeType,
-        `value`.gobjectValuePointer.reinterpret(),
+        `value`.gPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
@@ -4929,6 +5031,33 @@ public object Gdk {
      *   in upper case or it is not subject to case conversion.
      */
     public fun keyvalToUpper(keyval: guint): guint = gdk_keyval_to_upper(keyval)
+
+    /**
+     * Transfers image data from a `cairo_surface_t` and converts it
+     * to a `GdkPixbuf`.
+     *
+     * This allows you to efficiently read individual pixels from cairo surfaces.
+     *
+     * This function will create an RGB pixbuf with 8 bits per channel.
+     * The pixbuf will contain an alpha channel if the @surface contains one.
+     *
+     * @param surface surface to copy from
+     * @param srcX Source X coordinate within @surface
+     * @param srcY Source Y coordinate within @surface
+     * @param width Width in pixels of region to get
+     * @param height Height in pixels of region to get
+     * @return A newly-created pixbuf with a
+     *   reference count of 1
+     */
+    public fun pixbufGetFromSurface(
+        surface: org.gtkkn.bindings.cairo.Surface,
+        srcX: gint,
+        srcY: gint,
+        width: gint,
+        height: gint,
+    ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.gPointer.reinterpret(), srcX, srcY, width, height)?.run {
+        Pixbuf(reinterpret())
+    }
 
     /**
      * Creates a new pixbuf from @texture.

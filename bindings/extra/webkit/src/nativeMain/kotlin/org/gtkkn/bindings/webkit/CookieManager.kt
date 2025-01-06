@@ -84,7 +84,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     public fun addCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_add_cookie(
             webkitCookieManagerPointer.reinterpret(),
-            cookie.soupCookiePointer.reinterpret(),
+            cookie.gPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
@@ -129,7 +129,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     public fun deleteCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_delete_cookie(
             webkitCookieManagerPointer.reinterpret(),
-            cookie.soupCookiePointer.reinterpret(),
+            cookie.gPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
@@ -323,7 +323,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     public fun replaceCookies(cookies: List, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_replace_cookies(
             webkitCookieManagerPointer.reinterpret(),
-            cookies.glibListPointer.reinterpret(),
+            cookies.gPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()

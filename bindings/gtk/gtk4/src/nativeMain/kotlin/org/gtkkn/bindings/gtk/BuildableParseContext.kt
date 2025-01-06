@@ -22,7 +22,7 @@ import kotlin.Unit
  * - parameter `line_number`: line_number: Out parameter is not supported
  */
 public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) : ProxyInstance(pointer) {
-    public val gtkBuildableParseContextPointer: CPointer<GtkBuildableParseContext> = pointer
+    public val gPointer: CPointer<GtkBuildableParseContext> = pointer
 
     /**
      * Retrieves the name of the currently open element.
@@ -33,8 +33,7 @@ public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) 
      *
      * @return the name of the currently open element
      */
-    public fun getElement(): String? =
-        gtk_buildable_parse_context_get_element(gtkBuildableParseContextPointer.reinterpret())?.toKString()
+    public fun getElement(): String? = gtk_buildable_parse_context_get_element(gPointer.reinterpret())?.toKString()
 
     /**
      * Completes the process of a temporary sub-parser redirection.
@@ -53,7 +52,7 @@ public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) 
      *
      * @return the user data passed to gtk_buildable_parse_context_push()
      */
-    public fun pop(): gpointer? = gtk_buildable_parse_context_pop(gtkBuildableParseContextPointer.reinterpret())
+    public fun pop(): gpointer? = gtk_buildable_parse_context_pop(gPointer.reinterpret())
 
     /**
      * Temporarily redirects markup data to a sub-parser.
@@ -89,9 +88,6 @@ public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) 
      * @param parser a `GtkBuildableParser`
      * @param userData user data to pass to `GtkBuildableParser` functions
      */
-    public fun push(parser: BuildableParser, userData: gpointer? = null): Unit = gtk_buildable_parse_context_push(
-        gtkBuildableParseContextPointer.reinterpret(),
-        parser.gtkBuildableParserPointer.reinterpret(),
-        userData
-    )
+    public fun push(parser: BuildableParser, userData: gpointer? = null): Unit =
+        gtk_buildable_parse_context_push(gPointer.reinterpret(), parser.gPointer.reinterpret(), userData)
 }

@@ -28,8 +28,8 @@ import org.gtkkn.native.gio.g_unix_connection_send_credentials_async
 import org.gtkkn.native.gio.g_unix_connection_send_credentials_finish
 import org.gtkkn.native.gio.g_unix_connection_send_fd
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit

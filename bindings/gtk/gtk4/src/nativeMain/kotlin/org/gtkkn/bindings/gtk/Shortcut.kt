@@ -87,9 +87,7 @@ public open class Shortcut(pointer: CPointer<GtkShortcut>) :
          *
          * @param args arguments to pass when activating @self
          */
-        set(
-            args
-        ) = gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.glibVariantPointer?.reinterpret())
+        set(args) = gtk_shortcut_set_arguments(gtkShortcutPointer.reinterpret(), args?.gPointer?.reinterpret())
 
     /**
      * The trigger that triggers this shortcut.

@@ -26,7 +26,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_30
 public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstance(pointer) {
-    public val webkitITPFirstPartyPointer: CPointer<WebKitITPFirstParty> = pointer
+    public val gPointer: CPointer<WebKitITPFirstParty> = pointer
 
     /**
      * Get the domain name of @itp_first_party.
@@ -36,8 +36,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getDomain(): String =
-        webkit_itp_first_party_get_domain(webkitITPFirstPartyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_itp_first_party_get_domain(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the last time a #WebKitITPThirdParty has been seen under @itp_first_party.
@@ -50,7 +49,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getLastUpdateTime(): DateTime =
-        webkit_itp_first_party_get_last_update_time(webkitITPFirstPartyPointer.reinterpret())!!.run {
+        webkit_itp_first_party_get_last_update_time(gPointer.reinterpret())!!.run {
             DateTime(reinterpret())
         }
 
@@ -65,7 +64,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getWebsiteDataAccessAllowed(): Boolean =
-        webkit_itp_first_party_get_website_data_access_allowed(webkitITPFirstPartyPointer.reinterpret()).asBoolean()
+        webkit_itp_first_party_get_website_data_access_allowed(gPointer.reinterpret()).asBoolean()
 
     /**
      * Atomically increments the reference count of @itp_first_party by one.
@@ -76,7 +75,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ItpFirstParty = webkit_itp_first_party_ref(webkitITPFirstPartyPointer.reinterpret())!!.run {
+    public fun ref(): ItpFirstParty = webkit_itp_first_party_ref(gPointer.reinterpret())!!.run {
         ItpFirstParty(reinterpret())
     }
 
@@ -90,7 +89,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun unref(): Unit = webkit_itp_first_party_unref(webkitITPFirstPartyPointer.reinterpret())
+    public fun unref(): Unit = webkit_itp_first_party_unref(gPointer.reinterpret())
 
     public companion object {
         /**

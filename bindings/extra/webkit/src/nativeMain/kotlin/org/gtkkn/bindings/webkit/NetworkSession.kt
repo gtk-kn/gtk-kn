@@ -329,7 +329,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
         webkit_network_session_set_proxy_settings(
             webkitNetworkSessionPointer.reinterpret(),
             proxyMode.nativeValue,
-            proxySettings?.webkitNetworkProxySettingsPointer?.reinterpret()
+            proxySettings?.gPointer?.reinterpret()
         )
 
     /**
@@ -402,9 +402,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
          */
         @WebKitVersion2_40
         public fun setMemoryPressureSettings(settings: MemoryPressureSettings): Unit =
-            webkit_network_session_set_memory_pressure_settings(
-                settings.webkitMemoryPressureSettingsPointer.reinterpret()
-            )
+            webkit_network_session_set_memory_pressure_settings(settings.gPointer.reinterpret())
 
         /**
          * Get the GType of NetworkSession

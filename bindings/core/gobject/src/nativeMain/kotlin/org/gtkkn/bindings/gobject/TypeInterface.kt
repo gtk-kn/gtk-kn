@@ -29,7 +29,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  */
 public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectTypeInterfacePointer: CPointer<GTypeInterface> = pointer
+    public val gPointer: CPointer<GTypeInterface> = pointer
 
     /**
      * Allocate a new TypeInterface.
@@ -73,10 +73,9 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      *     instance type to which @g_iface belongs, or null if the parent
      *     type doesn't conform to the interface
      */
-    public fun peekParent(): TypeInterface =
-        g_type_interface_peek_parent(gobjectTypeInterfacePointer.reinterpret())!!.run {
-            TypeInterface(reinterpret())
-        }
+    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gPointer.reinterpret())!!.run {
+        TypeInterface(reinterpret())
+    }
 
     public companion object {
         /**
@@ -135,7 +134,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          *     otherwise
          */
         public fun peek(instanceClass: TypeClass, ifaceType: GType): TypeInterface =
-            g_type_interface_peek(instanceClass.gobjectTypeClassPointer.reinterpret(), ifaceType)!!.run {
+            g_type_interface_peek(instanceClass.gPointer.reinterpret(), ifaceType)!!.run {
                 TypeInterface(reinterpret())
             }
     }

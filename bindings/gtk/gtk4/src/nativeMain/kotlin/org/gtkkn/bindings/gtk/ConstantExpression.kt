@@ -34,7 +34,7 @@ public open class ConstantExpression(pointer: CPointer<GtkConstantExpression>) :
      */
     public constructor(
         `value`: Value,
-    ) : this(gtk_constant_expression_new_for_value(`value`.gobjectValuePointer.reinterpret())!!.reinterpret())
+    ) : this(gtk_constant_expression_new_for_value(`value`.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the value that a constant expression evaluates to.

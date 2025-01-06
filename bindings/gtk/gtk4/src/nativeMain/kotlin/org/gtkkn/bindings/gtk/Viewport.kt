@@ -145,7 +145,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
     public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit = gtk_viewport_scroll_to(
         gtkViewportPointer.reinterpret(),
         descendant.gtkWidgetPointer.reinterpret(),
-        scroll?.gtkScrollInfoPointer?.reinterpret()
+        scroll?.gPointer?.reinterpret()
     )
 
     public companion object : TypeCompanion<Viewport> {

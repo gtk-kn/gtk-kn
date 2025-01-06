@@ -11,8 +11,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GTypeInfo
-import org.gtkkn.native.gobject.guint16
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -38,50 +38,50 @@ import kotlin.native.ref.createCleaner
  * - field `instance_init`: InstanceInitFunc
  */
 public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectTypeInfoPointer: CPointer<GTypeInfo> = pointer
+    public val gPointer: CPointer<GTypeInfo> = pointer
 
     /**
      * Size of the class structure (required for interface, classed and instantiatable types)
      */
     public var classSize: guint16
-        get() = gobjectTypeInfoPointer.pointed.class_size
+        get() = gPointer.pointed.class_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeInfoPointer.pointed.class_size = value
+            gPointer.pointed.class_size = value
         }
 
     /**
      * User-supplied data passed to the class init/finalize functions
      */
     public var classData: gpointer
-        get() = gobjectTypeInfoPointer.pointed.class_data!!
+        get() = gPointer.pointed.class_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeInfoPointer.pointed.class_data = value
+            gPointer.pointed.class_data = value
         }
 
     /**
      * Size of the instance (object) structure (required for instantiatable types only)
      */
     public var instanceSize: guint16
-        get() = gobjectTypeInfoPointer.pointed.instance_size
+        get() = gPointer.pointed.instance_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeInfoPointer.pointed.instance_size = value
+            gPointer.pointed.instance_size = value
         }
 
     /**
      * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
      */
     public var nPreallocs: guint16
-        get() = gobjectTypeInfoPointer.pointed.n_preallocs
+        get() = gPointer.pointed.n_preallocs
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeInfoPointer.pointed.n_preallocs = value
+            gPointer.pointed.n_preallocs = value
         }
 
     /**
@@ -89,13 +89,13 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      *  of this type (usually only useful for fundamental types)
      */
     public var valueTable: TypeValueTable?
-        get() = gobjectTypeInfoPointer.pointed.value_table?.run {
+        get() = gPointer.pointed.value_table?.run {
             TypeValueTable(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeInfoPointer.pointed.value_table = value?.gobjectTypeValueTablePointer
+            gPointer.pointed.value_table = value?.gPointer
         }
 
     /**

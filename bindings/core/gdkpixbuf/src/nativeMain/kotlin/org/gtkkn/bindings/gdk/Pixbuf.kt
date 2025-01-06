@@ -98,13 +98,13 @@ import org.gtkkn.native.gdk.gdk_pixbuf_unref
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint8
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -423,7 +423,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         rowstride: gint,
     ) : this(
         gdk_pixbuf_new_from_bytes(
-            `data`.glibBytesPointer.reinterpret(),
+            `data`.gPointer.reinterpret(),
             colorspace.nativeValue,
             hasAlpha.asGBoolean(),
             bitsPerSample,

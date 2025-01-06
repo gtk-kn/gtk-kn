@@ -40,11 +40,11 @@ import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.gio.GTlsClientConnection
 import org.gtkkn.native.gio.GTlsPassword
 import org.gtkkn.native.glib.GHashTable
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupAuth
 import org.gtkkn.native.soup.SoupMessage
 import org.gtkkn.native.soup.soup_message_add_flags
@@ -160,7 +160,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          */
         set(
             firstParty
-        ) = soup_message_set_first_party(soupMessagePointer.reinterpret(), firstParty.glibUriPointer.reinterpret())
+        ) = soup_message_set_first_party(soupMessagePointer.reinterpret(), firstParty.gPointer.reinterpret())
 
     /**
      * Various message options.
@@ -445,7 +445,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          *
          * @param uri the new #GUri
          */
-        set(uri) = soup_message_set_uri(soupMessagePointer.reinterpret(), uri.glibUriPointer.reinterpret())
+        set(uri) = soup_message_set_uri(soupMessagePointer.reinterpret(), uri.gPointer.reinterpret())
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -491,7 +491,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
     public constructor(
         uriString: String,
         multipart: Multipart,
-    ) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer.reinterpret())!!.reinterpret())
+    ) : this(soup_message_new_from_multipart(uriString, multipart.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -503,7 +503,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
     public constructor(
         method: String,
         uri: Uri,
-    ) : this(soup_message_new_from_uri(method, uri.glibUriPointer.reinterpret())!!.reinterpret())
+    ) : this(soup_message_new_from_uri(method, uri.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new #SoupMessage to send `OPTIONS *` to a server. The path of
@@ -514,7 +514,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public constructor(
         baseUri: Uri,
-    ) : this(soup_message_new_options_ping(baseUri.glibUriPointer.reinterpret())!!.reinterpret())
+    ) : this(soup_message_new_options_ping(baseUri.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds @flags to the set of @msg's flags.
@@ -722,7 +722,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         soup_message_set_request_body_from_bytes(
             soupMessagePointer.reinterpret(),
             contentType,
-            bytes?.glibBytesPointer?.reinterpret()
+            bytes?.gPointer?.reinterpret()
         )
 
     /**
@@ -738,10 +738,8 @@ public class Message(pointer: CPointer<SoupMessage>) :
      *
      * @param siteForCookies the #GUri for the @msg's site for cookies
      */
-    public fun setSiteForCookies(siteForCookies: Uri? = null): Unit = soup_message_set_site_for_cookies(
-        soupMessagePointer.reinterpret(),
-        siteForCookies?.glibUriPointer?.reinterpret()
-    )
+    public fun setSiteForCookies(siteForCookies: Uri? = null): Unit =
+        soup_message_set_site_for_cookies(soupMessagePointer.reinterpret(), siteForCookies?.gPointer?.reinterpret())
 
     /**
      * Sets the @certificate to be used by @msg's connection when a

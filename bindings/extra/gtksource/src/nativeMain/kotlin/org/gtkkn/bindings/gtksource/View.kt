@@ -12,6 +12,7 @@ import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtk.TextView
+import org.gtkkn.bindings.gtk.TextWindowType
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -19,11 +20,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -573,8 +574,8 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param windowType the gutter window type.
      * @return the #GtkSourceGutter.
      */
-    public open fun getGutterView(windowType: guint): Gutter =
-        gtk_source_view_get_gutter(gtksourceViewPointer.reinterpret(), windowType)!!.run {
+    public open fun getGutterView(windowType: TextWindowType): Gutter =
+        gtk_source_view_get_gutter(gtksourceViewPointer.reinterpret(), windowType.nativeValue.value)!!.run {
             Gutter(reinterpret())
         }
 
@@ -598,7 +599,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @return the visual column at @iter.
      */
     public open fun getVisualColumn(iter: TextIter): guint =
-        gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gtkTextIterPointer.reinterpret())
+        gtk_source_view_get_visual_column(gtksourceViewPointer.reinterpret(), iter.gPointer.reinterpret())
 
     /**
      * Inserts one indentation level at the beginning of the specified lines. The
@@ -609,8 +610,8 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public open fun indentLines(start: TextIter, end: TextIter): Unit = gtk_source_view_indent_lines(
         gtksourceViewPointer.reinterpret(),
-        start.gtkTextIterPointer.reinterpret(),
-        end.gtkTextIterPointer.reinterpret()
+        start.gPointer.reinterpret(),
+        end.gPointer.reinterpret()
     )
 
     /**
@@ -626,7 +627,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
     public open fun pushSnippet(snippet: Snippet, location: TextIter? = null): Unit = gtk_source_view_push_snippet(
         gtksourceViewPointer.reinterpret(),
         snippet.gtksourceSnippetPointer.reinterpret(),
-        location?.gtkTextIterPointer?.reinterpret()
+        location?.gPointer?.reinterpret()
     )
 
     /**
@@ -653,8 +654,8 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public open fun unindentLines(start: TextIter, end: TextIter): Unit = gtk_source_view_unindent_lines(
         gtksourceViewPointer.reinterpret(),
-        start.gtkTextIterPointer.reinterpret(),
-        end.gtkTextIterPointer.reinterpret()
+        start.gPointer.reinterpret(),
+        end.gPointer.reinterpret()
     )
 
     /**

@@ -24,10 +24,10 @@ import org.gtkkn.native.glib.g_mapped_file_new
 import org.gtkkn.native.glib.g_mapped_file_new_from_fd
 import org.gtkkn.native.glib.g_mapped_file_ref
 import org.gtkkn.native.glib.g_mapped_file_unref
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_mapped_file_get_type
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -39,7 +39,7 @@ import kotlin.Unit
  * not be accessed directly.
  */
 public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer) {
-    public val glibMappedFilePointer: CPointer<GMappedFile> = pointer
+    public val gPointer: CPointer<GMappedFile> = pointer
 
     /**
      * This call existed before #GMappedFile had refcounting and is currently
@@ -48,7 +48,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun free(): Unit = g_mapped_file_free(glibMappedFilePointer.reinterpret())
+    public fun free(): Unit = g_mapped_file_free(gPointer.reinterpret())
 
     /**
      * Creates a new #GBytes which references the data mapped from @file.
@@ -60,7 +60,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun getBytes(): Bytes = g_mapped_file_get_bytes(glibMappedFilePointer.reinterpret())!!.run {
+    public fun getBytes(): Bytes = g_mapped_file_get_bytes(gPointer.reinterpret())!!.run {
         Bytes(reinterpret())
     }
 
@@ -76,8 +76,8 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun getContents(): String = g_mapped_file_get_contents(glibMappedFilePointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getContents(): String =
+        g_mapped_file_get_contents(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the length of the contents of a #GMappedFile.
@@ -86,7 +86,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun getLength(): gsize = g_mapped_file_get_length(glibMappedFilePointer.reinterpret())
+    public fun getLength(): gsize = g_mapped_file_get_length(gPointer.reinterpret())
 
     /**
      * Increments the reference count of @file by one.  It is safe to call
@@ -96,7 +96,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun ref(): MappedFile = g_mapped_file_ref(glibMappedFilePointer.reinterpret())!!.run {
+    public fun ref(): MappedFile = g_mapped_file_ref(gPointer.reinterpret())!!.run {
         MappedFile(reinterpret())
     }
 
@@ -108,7 +108,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      *
      * Since 2.22
      */
-    public fun unref(): Unit = g_mapped_file_unref(glibMappedFilePointer.reinterpret())
+    public fun unref(): Unit = g_mapped_file_unref(gPointer.reinterpret())
 
     public companion object {
         /**

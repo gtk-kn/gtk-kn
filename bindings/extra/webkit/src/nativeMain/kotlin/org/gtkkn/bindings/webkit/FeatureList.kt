@@ -5,8 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.webkit.WebKitFeatureList
 import org.gtkkn.native.webkit.webkit_feature_list_get
 import org.gtkkn.native.webkit.webkit_feature_list_get_length
@@ -37,7 +37,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_42
 public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(pointer) {
-    public val webkitFeatureListPointer: CPointer<WebKitFeatureList> = pointer
+    public val gPointer: CPointer<WebKitFeatureList> = pointer
 
     /**
      * Gets a feature given its index.
@@ -47,10 +47,9 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun `get`(index: gsize): Feature =
-        webkit_feature_list_get(webkitFeatureListPointer.reinterpret(), index)!!.run {
-            Feature(reinterpret())
-        }
+    public fun `get`(index: gsize): Feature = webkit_feature_list_get(gPointer.reinterpret(), index)!!.run {
+        Feature(reinterpret())
+    }
 
     /**
      * Gets the number of elements in the feature list.
@@ -59,7 +58,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      *
      * Since 2.42
      */
-    public fun getLength(): gsize = webkit_feature_list_get_length(webkitFeatureListPointer.reinterpret())
+    public fun getLength(): gsize = webkit_feature_list_get_length(gPointer.reinterpret())
 
     /**
      * Atomically acquires a reference on the given @feature_list.
@@ -70,7 +69,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): FeatureList = webkit_feature_list_ref(webkitFeatureListPointer.reinterpret())!!.run {
+    public fun ref(): FeatureList = webkit_feature_list_ref(gPointer.reinterpret())!!.run {
         FeatureList(reinterpret())
     }
 
@@ -84,7 +83,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun unref(): Unit = webkit_feature_list_unref(webkitFeatureListPointer.reinterpret())
+    public fun unref(): Unit = webkit_feature_list_unref(gPointer.reinterpret())
 
     public companion object {
         /**

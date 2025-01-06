@@ -14,10 +14,10 @@ import org.gtkkn.native.gio.g_socket_control_message_get_msg_type
 import org.gtkkn.native.gio.g_socket_control_message_get_size
 import org.gtkkn.native.gio.g_socket_control_message_get_type
 import org.gtkkn.native.gio.g_socket_control_message_serialize
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
 import kotlin.Unit
 
 /**

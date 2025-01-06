@@ -24,8 +24,8 @@ import org.gtkkn.native.gio.g_socket_address_new_from_native
 import org.gtkkn.native.gio.g_socket_address_to_native
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result

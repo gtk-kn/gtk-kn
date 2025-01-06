@@ -43,7 +43,7 @@ import kotlin.collections.List
  */
 @GLibVersion2_68
 public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointer) {
-    public val glibStrvBuilderPointer: CPointer<GStrvBuilder> = pointer
+    public val gPointer: CPointer<GStrvBuilder> = pointer
 
     /**
      * Add a string to the end of the array.
@@ -52,7 +52,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      *
      * @param value a string.
      */
-    public fun add(`value`: String): Unit = g_strv_builder_add(glibStrvBuilderPointer.reinterpret(), `value`)
+    public fun add(`value`: String): Unit = g_strv_builder_add(gPointer.reinterpret(), `value`)
 
     /**
      * Appends all the strings in the given vector to the builder.
@@ -62,7 +62,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      * @param value the vector of strings to add
      */
     public fun addv(`value`: List<String>): Unit = memScoped {
-        return g_strv_builder_addv(glibStrvBuilderPointer.reinterpret(), `value`.toCStringList(this))
+        return g_strv_builder_addv(gPointer.reinterpret(), `value`.toCStringList(this))
     }
 
     /**
@@ -74,8 +74,8 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      *
      * Since 2.68
      */
-    public fun end(): List<String> = g_strv_builder_end(glibStrvBuilderPointer.reinterpret())?.toKStringList()
-        ?: error("Expected not null string array")
+    public fun end(): List<String> =
+        g_strv_builder_end(gPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Atomically increments the reference count of @builder by one.
@@ -85,7 +85,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun ref(): StrvBuilder = g_strv_builder_ref(glibStrvBuilderPointer.reinterpret())!!.run {
+    public fun ref(): StrvBuilder = g_strv_builder_ref(gPointer.reinterpret())!!.run {
         StrvBuilder(reinterpret())
     }
 
@@ -98,7 +98,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      * @param value a string.
      *     Ownership of the string is transferred to the #GStrvBuilder
      */
-    public fun take(`value`: String): Unit = g_strv_builder_take(glibStrvBuilderPointer.reinterpret(), `value`.cstr)
+    public fun take(`value`: String): Unit = g_strv_builder_take(gPointer.reinterpret(), `value`.cstr)
 
     /**
      * Decreases the reference count on @builder.
@@ -109,7 +109,7 @@ public class StrvBuilder(pointer: CPointer<GStrvBuilder>) : ProxyInstance(pointe
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun unref(): Unit = g_strv_builder_unref(glibStrvBuilderPointer.reinterpret())
+    public fun unref(): Unit = g_strv_builder_unref(gPointer.reinterpret())
 
     public companion object {
         /**

@@ -57,19 +57,19 @@ import kotlin.native.ref.createCleaner
  * - field `strncmp_func`: CompletionStrncmpFunc
  */
 public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibCompletionPointer: CPointer<GCompletion> = pointer
+    public val gPointer: CPointer<GCompletion> = pointer
 
     /**
      * list of target items (strings or data structures).
      */
     public var items: List?
-        get() = glibCompletionPointer.pointed.items?.run {
+        get() = gPointer.pointed.items?.run {
             List(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibCompletionPointer.pointed.items = value?.glibListPointer
+            gPointer.pointed.items = value?.gPointer
         }
 
     /**
@@ -77,25 +77,25 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      *          g_completion_complete_utf8().
      */
     public var prefix: String?
-        get() = glibCompletionPointer.pointed.prefix?.toKString()
+        get() = gPointer.pointed.prefix?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibCompletionPointer.pointed.prefix?.let { g_free(it) }
-            glibCompletionPointer.pointed.prefix = value?.let { g_strdup(it) }
+            gPointer.pointed.prefix?.let { g_free(it) }
+            gPointer.pointed.prefix = value?.let { g_strdup(it) }
         }
 
     /**
      * the list of items which begin with @prefix.
      */
     public var cache: List?
-        get() = glibCompletionPointer.pointed.cache?.run {
+        get() = gPointer.pointed.cache?.run {
             List(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibCompletionPointer.pointed.cache = value?.glibListPointer
+            gPointer.pointed.cache = value?.gPointer
         }
 
     /**
@@ -176,21 +176,21 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      * @param items the list of items to add.
      */
     public fun addItems(items: List): Unit =
-        g_completion_add_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
+        g_completion_add_items(gPointer.reinterpret(), items.gPointer.reinterpret())
 
     /**
      * Removes all items from the #GCompletion. The items are not freed, so if the
      * memory was dynamically allocated, it should be freed after calling this
      * function.
      */
-    public fun clearItems(): Unit = g_completion_clear_items(glibCompletionPointer.reinterpret())
+    public fun clearItems(): Unit = g_completion_clear_items(gPointer.reinterpret())
 
     /**
      * Frees all memory used by the #GCompletion. The items are not freed, so if
      * the memory was dynamically allocated, it should be freed after calling this
      * function.
      */
-    public fun free(): Unit = g_completion_free(glibCompletionPointer.reinterpret())
+    public fun free(): Unit = g_completion_free(gPointer.reinterpret())
 
     /**
      * Removes items from a #GCompletion. The items are not freed, so if the memory
@@ -200,7 +200,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      * @param items the items to remove.
      */
     public fun removeItems(items: List): Unit =
-        g_completion_remove_items(glibCompletionPointer.reinterpret(), items.glibListPointer.reinterpret())
+        g_completion_remove_items(gPointer.reinterpret(), items.gPointer.reinterpret())
 
     override fun toString(): String = "Completion(items=$items, prefix=$prefix, cache=$cache)"
 }

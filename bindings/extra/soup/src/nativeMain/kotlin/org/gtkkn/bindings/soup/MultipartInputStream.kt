@@ -22,8 +22,8 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GPollableInputStream
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.soup.SoupMultipartInputStream
 import org.gtkkn.native.soup.soup_multipart_input_stream_get_headers
 import org.gtkkn.native.soup.soup_multipart_input_stream_get_type

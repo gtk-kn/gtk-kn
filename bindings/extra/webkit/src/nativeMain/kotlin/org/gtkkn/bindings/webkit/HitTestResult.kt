@@ -10,8 +10,8 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitHitTestResult
 import org.gtkkn.native.webkit.webkit_hit_test_result_context_is_editable
 import org.gtkkn.native.webkit.webkit_hit_test_result_context_is_image

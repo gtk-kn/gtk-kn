@@ -13,8 +13,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkTreeListModel
 import org.gtkkn.native.gtk.gtk_tree_list_model_get_autoexpand
 import org.gtkkn.native.gtk.gtk_tree_list_model_get_child_row

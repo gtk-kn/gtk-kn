@@ -27,7 +27,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: ActionEntry
+ * - parameter `entries`: Not-pointer record ActionEntry is ignored
  *
  * @since 2.28
  */

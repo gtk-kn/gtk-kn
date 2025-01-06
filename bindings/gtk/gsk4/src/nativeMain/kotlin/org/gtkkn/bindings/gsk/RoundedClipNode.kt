@@ -33,12 +33,7 @@ public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
     public constructor(
         child: RenderNode,
         clip: RoundedRect,
-    ) : this(
-        gsk_rounded_clip_node_new(
-            child.gPointer.reinterpret(),
-            clip.gskRoundedRectPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_rounded_clip_node_new(child.gPointer.reinterpret(), clip.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.

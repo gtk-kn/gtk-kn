@@ -9,8 +9,8 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.soup.SoupMessageBody
 import org.gtkkn.native.soup.soup_message_body_append_bytes
 import org.gtkkn.native.soup.soup_message_body_complete
@@ -50,17 +50,17 @@ import kotlin.Unit
  * - field `data`: Array parameter of type guint8 is not supported
  */
 public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(pointer) {
-    public val soupMessageBodyPointer: CPointer<SoupMessageBody> = pointer
+    public val gPointer: CPointer<SoupMessageBody> = pointer
 
     /**
      * length of @data
      */
     public var length: gint64
-        get() = soupMessageBodyPointer.pointed.length
+        get() = gPointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            soupMessageBodyPointer.pointed.length = value
+            gPointer.pointed.length = value
         }
 
     /**
@@ -69,14 +69,14 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param buffer a #GBytes
      */
     public fun appendBytes(buffer: Bytes): Unit =
-        soup_message_body_append_bytes(soupMessageBodyPointer.reinterpret(), buffer.glibBytesPointer.reinterpret())
+        soup_message_body_append_bytes(gPointer.reinterpret(), buffer.gPointer.reinterpret())
 
     /**
      * Tags @body as being complete.
      *
      * Call this when using chunked encoding after you have appended the last chunk.
      */
-    public fun complete(): Unit = soup_message_body_complete(soupMessageBodyPointer.reinterpret())
+    public fun complete(): Unit = soup_message_body_complete(gPointer.reinterpret())
 
     /**
      * Fills in @body's data field with a buffer containing all of the
@@ -88,7 +88,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @return a #GBytes containing the same data as @body.
      *   (You must [method@GLib.Bytes.unref] this if you do not want it.)
      */
-    public fun flatten(): Bytes = soup_message_body_flatten(soupMessageBodyPointer.reinterpret())!!.run {
+    public fun flatten(): Bytes = soup_message_body_flatten(gPointer.reinterpret())!!.run {
         Bytes(reinterpret())
     }
 
@@ -99,8 +99,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @return the accumulate flag for @body.
      */
-    public fun getAccumulate(): Boolean =
-        soup_message_body_get_accumulate(soupMessageBodyPointer.reinterpret()).asBoolean()
+    public fun getAccumulate(): Boolean = soup_message_body_get_accumulate(gPointer.reinterpret()).asBoolean()
 
     /**
      * Gets a [struct@GLib.Bytes] containing data from @body starting at @offset.
@@ -123,10 +122,9 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param offset an offset
      * @return a #GBytes
      */
-    public fun getChunk(offset: gint64): Bytes? =
-        soup_message_body_get_chunk(soupMessageBodyPointer.reinterpret(), offset)?.run {
-            Bytes(reinterpret())
-        }
+    public fun getChunk(offset: gint64): Bytes? = soup_message_body_get_chunk(gPointer.reinterpret(), offset)?.run {
+        Bytes(reinterpret())
+    }
 
     /**
      * Handles the #SoupMessageBody part of receiving a chunk of data from
@@ -142,14 +140,14 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param chunk a #GBytes received from the network
      */
     public fun gotChunk(chunk: Bytes): Unit =
-        soup_message_body_got_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
+        soup_message_body_got_chunk(gPointer.reinterpret(), chunk.gPointer.reinterpret())
 
     /**
      * Atomically increments the reference count of @body by one.
      *
      * @return the passed in #SoupMessageBody
      */
-    public fun ref(): MessageBody = soup_message_body_ref(soupMessageBodyPointer.reinterpret())!!.run {
+    public fun ref(): MessageBody = soup_message_body_ref(gPointer.reinterpret())!!.run {
         MessageBody(reinterpret())
     }
 
@@ -171,12 +169,12 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param accumulate whether or not to accumulate body chunks in @body
      */
     public fun setAccumulate(accumulate: Boolean): Unit =
-        soup_message_body_set_accumulate(soupMessageBodyPointer.reinterpret(), accumulate.asGBoolean())
+        soup_message_body_set_accumulate(gPointer.reinterpret(), accumulate.asGBoolean())
 
     /**
      * Deletes all of the data in @body.
      */
-    public fun truncate(): Unit = soup_message_body_truncate(soupMessageBodyPointer.reinterpret())
+    public fun truncate(): Unit = soup_message_body_truncate(gPointer.reinterpret())
 
     /**
      * Atomically decrements the reference count of @body by one.
@@ -184,7 +182,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * When the reference count reaches zero, the resources allocated by
      * @body are freed
      */
-    public fun unref(): Unit = soup_message_body_unref(soupMessageBodyPointer.reinterpret())
+    public fun unref(): Unit = soup_message_body_unref(gPointer.reinterpret())
 
     /**
      * Handles the #SoupMessageBody part of writing a chunk of data to the
@@ -200,7 +198,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param chunk a #GBytes returned from [method@MessageBody.get_chunk]
      */
     public fun wroteChunk(chunk: Bytes): Unit =
-        soup_message_body_wrote_chunk(soupMessageBodyPointer.reinterpret(), chunk.glibBytesPointer.reinterpret())
+        soup_message_body_wrote_chunk(gPointer.reinterpret(), chunk.gPointer.reinterpret())
 
     override fun toString(): String = "MessageBody(length=$length)"
 

@@ -22,9 +22,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtk.GtkTextMark
 import org.gtkkn.native.gtksource.GtkSourceBracketMatchType
@@ -360,8 +360,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
         gtk_source_buffer_change_case(
             gtksourceBufferPointer.reinterpret(),
             caseType.nativeValue,
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret()
+            start.gPointer.reinterpret(),
+            end.gPointer.reinterpret()
         )
 
     /**
@@ -391,7 +391,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
             gtksourceBufferPointer.reinterpret(),
             name,
             category,
-            `where`.gtkTextIterPointer.reinterpret()
+            `where`.gPointer.reinterpret()
         )!!.run {
             Mark(reinterpret())
         }
@@ -410,8 +410,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      */
     public open fun ensureHighlight(start: TextIter, end: TextIter): Unit = gtk_source_buffer_ensure_highlight(
         gtksourceBufferPointer.reinterpret(),
-        start.gtkTextIterPointer.reinterpret(),
-        end.gtkTextIterPointer.reinterpret()
+        start.gPointer.reinterpret(),
+        end.gPointer.reinterpret()
     )
 
     /**
@@ -427,7 +427,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
     public open fun getContextClassesAtIter(iter: TextIter): List<String> =
         gtk_source_buffer_get_context_classes_at_iter(
             gtksourceBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret()
+            iter.gPointer.reinterpret()
         )?.toKStringList()
             ?: error("Expected not null string array")
 
@@ -443,7 +443,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
     public open fun getSourceMarksAtIter(iter: TextIter, category: String? = null): SList =
         gtk_source_buffer_get_source_marks_at_iter(
             gtksourceBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
+            iter.gPointer.reinterpret(),
             category
         )!!.run {
             SList(reinterpret())
@@ -475,7 +475,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
     public open fun iterHasContextClass(iter: TextIter, contextClass: String): Boolean =
         gtk_source_buffer_iter_has_context_class(
             gtksourceBufferPointer.reinterpret(),
-            iter.gtkTextIterPointer.reinterpret(),
+            iter.gPointer.reinterpret(),
             contextClass
         ).asBoolean()
 
@@ -487,8 +487,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      */
     public open fun joinLines(start: TextIter, end: TextIter): Unit = gtk_source_buffer_join_lines(
         gtksourceBufferPointer.reinterpret(),
-        start.gtkTextIterPointer.reinterpret(),
-        end.gtkTextIterPointer.reinterpret()
+        start.gPointer.reinterpret(),
+        end.gPointer.reinterpret()
     )
 
     /**
@@ -503,8 +503,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
     public open fun removeSourceMarks(start: TextIter, end: TextIter, category: String? = null): Unit =
         gtk_source_buffer_remove_source_marks(
             gtksourceBufferPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret(),
+            start.gPointer.reinterpret(),
+            end.gPointer.reinterpret(),
             category
         )
 
@@ -519,8 +519,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
     public open fun sortLines(start: TextIter, end: TextIter, flags: SortFlags, column: gint): Unit =
         gtk_source_buffer_sort_lines(
             gtksourceBufferPointer.reinterpret(),
-            start.gtkTextIterPointer.reinterpret(),
-            end.gtkTextIterPointer.reinterpret(),
+            start.gPointer.reinterpret(),
+            end.gPointer.reinterpret(),
             flags.mask,
             column
         )

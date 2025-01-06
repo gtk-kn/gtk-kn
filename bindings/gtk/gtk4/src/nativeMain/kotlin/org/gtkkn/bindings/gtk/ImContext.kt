@@ -25,11 +25,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkIMContext
 import org.gtkkn.native.gtk.gtk_im_context_activate_osk
 import org.gtkkn.native.gtk.gtk_im_context_delete_surrounding
@@ -91,7 +91,7 @@ import kotlin.Unit
 public open class ImContext(pointer: CPointer<GtkIMContext>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val gtkIMContextPointer: CPointer<GtkIMContext>
+    public val gtkImContextPointer: CPointer<GtkIMContext>
         get() = gPointer.reinterpret()
 
     /**
@@ -107,7 +107,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     @GtkVersion4_14
     public open fun activateOsk(event: Event? = null): Boolean =
-        gtk_im_context_activate_osk(gtkIMContextPointer.reinterpret(), event?.gPointer?.reinterpret()).asBoolean()
+        gtk_im_context_activate_osk(gtkImContextPointer.reinterpret(), event?.gPointer?.reinterpret()).asBoolean()
 
     /**
      * Asks the widget that the input context is attached to delete
@@ -134,7 +134,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @return true if the signal was handled.
      */
     public open fun deleteSurrounding(offset: gint, nChars: gint): Boolean =
-        gtk_im_context_delete_surrounding(gtkIMContextPointer.reinterpret(), offset, nChars).asBoolean()
+        gtk_im_context_delete_surrounding(gtkImContextPointer.reinterpret(), offset, nChars).asBoolean()
 
     /**
      * Allow an input method to forward key press and release events
@@ -159,7 +159,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
         state: ModifierType,
         group: gint,
     ): Boolean = gtk_im_context_filter_key(
-        gtkIMContextPointer.reinterpret(),
+        gtkImContextPointer.reinterpret(),
         press.asGBoolean(),
         surface.gdkSurfacePointer.reinterpret(),
         device.gdkDevicePointer.reinterpret(),
@@ -180,7 +180,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @return true if the input method handled the key event.
      */
     public open fun filterKeypress(event: Event): Boolean =
-        gtk_im_context_filter_keypress(gtkIMContextPointer.reinterpret(), event.gPointer.reinterpret()).asBoolean()
+        gtk_im_context_filter_keypress(gtkImContextPointer.reinterpret(), event.gPointer.reinterpret()).asBoolean()
 
     /**
      * Notify the input method that the widget to which this
@@ -189,7 +189,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * The input method may, for example, change the displayed
      * feedback to reflect this change.
      */
-    public open fun focusIn(): Unit = gtk_im_context_focus_in(gtkIMContextPointer.reinterpret())
+    public open fun focusIn(): Unit = gtk_im_context_focus_in(gtkImContextPointer.reinterpret())
 
     /**
      * Notify the input method that the widget to which this
@@ -198,7 +198,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * The input method may, for example, change the displayed
      * feedback or reset the contexts state to reflect this change.
      */
-    public open fun focusOut(): Unit = gtk_im_context_focus_out(gtkIMContextPointer.reinterpret())
+    public open fun focusOut(): Unit = gtk_im_context_focus_out(gtkImContextPointer.reinterpret())
 
     /**
      * Notify the input method that a change such as a change in cursor
@@ -206,7 +206,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      *
      * This will typically cause the input method to clear the preedit state.
      */
-    public open fun reset(): Unit = gtk_im_context_reset(gtkIMContextPointer.reinterpret())
+    public open fun reset(): Unit = gtk_im_context_reset(gtkImContextPointer.reinterpret())
 
     /**
      * Set the client widget for the input context.
@@ -219,7 +219,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      *   that the previous client widget no longer exists.
      */
     public open fun setClientWidget(widget: Widget? = null): Unit =
-        gtk_im_context_set_client_widget(gtkIMContextPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        gtk_im_context_set_client_widget(gtkImContextPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
 
     /**
      * Notify the input method that a change in cursor
@@ -230,7 +230,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @param area new location
      */
     public open fun setCursorLocation(area: Rectangle): Unit =
-        gtk_im_context_set_cursor_location(gtkIMContextPointer.reinterpret(), area.gdkRectanglePointer.reinterpret())
+        gtk_im_context_set_cursor_location(gtkImContextPointer.reinterpret(), area.gPointer.reinterpret())
 
     /**
      * Sets surrounding context around the insertion point and preedit
@@ -246,7 +246,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @param cursorIndex the byte index of the insertion cursor within @text.
      */
     public open fun setSurrounding(text: String, len: gint, cursorIndex: gint): Unit =
-        gtk_im_context_set_surrounding(gtkIMContextPointer.reinterpret(), text, len, cursorIndex)
+        gtk_im_context_set_surrounding(gtkImContextPointer.reinterpret(), text, len, cursorIndex)
 
     /**
      * Sets surrounding context around the insertion point and preedit
@@ -264,7 +264,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
     @GtkVersion4_2
     public open fun setSurroundingWithSelection(text: String, len: gint, cursorIndex: gint, anchorIndex: gint): Unit =
         gtk_im_context_set_surrounding_with_selection(
-            gtkIMContextPointer.reinterpret(),
+            gtkImContextPointer.reinterpret(),
             text,
             len,
             cursorIndex,
@@ -282,7 +282,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @param usePreedit whether the IM context should use the preedit string.
      */
     public open fun setUsePreedit(usePreedit: Boolean): Unit =
-        gtk_im_context_set_use_preedit(gtkIMContextPointer.reinterpret(), usePreedit.asGBoolean())
+        gtk_im_context_set_use_preedit(gtkImContextPointer.reinterpret(), usePreedit.asGBoolean())
 
     /**
      * The ::commit signal is emitted when a complete input sequence

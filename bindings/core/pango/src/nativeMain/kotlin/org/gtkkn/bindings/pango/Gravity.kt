@@ -5,8 +5,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_26
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pango.PangoGravity
 import org.gtkkn.native.pango.pango_gravity_get_for_matrix
 import org.gtkkn.native.pango.pango_gravity_get_for_script
@@ -80,7 +80,7 @@ public enum class Gravity(public val nativeValue: PangoGravity) {
          */
         @PangoVersion1_16
         public fun getForMatrix(matrix: Matrix? = null): Gravity =
-            pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer?.reinterpret()).run {
+            pango_gravity_get_for_matrix(matrix?.gPointer?.reinterpret()).run {
                 Gravity.fromNativeValue(this)
             }
 

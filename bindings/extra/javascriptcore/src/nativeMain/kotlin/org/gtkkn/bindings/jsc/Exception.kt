@@ -8,8 +8,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.jsc.JSCException
 import org.gtkkn.native.jsc.jsc_exception_get_backtrace_string
 import org.gtkkn.native.jsc.jsc_exception_get_column_number
@@ -30,9 +30,9 @@ import kotlin.String
  * ## Skipped during bindings generation
  *
  * - constructor `new_printf`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - constructor `new_with_name_printf`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  */
 public class Exception(pointer: CPointer<JSCException>) :
     Object(pointer.reinterpret()),

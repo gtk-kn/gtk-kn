@@ -13,8 +13,8 @@ import org.gtkkn.native.gdk.gdk_device_pad_get_group_n_modes
 import org.gtkkn.native.gdk.gdk_device_pad_get_n_features
 import org.gtkkn.native.gdk.gdk_device_pad_get_n_groups
 import org.gtkkn.native.gdk.gdk_device_pad_get_type
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 
 /**
  * `GdkDevicePad` is an interface implemented by devices of type

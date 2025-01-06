@@ -92,7 +92,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
     @WebKitVersion2_8
     public fun getElementRectangle(rect: Rectangle): Unit = webkit_color_chooser_request_get_element_rectangle(
         webkitColorChooserRequestPointer.reinterpret(),
-        rect.gdkRectanglePointer.reinterpret()
+        rect.gPointer.reinterpret()
     )
 
     /**
@@ -104,7 +104,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
     @WebKitVersion2_8
     public fun getRgba(rgba: Rgba): Unit = webkit_color_chooser_request_get_rgba(
         webkitColorChooserRequestPointer.reinterpret(),
-        rgba.gdkRGBAPointer.reinterpret()
+        rgba.gPointer.reinterpret()
     )
 
     /**
@@ -116,7 +116,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
     @WebKitVersion2_8
     public fun setRgba(rgba: Rgba): Unit = webkit_color_chooser_request_set_rgba(
         webkitColorChooserRequestPointer.reinterpret(),
-        rgba.gdkRGBAPointer.reinterpret()
+        rgba.gPointer.reinterpret()
     )
 
     /**

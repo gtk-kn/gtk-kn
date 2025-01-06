@@ -33,7 +33,7 @@ import kotlin.String
  * - function `get_preferred`: Array parameter of type Language is not supported
  */
 public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer) {
-    public val pangoLanguagePointer: CPointer<PangoLanguage> = pointer
+    public val gPointer: CPointer<PangoLanguage> = pointer
 
     /**
      * Get a string that is representative of the characters needed to
@@ -59,8 +59,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      * @return the sample string
      */
     public fun getSampleString(): String =
-        pango_language_get_sample_string(pangoLanguagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        pango_language_get_sample_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines if @script is one of the scripts used to
@@ -85,7 +84,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      */
     @PangoVersion1_4
     public fun includesScript(script: Script): Boolean =
-        pango_language_includes_script(pangoLanguagePointer.reinterpret(), script.nativeValue).asBoolean()
+        pango_language_includes_script(gPointer.reinterpret(), script.nativeValue).asBoolean()
 
     /**
      * Checks if a language tag matches one of the elements in a list of
@@ -102,7 +101,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      * @return true if a match was found
      */
     public fun matches(rangeList: String): Boolean =
-        pango_language_matches(pangoLanguagePointer.reinterpret(), rangeList).asBoolean()
+        pango_language_matches(gPointer.reinterpret(), rangeList).asBoolean()
 
     /**
      * Gets the RFC-3066 format string representing the given language tag.
@@ -110,7 +109,7 @@ public class Language(pointer: CPointer<PangoLanguage>) : ProxyInstance(pointer)
      * Returns (transfer none): a string representing the language tag
      */
     override fun toString(): String =
-        pango_language_to_string(pangoLanguagePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        pango_language_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

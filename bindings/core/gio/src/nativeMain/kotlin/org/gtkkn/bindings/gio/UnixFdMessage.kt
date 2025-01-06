@@ -21,8 +21,8 @@ import org.gtkkn.native.gio.g_unix_fd_message_get_type
 import org.gtkkn.native.gio.g_unix_fd_message_new
 import org.gtkkn.native.gio.g_unix_fd_message_new_with_fd_list
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 
@@ -48,7 +48,7 @@ import kotlin.Result
 public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
     SocketControlMessage(pointer.reinterpret()),
     KGTyped {
-    public val gioUnixFDMessagePointer: CPointer<GUnixFDMessage>
+    public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>
         get() = gPointer.reinterpret()
 
     /**
@@ -66,7 +66,7 @@ public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
          * @return the #GUnixFDList from @message
          * @since 2.24
          */
-        get() = g_unix_fd_message_get_fd_list(gioUnixFDMessagePointer.reinterpret())!!.run {
+        get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer.reinterpret())!!.run {
             UnixFdList(reinterpret())
         }
 
@@ -88,7 +88,7 @@ public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
      */
     public constructor(
         fdList: UnixFdList,
-    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFDListPointer.reinterpret())!!.reinterpret())
+    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a file descriptor to @message.
@@ -107,7 +107,7 @@ public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
     @GioVersion2_22
     public open fun appendFd(fd: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_unix_fd_message_append_fd(gioUnixFDMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
+        val gResult = g_unix_fd_message_append_fd(gioUnixFdMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {

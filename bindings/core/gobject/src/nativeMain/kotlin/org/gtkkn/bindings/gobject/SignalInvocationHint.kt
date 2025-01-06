@@ -10,8 +10,8 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.glib.Quark
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GSignalInvocationHint
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -23,28 +23,28 @@ import kotlin.native.ref.createCleaner
  */
 public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gobjectSignalInvocationHintPointer: CPointer<GSignalInvocationHint> = pointer
+    public val gPointer: CPointer<GSignalInvocationHint> = pointer
 
     /**
      * The signal id of the signal invoking the callback
      */
     public var signalId: guint
-        get() = gobjectSignalInvocationHintPointer.pointed.signal_id
+        get() = gPointer.pointed.signal_id
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectSignalInvocationHintPointer.pointed.signal_id = value
+            gPointer.pointed.signal_id = value
         }
 
     /**
      * The detail passed on for this emission
      */
     public var detail: Quark
-        get() = gobjectSignalInvocationHintPointer.pointed.detail
+        get() = gPointer.pointed.detail
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectSignalInvocationHintPointer.pointed.detail = value
+            gPointer.pointed.detail = value
         }
 
     /**
@@ -55,13 +55,13 @@ public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>, clea
      *  function for a signal emission.
      */
     public var runType: SignalFlags
-        get() = gobjectSignalInvocationHintPointer.pointed.run_type.run {
+        get() = gPointer.pointed.run_type.run {
             SignalFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectSignalInvocationHintPointer.pointed.run_type = value.mask
+            gPointer.pointed.run_type = value.mask
         }
 
     /**

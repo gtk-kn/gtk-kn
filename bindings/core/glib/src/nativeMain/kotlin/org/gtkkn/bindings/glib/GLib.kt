@@ -65,12 +65,12 @@ import org.gtkkn.native.glib.GLogLevelFlags
 import org.gtkkn.native.glib.GLogWriterOutput
 import org.gtkkn.native.glib.GMatchInfo
 import org.gtkkn.native.glib.GNode
-import org.gtkkn.native.glib.GPid
 import org.gtkkn.native.glib.GPollFD
-import org.gtkkn.native.glib.GQuark
 import org.gtkkn.native.glib.GScanner
+import org.gtkkn.native.glib.GSequenceIter
 import org.gtkkn.native.glib.GSource
 import org.gtkkn.native.glib.GString
+import org.gtkkn.native.glib.GTreeNode
 import org.gtkkn.native.glib.g_access
 import org.gtkkn.native.glib.g_aligned_alloc
 import org.gtkkn.native.glib.g_aligned_alloc0
@@ -114,6 +114,16 @@ import org.gtkkn.native.glib.g_compute_checksum_for_bytes
 import org.gtkkn.native.glib.g_compute_checksum_for_string
 import org.gtkkn.native.glib.g_compute_hmac_for_bytes
 import org.gtkkn.native.glib.g_convert_error_quark
+import org.gtkkn.native.glib.g_datalist_clear
+import org.gtkkn.native.glib.g_datalist_foreach
+import org.gtkkn.native.glib.g_datalist_get_data
+import org.gtkkn.native.glib.g_datalist_get_flags
+import org.gtkkn.native.glib.g_datalist_id_dup_data
+import org.gtkkn.native.glib.g_datalist_id_get_data
+import org.gtkkn.native.glib.g_datalist_id_remove_no_notify
+import org.gtkkn.native.glib.g_datalist_init
+import org.gtkkn.native.glib.g_datalist_set_flags
+import org.gtkkn.native.glib.g_datalist_unset_flags
 import org.gtkkn.native.glib.g_dataset_destroy
 import org.gtkkn.native.glib.g_dataset_foreach
 import org.gtkkn.native.glib.g_dataset_id_get_data
@@ -231,6 +241,7 @@ import org.gtkkn.native.glib.g_path_skip_root
 import org.gtkkn.native.glib.g_pattern_match
 import org.gtkkn.native.glib.g_pattern_match_simple
 import org.gtkkn.native.glib.g_pattern_match_string
+import org.gtkkn.native.glib.g_pointer_bit_lock_mask_ptr
 import org.gtkkn.native.glib.g_poll
 import org.gtkkn.native.glib.g_qsort_with_data
 import org.gtkkn.native.glib.g_quark_from_static_string
@@ -422,25 +433,26 @@ import org.gtkkn.native.glib.g_utf8_truncate_middle
 import org.gtkkn.native.glib.g_uuid_string_is_valid
 import org.gtkkn.native.glib.g_uuid_string_random
 import org.gtkkn.native.glib.g_warn_message
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
+import org.gtkkn.native.glib.gint8
 import org.gtkkn.native.glib.glib_check_version
+import org.gtkkn.native.glib.glong
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint16
+import org.gtkkn.native.glib.guint32
+import org.gtkkn.native.glib.guint64
+import org.gtkkn.native.glib.guint8
+import org.gtkkn.native.glib.guintptr
+import org.gtkkn.native.glib.gulong
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_strv_get_type
 import org.gtkkn.native.gobject.g_variant_get_gtype
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.gint8
-import org.gtkkn.native.gobject.glong
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint16
-import org.gtkkn.native.gobject.guint32
-import org.gtkkn.native.gobject.guint64
-import org.gtkkn.native.gobject.guint8
-import org.gtkkn.native.gobject.gulong
-import org.gtkkn.native.gobject.gunichar
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Long
@@ -458,7 +470,7 @@ import kotlin.collections.List
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
- * - parameter `arg1`: long double
+ * - function `assertion_message_cmpnum`: C function g_assertion_message_cmpnum is ignored
  * - parameter `arg1`: Unsupported string with cType const char* const*
  * - parameter `func`: VoidFunc
  * - parameter `atomic`: Unsupported pointer to primitive type
@@ -497,7 +509,7 @@ import kotlin.collections.List
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
  * - function `build_filename`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - function `build_path`: Varargs parameter is not supported
  * - parameter `tag_ptr`: Unsupported pointer to primitive type
  * - parameter `destroy`: DestroyNotify
@@ -509,19 +521,9 @@ import kotlin.collections.List
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
- * - parameter `datalist`: Data
+ * - parameter `keys`: Array parameter of type Quark is not supported
+ * - parameter `destroy`: DestroyNotify
+ * - parameter `destroy_func`: DestroyNotify
  * - parameter `destroy_func`: DestroyNotify
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `name_used`: name_used: Out parameter is not supported
@@ -542,24 +544,22 @@ import kotlin.collections.List
  * - function `log`: Varargs parameter is not supported
  * - function `log_set_default_handler`: Return type LogFunc is unsupported
  * - function `log_structured`: Varargs parameter is not supported
- * - parameter `fields`: LogField
+ * - parameter `fields`: Not-pointer record LogField is ignored
  * - function `log_structured_standard`: Varargs parameter is not supported
- * - parameter `fields`: LogField
+ * - parameter `fields`: Not-pointer record LogField is ignored
  * - parameter `domains`: Unsupported string with cType const gchar* const*
- * - parameter `fields`: LogField
- * - parameter `fields`: LogField
- * - parameter `fields`: LogField
- * - parameter `fields`: LogField
- * - parameter `args`: va_list
- * - parameter `buf`: StatBuf
+ * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `args`: va_list type is not supported
  * - function `markup_collect_attributes`: Varargs parameter is not supported
  * - function `markup_printf_escaped`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - parameter `nullify_location`: Unsupported pointer to primitive type
- * - parameter `keys`: DebugKey
+ * - parameter `keys`: Not-pointer record DebugKey is ignored
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `out_ptr`: out_ptr: Out parameter is not supported
- * - parameter `preserve_mask`: guintptr
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `address`: Unsupported pointer to primitive type
@@ -568,7 +568,7 @@ import kotlin.collections.List
  * - function `print`: Varargs parameter is not supported
  * - function `printerr`: Varargs parameter is not supported
  * - function `printf`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - parameter `dest`: dest: Out parameter is not supported
  * - function `propagate_prefixed_error`: Varargs parameter is not supported
  * - parameter `clear_func`: DestroyNotify
@@ -590,11 +590,10 @@ import kotlin.collections.List
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - parameter `standard_output`: standard_output: Out parameter is not supported
  * - function `sprintf`: Varargs parameter is not supported
- * - parameter `buf`: StatBuf
  * - parameter `ascii_alternates`: ascii_alternates: Out parameter is not supported
  * - function `strconcat`: Varargs parameter is not supported
  * - function `strdup_printf`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - function `strjoin`: Varargs parameter is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
  * - parameter `test_func`: TestDataFunc
@@ -603,17 +602,14 @@ import kotlin.collections.List
  * - parameter `data_setup`: TestFixtureFunc
  * - function `test_build_filename`: Varargs parameter is not supported
  * - parameter `data_setup`: TestFixtureFunc
- * - function `test_create_suite`: Return type TestSuite is unsupported
  * - function `test_fail_printf`: Varargs parameter is not supported
  * - function `test_get_filename`: Varargs parameter is not supported
- * - function `test_get_root`: Return type TestSuite is unsupported
  * - function `test_incomplete_printf`: Varargs parameter is not supported
  * - function `test_init`: Varargs parameter is not supported
  * - function `test_maximized_result`: Varargs parameter is not supported
  * - function `test_message`: Varargs parameter is not supported
  * - function `test_minimized_result`: Varargs parameter is not supported
  * - parameter `destroy_func`: DestroyNotify
- * - parameter `suite`: TestSuite
  * - function `test_skip_printf`: Varargs parameter is not supported
  * - parameter `str`: Array parameter of type gunichar is not supported
  * - parameter `str`: Array parameter of type gunichar is not supported
@@ -636,9 +632,9 @@ import kotlin.collections.List
  * - parameter `utb`: Unsupported pointer to primitive type
  * - parameter `string`: string: Out parameter is not supported
  * - parameter `file`: Unsupported pointer to primitive type
- * - parameter `args`: va_list
- * - parameter `args`: va_list
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
+ * - parameter `args`: va_list type is not supported
+ * - parameter `args`: va_list type is not supported
  * - callback `OptionArgFunc`: Callbacks that throw are not supported
  * - callback `OptionErrorFunc`: Callbacks that throw are not supported
  * - callback `OptionParseFunc`: Callbacks that throw are not supported
@@ -1705,7 +1701,7 @@ public object GLib {
         line,
         func,
         expr,
-        error.glibErrorPointer.reinterpret(),
+        error.gPointer.reinterpret(),
         errorDomain,
         errorCode
     )
@@ -2156,7 +2152,7 @@ public object GLib {
      */
     @GLibVersion2_34
     public fun computeChecksumForBytes(checksumType: ChecksumType, `data`: Bytes): kotlin.String? =
-        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer.reinterpret())?.toKString()
+        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.gPointer.reinterpret())?.toKString()
 
     /**
      * Computes the checksum of a string.
@@ -2193,12 +2189,166 @@ public object GLib {
     public fun computeHmacForBytes(digestType: ChecksumType, key: Bytes, `data`: Bytes): kotlin.String =
         g_compute_hmac_for_bytes(
             digestType.nativeValue,
-            key.glibBytesPointer.reinterpret(),
-            `data`.glibBytesPointer.reinterpret()
+            key.gPointer.reinterpret(),
+            `data`.gPointer.reinterpret()
         )?.toKString()
             ?: error("Expected not null string")
 
     public fun convertErrorQuark(): Quark = g_convert_error_quark()
+
+    /**
+     * Frees all the data elements of the datalist.
+     * The data elements' destroy functions are called
+     * if they have been set.
+     *
+     * @param datalist a datalist.
+     */
+    public fun datalistClear(datalist: Data): Unit = g_datalist_clear(datalist.gPointer.reinterpret())
+
+    /**
+     * Calls the given function for each data element of the datalist. The
+     * function is called with each data element's #GQuark id and data,
+     * together with the given @user_data parameter. Note that this
+     * function is NOT thread-safe. So unless @datalist can be protected
+     * from any modifications during invocation of this function, it should
+     * not be called.
+     *
+     * @func can make changes to @datalist, but the iteration will not
+     * reflect changes made during the g_datalist_foreach() call, other
+     * than skipping over elements that are removed.
+     *
+     * @param datalist a datalist.
+     * @param func the function to call for each data element.
+     */
+    public fun datalistForeach(datalist: Data, func: DataForeachFunc): Unit = g_datalist_foreach(
+        datalist.gPointer.reinterpret(),
+        DataForeachFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )
+
+    /**
+     * Gets a data element, using its string identifier. This is slower than
+     * g_datalist_id_get_data() because it compares strings.
+     *
+     * @param datalist a datalist.
+     * @param key the string identifying a data element.
+     * @return the data element, or null if it
+     *          is not found.
+     */
+    public fun datalistGetData(datalist: Data, key: kotlin.String): gpointer? =
+        g_datalist_get_data(datalist.gPointer.reinterpret(), key)
+
+    /**
+     * Gets flags values packed in together with the datalist.
+     * See g_datalist_set_flags().
+     *
+     * @param datalist pointer to the location that holds a list
+     * @return the flags of the datalist
+     * @since 2.8
+     */
+    @GLibVersion2_8
+    public fun datalistGetFlags(datalist: Data): guint = g_datalist_get_flags(datalist.gPointer.reinterpret())
+
+    /**
+     * This is a variant of g_datalist_id_get_data() which
+     * returns a 'duplicate' of the value. @dup_func defines the
+     * meaning of 'duplicate' in this context, it could e.g.
+     * take a reference on a ref-counted object.
+     *
+     * If the @key_id is not set in the datalist then @dup_func
+     * will be called with a null argument.
+     *
+     * Note that @dup_func is called while the datalist is locked, so it
+     * is not allowed to read or modify the datalist.
+     *
+     * This function can be useful to avoid races when multiple
+     * threads are using the same datalist and the same key.
+     *
+     * @param datalist location of a datalist
+     * @param keyId the #GQuark identifying a data element
+     * @param dupFunc function to
+     *   duplicate the old value
+     * @return the result of calling @dup_func on the value
+     *     associated with @key_id in @datalist, or null if not set.
+     *     If @dup_func is null, the value is returned unmodified.
+     * @since 2.34
+     */
+    @GLibVersion2_34
+    public fun datalistIdDupData(datalist: Data, keyId: Quark, dupFunc: DuplicateFunc?): gpointer? =
+        g_datalist_id_dup_data(
+            datalist.gPointer.reinterpret(),
+            keyId,
+            dupFunc?.let {
+                DuplicateFuncFunc.reinterpret()
+            },
+            dupFunc?.let { StableRef.create(dupFunc).asCPointer() }
+        )
+
+    /**
+     * Retrieves the data element corresponding to @key_id.
+     *
+     * @param datalist a datalist.
+     * @param keyId the #GQuark identifying a data element.
+     * @return the data element, or null if
+     *          it is not found.
+     */
+    public fun datalistIdGetData(datalist: Data, keyId: Quark): gpointer? =
+        g_datalist_id_get_data(datalist.gPointer.reinterpret(), keyId)
+
+    /**
+     * Removes an element, without calling its destroy notification
+     * function.
+     *
+     * @param datalist a datalist.
+     * @param keyId the #GQuark identifying a data element.
+     * @return the data previously stored at @key_id,
+     *          or null if none.
+     */
+    public fun datalistIdRemoveNoNotify(datalist: Data, keyId: Quark): gpointer? =
+        g_datalist_id_remove_no_notify(datalist.gPointer.reinterpret(), keyId)
+
+    /**
+     * Resets the datalist to null. It does not free any memory or call
+     * any destroy functions.
+     *
+     * @param datalist a pointer to a pointer to a datalist.
+     */
+    public fun datalistInit(datalist: Data): Unit = g_datalist_init(datalist.gPointer.reinterpret())
+
+    /**
+     * Turns on flag values for a data list. This function is used
+     * to keep a small number of boolean flags in an object with
+     * a data list without using any additional space. It is
+     * not generally useful except in circumstances where space
+     * is very tight. (It is used in the base #GObject type, for
+     * example.)
+     *
+     * @param datalist pointer to the location that holds a list
+     * @param flags the flags to turn on. The values of the flags are
+     *   restricted by %G_DATALIST_FLAGS_MASK (currently
+     *   3; giving two possible boolean flags).
+     *   A value for @flags that doesn't fit within the mask is
+     *   an error.
+     * @since 2.8
+     */
+    @GLibVersion2_8
+    public fun datalistSetFlags(datalist: Data, flags: guint): Unit =
+        g_datalist_set_flags(datalist.gPointer.reinterpret(), flags)
+
+    /**
+     * Turns off flag values for a data list. See g_datalist_unset_flags()
+     *
+     * @param datalist pointer to the location that holds a list
+     * @param flags the flags to turn off. The values of the flags are
+     *   restricted by %G_DATALIST_FLAGS_MASK (currently
+     *   3: giving two possible boolean flags).
+     *   A value for @flags that doesn't fit within the mask is
+     *   an error.
+     * @since 2.8
+     */
+    @GLibVersion2_8
+    public fun datalistUnsetFlags(datalist: Data, flags: guint): Unit =
+        g_datalist_unset_flags(datalist.gPointer.reinterpret(), flags)
 
     /**
      * Destroys the dataset, freeing all memory allocated, and calling any
@@ -2262,7 +2412,10 @@ public object GLib {
      */
     @GLibVersion2_26
     public fun dcgettext(domain: kotlin.String? = null, msgid: kotlin.String, category: gint): kotlin.String =
-        g_dcgettext(domain, msgid, category)?.toKString() ?: error("Expected not null string")
+        memScoped {
+            return g_dcgettext(domain?.cstr?.ptr, msgid.cstr.ptr, category)?.toKString()
+                ?: error("Expected not null string")
+        }
 
     /**
      * This function is a wrapper of dgettext() which does not translate
@@ -2305,8 +2458,9 @@ public object GLib {
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun dgettext(domain: kotlin.String? = null, msgid: kotlin.String): kotlin.String =
-        g_dgettext(domain, msgid)?.toKString() ?: error("Expected not null string")
+    public fun dgettext(domain: kotlin.String? = null, msgid: kotlin.String): kotlin.String = memScoped {
+        return g_dgettext(domain?.cstr?.ptr, msgid.cstr.ptr)?.toKString() ?: error("Expected not null string")
+    }
 
     /**
      * Compares two #gpointer arguments and returns true if they are equal.
@@ -2359,7 +2513,10 @@ public object GLib {
         msgid: kotlin.String,
         msgidPlural: kotlin.String,
         n: gulong,
-    ): kotlin.String = g_dngettext(domain, msgid, msgidPlural, n)?.toKString() ?: error("Expected not null string")
+    ): kotlin.String = memScoped {
+        return g_dngettext(domain?.cstr?.ptr, msgid.cstr.ptr, msgidPlural.cstr.ptr, n)?.toKString()
+            ?: error("Expected not null string")
+    }
 
     /**
      * Compares the two #gdouble values being pointed to and returns
@@ -2414,7 +2571,10 @@ public object GLib {
      */
     @GLibVersion2_16
     public fun dpgettext(domain: kotlin.String? = null, msgctxtid: kotlin.String, msgidoffset: gsize): kotlin.String =
-        g_dpgettext(domain, msgctxtid, msgidoffset)?.toKString() ?: error("Expected not null string")
+        memScoped {
+            return g_dpgettext(domain?.cstr?.ptr, msgctxtid.cstr.ptr, msgidoffset)?.toKString()
+                ?: error("Expected not null string")
+        }
 
     /**
      * This function is a variant of g_dgettext() which supports
@@ -2900,7 +3060,7 @@ public object GLib {
      *
      * @param result #GTimeVal structure in which to store current time.
      */
-    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.glibTimeValPointer.reinterpret())
+    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.gPointer.reinterpret())
 
     /**
      * Gets the list of environment variables for the current process.
@@ -3661,7 +3821,7 @@ public object GLib {
      */
     public fun ioAddWatch(channel: IoChannel, priority: gint, condition: IoCondition, func: IoFunc): guint =
         g_io_add_watch_full(
-            channel.glibIOChannelPointer.reinterpret(),
+            channel.gPointer.reinterpret(),
             priority,
             condition.mask,
             IoFuncFunc.reinterpret(),
@@ -3690,7 +3850,7 @@ public object GLib {
      * @return a new #GSource
      */
     public fun ioCreateWatch(channel: IoChannel, condition: IoCondition): Source =
-        g_io_create_watch(channel.glibIOChannelPointer.reinterpret(), condition.mask)!!.run {
+        g_io_create_watch(channel.gPointer.reinterpret(), condition.mask)!!.run {
             Source(reinterpret())
         }
 
@@ -3928,7 +4088,7 @@ public object GLib {
      */
     @GLibVersion2_50
     public fun logVariant(logDomain: kotlin.String? = null, logLevel: LogLevelFlags, fields: Variant): Unit =
-        g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer.reinterpret())
+        g_log_variant(logDomain, logLevel.mask, fields.gPointer.reinterpret())
 
     /**
      * Configure whether the built-in log functions will output all log messages to
@@ -4248,7 +4408,7 @@ public object GLib {
      *
      * @param vtable table of memory allocation routines.
      */
-    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.glibMemVTablePointer.reinterpret())
+    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.gPointer.reinterpret())
 
     /**
      * Allocates @byte_size bytes of memory, and copies @byte_size bytes into it
@@ -4570,8 +4730,7 @@ public object GLib {
         stringLength: guint,
         string: kotlin.String,
         stringReversed: kotlin.String? = null,
-    ): Boolean =
-        g_pattern_match(pspec.glibPatternSpecPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
+    ): Boolean = g_pattern_match(pspec.gPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a pattern given as a string. If this
@@ -4596,7 +4755,35 @@ public object GLib {
      * @return true if @string matches @pspec
      */
     public fun patternMatchString(pspec: PatternSpec, string: kotlin.String): Boolean =
-        g_pattern_match_string(pspec.glibPatternSpecPointer.reinterpret(), string).asBoolean()
+        g_pattern_match_string(pspec.gPointer.reinterpret(), string).asBoolean()
+
+    /**
+     * This mangles @ptr as g_pointer_bit_lock() and g_pointer_bit_unlock()
+     * do.
+     *
+     * @param ptr the pointer to mask
+     * @param lockBit the bit to set/clear. If set to `G_MAXUINT`, the
+     *   lockbit is taken from @preserve_ptr or @ptr (depending on @preserve_mask).
+     * @param set whether to set (lock) the bit or unset (unlock). This
+     *   has no effect, if @lock_bit is set to `G_MAXUINT`.
+     * @param preserveMask if non-zero, a bit-mask for @preserve_ptr. The
+     *   @preserve_mask bits from @preserve_ptr are set in the result.
+     *   Note that the @lock_bit bit will be always set according to @set,
+     *   regardless of @preserve_mask and @preserve_ptr (unless @lock_bit is
+     *   `G_MAXUINT`).
+     * @param preservePtr if @preserve_mask is non-zero, the bits
+     *   from this pointer are set in the result.
+     * @return the mangled pointer.
+     * @since 2.80
+     */
+    @GLibVersion2_80
+    public fun pointerBitLockMaskPtr(
+        ptr: gpointer? = null,
+        lockBit: guint,
+        `set`: Boolean,
+        preserveMask: guintptr,
+        preservePtr: gpointer? = null,
+    ): gpointer? = g_pointer_bit_lock_mask_ptr(ptr, lockBit, `set`.asGBoolean(), preserveMask, preservePtr)
 
     /**
      * Polls @fds, as with the poll() system call, but portably. (On
@@ -4626,8 +4813,7 @@ public object GLib {
      * @since 2.20
      */
     @GLibVersion2_20
-    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint =
-        g_poll(fds.glibPollFDPointer.reinterpret(), nfds, timeout)
+    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint = g_poll(fds.gPointer.reinterpret(), nfds, timeout)
 
     /**
      * This is just like the standard C qsort() function, but
@@ -7966,8 +8152,8 @@ public val CacheNewFuncFunc: CPointer<CFunction<(gpointer?) -> gpointer?>> = sta
 }
     .reinterpret()
 
-public val ChildWatchFuncFunc: CPointer<CFunction<(GPid, gint) -> Unit>> = staticCFunction {
-        pid: GPid,
+public val ChildWatchFuncFunc: CPointer<CFunction<(Pid, gint) -> Unit>> = staticCFunction {
+        pid: Pid,
         waitStatus: gint,
         userData: gpointer?,
     ->
@@ -8048,8 +8234,8 @@ public val CopyFuncFunc: CPointer<CFunction<(gpointer, gpointer?) -> gpointer>> 
 }
     .reinterpret()
 
-public val DataForeachFuncFunc: CPointer<CFunction<(GQuark, gpointer?) -> Unit>> = staticCFunction {
-        keyId: GQuark,
+public val DataForeachFuncFunc: CPointer<CFunction<(Quark, gpointer?) -> Unit>> = staticCFunction {
+        keyId: Quark,
         `data`: gpointer?,
         userData: gpointer?,
     ->
@@ -8469,11 +8655,35 @@ public val ScannerMsgFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val SequenceIterCompareFuncFunc: CPointer<CFunction<(gpointer?) -> gint>> = staticCFunction {
+public val SequenceIterCompareFuncFunc: CPointer<
+    CFunction<
+        (
+            CPointer<GSequenceIter>,
+            CPointer<GSequenceIter>,
+            gpointer?,
+        ) -> gint
+        >
+    > = staticCFunction {
+        a: CPointer<GSequenceIter>?,
+        b: CPointer<GSequenceIter>?,
         `data`: gpointer?,
         userData: COpaquePointer,
     ->
-    userData.asStableRef<(`data`: gpointer?) -> gint>().get().invoke(`data`)
+    userData.asStableRef<
+        (
+            a: SequenceIter,
+            b: SequenceIter,
+            `data`: gpointer?,
+        ) -> gint
+        >().get().invoke(
+        a!!.run {
+            SequenceIter(reinterpret())
+        },
+        b!!.run {
+            SequenceIter(reinterpret())
+        },
+        `data`
+    )
 }
     .reinterpret()
 
@@ -8606,13 +8816,20 @@ public val TraverseFuncFunc: CPointer<
 }
     .reinterpret()
 
-public val TraverseNodeFuncFunc: CPointer<CFunction<(gpointer?) -> gboolean>> = staticCFunction {
-        `data`: gpointer?,
-        userData: COpaquePointer,
-    ->
-    userData.asStableRef<(`data`: gpointer?) -> Boolean>().get().invoke(`data`).asGBoolean()
-}
-    .reinterpret()
+public val TraverseNodeFuncFunc: CPointer<CFunction<(CPointer<GTreeNode>, gpointer?) -> gboolean>> =
+    staticCFunction {
+            node: CPointer<GTreeNode>?,
+            `data`: gpointer?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(node: TreeNode, `data`: gpointer?) -> Boolean>().get().invoke(
+            node!!.run {
+                TreeNode(reinterpret())
+            },
+            `data`
+        ).asGBoolean()
+    }
+        .reinterpret()
 
 public val UnixFdSourceFuncFunc: CPointer<CFunction<(gint, GIOCondition) -> gboolean>> =
     staticCFunction {
@@ -9138,11 +9355,17 @@ public typealias ScannerMsgFunc = (
  * It must return zero if the iterators compare equal, a negative value
  * if @a comes before @b, and a positive value if @b comes before @a.
  *
+ * - param `a` a #GSequenceIter
+ * - param `b` a #GSequenceIter
  * - param `data` user data
  * - return zero if the iterators are equal, a negative value if @a
  *     comes before @b, and a positive value if @b comes before @a.
  */
-public typealias SequenceIterCompareFunc = (`data`: gpointer?) -> gint
+public typealias SequenceIterCompareFunc = (
+    a: SequenceIter,
+    b: SequenceIter,
+    `data`: gpointer?,
+) -> gint
 
 /**
  * Dispose function for @source. See g_source_set_dispose_function() for
@@ -9300,10 +9523,11 @@ public typealias TraverseFunc = (
  * g_tree_foreach_node(). If the function returns true, the traversal is
  * stopped.
  *
+ * - param `node` a #GTreeNode
  * - param `data` user data passed to g_tree_foreach_node()
  * - return true to stop the traversal
  */
-public typealias TraverseNodeFunc = (`data`: gpointer?) -> Boolean
+public typealias TraverseNodeFunc = (node: TreeNode, `data`: gpointer?) -> Boolean
 
 /**
  * The type of functions to be called when a UNIX fd watch source

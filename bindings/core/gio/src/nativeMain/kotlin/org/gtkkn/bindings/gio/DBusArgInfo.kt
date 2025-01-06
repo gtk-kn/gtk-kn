@@ -18,8 +18,8 @@ import org.gtkkn.native.gio.g_dbus_arg_info_ref
 import org.gtkkn.native.gio.g_dbus_arg_info_unref
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -37,41 +37,41 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_26
 public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo> = pointer
+    public val gPointer: CPointer<GDBusArgInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gioDBusArgInfoPointer.pointed.ref_count
+        get() = gPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusArgInfoPointer.pointed.ref_count = value
+            gPointer.pointed.ref_count = value
         }
 
     /**
      * Name of the argument, e.g. @unix_user_id.
      */
     public var name: String?
-        get() = gioDBusArgInfoPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusArgInfoPointer.pointed.name?.let { g_free(it) }
-            gioDBusArgInfoPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
      * D-Bus signature of the argument (a single complete type).
      */
     public var signature: String?
-        get() = gioDBusArgInfoPointer.pointed.signature?.toKString()
+        get() = gPointer.pointed.signature?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusArgInfoPointer.pointed.signature?.let { g_free(it) }
-            gioDBusArgInfoPointer.pointed.signature = value?.let { g_strdup(it) }
+            gPointer.pointed.signature?.let { g_free(it) }
+            gPointer.pointed.signature = value?.let { g_strdup(it) }
         }
 
     /**
@@ -152,7 +152,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gioDBusArgInfoPointer.reinterpret())!!.run {
+    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gPointer.reinterpret())!!.run {
         DBusArgInfo(reinterpret())
     }
 
@@ -164,7 +164,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_arg_info_unref(gioDBusArgInfoPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_arg_info_unref(gPointer.reinterpret())
 
     override fun toString(): String = "DBusArgInfo(refCount=$refCount, name=$name, signature=$signature)"
 

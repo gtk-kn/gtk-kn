@@ -108,7 +108,7 @@ public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
         gtk_source_completion_cell_set_text_with_attributes(
             gtksourceCompletionCellPointer.reinterpret(),
             text,
-            attrs.pangoAttrListPointer.reinterpret()
+            attrs.gPointer.reinterpret()
         )
 
     public open fun setWidget(child: Widget): Unit = gtk_source_completion_cell_set_widget(

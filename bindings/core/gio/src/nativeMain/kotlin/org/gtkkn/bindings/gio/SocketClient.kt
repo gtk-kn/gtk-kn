@@ -65,10 +65,10 @@ import org.gtkkn.native.gio.g_socket_client_set_timeout
 import org.gtkkn.native.gio.g_socket_client_set_tls
 import org.gtkkn.native.gio.g_socket_client_set_tls_validation_flags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint16
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String

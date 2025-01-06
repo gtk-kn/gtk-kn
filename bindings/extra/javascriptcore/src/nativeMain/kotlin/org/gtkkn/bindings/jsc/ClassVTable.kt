@@ -34,7 +34,7 @@ import kotlin.native.ref.createCleaner
  * - field `_jsc_reserved7`: Fields with callbacks are not supported
  */
 public class ClassVTable(pointer: CPointer<JSCClassVTable>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val jscClassVTablePointer: CPointer<JSCClassVTable> = pointer
+    public val gPointer: CPointer<JSCClassVTable> = pointer
 
     /**
      * Allocate a new ClassVTable.

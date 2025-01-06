@@ -19,7 +19,7 @@ import kotlin.Unit
  * Opaque class for defining and scheduling IO jobs.
  */
 public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(pointer) {
-    public val gioIOSchedulerJobPointer: CPointer<GIOSchedulerJob> = pointer
+    public val gPointer: CPointer<GIOSchedulerJob> = pointer
 
     /**
      * Used from an I/O job to send a callback to be run in the thread
@@ -30,7 +30,7 @@ public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(
      * @return The return value of @func
      */
     public fun sendToMainloop(func: SourceFunc): Boolean = g_io_scheduler_job_send_to_mainloop(
-        gioIOSchedulerJobPointer.reinterpret(),
+        gPointer.reinterpret(),
         SourceFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -50,7 +50,7 @@ public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(
      * @param func a #GSourceFunc callback that will be called in the original thread
      */
     public fun sendToMainloopAsync(func: SourceFunc): Unit = g_io_scheduler_job_send_to_mainloop_async(
-        gioIOSchedulerJobPointer.reinterpret(),
+        gPointer.reinterpret(),
         SourceFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()

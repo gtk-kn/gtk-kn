@@ -12,7 +12,7 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogMsg
 import org.gtkkn.native.glib.g_test_log_msg_free
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -23,35 +23,35 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - field `strings`: Unsupported string with cType gchar**
- * - field `nums`: long double
+ * - field `nums`: Unsupported pointer to primitive type
  */
 public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibTestLogMsgPointer: CPointer<GTestLogMsg> = pointer
+    public val gPointer: CPointer<GTestLogMsg> = pointer
 
     public var logType: TestLogType
-        get() = glibTestLogMsgPointer.pointed.log_type.run {
+        get() = gPointer.pointed.log_type.run {
             TestLogType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTestLogMsgPointer.pointed.log_type = value.nativeValue
+            gPointer.pointed.log_type = value.nativeValue
         }
 
     public var nStrings: guint
-        get() = glibTestLogMsgPointer.pointed.n_strings
+        get() = gPointer.pointed.n_strings
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTestLogMsgPointer.pointed.n_strings = value
+            gPointer.pointed.n_strings = value
         }
 
     public var nNums: guint
-        get() = glibTestLogMsgPointer.pointed.n_nums
+        get() = gPointer.pointed.n_nums
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTestLogMsgPointer.pointed.n_nums = value
+            gPointer.pointed.n_nums = value
         }
 
     /**
@@ -127,7 +127,7 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
     /**
      * Internal function for gtester to free test log messages, no ABI guarantees provided.
      */
-    public fun free(): Unit = g_test_log_msg_free(glibTestLogMsgPointer.reinterpret())
+    public fun free(): Unit = g_test_log_msg_free(gPointer.reinterpret())
 
     override fun toString(): String = "TestLogMsg(logType=$logType, nStrings=$nStrings, nNums=$nNums)"
 }

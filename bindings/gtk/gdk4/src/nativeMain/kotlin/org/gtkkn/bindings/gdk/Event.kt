@@ -22,8 +22,8 @@ import org.gtkkn.native.gdk.gdk_event_get_type
 import org.gtkkn.native.gdk.gdk_event_ref
 import org.gtkkn.native.gdk.gdk_event_triggers_context_menu
 import org.gtkkn.native.gdk.gdk_event_unref
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -46,10 +46,7 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  */
 public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
-    public val gPointer: CPointer<GdkEvent>
-    init {
-        gPointer = pointer.reinterpret()
-    }
+    public val gPointer: CPointer<GdkEvent> = pointer
 
     /**
      * Returns the device of an event.

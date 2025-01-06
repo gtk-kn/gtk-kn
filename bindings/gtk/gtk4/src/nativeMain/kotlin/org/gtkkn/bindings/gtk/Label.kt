@@ -25,12 +25,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -331,7 +331,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
          *
          * @param attrs a [struct@Pango.AttrList]
          */
-        set(attrs) = gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
+        set(attrs) = gtk_label_set_attributes(gtkLabelPointer.reinterpret(), attrs?.gPointer?.reinterpret())
 
     /**
      * The preferred place to ellipsize the string, if the label does
@@ -681,7 +681,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
          * @since 4.8
          */
         @GtkVersion4_8
-        set(tabs) = gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
+        set(tabs) = gtk_label_set_tabs(gtkLabelPointer.reinterpret(), tabs?.gPointer?.reinterpret())
 
     /**
      * true if the text of the label includes Pango markup.

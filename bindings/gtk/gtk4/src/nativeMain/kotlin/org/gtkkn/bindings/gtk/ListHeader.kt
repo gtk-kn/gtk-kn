@@ -8,8 +8,8 @@ import org.gtkkn.bindings.gtk.annotations.GtkVersion4_12
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkListHeader
 import org.gtkkn.native.gtk.gtk_list_header_get_child
 import org.gtkkn.native.gtk.gtk_list_header_get_end

@@ -21,9 +21,9 @@ import org.gtkkn.native.gio.g_unix_mount_monitor_get
 import org.gtkkn.native.gio.g_unix_mount_monitor_get_type
 import org.gtkkn.native.gio.g_unix_mount_monitor_new
 import org.gtkkn.native.gio.g_unix_mount_monitor_set_rate_limit
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import kotlin.ULong
 import kotlin.Unit
 

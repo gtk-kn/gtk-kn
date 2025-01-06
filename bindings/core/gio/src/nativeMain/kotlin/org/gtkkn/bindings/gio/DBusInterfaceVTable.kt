@@ -67,7 +67,7 @@ import kotlin.native.ref.createCleaner
 @GioVersion2_26
 public class DBusInterfaceVTable(pointer: CPointer<GDBusInterfaceVTable>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gioDBusInterfaceVTablePointer: CPointer<GDBusInterfaceVTable> = pointer
+    public val gPointer: CPointer<GDBusInterfaceVTable> = pointer
 
     /**
      * Allocate a new DBusInterfaceVTable.

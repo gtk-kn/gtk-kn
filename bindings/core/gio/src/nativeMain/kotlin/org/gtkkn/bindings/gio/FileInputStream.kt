@@ -20,8 +20,8 @@ import org.gtkkn.native.gio.g_file_input_stream_query_info
 import org.gtkkn.native.gio.g_file_input_stream_query_info_async
 import org.gtkkn.native.gio.g_file_input_stream_query_info_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit

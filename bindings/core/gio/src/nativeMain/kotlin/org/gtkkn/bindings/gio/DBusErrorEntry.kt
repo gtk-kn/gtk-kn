@@ -14,7 +14,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GDBusErrorEntry
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -26,29 +26,29 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_26
 public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioDBusErrorEntryPointer: CPointer<GDBusErrorEntry> = pointer
+    public val gPointer: CPointer<GDBusErrorEntry> = pointer
 
     /**
      * An error code.
      */
     public var errorCode: gint
-        get() = gioDBusErrorEntryPointer.pointed.error_code
+        get() = gPointer.pointed.error_code
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusErrorEntryPointer.pointed.error_code = value
+            gPointer.pointed.error_code = value
         }
 
     /**
      * The D-Bus error name to associate with @error_code.
      */
     public var dbusErrorName: String?
-        get() = gioDBusErrorEntryPointer.pointed.dbus_error_name?.toKString()
+        get() = gPointer.pointed.dbus_error_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusErrorEntryPointer.pointed.dbus_error_name?.let { g_free(it) }
-            gioDBusErrorEntryPointer.pointed.dbus_error_name = value?.let { g_strdup(it) }
+            gPointer.pointed.dbus_error_name?.let { g_free(it) }
+            gPointer.pointed.dbus_error_name = value?.let { g_strdup(it) }
         }
 
     /**

@@ -26,8 +26,8 @@ import org.gtkkn.native.gio.g_charset_converter_get_use_fallback
 import org.gtkkn.native.gio.g_charset_converter_new
 import org.gtkkn.native.gio.g_charset_converter_set_use_fallback
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Throws

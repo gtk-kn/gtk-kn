@@ -17,8 +17,8 @@ import org.gtkkn.native.gio.g_unix_output_stream_get_fd
 import org.gtkkn.native.gio.g_unix_output_stream_get_type
 import org.gtkkn.native.gio.g_unix_output_stream_new
 import org.gtkkn.native.gio.g_unix_output_stream_set_close_fd
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 
 /**

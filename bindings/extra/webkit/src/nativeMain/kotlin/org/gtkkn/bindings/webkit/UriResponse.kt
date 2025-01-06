@@ -10,9 +10,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitURIResponse
 import org.gtkkn.native.webkit.webkit_uri_response_get_content_length
 import org.gtkkn.native.webkit.webkit_uri_response_get_http_headers
@@ -33,7 +33,7 @@ import kotlin.String
 public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val webkitURIResponsePointer: CPointer<WebKitURIResponse>
+    public val webkitUriResponsePointer: CPointer<WebKitURIResponse>
         get() = gPointer.reinterpret()
 
     /**
@@ -47,7 +47,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return the expected content length of @response.
          */
-        get() = webkit_uri_response_get_content_length(webkitURIResponsePointer.reinterpret())
+        get() = webkit_uri_response_get_content_length(webkitUriResponsePointer.reinterpret())
 
     /**
      * The HTTP headers of the response, or null if the response is not an HTTP response.
@@ -63,7 +63,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *    or null if @response is not an HTTP response.
          * @since 2.6
          */
-        get() = webkit_uri_response_get_http_headers(webkitURIResponsePointer.reinterpret())!!.run {
+        get() = webkit_uri_response_get_http_headers(webkitUriResponsePointer.reinterpret())!!.run {
             MessageHeaders(reinterpret())
         }
 
@@ -76,7 +76,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return MIME type, as a string.
          */
-        get() = webkit_uri_response_get_mime_type(webkitURIResponsePointer.reinterpret())?.toKString()
+        get() = webkit_uri_response_get_mime_type(webkitUriResponsePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -93,7 +93,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return the status code of @response
          */
-        get() = webkit_uri_response_get_status_code(webkitURIResponsePointer.reinterpret())
+        get() = webkit_uri_response_get_status_code(webkitUriResponsePointer.reinterpret())
 
     /**
      * The suggested filename for the URI response.
@@ -109,7 +109,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          * @return the suggested filename or null if
          *    the 'Content-Disposition' HTTP header is not present.
          */
-        get() = webkit_uri_response_get_suggested_filename(webkitURIResponsePointer.reinterpret())?.toKString()
+        get() = webkit_uri_response_get_suggested_filename(webkitUriResponsePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -121,7 +121,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return response URI, as a string.
          */
-        get() = webkit_uri_response_get_uri(webkitURIResponsePointer.reinterpret())?.toKString()
+        get() = webkit_uri_response_get_uri(webkitUriResponsePointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     public companion object : TypeCompanion<UriResponse> {

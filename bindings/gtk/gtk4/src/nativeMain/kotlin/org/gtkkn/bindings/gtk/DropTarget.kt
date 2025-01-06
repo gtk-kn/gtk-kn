@@ -22,11 +22,11 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkDragAction
 import org.gtkkn.native.gdk.GdkDrop
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkDropTarget
 import org.gtkkn.native.gtk.gtk_drop_target_get_actions
 import org.gtkkn.native.gtk.gtk_drop_target_get_current_drop

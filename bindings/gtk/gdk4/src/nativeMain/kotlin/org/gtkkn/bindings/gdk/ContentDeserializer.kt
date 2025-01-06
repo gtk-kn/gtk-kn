@@ -26,9 +26,9 @@ import org.gtkkn.native.gdk.gdk_content_deserializer_get_value
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_error
 import org.gtkkn.native.gdk.gdk_content_deserializer_return_success
 import org.gtkkn.native.gio.GAsyncResult
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 
@@ -144,10 +144,8 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      *
      * @param error a `GError`
      */
-    public open fun returnError(error: Error): Unit = gdk_content_deserializer_return_error(
-        gdkContentDeserializerPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
-    )
+    public open fun returnError(error: Error): Unit =
+        gdk_content_deserializer_return_error(gdkContentDeserializerPointer.reinterpret(), error.gPointer.reinterpret())
 
     /**
      * Indicate that the deserialization has been successfully completed.

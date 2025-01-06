@@ -17,12 +17,12 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.native.gio.GMountOperation
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gtksource.GtkSourceFile
 import org.gtkkn.native.gtksource.gtk_source_check_version
 import org.gtkkn.native.gtksource.gtk_source_finalize

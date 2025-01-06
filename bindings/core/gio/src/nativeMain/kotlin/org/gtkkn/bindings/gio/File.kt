@@ -161,12 +161,12 @@ import org.gtkkn.native.gio.g_file_unmount_mountable_finish
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation
 import org.gtkkn.native.gio.g_file_unmount_mountable_with_operation_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -3007,7 +3007,7 @@ public interface File :
         callback: AsyncReadyCallback?,
     ): Unit = g_file_replace_contents_bytes_async(
         gioFilePointer.reinterpret(),
-        contents.glibBytesPointer.reinterpret(),
+        contents.gPointer.reinterpret(),
         etag,
         makeBackup.asGBoolean(),
         flags.mask,

@@ -14,8 +14,8 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceMarkAttributes
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_get_background
 import org.gtkkn.native.gtksource.gtk_source_mark_attributes_get_gicon
@@ -169,7 +169,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      */
     public open fun getBackground(background: Rgba): Boolean = gtk_source_mark_attributes_get_background(
         gtksourceMarkAttributesPointer.reinterpret(),
-        background.gdkRGBAPointer.reinterpret()
+        background.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -233,7 +233,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      */
     public open fun setBackground(background: Rgba): Unit = gtk_source_mark_attributes_set_background(
         gtksourceMarkAttributesPointer.reinterpret(),
-        background.gdkRGBAPointer.reinterpret()
+        background.gPointer.reinterpret()
     )
 
     public companion object : TypeCompanion<MarkAttributes> {

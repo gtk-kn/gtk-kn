@@ -16,9 +16,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintLayout
 import org.gtkkn.native.gtk.gtk_constraint_layout_add_constraint
@@ -346,7 +346,7 @@ public open class ConstraintLayout(pointer: CPointer<GtkConstraintLayout>) :
             nLines,
             hspacing,
             vspacing,
-            views.glibHashTablePointer.reinterpret(),
+            views.gPointer.reinterpret(),
             gError.ptr
         )?.run {
             GlibList(reinterpret())

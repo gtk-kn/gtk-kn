@@ -35,19 +35,19 @@ import kotlin.native.ref.createCleaner
  */
 @GLibVersion2_4
 public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibOncePointer: CPointer<GOnce> = pointer
+    public val gPointer: CPointer<GOnce> = pointer
 
     /**
      * the status of the #GOnce
      */
     public var status: OnceStatus
-        get() = glibOncePointer.pointed.status.run {
+        get() = gPointer.pointed.status.run {
             OnceStatus.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibOncePointer.pointed.status = value.nativeValue
+            gPointer.pointed.status = value.nativeValue
         }
 
     /**
@@ -55,11 +55,11 @@ public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyIns
      *          is %G_ONCE_STATUS_READY
      */
     public var retval: gpointer
-        get() = glibOncePointer.pointed.retval!!
+        get() = gPointer.pointed.retval!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibOncePointer.pointed.retval = value
+            gPointer.pointed.retval = value
         }
 
     /**

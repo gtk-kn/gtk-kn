@@ -23,7 +23,7 @@ import org.gtkkn.native.gtk.gtk_accessible_list_new_from_list
  */
 @GtkVersion4_14
 public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : ProxyInstance(pointer) {
-    public val gtkAccessibleListPointer: CPointer<GtkAccessibleList> = pointer
+    public val gPointer: CPointer<GtkAccessibleList> = pointer
 
     /**
      * Gets the list of objects this boxed type holds
@@ -32,7 +32,7 @@ public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : ProxyInstanc
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getObjects(): List = gtk_accessible_list_get_objects(gtkAccessibleListPointer.reinterpret())!!.run {
+    public fun getObjects(): List = gtk_accessible_list_get_objects(gPointer.reinterpret())!!.run {
         List(reinterpret())
     }
 
@@ -46,7 +46,7 @@ public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : ProxyInstanc
          * @since 4.14
          */
         public fun newFromList(list: List): AccessibleList =
-            AccessibleList(gtk_accessible_list_new_from_list(list.glibListPointer.reinterpret())!!.reinterpret())
+            AccessibleList(gtk_accessible_list_new_from_list(list.gPointer.reinterpret())!!.reinterpret())
 
         /**
          * Get the GType of AccessibleList

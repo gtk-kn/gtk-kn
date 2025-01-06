@@ -93,7 +93,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
     @WebKitVersion2_18
     public fun setApplicationInfo(info: ApplicationInfo): Unit = webkit_automation_session_set_application_info(
         webkitAutomationSessionPointer.reinterpret(),
-        info.webkitApplicationInfoPointer.reinterpret()
+        info.gPointer.reinterpret()
     )
 
     /**

@@ -28,9 +28,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.webkit.WebKitAutomationSession
 import org.gtkkn.native.webkit.WebKitUserMessage
 import org.gtkkn.native.webkit.WebKitWebContext
@@ -249,8 +249,8 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
     public fun initializeNotificationPermissions(allowedOrigins: GlibList, disallowedOrigins: GlibList): Unit =
         webkit_web_context_initialize_notification_permissions(
             webkitWebContextPointer.reinterpret(),
-            allowedOrigins.glibListPointer.reinterpret(),
-            disallowedOrigins.glibListPointer.reinterpret()
+            allowedOrigins.gPointer.reinterpret(),
+            disallowedOrigins.gPointer.reinterpret()
         )
 
     /**
@@ -458,7 +458,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
     public fun setWebProcessExtensionsInitializationUserData(userData: Variant): Unit =
         webkit_web_context_set_web_process_extensions_initialization_user_data(
             webkitWebContextPointer.reinterpret(),
-            userData.glibVariantPointer.reinterpret()
+            userData.gPointer.reinterpret()
         )
 
     /**

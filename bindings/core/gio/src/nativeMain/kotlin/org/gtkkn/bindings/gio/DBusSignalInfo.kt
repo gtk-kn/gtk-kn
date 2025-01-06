@@ -18,8 +18,8 @@ import org.gtkkn.native.gio.g_dbus_signal_info_ref
 import org.gtkkn.native.gio.g_dbus_signal_info_unref
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -38,29 +38,29 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_26
 public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioDBusSignalInfoPointer: CPointer<GDBusSignalInfo> = pointer
+    public val gPointer: CPointer<GDBusSignalInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gioDBusSignalInfoPointer.pointed.ref_count
+        get() = gPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusSignalInfoPointer.pointed.ref_count = value
+            gPointer.pointed.ref_count = value
         }
 
     /**
      * The name of the D-Bus signal, e.g. "NameOwnerChanged".
      */
     public var name: String?
-        get() = gioDBusSignalInfoPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusSignalInfoPointer.pointed.name?.let { g_free(it) }
-            gioDBusSignalInfoPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -134,7 +134,7 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusSignalInfo = g_dbus_signal_info_ref(gioDBusSignalInfoPointer.reinterpret())!!.run {
+    public fun ref(): DBusSignalInfo = g_dbus_signal_info_ref(gPointer.reinterpret())!!.run {
         DBusSignalInfo(reinterpret())
     }
 
@@ -146,7 +146,7 @@ public class DBusSignalInfo(pointer: CPointer<GDBusSignalInfo>, cleaner: Cleaner
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_signal_info_unref(gioDBusSignalInfoPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_signal_info_unref(gPointer.reinterpret())
 
     override fun toString(): String = "DBusSignalInfo(refCount=$refCount, name=$name)"
 

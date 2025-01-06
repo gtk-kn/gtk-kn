@@ -37,9 +37,9 @@ import org.gtkkn.native.gio.g_dbus_server_new_sync
 import org.gtkkn.native.gio.g_dbus_server_start
 import org.gtkkn.native.gio.g_dbus_server_stop
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Throws

@@ -17,8 +17,8 @@ import org.gtkkn.native.gdk.gdk_cursor_get_texture
 import org.gtkkn.native.gdk.gdk_cursor_get_type
 import org.gtkkn.native.gdk.gdk_cursor_new_from_name
 import org.gtkkn.native.gdk.gdk_cursor_new_from_texture
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 
 /**

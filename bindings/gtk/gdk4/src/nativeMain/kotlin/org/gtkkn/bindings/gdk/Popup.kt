@@ -17,8 +17,8 @@ import org.gtkkn.native.gdk.gdk_popup_get_rect_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_surface_anchor
 import org.gtkkn.native.gdk.gdk_popup_get_type
 import org.gtkkn.native.gdk.gdk_popup_present
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 
 /**
@@ -135,12 +135,8 @@ public interface Popup :
      * @param layout the `GdkPopupLayout` object used to layout
      * @return false if it failed to be presented, otherwise true.
      */
-    public fun present(width: gint, height: gint, layout: PopupLayout): Boolean = gdk_popup_present(
-        gdkPopupPointer.reinterpret(),
-        width,
-        height,
-        layout.gdkPopupLayoutPointer.reinterpret()
-    ).asBoolean()
+    public fun present(width: gint, height: gint, layout: PopupLayout): Boolean =
+        gdk_popup_present(gdkPopupPointer.reinterpret(), width, height, layout.gPointer.reinterpret()).asBoolean()
 
     private data class Wrapper(private val pointer: CPointer<GdkPopup>) : Popup {
         override val gdkPopupPointer: CPointer<GdkPopup> = pointer

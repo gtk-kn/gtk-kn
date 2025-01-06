@@ -68,7 +68,7 @@ public interface Proxy :
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect(
             gioProxyPointer.reinterpret(),
-            connection.gioIOStreamPointer.reinterpret(),
+            connection.gioIoStreamPointer.reinterpret(),
             proxyAddress.gioProxyAddressPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             gError.ptr
@@ -100,7 +100,7 @@ public interface Proxy :
         callback: AsyncReadyCallback?,
     ): Unit = g_proxy_connect_async(
         gioProxyPointer.reinterpret(),
-        connection.gioIOStreamPointer.reinterpret(),
+        connection.gioIoStreamPointer.reinterpret(),
         proxyAddress.gioProxyAddressPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {

@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.pango.PangoRectangle
 import kotlin.Pair
 import kotlin.String
@@ -24,50 +24,50 @@ import kotlin.native.ref.createCleaner
  * [method@Pango.Font.get_glyph_extents].)
  */
 public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoRectanglePointer: CPointer<PangoRectangle> = pointer
+    public val gPointer: CPointer<PangoRectangle> = pointer
 
     /**
      * X coordinate of the left side of the rectangle.
      */
     public var x: gint
-        get() = pangoRectanglePointer.pointed.x
+        get() = gPointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoRectanglePointer.pointed.x = value
+            gPointer.pointed.x = value
         }
 
     /**
      * Y coordinate of the the top side of the rectangle.
      */
     public var y: gint
-        get() = pangoRectanglePointer.pointed.y
+        get() = gPointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoRectanglePointer.pointed.y = value
+            gPointer.pointed.y = value
         }
 
     /**
      * width of the rectangle.
      */
     public var width: gint
-        get() = pangoRectanglePointer.pointed.width
+        get() = gPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoRectanglePointer.pointed.width = value
+            gPointer.pointed.width = value
         }
 
     /**
      * height of the rectangle.
      */
     public var height: gint
-        get() = pangoRectanglePointer.pointed.height
+        get() = gPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoRectanglePointer.pointed.height = value
+            gPointer.pointed.height = value
         }
 
     /**

@@ -11,6 +11,7 @@ import org.gtkkn.native.glib.GTimer
 import org.gtkkn.native.glib.g_timer_continue
 import org.gtkkn.native.glib.g_timer_destroy
 import org.gtkkn.native.glib.g_timer_is_active
+import org.gtkkn.native.glib.g_timer_new
 import org.gtkkn.native.glib.g_timer_reset
 import org.gtkkn.native.glib.g_timer_start
 import org.gtkkn.native.glib.g_timer_stop
@@ -27,10 +28,9 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `microseconds`: Unsupported pointer to primitive type
- * - function `new`: Return type Timer is unsupported
  */
 public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
-    public val glibTimerPointer: CPointer<GTimer> = pointer
+    public val gPointer: CPointer<GTimer> = pointer
 
     /**
      * Resumes a timer that has previously been stopped with
@@ -40,12 +40,12 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun `continue`(): Unit = g_timer_continue(glibTimerPointer.reinterpret())
+    public fun `continue`(): Unit = g_timer_continue(gPointer.reinterpret())
 
     /**
      * Destroys a timer, freeing associated resources.
      */
-    public fun destroy(): Unit = g_timer_destroy(glibTimerPointer.reinterpret())
+    public fun destroy(): Unit = g_timer_destroy(gPointer.reinterpret())
 
     /**
      * Exposes whether the timer is currently active.
@@ -54,14 +54,14 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
      * @since 2.62
      */
     @GLibVersion2_62
-    public fun isActive(): Boolean = g_timer_is_active(glibTimerPointer.reinterpret()).asBoolean()
+    public fun isActive(): Boolean = g_timer_is_active(gPointer.reinterpret()).asBoolean()
 
     /**
      * This function is useless; it's fine to call g_timer_start() on an
      * already-started timer to reset the start time, so g_timer_reset()
      * serves no purpose.
      */
-    public fun reset(): Unit = g_timer_reset(glibTimerPointer.reinterpret())
+    public fun reset(): Unit = g_timer_reset(gPointer.reinterpret())
 
     /**
      * Marks a start time, so that future calls to g_timer_elapsed() will
@@ -69,11 +69,23 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
      * automatically marks the start time, so no need to call
      * g_timer_start() immediately after creating the timer.
      */
-    public fun start(): Unit = g_timer_start(glibTimerPointer.reinterpret())
+    public fun start(): Unit = g_timer_start(gPointer.reinterpret())
 
     /**
      * Marks an end time, so calls to g_timer_elapsed() will return the
      * difference between this end time and the start time.
      */
-    public fun stop(): Unit = g_timer_stop(glibTimerPointer.reinterpret())
+    public fun stop(): Unit = g_timer_stop(gPointer.reinterpret())
+
+    public companion object {
+        /**
+         * Creates a new timer, and starts timing (i.e. g_timer_start() is
+         * implicitly called for you).
+         *
+         * @return a new #GTimer.
+         */
+        public fun new(): Timer = g_timer_new()!!.run {
+            Timer(reinterpret())
+        }
+    }
 }

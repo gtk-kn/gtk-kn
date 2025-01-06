@@ -95,7 +95,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `mutex`: Mutex
  */
 public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibCondPointer: CPointer<GCond> = pointer
+    public val gPointer: CPointer<GCond> = pointer
 
     /**
      * Allocate a new Cond.
@@ -132,7 +132,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * It is good practice to lock the same mutex as the waiting threads
      * while calling this function, though not required.
      */
-    public fun broadcast(): Unit = g_cond_broadcast(glibCondPointer.reinterpret())
+    public fun broadcast(): Unit = g_cond_broadcast(gPointer.reinterpret())
 
     /**
      * Frees the resources allocated to a #GCond with g_cond_init().
@@ -146,7 +146,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_cond_clear(glibCondPointer.reinterpret())
+    public fun clear(): Unit = g_cond_clear(gPointer.reinterpret())
 
     /**
      * Destroys a #GCond that has been created with g_cond_new().
@@ -154,7 +154,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * Calling g_cond_free() for a #GCond on which threads are
      * blocking leads to undefined behaviour.
      */
-    public fun free(): Unit = g_cond_free(glibCondPointer.reinterpret())
+    public fun free(): Unit = g_cond_free(gPointer.reinterpret())
 
     /**
      * Initialises a #GCond so that it can be used.
@@ -172,7 +172,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_cond_init(glibCondPointer.reinterpret())
+    public fun `init`(): Unit = g_cond_init(gPointer.reinterpret())
 
     /**
      * If threads are waiting for @cond, at least one of them is unblocked.
@@ -180,7 +180,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * It is good practice to hold the same lock as the waiting thread
      * while calling this function, though not required.
      */
-    public fun signal(): Unit = g_cond_signal(glibCondPointer.reinterpret())
+    public fun signal(): Unit = g_cond_signal(gPointer.reinterpret())
 
     public companion object {
         /**

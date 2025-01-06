@@ -33,7 +33,7 @@ import kotlin.Unit
  * - parameter `start`: start: Out parameter is not supported
  */
 public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : ProxyInstance(pointer) {
-    public val pangoAttrIteratorPointer: CPointer<PangoAttrIterator> = pointer
+    public val gPointer: CPointer<PangoAttrIterator> = pointer
 
     /**
      * Copy a `PangoAttrIterator`.
@@ -42,14 +42,14 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : ProxyInstance(
      *   `PangoAttrIterator`, which should be freed with
      *   [method@Pango.AttrIterator.destroy]
      */
-    public fun copy(): AttrIterator = pango_attr_iterator_copy(pangoAttrIteratorPointer.reinterpret())!!.run {
+    public fun copy(): AttrIterator = pango_attr_iterator_copy(gPointer.reinterpret())!!.run {
         AttrIterator(reinterpret())
     }
 
     /**
      * Destroy a `PangoAttrIterator` and free all associated memory.
      */
-    public fun destroy(): Unit = pango_attr_iterator_destroy(pangoAttrIteratorPointer.reinterpret())
+    public fun destroy(): Unit = pango_attr_iterator_destroy(gPointer.reinterpret())
 
     /**
      * Find the current attribute of a particular type
@@ -65,7 +65,7 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : ProxyInstance(
      *   of that type applies to the current location.
      */
     public fun `get`(type: AttrType): Attribute? =
-        pango_attr_iterator_get(pangoAttrIteratorPointer.reinterpret(), type.nativeValue)?.run {
+        pango_attr_iterator_get(gPointer.reinterpret(), type.nativeValue)?.run {
             Attribute(reinterpret())
         }
 
@@ -79,7 +79,7 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : ProxyInstance(
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun getAttrs(): SList = pango_attr_iterator_get_attrs(pangoAttrIteratorPointer.reinterpret())!!.run {
+    public fun getAttrs(): SList = pango_attr_iterator_get_attrs(gPointer.reinterpret())!!.run {
         SList(reinterpret())
     }
 
@@ -89,7 +89,7 @@ public class AttrIterator(pointer: CPointer<PangoAttrIterator>) : ProxyInstance(
      * @return false if the iterator is at the end
      *   of the list, otherwise true
      */
-    public fun next(): Boolean = pango_attr_iterator_next(pangoAttrIteratorPointer.reinterpret()).asBoolean()
+    public fun next(): Boolean = pango_attr_iterator_next(gPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**

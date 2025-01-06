@@ -12,9 +12,9 @@ import org.gtkkn.native.gdk.gdk_touchpad_event_get_n_fingers
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_pinch_angle_delta
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_pinch_scale
 import org.gtkkn.native.gdk.gdk_touchpad_event_get_type
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
 
 /**
  * An event related to a gesture on a touchpad device.

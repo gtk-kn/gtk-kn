@@ -13,8 +13,8 @@ import org.gtkkn.native.gdk.gdk_device_tool_get_hardware_id
 import org.gtkkn.native.gdk.gdk_device_tool_get_serial
 import org.gtkkn.native.gdk.gdk_device_tool_get_tool_type
 import org.gtkkn.native.gdk.gdk_device_tool_get_type
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint64
 
 /**
  * A physical tool associated to a `GdkDevice`.

@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gtk.GtkCssLocation
 import kotlin.Pair
 import kotlin.String
@@ -17,46 +17,46 @@ import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 public class CssLocation(pointer: CPointer<GtkCssLocation>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtkCssLocationPointer: CPointer<GtkCssLocation> = pointer
+    public val gPointer: CPointer<GtkCssLocation> = pointer
 
     public var bytes: gsize
-        get() = gtkCssLocationPointer.pointed.bytes
+        get() = gPointer.pointed.bytes
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkCssLocationPointer.pointed.bytes = value
+            gPointer.pointed.bytes = value
         }
 
     public var chars: gsize
-        get() = gtkCssLocationPointer.pointed.chars
+        get() = gPointer.pointed.chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkCssLocationPointer.pointed.chars = value
+            gPointer.pointed.chars = value
         }
 
     public var lines: gsize
-        get() = gtkCssLocationPointer.pointed.lines
+        get() = gPointer.pointed.lines
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkCssLocationPointer.pointed.lines = value
+            gPointer.pointed.lines = value
         }
 
     public var lineBytes: gsize
-        get() = gtkCssLocationPointer.pointed.line_bytes
+        get() = gPointer.pointed.line_bytes
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkCssLocationPointer.pointed.line_bytes = value
+            gPointer.pointed.line_bytes = value
         }
 
     public var lineChars: gsize
-        get() = gtkCssLocationPointer.pointed.line_chars
+        get() = gPointer.pointed.line_chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkCssLocationPointer.pointed.line_chars = value
+            gPointer.pointed.line_chars = value
         }
 
     /**

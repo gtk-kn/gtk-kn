@@ -20,8 +20,8 @@ import org.gtkkn.native.gio.g_proxy_address_get_type
 import org.gtkkn.native.gio.g_proxy_address_get_uri
 import org.gtkkn.native.gio.g_proxy_address_get_username
 import org.gtkkn.native.gio.g_proxy_address_new
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint16
 import kotlin.String
 
 /**

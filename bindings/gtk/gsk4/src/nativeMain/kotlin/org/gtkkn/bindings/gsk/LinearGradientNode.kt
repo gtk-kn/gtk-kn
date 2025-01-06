@@ -7,8 +7,8 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskLinearGradientNode
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_end
 import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_n_color_stops
@@ -21,7 +21,7 @@ import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_type
  * ## Skipped during bindings generation
  *
  * - parameter `n_stops`: n_stops: Out parameter is not supported
- * - parameter `color_stops`: ColorStop
+ * - parameter `color_stops`: Not-pointer record ColorStop is ignored
  */
 public open class LinearGradientNode(pointer: CPointer<GskLinearGradientNode>) :
     RenderNode(pointer.reinterpret()),

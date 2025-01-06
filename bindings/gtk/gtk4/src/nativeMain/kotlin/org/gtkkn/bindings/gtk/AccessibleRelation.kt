@@ -156,7 +156,7 @@ public enum class AccessibleRelation(public val nativeValue: GtkAccessibleRelati
         }
 
         public fun initValue(relation: AccessibleRelation, `value`: Value): Unit =
-            gtk_accessible_relation_init_value(relation.nativeValue, `value`.gobjectValuePointer.reinterpret())
+            gtk_accessible_relation_init_value(relation.nativeValue, `value`.gPointer.reinterpret())
 
         /**
          * Get the GType of AccessibleRelation

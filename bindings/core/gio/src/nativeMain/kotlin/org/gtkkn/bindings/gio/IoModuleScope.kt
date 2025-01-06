@@ -8,6 +8,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GIOModuleScope
 import org.gtkkn.native.gio.g_io_module_scope_block
 import org.gtkkn.native.gio.g_io_module_scope_free
+import org.gtkkn.native.gio.g_io_module_scope_new
 import kotlin.String
 import kotlin.Unit
 
@@ -17,16 +18,11 @@ import kotlin.Unit
  *
  * The scope can be used with g_io_modules_load_all_in_directory_with_scope()
  * or g_io_modules_scan_all_in_directory_with_scope().
- *
- * ## Skipped during bindings generation
- *
- * - function `new`: Return type IOModuleScope is unsupported
- *
  * @since 2.30
  */
 @GioVersion2_30
 public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(pointer) {
-    public val gioIOModuleScopePointer: CPointer<GIOModuleScope> = pointer
+    public val gPointer: CPointer<GIOModuleScope> = pointer
 
     /**
      * Block modules with the given @basename from being loaded when
@@ -37,7 +33,7 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
      * @since 2.30
      */
     @GioVersion2_30
-    public fun block(basename: String): Unit = g_io_module_scope_block(gioIOModuleScopePointer.reinterpret(), basename)
+    public fun block(basename: String): Unit = g_io_module_scope_block(gPointer.reinterpret(), basename)
 
     /**
      * Free a module scope.
@@ -45,5 +41,24 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
      * @since 2.30
      */
     @GioVersion2_30
-    public fun free(): Unit = g_io_module_scope_free(gioIOModuleScopePointer.reinterpret())
+    public fun free(): Unit = g_io_module_scope_free(gPointer.reinterpret())
+
+    public companion object {
+        /**
+         * Create a new scope for loading of IO modules. A scope can be used for
+         * blocking duplicate modules, or blocking a module you don't want to load.
+         *
+         * Specify the %G_IO_MODULE_SCOPE_BLOCK_DUPLICATES flag to block modules
+         * which have the same base name as a module that has already been seen
+         * in this scope.
+         *
+         * @param flags flags for the new scope
+         * @return the new module scope
+         * @since 2.30
+         */
+        @GioVersion2_30
+        public fun new(flags: IoModuleScopeFlags): IoModuleScope = g_io_module_scope_new(flags.nativeValue)!!.run {
+            IoModuleScope(reinterpret())
+        }
+    }
 }

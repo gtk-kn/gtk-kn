@@ -23,8 +23,8 @@ import org.gtkkn.native.gio.g_datagram_based_condition_wait
 import org.gtkkn.native.gio.g_datagram_based_create_source
 import org.gtkkn.native.gio.g_datagram_based_get_type
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint64
 import kotlin.Boolean
 import kotlin.Result
 
@@ -81,8 +81,8 @@ import kotlin.Result
  *
  * ## Skipped during bindings generation
  *
- * - parameter `messages`: InputMessage
- * - parameter `messages`: OutputMessage
+ * - parameter `messages`: Not-pointer record InputMessage is ignored
+ * - parameter `messages`: Not-pointer record OutputMessage is ignored
  *
  * @since 2.48
  */

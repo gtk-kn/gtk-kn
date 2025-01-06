@@ -110,10 +110,7 @@ public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
         @GtkVersion4_10
         set(
             color
-        ) = gtk_color_dialog_button_set_rgba(
-            gtkColorDialogButtonPointer.reinterpret(),
-            color.gdkRGBAPointer.reinterpret()
-        )
+        ) = gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer.reinterpret(), color.gPointer.reinterpret())
 
     /**
      * Creates a new `GtkColorDialogButton` with the

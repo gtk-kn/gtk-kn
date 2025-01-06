@@ -37,7 +37,7 @@ import kotlin.Unit
  */
 @GioVersion2_32
 public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : ProxyInstance(pointer) {
-    public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource> = pointer
+    public val gPointer: CPointer<GSettingsSchemaSource> = pointer
 
     /**
      * Looks up a schema with the identifier @schema_id in @source.
@@ -57,13 +57,10 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? = g_settings_schema_source_lookup(
-        gioSettingsSchemaSourcePointer.reinterpret(),
-        schemaId,
-        recursive.asGBoolean()
-    )?.run {
-        SettingsSchema(reinterpret())
-    }
+    public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? =
+        g_settings_schema_source_lookup(gPointer.reinterpret(), schemaId, recursive.asGBoolean())?.run {
+            SettingsSchema(reinterpret())
+        }
 
     /**
      * Increase the reference count of @source, returning a new reference.
@@ -72,10 +69,9 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchemaSource =
-        g_settings_schema_source_ref(gioSettingsSchemaSourcePointer.reinterpret())!!.run {
-            SettingsSchemaSource(reinterpret())
-        }
+    public fun ref(): SettingsSchemaSource = g_settings_schema_source_ref(gPointer.reinterpret())!!.run {
+        SettingsSchemaSource(reinterpret())
+    }
 
     /**
      * Decrease the reference count of @source, possibly freeing it.
@@ -83,7 +79,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unref(): Unit = g_settings_schema_source_unref(gioSettingsSchemaSourcePointer.reinterpret())
+    public fun unref(): Unit = g_settings_schema_source_unref(gPointer.reinterpret())
 
     public companion object {
         /**
@@ -134,7 +130,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
                 val gResult =
                     g_settings_schema_source_new_from_directory(
                         directory,
-                        parent?.gioSettingsSchemaSourcePointer?.reinterpret(),
+                        parent?.gPointer?.reinterpret(),
                         trusted.asGBoolean(),
                         gError.ptr
                     )

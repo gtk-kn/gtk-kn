@@ -32,8 +32,8 @@ import org.gtkkn.native.adw.adw_toolbar_view_set_extend_content_to_top_edge
 import org.gtkkn.native.adw.adw_toolbar_view_set_reveal_bottom_bars
 import org.gtkkn.native.adw.adw_toolbar_view_set_reveal_top_bars
 import org.gtkkn.native.adw.adw_toolbar_view_set_top_bar_style
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

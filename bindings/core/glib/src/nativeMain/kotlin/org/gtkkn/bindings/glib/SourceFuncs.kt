@@ -42,7 +42,7 @@ import kotlin.native.ref.createCleaner
  * - field `finalize`: Fields with callbacks are not supported
  */
 public class SourceFuncs(pointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibSourceFuncsPointer: CPointer<GSourceFuncs> = pointer
+    public val gPointer: CPointer<GSourceFuncs> = pointer
 
     /**
      * Allocate a new SourceFuncs.

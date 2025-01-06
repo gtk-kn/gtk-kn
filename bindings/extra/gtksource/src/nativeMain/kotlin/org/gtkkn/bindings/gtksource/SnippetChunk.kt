@@ -10,8 +10,8 @@ import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceSnippetChunk
 import org.gtkkn.native.gtksource.gtk_source_snippet_chunk_copy
 import org.gtkkn.native.gtksource.gtk_source_snippet_chunk_get_context

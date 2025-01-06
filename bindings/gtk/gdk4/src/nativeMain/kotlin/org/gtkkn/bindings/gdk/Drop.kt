@@ -34,8 +34,8 @@ import org.gtkkn.native.gdk.gdk_drop_read_value_async
 import org.gtkkn.native.gdk.gdk_drop_read_value_finish
 import org.gtkkn.native.gdk.gdk_drop_status
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit

@@ -9,8 +9,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkBitsetIter
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_type
 import org.gtkkn.native.gtk.gtk_bitset_iter_get_value
@@ -37,7 +37,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `value`: value: Out parameter is not supported
  */
 public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtkBitsetIterPointer: CPointer<GtkBitsetIter> = pointer
+    public val gPointer: CPointer<GtkBitsetIter> = pointer
 
     /**
      * Allocate a new BitsetIter.
@@ -78,14 +78,14 @@ public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = nu
      *
      * @return The current value pointer to by @iter
      */
-    public fun getValue(): guint = gtk_bitset_iter_get_value(gtkBitsetIterPointer.reinterpret())
+    public fun getValue(): guint = gtk_bitset_iter_get_value(gPointer.reinterpret())
 
     /**
      * Checks if @iter points to a valid value.
      *
      * @return true if @iter points to a valid value
      */
-    public fun isValid(): Boolean = gtk_bitset_iter_is_valid(gtkBitsetIterPointer.reinterpret()).asBoolean()
+    public fun isValid(): Boolean = gtk_bitset_iter_is_valid(gPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**

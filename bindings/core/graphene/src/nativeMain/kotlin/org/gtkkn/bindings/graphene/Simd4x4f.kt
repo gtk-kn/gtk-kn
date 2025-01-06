@@ -13,7 +13,7 @@ import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 public class Simd4x4f(pointer: CPointer<graphene_simd4x4f_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val grapheneSimd4X4FPointer: CPointer<graphene_simd4x4f_t> = pointer
+    public val gPointer: CPointer<graphene_simd4x4f_t> = pointer
 
     /**
      * Allocate a new Simd4x4f.

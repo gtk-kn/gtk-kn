@@ -12,7 +12,7 @@ import org.gtkkn.native.gobject.GType
  * This corresponds roughly to a mtab entry.
  */
 public class UnixMountEntry(pointer: CPointer<GUnixMountEntry>) : ProxyInstance(pointer) {
-    public val gioUnixMountEntryPointer: CPointer<GUnixMountEntry> = pointer
+    public val gPointer: CPointer<GUnixMountEntry> = pointer
 
     public companion object {
         /**

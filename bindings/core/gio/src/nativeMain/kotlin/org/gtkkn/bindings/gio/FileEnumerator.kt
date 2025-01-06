@@ -33,8 +33,8 @@ import org.gtkkn.native.gio.g_file_enumerator_next_files_async
 import org.gtkkn.native.gio.g_file_enumerator_next_files_finish
 import org.gtkkn.native.gio.g_file_enumerator_set_pending
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit

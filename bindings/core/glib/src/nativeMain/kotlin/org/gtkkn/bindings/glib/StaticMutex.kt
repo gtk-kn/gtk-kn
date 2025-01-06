@@ -70,7 +70,7 @@ import kotlin.native.ref.createCleaner
  * - field `mutex`: Mutex
  */
 public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibStaticMutexPointer: CPointer<GStaticMutex> = pointer
+    public val gPointer: CPointer<GStaticMutex> = pointer
 
     /**
      * Allocate a new StaticMutex.
@@ -112,11 +112,11 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      * Calling g_static_mutex_free() on a locked mutex may result in
      * undefined behaviour.
      */
-    public fun free(): Unit = g_static_mutex_free(glibStaticMutexPointer.reinterpret())
+    public fun free(): Unit = g_static_mutex_free(gPointer.reinterpret())
 
     /**
      * Initializes @mutex.
      * Alternatively you can initialize it with %G_STATIC_MUTEX_INIT.
      */
-    public fun `init`(): Unit = g_static_mutex_init(glibStaticMutexPointer.reinterpret())
+    public fun `init`(): Unit = g_static_mutex_init(gPointer.reinterpret())
 }

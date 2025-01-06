@@ -16,9 +16,9 @@ import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_get_loop
 import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_get_type
 import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_new
 import org.gtkkn.native.gdk.gdk_pixbuf_simple_anim_set_loop
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Unit
 

@@ -30,7 +30,7 @@ import kotlin.String
 public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val webkitURIRequestPointer: CPointer<WebKitURIRequest>
+    public val webkitUriRequestPointer: CPointer<WebKitURIRequest>
         get() = gPointer.reinterpret()
 
     /**
@@ -42,7 +42,7 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
          *
          * @return request URI, as a string.
          */
-        get() = webkit_uri_request_get_uri(webkitURIRequestPointer.reinterpret())?.toKString()
+        get() = webkit_uri_request_get_uri(webkitUriRequestPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -50,7 +50,7 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
          *
          * @param uri an URI
          */
-        set(uri) = webkit_uri_request_set_uri(webkitURIRequestPointer.reinterpret(), uri)
+        set(uri) = webkit_uri_request_set_uri(webkitUriRequestPointer.reinterpret(), uri)
 
     /**
      * Creates a new #WebKitURIRequest for the given URI.
@@ -67,7 +67,7 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
      *    or null if @request is not an HTTP request.
      */
     public fun getHttpHeaders(): MessageHeaders =
-        webkit_uri_request_get_http_headers(webkitURIRequestPointer.reinterpret())!!.run {
+        webkit_uri_request_get_http_headers(webkitUriRequestPointer.reinterpret())!!.run {
             MessageHeaders(reinterpret())
         }
 
@@ -80,7 +80,7 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
      */
     @WebKitVersion2_12
     public fun getHttpMethod(): String =
-        webkit_uri_request_get_http_method(webkitURIRequestPointer.reinterpret())?.toKString()
+        webkit_uri_request_get_http_method(webkitUriRequestPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     public companion object : TypeCompanion<UriRequest> {

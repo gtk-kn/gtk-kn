@@ -69,9 +69,9 @@ import org.gtkkn.native.adw.adw_about_dialog_set_support_url
 import org.gtkkn.native.adw.adw_about_dialog_set_translator_credits
 import org.gtkkn.native.adw.adw_about_dialog_set_version
 import org.gtkkn.native.adw.adw_about_dialog_set_website
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.pango.PangoAttrInt
 import kotlin.Pair
 import kotlin.String
@@ -22,20 +22,20 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Attribute
+ * - field `attr`: Not-pointer record Attribute is ignored
  */
 public class AttrInt(pointer: CPointer<PangoAttrInt>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoAttrIntPointer: CPointer<PangoAttrInt> = pointer
+    public val gPointer: CPointer<PangoAttrInt> = pointer
 
     /**
      * the value of the attribute
      */
     public var `value`: gint
-        get() = pangoAttrIntPointer.pointed.value
+        get() = gPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrIntPointer.pointed.value = value
+            gPointer.pointed.value = value
         }
 
     /**

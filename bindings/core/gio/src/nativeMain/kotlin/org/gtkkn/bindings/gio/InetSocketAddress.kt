@@ -17,9 +17,9 @@ import org.gtkkn.native.gio.g_inet_socket_address_get_scope_id
 import org.gtkkn.native.gio.g_inet_socket_address_get_type
 import org.gtkkn.native.gio.g_inet_socket_address_new
 import org.gtkkn.native.gio.g_inet_socket_address_new_from_string
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint16
 import kotlin.String
 
 /**

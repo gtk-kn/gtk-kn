@@ -12,6 +12,8 @@ public object GdkpixbufTypeProvider : TypeProvider {
         PixbufAnimation::class to PixbufAnimation.type,
         PixbufAnimationIter::class to PixbufAnimationIter.type,
         PixbufLoader::class to PixbufLoader.type,
+        PixbufNonAnim::class to PixbufNonAnim.type,
         PixbufSimpleAnim::class to PixbufSimpleAnim.type,
+        PixbufSimpleAnimIter::class to PixbufSimpleAnimIter.type,
     )
 }

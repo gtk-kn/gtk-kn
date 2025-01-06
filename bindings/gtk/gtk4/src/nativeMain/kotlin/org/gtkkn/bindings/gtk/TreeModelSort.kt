@@ -185,8 +185,8 @@ public open class TreeModelSort(pointer: CPointer<GtkTreeModelSort>) :
     public open fun convertChildIterToIter(sortIter: TreeIter, childIter: TreeIter): Boolean =
         gtk_tree_model_sort_convert_child_iter_to_iter(
             gtkTreeModelSortPointer.reinterpret(),
-            sortIter.gtkTreeIterPointer.reinterpret(),
-            childIter.gtkTreeIterPointer.reinterpret()
+            sortIter.gPointer.reinterpret(),
+            childIter.gPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -201,7 +201,7 @@ public open class TreeModelSort(pointer: CPointer<GtkTreeModelSort>) :
     public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
         gtk_tree_model_sort_convert_child_path_to_path(
             gtkTreeModelSortPointer.reinterpret(),
-            childPath.gtkTreePathPointer.reinterpret()
+            childPath.gPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }
@@ -215,8 +215,8 @@ public open class TreeModelSort(pointer: CPointer<GtkTreeModelSort>) :
     public open fun convertIterToChildIter(childIter: TreeIter, sortedIter: TreeIter): Unit =
         gtk_tree_model_sort_convert_iter_to_child_iter(
             gtkTreeModelSortPointer.reinterpret(),
-            childIter.gtkTreeIterPointer.reinterpret(),
-            sortedIter.gtkTreeIterPointer.reinterpret()
+            childIter.gPointer.reinterpret(),
+            sortedIter.gPointer.reinterpret()
         )
 
     /**
@@ -232,7 +232,7 @@ public open class TreeModelSort(pointer: CPointer<GtkTreeModelSort>) :
     public open fun convertPathToChildPath(sortedPath: TreePath): TreePath? =
         gtk_tree_model_sort_convert_path_to_child_path(
             gtkTreeModelSortPointer.reinterpret(),
-            sortedPath.gtkTreePathPointer.reinterpret()
+            sortedPath.gPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }
@@ -248,7 +248,7 @@ public open class TreeModelSort(pointer: CPointer<GtkTreeModelSort>) :
      */
     public open fun iterIsValid(iter: TreeIter): Boolean = gtk_tree_model_sort_iter_is_valid(
         gtkTreeModelSortPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
+        iter.gPointer.reinterpret()
     ).asBoolean()
 
     /**

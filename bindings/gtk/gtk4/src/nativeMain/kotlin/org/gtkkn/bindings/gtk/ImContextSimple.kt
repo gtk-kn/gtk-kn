@@ -61,7 +61,7 @@ import kotlin.Unit
 public open class ImContextSimple(pointer: CPointer<GtkIMContextSimple>) :
     ImContext(pointer.reinterpret()),
     KGTyped {
-    public val gtkIMContextSimplePointer: CPointer<GtkIMContextSimple>
+    public val gtkImContextSimplePointer: CPointer<GtkIMContextSimple>
         get() = gPointer.reinterpret()
 
     /**
@@ -77,7 +77,7 @@ public open class ImContextSimple(pointer: CPointer<GtkIMContextSimple>) :
      * @param composeFile The path of compose file
      */
     public open fun addComposeFile(composeFile: String): Unit =
-        gtk_im_context_simple_add_compose_file(gtkIMContextSimplePointer.reinterpret(), composeFile)
+        gtk_im_context_simple_add_compose_file(gtkImContextSimplePointer.reinterpret(), composeFile)
 
     public companion object : TypeCompanion<ImContextSimple> {
         override val type: GeneratedClassKGType<ImContextSimple> =

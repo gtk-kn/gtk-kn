@@ -73,8 +73,8 @@ public interface RemoteActionGroup :
         g_remote_action_group_activate_action_full(
             gioRemoteActionGroupPointer.reinterpret(),
             actionName,
-            parameter?.glibVariantPointer?.reinterpret(),
-            platformData.glibVariantPointer.reinterpret()
+            parameter?.gPointer?.reinterpret(),
+            platformData.gPointer.reinterpret()
         )
 
     /**
@@ -98,8 +98,8 @@ public interface RemoteActionGroup :
         g_remote_action_group_change_action_state_full(
             gioRemoteActionGroupPointer.reinterpret(),
             actionName,
-            `value`.glibVariantPointer.reinterpret(),
-            platformData.glibVariantPointer.reinterpret()
+            `value`.gPointer.reinterpret(),
+            platformData.gPointer.reinterpret()
         )
 
     private data class Wrapper(private val pointer: CPointer<GRemoteActionGroup>) : RemoteActionGroup {

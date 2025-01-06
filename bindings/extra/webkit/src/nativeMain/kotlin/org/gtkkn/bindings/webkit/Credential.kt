@@ -32,7 +32,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_2
 public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(pointer) {
-    public val webkitCredentialPointer: CPointer<WebKitCredential> = pointer
+    public val gPointer: CPointer<WebKitCredential> = pointer
 
     /**
      * Make a copy of the #WebKitCredential.
@@ -41,7 +41,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun copy(): Credential = webkit_credential_copy(webkitCredentialPointer.reinterpret())!!.run {
+    public fun copy(): Credential = webkit_credential_copy(gPointer.reinterpret())!!.run {
         Credential(reinterpret())
     }
 
@@ -51,7 +51,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun free(): Unit = webkit_credential_free(webkitCredentialPointer.reinterpret())
+    public fun free(): Unit = webkit_credential_free(gPointer.reinterpret())
 
     /**
      * Get the certificate currently held by this #WebKitCredential.
@@ -60,10 +60,9 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.34
      */
     @WebKitVersion2_34
-    public fun getCertificate(): TlsCertificate =
-        webkit_credential_get_certificate(webkitCredentialPointer.reinterpret())!!.run {
-            TlsCertificate(reinterpret())
-        }
+    public fun getCertificate(): TlsCertificate = webkit_credential_get_certificate(gPointer.reinterpret())!!.run {
+        TlsCertificate(reinterpret())
+    }
 
     /**
      * Get the password currently held by this #WebKitCredential.
@@ -73,8 +72,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      */
     @WebKitVersion2_2
     public fun getPassword(): String =
-        webkit_credential_get_password(webkitCredentialPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_credential_get_password(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the persistence mode currently held by this #WebKitCredential.
@@ -83,10 +81,9 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun getPersistence(): CredentialPersistence =
-        webkit_credential_get_persistence(webkitCredentialPointer.reinterpret()).run {
-            CredentialPersistence.fromNativeValue(this)
-        }
+    public fun getPersistence(): CredentialPersistence = webkit_credential_get_persistence(gPointer.reinterpret()).run {
+        CredentialPersistence.fromNativeValue(this)
+    }
 
     /**
      * Get the username currently held by this #WebKitCredential.
@@ -96,8 +93,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      */
     @WebKitVersion2_2
     public fun getUsername(): String =
-        webkit_credential_get_username(webkitCredentialPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_credential_get_username(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determine whether this credential has a password stored.
@@ -106,8 +102,7 @@ public class Credential(pointer: CPointer<WebKitCredential>) : ProxyInstance(poi
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun hasPassword(): Boolean =
-        webkit_credential_has_password(webkitCredentialPointer.reinterpret()).asBoolean()
+    public fun hasPassword(): Boolean = webkit_credential_has_password(gPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**

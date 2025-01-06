@@ -14,8 +14,8 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoGlyphItem
 import org.gtkkn.native.pango.pango_glyph_item_apply_attrs
 import org.gtkkn.native.pango.pango_glyph_item_copy
@@ -39,35 +39,35 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `logical_widths`: Array parameter of type gint is not supported
- * - parameter `log_attrs`: LogAttr
+ * - parameter `log_attrs`: Not-pointer record LogAttr is ignored
  */
 public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoGlyphItemPointer: CPointer<PangoGlyphItem> = pointer
+    public val gPointer: CPointer<PangoGlyphItem> = pointer
 
     /**
      * corresponding `PangoItem`
      */
     public var item: Item?
-        get() = pangoGlyphItemPointer.pointed.item?.run {
+        get() = gPointer.pointed.item?.run {
             Item(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphItemPointer.pointed.item = value?.pangoItemPointer
+            gPointer.pointed.item = value?.gPointer
         }
 
     /**
      * corresponding `PangoGlyphString`
      */
     public var glyphs: GlyphString?
-        get() = pangoGlyphItemPointer.pointed.glyphs?.run {
+        get() = gPointer.pointed.glyphs?.run {
             GlyphString(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphItemPointer.pointed.glyphs = value?.pangoGlyphStringPointer
+            gPointer.pointed.glyphs = value?.gPointer
         }
 
     /**
@@ -75,11 +75,11 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      *   of the containing line. Positive values shift upwards
      */
     public var yOffset: gint
-        get() = pangoGlyphItemPointer.pointed.y_offset
+        get() = gPointer.pointed.y_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphItemPointer.pointed.y_offset = value
+            gPointer.pointed.y_offset = value
         }
 
     /**
@@ -87,11 +87,11 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      *   glyph item. Positive values shift right
      */
     public var startXOffset: gint
-        get() = pangoGlyphItemPointer.pointed.start_x_offset
+        get() = gPointer.pointed.start_x_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphItemPointer.pointed.start_x_offset = value
+            gPointer.pointed.start_x_offset = value
         }
 
     /**
@@ -99,11 +99,11 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      *   glyph item. Positive values shift right
      */
     public var endXOffset: gint
-        get() = pangoGlyphItemPointer.pointed.end_x_offset
+        get() = gPointer.pointed.end_x_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphItemPointer.pointed.end_x_offset = value
+            gPointer.pointed.end_x_offset = value
         }
 
     /**
@@ -224,13 +224,10 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun applyAttrs(text: String, list: AttrList): SList = pango_glyph_item_apply_attrs(
-        pangoGlyphItemPointer.reinterpret(),
-        text,
-        list.pangoAttrListPointer.reinterpret()
-    )!!.run {
-        SList(reinterpret())
-    }
+    public fun applyAttrs(text: String, list: AttrList): SList =
+        pango_glyph_item_apply_attrs(gPointer.reinterpret(), text, list.gPointer.reinterpret())!!.run {
+            SList(reinterpret())
+        }
 
     /**
      * Make a deep copy of an existing `PangoGlyphItem` structure.
@@ -239,7 +236,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.20
      */
     @PangoVersion1_20
-    public fun copy(): GlyphItem? = pango_glyph_item_copy(pangoGlyphItemPointer.reinterpret())?.run {
+    public fun copy(): GlyphItem? = pango_glyph_item_copy(gPointer.reinterpret())?.run {
         GlyphItem(reinterpret())
     }
 
@@ -249,7 +246,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun free(): Unit = pango_glyph_item_free(pangoGlyphItemPointer.reinterpret())
+    public fun free(): Unit = pango_glyph_item_free(gPointer.reinterpret())
 
     /**
      * Modifies @orig to cover only the text after @split_index, and
@@ -274,7 +271,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     @PangoVersion1_2
     public fun split(text: String, splitIndex: gint): GlyphItem? =
-        pango_glyph_item_split(pangoGlyphItemPointer.reinterpret(), text, splitIndex)?.run {
+        pango_glyph_item_split(gPointer.reinterpret(), text, splitIndex)?.run {
             GlyphItem(reinterpret())
         }
 

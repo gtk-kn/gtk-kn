@@ -27,9 +27,9 @@ import org.gtkkn.native.gio.g_dbus_object_skeleton_new
 import org.gtkkn.native.gio.g_dbus_object_skeleton_remove_interface
 import org.gtkkn.native.gio.g_dbus_object_skeleton_remove_interface_by_name
 import org.gtkkn.native.gio.g_dbus_object_skeleton_set_object_path
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong

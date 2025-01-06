@@ -42,9 +42,9 @@ import org.gtkkn.native.adw.adw_toast_set_priority
 import org.gtkkn.native.adw.adw_toast_set_timeout
 import org.gtkkn.native.adw.adw_toast_set_title
 import org.gtkkn.native.adw.adw_toast_set_use_markup
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -420,10 +420,8 @@ public class Toast(pointer: CPointer<AdwToast>) :
      *
      * @param actionTarget the action target
      */
-    public fun setActionTargetValue(actionTarget: Variant? = null): Unit = adw_toast_set_action_target_value(
-        adwToastPointer.reinterpret(),
-        actionTarget?.glibVariantPointer?.reinterpret()
-    )
+    public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
+        adw_toast_set_action_target_value(adwToastPointer.reinterpret(), actionTarget?.gPointer?.reinterpret())
 
     /**
      * Sets the action name and its parameter.

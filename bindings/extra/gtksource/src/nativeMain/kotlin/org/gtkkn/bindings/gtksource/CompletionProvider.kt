@@ -24,10 +24,10 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_activate
 import org.gtkkn.native.gtksource.gtk_source_completion_provider_display
@@ -147,7 +147,7 @@ public interface CompletionProvider :
      */
     public fun isTrigger(iter: TextIter, ch: gunichar): Boolean = gtk_source_completion_provider_is_trigger(
         gtksourceCompletionProviderPointer.reinterpret(),
-        iter.gtkTextIterPointer.reinterpret(),
+        iter.gPointer.reinterpret(),
         ch
     ).asBoolean()
 

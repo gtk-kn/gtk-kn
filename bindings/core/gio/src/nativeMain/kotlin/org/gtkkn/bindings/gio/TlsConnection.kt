@@ -54,10 +54,10 @@ import org.gtkkn.native.gio.g_tls_connection_set_rehandshake_mode
 import org.gtkkn.native.gio.g_tls_connection_set_require_close_notify
 import org.gtkkn.native.gio.g_tls_connection_set_use_system_certdb
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String

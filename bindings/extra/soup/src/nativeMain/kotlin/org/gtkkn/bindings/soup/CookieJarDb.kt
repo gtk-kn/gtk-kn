@@ -32,7 +32,7 @@ import kotlin.String
 public class CookieJarDb(pointer: CPointer<SoupCookieJarDB>) :
     CookieJar(pointer.reinterpret()),
     KGTyped {
-    public val soupCookieJarDBPointer: CPointer<SoupCookieJarDB>
+    public val soupCookieJarDbPointer: CPointer<SoupCookieJarDB>
         get() = gPointer.reinterpret()
 
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>

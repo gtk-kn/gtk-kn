@@ -45,8 +45,8 @@ import org.gtkkn.native.gio.g_subprocess_wait_check_async
 import org.gtkkn.native.gio.g_subprocess_wait_check_finish
 import org.gtkkn.native.gio.g_subprocess_wait_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -172,7 +172,7 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
         callback: AsyncReadyCallback?,
     ): Unit = g_subprocess_communicate_async(
         gioSubprocessPointer.reinterpret(),
-        stdinBuf?.glibBytesPointer?.reinterpret(),
+        stdinBuf?.gPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

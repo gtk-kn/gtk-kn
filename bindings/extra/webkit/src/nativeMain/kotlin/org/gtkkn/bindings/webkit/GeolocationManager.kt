@@ -17,9 +17,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.webkit.WebKitGeolocationManager
 import org.gtkkn.native.webkit.webkit_geolocation_manager_failed
 import org.gtkkn.native.webkit.webkit_geolocation_manager_get_enable_high_accuracy
@@ -86,7 +86,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
     @WebKitVersion2_26
     public fun updatePosition(position: GeolocationPosition): Unit = webkit_geolocation_manager_update_position(
         webkitGeolocationManagerPointer.reinterpret(),
-        position.webkitGeolocationPositionPointer.reinterpret()
+        position.gPointer.reinterpret()
     )
 
     /**

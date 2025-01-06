@@ -27,8 +27,8 @@ import org.gtkkn.native.gio.g_network_address_new_loopback
 import org.gtkkn.native.gio.g_network_address_parse
 import org.gtkkn.native.gio.g_network_address_parse_uri
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint16
 import kotlin.Result
 import kotlin.String
 

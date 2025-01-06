@@ -146,7 +146,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
         g_signal_group_connect_closure(
             gobjectSignalGroupPointer.reinterpret(),
             detailedSignal,
-            closure.gobjectClosurePointer.reinterpret(),
+            closure.gPointer.reinterpret(),
             after.asGBoolean()
         )
 

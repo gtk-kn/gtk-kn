@@ -26,8 +26,8 @@ import org.gtkkn.native.gio.g_menu_prepend_section
 import org.gtkkn.native.gio.g_menu_prepend_submenu
 import org.gtkkn.native.gio.g_menu_remove
 import org.gtkkn.native.gio.g_menu_remove_all
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 

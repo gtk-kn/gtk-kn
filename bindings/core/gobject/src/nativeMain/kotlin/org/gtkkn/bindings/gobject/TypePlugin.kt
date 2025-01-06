@@ -86,7 +86,7 @@ public interface TypePlugin :
             gobjectTypePluginPointer.reinterpret(),
             instanceType,
             interfaceType,
-            info.gobjectInterfaceInfoPointer.reinterpret()
+            info.gPointer.reinterpret()
         )
 
     /**
@@ -102,8 +102,8 @@ public interface TypePlugin :
         g_type_plugin_complete_type_info(
             gobjectTypePluginPointer.reinterpret(),
             gType,
-            info.gobjectTypeInfoPointer.reinterpret(),
-            valueTable.gobjectTypeValueTablePointer.reinterpret()
+            info.gPointer.reinterpret(),
+            valueTable.gPointer.reinterpret()
         )
 
     /**

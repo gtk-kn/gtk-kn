@@ -49,11 +49,11 @@ import org.gtkkn.native.gio.g_mount_operation_set_password
 import org.gtkkn.native.gio.g_mount_operation_set_password_save
 import org.gtkkn.native.gio.g_mount_operation_set_pim
 import org.gtkkn.native.gio.g_mount_operation_set_username
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong

@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gsk.GskShadow
 import kotlin.Pair
 import kotlin.String
@@ -21,42 +21,42 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `color`: Gdk.RGBA
+ * - field `color`: Not-pointer record RGBA is ignored
  */
 public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gskShadowPointer: CPointer<GskShadow> = pointer
+    public val gPointer: CPointer<GskShadow> = pointer
 
     /**
      * the horizontal offset of the shadow
      */
     public var dx: gfloat
-        get() = gskShadowPointer.pointed.dx
+        get() = gPointer.pointed.dx
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskShadowPointer.pointed.dx = value
+            gPointer.pointed.dx = value
         }
 
     /**
      * the vertical offset of the shadow
      */
     public var dy: gfloat
-        get() = gskShadowPointer.pointed.dy
+        get() = gPointer.pointed.dy
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskShadowPointer.pointed.dy = value
+            gPointer.pointed.dy = value
         }
 
     /**
      * the radius of the shadow
      */
     public var radius: gfloat
-        get() = gskShadowPointer.pointed.radius
+        get() = gPointer.pointed.radius
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskShadowPointer.pointed.radius = value
+            gPointer.pointed.radius = value
         }
 
     /**

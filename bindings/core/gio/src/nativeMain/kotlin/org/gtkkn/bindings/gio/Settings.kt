@@ -78,15 +78,15 @@ import org.gtkkn.native.gio.g_settings_set_uint64
 import org.gtkkn.native.gio.g_settings_set_value
 import org.gtkkn.native.gio.g_settings_sync
 import org.gtkkn.native.gio.g_settings_unbind
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -475,7 +475,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
         path: String? = null,
     ) : this(
         g_settings_new_full(
-            schema.gioSettingsSchemaPointer.reinterpret(),
+            schema.gPointer.reinterpret(),
             backend?.gioSettingsBackendPointer?.reinterpret(),
             path
         )!!.reinterpret()
@@ -1035,11 +1035,8 @@ public open class Settings(pointer: CPointer<GSettings>) :
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun rangeCheck(key: String, `value`: Variant): Boolean = g_settings_range_check(
-        gioSettingsPointer.reinterpret(),
-        key,
-        `value`.glibVariantPointer.reinterpret()
-    ).asBoolean()
+    public open fun rangeCheck(key: String, `value`: Variant): Boolean =
+        g_settings_range_check(gioSettingsPointer.reinterpret(), key, `value`.gPointer.reinterpret()).asBoolean()
 
     /**
      * Resets @key to its default value.
@@ -1265,11 +1262,8 @@ public open class Settings(pointer: CPointer<GSettings>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setValue(key: String, `value`: Variant): Boolean = g_settings_set_value(
-        gioSettingsPointer.reinterpret(),
-        key,
-        `value`.glibVariantPointer.reinterpret()
-    ).asBoolean()
+    public open fun setValue(key: String, `value`: Variant): Boolean =
+        g_settings_set_value(gioSettingsPointer.reinterpret(), key, `value`.gPointer.reinterpret()).asBoolean()
 
     /**
      * The "changed" signal is emitted when a key has potentially changed.

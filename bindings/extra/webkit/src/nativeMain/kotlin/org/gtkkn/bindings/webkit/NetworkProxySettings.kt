@@ -28,7 +28,7 @@ import kotlin.collections.List
  */
 @WebKitVersion2_16
 public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>) : ProxyInstance(pointer) {
-    public val webkitNetworkProxySettingsPointer: CPointer<WebKitNetworkProxySettings> = pointer
+    public val gPointer: CPointer<WebKitNetworkProxySettings> = pointer
 
     /**
      * Adds a URI-scheme-specific proxy.
@@ -43,11 +43,7 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      */
     @WebKitVersion2_16
     public fun addProxyForScheme(scheme: String, proxyUri: String): Unit =
-        webkit_network_proxy_settings_add_proxy_for_scheme(
-            webkitNetworkProxySettingsPointer.reinterpret(),
-            scheme,
-            proxyUri
-        )
+        webkit_network_proxy_settings_add_proxy_for_scheme(gPointer.reinterpret(), scheme, proxyUri)
 
     /**
      * Make a copy of the #WebKitNetworkProxySettings.
@@ -56,10 +52,9 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun copy(): NetworkProxySettings =
-        webkit_network_proxy_settings_copy(webkitNetworkProxySettingsPointer.reinterpret())!!.run {
-            NetworkProxySettings(reinterpret())
-        }
+    public fun copy(): NetworkProxySettings = webkit_network_proxy_settings_copy(gPointer.reinterpret())!!.run {
+        NetworkProxySettings(reinterpret())
+    }
 
     /**
      * Free the #WebKitNetworkProxySettings.
@@ -67,7 +62,7 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun free(): Unit = webkit_network_proxy_settings_free(webkitNetworkProxySettingsPointer.reinterpret())
+    public fun free(): Unit = webkit_network_proxy_settings_free(gPointer.reinterpret())
 
     public companion object {
         /**

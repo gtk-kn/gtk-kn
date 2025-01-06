@@ -30,7 +30,7 @@ import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
  *
  * ## Skipped during bindings generation
  *
- * - parameter `colors`: Gdk.RGBA
+ * - parameter `colors`: Not-pointer record RGBA is ignored
  *
  * @since 4.6
  */

@@ -177,10 +177,7 @@ import kotlin.Unit
  * ```
  */
 public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
-    public val gPointer: CPointer<GtkExpression>
-    init {
-        gPointer = pointer.reinterpret()
-    }
+    public val gPointer: CPointer<GtkExpression> = pointer
 
     /**
      * Bind `target`'s property named `property` to `self`.
@@ -231,7 +228,7 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
     public open fun evaluate(`this`: Object? = null, `value`: Value): Boolean = gtk_expression_evaluate(
         gPointer.reinterpret(),
         `this`?.gPointer?.reinterpret(),
-        `value`.gobjectValuePointer.reinterpret()
+        `value`.gPointer.reinterpret()
     ).asBoolean()
 
     /**

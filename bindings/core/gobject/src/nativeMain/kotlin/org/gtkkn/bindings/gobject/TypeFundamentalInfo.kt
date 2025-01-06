@@ -21,19 +21,19 @@ import kotlin.native.ref.createCleaner
  */
 public class TypeFundamentalInfo(pointer: CPointer<GTypeFundamentalInfo>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gobjectTypeFundamentalInfoPointer: CPointer<GTypeFundamentalInfo> = pointer
+    public val gPointer: CPointer<GTypeFundamentalInfo> = pointer
 
     /**
      * #GTypeFundamentalFlags describing the characteristics of the fundamental type
      */
     public var typeFlags: TypeFundamentalFlags
-        get() = gobjectTypeFundamentalInfoPointer.pointed.type_flags.run {
+        get() = gPointer.pointed.type_flags.run {
             TypeFundamentalFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectTypeFundamentalInfoPointer.pointed.type_flags = value.mask
+            gPointer.pointed.type_flags = value.mask
         }
 
     /**

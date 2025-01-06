@@ -29,7 +29,7 @@ import kotlin.Unit
  */
 @GtkVersion4_14
 public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointer) {
-    public val gtkPrintSetupPointer: CPointer<GtkPrintSetup> = pointer
+    public val gPointer: CPointer<GtkPrintSetup> = pointer
 
     /**
      * Returns the page setup of @setup.
@@ -41,7 +41,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer.reinterpret())?.run {
+    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gPointer.reinterpret())?.run {
         PageSetup(reinterpret())
     }
 
@@ -55,10 +55,9 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPrintSettings(): PrintSettings? =
-        gtk_print_setup_get_print_settings(gtkPrintSetupPointer.reinterpret())?.run {
-            PrintSettings(reinterpret())
-        }
+    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gPointer.reinterpret())?.run {
+        PrintSettings(reinterpret())
+    }
 
     /**
      * Increase the reference count of @setup.
@@ -67,7 +66,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun ref(): PrintSetup = gtk_print_setup_ref(gtkPrintSetupPointer.reinterpret())!!.run {
+    public fun ref(): PrintSetup = gtk_print_setup_ref(gPointer.reinterpret())!!.run {
         PrintSetup(reinterpret())
     }
 
@@ -80,7 +79,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun unref(): Unit = gtk_print_setup_unref(gtkPrintSetupPointer.reinterpret())
+    public fun unref(): Unit = gtk_print_setup_unref(gPointer.reinterpret())
 
     public companion object {
         /**

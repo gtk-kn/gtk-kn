@@ -30,21 +30,21 @@ import kotlin.Unit
  * encoded in UTF-8.
  */
 public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(pointer) {
-    public val gtksourceEncodingPointer: CPointer<GtkSourceEncoding> = pointer
+    public val gPointer: CPointer<GtkSourceEncoding> = pointer
 
     /**
      * Used by language bindings.
      *
      * @return a copy of @enc.
      */
-    public fun copy(): Encoding = gtk_source_encoding_copy(gtksourceEncodingPointer.reinterpret())!!.run {
+    public fun copy(): Encoding = gtk_source_encoding_copy(gPointer.reinterpret())!!.run {
         Encoding(reinterpret())
     }
 
     /**
      * Used by language bindings.
      */
-    public fun free(): Unit = gtk_source_encoding_free(gtksourceEncodingPointer.reinterpret())
+    public fun free(): Unit = gtk_source_encoding_free(gPointer.reinterpret())
 
     /**
      * Gets the character set of the #GtkSourceEncoding, such as "UTF-8" or
@@ -53,24 +53,23 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return the character set of the #GtkSourceEncoding.
      */
     public fun getCharset(): String =
-        gtk_source_encoding_get_charset(gtksourceEncodingPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_source_encoding_get_charset(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the #GtkSourceEncoding such as "Unicode" or "Western".
      *
      * @return the name of the #GtkSourceEncoding.
      */
-    public fun getName(): String = gtk_source_encoding_get_name(gtksourceEncodingPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getName(): String =
+        gtk_source_encoding_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      *
      *
      * @return a string representation. Free with g_free() when no longer needed.
      */
-    override fun toString(): String = gtk_source_encoding_to_string(gtksourceEncodingPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    override fun toString(): String =
+        gtk_source_encoding_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

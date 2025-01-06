@@ -36,9 +36,9 @@ import org.gtkkn.native.glib.g_regex_ref
 import org.gtkkn.native.glib.g_regex_split
 import org.gtkkn.native.glib.g_regex_split_simple
 import org.gtkkn.native.glib.g_regex_unref
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_regex_get_type
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -116,7 +116,7 @@ import kotlin.collections.List
  */
 @GLibVersion2_14
 public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
-    public val glibRegexPointer: CPointer<GRegex> = pointer
+    public val gPointer: CPointer<GRegex> = pointer
 
     /**
      * Returns the number of capturing subpatterns in the pattern.
@@ -125,7 +125,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getCaptureCount(): gint = g_regex_get_capture_count(glibRegexPointer.reinterpret())
+    public fun getCaptureCount(): gint = g_regex_get_capture_count(gPointer.reinterpret())
 
     /**
      * Returns the compile options that @regex was created with.
@@ -138,7 +138,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getCompileFlags(): RegexCompileFlags = g_regex_get_compile_flags(glibRegexPointer.reinterpret()).run {
+    public fun getCompileFlags(): RegexCompileFlags = g_regex_get_compile_flags(gPointer.reinterpret()).run {
         RegexCompileFlags(this)
     }
 
@@ -149,7 +149,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun getHasCrOrLf(): Boolean = g_regex_get_has_cr_or_lf(glibRegexPointer.reinterpret()).asBoolean()
+    public fun getHasCrOrLf(): Boolean = g_regex_get_has_cr_or_lf(gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the match options that @regex was created with.
@@ -158,7 +158,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getMatchFlags(): RegexMatchFlags = g_regex_get_match_flags(glibRegexPointer.reinterpret()).run {
+    public fun getMatchFlags(): RegexMatchFlags = g_regex_get_match_flags(gPointer.reinterpret()).run {
         RegexMatchFlags(this)
     }
 
@@ -171,7 +171,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getMaxBackref(): gint = g_regex_get_max_backref(glibRegexPointer.reinterpret())
+    public fun getMaxBackref(): gint = g_regex_get_max_backref(gPointer.reinterpret())
 
     /**
      * Gets the number of characters in the longest lookbehind assertion in the
@@ -182,7 +182,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.38
      */
     @GLibVersion2_38
-    public fun getMaxLookbehind(): gint = g_regex_get_max_lookbehind(glibRegexPointer.reinterpret())
+    public fun getMaxLookbehind(): gint = g_regex_get_max_lookbehind(gPointer.reinterpret())
 
     /**
      * Gets the pattern string associated with @regex, i.e. a copy of
@@ -193,7 +193,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun getPattern(): String =
-        g_regex_get_pattern(glibRegexPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_regex_get_pattern(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the number of the subexpression named @name.
@@ -204,7 +204,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getStringNumber(name: String): gint = g_regex_get_string_number(glibRegexPointer.reinterpret(), name)
+    public fun getStringNumber(name: String): gint = g_regex_get_string_number(gPointer.reinterpret(), name)
 
     /**
      * Increases reference count of @regex by 1.
@@ -213,7 +213,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun ref(): Regex = g_regex_ref(glibRegexPointer.reinterpret())!!.run {
+    public fun ref(): Regex = g_regex_ref(gPointer.reinterpret())!!.run {
         Regex(reinterpret())
     }
 
@@ -244,7 +244,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun split(string: String, matchOptions: RegexMatchFlags): List<String> =
-        g_regex_split(glibRegexPointer.reinterpret(), string, matchOptions.mask)?.toKStringList()
+        g_regex_split(gPointer.reinterpret(), string, matchOptions.mask)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -254,7 +254,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun unref(): Unit = g_regex_unref(glibRegexPointer.reinterpret())
+    public fun unref(): Unit = g_regex_unref(gPointer.reinterpret())
 
     public companion object {
         /**

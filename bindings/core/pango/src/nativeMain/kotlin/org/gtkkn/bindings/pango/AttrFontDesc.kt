@@ -23,22 +23,22 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Attribute
+ * - field `attr`: Not-pointer record Attribute is ignored
  */
 public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoAttrFontDescPointer: CPointer<PangoAttrFontDesc> = pointer
+    public val gPointer: CPointer<PangoAttrFontDesc> = pointer
 
     /**
      * the font description which is the value of this attribute
      */
     public var desc: FontDescription?
-        get() = pangoAttrFontDescPointer.pointed.desc?.run {
+        get() = gPointer.pointed.desc?.run {
             FontDescription(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrFontDescPointer.pointed.desc = value?.pangoFontDescriptionPointer
+            gPointer.pointed.desc = value?.gPointer
         }
 
     /**
@@ -110,9 +110,8 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(desc: FontDescription): Attribute =
-            pango_attr_font_desc_new(desc.pangoFontDescriptionPointer.reinterpret())!!.run {
-                Attribute(reinterpret())
-            }
+        public fun new(desc: FontDescription): Attribute = pango_attr_font_desc_new(desc.gPointer.reinterpret())!!.run {
+            Attribute(reinterpret())
+        }
     }
 }

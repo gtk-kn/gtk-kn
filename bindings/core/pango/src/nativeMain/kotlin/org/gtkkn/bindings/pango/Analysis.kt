@@ -11,7 +11,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.guint8
+import org.gtkkn.native.glib.guint8
 import org.gtkkn.native.pango.PangoAnalysis
 import kotlin.Pair
 import kotlin.String
@@ -23,89 +23,89 @@ import kotlin.native.ref.createCleaner
  * the properties of a segment of text.
  */
 public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoAnalysisPointer: CPointer<PangoAnalysis> = pointer
+    public val gPointer: CPointer<PangoAnalysis> = pointer
 
     /**
      * the font for this segment.
      */
     public var font: Font?
-        get() = pangoAnalysisPointer.pointed.font?.run {
+        get() = gPointer.pointed.font?.run {
             Font(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.font = value?.pangoFontPointer?.reinterpret()
+            gPointer.pointed.font = value?.pangoFontPointer?.reinterpret()
         }
 
     /**
      * the bidirectional level for this segment.
      */
     public var level: guint8
-        get() = pangoAnalysisPointer.pointed.level
+        get() = gPointer.pointed.level
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.level = value
+            gPointer.pointed.level = value
         }
 
     /**
      * the glyph orientation for this segment (A `PangoGravity`).
      */
     public var gravity: guint8
-        get() = pangoAnalysisPointer.pointed.gravity
+        get() = gPointer.pointed.gravity
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.gravity = value
+            gPointer.pointed.gravity = value
         }
 
     /**
      * boolean flags for this segment (Since: 1.16).
      */
     public var flags: guint8
-        get() = pangoAnalysisPointer.pointed.flags
+        get() = gPointer.pointed.flags
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.flags = value
+            gPointer.pointed.flags = value
         }
 
     /**
      * the detected script for this segment (A `PangoScript`) (Since: 1.18).
      */
     public var script: guint8
-        get() = pangoAnalysisPointer.pointed.script
+        get() = gPointer.pointed.script
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.script = value
+            gPointer.pointed.script = value
         }
 
     /**
      * the detected language for this segment.
      */
     public var language: Language?
-        get() = pangoAnalysisPointer.pointed.language?.run {
+        get() = gPointer.pointed.language?.run {
             Language(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.language = value?.pangoLanguagePointer
+            gPointer.pointed.language = value?.gPointer
         }
 
     /**
      * extra attributes for this segment.
      */
     public var extraAttrs: SList?
-        get() = pangoAnalysisPointer.pointed.extra_attrs?.run {
+        get() = gPointer.pointed.extra_attrs?.run {
             SList(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAnalysisPointer.pointed.extra_attrs = value?.glibSListPointer
+            gPointer.pointed.extra_attrs = value?.gPointer
         }
 
     /**

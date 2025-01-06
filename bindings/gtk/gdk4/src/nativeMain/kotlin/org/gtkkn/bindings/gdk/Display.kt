@@ -60,9 +60,9 @@ import org.gtkkn.native.gdk.gdk_display_supports_input_shapes
 import org.gtkkn.native.gdk.gdk_display_supports_shadow_width
 import org.gtkkn.native.gdk.gdk_display_sync
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -284,11 +284,8 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return true if the setting existed and a value was stored
      *   in @value, false otherwise
      */
-    public open fun getSetting(name: String, `value`: Value): Boolean = gdk_display_get_setting(
-        gdkDisplayPointer.reinterpret(),
-        name,
-        `value`.gobjectValuePointer.reinterpret()
-    ).asBoolean()
+    public open fun getSetting(name: String, `value`: Value): Boolean =
+        gdk_display_get_setting(gdkDisplayPointer.reinterpret(), name, `value`.gPointer.reinterpret()).asBoolean()
 
     /**
      * Gets the startup notification ID for a Wayland display, or null

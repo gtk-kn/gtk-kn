@@ -23,7 +23,7 @@ import kotlin.native.ref.createCleaner
  * using the following functions.
  */
 public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioStaticResourcePointer: CPointer<GStaticResource> = pointer
+    public val gPointer: CPointer<GStaticResource> = pointer
 
     /**
      * Allocate a new StaticResource.
@@ -66,7 +66,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun fini(): Unit = g_static_resource_fini(gioStaticResourcePointer.reinterpret())
+    public fun fini(): Unit = g_static_resource_fini(gPointer.reinterpret())
 
     /**
      * Gets the GResource that was registered by a call to g_static_resource_init().
@@ -79,7 +79,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getResource(): Resource = g_static_resource_get_resource(gioStaticResourcePointer.reinterpret())!!.run {
+    public fun getResource(): Resource = g_static_resource_get_resource(gPointer.reinterpret())!!.run {
         Resource(reinterpret())
     }
 
@@ -94,5 +94,5 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun `init`(): Unit = g_static_resource_init(gioStaticResourcePointer.reinterpret())
+    public fun `init`(): Unit = g_static_resource_init(gPointer.reinterpret())
 }

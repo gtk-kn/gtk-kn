@@ -30,13 +30,13 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: OptionEntry
+ * - parameter `entries`: Not-pointer record OptionEntry is ignored
  * - parameter `error_func`: OptionErrorFunc
  * - parameter `pre_parse_func`: OptionParseFunc
  * - parameter `destroy`: DestroyNotify
  */
 public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointer) {
-    public val glibOptionGroupPointer: CPointer<GOptionGroup> = pointer
+    public val gPointer: CPointer<GOptionGroup> = pointer
 
     /**
      * Frees a #GOptionGroup. Note that you must not free groups
@@ -45,7 +45,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun free(): Unit = g_option_group_free(glibOptionGroupPointer.reinterpret())
+    public fun free(): Unit = g_option_group_free(gPointer.reinterpret())
 
     /**
      * Increments the reference count of @group by one.
@@ -54,7 +54,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun ref(): OptionGroup = g_option_group_ref(glibOptionGroupPointer.reinterpret())!!.run {
+    public fun ref(): OptionGroup = g_option_group_ref(gPointer.reinterpret())!!.run {
         OptionGroup(reinterpret())
     }
 
@@ -71,7 +71,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      */
     @GLibVersion2_6
     public fun setTranslateFunc(func: TranslateFunc?): Unit = g_option_group_set_translate_func(
-        glibOptionGroupPointer.reinterpret(),
+        gPointer.reinterpret(),
         func?.let {
             TranslateFuncFunc.reinterpret()
         },
@@ -88,7 +88,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      */
     @GLibVersion2_6
     public fun setTranslationDomain(domain: String): Unit =
-        g_option_group_set_translation_domain(glibOptionGroupPointer.reinterpret(), domain)
+        g_option_group_set_translation_domain(gPointer.reinterpret(), domain)
 
     /**
      * Decrements the reference count of @group by one.
@@ -98,7 +98,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun unref(): Unit = g_option_group_unref(glibOptionGroupPointer.reinterpret())
+    public fun unref(): Unit = g_option_group_unref(gPointer.reinterpret())
 
     public companion object {
         /**

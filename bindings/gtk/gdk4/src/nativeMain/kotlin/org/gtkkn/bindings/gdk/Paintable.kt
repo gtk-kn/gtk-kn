@@ -25,10 +25,10 @@ import org.gtkkn.native.gdk.gdk_paintable_invalidate_contents
 import org.gtkkn.native.gdk.gdk_paintable_invalidate_size
 import org.gtkkn.native.gdk.gdk_paintable_new_empty
 import org.gtkkn.native.gdk.gdk_paintable_snapshot
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
 import kotlin.ULong
 import kotlin.Unit
 

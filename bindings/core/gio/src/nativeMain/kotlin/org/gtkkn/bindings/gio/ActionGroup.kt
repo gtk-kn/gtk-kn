@@ -38,9 +38,9 @@ import org.gtkkn.native.gio.g_action_group_get_type
 import org.gtkkn.native.gio.g_action_group_has_action
 import org.gtkkn.native.gio.g_action_group_list_actions
 import org.gtkkn.native.glib.GVariant
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -152,7 +152,7 @@ public interface ActionGroup :
     public fun actionStateChanged(actionName: String, state: Variant): Unit = g_action_group_action_state_changed(
         gioActionGroupPointer.reinterpret(),
         actionName,
-        state.glibVariantPointer.reinterpret()
+        state.gPointer.reinterpret()
     )
 
     /**
@@ -198,7 +198,7 @@ public interface ActionGroup :
     public fun activateAction(actionName: String, parameter: Variant? = null): Unit = g_action_group_activate_action(
         gioActionGroupPointer.reinterpret(),
         actionName,
-        parameter?.glibVariantPointer?.reinterpret()
+        parameter?.gPointer?.reinterpret()
     )
 
     /**
@@ -222,7 +222,7 @@ public interface ActionGroup :
     public fun changeActionState(actionName: String, `value`: Variant): Unit = g_action_group_change_action_state(
         gioActionGroupPointer.reinterpret(),
         actionName,
-        `value`.glibVariantPointer.reinterpret()
+        `value`.gPointer.reinterpret()
     )
 
     /**

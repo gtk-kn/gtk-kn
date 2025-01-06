@@ -37,7 +37,7 @@ public interface TreeDragSource :
      */
     public fun dragDataDelete(path: TreePath): Boolean = gtk_tree_drag_source_drag_data_delete(
         gtkTreeDragSourcePointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
+        path.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -49,12 +49,10 @@ public interface TreeDragSource :
      * @return a `GdkContentProvider` for the
      *    given @path
      */
-    public fun dragDataGet(path: TreePath): ContentProvider? = gtk_tree_drag_source_drag_data_get(
-        gtkTreeDragSourcePointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
-    )?.run {
-        ContentProvider(reinterpret())
-    }
+    public fun dragDataGet(path: TreePath): ContentProvider? =
+        gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer.reinterpret(), path.gPointer.reinterpret())?.run {
+            ContentProvider(reinterpret())
+        }
 
     /**
      * Asks the `GtkTreeDragSource` whether a particular row can be used as
@@ -66,7 +64,7 @@ public interface TreeDragSource :
      */
     public fun rowDraggable(path: TreePath): Boolean = gtk_tree_drag_source_row_draggable(
         gtkTreeDragSourcePointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
+        path.gPointer.reinterpret()
     ).asBoolean()
 
     private data class Wrapper(private val pointer: CPointer<GtkTreeDragSource>) : TreeDragSource {

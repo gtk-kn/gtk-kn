@@ -110,8 +110,8 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
         target.gPointer.reinterpret(),
         targetProperty,
         flags.mask,
-        transformTo?.gobjectClosurePointer?.reinterpret(),
-        transformFrom?.gobjectClosurePointer?.reinterpret()
+        transformTo?.gPointer?.reinterpret(),
+        transformFrom?.gPointer?.reinterpret()
     )
 
     /**

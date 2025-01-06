@@ -12,6 +12,7 @@ import org.gtkkn.native.glib.GAsyncQueue
 import org.gtkkn.native.glib.g_async_queue_length
 import org.gtkkn.native.glib.g_async_queue_length_unlocked
 import org.gtkkn.native.glib.g_async_queue_lock
+import org.gtkkn.native.glib.g_async_queue_new
 import org.gtkkn.native.glib.g_async_queue_pop
 import org.gtkkn.native.glib.g_async_queue_pop_unlocked
 import org.gtkkn.native.glib.g_async_queue_push
@@ -20,6 +21,7 @@ import org.gtkkn.native.glib.g_async_queue_push_front_unlocked
 import org.gtkkn.native.glib.g_async_queue_push_sorted
 import org.gtkkn.native.glib.g_async_queue_push_sorted_unlocked
 import org.gtkkn.native.glib.g_async_queue_push_unlocked
+import org.gtkkn.native.glib.g_async_queue_ref
 import org.gtkkn.native.glib.g_async_queue_ref_unlocked
 import org.gtkkn.native.glib.g_async_queue_remove
 import org.gtkkn.native.glib.g_async_queue_remove_unlocked
@@ -34,9 +36,9 @@ import org.gtkkn.native.glib.g_async_queue_try_pop_unlocked
 import org.gtkkn.native.glib.g_async_queue_unlock
 import org.gtkkn.native.glib.g_async_queue_unref
 import org.gtkkn.native.glib.g_async_queue_unref_and_unlock
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint64
+import org.gtkkn.native.glib.guint64
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -47,12 +49,10 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `ref`: Return type AsyncQueue is unsupported
- * - function `new`: Return type AsyncQueue is unsupported
  * - parameter `item_free_func`: DestroyNotify
  */
 public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer) {
-    public val glibAsyncQueuePointer: CPointer<GAsyncQueue> = pointer
+    public val gPointer: CPointer<GAsyncQueue> = pointer
 
     /**
      * Returns the length of the queue.
@@ -66,7 +66,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *
      * @return the length of the @queue
      */
-    public fun length(): gint = g_async_queue_length(glibAsyncQueuePointer.reinterpret())
+    public fun length(): gint = g_async_queue_length(gPointer.reinterpret())
 
     /**
      * Returns the length of the queue.
@@ -82,7 +82,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *
      * @return the length of the @queue.
      */
-    public fun lengthUnlocked(): gint = g_async_queue_length_unlocked(glibAsyncQueuePointer.reinterpret())
+    public fun lengthUnlocked(): gint = g_async_queue_length_unlocked(gPointer.reinterpret())
 
     /**
      * Acquires the @queue's lock. If another thread is already
@@ -95,7 +95,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * g_async_queue_*_unlocked() functions on @queue. Otherwise,
      * deadlock may occur.
      */
-    public fun lock(): Unit = g_async_queue_lock(glibAsyncQueuePointer.reinterpret())
+    public fun lock(): Unit = g_async_queue_lock(gPointer.reinterpret())
 
     /**
      * Pops data from the @queue. If @queue is empty, this function
@@ -103,7 +103,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *
      * @return data from the queue
      */
-    public fun pop(): gpointer? = g_async_queue_pop(glibAsyncQueuePointer.reinterpret())
+    public fun pop(): gpointer? = g_async_queue_pop(gPointer.reinterpret())
 
     /**
      * Pops data from the @queue. If @queue is empty, this function
@@ -113,7 +113,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *
      * @return data from the queue.
      */
-    public fun popUnlocked(): gpointer? = g_async_queue_pop_unlocked(glibAsyncQueuePointer.reinterpret())
+    public fun popUnlocked(): gpointer? = g_async_queue_pop_unlocked(gPointer.reinterpret())
 
     /**
      * Pushes the @data into the @queue.
@@ -122,7 +122,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *
      * @param data data to push onto the @queue
      */
-    public fun push(`data`: gpointer): Unit = g_async_queue_push(glibAsyncQueuePointer.reinterpret(), `data`)
+    public fun push(`data`: gpointer): Unit = g_async_queue_push(gPointer.reinterpret(), `data`)
 
     /**
      * Pushes the @item into the @queue. @item must not be null.
@@ -134,7 +134,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * @since 2.46
      */
     @GLibVersion2_46
-    public fun pushFront(item: gpointer): Unit = g_async_queue_push_front(glibAsyncQueuePointer.reinterpret(), item)
+    public fun pushFront(item: gpointer): Unit = g_async_queue_push_front(gPointer.reinterpret(), item)
 
     /**
      * Pushes the @item into the @queue. @item must not be null.
@@ -148,8 +148,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * @since 2.46
      */
     @GLibVersion2_46
-    public fun pushFrontUnlocked(item: gpointer): Unit =
-        g_async_queue_push_front_unlocked(glibAsyncQueuePointer.reinterpret(), item)
+    public fun pushFrontUnlocked(item: gpointer): Unit = g_async_queue_push_front_unlocked(gPointer.reinterpret(), item)
 
     /**
      * Inserts @data into @queue using @func to determine the new
@@ -169,7 +168,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      */
     @GLibVersion2_10
     public fun pushSorted(`data`: gpointer, func: CompareDataFunc): Unit = g_async_queue_push_sorted(
-        glibAsyncQueuePointer.reinterpret(),
+        gPointer.reinterpret(),
         `data`,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
@@ -199,7 +198,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
     @GLibVersion2_10
     public fun pushSortedUnlocked(`data`: gpointer? = null, func: CompareDataFunc): Unit =
         g_async_queue_push_sorted_unlocked(
-            glibAsyncQueuePointer.reinterpret(),
+            gPointer.reinterpret(),
             `data`,
             CompareDataFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
@@ -214,13 +213,22 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *
      * @param data data to push onto the @queue
      */
-    public fun pushUnlocked(`data`: gpointer): Unit =
-        g_async_queue_push_unlocked(glibAsyncQueuePointer.reinterpret(), `data`)
+    public fun pushUnlocked(`data`: gpointer): Unit = g_async_queue_push_unlocked(gPointer.reinterpret(), `data`)
+
+    /**
+     * Increases the reference count of the asynchronous @queue by 1.
+     * You do not need to hold the lock to call this function.
+     *
+     * @return the @queue that was passed in (since 2.6)
+     */
+    public fun ref(): AsyncQueue = g_async_queue_ref(gPointer.reinterpret())!!.run {
+        AsyncQueue(reinterpret())
+    }
 
     /**
      * Increases the reference count of the asynchronous @queue by 1.
      */
-    public fun refUnlocked(): Unit = g_async_queue_ref_unlocked(glibAsyncQueuePointer.reinterpret())
+    public fun refUnlocked(): Unit = g_async_queue_ref_unlocked(gPointer.reinterpret())
 
     /**
      * Remove an item from the queue.
@@ -230,8 +238,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * @since 2.46
      */
     @GLibVersion2_46
-    public fun remove(item: gpointer): Boolean =
-        g_async_queue_remove(glibAsyncQueuePointer.reinterpret(), item).asBoolean()
+    public fun remove(item: gpointer): Boolean = g_async_queue_remove(gPointer.reinterpret(), item).asBoolean()
 
     /**
      * Remove an item from the queue.
@@ -244,7 +251,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      */
     @GLibVersion2_46
     public fun removeUnlocked(item: gpointer? = null): Boolean =
-        g_async_queue_remove_unlocked(glibAsyncQueuePointer.reinterpret(), item).asBoolean()
+        g_async_queue_remove_unlocked(gPointer.reinterpret(), item).asBoolean()
 
     /**
      * Sorts @queue using @func.
@@ -275,7 +282,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      */
     @GLibVersion2_10
     public fun sort(func: CompareDataFunc): Unit = g_async_queue_sort(
-        glibAsyncQueuePointer.reinterpret(),
+        gPointer.reinterpret(),
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
@@ -296,7 +303,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      */
     @GLibVersion2_10
     public fun sortUnlocked(func: CompareDataFunc): Unit = g_async_queue_sort_unlocked(
-        glibAsyncQueuePointer.reinterpret(),
+        gPointer.reinterpret(),
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
@@ -315,7 +322,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *   received before @end_time.
      */
     public fun timedPop(endTime: TimeVal): gpointer? =
-        g_async_queue_timed_pop(glibAsyncQueuePointer.reinterpret(), endTime.glibTimeValPointer.reinterpret())
+        g_async_queue_timed_pop(gPointer.reinterpret(), endTime.gPointer.reinterpret())
 
     /**
      * Pops data from the @queue. If the queue is empty, blocks until
@@ -333,7 +340,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *   received before @end_time.
      */
     public fun timedPopUnlocked(endTime: TimeVal): gpointer? =
-        g_async_queue_timed_pop_unlocked(glibAsyncQueuePointer.reinterpret(), endTime.glibTimeValPointer.reinterpret())
+        g_async_queue_timed_pop_unlocked(gPointer.reinterpret(), endTime.gPointer.reinterpret())
 
     /**
      * Pops data from the @queue. If the queue is empty, blocks for
@@ -345,8 +352,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * @return data from the queue or null, when no data is
      *   received before the timeout.
      */
-    public fun timeoutPop(timeout: guint64): gpointer? =
-        g_async_queue_timeout_pop(glibAsyncQueuePointer.reinterpret(), timeout)
+    public fun timeoutPop(timeout: guint64): gpointer? = g_async_queue_timeout_pop(gPointer.reinterpret(), timeout)
 
     /**
      * Pops data from the @queue. If the queue is empty, blocks for
@@ -361,7 +367,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      *   received before the timeout.
      */
     public fun timeoutPopUnlocked(timeout: guint64): gpointer? =
-        g_async_queue_timeout_pop_unlocked(glibAsyncQueuePointer.reinterpret(), timeout)
+        g_async_queue_timeout_pop_unlocked(gPointer.reinterpret(), timeout)
 
     /**
      * Tries to pop data from the @queue. If no data is available,
@@ -370,7 +376,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * @return data from the queue or null, when no data is
      *   available immediately.
      */
-    public fun tryPop(): gpointer? = g_async_queue_try_pop(glibAsyncQueuePointer.reinterpret())
+    public fun tryPop(): gpointer? = g_async_queue_try_pop(gPointer.reinterpret())
 
     /**
      * Tries to pop data from the @queue. If no data is available,
@@ -381,7 +387,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * @return data from the queue or null, when no data is
      *   available immediately.
      */
-    public fun tryPopUnlocked(): gpointer? = g_async_queue_try_pop_unlocked(glibAsyncQueuePointer.reinterpret())
+    public fun tryPopUnlocked(): gpointer? = g_async_queue_try_pop_unlocked(gPointer.reinterpret())
 
     /**
      * Releases the queue's lock.
@@ -390,7 +396,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * the with g_async_queue_lock() leads to undefined
      * behaviour.
      */
-    public fun unlock(): Unit = g_async_queue_unlock(glibAsyncQueuePointer.reinterpret())
+    public fun unlock(): Unit = g_async_queue_unlock(gPointer.reinterpret())
 
     /**
      * Decreases the reference count of the asynchronous @queue by 1.
@@ -400,7 +406,7 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * to use the @queue afterwards, as it might have disappeared.
      * You do not need to hold the lock to call this function.
      */
-    public fun unref(): Unit = g_async_queue_unref(glibAsyncQueuePointer.reinterpret())
+    public fun unref(): Unit = g_async_queue_unref(gPointer.reinterpret())
 
     /**
      * Decreases the reference count of the asynchronous @queue by 1
@@ -408,5 +414,16 @@ public class AsyncQueue(pointer: CPointer<GAsyncQueue>) : ProxyInstance(pointer)
      * the @queue's lock. If the reference count went to 0, the @queue
      * will be destroyed and the memory allocated will be freed.
      */
-    public fun unrefAndUnlock(): Unit = g_async_queue_unref_and_unlock(glibAsyncQueuePointer.reinterpret())
+    public fun unrefAndUnlock(): Unit = g_async_queue_unref_and_unlock(gPointer.reinterpret())
+
+    public companion object {
+        /**
+         * Creates a new asynchronous queue.
+         *
+         * @return a new #GAsyncQueue. Free with g_async_queue_unref()
+         */
+        public fun new(): AsyncQueue = g_async_queue_new()!!.run {
+            AsyncQueue(reinterpret())
+        }
+    }
 }

@@ -52,8 +52,8 @@ import kotlin.Result
  * ## Skipped during bindings generation
  *
  * - function `new`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
- * - parameter `parameters`: GObject.Parameter
+ * - parameter `var_args`: va_list type is not supported
+ * - parameter `parameters`: Not-pointer record Parameter is ignored
  *
  * @since 2.22
  */

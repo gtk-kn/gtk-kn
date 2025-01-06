@@ -27,9 +27,9 @@ import org.gtkkn.native.gio.g_dbus_auth_observer_allow_mechanism
 import org.gtkkn.native.gio.g_dbus_auth_observer_authorize_authenticated_peer
 import org.gtkkn.native.gio.g_dbus_auth_observer_get_type
 import org.gtkkn.native.gio.g_dbus_auth_observer_new
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -138,7 +138,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
     public open fun authorizeAuthenticatedPeer(stream: IoStream, credentials: Credentials? = null): Boolean =
         g_dbus_auth_observer_authorize_authenticated_peer(
             gioDBusAuthObserverPointer.reinterpret(),
-            stream.gioIOStreamPointer.reinterpret(),
+            stream.gioIoStreamPointer.reinterpret(),
             credentials?.gioCredentialsPointer?.reinterpret()
         ).asBoolean()
 

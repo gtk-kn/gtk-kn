@@ -22,12 +22,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.jsc.JSCValue
 import org.gtkkn.native.jsc.jsc_value_array_buffer_get_size
 import org.gtkkn.native.jsc.jsc_value_get_context
@@ -312,7 +312,7 @@ public class Value(pointer: CPointer<JSCValue>) :
     ) : this(
         jsc_value_new_string_from_bytes(
             context.jscContextPointer.reinterpret(),
-            bytes?.glibBytesPointer?.reinterpret()
+            bytes?.gPointer?.reinterpret()
         )!!.reinterpret()
     )
 

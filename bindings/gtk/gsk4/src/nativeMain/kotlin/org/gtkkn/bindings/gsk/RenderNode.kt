@@ -8,6 +8,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.cairo.Context
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.graphene.Rect
@@ -20,6 +21,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gsk.GskRenderNode
 import org.gtkkn.native.gsk.gsk_render_node_deserialize
+import org.gtkkn.native.gsk.gsk_render_node_draw
 import org.gtkkn.native.gsk.gsk_render_node_get_bounds
 import org.gtkkn.native.gsk.gsk_render_node_get_node_type
 import org.gtkkn.native.gsk.gsk_render_node_get_type
@@ -46,16 +48,23 @@ import kotlin.Unit
  * to a [class@Gsk.Renderer] it's safe to release any reference you have on
  * them. All [class@Gsk.RenderNode]s are immutable, you can only specify their
  * properties during construction.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `cr`: cairo.Context
  */
 public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
-    public val gPointer: CPointer<GskRenderNode>
-    init {
-        gPointer = pointer.reinterpret()
-    }
+    public val gPointer: CPointer<GskRenderNode> = pointer
+
+    /**
+     * Draw the contents of @node to the given cairo context.
+     *
+     * Typically, you'll use this function to implement fallback rendering
+     * of `GskRenderNode`s on an intermediate Cairo context, instead of using
+     * the drawing context associated to a [class@Gdk.Surface]'s rendering buffer.
+     *
+     * For advanced nodes that cannot be supported using Cairo, in particular
+     * for nodes doing 3D operations, this function may fail.
+     *
+     * @param cr cairo context to draw to
+     */
+    public open fun draw(cr: Context): Unit = gsk_render_node_draw(gPointer.reinterpret(), cr.gPointer.reinterpret())
 
     /**
      * Retrieves the boundaries of the @node.
@@ -65,7 +74,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      * @param bounds return location for the boundaries
      */
     public open fun getBounds(bounds: Rect): Unit =
-        gsk_render_node_get_bounds(gPointer.reinterpret(), bounds.grapheneRectPointer.reinterpret())
+        gsk_render_node_get_bounds(gPointer.reinterpret(), bounds.gPointer.reinterpret())
 
     /**
      * Returns the type of the @node.
@@ -150,7 +159,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
          * @return a new `GskRenderNode`
          */
         public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc?): RenderNode? = gsk_render_node_deserialize(
-            bytes.glibBytesPointer.reinterpret(),
+            bytes.gPointer.reinterpret(),
             errorFunc?.let {
                 ParseErrorFuncFunc.reinterpret()
             },

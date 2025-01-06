@@ -55,8 +55,8 @@ import org.gtkkn.native.gio.g_desktop_app_info_new_from_filename
 import org.gtkkn.native.gio.g_desktop_app_info_new_from_keyfile
 import org.gtkkn.native.gio.g_desktop_app_info_set_desktop_env
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -130,7 +130,7 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
      */
     public constructor(
         keyFile: KeyFile,
-    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer.reinterpret())!!.reinterpret())
+    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Gets the user-visible display name of the "additional application
@@ -353,7 +353,7 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_desktop_app_info_launch_uris_as_manager(
-            gioDesktopAppInfoPointer.reinterpret(), uris.glibListPointer.reinterpret(), launchContext?.gioAppLaunchContextPointer?.reinterpret(), spawnFlags.mask,
+            gioDesktopAppInfoPointer.reinterpret(), uris.gPointer.reinterpret(), launchContext?.gioAppLaunchContextPointer?.reinterpret(), spawnFlags.mask,
             userSetup?.let {
                 SpawnChildSetupFuncFunc.reinterpret()
             },
@@ -405,7 +405,7 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_desktop_app_info_launch_uris_as_manager_with_fds(
-            gioDesktopAppInfoPointer.reinterpret(), uris.glibListPointer.reinterpret(), launchContext?.gioAppLaunchContextPointer?.reinterpret(), spawnFlags.mask,
+            gioDesktopAppInfoPointer.reinterpret(), uris.gPointer.reinterpret(), launchContext?.gioAppLaunchContextPointer?.reinterpret(), spawnFlags.mask,
             userSetup?.let {
                 SpawnChildSetupFuncFunc.reinterpret()
             },

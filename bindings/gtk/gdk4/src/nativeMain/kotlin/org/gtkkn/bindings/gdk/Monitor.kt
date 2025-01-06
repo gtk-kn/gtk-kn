@@ -33,10 +33,10 @@ import org.gtkkn.native.gdk.gdk_monitor_get_subpixel_layout
 import org.gtkkn.native.gdk.gdk_monitor_get_type
 import org.gtkkn.native.gdk.gdk_monitor_get_width_mm
 import org.gtkkn.native.gdk.gdk_monitor_is_valid
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -237,7 +237,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      * @param geometry a `GdkRectangle` to be filled with the monitor geometry
      */
     public open fun getGeometry(geometry: Rectangle): Unit =
-        gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gdkRectanglePointer.reinterpret())
+        gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gPointer.reinterpret())
 
     /**
      * Returns true if the @monitor object corresponds to a

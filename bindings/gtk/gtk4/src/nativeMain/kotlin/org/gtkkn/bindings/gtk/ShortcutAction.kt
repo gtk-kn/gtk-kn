@@ -95,7 +95,7 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
             gtkShortcutActionPointer.reinterpret(),
             flags.mask,
             widget.gtkWidgetPointer.reinterpret(),
-            args?.glibVariantPointer?.reinterpret()
+            args?.gPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -109,7 +109,7 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.glibStringPointer.reinterpret())
+        gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.gPointer.reinterpret())
 
     /**
      * Prints the given action into a human-readable string.

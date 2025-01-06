@@ -16,11 +16,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -272,7 +272,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param rangeRect return location for the range rectangle
      */
     public open fun getRangeRect(rangeRect: Rectangle): Unit =
-        gtk_range_get_range_rect(gtkRangePointer.reinterpret(), rangeRect.gdkRectanglePointer.reinterpret())
+        gtk_range_get_range_rect(gtkRangePointer.reinterpret(), rangeRect.gPointer.reinterpret())
 
     /**
      * This function is useful mainly for `GtkRange` subclasses.

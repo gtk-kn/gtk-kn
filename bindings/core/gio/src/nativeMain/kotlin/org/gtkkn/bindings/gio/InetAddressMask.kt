@@ -29,8 +29,8 @@ import org.gtkkn.native.gio.g_inet_address_mask_new
 import org.gtkkn.native.gio.g_inet_address_mask_new_from_string
 import org.gtkkn.native.gio.g_inet_address_mask_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress

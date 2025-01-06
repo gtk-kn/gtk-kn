@@ -82,11 +82,11 @@ import org.gtkkn.native.gio.g_application_unmark_busy
 import org.gtkkn.native.gio.g_application_withdraw_notification
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariantDict
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Result
@@ -566,7 +566,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_40
     public open fun addOptionGroup(group: OptionGroup): Unit =
-        g_application_add_option_group(gioApplicationPointer.reinterpret(), group.glibOptionGroupPointer.reinterpret())
+        g_application_add_option_group(gioApplicationPointer.reinterpret(), group.gPointer.reinterpret())
 
     /**
      * Marks @application as busy (see g_application_mark_busy()) while

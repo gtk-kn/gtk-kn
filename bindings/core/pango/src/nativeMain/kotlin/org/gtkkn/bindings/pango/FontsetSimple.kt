@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoFontsetSimple
 import org.gtkkn.native.pango.pango_fontset_simple_append
 import org.gtkkn.native.pango.pango_fontset_simple_get_type
@@ -36,7 +36,7 @@ public open class FontsetSimple(pointer: CPointer<PangoFontsetSimple>) :
      */
     public constructor(
         language: Language,
-    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer.reinterpret())!!.reinterpret())
+    ) : this(pango_fontset_simple_new(language.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds a font to the fontset.

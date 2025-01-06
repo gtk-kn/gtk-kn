@@ -30,7 +30,7 @@ import kotlin.Unit
  */
 @GtkVersion4_12
 public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointer) {
-    public val gtkScrollInfoPointer: CPointer<GtkScrollInfo> = pointer
+    public val gPointer: CPointer<GtkScrollInfo> = pointer
 
     /**
      * Checks if horizontal scrolling is enabled.
@@ -40,7 +40,7 @@ public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointe
      */
     @GtkVersion4_12
     public fun getEnableHorizontal(): Boolean =
-        gtk_scroll_info_get_enable_horizontal(gtkScrollInfoPointer.reinterpret()).asBoolean()
+        gtk_scroll_info_get_enable_horizontal(gPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if vertical scrolling is enabled.
@@ -49,8 +49,7 @@ public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointe
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun getEnableVertical(): Boolean =
-        gtk_scroll_info_get_enable_vertical(gtkScrollInfoPointer.reinterpret()).asBoolean()
+    public fun getEnableVertical(): Boolean = gtk_scroll_info_get_enable_vertical(gPointer.reinterpret()).asBoolean()
 
     /**
      * Increases the reference count of a `GtkScrollInfo` by one.
@@ -59,7 +58,7 @@ public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointe
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun ref(): ScrollInfo = gtk_scroll_info_ref(gtkScrollInfoPointer.reinterpret())!!.run {
+    public fun ref(): ScrollInfo = gtk_scroll_info_ref(gPointer.reinterpret())!!.run {
         ScrollInfo(reinterpret())
     }
 
@@ -72,7 +71,7 @@ public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointe
      */
     @GtkVersion4_12
     public fun setEnableHorizontal(horizontal: Boolean): Unit =
-        gtk_scroll_info_set_enable_horizontal(gtkScrollInfoPointer.reinterpret(), horizontal.asGBoolean())
+        gtk_scroll_info_set_enable_horizontal(gPointer.reinterpret(), horizontal.asGBoolean())
 
     /**
      * Turns vertical scrolling on or off.
@@ -83,7 +82,7 @@ public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointe
      */
     @GtkVersion4_12
     public fun setEnableVertical(vertical: Boolean): Unit =
-        gtk_scroll_info_set_enable_vertical(gtkScrollInfoPointer.reinterpret(), vertical.asGBoolean())
+        gtk_scroll_info_set_enable_vertical(gPointer.reinterpret(), vertical.asGBoolean())
 
     /**
      * Decreases the reference count of a `GtkScrollInfo` by one.
@@ -93,7 +92,7 @@ public class ScrollInfo(pointer: CPointer<GtkScrollInfo>) : ProxyInstance(pointe
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun unref(): Unit = gtk_scroll_info_unref(gtkScrollInfoPointer.reinterpret())
+    public fun unref(): Unit = gtk_scroll_info_unref(gPointer.reinterpret())
 
     public companion object {
         /**

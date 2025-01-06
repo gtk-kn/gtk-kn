@@ -45,9 +45,9 @@ import org.gtkkn.native.adw.adw_flap_set_separator
 import org.gtkkn.native.adw.adw_flap_set_swipe_to_close
 import org.gtkkn.native.adw.adw_flap_set_swipe_to_open
 import org.gtkkn.native.adw.adw_flap_set_transition_type
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -395,9 +395,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param params the new parameters
          */
-        set(
-            params
-        ) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.adwSpringParamsPointer.reinterpret())
+        set(params) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.gPointer.reinterpret())
 
     /**
      * The current reveal transition progress.
