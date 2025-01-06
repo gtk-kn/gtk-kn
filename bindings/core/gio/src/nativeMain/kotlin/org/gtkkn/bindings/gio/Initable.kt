@@ -53,7 +53,7 @@ import kotlin.Result
  *
  * - function `new`: Varargs parameter is not supported
  * - parameter `var_args`: va_list type is not supported
- * - parameter `parameters`: Not-pointer record Parameter is ignored
+ * - parameter `parameters`: Array parameter of type GObject.Parameter is not supported
  *
  * @since 2.22
  */

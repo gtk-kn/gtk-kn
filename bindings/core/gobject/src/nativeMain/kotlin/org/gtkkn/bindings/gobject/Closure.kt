@@ -78,7 +78,7 @@ import kotlin.native.ref.createCleaner
  * - method `add_finalize_notifier`: Callback gpointer not found
  * - method `add_invalidate_notifier`: Callback gpointer not found
  * - method `add_marshal_guards`: Invalid closure relationship between 'pre_marshal_data' and 'pre_marshal_notify'
- * - parameter `param_values`: Not-pointer record Value is ignored
+ * - parameter `param_values`: Array parameter of type Value is not supported
  * - parameter `notify_func`: ClosureNotify
  * - parameter `notify_func`: ClosureNotify
  * - parameter `marshal`: ClosureMarshal

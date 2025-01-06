@@ -24,7 +24,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `value`: Not-pointer record Value is ignored
+ * - field `value`: Field with not-pointer record/union GValue is not supported
  */
 public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GParameter> = pointer

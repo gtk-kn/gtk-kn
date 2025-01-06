@@ -252,7 +252,7 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - parameter `length`: length: Out parameter is not supported
- * - method `read_pixels`: Return type guint8 is unsupported
+ * - method `read_pixels`: Return type guint8 is not supported
  * - method `save`: Varargs parameter is not supported
  * - method `save_to_buffer`: Varargs parameter is not supported
  * - parameter `buffer`: buffer: Out parameter is not supported

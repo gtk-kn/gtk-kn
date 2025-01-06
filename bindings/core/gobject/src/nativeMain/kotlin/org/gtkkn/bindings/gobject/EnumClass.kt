@@ -24,7 +24,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `g_type_class`: Not-pointer record TypeClass is ignored
+ * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
 public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GEnumClass> = pointer

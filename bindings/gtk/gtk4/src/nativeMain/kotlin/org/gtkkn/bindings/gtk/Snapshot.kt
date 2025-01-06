@@ -102,13 +102,13 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `border_width`: Array parameter of type gfloat is not supported
- * - parameter `stops`: Not-pointer record ColorStop is ignored
- * - parameter `stops`: Not-pointer record ColorStop is ignored
- * - parameter `stops`: Not-pointer record ColorStop is ignored
- * - parameter `stops`: Not-pointer record ColorStop is ignored
- * - parameter `stops`: Not-pointer record ColorStop is ignored
+ * - parameter `stops`: Array parameter of type Gsk.ColorStop is not supported
+ * - parameter `stops`: Array parameter of type Gsk.ColorStop is not supported
+ * - parameter `stops`: Array parameter of type Gsk.ColorStop is not supported
+ * - parameter `stops`: Array parameter of type Gsk.ColorStop is not supported
+ * - parameter `stops`: Array parameter of type Gsk.ColorStop is not supported
  * - method `push_debug`: Varargs parameter is not supported
- * - parameter `shadow`: Not-pointer record Shadow is ignored
+ * - parameter `shadow`: Array parameter of type Gsk.Shadow is not supported
  */
 public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
     org.gtkkn.bindings.gdk.Snapshot(pointer.reinterpret()),

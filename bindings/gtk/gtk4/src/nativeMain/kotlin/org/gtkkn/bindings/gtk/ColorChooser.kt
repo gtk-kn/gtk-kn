@@ -42,7 +42,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `colors`: Not-pointer record RGBA is ignored
+ * - parameter `colors`: Array parameter of type Gdk.RGBA is not supported
  * - method `rgba`: Property has no getter
  */
 public interface ColorChooser :

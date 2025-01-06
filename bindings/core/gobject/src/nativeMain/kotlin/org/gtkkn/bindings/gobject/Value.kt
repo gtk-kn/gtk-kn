@@ -125,7 +125,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `transform_func`: ValueTransform
- * - field `data`: _Value__data__union
+ * - field `data`: missing cType for GirUnion _Value__data__union
  */
 public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GValue> = pointer

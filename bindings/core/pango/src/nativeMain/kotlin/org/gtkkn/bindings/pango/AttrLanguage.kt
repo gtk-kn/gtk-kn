@@ -23,7 +23,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Not-pointer record Attribute is ignored
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
 public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoAttrLanguage> = pointer

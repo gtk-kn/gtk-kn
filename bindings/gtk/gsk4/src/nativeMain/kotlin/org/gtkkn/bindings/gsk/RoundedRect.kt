@@ -46,8 +46,8 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `bounds`: Not-pointer record Rect is ignored
- * - field `corner`: Not-pointer record Size is ignored
+ * - field `bounds`: Field with not-pointer record/union graphene_rect_t is not supported
+ * - field `corner`: Array parameter of type Graphene.Size is not supported
  */
 public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GskRoundedRect> = pointer

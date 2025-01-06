@@ -18,8 +18,8 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Not-pointer record Attribute is ignored
- * - field `color`: Not-pointer record Color is ignored
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
+ * - field `color`: Field with not-pointer record/union PangoColor is not supported
  */
 public class AttrColor(pointer: CPointer<PangoAttrColor>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoAttrColor> = pointer

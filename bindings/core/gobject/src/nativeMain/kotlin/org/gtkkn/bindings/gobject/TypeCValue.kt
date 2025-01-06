@@ -9,5 +9,5 @@ import org.gtkkn.native.gobject.GTypeCValue
  * A union holding one collected value.
  */
 public class TypeCValue(pointer: CPointer<GTypeCValue>) : ProxyInstance(pointer) {
-    public val gobjectTypeCValuePointer: CPointer<GTypeCValue> = pointer
+    public val gPointer: CPointer<GTypeCValue> = pointer
 }

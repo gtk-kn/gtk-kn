@@ -97,7 +97,7 @@ import kotlin.Unit
  * - method `disconnect`: Varargs parameter is not supported
  * - method `get`: Varargs parameter is not supported
  * - parameter `var_args`: va_list type is not supported
- * - parameter `values`: Not-pointer record Value is ignored
+ * - parameter `values`: Array parameter of type Value is not supported
  * - method `remove_weak_pointer`: In/Out parameter is not supported
  * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `destroy`: GLib.DestroyNotify
@@ -105,11 +105,11 @@ import kotlin.Unit
  * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `var_args`: va_list type is not supported
- * - parameter `values`: Not-pointer record Value is ignored
+ * - parameter `values`: Array parameter of type Value is not supported
  * - constructor `new`: Varargs parameter is not supported
  * - parameter `var_args`: va_list type is not supported
- * - parameter `values`: Not-pointer record Value is ignored
- * - parameter `parameters`: Not-pointer record Parameter is ignored
+ * - parameter `values`: Array parameter of type Value is not supported
+ * - parameter `parameters`: Array parameter of type Parameter is not supported
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
 public open class Object(pointer: CPointer<GObject>) : KGTyped {

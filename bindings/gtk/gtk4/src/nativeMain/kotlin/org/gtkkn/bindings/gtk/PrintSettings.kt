@@ -122,7 +122,7 @@ import kotlin.Throws
  * ## Skipped during bindings generation
  *
  * - parameter `num_ranges`: num_ranges: Out parameter is not supported
- * - parameter `page_ranges`: Not-pointer record PageRange is ignored
+ * - parameter `page_ranges`: Array parameter of type PageRange is not supported
  */
 public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
     Object(pointer.reinterpret()),

@@ -77,6 +77,7 @@ import org.gtkkn.native.gtk.gtk_widget_error_bell
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_baseline
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_height
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_width
+import org.gtkkn.native.gtk.gtk_widget_get_allocation
 import org.gtkkn.native.gtk.gtk_widget_get_ancestor
 import org.gtkkn.native.gtk.gtk_widget_get_baseline
 import org.gtkkn.native.gtk.gtk_widget_get_can_focus
@@ -207,6 +208,7 @@ import org.gtkkn.native.gtk.gtk_widget_set_vexpand_set
 import org.gtkkn.native.gtk.gtk_widget_set_visible
 import org.gtkkn.native.gtk.gtk_widget_should_layout
 import org.gtkkn.native.gtk.gtk_widget_show
+import org.gtkkn.native.gtk.gtk_widget_size_allocate
 import org.gtkkn.native.gtk.gtk_widget_snapshot_child
 import org.gtkkn.native.gtk.gtk_widget_trigger_tooltip_query
 import org.gtkkn.native.gtk.gtk_widget_unmap
@@ -617,10 +619,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * ## Skipped during bindings generation
  *
- * - parameter `allocation`: Not-pointer record Rectangle is ignored
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `minimum`: minimum: Out parameter is not supported
- * - parameter `allocation`: Not-pointer record Rectangle is ignored
  * - parameter `dest_x`: dest_x: Out parameter is not supported
  * - method `has-default`: Property has no getter nor setter
  * - method `has-focus`: Property has no getter nor setter
@@ -1900,6 +1900,28 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun getAllocatedWidth(): gint = gtk_widget_get_allocated_width(gtkWidgetPointer.reinterpret())
 
     /**
+     * Retrieves the widget’s allocation.
+     *
+     * Note, when implementing a layout container: a widget’s allocation
+     * will be its “adjusted” allocation, that is, the widget’s parent
+     * typically calls [method@Gtk.Widget.size_allocate] with an allocation,
+     * and that allocation is then adjusted (to handle margin
+     * and alignment for example) before assignment to the widget.
+     * [method@Gtk.Widget.get_allocation] returns the adjusted allocation that
+     * was actually assigned to the widget. The adjusted allocation is
+     * guaranteed to be completely contained within the
+     * [method@Gtk.Widget.size_allocate] allocation, however.
+     *
+     * So a layout container is guaranteed that its children stay inside
+     * the assigned bounds, but not that they have exactly the bounds the
+     * container assigned.
+     *
+     * @param allocation a pointer to a `GtkAllocation` to copy to
+     */
+    public open fun getAllocation(allocation: Allocation): Unit =
+        gtk_widget_get_allocation(gtkWidgetPointer.reinterpret(), allocation.gPointer.reinterpret())
+
+    /**
      * Gets the first ancestor of @widget with type @widget_type.
      *
      * For example, `gtk_widget_get_ancestor (widget, GTK_TYPE_BOX)`
@@ -3011,6 +3033,18 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * toplevel container is realized and mapped.
      */
     public open fun show(): Unit = gtk_widget_show(gtkWidgetPointer.reinterpret())
+
+    /**
+     * Allocates widget with a transformation that translates
+     * the origin to the position in @allocation.
+     *
+     * This is a simple form of [method@Gtk.Widget.allocate].
+     *
+     * @param allocation position and size to be allocated to @widget
+     * @param baseline The baseline of the child, or -1
+     */
+    public open fun sizeAllocate(allocation: Allocation, baseline: gint): Unit =
+        gtk_widget_size_allocate(gtkWidgetPointer.reinterpret(), allocation.gPointer.reinterpret(), baseline)
 
     /**
      * Snapshot the a child of @widget.

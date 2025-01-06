@@ -30,7 +30,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: Not-pointer record OptionEntry is ignored
+ * - parameter `entries`: Array parameter of type OptionEntry is not supported
  * - parameter `error_func`: OptionErrorFunc
  * - parameter `pre_parse_func`: OptionParseFunc
  * - parameter `destroy`: DestroyNotify

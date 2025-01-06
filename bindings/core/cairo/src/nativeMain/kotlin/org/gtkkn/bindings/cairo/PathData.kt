@@ -18,40 +18,40 @@ import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 public class PathData(pointer: CPointer<cairo_path_data_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val cairoPathDataPointer: CPointer<cairo_path_data_t> = pointer
+    public val gPointer: CPointer<cairo_path_data_t> = pointer
 
     public var x: gdouble
-        get() = cairoPathDataPointer.pointed.point.x
+        get() = gPointer.pointed.point.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoPathDataPointer.pointed.point.x = value
+            gPointer.pointed.point.x = value
         }
 
     public var y: gdouble
-        get() = cairoPathDataPointer.pointed.point.y
+        get() = gPointer.pointed.point.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoPathDataPointer.pointed.point.y = value
+            gPointer.pointed.point.y = value
         }
 
     public var type: PathDataType
-        get() = cairoPathDataPointer.pointed.header.type.run {
+        get() = gPointer.pointed.header.type.run {
             PathDataType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoPathDataPointer.pointed.header.type = value.nativeValue
+            gPointer.pointed.header.type = value.nativeValue
         }
 
     public var length: gint
-        get() = cairoPathDataPointer.pointed.header.length
+        get() = gPointer.pointed.header.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoPathDataPointer.pointed.header.length = value
+            gPointer.pointed.header.length = value
         }
 
     /**

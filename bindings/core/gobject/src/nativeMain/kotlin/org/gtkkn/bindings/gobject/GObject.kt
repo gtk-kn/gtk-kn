@@ -178,7 +178,7 @@ import kotlin.Unit
  * - parameter `handler_id_ptr`: Unsupported pointer to primitive type
  * - parameter `info`: info: Out parameter is not supported
  * - parameter `info`: info: Out parameter is not supported
- * - parameter `instance_and_params`: Not-pointer record Value is ignored
+ * - parameter `instance_and_params`: Array parameter of type Value is not supported
  * - function `signal_chain_from_overridden_handler`: Varargs parameter is not supported
  * - parameter `destroy_data`: ClosureNotify
  * - parameter `c_handler`: Callback

@@ -68,7 +68,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: Not-pointer record PadActionEntry is ignored
+ * - parameter `entries`: Array parameter of type PadActionEntry is not supported
  * - method `action-group`: Property has no getter nor setter
  * - method `pad`: Property has no getter nor setter
  */

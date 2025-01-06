@@ -20,6 +20,8 @@ import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.glib.g_variant_byteswap
 import org.gtkkn.native.glib.g_variant_check_format_string
 import org.gtkkn.native.glib.g_variant_classify
+import org.gtkkn.native.glib.g_variant_compare
+import org.gtkkn.native.glib.g_variant_equal
 import org.gtkkn.native.glib.g_variant_get_boolean
 import org.gtkkn.native.glib.g_variant_get_byte
 import org.gtkkn.native.glib.g_variant_get_child_value
@@ -344,13 +346,11 @@ import kotlin.collections.List
  *
  * ## Skipped during bindings generation
  *
- * - parameter `two`: Not-pointer record Variant is ignored
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
- * - parameter `two`: Not-pointer record Variant is ignored
  * - method `get`: Varargs parameter is not supported
  * - method `get_bytestring`: Array parameter of type guint8 is not supported
  * - parameter `length`: length: Out parameter is not supported
@@ -440,6 +440,50 @@ public class Variant(pointer: CPointer<GVariant>) : ProxyInstance(pointer) {
     public fun classify(): VariantClass = g_variant_classify(gPointer.reinterpret()).run {
         VariantClass.fromNativeValue(this)
     }
+
+    /**
+     * Compares @one and @two.
+     *
+     * The types of @one and @two are #gconstpointer only to allow use of
+     * this function with #GTree, #GPtrArray, etc.  They must each be a
+     * #GVariant.
+     *
+     * Comparison is only defined for basic types (ie: booleans, numbers,
+     * strings).  For booleans, false is less than true.  Numbers are
+     * ordered in the usual way.  Strings are in ASCII lexographical order.
+     *
+     * It is a programmer error to attempt to compare container values or
+     * two values that have types that are not exactly equal.  For example,
+     * you cannot compare a 32-bit signed integer with a 32-bit unsigned
+     * integer.  Also note that this function is not particularly
+     * well-behaved when it comes to comparison of doubles; in particular,
+     * the handling of incomparable values (ie: NaN) is undefined.
+     *
+     * If you only require an equality comparison, g_variant_equal() is more
+     * general.
+     *
+     * @param two a #GVariant instance of the same type
+     * @return negative value if a < b;
+     *          zero if a = b;
+     *          positive value if a > b.
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun compare(two: Variant): gint = g_variant_compare(gPointer.reinterpret(), two.gPointer.reinterpret())
+
+    /**
+     * Checks if @one and @two have the same type and value.
+     *
+     * The types of @one and @two are #gconstpointer only to allow use of
+     * this function with #GHashTable.  They must each be a #GVariant.
+     *
+     * @param two a #GVariant instance
+     * @return true if @one and @two are equal
+     * @since 2.24
+     */
+    @GLibVersion2_24
+    public fun equal(two: Variant): Boolean =
+        g_variant_equal(gPointer.reinterpret(), two.gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the boolean value of @value.

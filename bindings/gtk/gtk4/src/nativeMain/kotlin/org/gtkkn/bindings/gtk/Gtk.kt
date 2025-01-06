@@ -142,10 +142,9 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - alias `Allocation`: Not-pointer record Rectangle is ignored
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
  * - parameter `accelerator_key`: accelerator_key: Out parameter is not supported
- * - parameter `sizes`: Not-pointer record RequestedSize is ignored
+ * - parameter `sizes`: Array parameter of type RequestedSize is not supported
  * - parameter `r`: r: Out parameter is not supported
  * - parameter `h`: h: Out parameter is not supported
  * - function `show_about_dialog`: Varargs parameter is not supported
@@ -3365,3 +3364,8 @@ public typealias WidgetActionActivateFunc = (
     actionName: String,
     parameter: Variant?,
 ) -> Unit
+
+/**
+ * The rectangle representing the area allocated for a widget by its parent.
+ */
+public typealias Allocation = Rectangle

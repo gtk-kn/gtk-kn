@@ -95,11 +95,10 @@ import org.gtkkn.bindings.glib.List as GlibList
 /**
  * ## Skipped during bindings generation
  *
- * - alias `LayoutRun`: Not-pointer record GlyphItem is ignored
- * - parameter `attrs`: Not-pointer record LogAttr is ignored
- * - parameter `attrs`: Not-pointer record LogAttr is ignored
+ * - parameter `attrs`: Array parameter of type LogAttr is not supported
+ * - parameter `attrs`: Array parameter of type LogAttr is not supported
  * - parameter `paragraph_delimiter_index`: paragraph_delimiter_index: Out parameter is not supported
- * - parameter `attrs`: Not-pointer record LogAttr is ignored
+ * - parameter `attrs`: Array parameter of type LogAttr is not supported
  * - parameter `mirrored_ch`: Unsupported pointer to primitive type
  * - function `log2vis_get_embedding_levels`: Return type guint8 is unsupported
  * - parameter `attr_list`: attr_list: Out parameter is not supported
@@ -115,7 +114,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - function `scan_string`: In/Out parameter is not supported
  * - function `scan_word`: In/Out parameter is not supported
  * - function `skip_space`: In/Out parameter is not supported
- * - parameter `attrs`: Not-pointer record LogAttr is ignored
+ * - parameter `attrs`: Array parameter of type LogAttr is not supported
  * - record `ContextClass`: glib type struct are ignored
  * - record `FontClass`: glib type struct are ignored
  * - record `FontFaceClass`: glib type struct are ignored
@@ -1317,3 +1316,11 @@ public typealias Glyph = guint
  * into device units with correct rounding.
  */
 public typealias GlyphUnit = gint
+
+/**
+ * A `PangoLayoutRun` represents a single run within a `PangoLayoutLine`.
+ *
+ * It is simply an alternate name for [struct@Pango.GlyphItem].
+ * See the [struct@Pango.GlyphItem] docs for details on the fields.
+ */
+public typealias LayoutRun = GlyphItem

@@ -35,6 +35,7 @@ import org.gtkkn.native.glib.g_main_context_ref_thread_default
 import org.gtkkn.native.glib.g_main_context_release
 import org.gtkkn.native.glib.g_main_context_remove_poll
 import org.gtkkn.native.glib.g_main_context_unref
+import org.gtkkn.native.glib.g_main_context_wait
 import org.gtkkn.native.glib.g_main_context_wakeup
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
@@ -50,12 +51,11 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `fds`: Not-pointer record PollFD is ignored
- * - method `get_poll_func`: Return type PollFunc is unsupported
+ * - parameter `fds`: Array parameter of type PollFD is not supported
+ * - method `get_poll_func`: Return type PollFunc is not supported
  * - parameter `priority`: priority: Out parameter is not supported
  * - parameter `timeout`: timeout: Out parameter is not supported
  * - parameter `func`: PollFunc
- * - parameter `mutex`: Mutex
  */
 public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GMainContext> = pointer
@@ -342,6 +342,24 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * the result is zero, free the context and free all associated memory.
      */
     public fun unref(): Unit = g_main_context_unref(gPointer.reinterpret())
+
+    /**
+     * Tries to become the owner of the specified context,
+     * as with g_main_context_acquire(). But if another thread
+     * is the owner, atomically drop @mutex and wait on @cond until
+     * that owner releases ownership or until @cond is signaled, then
+     * try again (once) to become the owner.
+     *
+     * @param cond a condition variable
+     * @param mutex a mutex, currently held
+     * @return true if the operation succeeded, and
+     *   this thread is now the owner of @context.
+     */
+    public fun wait(cond: Cond, mutex: Mutex): Boolean = g_main_context_wait(
+        gPointer.reinterpret(),
+        cond.gPointer.reinterpret(),
+        mutex.gPointer.reinterpret()
+    ).asBoolean()
 
     /**
      * If @context is currently blocking in g_main_context_iteration()

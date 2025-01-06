@@ -126,7 +126,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is unsupported
+ * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is not supported
  * - method `active-id`: Property setter does not return Unit
  * - method `has-frame`: Property has no getter nor setter
  * - method `popup-shown`: Property has no getter nor setter

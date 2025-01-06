@@ -23,7 +23,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Not-pointer record Attribute is ignored
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
 public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoAttrFontDesc> = pointer

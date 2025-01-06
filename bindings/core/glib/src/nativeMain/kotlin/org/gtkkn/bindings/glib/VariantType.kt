@@ -12,6 +12,7 @@ import org.gtkkn.native.glib.g_variant_type_checked_
 import org.gtkkn.native.glib.g_variant_type_copy
 import org.gtkkn.native.glib.g_variant_type_dup_string
 import org.gtkkn.native.glib.g_variant_type_element
+import org.gtkkn.native.glib.g_variant_type_equal
 import org.gtkkn.native.glib.g_variant_type_first
 import org.gtkkn.native.glib.g_variant_type_free
 import org.gtkkn.native.glib.g_variant_type_get_string_length
@@ -199,7 +200,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `type2`: Not-pointer record VariantType is ignored
  * - parameter `items`: Array parameter of type VariantType is not supported
  * - parameter `endptr`: endptr: Out parameter is not supported
  *
@@ -245,6 +245,26 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
     public fun element(): VariantType = g_variant_type_element(gPointer.reinterpret())!!.run {
         VariantType(reinterpret())
     }
+
+    /**
+     * Compares @type1 and @type2 for equality.
+     *
+     * Only returns true if the types are exactly equal.  Even if one type
+     * is an indefinite type and the other is a subtype of it, false will
+     * be returned if they are not exactly equal.  If you want to check for
+     * subtypes, use g_variant_type_is_subtype_of().
+     *
+     * The argument types of @type1 and @type2 are only #gconstpointer to
+     * allow use with #GHashTable without function pointer casting.  For
+     * both arguments, a valid #GVariantType must be provided.
+     *
+     * @param type2 a #GVariantType
+     * @return true if @type1 and @type2 are exactly equal
+     *
+     * Since 2.24
+     */
+    public fun equal(type2: VariantType): Boolean =
+        g_variant_type_equal(gPointer.reinterpret(), type2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Determines the first item type of a tuple or dictionary entry

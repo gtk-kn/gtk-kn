@@ -52,7 +52,7 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `pspecs`: Array parameter of type ParamSpec is not supported
  * - parameter `n_properties`: n_properties: Out parameter is not supported
- * - field `g_type_class`: Not-pointer record TypeClass is ignored
+ * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  * - field `constructor`: Fields with callbacks are not supported
  * - field `set_property`: Fields with callbacks are not supported
  * - field `get_property`: Fields with callbacks are not supported

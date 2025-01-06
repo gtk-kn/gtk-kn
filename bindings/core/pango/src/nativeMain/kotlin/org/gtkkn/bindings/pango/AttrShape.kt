@@ -25,9 +25,9 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `copy_func`: AttrDataCopyFunc
- * - field `attr`: Not-pointer record Attribute is ignored
- * - field `ink_rect`: Not-pointer record Rectangle is ignored
- * - field `logical_rect`: Not-pointer record Rectangle is ignored
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
+ * - field `ink_rect`: Field with not-pointer record/union PangoRectangle is not supported
+ * - field `logical_rect`: Field with not-pointer record/union PangoRectangle is not supported
  * - field `copy_func`: AttrDataCopyFunc
  * - field `destroy_func`: GLib.DestroyNotify
  */

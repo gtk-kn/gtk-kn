@@ -27,7 +27,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: Not-pointer record ActionEntry is ignored
+ * - parameter `entries`: Array parameter of type ActionEntry is not supported
  *
  * @since 2.28
  */

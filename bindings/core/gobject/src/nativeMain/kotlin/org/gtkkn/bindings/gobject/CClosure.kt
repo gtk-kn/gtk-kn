@@ -75,7 +75,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `callback_func`: Callback
  * - parameter `callback_func`: Callback
  * - parameter `destroy_data`: ClosureNotify
- * - field `closure`: Not-pointer record Closure is ignored
+ * - field `closure`: Field with not-pointer record/union GClosure is not supported
  */
 public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GCClosure> = pointer

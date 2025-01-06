@@ -39,7 +39,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `logical_widths`: Array parameter of type gint is not supported
- * - parameter `log_attrs`: Not-pointer record LogAttr is ignored
+ * - parameter `log_attrs`: Array parameter of type LogAttr is not supported
  */
 public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoGlyphItem> = pointer

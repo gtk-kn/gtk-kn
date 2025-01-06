@@ -53,8 +53,8 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `vertices`: vertices: Out parameter is not supported
- * - parameter `points`: Not-pointer record Point3D is ignored
- * - parameter `vectors`: Not-pointer record Vec3 is ignored
+ * - parameter `points`: Array parameter of type Point3D is not supported
+ * - parameter `vectors`: Array parameter of type Vec3 is not supported
  *
  * @since 1.2
  */

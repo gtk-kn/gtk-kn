@@ -167,12 +167,12 @@ import kotlin.Throws
  * - parameter `address`: address: Out parameter is not supported
  * - parameter `address`: address: Out parameter is not supported
  * - method `receive_message`: In/Out parameter is not supported
- * - parameter `messages`: Not-pointer record InputMessage is ignored
+ * - parameter `messages`: Array parameter of type InputMessage is not supported
  * - parameter `buffer`: buffer: Out parameter is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
- * - parameter `messages`: Not-pointer record OutputMessage is ignored
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
+ * - parameter `messages`: Array parameter of type OutputMessage is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - method `local-address`: Property getter throws

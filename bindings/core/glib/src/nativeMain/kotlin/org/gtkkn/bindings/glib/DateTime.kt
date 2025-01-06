@@ -20,7 +20,9 @@ import org.gtkkn.native.glib.g_date_time_add_months
 import org.gtkkn.native.glib.g_date_time_add_seconds
 import org.gtkkn.native.glib.g_date_time_add_weeks
 import org.gtkkn.native.glib.g_date_time_add_years
+import org.gtkkn.native.glib.g_date_time_compare
 import org.gtkkn.native.glib.g_date_time_difference
+import org.gtkkn.native.glib.g_date_time_equal
 import org.gtkkn.native.glib.g_date_time_format
 import org.gtkkn.native.glib.g_date_time_format_iso8601
 import org.gtkkn.native.glib.g_date_time_get_day_of_month
@@ -100,8 +102,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `dt2`: Not-pointer record DateTime is ignored
- * - parameter `dt2`: Not-pointer record DateTime is ignored
  * - parameter `year`: year: Out parameter is not supported
  *
  * @since 2.26
@@ -256,6 +256,18 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
     }
 
     /**
+     * A comparison function for #GDateTimes that is suitable
+     * as a #GCompareFunc. Both #GDateTimes must be non-null.
+     *
+     * @param dt2 second #GDateTime to compare
+     * @return -1, 0 or 1 if @dt1 is less than, equal to or greater
+     *   than @dt2.
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun compare(dt2: DateTime): gint = g_date_time_compare(gPointer.reinterpret(), dt2.gPointer.reinterpret())
+
+    /**
      * Calculates the difference in time between @end and @begin.  The
      * #GTimeSpan that is returned is effectively @end - @begin (ie:
      * positive if the first parameter is larger).
@@ -268,6 +280,20 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
     @GLibVersion2_26
     public fun difference(begin: DateTime): TimeSpan =
         g_date_time_difference(gPointer.reinterpret(), begin.gPointer.reinterpret())
+
+    /**
+     * Checks to see if @dt1 and @dt2 are equal.
+     *
+     * Equal here means that they represent the same moment after converting
+     * them to the same time zone.
+     *
+     * @param dt2 a #GDateTime
+     * @return true if @dt1 and @dt2 are equal
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun equal(dt2: DateTime): Boolean =
+        g_date_time_equal(gPointer.reinterpret(), dt2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Creates a newly allocated string representing the requested @format.

@@ -5,13 +5,17 @@ import kotlinx.cinterop.AutofreeScope
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
+import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GStaticMutex
 import org.gtkkn.native.glib.g_static_mutex_free
+import org.gtkkn.native.glib.g_static_mutex_get_mutex_impl
 import org.gtkkn.native.glib.g_static_mutex_init
 import kotlin.Pair
+import kotlin.String
 import kotlin.Unit
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
@@ -63,14 +67,19 @@ import kotlin.native.ref.createCleaner
  * All of the g_static_mutex_* functions are actually macros. Apart from
  * taking their addresses, you can however use them as if they were
  * functions.
- *
- * ## Skipped during bindings generation
- *
- * - method `get_mutex_impl`: Return type Mutex is unsupported
- * - field `mutex`: Mutex
  */
 public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GStaticMutex> = pointer
+
+    public var mutex: Mutex?
+        get() = gPointer.pointed.mutex?.run {
+            Mutex(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gPointer.pointed.mutex = value?.gPointer
+        }
 
     /**
      * Allocate a new StaticMutex.
@@ -102,6 +111,30 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
     public constructor(scope: AutofreeScope) : this(scope.alloc<GStaticMutex>().ptr)
 
     /**
+     * Allocate a new StaticMutex.
+     *
+     * This instance will be allocated on the native heap and automatically freed when
+     * this class instance is garbage collected.
+     *
+     * @param mutex
+     */
+    public constructor(mutex: Mutex?) : this() {
+        this.mutex = mutex
+    }
+
+    /**
+     * Allocate a new StaticMutex using the provided [AutofreeScope].
+     *
+     * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
+     *
+     * @param mutex
+     * @param scope The [AutofreeScope] to allocate this structure in.
+     */
+    public constructor(mutex: Mutex?, scope: AutofreeScope) : this(scope) {
+        this.mutex = mutex
+    }
+
+    /**
      * Releases all resources allocated to @mutex.
      *
      * You don't have to call this functions for a #GStaticMutex with an
@@ -114,9 +147,15 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      */
     public fun free(): Unit = g_static_mutex_free(gPointer.reinterpret())
 
+    public fun getMutexImpl(): Mutex = g_static_mutex_get_mutex_impl(gPointer.reinterpret())!!.run {
+        Mutex(reinterpret())
+    }
+
     /**
      * Initializes @mutex.
      * Alternatively you can initialize it with %G_STATIC_MUTEX_INIT.
      */
     public fun `init`(): Unit = g_static_mutex_init(gPointer.reinterpret())
+
+    override fun toString(): String = "StaticMutex(mutex=$mutex)"
 }

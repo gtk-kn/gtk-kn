@@ -14,6 +14,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkRGBA
 import org.gtkkn.native.gdk.gdk_rgba_copy
+import org.gtkkn.native.gdk.gdk_rgba_equal
 import org.gtkkn.native.gdk.gdk_rgba_free
 import org.gtkkn.native.gdk.gdk_rgba_get_type
 import org.gtkkn.native.gdk.gdk_rgba_hash
@@ -41,10 +42,6 @@ import kotlin.native.ref.createCleaner
  * (0.0, 0.0, 0.0, 0.0) represents transparent black and
  * (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will
  * be clamped to this range when drawing.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `p2`: Not-pointer record RGBA is ignored
  */
 public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GdkRGBA> = pointer
@@ -182,6 +179,14 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
     public fun copy(): Rgba = gdk_rgba_copy(gPointer.reinterpret())!!.run {
         Rgba(reinterpret())
     }
+
+    /**
+     * Compares two `GdkRGBA` colors.
+     *
+     * @param p2 another `GdkRGBA`
+     * @return true if the two colors compare equal
+     */
+    public fun equal(p2: Rgba): Boolean = gdk_rgba_equal(gPointer.reinterpret(), p2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Frees a `GdkRGBA`.

@@ -21,7 +21,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `color`: Not-pointer record RGBA is ignored
+ * - field `color`: Field with not-pointer record/union GdkRGBA is not supported
  */
 public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GskColorStop> = pointer

@@ -62,11 +62,11 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - method `cur_value`: Return type TokenValue is unsupported
+ * - method `cur_value`: Return type TokenValue is not supported
  * - method `error`: Varargs parameter is not supported
  * - method `warn`: Varargs parameter is not supported
- * - field `value`: TokenValue
- * - field `next_value`: TokenValue
+ * - field `value`: Field with not-pointer record/union GTokenValue is not supported
+ * - field `next_value`: Field with not-pointer record/union GTokenValue is not supported
  * - field `msg_handler`: ScannerMsgFunc
  */
 public class Scanner(pointer: CPointer<GScanner>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {

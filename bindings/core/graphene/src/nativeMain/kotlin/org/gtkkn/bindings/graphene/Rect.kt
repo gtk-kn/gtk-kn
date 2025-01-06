@@ -71,8 +71,8 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `vertices`: vertices: Out parameter is not supported
- * - field `origin`: Not-pointer record Point is ignored
- * - field `size`: Not-pointer record Size is ignored
+ * - field `origin`: Field with not-pointer record/union graphene_point_t is not supported
+ * - field `size`: Field with not-pointer record/union graphene_size_t is not supported
  *
  * @since 1.0
  */

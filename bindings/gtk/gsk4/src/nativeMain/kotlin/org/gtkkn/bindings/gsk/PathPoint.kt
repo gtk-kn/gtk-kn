@@ -54,7 +54,7 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - field `padding`: Array parameter of type gpointer is not supported
- * - field `alignment`: Not-pointer record Vec4 is ignored
+ * - field `alignment`: Field with not-pointer record/union graphene_vec4_t is not supported
  *
  * @since 4.14
  */

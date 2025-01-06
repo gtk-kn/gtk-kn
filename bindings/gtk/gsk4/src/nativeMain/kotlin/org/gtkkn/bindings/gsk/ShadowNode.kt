@@ -19,7 +19,7 @@ import org.gtkkn.native.gsk.gsk_shadow_node_get_type
  *
  * ## Skipped during bindings generation
  *
- * - parameter `shadows`: Not-pointer record Shadow is ignored
+ * - parameter `shadows`: Array parameter of type Shadow is not supported
  */
 public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
     RenderNode(pointer.reinterpret()),

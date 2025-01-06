@@ -81,8 +81,8 @@ import kotlin.Result
  *
  * ## Skipped during bindings generation
  *
- * - parameter `messages`: Not-pointer record InputMessage is ignored
- * - parameter `messages`: Not-pointer record OutputMessage is ignored
+ * - parameter `messages`: Array parameter of type InputMessage is not supported
+ * - parameter `messages`: Array parameter of type OutputMessage is not supported
  *
  * @since 2.48
  */

@@ -71,7 +71,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_select_function`: Return type TreeSelectionFunc is unsupported
+ * - method `get_select_function`: Return type TreeSelectionFunc is not supported
  * - parameter `model`: model: Out parameter is not supported
  * - parameter `model`: model: Out parameter is not supported
  */

@@ -544,20 +544,20 @@ import kotlin.collections.List
  * - function `log`: Varargs parameter is not supported
  * - function `log_set_default_handler`: Return type LogFunc is unsupported
  * - function `log_structured`: Varargs parameter is not supported
- * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `fields`: Array parameter of type LogField is not supported
  * - function `log_structured_standard`: Varargs parameter is not supported
- * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `fields`: Array parameter of type LogField is not supported
  * - parameter `domains`: Unsupported string with cType const gchar* const*
- * - parameter `fields`: Not-pointer record LogField is ignored
- * - parameter `fields`: Not-pointer record LogField is ignored
- * - parameter `fields`: Not-pointer record LogField is ignored
- * - parameter `fields`: Not-pointer record LogField is ignored
+ * - parameter `fields`: Array parameter of type LogField is not supported
+ * - parameter `fields`: Array parameter of type LogField is not supported
+ * - parameter `fields`: Array parameter of type LogField is not supported
+ * - parameter `fields`: Array parameter of type LogField is not supported
  * - parameter `args`: va_list type is not supported
  * - function `markup_collect_attributes`: Varargs parameter is not supported
  * - function `markup_printf_escaped`: Varargs parameter is not supported
  * - parameter `args`: va_list type is not supported
  * - parameter `nullify_location`: Unsupported pointer to primitive type
- * - parameter `keys`: Not-pointer record DebugKey is ignored
+ * - parameter `keys`: Array parameter of type DebugKey is not supported
  * - parameter `address`: Unsupported pointer to primitive type
  * - parameter `out_ptr`: out_ptr: Out parameter is not supported
  * - parameter `address`: Unsupported pointer to primitive type

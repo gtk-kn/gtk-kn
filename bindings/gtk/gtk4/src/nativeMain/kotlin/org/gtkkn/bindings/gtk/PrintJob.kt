@@ -82,7 +82,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `n_ranges`: n_ranges: Out parameter is not supported
- * - parameter `ranges`: Not-pointer record PageRange is ignored
+ * - parameter `ranges`: Array parameter of type PageRange is not supported
  * - method `page-setup`: Property has no getter nor setter
  */
 public open class PrintJob(pointer: CPointer<GtkPrintJob>) :

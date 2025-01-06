@@ -32,7 +32,7 @@ import kotlin.Boolean
  * ## Skipped during bindings generation
  *
  * - parameter `buffer`: Array parameter of type guint8 is not supported
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
  *
  * @since 2.28
  */

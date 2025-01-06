@@ -217,8 +217,8 @@ import kotlin.Unit
  * - parameter `path`: path: Out parameter is not supported
  * - parameter `path`: path: Out parameter is not supported
  * - parameter `path`: path: Out parameter is not supported
- * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is unsupported
- * - method `get_search_equal_func`: Return type TreeViewSearchEqualFunc is unsupported
+ * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is not supported
+ * - method `get_search_equal_func`: Return type TreeViewSearchEqualFunc is not supported
  * - parameter `model`: model: Out parameter is not supported
  * - parameter `start_path`: start_path: Out parameter is not supported
  * - method `insert_column_with_attributes`: Varargs parameter is not supported

@@ -9,6 +9,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GCond
 import org.gtkkn.native.glib.g_cond_broadcast
 import org.gtkkn.native.glib.g_cond_clear
@@ -16,6 +17,11 @@ import org.gtkkn.native.glib.g_cond_free
 import org.gtkkn.native.glib.g_cond_init
 import org.gtkkn.native.glib.g_cond_new
 import org.gtkkn.native.glib.g_cond_signal
+import org.gtkkn.native.glib.g_cond_timed_wait
+import org.gtkkn.native.glib.g_cond_wait
+import org.gtkkn.native.glib.g_cond_wait_until
+import org.gtkkn.native.glib.gint64
+import kotlin.Boolean
 import kotlin.Pair
 import kotlin.Unit
 import kotlin.native.ref.Cleaner
@@ -87,12 +93,6 @@ import kotlin.native.ref.createCleaner
  * on it and g_cond_clear() when done.
  *
  * A #GCond should only be accessed via the g_cond_ functions.
- *
- * ## Skipped during bindings generation
- *
- * - parameter `mutex`: Mutex
- * - parameter `mutex`: Mutex
- * - parameter `mutex`: Mutex
  */
 public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GCond> = pointer
@@ -181,6 +181,108 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * while calling this function, though not required.
      */
     public fun signal(): Unit = g_cond_signal(gPointer.reinterpret())
+
+    /**
+     * Waits until this thread is woken up on @cond, but not longer than
+     * until the time specified by @abs_time. The @mutex is unlocked before
+     * falling asleep and locked again before resuming.
+     *
+     * If @abs_time is null, g_cond_timed_wait() acts like g_cond_wait().
+     *
+     * This function can be used even if g_thread_init() has not yet been
+     * called, and, in that case, will immediately return true.
+     *
+     * To easily calculate @abs_time a combination of g_get_real_time()
+     * and g_time_val_add() can be used.
+     *
+     * @param mutex a #GMutex that is currently locked
+     * @param absTime a #GTimeVal, determining the final time
+     * @return true if @cond was signalled, or false on timeout
+     */
+    public fun timedWait(mutex: Mutex, absTime: TimeVal): Boolean = g_cond_timed_wait(
+        gPointer.reinterpret(),
+        mutex.gPointer.reinterpret(),
+        absTime.gPointer.reinterpret()
+    ).asBoolean()
+
+    /**
+     * Atomically releases @mutex and waits until @cond is signalled.
+     * When this function returns, @mutex is locked again and owned by the
+     * calling thread.
+     *
+     * When using condition variables, it is possible that a spurious wakeup
+     * may occur (ie: g_cond_wait() returns even though g_cond_signal() was
+     * not called).  It's also possible that a stolen wakeup may occur.
+     * This is when g_cond_signal() is called, but another thread acquires
+     * @mutex before this thread and modifies the state of the program in
+     * such a way that when g_cond_wait() is able to return, the expected
+     * condition is no longer met.
+     *
+     * For this reason, g_cond_wait() must always be used in a loop.  See
+     * the documentation for #GCond for a complete example.
+     *
+     * @param mutex a #GMutex that is currently locked
+     */
+    public fun wait(mutex: Mutex): Unit = g_cond_wait(gPointer.reinterpret(), mutex.gPointer.reinterpret())
+
+    /**
+     * Waits until either @cond is signalled or @end_time has passed.
+     *
+     * As with g_cond_wait() it is possible that a spurious or stolen wakeup
+     * could occur.  For that reason, waiting on a condition variable should
+     * always be in a loop, based on an explicitly-checked predicate.
+     *
+     * true is returned if the condition variable was signalled (or in the
+     * case of a spurious wakeup).  false is returned if @end_time has
+     * passed.
+     *
+     * The following code shows how to correctly perform a timed wait on a
+     * condition variable (extending the example presented in the
+     * documentation for #GCond):
+     *
+     * |[<!-- language="C" -->
+     * gpointer
+     * pop_data_timed (void)
+     * {
+     *   gint64 end_time;
+     *   gpointer data;
+     *
+     *   g_mutex_lock (&data_mutex);
+     *
+     *   end_time = g_get_monotonic_time () + 5 * G_TIME_SPAN_SECOND;
+     *   while (!current_data)
+     *     if (!g_cond_wait_until (&data_cond, &data_mutex, end_time))
+     *       {
+     *         // timeout has passed.
+     *         g_mutex_unlock (&data_mutex);
+     *         return NULL;
+     *       }
+     *
+     *   // there is data for us
+     *   data = current_data;
+     *   current_data = NULL;
+     *
+     *   g_mutex_unlock (&data_mutex);
+     *
+     *   return data;
+     * }
+     * ]|
+     *
+     * Notice that the end time is calculated once, before entering the
+     * loop and reused.  This is the motivation behind the use of absolute
+     * time on this API -- if a relative time of 5 seconds were passed
+     * directly to the call and a spurious wakeup occurred, the program would
+     * have to start over waiting again (which would lead to a total wait
+     * time of more than 5 seconds).
+     *
+     * @param mutex a #GMutex that is currently locked
+     * @param endTime the monotonic time to wait until
+     * @return true on a signal, false on a timeout
+     * @since 2.32
+     */
+    @GLibVersion2_32
+    public fun waitUntil(mutex: Mutex, endTime: gint64): Boolean =
+        g_cond_wait_until(gPointer.reinterpret(), mutex.gPointer.reinterpret(), endTime).asBoolean()
 
     public companion object {
         /**

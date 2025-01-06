@@ -73,11 +73,11 @@ import kotlin.Unit
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
- * - parameter `vectors`: Not-pointer record OutputVector is ignored
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  */
 public open class OutputStream(pointer: CPointer<GOutputStream>) :

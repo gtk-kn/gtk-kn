@@ -31,7 +31,7 @@ import kotlin.Unit
  *
  * - parameter `closure`: Unsupported pointer to primitive type
  * - parameter `user_data`: Unsupported pointer to primitive type
- * - method `get_user_data`: Return type gpointer is unsupported
+ * - method `get_user_data`: Return type gpointer is not supported
  */
 public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
     public val gPointer: CPointer<cairo_device_t> = pointer

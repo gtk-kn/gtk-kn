@@ -19,7 +19,7 @@ import kotlin.native.ref.createCleaner
 /**
  * ## Skipped during bindings generation
  *
- * - field `data`: PathData
+ * - field `data`: Field with not-pointer record/union cairo_path_data_t is not supported
  */
 public class Path(pointer: CPointer<cairo_path_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<cairo_path_t> = pointer

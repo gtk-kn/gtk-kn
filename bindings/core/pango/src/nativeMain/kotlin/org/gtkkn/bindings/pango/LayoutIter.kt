@@ -23,8 +23,10 @@ import org.gtkkn.native.pango.pango_layout_iter_get_layout_extents
 import org.gtkkn.native.pango.pango_layout_iter_get_line
 import org.gtkkn.native.pango.pango_layout_iter_get_line_extents
 import org.gtkkn.native.pango.pango_layout_iter_get_line_readonly
+import org.gtkkn.native.pango.pango_layout_iter_get_run
 import org.gtkkn.native.pango.pango_layout_iter_get_run_baseline
 import org.gtkkn.native.pango.pango_layout_iter_get_run_extents
+import org.gtkkn.native.pango.pango_layout_iter_get_run_readonly
 import org.gtkkn.native.pango.pango_layout_iter_get_type
 import org.gtkkn.native.pango.pango_layout_iter_next_char
 import org.gtkkn.native.pango.pango_layout_iter_next_cluster
@@ -44,8 +46,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `y0`: y0: Out parameter is not supported
- * - method `get_run`: Return type LayoutRun is unsupported
- * - method `get_run_readonly`: Return type LayoutRun is unsupported
  */
 public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoLayoutIter> = pointer
@@ -195,6 +195,23 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
     }
 
     /**
+     * Gets the current run.
+     *
+     * When iterating by run, at the end of each line, there's a position
+     * with a null run, so this function can return null. The null run
+     * at the end of each line ensures that all lines have at least one run,
+     * even lines consisting of only a newline.
+     *
+     * Use the faster [method@Pango.LayoutIter.get_run_readonly] if you do not
+     * plan to modify the contents of the run (glyphs, glyph widths, etc.).
+     *
+     * @return the current run
+     */
+    public fun getRun(): LayoutRun? = pango_layout_iter_get_run(gPointer.reinterpret())!!.run {
+        GlyphItem(reinterpret())
+    }
+
+    /**
      * Gets the Y position of the current run's baseline, in layout
      * coordinates.
      *
@@ -221,6 +238,27 @@ public class LayoutIter(pointer: CPointer<PangoLayoutIter>) : ProxyInstance(poin
         inkRect?.gPointer?.reinterpret(),
         logicalRect?.gPointer?.reinterpret()
     )
+
+    /**
+     * Gets the current run for read-only access.
+     *
+     * When iterating by run, at the end of each line, there's a position
+     * with a null run, so this function can return null. The null run
+     * at the end of each line ensures that all lines have at least one run,
+     * even lines consisting of only a newline.
+     *
+     * This is a faster alternative to [method@Pango.LayoutIter.get_run],
+     * but the user is not expected to modify the contents of the run (glyphs,
+     * glyph widths, etc.).
+     *
+     * @return the current run, that
+     *   should not be modified
+     * @since 1.16
+     */
+    @PangoVersion1_16
+    public fun getRunReadonly(): LayoutRun? = pango_layout_iter_get_run_readonly(gPointer.reinterpret())!!.run {
+        GlyphItem(reinterpret())
+    }
 
     /**
      * Moves @iter forward to the next character in visual order.

@@ -27,7 +27,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - field `analysis`: Not-pointer record Analysis is ignored
+ * - field `analysis`: Field with not-pointer record/union PangoAnalysis is not supported
  */
 public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoItem> = pointer

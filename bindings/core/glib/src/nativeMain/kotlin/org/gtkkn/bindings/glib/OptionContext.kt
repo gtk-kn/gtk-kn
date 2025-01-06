@@ -43,7 +43,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: Not-pointer record OptionEntry is ignored
+ * - parameter `entries`: Array parameter of type OptionEntry is not supported
  * - method `parse`: In/Out parameter is not supported
  * - method `parse_strv`: In/Out parameter is not supported
  */

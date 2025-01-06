@@ -22,7 +22,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Not-pointer record Attribute is ignored
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
 public class AttrInt(pointer: CPointer<PangoAttrInt>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoAttrInt> = pointer

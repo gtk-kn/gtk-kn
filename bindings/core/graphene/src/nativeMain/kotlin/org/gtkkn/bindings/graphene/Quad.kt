@@ -34,7 +34,7 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `points`: Not-pointer record Point is ignored
+ * - parameter `points`: Array parameter of type Point is not supported
  *
  * @since 1.0
  */

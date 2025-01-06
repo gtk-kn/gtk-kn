@@ -21,8 +21,8 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `geometry`: Not-pointer record GlyphGeometry is ignored
- * - field `attr`: Not-pointer record GlyphVisAttr is ignored
+ * - field `geometry`: Field with not-pointer record/union PangoGlyphGeometry is not supported
+ * - field `attr`: Field with not-pointer record/union PangoGlyphVisAttr is not supported
  */
 public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<PangoGlyphInfo> = pointer
