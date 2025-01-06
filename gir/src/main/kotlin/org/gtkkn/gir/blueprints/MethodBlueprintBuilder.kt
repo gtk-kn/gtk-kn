@@ -61,9 +61,18 @@ class MethodBlueprintBuilder(
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
             is GirType -> {
                 try {
-                    context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+                    val returnType = context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+                    if (returnType is TypeInfo.RecordUnionPointer &&
+                        type.cType != "gpointer" &&
+                        type.cType?.endsWith("*") == false
+                    ) {
+                        throw UnresolvableTypeException(
+                            "Not-pointer record/union return type ${type.cType} is not supported",
+                        )
+                    }
+                    returnType
                 } catch (ex: BlueprintException) {
-                    throw UnresolvableTypeException("Return type ${type.name} is unsupported")
+                    throw UnresolvableTypeException("Return type ${type.name} is not supported")
                 }
             }
         }

@@ -236,12 +236,12 @@ class ProcessorContext(
         )
     }
 
-    private fun resolveRecordTypeInfo(registeredType: RegisteredType): TypeInfo.RecordPointer {
+    private fun resolveRecordUnionTypeInfo(registeredType: RegisteredType): TypeInfo.RecordUnionPointer {
         if (registeredType.girNamedElement is GirRecord && registeredType.girNamedElement.foreign == true) {
             throw UnresolvableTypeException("Foreign record ${registeredType.rawName} is ignored")
         }
         val objectPointerName = "gPointer"
-        return TypeInfo.RecordPointer(
+        return TypeInfo.RecordUnionPointer(
             kotlinTypeName = registeredType.className,
             nativeTypeName = BindingsGenerator.KP_CPOINTER.parameterizedBy(
                 buildNativeClassName(
@@ -307,27 +307,22 @@ class ProcessorContext(
 
         val registeredType = typeRegistry.get(girNamespace, type.name)
 
-        when (registeredType.girNamedElement) {
-            is GirAlias -> return resolveAliasTypeInfo(registeredType).withNullable(nullable)
-            is GirBitfield -> return resolveBitfieldTypeInfo(registeredType).withNullable(nullable)
-            is GirCallback -> Unit // TODO
-            is GirClass -> return resolveClassTypeInfo(registeredType).withNullable(nullable)
-            is GirConstant -> Unit // TODO
-            is GirEnumeration -> return resolveEnumerationTypeInfo(registeredType).withNullable(nullable)
-            is GirInterface -> return resolveInterfaceTypeInfo(registeredType).withNullable(nullable)
-            is GirRecord -> if (type.cType == null || type.cType == "gpointer" || type.cType.endsWith("*")) {
-                return resolveRecordTypeInfo(registeredType).withNullable(nullable)
-            } else {
-                throw UnresolvableTypeException("Not-pointer record ${registeredType.rawName} is ignored")
+        return when (registeredType.girNamedElement) {
+            is GirAlias -> resolveAliasTypeInfo(registeredType).withNullable(nullable)
+            is GirBitfield -> resolveBitfieldTypeInfo(registeredType).withNullable(nullable)
+            is GirClass -> resolveClassTypeInfo(registeredType).withNullable(nullable)
+            is GirEnumeration -> resolveEnumerationTypeInfo(registeredType).withNullable(nullable)
+            is GirInterface -> resolveInterfaceTypeInfo(registeredType).withNullable(nullable)
+            is GirRecord,
+            is GirUnion -> resolveRecordUnionTypeInfo(registeredType).withNullable(nullable)
+
+            is GirCallback -> {
+                logger.warn { "Could not resolve type for type with name: ${type.name} and cType: ${type.cType}" }
+                throw UnresolvableTypeException(type.name)
             }
 
-            is GirUnion -> Unit // TODO
+            is GirConstant -> error("You are trying to resolve the type of a GirConstant")
         }
-
-        // TODO Unions
-
-        logger.warn { "Could not resolve type for type with name: ${type.name} and cType: ${type.cType}" }
-        throw UnresolvableTypeException(type.name)
     }
 
     fun resolveTypeInfo(

@@ -56,7 +56,7 @@ interface ConversionBlockGenerator {
                     )
                 }
 
-                is TypeInfo.RecordPointer -> {
+                is TypeInfo.RecordUnionPointer -> {
                     add(
                         "%N$safeCall.%N$safeCall.%M()",
                         kotlinName,
@@ -159,7 +159,7 @@ interface ConversionBlockGenerator {
                     )
                 }
 
-                is TypeInfo.RecordPointer -> {
+                is TypeInfo.RecordUnionPointer -> {
                     add(
                         "$safeCall.%N",
                         typeInfo.objectPointerName,
@@ -192,7 +192,7 @@ interface ConversionBlockGenerator {
                     returnTypeInfo,
                 )
 
-                is TypeInfo.RecordPointer -> NativeToKotlinConversions.buildRecordPointer(
+                is TypeInfo.RecordUnionPointer -> NativeToKotlinConversions.buildRecordPointer(
                     isNullable,
                     this,
                     returnTypeInfo,
@@ -287,7 +287,7 @@ private object NativeToKotlinConversions {
     fun buildRecordPointer(
         isNullable: Boolean,
         codeBlockBuilder: CodeBlock.Builder,
-        returnTypeInfo: TypeInfo.RecordPointer,
+        returnTypeInfo: TypeInfo.RecordUnionPointer,
     ) {
         // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
         // nullable type, so we use force !! here

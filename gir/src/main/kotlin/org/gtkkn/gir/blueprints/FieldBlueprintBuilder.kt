@@ -58,6 +58,17 @@ class FieldBlueprintBuilder(
             is GirCallback -> throw UnresolvableTypeException("Fields with callbacks are not supported")
         }
 
+        if (typeInfo is TypeInfo.RecordUnionPointer &&
+            girNode.type is GirType &&
+            girNode.type.cType != null &&
+            girNode.type.cType != "gpointer" &&
+            !girNode.type.cType.endsWith("*")
+        ) {
+            throw UnresolvableTypeException(
+                "Field with not-pointer record/union ${girNode.type.cType} is not supported",
+            )
+        }
+
         return FieldBlueprint(
             kotlinName = girNode.name.toCamelCase(),
             nativeName = girNode.name,

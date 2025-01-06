@@ -84,7 +84,6 @@ interface RecordUnionGenerator : FieldGenerator, MethodGenerator, FunctionGenera
         }
         val companionSpecBuilder = TypeSpec.companionObjectBuilder()
         blueprint.constructors.forEach {
-            // TODO create the secondary constructors the same way we do for classes
             companionSpecBuilder.addFunction(buildFactoryConstructorFunction(kotlinTypeName, it))
         }
         blueprint.functions.forEach {

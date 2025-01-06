@@ -83,7 +83,7 @@ interface ClassGenerator :
                     } else {
                         // conflicting no-arg constructor: add as factory method in companion
                         val factory = buildClassConstructorFactoryMethod(
-                            clazz,
+                            clazz.typeName,
                             constructor,
                             appendSignatureParameters = { params -> appendSignatureParameters(params) },
                             addGErrorAllocation = { addGErrorAllocation() },
@@ -123,7 +123,7 @@ interface ClassGenerator :
                             // add all conflicting as constructors as factory functions
                             // this helps with developer discoverability (for example Gtk4 Button)
                             val factory = buildClassConstructorFactoryMethod(
-                                clazz,
+                                clazz.typeName,
                                 constructor,
                                 appendSignatureParameters = { params -> appendSignatureParameters(params) },
                                 addGErrorAllocation = { addGErrorAllocation() },

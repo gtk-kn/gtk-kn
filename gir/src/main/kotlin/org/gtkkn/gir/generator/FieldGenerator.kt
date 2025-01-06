@@ -92,7 +92,7 @@ interface FieldGenerator : ConversionBlockGenerator, KDocGenerator {
         is TypeInfo.KString,
         is TypeInfo.ObjectPointer,
         is TypeInfo.Primitive,
-        is TypeInfo.RecordPointer -> true
+        is TypeInfo.RecordUnionPointer -> true
 
         is TypeInfo.CallbackWithDestroy,
         is TypeInfo.InterfacePointer,

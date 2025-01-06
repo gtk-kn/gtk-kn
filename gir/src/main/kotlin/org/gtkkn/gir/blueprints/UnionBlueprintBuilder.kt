@@ -17,7 +17,6 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
-import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirFunction
@@ -28,7 +27,6 @@ import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.namespaceNativePackageName
-import org.gtkkn.gir.processor.namespacePrefix
 
 class UnionBlueprintBuilder(
     context: ProcessorContext,
@@ -65,7 +63,7 @@ class UnionBlueprintBuilder(
 
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        val objectPointerName = "gPointer"
         val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girNode)
 
         val nativeTypeName = context.buildNativeClassName(girNamespace, girNode)

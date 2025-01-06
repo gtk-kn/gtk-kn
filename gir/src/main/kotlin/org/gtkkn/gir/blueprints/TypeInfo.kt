@@ -221,7 +221,7 @@ sealed class TypeInfo {
         )
     }
 
-    data class RecordPointer(
+    data class RecordUnionPointer(
         override val kotlinTypeName: TypeName,
         override val nativeTypeName: TypeName,
         val objectPointerName: String,
