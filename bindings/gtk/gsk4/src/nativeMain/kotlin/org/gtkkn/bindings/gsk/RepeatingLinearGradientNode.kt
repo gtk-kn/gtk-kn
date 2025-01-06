@@ -15,7 +15,7 @@ import org.gtkkn.native.gsk.gsk_repeating_linear_gradient_node_get_type
  *
  * ## Skipped during bindings generation
  *
- * - parameter `color_stops`: ColorStop
+ * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
 public open class RepeatingLinearGradientNode(pointer: CPointer<GskRepeatingLinearGradientNode>) :
     RenderNode(pointer.reinterpret()),

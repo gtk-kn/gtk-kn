@@ -7,9 +7,9 @@ import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskRadialGradientNode
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_center
 import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_end
@@ -25,7 +25,7 @@ import org.gtkkn.native.gsk.gsk_radial_gradient_node_get_vradius
  * ## Skipped during bindings generation
  *
  * - parameter `n_stops`: n_stops: Out parameter is not supported
- * - parameter `color_stops`: ColorStop
+ * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
 public open class RadialGradientNode(pointer: CPointer<GskRadialGradientNode>) :
     RenderNode(pointer.reinterpret()),

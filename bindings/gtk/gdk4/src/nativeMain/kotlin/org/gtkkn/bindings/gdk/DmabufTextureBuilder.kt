@@ -3,6 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -21,6 +22,7 @@ import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_offset
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_premultiplied
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_stride
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_type
+import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_update_region
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_update_texture
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_get_width
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_new
@@ -33,12 +35,13 @@ import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_n_planes
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_offset
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_premultiplied
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_stride
+import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_update_region
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_update_texture
 import org.gtkkn.native.gdk.gdk_dmabuf_texture_builder_set_width
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -104,9 +107,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `destroy`: GLib.DestroyNotify
- * - method `get_update_region`: Return type cairo.Region is unsupported
- * - parameter `region`: cairo.Region
- * - method `update-region`: Property has no getter nor setter
  *
  * @since 4.14
  */
@@ -294,6 +294,47 @@ public open class DmabufTextureBuilder(pointer: CPointer<GdkDmabufTextureBuilder
         ) = gdk_dmabuf_texture_builder_set_premultiplied(
             gdkDmabufTextureBuilderPointer.reinterpret(),
             premultiplied.asGBoolean()
+        )
+
+    /**
+     * The update region for [property@Gdk.GLTextureBuilder:update-texture].
+     *
+     * @since 4.14
+     */
+    @GdkVersion4_14
+    public open var updateRegion: Region?
+        /**
+         * Gets the region previously set via gdk_dmabuf_texture_builder_set_update_region() or
+         * null if none was set.
+         *
+         * @return The region
+         * @since 4.14
+         */
+        get() = gdk_dmabuf_texture_builder_get_update_region(gdkDmabufTextureBuilderPointer.reinterpret())?.run {
+            Region(reinterpret())
+        }
+
+        /**
+         * Sets the region to be updated by this texture. Together with
+         * [property@Gdk.DmabufTextureBuilder:update-texture] this describes an
+         * update of a previous texture.
+         *
+         * When rendering animations of large textures, it is possible that
+         * consecutive textures are only updating contents in parts of the texture.
+         * It is then possible to describe this update via these two properties,
+         * so that GTK can avoid rerendering parts that did not change.
+         *
+         * An example would be a screen recording where only the mouse pointer moves.
+         *
+         * @param region the region to update
+         * @since 4.14
+         */
+        @GdkVersion4_14
+        set(
+            region
+        ) = gdk_dmabuf_texture_builder_set_update_region(
+            gdkDmabufTextureBuilderPointer.reinterpret(),
+            region?.gPointer?.reinterpret()
         )
 
     /**

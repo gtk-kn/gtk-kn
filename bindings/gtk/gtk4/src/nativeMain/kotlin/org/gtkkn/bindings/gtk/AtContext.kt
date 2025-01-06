@@ -40,7 +40,7 @@ import kotlin.Unit
 public open class AtContext(pointer: CPointer<GtkATContext>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val gtkATContextPointer: CPointer<GtkATContext>
+    public val gtkAtContextPointer: CPointer<GtkATContext>
         get() = gPointer.reinterpret()
 
     /**
@@ -52,7 +52,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
          *
          * @return a `GtkAccessible`
          */
-        get() = gtk_at_context_get_accessible(gtkATContextPointer.reinterpret())!!.run {
+        get() = gtk_at_context_get_accessible(gtkAtContextPointer.reinterpret())!!.run {
             Accessible.wrap(reinterpret())
         }
 
@@ -68,7 +68,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
          *
          * @return a `GtkAccessibleRole`
          */
-        get() = gtk_at_context_get_accessible_role(gtkATContextPointer.reinterpret()).run {
+        get() = gtk_at_context_get_accessible_role(gtkAtContextPointer.reinterpret()).run {
             AccessibleRole.fromNativeValue(this)
         }
 

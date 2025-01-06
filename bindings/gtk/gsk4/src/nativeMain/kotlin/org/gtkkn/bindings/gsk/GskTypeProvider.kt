@@ -28,6 +28,7 @@ public object GskTypeProvider : TypeProvider {
         InsetShadowNode::class to InsetShadowNode.type,
         LinearGradientNode::class to LinearGradientNode.type,
         MaskNode::class to MaskNode.type,
+        NglRenderer::class to NglRenderer.type,
         OpacityNode::class to OpacityNode.type,
         OutsetShadowNode::class to OutsetShadowNode.type,
         RadialGradientNode::class to RadialGradientNode.type,

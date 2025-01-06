@@ -56,7 +56,7 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
             val gResult = soup_websocket_extension_configure(
                 soupWebsocketExtensionPointer.reinterpret(),
                 connectionType.nativeValue,
-                params?.glibHashTablePointer?.reinterpret(),
+                params?.gPointer?.reinterpret(),
                 gError.ptr
             ).asBoolean()
             return if (gError.pointed != null) {

@@ -10,9 +10,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GEnumClass
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -24,42 +24,42 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `g_type_class`: TypeClass
+ * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
 public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectEnumClassPointer: CPointer<GEnumClass> = pointer
+    public val gPointer: CPointer<GEnumClass> = pointer
 
     /**
      * the smallest possible value.
      */
     public var minimum: gint
-        get() = gobjectEnumClassPointer.pointed.minimum
+        get() = gPointer.pointed.minimum
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumClassPointer.pointed.minimum = value
+            gPointer.pointed.minimum = value
         }
 
     /**
      * the largest possible value.
      */
     public var maximum: gint
-        get() = gobjectEnumClassPointer.pointed.maximum
+        get() = gPointer.pointed.maximum
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumClassPointer.pointed.maximum = value
+            gPointer.pointed.maximum = value
         }
 
     /**
      * the number of possible values.
      */
     public var nValues: guint
-        get() = gobjectEnumClassPointer.pointed.n_values
+        get() = gPointer.pointed.n_values
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumClassPointer.pointed.n_values = value
+            gPointer.pointed.n_values = value
         }
 
     /**
@@ -67,13 +67,13 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      *  individual values.
      */
     public var values: EnumValue?
-        get() = gobjectEnumClassPointer.pointed.values?.run {
+        get() = gPointer.pointed.values?.run {
             EnumValue(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumClassPointer.pointed.values = value?.gobjectEnumValuePointer
+            gPointer.pointed.values = value?.gPointer
         }
 
     /**

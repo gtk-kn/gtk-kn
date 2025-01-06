@@ -48,8 +48,8 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
     ) : this(
         gsk_color_matrix_node_new(
             child.gPointer.reinterpret(),
-            colorMatrix.grapheneMatrixPointer.reinterpret(),
-            colorOffset.grapheneVec4Pointer.reinterpret()
+            colorMatrix.gPointer.reinterpret(),
+            colorOffset.gPointer.reinterpret()
         )!!.reinterpret()
     )
 

@@ -37,9 +37,9 @@ import org.gtkkn.native.gdk.gdk_device_get_timestamp
 import org.gtkkn.native.gdk.gdk_device_get_type
 import org.gtkkn.native.gdk.gdk_device_get_vendor_id
 import org.gtkkn.native.gdk.gdk_device_has_bidi_layouts
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong

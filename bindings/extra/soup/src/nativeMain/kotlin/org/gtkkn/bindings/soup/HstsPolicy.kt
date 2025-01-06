@@ -8,8 +8,8 @@ import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.native.glib.gulong
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gulong
 import org.gtkkn.native.soup.SoupHSTSPolicy
 import org.gtkkn.native.soup.soup_hsts_policy_copy
 import org.gtkkn.native.soup.soup_hsts_policy_equal
@@ -49,14 +49,14 @@ import kotlin.Unit
  * must also be enforced on subdomains of @domain.
  */
 public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(pointer) {
-    public val soupHSTSPolicyPointer: CPointer<SoupHSTSPolicy> = pointer
+    public val gPointer: CPointer<SoupHSTSPolicy> = pointer
 
     /**
      * Copies @policy.
      *
      * @return a copy of @policy
      */
-    public fun copy(): HstsPolicy = soup_hsts_policy_copy(soupHSTSPolicyPointer.reinterpret())!!.run {
+    public fun copy(): HstsPolicy = soup_hsts_policy_copy(gPointer.reinterpret())!!.run {
         HstsPolicy(reinterpret())
     }
 
@@ -66,30 +66,28 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      * @param policy2 a #SoupHSTSPolicy
      * @return whether the policies are equal.
      */
-    public fun equal(policy2: HstsPolicy): Boolean = soup_hsts_policy_equal(
-        soupHSTSPolicyPointer.reinterpret(),
-        policy2.soupHSTSPolicyPointer.reinterpret()
-    ).asBoolean()
+    public fun equal(policy2: HstsPolicy): Boolean =
+        soup_hsts_policy_equal(gPointer.reinterpret(), policy2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Frees @policy.
      */
-    public fun free(): Unit = soup_hsts_policy_free(soupHSTSPolicyPointer.reinterpret())
+    public fun free(): Unit = soup_hsts_policy_free(gPointer.reinterpret())
 
     /**
      * Gets @policy's domain.
      *
      * @return @policy's domain.
      */
-    public fun getDomain(): String = soup_hsts_policy_get_domain(soupHSTSPolicyPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getDomain(): String =
+        soup_hsts_policy_get_domain(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the expiration date for @policy.
      *
      * @return A #GDateTime or null if unset
      */
-    public fun getExpires(): DateTime = soup_hsts_policy_get_expires(soupHSTSPolicyPointer.reinterpret())!!.run {
+    public fun getExpires(): DateTime = soup_hsts_policy_get_expires(gPointer.reinterpret())!!.run {
         DateTime(reinterpret())
     }
 
@@ -98,15 +96,14 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return Max age in seconds
      */
-    public fun getMaxAge(): gulong = soup_hsts_policy_get_max_age(soupHSTSPolicyPointer.reinterpret())
+    public fun getMaxAge(): gulong = soup_hsts_policy_get_max_age(gPointer.reinterpret())
 
     /**
      * Gets whether @policy include its subdomains.
      *
      * @return true if @policy includes subdomains, false otherwise.
      */
-    public fun includesSubdomains(): Boolean =
-        soup_hsts_policy_includes_subdomains(soupHSTSPolicyPointer.reinterpret()).asBoolean()
+    public fun includesSubdomains(): Boolean = soup_hsts_policy_includes_subdomains(gPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether @policy is expired.
@@ -115,7 +112,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return true if @policy is expired, false otherwise.
      */
-    public fun isExpired(): Boolean = soup_hsts_policy_is_expired(soupHSTSPolicyPointer.reinterpret()).asBoolean()
+    public fun isExpired(): Boolean = soup_hsts_policy_is_expired(gPointer.reinterpret()).asBoolean()
 
     /**
      * Gets whether @policy is a non-permanent, non-expirable session policy.
@@ -124,8 +121,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return true if @policy is permanent, false otherwise
      */
-    public fun isSessionPolicy(): Boolean =
-        soup_hsts_policy_is_session_policy(soupHSTSPolicyPointer.reinterpret()).asBoolean()
+    public fun isSessionPolicy(): Boolean = soup_hsts_policy_is_session_policy(gPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**
@@ -177,7 +173,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
                 soup_hsts_policy_new_full(
                     domain,
                     maxAge,
-                    expires.glibDateTimePointer.reinterpret(),
+                    expires.gPointer.reinterpret(),
                     includeSubdomains.asGBoolean()
                 )!!.reinterpret()
             )

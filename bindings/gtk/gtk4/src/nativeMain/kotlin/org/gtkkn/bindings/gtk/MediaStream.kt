@@ -14,9 +14,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint64
 import org.gtkkn.native.gtk.GtkMediaStream
 import org.gtkkn.native.gtk.gtk_media_stream_ended
 import org.gtkkn.native.gtk.gtk_media_stream_gerror
@@ -76,7 +76,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `error`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - method `ended`: Property has no getter nor setter
  * - method `has-audio`: Property has no getter nor setter
  * - method `has-video`: Property has no getter nor setter
@@ -275,7 +275,7 @@ public open class MediaStream(pointer: CPointer<GtkMediaStream>) :
      * @param error the `GError` to set
      */
     public open fun gerror(error: Error): Unit =
-        gtk_media_stream_gerror(gtkMediaStreamPointer.reinterpret(), error.glibErrorPointer.reinterpret())
+        gtk_media_stream_gerror(gtkMediaStreamPointer.reinterpret(), error.gPointer.reinterpret())
 
     /**
      * Returns whether the streams playback is finished.

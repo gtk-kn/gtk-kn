@@ -10,8 +10,8 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkKeymapKey
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -21,18 +21,18 @@ import kotlin.native.ref.createCleaner
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
 public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey> = pointer
+    public val gPointer: CPointer<GdkKeymapKey> = pointer
 
     /**
      * the hardware keycode. This is an identifying number for a
      *   physical key.
      */
     public var keycode: guint
-        get() = gdkKeymapKeyPointer.pointed.keycode
+        get() = gPointer.pointed.keycode
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkKeymapKeyPointer.pointed.keycode = value
+            gPointer.pointed.keycode = value
         }
 
     /**
@@ -42,11 +42,11 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      *   characters will be printed on the key next to the English characters.
      */
     public var group: gint
-        get() = gdkKeymapKeyPointer.pointed.group
+        get() = gPointer.pointed.group
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkKeymapKeyPointer.pointed.group = value
+            gPointer.pointed.group = value
         }
 
     /**
@@ -58,11 +58,11 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      *   uppercase letter is printed.
      */
     public var level: gint
-        get() = gdkKeymapKeyPointer.pointed.level
+        get() = gPointer.pointed.level
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkKeymapKeyPointer.pointed.level = value
+            gPointer.pointed.level = value
         }
 
     /**

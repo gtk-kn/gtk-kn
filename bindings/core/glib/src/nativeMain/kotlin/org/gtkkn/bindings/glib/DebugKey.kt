@@ -13,7 +13,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDebugKey
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -24,29 +24,29 @@ import kotlin.native.ref.createCleaner
  * Used in g_parse_debug_string().
  */
 public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibDebugKeyPointer: CPointer<GDebugKey> = pointer
+    public val gPointer: CPointer<GDebugKey> = pointer
 
     /**
      * the string
      */
     public var key: String?
-        get() = glibDebugKeyPointer.pointed.key?.toKString()
+        get() = gPointer.pointed.key?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDebugKeyPointer.pointed.key?.let { g_free(it) }
-            glibDebugKeyPointer.pointed.key = value?.let { g_strdup(it) }
+            gPointer.pointed.key?.let { g_free(it) }
+            gPointer.pointed.key = value?.let { g_strdup(it) }
         }
 
     /**
      * the flag
      */
     public var `value`: guint
-        get() = glibDebugKeyPointer.pointed.value
+        get() = gPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDebugKeyPointer.pointed.value = value
+            gPointer.pointed.value = value
         }
 
     /**

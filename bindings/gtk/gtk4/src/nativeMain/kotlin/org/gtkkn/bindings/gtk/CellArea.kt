@@ -23,10 +23,10 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkRectangle
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellArea
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -67,6 +67,7 @@ import org.gtkkn.native.gtk.gtk_cell_area_is_focus_sibling
 import org.gtkkn.native.gtk.gtk_cell_area_remove
 import org.gtkkn.native.gtk.gtk_cell_area_remove_focus_sibling
 import org.gtkkn.native.gtk.gtk_cell_area_set_focus_cell
+import org.gtkkn.native.gtk.gtk_cell_area_snapshot
 import org.gtkkn.native.gtk.gtk_cell_area_stop_editing
 import kotlin.Boolean
 import kotlin.String
@@ -392,15 +393,14 @@ import kotlin.Unit
  *
  * - method `add_with_properties`: Varargs parameter is not supported
  * - method `cell_get`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
+ * - parameter `var_args`: va_list type is not supported
  * - method `cell_set`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
+ * - parameter `var_args`: va_list type is not supported
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
- * - parameter `snapshot`: missing cType for GirClass Snapshot
  */
 public open class CellArea(pointer: CPointer<GtkCellArea>) :
     InitiallyUnowned(pointer.reinterpret()),
@@ -503,7 +503,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         gtkCellAreaPointer.reinterpret(),
         context.gtkCellAreaContextPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
         flags.mask,
         editOnly.asGBoolean()
     ).asBoolean()
@@ -533,7 +533,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         widget.gtkWidgetPointer.reinterpret(),
         renderer.gtkCellRendererPointer.reinterpret(),
         event.gPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
         flags.mask
     ).asBoolean()
 
@@ -581,7 +581,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
     ): Unit = gtk_cell_area_apply_attributes(
         gtkCellAreaPointer.reinterpret(),
         treeModel.gtkTreeModelPointer,
-        iter.gtkTreeIterPointer.reinterpret(),
+        iter.gPointer.reinterpret(),
         isExpander.asGBoolean(),
         isExpanded.asGBoolean()
     )
@@ -644,7 +644,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
             gtkCellAreaPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
             propertyName,
-            `value`.gobjectValuePointer.reinterpret()
+            `value`.gPointer.reinterpret()
         )
 
     /**
@@ -659,7 +659,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
             gtkCellAreaPointer.reinterpret(),
             renderer.gtkCellRendererPointer.reinterpret(),
             propertyName,
-            `value`.gobjectValuePointer.reinterpret()
+            `value`.gPointer.reinterpret()
         )
 
     /**
@@ -721,7 +721,7 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         context.gtkCellAreaContextPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
         event.gPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
         flags.mask
     )
 
@@ -771,8 +771,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         gtkCellAreaPointer.reinterpret(),
         context.gtkCellAreaContextPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        backgroundArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
+        backgroundArea.gPointer.reinterpret(),
         CellAllocCallbackFunc.reinterpret(),
         StableRef.create(callback).asCPointer()
     )
@@ -799,8 +799,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         context.gtkCellAreaContextPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
         renderer.gtkCellRendererPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
-        allocation.gdkRectanglePointer.reinterpret()
+        cellArea.gPointer.reinterpret(),
+        allocation.gPointer.reinterpret()
     )
 
     /**
@@ -828,10 +828,10 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         gtkCellAreaPointer.reinterpret(),
         context.gtkCellAreaContextPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
         x,
         y,
-        allocArea?.gdkRectanglePointer?.reinterpret()
+        allocArea?.gPointer?.reinterpret()
     )!!.run {
         CellRenderer(reinterpret())
     }
@@ -921,8 +921,8 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
         gtk_cell_area_inner_cell_area(
             gtkCellAreaPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            cellArea.gdkRectanglePointer.reinterpret(),
-            innerArea.gdkRectanglePointer.reinterpret()
+            cellArea.gPointer.reinterpret(),
+            innerArea.gPointer.reinterpret()
         )
 
     /**
@@ -970,6 +970,37 @@ public open class CellArea(pointer: CPointer<GtkCellArea>) :
             renderer.gtkCellRendererPointer.reinterpret(),
             sibling.gtkCellRendererPointer.reinterpret()
         )
+
+    /**
+     * Snapshots @area’s cells according to @area’s layout onto at
+     * the given coordinates.
+     *
+     * @param context the `GtkCellArea`Context for this row of data.
+     * @param widget the `GtkWidget` that @area is rendering to
+     * @param snapshot the `GtkSnapshot` to draw to
+     * @param backgroundArea the @widget relative coordinates for @area’s background
+     * @param cellArea the @widget relative coordinates for @area
+     * @param flags the `GtkCellRenderer`State for @area in this row.
+     * @param paintFocus whether @area should paint focus on focused cells for focused rows or not.
+     */
+    public open fun snapshot(
+        context: CellAreaContext,
+        widget: Widget,
+        snapshot: Snapshot,
+        backgroundArea: Rectangle,
+        cellArea: Rectangle,
+        flags: CellRendererState,
+        paintFocus: Boolean,
+    ): Unit = gtk_cell_area_snapshot(
+        gtkCellAreaPointer.reinterpret(),
+        context.gtkCellAreaContextPointer.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret(),
+        snapshot.gtkSnapshotPointer.reinterpret(),
+        backgroundArea.gPointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
+        flags.mask,
+        paintFocus.asGBoolean()
+    )
 
     /**
      * Explicitly stops the editing of the currently edited cell.

@@ -24,7 +24,7 @@ import kotlin.native.ref.createCleaner
  */
 public class BuildableParser(pointer: CPointer<GtkBuildableParser>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gtkBuildableParserPointer: CPointer<GtkBuildableParser> = pointer
+    public val gPointer: CPointer<GtkBuildableParser> = pointer
 
     /**
      * Allocate a new BuildableParser.

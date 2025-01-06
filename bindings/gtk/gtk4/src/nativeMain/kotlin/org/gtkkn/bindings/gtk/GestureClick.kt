@@ -15,11 +15,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkEventSequence
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkGestureClick
 import org.gtkkn.native.gtk.gtk_gesture_click_get_type
 import org.gtkkn.native.gtk.gtk_gesture_click_new

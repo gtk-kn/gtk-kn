@@ -2,8 +2,8 @@
 package org.gtkkn.bindings.pango
 
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_22
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoBidiType
 import org.gtkkn.native.pango.pango_bidi_type_for_unichar
 import org.gtkkn.native.pango.pango_bidi_type_get_type

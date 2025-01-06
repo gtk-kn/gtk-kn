@@ -33,8 +33,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitSettings
 import org.gtkkn.native.webkit.webkit_settings_apply_from_key_file
 import org.gtkkn.native.webkit.webkit_settings_font_size_to_pixels
@@ -1555,7 +1555,7 @@ public class Settings(pointer: CPointer<WebKitSettings>) :
         val gError = allocPointerTo<GError>()
         val gResult = webkit_settings_apply_from_key_file(
             webkitSettingsPointer.reinterpret(),
-            keyFile.glibKeyFilePointer.reinterpret(),
+            keyFile.gPointer.reinterpret(),
             groupName,
             gError.ptr
         ).asBoolean()
@@ -1576,7 +1576,7 @@ public class Settings(pointer: CPointer<WebKitSettings>) :
     @WebKitVersion2_42
     public fun getFeatureEnabled(feature: Feature): Boolean = webkit_settings_get_feature_enabled(
         webkitSettingsPointer.reinterpret(),
-        feature.webkitFeaturePointer.reinterpret()
+        feature.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -1615,7 +1615,7 @@ public class Settings(pointer: CPointer<WebKitSettings>) :
     @WebKitVersion2_42
     public fun setFeatureEnabled(feature: Feature, enabled: Boolean): Unit = webkit_settings_set_feature_enabled(
         webkitSettingsPointer.reinterpret(),
-        feature.webkitFeaturePointer.reinterpret(),
+        feature.gPointer.reinterpret(),
         enabled.asGBoolean()
     )
 

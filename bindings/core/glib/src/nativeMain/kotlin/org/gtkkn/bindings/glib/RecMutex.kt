@@ -39,7 +39,7 @@ import kotlin.native.ref.createCleaner
  */
 @GLibVersion2_32
 public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibRecMutexPointer: CPointer<GRecMutex> = pointer
+    public val gPointer: CPointer<GRecMutex> = pointer
 
     /**
      * Allocate a new RecMutex.
@@ -83,7 +83,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_rec_mutex_clear(glibRecMutexPointer.reinterpret())
+    public fun clear(): Unit = g_rec_mutex_clear(gPointer.reinterpret())
 
     /**
      * Initializes a #GRecMutex so that it can be used.
@@ -116,7 +116,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_rec_mutex_init(glibRecMutexPointer.reinterpret())
+    public fun `init`(): Unit = g_rec_mutex_init(gPointer.reinterpret())
 
     /**
      * Locks @rec_mutex. If @rec_mutex is already locked by another
@@ -129,7 +129,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun lock(): Unit = g_rec_mutex_lock(glibRecMutexPointer.reinterpret())
+    public fun lock(): Unit = g_rec_mutex_lock(gPointer.reinterpret())
 
     /**
      * Tries to lock @rec_mutex. If @rec_mutex is already locked
@@ -140,7 +140,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun trylock(): Boolean = g_rec_mutex_trylock(glibRecMutexPointer.reinterpret()).asBoolean()
+    public fun trylock(): Boolean = g_rec_mutex_trylock(gPointer.reinterpret()).asBoolean()
 
     /**
      * Unlocks @rec_mutex. If another thread is blocked in a
@@ -153,5 +153,5 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unlock(): Unit = g_rec_mutex_unlock(glibRecMutexPointer.reinterpret())
+    public fun unlock(): Unit = g_rec_mutex_unlock(gPointer.reinterpret())
 }

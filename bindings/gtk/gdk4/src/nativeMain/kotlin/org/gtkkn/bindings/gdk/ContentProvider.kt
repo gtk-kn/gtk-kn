@@ -39,9 +39,9 @@ import org.gtkkn.native.gdk.gdk_content_provider_ref_storable_formats
 import org.gtkkn.native.gdk.gdk_content_provider_write_mime_type_async
 import org.gtkkn.native.gdk.gdk_content_provider_write_mime_type_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -83,7 +83,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     public constructor(
         mimeType: String,
         bytes: Bytes,
-    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer.reinterpret())!!.reinterpret())
+    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Create a content provider that provides the given @value.
@@ -93,7 +93,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      */
     public constructor(
         `value`: Value,
-    ) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer.reinterpret())!!.reinterpret())
+    ) : this(gdk_content_provider_new_for_value(`value`.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Emits the ::content-changed signal.
@@ -118,7 +118,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
         val gError = allocPointerTo<GError>()
         val gResult = gdk_content_provider_get_value(
             gdkContentProviderPointer.reinterpret(),
-            `value`.gobjectValuePointer.reinterpret(),
+            `value`.gPointer.reinterpret(),
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {

@@ -23,9 +23,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRecentManager
 import org.gtkkn.native.gtk.gtk_recent_manager_add_full
 import org.gtkkn.native.gtk.gtk_recent_manager_add_item
@@ -158,7 +158,7 @@ public open class RecentManager(pointer: CPointer<GtkRecentManager>) :
     public open fun addFull(uri: String, recentData: RecentData): Boolean = gtk_recent_manager_add_full(
         gtkRecentManagerPointer.reinterpret(),
         uri,
-        recentData.gtkRecentDataPointer.reinterpret()
+        recentData.gPointer.reinterpret()
     ).asBoolean()
 
     /**

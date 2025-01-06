@@ -24,6 +24,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.extensions.gobject.associateCustomObject
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GParamSpec
 import org.gtkkn.native.gobject.GType
@@ -60,7 +61,6 @@ import org.gtkkn.native.gobject.g_object_watch_closure
 import org.gtkkn.native.gobject.g_object_weak_ref
 import org.gtkkn.native.gobject.g_object_weak_unref
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -96,26 +96,25 @@ import kotlin.Unit
  * - method `connect`: Varargs parameter is not supported
  * - method `disconnect`: Varargs parameter is not supported
  * - method `get`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
- * - parameter `values`: Value
+ * - parameter `var_args`: va_list type is not supported
+ * - parameter `values`: Array parameter of type Value is not supported
  * - method `remove_weak_pointer`: In/Out parameter is not supported
  * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `destroy`: GLib.DestroyNotify
  * - method `set`: Varargs parameter is not supported
  * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `destroy`: GLib.DestroyNotify
- * - parameter `var_args`: va_list
- * - parameter `values`: Value
+ * - parameter `var_args`: va_list type is not supported
+ * - parameter `values`: Array parameter of type Value is not supported
  * - constructor `new`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
- * - parameter `values`: Value
- * - parameter `parameters`: Parameter
+ * - parameter `var_args`: va_list type is not supported
+ * - parameter `values`: Array parameter of type Value is not supported
+ * - parameter `parameters`: Array parameter of type Parameter is not supported
  * - parameter `n_properties_p`: n_properties_p: Out parameter is not supported
  */
 public open class Object(pointer: CPointer<GObject>) : KGTyped {
-    public val gPointer: CPointer<GObject>
+    public val gPointer: CPointer<GObject> = pointer
     init {
-        gPointer = pointer.reinterpret()
         associateCustomObject()
     }
 
@@ -262,8 +261,8 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
         target.gPointer.reinterpret(),
         targetProperty,
         flags.mask,
-        transformTo.gobjectClosurePointer.reinterpret(),
-        transformFrom.gobjectClosurePointer.reinterpret()
+        transformTo.gPointer.reinterpret(),
+        transformFrom.gPointer.reinterpret()
     )!!.run {
         Binding(reinterpret())
     }
@@ -391,7 +390,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param value return location for the property value
      */
     public open fun getProperty(propertyName: String, `value`: Value): Unit =
-        g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+        g_object_get_property(gPointer.reinterpret(), propertyName, `value`.gPointer.reinterpret())
 
     /**
      * This function gets back user data pointers stored via
@@ -562,7 +561,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param value the value
      */
     public open fun setProperty(propertyName: String, `value`: Value): Unit =
-        g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gobjectValuePointer.reinterpret())
+        g_object_set_property(gPointer.reinterpret(), propertyName, `value`.gPointer.reinterpret())
 
     /**
      * This sets an opaque, named pointer on an object.
@@ -715,7 +714,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
      * @param closure #GClosure to watch
      */
     public open fun watchClosure(closure: Closure): Unit =
-        g_object_watch_closure(gPointer.reinterpret(), closure.gobjectClosurePointer.reinterpret())
+        g_object_watch_closure(gPointer.reinterpret(), closure.gPointer.reinterpret())
 
     /**
      * Adds a weak reference callback to an object. Weak references are
@@ -811,7 +810,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
          */
         @GObjectVersion2_4
         public fun interfaceFindProperty(gIface: TypeInterface, propertyName: String): ParamSpec =
-            g_object_interface_find_property(gIface.gobjectTypeInterfacePointer.reinterpret(), propertyName)!!.run {
+            g_object_interface_find_property(gIface.gPointer.reinterpret(), propertyName)!!.run {
                 ParamSpec(reinterpret())
             }
 
@@ -841,10 +840,7 @@ public open class Object(pointer: CPointer<GObject>) : KGTyped {
          */
         @GObjectVersion2_4
         public fun interfaceInstallProperty(gIface: TypeInterface, pspec: ParamSpec): Unit =
-            g_object_interface_install_property(
-                gIface.gobjectTypeInterfacePointer.reinterpret(),
-                pspec.gPointer.reinterpret()
-            )
+            g_object_interface_install_property(gIface.gPointer.reinterpret(), pspec.gPointer.reinterpret())
 
         /**
          * Get the GType of Object

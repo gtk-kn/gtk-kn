@@ -17,7 +17,7 @@ import org.gtkkn.native.glib.GTimeVal
 import org.gtkkn.native.glib.g_time_val_add
 import org.gtkkn.native.glib.g_time_val_from_iso8601
 import org.gtkkn.native.glib.g_time_val_to_iso8601
-import org.gtkkn.native.gobject.glong
+import org.gtkkn.native.glib.glong
 import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
@@ -38,28 +38,28 @@ import kotlin.native.ref.createCleaner
  * problem.
  */
 public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibTimeValPointer: CPointer<GTimeVal> = pointer
+    public val gPointer: CPointer<GTimeVal> = pointer
 
     /**
      * seconds
      */
     public var tvSec: glong
-        get() = glibTimeValPointer.pointed.tv_sec
+        get() = gPointer.pointed.tv_sec
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTimeValPointer.pointed.tv_sec = value
+            gPointer.pointed.tv_sec = value
         }
 
     /**
      * microseconds
      */
     public var tvUsec: glong
-        get() = glibTimeValPointer.pointed.tv_usec
+        get() = gPointer.pointed.tv_usec
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTimeValPointer.pointed.tv_usec = value
+            gPointer.pointed.tv_usec = value
         }
 
     /**
@@ -129,7 +129,7 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      *
      * @param microseconds number of microseconds to add to @time
      */
-    public fun add(microseconds: glong): Unit = g_time_val_add(glibTimeValPointer.reinterpret(), microseconds)
+    public fun add(microseconds: glong): Unit = g_time_val_add(gPointer.reinterpret(), microseconds)
 
     /**
      * Converts @time_ into an RFC 3339 encoded string, relative to the
@@ -172,7 +172,7 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun toIso8601(): String? = g_time_val_to_iso8601(glibTimeValPointer.reinterpret())?.toKString()
+    public fun toIso8601(): String? = g_time_val_to_iso8601(gPointer.reinterpret())?.toKString()
 
     override fun toString(): String = "TimeVal(tvSec=$tvSec, tvUsec=$tvUsec)"
 
@@ -203,6 +203,6 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
          */
         @GLibVersion2_12
         public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
-            g_time_val_from_iso8601(isoDate, time.glibTimeValPointer.reinterpret()).asBoolean()
+            g_time_val_from_iso8601(isoDate, time.gPointer.reinterpret()).asBoolean()
     }
 }

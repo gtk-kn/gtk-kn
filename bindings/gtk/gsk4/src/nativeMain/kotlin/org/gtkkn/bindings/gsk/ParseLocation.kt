@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gsk.GskParseLocation
 import kotlin.Pair
 import kotlin.String
@@ -20,61 +20,61 @@ import kotlin.native.ref.createCleaner
  * A location in a parse buffer.
  */
 public class ParseLocation(pointer: CPointer<GskParseLocation>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gskParseLocationPointer: CPointer<GskParseLocation> = pointer
+    public val gPointer: CPointer<GskParseLocation> = pointer
 
     /**
      * the offset of the location in the parse buffer, as bytes
      */
     public var bytes: gsize
-        get() = gskParseLocationPointer.pointed.bytes
+        get() = gPointer.pointed.bytes
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskParseLocationPointer.pointed.bytes = value
+            gPointer.pointed.bytes = value
         }
 
     /**
      * the offset of the location in the parse buffer, as characters
      */
     public var chars: gsize
-        get() = gskParseLocationPointer.pointed.chars
+        get() = gPointer.pointed.chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskParseLocationPointer.pointed.chars = value
+            gPointer.pointed.chars = value
         }
 
     /**
      * the line of the location in the parse buffer
      */
     public var lines: gsize
-        get() = gskParseLocationPointer.pointed.lines
+        get() = gPointer.pointed.lines
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskParseLocationPointer.pointed.lines = value
+            gPointer.pointed.lines = value
         }
 
     /**
      * the position in the line, as bytes
      */
     public var lineBytes: gsize
-        get() = gskParseLocationPointer.pointed.line_bytes
+        get() = gPointer.pointed.line_bytes
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskParseLocationPointer.pointed.line_bytes = value
+            gPointer.pointed.line_bytes = value
         }
 
     /**
      * the position in the line, as characters
      */
     public var lineChars: gsize
-        get() = gskParseLocationPointer.pointed.line_chars
+        get() = gPointer.pointed.line_chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskParseLocationPointer.pointed.line_chars = value
+            gPointer.pointed.line_chars = value
         }
 
     /**

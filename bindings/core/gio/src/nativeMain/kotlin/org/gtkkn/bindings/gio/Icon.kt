@@ -27,8 +27,8 @@ import org.gtkkn.native.gio.g_icon_new_for_string
 import org.gtkkn.native.gio.g_icon_serialize
 import org.gtkkn.native.gio.g_icon_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -149,10 +149,9 @@ public interface Icon :
          * @since 2.38
          */
         @GioVersion2_38
-        public fun deserialize(`value`: Variant): Icon? =
-            g_icon_deserialize(`value`.glibVariantPointer.reinterpret())?.run {
-                Icon.wrap(reinterpret())
-            }
+        public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.gPointer.reinterpret())?.run {
+            Icon.wrap(reinterpret())
+        }
 
         /**
          * Generate a #GIcon instance from @str. This function can fail if

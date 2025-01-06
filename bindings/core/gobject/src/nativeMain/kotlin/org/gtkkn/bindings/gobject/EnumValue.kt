@@ -12,8 +12,8 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GEnumValue
-import org.gtkkn.native.gobject.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -24,41 +24,41 @@ import kotlin.native.ref.createCleaner
  * nickname.
  */
 public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectEnumValuePointer: CPointer<GEnumValue> = pointer
+    public val gPointer: CPointer<GEnumValue> = pointer
 
     /**
      * the enum value
      */
     public var `value`: gint
-        get() = gobjectEnumValuePointer.pointed.value
+        get() = gPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumValuePointer.pointed.value = value
+            gPointer.pointed.value = value
         }
 
     /**
      * the name of the value
      */
     public var valueName: String?
-        get() = gobjectEnumValuePointer.pointed.value_name?.toKString()
+        get() = gPointer.pointed.value_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumValuePointer.pointed.value_name?.let { g_free(it) }
-            gobjectEnumValuePointer.pointed.value_name = value?.let { g_strdup(it) }
+            gPointer.pointed.value_name?.let { g_free(it) }
+            gPointer.pointed.value_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the nickname of the value
      */
     public var valueNick: String?
-        get() = gobjectEnumValuePointer.pointed.value_nick?.toKString()
+        get() = gPointer.pointed.value_nick?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectEnumValuePointer.pointed.value_nick?.let { g_free(it) }
-            gobjectEnumValuePointer.pointed.value_nick = value?.let { g_strdup(it) }
+            gPointer.pointed.value_nick?.let { g_free(it) }
+            gPointer.pointed.value_nick = value?.let { g_strdup(it) }
         }
 
     /**

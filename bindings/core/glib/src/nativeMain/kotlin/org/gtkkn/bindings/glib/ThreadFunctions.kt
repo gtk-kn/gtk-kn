@@ -41,7 +41,7 @@ import kotlin.native.ref.createCleaner
  * - field `thread_equal`: Fields with callbacks are not supported
  */
 public class ThreadFunctions(pointer: CPointer<GThreadFunctions>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibThreadFunctionsPointer: CPointer<GThreadFunctions> = pointer
+    public val gPointer: CPointer<GThreadFunctions> = pointer
 
     /**
      * Allocate a new ThreadFunctions.

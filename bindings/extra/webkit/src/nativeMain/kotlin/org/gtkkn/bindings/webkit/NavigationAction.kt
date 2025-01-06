@@ -9,8 +9,8 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_6
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitNavigationAction
 import org.gtkkn.native.webkit.webkit_navigation_action_copy
 import org.gtkkn.native.webkit.webkit_navigation_action_free
@@ -30,7 +30,7 @@ import kotlin.Unit
  * Provides details about interaction resulting in a resource load.
  */
 public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : ProxyInstance(pointer) {
-    public val webkitNavigationActionPointer: CPointer<WebKitNavigationAction> = pointer
+    public val gPointer: CPointer<WebKitNavigationAction> = pointer
 
     /**
      * Make a copy of @navigation.
@@ -39,10 +39,9 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun copy(): NavigationAction =
-        webkit_navigation_action_copy(webkitNavigationActionPointer.reinterpret())!!.run {
-            NavigationAction(reinterpret())
-        }
+    public fun copy(): NavigationAction = webkit_navigation_action_copy(gPointer.reinterpret())!!.run {
+        NavigationAction(reinterpret())
+    }
 
     /**
      * Free the #WebKitNavigationAction
@@ -50,7 +49,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun free(): Unit = webkit_navigation_action_free(webkitNavigationActionPointer.reinterpret())
+    public fun free(): Unit = webkit_navigation_action_free(gPointer.reinterpret())
 
     /**
      * Gets the @navigation target frame name. For example if navigation was triggered by clicking a
@@ -61,8 +60,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getFrameName(): String? =
-        webkit_navigation_action_get_frame_name(webkitNavigationActionPointer.reinterpret())?.toKString()
+    public fun getFrameName(): String? = webkit_navigation_action_get_frame_name(gPointer.reinterpret())?.toKString()
 
     /**
      * Return the modifier keys.
@@ -74,8 +72,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getModifiers(): guint =
-        webkit_navigation_action_get_modifiers(webkitNavigationActionPointer.reinterpret())
+    public fun getModifiers(): guint = webkit_navigation_action_get_modifiers(gPointer.reinterpret())
 
     /**
      * Return the number of the mouse button that triggered the navigation.
@@ -87,8 +84,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getMouseButton(): guint =
-        webkit_navigation_action_get_mouse_button(webkitNavigationActionPointer.reinterpret())
+    public fun getMouseButton(): guint = webkit_navigation_action_get_mouse_button(gPointer.reinterpret())
 
     /**
      * Return the type of action that triggered the navigation.
@@ -98,7 +94,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      */
     @WebKitVersion2_6
     public fun getNavigationType(): NavigationType =
-        webkit_navigation_action_get_navigation_type(webkitNavigationActionPointer.reinterpret()).run {
+        webkit_navigation_action_get_navigation_type(gPointer.reinterpret()).run {
             NavigationType.fromNativeValue(this)
         }
 
@@ -115,10 +111,9 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun getRequest(): UriRequest =
-        webkit_navigation_action_get_request(webkitNavigationActionPointer.reinterpret())!!.run {
-            UriRequest(reinterpret())
-        }
+    public fun getRequest(): UriRequest = webkit_navigation_action_get_request(gPointer.reinterpret())!!.run {
+        UriRequest(reinterpret())
+    }
 
     /**
      * Returns whether the @navigation was redirected.
@@ -127,8 +122,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun isRedirect(): Boolean =
-        webkit_navigation_action_is_redirect(webkitNavigationActionPointer.reinterpret()).asBoolean()
+    public fun isRedirect(): Boolean = webkit_navigation_action_is_redirect(gPointer.reinterpret()).asBoolean()
 
     /**
      * Return whether the navigation was triggered by a user gesture like a mouse click.
@@ -137,8 +131,7 @@ public class NavigationAction(pointer: CPointer<WebKitNavigationAction>) : Proxy
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun isUserGesture(): Boolean =
-        webkit_navigation_action_is_user_gesture(webkitNavigationActionPointer.reinterpret()).asBoolean()
+    public fun isUserGesture(): Boolean = webkit_navigation_action_is_user_gesture(gPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**

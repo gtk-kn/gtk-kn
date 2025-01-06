@@ -44,11 +44,11 @@ import org.gtkkn.native.adw.adw_carousel_set_interactive
 import org.gtkkn.native.adw.adw_carousel_set_reveal_duration
 import org.gtkkn.native.adw.adw_carousel_set_scroll_params
 import org.gtkkn.native.adw.adw_carousel_set_spacing
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -273,12 +273,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param params the new parameters
          */
-        set(
-            params
-        ) = adw_carousel_set_scroll_params(
-            adwCarouselPointer.reinterpret(),
-            params.adwSpringParamsPointer.reinterpret()
-        )
+        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.gPointer.reinterpret())
 
     /**
      * Spacing between pages in pixels.

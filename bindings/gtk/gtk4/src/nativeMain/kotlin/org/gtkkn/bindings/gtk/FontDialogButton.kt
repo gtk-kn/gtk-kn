@@ -163,7 +163,7 @@ public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
             language
         ) = gtk_font_dialog_button_set_language(
             gtkFontDialogButtonPointer.reinterpret(),
-            language?.pangoLanguagePointer?.reinterpret()
+            language?.gPointer?.reinterpret()
         )
 
     /**
@@ -305,10 +305,8 @@ public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun setFontDesc(fontDesc: FontDescription): Unit = gtk_font_dialog_button_set_font_desc(
-        gtkFontDialogButtonPointer.reinterpret(),
-        fontDesc.pangoFontDescriptionPointer.reinterpret()
-    )
+    public open fun setFontDesc(fontDesc: FontDescription): Unit =
+        gtk_font_dialog_button_set_font_desc(gtkFontDialogButtonPointer.reinterpret(), fontDesc.gPointer.reinterpret())
 
     /**
      * Emitted when the font dialog button is activated.

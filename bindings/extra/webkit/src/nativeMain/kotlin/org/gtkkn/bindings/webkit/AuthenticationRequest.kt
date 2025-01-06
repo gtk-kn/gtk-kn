@@ -21,9 +21,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitAuthenticationRequest
 import org.gtkkn.native.webkit.WebKitCredential
 import org.gtkkn.native.webkit.webkit_authentication_request_authenticate
@@ -80,7 +80,7 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
     @WebKitVersion2_2
     public fun authenticate(credential: Credential? = null): Unit = webkit_authentication_request_authenticate(
         webkitAuthenticationRequestPointer.reinterpret(),
-        credential?.webkitCredentialPointer?.reinterpret()
+        credential?.gPointer?.reinterpret()
     )
 
     /**
@@ -256,7 +256,7 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
     public fun setProposedCredential(credential: Credential): Unit =
         webkit_authentication_request_set_proposed_credential(
             webkitAuthenticationRequestPointer.reinterpret(),
-            credential.webkitCredentialPointer.reinterpret()
+            credential.gPointer.reinterpret()
         )
 
     /**

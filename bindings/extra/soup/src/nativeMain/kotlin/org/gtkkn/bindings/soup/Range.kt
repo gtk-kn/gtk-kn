@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gint64
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.soup.SoupRange
 import kotlin.Pair
 import kotlin.String
@@ -33,28 +33,28 @@ import kotlin.native.ref.createCleaner
  * (Eg, the last 500 bytes would be @start = -500 and @end = -1.)
  */
 public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val soupRangePointer: CPointer<SoupRange> = pointer
+    public val gPointer: CPointer<SoupRange> = pointer
 
     /**
      * the start of the range
      */
     public var start: gint64
-        get() = soupRangePointer.pointed.start
+        get() = gPointer.pointed.start
 
         @UnsafeFieldSetter
         set(`value`) {
-            soupRangePointer.pointed.start = value
+            gPointer.pointed.start = value
         }
 
     /**
      * the end of the range
      */
     public var end: gint64
-        get() = soupRangePointer.pointed.end
+        get() = gPointer.pointed.end
 
         @UnsafeFieldSetter
         set(`value`) {
-            soupRangePointer.pointed.end = value
+            gPointer.pointed.end = value
         }
 
     /**

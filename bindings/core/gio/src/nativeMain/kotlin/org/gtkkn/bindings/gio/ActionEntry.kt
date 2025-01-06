@@ -36,18 +36,18 @@ import kotlin.native.ref.createCleaner
  * - field `change_state`: Fields with callbacks are not supported
  */
 public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioActionEntryPointer: CPointer<GActionEntry> = pointer
+    public val gPointer: CPointer<GActionEntry> = pointer
 
     /**
      * the name of the action
      */
     public var name: String?
-        get() = gioActionEntryPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioActionEntryPointer.pointed.name?.let { g_free(it) }
-            gioActionEntryPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -56,12 +56,12 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      *                  GVariant type string (or null for no parameter)
      */
     public var parameterType: String?
-        get() = gioActionEntryPointer.pointed.parameter_type?.toKString()
+        get() = gPointer.pointed.parameter_type?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioActionEntryPointer.pointed.parameter_type?.let { g_free(it) }
-            gioActionEntryPointer.pointed.parameter_type = value?.let { g_strdup(it) }
+            gPointer.pointed.parameter_type?.let { g_free(it) }
+            gPointer.pointed.parameter_type = value?.let { g_strdup(it) }
         }
 
     /**
@@ -72,12 +72,12 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      *         give null here.
      */
     public var state: String?
-        get() = gioActionEntryPointer.pointed.state?.toKString()
+        get() = gPointer.pointed.state?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioActionEntryPointer.pointed.state?.let { g_free(it) }
-            gioActionEntryPointer.pointed.state = value?.let { g_strdup(it) }
+            gPointer.pointed.state?.let { g_free(it) }
+            gPointer.pointed.state = value?.let { g_strdup(it) }
         }
 
     /**

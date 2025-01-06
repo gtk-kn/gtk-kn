@@ -29,9 +29,9 @@ import org.gtkkn.native.adw.adw_spring_animation_set_initial_velocity
 import org.gtkkn.native.adw.adw_spring_animation_set_spring_params
 import org.gtkkn.native.adw.adw_spring_animation_set_value_from
 import org.gtkkn.native.adw.adw_spring_animation_set_value_to
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 
 /**
@@ -202,7 +202,7 @@ public class SpringAnimation(pointer: CPointer<AdwSpringAnimation>) :
             springParams
         ) = adw_spring_animation_set_spring_params(
             adwSpringAnimationPointer.reinterpret(),
-            springParams.adwSpringParamsPointer.reinterpret()
+            springParams.gPointer.reinterpret()
         )
 
     /**
@@ -288,7 +288,7 @@ public class SpringAnimation(pointer: CPointer<AdwSpringAnimation>) :
             widget.gtkWidgetPointer.reinterpret(),
             from,
             to,
-            springParams.adwSpringParamsPointer.reinterpret(),
+            springParams.gPointer.reinterpret(),
             target.adwAnimationTargetPointer.reinterpret()
         )!!.reinterpret()
     )

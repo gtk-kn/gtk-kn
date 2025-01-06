@@ -56,8 +56,6 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
             // If class has a parent, pass the pointer to the superclass constructor
             builder.addSuperclassConstructorParameter(CodeBlock.of("pointer.%M()", BindingsGenerator.REINTERPRET_FUNC))
         } else {
-            // No parent: initialize pointer directly
-            constructorSpecBuilder.addStatement("gPointer = pointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
             if (clazz.kotlinName == "Object") {
                 constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
             }
@@ -114,7 +112,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
             // Append parameters
             constructor.parameters.forEachIndexed { index, param ->
                 if (index > 0) codeBlockBuilder.add(", ")
-                codeBlockBuilder.add(buildParameterConversionBlock(param))
+                codeBlockBuilder.add(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
             }
 
             if (constructor.throws) {
@@ -155,21 +153,21 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
      * with the given parameters, handling memory scoping, errors, and
      * returning a [Result] if `throws` is true.
      *
-     * @param clazz The class blueprint.
+     * @param typeName The class [TypeName].
      * @param constructor The constructor blueprint describing the native constructor.
      * @param appendSignatureParameters A function to append parameters to the signature.
      * @param addGErrorAllocation A function to allocate and initialize a GError pointer.
      * @param addErrorHandling A function to handle GError after calling the native constructor.
      */
     fun buildClassConstructorFactoryMethod(
-        clazz: ClassBlueprint,
+        typeName: ClassName,
         constructor: ConstructorBlueprint,
         appendSignatureParameters: FunSpec.Builder.(List<ParameterBlueprint>) -> Unit,
         addGErrorAllocation: FunSpec.Builder.() -> Unit,
         addErrorHandling: FunSpec.Builder.(ConstructorBlueprint, String) -> Unit,
     ): FunSpec {
         val funBuilder = FunSpec.builder(constructor.kotlinName)
-        val returnTypeName = determineConstructorReturnType(clazz, constructor)
+        val returnTypeName = determineConstructorReturnType(typeName, constructor)
         funBuilder.returns(returnTypeName)
 
         ensureReturnTypeIsObjectPointer(constructor)
@@ -193,7 +191,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
             } else {
                 funBuilder.addStatement(
                     "return %T(%M()!!.%M())",
-                    clazz.typeName,
+                    typeName,
                     constructor.nativeMemberName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
@@ -210,7 +208,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
                 funBuilder.addGErrorAllocation()
                 funBuilder.addCode("val gResult = %M(", constructor.nativeMemberName)
             } else {
-                funBuilder.addCode("return %T(%M(", clazz.typeName, constructor.nativeMemberName)
+                funBuilder.addCode("return %T(%M(", typeName, constructor.nativeMemberName)
             }
 
             // Append parameters
@@ -218,7 +216,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
                 if (index > 0) {
                     funBuilder.addCode(", ")
                 }
-                funBuilder.addCode(buildParameterConversionBlock(param))
+                funBuilder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
             }
 
             if (constructor.throws) {
@@ -250,10 +248,12 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         if (clazz.hasParent) {
             // if class has a parent, use a getter
             propertyBuilder.getter(
-                FunSpec.getterBuilder()
-                    .addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
-                    .build(),
+                FunSpec.getterBuilder().apply {
+                    addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+                }.build(),
             )
+        } else {
+            propertyBuilder.initializer("pointer")
         }
         return propertyBuilder.build()
     }
@@ -470,7 +470,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         builder.addCode("return %T(%M(", kotlinTypeName, constructor.nativeMemberName)
         constructor.parameters.forEachIndexed { index, param ->
             if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param))
+            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
         }
         builder.addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
     }
@@ -488,7 +488,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
 
         constructor.parameters.forEachIndexed { index, param ->
             if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param))
+            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
         }
 
         builder.addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
@@ -547,8 +547,8 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         )?.let { builder.addKdoc(it) }
     }
 
-    private fun determineConstructorReturnType(clazz: ClassBlueprint, constructor: ConstructorBlueprint) =
-        if (constructor.throws) BindingsGenerator.RESULT_TYPE.parameterizedBy(clazz.typeName) else clazz.typeName
+    private fun determineConstructorReturnType(typeName: ClassName, constructor: ConstructorBlueprint) =
+        if (constructor.throws) BindingsGenerator.RESULT_TYPE.parameterizedBy(typeName) else typeName
 
     private fun determineNonNullReturnType(constructor: ConstructorBlueprint) =
         if (!constructor.returnTypeInfo.kotlinTypeName.isNullable) {

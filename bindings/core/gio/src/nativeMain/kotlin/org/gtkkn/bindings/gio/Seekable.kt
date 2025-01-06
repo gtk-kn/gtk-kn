@@ -23,8 +23,8 @@ import org.gtkkn.native.gio.g_seekable_seek
 import org.gtkkn.native.gio.g_seekable_tell
 import org.gtkkn.native.gio.g_seekable_truncate
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint64
 import kotlin.Boolean
 import kotlin.Result
 

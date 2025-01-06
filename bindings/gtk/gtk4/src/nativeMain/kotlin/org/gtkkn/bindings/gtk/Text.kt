@@ -22,13 +22,13 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint16
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint16
-import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -223,7 +223,7 @@ public open class Text(pointer: CPointer<GtkText>) :
          *
          * @param attrs a `PangoAttrList`
          */
-        set(attrs) = gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.pangoAttrListPointer?.reinterpret())
+        set(attrs) = gtk_text_set_attributes(gtkTextPointer.reinterpret(), attrs?.gPointer?.reinterpret())
 
     /**
      * The `GtkEntryBuffer` object which stores the text.
@@ -494,7 +494,7 @@ public open class Text(pointer: CPointer<GtkText>) :
          *
          * @param tabs a `PangoTabArray`
          */
-        set(tabs) = gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.pangoTabArrayPointer?.reinterpret())
+        set(tabs) = gtk_text_set_tabs(gtkTextPointer.reinterpret(), tabs?.gPointer?.reinterpret())
 
     /**
      * When true, pasted multi-line text is truncated to the first line.
@@ -589,8 +589,8 @@ public open class Text(pointer: CPointer<GtkText>) :
         gtk_text_compute_cursor_extents(
             gtkTextPointer.reinterpret(),
             position,
-            strong?.grapheneRectPointer?.reinterpret(),
-            weak?.grapheneRectPointer?.reinterpret()
+            strong?.gPointer?.reinterpret(),
+            weak?.gPointer?.reinterpret()
         )
 
     /**

@@ -39,8 +39,8 @@ import org.gtkkn.native.gdk.gdk_pixbuf_animation_new_from_stream_finish
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_ref
 import org.gtkkn.native.gdk.gdk_pixbuf_animation_unref
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -198,7 +198,7 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
      */
     public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter = gdk_pixbuf_animation_get_iter(
         gdkPixbufAnimationPointer.reinterpret(),
-        startTime?.glibTimeValPointer?.reinterpret()
+        startTime?.gPointer?.reinterpret()
     )!!.run {
         PixbufAnimationIter(reinterpret())
     }

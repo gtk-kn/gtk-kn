@@ -10,8 +10,8 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceIndenter
 import org.gtkkn.native.gtksource.gtk_source_indenter_get_type
 import org.gtkkn.native.gtksource.gtk_source_indenter_is_trigger
@@ -77,7 +77,7 @@ public interface Indenter :
         gtk_source_indenter_is_trigger(
             gtksourceIndenterPointer.reinterpret(),
             view.gtksourceViewPointer.reinterpret(),
-            location.gtkTextIterPointer.reinterpret(),
+            location.gPointer.reinterpret(),
             state.mask,
             keyval
         ).asBoolean()

@@ -42,8 +42,8 @@ import org.gtkkn.native.gio.g_subprocess_launcher_take_stdin_fd
 import org.gtkkn.native.gio.g_subprocess_launcher_take_stdout_fd
 import org.gtkkn.native.gio.g_subprocess_launcher_unsetenv
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String

@@ -8,9 +8,9 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_2
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskConicGradientNode
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_angle
 import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_center
@@ -24,7 +24,7 @@ import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_type
  * ## Skipped during bindings generation
  *
  * - parameter `n_stops`: n_stops: Out parameter is not supported
- * - parameter `color_stops`: ColorStop
+ * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
 public open class ConicGradientNode(pointer: CPointer<GskConicGradientNode>) :
     RenderNode(pointer.reinterpret()),

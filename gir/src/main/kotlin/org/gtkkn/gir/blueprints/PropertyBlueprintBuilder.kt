@@ -30,7 +30,7 @@ import org.gtkkn.gir.processor.UnresolvableTypeException
 class PropertyBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girProperty: GirProperty,
+    private val girNode: GirProperty,
     private val methodsMap: HashMap<String, MethodBlueprint>,
     private val superClasses: List<GirClass> = emptyList(),
     private val superInterfaces: List<GirInterface> = emptyList(),
@@ -38,24 +38,24 @@ class PropertyBlueprintBuilder(
 ) : BlueprintBuilder<PropertyBlueprint>(context) {
     override fun blueprintObjectType(): String = "method"
 
-    override fun blueprintObjectName(): String = girProperty.name
+    override fun blueprintObjectName(): String = girNode.name
 
     override fun buildInternal(): PropertyBlueprint {
-        val getter = methodsMap[girProperty.getter]
-        val setter = methodsMap[girProperty.setter]
+        val getter = methodsMap[girNode.getter]
+        val setter = methodsMap[girNode.setter]
 
         checkSkippedProperty(getter, setter)
 
-        val kotlinName = girProperty.name.toCamelCase()
+        val kotlinName = girNode.name.toCamelCase()
 
         // check for overrides
         val superProperties = superClasses.flatMap { it.properties } + superInterfaces.flatMap { it.properties }
         val nameMatchingSuperProperties =
-            superProperties.filter { it.info.shouldBeGenerated() && it.name == girProperty.name }
+            superProperties.filter { it.shouldBeGenerated() && it.name == girNode.name }
 
         val isOverride = nameMatchingSuperProperties.isNotEmpty()
         if (isOverride) {
-            logger.warn { "Detected property override: ${girProperty.name}" }
+            logger.warn { "Detected property override: ${girNode.name}" }
         }
 
         return PropertyBlueprint(
@@ -65,17 +65,17 @@ class PropertyBlueprintBuilder(
             setter = setter,
             isOverride = isOverride,
             isOpen = isOpen,
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girProperty.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girProperty.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }
 
     private fun checkSkippedProperty(getter: MethodBlueprint?, setter: MethodBlueprint?) {
         // Properties that fail validation will still be generated as regular methods instead of properties.
-        if (!girProperty.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girProperty.name)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.name)
         }
 
         if (getter == null && setter == null) {

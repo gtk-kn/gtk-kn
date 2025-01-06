@@ -48,8 +48,8 @@ import org.gtkkn.native.adw.adw_leaflet_set_mode_transition_duration
 import org.gtkkn.native.adw.adw_leaflet_set_transition_type
 import org.gtkkn.native.adw.adw_leaflet_set_visible_child
 import org.gtkkn.native.adw.adw_leaflet_set_visible_child_name
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -273,10 +273,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          */
         set(
             params
-        ) = adw_leaflet_set_child_transition_params(
-            adwLeafletPointer.reinterpret(),
-            params.adwSpringParamsPointer.reinterpret()
-        )
+        ) = adw_leaflet_set_child_transition_params(adwLeafletPointer.reinterpret(), params.gPointer.reinterpret())
 
     /**
      * Whether a child transition is currently running.

@@ -13,18 +13,20 @@ import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkPrinter
 import org.gtkkn.native.gtk.gtk_printer_accepts_pdf
 import org.gtkkn.native.gtk.gtk_printer_accepts_ps
 import org.gtkkn.native.gtk.gtk_printer_compare
+import org.gtkkn.native.gtk.gtk_printer_get_backend
 import org.gtkkn.native.gtk.gtk_printer_get_capabilities
 import org.gtkkn.native.gtk.gtk_printer_get_default_page_size
 import org.gtkkn.native.gtk.gtk_printer_get_description
@@ -41,6 +43,7 @@ import org.gtkkn.native.gtk.gtk_printer_is_default
 import org.gtkkn.native.gtk.gtk_printer_is_paused
 import org.gtkkn.native.gtk.gtk_printer_is_virtual
 import org.gtkkn.native.gtk.gtk_printer_list_papers
+import org.gtkkn.native.gtk.gtk_printer_new
 import org.gtkkn.native.gtk.gtk_printer_request_details
 import kotlin.Boolean
 import kotlin.String
@@ -60,7 +63,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_backend`: Return type PrintBackend is unsupported
  * - parameter `top`: top: Out parameter is not supported
  * - parameter `top`: top: Out parameter is not supported
  * - method `accepting-jobs`: Property has no getter nor setter
@@ -69,7 +71,6 @@ import kotlin.Unit
  * - method `backend`: Property has no getter nor setter
  * - method `is-virtual`: Property has no getter nor setter
  * - method `paused`: Property has no getter nor setter
- * - parameter `backend`: PrintBackend
  */
 public open class Printer(pointer: CPointer<GtkPrinter>) :
     Object(pointer.reinterpret()),
@@ -137,6 +138,20 @@ public open class Printer(pointer: CPointer<GtkPrinter>) :
             ?: error("Expected not null string")
 
     /**
+     * Creates a new `GtkPrinter`.
+     *
+     * @param name the name of the printer
+     * @param backend a `GtkPrintBackend`
+     * @param virtual whether the printer is virtual
+     * @return a new `GtkPrinter`
+     */
+    public constructor(
+        name: String,
+        backend: PrintBackend,
+        virtual: Boolean,
+    ) : this(gtk_printer_new(name, backend.gPointer.reinterpret(), virtual.asGBoolean())!!.reinterpret())
+
+    /**
      * Returns whether the printer accepts input in
      * PDF format.
      *
@@ -161,6 +176,15 @@ public open class Printer(pointer: CPointer<GtkPrinter>) :
      */
     public open fun compare(b: Printer): gint =
         gtk_printer_compare(gtkPrinterPointer.reinterpret(), b.gtkPrinterPointer.reinterpret())
+
+    /**
+     * Returns the backend of the printer.
+     *
+     * @return the backend of @printer
+     */
+    public open fun getBackend(): PrintBackend = gtk_printer_get_backend(gtkPrinterPointer.reinterpret())!!.run {
+        PrintBackend(reinterpret())
+    }
 
     /**
      * Returns the printer’s capabilities.

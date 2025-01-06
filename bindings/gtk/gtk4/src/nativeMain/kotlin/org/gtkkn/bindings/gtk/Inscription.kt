@@ -10,9 +10,9 @@ import org.gtkkn.bindings.pango.WrapMode
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleText
 import org.gtkkn.native.gtk.GtkBuildable
@@ -110,12 +110,7 @@ public open class Inscription(pointer: CPointer<GtkInscription>) :
          * @since 4.8
          */
         @GtkVersion4_8
-        set(
-            attrs
-        ) = gtk_inscription_set_attributes(
-            gtkInscriptionPointer.reinterpret(),
-            attrs?.pangoAttrListPointer?.reinterpret()
-        )
+        set(attrs) = gtk_inscription_set_attributes(gtkInscriptionPointer.reinterpret(), attrs?.gPointer?.reinterpret())
 
     /**
      * The number of characters that should fit into the inscription at minimum.

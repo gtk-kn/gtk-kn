@@ -11,46 +11,46 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_gobject_rectangle_get_type
 import org.gtkkn.native.cairo.cairo_rectangle_t
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val cairoRectanglePointer: CPointer<cairo_rectangle_t> = pointer
+    public val gPointer: CPointer<cairo_rectangle_t> = pointer
 
     public var x: gdouble
-        get() = cairoRectanglePointer.pointed.x
+        get() = gPointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoRectanglePointer.pointed.x = value
+            gPointer.pointed.x = value
         }
 
     public var y: gdouble
-        get() = cairoRectanglePointer.pointed.y
+        get() = gPointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoRectanglePointer.pointed.y = value
+            gPointer.pointed.y = value
         }
 
     public var width: gdouble
-        get() = cairoRectanglePointer.pointed.width
+        get() = gPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoRectanglePointer.pointed.width = value
+            gPointer.pointed.width = value
         }
 
     public var height: gdouble
-        get() = cairoRectanglePointer.pointed.height
+        get() = gPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            cairoRectanglePointer.pointed.height = value
+            gPointer.pointed.height = value
         }
 
     /**

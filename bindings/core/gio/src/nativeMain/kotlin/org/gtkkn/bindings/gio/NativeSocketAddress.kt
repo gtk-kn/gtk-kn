@@ -12,8 +12,8 @@ import org.gtkkn.native.gio.GSocketConnectable
 import org.gtkkn.native.gio.g_native_socket_address_get_type
 import org.gtkkn.native.gio.g_native_socket_address_new
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 
 /**
  * A socket address of some unknown native type.

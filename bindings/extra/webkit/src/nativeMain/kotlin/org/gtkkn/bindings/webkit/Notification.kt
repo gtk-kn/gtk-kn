@@ -18,9 +18,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitNotification
 import org.gtkkn.native.webkit.webkit_notification_clicked
 import org.gtkkn.native.webkit.webkit_notification_close

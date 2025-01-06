@@ -25,9 +25,9 @@ import org.gtkkn.native.gio.g_async_initable_init_finish
 import org.gtkkn.native.gio.g_async_initable_new_finish
 import org.gtkkn.native.gio.g_async_initable_newv_async
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit
@@ -138,7 +138,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - function `new_async`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
+ * - parameter `var_args`: va_list type is not supported
  *
  * @since 2.22
  */
@@ -296,7 +296,7 @@ public interface AsyncInitable :
         ): Unit = g_async_initable_newv_async(
             objectType,
             nParameters,
-            parameters.gobjectParameterPointer.reinterpret(),
+            parameters.gPointer.reinterpret(),
             ioPriority,
             cancellable?.gioCancellablePointer?.reinterpret(),
             callback?.let {

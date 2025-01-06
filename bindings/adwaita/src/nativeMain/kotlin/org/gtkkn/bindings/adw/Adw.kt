@@ -15,11 +15,11 @@ import org.gtkkn.native.adw.adw_get_minor_version
 import org.gtkkn.native.adw.adw_init
 import org.gtkkn.native.adw.adw_is_initialized
 import org.gtkkn.native.adw.adw_lerp
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint32
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint32
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit

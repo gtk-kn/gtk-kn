@@ -15,11 +15,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitBackForwardList
 import org.gtkkn.native.webkit.WebKitBackForwardListItem
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_item

@@ -30,6 +30,7 @@ import org.gtkkn.gir.model.GirRecord
 import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 class RepositoryBlueprintBuilder(
@@ -143,15 +144,15 @@ class RepositoryBlueprintBuilder(
 
         val kotlinModuleName = checkNotNull(girRepository.namespaces.first().name).lowercase()
         val repositoryObjectName = ClassName(
-            context.namespaceBindingsPackageName(namespace),
+            namespaceBindingsPackageName(namespace),
             checkNotNull(girRepository.namespaces.first().name).capitalizeAsciiOnly(),
         )
         val repositoryCallbacksName = ClassName(
-            context.namespaceBindingsPackageName(namespace),
+            namespaceBindingsPackageName(namespace),
             "Callbacks",
         )
         val repositoryTypeProviderTypeName = ClassName(
-            context.namespaceBindingsPackageName(namespace),
+            namespaceBindingsPackageName(namespace),
             "${kotlinModuleName.capitalizeAsciiOnly()}TypeProvider",
         )
 

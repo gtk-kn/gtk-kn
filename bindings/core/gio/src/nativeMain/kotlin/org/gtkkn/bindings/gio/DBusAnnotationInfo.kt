@@ -18,8 +18,8 @@ import org.gtkkn.native.gio.g_dbus_annotation_info_ref
 import org.gtkkn.native.gio.g_dbus_annotation_info_unref
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -39,41 +39,41 @@ import kotlin.native.ref.createCleaner
 @GioVersion2_26
 public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gioDBusAnnotationInfoPointer: CPointer<GDBusAnnotationInfo> = pointer
+    public val gPointer: CPointer<GDBusAnnotationInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gioDBusAnnotationInfoPointer.pointed.ref_count
+        get() = gPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusAnnotationInfoPointer.pointed.ref_count = value
+            gPointer.pointed.ref_count = value
         }
 
     /**
      * The name of the annotation, e.g. "org.freedesktop.DBus.Deprecated".
      */
     public var key: String?
-        get() = gioDBusAnnotationInfoPointer.pointed.key?.toKString()
+        get() = gPointer.pointed.key?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusAnnotationInfoPointer.pointed.key?.let { g_free(it) }
-            gioDBusAnnotationInfoPointer.pointed.key = value?.let { g_strdup(it) }
+            gPointer.pointed.key?.let { g_free(it) }
+            gPointer.pointed.key = value?.let { g_strdup(it) }
         }
 
     /**
      * The value of the annotation.
      */
     public var `value`: String?
-        get() = gioDBusAnnotationInfoPointer.pointed.value?.toKString()
+        get() = gPointer.pointed.value?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusAnnotationInfoPointer.pointed.value?.let { g_free(it) }
-            gioDBusAnnotationInfoPointer.pointed.value = value?.let { g_strdup(it) }
+            gPointer.pointed.value?.let { g_free(it) }
+            gPointer.pointed.value = value?.let { g_strdup(it) }
         }
 
     /**
@@ -156,10 +156,9 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner:
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusAnnotationInfo =
-        g_dbus_annotation_info_ref(gioDBusAnnotationInfoPointer.reinterpret())!!.run {
-            DBusAnnotationInfo(reinterpret())
-        }
+    public fun ref(): DBusAnnotationInfo = g_dbus_annotation_info_ref(gPointer.reinterpret())!!.run {
+        DBusAnnotationInfo(reinterpret())
+    }
 
     /**
      * If @info is statically allocated, does nothing. Otherwise decreases
@@ -169,7 +168,7 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner:
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_annotation_info_unref(gioDBusAnnotationInfoPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_annotation_info_unref(gPointer.reinterpret())
 
     override fun toString(): String = "DBusAnnotationInfo(refCount=$refCount, key=$key, value=$value)"
 

@@ -44,9 +44,9 @@ import org.gtkkn.native.adw.adw_dialog_set_focus
 import org.gtkkn.native.adw.adw_dialog_set_follows_content_size
 import org.gtkkn.native.adw.adw_dialog_set_presentation_mode
 import org.gtkkn.native.adw.adw_dialog_set_title
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

@@ -17,7 +17,7 @@ import org.gtkkn.native.gobject.GType
 public open class DndEvent(pointer: CPointer<GdkDNDEvent>) :
     Event(pointer.reinterpret()),
     KGTyped {
-    public val gdkDNDEventPointer: CPointer<GdkDNDEvent>
+    public val gdkDndEventPointer: CPointer<GdkDNDEvent>
         get() = gPointer.reinterpret()
 
     /**
@@ -25,7 +25,7 @@ public open class DndEvent(pointer: CPointer<GdkDNDEvent>) :
      *
      * @return the drop
      */
-    public open fun getDrop(): Drop? = gdk_dnd_event_get_drop(gdkDNDEventPointer.reinterpret())?.run {
+    public open fun getDrop(): Drop? = gdk_dnd_event_get_drop(gdkDndEventPointer.reinterpret())?.run {
         Drop(reinterpret())
     }
 

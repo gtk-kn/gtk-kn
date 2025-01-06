@@ -356,7 +356,7 @@ public interface TlsClientConnection :
             memScoped {
                 val gError = allocPointerTo<GError>()
                 val gResult = g_tls_client_connection_new(
-                    baseIoStream.gioIOStreamPointer.reinterpret(),
+                    baseIoStream.gioIoStreamPointer.reinterpret(),
                     serverIdentity?.gioSocketConnectablePointer,
                     gError.ptr
                 )?.run {

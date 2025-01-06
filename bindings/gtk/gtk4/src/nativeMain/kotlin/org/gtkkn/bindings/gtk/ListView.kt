@@ -16,9 +16,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -377,12 +377,7 @@ public open class ListView(pointer: CPointer<GtkListView>) :
      */
     @GtkVersion4_12
     public open fun scrollTo(pos: guint, flags: ListScrollFlags, scroll: ScrollInfo? = null): Unit =
-        gtk_list_view_scroll_to(
-            gtkListViewPointer.reinterpret(),
-            pos,
-            flags.mask,
-            scroll?.gtkScrollInfoPointer?.reinterpret()
-        )
+        gtk_list_view_scroll_to(gtkListViewPointer.reinterpret(), pos, flags.mask, scroll?.gPointer?.reinterpret())
 
     /**
      * Emitted when a row has been activated by the user,

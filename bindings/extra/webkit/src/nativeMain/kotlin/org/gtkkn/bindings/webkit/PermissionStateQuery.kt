@@ -30,7 +30,7 @@ import kotlin.Unit
  * `prompt` the user for the given permission.
  */
 public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>) : ProxyInstance(pointer) {
-    public val webkitPermissionStateQueryPointer: CPointer<WebKitPermissionStateQuery> = pointer
+    public val gPointer: CPointer<WebKitPermissionStateQuery> = pointer
 
     /**
      * Notify the web-engine of the selected permission state for the given query. This function should
@@ -41,7 +41,7 @@ public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>)
      */
     @WebKitVersion2_40
     public fun finish(state: PermissionState): Unit =
-        webkit_permission_state_query_finish(webkitPermissionStateQueryPointer.reinterpret(), state.nativeValue)
+        webkit_permission_state_query_finish(gPointer.reinterpret(), state.nativeValue)
 
     /**
      * Get the permission name for which access is being queried.
@@ -51,8 +51,7 @@ public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>)
      */
     @WebKitVersion2_40
     public fun getName(): String =
-        webkit_permission_state_query_get_name(webkitPermissionStateQueryPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_permission_state_query_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the permission origin for which access is being queried.
@@ -63,7 +62,7 @@ public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>)
      */
     @WebKitVersion2_40
     public fun getSecurityOrigin(): SecurityOrigin =
-        webkit_permission_state_query_get_security_origin(webkitPermissionStateQueryPointer.reinterpret())!!.run {
+        webkit_permission_state_query_get_security_origin(gPointer.reinterpret())!!.run {
             SecurityOrigin(reinterpret())
         }
 
@@ -76,10 +75,9 @@ public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>)
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun ref(): PermissionStateQuery =
-        webkit_permission_state_query_ref(webkitPermissionStateQueryPointer.reinterpret())!!.run {
-            PermissionStateQuery(reinterpret())
-        }
+    public fun ref(): PermissionStateQuery = webkit_permission_state_query_ref(gPointer.reinterpret())!!.run {
+        PermissionStateQuery(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @query by one.
@@ -90,7 +88,7 @@ public class PermissionStateQuery(pointer: CPointer<WebKitPermissionStateQuery>)
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun unref(): Unit = webkit_permission_state_query_unref(webkitPermissionStateQueryPointer.reinterpret())
+    public fun unref(): Unit = webkit_permission_state_query_unref(gPointer.reinterpret())
 
     public companion object {
         /**

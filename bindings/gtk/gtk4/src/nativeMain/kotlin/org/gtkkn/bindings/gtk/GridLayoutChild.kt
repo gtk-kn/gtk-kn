@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkGridLayoutChild
 import org.gtkkn.native.gtk.gtk_grid_layout_child_get_column
 import org.gtkkn.native.gtk.gtk_grid_layout_child_get_column_span

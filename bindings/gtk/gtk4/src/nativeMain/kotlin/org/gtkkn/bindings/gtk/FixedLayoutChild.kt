@@ -42,10 +42,8 @@ public open class FixedLayoutChild(pointer: CPointer<GtkFixedLayoutChild>) :
      *
      * @param transform a `GskTransform`
      */
-    public open fun setTransform(transform: Transform): Unit = gtk_fixed_layout_child_set_transform(
-        gtkFixedLayoutChildPointer.reinterpret(),
-        transform.gskTransformPointer.reinterpret()
-    )
+    public open fun setTransform(transform: Transform): Unit =
+        gtk_fixed_layout_child_set_transform(gtkFixedLayoutChildPointer.reinterpret(), transform.gPointer.reinterpret())
 
     public companion object : TypeCompanion<FixedLayoutChild> {
         override val type: GeneratedClassKGType<FixedLayoutChild> =

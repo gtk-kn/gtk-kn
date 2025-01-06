@@ -8,10 +8,11 @@ import org.gtkkn.native.glib.GRelation
 import org.gtkkn.native.glib.g_relation_count
 import org.gtkkn.native.glib.g_relation_delete
 import org.gtkkn.native.glib.g_relation_destroy
+import org.gtkkn.native.glib.g_relation_new
 import org.gtkkn.native.glib.g_relation_print
 import org.gtkkn.native.glib.g_relation_select
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gint
 import kotlin.Unit
 
 /**
@@ -60,10 +61,9 @@ import kotlin.Unit
  * - method `exists`: Varargs parameter is not supported
  * - parameter `hash_func`: HashFunc
  * - method `insert`: Varargs parameter is not supported
- * - function `new`: Return type Relation is unsupported
  */
 public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
-    public val glibRelationPointer: CPointer<GRelation> = pointer
+    public val gPointer: CPointer<GRelation> = pointer
 
     /**
      * Returns the number of tuples in a #GRelation that have the given
@@ -74,7 +74,7 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @return the number of matches.
      */
     public fun count(key: gpointer? = null, `field`: gint): gint =
-        g_relation_count(glibRelationPointer.reinterpret(), key, `field`)
+        g_relation_count(gPointer.reinterpret(), key, `field`)
 
     /**
      * Deletes any records from a #GRelation that have the given key value
@@ -85,20 +85,20 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @return the number of records deleted.
      */
     public fun delete(key: gpointer? = null, `field`: gint): gint =
-        g_relation_delete(glibRelationPointer.reinterpret(), key, `field`)
+        g_relation_delete(gPointer.reinterpret(), key, `field`)
 
     /**
      * Destroys the #GRelation, freeing all memory allocated. However, it
      * does not free memory allocated for the tuple data, so you should
      * free that first if appropriate.
      */
-    public fun destroy(): Unit = g_relation_destroy(glibRelationPointer.reinterpret())
+    public fun destroy(): Unit = g_relation_destroy(gPointer.reinterpret())
 
     /**
      * Outputs information about all records in a #GRelation, as well as
      * the indexes. It is for debugging.
      */
-    public fun print(): Unit = g_relation_print(glibRelationPointer.reinterpret())
+    public fun print(): Unit = g_relation_print(gPointer.reinterpret())
 
     /**
      * Returns all of the tuples which have the given key in the given
@@ -110,7 +110,20 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @return the records (tuples) that matched.
      */
     public fun select(key: gpointer? = null, `field`: gint): Tuples =
-        g_relation_select(glibRelationPointer.reinterpret(), key, `field`)!!.run {
+        g_relation_select(gPointer.reinterpret(), key, `field`)!!.run {
             Tuples(reinterpret())
         }
+
+    public companion object {
+        /**
+         * Creates a new #GRelation with the given number of fields. Note that
+         * currently the number of fields must be 2.
+         *
+         * @param fields the number of fields.
+         * @return a new #GRelation.
+         */
+        public fun new(fields: gint): Relation = g_relation_new(fields)!!.run {
+            Relation(reinterpret())
+        }
+    }
 }

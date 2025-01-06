@@ -40,8 +40,8 @@ import org.gtkkn.native.gdk.gdk_texture_save_to_tiff_bytes
 import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -142,7 +142,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
     public constructor(bytes: Bytes) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_bytes(bytes.glibBytesPointer.reinterpret(), gError.ptr)
+            val gResult = gdk_texture_new_from_bytes(bytes.gPointer.reinterpret(), gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }

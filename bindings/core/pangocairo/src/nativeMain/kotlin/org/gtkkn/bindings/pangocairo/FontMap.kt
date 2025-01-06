@@ -12,8 +12,8 @@ import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.pangocairo.PangoCairoFontMap
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_create_context
 import org.gtkkn.native.pangocairo.pango_cairo_font_map_get_default

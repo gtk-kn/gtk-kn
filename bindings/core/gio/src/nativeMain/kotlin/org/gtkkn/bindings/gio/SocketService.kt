@@ -24,10 +24,10 @@ import org.gtkkn.native.gio.g_socket_service_is_active
 import org.gtkkn.native.gio.g_socket_service_new
 import org.gtkkn.native.gio.g_socket_service_start
 import org.gtkkn.native.gio.g_socket_service_stop
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.ULong
 import kotlin.Unit

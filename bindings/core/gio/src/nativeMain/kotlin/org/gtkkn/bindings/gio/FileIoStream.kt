@@ -23,8 +23,8 @@ import org.gtkkn.native.gio.g_file_io_stream_query_info
 import org.gtkkn.native.gio.g_file_io_stream_query_info_async
 import org.gtkkn.native.gio.g_file_io_stream_query_info_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Result
 import kotlin.String
 import kotlin.Unit
@@ -56,7 +56,7 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
     IoStream(pointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioFileIOStreamPointer: CPointer<GFileIOStream>
+    public val gioFileIoStreamPointer: CPointer<GFileIOStream>
         get() = gPointer.reinterpret()
 
     override val gioSeekablePointer: CPointer<GSeekable>
@@ -71,7 +71,7 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getEtag(): String? = g_file_io_stream_get_etag(gioFileIOStreamPointer.reinterpret())?.toKString()
+    public open fun getEtag(): String? = g_file_io_stream_get_etag(gioFileIoStreamPointer.reinterpret())?.toKString()
 
     /**
      * Queries a file io stream for the given @attributes.
@@ -101,7 +101,7 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_io_stream_query_info(
-            gioFileIOStreamPointer.reinterpret(),
+            gioFileIoStreamPointer.reinterpret(),
             attributes,
             cancellable?.gioCancellablePointer?.reinterpret(),
             gError.ptr
@@ -139,7 +139,7 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_file_io_stream_query_info_async(
-        gioFileIOStreamPointer.reinterpret(),
+        gioFileIoStreamPointer.reinterpret(),
         attributes,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
@@ -161,7 +161,7 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_io_stream_query_info_finish(
-            gioFileIOStreamPointer.reinterpret(),
+            gioFileIoStreamPointer.reinterpret(),
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {

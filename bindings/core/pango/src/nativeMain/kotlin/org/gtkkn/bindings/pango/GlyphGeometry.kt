@@ -33,39 +33,39 @@ import kotlin.native.ref.createCleaner
  * 4. Render the next glyph
  */
 public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry> = pointer
+    public val gPointer: CPointer<PangoGlyphGeometry> = pointer
 
     /**
      * the logical width to use for the the character.
      */
     public var width: GlyphUnit
-        get() = pangoGlyphGeometryPointer.pointed.width
+        get() = gPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphGeometryPointer.pointed.width = value
+            gPointer.pointed.width = value
         }
 
     /**
      * horizontal offset from nominal character position.
      */
     public var xOffset: GlyphUnit
-        get() = pangoGlyphGeometryPointer.pointed.x_offset
+        get() = gPointer.pointed.x_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphGeometryPointer.pointed.x_offset = value
+            gPointer.pointed.x_offset = value
         }
 
     /**
      * vertical offset from nominal character position.
      */
     public var yOffset: GlyphUnit
-        get() = pangoGlyphGeometryPointer.pointed.y_offset
+        get() = gPointer.pointed.y_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphGeometryPointer.pointed.y_offset = value
+            gPointer.pointed.y_offset = value
         }
 
     /**

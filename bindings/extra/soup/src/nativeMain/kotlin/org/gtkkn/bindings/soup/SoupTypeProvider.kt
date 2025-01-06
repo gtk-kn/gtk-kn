@@ -9,10 +9,14 @@ import kotlin.reflect.KClass
 public object SoupTypeProvider : TypeProvider {
     override val typeMap: Map<KClass<*>, KGType<*>> = mapOf(
         Auth::class to Auth.type,
+        AuthBasic::class to AuthBasic.type,
+        AuthDigest::class to AuthDigest.type,
         AuthDomain::class to AuthDomain.type,
         AuthDomainBasic::class to AuthDomainBasic.type,
         AuthDomainDigest::class to AuthDomainDigest.type,
         AuthManager::class to AuthManager.type,
+        AuthNtlm::class to AuthNtlm.type,
+        AuthNegotiate::class to AuthNegotiate.type,
         Cache::class to Cache.type,
         ContentDecoder::class to ContentDecoder.type,
         ContentSniffer::class to ContentSniffer.type,

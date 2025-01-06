@@ -16,10 +16,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkEventControllerScroll
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_flags
 import org.gtkkn.native.gtk.gtk_event_controller_scroll_get_type

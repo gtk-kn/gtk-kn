@@ -9,8 +9,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.graphene.graphene_quad_alloc
 import org.gtkkn.native.graphene.graphene_quad_bounds
 import org.gtkkn.native.graphene.graphene_quad_contains
@@ -34,13 +34,13 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - parameter `points`: Point
+ * - parameter `points`: Array parameter of type Point is not supported
  *
  * @since 1.0
  */
 @GrapheneVersion1_0
 public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val grapheneQuadPointer: CPointer<graphene_quad_t> = pointer
+    public val gPointer: CPointer<graphene_quad_t> = pointer
 
     /**
      * Allocate a new Quad.
@@ -80,8 +80,7 @@ public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun bounds(r: Rect): Unit =
-        graphene_quad_bounds(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer.reinterpret())
+    public fun bounds(r: Rect): Unit = graphene_quad_bounds(gPointer.reinterpret(), r.gPointer.reinterpret())
 
     /**
      * Checks if the given #graphene_quad_t contains the given #graphene_point_t.
@@ -91,8 +90,7 @@ public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun contains(p: Point): Boolean =
-        graphene_quad_contains(grapheneQuadPointer.reinterpret(), p.graphenePointPointer.reinterpret())
+    public fun contains(p: Point): Boolean = graphene_quad_contains(gPointer.reinterpret(), p.gPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_quad_alloc()
@@ -100,7 +98,7 @@ public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun free(): Unit = graphene_quad_free(grapheneQuadPointer.reinterpret())
+    public fun free(): Unit = graphene_quad_free(gPointer.reinterpret())
 
     /**
      * Retrieves the point of a #graphene_quad_t at the given index.
@@ -110,7 +108,7 @@ public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getPoint(index: guint): Point = graphene_quad_get_point(grapheneQuadPointer.reinterpret(), index)!!.run {
+    public fun getPoint(index: guint): Point = graphene_quad_get_point(gPointer.reinterpret(), index)!!.run {
         Point(reinterpret())
     }
 
@@ -126,11 +124,11 @@ public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun `init`(p1: Point, p2: Point, p3: Point, p4: Point): Quad = graphene_quad_init(
-        grapheneQuadPointer.reinterpret(),
-        p1.graphenePointPointer.reinterpret(),
-        p2.graphenePointPointer.reinterpret(),
-        p3.graphenePointPointer.reinterpret(),
-        p4.graphenePointPointer.reinterpret()
+        gPointer.reinterpret(),
+        p1.gPointer.reinterpret(),
+        p2.gPointer.reinterpret(),
+        p3.gPointer.reinterpret(),
+        p4.gPointer.reinterpret()
     )!!.run {
         Quad(reinterpret())
     }
@@ -145,7 +143,7 @@ public class Quad(pointer: CPointer<graphene_quad_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun initFromRect(r: Rect): Quad =
-        graphene_quad_init_from_rect(grapheneQuadPointer.reinterpret(), r.grapheneRectPointer.reinterpret())!!.run {
+        graphene_quad_init_from_rect(gPointer.reinterpret(), r.gPointer.reinterpret())!!.run {
             Quad(reinterpret())
         }
 

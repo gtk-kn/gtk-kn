@@ -24,7 +24,7 @@ import kotlin.collections.List
  */
 @WebKitVersion2_6
 public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : ProxyInstance(pointer) {
-    public val webkitUserStyleSheetPointer: CPointer<WebKitUserStyleSheet> = pointer
+    public val gPointer: CPointer<WebKitUserStyleSheet> = pointer
 
     /**
      * Atomically increments the reference count of @user_style_sheet by one.
@@ -35,7 +35,7 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : ProxyInst
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(webkitUserStyleSheetPointer.reinterpret())!!.run {
+    public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(gPointer.reinterpret())!!.run {
         UserStyleSheet(reinterpret())
     }
 
@@ -49,7 +49,7 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : ProxyInst
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun unref(): Unit = webkit_user_style_sheet_unref(webkitUserStyleSheetPointer.reinterpret())
+    public fun unref(): Unit = webkit_user_style_sheet_unref(gPointer.reinterpret())
 
     public companion object {
         /**

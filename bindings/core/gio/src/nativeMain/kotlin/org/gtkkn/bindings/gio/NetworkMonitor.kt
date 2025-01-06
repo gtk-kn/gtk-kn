@@ -35,9 +35,9 @@ import org.gtkkn.native.gio.g_network_monitor_get_network_available
 import org.gtkkn.native.gio.g_network_monitor_get_network_metered
 import org.gtkkn.native.gio.g_network_monitor_get_type
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.ULong

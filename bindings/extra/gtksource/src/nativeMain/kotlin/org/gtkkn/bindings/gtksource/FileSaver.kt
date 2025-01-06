@@ -23,8 +23,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtksource.GtkSourceFileSaver
 import org.gtkkn.native.gtksource.gtk_source_file_saver_get_buffer
 import org.gtkkn.native.gtksource.gtk_source_file_saver_get_compression_type
@@ -306,10 +306,8 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
      *
      * @param encoding the new encoding, or null for UTF-8.
      */
-    public open fun setEncoding(encoding: Encoding? = null): Unit = gtk_source_file_saver_set_encoding(
-        gtksourceFileSaverPointer.reinterpret(),
-        encoding?.gtksourceEncodingPointer?.reinterpret()
-    )
+    public open fun setEncoding(encoding: Encoding? = null): Unit =
+        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer.reinterpret(), encoding?.gPointer?.reinterpret())
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =

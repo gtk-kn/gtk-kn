@@ -29,10 +29,10 @@ import org.gtkkn.native.gdk.gdk_drag_get_selected_action
 import org.gtkkn.native.gdk.gdk_drag_get_surface
 import org.gtkkn.native.gdk.gdk_drag_get_type
 import org.gtkkn.native.gdk.gdk_drag_set_hotspot
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.ULong
 import kotlin.Unit

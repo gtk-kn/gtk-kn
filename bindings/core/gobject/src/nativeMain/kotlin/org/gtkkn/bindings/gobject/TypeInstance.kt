@@ -20,7 +20,7 @@ import kotlin.native.ref.createCleaner
  * An opaque structure used as the base of all type instances.
  */
 public class TypeInstance(pointer: CPointer<GTypeInstance>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectTypeInstancePointer: CPointer<GTypeInstance> = pointer
+    public val gPointer: CPointer<GTypeInstance> = pointer
 
     /**
      * Allocate a new TypeInstance.
@@ -54,5 +54,5 @@ public class TypeInstance(pointer: CPointer<GTypeInstance>, cleaner: Cleaner? = 
     public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeInstance>().ptr)
 
     public fun getPrivate(privateType: GType): gpointer? =
-        g_type_instance_get_private(gobjectTypeInstancePointer.reinterpret(), privateType)
+        g_type_instance_get_private(gPointer.reinterpret(), privateType)
 }

@@ -3,8 +3,8 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gunichar
 import org.gtkkn.native.pango.PangoScript
 import org.gtkkn.native.pango.pango_script_for_unichar
 import org.gtkkn.native.pango.pango_script_get_sample_language

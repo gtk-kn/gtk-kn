@@ -27,25 +27,25 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Attribute
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  *
  * @since 1.38
  */
 @PangoVersion1_38
 public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val pangoAttrFontFeaturesPointer: CPointer<PangoAttrFontFeatures> = pointer
+    public val gPointer: CPointer<PangoAttrFontFeatures> = pointer
 
     /**
      * the features, as a string in CSS syntax
      */
     public var features: String?
-        get() = pangoAttrFontFeaturesPointer.pointed.features?.toKString()
+        get() = gPointer.pointed.features?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrFontFeaturesPointer.pointed.features?.let { g_free(it) }
-            pangoAttrFontFeaturesPointer.pointed.features = value?.let { g_strdup(it) }
+            gPointer.pointed.features?.let { g_free(it) }
+            gPointer.pointed.features = value?.let { g_strdup(it) }
         }
 
     /**

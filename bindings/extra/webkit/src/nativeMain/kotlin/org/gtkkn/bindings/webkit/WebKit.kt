@@ -14,9 +14,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_34
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.webkit.WebKitURISchemeRequest
 import org.gtkkn.native.webkit.webkit_get_major_version
 import org.gtkkn.native.webkit.webkit_get_micro_version

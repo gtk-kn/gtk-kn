@@ -12,8 +12,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkPaintable
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkIconPaintable
 import org.gtkkn.native.gtk.GtkSymbolicPaintable
 import org.gtkkn.native.gtk.gtk_icon_paintable_get_file

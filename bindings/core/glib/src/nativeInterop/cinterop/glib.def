@@ -2,6 +2,9 @@ headers = glib.h glib-unix.h glib/gstdio.h
 package = org.gtkkn.native.glib
 headerFilter = glib.h glib-*.h glib/*.h glib/deprecated/*.h
 
+# Needed because of https://youtrack.jetbrains.com/issue/KT-73948/Corrupted-String-Returned-by-gettext-in-Kotlin-Native
+noStringConversion = g_dcgettext g_dgettext g_dngettext g_dpgettext
+
 # pkg-config --cflags glib-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
     -I/usr/include/glib-2.0 \

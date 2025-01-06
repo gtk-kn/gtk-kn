@@ -6,4 +6,4 @@ Region.to_string#method name="to_string_region"
 
 // gtk_source_view_get_gutter is expecting a UInt instead of a org.gtkkn.native.gtk.GtkTextWindowType
 View.get_gutter name="get_gutter_view"
-        .window_type type_name="guint" type_ctype="guint"
+        .window_type enum_raw_value

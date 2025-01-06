@@ -17,7 +17,6 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
-import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirFunction
@@ -28,11 +27,12 @@ import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class RecordBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girRecord: GirRecord,
+    private val girNode: GirRecord,
 ) : BlueprintBuilder<RecordBlueprint>(context) {
     private val constructorBlueprints = mutableListOf<ConstructorBlueprint>()
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
@@ -41,40 +41,40 @@ class RecordBlueprintBuilder(
 
     override fun blueprintObjectType(): String = "record"
 
-    override fun blueprintObjectName(): String = girRecord.name
+    override fun blueprintObjectName(): String = girNode.name
 
     override fun buildInternal(): RecordBlueprint {
-        if (girRecord.shouldNotBeGenerated()) {
-            throw NotIntrospectableException(girRecord.name)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.name)
         }
 
-        girRecord.cType?.let { context.checkIgnoredType(it) }
+        girNode.cType?.let { context.checkIgnoredType(it) }
 
-        if (girRecord.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
-        if (girRecord.glibIsGTypeStructFor != null && girRecord.glibIsGTypeStructFor != "Object") {
+        if (girNode.foreign == true) throw UnresolvableTypeException("foreign records are ignored")
+        if (girNode.glibIsGTypeStructFor != null && girNode.glibIsGTypeStructFor != "Object") {
             throw UnresolvableTypeException("glib type struct are ignored")
         }
 
         // Add top-level methods, constructors, functions
-        girRecord.methods.forEach { addMethod(it) }
-        girRecord.constructors.forEach { addConstructor(it) }
-        girRecord.functions.forEach { addFunction(it) }
+        girNode.methods.forEach { addMethod(it) }
+        girNode.constructors.forEach { addConstructor(it) }
+        girNode.functions.forEach { addFunction(it) }
 
         // Add top-level fields (no prefix for top-level)
-        girRecord.fields.forEach { addField(it, prefix = null) }
+        girNode.fields.forEach { addField(it, prefix = null) }
 
         // Recursively merge all union fields and their nested records' fields
-        girRecord.unions.forEach { addUnionFields(it, prefix = null) }
+        girNode.unions.forEach { addUnionFields(it, prefix = null) }
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girRecord.name}Pointer"
-        val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girRecord)
+        val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val kotlinName = girRecord.name.toPascalCase()
+        val objectPointerName = "gPointer"
+        val objectPointerTypeName = context.resolveRecordObjectPointerTypeName(girNamespace, girNode)
 
         return RecordBlueprint(
-            kotlinName = kotlinName,
-            kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
-            nativeTypeName = context.buildNativeClassName(girNamespace, girRecord),
+            kotlinName = kotlinClassName.simpleName,
+            kotlinTypeName = kotlinClassName,
+            nativeTypeName = context.buildNativeClassName(girNamespace, girNode),
             constructors = constructorBlueprints,
             functions = functionBlueprints,
             methods = methodBluePrints,
@@ -82,16 +82,16 @@ class RecordBlueprintBuilder(
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
             cStructTypeName = ClassName(
-                context.namespaceNativePackageName(girNamespace),
-                girRecord.cType ?: error("unknown cType"),
+                namespaceNativePackageName(girNamespace),
+                girNode.cType ?: error("unknown cType"),
             ),
-            isOpaque = girRecord.opaque == true,
-            isDisguised = girRecord.disguised == true,
-            hasNewConstructor = girRecord.constructors.any { it.callable.getName() == "new" },
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girRecord.info)
+            isOpaque = girNode.opaque == true,
+            isDisguised = girNode.disguised == true,
+            hasNewConstructor = girNode.constructors.any { it.callable.getName() == "new" },
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girRecord.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
             skippedObjects = skippedObjects,
         )
     }
@@ -158,8 +158,4 @@ class RecordBlueprintBuilder(
             girUnion.records.forEach { addRecordFields(it, currentPrefix) }
         }
     }
-
-    private fun GirRecord.shouldNotBeGenerated(): Boolean =
-        !info.shouldBeGenerated() ||
-            cType != "GPrivate" && name.endsWith("Private")
 }

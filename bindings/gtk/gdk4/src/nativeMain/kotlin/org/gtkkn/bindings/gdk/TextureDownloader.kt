@@ -38,7 +38,7 @@ import kotlin.Unit
  */
 @GdkVersion4_10
 public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyInstance(pointer) {
-    public val gdkTextureDownloaderPointer: CPointer<GdkTextureDownloader> = pointer
+    public val gPointer: CPointer<GdkTextureDownloader> = pointer
 
     /**
      * Creates a copy of the downloader.
@@ -49,10 +49,9 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyI
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun copy(): TextureDownloader =
-        gdk_texture_downloader_copy(gdkTextureDownloaderPointer.reinterpret())!!.run {
-            TextureDownloader(reinterpret())
-        }
+    public fun copy(): TextureDownloader = gdk_texture_downloader_copy(gPointer.reinterpret())!!.run {
+        TextureDownloader(reinterpret())
+    }
 
     /**
      * Frees the given downloader and all its associated resources.
@@ -60,7 +59,7 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyI
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun free(): Unit = gdk_texture_downloader_free(gdkTextureDownloaderPointer.reinterpret())
+    public fun free(): Unit = gdk_texture_downloader_free(gPointer.reinterpret())
 
     /**
      * Gets the format that the data will be downloaded in.
@@ -69,10 +68,9 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyI
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun getFormat(): MemoryFormat =
-        gdk_texture_downloader_get_format(gdkTextureDownloaderPointer.reinterpret()).run {
-            MemoryFormat.fromNativeValue(this)
-        }
+    public fun getFormat(): MemoryFormat = gdk_texture_downloader_get_format(gPointer.reinterpret()).run {
+        MemoryFormat.fromNativeValue(this)
+    }
 
     /**
      * Gets the texture that the downloader will download.
@@ -81,10 +79,9 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyI
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun getTexture(): Texture =
-        gdk_texture_downloader_get_texture(gdkTextureDownloaderPointer.reinterpret())!!.run {
-            Texture(reinterpret())
-        }
+    public fun getTexture(): Texture = gdk_texture_downloader_get_texture(gPointer.reinterpret())!!.run {
+        Texture(reinterpret())
+    }
 
     /**
      * Sets the format the downloader will download.
@@ -96,7 +93,7 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyI
      */
     @GdkVersion4_10
     public fun setFormat(format: MemoryFormat): Unit =
-        gdk_texture_downloader_set_format(gdkTextureDownloaderPointer.reinterpret(), format.nativeValue)
+        gdk_texture_downloader_set_format(gPointer.reinterpret(), format.nativeValue)
 
     /**
      * Changes the texture the downloader will download.
@@ -105,10 +102,8 @@ public class TextureDownloader(pointer: CPointer<GdkTextureDownloader>) : ProxyI
      * @since 4.10
      */
     @GdkVersion4_10
-    public fun setTexture(texture: Texture): Unit = gdk_texture_downloader_set_texture(
-        gdkTextureDownloaderPointer.reinterpret(),
-        texture.gdkTexturePointer.reinterpret()
-    )
+    public fun setTexture(texture: Texture): Unit =
+        gdk_texture_downloader_set_texture(gPointer.reinterpret(), texture.gdkTexturePointer.reinterpret())
 
     public companion object {
         /**

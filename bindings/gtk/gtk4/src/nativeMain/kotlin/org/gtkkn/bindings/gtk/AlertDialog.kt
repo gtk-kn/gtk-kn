@@ -25,8 +25,8 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAlertDialog
 import org.gtkkn.native.gtk.gtk_alert_dialog_choose
 import org.gtkkn.native.gtk.gtk_alert_dialog_choose_finish

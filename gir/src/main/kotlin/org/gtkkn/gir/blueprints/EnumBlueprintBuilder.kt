@@ -19,33 +19,34 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.TypeName
-import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirEnumeration
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirMember
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class EnumBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girEnum: GirEnumeration,
+    private val girNode: GirEnumeration,
 ) : BlueprintBuilder<EnumBlueprint>(context) {
     private val members = mutableListOf<EnumMemberBlueprint>()
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
 
     override fun blueprintObjectType() = "enum"
 
-    override fun blueprintObjectName(): String = girEnum.name
+    override fun blueprintObjectName(): String = girNode.name
 
     private fun addMember(girMember: GirMember) {
         val nativeValue = girMember.value.toLong()
-        val nativeMemberName = if (context.needsEnumMemberPackageImport(girEnum)) {
-            MemberName(context.namespaceNativePackageName(girNamespace), girMember.cIdentifier)
+        val nativeMemberName = if (context.needsEnumMemberPackageImport(girNode)) {
+            MemberName(namespaceNativePackageName(girNamespace), girMember.cIdentifier)
         } else {
             MemberName(
-                context.namespaceNativePackageName(girNamespace) + "." + girEnum.cType,
+                namespaceNativePackageName(girNamespace) + "." + girNode.cType,
                 girMember.cIdentifier,
             )
         }
@@ -84,37 +85,38 @@ class EnumBlueprintBuilder(
     }
 
     override fun buildInternal(): EnumBlueprint {
-        if (!girEnum.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girEnum.cType)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.cType)
         }
 
-        context.checkIgnoredType(girEnum.cType)
+        context.checkIgnoredType(girNode.cType)
 
-        girEnum.members.forEach { addMember(it) }
-        girEnum.functions.forEach { addFunction(it) }
+        girNode.members.forEach { addMember(it) }
+        girNode.functions.forEach { addFunction(it) }
 
-        val kotlinName = girEnum.name.toPascalCase()
-        val nativePackageName = context.namespaceNativePackageName(girNamespace)
-        val nativeValueTypeName = ClassName(nativePackageName, girEnum.cType)
+        val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val exceptionTypeName = girEnum.glibErrorDomain?.let {
-            ClassName(context.namespaceBindingsPackageName(girNamespace), "${kotlinName}Exception")
+        val nativePackageName = namespaceNativePackageName(girNamespace)
+        val nativeValueTypeName = ClassName(nativePackageName, girNode.cType)
+
+        val exceptionTypeName = girNode.glibErrorDomain?.let {
+            ClassName(namespaceBindingsPackageName(girNamespace), "${kotlinClassName.simpleName}Exception")
         }
 
         return EnumBlueprint(
-            kotlinName = girEnum.name.toPascalCase(),
-            kotlinTypeName = ClassName(context.namespaceBindingsPackageName(girNamespace), kotlinName),
-            nativeTypeName = ClassName(context.namespaceNativePackageName(girNamespace), girEnum.cType),
+            kotlinName = kotlinClassName.simpleName,
+            kotlinTypeName = kotlinClassName,
+            nativeTypeName = ClassName(namespaceNativePackageName(girNamespace), girNode.cType),
             nativeValueTypeName = nativeValueTypeName,
             memberBlueprints = members,
             functionBlueprints = functionBlueprints,
-            errorDomain = girEnum.glibErrorDomain,
+            errorDomain = girNode.glibErrorDomain,
             errorExceptionTypeName = exceptionTypeName,
             memberConstantsAreScopedToType = determineIfConstantsAreScopedToType(nativeValueTypeName, members),
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girEnum.info)
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girEnum.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }
 

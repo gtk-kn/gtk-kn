@@ -268,7 +268,7 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     ): Unit = webkit_user_content_filter_store_save(
         webkitUserContentFilterStorePointer.reinterpret(),
         identifier,
-        source.glibBytesPointer.reinterpret(),
+        source.gPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

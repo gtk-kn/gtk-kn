@@ -18,8 +18,8 @@ import org.gtkkn.native.gio.g_unix_socket_address_get_path
 import org.gtkkn.native.gio.g_unix_socket_address_get_path_len
 import org.gtkkn.native.gio.g_unix_socket_address_get_type
 import org.gtkkn.native.gio.g_unix_socket_address_new
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.String
 

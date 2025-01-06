@@ -8,8 +8,8 @@ import org.gtkkn.native.adw.AdwLengthUnit
 import org.gtkkn.native.adw.adw_length_unit_from_px
 import org.gtkkn.native.adw.adw_length_unit_get_type
 import org.gtkkn.native.adw.adw_length_unit_to_px
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
 
 /**
  * Describes length units.

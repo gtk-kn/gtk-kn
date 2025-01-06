@@ -24,21 +24,21 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `value`: Value
+ * - field `value`: Field with not-pointer record/union GValue is not supported
  */
 public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectParameterPointer: CPointer<GParameter> = pointer
+    public val gPointer: CPointer<GParameter> = pointer
 
     /**
      * the parameter name
      */
     public var name: String?
-        get() = gobjectParameterPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectParameterPointer.pointed.name?.let { g_free(it) }
-            gobjectParameterPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**

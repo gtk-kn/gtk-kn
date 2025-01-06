@@ -30,7 +30,7 @@ import kotlin.native.ref.createCleaner
  * - field `error`: Fields with callbacks are not supported
  */
 public class MarkupParser(pointer: CPointer<GMarkupParser>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibMarkupParserPointer: CPointer<GMarkupParser> = pointer
+    public val gPointer: CPointer<GMarkupParser> = pointer
 
     /**
      * Allocate a new MarkupParser.

@@ -27,7 +27,7 @@ import kotlin.native.ref.createCleaner
 @GioVersion2_26
 public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable> = pointer
+    public val gPointer: CPointer<GDBusSubtreeVTable> = pointer
 
     /**
      * Allocate a new DBusSubtreeVTable.

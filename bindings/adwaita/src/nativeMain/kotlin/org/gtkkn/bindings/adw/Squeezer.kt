@@ -36,9 +36,9 @@ import org.gtkkn.native.adw.adw_squeezer_set_transition_duration
 import org.gtkkn.native.adw.adw_squeezer_set_transition_type
 import org.gtkkn.native.adw.adw_squeezer_set_xalign
 import org.gtkkn.native.adw.adw_squeezer_set_yalign
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

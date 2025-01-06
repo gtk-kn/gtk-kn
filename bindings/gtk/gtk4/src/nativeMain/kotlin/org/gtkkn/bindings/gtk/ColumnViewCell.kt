@@ -10,8 +10,8 @@ import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkColumnViewCell
 import org.gtkkn.native.gtk.gtk_column_view_cell_get_child
 import org.gtkkn.native.gtk.gtk_column_view_cell_get_focusable

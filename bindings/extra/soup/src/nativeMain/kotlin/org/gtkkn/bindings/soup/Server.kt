@@ -30,9 +30,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupServer
 import org.gtkkn.native.soup.SoupServerMessage
 import org.gtkkn.native.soup.soup_server_accept_iostream
@@ -208,7 +208,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
         val gError = allocPointerTo<GError>()
         val gResult = soup_server_accept_iostream(
             soupServerPointer.reinterpret(),
-            stream.gioIOStreamPointer.reinterpret(),
+            stream.gioIoStreamPointer.reinterpret(),
             localAddr?.gioSocketAddressPointer?.reinterpret(),
             remoteAddr?.gioSocketAddressPointer?.reinterpret(),
             gError.ptr

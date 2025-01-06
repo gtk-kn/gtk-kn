@@ -101,7 +101,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
     ) : this(
         gtk_builder_list_item_factory_new_from_bytes(
             scope?.gtkBuilderScopePointer,
-            bytes.glibBytesPointer.reinterpret()
+            bytes.gPointer.reinterpret()
         )!!.reinterpret()
     )
 

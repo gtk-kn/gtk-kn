@@ -10,8 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.graphene.graphene_plane_alloc
 import org.gtkkn.native.graphene.graphene_plane_distance
 import org.gtkkn.native.graphene.graphene_plane_equal
@@ -43,7 +43,7 @@ import kotlin.native.ref.createCleaner
  */
 @GrapheneVersion1_2
 public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val graphenePlanePointer: CPointer<graphene_plane_t> = pointer
+    public val gPointer: CPointer<graphene_plane_t> = pointer
 
     /**
      * Allocate a new Plane.
@@ -85,7 +85,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_2
     public fun distance(point: Point3d): gfloat =
-        graphene_plane_distance(graphenePlanePointer.reinterpret(), point.graphenePoint3DPointer.reinterpret())
+        graphene_plane_distance(gPointer.reinterpret(), point.gPointer.reinterpret())
 
     /**
      * Checks whether the two given #graphene_plane_t are equal.
@@ -95,8 +95,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun equal(b: Plane): Boolean =
-        graphene_plane_equal(graphenePlanePointer.reinterpret(), b.graphenePlanePointer.reinterpret())
+    public fun equal(b: Plane): Boolean = graphene_plane_equal(gPointer.reinterpret(), b.gPointer.reinterpret())
 
     /**
      * Frees the resources allocated by graphene_plane_alloc().
@@ -104,7 +103,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun free(): Unit = graphene_plane_free(graphenePlanePointer.reinterpret())
+    public fun free(): Unit = graphene_plane_free(gPointer.reinterpret())
 
     /**
      * Retrieves the distance along the normal vector of the
@@ -114,7 +113,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getConstant(): gfloat = graphene_plane_get_constant(graphenePlanePointer.reinterpret())
+    public fun getConstant(): gfloat = graphene_plane_get_constant(gPointer.reinterpret())
 
     /**
      * Retrieves the normal vector pointing towards the origin of the
@@ -125,7 +124,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_2
     public fun getNormal(normal: Vec3): Unit =
-        graphene_plane_get_normal(graphenePlanePointer.reinterpret(), normal.grapheneVec3Pointer.reinterpret())
+        graphene_plane_get_normal(gPointer.reinterpret(), normal.gPointer.reinterpret())
 
     /**
      * Initializes the given #graphene_plane_t using the given @normal vector
@@ -140,13 +139,10 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun `init`(normal: Vec3? = null, constant: gfloat): Plane = graphene_plane_init(
-        graphenePlanePointer.reinterpret(),
-        normal?.grapheneVec3Pointer?.reinterpret(),
-        constant
-    )!!.run {
-        Plane(reinterpret())
-    }
+    public fun `init`(normal: Vec3? = null, constant: gfloat): Plane =
+        graphene_plane_init(gPointer.reinterpret(), normal?.gPointer?.reinterpret(), constant)!!.run {
+            Plane(reinterpret())
+        }
 
     /**
      * Initializes the given #graphene_plane_t using the normal
@@ -157,12 +153,10 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun initFromPlane(src: Plane): Plane = graphene_plane_init_from_plane(
-        graphenePlanePointer.reinterpret(),
-        src.graphenePlanePointer.reinterpret()
-    )!!.run {
-        Plane(reinterpret())
-    }
+    public fun initFromPlane(src: Plane): Plane =
+        graphene_plane_init_from_plane(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
+            Plane(reinterpret())
+        }
 
     /**
      * Initializes the given #graphene_plane_t using the given normal vector
@@ -175,9 +169,9 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_2
     public fun initFromPoint(normal: Vec3, point: Point3d): Plane = graphene_plane_init_from_point(
-        graphenePlanePointer.reinterpret(),
-        normal.grapheneVec3Pointer.reinterpret(),
-        point.graphenePoint3DPointer.reinterpret()
+        gPointer.reinterpret(),
+        normal.gPointer.reinterpret(),
+        point.gPointer.reinterpret()
     )!!.run {
         Plane(reinterpret())
     }
@@ -197,10 +191,10 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_2
     public fun initFromPoints(a: Point3d, b: Point3d, c: Point3d): Plane = graphene_plane_init_from_points(
-        graphenePlanePointer.reinterpret(),
-        a.graphenePoint3DPointer.reinterpret(),
-        b.graphenePoint3DPointer.reinterpret(),
-        c.graphenePoint3DPointer.reinterpret()
+        gPointer.reinterpret(),
+        a.gPointer.reinterpret(),
+        b.gPointer.reinterpret(),
+        c.gPointer.reinterpret()
     )!!.run {
         Plane(reinterpret())
     }
@@ -216,7 +210,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_2
     public fun initFromVec4(src: Vec4): Plane =
-        graphene_plane_init_from_vec4(graphenePlanePointer.reinterpret(), src.grapheneVec4Pointer.reinterpret())!!.run {
+        graphene_plane_init_from_vec4(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
             Plane(reinterpret())
         }
 
@@ -228,8 +222,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun negate(res: Plane): Unit =
-        graphene_plane_negate(graphenePlanePointer.reinterpret(), res.graphenePlanePointer.reinterpret())
+    public fun negate(res: Plane): Unit = graphene_plane_negate(gPointer.reinterpret(), res.gPointer.reinterpret())
 
     /**
      * Normalizes the vector of the given #graphene_plane_t,
@@ -240,7 +233,7 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_2
     public fun normalize(res: Plane): Unit =
-        graphene_plane_normalize(graphenePlanePointer.reinterpret(), res.graphenePlanePointer.reinterpret())
+        graphene_plane_normalize(gPointer.reinterpret(), res.gPointer.reinterpret())
 
     /**
      * Transforms a #graphene_plane_t @p using the given @matrix
@@ -259,10 +252,10 @@ public class Plane(pointer: CPointer<graphene_plane_t>, cleaner: Cleaner? = null
      */
     @GrapheneVersion1_10
     public fun transform(matrix: Matrix, normalMatrix: Matrix? = null, res: Plane): Unit = graphene_plane_transform(
-        graphenePlanePointer.reinterpret(),
-        matrix.grapheneMatrixPointer.reinterpret(),
-        normalMatrix?.grapheneMatrixPointer?.reinterpret(),
-        res.graphenePlanePointer.reinterpret()
+        gPointer.reinterpret(),
+        matrix.gPointer.reinterpret(),
+        normalMatrix?.gPointer?.reinterpret(),
+        res.gPointer.reinterpret()
     )
 
     public companion object {

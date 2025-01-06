@@ -9,6 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.gmodule.Module
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkPixbufModule
@@ -68,7 +69,6 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `module`: GModule.Module
  * - field `load`: PixbufModuleLoadFunc
  * - field `load_xpm_data`: PixbufModuleLoadXpmDataFunc
  * - field `begin_load`: PixbufModuleBeginLoadFunc
@@ -84,44 +84,57 @@ import kotlin.native.ref.createCleaner
  * - field `_reserved4`: Fields with callbacks are not supported
  */
 public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gdkPixbufModulePointer: CPointer<GdkPixbufModule> = pointer
+    public val gPointer: CPointer<GdkPixbufModule> = pointer
 
     /**
      * the name of the module, usually the same as the
      *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
      */
     public var moduleName: String?
-        get() = gdkPixbufModulePointer.pointed.module_name?.toKString()
+        get() = gPointer.pointed.module_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufModulePointer.pointed.module_name?.let { g_free(it) }
-            gdkPixbufModulePointer.pointed.module_name = value?.let { g_strdup(it) }
+            gPointer.pointed.module_name?.let { g_free(it) }
+            gPointer.pointed.module_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the path from which the module is loaded.
      */
     public var modulePath: String?
-        get() = gdkPixbufModulePointer.pointed.module_path?.toKString()
+        get() = gPointer.pointed.module_path?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufModulePointer.pointed.module_path?.let { g_free(it) }
-            gdkPixbufModulePointer.pointed.module_path = value?.let { g_strdup(it) }
+            gPointer.pointed.module_path?.let { g_free(it) }
+            gPointer.pointed.module_path = value?.let { g_strdup(it) }
+        }
+
+    /**
+     * the loaded `GModule`.
+     */
+    public var module: Module?
+        get() = gPointer.pointed.module?.run {
+            Module(reinterpret())
+        }
+
+        @UnsafeFieldSetter
+        set(`value`) {
+            gPointer.pointed.module = value?.gPointer
         }
 
     /**
      * a `GdkPixbufFormat` holding information about the module.
      */
     public var info: PixbufFormat?
-        get() = gdkPixbufModulePointer.pointed.info?.run {
+        get() = gPointer.pointed.info?.run {
             PixbufFormat(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufModulePointer.pointed.info = value?.gdkPixbufFormatPointer
+            gPointer.pointed.info = value?.gPointer
         }
 
     /**
@@ -164,15 +177,18 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      * @param moduleName the name of the module, usually the same as the
      *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
      * @param modulePath the path from which the module is loaded.
+     * @param module the loaded `GModule`.
      * @param info a `GdkPixbufFormat` holding information about the module.
      */
     public constructor(
         moduleName: String?,
         modulePath: String?,
+        module: Module?,
         info: PixbufFormat?,
     ) : this() {
         this.moduleName = moduleName
         this.modulePath = modulePath
+        this.module = module
         this.info = info
     }
 
@@ -184,19 +200,23 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      * @param moduleName the name of the module, usually the same as the
      *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
      * @param modulePath the path from which the module is loaded.
+     * @param module the loaded `GModule`.
      * @param info a `GdkPixbufFormat` holding information about the module.
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
         moduleName: String?,
         modulePath: String?,
+        module: Module?,
         info: PixbufFormat?,
         scope: AutofreeScope,
     ) : this(scope) {
         this.moduleName = moduleName
         this.modulePath = modulePath
+        this.module = module
         this.info = info
     }
 
-    override fun toString(): String = "PixbufModule(moduleName=$moduleName, modulePath=$modulePath, info=$info)"
+    override fun toString(): String =
+        "PixbufModule(moduleName=$moduleName, modulePath=$modulePath, module=$module, info=$info)"
 }

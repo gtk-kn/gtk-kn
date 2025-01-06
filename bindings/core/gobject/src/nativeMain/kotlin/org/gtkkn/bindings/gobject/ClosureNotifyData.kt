@@ -23,14 +23,14 @@ import kotlin.native.ref.createCleaner
  */
 public class ClosureNotifyData(pointer: CPointer<GClosureNotifyData>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gobjectClosureNotifyDataPointer: CPointer<GClosureNotifyData> = pointer
+    public val gPointer: CPointer<GClosureNotifyData> = pointer
 
     public var `data`: gpointer
-        get() = gobjectClosureNotifyDataPointer.pointed.data!!
+        get() = gPointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectClosureNotifyDataPointer.pointed.data = value
+            gPointer.pointed.data = value
         }
 
     /**

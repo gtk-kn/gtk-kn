@@ -106,4 +106,6 @@ data class GirClass(
         records.forEach { it.initialize(this, namespace) }
         callbacks.forEach { it.initialize(this, namespace) }
     }
+
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true
 }

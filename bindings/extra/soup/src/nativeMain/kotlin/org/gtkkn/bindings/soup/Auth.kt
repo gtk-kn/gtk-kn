@@ -149,7 +149,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @param space the return value from [method@Auth.get_protection_space]
      */
     public open fun freeProtectionSpace(space: SList): Unit =
-        soup_auth_free_protection_space(soupAuthPointer.reinterpret(), space.glibSListPointer.reinterpret())
+        soup_auth_free_protection_space(soupAuthPointer.reinterpret(), space.gPointer.reinterpret())
 
     /**
      * Generates an appropriate "Authorization" header for @msg.
@@ -190,7 +190,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *   paths, which can be freed with [method@Auth.free_protection_space].
      */
     public open fun getProtectionSpace(sourceUri: Uri): SList =
-        soup_auth_get_protection_space(soupAuthPointer.reinterpret(), sourceUri.glibUriPointer.reinterpret())!!.run {
+        soup_auth_get_protection_space(soupAuthPointer.reinterpret(), sourceUri.gPointer.reinterpret())!!.run {
             SList(reinterpret())
         }
 

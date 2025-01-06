@@ -25,7 +25,7 @@ import kotlin.Unit
 public open class GlTexture(pointer: CPointer<GdkGLTexture>) :
     Texture(pointer.reinterpret()),
     KGTyped {
-    public val gdkGLTexturePointer: CPointer<GdkGLTexture>
+    public val gdkGlTexturePointer: CPointer<GdkGLTexture>
         get() = gPointer.reinterpret()
 
     override val gdkPaintablePointer: CPointer<GdkPaintable>
@@ -44,7 +44,7 @@ public open class GlTexture(pointer: CPointer<GdkGLTexture>) :
      * [method@Gdk.Texture.download] function, after this
      * function has been called.
      */
-    public open fun release(): Unit = gdk_gl_texture_release(gdkGLTexturePointer.reinterpret())
+    public open fun release(): Unit = gdk_gl_texture_release(gdkGlTexturePointer.reinterpret())
 
     public companion object : TypeCompanion<GlTexture> {
         override val type: GeneratedClassKGType<GlTexture> =

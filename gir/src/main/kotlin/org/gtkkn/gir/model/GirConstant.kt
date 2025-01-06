@@ -47,4 +47,6 @@ data class GirConstant(
         annotations.forEach { it.initialize(this, namespace) }
         type?.initialize(this, namespace)
     }
+
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true
 }

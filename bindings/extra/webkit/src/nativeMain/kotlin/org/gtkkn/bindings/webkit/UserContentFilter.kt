@@ -21,7 +21,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_24
 public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : ProxyInstance(pointer) {
-    public val webkitUserContentFilterPointer: CPointer<WebKitUserContentFilter> = pointer
+    public val gPointer: CPointer<WebKitUserContentFilter> = pointer
 
     /**
      * Obtain the identifier previously used to save the @user_content_filter.
@@ -33,9 +33,8 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Pro
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun getIdentifier(): String =
-        webkit_user_content_filter_get_identifier(webkitUserContentFilterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getIdentifier(): String = webkit_user_content_filter_get_identifier(gPointer.reinterpret())?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @user_content_filter by one.
@@ -46,10 +45,9 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Pro
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun ref(): UserContentFilter =
-        webkit_user_content_filter_ref(webkitUserContentFilterPointer.reinterpret())!!.run {
-            UserContentFilter(reinterpret())
-        }
+    public fun ref(): UserContentFilter = webkit_user_content_filter_ref(gPointer.reinterpret())!!.run {
+        UserContentFilter(reinterpret())
+    }
 
     /**
      * Atomically decrements the reference count of @user_content_filter by one.
@@ -61,7 +59,7 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Pro
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun unref(): Unit = webkit_user_content_filter_unref(webkitUserContentFilterPointer.reinterpret())
+    public fun unref(): Unit = webkit_user_content_filter_unref(gPointer.reinterpret())
 
     public companion object {
         /**

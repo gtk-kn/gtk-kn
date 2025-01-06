@@ -46,8 +46,8 @@ import org.gtkkn.native.adw.adw_tab_page_set_thumbnail_xalign
 import org.gtkkn.native.adw.adw_tab_page_set_thumbnail_yalign
 import org.gtkkn.native.adw.adw_tab_page_set_title
 import org.gtkkn.native.adw.adw_tab_page_set_tooltip
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gfloat
 import org.gtkkn.native.gtk.GtkAccessible
 import kotlin.Boolean
 import kotlin.String

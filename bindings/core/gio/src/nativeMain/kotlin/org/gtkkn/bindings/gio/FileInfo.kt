@@ -93,12 +93,12 @@ import org.gtkkn.native.gio.g_file_info_set_sort_order
 import org.gtkkn.native.gio.g_file_info_set_symbolic_icon
 import org.gtkkn.native.gio.g_file_info_set_symlink_target
 import org.gtkkn.native.gio.g_file_info_unset_attribute_mask
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -526,7 +526,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @param result a #GTimeVal.
      */
     public open fun getModificationTime(result: TimeVal): Unit =
-        g_file_info_get_modification_time(gioFileInfoPointer.reinterpret(), result.glibTimeValPointer.reinterpret())
+        g_file_info_get_modification_time(gioFileInfoPointer.reinterpret(), result.gPointer.reinterpret())
 
     /**
      * Gets the name for a file. This is guaranteed to always be set.
@@ -642,7 +642,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_70
     public open fun setAccessDateTime(atime: DateTime): Unit =
-        g_file_info_set_access_date_time(gioFileInfoPointer.reinterpret(), atime.glibDateTimePointer.reinterpret())
+        g_file_info_set_access_date_time(gioFileInfoPointer.reinterpret(), atime.gPointer.reinterpret())
 
     /**
      * Sets the @attribute to contain the given value, if possible. To unset the
@@ -715,10 +715,8 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      *
      * @param mask a #GFileAttributeMatcher.
      */
-    public open fun setAttributeMask(mask: FileAttributeMatcher): Unit = g_file_info_set_attribute_mask(
-        gioFileInfoPointer.reinterpret(),
-        mask.gioFileAttributeMatcherPointer.reinterpret()
-    )
+    public open fun setAttributeMask(mask: FileAttributeMatcher): Unit =
+        g_file_info_set_attribute_mask(gioFileInfoPointer.reinterpret(), mask.gPointer.reinterpret())
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -815,10 +813,8 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @since 2.70
      */
     @GioVersion2_70
-    public open fun setCreationDateTime(creationTime: DateTime): Unit = g_file_info_set_creation_date_time(
-        gioFileInfoPointer.reinterpret(),
-        creationTime.glibDateTimePointer.reinterpret()
-    )
+    public open fun setCreationDateTime(creationTime: DateTime): Unit =
+        g_file_info_set_creation_date_time(gioFileInfoPointer.reinterpret(), creationTime.gPointer.reinterpret())
 
     /**
      * Sets the display name for the current #GFileInfo.
@@ -885,10 +881,8 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @since 2.62
      */
     @GioVersion2_62
-    public open fun setModificationDateTime(mtime: DateTime): Unit = g_file_info_set_modification_date_time(
-        gioFileInfoPointer.reinterpret(),
-        mtime.glibDateTimePointer.reinterpret()
-    )
+    public open fun setModificationDateTime(mtime: DateTime): Unit =
+        g_file_info_set_modification_date_time(gioFileInfoPointer.reinterpret(), mtime.gPointer.reinterpret())
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
@@ -900,7 +894,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @param mtime a #GTimeVal.
      */
     public open fun setModificationTime(mtime: TimeVal): Unit =
-        g_file_info_set_modification_time(gioFileInfoPointer.reinterpret(), mtime.glibTimeValPointer.reinterpret())
+        g_file_info_set_modification_time(gioFileInfoPointer.reinterpret(), mtime.gPointer.reinterpret())
 
     /**
      * Sets the name attribute for the current #GFileInfo.

@@ -10,7 +10,7 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gtk.GtkAccessibleTextRange
 import kotlin.Pair
 import kotlin.String
@@ -24,28 +24,28 @@ import kotlin.native.ref.createCleaner
 @GtkVersion4_14
 public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange> = pointer
+    public val gPointer: CPointer<GtkAccessibleTextRange> = pointer
 
     /**
      * the start of the range, in characters
      */
     public var start: gsize
-        get() = gtkAccessibleTextRangePointer.pointed.start
+        get() = gPointer.pointed.start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkAccessibleTextRangePointer.pointed.start = value
+            gPointer.pointed.start = value
         }
 
     /**
      * the length of the range, in characters
      */
     public var length: gsize
-        get() = gtkAccessibleTextRangePointer.pointed.length
+        get() = gPointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkAccessibleTextRangePointer.pointed.length = value
+            gPointer.pointed.length = value
         }
 
     /**

@@ -27,9 +27,9 @@ import org.gtkkn.native.gio.g_menu_model_is_mutable
 import org.gtkkn.native.gio.g_menu_model_items_changed
 import org.gtkkn.native.gio.g_menu_model_iterate_item_attributes
 import org.gtkkn.native.gio.g_menu_model_iterate_item_links
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -193,7 +193,7 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
         gioMenuModelPointer.reinterpret(),
         itemIndex,
         attribute,
-        expectedType?.glibVariantTypePointer?.reinterpret()
+        expectedType?.gPointer?.reinterpret()
     )?.run {
         Variant(reinterpret())
     }

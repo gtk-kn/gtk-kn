@@ -23,7 +23,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `bytes`: Unsupported pointer to primitive type
  */
 public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibTestLogBufferPointer: CPointer<GTestLogBuffer> = pointer
+    public val gPointer: CPointer<GTestLogBuffer> = pointer
 
     /**
      * Allocate a new TestLogBuffer.
@@ -59,12 +59,12 @@ public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? 
     /**
      * Internal function for gtester to free test log messages, no ABI guarantees provided.
      */
-    public fun free(): Unit = g_test_log_buffer_free(glibTestLogBufferPointer.reinterpret())
+    public fun free(): Unit = g_test_log_buffer_free(gPointer.reinterpret())
 
     /**
      * Internal function for gtester to retrieve test log messages, no ABI guarantees provided.
      */
-    public fun pop(): TestLogMsg = g_test_log_buffer_pop(glibTestLogBufferPointer.reinterpret())!!.run {
+    public fun pop(): TestLogMsg = g_test_log_buffer_pop(gPointer.reinterpret())!!.run {
         TestLogMsg(reinterpret())
     }
 

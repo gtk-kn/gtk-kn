@@ -17,10 +17,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCalendar
@@ -306,7 +306,7 @@ public open class Calendar(pointer: CPointer<GtkCalendar>) :
      * @param date a `GDateTime` representing the day to select
      */
     public open fun selectDay(date: DateTime): Unit =
-        gtk_calendar_select_day(gtkCalendarPointer.reinterpret(), date.glibDateTimePointer.reinterpret())
+        gtk_calendar_select_day(gtkCalendarPointer.reinterpret(), date.gPointer.reinterpret())
 
     /**
      * Removes the visual marker from a particular day.

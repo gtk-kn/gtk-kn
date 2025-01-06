@@ -34,8 +34,8 @@ import org.gtkkn.native.adw.adw_expander_row_set_show_enable_switch
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle
 import org.gtkkn.native.adw.adw_expander_row_set_subtitle_lines
 import org.gtkkn.native.adw.adw_expander_row_set_title_lines
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable

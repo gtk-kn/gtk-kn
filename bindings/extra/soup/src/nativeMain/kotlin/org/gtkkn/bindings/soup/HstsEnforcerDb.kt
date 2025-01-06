@@ -26,7 +26,7 @@ import kotlin.String
 public class HstsEnforcerDb(pointer: CPointer<SoupHSTSEnforcerDB>) :
     HstsEnforcer(pointer.reinterpret()),
     KGTyped {
-    public val soupHSTSEnforcerDBPointer: CPointer<SoupHSTSEnforcerDB>
+    public val soupHstsEnforcerDbPointer: CPointer<SoupHSTSEnforcerDB>
         get() = gPointer.reinterpret()
 
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>

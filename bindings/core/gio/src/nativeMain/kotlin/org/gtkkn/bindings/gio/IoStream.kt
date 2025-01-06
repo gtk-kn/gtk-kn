@@ -31,8 +31,8 @@ import org.gtkkn.native.gio.g_io_stream_set_pending
 import org.gtkkn.native.gio.g_io_stream_splice_async
 import org.gtkkn.native.gio.g_io_stream_splice_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit
@@ -97,7 +97,7 @@ import kotlin.Unit
 public open class IoStream(pointer: CPointer<GIOStream>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val gioIOStreamPointer: CPointer<GIOStream>
+    public val gioIoStreamPointer: CPointer<GIOStream>
         get() = gPointer.reinterpret()
 
     /**
@@ -115,7 +115,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
          * Do not free.
          * @since 2.22
          */
-        get() = g_io_stream_get_input_stream(gioIOStreamPointer.reinterpret())!!.run {
+        get() = g_io_stream_get_input_stream(gioIoStreamPointer.reinterpret())!!.run {
             InputStream(reinterpret())
         }
 
@@ -134,7 +134,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
          * Do not free.
          * @since 2.22
          */
-        get() = g_io_stream_get_output_stream(gioIOStreamPointer.reinterpret())!!.run {
+        get() = g_io_stream_get_output_stream(gioIoStreamPointer.reinterpret())!!.run {
             OutputStream(reinterpret())
         }
 
@@ -144,7 +144,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun clearPending(): Unit = g_io_stream_clear_pending(gioIOStreamPointer.reinterpret())
+    public open fun clearPending(): Unit = g_io_stream_clear_pending(gioIoStreamPointer.reinterpret())
 
     /**
      * Closes the stream, releasing resources related to it. This will also
@@ -189,7 +189,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
     public open fun close(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_stream_close(
-            gioIOStreamPointer.reinterpret(),
+            gioIoStreamPointer.reinterpret(),
             cancellable?.gioCancellablePointer?.reinterpret(),
             gError.ptr
         ).asBoolean()
@@ -224,7 +224,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_io_stream_close_async(
-        gioIOStreamPointer.reinterpret(),
+        gioIoStreamPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
@@ -244,7 +244,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
     public open fun closeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_io_stream_close_finish(
-            gioIOStreamPointer.reinterpret(),
+            gioIoStreamPointer.reinterpret(),
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -262,7 +262,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun hasPending(): Boolean = g_io_stream_has_pending(gioIOStreamPointer.reinterpret()).asBoolean()
+    public open fun hasPending(): Boolean = g_io_stream_has_pending(gioIoStreamPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if a stream is closed.
@@ -271,7 +271,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun isClosed(): Boolean = g_io_stream_is_closed(gioIOStreamPointer.reinterpret()).asBoolean()
+    public open fun isClosed(): Boolean = g_io_stream_is_closed(gioIoStreamPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @stream to have actions pending. If the pending flag is
@@ -284,7 +284,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
     @GioVersion2_22
     public open fun setPending(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_io_stream_set_pending(gioIOStreamPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_io_stream_set_pending(gioIoStreamPointer.reinterpret(), gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -317,8 +317,8 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_io_stream_splice_async(
-        gioIOStreamPointer.reinterpret(),
-        stream2.gioIOStreamPointer.reinterpret(),
+        gioIoStreamPointer.reinterpret(),
+        stream2.gioIoStreamPointer.reinterpret(),
         flags.mask,
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),

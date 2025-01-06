@@ -22,12 +22,15 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GBytes
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
+import org.gtkkn.native.glib.gushort
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.soup.SoupWebsocketConnection
+import org.gtkkn.native.soup.soup_websocket_connection_close
+import org.gtkkn.native.soup.soup_websocket_connection_get_close_code
 import org.gtkkn.native.soup.soup_websocket_connection_get_close_data
 import org.gtkkn.native.soup.soup_websocket_connection_get_connection_type
 import org.gtkkn.native.soup.soup_websocket_connection_get_extensions
@@ -73,8 +76,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `code`: gushort
- * - method `get_close_code`: Return type gushort is unsupported
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
 public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
@@ -256,14 +257,45 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
         extensions: List,
     ) : this(
         soup_websocket_connection_new(
-            stream.gioIOStreamPointer.reinterpret(),
-            uri.glibUriPointer.reinterpret(),
+            stream.gioIoStreamPointer.reinterpret(),
+            uri.gPointer.reinterpret(),
             type.nativeValue,
             origin,
             protocol,
-            extensions.glibListPointer.reinterpret()
+            extensions.gPointer.reinterpret()
         )!!.reinterpret()
     )
+
+    /**
+     * Close the connection in an orderly fashion.
+     *
+     * Note that until the [signal@WebsocketConnection::closed] signal fires, the connection
+     * is not yet completely closed. The close message is not even sent until the
+     * main loop runs.
+     *
+     * The @code and @data are sent to the peer along with the close request.
+     * If @code is %SOUP_WEBSOCKET_CLOSE_NO_STATUS a close message with no body
+     * (without code and data) is sent.
+     * Note that the @data must be UTF-8 valid.
+     *
+     * @param code close code
+     * @param data close data
+     */
+    public fun close(code: gushort, `data`: String? = null): Unit =
+        soup_websocket_connection_close(soupWebsocketConnectionPointer.reinterpret(), code, `data`)
+
+    /**
+     * Get the close code received from the WebSocket peer.
+     *
+     * This only becomes valid once the WebSocket is in the
+     * %SOUP_WEBSOCKET_STATE_CLOSED state. The value will often be in the
+     * [enum@WebsocketCloseCode] enumeration, but may also be an application
+     * defined close code.
+     *
+     * @return the close code or zero.
+     */
+    public fun getCloseCode(): gushort =
+        soup_websocket_connection_get_close_code(soupWebsocketConnectionPointer.reinterpret())
 
     /**
      * Get the close data received from the WebSocket peer.
@@ -291,7 +323,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
     public fun sendMessage(type: WebsocketDataType, message: Bytes): Unit = soup_websocket_connection_send_message(
         soupWebsocketConnectionPointer.reinterpret(),
         type.nativeValue,
-        message.glibBytesPointer.reinterpret()
+        message.gPointer.reinterpret()
     )
 
     /**

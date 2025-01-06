@@ -13,9 +13,9 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTuples
 import org.gtkkn.native.glib.g_tuples_destroy
 import org.gtkkn.native.glib.g_tuples_index
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -29,17 +29,17 @@ import kotlin.native.ref.createCleaner
  * records, you must use g_tuples_index().
  */
 public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibTuplesPointer: CPointer<GTuples> = pointer
+    public val gPointer: CPointer<GTuples> = pointer
 
     /**
      * the number of records that matched.
      */
     public var len: guint
-        get() = glibTuplesPointer.pointed.len
+        get() = gPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTuplesPointer.pointed.len = value
+            gPointer.pointed.len = value
         }
 
     /**
@@ -101,7 +101,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * finished with the records. The records are not removed from the
      * #GRelation.
      */
-    public fun destroy(): Unit = g_tuples_destroy(glibTuplesPointer.reinterpret())
+    public fun destroy(): Unit = g_tuples_destroy(gPointer.reinterpret())
 
     /**
      * Gets a field from the records returned by g_relation_select(). It
@@ -112,8 +112,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * @param field the field to return.
      * @return the field of the record.
      */
-    public fun index(index: gint, `field`: gint): gpointer? =
-        g_tuples_index(glibTuplesPointer.reinterpret(), index, `field`)
+    public fun index(index: gint, `field`: gint): gpointer? = g_tuples_index(gPointer.reinterpret(), index, `field`)
 
     override fun toString(): String = "Tuples(len=$len)"
 }

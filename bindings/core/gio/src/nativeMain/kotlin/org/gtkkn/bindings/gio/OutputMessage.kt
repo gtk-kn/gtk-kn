@@ -12,7 +12,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GOutputMessage
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -35,43 +35,43 @@ import kotlin.native.ref.createCleaner
  */
 @GioVersion2_44
 public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioOutputMessagePointer: CPointer<GOutputMessage> = pointer
+    public val gPointer: CPointer<GOutputMessage> = pointer
 
     /**
      * a #GSocketAddress, or null
      */
     public var address: SocketAddress?
-        get() = gioOutputMessagePointer.pointed.address?.run {
+        get() = gPointer.pointed.address?.run {
             SocketAddress(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputMessagePointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
+            gPointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
         }
 
     /**
      * pointer to an array of output vectors
      */
     public var vectors: OutputVector?
-        get() = gioOutputMessagePointer.pointed.vectors?.run {
+        get() = gPointer.pointed.vectors?.run {
             OutputVector(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputMessagePointer.pointed.vectors = value?.gioOutputVectorPointer
+            gPointer.pointed.vectors = value?.gPointer
         }
 
     /**
      * the number of output vectors pointed to by @vectors.
      */
     public var numVectors: guint
-        get() = gioOutputMessagePointer.pointed.num_vectors
+        get() = gPointer.pointed.num_vectors
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputMessagePointer.pointed.num_vectors = value
+            gPointer.pointed.num_vectors = value
         }
 
     /**
@@ -79,22 +79,22 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      *     that have been sent
      */
     public var bytesSent: guint
-        get() = gioOutputMessagePointer.pointed.bytes_sent
+        get() = gPointer.pointed.bytes_sent
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputMessagePointer.pointed.bytes_sent = value
+            gPointer.pointed.bytes_sent = value
         }
 
     /**
      * number of elements in @control_messages.
      */
     public var numControlMessages: guint
-        get() = gioOutputMessagePointer.pointed.num_control_messages
+        get() = gPointer.pointed.num_control_messages
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioOutputMessagePointer.pointed.num_control_messages = value
+            gPointer.pointed.num_control_messages = value
         }
 
     /**

@@ -22,50 +22,50 @@ import kotlin.Unit
  * Each side can have different width.
  */
 public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
-    public val gtkBorderPointer: CPointer<GtkBorder> = pointer
+    public val gPointer: CPointer<GtkBorder> = pointer
 
     /**
      * The width of the left border
      */
     public var left: Short
-        get() = gtkBorderPointer.pointed.left
+        get() = gPointer.pointed.left
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkBorderPointer.pointed.left = value
+            gPointer.pointed.left = value
         }
 
     /**
      * The width of the right border
      */
     public var right: Short
-        get() = gtkBorderPointer.pointed.right
+        get() = gPointer.pointed.right
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkBorderPointer.pointed.right = value
+            gPointer.pointed.right = value
         }
 
     /**
      * The width of the top border
      */
     public var top: Short
-        get() = gtkBorderPointer.pointed.top
+        get() = gPointer.pointed.top
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkBorderPointer.pointed.top = value
+            gPointer.pointed.top = value
         }
 
     /**
      * The width of the bottom border
      */
     public var bottom: Short
-        get() = gtkBorderPointer.pointed.bottom
+        get() = gPointer.pointed.bottom
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkBorderPointer.pointed.bottom = value
+            gPointer.pointed.bottom = value
         }
 
     /**
@@ -73,14 +73,14 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      *
      * @return a copy of @border_.
      */
-    public fun copy(): Border = gtk_border_copy(gtkBorderPointer.reinterpret())!!.run {
+    public fun copy(): Border = gtk_border_copy(gPointer.reinterpret())!!.run {
         Border(reinterpret())
     }
 
     /**
      * Frees a `GtkBorder`.
      */
-    public fun free(): Unit = gtk_border_free(gtkBorderPointer.reinterpret())
+    public fun free(): Unit = gtk_border_free(gPointer.reinterpret())
 
     override fun toString(): String = "Border(left=$left, right=$right, top=$top, bottom=$bottom)"
 

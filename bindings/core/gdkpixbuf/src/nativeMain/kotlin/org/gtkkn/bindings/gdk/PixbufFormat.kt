@@ -34,8 +34,8 @@ import org.gtkkn.native.gdk.gdk_pixbuf_format_is_writable
 import org.gtkkn.native.gdk.gdk_pixbuf_format_set_disabled
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Pair
 import kotlin.String
@@ -54,55 +54,55 @@ import kotlin.native.ref.createCleaner
  */
 @GdkPixbufVersion2_2
 public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gdkPixbufFormatPointer: CPointer<GdkPixbufFormat> = pointer
+    public val gPointer: CPointer<GdkPixbufFormat> = pointer
 
     /**
      * the name of the image format
      */
     public var name: String?
-        get() = gdkPixbufFormatPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.name?.let { g_free(it) }
-            gdkPixbufFormatPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
      * the signature of the module
      */
     public var signature: PixbufModulePattern?
-        get() = gdkPixbufFormatPointer.pointed.signature?.run {
+        get() = gPointer.pointed.signature?.run {
             PixbufModulePattern(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.signature = value?.gdkPixbufModulePatternPointer
+            gPointer.pointed.signature = value?.gPointer
         }
 
     /**
      * the message domain for the `description`
      */
     public var domain: String?
-        get() = gdkPixbufFormatPointer.pointed.domain?.toKString()
+        get() = gPointer.pointed.domain?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.domain?.let { g_free(it) }
-            gdkPixbufFormatPointer.pointed.domain = value?.let { g_strdup(it) }
+            gPointer.pointed.domain?.let { g_free(it) }
+            gPointer.pointed.domain = value?.let { g_strdup(it) }
         }
 
     /**
      * a description of the image format
      */
     public var description: String?
-        get() = gdkPixbufFormatPointer.pointed.description?.toKString()
+        get() = gPointer.pointed.description?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.description?.let { g_free(it) }
-            gdkPixbufFormatPointer.pointed.description = value?.let { g_strdup(it) }
+            gPointer.pointed.description?.let { g_free(it) }
+            gPointer.pointed.description = value?.let { g_strdup(it) }
         }
 
     /**
@@ -111,7 +111,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val mimeTypes: List<String>?
-        get() = gdkPixbufFormatPointer.pointed.mime_types?.toKStringList()
+        get() = gPointer.pointed.mime_types?.toKStringList()
 
     /**
      * typical filename extensions for the
@@ -120,28 +120,28 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val extensions: List<String>?
-        get() = gdkPixbufFormatPointer.pointed.extensions?.toKStringList()
+        get() = gPointer.pointed.extensions?.toKStringList()
 
     /**
      * a combination of `GdkPixbufFormatFlags`
      */
     public var flags: guint
-        get() = gdkPixbufFormatPointer.pointed.flags
+        get() = gPointer.pointed.flags
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.flags = value
+            gPointer.pointed.flags = value
         }
 
     /**
      * a boolean determining whether the loader is disabled`
      */
     public var disabled: Boolean
-        get() = gdkPixbufFormatPointer.pointed.disabled.asBoolean()
+        get() = gPointer.pointed.disabled.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.disabled = value.asGBoolean()
+            gPointer.pointed.disabled = value.asGBoolean()
         }
 
     /**
@@ -149,12 +149,12 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      *   shorthands like "GPL", "LGPL", etc.
      */
     public var license: String?
-        get() = gdkPixbufFormatPointer.pointed.license?.toKString()
+        get() = gPointer.pointed.license?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufFormatPointer.pointed.license?.let { g_free(it) }
-            gdkPixbufFormatPointer.pointed.license = value?.let { g_strdup(it) }
+            gPointer.pointed.license?.let { g_free(it) }
+            gPointer.pointed.license = value?.let { g_strdup(it) }
         }
 
     /**
@@ -263,7 +263,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.22
      */
     @GdkPixbufVersion2_22
-    public fun copy(): PixbufFormat = gdk_pixbuf_format_copy(gdkPixbufFormatPointer.reinterpret())!!.run {
+    public fun copy(): PixbufFormat = gdk_pixbuf_format_copy(gPointer.reinterpret())!!.run {
         PixbufFormat(reinterpret())
     }
 
@@ -274,7 +274,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.22
      */
     @GdkPixbufVersion2_22
-    public fun free(): Unit = gdk_pixbuf_format_free(gdkPixbufFormatPointer.reinterpret())
+    public fun free(): Unit = gdk_pixbuf_format_free(gPointer.reinterpret())
 
     /**
      * Returns a description of the format.
@@ -284,8 +284,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      */
     @GdkPixbufVersion2_2
     public fun getDescription(): String =
-        gdk_pixbuf_format_get_description(gdkPixbufFormatPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gdk_pixbuf_format_get_description(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the filename extensions typically used for files in the
@@ -296,9 +295,8 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getExtensions(): List<String> =
-        gdk_pixbuf_format_get_extensions(gdkPixbufFormatPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun getExtensions(): List<String> = gdk_pixbuf_format_get_extensions(gPointer.reinterpret())?.toKStringList()
+        ?: error("Expected not null string array")
 
     /**
      * Returns information about the license of the image loader for the format.
@@ -310,8 +308,8 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.6
      */
     @GdkPixbufVersion2_6
-    public fun getLicense(): String = gdk_pixbuf_format_get_license(gdkPixbufFormatPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getLicense(): String =
+        gdk_pixbuf_format_get_license(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the mime types supported by the format.
@@ -320,9 +318,8 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getMimeTypes(): List<String> =
-        gdk_pixbuf_format_get_mime_types(gdkPixbufFormatPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+    public fun getMimeTypes(): List<String> = gdk_pixbuf_format_get_mime_types(gPointer.reinterpret())?.toKStringList()
+        ?: error("Expected not null string array")
 
     /**
      * Returns the name of the format.
@@ -331,8 +328,8 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun getName(): String = gdk_pixbuf_format_get_name(gdkPixbufFormatPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getName(): String =
+        gdk_pixbuf_format_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether this image format is disabled.
@@ -343,7 +340,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.6
      */
     @GdkPixbufVersion2_6
-    public fun isDisabled(): Boolean = gdk_pixbuf_format_is_disabled(gdkPixbufFormatPointer.reinterpret()).asBoolean()
+    public fun isDisabled(): Boolean = gdk_pixbuf_format_is_disabled(gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns `TRUE` if the save option specified by @option_key is supported when
@@ -357,7 +354,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      */
     @GdkPixbufVersion2_36
     public fun isSaveOptionSupported(optionKey: String): Boolean =
-        gdk_pixbuf_format_is_save_option_supported(gdkPixbufFormatPointer.reinterpret(), optionKey).asBoolean()
+        gdk_pixbuf_format_is_save_option_supported(gPointer.reinterpret(), optionKey).asBoolean()
 
     /**
      * Returns whether this image format is scalable.
@@ -370,7 +367,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.6
      */
     @GdkPixbufVersion2_6
-    public fun isScalable(): Boolean = gdk_pixbuf_format_is_scalable(gdkPixbufFormatPointer.reinterpret()).asBoolean()
+    public fun isScalable(): Boolean = gdk_pixbuf_format_is_scalable(gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns whether pixbufs can be saved in the given format.
@@ -379,7 +376,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      * @since 2.2
      */
     @GdkPixbufVersion2_2
-    public fun isWritable(): Boolean = gdk_pixbuf_format_is_writable(gdkPixbufFormatPointer.reinterpret()).asBoolean()
+    public fun isWritable(): Boolean = gdk_pixbuf_format_is_writable(gPointer.reinterpret()).asBoolean()
 
     /**
      * Disables or enables an image format.
@@ -395,7 +392,7 @@ public class PixbufFormat(pointer: CPointer<GdkPixbufFormat>, cleaner: Cleaner? 
      */
     @GdkPixbufVersion2_6
     public fun setDisabled(disabled: Boolean): Unit =
-        gdk_pixbuf_format_set_disabled(gdkPixbufFormatPointer.reinterpret(), disabled.asGBoolean())
+        gdk_pixbuf_format_set_disabled(gPointer.reinterpret(), disabled.asGBoolean())
 
     override fun toString(): String =
         "PixbufFormat(name=$name, signature=$signature, domain=$domain, description=$description, mimeTypes=$mimeTypes, extensions=$extensions, flags=$flags, disabled=$disabled, license=$license)"

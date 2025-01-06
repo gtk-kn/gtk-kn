@@ -34,9 +34,9 @@ import org.gtkkn.native.glib.g_hash_table_steal
 import org.gtkkn.native.glib.g_hash_table_steal_all
 import org.gtkkn.native.glib.g_hash_table_unref
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_hash_table_get_type
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -58,7 +58,7 @@ import kotlin.Unit
  * - parameter `stolen_key`: stolen_key: Out parameter is not supported
  */
 public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
-    public val glibHashTablePointer: CPointer<GHashTable> = pointer
+    public val gPointer: CPointer<GHashTable> = pointer
 
     public companion object {
         /**
@@ -85,7 +85,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_32
         public fun add(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_add(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+            g_hash_table_add(hashTable.gPointer.reinterpret(), key).asBoolean()
 
         /**
          * Checks if @key is in @hash_table.
@@ -97,7 +97,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_32
         public fun contains(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_contains(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+            g_hash_table_contains(hashTable.gPointer.reinterpret(), key).asBoolean()
 
         /**
          * Destroys all keys and values in the #GHashTable and decrements its
@@ -109,8 +109,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          *
          * @param hashTable a #GHashTable
          */
-        public fun destroy(hashTable: HashTable): Unit =
-            g_hash_table_destroy(hashTable.glibHashTablePointer.reinterpret())
+        public fun destroy(hashTable: HashTable): Unit = g_hash_table_destroy(hashTable.gPointer.reinterpret())
 
         /**
          * Calls the given function for key/value pairs in the #GHashTable
@@ -136,7 +135,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_4
         public fun find(hashTable: HashTable, predicate: HrFunc): gpointer? = g_hash_table_find(
-            hashTable.glibHashTablePointer.reinterpret(),
+            hashTable.gPointer.reinterpret(),
             HrFuncFunc.reinterpret(),
             StableRef.create(predicate).asCPointer()
         )
@@ -159,7 +158,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @param func the function to call for each key/value pair
          */
         public fun foreach(hashTable: HashTable, func: HFunc): Unit = g_hash_table_foreach(
-            hashTable.glibHashTablePointer.reinterpret(),
+            hashTable.gPointer.reinterpret(),
             HFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -179,7 +178,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return the number of key/value pairs removed
          */
         public fun foreachRemove(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_remove(
-            hashTable.glibHashTablePointer.reinterpret(),
+            hashTable.gPointer.reinterpret(),
             HrFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -198,7 +197,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return the number of key/value pairs removed.
          */
         public fun foreachSteal(hashTable: HashTable, func: HrFunc): guint = g_hash_table_foreach_steal(
-            hashTable.glibHashTablePointer.reinterpret(),
+            hashTable.gPointer.reinterpret(),
             HrFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -219,10 +218,9 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun getKeys(hashTable: HashTable): List =
-            g_hash_table_get_keys(hashTable.glibHashTablePointer.reinterpret())!!.run {
-                List(reinterpret())
-            }
+        public fun getKeys(hashTable: HashTable): List = g_hash_table_get_keys(hashTable.gPointer.reinterpret())!!.run {
+            List(reinterpret())
+        }
 
         /**
          * Retrieves every value inside @hash_table. The returned data
@@ -241,7 +239,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_14
         public fun getValues(hashTable: HashTable): List =
-            g_hash_table_get_values(hashTable.glibHashTablePointer.reinterpret())!!.run {
+            g_hash_table_get_values(hashTable.gPointer.reinterpret())!!.run {
                 List(reinterpret())
             }
 
@@ -265,7 +263,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return true if the key did not exist yet
          */
         public fun insert(hashTable: HashTable, key: gpointer? = null, `value`: gpointer? = null): Boolean =
-            g_hash_table_insert(hashTable.glibHashTablePointer.reinterpret(), key, `value`).asBoolean()
+            g_hash_table_insert(hashTable.gPointer.reinterpret(), key, `value`).asBoolean()
 
         /**
          * Looks up a key in a #GHashTable. Note that this function cannot
@@ -278,7 +276,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return the associated value, or null if the key is not found
          */
         public fun lookup(hashTable: HashTable, key: gpointer? = null): gpointer? =
-            g_hash_table_lookup(hashTable.glibHashTablePointer.reinterpret(), key)
+            g_hash_table_lookup(hashTable.gPointer.reinterpret(), key)
 
         /**
          * Creates a new #GHashTable like g_hash_table_new_full() with a reference
@@ -296,7 +294,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_72
         public fun newSimilar(otherHashTable: HashTable): HashTable =
-            g_hash_table_new_similar(otherHashTable.glibHashTablePointer.reinterpret())!!.run {
+            g_hash_table_new_similar(otherHashTable.gPointer.reinterpret())!!.run {
                 HashTable(reinterpret())
             }
 
@@ -309,10 +307,9 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun ref(hashTable: HashTable): HashTable =
-            g_hash_table_ref(hashTable.glibHashTablePointer.reinterpret())!!.run {
-                HashTable(reinterpret())
-            }
+        public fun ref(hashTable: HashTable): HashTable = g_hash_table_ref(hashTable.gPointer.reinterpret())!!.run {
+            HashTable(reinterpret())
+        }
 
         /**
          * Removes a key and its associated value from a #GHashTable.
@@ -327,7 +324,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return true if the key was found and removed from the #GHashTable
          */
         public fun remove(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_remove(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+            g_hash_table_remove(hashTable.gPointer.reinterpret(), key).asBoolean()
 
         /**
          * Removes all keys and their associated values from a #GHashTable.
@@ -341,8 +338,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun removeAll(hashTable: HashTable): Unit =
-            g_hash_table_remove_all(hashTable.glibHashTablePointer.reinterpret())
+        public fun removeAll(hashTable: HashTable): Unit = g_hash_table_remove_all(hashTable.gPointer.reinterpret())
 
         /**
          * Inserts a new key and value into a #GHashTable similar to
@@ -363,7 +359,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return true if the key did not exist yet
          */
         public fun replace(hashTable: HashTable, key: gpointer? = null, `value`: gpointer? = null): Boolean =
-            g_hash_table_replace(hashTable.glibHashTablePointer.reinterpret(), key, `value`).asBoolean()
+            g_hash_table_replace(hashTable.gPointer.reinterpret(), key, `value`).asBoolean()
 
         /**
          * Returns the number of elements contained in the #GHashTable.
@@ -371,7 +367,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @param hashTable a #GHashTable
          * @return the number of key/value pairs in the #GHashTable.
          */
-        public fun size(hashTable: HashTable): guint = g_hash_table_size(hashTable.glibHashTablePointer.reinterpret())
+        public fun size(hashTable: HashTable): guint = g_hash_table_size(hashTable.gPointer.reinterpret())
 
         /**
          * Removes a key and its associated value from a #GHashTable without
@@ -382,7 +378,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @return true if the key was found and removed from the #GHashTable
          */
         public fun steal(hashTable: HashTable, key: gpointer? = null): Boolean =
-            g_hash_table_steal(hashTable.glibHashTablePointer.reinterpret(), key).asBoolean()
+            g_hash_table_steal(hashTable.gPointer.reinterpret(), key).asBoolean()
 
         /**
          * Removes all keys and their associated values from a #GHashTable
@@ -392,8 +388,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @since 2.12
          */
         @GLibVersion2_12
-        public fun stealAll(hashTable: HashTable): Unit =
-            g_hash_table_steal_all(hashTable.glibHashTablePointer.reinterpret())
+        public fun stealAll(hashTable: HashTable): Unit = g_hash_table_steal_all(hashTable.gPointer.reinterpret())
 
         /**
          * Atomically decrements the reference count of @hash_table by one.
@@ -405,7 +400,7 @@ public class HashTable(pointer: CPointer<GHashTable>) : ProxyInstance(pointer) {
          * @since 2.10
          */
         @GLibVersion2_10
-        public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.glibHashTablePointer.reinterpret())
+        public fun unref(hashTable: HashTable): Unit = g_hash_table_unref(hashTable.gPointer.reinterpret())
 
         /**
          * Get the GType of HashTable

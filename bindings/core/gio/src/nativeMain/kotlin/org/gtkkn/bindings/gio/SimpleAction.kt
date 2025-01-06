@@ -74,7 +74,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
     public constructor(
         name: String,
         parameterType: VariantType? = null,
-    ) : this(g_simple_action_new(name, parameterType?.glibVariantTypePointer?.reinterpret())!!.reinterpret())
+    ) : this(g_simple_action_new(name, parameterType?.gPointer?.reinterpret())!!.reinterpret())
 
     /**
      * Creates a new stateful action.
@@ -98,8 +98,8 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
     ) : this(
         g_simple_action_new_stateful(
             name,
-            parameterType?.glibVariantTypePointer?.reinterpret(),
-            state.glibVariantPointer.reinterpret()
+            parameterType?.gPointer?.reinterpret(),
+            state.gPointer.reinterpret()
         )!!.reinterpret()
     )
 
@@ -136,7 +136,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      */
     @GioVersion2_30
     public open fun setState(`value`: Variant): Unit =
-        g_simple_action_set_state(gioSimpleActionPointer.reinterpret(), `value`.glibVariantPointer.reinterpret())
+        g_simple_action_set_state(gioSimpleActionPointer.reinterpret(), `value`.gPointer.reinterpret())
 
     /**
      * Sets the state hint for the action.
@@ -148,10 +148,8 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun setStateHint(stateHint: Variant? = null): Unit = g_simple_action_set_state_hint(
-        gioSimpleActionPointer.reinterpret(),
-        stateHint?.glibVariantPointer?.reinterpret()
-    )
+    public open fun setStateHint(stateHint: Variant? = null): Unit =
+        g_simple_action_set_state_hint(gioSimpleActionPointer.reinterpret(), stateHint?.gPointer?.reinterpret())
 
     /**
      * Indicates that the action was just activated.

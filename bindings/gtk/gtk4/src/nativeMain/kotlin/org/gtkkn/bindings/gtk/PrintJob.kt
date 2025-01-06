@@ -13,6 +13,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.cairo.Surface
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
@@ -24,11 +25,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkPrintJob
 import org.gtkkn.native.gtk.gtk_print_job_get_collate
 import org.gtkkn.native.gtk.gtk_print_job_get_n_up
@@ -42,6 +43,7 @@ import org.gtkkn.native.gtk.gtk_print_job_get_rotate
 import org.gtkkn.native.gtk.gtk_print_job_get_scale
 import org.gtkkn.native.gtk.gtk_print_job_get_settings
 import org.gtkkn.native.gtk.gtk_print_job_get_status
+import org.gtkkn.native.gtk.gtk_print_job_get_surface
 import org.gtkkn.native.gtk.gtk_print_job_get_title
 import org.gtkkn.native.gtk.gtk_print_job_get_track_print_status
 import org.gtkkn.native.gtk.gtk_print_job_get_type
@@ -80,8 +82,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `n_ranges`: n_ranges: Out parameter is not supported
- * - method `get_surface`: Return type cairo.Surface is unsupported
- * - parameter `ranges`: PageRange
+ * - parameter `ranges`: Array parameter of type PageRange is not supported
  * - method `page-setup`: Property has no getter nor setter
  */
 public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
@@ -258,6 +259,25 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      */
     public open fun getStatus(): PrintStatus = gtk_print_job_get_status(gtkPrintJobPointer.reinterpret()).run {
         PrintStatus.fromNativeValue(this)
+    }
+
+    /**
+     * Gets a cairo surface onto which the pages of
+     * the print job should be rendered.
+     *
+     * @return the cairo surface of @job
+     */
+    public open fun getSurface(): Result<Surface> = memScoped {
+        val gError = allocPointerTo<GError>()
+        val gResult = gtk_print_job_get_surface(gtkPrintJobPointer.reinterpret(), gError.ptr)?.run {
+            Surface(reinterpret())
+        }
+
+        return if (gError.pointed != null) {
+            Result.failure(resolveException(Error(gError.pointed!!.ptr)))
+        } else {
+            Result.success(checkNotNull(gResult))
+        }
     }
 
     /**

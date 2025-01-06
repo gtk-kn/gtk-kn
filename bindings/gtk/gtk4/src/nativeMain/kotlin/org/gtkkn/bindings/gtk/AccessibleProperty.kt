@@ -161,7 +161,7 @@ public enum class AccessibleProperty(public val nativeValue: GtkAccessibleProper
         }
 
         public fun initValue(`property`: AccessibleProperty, `value`: Value): Unit =
-            gtk_accessible_property_init_value(`property`.nativeValue, `value`.gobjectValuePointer.reinterpret())
+            gtk_accessible_property_init_value(`property`.nativeValue, `value`.gPointer.reinterpret())
 
         /**
          * Get the GType of AccessibleProperty

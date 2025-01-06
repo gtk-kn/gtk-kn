@@ -13,8 +13,8 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceGutterLines
 import org.gtkkn.native.gtksource.gtk_source_gutter_lines_add_class
 import org.gtkkn.native.gtksource.gtk_source_gutter_lines_add_qclass
@@ -112,7 +112,7 @@ public open class GutterLines(pointer: CPointer<GtkSourceGutterLines>) :
      */
     public open fun getIterAtLine(iter: TextIter, line: guint): Unit = gtk_source_gutter_lines_get_iter_at_line(
         gtksourceGutterLinesPointer.reinterpret(),
-        iter.gtkTextIterPointer.reinterpret(),
+        iter.gPointer.reinterpret(),
         line
     )
 

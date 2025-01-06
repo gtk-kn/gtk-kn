@@ -52,10 +52,7 @@ import kotlin.Unit
  * - parameter `destroy`: GLib.DestroyNotify
  */
 public open class ParamSpec(pointer: CPointer<GParamSpec>) {
-    public val gPointer: CPointer<GParamSpec>
-    init {
-        gPointer = pointer.reinterpret()
-    }
+    public val gPointer: CPointer<GParamSpec> = pointer
 
     /**
      * Get the short description of a #GParamSpec.

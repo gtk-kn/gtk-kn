@@ -86,7 +86,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
             gobjectTypeModulePointer.reinterpret(),
             instanceType,
             interfaceType,
-            interfaceInfo.gobjectInterfaceInfoPointer.reinterpret()
+            interfaceInfo.gPointer.reinterpret()
         )
 
     /**
@@ -113,7 +113,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
     public open fun registerEnum(name: String, constStaticValues: EnumValue): GType = g_type_module_register_enum(
         gobjectTypeModulePointer.reinterpret(),
         name,
-        constStaticValues.gobjectEnumValuePointer.reinterpret()
+        constStaticValues.gPointer.reinterpret()
     )
 
     /**
@@ -140,7 +140,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
     public open fun registerFlags(name: String, constStaticValues: FlagsValue): GType = g_type_module_register_flags(
         gobjectTypeModulePointer.reinterpret(),
         name,
-        constStaticValues.gobjectFlagsValuePointer.reinterpret()
+        constStaticValues.gPointer.reinterpret()
     )
 
     /**
@@ -170,7 +170,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
             gobjectTypeModulePointer.reinterpret(),
             parentType,
             typeName,
-            typeInfo.gobjectTypeInfoPointer.reinterpret(),
+            typeInfo.gPointer.reinterpret(),
             flags.mask
         )
 

@@ -34,9 +34,9 @@ import org.gtkkn.native.glib.g_thread_try_new
 import org.gtkkn.native.glib.g_thread_unref
 import org.gtkkn.native.glib.g_thread_yield
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.gulong
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_thread_get_type
-import org.gtkkn.native.gobject.gulong
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -58,7 +58,7 @@ import kotlin.Unit
  * accessed.
  */
 public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
-    public val glibThreadPointer: CPointer<GThread> = pointer
+    public val gPointer: CPointer<GThread> = pointer
 
     /**
      * Waits until @thread finishes, i.e. the function @func, as
@@ -80,7 +80,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      *
      * @return the return value of the thread
      */
-    public fun join(): gpointer? = g_thread_join(glibThreadPointer.reinterpret())
+    public fun join(): gpointer? = g_thread_join(gPointer.reinterpret())
 
     /**
      * Increase the reference count on @thread.
@@ -89,7 +89,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): Thread = g_thread_ref(glibThreadPointer.reinterpret())!!.run {
+    public fun ref(): Thread = g_thread_ref(gPointer.reinterpret())!!.run {
         Thread(reinterpret())
     }
 
@@ -99,7 +99,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @param priority ignored
      */
     public fun setPriority(priority: ThreadPriority): Unit =
-        g_thread_set_priority(glibThreadPointer.reinterpret(), priority.nativeValue)
+        g_thread_set_priority(gPointer.reinterpret(), priority.nativeValue)
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -112,7 +112,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unref(): Unit = g_thread_unref(glibThreadPointer.reinterpret())
+    public fun unref(): Unit = g_thread_unref(gPointer.reinterpret())
 
     public companion object {
         /**

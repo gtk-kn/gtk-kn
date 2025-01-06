@@ -18,12 +18,12 @@ import org.gtkkn.bindings.jsc.annotations.JavaScriptCoreVersion2_24
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.jsc.JSCClass
 import org.gtkkn.native.jsc.JSCContext
 import org.gtkkn.native.jsc.JSCException

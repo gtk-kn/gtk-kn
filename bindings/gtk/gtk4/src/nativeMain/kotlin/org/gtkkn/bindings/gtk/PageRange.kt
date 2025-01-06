@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gtk.GtkPageRange
 import kotlin.Pair
 import kotlin.String
@@ -22,28 +22,28 @@ import kotlin.native.ref.createCleaner
  * See also [method@Gtk.PrintSettings.set_page_ranges].
  */
 public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtkPageRangePointer: CPointer<GtkPageRange> = pointer
+    public val gPointer: CPointer<GtkPageRange> = pointer
 
     /**
      * start of page range.
      */
     public var start: gint
-        get() = gtkPageRangePointer.pointed.start
+        get() = gPointer.pointed.start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPageRangePointer.pointed.start = value
+            gPointer.pointed.start = value
         }
 
     /**
      * end of page range.
      */
     public var end: gint
-        get() = gtkPageRangePointer.pointed.end
+        get() = gPointer.pointed.end
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPageRangePointer.pointed.end = value
+            gPointer.pointed.end = value
         }
 
     /**

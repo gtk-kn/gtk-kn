@@ -22,11 +22,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkEditable
 import org.gtkkn.native.gtk.gtk_editable_delegate_get_accessible_platform_state
 import org.gtkkn.native.gtk.gtk_editable_delegate_get_property
@@ -647,7 +647,7 @@ public interface Editable :
             gtk_editable_delegate_get_property(
                 `object`.gPointer.reinterpret(),
                 propId,
-                `value`.gobjectValuePointer.reinterpret(),
+                `value`.gPointer.reinterpret(),
                 pspec.gPointer.reinterpret()
             ).asBoolean()
 
@@ -668,7 +668,7 @@ public interface Editable :
             gtk_editable_delegate_set_property(
                 `object`.gPointer.reinterpret(),
                 propId,
-                `value`.gobjectValuePointer.reinterpret(),
+                `value`.gPointer.reinterpret(),
                 pspec.gPointer.reinterpret()
             ).asBoolean()
 
@@ -694,7 +694,7 @@ public interface Editable :
          * @return the number of properties that were installed
          */
         public fun installProperties(objectClass: ObjectClass, firstProp: guint): guint =
-            gtk_editable_install_properties(objectClass.gobjectObjectClassPointer.reinterpret(), firstProp)
+            gtk_editable_install_properties(objectClass.gPointer.reinterpret(), firstProp)
 
         /**
          * Get the GType of Editable

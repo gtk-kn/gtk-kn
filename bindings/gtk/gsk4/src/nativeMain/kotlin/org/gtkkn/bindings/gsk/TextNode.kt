@@ -12,8 +12,8 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskTextNode
 import org.gtkkn.native.gsk.gsk_text_node_get_color
 import org.gtkkn.native.gsk.gsk_text_node_get_font
@@ -57,9 +57,9 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
     ) : this(
         gsk_text_node_new(
             font.pangoFontPointer.reinterpret(),
-            glyphs.pangoGlyphStringPointer.reinterpret(),
-            color.gdkRGBAPointer.reinterpret(),
-            offset.graphenePointPointer.reinterpret()
+            glyphs.gPointer.reinterpret(),
+            color.gPointer.reinterpret(),
+            offset.gPointer.reinterpret()
         )!!.reinterpret()
     )
 

@@ -64,10 +64,10 @@ import org.gtkkn.native.adw.adw_tab_view_set_page_pinned
 import org.gtkkn.native.adw.adw_tab_view_set_selected_page
 import org.gtkkn.native.adw.adw_tab_view_set_shortcuts
 import org.gtkkn.native.adw.adw_tab_view_transfer_page
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

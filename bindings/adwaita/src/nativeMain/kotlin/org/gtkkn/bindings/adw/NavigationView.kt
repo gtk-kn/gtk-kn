@@ -41,9 +41,9 @@ import org.gtkkn.native.adw.adw_navigation_view_remove
 import org.gtkkn.native.adw.adw_navigation_view_replace_with_tags
 import org.gtkkn.native.adw.adw_navigation_view_set_animate_transitions
 import org.gtkkn.native.adw.adw_navigation_view_set_pop_on_escape
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

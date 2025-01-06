@@ -6,5 +6,5 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gtk.GtkCssStyleChange
 
 public class CssStyleChange(pointer: CPointer<GtkCssStyleChange>) : ProxyInstance(pointer) {
-    public val gtkCssStyleChangePointer: CPointer<GtkCssStyleChange> = pointer
+    public val gPointer: CPointer<GtkCssStyleChange> = pointer
 }

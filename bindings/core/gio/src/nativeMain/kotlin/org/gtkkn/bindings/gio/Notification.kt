@@ -134,7 +134,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
             gioNotificationPointer.reinterpret(),
             label,
             action,
-            target?.glibVariantPointer?.reinterpret()
+            target?.gPointer?.reinterpret()
         )
 
     /**
@@ -202,7 +202,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
         g_notification_set_default_action_and_target_value(
             gioNotificationPointer.reinterpret(),
             action,
-            target?.glibVariantPointer?.reinterpret()
+            target?.gPointer?.reinterpret()
         )
 
     /**

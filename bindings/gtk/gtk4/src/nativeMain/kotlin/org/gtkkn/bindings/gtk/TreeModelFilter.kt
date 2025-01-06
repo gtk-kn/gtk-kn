@@ -10,8 +10,8 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeDragSource
 import org.gtkkn.native.gtk.GtkTreeModel
 import org.gtkkn.native.gtk.GtkTreeModelFilter
@@ -140,8 +140,8 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
     public open fun convertChildIterToIter(filterIter: TreeIter, childIter: TreeIter): Boolean =
         gtk_tree_model_filter_convert_child_iter_to_iter(
             gtkTreeModelFilterPointer.reinterpret(),
-            filterIter.gtkTreeIterPointer.reinterpret(),
-            childIter.gtkTreeIterPointer.reinterpret()
+            filterIter.gPointer.reinterpret(),
+            childIter.gPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -157,7 +157,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
     public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
         gtk_tree_model_filter_convert_child_path_to_path(
             gtkTreeModelFilterPointer.reinterpret(),
-            childPath.gtkTreePathPointer.reinterpret()
+            childPath.gPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }
@@ -171,8 +171,8 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
     public open fun convertIterToChildIter(childIter: TreeIter, filterIter: TreeIter): Unit =
         gtk_tree_model_filter_convert_iter_to_child_iter(
             gtkTreeModelFilterPointer.reinterpret(),
-            childIter.gtkTreeIterPointer.reinterpret(),
-            filterIter.gtkTreeIterPointer.reinterpret()
+            childIter.gPointer.reinterpret(),
+            filterIter.gPointer.reinterpret()
         )
 
     /**
@@ -187,7 +187,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
     public open fun convertPathToChildPath(filterPath: TreePath): TreePath? =
         gtk_tree_model_filter_convert_path_to_child_path(
             gtkTreeModelFilterPointer.reinterpret(),
-            filterPath.gtkTreePathPointer.reinterpret()
+            filterPath.gPointer.reinterpret()
         )?.run {
             TreePath(reinterpret())
         }

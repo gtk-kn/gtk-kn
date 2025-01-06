@@ -9,8 +9,8 @@ import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -106,7 +106,7 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          *   for displaying @value as a drag icon.
          */
         public fun createWidgetForValue(`value`: Value): Widget? =
-            gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer.reinterpret())?.run {
+            gtk_drag_icon_create_widget_for_value(`value`.gPointer.reinterpret())?.run {
                 Widget(reinterpret())
             }
 

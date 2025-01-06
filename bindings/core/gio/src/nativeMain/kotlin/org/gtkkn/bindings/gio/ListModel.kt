@@ -22,9 +22,9 @@ import org.gtkkn.native.gio.g_list_model_get_n_items
 import org.gtkkn.native.gio.g_list_model_get_object
 import org.gtkkn.native.gio.g_list_model_get_type
 import org.gtkkn.native.gio.g_list_model_items_changed
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import kotlin.ULong
 import kotlin.Unit
 

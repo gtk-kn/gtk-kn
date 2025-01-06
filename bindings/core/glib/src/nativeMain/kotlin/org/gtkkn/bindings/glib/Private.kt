@@ -43,7 +43,7 @@ import kotlin.native.ref.createCleaner
  * - parameter `notify`: DestroyNotify
  */
 public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibPrivatePointer: CPointer<GPrivate> = pointer
+    public val gPointer: CPointer<GPrivate> = pointer
 
     /**
      * Allocate a new Private.
@@ -83,7 +83,7 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      *
      * @return the thread-local value
      */
-    public fun `get`(): gpointer? = g_private_get(glibPrivatePointer.reinterpret())
+    public fun `get`(): gpointer? = g_private_get(gPointer.reinterpret())
 
     /**
      * Sets the thread local variable @key to have the value @value in the
@@ -97,7 +97,7 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun replace(`value`: gpointer? = null): Unit = g_private_replace(glibPrivatePointer.reinterpret(), `value`)
+    public fun replace(`value`: gpointer? = null): Unit = g_private_replace(gPointer.reinterpret(), `value`)
 
     /**
      * Sets the thread local variable @key to have the value @value in the
@@ -108,5 +108,5 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      *
      * @param value the new value
      */
-    public fun `set`(`value`: gpointer? = null): Unit = g_private_set(glibPrivatePointer.reinterpret(), `value`)
+    public fun `set`(`value`: gpointer? = null): Unit = g_private_set(gPointer.reinterpret(), `value`)
 }

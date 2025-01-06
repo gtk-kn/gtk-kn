@@ -13,10 +13,10 @@ import org.gtkkn.native.gdk.gdk_dmabuf_formats_get_n_formats
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_get_type
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_ref
 import org.gtkkn.native.gdk.gdk_dmabuf_formats_unref
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import kotlin.Boolean
 import kotlin.Unit
 
@@ -50,7 +50,7 @@ import kotlin.Unit
  */
 @GdkVersion4_14
 public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(pointer) {
-    public val gdkDmabufFormatsPointer: CPointer<GdkDmabufFormats> = pointer
+    public val gPointer: CPointer<GdkDmabufFormats> = pointer
 
     /**
      * Returns whether a given format is contained in @formats.
@@ -63,7 +63,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      */
     @GdkVersion4_14
     public fun contains(fourcc: guint, modifier: guint64): Boolean =
-        gdk_dmabuf_formats_contains(gdkDmabufFormatsPointer.reinterpret(), fourcc, modifier).asBoolean()
+        gdk_dmabuf_formats_contains(gPointer.reinterpret(), fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -74,10 +74,8 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun equal(formats2: DmabufFormats? = null): Boolean = gdk_dmabuf_formats_equal(
-        gdkDmabufFormatsPointer.reinterpret(),
-        formats2?.gdkDmabufFormatsPointer?.reinterpret()
-    ).asBoolean()
+    public fun equal(formats2: DmabufFormats? = null): Boolean =
+        gdk_dmabuf_formats_equal(gPointer.reinterpret(), formats2?.gPointer?.reinterpret()).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object
@@ -91,7 +89,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun getNFormats(): gsize = gdk_dmabuf_formats_get_n_formats(gdkDmabufFormatsPointer.reinterpret())
+    public fun getNFormats(): gsize = gdk_dmabuf_formats_get_n_formats(gPointer.reinterpret())
 
     /**
      * Increases the reference count of @formats.
@@ -100,7 +98,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gdkDmabufFormatsPointer.reinterpret())!!.run {
+    public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gPointer.reinterpret())!!.run {
         DmabufFormats(reinterpret())
     }
 
@@ -113,7 +111,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun unref(): Unit = gdk_dmabuf_formats_unref(gdkDmabufFormatsPointer.reinterpret())
+    public fun unref(): Unit = gdk_dmabuf_formats_unref(gPointer.reinterpret())
 
     public companion object {
         /**

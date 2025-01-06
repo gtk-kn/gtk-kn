@@ -13,10 +13,10 @@ import org.gtkkn.bindings.gsk.annotations.GskVersion4_6
 import org.gtkkn.extensions.glib.GLibException
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gsize
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.graphene.graphene_point_t
 import org.gtkkn.native.gsk.GskParseLocation
 import org.gtkkn.native.gsk.GskPathOperation
@@ -30,7 +30,6 @@ import kotlin.Unit
 /**
  * ## Skipped during bindings generation
  *
- * - class `NglRenderer`: Missing cType on class
  * - record `BroadwayRendererClass`: glib type struct are ignored
  * - record `CairoRendererClass`: glib type struct are ignored
  * - record `GLRendererClass`: glib type struct are ignored
@@ -49,7 +48,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueDupRenderNode(`value`: Value): RenderNode? =
-        gsk_value_dup_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
+        gsk_value_dup_render_node(`value`.gPointer.reinterpret())?.run {
             RenderNode(reinterpret())
         }
 
@@ -62,7 +61,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueGetRenderNode(`value`: Value): RenderNode? =
-        gsk_value_get_render_node(`value`.gobjectValuePointer.reinterpret())?.run {
+        gsk_value_get_render_node(`value`.gPointer.reinterpret())?.run {
             RenderNode(reinterpret())
         }
 
@@ -77,7 +76,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit =
-        gsk_value_set_render_node(`value`.gobjectValuePointer.reinterpret(), node.gPointer.reinterpret())
+        gsk_value_set_render_node(`value`.gPointer.reinterpret(), node.gPointer.reinterpret())
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -90,7 +89,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit =
-        gsk_value_take_render_node(`value`.gobjectValuePointer.reinterpret(), node?.gPointer?.reinterpret())
+        gsk_value_take_render_node(`value`.gPointer.reinterpret(), node?.gPointer?.reinterpret())
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

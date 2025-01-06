@@ -26,9 +26,9 @@ import org.gtkkn.native.gio.g_buffered_input_stream_new_sized
 import org.gtkkn.native.gio.g_buffered_input_stream_read_byte
 import org.gtkkn.native.gio.g_buffered_input_stream_set_buffer_size
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gsize
 import kotlin.Long
 import kotlin.Result
 import kotlin.Unit

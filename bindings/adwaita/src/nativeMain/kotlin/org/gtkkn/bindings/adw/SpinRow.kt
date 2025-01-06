@@ -42,11 +42,11 @@ import org.gtkkn.native.adw.adw_spin_row_set_update_policy
 import org.gtkkn.native.adw.adw_spin_row_set_value
 import org.gtkkn.native.adw.adw_spin_row_set_wrap
 import org.gtkkn.native.adw.adw_spin_row_update
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable

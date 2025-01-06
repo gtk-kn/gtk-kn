@@ -103,6 +103,7 @@ sealed class TypeInfo {
     data class Enumeration(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
+        val useRawValue: Boolean = false
     ) : TypeInfo() {
         override val isCinteropNullable = false
 
@@ -174,6 +175,7 @@ sealed class TypeInfo {
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
         val immutable: Boolean,
+        val noStringConversion: Boolean = false,
     ) : TypeInfo() {
         override val isCinteropNullable = true
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
@@ -219,7 +221,7 @@ sealed class TypeInfo {
         )
     }
 
-    data class RecordPointer(
+    data class RecordUnionPointer(
         override val kotlinTypeName: TypeName,
         override val nativeTypeName: TypeName,
         val objectPointerName: String,

@@ -12,7 +12,7 @@ import org.gtkkn.native.gobject.GType
  * of related touch events.
  */
 public class EventSequence(pointer: CPointer<GdkEventSequence>) : ProxyInstance(pointer) {
-    public val gdkEventSequencePointer: CPointer<GdkEventSequence> = pointer
+    public val gPointer: CPointer<GdkEventSequence> = pointer
 
     public companion object {
         /**

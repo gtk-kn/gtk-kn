@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_16
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.webkit.WebKitSecurityOrigin
 import org.gtkkn.native.webkit.webkit_security_origin_get_host
 import org.gtkkn.native.webkit.webkit_security_origin_get_port
@@ -36,7 +36,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_16
 public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInstance(pointer) {
-    public val webkitSecurityOriginPointer: CPointer<WebKitSecurityOrigin> = pointer
+    public val gPointer: CPointer<WebKitSecurityOrigin> = pointer
 
     /**
      * Gets the hostname of @origin.
@@ -48,8 +48,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getHost(): String? =
-        webkit_security_origin_get_host(webkitSecurityOriginPointer.reinterpret())?.toKString()
+    public fun getHost(): String? = webkit_security_origin_get_host(gPointer.reinterpret())?.toKString()
 
     /**
      * Gets the port of @origin.
@@ -64,7 +63,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getPort(): guint16 = webkit_security_origin_get_port(webkitSecurityOriginPointer.reinterpret())
+    public fun getPort(): guint16 = webkit_security_origin_get_port(gPointer.reinterpret())
 
     /**
      * Gets the protocol of @origin.
@@ -73,8 +72,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getProtocol(): String? =
-        webkit_security_origin_get_protocol(webkitSecurityOriginPointer.reinterpret())?.toKString()
+    public fun getProtocol(): String? = webkit_security_origin_get_protocol(gPointer.reinterpret())?.toKString()
 
     /**
      * Atomically increments the reference count of @origin by one.
@@ -85,7 +83,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): SecurityOrigin = webkit_security_origin_ref(webkitSecurityOriginPointer.reinterpret())!!.run {
+    public fun ref(): SecurityOrigin = webkit_security_origin_ref(gPointer.reinterpret())!!.run {
         SecurityOrigin(reinterpret())
     }
 
@@ -100,8 +98,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun toStringSecurityOrigin(): String? =
-        webkit_security_origin_to_string(webkitSecurityOriginPointer.reinterpret())?.toKString()
+    public fun toStringSecurityOrigin(): String? = webkit_security_origin_to_string(gPointer.reinterpret())?.toKString()
 
     /**
      * Atomically decrements the reference count of @origin by one.
@@ -113,7 +110,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun unref(): Unit = webkit_security_origin_unref(webkitSecurityOriginPointer.reinterpret())
+    public fun unref(): Unit = webkit_security_origin_unref(gPointer.reinterpret())
 
     public companion object {
         /**

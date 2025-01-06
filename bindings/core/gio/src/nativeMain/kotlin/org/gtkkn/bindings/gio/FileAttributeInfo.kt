@@ -23,44 +23,44 @@ import kotlin.native.ref.createCleaner
  */
 public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo> = pointer
+    public val gPointer: CPointer<GFileAttributeInfo> = pointer
 
     /**
      * the name of the attribute.
      */
     public var name: String?
-        get() = gioFileAttributeInfoPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioFileAttributeInfoPointer.pointed.name?.let { g_free(it) }
-            gioFileAttributeInfoPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
      * the #GFileAttributeType type of the attribute.
      */
     public var type: FileAttributeType
-        get() = gioFileAttributeInfoPointer.pointed.type.run {
+        get() = gPointer.pointed.type.run {
             FileAttributeType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioFileAttributeInfoPointer.pointed.type = value.nativeValue
+            gPointer.pointed.type = value.nativeValue
         }
 
     /**
      * a set of #GFileAttributeInfoFlags.
      */
     public var flags: FileAttributeInfoFlags
-        get() = gioFileAttributeInfoPointer.pointed.flags.run {
+        get() = gPointer.pointed.flags.run {
             FileAttributeInfoFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioFileAttributeInfoPointer.pointed.flags = value.mask
+            gPointer.pointed.flags = value.mask
         }
 
     /**

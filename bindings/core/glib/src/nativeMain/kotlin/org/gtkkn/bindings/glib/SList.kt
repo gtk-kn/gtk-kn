@@ -35,14 +35,15 @@ import org.gtkkn.native.glib.g_slist_nth_data
 import org.gtkkn.native.glib.g_slist_pop_allocator
 import org.gtkkn.native.glib.g_slist_position
 import org.gtkkn.native.glib.g_slist_prepend
+import org.gtkkn.native.glib.g_slist_push_allocator
 import org.gtkkn.native.glib.g_slist_remove
 import org.gtkkn.native.glib.g_slist_remove_all
 import org.gtkkn.native.glib.g_slist_remove_link
 import org.gtkkn.native.glib.g_slist_reverse
 import org.gtkkn.native.glib.g_slist_sort_with_data
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -58,11 +59,10 @@ import kotlin.native.ref.createCleaner
  * - parameter `func`: CompareFunc
  * - parameter `free_func`: DestroyNotify
  * - parameter `func`: CompareFunc
- * - parameter `allocator`: Allocator
  * - parameter `compare_func`: CompareFunc
  */
 public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibSListPointer: CPointer<GSList> = pointer
+    public val gPointer: CPointer<GSList> = pointer
 
     /**
      * holds the element's data, which can be a pointer to any kind
@@ -70,24 +70,24 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
      *        [Type Conversion Macros][glib-Type-Conversion-Macros]
      */
     public var `data`: gpointer
-        get() = glibSListPointer.pointed.data!!
+        get() = gPointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibSListPointer.pointed.data = value
+            gPointer.pointed.data = value
         }
 
     /**
      * contains the link to the next element in the list.
      */
     public var next: SList?
-        get() = glibSListPointer.pointed.next?.run {
+        get() = gPointer.pointed.next?.run {
             SList(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibSListPointer.pointed.next = value?.glibSListPointer
+            gPointer.pointed.next = value?.gPointer
         }
 
     /**
@@ -198,7 +198,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the new start of the #GSList
          */
         public fun append(list: SList, `data`: gpointer? = null): SList =
-            g_slist_append(list.glibSListPointer.reinterpret(), `data`)!!.run {
+            g_slist_append(list.gPointer.reinterpret(), `data`)!!.run {
                 SList(reinterpret())
             }
 
@@ -212,7 +212,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the start of the new #GSList
          */
         public fun concat(list1: SList, list2: SList): SList =
-            g_slist_concat(list1.glibSListPointer.reinterpret(), list2.glibSListPointer.reinterpret())!!.run {
+            g_slist_concat(list1.gPointer.reinterpret(), list2.gPointer.reinterpret())!!.run {
                 SList(reinterpret())
             }
 
@@ -227,7 +227,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @param list a #GSList
          * @return a copy of @list
          */
-        public fun copy(list: SList): SList = g_slist_copy(list.glibSListPointer.reinterpret())!!.run {
+        public fun copy(list: SList): SList = g_slist_copy(list.gPointer.reinterpret())!!.run {
             SList(reinterpret())
         }
 
@@ -260,7 +260,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          */
         @GLibVersion2_34
         public fun copyDeep(list: SList, func: CopyFunc): SList = g_slist_copy_deep(
-            list.glibSListPointer.reinterpret(),
+            list.gPointer.reinterpret(),
             CopyFuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )!!.run {
@@ -283,7 +283,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the new head of @list
          */
         public fun deleteLink(list: SList, link: SList): SList =
-            g_slist_delete_link(list.glibSListPointer.reinterpret(), link.glibSListPointer.reinterpret())!!.run {
+            g_slist_delete_link(list.gPointer.reinterpret(), link.gPointer.reinterpret())!!.run {
                 SList(reinterpret())
             }
 
@@ -297,7 +297,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          *     or null if it is not found
          */
         public fun find(list: SList, `data`: gpointer? = null): SList =
-            g_slist_find(list.glibSListPointer.reinterpret(), `data`)!!.run {
+            g_slist_find(list.gPointer.reinterpret(), `data`)!!.run {
                 SList(reinterpret())
             }
 
@@ -310,11 +310,8 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @param list a #GSList
          * @param func the function to call with each element's data
          */
-        public fun foreach(list: SList, func: Func): Unit = g_slist_foreach(
-            list.glibSListPointer.reinterpret(),
-            FuncFunc.reinterpret(),
-            StableRef.create(func).asCPointer()
-        )
+        public fun foreach(list: SList, func: Func): Unit =
+            g_slist_foreach(list.gPointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
         /**
          * Frees all of the memory used by a #GSList.
@@ -333,7 +330,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          *
          * @param list the first link of a #GSList
          */
-        public fun free(list: SList): Unit = g_slist_free(list.glibSListPointer.reinterpret())
+        public fun free(list: SList): Unit = g_slist_free(list.gPointer.reinterpret())
 
         /**
          * Frees one #GSList element.
@@ -341,7 +338,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          *
          * @param list a #GSList element
          */
-        public fun free1(list: SList): Unit = g_slist_free_1(list.glibSListPointer.reinterpret())
+        public fun free1(list: SList): Unit = g_slist_free_1(list.gPointer.reinterpret())
 
         /**
          * Gets the position of the element containing
@@ -353,7 +350,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          *     or -1 if the data is not found
          */
         public fun index(list: SList, `data`: gpointer? = null): gint =
-            g_slist_index(list.glibSListPointer.reinterpret(), `data`)
+            g_slist_index(list.gPointer.reinterpret(), `data`)
 
         /**
          * Inserts a new element into the list at the given position.
@@ -367,7 +364,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the new start of the #GSList
          */
         public fun insert(list: SList, `data`: gpointer? = null, position: gint): SList =
-            g_slist_insert(list.glibSListPointer.reinterpret(), `data`, position)!!.run {
+            g_slist_insert(list.gPointer.reinterpret(), `data`, position)!!.run {
                 SList(reinterpret())
             }
 
@@ -379,13 +376,10 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @param data data to put in the newly-inserted node
          * @return the new head of the list.
          */
-        public fun insertBefore(slist: SList, sibling: SList, `data`: gpointer? = null): SList = g_slist_insert_before(
-            slist.glibSListPointer.reinterpret(),
-            sibling.glibSListPointer.reinterpret(),
-            `data`
-        )!!.run {
-            SList(reinterpret())
-        }
+        public fun insertBefore(slist: SList, sibling: SList, `data`: gpointer? = null): SList =
+            g_slist_insert_before(slist.gPointer.reinterpret(), sibling.gPointer.reinterpret(), `data`)!!.run {
+                SList(reinterpret())
+            }
 
         /**
          * Inserts a new element into the list, using the given
@@ -402,7 +396,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
         @GLibVersion2_10
         public fun insertSortedWithData(list: SList, `data`: gpointer? = null, func: CompareDataFunc): SList =
             g_slist_insert_sorted_with_data(
-                list.glibSListPointer.reinterpret(),
+                list.gPointer.reinterpret(),
                 `data`,
                 CompareDataFuncFunc.reinterpret(),
                 StableRef.create(func).asCPointer()
@@ -419,7 +413,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the last element in the #GSList,
          *     or null if the #GSList has no elements
          */
-        public fun last(list: SList): SList = g_slist_last(list.glibSListPointer.reinterpret())!!.run {
+        public fun last(list: SList): SList = g_slist_last(list.gPointer.reinterpret())!!.run {
             SList(reinterpret())
         }
 
@@ -433,7 +427,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @param list a #GSList
          * @return the number of elements in the #GSList
          */
-        public fun length(list: SList): guint = g_slist_length(list.glibSListPointer.reinterpret())
+        public fun length(list: SList): guint = g_slist_length(list.gPointer.reinterpret())
 
         /**
          * Gets the element at the given position in a #GSList.
@@ -443,7 +437,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the element, or null if the position is off
          *     the end of the #GSList
          */
-        public fun nth(list: SList, n: guint): SList = g_slist_nth(list.glibSListPointer.reinterpret(), n)!!.run {
+        public fun nth(list: SList, n: guint): SList = g_slist_nth(list.gPointer.reinterpret(), n)!!.run {
             SList(reinterpret())
         }
 
@@ -455,7 +449,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the element's data, or null if the position
          *     is off the end of the #GSList
          */
-        public fun nthData(list: SList, n: guint): gpointer? = g_slist_nth_data(list.glibSListPointer.reinterpret(), n)
+        public fun nthData(list: SList, n: guint): gpointer? = g_slist_nth_data(list.gPointer.reinterpret(), n)
 
         public fun popAllocator(): Unit = g_slist_pop_allocator()
 
@@ -469,7 +463,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          *     or -1 if the element is not found
          */
         public fun position(list: SList, llink: SList): gint =
-            g_slist_position(list.glibSListPointer.reinterpret(), llink.glibSListPointer.reinterpret())
+            g_slist_position(list.gPointer.reinterpret(), llink.gPointer.reinterpret())
 
         /**
          * Adds a new element on to the start of the list.
@@ -489,9 +483,11 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the new start of the #GSList
          */
         public fun prepend(list: SList, `data`: gpointer? = null): SList =
-            g_slist_prepend(list.glibSListPointer.reinterpret(), `data`)!!.run {
+            g_slist_prepend(list.gPointer.reinterpret(), `data`)!!.run {
                 SList(reinterpret())
             }
+
+        public fun pushAllocator(allocator: Allocator): Unit = g_slist_push_allocator(allocator.gPointer.reinterpret())
 
         /**
          * Removes an element from a #GSList.
@@ -503,7 +499,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the new start of the #GSList
          */
         public fun remove(list: SList, `data`: gpointer? = null): SList =
-            g_slist_remove(list.glibSListPointer.reinterpret(), `data`)!!.run {
+            g_slist_remove(list.gPointer.reinterpret(), `data`)!!.run {
                 SList(reinterpret())
             }
 
@@ -518,7 +514,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return new head of @list
          */
         public fun removeAll(list: SList, `data`: gpointer? = null): SList =
-            g_slist_remove_all(list.glibSListPointer.reinterpret(), `data`)!!.run {
+            g_slist_remove_all(list.gPointer.reinterpret(), `data`)!!.run {
                 SList(reinterpret())
             }
 
@@ -539,7 +535,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return the new start of the #GSList, without the element
          */
         public fun removeLink(list: SList, link: SList): SList =
-            g_slist_remove_link(list.glibSListPointer.reinterpret(), link.glibSListPointer.reinterpret())!!.run {
+            g_slist_remove_link(list.gPointer.reinterpret(), link.gPointer.reinterpret())!!.run {
                 SList(reinterpret())
             }
 
@@ -549,7 +545,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @param list a #GSList
          * @return the start of the reversed #GSList
          */
-        public fun reverse(list: SList): SList = g_slist_reverse(list.glibSListPointer.reinterpret())!!.run {
+        public fun reverse(list: SList): SList = g_slist_reverse(list.gPointer.reinterpret())!!.run {
             SList(reinterpret())
         }
 
@@ -561,7 +557,7 @@ public class SList(pointer: CPointer<GSList>, cleaner: Cleaner? = null) : ProxyI
          * @return new head of the list
          */
         public fun sortWithData(list: SList, compareFunc: CompareDataFunc): SList = g_slist_sort_with_data(
-            list.glibSListPointer.reinterpret(),
+            list.gPointer.reinterpret(),
             CompareDataFuncFunc.reinterpret(),
             StableRef.create(compareFunc).asCPointer()
         )!!.run {

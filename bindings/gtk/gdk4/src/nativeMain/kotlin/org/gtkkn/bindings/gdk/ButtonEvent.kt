@@ -9,8 +9,8 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkButtonEvent
 import org.gtkkn.native.gdk.gdk_button_event_get_button
 import org.gtkkn.native.gdk.gdk_button_event_get_type
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 
 /**
  * An event related to a button on a pointer device.

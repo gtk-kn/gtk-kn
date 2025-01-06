@@ -37,10 +37,10 @@ import org.gtkkn.native.gio.g_socket_listener_get_type
 import org.gtkkn.native.gio.g_socket_listener_new
 import org.gtkkn.native.gio.g_socket_listener_set_backlog
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint16
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.ULong

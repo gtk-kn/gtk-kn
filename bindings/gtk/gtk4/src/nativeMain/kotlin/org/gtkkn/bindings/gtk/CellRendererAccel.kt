@@ -17,9 +17,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkModifierType
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkCellRendererAccel
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_accel_new

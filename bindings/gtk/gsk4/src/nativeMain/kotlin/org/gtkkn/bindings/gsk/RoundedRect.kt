@@ -12,7 +12,7 @@ import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.graphene.Size
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
-import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gsk.GskRoundedRect
 import org.gtkkn.native.gsk.gsk_rounded_rect_contains_point
 import org.gtkkn.native.gsk.gsk_rounded_rect_contains_rect
@@ -46,11 +46,11 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `bounds`: Graphene.Rect
- * - field `corner`: Graphene.Size
+ * - field `bounds`: Field with not-pointer record/union graphene_rect_t is not supported
+ * - field `corner`: Array parameter of type Graphene.Size is not supported
  */
 public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gskRoundedRectPointer: CPointer<GskRoundedRect> = pointer
+    public val gPointer: CPointer<GskRoundedRect> = pointer
 
     /**
      * Allocate a new RoundedRect.
@@ -89,10 +89,8 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @param point the point to check
      * @return true if the @point is inside the rounded rectangle
      */
-    public fun containsPoint(point: Point): Boolean = gsk_rounded_rect_contains_point(
-        gskRoundedRectPointer.reinterpret(),
-        point.graphenePointPointer.reinterpret()
-    ).asBoolean()
+    public fun containsPoint(point: Point): Boolean =
+        gsk_rounded_rect_contains_point(gPointer.reinterpret(), point.gPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if the given @rect is contained inside the rounded rectangle.
@@ -100,10 +98,8 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @param rect the rectangle to check
      * @return true if the @rect is fully contained inside the rounded rectangle
      */
-    public fun containsRect(rect: Rect): Boolean = gsk_rounded_rect_contains_rect(
-        gskRoundedRectPointer.reinterpret(),
-        rect.grapheneRectPointer.reinterpret()
-    ).asBoolean()
+    public fun containsRect(rect: Rect): Boolean =
+        gsk_rounded_rect_contains_rect(gPointer.reinterpret(), rect.gPointer.reinterpret()).asBoolean()
 
     /**
      * Initializes the given `GskRoundedRect` with the given values.
@@ -120,12 +116,12 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      */
     public fun `init`(bounds: Rect, topLeft: Size, topRight: Size, bottomRight: Size, bottomLeft: Size): RoundedRect =
         gsk_rounded_rect_init(
-            gskRoundedRectPointer.reinterpret(),
-            bounds.grapheneRectPointer.reinterpret(),
-            topLeft.grapheneSizePointer.reinterpret(),
-            topRight.grapheneSizePointer.reinterpret(),
-            bottomRight.grapheneSizePointer.reinterpret(),
-            bottomLeft.grapheneSizePointer.reinterpret()
+            gPointer.reinterpret(),
+            bounds.gPointer.reinterpret(),
+            topLeft.gPointer.reinterpret(),
+            topRight.gPointer.reinterpret(),
+            bottomRight.gPointer.reinterpret(),
+            bottomLeft.gPointer.reinterpret()
         )!!.run {
             RoundedRect(reinterpret())
         }
@@ -140,7 +136,7 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @return the initialized rectangle
      */
     public fun initCopy(src: RoundedRect): RoundedRect =
-        gsk_rounded_rect_init_copy(gskRoundedRectPointer.reinterpret(), src.gskRoundedRectPointer.reinterpret())!!.run {
+        gsk_rounded_rect_init_copy(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
             RoundedRect(reinterpret())
         }
 
@@ -152,13 +148,10 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @param radius the border radius
      * @return the initialized rectangle
      */
-    public fun initFromRect(bounds: Rect, radius: gfloat): RoundedRect = gsk_rounded_rect_init_from_rect(
-        gskRoundedRectPointer.reinterpret(),
-        bounds.grapheneRectPointer.reinterpret(),
-        radius
-    )!!.run {
-        RoundedRect(reinterpret())
-    }
+    public fun initFromRect(bounds: Rect, radius: gfloat): RoundedRect =
+        gsk_rounded_rect_init_from_rect(gPointer.reinterpret(), bounds.gPointer.reinterpret(), radius)!!.run {
+            RoundedRect(reinterpret())
+        }
 
     /**
      * Checks if part of the given @rect is contained inside the rounded rectangle.
@@ -166,10 +159,8 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @param rect the rectangle to check
      * @return true if the @rect intersects with the rounded rectangle
      */
-    public fun intersectsRect(rect: Rect): Boolean = gsk_rounded_rect_intersects_rect(
-        gskRoundedRectPointer.reinterpret(),
-        rect.grapheneRectPointer.reinterpret()
-    ).asBoolean()
+    public fun intersectsRect(rect: Rect): Boolean =
+        gsk_rounded_rect_intersects_rect(gPointer.reinterpret(), rect.gPointer.reinterpret()).asBoolean()
 
     /**
      * Checks if all corners of @self are right angles and the
@@ -180,8 +171,7 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      *
      * @return true if the rectangle is rectilinear
      */
-    public fun isRectilinear(): Boolean =
-        gsk_rounded_rect_is_rectilinear(gskRoundedRectPointer.reinterpret()).asBoolean()
+    public fun isRectilinear(): Boolean = gsk_rounded_rect_is_rectilinear(gPointer.reinterpret()).asBoolean()
 
     /**
      * Normalizes the passed rectangle.
@@ -192,7 +182,7 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      *
      * @return the normalized rectangle
      */
-    public fun normalize(): RoundedRect = gsk_rounded_rect_normalize(gskRoundedRectPointer.reinterpret())!!.run {
+    public fun normalize(): RoundedRect = gsk_rounded_rect_normalize(gPointer.reinterpret())!!.run {
         RoundedRect(reinterpret())
     }
 
@@ -206,7 +196,7 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @return the offset rectangle
      */
     public fun offset(dx: gfloat, dy: gfloat): RoundedRect =
-        gsk_rounded_rect_offset(gskRoundedRectPointer.reinterpret(), dx, dy)!!.run {
+        gsk_rounded_rect_offset(gPointer.reinterpret(), dx, dy)!!.run {
             RoundedRect(reinterpret())
         }
 
@@ -227,7 +217,7 @@ public class RoundedRect(pointer: CPointer<GskRoundedRect>, cleaner: Cleaner? = 
      * @return the resized `GskRoundedRect`
      */
     public fun shrink(top: gfloat, right: gfloat, bottom: gfloat, left: gfloat): RoundedRect =
-        gsk_rounded_rect_shrink(gskRoundedRectPointer.reinterpret(), top, right, bottom, left)!!.run {
+        gsk_rounded_rect_shrink(gPointer.reinterpret(), top, right, bottom, left)!!.run {
             RoundedRect(reinterpret())
         }
 }

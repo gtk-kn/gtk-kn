@@ -163,6 +163,7 @@ class MetadataProcessor(
         applyDeprecated(node, metadata)
         applyDeprecatedSince(node, metadata)
         applyDestroyNotifyCName(node, metadata)
+        applyEnumRawValue(node, metadata)
         applyErrorDomain(node, metadata)
         applyFloating(node, metadata)
         applyFreeFunction(node, metadata)
@@ -171,6 +172,7 @@ class MetadataProcessor(
         applyIntrospectable(node, metadata)
         applyName(node, metadata)
         applyNoAccessorMethod(node, metadata)
+        applyNoStringConversion(node, metadata)
         applyNullable(node, tag, metadata)
         applyOut(node, metadata)
         applyOwned(node, tag, metadata)
@@ -332,6 +334,13 @@ class MetadataProcessor(
         }
     }
 
+    private fun applyEnumRawValue(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.ENUM_RAW_VALUE)) {
+            val isRawValue = metadata.getBool(ArgumentType.ENUM_RAW_VALUE)
+            setBooleanAttribute(node, "gtk-kn-enum-raw-value", isRawValue)
+        }
+    }
+
     private fun applyErrorDomain(node: Node, metadata: Metadata) {
         if (metadata.hasArgument(ArgumentType.ERRORDOMAIN)) {
             val errorDomain = metadata.getString(ArgumentType.ERRORDOMAIN)
@@ -390,6 +399,13 @@ class MetadataProcessor(
         if (metadata.hasArgument(ArgumentType.NO_ACCESSOR_METHOD)) {
             val noAccessorMethod = metadata.getBool(ArgumentType.NO_ACCESSOR_METHOD)
             setBooleanAttribute(node, "gtk-kn-no-accessor-method", noAccessorMethod)
+        }
+    }
+
+    private fun applyNoStringConversion(node: Node, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.NO_STRING_CONVERSION)) {
+            val noAccessorMethod = metadata.getBool(ArgumentType.NO_STRING_CONVERSION)
+            setBooleanAttribute(node, "gtk-kn-no-string-conversion", noAccessorMethod)
         }
     }
 

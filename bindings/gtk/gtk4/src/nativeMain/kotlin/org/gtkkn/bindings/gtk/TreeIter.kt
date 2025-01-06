@@ -10,9 +10,9 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_tree_iter_copy
 import org.gtkkn.native.gtk.gtk_tree_iter_free
@@ -31,50 +31,50 @@ import kotlin.native.ref.createCleaner
  * members.
  */
 public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtkTreeIterPointer: CPointer<GtkTreeIter> = pointer
+    public val gPointer: CPointer<GtkTreeIter> = pointer
 
     /**
      * a unique stamp to catch invalid iterators
      */
     public var stamp: gint
-        get() = gtkTreeIterPointer.pointed.stamp
+        get() = gPointer.pointed.stamp
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkTreeIterPointer.pointed.stamp = value
+            gPointer.pointed.stamp = value
         }
 
     /**
      * model-specific data
      */
     public var userData: gpointer
-        get() = gtkTreeIterPointer.pointed.user_data!!
+        get() = gPointer.pointed.user_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkTreeIterPointer.pointed.user_data = value
+            gPointer.pointed.user_data = value
         }
 
     /**
      * model-specific data
      */
     public var userData2: gpointer
-        get() = gtkTreeIterPointer.pointed.user_data2!!
+        get() = gPointer.pointed.user_data2!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkTreeIterPointer.pointed.user_data2 = value
+            gPointer.pointed.user_data2 = value
         }
 
     /**
      * model-specific data
      */
     public var userData3: gpointer
-        get() = gtkTreeIterPointer.pointed.user_data3!!
+        get() = gPointer.pointed.user_data3!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkTreeIterPointer.pointed.user_data3 = value
+            gPointer.pointed.user_data3 = value
         }
 
     /**
@@ -163,7 +163,7 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      *
      * @return a newly-allocated copy of @iter
      */
-    public fun copy(): TreeIter = gtk_tree_iter_copy(gtkTreeIterPointer.reinterpret())!!.run {
+    public fun copy(): TreeIter = gtk_tree_iter_copy(gPointer.reinterpret())!!.run {
         TreeIter(reinterpret())
     }
 
@@ -172,7 +172,7 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      *
      * This function is mainly used for language bindings.
      */
-    public fun free(): Unit = gtk_tree_iter_free(gtkTreeIterPointer.reinterpret())
+    public fun free(): Unit = gtk_tree_iter_free(gPointer.reinterpret())
 
     override fun toString(): String =
         "TreeIter(stamp=$stamp, userData=$userData, userData2=$userData2, userData3=$userData3)"

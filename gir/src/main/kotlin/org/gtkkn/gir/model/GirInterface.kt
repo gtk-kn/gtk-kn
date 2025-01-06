@@ -87,4 +87,6 @@ data class GirInterface(
         callbacks.forEach { it.initialize(this, namespace) }
         constants.forEach { it.initialize(this, namespace) }
     }
+
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true
 }

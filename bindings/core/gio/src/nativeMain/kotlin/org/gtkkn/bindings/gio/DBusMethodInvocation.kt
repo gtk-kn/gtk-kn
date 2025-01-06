@@ -32,9 +32,9 @@ import org.gtkkn.native.gio.g_dbus_method_invocation_return_gerror
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value
 import org.gtkkn.native.gio.g_dbus_method_invocation_return_value_with_unix_fd_list
 import org.gtkkn.native.gio.g_dbus_method_invocation_take_error
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 
@@ -51,7 +51,7 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - method `return_error`: Varargs parameter is not supported
- * - parameter `var_args`: va_list
+ * - parameter `var_args`: va_list type is not supported
  *
  * @since 2.26
  */
@@ -258,7 +258,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
     @GioVersion2_26
     public open fun returnGerror(error: Error): Unit = g_dbus_method_invocation_return_gerror(
         gioDBusMethodInvocationPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
+        error.gPointer.reinterpret()
     )
 
     /**
@@ -301,7 +301,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
     @GioVersion2_26
     public open fun returnValue(parameters: Variant? = null): Unit = g_dbus_method_invocation_return_value(
         gioDBusMethodInvocationPointer.reinterpret(),
-        parameters?.glibVariantPointer?.reinterpret()
+        parameters?.gPointer?.reinterpret()
     )
 
     /**
@@ -321,8 +321,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
     public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFdList? = null): Unit =
         g_dbus_method_invocation_return_value_with_unix_fd_list(
             gioDBusMethodInvocationPointer.reinterpret(),
-            parameters?.glibVariantPointer?.reinterpret(),
-            fdList?.gioUnixFDListPointer?.reinterpret()
+            parameters?.gPointer?.reinterpret(),
+            fdList?.gioUnixFdListPointer?.reinterpret()
         )
 
     /**
@@ -337,10 +337,8 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun takeError(error: Error): Unit = g_dbus_method_invocation_take_error(
-        gioDBusMethodInvocationPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
-    )
+    public open fun takeError(error: Error): Unit =
+        g_dbus_method_invocation_take_error(gioDBusMethodInvocationPointer.reinterpret(), error.gPointer.reinterpret())
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =

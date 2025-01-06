@@ -16,7 +16,35 @@
 
 package org.gtkkn.gir.model
 
-interface GirNamedElement {
+import com.squareup.kotlinpoet.ClassName
+import net.pearx.kasechange.toPascalCase
+import org.gtkkn.gir.processor.RegisteredType
+import org.gtkkn.gir.processor.TypeRegistry
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+
+sealed interface GirNamedElement {
     val name: String?
     val cType: String?
+    var namespace: GirNamespace
+
+    fun shouldBeGenerated(): Boolean
+
+    fun registerType(typeRegistry: TypeRegistry) {
+        if (shouldBeGenerated()) {
+            val kotlinClassName = checkNotNull(name).toPascalCase()
+            val kotlinPackageName = namespaceBindingsPackageName(namespace)
+            val className = ClassName(kotlinPackageName, kotlinClassName)
+            var registeredType = RegisteredType(
+                className = className,
+                namespace = namespace,
+                cType = cType,
+                rawName = checkNotNull(name),
+                girNamedElement = this,
+            )
+            if (this is GirClass) {
+                registeredType = registeredType.copy(rawParentName = parent)
+            }
+            typeRegistry.register(registeredType)
+        }
+    }
 }

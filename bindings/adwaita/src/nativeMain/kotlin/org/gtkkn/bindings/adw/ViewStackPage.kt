@@ -29,8 +29,8 @@ import org.gtkkn.native.adw.adw_view_stack_page_set_needs_attention
 import org.gtkkn.native.adw.adw_view_stack_page_set_title
 import org.gtkkn.native.adw.adw_view_stack_page_set_use_underline
 import org.gtkkn.native.adw.adw_view_stack_page_set_visible
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import kotlin.Boolean
 import kotlin.String

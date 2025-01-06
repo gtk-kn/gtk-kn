@@ -26,17 +26,17 @@ import kotlin.native.ref.createCleaner
  * - field `interface_finalize`: InterfaceFinalizeFunc
  */
 public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectInterfaceInfoPointer: CPointer<GInterfaceInfo> = pointer
+    public val gPointer: CPointer<GInterfaceInfo> = pointer
 
     /**
      * user-supplied data passed to the interface init/finalize functions
      */
     public var interfaceData: gpointer
-        get() = gobjectInterfaceInfoPointer.pointed.interface_data!!
+        get() = gPointer.pointed.interface_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectInterfaceInfoPointer.pointed.interface_data = value
+            gPointer.pointed.interface_data = value
         }
 
     /**

@@ -26,9 +26,9 @@ import org.gtkkn.native.gio.g_dbus_node_info_unref
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.Result
 import kotlin.Unit
@@ -50,29 +50,29 @@ import org.gtkkn.bindings.glib.String as GlibString
  */
 @GioVersion2_26
 public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gioDBusNodeInfoPointer: CPointer<GDBusNodeInfo> = pointer
+    public val gPointer: CPointer<GDBusNodeInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gioDBusNodeInfoPointer.pointed.ref_count
+        get() = gPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusNodeInfoPointer.pointed.ref_count = value
+            gPointer.pointed.ref_count = value
         }
 
     /**
      * The path of the node or null if omitted. Note that this may be a relative path. See the D-Bus specification for more details.
      */
     public var path: KotlinString?
-        get() = gioDBusNodeInfoPointer.pointed.path?.toKString()
+        get() = gPointer.pointed.path?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusNodeInfoPointer.pointed.path?.let { g_free(it) }
-            gioDBusNodeInfoPointer.pointed.path = value?.let { g_strdup(it) }
+            gPointer.pointed.path?.let { g_free(it) }
+            gPointer.pointed.path = value?.let { g_strdup(it) }
         }
 
     /**
@@ -149,11 +149,8 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit = g_dbus_node_info_generate_xml(
-        gioDBusNodeInfoPointer.reinterpret(),
-        indent,
-        stringBuilder.glibStringPointer.reinterpret()
-    )
+    public fun generateXml(indent: guint, stringBuilder: GlibString): Unit =
+        g_dbus_node_info_generate_xml(gPointer.reinterpret(), indent, stringBuilder.gPointer.reinterpret())
 
     /**
      * Looks up information about an interface.
@@ -166,7 +163,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      */
     @GioVersion2_26
     public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? =
-        g_dbus_node_info_lookup_interface(gioDBusNodeInfoPointer.reinterpret(), name)?.run {
+        g_dbus_node_info_lookup_interface(gPointer.reinterpret(), name)?.run {
             DBusInterfaceInfo(reinterpret())
         }
 
@@ -178,7 +175,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gioDBusNodeInfoPointer.reinterpret())!!.run {
+    public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gPointer.reinterpret())!!.run {
         DBusNodeInfo(reinterpret())
     }
 
@@ -190,7 +187,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_node_info_unref(gioDBusNodeInfoPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_node_info_unref(gPointer.reinterpret())
 
     override fun toString(): KotlinString = "DBusNodeInfo(refCount=$refCount, path=$path)"
 

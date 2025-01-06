@@ -362,7 +362,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
     ): Unit = gtk_font_dialog_choose_font(
         gtkFontDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
-        initialValue?.pangoFontDescriptionPointer?.reinterpret(),
+        initialValue?.gPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -397,7 +397,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
     ): Unit = gtk_font_dialog_choose_font_and_features(
         gtkFontDialogPointer.reinterpret(),
         parent?.gtkWindowPointer?.reinterpret(),
-        initialValue?.pangoFontDescriptionPointer?.reinterpret(),
+        initialValue?.gPointer?.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -450,7 +450,7 @@ public open class FontDialog(pointer: CPointer<GtkFontDialog>) :
      */
     @GtkVersion4_10
     public open fun setLanguage(language: Language): Unit =
-        gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.pangoLanguagePointer.reinterpret())
+        gtk_font_dialog_set_language(gtkFontDialogPointer.reinterpret(), language.gPointer.reinterpret())
 
     public companion object : TypeCompanion<FontDialog> {
         override val type: GeneratedClassKGType<FontDialog> =

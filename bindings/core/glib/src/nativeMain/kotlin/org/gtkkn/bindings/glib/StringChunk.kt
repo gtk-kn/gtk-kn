@@ -13,6 +13,8 @@ import org.gtkkn.native.glib.g_string_chunk_free
 import org.gtkkn.native.glib.g_string_chunk_insert
 import org.gtkkn.native.glib.g_string_chunk_insert_const
 import org.gtkkn.native.glib.g_string_chunk_insert_len
+import org.gtkkn.native.glib.g_string_chunk_new
+import org.gtkkn.native.glib.gsize
 import kotlin.Long
 import kotlin.String
 import kotlin.Unit
@@ -41,13 +43,9 @@ import kotlin.Unit
  *
  * To free the entire `GStringChunk` use [method@GLib.StringChunk.free].
  * It is not possible to free individual strings.
- *
- * ## Skipped during bindings generation
- *
- * - function `new`: Return type StringChunk is unsupported
  */
 public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointer) {
-    public val glibStringChunkPointer: CPointer<GStringChunk> = pointer
+    public val gPointer: CPointer<GStringChunk> = pointer
 
     /**
      * Frees all strings contained within the #GStringChunk.
@@ -57,14 +55,14 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun clear(): Unit = g_string_chunk_clear(glibStringChunkPointer.reinterpret())
+    public fun clear(): Unit = g_string_chunk_clear(gPointer.reinterpret())
 
     /**
      * Frees all memory allocated by the #GStringChunk.
      * After calling g_string_chunk_free() it is not safe to
      * access any of the strings which were contained within it.
      */
-    public fun free(): Unit = g_string_chunk_free(glibStringChunkPointer.reinterpret())
+    public fun free(): Unit = g_string_chunk_free(gPointer.reinterpret())
 
     /**
      * Adds a copy of @string to the #GStringChunk.
@@ -84,8 +82,7 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      *     the #GStringChunk
      */
     public fun insert(string: String): String =
-        g_string_chunk_insert(glibStringChunkPointer.reinterpret(), string)?.toKString()
-            ?: error("Expected not null string")
+        g_string_chunk_insert(gPointer.reinterpret(), string)?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds a copy of @string to the #GStringChunk, unless the same
@@ -107,8 +104,7 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      *     within the #GStringChunk
      */
     public fun insertConst(string: String): String =
-        g_string_chunk_insert_const(glibStringChunkPointer.reinterpret(), string)?.toKString()
-            ?: error("Expected not null string")
+        g_string_chunk_insert_const(gPointer.reinterpret(), string)?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds a copy of the first @len bytes of @string to the #GStringChunk.
@@ -129,6 +125,20 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      */
     @GLibVersion2_4
     public fun insertLen(string: String, len: Long): String =
-        g_string_chunk_insert_len(glibStringChunkPointer.reinterpret(), string, len)?.toKString()
-            ?: error("Expected not null string")
+        g_string_chunk_insert_len(gPointer.reinterpret(), string, len)?.toKString() ?: error("Expected not null string")
+
+    public companion object {
+        /**
+         * Creates a new #GStringChunk.
+         *
+         * @param size the default size of the blocks of memory which are
+         *     allocated to store the strings. If a particular string
+         *     is larger than this default size, a larger block of
+         *     memory will be allocated for it.
+         * @return a new #GStringChunk
+         */
+        public fun new(size: gsize): StringChunk = g_string_chunk_new(size)!!.run {
+            StringChunk(reinterpret())
+        }
+    }
 }

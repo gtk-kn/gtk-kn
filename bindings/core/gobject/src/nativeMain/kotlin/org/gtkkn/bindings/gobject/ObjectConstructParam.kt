@@ -22,32 +22,32 @@ import kotlin.native.ref.createCleaner
  */
 public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gobjectObjectConstructParamPointer: CPointer<GObjectConstructParam> = pointer
+    public val gPointer: CPointer<GObjectConstructParam> = pointer
 
     /**
      * the #GParamSpec of the construct parameter
      */
     public var pspec: ParamSpec?
-        get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
+        get() = gPointer.pointed.pspec?.run {
             ParamSpec(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectObjectConstructParamPointer.pointed.pspec = value?.gPointer?.reinterpret()
+            gPointer.pointed.pspec = value?.gPointer?.reinterpret()
         }
 
     /**
      * the value to set the parameter to
      */
     public var `value`: Value?
-        get() = gobjectObjectConstructParamPointer.pointed.value?.run {
+        get() = gPointer.pointed.value?.run {
             Value(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectObjectConstructParamPointer.pointed.value = value?.gobjectValuePointer
+            gPointer.pointed.value = value?.gPointer
         }
 
     /**

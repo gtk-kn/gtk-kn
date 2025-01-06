@@ -219,7 +219,7 @@ import kotlin.Unit
  *
  * - parameter `func`: SimpleAsyncThreadFunc
  * - method `set_error`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - parameter `destroy_op_res`: GLib.DestroyNotify
  * - constructor `new_error`: Varargs parameter is not supported
  */
@@ -284,7 +284,7 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
                 AsyncReadyCallbackFunc.reinterpret()
             },
             callback?.let { StableRef.create(callback).asCPointer() },
-            error.glibErrorPointer.reinterpret()
+            error.gPointer.reinterpret()
         )!!.reinterpret()
     )
 
@@ -399,10 +399,8 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
      *
      * @param error #GError.
      */
-    public open fun setFromError(error: Error): Unit = g_simple_async_result_set_from_error(
-        gioSimpleAsyncResultPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
-    )
+    public open fun setFromError(error: Error): Unit =
+        g_simple_async_result_set_from_error(gioSimpleAsyncResultPointer.reinterpret(), error.gPointer.reinterpret())
 
     /**
      * Sets whether to handle cancellation within the asynchronous operation.
@@ -444,10 +442,8 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun takeError(error: Error): Unit = g_simple_async_result_take_error(
-        gioSimpleAsyncResultPointer.reinterpret(),
-        error.glibErrorPointer.reinterpret()
-    )
+    public open fun takeError(error: Error): Unit =
+        g_simple_async_result_take_error(gioSimpleAsyncResultPointer.reinterpret(), error.gPointer.reinterpret())
 
     public companion object : TypeCompanion<SimpleAsyncResult> {
         override val type: GeneratedClassKGType<SimpleAsyncResult> =
@@ -475,10 +471,8 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
                 callback?.let {
                     AsyncReadyCallbackFunc.reinterpret()
                 },
-                callback?.let {
-                    StableRef.create(callback).asCPointer()
-                },
-                error.glibErrorPointer.reinterpret()
+                callback?.let { StableRef.create(callback).asCPointer() },
+                error.gPointer.reinterpret()
             )!!.reinterpret()
         )
 
@@ -502,10 +496,8 @@ public open class SimpleAsyncResult(pointer: CPointer<GSimpleAsyncResult>) :
                 callback?.let {
                     AsyncReadyCallbackFunc.reinterpret()
                 },
-                callback?.let {
-                    StableRef.create(callback).asCPointer()
-                },
-                error.glibErrorPointer.reinterpret()
+                callback?.let { StableRef.create(callback).asCPointer() },
+                error.gPointer.reinterpret()
             )!!.reinterpret()
         )
 

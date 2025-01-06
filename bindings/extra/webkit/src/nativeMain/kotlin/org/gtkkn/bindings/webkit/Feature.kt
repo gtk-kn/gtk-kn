@@ -60,7 +60,7 @@ import kotlin.Unit
  */
 @WebKitVersion2_42
 public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) {
-    public val webkitFeaturePointer: CPointer<WebKitFeature> = pointer
+    public val gPointer: CPointer<WebKitFeature> = pointer
 
     /**
      * Gets the category of the feature.
@@ -72,8 +72,8 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getCategory(): String = webkit_feature_get_category(webkitFeaturePointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getCategory(): String =
+        webkit_feature_get_category(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether the feature is enabled by default.
@@ -87,8 +87,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getDefaultValue(): Boolean =
-        webkit_feature_get_default_value(webkitFeaturePointer.reinterpret()).asBoolean()
+    public fun getDefaultValue(): Boolean = webkit_feature_get_default_value(gPointer.reinterpret()).asBoolean()
 
     /**
      * Gets a description for the @feature.
@@ -106,7 +105,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getDetails(): String? = webkit_feature_get_details(webkitFeaturePointer.reinterpret())?.toKString()
+    public fun getDetails(): String? = webkit_feature_get_details(gPointer.reinterpret())?.toKString()
 
     /**
      * Gets a string that uniquely identifies the @feature.
@@ -115,8 +114,8 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getIdentifier(): String = webkit_feature_get_identifier(webkitFeaturePointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getIdentifier(): String =
+        webkit_feature_get_identifier(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a short name for the @feature.
@@ -131,7 +130,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getName(): String? = webkit_feature_get_name(webkitFeaturePointer.reinterpret())?.toKString()
+    public fun getName(): String? = webkit_feature_get_name(gPointer.reinterpret())?.toKString()
 
     /**
      * Gets the status of the feature.
@@ -140,7 +139,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getStatus(): FeatureStatus = webkit_feature_get_status(webkitFeaturePointer.reinterpret()).run {
+    public fun getStatus(): FeatureStatus = webkit_feature_get_status(gPointer.reinterpret()).run {
         FeatureStatus.fromNativeValue(this)
     }
 
@@ -153,7 +152,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): Feature = webkit_feature_ref(webkitFeaturePointer.reinterpret())!!.run {
+    public fun ref(): Feature = webkit_feature_ref(gPointer.reinterpret())!!.run {
         Feature(reinterpret())
     }
 
@@ -167,7 +166,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun unref(): Unit = webkit_feature_unref(webkitFeaturePointer.reinterpret())
+    public fun unref(): Unit = webkit_feature_unref(gPointer.reinterpret())
 
     public companion object {
         /**

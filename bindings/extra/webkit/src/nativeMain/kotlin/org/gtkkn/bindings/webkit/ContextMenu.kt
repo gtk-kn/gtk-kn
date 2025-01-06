@@ -12,9 +12,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitContextMenu
 import org.gtkkn.native.webkit.webkit_context_menu_append
 import org.gtkkn.native.webkit.webkit_context_menu_first
@@ -83,7 +83,7 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      */
     public constructor(
         items: List,
-    ) : this(webkit_context_menu_new_with_items(items.glibListPointer.reinterpret())!!.reinterpret())
+    ) : this(webkit_context_menu_new_with_items(items.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Adds @item at the end of the @menu.
@@ -256,10 +256,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun setUserData(userData: Variant): Unit = webkit_context_menu_set_user_data(
-        webkitContextMenuPointer.reinterpret(),
-        userData.glibVariantPointer.reinterpret()
-    )
+    public fun setUserData(userData: Variant): Unit =
+        webkit_context_menu_set_user_data(webkitContextMenuPointer.reinterpret(), userData.gPointer.reinterpret())
 
     public companion object : TypeCompanion<ContextMenu> {
         override val type: GeneratedClassKGType<ContextMenu> =

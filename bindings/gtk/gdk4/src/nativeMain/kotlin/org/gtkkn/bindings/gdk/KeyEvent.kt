@@ -16,8 +16,8 @@ import org.gtkkn.native.gdk.gdk_key_event_get_level
 import org.gtkkn.native.gdk.gdk_key_event_get_type
 import org.gtkkn.native.gdk.gdk_key_event_is_modifier
 import org.gtkkn.native.gdk.gdk_key_event_matches
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 
 /**

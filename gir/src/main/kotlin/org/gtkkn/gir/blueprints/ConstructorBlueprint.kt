@@ -46,4 +46,6 @@ data class ConstructorBlueprint(
     val kdoc: String?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val returnTypeKDoc: String?,
-) : CallableBlueprint
+) : CallableBlueprint {
+    override val noStringConversion: Boolean = false
+}

@@ -74,6 +74,11 @@
   ],
   "ignoredLibraries": [
     {
+      "name": "harfbuzz",
+      "module": "core:harfbuzz",
+      "girPrefix": "HarfBuzz-"
+    },
+    {
       "name": "gtksource",
       "module": "extra:gtksource",
       "girPrefix": "GtkSource-5"

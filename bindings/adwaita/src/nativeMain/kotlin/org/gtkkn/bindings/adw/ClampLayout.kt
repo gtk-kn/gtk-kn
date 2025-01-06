@@ -18,8 +18,8 @@ import org.gtkkn.native.adw.adw_clamp_layout_new
 import org.gtkkn.native.adw.adw_clamp_layout_set_maximum_size
 import org.gtkkn.native.adw.adw_clamp_layout_set_tightening_threshold
 import org.gtkkn.native.adw.adw_clamp_layout_set_unit
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkOrientable
 
 /**

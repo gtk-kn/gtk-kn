@@ -31,8 +31,8 @@ import org.gtkkn.native.adw.adw_combo_row_set_list_factory
 import org.gtkkn.native.adw.adw_combo_row_set_model
 import org.gtkkn.native.adw.adw_combo_row_set_selected
 import org.gtkkn.native.adw.adw_combo_row_set_use_subtitle
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable

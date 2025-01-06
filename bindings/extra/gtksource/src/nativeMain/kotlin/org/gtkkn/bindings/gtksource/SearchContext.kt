@@ -21,9 +21,9 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtksource.GtkSourceSearchContext
 import org.gtkkn.native.gtksource.gtk_source_search_context_backward_async
 import org.gtkkn.native.gtksource.gtk_source_search_context_forward_async
@@ -242,7 +242,7 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_search_context_backward_async(
         gtksourceSearchContextPointer.reinterpret(),
-        iter.gtkTextIterPointer.reinterpret(),
+        iter.gPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -269,7 +269,7 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_search_context_forward_async(
         gtksourceSearchContextPointer.reinterpret(),
-        iter.gtkTextIterPointer.reinterpret(),
+        iter.gPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -303,8 +303,8 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
     public open fun getOccurrencePosition(matchStart: TextIter, matchEnd: TextIter): gint =
         gtk_source_search_context_get_occurrence_position(
             gtksourceSearchContextPointer.reinterpret(),
-            matchStart.gtkTextIterPointer.reinterpret(),
-            matchEnd.gtkTextIterPointer.reinterpret()
+            matchStart.gPointer.reinterpret(),
+            matchEnd.gPointer.reinterpret()
         )
 
     /**
@@ -333,8 +333,8 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_search_context_replace(
             gtksourceSearchContextPointer.reinterpret(),
-            matchStart.gtkTextIterPointer.reinterpret(),
-            matchEnd.gtkTextIterPointer.reinterpret(),
+            matchStart.gPointer.reinterpret(),
+            matchEnd.gPointer.reinterpret(),
             replace,
             replaceLength,
             gError.ptr

@@ -28,8 +28,8 @@ import org.gtkkn.native.gio.g_socket_connection_get_socket
 import org.gtkkn.native.gio.g_socket_connection_get_type
 import org.gtkkn.native.gio.g_socket_connection_is_connected
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.Unit

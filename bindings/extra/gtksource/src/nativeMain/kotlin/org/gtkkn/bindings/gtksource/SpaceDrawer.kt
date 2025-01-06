@@ -186,10 +186,8 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      *
      * @param matrix the new matrix value, or null.
      */
-    public open fun setMatrix(matrix: Variant? = null): Unit = gtk_source_space_drawer_set_matrix(
-        gtksourceSpaceDrawerPointer.reinterpret(),
-        matrix?.glibVariantPointer?.reinterpret()
-    )
+    public open fun setMatrix(matrix: Variant? = null): Unit =
+        gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer.reinterpret(), matrix?.gPointer?.reinterpret())
 
     /**
      * Modifies the [property@SpaceDrawer:matrix] property at the specified

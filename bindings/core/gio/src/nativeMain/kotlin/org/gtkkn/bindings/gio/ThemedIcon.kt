@@ -20,8 +20,8 @@ import org.gtkkn.native.gio.g_themed_icon_new
 import org.gtkkn.native.gio.g_themed_icon_new_from_names
 import org.gtkkn.native.gio.g_themed_icon_new_with_default_fallbacks
 import org.gtkkn.native.gio.g_themed_icon_prepend_name
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 import kotlin.Unit
 import kotlin.collections.List

@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoScriptIter
 import org.gtkkn.native.pango.pango_script_iter_free
 import org.gtkkn.native.pango.pango_script_iter_get_type
@@ -26,7 +26,7 @@ import kotlin.Unit
  * - parameter `start`: start: Out parameter is not supported
  */
 public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(pointer) {
-    public val pangoScriptIterPointer: CPointer<PangoScriptIter> = pointer
+    public val gPointer: CPointer<PangoScriptIter> = pointer
 
     /**
      * Frees a `PangoScriptIter`.
@@ -34,7 +34,7 @@ public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(poin
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun free(): Unit = pango_script_iter_free(pangoScriptIterPointer.reinterpret())
+    public fun free(): Unit = pango_script_iter_free(gPointer.reinterpret())
 
     /**
      * Advances a `PangoScriptIter` to the next range.
@@ -46,7 +46,7 @@ public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(poin
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun next(): Boolean = pango_script_iter_next(pangoScriptIterPointer.reinterpret()).asBoolean()
+    public fun next(): Boolean = pango_script_iter_next(gPointer.reinterpret()).asBoolean()
 
     public companion object {
         /**

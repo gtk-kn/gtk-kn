@@ -14,7 +14,7 @@ import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkPixbufModulePattern
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -56,18 +56,18 @@ import kotlin.native.ref.createCleaner
 @GdkPixbufVersion2_2
 public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gdkPixbufModulePatternPointer: CPointer<GdkPixbufModulePattern> = pointer
+    public val gPointer: CPointer<GdkPixbufModulePattern> = pointer
 
     /**
      * the prefix for this pattern
      */
     public var prefix: String?
-        get() = gdkPixbufModulePatternPointer.pointed.prefix?.toKString()
+        get() = gPointer.pointed.prefix?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufModulePatternPointer.pointed.prefix?.let { g_free(it) }
-            gdkPixbufModulePatternPointer.pointed.prefix = value?.let { g_strdup(it) }
+            gPointer.pointed.prefix?.let { g_free(it) }
+            gPointer.pointed.prefix = value?.let { g_strdup(it) }
         }
 
     /**
@@ -75,23 +75,23 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      *  test data
      */
     public var mask: String?
-        get() = gdkPixbufModulePatternPointer.pointed.mask?.toKString()
+        get() = gPointer.pointed.mask?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufModulePatternPointer.pointed.mask?.let { g_free(it) }
-            gdkPixbufModulePatternPointer.pointed.mask = value?.let { g_strdup(it) }
+            gPointer.pointed.mask?.let { g_free(it) }
+            gPointer.pointed.mask = value?.let { g_strdup(it) }
         }
 
     /**
      * relevance of this pattern
      */
     public var relevance: gint
-        get() = gdkPixbufModulePatternPointer.pointed.relevance
+        get() = gPointer.pointed.relevance
 
         @UnsafeFieldSetter
         set(`value`) {
-            gdkPixbufModulePatternPointer.pointed.relevance = value
+            gPointer.pointed.relevance = value
         }
 
     /**

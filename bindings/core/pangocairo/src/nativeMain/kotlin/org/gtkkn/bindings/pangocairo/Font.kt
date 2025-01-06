@@ -3,6 +3,7 @@ package org.gtkkn.bindings.pangocairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.cairo.ScaledFont
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -10,6 +11,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.pangocairo.PangoCairoFont
+import org.gtkkn.native.pangocairo.pango_cairo_font_get_scaled_font
 import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
 
 /**
@@ -18,11 +20,6 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
  *
  * The actual type of the font will depend on the particular
  * font technology Cairo was compiled to use.
- *
- * ## Skipped during bindings generation
- *
- * - method `get_scaled_font`: Return type cairo.ScaledFont is unsupported
- *
  * @since 1.18
  */
 @PangoCairoVersion1_18
@@ -30,6 +27,21 @@ public interface Font :
     Interface,
     KGTyped {
     public val pangocairoFontPointer: CPointer<PangoCairoFont>
+
+    /**
+     * Gets the `cairo_scaled_font_t` used by @font.
+     * The scaled font can be referenced and kept using
+     * cairo_scaled_font_reference().
+     *
+     * @return the `cairo_scaled_font_t`
+     *   used by @font
+     * @since 1.18
+     */
+    @PangoCairoVersion1_18
+    public fun getScaledFont(): ScaledFont? =
+        pango_cairo_font_get_scaled_font(pangocairoFontPointer.reinterpret())?.run {
+            ScaledFont(reinterpret())
+        }
 
     private data class Wrapper(private val pointer: CPointer<PangoCairoFont>) : Font {
         override val pangocairoFontPointer: CPointer<PangoCairoFont> = pointer

@@ -30,4 +30,5 @@ data class CallbackBlueprint(
     val returnTypeKDoc: String?,
 ) : ClosureBlueprint {
     override val hasInstanceParameter: Boolean = false
+    override val noStringConversion: Boolean = false
 }

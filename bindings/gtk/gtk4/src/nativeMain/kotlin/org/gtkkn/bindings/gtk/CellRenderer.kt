@@ -20,10 +20,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellEditable
 import org.gtkkn.native.gtk.GtkCellRenderer
 import org.gtkkn.native.gtk.gtk_cell_renderer_activate
@@ -44,6 +44,7 @@ import org.gtkkn.native.gtk.gtk_cell_renderer_set_is_expander
 import org.gtkkn.native.gtk.gtk_cell_renderer_set_padding
 import org.gtkkn.native.gtk.gtk_cell_renderer_set_sensitive
 import org.gtkkn.native.gtk.gtk_cell_renderer_set_visible
+import org.gtkkn.native.gtk.gtk_cell_renderer_snapshot
 import org.gtkkn.native.gtk.gtk_cell_renderer_start_editing
 import org.gtkkn.native.gtk.gtk_cell_renderer_stop_editing
 import kotlin.Boolean
@@ -99,7 +100,6 @@ import kotlin.Unit
  * - parameter `minimum_height`: minimum_height: Out parameter is not supported
  * - parameter `minimum_size`: minimum_size: Out parameter is not supported
  * - parameter `minimum_width`: minimum_width: Out parameter is not supported
- * - parameter `snapshot`: missing cType for GirClass Snapshot
  * - method `cell-background`: Property has no getter nor setter
  * - method `cell-background-rgba`: Property has no getter nor setter
  * - method `cell-background-set`: Property has no getter nor setter
@@ -208,8 +208,8 @@ public open class CellRenderer(pointer: CPointer<GtkCellRenderer>) :
         event.gPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
         path,
-        backgroundArea.gdkRectanglePointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
+        backgroundArea.gPointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
         flags.mask
     ).asBoolean()
 
@@ -232,8 +232,8 @@ public open class CellRenderer(pointer: CPointer<GtkCellRenderer>) :
         gtkCellRendererPointer.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
         flags.mask,
-        cellArea.gdkRectanglePointer.reinterpret(),
-        alignedArea.gdkRectanglePointer.reinterpret()
+        cellArea.gPointer.reinterpret(),
+        alignedArea.gPointer.reinterpret()
     )
 
     /**
@@ -248,8 +248,8 @@ public open class CellRenderer(pointer: CPointer<GtkCellRenderer>) :
         gtk_cell_renderer_get_preferred_size(
             gtkCellRendererPointer.reinterpret(),
             widget.gtkWidgetPointer.reinterpret(),
-            minimumSize?.gtkRequisitionPointer?.reinterpret(),
-            naturalSize?.gtkRequisitionPointer?.reinterpret()
+            minimumSize?.gPointer?.reinterpret(),
+            naturalSize?.gPointer?.reinterpret()
         )
 
     /**
@@ -317,6 +317,37 @@ public open class CellRenderer(pointer: CPointer<GtkCellRenderer>) :
         gtk_cell_renderer_set_padding(gtkCellRendererPointer.reinterpret(), xpad, ypad)
 
     /**
+     * Invokes the virtual render function of the `GtkCellRenderer`. The three
+     * passed-in rectangles are areas in @cr. Most renderers will draw within
+     * @cell_area; the xalign, yalign, xpad, and ypad fields of the `GtkCellRenderer`
+     * should be honored with respect to @cell_area. @background_area includes the
+     * blank space around the cell, and also the area containing the tree expander;
+     * so the @background_area rectangles for all cells tile to cover the entire
+     * @window.
+     *
+     * @param snapshot a `GtkSnapshot` to draw to
+     * @param widget the widget owning @window
+     * @param backgroundArea entire cell area (including tree expanders and maybe
+     *    padding on the sides)
+     * @param cellArea area normally rendered by a cell renderer
+     * @param flags flags that affect rendering
+     */
+    public open fun snapshot(
+        snapshot: Snapshot,
+        widget: Widget,
+        backgroundArea: Rectangle,
+        cellArea: Rectangle,
+        flags: CellRendererState,
+    ): Unit = gtk_cell_renderer_snapshot(
+        gtkCellRendererPointer.reinterpret(),
+        snapshot.gtkSnapshotPointer.reinterpret(),
+        widget.gtkWidgetPointer.reinterpret(),
+        backgroundArea.gPointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
+        flags.mask
+    )
+
+    /**
      * Starts editing the contents of this @cell, through a new `GtkCellEditable`
      * widget created by the `GtkCellRenderer`Class.start_editing virtual function.
      *
@@ -342,8 +373,8 @@ public open class CellRenderer(pointer: CPointer<GtkCellRenderer>) :
         event?.gPointer?.reinterpret(),
         widget.gtkWidgetPointer.reinterpret(),
         path,
-        backgroundArea.gdkRectanglePointer.reinterpret(),
-        cellArea.gdkRectanglePointer.reinterpret(),
+        backgroundArea.gPointer.reinterpret(),
+        cellArea.gPointer.reinterpret(),
         flags.mask
     )?.run {
         CellEditable.wrap(reinterpret())

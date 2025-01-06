@@ -24,7 +24,7 @@ import kotlin.native.ref.createCleaner
  */
 public class SourceCallbackFuncs(pointer: CPointer<GSourceCallbackFuncs>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val glibSourceCallbackFuncsPointer: CPointer<GSourceCallbackFuncs> = pointer
+    public val gPointer: CPointer<GSourceCallbackFuncs> = pointer
 
     /**
      * Allocate a new SourceCallbackFuncs.

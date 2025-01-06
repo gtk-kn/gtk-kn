@@ -1,17 +1,25 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gdk
 
+import kotlinx.cinterop.CFunction
+import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.glib.List
+import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.extensions.glib.Interface
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkToplevel
+import org.gtkkn.native.gdk.GdkToplevelSize
 import org.gtkkn.native.gdk.gdk_toplevel_begin_move
 import org.gtkkn.native.gdk.gdk_toplevel_begin_resize
 import org.gtkkn.native.gdk.gdk_toplevel_focus
@@ -32,12 +40,14 @@ import org.gtkkn.native.gdk.gdk_toplevel_set_transient_for
 import org.gtkkn.native.gdk.gdk_toplevel_show_window_menu
 import org.gtkkn.native.gdk.gdk_toplevel_supports_edge_constraints
 import org.gtkkn.native.gdk.gdk_toplevel_titlebar_gesture
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.gobject.g_signal_connect_data
 import kotlin.Boolean
 import kotlin.String
+import kotlin.ULong
 import kotlin.Unit
 
 /**
@@ -58,7 +68,6 @@ import kotlin.Unit
  * - method `startup-id`: Property has no getter
  * - method `title`: Property has no getter
  * - method `transient-for`: Property has no getter
- * - signal `compute-size`: Unsupported parameter `size` : ToplevelSize
  */
 public interface Toplevel :
     Interface,
@@ -215,7 +224,7 @@ public interface Toplevel :
      * @param layout the `GdkToplevelLayout` object used to layout
      */
     public fun present(layout: ToplevelLayout): Unit =
-        gdk_toplevel_present(gdkToplevelPointer.reinterpret(), layout.gdkToplevelLayoutPointer.reinterpret())
+        gdk_toplevel_present(gdkToplevelPointer.reinterpret(), layout.gPointer.reinterpret())
 
     /**
      * Restore default system keyboard shortcuts which were previously
@@ -262,7 +271,7 @@ public interface Toplevel :
      * @param surfaces A list of textures to use as icon, of different sizes
      */
     public fun setIconList(surfaces: List): Unit =
-        gdk_toplevel_set_icon_list(gdkToplevelPointer.reinterpret(), surfaces.glibListPointer.reinterpret())
+        gdk_toplevel_set_icon_list(gdkToplevelPointer.reinterpret(), surfaces.gPointer.reinterpret())
 
     /**
      * Sets the toplevel to be modal.
@@ -351,6 +360,36 @@ public interface Toplevel :
     public fun titlebarGesture(gesture: TitlebarGesture): Boolean =
         gdk_toplevel_titlebar_gesture(gdkToplevelPointer.reinterpret(), gesture.nativeValue).asBoolean()
 
+    /**
+     * Emitted when the size for the surface needs to be computed, when
+     * it is present.
+     *
+     * This signal will normally be emitted during or after a call to
+     * [method@Gdk.Toplevel.present], depending on the configuration
+     * received by the windowing system. It may also be emitted at any
+     * other point in time, in response to the windowing system
+     * spontaneously changing the configuration of the toplevel surface.
+     *
+     * It is the responsibility of the toplevel user to handle this signal
+     * and compute the desired size of the toplevel, given the information
+     * passed via the [struct@Gdk.ToplevelSize] object. Failing to do so
+     * will result in an arbitrary size being used as a result.
+     *
+     * @param connectFlags A combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `size` a `GdkToplevelSize`
+     */
+    public fun connectComputeSize(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (size: ToplevelSize) -> Unit,
+    ): ULong = g_signal_connect_data(
+        gdkToplevelPointer.reinterpret(),
+        "compute-size",
+        connectComputeSizeFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
+
     private data class Wrapper(private val pointer: CPointer<GdkToplevel>) : Toplevel {
         override val gdkToplevelPointer: CPointer<GdkToplevel> = pointer
     }
@@ -373,3 +412,17 @@ public interface Toplevel :
         public fun getType(): GType = gdk_toplevel_get_type()
     }
 }
+
+private val connectComputeSizeFunc: CPointer<CFunction<(CPointer<GdkToplevelSize>) -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            size: CPointer<GdkToplevelSize>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(size: ToplevelSize) -> Unit>().get().invoke(
+            size!!.run {
+                ToplevelSize(reinterpret())
+            }
+        )
+    }
+        .reinterpret()

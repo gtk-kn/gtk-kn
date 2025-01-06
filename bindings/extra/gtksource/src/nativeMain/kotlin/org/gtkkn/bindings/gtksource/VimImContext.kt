@@ -19,9 +19,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtksource.GtkSourceView
 import org.gtkkn.native.gtksource.GtkSourceVimIMContext
@@ -88,7 +88,7 @@ import kotlin.Unit
 public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
     ImContext(pointer.reinterpret()),
     KGTyped {
-    public val gtksourceVimIMContextPointer: CPointer<GtkSourceVimIMContext>
+    public val gtksourceVimImContextPointer: CPointer<GtkSourceVimIMContext>
         get() = gPointer.reinterpret()
 
     public open val commandBarText: String
@@ -98,7 +98,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
          * @return A string containing the command-bar text
          * @since 5.4
          */
-        get() = gtk_source_vim_im_context_get_command_bar_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
+        get() = gtk_source_vim_im_context_get_command_bar_text(gtksourceVimImContextPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     public open val commandText: String
@@ -108,7 +108,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
          * @return A string containing the command text
          * @since 5.4
          */
-        get() = gtk_source_vim_im_context_get_command_text(gtksourceVimIMContextPointer.reinterpret())?.toKString()
+        get() = gtk_source_vim_im_context_get_command_text(gtksourceVimImContextPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     public constructor() : this(gtk_source_vim_im_context_new()!!.reinterpret())
@@ -123,7 +123,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      */
     @GtkSourceVersion5_4
     public open fun executeCommand(command: String): Unit =
-        gtk_source_vim_im_context_execute_command(gtksourceVimIMContextPointer.reinterpret(), command)
+        gtk_source_vim_im_context_execute_command(gtksourceVimImContextPointer.reinterpret(), command)
 
     /**
      * Requests the application open the file found at @path.

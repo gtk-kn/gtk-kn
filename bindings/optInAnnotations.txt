@@ -3,6 +3,15 @@ org.gtkkn.bindings.adw.annotations.AdwVersion1_2
 org.gtkkn.bindings.adw.annotations.AdwVersion1_3
 org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 org.gtkkn.bindings.adw.annotations.AdwVersion1_5
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_14
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_16
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
+org.gtkkn.bindings.cairo.annotations.CairoVersion1_8
 org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_12
 org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_14
 org.gtkkn.bindings.gdk.annotations.GdkPixbufVersion2_18
@@ -171,6 +180,7 @@ org.gtkkn.bindings.pango.annotations.PangoVersion1_52
 org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
+org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_14
 org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
 org.gtkkn.bindings.soup.annotations.SoupVersion3_2

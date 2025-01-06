@@ -44,10 +44,10 @@ import org.gtkkn.native.gio.g_cancellable_reset
 import org.gtkkn.native.gio.g_cancellable_set_error_if_cancelled
 import org.gtkkn.native.gio.g_cancellable_source_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gulong
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gulong
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.ULong
@@ -210,10 +210,8 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun makePollfd(pollfd: PollFd): Boolean = g_cancellable_make_pollfd(
-        gioCancellablePointer.reinterpret(),
-        pollfd.glibPollFDPointer.reinterpret()
-    ).asBoolean()
+    public open fun makePollfd(pollfd: PollFd): Boolean =
+        g_cancellable_make_pollfd(gioCancellablePointer.reinterpret(), pollfd.gPointer.reinterpret()).asBoolean()
 
     /**
      * Pops @cancellable off the cancellable stack (verifying that @cancellable

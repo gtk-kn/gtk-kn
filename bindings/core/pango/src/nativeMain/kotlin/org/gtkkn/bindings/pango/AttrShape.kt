@@ -25,24 +25,24 @@ import kotlin.native.ref.createCleaner
  * ## Skipped during bindings generation
  *
  * - parameter `copy_func`: AttrDataCopyFunc
- * - field `attr`: Attribute
- * - field `ink_rect`: Rectangle
- * - field `logical_rect`: Rectangle
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
+ * - field `ink_rect`: Field with not-pointer record/union PangoRectangle is not supported
+ * - field `logical_rect`: Field with not-pointer record/union PangoRectangle is not supported
  * - field `copy_func`: AttrDataCopyFunc
  * - field `destroy_func`: GLib.DestroyNotify
  */
 public class AttrShape(pointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoAttrShapePointer: CPointer<PangoAttrShape> = pointer
+    public val gPointer: CPointer<PangoAttrShape> = pointer
 
     /**
      * user data set (see [func@Pango.AttrShape.new_with_data])
      */
     public var `data`: gpointer
-        get() = pangoAttrShapePointer.pointed.data!!
+        get() = gPointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrShapePointer.pointed.data = value
+            gPointer.pointed.data = value
         }
 
     /**
@@ -117,11 +117,9 @@ public class AttrShape(pointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = nu
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(inkRect: Rectangle, logicalRect: Rectangle): Attribute = pango_attr_shape_new(
-            inkRect.pangoRectanglePointer.reinterpret(),
-            logicalRect.pangoRectanglePointer.reinterpret()
-        )!!.run {
-            Attribute(reinterpret())
-        }
+        public fun new(inkRect: Rectangle, logicalRect: Rectangle): Attribute =
+            pango_attr_shape_new(inkRect.gPointer.reinterpret(), logicalRect.gPointer.reinterpret())!!.run {
+                Attribute(reinterpret())
+            }
     }
 }

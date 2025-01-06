@@ -15,6 +15,7 @@ import org.gtkkn.native.glib.g_mutex_clear
 import org.gtkkn.native.glib.g_mutex_free
 import org.gtkkn.native.glib.g_mutex_init
 import org.gtkkn.native.glib.g_mutex_lock
+import org.gtkkn.native.glib.g_mutex_new
 import org.gtkkn.native.glib.g_mutex_trylock
 import org.gtkkn.native.glib.g_mutex_unlock
 import kotlin.Boolean
@@ -68,13 +69,9 @@ import kotlin.native.ref.createCleaner
  * then it must be explicitly initialised using g_mutex_init().
  *
  * A #GMutex should only be accessed via g_mutex_ functions.
- *
- * ## Skipped during bindings generation
- *
- * - function `new`: Return type Mutex is unsupported
  */
 public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibMutexPointer: CPointer<GMutex> = pointer
+    public val gPointer: CPointer<GMutex> = pointer
 
     /**
      * Allocate a new Mutex.
@@ -117,7 +114,7 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_mutex_clear(glibMutexPointer.reinterpret())
+    public fun clear(): Unit = g_mutex_clear(gPointer.reinterpret())
 
     /**
      * Destroys a @mutex that has been created with g_mutex_new().
@@ -125,7 +122,7 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      * Calling g_mutex_free() on a locked mutex may result
      * in undefined behaviour.
      */
-    public fun free(): Unit = g_mutex_free(glibMutexPointer.reinterpret())
+    public fun free(): Unit = g_mutex_free(gPointer.reinterpret())
 
     /**
      * Initializes a #GMutex so that it can be used.
@@ -156,7 +153,7 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_mutex_init(glibMutexPointer.reinterpret())
+    public fun `init`(): Unit = g_mutex_init(gPointer.reinterpret())
 
     /**
      * Locks @mutex. If @mutex is already locked by another thread, the
@@ -168,7 +165,7 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      * already been locked by the same thread results in undefined behaviour
      * (including but not limited to deadlocks).
      */
-    public fun lock(): Unit = g_mutex_lock(glibMutexPointer.reinterpret())
+    public fun lock(): Unit = g_mutex_lock(gPointer.reinterpret())
 
     /**
      * Tries to lock @mutex. If @mutex is already locked by another thread,
@@ -182,7 +179,7 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return true if @mutex could be locked
      */
-    public fun trylock(): Boolean = g_mutex_trylock(glibMutexPointer.reinterpret()).asBoolean()
+    public fun trylock(): Boolean = g_mutex_trylock(gPointer.reinterpret()).asBoolean()
 
     /**
      * Unlocks @mutex. If another thread is blocked in a g_mutex_lock()
@@ -191,5 +188,16 @@ public class Mutex(pointer: CPointer<GMutex>, cleaner: Cleaner? = null) : ProxyI
      * Calling g_mutex_unlock() on a mutex that is not locked by the
      * current thread leads to undefined behaviour.
      */
-    public fun unlock(): Unit = g_mutex_unlock(glibMutexPointer.reinterpret())
+    public fun unlock(): Unit = g_mutex_unlock(gPointer.reinterpret())
+
+    public companion object {
+        /**
+         * Allocates and initializes a new #GMutex.
+         *
+         * @return a newly allocated #GMutex. Use g_mutex_free() to free
+         */
+        public fun new(): Mutex = g_mutex_new()!!.run {
+            Mutex(reinterpret())
+        }
+    }
 }

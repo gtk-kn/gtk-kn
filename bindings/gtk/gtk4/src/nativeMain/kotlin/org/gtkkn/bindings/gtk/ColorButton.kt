@@ -136,9 +136,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(
-        rgba: Rgba,
-    ) : this(gtk_color_button_new_with_rgba(rgba.gdkRGBAPointer.reinterpret())!!.reinterpret())
+    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gPointer.reinterpret())!!.reinterpret())
 
     /**
      * Emitted to when the color button is activated.

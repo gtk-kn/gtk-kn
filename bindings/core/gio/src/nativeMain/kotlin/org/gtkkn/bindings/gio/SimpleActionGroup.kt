@@ -27,7 +27,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `entries`: ActionEntry
+ * - parameter `entries`: Array parameter of type ActionEntry is not supported
  *
  * @since 2.28
  */

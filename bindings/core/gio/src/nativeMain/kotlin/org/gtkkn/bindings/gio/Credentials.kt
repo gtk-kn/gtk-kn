@@ -28,10 +28,10 @@ import org.gtkkn.native.gio.g_credentials_set_native
 import org.gtkkn.native.gio.g_credentials_set_unix_user
 import org.gtkkn.native.gio.g_credentials_to_string
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String

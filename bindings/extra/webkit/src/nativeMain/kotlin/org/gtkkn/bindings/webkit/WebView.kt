@@ -55,12 +55,12 @@ import org.gtkkn.native.gdk.GdkRectangle
 import org.gtkkn.native.gio.GTlsCertificate
 import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -755,7 +755,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = webkit_web_view_call_async_javascript_function(
-        webkitWebViewPointer.reinterpret(), body, length, arguments?.glibVariantPointer?.reinterpret(), worldName, sourceUri, cancellable?.gioCancellablePointer?.reinterpret(),
+        webkitWebViewPointer.reinterpret(), body, length, arguments?.gPointer?.reinterpret(), worldName, sourceUri, cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -1029,7 +1029,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      */
     @WebKitVersion2_8
     public open fun getBackgroundColor(rgba: Rgba): Unit =
-        webkit_web_view_get_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
+        webkit_web_view_get_background_color(webkitWebViewPointer.reinterpret(), rgba.gPointer.reinterpret())
 
     /**
      * Gets the web context of @web_view.
@@ -1334,7 +1334,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
         baseUri: String? = null,
     ): Unit = webkit_web_view_load_bytes(
         webkitWebViewPointer.reinterpret(),
-        bytes.glibBytesPointer.reinterpret(),
+        bytes.gPointer.reinterpret(),
         mimeType,
         encoding,
         baseUri
@@ -1378,7 +1378,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      * @param request a #WebKitURIRequest to load
      */
     public open fun loadRequest(request: UriRequest): Unit =
-        webkit_web_view_load_request(webkitWebViewPointer.reinterpret(), request.webkitURIRequestPointer.reinterpret())
+        webkit_web_view_load_request(webkitWebViewPointer.reinterpret(), request.webkitUriRequestPointer.reinterpret())
 
     /**
      * Requests loading of the specified URI string.
@@ -1410,10 +1410,8 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public open fun restoreSessionState(state: WebViewSessionState): Unit = webkit_web_view_restore_session_state(
-        webkitWebViewPointer.reinterpret(),
-        state.webkitWebViewSessionStatePointer.reinterpret()
-    )
+    public open fun restoreSessionState(state: WebViewSessionState): Unit =
+        webkit_web_view_restore_session_state(webkitWebViewPointer.reinterpret(), state.gPointer.reinterpret())
 
     /**
      * Asynchronously save the current web page.
@@ -1583,7 +1581,7 @@ public open class WebView(pointer: CPointer<WebKitWebView>) :
      */
     @WebKitVersion2_8
     public open fun setBackgroundColor(rgba: Rgba): Unit =
-        webkit_web_view_set_background_color(webkitWebViewPointer.reinterpret(), rgba.gdkRGBAPointer.reinterpret())
+        webkit_web_view_set_background_color(webkitWebViewPointer.reinterpret(), rgba.gPointer.reinterpret())
 
     /**
      * Sets the @allowlist for CORS.

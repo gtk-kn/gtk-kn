@@ -11,9 +11,9 @@ import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkStyleContext
 import org.gtkkn.native.gtk.gtk_style_context_add_class
 import org.gtkkn.native.gtk.gtk_style_context_add_provider
@@ -162,7 +162,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param border return value for the border settings
      */
     public open fun getBorder(border: Border): Unit =
-        gtk_style_context_get_border(gtkStyleContextPointer.reinterpret(), border.gtkBorderPointer.reinterpret())
+        gtk_style_context_get_border(gtkStyleContextPointer.reinterpret(), border.gPointer.reinterpret())
 
     /**
      * Gets the foreground color for a given state.
@@ -170,7 +170,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param color return value for the foreground color
      */
     public open fun getColor(color: Rgba): Unit =
-        gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+        gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gPointer.reinterpret())
 
     /**
      * Gets the margin for a given state as a `GtkBorder`.
@@ -178,7 +178,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param margin return value for the margin settings
      */
     public open fun getMargin(margin: Border): Unit =
-        gtk_style_context_get_margin(gtkStyleContextPointer.reinterpret(), margin.gtkBorderPointer.reinterpret())
+        gtk_style_context_get_margin(gtkStyleContextPointer.reinterpret(), margin.gPointer.reinterpret())
 
     /**
      * Gets the padding for a given state as a `GtkBorder`.
@@ -186,7 +186,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param padding return value for the padding settings
      */
     public open fun getPadding(padding: Border): Unit =
-        gtk_style_context_get_padding(gtkStyleContextPointer.reinterpret(), padding.gtkBorderPointer.reinterpret())
+        gtk_style_context_get_padding(gtkStyleContextPointer.reinterpret(), padding.gPointer.reinterpret())
 
     /**
      * Returns the scale used for assets.
@@ -230,7 +230,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
     public open fun lookupColor(colorName: String, color: Rgba): Boolean = gtk_style_context_lookup_color(
         gtkStyleContextPointer.reinterpret(),
         colorName,
-        color.gdkRGBAPointer.reinterpret()
+        color.gPointer.reinterpret()
     ).asBoolean()
 
     /**

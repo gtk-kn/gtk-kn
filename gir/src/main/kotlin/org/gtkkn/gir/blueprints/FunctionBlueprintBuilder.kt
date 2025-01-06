@@ -26,32 +26,33 @@ import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceNativePackageName
 
 class FunctionBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
-    private val girFunction: GirFunction,
+    private val girNode: GirFunction,
 ) : CallableBlueprintBuilder<FunctionBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "function"
-    override fun blueprintObjectName(): String = girFunction.callable.getName()
+    override fun blueprintObjectName(): String = girNode.callable.getName()
 
     override fun buildInternal(): FunctionBlueprint {
-        if (!girFunction.callable.shouldBeGenerated()) {
-            throw NotIntrospectableException(girFunction.callable.cIdentifier ?: girFunction.callable.getName())
+        if (!girNode.callable.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.callable.cIdentifier ?: girNode.callable.getName())
         }
 
-        if (girFunction.callable.cIdentifier == null) {
-            throw UnresolvableTypeException("Function ${girFunction.callable.getName()} does not have cIdentifier")
+        if (girNode.callable.cIdentifier == null) {
+            throw UnresolvableTypeException("Function ${girNode.callable.getName()} does not have cIdentifier")
         }
-        if (girFunction.parameters?.instanceParameter != null) {
+        if (girNode.parameters?.instanceParameter != null) {
             throw UnresolvableTypeException("Function with instance parameter is not supported yet")
         }
 
-        context.checkIgnoredFunction(girFunction.callable.cIdentifier)
+        context.checkIgnoredFunction(girNode.callable.cIdentifier)
 
-        girFunction.parameters?.let { addParameters(it) }
+        girNode.parameters?.let { addParameters(it, girNode.callable.info.gtkKnNoStringConversion == true) }
 
-        val returnValue = girFunction.returnValue ?: throw UnresolvableTypeException("Method has no return value")
+        val returnValue = girNode.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
         val returnTypeInfo = when (val type = returnValue.type) {
             is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
@@ -64,8 +65,8 @@ class FunctionBlueprintBuilder(
             }
         }
 
-        val kotlinName = girFunction.callable.getName().toCamelCase()
-        val nativeName = girFunction.callable.cIdentifier
+        val kotlinName = girNode.callable.getName().toCamelCase()
+        val nativeName = girNode.callable.cIdentifier
         val nativeMemberPackageName =
             if (kotlinName == "getType" && girNamespace.name == "GLib" ||
                 nativeName == "g_strv_get_type" ||
@@ -74,7 +75,7 @@ class FunctionBlueprintBuilder(
                 // these native functions are defined in `gobject/glib-types.h` but used in GLib
                 "org.gtkkn.native.gobject"
             } else {
-                context.namespaceNativePackageName(girNamespace)
+                namespaceNativePackageName(girNamespace)
             }
         val nativeMemberName = MemberName(nativeMemberPackageName, nativeName)
 
@@ -84,15 +85,16 @@ class FunctionBlueprintBuilder(
             nativeMemberName = nativeMemberName,
             parameters = sanitizeParameters(parameterBlueprints),
             returnTypeInfo = returnTypeInfo,
-            throws = girFunction.callable.throws == true,
+            throws = girNode.callable.throws == true,
             exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
+            noStringConversion = girNode.callable.info.gtkKnNoStringConversion == true,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(
                 context,
                 girNamespace,
-                girFunction.callable.info,
+                girNode.callable.info,
             ).build().getOrNull(),
-            kdoc = context.processKdoc(girFunction.doc?.doc?.text),
-            returnTypeKDoc = context.processKdoc(girFunction.returnValue.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+            returnTypeKDoc = context.processKdoc(girNode.returnValue.doc?.doc?.text),
         )
     }
 
@@ -107,7 +109,7 @@ class FunctionBlueprintBuilder(
         }
 
     private fun needsNickBlurbFix(params: List<ParameterBlueprint>): Boolean =
-        girFunction.callable.cIdentifier.orEmpty().startsWith("g_param_spec_") &&
+        girNode.callable.cIdentifier.orEmpty().startsWith("g_param_spec_") &&
             params.size >= 3 &&
             params[0].nativeName == "name" &&
             params[1].nativeName == "nick" &&

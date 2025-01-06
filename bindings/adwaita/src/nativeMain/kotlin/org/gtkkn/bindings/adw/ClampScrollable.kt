@@ -21,8 +21,8 @@ import org.gtkkn.native.adw.adw_clamp_scrollable_set_child
 import org.gtkkn.native.adw.adw_clamp_scrollable_set_maximum_size
 import org.gtkkn.native.adw.adw_clamp_scrollable_set_tightening_threshold
 import org.gtkkn.native.adw.adw_clamp_scrollable_set_unit
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget

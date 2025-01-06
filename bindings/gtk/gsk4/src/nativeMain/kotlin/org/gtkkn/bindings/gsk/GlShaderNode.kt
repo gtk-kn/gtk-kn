@@ -7,8 +7,8 @@ import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gsk.GskGLShaderNode
 import org.gtkkn.native.gsk.gsk_gl_shader_node_get_args
 import org.gtkkn.native.gsk.gsk_gl_shader_node_get_child
@@ -26,7 +26,7 @@ import org.gtkkn.native.gsk.gsk_gl_shader_node_get_type
 public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
     RenderNode(pointer.reinterpret()),
     KGTyped {
-    public val gskGLShaderNodePointer: CPointer<GskGLShaderNode>
+    public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>
         get() = gPointer.reinterpret()
 
     /**
@@ -34,7 +34,7 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      *
      * @return A `GBytes` with the uniform arguments
      */
-    public open fun getArgs(): Bytes = gsk_gl_shader_node_get_args(gskGLShaderNodePointer.reinterpret())!!.run {
+    public open fun getArgs(): Bytes = gsk_gl_shader_node_get_args(gskGlShaderNodePointer.reinterpret())!!.run {
         Bytes(reinterpret())
     }
 
@@ -45,7 +45,7 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      * @return the @idx'th child of @node
      */
     public open fun getChild(idx: guint): RenderNode =
-        gsk_gl_shader_node_get_child(gskGLShaderNodePointer.reinterpret(), idx)!!.run {
+        gsk_gl_shader_node_get_child(gskGlShaderNodePointer.reinterpret(), idx)!!.run {
             RenderNode(reinterpret())
         }
 
@@ -54,14 +54,14 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      *
      * @return The number of children
      */
-    public open fun getNChildren(): guint = gsk_gl_shader_node_get_n_children(gskGLShaderNodePointer.reinterpret())
+    public open fun getNChildren(): guint = gsk_gl_shader_node_get_n_children(gskGlShaderNodePointer.reinterpret())
 
     /**
      * Gets shader code for the node.
      *
      * @return the `GskGLShader` shader
      */
-    public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGLShaderNodePointer.reinterpret())!!.run {
+    public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGlShaderNodePointer.reinterpret())!!.run {
         GlShader(reinterpret())
     }
 

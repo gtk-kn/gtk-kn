@@ -11,8 +11,8 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GFileDescriptorBased
 import org.gtkkn.native.gio.g_file_descriptor_based_get_fd
 import org.gtkkn.native.gio.g_file_descriptor_based_get_type
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 
 /**
  * `GFileDescriptorBased` is an interface for file descriptor based IO.

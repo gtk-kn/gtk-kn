@@ -18,9 +18,9 @@ import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gio.GListModel
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkSelectionModel
 import org.gtkkn.native.gtk.gtk_selection_model_get_selection
 import org.gtkkn.native.gtk.gtk_selection_model_get_selection_in_range
@@ -225,8 +225,8 @@ public interface SelectionModel :
      */
     public fun setSelection(selected: Bitset, mask: Bitset): Boolean = gtk_selection_model_set_selection(
         gtkSelectionModelPointer.reinterpret(),
-        selected.gtkBitsetPointer.reinterpret(),
-        mask.gtkBitsetPointer.reinterpret()
+        selected.gPointer.reinterpret(),
+        mask.gPointer.reinterpret()
     ).asBoolean()
 
     /**

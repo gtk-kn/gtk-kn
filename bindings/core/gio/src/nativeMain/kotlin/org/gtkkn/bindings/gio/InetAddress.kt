@@ -30,8 +30,8 @@ import org.gtkkn.native.gio.g_inet_address_new_any
 import org.gtkkn.native.gio.g_inet_address_new_from_string
 import org.gtkkn.native.gio.g_inet_address_new_loopback
 import org.gtkkn.native.gio.g_inet_address_to_string
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Suppress
@@ -50,7 +50,7 @@ import kotlin.Suppress
  *
  * ## Skipped during bindings generation
  *
- * - method `to_bytes`: Return type guint8 is unsupported
+ * - method `to_bytes`: Return type guint8 is not supported
  * - method `bytes`: Property has no getter nor setter
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */

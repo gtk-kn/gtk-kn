@@ -10,8 +10,8 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GFlagsClass
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -23,31 +23,31 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `g_type_class`: TypeClass
+ * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
 public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectFlagsClassPointer: CPointer<GFlagsClass> = pointer
+    public val gPointer: CPointer<GFlagsClass> = pointer
 
     /**
      * a mask covering all possible values.
      */
     public var mask: guint
-        get() = gobjectFlagsClassPointer.pointed.mask
+        get() = gPointer.pointed.mask
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectFlagsClassPointer.pointed.mask = value
+            gPointer.pointed.mask = value
         }
 
     /**
      * the number of possible values.
      */
     public var nValues: guint
-        get() = gobjectFlagsClassPointer.pointed.n_values
+        get() = gPointer.pointed.n_values
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectFlagsClassPointer.pointed.n_values = value
+            gPointer.pointed.n_values = value
         }
 
     /**
@@ -55,13 +55,13 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      *  individual values.
      */
     public var values: FlagsValue?
-        get() = gobjectFlagsClassPointer.pointed.values?.run {
+        get() = gPointer.pointed.values?.run {
             FlagsValue(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectFlagsClassPointer.pointed.values = value?.gobjectFlagsValuePointer
+            gPointer.pointed.values = value?.gPointer
         }
 
     /**

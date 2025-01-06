@@ -9,8 +9,8 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.pango.PangoFontset
 import org.gtkkn.native.pango.pango_fontset_foreach
 import org.gtkkn.native.pango.pango_fontset_get_font

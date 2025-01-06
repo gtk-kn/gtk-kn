@@ -48,4 +48,6 @@ data class GirCallback(
         parameters?.initialize(this, namespace)
         returnValue?.initialize(this, namespace)
     }
+
+    override fun shouldBeGenerated() = info.gtkKnIgnore != true
 }

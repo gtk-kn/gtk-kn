@@ -18,10 +18,10 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellEditable
@@ -126,7 +126,7 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is unsupported
+ * - method `get_row_separator_func`: Return type TreeViewRowSeparatorFunc is not supported
  * - method `active-id`: Property setter does not return Unit
  * - method `has-frame`: Property has no getter nor setter
  * - method `popup-shown`: Property has no getter nor setter
@@ -394,10 +394,8 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * @param iter A `GtkTreeIter`
      * @return true if @iter was set, false otherwise
      */
-    public open fun getActiveIter(iter: TreeIter): Boolean = gtk_combo_box_get_active_iter(
-        gtkComboBoxPointer.reinterpret(),
-        iter.gtkTreeIterPointer.reinterpret()
-    ).asBoolean()
+    public open fun getActiveIter(iter: TreeIter): Boolean =
+        gtk_combo_box_get_active_iter(gtkComboBoxPointer.reinterpret(), iter.gPointer.reinterpret()).asBoolean()
 
     /**
      * Hides the menu or dropdown list of @combo_box.
@@ -457,7 +455,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * @param iter The `GtkTreeIter`
      */
     public open fun setActiveIter(iter: TreeIter? = null): Unit =
-        gtk_combo_box_set_active_iter(gtkComboBoxPointer.reinterpret(), iter?.gtkTreeIterPointer?.reinterpret())
+        gtk_combo_box_set_active_iter(gtkComboBoxPointer.reinterpret(), iter?.gPointer?.reinterpret())
 
     /**
      * Sets the row separator function, which is used to determine

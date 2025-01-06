@@ -38,8 +38,8 @@ import org.gtkkn.native.gio.g_output_stream_write_bytes_async
 import org.gtkkn.native.gio.g_output_stream_write_bytes_finish
 import org.gtkkn.native.gio.g_output_stream_write_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Long
 import kotlin.Result
@@ -73,11 +73,11 @@ import kotlin.Unit
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  * - parameter `buffer`: Array parameter of type guint8 is not supported
- * - parameter `vectors`: OutputVector
- * - parameter `vectors`: OutputVector
- * - parameter `vectors`: OutputVector
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
- * - parameter `vectors`: OutputVector
+ * - parameter `vectors`: Array parameter of type OutputVector is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  */
 public open class OutputStream(pointer: CPointer<GOutputStream>) :
@@ -423,7 +423,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         val gResult =
             g_output_stream_write_bytes(
                 gioOutputStreamPointer.reinterpret(),
-                bytes.glibBytesPointer.reinterpret(),
+                bytes.gPointer.reinterpret(),
                 cancellable?.gioCancellablePointer?.reinterpret(),
                 gError.ptr
             )
@@ -462,7 +462,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         callback: AsyncReadyCallback?,
     ): Unit = g_output_stream_write_bytes_async(
         gioOutputStreamPointer.reinterpret(),
-        bytes.glibBytesPointer.reinterpret(),
+        bytes.gPointer.reinterpret(),
         ioPriority,
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {

@@ -38,8 +38,8 @@ public interface TreeDragDest :
      */
     public fun dragDataReceived(dest: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_drag_data_received(
         gtkTreeDragDestPointer.reinterpret(),
-        dest.gtkTreePathPointer.reinterpret(),
-        `value`.gobjectValuePointer.reinterpret()
+        dest.gPointer.reinterpret(),
+        `value`.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -55,8 +55,8 @@ public interface TreeDragDest :
      */
     public fun rowDropPossible(destPath: TreePath, `value`: Value): Boolean = gtk_tree_drag_dest_row_drop_possible(
         gtkTreeDragDestPointer.reinterpret(),
-        destPath.gtkTreePathPointer.reinterpret(),
-        `value`.gobjectValuePointer.reinterpret()
+        destPath.gPointer.reinterpret(),
+        `value`.gPointer.reinterpret()
     ).asBoolean()
 
     private data class Wrapper(private val pointer: CPointer<GtkTreeDragDest>) : TreeDragDest {

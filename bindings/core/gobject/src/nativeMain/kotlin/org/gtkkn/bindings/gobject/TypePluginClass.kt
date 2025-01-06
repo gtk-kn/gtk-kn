@@ -24,7 +24,7 @@ import kotlin.native.ref.createCleaner
  * - field `complete_interface_info`: TypePluginCompleteInterfaceInfo
  */
 public class TypePluginClass(pointer: CPointer<GTypePluginClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectTypePluginClassPointer: CPointer<GTypePluginClass> = pointer
+    public val gPointer: CPointer<GTypePluginClass> = pointer
 
     /**
      * Allocate a new TypePluginClass.

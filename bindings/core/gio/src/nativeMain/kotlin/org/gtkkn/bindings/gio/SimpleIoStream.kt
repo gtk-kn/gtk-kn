@@ -35,7 +35,7 @@ import org.gtkkn.native.gobject.GType
 public open class SimpleIoStream(pointer: CPointer<GSimpleIOStream>) :
     IoStream(pointer.reinterpret()),
     KGTyped {
-    public val gioSimpleIOStreamPointer: CPointer<GSimpleIOStream>
+    public val gioSimpleIoStreamPointer: CPointer<GSimpleIOStream>
         get() = gPointer.reinterpret()
 
     /**

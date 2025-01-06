@@ -21,11 +21,11 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkCellLayout
@@ -547,7 +547,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @return a newly-allocated `GdkPaintable` of the drag icon.
      */
     public open fun createDragIcon(path: TreePath): Paintable? =
-        gtk_icon_view_create_drag_icon(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())?.run {
+        gtk_icon_view_create_drag_icon(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret())?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -562,7 +562,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     public open fun enableModelDragDest(formats: ContentFormats, actions: DragAction): Unit =
         gtk_icon_view_enable_model_drag_dest(
             gtkIconViewPointer.reinterpret(),
-            formats.gdkContentFormatsPointer.reinterpret(),
+            formats.gPointer.reinterpret(),
             actions.mask
         )
 
@@ -582,7 +582,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     ): Unit = gtk_icon_view_enable_model_drag_source(
         gtkIconViewPointer.reinterpret(),
         startButtonMask.mask,
-        formats.gdkContentFormatsPointer.reinterpret(),
+        formats.gPointer.reinterpret(),
         actions.mask
     )
 
@@ -600,9 +600,9 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     public open fun getCellRect(path: TreePath, cell: CellRenderer? = null, rect: Rectangle): Boolean =
         gtk_icon_view_get_cell_rect(
             gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
+            path.gPointer.reinterpret(),
             cell?.gtkCellRendererPointer?.reinterpret(),
-            rect.gdkRectanglePointer.reinterpret()
+            rect.gPointer.reinterpret()
         ).asBoolean()
 
     /**
@@ -613,7 +613,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @return The column in which the item is displayed
      */
     public open fun getItemColumn(path: TreePath): gint =
-        gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_icon_view_get_item_column(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Gets the row in which the item @path is currently
@@ -623,7 +623,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @return The row in which the item is displayed
      */
     public open fun getItemRow(path: TreePath): gint =
-        gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_icon_view_get_item_row(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Gets the path for the icon at the given position.
@@ -669,7 +669,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path The `GtkTreePath` to be activated
      */
     public open fun itemActivated(path: TreePath): Unit =
-        gtk_icon_view_item_activated(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_icon_view_item_activated(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Returns true if the icon pointed to by @path is currently
@@ -678,10 +678,8 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path A `GtkTreePath` to check selection on.
      * @return true if @path is selected.
      */
-    public open fun pathIsSelected(path: TreePath): Boolean = gtk_icon_view_path_is_selected(
-        gtkIconViewPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
-    ).asBoolean()
+    public open fun pathIsSelected(path: TreePath): Boolean =
+        gtk_icon_view_path_is_selected(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret()).asBoolean()
 
     /**
      * Moves the alignments of @icon_view to the position specified by @path.
@@ -707,7 +705,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     public open fun scrollToPath(path: TreePath, useAlign: Boolean, rowAlign: gfloat, colAlign: gfloat): Unit =
         gtk_icon_view_scroll_to_path(
             gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
+            path.gPointer.reinterpret(),
             useAlign.asGBoolean(),
             rowAlign,
             colAlign
@@ -725,7 +723,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path The `GtkTreePath` to be selected.
      */
     public open fun selectPath(path: TreePath): Unit =
-        gtk_icon_view_select_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_icon_view_select_path(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Calls a function for each selected icon. Note that the model or
@@ -757,7 +755,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     public open fun setCursor(path: TreePath, cell: CellRenderer? = null, startEditing: Boolean): Unit =
         gtk_icon_view_set_cursor(
             gtkIconViewPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
+            path.gPointer.reinterpret(),
             cell?.gtkCellRendererPointer?.reinterpret(),
             startEditing.asGBoolean()
         )
@@ -771,7 +769,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     public open fun setDragDestItem(path: TreePath? = null, pos: IconViewDropPosition): Unit =
         gtk_icon_view_set_drag_dest_item(
             gtkIconViewPointer.reinterpret(),
-            path?.gtkTreePathPointer?.reinterpret(),
+            path?.gPointer?.reinterpret(),
             pos.nativeValue
         )
 
@@ -789,7 +787,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
         gtk_icon_view_set_tooltip_cell(
             gtkIconViewPointer.reinterpret(),
             tooltip.gtkTooltipPointer.reinterpret(),
-            path.gtkTreePathPointer.reinterpret(),
+            path.gPointer.reinterpret(),
             cell?.gtkCellRendererPointer?.reinterpret()
         )
 
@@ -804,7 +802,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
     public open fun setTooltipItem(tooltip: Tooltip, path: TreePath): Unit = gtk_icon_view_set_tooltip_item(
         gtkIconViewPointer.reinterpret(),
         tooltip.gtkTooltipPointer.reinterpret(),
-        path.gtkTreePathPointer.reinterpret()
+        path.gPointer.reinterpret()
     )
 
     /**
@@ -818,7 +816,7 @@ public open class IconView(pointer: CPointer<GtkIconView>) :
      * @param path The `GtkTreePath` to be unselected.
      */
     public open fun unselectPath(path: TreePath): Unit =
-        gtk_icon_view_unselect_path(gtkIconViewPointer.reinterpret(), path.gtkTreePathPointer.reinterpret())
+        gtk_icon_view_unselect_path(gtkIconViewPointer.reinterpret(), path.gPointer.reinterpret())
 
     /**
      * Undoes the effect of gtk_icon_view_enable_model_drag_dest(). Calling this

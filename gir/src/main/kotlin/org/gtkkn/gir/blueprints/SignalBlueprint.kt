@@ -32,4 +32,5 @@ data class SignalBlueprint(
     val returnTypeKDoc: String?,
 ) : ClosureBlueprint {
     override val hasInstanceParameter: Boolean = true
+    override val noStringConversion: Boolean = false
 }

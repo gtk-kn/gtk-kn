@@ -1,4 +1,4 @@
-headers = cairo.h cairo-gobject.h
+headers = cairo.h cairo-gobject.h cairo-pdf.h cairo-ps.h cairo-svg.h cairo-tee.h cairo-script.h
 package = org.gtkkn.native.cairo
 headerFilter = cairo.h cairo-*.h
 
@@ -22,7 +22,8 @@ compilerOpts.linux_x64 = \
 
 # pkg-config --libs cairo | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
-    -lcairo
+    -lcairo \
+    -lcairo-gobject
 
 strictEnums = \
     cairo_status_t \

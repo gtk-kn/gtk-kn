@@ -10,9 +10,9 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GByteArray
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_byte_array_get_type
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
@@ -42,17 +42,17 @@ import kotlin.native.ref.createCleaner
  * - field `data`: Unsupported pointer to primitive type
  */
 public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibByteArrayPointer: CPointer<GByteArray> = pointer
+    public val gPointer: CPointer<GByteArray> = pointer
 
     /**
      * the number of elements in the #GByteArray
      */
     public var len: guint
-        get() = glibByteArrayPointer.pointed.len
+        get() = gPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibByteArrayPointer.pointed.len = value
+            gPointer.pointed.len = value
         }
 
     /**

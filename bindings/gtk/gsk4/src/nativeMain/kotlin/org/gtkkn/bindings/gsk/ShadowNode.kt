@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gsize
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gsize
 import org.gtkkn.native.gsk.GskShadowNode
 import org.gtkkn.native.gsk.gsk_shadow_node_get_child
 import org.gtkkn.native.gsk.gsk_shadow_node_get_n_shadows
@@ -19,7 +19,7 @@ import org.gtkkn.native.gsk.gsk_shadow_node_get_type
  *
  * ## Skipped during bindings generation
  *
- * - parameter `shadows`: Shadow
+ * - parameter `shadows`: Array parameter of type Shadow is not supported
  */
 public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
     RenderNode(pointer.reinterpret()),

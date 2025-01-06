@@ -7,6 +7,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.cairo.Region
 import org.gtkkn.bindings.gdk.Display
 import org.gtkkn.bindings.gdk.Surface
 import org.gtkkn.bindings.gdk.Texture
@@ -28,6 +29,7 @@ import org.gtkkn.native.gsk.gsk_renderer_is_realized
 import org.gtkkn.native.gsk.gsk_renderer_new_for_surface
 import org.gtkkn.native.gsk.gsk_renderer_realize
 import org.gtkkn.native.gsk.gsk_renderer_realize_for_display
+import org.gtkkn.native.gsk.gsk_renderer_render
 import org.gtkkn.native.gsk.gsk_renderer_render_texture
 import org.gtkkn.native.gsk.gsk_renderer_unrealize
 import kotlin.Boolean
@@ -49,7 +51,6 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `region`: cairo.Region
  * - method `realized`: Property has no getter nor setter
  */
 public open class Renderer(pointer: CPointer<GskRenderer>) :
@@ -152,6 +153,30 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
     }
 
     /**
+     * Renders the scene graph, described by a tree of `GskRenderNode` instances
+     * to the renderer's surface,  ensuring that the given @region gets redrawn.
+     *
+     * If the renderer has no associated surface, this function does nothing.
+     *
+     * Renderers must ensure that changes of the contents given by the @root
+     * node as well as the area given by @region are redrawn. They are however
+     * free to not redraw any pixel outside of @region if they can guarantee that
+     * it didn't change.
+     *
+     * The @renderer will acquire a reference on the `GskRenderNode` tree while
+     * the rendering is in progress.
+     *
+     * @param root a `GskRenderNode`
+     * @param region the `cairo_region_t` that must be redrawn or null
+     *   for the whole window
+     */
+    public open fun render(root: RenderNode, region: Region? = null): Unit = gsk_renderer_render(
+        gskRendererPointer.reinterpret(),
+        root.gPointer.reinterpret(),
+        region?.gPointer?.reinterpret()
+    )
+
+    /**
      * Renders the scene graph, described by a tree of `GskRenderNode` instances,
      * to a `GdkTexture`.
      *
@@ -168,7 +193,7 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
     public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(
         gskRendererPointer.reinterpret(),
         root.gPointer.reinterpret(),
-        viewport?.grapheneRectPointer?.reinterpret()
+        viewport?.gPointer?.reinterpret()
     )!!.run {
         Texture(reinterpret())
     }

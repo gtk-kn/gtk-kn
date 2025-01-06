@@ -38,9 +38,9 @@ import org.gtkkn.native.gdk.gdk_pixbuf_loader_new_with_type
 import org.gtkkn.native.gdk.gdk_pixbuf_loader_set_size
 import org.gtkkn.native.gdk.gdk_pixbuf_loader_write_bytes
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -259,7 +259,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
         val gError = allocPointerTo<GError>()
         val gResult = gdk_pixbuf_loader_write_bytes(
             gdkPixbufLoaderPointer.reinterpret(),
-            buffer.glibBytesPointer.reinterpret(),
+            buffer.gPointer.reinterpret(),
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {

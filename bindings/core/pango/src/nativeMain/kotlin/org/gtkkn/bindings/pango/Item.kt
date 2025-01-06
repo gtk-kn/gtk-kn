@@ -7,8 +7,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.pango.PangoItem
 import org.gtkkn.native.pango.pango_item_apply_attrs
 import org.gtkkn.native.pango.pango_item_copy
@@ -27,42 +27,42 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - field `analysis`: Analysis
+ * - field `analysis`: Field with not-pointer record/union PangoAnalysis is not supported
  */
 public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
-    public val pangoItemPointer: CPointer<PangoItem> = pointer
+    public val gPointer: CPointer<PangoItem> = pointer
 
     /**
      * byte offset of the start of this item in text.
      */
     public var offset: gint
-        get() = pangoItemPointer.pointed.offset
+        get() = gPointer.pointed.offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoItemPointer.pointed.offset = value
+            gPointer.pointed.offset = value
         }
 
     /**
      * length of this item in bytes.
      */
     public var length: gint
-        get() = pangoItemPointer.pointed.length
+        get() = gPointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoItemPointer.pointed.length = value
+            gPointer.pointed.length = value
         }
 
     /**
      * number of Unicode characters in the item.
      */
     public var numChars: gint
-        get() = pangoItemPointer.pointed.num_chars
+        get() = gPointer.pointed.num_chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoItemPointer.pointed.num_chars = value
+            gPointer.pointed.num_chars = value
         }
 
     /**
@@ -83,21 +83,21 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
      */
     @PangoVersion1_44
     public fun applyAttrs(iter: AttrIterator): Unit =
-        pango_item_apply_attrs(pangoItemPointer.reinterpret(), iter.pangoAttrIteratorPointer.reinterpret())
+        pango_item_apply_attrs(gPointer.reinterpret(), iter.gPointer.reinterpret())
 
     /**
      * Copy an existing `PangoItem` structure.
      *
      * @return the newly allocated `PangoItem`
      */
-    public fun copy(): Item? = pango_item_copy(pangoItemPointer.reinterpret())?.run {
+    public fun copy(): Item? = pango_item_copy(gPointer.reinterpret())?.run {
         Item(reinterpret())
     }
 
     /**
      * Free a `PangoItem` and all associated memory.
      */
-    public fun free(): Unit = pango_item_free(pangoItemPointer.reinterpret())
+    public fun free(): Unit = pango_item_free(gPointer.reinterpret())
 
     /**
      * Modifies @orig to cover only the text after @split_index, and
@@ -120,7 +120,7 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
      *   should be freed with [method@Pango.Item.free].
      */
     public fun split(splitIndex: gint, splitOffset: gint): Item =
-        pango_item_split(pangoItemPointer.reinterpret(), splitIndex, splitOffset)!!.run {
+        pango_item_split(gPointer.reinterpret(), splitIndex, splitOffset)!!.run {
             Item(reinterpret())
         }
 

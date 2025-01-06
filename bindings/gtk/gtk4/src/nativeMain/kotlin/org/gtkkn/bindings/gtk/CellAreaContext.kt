@@ -7,8 +7,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkCellAreaContext
 import org.gtkkn.native.gtk.gtk_cell_area_context_allocate
 import org.gtkkn.native.gtk.gtk_cell_area_context_get_area

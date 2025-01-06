@@ -44,7 +44,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
     ) : this(
         gsk_fill_node_new(
             child.gPointer.reinterpret(),
-            path.gskPathPointer.reinterpret(),
+            path.gPointer.reinterpret(),
             fillRule.nativeValue
         )!!.reinterpret()
     )

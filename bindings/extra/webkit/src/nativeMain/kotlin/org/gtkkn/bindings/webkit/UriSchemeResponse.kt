@@ -10,9 +10,9 @@ import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_36
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint64
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.webkit.WebKitURISchemeResponse
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_get_type
 import org.gtkkn.native.webkit.webkit_uri_scheme_response_new
@@ -44,7 +44,7 @@ import kotlin.Unit
 public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val webkitURISchemeResponsePointer: CPointer<WebKitURISchemeResponse>
+    public val webkitUriSchemeResponsePointer: CPointer<WebKitURISchemeResponse>
         get() = gPointer.reinterpret()
 
     /**
@@ -70,7 +70,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      */
     @WebKitVersion2_36
     public fun setContentType(contentType: String): Unit =
-        webkit_uri_scheme_response_set_content_type(webkitURISchemeResponsePointer.reinterpret(), contentType)
+        webkit_uri_scheme_response_set_content_type(webkitUriSchemeResponsePointer.reinterpret(), contentType)
 
     /**
      * Assign the provided #SoupMessageHeaders to the response.
@@ -83,8 +83,8 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      */
     @WebKitVersion2_36
     public fun setHttpHeaders(headers: MessageHeaders): Unit = webkit_uri_scheme_response_set_http_headers(
-        webkitURISchemeResponsePointer.reinterpret(),
-        headers.soupMessageHeadersPointer.reinterpret()
+        webkitUriSchemeResponsePointer.reinterpret(),
+        headers.gPointer.reinterpret()
     )
 
     /**
@@ -98,7 +98,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      */
     @WebKitVersion2_36
     public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit =
-        webkit_uri_scheme_response_set_status(webkitURISchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
+        webkit_uri_scheme_response_set_status(webkitUriSchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
 
     public companion object : TypeCompanion<UriSchemeResponse> {
         override val type: GeneratedClassKGType<UriSchemeResponse> =

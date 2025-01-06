@@ -18,8 +18,8 @@ import org.gtkkn.native.gio.g_dbus_property_info_ref
 import org.gtkkn.native.gio.g_dbus_property_info_unref
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -38,54 +38,54 @@ import kotlin.native.ref.createCleaner
 @GioVersion2_26
 public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>, cleaner: Cleaner? = null) :
     ProxyInstance(pointer) {
-    public val gioDBusPropertyInfoPointer: CPointer<GDBusPropertyInfo> = pointer
+    public val gPointer: CPointer<GDBusPropertyInfo> = pointer
 
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gioDBusPropertyInfoPointer.pointed.ref_count
+        get() = gPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusPropertyInfoPointer.pointed.ref_count = value
+            gPointer.pointed.ref_count = value
         }
 
     /**
      * The name of the D-Bus property, e.g. "SupportedFilesystems".
      */
     public var name: String?
-        get() = gioDBusPropertyInfoPointer.pointed.name?.toKString()
+        get() = gPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusPropertyInfoPointer.pointed.name?.let { g_free(it) }
-            gioDBusPropertyInfoPointer.pointed.name = value?.let { g_strdup(it) }
+            gPointer.pointed.name?.let { g_free(it) }
+            gPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
      * The D-Bus signature of the property (a single complete type).
      */
     public var signature: String?
-        get() = gioDBusPropertyInfoPointer.pointed.signature?.toKString()
+        get() = gPointer.pointed.signature?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusPropertyInfoPointer.pointed.signature?.let { g_free(it) }
-            gioDBusPropertyInfoPointer.pointed.signature = value?.let { g_strdup(it) }
+            gPointer.pointed.signature?.let { g_free(it) }
+            gPointer.pointed.signature = value?.let { g_strdup(it) }
         }
 
     /**
      * Access control flags for the property.
      */
     public var flags: DBusPropertyInfoFlags
-        get() = gioDBusPropertyInfoPointer.pointed.flags.run {
+        get() = gPointer.pointed.flags.run {
             DBusPropertyInfoFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gioDBusPropertyInfoPointer.pointed.flags = value.mask
+            gPointer.pointed.flags = value.mask
         }
 
     /**
@@ -174,7 +174,7 @@ public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>, cleaner: Cle
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusPropertyInfo = g_dbus_property_info_ref(gioDBusPropertyInfoPointer.reinterpret())!!.run {
+    public fun ref(): DBusPropertyInfo = g_dbus_property_info_ref(gPointer.reinterpret())!!.run {
         DBusPropertyInfo(reinterpret())
     }
 
@@ -186,7 +186,7 @@ public class DBusPropertyInfo(pointer: CPointer<GDBusPropertyInfo>, cleaner: Cle
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_property_info_unref(gioDBusPropertyInfoPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_property_info_unref(gPointer.reinterpret())
 
     override fun toString(): String =
         "DBusPropertyInfo(refCount=$refCount, name=$name, signature=$signature, flags=$flags)"

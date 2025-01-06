@@ -50,9 +50,9 @@ import org.gtkkn.native.gio.g_resolver_lookup_service_finish
 import org.gtkkn.native.gio.g_resolver_set_default
 import org.gtkkn.native.gio.g_resolver_set_timeout
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import kotlin.Result
 import kotlin.String
 import kotlin.ULong
@@ -698,8 +698,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          * @since 2.22
          */
         @GioVersion2_22
-        public fun freeAddresses(addresses: List): Unit =
-            g_resolver_free_addresses(addresses.glibListPointer.reinterpret())
+        public fun freeAddresses(addresses: List): Unit = g_resolver_free_addresses(addresses.gPointer.reinterpret())
 
         /**
          * Frees @targets (which should be the return value from
@@ -711,7 +710,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          * @since 2.22
          */
         @GioVersion2_22
-        public fun freeTargets(targets: List): Unit = g_resolver_free_targets(targets.glibListPointer.reinterpret())
+        public fun freeTargets(targets: List): Unit = g_resolver_free_targets(targets.gPointer.reinterpret())
 
         /**
          * Gets the default #GResolver. You should unref it when you are done

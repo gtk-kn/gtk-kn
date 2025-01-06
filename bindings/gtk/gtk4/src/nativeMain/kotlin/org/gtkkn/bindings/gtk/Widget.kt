@@ -10,6 +10,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
+import org.gtkkn.bindings.cairo.FontOptions
 import org.gtkkn.bindings.gdk.Clipboard
 import org.gtkkn.bindings.gdk.Cursor
 import org.gtkkn.bindings.gdk.Display
@@ -39,12 +40,12 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gboolean
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gboolean
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -76,6 +77,7 @@ import org.gtkkn.native.gtk.gtk_widget_error_bell
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_baseline
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_height
 import org.gtkkn.native.gtk.gtk_widget_get_allocated_width
+import org.gtkkn.native.gtk.gtk_widget_get_allocation
 import org.gtkkn.native.gtk.gtk_widget_get_ancestor
 import org.gtkkn.native.gtk.gtk_widget_get_baseline
 import org.gtkkn.native.gtk.gtk_widget_get_can_focus
@@ -94,6 +96,7 @@ import org.gtkkn.native.gtk.gtk_widget_get_focus_child
 import org.gtkkn.native.gtk.gtk_widget_get_focus_on_click
 import org.gtkkn.native.gtk.gtk_widget_get_focusable
 import org.gtkkn.native.gtk.gtk_widget_get_font_map
+import org.gtkkn.native.gtk.gtk_widget_get_font_options
 import org.gtkkn.native.gtk.gtk_widget_get_frame_clock
 import org.gtkkn.native.gtk.gtk_widget_get_halign
 import org.gtkkn.native.gtk.gtk_widget_get_has_tooltip
@@ -179,6 +182,7 @@ import org.gtkkn.native.gtk.gtk_widget_set_focus_child
 import org.gtkkn.native.gtk.gtk_widget_set_focus_on_click
 import org.gtkkn.native.gtk.gtk_widget_set_focusable
 import org.gtkkn.native.gtk.gtk_widget_set_font_map
+import org.gtkkn.native.gtk.gtk_widget_set_font_options
 import org.gtkkn.native.gtk.gtk_widget_set_halign
 import org.gtkkn.native.gtk.gtk_widget_set_has_tooltip
 import org.gtkkn.native.gtk.gtk_widget_set_hexpand
@@ -204,6 +208,8 @@ import org.gtkkn.native.gtk.gtk_widget_set_vexpand_set
 import org.gtkkn.native.gtk.gtk_widget_set_visible
 import org.gtkkn.native.gtk.gtk_widget_should_layout
 import org.gtkkn.native.gtk.gtk_widget_show
+import org.gtkkn.native.gtk.gtk_widget_size_allocate
+import org.gtkkn.native.gtk.gtk_widget_snapshot_child
 import org.gtkkn.native.gtk.gtk_widget_trigger_tooltip_query
 import org.gtkkn.native.gtk.gtk_widget_unmap
 import org.gtkkn.native.gtk.gtk_widget_unparent
@@ -613,13 +619,8 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * ## Skipped during bindings generation
  *
- * - parameter `allocation`: allocation: Out parameter is not supported
- * - method `get_font_options`: Return type cairo.FontOptions is unsupported
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `minimum`: minimum: Out parameter is not supported
- * - parameter `options`: cairo.FontOptions
- * - parameter `allocation`: Gdk.Rectangle
- * - parameter `snapshot`: missing cType for GirClass Snapshot
  * - parameter `dest_x`: dest_x: Out parameter is not supported
  * - method `has-default`: Property has no getter nor setter
  * - method `has-focus`: Property has no getter nor setter
@@ -1544,7 +1545,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         gtk_widget_activate_action_variant(
             gtkWidgetPointer.reinterpret(),
             name,
-            args?.glibVariantPointer?.reinterpret()
+            args?.gPointer?.reinterpret()
         ).asBoolean()
 
     /**
@@ -1646,13 +1647,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param transform Transformation to be applied to @widget
      */
     public open fun allocate(width: gint, height: gint, baseline: gint, transform: Transform? = null): Unit =
-        gtk_widget_allocate(
-            gtkWidgetPointer.reinterpret(),
-            width,
-            height,
-            baseline,
-            transform?.gskTransformPointer?.reinterpret()
-        )
+        gtk_widget_allocate(gtkWidgetPointer.reinterpret(), width, height, baseline, transform?.gPointer?.reinterpret())
 
     /**
      * Called by widgets as the user moves around the window using
@@ -1703,7 +1698,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun computeBounds(target: Widget, outBounds: Rect): Boolean = gtk_widget_compute_bounds(
         gtkWidgetPointer.reinterpret(),
         target.gtkWidgetPointer.reinterpret(),
-        outBounds.grapheneRectPointer.reinterpret()
+        outBounds.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -1744,8 +1739,8 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun computePoint(target: Widget, point: Point, outPoint: Point): Boolean = gtk_widget_compute_point(
         gtkWidgetPointer.reinterpret(),
         target.gtkWidgetPointer.reinterpret(),
-        point.graphenePointPointer.reinterpret(),
-        outPoint.graphenePointPointer.reinterpret()
+        point.gPointer.reinterpret(),
+        outPoint.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -1767,7 +1762,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun computeTransform(target: Widget, outTransform: Matrix): Boolean = gtk_widget_compute_transform(
         gtkWidgetPointer.reinterpret(),
         target.gtkWidgetPointer.reinterpret(),
-        outTransform.grapheneMatrixPointer.reinterpret()
+        outTransform.gPointer.reinterpret()
     ).asBoolean()
 
     /**
@@ -1905,6 +1900,28 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun getAllocatedWidth(): gint = gtk_widget_get_allocated_width(gtkWidgetPointer.reinterpret())
 
     /**
+     * Retrieves the widget’s allocation.
+     *
+     * Note, when implementing a layout container: a widget’s allocation
+     * will be its “adjusted” allocation, that is, the widget’s parent
+     * typically calls [method@Gtk.Widget.size_allocate] with an allocation,
+     * and that allocation is then adjusted (to handle margin
+     * and alignment for example) before assignment to the widget.
+     * [method@Gtk.Widget.get_allocation] returns the adjusted allocation that
+     * was actually assigned to the widget. The adjusted allocation is
+     * guaranteed to be completely contained within the
+     * [method@Gtk.Widget.size_allocate] allocation, however.
+     *
+     * So a layout container is guaranteed that its children stay inside
+     * the assigned bounds, but not that they have exactly the bounds the
+     * container assigned.
+     *
+     * @param allocation a pointer to a `GtkAllocation` to copy to
+     */
+    public open fun getAllocation(allocation: Allocation): Unit =
+        gtk_widget_get_allocation(gtkWidgetPointer.reinterpret(), allocation.gPointer.reinterpret())
+
+    /**
      * Gets the first ancestor of @widget with type @widget_type.
      *
      * For example, `gtk_widget_get_ancestor (widget, GTK_TYPE_BOX)`
@@ -1978,7 +1995,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     @GtkVersion4_10
     public open fun getColor(color: Rgba): Unit =
-        gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gdkRGBAPointer.reinterpret())
+        gtk_widget_get_color(gtkWidgetPointer.reinterpret(), color.gPointer.reinterpret())
 
     /**
      * Gets the reading direction for a particular widget.
@@ -2039,6 +2056,18 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public open fun getFontMap(): FontMap? = gtk_widget_get_font_map(gtkWidgetPointer.reinterpret())?.run {
         FontMap(reinterpret())
+    }
+
+    /**
+     * Returns the `cairo_font_options_t` of widget.
+     *
+     * Seee [method@Gtk.Widget.set_font_options].
+     *
+     * @return the `cairo_font_options_t`
+     *   of widget
+     */
+    public open fun getFontOptions(): FontOptions? = gtk_widget_get_font_options(gtkWidgetPointer.reinterpret())?.run {
+        FontOptions(reinterpret())
     }
 
     /**
@@ -2169,8 +2198,8 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun getPreferredSize(minimumSize: Requisition?, naturalSize: Requisition?): Unit =
         gtk_widget_get_preferred_size(
             gtkWidgetPointer.reinterpret(),
-            minimumSize?.gtkRequisitionPointer?.reinterpret(),
-            naturalSize?.gtkRequisitionPointer?.reinterpret()
+            minimumSize?.gPointer?.reinterpret(),
+            naturalSize?.gPointer?.reinterpret()
         )
 
     /**
@@ -2892,6 +2921,19 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         gtk_widget_set_font_map(gtkWidgetPointer.reinterpret(), fontMap?.pangoFontMapPointer?.reinterpret())
 
     /**
+     * Sets the `cairo_font_options_t` used for Pango rendering
+     * in this widget.
+     *
+     * When not set, the default font options for the `GdkDisplay`
+     * will be used.
+     *
+     * @param options a `cairo_font_options_t`
+     *   to unset any previously set default font options
+     */
+    public open fun setFontOptions(options: FontOptions? = null): Unit =
+        gtk_widget_set_font_options(gtkWidgetPointer.reinterpret(), options?.gPointer?.reinterpret())
+
+    /**
      * Sets @parent as the parent widget of @widget.
      *
      * This takes care of details such as updating the state and style
@@ -2991,6 +3033,45 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * toplevel container is realized and mapped.
      */
     public open fun show(): Unit = gtk_widget_show(gtkWidgetPointer.reinterpret())
+
+    /**
+     * Allocates widget with a transformation that translates
+     * the origin to the position in @allocation.
+     *
+     * This is a simple form of [method@Gtk.Widget.allocate].
+     *
+     * @param allocation position and size to be allocated to @widget
+     * @param baseline The baseline of the child, or -1
+     */
+    public open fun sizeAllocate(allocation: Allocation, baseline: gint): Unit =
+        gtk_widget_size_allocate(gtkWidgetPointer.reinterpret(), allocation.gPointer.reinterpret(), baseline)
+
+    /**
+     * Snapshot the a child of @widget.
+     *
+     * When a widget receives a call to the snapshot function,
+     * it must send synthetic [vfunc@Gtk.Widget.snapshot] calls
+     * to all children. This function provides a convenient way
+     * of doing this. A widget, when it receives a call to its
+     * [vfunc@Gtk.Widget.snapshot] function, calls
+     * gtk_widget_snapshot_child() once for each child, passing in
+     * the @snapshot the widget received.
+     *
+     * gtk_widget_snapshot_child() takes care of translating the origin of
+     * @snapshot, and deciding whether the child needs to be snapshot.
+     *
+     * This function does nothing for children that implement `GtkNative`.
+     *
+     * @param child a child of @widget
+     * @param snapshot `GtkSnapshot` as passed to the widget. In particular, no
+     *   calls to gtk_snapshot_translate() or other transform calls should
+     *   have been made.
+     */
+    public open fun snapshotChild(child: Widget, snapshot: Snapshot): Unit = gtk_widget_snapshot_child(
+        gtkWidgetPointer.reinterpret(),
+        child.gtkWidgetPointer.reinterpret(),
+        snapshot.gtkSnapshotPointer.reinterpret()
+    )
 
     /**
      * Triggers a tooltip query on the display where the toplevel

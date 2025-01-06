@@ -39,10 +39,7 @@ public open class TextureNode(pointer: CPointer<GskTextureNode>) :
         texture: Texture,
         bounds: Rect,
     ) : this(
-        gsk_texture_node_new(
-            texture.gdkTexturePointer.reinterpret(),
-            bounds.grapheneRectPointer.reinterpret()
-        )!!.reinterpret()
+        gsk_texture_node_new(texture.gdkTexturePointer.reinterpret(), bounds.gPointer.reinterpret())!!.reinterpret()
     )
 
     /**

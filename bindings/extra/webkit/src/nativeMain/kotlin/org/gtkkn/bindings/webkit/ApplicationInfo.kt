@@ -6,8 +6,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_18
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint64
 import org.gtkkn.native.webkit.WebKitApplicationInfo
 import org.gtkkn.native.webkit.webkit_application_info_get_name
 import org.gtkkn.native.webkit.webkit_application_info_get_type
@@ -27,7 +27,7 @@ import kotlin.Unit
  * - parameter `major`: major: Out parameter is not supported
  */
 public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyInstance(pointer) {
-    public val webkitApplicationInfoPointer: CPointer<WebKitApplicationInfo> = pointer
+    public val gPointer: CPointer<WebKitApplicationInfo> = pointer
 
     /**
      * Get the name of the application.
@@ -40,8 +40,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      */
     @WebKitVersion2_18
     public fun getName(): String =
-        webkit_application_info_get_name(webkitApplicationInfoPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_application_info_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @info by one.
@@ -53,7 +52,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun ref(): ApplicationInfo = webkit_application_info_ref(webkitApplicationInfoPointer.reinterpret())!!.run {
+    public fun ref(): ApplicationInfo = webkit_application_info_ref(gPointer.reinterpret())!!.run {
         ApplicationInfo(reinterpret())
     }
 
@@ -67,8 +66,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setName(name: String): Unit =
-        webkit_application_info_set_name(webkitApplicationInfoPointer.reinterpret(), name)
+    public fun setName(name: String): Unit = webkit_application_info_set_name(gPointer.reinterpret(), name)
 
     /**
      * Set the application version.
@@ -85,7 +83,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      */
     @WebKitVersion2_18
     public fun setVersion(major: guint64, minor: guint64, micro: guint64): Unit =
-        webkit_application_info_set_version(webkitApplicationInfoPointer.reinterpret(), major, minor, micro)
+        webkit_application_info_set_version(gPointer.reinterpret(), major, minor, micro)
 
     /**
      * Atomically decrements the reference count of @info by one.
@@ -98,7 +96,7 @@ public class ApplicationInfo(pointer: CPointer<WebKitApplicationInfo>) : ProxyIn
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun unref(): Unit = webkit_application_info_unref(webkitApplicationInfoPointer.reinterpret())
+    public fun unref(): Unit = webkit_application_info_unref(gPointer.reinterpret())
 
     public companion object {
         /**

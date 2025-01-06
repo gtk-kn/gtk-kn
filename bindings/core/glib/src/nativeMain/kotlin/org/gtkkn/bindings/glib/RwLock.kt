@@ -93,7 +93,7 @@ import kotlin.native.ref.createCleaner
  */
 @GLibVersion2_32
 public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibRWLockPointer: CPointer<GRWLock> = pointer
+    public val gPointer: CPointer<GRWLock> = pointer
 
     /**
      * Allocate a new RwLock.
@@ -136,7 +136,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_rw_lock_clear(glibRWLockPointer.reinterpret())
+    public fun clear(): Unit = g_rw_lock_clear(gPointer.reinterpret())
 
     /**
      * Initializes a #GRWLock so that it can be used.
@@ -167,7 +167,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_rw_lock_init(glibRWLockPointer.reinterpret())
+    public fun `init`(): Unit = g_rw_lock_init(gPointer.reinterpret())
 
     /**
      * Obtain a read lock on @rw_lock. If another thread currently holds
@@ -189,7 +189,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun readerLock(): Unit = g_rw_lock_reader_lock(glibRWLockPointer.reinterpret())
+    public fun readerLock(): Unit = g_rw_lock_reader_lock(gPointer.reinterpret())
 
     /**
      * Tries to obtain a read lock on @rw_lock and returns true if
@@ -200,7 +200,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun readerTrylock(): Boolean = g_rw_lock_reader_trylock(glibRWLockPointer.reinterpret()).asBoolean()
+    public fun readerTrylock(): Boolean = g_rw_lock_reader_trylock(gPointer.reinterpret()).asBoolean()
 
     /**
      * Release a read lock on @rw_lock.
@@ -211,7 +211,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun readerUnlock(): Unit = g_rw_lock_reader_unlock(glibRWLockPointer.reinterpret())
+    public fun readerUnlock(): Unit = g_rw_lock_reader_unlock(gPointer.reinterpret())
 
     /**
      * Obtain a write lock on @rw_lock. If another thread currently holds
@@ -224,7 +224,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun writerLock(): Unit = g_rw_lock_writer_lock(glibRWLockPointer.reinterpret())
+    public fun writerLock(): Unit = g_rw_lock_writer_lock(gPointer.reinterpret())
 
     /**
      * Tries to obtain a write lock on @rw_lock. If another thread
@@ -236,7 +236,7 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun writerTrylock(): Boolean = g_rw_lock_writer_trylock(glibRWLockPointer.reinterpret()).asBoolean()
+    public fun writerTrylock(): Boolean = g_rw_lock_writer_trylock(gPointer.reinterpret()).asBoolean()
 
     /**
      * Release a write lock on @rw_lock.
@@ -247,5 +247,5 @@ public class RwLock(pointer: CPointer<GRWLock>, cleaner: Cleaner? = null) : Prox
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun writerUnlock(): Unit = g_rw_lock_writer_unlock(glibRWLockPointer.reinterpret())
+    public fun writerUnlock(): Unit = g_rw_lock_writer_unlock(gPointer.reinterpret())
 }

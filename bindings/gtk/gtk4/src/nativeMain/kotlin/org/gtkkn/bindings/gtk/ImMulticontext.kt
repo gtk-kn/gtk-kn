@@ -27,7 +27,7 @@ import kotlin.Unit
 public open class ImMulticontext(pointer: CPointer<GtkIMMulticontext>) :
     ImContext(pointer.reinterpret()),
     KGTyped {
-    public val gtkIMMulticontextPointer: CPointer<GtkIMMulticontext>
+    public val gtkImMulticontextPointer: CPointer<GtkIMMulticontext>
         get() = gPointer.reinterpret()
 
     /**
@@ -43,7 +43,7 @@ public open class ImMulticontext(pointer: CPointer<GtkIMMulticontext>) :
      * @return the id of the currently active delegate
      */
     public open fun getContextId(): String =
-        gtk_im_multicontext_get_context_id(gtkIMMulticontextPointer.reinterpret())?.toKString()
+        gtk_im_multicontext_get_context_id(gtkImMulticontextPointer.reinterpret())?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -59,7 +59,7 @@ public open class ImMulticontext(pointer: CPointer<GtkIMMulticontext>) :
      * @param contextId the id to use
      */
     public open fun setContextId(contextId: String? = null): Unit =
-        gtk_im_multicontext_set_context_id(gtkIMMulticontextPointer.reinterpret(), contextId)
+        gtk_im_multicontext_set_context_id(gtkImMulticontextPointer.reinterpret(), contextId)
 
     public companion object : TypeCompanion<ImMulticontext> {
         override val type: GeneratedClassKGType<ImMulticontext> =

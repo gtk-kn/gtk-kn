@@ -163,10 +163,8 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param rect bounding box containing all active touches.
      * @return true if there are active touches, false otherwise
      */
-    public open fun getBoundingBox(rect: Rectangle): Boolean = gtk_gesture_get_bounding_box(
-        gtkGesturePointer.reinterpret(),
-        rect.gdkRectanglePointer.reinterpret()
-    ).asBoolean()
+    public open fun getBoundingBox(rect: Rectangle): Boolean =
+        gtk_gesture_get_bounding_box(gtkGesturePointer.reinterpret(), rect.gPointer.reinterpret()).asBoolean()
 
     /**
      * Returns the logical `GdkDevice` that is currently operating
@@ -200,12 +198,10 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param sequence a `GdkEventSequence`
      * @return The last event from @sequence
      */
-    public open fun getLastEvent(sequence: EventSequence? = null): Event? = gtk_gesture_get_last_event(
-        gtkGesturePointer.reinterpret(),
-        sequence?.gdkEventSequencePointer?.reinterpret()
-    )?.run {
-        Event(reinterpret())
-    }
+    public open fun getLastEvent(sequence: EventSequence? = null): Event? =
+        gtk_gesture_get_last_event(gtkGesturePointer.reinterpret(), sequence?.gPointer?.reinterpret())?.run {
+            Event(reinterpret())
+        }
 
     /**
      * Returns the `GdkEventSequence` that was last updated on @gesture.
@@ -223,12 +219,10 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param sequence a `GdkEventSequence`
      * @return The sequence state in @gesture
      */
-    public open fun getSequenceState(sequence: EventSequence): EventSequenceState = gtk_gesture_get_sequence_state(
-        gtkGesturePointer.reinterpret(),
-        sequence.gdkEventSequencePointer.reinterpret()
-    ).run {
-        EventSequenceState.fromNativeValue(this)
-    }
+    public open fun getSequenceState(sequence: EventSequence): EventSequenceState =
+        gtk_gesture_get_sequence_state(gtkGesturePointer.reinterpret(), sequence.gPointer.reinterpret()).run {
+            EventSequenceState.fromNativeValue(this)
+        }
 
     /**
      * Returns the list of `GdkEventSequences` currently being interpreted
@@ -274,10 +268,8 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param sequence a `GdkEventSequence`
      * @return true if @gesture is handling @sequence, false otherwise
      */
-    public open fun handlesSequence(sequence: EventSequence? = null): Boolean = gtk_gesture_handles_sequence(
-        gtkGesturePointer.reinterpret(),
-        sequence?.gdkEventSequencePointer?.reinterpret()
-    ).asBoolean()
+    public open fun handlesSequence(sequence: EventSequence? = null): Boolean =
+        gtk_gesture_handles_sequence(gtkGesturePointer.reinterpret(), sequence?.gPointer?.reinterpret()).asBoolean()
 
     /**
      * Returns true if the gesture is currently active.
@@ -360,7 +352,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
     public open fun setSequenceState(sequence: EventSequence, state: EventSequenceState): Boolean =
         gtk_gesture_set_sequence_state(
             gtkGesturePointer.reinterpret(),
-            sequence.gdkEventSequencePointer.reinterpret(),
+            sequence.gPointer.reinterpret(),
             state.nativeValue
         ).asBoolean()
 

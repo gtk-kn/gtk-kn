@@ -11,10 +11,10 @@ import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint16
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint16
 import org.gtkkn.native.pango.PangoRenderer
 import org.gtkkn.native.pango.pango_renderer_activate
 import org.gtkkn.native.pango.pango_renderer_deactivate
@@ -145,13 +145,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_22
     public open fun drawGlyphItem(text: String? = null, glyphItem: GlyphItem, x: gint, y: gint): Unit =
-        pango_renderer_draw_glyph_item(
-            pangoRendererPointer.reinterpret(),
-            text,
-            glyphItem.pangoGlyphItemPointer.reinterpret(),
-            x,
-            y
-        )
+        pango_renderer_draw_glyph_item(pangoRendererPointer.reinterpret(), text, glyphItem.gPointer.reinterpret(), x, y)
 
     /**
      * Draws the glyphs in @glyphs with the specified `PangoRenderer`.
@@ -168,7 +162,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
     public open fun drawGlyphs(font: Font, glyphs: GlyphString, x: gint, y: gint): Unit = pango_renderer_draw_glyphs(
         pangoRendererPointer.reinterpret(),
         font.pangoFontPointer.reinterpret(),
-        glyphs.pangoGlyphStringPointer.reinterpret(),
+        glyphs.gPointer.reinterpret(),
         x,
         y
     )
@@ -205,12 +199,8 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.8
      */
     @PangoVersion1_8
-    public open fun drawLayoutLine(line: LayoutLine, x: gint, y: gint): Unit = pango_renderer_draw_layout_line(
-        pangoRendererPointer.reinterpret(),
-        line.pangoLayoutLinePointer.reinterpret(),
-        x,
-        y
-    )
+    public open fun drawLayoutLine(line: LayoutLine, x: gint, y: gint): Unit =
+        pango_renderer_draw_layout_line(pangoRendererPointer.reinterpret(), line.gPointer.reinterpret(), x, y)
 
     /**
      * Draws an axis-aligned rectangle in user space coordinates with the
@@ -386,11 +376,8 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.8
      */
     @PangoVersion1_8
-    public open fun setColor(part: RenderPart, color: Color? = null): Unit = pango_renderer_set_color(
-        pangoRendererPointer.reinterpret(),
-        part.nativeValue,
-        color?.pangoColorPointer?.reinterpret()
-    )
+    public open fun setColor(part: RenderPart, color: Color? = null): Unit =
+        pango_renderer_set_color(pangoRendererPointer.reinterpret(), part.nativeValue, color?.gPointer?.reinterpret())
 
     /**
      * Sets the transformation matrix that will be applied when rendering.
@@ -401,7 +388,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun setMatrix(matrix: Matrix? = null): Unit =
-        pango_renderer_set_matrix(pangoRendererPointer.reinterpret(), matrix?.pangoMatrixPointer?.reinterpret())
+        pango_renderer_set_matrix(pangoRendererPointer.reinterpret(), matrix?.gPointer?.reinterpret())
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =

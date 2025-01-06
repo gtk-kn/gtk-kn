@@ -11,6 +11,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GClosure
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_closure_get_type
@@ -20,7 +21,6 @@ import org.gtkkn.native.gobject.g_closure_new_simple
 import org.gtkkn.native.gobject.g_closure_ref
 import org.gtkkn.native.gobject.g_closure_sink
 import org.gtkkn.native.gobject.g_closure_unref
-import org.gtkkn.native.gobject.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -78,7 +78,7 @@ import kotlin.native.ref.createCleaner
  * - method `add_finalize_notifier`: Callback gpointer not found
  * - method `add_invalidate_notifier`: Callback gpointer not found
  * - method `add_marshal_guards`: Invalid closure relationship between 'pre_marshal_data' and 'pre_marshal_notify'
- * - parameter `param_values`: Value
+ * - parameter `param_values`: Array parameter of type Value is not supported
  * - parameter `notify_func`: ClosureNotify
  * - parameter `notify_func`: ClosureNotify
  * - parameter `marshal`: ClosureMarshal
@@ -86,18 +86,18 @@ import kotlin.native.ref.createCleaner
  * - field `marshal`: Fields with callbacks are not supported
  */
 public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gobjectClosurePointer: CPointer<GClosure> = pointer
+    public val gPointer: CPointer<GClosure> = pointer
 
     /**
      * Indicates whether the closure is currently being invoked with
      *   g_closure_invoke()
      */
     public var inMarshal: guint
-        get() = gobjectClosurePointer.pointed.in_marshal
+        get() = gPointer.pointed.in_marshal
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectClosurePointer.pointed.in_marshal = value
+            gPointer.pointed.in_marshal = value
         }
 
     /**
@@ -105,11 +105,11 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      *   g_closure_invalidate()
      */
     public var isInvalid: guint
-        get() = gobjectClosurePointer.pointed.is_invalid
+        get() = gPointer.pointed.is_invalid
 
         @UnsafeFieldSetter
         set(`value`) {
-            gobjectClosurePointer.pointed.is_invalid = value
+            gPointer.pointed.is_invalid = value
         }
 
     /**
@@ -194,7 +194,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * reference count of a closure drops to zero (unless it has already
      * been invalidated before).
      */
-    public fun invalidate(): Unit = g_closure_invalidate(gobjectClosurePointer.reinterpret())
+    public fun invalidate(): Unit = g_closure_invalidate(gPointer.reinterpret())
 
     /**
      * Increments the reference count on a closure to force it staying
@@ -202,7 +202,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      *
      * @return The @closure passed in, for convenience
      */
-    public fun ref(): Closure = g_closure_ref(gobjectClosurePointer.reinterpret())!!.run {
+    public fun ref(): Closure = g_closure_ref(gPointer.reinterpret())!!.run {
         Closure(reinterpret())
     }
 
@@ -255,7 +255,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * (if it hasn't been called on @closure yet) just like g_closure_unref(),
      * g_closure_ref() should be called prior to this function.
      */
-    public fun sink(): Unit = g_closure_sink(gobjectClosurePointer.reinterpret())
+    public fun sink(): Unit = g_closure_sink(gPointer.reinterpret())
 
     /**
      * Decrements the reference count of a closure after it was previously
@@ -264,7 +264,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * If no other callers are using the closure, then the closure will be
      * destroyed and freed.
      */
-    public fun unref(): Unit = g_closure_unref(gobjectClosurePointer.reinterpret())
+    public fun unref(): Unit = g_closure_unref(gPointer.reinterpret())
 
     override fun toString(): String = "Closure(inMarshal=$inMarshal, isInvalid=$isInvalid)"
 

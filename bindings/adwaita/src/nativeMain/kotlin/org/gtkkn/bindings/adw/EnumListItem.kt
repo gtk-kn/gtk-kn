@@ -13,8 +13,8 @@ import org.gtkkn.native.adw.adw_enum_list_item_get_name
 import org.gtkkn.native.adw.adw_enum_list_item_get_nick
 import org.gtkkn.native.adw.adw_enum_list_item_get_type
 import org.gtkkn.native.adw.adw_enum_list_item_get_value
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.String
 
 /**

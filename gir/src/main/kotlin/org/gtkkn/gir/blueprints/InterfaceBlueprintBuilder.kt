@@ -28,11 +28,14 @@ import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+import org.gtkkn.gir.processor.namespaceNativePackageName
+import org.gtkkn.gir.processor.namespacePrefix
 
 class InterfaceBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girInterface: GirInterface,
+    private val girNode: GirInterface,
 ) : BlueprintBuilder<InterfaceBlueprint>(context) {
     private val methodBluePrints = mutableListOf<MethodBlueprint>()
     private val propertyBluePrints = mutableListOf<PropertyBlueprint>()
@@ -43,7 +46,7 @@ class InterfaceBlueprintBuilder(
 
     override fun blueprintObjectType(): String = "interface"
 
-    override fun blueprintObjectName(): String = checkNotNull(girInterface.name)
+    override fun blueprintObjectName(): String = checkNotNull(girNode.name)
 
     private fun addProperty(property: GirProperty) {
         when (val result =
@@ -89,37 +92,39 @@ class InterfaceBlueprintBuilder(
     }
 
     override fun buildInternal(): InterfaceBlueprint {
-        checkNotNull(girInterface.name)
+        checkNotNull(girNode.name)
         checkNotNull(girNamespace.name)
-        if (!girInterface.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girInterface.cType ?: girInterface.name)
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.cType ?: girNode.name)
         }
 
-        girInterface.cType?.let { context.checkIgnoredType(it) }
+        girNode.cType?.let { context.checkIgnoredType(it) }
 
-        girInterface.methods.forEach { addMethod(it) }
-        girInterface.properties.forEach { addProperty(it) }
-        girInterface.signals.forEach { addSignal(it) }
-        girInterface.functions.forEach { addFunction(it) }
+        girNode.methods.forEach { addMethod(it) }
+        girNode.properties.forEach { addProperty(it) }
+        girNode.signals.forEach { addSignal(it) }
+        girNode.functions.forEach { addFunction(it) }
 
-        val kotlinInterfaceName = girInterface.name.toPascalCase()
-        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace)
+        val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val objectPointerName = "${context.namespacePrefix(girNamespace)}${girInterface.name}Pointer"
-        val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(girNamespace, girInterface)
+        val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
+            namespace = girNamespace,
+            cType = checkNotNull(girNode.cType),
+        )
 
         addParentInterfaces()
 
-        val glibGetTypeMember = if (girInterface.glibGetType != "intern") {
-            MemberName(context.namespaceNativePackageName(girNamespace), girInterface.glibGetType)
+        val glibGetTypeMember = if (girNode.glibGetType != "intern") {
+            MemberName(namespaceNativePackageName(girNamespace), girNode.glibGetType)
         } else {
             null
         }
 
         return InterfaceBlueprint(
-            kotlinName = kotlinInterfaceName,
-            nativeName = girInterface.name,
-            typeName = ClassName(kotlinPackageName, kotlinInterfaceName),
+            kotlinName = kotlinClassName.simpleName,
+            nativeName = girNode.name,
+            typeName = kotlinClassName,
             methods = methodBluePrints,
             properties = propertyBluePrints,
             skippedObjects = skippedObjects,
@@ -129,26 +134,34 @@ class InterfaceBlueprintBuilder(
             functions = functionBlueprints,
             parentInterfaces = parentInterfaces,
             glibGetTypeFunc = glibGetTypeMember,
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girInterface.info).build()
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info).build()
                 .getOrNull(),
-            kdoc = context.processKdoc(girInterface.doc?.doc?.text),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
         )
     }
 
     private fun addParentInterfaces() {
-        val ifaces = girInterface.prerequisites.mapNotNull { prereq ->
+        val ifaces = girNode.prerequisites.mapNotNull { prereq ->
             try {
-                context.findInterfaceByName(girNamespace, prereq.name)
+                val type = context.typeRegistry.get(girNamespace, prereq.name)
+                if (type.girNamedElement is GirInterface) {
+                    type.girNamedElement.namespace to type.girNamedElement
+                } else {
+                    null
+                }
             } catch (ex: UnresolvableTypeException) {
                 null
             }
         }.map { (namespace, iface) ->
             val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
-            val kotlinPackageName = context.namespaceBindingsPackageName(namespace)
+            val kotlinPackageName = namespaceBindingsPackageName(namespace)
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
-            val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"
-            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(namespace, iface)
+            val objectPointerName = "${namespacePrefix(namespace)}${iface.name.toPascalCase()}Pointer"
+            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
+                namespace = namespace,
+                cType = checkNotNull(iface.cType),
+            )
             ImplementsInterfaceBlueprint(typeName, objectPointerTypeName, objectPointerName)
         }
         parentInterfaces.addAll(ifaces)

@@ -11,8 +11,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.pango.PangoAttrSize
 import org.gtkkn.native.pango.pango_attr_size_new
 import org.gtkkn.native.pango.pango_attr_size_new_absolute
@@ -27,21 +27,21 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Attribute
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
 public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoAttrSizePointer: CPointer<PangoAttrSize> = pointer
+    public val gPointer: CPointer<PangoAttrSize> = pointer
 
     /**
      * size of font, in units of 1/%PANGO_SCALE of a point (for
      *   %PANGO_ATTR_SIZE) or of a device unit (for %PANGO_ATTR_ABSOLUTE_SIZE)
      */
     public var size: gint
-        get() = pangoAttrSizePointer.pointed.size
+        get() = gPointer.pointed.size
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrSizePointer.pointed.size = value
+            gPointer.pointed.size = value
         }
 
     /**
@@ -51,11 +51,11 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      *   be false for %PANGO_ATTR_SIZE and true for %PANGO_ATTR_ABSOLUTE_SIZE.
      */
     public var absolute: guint
-        get() = pangoAttrSizePointer.pointed.absolute
+        get() = gPointer.pointed.absolute
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrSizePointer.pointed.absolute = value
+            gPointer.pointed.absolute = value
         }
 
     /**

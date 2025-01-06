@@ -14,9 +14,9 @@ import org.gtkkn.native.gdk.gdk_app_launch_context_set_desktop
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_icon
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_icon_name
 import org.gtkkn.native.gdk.gdk_app_launch_context_set_timestamp
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.guint
 import kotlin.String
 import kotlin.Unit
 

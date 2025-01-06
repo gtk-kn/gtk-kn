@@ -18,7 +18,6 @@ package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.CodeBlock
 import org.gtkkn.gir.blueprints.ListSize
-import org.gtkkn.gir.blueprints.ParameterBlueprint
 import org.gtkkn.gir.blueprints.TypeInfo
 
 interface ConversionBlockGenerator {
@@ -33,18 +32,18 @@ interface ConversionBlockGenerator {
      * Nullability is handled.
      */
     @Suppress("LongMethod", "CyclomaticComplexMethod")
-    fun buildParameterConversionBlock(param: ParameterBlueprint): CodeBlock =
+    fun buildParameterConversionBlock(typeInfo: TypeInfo, kotlinName: String): CodeBlock =
         CodeBlock.builder().apply {
-            val isParamNullable = param.typeInfo.kotlinTypeName.isNullable
+            val isParamNullable = typeInfo.kotlinTypeName.isNullable
             val safeCall = if (isParamNullable) "?" else ""
 
-            when (val type = param.typeInfo) {
-                is TypeInfo.Enumeration -> add("%N$safeCall.nativeValue", param.kotlinName)
+            when (typeInfo) {
+                is TypeInfo.Enumeration -> add("%N$safeCall.nativeValue", kotlinName)
                 is TypeInfo.ObjectPointer -> {
                     add(
                         "%N$safeCall.%N$safeCall.%M()",
-                        param.kotlinName,
-                        type.objectPointerName,
+                        kotlinName,
+                        typeInfo.objectPointerName,
                         BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
@@ -52,56 +51,63 @@ interface ConversionBlockGenerator {
                 is TypeInfo.InterfacePointer -> {
                     add(
                         "%N$safeCall.%N",
-                        param.kotlinName,
-                        type.objectPointerName,
+                        kotlinName,
+                        typeInfo.objectPointerName,
                     )
                 }
 
-                is TypeInfo.RecordPointer -> {
+                is TypeInfo.RecordUnionPointer -> {
                     add(
                         "%N$safeCall.%N$safeCall.%M()",
-                        param.kotlinName,
-                        type.objectPointerName,
+                        kotlinName,
+                        typeInfo.objectPointerName,
                         BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
 
-                is TypeInfo.Alias,
-                is TypeInfo.Primitive -> add("%N", param.kotlinName)
+                is TypeInfo.Alias -> add(buildParameterConversionBlock(typeInfo.baseTypeInfo, kotlinName))
+                is TypeInfo.Primitive -> add("%N", kotlinName)
 
-                is TypeInfo.GBoolean -> add("%N$safeCall.%M()", param.kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
-                is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", param.kotlinName)
-                is TypeInfo.KString -> if (type.immutable) {
-                    add("%N", param.kotlinName)
-                } else {
-                    add("%N$safeCall.%M", param.kotlinName, BindingsGenerator.CSTR_FUNC)
+                is TypeInfo.GBoolean -> add("%N$safeCall.%M()", kotlinName, BindingsGenerator.AS_GBOOLEAN_FUNC)
+                is TypeInfo.GChar -> add("%N$safeCall.code.toByte()", kotlinName)
+                is TypeInfo.KString -> when {
+                    typeInfo.noStringConversion -> add(
+                        "%N$safeCall.%M$safeCall.%M",
+                        kotlinName,
+                        BindingsGenerator.CSTR_FUNC,
+                        BindingsGenerator.PTR_FUNC,
+                    )
+
+                    typeInfo.immutable -> add("%N", kotlinName)
+
+                    else -> add("%N$safeCall.%M", kotlinName, BindingsGenerator.CSTR_FUNC)
                 }
 
-                is TypeInfo.Bitfield -> add("%N$safeCall.mask", param.kotlinName)
+                is TypeInfo.Bitfield -> add("%N$safeCall.mask", kotlinName)
                 is TypeInfo.StringList -> add(
                     "%N$safeCall.%M(this)",
-                    param.kotlinName,
+                    kotlinName,
                     BindingsGenerator.TO_C_STRING_LIST,
                 )
 
                 is TypeInfo.CallbackWithDestroy -> {
-                    if (param.typeInfo.kotlinTypeName.isNullable) {
+                    if (typeInfo.kotlinTypeName.isNullable) {
                         add(
                             "%L?.let { %M.%M() }",
-                            param.kotlinName,
-                            type.staticPropertyMemberName,
+                            kotlinName,
+                            typeInfo.staticPropertyMemberName,
                             BindingsGenerator.REINTERPRET_FUNC,
                         )
                         add(
                             ", %L?.let { %T.create(%L).asCPointer() }",
-                            param.kotlinName,
+                            kotlinName,
                             BindingsGenerator.STABLEREF,
-                            param.kotlinName,
+                            kotlinName,
                         )
-                        if (type.hasDestroyParam) {
+                        if (typeInfo.hasDestroyParam) {
                             add(
                                 ", %L?.let { %M.%M() }",
-                                param.kotlinName,
+                                kotlinName,
                                 BindingsGenerator.STATIC_STABLEREF_DESTROY,
                                 BindingsGenerator.REINTERPRET_FUNC,
                             )
@@ -109,15 +115,15 @@ interface ConversionBlockGenerator {
                     } else {
                         add(
                             "%M.%M()",
-                            type.staticPropertyMemberName,
+                            typeInfo.staticPropertyMemberName,
                             BindingsGenerator.REINTERPRET_FUNC,
                         )
                         add(
                             ", %T.create(%L).asCPointer()",
                             BindingsGenerator.STABLEREF,
-                            param.kotlinName,
+                            kotlinName,
                         )
-                        if (type.hasDestroyParam) {
+                        if (typeInfo.hasDestroyParam) {
                             add(
                                 ", %M.%M()",
                                 BindingsGenerator.STATIC_STABLEREF_DESTROY,
@@ -127,7 +133,7 @@ interface ConversionBlockGenerator {
                     }
                 }
 
-                is TypeInfo.GPointer -> add("%N", param.kotlinName)
+                is TypeInfo.GPointer -> add("%N", kotlinName)
             }
         }.build()
 
@@ -153,14 +159,14 @@ interface ConversionBlockGenerator {
                     )
                 }
 
-                is TypeInfo.RecordPointer -> {
+                is TypeInfo.RecordUnionPointer -> {
                     add(
                         "$safeCall.%N",
                         typeInfo.objectPointerName,
                     )
                 }
 
-                is TypeInfo.Alias,
+                is TypeInfo.Alias -> add(buildKotlinToNativeTypeConversionBlock(typeInfo.baseTypeInfo))
                 is TypeInfo.GPointer,
                 is TypeInfo.Primitive -> Unit
 
@@ -186,13 +192,13 @@ interface ConversionBlockGenerator {
                     returnTypeInfo,
                 )
 
-                is TypeInfo.RecordPointer -> NativeToKotlinConversions.buildRecordPointer(
+                is TypeInfo.RecordUnionPointer -> NativeToKotlinConversions.buildRecordPointer(
                     isNullable,
                     this,
                     returnTypeInfo,
                 )
 
-                is TypeInfo.Alias,
+                is TypeInfo.Alias -> add(buildNativeToKotlinConversionsBlock(returnTypeInfo.baseTypeInfo))
                 is TypeInfo.Primitive -> Unit
 
                 is TypeInfo.Bitfield -> NativeToKotlinConversions.buildBitfield(this, returnTypeInfo)
@@ -281,7 +287,7 @@ private object NativeToKotlinConversions {
     fun buildRecordPointer(
         isNullable: Boolean,
         codeBlockBuilder: CodeBlock.Builder,
-        returnTypeInfo: TypeInfo.RecordPointer,
+        returnTypeInfo: TypeInfo.RecordUnionPointer,
     ) {
         // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
         // nullable type, so we use force !! here

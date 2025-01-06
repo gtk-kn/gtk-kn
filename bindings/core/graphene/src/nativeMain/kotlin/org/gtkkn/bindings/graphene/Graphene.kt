@@ -1,8 +1,8 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.graphene
 
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
 
 /**
  * ## Skipped during bindings generation

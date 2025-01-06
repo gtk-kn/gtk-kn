@@ -12,7 +12,7 @@ import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_strdup
-import org.gtkkn.native.gobject.gint
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gtk.GtkPadActionEntry
 import kotlin.Pair
 import kotlin.String
@@ -23,19 +23,19 @@ import kotlin.native.ref.createCleaner
  * Struct defining a pad action entry.
  */
 public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtkPadActionEntryPointer: CPointer<GtkPadActionEntry> = pointer
+    public val gPointer: CPointer<GtkPadActionEntry> = pointer
 
     /**
      * the type of pad feature that will trigger this action entry.
      */
     public var type: PadActionType
-        get() = gtkPadActionEntryPointer.pointed.type.run {
+        get() = gPointer.pointed.type.run {
             PadActionType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPadActionEntryPointer.pointed.type = value.nativeValue
+            gPointer.pointed.type = value.nativeValue
         }
 
     /**
@@ -43,22 +43,22 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      *   entry.
      */
     public var index: gint
-        get() = gtkPadActionEntryPointer.pointed.index
+        get() = gPointer.pointed.index
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPadActionEntryPointer.pointed.index = value
+            gPointer.pointed.index = value
         }
 
     /**
      * the mode that will trigger this action entry, or -1 for all modes.
      */
     public var mode: gint
-        get() = gtkPadActionEntryPointer.pointed.mode
+        get() = gPointer.pointed.mode
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPadActionEntryPointer.pointed.mode = value
+            gPointer.pointed.mode = value
         }
 
     /**
@@ -66,24 +66,24 @@ public class PadActionEntry(pointer: CPointer<GtkPadActionEntry>, cleaner: Clean
      *   be deemed user-visible.
      */
     public var label: String?
-        get() = gtkPadActionEntryPointer.pointed.label?.toKString()
+        get() = gPointer.pointed.label?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPadActionEntryPointer.pointed.label?.let { g_free(it) }
-            gtkPadActionEntryPointer.pointed.label = value?.let { g_strdup(it) }
+            gPointer.pointed.label?.let { g_free(it) }
+            gPointer.pointed.label = value?.let { g_strdup(it) }
         }
 
     /**
      * action name that will be activated in the `GActionGroup`.
      */
     public var actionName: String?
-        get() = gtkPadActionEntryPointer.pointed.action_name?.toKString()
+        get() = gPointer.pointed.action_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkPadActionEntryPointer.pointed.action_name?.let { g_free(it) }
-            gtkPadActionEntryPointer.pointed.action_name = value?.let { g_strdup(it) }
+            gPointer.pointed.action_name?.let { g_free(it) }
+            gPointer.pointed.action_name = value?.let { g_strdup(it) }
         }
 
     /**

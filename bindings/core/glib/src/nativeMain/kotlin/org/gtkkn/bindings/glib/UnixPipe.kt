@@ -26,7 +26,7 @@ import kotlin.native.ref.createCleaner
  */
 @GLibVersion2_80
 public class UnixPipe(pointer: CPointer<GUnixPipe>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibUnixPipePointer: CPointer<GUnixPipe> = pointer
+    public val gPointer: CPointer<GUnixPipe> = pointer
 
     /**
      * Allocate a new UnixPipe.

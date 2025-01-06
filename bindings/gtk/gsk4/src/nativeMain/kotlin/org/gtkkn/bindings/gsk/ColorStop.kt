@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gfloat
+import org.gtkkn.native.glib.gfloat
 import org.gtkkn.native.gsk.GskColorStop
 import kotlin.Pair
 import kotlin.String
@@ -21,20 +21,20 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `color`: Gdk.RGBA
+ * - field `color`: Field with not-pointer record/union GdkRGBA is not supported
  */
 public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gskColorStopPointer: CPointer<GskColorStop> = pointer
+    public val gPointer: CPointer<GskColorStop> = pointer
 
     /**
      * the offset of the color stop
      */
     public var offset: gfloat
-        get() = gskColorStopPointer.pointed.offset
+        get() = gPointer.pointed.offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gskColorStopPointer.pointed.offset = value
+            gPointer.pointed.offset = value
         }
 
     /**

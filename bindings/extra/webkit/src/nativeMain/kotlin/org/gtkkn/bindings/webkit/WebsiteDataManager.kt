@@ -332,7 +332,7 @@ public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
     ): Unit = webkit_website_data_manager_remove(
         webkitWebsiteDataManagerPointer.reinterpret(),
         types.mask,
-        websiteData.glibListPointer.reinterpret(),
+        websiteData.gPointer.reinterpret(),
         cancellable?.gioCancellablePointer?.reinterpret(),
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

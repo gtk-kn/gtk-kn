@@ -8,8 +8,8 @@ import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkConstraintGuide
 import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.gtk.gtk_constraint_guide_get_name

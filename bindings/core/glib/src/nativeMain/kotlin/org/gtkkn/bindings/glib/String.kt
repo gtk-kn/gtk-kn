@@ -51,11 +51,11 @@ import org.gtkkn.native.glib.g_string_set_size
 import org.gtkkn.native.glib.g_string_sized_new
 import org.gtkkn.native.glib.g_string_truncate
 import org.gtkkn.native.glib.g_string_up
+import org.gtkkn.native.glib.gsize
+import org.gtkkn.native.glib.guint
+import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_gstring_get_type
-import org.gtkkn.native.gobject.gsize
-import org.gtkkn.native.gobject.guint
-import org.gtkkn.native.gobject.gunichar
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Long
@@ -75,12 +75,12 @@ import kotlin.Long
  * ## Skipped during bindings generation
  *
  * - method `append_printf`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - method `printf`: Varargs parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  */
 public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
-    public val glibStringPointer: CPointer<GString> = pointer
+    public val gPointer: CPointer<GString> = pointer
 
     /**
      * points to the character data. It may move as text is added.
@@ -88,12 +88,12 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *   can be used as an ordinary C string.
      */
     public var str: kotlin.String?
-        get() = glibStringPointer.pointed.str?.toKString()
+        get() = gPointer.pointed.str?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibStringPointer.pointed.str?.let { g_free(it) }
-            glibStringPointer.pointed.str = value?.let { g_strdup(it) }
+            gPointer.pointed.str?.let { g_free(it) }
+            gPointer.pointed.str = value?.let { g_strdup(it) }
         }
 
     /**
@@ -101,11 +101,11 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *   terminating nul byte.
      */
     public var len: gsize
-        get() = glibStringPointer.pointed.len
+        get() = gPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibStringPointer.pointed.len = value
+            gPointer.pointed.len = value
         }
 
     /**
@@ -113,11 +113,11 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *   string before it needs to be reallocated. May be larger than @len.
      */
     public var allocatedLen: gsize
-        get() = glibStringPointer.pointed.allocated_len
+        get() = gPointer.pointed.allocated_len
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibStringPointer.pointed.allocated_len = value
+            gPointer.pointed.allocated_len = value
         }
 
     /**
@@ -127,7 +127,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param val the string to append onto the end of @string
      * @return @string
      */
-    public fun append(`val`: kotlin.String): String = g_string_append(glibStringPointer.reinterpret(), `val`)!!.run {
+    public fun append(`val`: kotlin.String): String = g_string_append(gPointer.reinterpret(), `val`)!!.run {
         String(reinterpret())
     }
 
@@ -138,7 +138,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param c the byte to append onto the end of @string
      * @return @string
      */
-    public fun appendC(c: Char): String = g_string_append_c(glibStringPointer.reinterpret(), c.code.toByte())!!.run {
+    public fun appendC(c: Char): String = g_string_append_c(gPointer.reinterpret(), c.code.toByte())!!.run {
         String(reinterpret())
     }
 
@@ -158,7 +158,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @return @string
      */
     public fun appendLen(`val`: kotlin.String, len: Long): String =
-        g_string_append_len(glibStringPointer.reinterpret(), `val`, len)!!.run {
+        g_string_append_len(gPointer.reinterpret(), `val`, len)!!.run {
             String(reinterpret())
         }
 
@@ -169,10 +169,9 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param wc a Unicode character
      * @return @string
      */
-    public fun appendUnichar(wc: gunichar): String =
-        g_string_append_unichar(glibStringPointer.reinterpret(), wc)!!.run {
-            String(reinterpret())
-        }
+    public fun appendUnichar(wc: gunichar): String = g_string_append_unichar(gPointer.reinterpret(), wc)!!.run {
+        String(reinterpret())
+    }
 
     /**
      * Appends @unescaped to @string, escaping any characters that
@@ -191,7 +190,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
         reservedCharsAllowed: kotlin.String,
         allowUtf8: Boolean,
     ): String = g_string_append_uri_escaped(
-        glibStringPointer.reinterpret(),
+        gPointer.reinterpret(),
         unescaped,
         reservedCharsAllowed,
         allowUtf8.asGBoolean()
@@ -206,7 +205,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *     uppercase characters converted to lowercase in place,
      *     with semantics that exactly match g_ascii_tolower().
      */
-    public fun asciiDown(): String = g_string_ascii_down(glibStringPointer.reinterpret())!!.run {
+    public fun asciiDown(): String = g_string_ascii_down(gPointer.reinterpret())!!.run {
         String(reinterpret())
     }
 
@@ -217,7 +216,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *     lowercase characters converted to uppercase in place,
      *     with semantics that exactly match g_ascii_toupper().
      */
-    public fun asciiUp(): String = g_string_ascii_up(glibStringPointer.reinterpret())!!.run {
+    public fun asciiUp(): String = g_string_ascii_up(gPointer.reinterpret())!!.run {
         String(reinterpret())
     }
 
@@ -230,7 +229,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param rval the string to copy into @string
      * @return @string
      */
-    public fun assign(rval: kotlin.String): String = g_string_assign(glibStringPointer.reinterpret(), rval)!!.run {
+    public fun assign(rval: kotlin.String): String = g_string_assign(gPointer.reinterpret(), rval)!!.run {
         String(reinterpret())
     }
 
@@ -239,7 +238,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *
      * @return the #GString
      */
-    public fun down(): String = g_string_down(glibStringPointer.reinterpret())!!.run {
+    public fun down(): String = g_string_down(gPointer.reinterpret())!!.run {
         String(reinterpret())
     }
 
@@ -252,7 +251,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *     same bytes
      */
     public fun equal(v2: String): Boolean =
-        g_string_equal(glibStringPointer.reinterpret(), v2.glibStringPointer.reinterpret()).asBoolean()
+        g_string_equal(gPointer.reinterpret(), v2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Removes @len bytes from a #GString, starting at position @pos.
@@ -263,7 +262,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *       following bytes
      * @return @string
      */
-    public fun erase(pos: Long, len: Long): String = g_string_erase(glibStringPointer.reinterpret(), pos, len)!!.run {
+    public fun erase(pos: Long, len: Long): String = g_string_erase(gPointer.reinterpret(), pos, len)!!.run {
         String(reinterpret())
     }
 
@@ -281,7 +280,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *          (i.e. null if @free_segment is true)
      */
     public fun free(freeSegment: Boolean): kotlin.String? =
-        g_string_free(glibStringPointer.reinterpret(), freeSegment.asGBoolean())?.toKString()
+        g_string_free(gPointer.reinterpret(), freeSegment.asGBoolean())?.toKString()
 
     /**
      * Frees the memory allocated for the #GString.
@@ -294,7 +293,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_76
     public fun freeAndSteal(): kotlin.String =
-        g_string_free_and_steal(glibStringPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_string_free_and_steal(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Transfers ownership of the contents of @string to a newly allocated
@@ -310,7 +309,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun freeToBytes(): Bytes = g_string_free_to_bytes(glibStringPointer.reinterpret())!!.run {
+    public fun freeToBytes(): Bytes = g_string_free_to_bytes(gPointer.reinterpret())!!.run {
         Bytes(reinterpret())
     }
 
@@ -319,7 +318,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *
      * @return hash code for @str
      */
-    public fun hash(): guint = g_string_hash(glibStringPointer.reinterpret())
+    public fun hash(): guint = g_string_hash(gPointer.reinterpret())
 
     /**
      * Inserts a copy of a string into a #GString,
@@ -330,7 +329,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @return @string
      */
     public fun insert(pos: Long, `val`: kotlin.String): String =
-        g_string_insert(glibStringPointer.reinterpret(), pos, `val`)!!.run {
+        g_string_insert(gPointer.reinterpret(), pos, `val`)!!.run {
             String(reinterpret())
         }
 
@@ -342,7 +341,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @return @string
      */
     public fun insertC(pos: Long, c: Char): String =
-        g_string_insert_c(glibStringPointer.reinterpret(), pos, c.code.toByte())!!.run {
+        g_string_insert_c(gPointer.reinterpret(), pos, c.code.toByte())!!.run {
             String(reinterpret())
         }
 
@@ -365,7 +364,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @return @string
      */
     public fun insertLen(pos: Long, `val`: kotlin.String, len: Long): String =
-        g_string_insert_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
+        g_string_insert_len(gPointer.reinterpret(), pos, `val`, len)!!.run {
             String(reinterpret())
         }
 
@@ -379,7 +378,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @return @string
      */
     public fun insertUnichar(pos: Long, wc: gunichar): String =
-        g_string_insert_unichar(glibStringPointer.reinterpret(), pos, wc)!!.run {
+        g_string_insert_unichar(gPointer.reinterpret(), pos, wc)!!.run {
             String(reinterpret())
         }
 
@@ -393,7 +392,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun overwrite(pos: gsize, `val`: kotlin.String): String =
-        g_string_overwrite(glibStringPointer.reinterpret(), pos, `val`)!!.run {
+        g_string_overwrite(gPointer.reinterpret(), pos, `val`)!!.run {
             String(reinterpret())
         }
 
@@ -409,7 +408,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun overwriteLen(pos: gsize, `val`: kotlin.String, len: Long): String =
-        g_string_overwrite_len(glibStringPointer.reinterpret(), pos, `val`, len)!!.run {
+        g_string_overwrite_len(gPointer.reinterpret(), pos, `val`, len)!!.run {
             String(reinterpret())
         }
 
@@ -420,7 +419,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param val the string to prepend on the start of @string
      * @return @string
      */
-    public fun prepend(`val`: kotlin.String): String = g_string_prepend(glibStringPointer.reinterpret(), `val`)!!.run {
+    public fun prepend(`val`: kotlin.String): String = g_string_prepend(gPointer.reinterpret(), `val`)!!.run {
         String(reinterpret())
     }
 
@@ -431,7 +430,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param c the byte to prepend on the start of the #GString
      * @return @string
      */
-    public fun prependC(c: Char): String = g_string_prepend_c(glibStringPointer.reinterpret(), c.code.toByte())!!.run {
+    public fun prependC(c: Char): String = g_string_prepend_c(gPointer.reinterpret(), c.code.toByte())!!.run {
         String(reinterpret())
     }
 
@@ -451,7 +450,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @return @string
      */
     public fun prependLen(`val`: kotlin.String, len: Long): String =
-        g_string_prepend_len(glibStringPointer.reinterpret(), `val`, len)!!.run {
+        g_string_prepend_len(gPointer.reinterpret(), `val`, len)!!.run {
             String(reinterpret())
         }
 
@@ -462,10 +461,9 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param wc a Unicode character
      * @return @string
      */
-    public fun prependUnichar(wc: gunichar): String =
-        g_string_prepend_unichar(glibStringPointer.reinterpret(), wc)!!.run {
-            String(reinterpret())
-        }
+    public fun prependUnichar(wc: gunichar): String = g_string_prepend_unichar(gPointer.reinterpret(), wc)!!.run {
+        String(reinterpret())
+    }
 
     /**
      * Replaces the string @find with the string @replace in a #GString up to
@@ -487,7 +485,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_68
     public fun replace(find: kotlin.String, replace: kotlin.String, limit: guint): guint =
-        g_string_replace(glibStringPointer.reinterpret(), find, replace, limit)
+        g_string_replace(gPointer.reinterpret(), find, replace, limit)
 
     /**
      * Sets the length of a #GString. If the length is less than
@@ -499,7 +497,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param len the new length
      * @return @string
      */
-    public fun setSize(len: gsize): String = g_string_set_size(glibStringPointer.reinterpret(), len)!!.run {
+    public fun setSize(len: gsize): String = g_string_set_size(gPointer.reinterpret(), len)!!.run {
         String(reinterpret())
     }
 
@@ -509,7 +507,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      * @param len the new size of @string
      * @return @string
      */
-    public fun truncate(len: gsize): String = g_string_truncate(glibStringPointer.reinterpret(), len)!!.run {
+    public fun truncate(len: gsize): String = g_string_truncate(gPointer.reinterpret(), len)!!.run {
         String(reinterpret())
     }
 
@@ -518,7 +516,7 @@ public class String(pointer: CPointer<GString>) : ProxyInstance(pointer) {
      *
      * @return @string
      */
-    public fun up(): String = g_string_up(glibStringPointer.reinterpret())!!.run {
+    public fun up(): String = g_string_up(gPointer.reinterpret())!!.run {
         String(reinterpret())
     }
 

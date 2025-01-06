@@ -28,7 +28,7 @@ import kotlin.native.ref.createCleaner
  * - field `io_get_flags`: Fields with callbacks are not supported
  */
 public class IoFuncs(pointer: CPointer<GIOFuncs>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibIOFuncsPointer: CPointer<GIOFuncs> = pointer
+    public val gPointer: CPointer<GIOFuncs> = pointer
 
     /**
      * Allocate a new IoFuncs.

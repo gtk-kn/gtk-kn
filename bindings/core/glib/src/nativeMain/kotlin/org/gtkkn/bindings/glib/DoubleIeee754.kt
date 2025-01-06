@@ -10,54 +10,54 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GDoubleIEEE754
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 public class DoubleIeee754(pointer: CPointer<GDoubleIEEE754>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibDoubleIEEE754Pointer: CPointer<GDoubleIEEE754> = pointer
+    public val gPointer: CPointer<GDoubleIEEE754> = pointer
 
     public var vDouble: gdouble
-        get() = glibDoubleIEEE754Pointer.pointed.v_double
+        get() = gPointer.pointed.v_double
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDoubleIEEE754Pointer.pointed.v_double = value
+            gPointer.pointed.v_double = value
         }
 
     public var mantissaLow: guint
-        get() = glibDoubleIEEE754Pointer.pointed.mpn.mantissa_low
+        get() = gPointer.pointed.mpn.mantissa_low
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDoubleIEEE754Pointer.pointed.mpn.mantissa_low = value
+            gPointer.pointed.mpn.mantissa_low = value
         }
 
     public var mantissaHigh: guint
-        get() = glibDoubleIEEE754Pointer.pointed.mpn.mantissa_high
+        get() = gPointer.pointed.mpn.mantissa_high
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDoubleIEEE754Pointer.pointed.mpn.mantissa_high = value
+            gPointer.pointed.mpn.mantissa_high = value
         }
 
     public var biasedExponent: guint
-        get() = glibDoubleIEEE754Pointer.pointed.mpn.biased_exponent
+        get() = gPointer.pointed.mpn.biased_exponent
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDoubleIEEE754Pointer.pointed.mpn.biased_exponent = value
+            gPointer.pointed.mpn.biased_exponent = value
         }
 
     public var sign: guint
-        get() = glibDoubleIEEE754Pointer.pointed.mpn.sign
+        get() = gPointer.pointed.mpn.sign
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibDoubleIEEE754Pointer.pointed.mpn.sign = value
+            gPointer.pointed.mpn.sign = value
         }
 
     /**

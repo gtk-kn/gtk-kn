@@ -18,7 +18,6 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
-import com.squareup.kotlinpoet.TypeName
 import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
@@ -31,11 +30,14 @@ import org.gtkkn.gir.model.GirSignal
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
+import org.gtkkn.gir.processor.namespaceNativePackageName
+import org.gtkkn.gir.processor.namespacePrefix
 
 class ClassBlueprintBuilder(
     context: ProcessorContext,
     private val girNamespace: GirNamespace,
-    private val girClass: GirClass,
+    private val girNode: GirClass,
 ) : BlueprintBuilder<ClassBlueprint>(
     context,
 ) {
@@ -46,7 +48,7 @@ class ClassBlueprintBuilder(
     private val functionBlueprints = mutableListOf<FunctionBlueprint>()
     private val implementsInterfaces = mutableListOf<ImplementsInterfaceBlueprint>()
     private val propertyMethodBluePrintMap = hashMapOf<String, MethodBlueprint>()
-    private var parentTypeName: TypeName? = null
+    private var parentClassName: ClassName? = null
     private val interfacePointerOverrides = mutableListOf<ImplementsInterfaceBlueprint>()
 
     /**
@@ -54,13 +56,14 @@ class ClassBlueprintBuilder(
      */
     private val superClasses: List<GirClass> by lazy {
         buildList {
-            var currentClass = girClass
+            var currentClass = girNode
             var currentNamespace = girNamespace
             while (currentClass.parent != null) {
-                val (namespace, clazz) = context.findClassByName(currentNamespace, checkNotNull(currentClass.parent))
+                val type = context.typeRegistry.get(currentNamespace, checkNotNull(currentClass.parent))
+                val clazz = type.girNamedElement as GirClass
                 add(clazz)
                 currentClass = clazz
-                currentNamespace = namespace
+                currentNamespace = type.girNamedElement.namespace
             }
         }
     }
@@ -69,12 +72,74 @@ class ClassBlueprintBuilder(
      * Lazily build the list of interfaces for method override resolution
      */
     private val interfaces: List<GirInterface> by lazy {
-        girClass.implements.map { context.findInterfaceByName(girNamespace, it.name).second }
+        girNode.implements.map { context.typeRegistry.get(girNamespace, it.name).girNamedElement as GirInterface }
     }
 
     override fun blueprintObjectType(): String = "class"
 
-    override fun blueprintObjectName(): String = girClass.name
+    override fun buildInternal(): ClassBlueprint {
+        if (!girNode.shouldBeGenerated()) {
+            throw NotIntrospectableException(girNode.cType ?: girNode.name)
+        }
+
+        girNode.cType?.let { context.checkIgnoredType(it) }
+
+        if (girNode.parent != null) {
+            parentClassName = context.typeRegistry.get(girNamespace, girNode.parent).className
+        }
+
+        addInterfaces()
+        addInterfaceOverrides()
+
+        girNode.methods.forEach { addMethod(it) }
+        girNode.properties.forEach { addProperty(it) }
+        girNode.constructors.forEach { addConstructor(it) }
+        girNode.signals.forEach { addSignal(it) }
+        girNode.functions.forEach { addFunction(it) }
+        propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
+
+        val kotlinClassName = context.typeRegistry.get(girNode).className
+
+        val objectPointerName = if (girNode.parent != null) {
+            "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
+        } else {
+            "gPointer"
+        }
+        val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girNode)
+
+        val glibGetTypeMember = if (girNode.glibGetType != "intern") {
+            MemberName(namespaceNativePackageName(girNamespace), girNode.glibGetType)
+        } else {
+            null
+        }
+
+        return ClassBlueprint(
+            kotlinName = kotlinClassName.simpleName,
+            nativeName = girNode.name,
+            typeName = kotlinClassName,
+            methods = methodBluePrints,
+            properties = propertyBluePrints,
+            constructors = constructorBlueprints,
+            signals = signalBluePrints,
+            functions = functionBlueprints,
+            skippedObjects = skippedObjects,
+            implementsInterfaces = implementsInterfaces,
+            parentClassName = parentClassName,
+            objectPointerName = objectPointerName,
+            objectPointerTypeName = objectPointerTypeName,
+            isFinal = girNode.final == true,
+            interfacePointerOverrides = interfacePointerOverrides,
+            glibGetTypeFunc = glibGetTypeMember,
+            optInVersionBlueprint = OptInVersionsBlueprintBuilder(
+                context,
+                girNamespace,
+                girNode.info,
+            ).build().getOrNull(),
+            kdoc = context.processKdoc(girNode.doc?.doc?.text),
+        )
+    }
+
+    override fun blueprintObjectName(): String = girNode.name
 
     private fun addProperty(property: GirProperty) {
         when (val result =
@@ -85,7 +150,7 @@ class ClassBlueprintBuilder(
                 propertyMethodBluePrintMap,
                 superClasses,
                 interfaces,
-                isOpen = girClass.final != true,
+                isOpen = girNode.final != true,
             ).build()
         ) {
             is BlueprintResult.Ok -> {
@@ -107,7 +172,7 @@ class ClassBlueprintBuilder(
                 method,
                 superClasses,
                 interfaces,
-                isOpen = girClass.final != true,
+                isOpen = girNode.final != true,
             ).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
@@ -141,72 +206,6 @@ class ClassBlueprintBuilder(
             is BlueprintResult.Ok -> functionBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
-    }
-
-    override fun buildInternal(): ClassBlueprint {
-        if (!girClass.info.shouldBeGenerated()) {
-            throw NotIntrospectableException(girClass.cType ?: girClass.name)
-        }
-
-        girClass.cType?.let { context.checkIgnoredType(it) }
-
-        if (girClass.parent != null) {
-            parentTypeName = context.resolveClassTypeName(girNamespace, girClass.parent)
-            if (parentTypeName == null) {
-                throw UnresolvableTypeException("Parent type ${girClass.parent} could not be resolved.")
-            }
-        }
-
-        addInterfaces()
-        addInterfaceOverrides()
-
-        girClass.methods.forEach { addMethod(it) }
-        girClass.properties.forEach { addProperty(it) }
-        girClass.constructors.forEach { addConstructor(it) }
-        girClass.signals.forEach { addSignal(it) }
-        girClass.functions.forEach { addFunction(it) }
-        propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
-
-        val kotlinClassName = girClass.name.toPascalCase()
-        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace)
-
-        val objectPointerName = if (girClass.parent != null) {
-            "${context.namespacePrefix(girNamespace)}${girClass.name}Pointer"
-        } else {
-            "gPointer"
-        }
-        val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girClass)
-
-        val glibGetTypeMember = if (girClass.glibGetType != "intern") {
-            MemberName(context.namespaceNativePackageName(girNamespace), girClass.glibGetType)
-        } else {
-            null
-        }
-
-        return ClassBlueprint(
-            kotlinName = kotlinClassName,
-            nativeName = girClass.name,
-            typeName = ClassName(kotlinPackageName, kotlinClassName),
-            methods = methodBluePrints,
-            properties = propertyBluePrints,
-            constructors = constructorBlueprints,
-            signals = signalBluePrints,
-            functions = functionBlueprints,
-            skippedObjects = skippedObjects,
-            implementsInterfaces = implementsInterfaces,
-            parentTypeName = parentTypeName,
-            objectPointerName = objectPointerName,
-            objectPointerTypeName = objectPointerTypeName,
-            isFinal = girClass.final == true,
-            interfacePointerOverrides = interfacePointerOverrides,
-            glibGetTypeFunc = glibGetTypeMember,
-            optInVersionBlueprint = OptInVersionsBlueprintBuilder(
-                context,
-                girNamespace,
-                girClass.info,
-            ).build().getOrNull(),
-            kdoc = context.processKdoc(girClass.doc?.doc?.text),
-        )
     }
 
     /**
@@ -258,7 +257,7 @@ class ClassBlueprintBuilder(
             if (isGetterUnused || isSetterUnused) {
                 // Check if the getter or setter matches a property in the superProperties
                 val superProperty = superProperties.find { superProp ->
-                    superProp.info.shouldBeGenerated() &&
+                    superProp.shouldBeGenerated() &&
                         (superProp.getter == "get_$key" || superProp.setter == "set_$key")
                 }
 
@@ -279,28 +278,34 @@ class ClassBlueprintBuilder(
      * Add regular interfaces that this class implements.
      */
     private fun addInterfaces() {
-        val parentInterfacePairs = if (girClass.parent != null) {
-            val (parentNamespace, parentClass) = context.findClassByName(girNamespace, girClass.parent)
-            parentClass.implements.map { context.findInterfaceByName(parentNamespace, it.name) }
+        val parentInterfaceTypes = if (girNode.parent != null) {
+            val namespace = checkNotNull(girNamespace.name)
+            val parent = context.typeRegistry.get(namespace, girNode.parent)
+            (parent.girNamedElement as GirClass).implements.map { implement ->
+                context.typeRegistry.get(implement.namespace, implement.name)
+            }
         } else {
             emptyList()
         }
 
-        val implementsInterfacePairs = girClass.implements.map { context.findInterfaceByName(girNamespace, it.name) }
+        val implementsInterfaceTypes = girNode.implements.map { implement ->
+            context.typeRegistry.get(implement.namespace, implement.name)
+        }
 
         // exclude interfaces implemented by parent
-        val classUniqueInterfaces = implementsInterfacePairs.filterNot { parentInterfacePairs.contains(it) }
+        val classUniqueInterfaceTypes = implementsInterfaceTypes.filterNot { parentInterfaceTypes.contains(it) }
 
-        classUniqueInterfaces.forEach { ifacePair ->
-            val interfacePointerName = "${context.namespacePrefix(ifacePair.first)}${ifacePair.second.name}Pointer"
-            val interfaceTypeName =
-                context.resolveInterfaceTypeName(ifacePair.first, checkNotNull(ifacePair.second.name))
-                    ?: throw UnresolvableTypeException("interface ${ifacePair.second.name} not found")
+        classUniqueInterfaceTypes.forEach { type ->
+            val interfacePointerName =
+                "${namespacePrefix(type.namespace)}${type.className.simpleName}Pointer"
             val interfacePointerTypeName =
-                context.resolveInterfaceObjectPointerTypeName(ifacePair.first, ifacePair.second)
+                context.resolveInterfaceObjectPointerTypeName(
+                    namespace = type.namespace,
+                    cType = checkNotNull(type.cType),
+                )
             implementsInterfaces.add(
                 ImplementsInterfaceBlueprint(
-                    interfaceTypeName,
+                    type.className,
                     interfacePointerTypeName,
                     interfacePointerName,
                 ),
@@ -315,7 +320,7 @@ class ClassBlueprintBuilder(
      * we add them here for the generator to generate overridden pointer properties.
      */
     private fun addInterfaceOverrides() {
-        val allImplementingInterfaces = girClass.implements.flatMap {
+        val allImplementingInterfaces = girNode.implements.flatMap {
             resolveInterfacesRecursively(girNamespace, it.name)
         }
 
@@ -323,11 +328,14 @@ class ClassBlueprintBuilder(
             val namespace = pair.first
             val iface = pair.second
             val kotlinInterfaceName = checkNotNull(iface.name).toPascalCase()
-            val kotlinPackageName = context.namespaceBindingsPackageName(namespace)
+            val kotlinPackageName = namespaceBindingsPackageName(namespace)
 
             val typeName = ClassName(kotlinPackageName, kotlinInterfaceName)
-            val objectPointerName = "${context.namespacePrefix(namespace)}${iface.name}Pointer"
-            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(namespace, iface)
+            val objectPointerName = "${namespacePrefix(namespace)}${iface.name.toPascalCase()}Pointer"
+            val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
+                namespace = namespace,
+                cType = checkNotNull(iface.cType),
+            )
             val parentIfaceBlueprint = ImplementsInterfaceBlueprint(typeName, objectPointerTypeName, objectPointerName)
             if (!implementsInterfaces.contains(parentIfaceBlueprint)) {
                 interfacePointerOverrides.add(parentIfaceBlueprint)
@@ -345,7 +353,8 @@ class ClassBlueprintBuilder(
     }
 
     private fun resolveInterfaceOrNull(namespace: GirNamespace, name: String): Pair<GirNamespace, GirInterface>? = try {
-        context.findInterfaceByName(namespace, name)
+        val type = context.typeRegistry.get(namespace, name)
+        type.girNamedElement.namespace to type.girNamedElement as GirInterface
     } catch (ex: UnresolvableTypeException) {
         null
     }

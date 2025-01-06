@@ -21,8 +21,8 @@ import org.gtkkn.native.gio.g_unix_fd_list_get_length
 import org.gtkkn.native.gio.g_unix_fd_list_get_type
 import org.gtkkn.native.gio.g_unix_fd_list_new
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Result
 
 /**
@@ -50,7 +50,7 @@ import kotlin.Result
 public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
     Object(pointer.reinterpret()),
     KGTyped {
-    public val gioUnixFDListPointer: CPointer<GUnixFDList>
+    public val gioUnixFdListPointer: CPointer<GUnixFDList>
         get() = gPointer.reinterpret()
 
     /**
@@ -83,7 +83,7 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
     @GioVersion2_24
     public open fun append(fd: gint): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_unix_fd_list_append(gioUnixFDListPointer.reinterpret(), fd, gError.ptr)
+        val gResult = g_unix_fd_list_append(gioUnixFdListPointer.reinterpret(), fd, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -112,7 +112,7 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
     @GioVersion2_24
     public open fun `get`(index: gint): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_unix_fd_list_get(gioUnixFDListPointer.reinterpret(), index, gError.ptr)
+        val gResult = g_unix_fd_list_get(gioUnixFdListPointer.reinterpret(), index, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -128,7 +128,7 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getLength(): gint = g_unix_fd_list_get_length(gioUnixFDListPointer.reinterpret())
+    public open fun getLength(): gint = g_unix_fd_list_get_length(gioUnixFdListPointer.reinterpret())
 
     public companion object : TypeCompanion<UnixFdList> {
         override val type: GeneratedClassKGType<UnixFdList> =

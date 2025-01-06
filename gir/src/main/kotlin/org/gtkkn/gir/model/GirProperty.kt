@@ -57,4 +57,6 @@ data class GirProperty(
         annotations.forEach { it.initialize(this, namespace) }
         type.initialize(this, namespace)
     }
+
+    fun shouldBeGenerated(): Boolean = info.gtkKnIgnore != true
 }

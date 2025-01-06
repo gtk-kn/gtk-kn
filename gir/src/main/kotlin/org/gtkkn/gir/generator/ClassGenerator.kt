@@ -45,7 +45,7 @@ interface ClassGenerator :
             }
 
             // parent class
-            clazz.parentTypeName?.let { superclass(it) }
+            clazz.parentClassName?.let { superclass(it) }
 
             // interfaces
             addSuperinterfaces(clazz.implementsInterfaces.map { it.interfaceTypeName })
@@ -56,6 +56,9 @@ interface ClassGenerator :
                 addSuperinterface(BindingsGenerator.KG_TYPED_INTERFACE_TYPE)
                 companionSpecBuilder.addKGTypeInit(clazz.typeName, property, repository)
             }
+
+            // object pointer
+            addProperty(buildClassObjectPointerProperty(clazz))
 
             // pointer constructor
             buildPointerConstructor(this, clazz)
@@ -80,7 +83,7 @@ interface ClassGenerator :
                     } else {
                         // conflicting no-arg constructor: add as factory method in companion
                         val factory = buildClassConstructorFactoryMethod(
-                            clazz,
+                            clazz.typeName,
                             constructor,
                             appendSignatureParameters = { params -> appendSignatureParameters(params) },
                             addGErrorAllocation = { addGErrorAllocation() },
@@ -120,7 +123,7 @@ interface ClassGenerator :
                             // add all conflicting as constructors as factory functions
                             // this helps with developer discoverability (for example Gtk4 Button)
                             val factory = buildClassConstructorFactoryMethod(
-                                clazz,
+                                clazz.typeName,
                                 constructor,
                                 appendSignatureParameters = { params -> appendSignatureParameters(params) },
                                 addGErrorAllocation = { addGErrorAllocation() },
@@ -131,9 +134,6 @@ interface ClassGenerator :
                     }
                 }
             }
-
-            // object pointer
-            addProperty(buildClassObjectPointerProperty(clazz))
 
             // interface pointers
             clazz.implementsInterfaces.forEach {

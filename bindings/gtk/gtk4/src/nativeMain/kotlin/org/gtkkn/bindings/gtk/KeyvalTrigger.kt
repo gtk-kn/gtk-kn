@@ -7,8 +7,8 @@ import org.gtkkn.bindings.gdk.ModifierType
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkKeyvalTrigger
 import org.gtkkn.native.gtk.gtk_keyval_trigger_get_keyval
 import org.gtkkn.native.gtk.gtk_keyval_trigger_get_modifiers

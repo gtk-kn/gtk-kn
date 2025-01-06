@@ -12,8 +12,8 @@ import org.gtkkn.native.gio.GIcon
 import org.gtkkn.native.gio.GLoadableIcon
 import org.gtkkn.native.gio.g_loadable_icon_get_type
 import org.gtkkn.native.gio.g_loadable_icon_load_async
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 import kotlin.Unit
 
 /**

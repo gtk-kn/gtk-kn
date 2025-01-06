@@ -239,7 +239,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
      * @param path a `GtkTreePath` or null to unset.
      */
     public open fun setDisplayedRow(path: TreePath? = null): Unit =
-        gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gtkTreePathPointer?.reinterpret())
+        gtk_cell_view_set_displayed_row(gtkCellViewPointer.reinterpret(), path?.gPointer?.reinterpret())
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =

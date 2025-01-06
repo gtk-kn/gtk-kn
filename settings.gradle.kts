@@ -66,6 +66,9 @@ libraries.forEach { library ->
 
 if (properties["org.gtkkn.samples.disable"] != "true") {
     include(
+        "samples:cairo:clock",
+        "samples:cairo:drawing",
+        "samples:cairo:shapes",
         "samples:gtk:embedded-resources",
         "samples:gtk:external-resources",
         "samples:gtk:hello-world",

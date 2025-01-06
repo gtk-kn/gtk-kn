@@ -5,8 +5,10 @@ import org.gtkkn.native.cairo.CAIRO_STATUS_CLIP_NOT_REPRESENTABLE
 import org.gtkkn.native.cairo.CAIRO_STATUS_DEVICE_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_DEVICE_FINISHED
 import org.gtkkn.native.cairo.CAIRO_STATUS_DEVICE_TYPE_MISMATCH
+import org.gtkkn.native.cairo.CAIRO_STATUS_DWRITE_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_FILE_NOT_FOUND
 import org.gtkkn.native.cairo.CAIRO_STATUS_FONT_TYPE_MISMATCH
+import org.gtkkn.native.cairo.CAIRO_STATUS_FREETYPE_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_INVALID_CLUSTERS
 import org.gtkkn.native.cairo.CAIRO_STATUS_INVALID_CONTENT
 import org.gtkkn.native.cairo.CAIRO_STATUS_INVALID_DASH
@@ -26,19 +28,24 @@ import org.gtkkn.native.cairo.CAIRO_STATUS_INVALID_STRING
 import org.gtkkn.native.cairo.CAIRO_STATUS_INVALID_VISUAL
 import org.gtkkn.native.cairo.CAIRO_STATUS_INVALID_WEIGHT
 import org.gtkkn.native.cairo.CAIRO_STATUS_JBIG2_GLOBAL_MISSING
+import org.gtkkn.native.cairo.CAIRO_STATUS_LAST_STATUS
 import org.gtkkn.native.cairo.CAIRO_STATUS_NEGATIVE_COUNT
 import org.gtkkn.native.cairo.CAIRO_STATUS_NO_CURRENT_POINT
 import org.gtkkn.native.cairo.CAIRO_STATUS_NO_MEMORY
 import org.gtkkn.native.cairo.CAIRO_STATUS_NULL_POINTER
 import org.gtkkn.native.cairo.CAIRO_STATUS_PATTERN_TYPE_MISMATCH
+import org.gtkkn.native.cairo.CAIRO_STATUS_PNG_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_READ_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_SUCCESS
 import org.gtkkn.native.cairo.CAIRO_STATUS_SURFACE_FINISHED
 import org.gtkkn.native.cairo.CAIRO_STATUS_SURFACE_TYPE_MISMATCH
+import org.gtkkn.native.cairo.CAIRO_STATUS_SVG_FONT_ERROR
+import org.gtkkn.native.cairo.CAIRO_STATUS_TAG_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_TEMP_FILE_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_USER_FONT_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_USER_FONT_IMMUTABLE
 import org.gtkkn.native.cairo.CAIRO_STATUS_USER_FONT_NOT_IMPLEMENTED
+import org.gtkkn.native.cairo.CAIRO_STATUS_WIN32_GDI_ERROR
 import org.gtkkn.native.cairo.CAIRO_STATUS_WRITE_ERROR
 import org.gtkkn.native.cairo.cairo_gobject_status_get_type
 import org.gtkkn.native.cairo.cairo_status_t
@@ -65,25 +72,162 @@ public enum class Status(public val nativeValue: cairo_status_t) {
     INVALID_VISUAL(CAIRO_STATUS_INVALID_VISUAL),
     FILE_NOT_FOUND(CAIRO_STATUS_FILE_NOT_FOUND),
     INVALID_DASH(CAIRO_STATUS_INVALID_DASH),
+
+    /**
+     *
+     * @since 1.2
+     */
     INVALID_DSC_COMMENT(CAIRO_STATUS_INVALID_DSC_COMMENT),
+
+    /**
+     *
+     * @since 1.4
+     */
     INVALID_INDEX(CAIRO_STATUS_INVALID_INDEX),
+
+    /**
+     *
+     * @since 1.4
+     */
     CLIP_NOT_REPRESENTABLE(CAIRO_STATUS_CLIP_NOT_REPRESENTABLE),
+
+    /**
+     *
+     * @since 1.6
+     */
     TEMP_FILE_ERROR(CAIRO_STATUS_TEMP_FILE_ERROR),
+
+    /**
+     *
+     * @since 1.6
+     */
     INVALID_STRIDE(CAIRO_STATUS_INVALID_STRIDE),
+
+    /**
+     *
+     * @since 1.8
+     */
     FONT_TYPE_MISMATCH(CAIRO_STATUS_FONT_TYPE_MISMATCH),
+
+    /**
+     *
+     * @since 1.8
+     */
     USER_FONT_IMMUTABLE(CAIRO_STATUS_USER_FONT_IMMUTABLE),
+
+    /**
+     *
+     * @since 1.8
+     */
     USER_FONT_ERROR(CAIRO_STATUS_USER_FONT_ERROR),
+
+    /**
+     *
+     * @since 1.8
+     */
     NEGATIVE_COUNT(CAIRO_STATUS_NEGATIVE_COUNT),
+
+    /**
+     *
+     * @since 1.8
+     */
     INVALID_CLUSTERS(CAIRO_STATUS_INVALID_CLUSTERS),
+
+    /**
+     *
+     * @since 1.8
+     */
     INVALID_SLANT(CAIRO_STATUS_INVALID_SLANT),
+
+    /**
+     *
+     * @since 1.8
+     */
     INVALID_WEIGHT(CAIRO_STATUS_INVALID_WEIGHT),
+
+    /**
+     *
+     * @since 1.10
+     */
     INVALID_SIZE(CAIRO_STATUS_INVALID_SIZE),
+
+    /**
+     *
+     * @since 1.10
+     */
     USER_FONT_NOT_IMPLEMENTED(CAIRO_STATUS_USER_FONT_NOT_IMPLEMENTED),
+
+    /**
+     *
+     * @since 1.10
+     */
     DEVICE_TYPE_MISMATCH(CAIRO_STATUS_DEVICE_TYPE_MISMATCH),
+
+    /**
+     *
+     * @since 1.10
+     */
     DEVICE_ERROR(CAIRO_STATUS_DEVICE_ERROR),
+
+    /**
+     *
+     * @since 1.12
+     */
     INVALID_MESH_CONSTRUCTION(CAIRO_STATUS_INVALID_MESH_CONSTRUCTION),
+
+    /**
+     *
+     * @since 1.12
+     */
     DEVICE_FINISHED(CAIRO_STATUS_DEVICE_FINISHED),
+
+    /**
+     *
+     * @since 1.14
+     */
     JBIG2_GLOBAL_MISSING(CAIRO_STATUS_JBIG2_GLOBAL_MISSING),
+
+    /**
+     *
+     * @since 1.16
+     */
+    PNG_ERROR(CAIRO_STATUS_PNG_ERROR),
+
+    /**
+     *
+     * @since 1.16
+     */
+    FREETYPE_ERROR(CAIRO_STATUS_FREETYPE_ERROR),
+
+    /**
+     *
+     * @since 1.16
+     */
+    WIN32_GDI_ERROR(CAIRO_STATUS_WIN32_GDI_ERROR),
+
+    /**
+     *
+     * @since 1.16
+     */
+    TAG_ERROR(CAIRO_STATUS_TAG_ERROR),
+
+    /**
+     *
+     * @since 1.18
+     */
+    DWRITE_ERROR(CAIRO_STATUS_DWRITE_ERROR),
+
+    /**
+     *
+     * @since 1.18
+     */
+    SVG_FONT_ERROR(CAIRO_STATUS_SVG_FONT_ERROR),
+
+    /**
+     *
+     * @since 1.10
+     */
+    LAST_STATUS(CAIRO_STATUS_LAST_STATUS),
     ;
 
     public companion object {
@@ -127,6 +271,13 @@ public enum class Status(public val nativeValue: cairo_status_t) {
             CAIRO_STATUS_INVALID_MESH_CONSTRUCTION -> INVALID_MESH_CONSTRUCTION
             CAIRO_STATUS_DEVICE_FINISHED -> DEVICE_FINISHED
             CAIRO_STATUS_JBIG2_GLOBAL_MISSING -> JBIG2_GLOBAL_MISSING
+            CAIRO_STATUS_PNG_ERROR -> PNG_ERROR
+            CAIRO_STATUS_FREETYPE_ERROR -> FREETYPE_ERROR
+            CAIRO_STATUS_WIN32_GDI_ERROR -> WIN32_GDI_ERROR
+            CAIRO_STATUS_TAG_ERROR -> TAG_ERROR
+            CAIRO_STATUS_DWRITE_ERROR -> DWRITE_ERROR
+            CAIRO_STATUS_SVG_FONT_ERROR -> SVG_FONT_ERROR
+            CAIRO_STATUS_LAST_STATUS -> LAST_STATUS
             else -> error("invalid nativeValue")
         }
 

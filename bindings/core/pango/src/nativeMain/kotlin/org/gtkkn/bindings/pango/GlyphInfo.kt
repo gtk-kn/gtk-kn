@@ -21,21 +21,21 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `geometry`: GlyphGeometry
- * - field `attr`: GlyphVisAttr
+ * - field `geometry`: Field with not-pointer record/union PangoGlyphGeometry is not supported
+ * - field `attr`: Field with not-pointer record/union PangoGlyphVisAttr is not supported
  */
 public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoGlyphInfoPointer: CPointer<PangoGlyphInfo> = pointer
+    public val gPointer: CPointer<PangoGlyphInfo> = pointer
 
     /**
      * the glyph itself.
      */
     public var glyph: Glyph
-        get() = pangoGlyphInfoPointer.pointed.glyph
+        get() = gPointer.pointed.glyph
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoGlyphInfoPointer.pointed.glyph = value
+            gPointer.pointed.glyph = value
         }
 
     /**

@@ -32,9 +32,9 @@ import org.gtkkn.native.adw.adw_animation_resume
 import org.gtkkn.native.adw.adw_animation_set_follow_enable_animations_setting
 import org.gtkkn.native.adw.adw_animation_set_target
 import org.gtkkn.native.adw.adw_animation_skip
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
 import kotlin.Boolean
 import kotlin.ULong
 import kotlin.Unit

@@ -10,46 +10,46 @@ import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GFloatIEEE754
-import org.gtkkn.native.gobject.gfloat
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.gfloat
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
 public class FloatIeee754(pointer: CPointer<GFloatIEEE754>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibFloatIEEE754Pointer: CPointer<GFloatIEEE754> = pointer
+    public val gPointer: CPointer<GFloatIEEE754> = pointer
 
     public var vFloat: gfloat
-        get() = glibFloatIEEE754Pointer.pointed.v_float
+        get() = gPointer.pointed.v_float
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibFloatIEEE754Pointer.pointed.v_float = value
+            gPointer.pointed.v_float = value
         }
 
     public var mantissa: guint
-        get() = glibFloatIEEE754Pointer.pointed.mpn.mantissa
+        get() = gPointer.pointed.mpn.mantissa
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibFloatIEEE754Pointer.pointed.mpn.mantissa = value
+            gPointer.pointed.mpn.mantissa = value
         }
 
     public var biasedExponent: guint
-        get() = glibFloatIEEE754Pointer.pointed.mpn.biased_exponent
+        get() = gPointer.pointed.mpn.biased_exponent
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibFloatIEEE754Pointer.pointed.mpn.biased_exponent = value
+            gPointer.pointed.mpn.biased_exponent = value
         }
 
     public var sign: guint
-        get() = glibFloatIEEE754Pointer.pointed.mpn.sign
+        get() = gPointer.pointed.mpn.sign
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibFloatIEEE754Pointer.pointed.mpn.sign = value
+            gPointer.pointed.mpn.sign = value
         }
 
     /**

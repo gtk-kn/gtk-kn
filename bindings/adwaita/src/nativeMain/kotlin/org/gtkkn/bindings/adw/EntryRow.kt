@@ -43,9 +43,9 @@ import org.gtkkn.native.adw.adw_entry_row_set_enable_emoji_completion
 import org.gtkkn.native.adw.adw_entry_row_set_input_hints
 import org.gtkkn.native.adw.adw_entry_row_set_input_purpose
 import org.gtkkn.native.adw.adw_entry_row_set_show_apply_button
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -171,10 +171,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
         @AdwVersion1_2
         set(
             attributes
-        ) = adw_entry_row_set_attributes(
-            adwEntryRowPointer.reinterpret(),
-            attributes?.pangoAttrListPointer?.reinterpret()
-        )
+        ) = adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.gPointer?.reinterpret())
 
     /**
      * Whether to suggest emoji replacements on the entry row.

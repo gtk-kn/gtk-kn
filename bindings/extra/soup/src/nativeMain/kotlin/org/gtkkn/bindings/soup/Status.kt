@@ -2,8 +2,8 @@
 package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.toKString
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.guint
 import org.gtkkn.native.soup.SoupStatus
 import org.gtkkn.native.soup.soup_status_get_phrase
 import org.gtkkn.native.soup.soup_status_get_type

@@ -39,9 +39,9 @@ import org.gtkkn.native.adw.adw_swipe_tracker_set_lower_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_set_reversed
 import org.gtkkn.native.adw.adw_swipe_tracker_set_upper_overshoot
 import org.gtkkn.native.adw.adw_swipe_tracker_shift_position
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gdouble
 import org.gtkkn.native.gtk.GtkOrientable
 import kotlin.Boolean
 import kotlin.ULong

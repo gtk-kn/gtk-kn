@@ -16,7 +16,7 @@ import org.gtkkn.native.glib.g_trash_stack_peek
 import org.gtkkn.native.glib.g_trash_stack_pop
 import org.gtkkn.native.glib.g_trash_stack_push
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.guint
+import org.gtkkn.native.glib.guint
 import kotlin.Pair
 import kotlin.String
 import kotlin.Unit
@@ -39,7 +39,7 @@ import kotlin.native.ref.createCleaner
  * extra pieces of memory, `free()` them and allocate them again later.
  */
 public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val glibTrashStackPointer: CPointer<GTrashStack> = pointer
+    public val gPointer: CPointer<GTrashStack> = pointer
 
     /**
      * pointer to the previous element of the stack,
@@ -47,13 +47,13 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
      *     bytes of the element
      */
     public var next: TrashStack?
-        get() = glibTrashStackPointer.pointed.next?.run {
+        get() = gPointer.pointed.next?.run {
             TrashStack(reinterpret())
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            glibTrashStackPointer.pointed.next = value?.glibTrashStackPointer
+            gPointer.pointed.next = value?.gPointer
         }
 
     /**
@@ -125,7 +125,7 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
          * @param stackP a #GTrashStack
          * @return the height of the stack
          */
-        public fun height(stackP: TrashStack): guint = g_trash_stack_height(stackP.glibTrashStackPointer.reinterpret())
+        public fun height(stackP: TrashStack): guint = g_trash_stack_height(stackP.gPointer.reinterpret())
 
         /**
          * Returns the element at the top of a #GTrashStack
@@ -134,7 +134,7 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
          * @param stackP a #GTrashStack
          * @return the element at the top of the stack
          */
-        public fun peek(stackP: TrashStack): gpointer? = g_trash_stack_peek(stackP.glibTrashStackPointer.reinterpret())
+        public fun peek(stackP: TrashStack): gpointer? = g_trash_stack_peek(stackP.gPointer.reinterpret())
 
         /**
          * Pops a piece of memory off a #GTrashStack.
@@ -142,7 +142,7 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
          * @param stackP a #GTrashStack
          * @return the element at the top of the stack
          */
-        public fun pop(stackP: TrashStack): gpointer? = g_trash_stack_pop(stackP.glibTrashStackPointer.reinterpret())
+        public fun pop(stackP: TrashStack): gpointer? = g_trash_stack_pop(stackP.gPointer.reinterpret())
 
         /**
          * Pushes a piece of memory onto a #GTrashStack.
@@ -151,6 +151,6 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
          * @param dataP the piece of memory to push on the stack
          */
         public fun push(stackP: TrashStack, dataP: gpointer): Unit =
-            g_trash_stack_push(stackP.glibTrashStackPointer.reinterpret(), dataP)
+            g_trash_stack_push(stackP.gPointer.reinterpret(), dataP)
     }
 }

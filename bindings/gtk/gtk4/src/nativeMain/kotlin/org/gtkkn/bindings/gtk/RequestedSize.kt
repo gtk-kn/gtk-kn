@@ -9,8 +9,8 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkRequestedSize
 import kotlin.Pair
 import kotlin.String
@@ -23,39 +23,39 @@ import kotlin.native.ref.createCleaner
  * size for children calling. See [func@distribute_natural_allocation].
  */
 public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gtkRequestedSizePointer: CPointer<GtkRequestedSize> = pointer
+    public val gPointer: CPointer<GtkRequestedSize> = pointer
 
     /**
      * A client pointer
      */
     public var `data`: gpointer
-        get() = gtkRequestedSizePointer.pointed.data!!
+        get() = gPointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkRequestedSizePointer.pointed.data = value
+            gPointer.pointed.data = value
         }
 
     /**
      * The minimum size needed for allocation in a given orientation
      */
     public var minimumSize: gint
-        get() = gtkRequestedSizePointer.pointed.minimum_size
+        get() = gPointer.pointed.minimum_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkRequestedSizePointer.pointed.minimum_size = value
+            gPointer.pointed.minimum_size = value
         }
 
     /**
      * The natural size for allocation in a given orientation
      */
     public var naturalSize: gint
-        get() = gtkRequestedSizePointer.pointed.natural_size
+        get() = gPointer.pointed.natural_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gtkRequestedSizePointer.pointed.natural_size = value
+            gPointer.pointed.natural_size = value
         }
 
     /**

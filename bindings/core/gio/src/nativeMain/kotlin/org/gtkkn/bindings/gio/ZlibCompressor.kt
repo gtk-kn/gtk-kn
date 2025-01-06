@@ -14,8 +14,8 @@ import org.gtkkn.native.gio.g_zlib_compressor_get_file_info
 import org.gtkkn.native.gio.g_zlib_compressor_get_type
 import org.gtkkn.native.gio.g_zlib_compressor_new
 import org.gtkkn.native.gio.g_zlib_compressor_set_file_info
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
-import org.gtkkn.native.gobject.gint
 
 /**
  * `GZlibCompressor` is an implementation of [iface@Gio.Converter] that

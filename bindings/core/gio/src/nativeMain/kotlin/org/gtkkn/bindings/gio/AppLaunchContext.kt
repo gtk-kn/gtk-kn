@@ -71,7 +71,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
     public open fun getDisplay(info: AppInfo, files: GlibList): String? = g_app_launch_context_get_display(
         gioAppLaunchContextPointer.reinterpret(),
         info.gioAppInfoPointer,
-        files.glibListPointer.reinterpret()
+        files.gPointer.reinterpret()
     )?.toKString()
 
     /**
@@ -112,7 +112,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
         g_app_launch_context_get_startup_notify_id(
             gioAppLaunchContextPointer.reinterpret(),
             info.gioAppInfoPointer,
-            files.glibListPointer.reinterpret()
+            files.gPointer.reinterpret()
         )?.toKString()
 
     /**

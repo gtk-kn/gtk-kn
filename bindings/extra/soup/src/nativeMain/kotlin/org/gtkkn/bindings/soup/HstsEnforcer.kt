@@ -63,7 +63,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
     Object(pointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupHSTSEnforcerPointer: CPointer<SoupHSTSEnforcer>
+    public val soupHstsEnforcerPointer: CPointer<SoupHSTSEnforcer>
         get() = gPointer.reinterpret()
 
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
@@ -88,7 +88,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      *   list.
      */
     public open fun getDomains(sessionPolicies: Boolean): List =
-        soup_hsts_enforcer_get_domains(soupHSTSEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
+        soup_hsts_enforcer_get_domains(soupHstsEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
             List(reinterpret())
         }
 
@@ -101,7 +101,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      *   [method@HSTSPolicy.free] to free the list.
      */
     public open fun getPolicies(sessionPolicies: Boolean): List =
-        soup_hsts_enforcer_get_policies(soupHSTSEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
+        soup_hsts_enforcer_get_policies(soupHstsEnforcerPointer.reinterpret(), sessionPolicies.asGBoolean())!!.run {
             List(reinterpret())
         }
 
@@ -113,7 +113,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      *   otherwise.
      */
     public open fun hasValidPolicy(domain: String): Boolean =
-        soup_hsts_enforcer_has_valid_policy(soupHSTSEnforcerPointer.reinterpret(), domain).asBoolean()
+        soup_hsts_enforcer_has_valid_policy(soupHstsEnforcerPointer.reinterpret(), domain).asBoolean()
 
     /**
      * Gets whether @hsts_enforcer stores policies persistenly.
@@ -121,7 +121,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @return true if @hsts_enforcer storage is persistent or false otherwise.
      */
     public open fun isPersistent(): Boolean =
-        soup_hsts_enforcer_is_persistent(soupHSTSEnforcerPointer.reinterpret()).asBoolean()
+        soup_hsts_enforcer_is_persistent(soupHstsEnforcerPointer.reinterpret()).asBoolean()
 
     /**
      * Sets @policy to @hsts_enforcer.
@@ -136,7 +136,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @param policy the policy of the HSTS host
      */
     public open fun setPolicy(policy: HstsPolicy): Unit =
-        soup_hsts_enforcer_set_policy(soupHSTSEnforcerPointer.reinterpret(), policy.soupHSTSPolicyPointer.reinterpret())
+        soup_hsts_enforcer_set_policy(soupHstsEnforcerPointer.reinterpret(), policy.gPointer.reinterpret())
 
     /**
      * Sets a session policy for @domain.
@@ -149,7 +149,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      */
     public open fun setSessionPolicy(domain: String, includeSubdomains: Boolean): Unit =
         soup_hsts_enforcer_set_session_policy(
-            soupHSTSEnforcerPointer.reinterpret(),
+            soupHstsEnforcerPointer.reinterpret(),
             domain,
             includeSubdomains.asGBoolean()
         )

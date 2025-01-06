@@ -20,7 +20,9 @@ import org.gtkkn.native.glib.g_date_time_add_months
 import org.gtkkn.native.glib.g_date_time_add_seconds
 import org.gtkkn.native.glib.g_date_time_add_weeks
 import org.gtkkn.native.glib.g_date_time_add_years
+import org.gtkkn.native.glib.g_date_time_compare
 import org.gtkkn.native.glib.g_date_time_difference
+import org.gtkkn.native.glib.g_date_time_equal
 import org.gtkkn.native.glib.g_date_time_format
 import org.gtkkn.native.glib.g_date_time_format_iso8601
 import org.gtkkn.native.glib.g_date_time_get_day_of_month
@@ -61,12 +63,12 @@ import org.gtkkn.native.glib.g_date_time_to_unix
 import org.gtkkn.native.glib.g_date_time_to_unix_usec
 import org.gtkkn.native.glib.g_date_time_to_utc
 import org.gtkkn.native.glib.g_date_time_unref
+import org.gtkkn.native.glib.gdouble
+import org.gtkkn.native.glib.gint
+import org.gtkkn.native.glib.gint64
+import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_date_time_get_type
-import org.gtkkn.native.gobject.gdouble
-import org.gtkkn.native.gobject.gint
-import org.gtkkn.native.gobject.gint64
-import org.gtkkn.native.gobject.guint
 import kotlin.Boolean
 import kotlin.String
 import kotlin.Unit
@@ -100,15 +102,13 @@ import kotlin.Unit
  *
  * ## Skipped during bindings generation
  *
- * - parameter `dt2`: DateTime
- * - parameter `dt2`: DateTime
  * - parameter `year`: year: Out parameter is not supported
  *
  * @since 2.26
  */
 @GLibVersion2_26
 public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
-    public val glibDateTimePointer: CPointer<GDateTime> = pointer
+    public val gPointer: CPointer<GDateTime> = pointer
 
     /**
      * Creates a copy of @datetime and adds the specified timespan to the copy.
@@ -119,7 +119,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun add(timespan: TimeSpan): DateTime? = g_date_time_add(glibDateTimePointer.reinterpret(), timespan)?.run {
+    public fun add(timespan: TimeSpan): DateTime? = g_date_time_add(gPointer.reinterpret(), timespan)?.run {
         DateTime(reinterpret())
     }
 
@@ -133,7 +133,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addDays(days: gint): DateTime? = g_date_time_add_days(glibDateTimePointer.reinterpret(), days)?.run {
+    public fun addDays(days: gint): DateTime? = g_date_time_add_days(gPointer.reinterpret(), days)?.run {
         DateTime(reinterpret())
     }
 
@@ -159,10 +159,9 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
         hours: gint,
         minutes: gint,
         seconds: gdouble,
-    ): DateTime? =
-        g_date_time_add_full(glibDateTimePointer.reinterpret(), years, months, days, hours, minutes, seconds)?.run {
-            DateTime(reinterpret())
-        }
+    ): DateTime? = g_date_time_add_full(gPointer.reinterpret(), years, months, days, hours, minutes, seconds)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime and adds the specified number of hours.
@@ -174,7 +173,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addHours(hours: gint): DateTime? = g_date_time_add_hours(glibDateTimePointer.reinterpret(), hours)?.run {
+    public fun addHours(hours: gint): DateTime? = g_date_time_add_hours(gPointer.reinterpret(), hours)?.run {
         DateTime(reinterpret())
     }
 
@@ -188,10 +187,9 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addMinutes(minutes: gint): DateTime? =
-        g_date_time_add_minutes(glibDateTimePointer.reinterpret(), minutes)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addMinutes(minutes: gint): DateTime? = g_date_time_add_minutes(gPointer.reinterpret(), minutes)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime and adds the specified number of months to the
@@ -208,10 +206,9 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addMonths(months: gint): DateTime? =
-        g_date_time_add_months(glibDateTimePointer.reinterpret(), months)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addMonths(months: gint): DateTime? = g_date_time_add_months(gPointer.reinterpret(), months)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime and adds the specified number of seconds.
@@ -223,10 +220,9 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addSeconds(seconds: gdouble): DateTime? =
-        g_date_time_add_seconds(glibDateTimePointer.reinterpret(), seconds)?.run {
-            DateTime(reinterpret())
-        }
+    public fun addSeconds(seconds: gdouble): DateTime? = g_date_time_add_seconds(gPointer.reinterpret(), seconds)?.run {
+        DateTime(reinterpret())
+    }
 
     /**
      * Creates a copy of @datetime and adds the specified number of weeks to the
@@ -238,7 +234,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addWeeks(weeks: gint): DateTime? = g_date_time_add_weeks(glibDateTimePointer.reinterpret(), weeks)?.run {
+    public fun addWeeks(weeks: gint): DateTime? = g_date_time_add_weeks(gPointer.reinterpret(), weeks)?.run {
         DateTime(reinterpret())
     }
 
@@ -255,9 +251,21 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun addYears(years: gint): DateTime? = g_date_time_add_years(glibDateTimePointer.reinterpret(), years)?.run {
+    public fun addYears(years: gint): DateTime? = g_date_time_add_years(gPointer.reinterpret(), years)?.run {
         DateTime(reinterpret())
     }
+
+    /**
+     * A comparison function for #GDateTimes that is suitable
+     * as a #GCompareFunc. Both #GDateTimes must be non-null.
+     *
+     * @param dt2 second #GDateTime to compare
+     * @return -1, 0 or 1 if @dt1 is less than, equal to or greater
+     *   than @dt2.
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun compare(dt2: DateTime): gint = g_date_time_compare(gPointer.reinterpret(), dt2.gPointer.reinterpret())
 
     /**
      * Calculates the difference in time between @end and @begin.  The
@@ -271,7 +279,21 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun difference(begin: DateTime): TimeSpan =
-        g_date_time_difference(glibDateTimePointer.reinterpret(), begin.glibDateTimePointer.reinterpret())
+        g_date_time_difference(gPointer.reinterpret(), begin.gPointer.reinterpret())
+
+    /**
+     * Checks to see if @dt1 and @dt2 are equal.
+     *
+     * Equal here means that they represent the same moment after converting
+     * them to the same time zone.
+     *
+     * @param dt2 a #GDateTime
+     * @return true if @dt1 and @dt2 are equal
+     * @since 2.26
+     */
+    @GLibVersion2_26
+    public fun equal(dt2: DateTime): Boolean =
+        g_date_time_equal(gPointer.reinterpret(), dt2.gPointer.reinterpret()).asBoolean()
 
     /**
      * Creates a newly allocated string representing the requested @format.
@@ -408,8 +430,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun format(format: String): String? =
-        g_date_time_format(glibDateTimePointer.reinterpret(), format)?.toKString()
+    public fun format(format: String): String? = g_date_time_format(gPointer.reinterpret(), format)?.toKString()
 
     /**
      * Format @datetime in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
@@ -424,7 +445,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.62
      */
     @GLibVersion2_62
-    public fun formatIso8601(): String? = g_date_time_format_iso8601(glibDateTimePointer.reinterpret())?.toKString()
+    public fun formatIso8601(): String? = g_date_time_format_iso8601(gPointer.reinterpret())?.toKString()
 
     /**
      * Retrieves the day of the month represented by @datetime in the gregorian
@@ -434,7 +455,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getDayOfMonth(): gint = g_date_time_get_day_of_month(glibDateTimePointer.reinterpret())
+    public fun getDayOfMonth(): gint = g_date_time_get_day_of_month(gPointer.reinterpret())
 
     /**
      * Retrieves the ISO 8601 day of the week on which @datetime falls (1 is
@@ -444,7 +465,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getDayOfWeek(): gint = g_date_time_get_day_of_week(glibDateTimePointer.reinterpret())
+    public fun getDayOfWeek(): gint = g_date_time_get_day_of_week(gPointer.reinterpret())
 
     /**
      * Retrieves the day of the year represented by @datetime in the Gregorian
@@ -454,7 +475,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getDayOfYear(): gint = g_date_time_get_day_of_year(glibDateTimePointer.reinterpret())
+    public fun getDayOfYear(): gint = g_date_time_get_day_of_year(gPointer.reinterpret())
 
     /**
      * Retrieves the hour of the day represented by @datetime
@@ -463,7 +484,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getHour(): gint = g_date_time_get_hour(glibDateTimePointer.reinterpret())
+    public fun getHour(): gint = g_date_time_get_hour(gPointer.reinterpret())
 
     /**
      * Retrieves the microsecond of the date represented by @datetime
@@ -472,7 +493,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getMicrosecond(): gint = g_date_time_get_microsecond(glibDateTimePointer.reinterpret())
+    public fun getMicrosecond(): gint = g_date_time_get_microsecond(gPointer.reinterpret())
 
     /**
      * Retrieves the minute of the hour represented by @datetime
@@ -481,7 +502,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getMinute(): gint = g_date_time_get_minute(glibDateTimePointer.reinterpret())
+    public fun getMinute(): gint = g_date_time_get_minute(gPointer.reinterpret())
 
     /**
      * Retrieves the month of the year represented by @datetime in the Gregorian
@@ -491,7 +512,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getMonth(): gint = g_date_time_get_month(glibDateTimePointer.reinterpret())
+    public fun getMonth(): gint = g_date_time_get_month(gPointer.reinterpret())
 
     /**
      * Retrieves the second of the minute represented by @datetime
@@ -500,7 +521,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getSecond(): gint = g_date_time_get_second(glibDateTimePointer.reinterpret())
+    public fun getSecond(): gint = g_date_time_get_second(gPointer.reinterpret())
 
     /**
      * Retrieves the number of seconds since the start of the last minute,
@@ -510,7 +531,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getSeconds(): gdouble = g_date_time_get_seconds(glibDateTimePointer.reinterpret())
+    public fun getSeconds(): gdouble = g_date_time_get_seconds(gPointer.reinterpret())
 
     /**
      * Get the time zone for this @datetime.
@@ -519,7 +540,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.58
      */
     @GLibVersion2_58
-    public fun getTimezone(): TimeZone = g_date_time_get_timezone(glibDateTimePointer.reinterpret())!!.run {
+    public fun getTimezone(): TimeZone = g_date_time_get_timezone(gPointer.reinterpret())!!.run {
         TimeZone(reinterpret())
     }
 
@@ -538,8 +559,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun getTimezoneAbbreviation(): String =
-        g_date_time_get_timezone_abbreviation(glibDateTimePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_date_time_get_timezone_abbreviation(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the offset to UTC in effect at the time and in the time
@@ -556,7 +576,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getUtcOffset(): TimeSpan = g_date_time_get_utc_offset(glibDateTimePointer.reinterpret())
+    public fun getUtcOffset(): TimeSpan = g_date_time_get_utc_offset(gPointer.reinterpret())
 
     /**
      * Returns the ISO 8601 week-numbering year in which the week containing
@@ -595,7 +615,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getWeekNumberingYear(): gint = g_date_time_get_week_numbering_year(glibDateTimePointer.reinterpret())
+    public fun getWeekNumberingYear(): gint = g_date_time_get_week_numbering_year(gPointer.reinterpret())
 
     /**
      * Returns the ISO 8601 week number for the week containing @datetime.
@@ -618,7 +638,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getWeekOfYear(): gint = g_date_time_get_week_of_year(glibDateTimePointer.reinterpret())
+    public fun getWeekOfYear(): gint = g_date_time_get_week_of_year(gPointer.reinterpret())
 
     /**
      * Retrieves the year represented by @datetime in the Gregorian calendar.
@@ -627,7 +647,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getYear(): gint = g_date_time_get_year(glibDateTimePointer.reinterpret())
+    public fun getYear(): gint = g_date_time_get_year(gPointer.reinterpret())
 
     /**
      * Hashes @datetime into a #guint, suitable for use within #GHashTable.
@@ -636,7 +656,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun hash(): guint = g_date_time_hash(glibDateTimePointer.reinterpret())
+    public fun hash(): guint = g_date_time_hash(gPointer.reinterpret())
 
     /**
      * Determines if daylight savings time is in effect at the time and in
@@ -646,8 +666,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun isDaylightSavings(): Boolean =
-        g_date_time_is_daylight_savings(glibDateTimePointer.reinterpret()).asBoolean()
+    public fun isDaylightSavings(): Boolean = g_date_time_is_daylight_savings(gPointer.reinterpret()).asBoolean()
 
     /**
      * Atomically increments the reference count of @datetime by one.
@@ -656,7 +675,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun ref(): DateTime = g_date_time_ref(glibDateTimePointer.reinterpret())!!.run {
+    public fun ref(): DateTime = g_date_time_ref(gPointer.reinterpret())!!.run {
         DateTime(reinterpret())
     }
 
@@ -672,7 +691,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun toLocal(): DateTime? = g_date_time_to_local(glibDateTimePointer.reinterpret())?.run {
+    public fun toLocal(): DateTime? = g_date_time_to_local(gPointer.reinterpret())?.run {
         DateTime(reinterpret())
     }
 
@@ -697,7 +716,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun toTimeval(tv: TimeVal): Boolean =
-        g_date_time_to_timeval(glibDateTimePointer.reinterpret(), tv.glibTimeValPointer.reinterpret()).asBoolean()
+        g_date_time_to_timeval(gPointer.reinterpret(), tv.gPointer.reinterpret()).asBoolean()
 
     /**
      * Create a new #GDateTime corresponding to the same instant in time as
@@ -714,7 +733,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun toTimezone(tz: TimeZone): DateTime? =
-        g_date_time_to_timezone(glibDateTimePointer.reinterpret(), tz.glibTimeZonePointer.reinterpret())?.run {
+        g_date_time_to_timezone(gPointer.reinterpret(), tz.gPointer.reinterpret())?.run {
             DateTime(reinterpret())
         }
 
@@ -729,7 +748,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun toUnix(): gint64 = g_date_time_to_unix(glibDateTimePointer.reinterpret())
+    public fun toUnix(): gint64 = g_date_time_to_unix(gPointer.reinterpret())
 
     /**
      * Gives the Unix time corresponding to @datetime, in microseconds.
@@ -741,7 +760,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun toUnixUsec(): gint64 = g_date_time_to_unix_usec(glibDateTimePointer.reinterpret())
+    public fun toUnixUsec(): gint64 = g_date_time_to_unix_usec(gPointer.reinterpret())
 
     /**
      * Creates a new #GDateTime corresponding to the same instant in time as
@@ -755,7 +774,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun toUtc(): DateTime? = g_date_time_to_utc(glibDateTimePointer.reinterpret())?.run {
+    public fun toUtc(): DateTime? = g_date_time_to_utc(gPointer.reinterpret())?.run {
         DateTime(reinterpret())
     }
 
@@ -768,7 +787,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun unref(): Unit = g_date_time_unref(glibDateTimePointer.reinterpret())
+    public fun unref(): Unit = g_date_time_unref(gPointer.reinterpret())
 
     public companion object {
         /**
@@ -820,15 +839,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
             minute: gint,
             seconds: gdouble,
         ): DateTime? = DateTime(
-            g_date_time_new(
-                tz.glibTimeZonePointer.reinterpret(),
-                year,
-                month,
-                day,
-                hour,
-                minute,
-                seconds
-            )!!.reinterpret()
+            g_date_time_new(tz.gPointer.reinterpret(), year, month, day, hour, minute, seconds)!!.reinterpret()
         )
 
         /**
@@ -883,7 +894,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
          * @since 2.56
          */
         public fun newFromIso8601(text: String, defaultTz: TimeZone? = null): DateTime? =
-            DateTime(g_date_time_new_from_iso8601(text, defaultTz?.glibTimeZonePointer?.reinterpret())!!.reinterpret())
+            DateTime(g_date_time_new_from_iso8601(text, defaultTz?.gPointer?.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
@@ -904,7 +915,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
          * @since 2.26
          */
         public fun newFromTimevalLocal(tv: TimeVal): DateTime? =
-            DateTime(g_date_time_new_from_timeval_local(tv.glibTimeValPointer.reinterpret())!!.reinterpret())
+            DateTime(g_date_time_new_from_timeval_local(tv.gPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
@@ -923,7 +934,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
          * @since 2.26
          */
         public fun newFromTimevalUtc(tv: TimeVal): DateTime? =
-            DateTime(g_date_time_new_from_timeval_utc(tv.glibTimeValPointer.reinterpret())!!.reinterpret())
+            DateTime(g_date_time_new_from_timeval_utc(tv.gPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to the given Unix time @t in the
@@ -1042,7 +1053,7 @@ public class DateTime(pointer: CPointer<GDateTime>) : ProxyInstance(pointer) {
          * @since 2.26
          */
         public fun newNow(tz: TimeZone): DateTime? =
-            DateTime(g_date_time_new_now(tz.glibTimeZonePointer.reinterpret())!!.reinterpret())
+            DateTime(g_date_time_new_now(tz.gPointer.reinterpret())!!.reinterpret())
 
         /**
          * Creates a #GDateTime corresponding to this exact instant in the local

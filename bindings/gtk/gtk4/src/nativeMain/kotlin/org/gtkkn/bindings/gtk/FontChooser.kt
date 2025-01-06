@@ -22,9 +22,9 @@ import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import org.gtkkn.native.gtk.GtkFontChooser
 import org.gtkkn.native.gtk.gtk_font_chooser_get_font
 import org.gtkkn.native.gtk.gtk_font_chooser_get_font_desc
@@ -327,10 +327,8 @@ public interface FontChooser :
      *
      * @param fontDesc a `PangoFontDescription`
      */
-    public fun setFontDesc(fontDesc: FontDescription): Unit = gtk_font_chooser_set_font_desc(
-        gtkFontChooserPointer.reinterpret(),
-        fontDesc.pangoFontDescriptionPointer.reinterpret()
-    )
+    public fun setFontDesc(fontDesc: FontDescription): Unit =
+        gtk_font_chooser_set_font_desc(gtkFontChooserPointer.reinterpret(), fontDesc.gPointer.reinterpret())
 
     /**
      * Sets a custom font map to use for this font chooser widget.

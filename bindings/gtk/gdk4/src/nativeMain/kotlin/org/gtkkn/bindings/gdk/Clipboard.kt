@@ -48,9 +48,9 @@ import org.gtkkn.native.gdk.gdk_clipboard_set_value
 import org.gtkkn.native.gdk.gdk_clipboard_store_async
 import org.gtkkn.native.gdk.gdk_clipboard_store_finish
 import org.gtkkn.native.glib.GError
+import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
-import org.gtkkn.native.gobject.gint
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -80,7 +80,7 @@ import kotlin.collections.List
  * ## Skipped during bindings generation
  *
  * - parameter `out_mime_type`: out_mime_type: Out parameter is not supported
- * - parameter `args`: va_list
+ * - parameter `args`: va_list type is not supported
  * - method `local`: Property has no getter nor setter
  */
 public open class Clipboard(pointer: CPointer<GdkClipboard>) :
@@ -373,7 +373,7 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
      * @param value a `GValue` to set
      */
     public open fun `set`(`value`: Value): Unit =
-        gdk_clipboard_set_value(gdkClipboardPointer.reinterpret(), `value`.gobjectValuePointer.reinterpret())
+        gdk_clipboard_set_value(gdkClipboardPointer.reinterpret(), `value`.gPointer.reinterpret())
 
     /**
      * Asynchronously instructs the @clipboard to store its contents remotely.

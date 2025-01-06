@@ -9,7 +9,7 @@ import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
-import org.gtkkn.native.gobject.gdouble
+import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.pango.PangoAttrFloat
 import kotlin.Pair
 import kotlin.String
@@ -22,20 +22,20 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
- * - field `attr`: Attribute
+ * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
 public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val pangoAttrFloatPointer: CPointer<PangoAttrFloat> = pointer
+    public val gPointer: CPointer<PangoAttrFloat> = pointer
 
     /**
      * the value of the attribute
      */
     public var `value`: gdouble
-        get() = pangoAttrFloatPointer.pointed.value
+        get() = gPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            pangoAttrFloatPointer.pointed.value = value
+            gPointer.pointed.value = value
         }
 
     /**

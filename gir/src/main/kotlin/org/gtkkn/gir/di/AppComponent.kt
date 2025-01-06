@@ -18,9 +18,14 @@ package org.gtkkn.gir.di
 
 import me.tatarka.inject.annotations.Component
 import me.tatarka.inject.annotations.Provides
+import me.tatarka.inject.annotations.Scope
 import org.gtkkn.gir.Application
 import org.gtkkn.gir.config.Config
 
+@Scope
+annotation class Singleton
+
+@Singleton
 @Component
 abstract class AppComponent(
     @get:Provides protected val config: Config

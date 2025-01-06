@@ -83,4 +83,9 @@ data class GirRecord(
         methodInlines.forEach { it.initialize(this, namespace) }
         constructors.forEach { it.initialize(this, namespace) }
     }
+
+    override fun shouldBeGenerated(): Boolean {
+        val isNotIgnoredPrivate = cType == "GPrivate" || !name.endsWith("Private")
+        return info.gtkKnIgnore != true && isNotIgnoredPrivate
+    }
 }

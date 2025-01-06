@@ -227,6 +227,7 @@ public object GtkTypeProvider : TypeProvider {
         SingleSelection::class to SingleSelection.type,
         SizeGroup::class to SizeGroup.type,
         SliceListModel::class to SliceListModel.type,
+        Snapshot::class to Snapshot.type,
         SortListModel::class to SortListModel.type,
         Sorter::class to Sorter.type,
         SpinButton::class to SpinButton.type,

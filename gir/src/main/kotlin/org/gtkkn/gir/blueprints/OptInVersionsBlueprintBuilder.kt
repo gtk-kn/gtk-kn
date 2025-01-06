@@ -17,10 +17,12 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import org.gtkkn.gir.ext.capitalized
 import org.gtkkn.gir.model.GirInfo
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.BlueprintException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.namespaceBindingsPackageName
 
 class OptInVersionsBlueprintBuilder(
     context: ProcessorContext,
@@ -35,9 +37,9 @@ class OptInVersionsBlueprintBuilder(
         if (girInfo?.version == null) {
             throw BlueprintException("girInfo version is null")
         }
-        val namespaceName = girNamespace.name
-        val kotlinClassName = "${namespaceName}Version${girInfo.version.replace(".", "_")}"
-        val kotlinPackageName = context.namespaceBindingsPackageName(girNamespace) + ".annotations"
+        val namespaceName = checkNotNull(girNamespace.name)
+        val kotlinClassName = "${namespaceName.capitalized()}Version${girInfo.version.replace(".", "_")}"
+        val kotlinPackageName = namespaceBindingsPackageName(girNamespace) + ".annotations"
 
         val optInVersionBlueprint = OptInVersionBlueprint(
             kotlinName = kotlinClassName,
