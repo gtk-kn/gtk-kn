@@ -72,7 +72,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      */
     public fun createAppInfo(appName: String? = null): Result<AppInfo?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_recent_info_create_app_info(gPointer.reinterpret(), appName, gError.ptr)?.run {
+        val gResult = gtk_recent_info_create_app_info(gPointer, appName, gError.ptr)?.run {
             AppInfo.wrap(reinterpret())
         }
 
@@ -90,7 +90,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *
      * @return true if the resource exists
      */
-    public fun exists(): Boolean = gtk_recent_info_exists(gPointer.reinterpret()).asBoolean()
+    public fun exists(): Boolean = gtk_recent_info_exists(gPointer).asBoolean()
 
     /**
      * Gets the time when the resource
@@ -99,8 +99,8 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return a `GDateTime` for the time
      *    when the resource was added
      */
-    public fun getAdded(): DateTime = gtk_recent_info_get_added(gPointer.reinterpret())!!.run {
-        DateTime(reinterpret())
+    public fun getAdded(): DateTime = gtk_recent_info_get_added(gPointer)!!.run {
+        DateTime(this)
     }
 
     /**
@@ -110,7 +110,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return a positive integer containing the number of days
      *   elapsed since the time this resource was last modified
      */
-    public fun getAge(): gint = gtk_recent_info_get_age(gPointer.reinterpret())
+    public fun getAge(): gint = gtk_recent_info_get_age(gPointer)
 
     /**
      * Gets the (short) description of the resource.
@@ -119,7 +119,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *   is owned by the recent manager, and should not be freed.
      */
     public fun getDescription(): String =
-        gtk_recent_info_get_description(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_recent_info_get_description(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the resource.
@@ -131,14 +131,14 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *   is owned by the recent manager, and should not be freed.
      */
     public fun getDisplayName(): String =
-        gtk_recent_info_get_display_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_recent_info_get_display_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the icon associated to the resource MIME type.
      *
      * @return a `GIcon` containing the icon
      */
-    public fun getGicon(): Icon? = gtk_recent_info_get_gicon(gPointer.reinterpret())?.run {
+    public fun getGicon(): Icon? = gtk_recent_info_get_gicon(gPointer)?.run {
         Icon.wrap(reinterpret())
     }
 
@@ -149,7 +149,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *   is owned by the recent manager, and should not be freed.
      */
     public fun getMimeType(): String =
-        gtk_recent_info_get_mime_type(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_recent_info_get_mime_type(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the time when the meta-data
@@ -158,8 +158,8 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return a `GDateTime` for the time
      *   when the resource was last modified
      */
-    public fun getModified(): DateTime = gtk_recent_info_get_modified(gPointer.reinterpret())!!.run {
-        DateTime(reinterpret())
+    public fun getModified(): DateTime = gtk_recent_info_get_modified(gPointer)!!.run {
+        DateTime(this)
     }
 
     /**
@@ -171,7 +171,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *
      * @return true if the private flag was found, false otherwise
      */
-    public fun getPrivateHint(): Boolean = gtk_recent_info_get_private_hint(gPointer.reinterpret()).asBoolean()
+    public fun getPrivateHint(): Boolean = gtk_recent_info_get_private_hint(gPointer).asBoolean()
 
     /**
      * Computes a valid UTF-8 string that can be used as the
@@ -184,7 +184,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *   free it with g_free()
      */
     public fun getShortName(): String =
-        gtk_recent_info_get_short_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_recent_info_get_short_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the URI of the resource.
@@ -192,8 +192,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return the URI of the resource. The returned string is
      *   owned by the recent manager, and should not be freed.
      */
-    public fun getUri(): String =
-        gtk_recent_info_get_uri(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getUri(): String = gtk_recent_info_get_uri(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a displayable version of the resource’s URI.
@@ -205,7 +204,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return a newly allocated UTF-8 string containing the
      *   resource’s URI or null. Use g_free() when done using it.
      */
-    public fun getUriDisplay(): String? = gtk_recent_info_get_uri_display(gPointer.reinterpret())?.toKString()
+    public fun getUriDisplay(): String? = gtk_recent_info_get_uri_display(gPointer)?.toKString()
 
     /**
      * Gets the time when the meta-data
@@ -214,8 +213,8 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return a `GDateTime` for the time
      *    when the resource was last visited
      */
-    public fun getVisited(): DateTime = gtk_recent_info_get_visited(gPointer.reinterpret())!!.run {
-        DateTime(reinterpret())
+    public fun getVisited(): DateTime = gtk_recent_info_get_visited(gPointer)!!.run {
+        DateTime(this)
     }
 
     /**
@@ -225,8 +224,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return true if an application with name @app_name was found,
      *   false otherwise
      */
-    public fun hasApplication(appName: String): Boolean =
-        gtk_recent_info_has_application(gPointer.reinterpret(), appName).asBoolean()
+    public fun hasApplication(appName: String): Boolean = gtk_recent_info_has_application(gPointer, appName).asBoolean()
 
     /**
      * Checks whether @group_name appears inside the groups
@@ -235,8 +233,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @param groupName name of a group
      * @return true if the group was found
      */
-    public fun hasGroup(groupName: String): Boolean =
-        gtk_recent_info_has_group(gPointer.reinterpret(), groupName).asBoolean()
+    public fun hasGroup(groupName: String): Boolean = gtk_recent_info_has_group(gPointer, groupName).asBoolean()
 
     /**
      * Checks whether the resource is local or not by looking at the
@@ -244,7 +241,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      *
      * @return true if the resource is local
      */
-    public fun isLocal(): Boolean = gtk_recent_info_is_local(gPointer.reinterpret()).asBoolean()
+    public fun isLocal(): Boolean = gtk_recent_info_is_local(gPointer).asBoolean()
 
     /**
      * Gets the name of the last application that have registered the
@@ -253,7 +250,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return an application name. Use g_free() to free it.
      */
     public fun lastApplication(): String =
-        gtk_recent_info_last_application(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_recent_info_last_application(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Checks whether two `GtkRecentInfo` point to the same resource.
@@ -262,8 +259,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return true if both `GtkRecentInfo` point to the same
      *   resource, false otherwise
      */
-    public fun match(infoB: RecentInfo): Boolean =
-        gtk_recent_info_match(gPointer.reinterpret(), infoB.gPointer.reinterpret()).asBoolean()
+    public fun match(infoB: RecentInfo): Boolean = gtk_recent_info_match(gPointer, infoB.gPointer).asBoolean()
 
     /**
      * Increases the reference count of @recent_info by one.
@@ -271,8 +267,8 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * @return the recent info object with its reference count
      *   increased by one
      */
-    public fun ref(): RecentInfo = gtk_recent_info_ref(gPointer.reinterpret())!!.run {
-        RecentInfo(reinterpret())
+    public fun ref(): RecentInfo = gtk_recent_info_ref(gPointer)!!.run {
+        RecentInfo(this)
     }
 
     /**
@@ -281,7 +277,7 @@ public class RecentInfo(pointer: CPointer<GtkRecentInfo>) : ProxyInstance(pointe
      * If the reference count reaches zero, @info is
      * deallocated, and the memory freed.
      */
-    public fun unref(): Unit = gtk_recent_info_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gtk_recent_info_unref(gPointer)
 
     public companion object {
         /**

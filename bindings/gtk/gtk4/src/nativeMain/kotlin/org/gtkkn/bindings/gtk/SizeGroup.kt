@@ -105,7 +105,7 @@ public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
          *
          * @return the current mode of the size group.
          */
-        get() = gtk_size_group_get_mode(gtkSizeGroupPointer.reinterpret()).run {
+        get() = gtk_size_group_get_mode(gtkSizeGroupPointer).run {
             SizeGroupMode.fromNativeValue(this)
         }
 
@@ -120,7 +120,7 @@ public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
          *
          * @param mode the mode to set for the size group.
          */
-        set(mode) = gtk_size_group_set_mode(gtkSizeGroupPointer.reinterpret(), mode.nativeValue)
+        set(mode) = gtk_size_group_set_mode(gtkSizeGroupPointer, mode.nativeValue)
 
     /**
      * Create a new `GtkSizeGroup`.
@@ -146,7 +146,7 @@ public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
      * @param widget the `GtkWidget` to add
      */
     public open fun addWidget(widget: Widget): Unit =
-        gtk_size_group_add_widget(gtkSizeGroupPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        gtk_size_group_add_widget(gtkSizeGroupPointer, widget.gtkWidgetPointer)
 
     /**
      * Returns the list of widgets associated with @size_group.
@@ -154,8 +154,8 @@ public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
      * @return a `GSList` of
      *   widgets. The list is owned by GTK and should not be modified.
      */
-    public open fun getWidgets(): SList = gtk_size_group_get_widgets(gtkSizeGroupPointer.reinterpret())!!.run {
-        SList(reinterpret())
+    public open fun getWidgets(): SList = gtk_size_group_get_widgets(gtkSizeGroupPointer)!!.run {
+        SList(this)
     }
 
     /**
@@ -164,7 +164,7 @@ public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
      * @param widget the `GtkWidget` to remove
      */
     public open fun removeWidget(widget: Widget): Unit =
-        gtk_size_group_remove_widget(gtkSizeGroupPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        gtk_size_group_remove_widget(gtkSizeGroupPointer, widget.gtkWidgetPointer)
 
     public companion object : TypeCompanion<SizeGroup> {
         override val type: GeneratedClassKGType<SizeGroup> =

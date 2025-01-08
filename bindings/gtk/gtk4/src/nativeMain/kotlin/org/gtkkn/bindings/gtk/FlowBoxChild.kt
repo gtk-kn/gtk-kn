@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -59,8 +60,8 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
          *
          * @return the child widget of @self
          */
-        get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -68,9 +69,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = gtk_flow_box_child_set_child(gtkFlowBoxChildPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_flow_box_child_set_child(gtkFlowBoxChildPointer, child?.gtkWidgetPointer)
 
     /**
      * Creates a new `GtkFlowBoxChild`.
@@ -102,7 +101,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      * Another alternative is to call [method@Gtk.FlowBox.invalidate_sort]
      * on any model change, but that is more expensive.
      */
-    public open fun changed(): Unit = gtk_flow_box_child_changed(gtkFlowBoxChildPointer.reinterpret())
+    public open fun changed(): Unit = gtk_flow_box_child_changed(gtkFlowBoxChildPointer)
 
     /**
      * Gets the current index of the @child in its `GtkFlowBox` container.
@@ -110,7 +109,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      * @return the index of the @child, or -1 if the @child is not
      *   in a flow box
      */
-    public open fun getIndex(): gint = gtk_flow_box_child_get_index(gtkFlowBoxChildPointer.reinterpret())
+    public open fun getIndex(): gint = gtk_flow_box_child_get_index(gtkFlowBoxChildPointer)
 
     /**
      * Returns whether the @child is currently selected in its
@@ -118,8 +117,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      *
      * @return true if @child is selected
      */
-    public open fun isSelected(): Boolean =
-        gtk_flow_box_child_is_selected(gtkFlowBoxChildPointer.reinterpret()).asBoolean()
+    public open fun isSelected(): Boolean = gtk_flow_box_child_is_selected(gtkFlowBoxChildPointer).asBoolean()
 
     /**
      * Emitted when the user activates a child widget in a `GtkFlowBox`.
@@ -132,18 +130,25 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      *
      * The default bindings are <kbd>Space</kbd> and <kbd>Enter</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     */
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     public companion object : TypeCompanion<FlowBoxChild> {
         override val type: GeneratedClassKGType<FlowBoxChild> =
@@ -162,7 +167,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

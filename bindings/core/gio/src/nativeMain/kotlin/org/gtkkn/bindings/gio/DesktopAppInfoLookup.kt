@@ -37,10 +37,7 @@ public interface DesktopAppInfoLookup :
      *    null on error.
      */
     public fun getDefaultForUriScheme(uriScheme: String): AppInfo? =
-        g_desktop_app_info_lookup_get_default_for_uri_scheme(
-            gioDesktopAppInfoLookupPointer.reinterpret(),
-            uriScheme
-        )?.run {
+        g_desktop_app_info_lookup_get_default_for_uri_scheme(gioDesktopAppInfoLookupPointer, uriScheme)?.run {
             AppInfo.wrap(reinterpret())
         }
 

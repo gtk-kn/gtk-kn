@@ -44,12 +44,12 @@ public interface CellEditable :
     /**
      * Emits the `GtkCellEditable::editing-done` signal.
      */
-    public fun editingDone(): Unit = gtk_cell_editable_editing_done(gtkCellEditablePointer.reinterpret())
+    public fun editingDone(): Unit = gtk_cell_editable_editing_done(gtkCellEditablePointer)
 
     /**
      * Emits the `GtkCellEditable::remove-widget` signal.
      */
-    public fun removeWidget(): Unit = gtk_cell_editable_remove_widget(gtkCellEditablePointer.reinterpret())
+    public fun removeWidget(): Unit = gtk_cell_editable_remove_widget(gtkCellEditablePointer)
 
     /**
      * Begins editing on a @cell_editable.
@@ -67,7 +67,7 @@ public interface CellEditable :
      *   null if editing was initiated programmatically
      */
     public fun startEditing(event: Event? = null): Unit =
-        gtk_cell_editable_start_editing(gtkCellEditablePointer.reinterpret(), event?.gPointer?.reinterpret())
+        gtk_cell_editable_start_editing(gtkCellEditablePointer, event?.gPointer)
 
     /**
      * This signal is a sign for the cell renderer to update its
@@ -82,14 +82,14 @@ public interface CellEditable :
      * gtk_cell_editable_editing_done() is a convenience method
      * for emitting `GtkCellEditable::editing-done`.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEditingDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onEditingDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gtkCellEditablePointer.reinterpret(),
+            gtkCellEditablePointer,
             "editing-done",
-            connectEditingDoneFunc.reinterpret(),
+            onEditingDoneFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -109,14 +109,14 @@ public interface CellEditable :
      * gtk_cell_editable_remove_widget() is a convenience method
      * for emitting `GtkCellEditable::remove-widget`.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectRemoveWidget(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onRemoveWidget(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gtkCellEditablePointer.reinterpret(),
+            gtkCellEditablePointer,
             "remove-widget",
-            connectRemoveWidgetFunc.reinterpret(),
+            onRemoveWidgetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -145,7 +145,7 @@ public interface CellEditable :
     }
 }
 
-private val connectEditingDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onEditingDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -153,7 +153,7 @@ private val connectEditingDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFun
 }
     .reinterpret()
 
-private val connectRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onRemoveWidgetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

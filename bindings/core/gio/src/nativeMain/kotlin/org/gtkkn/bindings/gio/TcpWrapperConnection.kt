@@ -41,8 +41,8 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
          *
          * @return @conn's base #GIOStream
          */
-        get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer.reinterpret())!!.run {
-            IoStream(reinterpret())
+        get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer)!!.run {
+            IoStream(this)
         }
 
     /**
@@ -56,12 +56,7 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
     public constructor(
         baseIoStream: IoStream,
         socket: Socket,
-    ) : this(
-        g_tcp_wrapper_connection_new(
-            baseIoStream.gioIoStreamPointer.reinterpret(),
-            socket.gioSocketPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(g_tcp_wrapper_connection_new(baseIoStream.gioIoStreamPointer, socket.gioSocketPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<TcpWrapperConnection> {
         override val type: GeneratedClassKGType<TcpWrapperConnection> =

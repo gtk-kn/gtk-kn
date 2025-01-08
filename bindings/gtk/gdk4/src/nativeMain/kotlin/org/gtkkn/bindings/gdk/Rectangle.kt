@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -173,8 +172,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param y Y coordinate
      * @return true if @rect contains the point
      */
-    public fun containsPoint(x: gint, y: gint): Boolean =
-        gdk_rectangle_contains_point(gPointer.reinterpret(), x, y).asBoolean()
+    public fun containsPoint(x: gint, y: gint): Boolean = gdk_rectangle_contains_point(gPointer, x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -182,8 +180,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param rect2 a `GdkRectangle`
      * @return true if the rectangles are equal.
      */
-    public fun equal(rect2: Rectangle): Boolean =
-        gdk_rectangle_equal(gPointer.reinterpret(), rect2.gPointer.reinterpret()).asBoolean()
+    public fun equal(rect2: Rectangle): Boolean = gdk_rectangle_equal(gPointer, rect2.gPointer).asBoolean()
 
     /**
      * Calculates the intersection of two rectangles.
@@ -199,11 +196,8 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      *   intersection of @src1 and @src2
      * @return true if the rectangles intersect.
      */
-    public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean = gdk_rectangle_intersect(
-        gPointer.reinterpret(),
-        src2.gPointer.reinterpret(),
-        dest?.gPointer?.reinterpret()
-    ).asBoolean()
+    public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean =
+        gdk_rectangle_intersect(gPointer, src2.gPointer, dest?.gPointer).asBoolean()
 
     /**
      * Calculates the union of two rectangles.
@@ -219,7 +213,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param dest return location for the union of @src1 and @src2
      */
     public fun union(src2: Rectangle, dest: Rectangle): Unit =
-        gdk_rectangle_union(gPointer.reinterpret(), src2.gPointer.reinterpret(), dest.gPointer.reinterpret())
+        gdk_rectangle_union(gPointer, src2.gPointer, dest.gPointer)
 
     override fun toString(): String = "Rectangle(x=$x, y=$y, width=$width, height=$height)"
 

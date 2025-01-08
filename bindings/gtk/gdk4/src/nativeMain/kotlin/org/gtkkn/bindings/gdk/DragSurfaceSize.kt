@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gdk.GdkDragSurfaceSize
@@ -27,6 +26,5 @@ public class DragSurfaceSize(pointer: CPointer<GdkDragSurfaceSize>) : ProxyInsta
      * @since 4.12
      */
     @GdkVersion4_12
-    public fun setSize(width: gint, height: gint): Unit =
-        gdk_drag_surface_size_set_size(gPointer.reinterpret(), width, height)
+    public fun setSize(width: gint, height: gint): Unit = gdk_drag_surface_size_set_size(gPointer, width, height)
 }

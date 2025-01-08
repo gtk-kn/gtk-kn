@@ -51,13 +51,7 @@ public open class TextureScaleNode(pointer: CPointer<GskTextureScaleNode>) :
         texture: Texture,
         bounds: Rect,
         filter: ScalingFilter,
-    ) : this(
-        gsk_texture_scale_node_new(
-            texture.gdkTexturePointer.reinterpret(),
-            bounds.gPointer.reinterpret(),
-            filter.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_texture_scale_node_new(texture.gdkTexturePointer, bounds.gPointer, filter.nativeValue)!!.reinterpret())
 
     /**
      * Retrieves the `GskScalingFilter` used when creating this `GskRenderNode`.
@@ -80,7 +74,7 @@ public open class TextureScaleNode(pointer: CPointer<GskTextureScaleNode>) :
     @GskVersion4_10
     public open fun getTexture(): Texture =
         gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
-            Texture(reinterpret())
+            Texture(this)
         }
 
     public companion object : TypeCompanion<TextureScaleNode> {

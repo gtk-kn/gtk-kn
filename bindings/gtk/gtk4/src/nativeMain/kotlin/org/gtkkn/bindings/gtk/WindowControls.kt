@@ -102,7 +102,7 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          *
          * @return the decoration layout or null if it is unset
          */
-        get() = gtk_window_controls_get_decoration_layout(gtkWindowControlsPointer.reinterpret())?.toKString()
+        get() = gtk_window_controls_get_decoration_layout(gtkWindowControlsPointer)?.toKString()
 
         /**
          * Sets the decoration layout for the title buttons.
@@ -123,7 +123,7 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          *
          * @param layout a decoration layout, or null to unset the layout
          */
-        set(layout) = gtk_window_controls_set_decoration_layout(gtkWindowControlsPointer.reinterpret(), layout)
+        set(layout) = gtk_window_controls_set_decoration_layout(gtkWindowControlsPointer, layout)
 
     /**
      * Whether the widget has any window buttons.
@@ -134,7 +134,7 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          *
          * @return true if the widget has window buttons, otherwise false
          */
-        get() = gtk_window_controls_get_empty(gtkWindowControlsPointer.reinterpret()).asBoolean()
+        get() = gtk_window_controls_get_empty(gtkWindowControlsPointer).asBoolean()
 
     /**
      * Whether the widget shows start or end side of the decoration layout.
@@ -147,7 +147,7 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          *
          * @return the side
          */
-        get() = gtk_window_controls_get_side(gtkWindowControlsPointer.reinterpret()).run {
+        get() = gtk_window_controls_get_side(gtkWindowControlsPointer).run {
             PackType.fromNativeValue(this)
         }
 
@@ -158,7 +158,7 @@ public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
          *
          * @param side a side
          */
-        set(side) = gtk_window_controls_set_side(gtkWindowControlsPointer.reinterpret(), side.nativeValue)
+        set(side) = gtk_window_controls_set_side(gtkWindowControlsPointer, side.nativeValue)
 
     /**
      * Creates a new `GtkWindowControls`.

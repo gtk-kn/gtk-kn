@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
@@ -36,7 +35,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getDomain(): String =
-        webkit_itp_first_party_get_domain(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        webkit_itp_first_party_get_domain(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the last time a #WebKitITPThirdParty has been seen under @itp_first_party.
@@ -48,10 +47,9 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getLastUpdateTime(): DateTime =
-        webkit_itp_first_party_get_last_update_time(gPointer.reinterpret())!!.run {
-            DateTime(reinterpret())
-        }
+    public fun getLastUpdateTime(): DateTime = webkit_itp_first_party_get_last_update_time(gPointer)!!.run {
+        DateTime(this)
+    }
 
     /**
      * Get whether @itp_first_party has granted website data access to its #WebKitITPThirdParty.
@@ -64,7 +62,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getWebsiteDataAccessAllowed(): Boolean =
-        webkit_itp_first_party_get_website_data_access_allowed(gPointer.reinterpret()).asBoolean()
+        webkit_itp_first_party_get_website_data_access_allowed(gPointer).asBoolean()
 
     /**
      * Atomically increments the reference count of @itp_first_party by one.
@@ -75,8 +73,8 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ItpFirstParty = webkit_itp_first_party_ref(gPointer.reinterpret())!!.run {
-        ItpFirstParty(reinterpret())
+    public fun ref(): ItpFirstParty = webkit_itp_first_party_ref(gPointer)!!.run {
+        ItpFirstParty(this)
     }
 
     /**
@@ -89,7 +87,7 @@ public class ItpFirstParty(pointer: CPointer<WebKitITPFirstParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun unref(): Unit = webkit_itp_first_party_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_itp_first_party_unref(gPointer)
 
     public companion object {
         /**

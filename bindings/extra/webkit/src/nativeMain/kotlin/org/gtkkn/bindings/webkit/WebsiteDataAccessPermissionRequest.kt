@@ -47,7 +47,7 @@ public class WebsiteDataAccessPermissionRequest(pointer: CPointer<WebKitWebsiteD
      */
     @WebKitVersion2_30
     public fun getCurrentDomain(): String = webkit_website_data_access_permission_request_get_current_domain(
-        webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()
+        webkitWebsiteDataAccessPermissionRequestPointer
     )?.toKString()
         ?: error("Expected not null string")
 
@@ -59,7 +59,7 @@ public class WebsiteDataAccessPermissionRequest(pointer: CPointer<WebKitWebsiteD
      */
     @WebKitVersion2_30
     public fun getRequestingDomain(): String = webkit_website_data_access_permission_request_get_requesting_domain(
-        webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()
+        webkitWebsiteDataAccessPermissionRequestPointer
     )?.toKString()
         ?: error("Expected not null string")
 

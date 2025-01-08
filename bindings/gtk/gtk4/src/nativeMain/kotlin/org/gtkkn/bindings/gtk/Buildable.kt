@@ -42,8 +42,7 @@ public interface Buildable :
      *
      * @return the ID of the buildable object
      */
-    public fun getBuildableId(): String? =
-        gtk_buildable_get_buildable_id(gtkBuildablePointer.reinterpret())?.toKString()
+    public fun getBuildableId(): String? = gtk_buildable_get_buildable_id(gtkBuildablePointer)?.toKString()
 
     private data class Wrapper(private val pointer: CPointer<GtkBuildable>) : Buildable {
         override val gtkBuildablePointer: CPointer<GtkBuildable> = pointer

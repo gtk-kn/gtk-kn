@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.jsc.JSCWeakValue
 import org.gtkkn.native.jsc.jsc_weak_value_get_type
 import org.gtkkn.native.jsc.jsc_weak_value_get_value
@@ -44,32 +45,39 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
      * @param value a #JSCValue
      * @return a new #JSCWeakValue
      */
-    public constructor(`value`: Value) : this(jsc_weak_value_new(`value`.jscValuePointer.reinterpret())!!.reinterpret())
+    public constructor(`value`: Value) : this(jsc_weak_value_new(`value`.jscValuePointer)!!.reinterpret())
 
     /**
      * Get a #JSCValue referencing the JavaScript value of @weak_value.
      *
      * @return a new #JSCValue or null if @weak_value was cleared.
      */
-    public fun getValue(): Value = jsc_weak_value_get_value(jscWeakValuePointer.reinterpret())!!.run {
-        Value(reinterpret())
+    public fun getValue(): Value = jsc_weak_value_get_value(jscWeakValuePointer)!!.run {
+        Value(this)
     }
 
     /**
      * This signal is emitted when the JavaScript value is destroyed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "cleared",
-            connectClearedFunc.reinterpret(),
+            onClearedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "cleared" signal. See [onCleared].
+     */
+    public fun emitCleared() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "cleared")
+    }
 
     public companion object : TypeCompanion<WeakValue> {
         override val type: GeneratedClassKGType<WeakValue> =
@@ -88,7 +96,7 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
     }
 }
 
-private val connectClearedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClearedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

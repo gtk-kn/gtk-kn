@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_30
@@ -33,7 +32,7 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getDomain(): String =
-        webkit_itp_third_party_get_domain(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        webkit_itp_third_party_get_domain(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the list of #WebKitITPFirstParty under which @itp_third_party has been seen.
@@ -42,8 +41,8 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getFirstParties(): List = webkit_itp_third_party_get_first_parties(gPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun getFirstParties(): List = webkit_itp_third_party_get_first_parties(gPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -55,8 +54,8 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ItpThirdParty = webkit_itp_third_party_ref(gPointer.reinterpret())!!.run {
-        ItpThirdParty(reinterpret())
+    public fun ref(): ItpThirdParty = webkit_itp_third_party_ref(gPointer)!!.run {
+        ItpThirdParty(this)
     }
 
     /**
@@ -69,7 +68,7 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun unref(): Unit = webkit_itp_third_party_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_itp_third_party_unref(gPointer)
 
     public companion object {
         /**

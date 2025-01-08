@@ -52,8 +52,8 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
          * g_object_ref()'d if it will be stored
          * @since 2.22
          */
-        get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer.reinterpret())!!.run {
-            InetAddress(reinterpret())
+        get() = g_inet_socket_address_get_address(gioInetSocketAddressPointer)!!.run {
+            InetAddress(this)
         }
 
     /**
@@ -70,7 +70,7 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
          * @return the flowinfo field
          * @since 2.32
          */
-        get() = g_inet_socket_address_get_flowinfo(gioInetSocketAddressPointer.reinterpret())
+        get() = g_inet_socket_address_get_flowinfo(gioInetSocketAddressPointer)
 
     /**
      * The port.
@@ -85,7 +85,7 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
          * @return the port for @address
          * @since 2.22
          */
-        get() = g_inet_socket_address_get_port(gioInetSocketAddressPointer.reinterpret())
+        get() = g_inet_socket_address_get_port(gioInetSocketAddressPointer)
 
     /**
      * The `sin6_scope_id` field, for IPv6 addresses.
@@ -101,7 +101,7 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
          * @return the scope id field
          * @since 2.32
          */
-        get() = g_inet_socket_address_get_scope_id(gioInetSocketAddressPointer.reinterpret())
+        get() = g_inet_socket_address_get_scope_id(gioInetSocketAddressPointer)
 
     /**
      * Creates a new #GInetSocketAddress for @address and @port.
@@ -114,7 +114,7 @@ public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
     public constructor(
         address: InetAddress,
         port: guint16,
-    ) : this(g_inet_socket_address_new(address.gioInetAddressPointer.reinterpret(), port)!!.reinterpret())
+    ) : this(g_inet_socket_address_new(address.gioInetAddressPointer, port)!!.reinterpret())
 
     /**
      * Creates a new #GInetSocketAddress for @address and @port.

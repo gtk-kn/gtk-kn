@@ -129,7 +129,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return whether the popup includes a search entry
          * @since 1.4
          */
-        get() = adw_combo_row_get_enable_search(adwComboRowPointer.reinterpret()).asBoolean()
+        get() = adw_combo_row_get_enable_search(adwComboRowPointer).asBoolean()
 
         /**
          * Sets whether to enable search.
@@ -143,7 +143,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(enableSearch) = adw_combo_row_set_enable_search(adwComboRowPointer.reinterpret(), enableSearch.asGBoolean())
+        set(enableSearch) = adw_combo_row_set_enable_search(adwComboRowPointer, enableSearch.asGBoolean())
 
     /**
      * An expression used to obtain strings from items.
@@ -160,8 +160,8 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @return the expression used to obtain strings from items
          */
-        get() = adw_combo_row_get_expression(adwComboRowPointer.reinterpret())?.run {
-            Expression(reinterpret())
+        get() = adw_combo_row_get_expression(adwComboRowPointer)?.run {
+            Expression(this)
         }
 
         /**
@@ -175,9 +175,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param expression an expression
          */
-        set(
-            expression
-        ) = adw_combo_row_set_expression(adwComboRowPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = adw_combo_row_set_expression(adwComboRowPointer, expression?.gPointer)
 
     /**
      * Factory for populating list items.
@@ -191,8 +189,8 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @return the factory in use
          */
-        get() = adw_combo_row_get_factory(adwComboRowPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
+        get() = adw_combo_row_get_factory(adwComboRowPointer)?.run {
+            ListItemFactory(this)
         }
 
         /**
@@ -203,12 +201,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param factory the factory to use
          */
-        set(
-            factory
-        ) = adw_combo_row_set_factory(
-            adwComboRowPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = adw_combo_row_set_factory(adwComboRowPointer, factory?.gtkListItemFactoryPointer)
 
     /**
      * The factory for populating list items in the popup.
@@ -221,8 +214,8 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @return the factory in use
          */
-        get() = adw_combo_row_get_list_factory(adwComboRowPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
+        get() = adw_combo_row_get_list_factory(adwComboRowPointer)?.run {
+            ListItemFactory(this)
         }
 
         /**
@@ -232,12 +225,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param factory the factory to use
          */
-        set(
-            factory
-        ) = adw_combo_row_set_list_factory(
-            adwComboRowPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = adw_combo_row_set_list_factory(adwComboRowPointer, factory?.gtkListItemFactoryPointer)
 
     /**
      * The model that provides the displayed items.
@@ -248,7 +236,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @return The model in use
          */
-        get() = adw_combo_row_get_model(adwComboRowPointer.reinterpret())?.run {
+        get() = adw_combo_row_get_model(adwComboRowPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -257,7 +245,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param model the model to use
          */
-        set(model) = adw_combo_row_set_model(adwComboRowPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = adw_combo_row_set_model(adwComboRowPointer, model?.gioListModelPointer)
 
     /**
      * The position of the selected item.
@@ -272,7 +260,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return the position of the selected item, or
          *   [const@Gtk.INVALID_LIST_POSITION] if no item is selected
          */
-        get() = adw_combo_row_get_selected(adwComboRowPointer.reinterpret())
+        get() = adw_combo_row_get_selected(adwComboRowPointer)
 
         /**
          * Selects the item at the given position.
@@ -280,7 +268,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @param position the position of the item to select, or
          *   [const@Gtk.INVALID_LIST_POSITION]
          */
-        set(position) = adw_combo_row_set_selected(adwComboRowPointer.reinterpret(), position)
+        set(position) = adw_combo_row_set_selected(adwComboRowPointer, position)
 
     /**
      * The selected item.
@@ -291,7 +279,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @return the selected item
          */
-        get() = adw_combo_row_get_selected_item(adwComboRowPointer.reinterpret())?.run {
+        get() = adw_combo_row_get_selected_item(adwComboRowPointer)?.run {
             Object(reinterpret())
         }
 
@@ -312,7 +300,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @return whether to use the current value as the subtitle
          */
-        get() = adw_combo_row_get_use_subtitle(adwComboRowPointer.reinterpret()).asBoolean()
+        get() = adw_combo_row_get_use_subtitle(adwComboRowPointer).asBoolean()
 
         /**
          * Sets whether to use the current value as the subtitle.
@@ -327,7 +315,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param useSubtitle whether to use the current value as the subtitle
          */
-        set(useSubtitle) = adw_combo_row_set_use_subtitle(adwComboRowPointer.reinterpret(), useSubtitle.asGBoolean())
+        set(useSubtitle) = adw_combo_row_set_use_subtitle(adwComboRowPointer, useSubtitle.asGBoolean())
 
     /**
      * Creates a new `AdwComboRow`.

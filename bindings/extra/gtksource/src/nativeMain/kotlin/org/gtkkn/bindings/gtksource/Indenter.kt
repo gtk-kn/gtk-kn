@@ -75,9 +75,9 @@ public interface Indenter :
      */
     public fun isTrigger(view: View, location: TextIter, state: ModifierType, keyval: guint): Boolean =
         gtk_source_indenter_is_trigger(
-            gtksourceIndenterPointer.reinterpret(),
-            view.gtksourceViewPointer.reinterpret(),
-            location.gPointer.reinterpret(),
+            gtksourceIndenterPointer,
+            view.gtksourceViewPointer,
+            location.gPointer,
             state.mask,
             keyval
         ).asBoolean()

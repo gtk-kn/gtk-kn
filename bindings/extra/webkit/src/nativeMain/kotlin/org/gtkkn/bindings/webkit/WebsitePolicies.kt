@@ -50,7 +50,7 @@ public class WebsitePolicies(pointer: CPointer<WebKitWebsitePolicies>) :
      */
     @WebKitVersion2_30
     public fun getAutoplayPolicy(): AutoplayPolicy =
-        webkit_website_policies_get_autoplay_policy(webkitWebsitePoliciesPointer.reinterpret()).run {
+        webkit_website_policies_get_autoplay_policy(webkitWebsitePoliciesPointer).run {
             AutoplayPolicy.fromNativeValue(this)
         }
 

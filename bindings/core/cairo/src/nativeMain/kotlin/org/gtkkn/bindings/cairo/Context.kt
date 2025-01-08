@@ -131,92 +131,89 @@ import kotlin.Unit
 public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
     public val gPointer: CPointer<cairo_t> = pointer
 
-    public fun save(): Unit = cairo_save(gPointer.reinterpret())
+    public fun save(): Unit = cairo_save(gPointer)
 
-    public fun restore(): Unit = cairo_restore(gPointer.reinterpret())
+    public fun restore(): Unit = cairo_restore(gPointer)
 
-    public fun rotate(angle: gdouble): Unit = cairo_rotate(gPointer.reinterpret(), angle)
+    public fun rotate(angle: gdouble): Unit = cairo_rotate(gPointer, angle)
 
-    public fun paint(): Unit = cairo_paint(gPointer.reinterpret())
+    public fun paint(): Unit = cairo_paint(gPointer)
 
-    public fun paintWithAlpha(alpha: gdouble): Unit = cairo_paint_with_alpha(gPointer.reinterpret(), alpha)
+    public fun paintWithAlpha(alpha: gdouble): Unit = cairo_paint_with_alpha(gPointer, alpha)
 
     public fun setSourceSurface(surface: Surface, x: gdouble, y: gdouble): Unit =
-        cairo_set_source_surface(gPointer.reinterpret(), surface.gPointer.reinterpret(), x, y)
+        cairo_set_source_surface(gPointer, surface.gPointer, x, y)
 
-    public fun setSource(source: Pattern): Unit =
-        cairo_set_source(gPointer.reinterpret(), source.gPointer.reinterpret())
+    public fun setSource(source: Pattern): Unit = cairo_set_source(gPointer, source.gPointer)
 
-    public fun closePath(): Unit = cairo_close_path(gPointer.reinterpret())
+    public fun closePath(): Unit = cairo_close_path(gPointer)
 
-    public fun setOperator(`operator`: Operator): Unit =
-        cairo_set_operator(gPointer.reinterpret(), `operator`.nativeValue)
+    public fun setOperator(`operator`: Operator): Unit = cairo_set_operator(gPointer, `operator`.nativeValue)
 
-    public fun setLineWidth(width: gdouble): Unit = cairo_set_line_width(gPointer.reinterpret(), width)
+    public fun setLineWidth(width: gdouble): Unit = cairo_set_line_width(gPointer, width)
 
-    public fun setAntialias(antialias: Antialias): Unit =
-        cairo_set_antialias(gPointer.reinterpret(), antialias.nativeValue)
+    public fun setAntialias(antialias: Antialias): Unit = cairo_set_antialias(gPointer, antialias.nativeValue)
 
-    public fun moveTo(x: gdouble, y: gdouble): Unit = cairo_move_to(gPointer.reinterpret(), x, y)
+    public fun moveTo(x: gdouble, y: gdouble): Unit = cairo_move_to(gPointer, x, y)
 
     public fun selectFontFace(utf8: String, style: FontSlant, weight: FontWeight): Unit =
-        cairo_select_font_face(gPointer.reinterpret(), utf8, style.nativeValue, weight.nativeValue)
+        cairo_select_font_face(gPointer, utf8, style.nativeValue, weight.nativeValue)
 
-    public fun setFontSize(size: gdouble): Unit = cairo_set_font_size(gPointer.reinterpret(), size)
+    public fun setFontSize(size: gdouble): Unit = cairo_set_font_size(gPointer, size)
 
-    public fun lineTo(x: gdouble, y: gdouble): Unit = cairo_line_to(gPointer.reinterpret(), x, y)
+    public fun lineTo(x: gdouble, y: gdouble): Unit = cairo_line_to(gPointer, x, y)
 
     public fun arc(xc: gdouble, yc: gdouble, radius: gdouble, angle1: gdouble, angle2: gdouble): Unit =
-        cairo_arc(gPointer.reinterpret(), xc, yc, radius, angle1, angle2)
+        cairo_arc(gPointer, xc, yc, radius, angle1, angle2)
 
     public fun curveTo(x1: gdouble, y1: gdouble, x2: gdouble, y2: gdouble, x3: gdouble, y3: gdouble): Unit =
-        cairo_curve_to(gPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
+        cairo_curve_to(gPointer, x1, y1, x2, y2, x3, y3)
 
-    public fun stroke(): Unit = cairo_stroke(gPointer.reinterpret())
+    public fun stroke(): Unit = cairo_stroke(gPointer)
 
-    public fun fill(): Unit = cairo_fill(gPointer.reinterpret())
+    public fun fill(): Unit = cairo_fill(gPointer)
 
-    public fun fillPreserve(): Unit = cairo_fill_preserve(gPointer.reinterpret())
+    public fun fillPreserve(): Unit = cairo_fill_preserve(gPointer)
 
     public fun rectangle(x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        cairo_rectangle(gPointer.reinterpret(), x, y, width, height)
+        cairo_rectangle(gPointer, x, y, width, height)
 
-    public fun setLineCap(lineCap: LineCap): Unit = cairo_set_line_cap(gPointer.reinterpret(), lineCap.nativeValue)
+    public fun setLineCap(lineCap: LineCap): Unit = cairo_set_line_cap(gPointer, lineCap.nativeValue)
 
-    public fun setLineJoin(lineJoin: LineJoin): Unit = cairo_set_line_join(gPointer.reinterpret(), lineJoin.nativeValue)
+    public fun setLineJoin(lineJoin: LineJoin): Unit = cairo_set_line_join(gPointer, lineJoin.nativeValue)
 
     public fun setSourceRgba(red: gdouble, green: gdouble, blue: gdouble, alpha: gdouble): Unit =
-        cairo_set_source_rgba(gPointer.reinterpret(), red, green, blue, alpha)
+        cairo_set_source_rgba(gPointer, red, green, blue, alpha)
 
     public fun setSourceRgb(red: gdouble, green: gdouble, blue: gdouble): Unit =
-        cairo_set_source_rgb(gPointer.reinterpret(), red, green, blue)
+        cairo_set_source_rgb(gPointer, red, green, blue)
 
-    public fun destroy(): Unit = cairo_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = cairo_destroy(gPointer)
 
-    public fun resetClip(): Unit = cairo_reset_clip(gPointer.reinterpret())
+    public fun resetClip(): Unit = cairo_reset_clip(gPointer)
 
-    public fun clip(): Unit = cairo_clip(gPointer.reinterpret())
+    public fun clip(): Unit = cairo_clip(gPointer)
 
-    public fun newPath(): Unit = cairo_new_path(gPointer.reinterpret())
+    public fun newPath(): Unit = cairo_new_path(gPointer)
 
-    public fun setMatrix(matrix: Matrix): Unit = cairo_set_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public fun setMatrix(matrix: Matrix): Unit = cairo_set_matrix(gPointer, matrix.gPointer)
 
-    public fun transform(matrix: Matrix): Unit = cairo_transform(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public fun transform(matrix: Matrix): Unit = cairo_transform(gPointer, matrix.gPointer)
 
-    public fun identityMatrix(): Unit = cairo_identity_matrix(gPointer.reinterpret())
+    public fun identityMatrix(): Unit = cairo_identity_matrix(gPointer)
 
-    public fun showText(utf8: String): Unit = cairo_show_text(gPointer.reinterpret(), utf8)
+    public fun showText(utf8: String): Unit = cairo_show_text(gPointer, utf8)
 
-    public fun getSource(): Pattern = cairo_get_source(gPointer.reinterpret())!!.run {
-        Pattern(reinterpret())
+    public fun getSource(): Pattern = cairo_get_source(gPointer)!!.run {
+        Pattern(this)
     }
 
-    public fun translate(x: gdouble, y: gdouble): Unit = cairo_translate(gPointer.reinterpret(), x, y)
+    public fun translate(x: gdouble, y: gdouble): Unit = cairo_translate(gPointer, x, y)
 
-    public fun scale(x: gdouble, y: gdouble): Unit = cairo_scale(gPointer.reinterpret(), x, y)
+    public fun scale(x: gdouble, y: gdouble): Unit = cairo_scale(gPointer, x, y)
 
-    public fun getTarget(): Surface = cairo_get_target(gPointer.reinterpret())!!.run {
-        Surface(reinterpret())
+    public fun getTarget(): Surface = cairo_get_target(gPointer)!!.run {
+        Surface(this)
     }
 
     /**
@@ -225,7 +222,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun pushGroup(): Unit = cairo_push_group(gPointer.reinterpret())
+    public fun pushGroup(): Unit = cairo_push_group(gPointer)
 
     /**
      *
@@ -235,7 +232,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      */
     @CairoVersion1_2
     public fun pushGroupWithContent(content: Content): Unit =
-        cairo_push_group_with_content(gPointer.reinterpret(), content.nativeValue)
+        cairo_push_group_with_content(gPointer, content.nativeValue)
 
     /**
      *
@@ -243,8 +240,8 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun popGroup(): Pattern = cairo_pop_group(gPointer.reinterpret())!!.run {
-        Pattern(reinterpret())
+    public fun popGroup(): Pattern = cairo_pop_group(gPointer)!!.run {
+        Pattern(this)
     }
 
     /**
@@ -253,7 +250,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun popGroupToSource(): Unit = cairo_pop_group_to_source(gPointer.reinterpret())
+    public fun popGroupToSource(): Unit = cairo_pop_group_to_source(gPointer)
 
     /**
      *
@@ -261,27 +258,27 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun getGroupTarget(): Surface = cairo_get_group_target(gPointer.reinterpret())!!.run {
-        Surface(reinterpret())
+    public fun getGroupTarget(): Surface = cairo_get_group_target(gPointer)!!.run {
+        Surface(this)
     }
 
-    public fun getAntialias(): Antialias = cairo_get_antialias(gPointer.reinterpret()).run {
+    public fun getAntialias(): Antialias = cairo_get_antialias(gPointer).run {
         Antialias.fromNativeValue(this)
     }
 
-    public fun getOperator(): Operator = cairo_get_operator(gPointer.reinterpret()).run {
+    public fun getOperator(): Operator = cairo_get_operator(gPointer).run {
         Operator.fromNativeValue(this)
     }
 
-    public fun setMiterLimit(limit: gdouble): Unit = cairo_set_miter_limit(gPointer.reinterpret(), limit)
+    public fun setMiterLimit(limit: gdouble): Unit = cairo_set_miter_limit(gPointer, limit)
 
-    public fun getMiterLimit(): gdouble = cairo_get_miter_limit(gPointer.reinterpret())
+    public fun getMiterLimit(): gdouble = cairo_get_miter_limit(gPointer)
 
-    public fun setTolerance(tolerance: gdouble): Unit = cairo_set_tolerance(gPointer.reinterpret(), tolerance)
+    public fun setTolerance(tolerance: gdouble): Unit = cairo_set_tolerance(gPointer, tolerance)
 
-    public fun getTolerance(): gdouble = cairo_get_tolerance(gPointer.reinterpret())
+    public fun getTolerance(): gdouble = cairo_get_tolerance(gPointer)
 
-    public fun clipPreserve(): Unit = cairo_clip_preserve(gPointer.reinterpret())
+    public fun clipPreserve(): Unit = cairo_clip_preserve(gPointer)
 
     /**
      *
@@ -291,41 +288,37 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.10
      */
     @CairoVersion1_10
-    public fun inClip(x: gdouble, y: gdouble): Boolean = cairo_in_clip(gPointer.reinterpret(), x, y).asBoolean()
+    public fun inClip(x: gdouble, y: gdouble): Boolean = cairo_in_clip(gPointer, x, y).asBoolean()
 
-    public fun strokePreserve(): Unit = cairo_stroke_preserve(gPointer.reinterpret())
+    public fun strokePreserve(): Unit = cairo_stroke_preserve(gPointer)
 
-    public fun inStroke(x: gdouble, y: gdouble): Boolean = cairo_in_stroke(gPointer.reinterpret(), x, y).asBoolean()
+    public fun inStroke(x: gdouble, y: gdouble): Boolean = cairo_in_stroke(gPointer, x, y).asBoolean()
 
-    public fun copyPage(): Unit = cairo_copy_page(gPointer.reinterpret())
+    public fun copyPage(): Unit = cairo_copy_page(gPointer)
 
-    public fun showPage(): Unit = cairo_show_page(gPointer.reinterpret())
+    public fun showPage(): Unit = cairo_show_page(gPointer)
 
     public fun arcNegative(xc: gdouble, yc: gdouble, radius: gdouble, angle1: gdouble, angle2: gdouble): Unit =
-        cairo_arc_negative(gPointer.reinterpret(), xc, yc, radius, angle1, angle2)
+        cairo_arc_negative(gPointer, xc, yc, radius, angle1, angle2)
 
-    public fun textPath(utf8: String): Unit = cairo_text_path(gPointer.reinterpret(), utf8)
+    public fun textPath(utf8: String): Unit = cairo_text_path(gPointer, utf8)
 
     public fun relCurveTo(dx1: gdouble, dy1: gdouble, dx2: gdouble, dy2: gdouble, dx3: gdouble, dy3: gdouble): Unit =
-        cairo_rel_curve_to(gPointer.reinterpret(), dx1, dy1, dx2, dy2, dx3, dy3)
+        cairo_rel_curve_to(gPointer, dx1, dy1, dx2, dy2, dx3, dy3)
 
-    public fun relLineTo(dx: gdouble, dy: gdouble): Unit = cairo_rel_line_to(gPointer.reinterpret(), dx, dy)
+    public fun relLineTo(dx: gdouble, dy: gdouble): Unit = cairo_rel_line_to(gPointer, dx, dy)
 
-    public fun relMoveTo(dx: gdouble, dy: gdouble): Unit = cairo_rel_move_to(gPointer.reinterpret(), dx, dy)
+    public fun relMoveTo(dx: gdouble, dy: gdouble): Unit = cairo_rel_move_to(gPointer, dx, dy)
 
-    public fun getFontMatrix(matrix: Matrix): Unit =
-        cairo_get_font_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public fun getFontMatrix(matrix: Matrix): Unit = cairo_get_font_matrix(gPointer, matrix.gPointer)
 
-    public fun setFontOptions(options: FontOptions): Unit =
-        cairo_set_font_options(gPointer.reinterpret(), options.gPointer.reinterpret())
+    public fun setFontOptions(options: FontOptions): Unit = cairo_set_font_options(gPointer, options.gPointer)
 
-    public fun getFontOptions(options: FontOptions): Unit =
-        cairo_get_font_options(gPointer.reinterpret(), options.gPointer.reinterpret())
+    public fun getFontOptions(options: FontOptions): Unit = cairo_get_font_options(gPointer, options.gPointer)
 
-    public fun setFontFace(fontFace: FontFace): Unit =
-        cairo_set_font_face(gPointer.reinterpret(), fontFace.gPointer.reinterpret())
+    public fun setFontFace(fontFace: FontFace): Unit = cairo_set_font_face(gPointer, fontFace.gPointer.reinterpret())
 
-    public fun getFontFace(): FontFace = cairo_get_font_face(gPointer.reinterpret())!!.run {
+    public fun getFontFace(): FontFace = cairo_get_font_face(gPointer)!!.run {
         FontFace(reinterpret())
     }
 
@@ -336,8 +329,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun setScaledFont(scaledFont: ScaledFont): Unit =
-        cairo_set_scaled_font(gPointer.reinterpret(), scaledFont.gPointer.reinterpret())
+    public fun setScaledFont(scaledFont: ScaledFont): Unit = cairo_set_scaled_font(gPointer, scaledFont.gPointer)
 
     /**
      *
@@ -345,15 +337,14 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.4
      */
     @CairoVersion1_4
-    public fun getScaledFont(): ScaledFont = cairo_get_scaled_font(gPointer.reinterpret())!!.run {
-        ScaledFont(reinterpret())
+    public fun getScaledFont(): ScaledFont = cairo_get_scaled_font(gPointer)!!.run {
+        ScaledFont(this)
     }
 
-    public fun fontExtents(extents: FontExtents): Unit =
-        cairo_font_extents(gPointer.reinterpret(), extents.gPointer.reinterpret())
+    public fun fontExtents(extents: FontExtents): Unit = cairo_font_extents(gPointer, extents.gPointer)
 
     public fun textExtents(utf8: String, extents: TextExtents): Unit =
-        cairo_text_extents(gPointer.reinterpret(), utf8, extents.gPointer.reinterpret())
+        cairo_text_extents(gPointer, utf8, extents.gPointer)
 
     /**
      *
@@ -363,8 +354,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.16
      */
     @CairoVersion1_16
-    public fun tagBegin(tagName: String, attributes: String): Unit =
-        cairo_tag_begin(gPointer.reinterpret(), tagName, attributes)
+    public fun tagBegin(tagName: String, attributes: String): Unit = cairo_tag_begin(gPointer, tagName, attributes)
 
     /**
      *
@@ -373,12 +363,11 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.16
      */
     @CairoVersion1_16
-    public fun tagEnd(tagName: String): Unit = cairo_tag_end(gPointer.reinterpret(), tagName)
+    public fun tagEnd(tagName: String): Unit = cairo_tag_end(gPointer, tagName)
 
-    public fun getUserData(key: UserDataKey): gpointer =
-        cairo_get_user_data(gPointer.reinterpret(), key.gPointer.reinterpret())!!
+    public fun getUserData(key: UserDataKey): gpointer = cairo_get_user_data(gPointer, key.gPointer)!!
 
-    public fun status(): Status = cairo_status(gPointer.reinterpret()).run {
+    public fun status(): Status = cairo_status(gPointer).run {
         Status.fromNativeValue(this)
     }
 
@@ -388,28 +377,28 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.4
      */
     @CairoVersion1_4
-    public fun getDashCount(): gint = cairo_get_dash_count(gPointer.reinterpret())
+    public fun getDashCount(): gint = cairo_get_dash_count(gPointer)
 
-    public fun setFillRule(fillRule: FillRule): Unit = cairo_set_fill_rule(gPointer.reinterpret(), fillRule.nativeValue)
+    public fun setFillRule(fillRule: FillRule): Unit = cairo_set_fill_rule(gPointer, fillRule.nativeValue)
 
-    public fun getFillRule(): FillRule = cairo_get_fill_rule(gPointer.reinterpret()).run {
+    public fun getFillRule(): FillRule = cairo_get_fill_rule(gPointer).run {
         FillRule.fromNativeValue(this)
     }
 
-    public fun getLineCap(): LineCap = cairo_get_line_cap(gPointer.reinterpret()).run {
+    public fun getLineCap(): LineCap = cairo_get_line_cap(gPointer).run {
         LineCap.fromNativeValue(this)
     }
 
-    public fun getLineJoin(): LineJoin = cairo_get_line_join(gPointer.reinterpret()).run {
+    public fun getLineJoin(): LineJoin = cairo_get_line_join(gPointer).run {
         LineJoin.fromNativeValue(this)
     }
 
-    public fun getLineWidth(): gdouble = cairo_get_line_width(gPointer.reinterpret())
+    public fun getLineWidth(): gdouble = cairo_get_line_width(gPointer)
 
-    public fun mask(pattern: Pattern): Unit = cairo_mask(gPointer.reinterpret(), pattern.gPointer.reinterpret())
+    public fun mask(pattern: Pattern): Unit = cairo_mask(gPointer, pattern.gPointer)
 
     public fun maskSurface(surface: Surface, surfaceX: gdouble, surfaceY: gdouble): Unit =
-        cairo_mask_surface(gPointer.reinterpret(), surface.gPointer.reinterpret(), surfaceX, surfaceY)
+        cairo_mask_surface(gPointer, surface.gPointer, surfaceX, surfaceY)
 
     /**
      *
@@ -418,7 +407,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.18
      */
     @CairoVersion1_18
-    public fun setHairline(enable: Boolean): Unit = cairo_set_hairline(gPointer.reinterpret(), enable.asGBoolean())
+    public fun setHairline(enable: Boolean): Unit = cairo_set_hairline(gPointer, enable.asGBoolean())
 
     /**
      *
@@ -426,17 +415,17 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.18
      */
     @CairoVersion1_18
-    public fun getHairline(): Boolean = cairo_get_hairline(gPointer.reinterpret()).asBoolean()
+    public fun getHairline(): Boolean = cairo_get_hairline(gPointer).asBoolean()
 
-    public fun copyPath(): Path = cairo_copy_path(gPointer.reinterpret())!!.run {
-        Path(reinterpret())
+    public fun copyPath(): Path = cairo_copy_path(gPointer)!!.run {
+        Path(this)
     }
 
-    public fun copyPathFlat(): Path = cairo_copy_path_flat(gPointer.reinterpret())!!.run {
-        Path(reinterpret())
+    public fun copyPathFlat(): Path = cairo_copy_path_flat(gPointer)!!.run {
+        Path(this)
     }
 
-    public fun appendPath(path: Path): Unit = cairo_append_path(gPointer.reinterpret(), path.gPointer.reinterpret())
+    public fun appendPath(path: Path): Unit = cairo_append_path(gPointer, path.gPointer)
 
     /**
      *
@@ -444,7 +433,7 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.6
      */
     @CairoVersion1_6
-    public fun hasCurrentPoint(): Boolean = cairo_has_current_point(gPointer.reinterpret()).asBoolean()
+    public fun hasCurrentPoint(): Boolean = cairo_has_current_point(gPointer).asBoolean()
 
     /**
      *
@@ -452,16 +441,14 @@ public class Context(pointer: CPointer<cairo_t>) : ProxyInstance(pointer) {
      * @since 1.2
      */
     @CairoVersion1_2
-    public fun newSubPath(): Unit = cairo_new_sub_path(gPointer.reinterpret())
+    public fun newSubPath(): Unit = cairo_new_sub_path(gPointer)
 
-    public fun getMatrix(matrix: Matrix): Unit = cairo_get_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public fun getMatrix(matrix: Matrix): Unit = cairo_get_matrix(gPointer, matrix.gPointer)
 
-    public fun setFontMatrix(matrix: Matrix): Unit =
-        cairo_set_font_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public fun setFontMatrix(matrix: Matrix): Unit = cairo_set_font_matrix(gPointer, matrix.gPointer)
 
     public companion object {
-        public fun create(surface: Surface): Context =
-            Context(cairo_create(surface.gPointer.reinterpret())!!.reinterpret())
+        public fun create(surface: Surface): Context = Context(cairo_create(surface.gPointer)!!.reinterpret())
 
         /**
          * Get the GType of Context

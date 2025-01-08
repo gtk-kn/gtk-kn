@@ -48,8 +48,7 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
      */
     @GioVersion2_32
     public open fun getName(): String =
-        g_menu_attribute_iter_get_name(gioMenuAttributeIterPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_menu_attribute_iter_get_name(gioMenuAttributeIterPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the value of the attribute at the current iterator position.
@@ -60,10 +59,9 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getValue(): Variant =
-        g_menu_attribute_iter_get_value(gioMenuAttributeIterPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getValue(): Variant = g_menu_attribute_iter_get_value(gioMenuAttributeIterPointer)!!.run {
+        Variant(this)
+    }
 
     /**
      * Attempts to advance the iterator to the next (possibly first)
@@ -80,7 +78,7 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun next(): Boolean = g_menu_attribute_iter_next(gioMenuAttributeIterPointer.reinterpret()).asBoolean()
+    public open fun next(): Boolean = g_menu_attribute_iter_next(gioMenuAttributeIterPointer).asBoolean()
 
     public companion object : TypeCompanion<MenuAttributeIter> {
         override val type: GeneratedClassKGType<MenuAttributeIter> =

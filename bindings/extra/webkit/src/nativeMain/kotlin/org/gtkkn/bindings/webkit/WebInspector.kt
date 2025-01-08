@@ -22,6 +22,7 @@ import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitWebInspector
 import org.gtkkn.native.webkit.webkit_web_inspector_attach
 import org.gtkkn.native.webkit.webkit_web_inspector_close
@@ -82,7 +83,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
          *
          * @return the height of the inspector view when attached
          */
-        get() = webkit_web_inspector_get_attached_height(webkitWebInspectorPointer.reinterpret())
+        get() = webkit_web_inspector_get_attached_height(webkitWebInspectorPointer)
 
     /**
      * Whether the @inspector can be attached to the same window that contains
@@ -100,7 +101,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
          *     window that contains the inspected view, or false otherwise.
          * @since 2.8
          */
-        get() = webkit_web_inspector_get_can_attach(webkitWebInspectorPointer.reinterpret()).asBoolean()
+        get() = webkit_web_inspector_get_can_attach(webkitWebInspectorPointer).asBoolean()
 
     /**
      * The URI that is currently being inspected.
@@ -116,7 +117,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
          *
          * @return the URI that is currently being inspected or null
          */
-        get() = webkit_web_inspector_get_inspected_uri(webkitWebInspectorPointer.reinterpret())?.toKString()
+        get() = webkit_web_inspector_get_inspected_uri(webkitWebInspectorPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -125,12 +126,12 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * The signal #WebKitWebInspector::attach
      * will be emitted. If the inspector is already attached it does nothing.
      */
-    public fun attach(): Unit = webkit_web_inspector_attach(webkitWebInspectorPointer.reinterpret())
+    public fun attach(): Unit = webkit_web_inspector_attach(webkitWebInspectorPointer)
 
     /**
      * Request @inspector to be closed.
      */
-    public fun close(): Unit = webkit_web_inspector_close(webkitWebInspectorPointer.reinterpret())
+    public fun close(): Unit = webkit_web_inspector_close(webkitWebInspectorPointer)
 
     /**
      * Request @inspector to be detached.
@@ -138,7 +139,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * The signal #WebKitWebInspector::detach
      * will be emitted. If the inspector is already detached it does nothing.
      */
-    public fun detach(): Unit = webkit_web_inspector_detach(webkitWebInspectorPointer.reinterpret())
+    public fun detach(): Unit = webkit_web_inspector_detach(webkitWebInspectorPointer)
 
     /**
      * Get the #WebKitWebViewBase used to display the inspector.
@@ -148,10 +149,9 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      *
      * @return the #WebKitWebViewBase used to display the inspector or null
      */
-    public fun getWebView(): WebViewBase =
-        webkit_web_inspector_get_web_view(webkitWebInspectorPointer.reinterpret())!!.run {
-            WebViewBase(reinterpret())
-        }
+    public fun getWebView(): WebViewBase = webkit_web_inspector_get_web_view(webkitWebInspectorPointer)!!.run {
+        WebViewBase(this)
+    }
 
     /**
      * Whether the @inspector view is currently attached to the same window that contains
@@ -159,13 +159,12 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      *
      * @return true if @inspector is currently attached or false otherwise
      */
-    public fun isAttached(): Boolean =
-        webkit_web_inspector_is_attached(webkitWebInspectorPointer.reinterpret()).asBoolean()
+    public fun isAttached(): Boolean = webkit_web_inspector_is_attached(webkitWebInspectorPointer).asBoolean()
 
     /**
      * Request @inspector to be shown.
      */
-    public fun show(): Unit = webkit_web_inspector_show(webkitWebInspectorPointer.reinterpret())
+    public fun show(): Unit = webkit_web_inspector_show(webkitWebInspectorPointer)
 
     /**
      * Emitted when the inspector is requested to be attached to the window
@@ -178,15 +177,15 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * To prevent the inspector view from being attached you can connect to this
      * signal and simply return true.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectAttach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onAttach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "attach",
-            connectAttachFunc.reinterpret(),
+            onAttachFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -205,15 +204,15 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * calls gtk_window_present() on the current toplevel #GtkWindow of the
      * inspector view.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectBringToFront(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onBringToFront(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "bring-to-front",
-            connectBringToFrontFunc.reinterpret(),
+            onBringToFrontFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -224,18 +223,25 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * inspector window, you should connect to this signal and destroy your
      * window.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "closed",
-            connectClosedFunc.reinterpret(),
+            onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "closed" signal. See [onClosed].
+     */
+    public fun emitClosed() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+    }
 
     /**
      * Emitted when the inspector is requested to be detached from the window
@@ -248,15 +254,15 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * To prevent the inspector view from being detached you can connect to this
      * signal and simply return true.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectDetach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onDetach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "detach",
-            connectDetachFunc.reinterpret(),
+            onDetachFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -273,15 +279,15 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * To prevent the inspector from being shown you can connect to this
      * signal and simply return true
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      */
-    public fun connectOpenWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onOpenWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "open-window",
-            connectOpenWindowFunc.reinterpret(),
+            onOpenWindowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -304,7 +310,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
     }
 }
 
-private val connectAttachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onAttachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -312,7 +318,7 @@ private val connectAttachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunc
 }
     .reinterpret()
 
-private val connectBringToFrontFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onBringToFrontFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -320,7 +326,7 @@ private val connectBringToFrontFunc: CPointer<CFunction<() -> gboolean>> = stati
 }
     .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -328,7 +334,7 @@ private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
 }
     .reinterpret()
 
-private val connectDetachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onDetachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -336,7 +342,7 @@ private val connectDetachFunc: CPointer<CFunction<() -> gboolean>> = staticCFunc
 }
     .reinterpret()
 
-private val connectOpenWindowFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onOpenWindowFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

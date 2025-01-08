@@ -84,7 +84,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     public var head: List?
         get() = gPointer.pointed.head?.run {
-            List(reinterpret())
+            List(this)
         }
 
         @UnsafeFieldSetter
@@ -97,7 +97,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     public var tail: List?
         get() = gPointer.pointed.tail?.run {
-            List(reinterpret())
+            List(this)
         }
 
         @UnsafeFieldSetter
@@ -193,7 +193,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun clear(): Unit = g_queue_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_queue_clear(gPointer)
 
     /**
      * Copies a @queue. Note that is a shallow copy. If the elements in the
@@ -204,8 +204,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun copy(): Queue = g_queue_copy(gPointer.reinterpret())!!.run {
-        Queue(reinterpret())
+    public fun copy(): Queue = g_queue_copy(gPointer)!!.run {
+        Queue(this)
     }
 
     /**
@@ -217,7 +217,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun deleteLink(link: List): Unit = g_queue_delete_link(gPointer.reinterpret(), link.gPointer.reinterpret())
+    public fun deleteLink(link: List): Unit = g_queue_delete_link(gPointer, link.gPointer)
 
     /**
      * Finds the first link in @queue which contains @data.
@@ -227,8 +227,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun find(`data`: gpointer? = null): List = g_queue_find(gPointer.reinterpret(), `data`)!!.run {
-        List(reinterpret())
+    public fun find(`data`: gpointer? = null): List = g_queue_find(gPointer, `data`)!!.run {
+        List(this)
     }
 
     /**
@@ -243,7 +243,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GLibVersion2_4
     public fun foreach(func: Func): Unit =
-        g_queue_foreach(gPointer.reinterpret(), FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        g_queue_foreach(gPointer, FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the memory allocated for the #GQueue. Only call this function
@@ -253,7 +253,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * If queue elements contain dynamically-allocated memory, you should
      * either use g_queue_free_full() or free them manually first.
      */
-    public fun free(): Unit = g_queue_free(gPointer.reinterpret())
+    public fun free(): Unit = g_queue_free(gPointer)
 
     /**
      * Returns the number of items in @queue.
@@ -262,7 +262,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun getLength(): guint = g_queue_get_length(gPointer.reinterpret())
+    public fun getLength(): guint = g_queue_get_length(gPointer)
 
     /**
      * Returns the position of the first element in @queue which contains @data.
@@ -273,7 +273,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun index(`data`: gpointer? = null): gint = g_queue_index(gPointer.reinterpret(), `data`)
+    public fun index(`data`: gpointer? = null): gint = g_queue_index(gPointer, `data`)
 
     /**
      * A statically-allocated #GQueue must be initialized with this function
@@ -284,7 +284,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun `init`(): Unit = g_queue_init(gPointer.reinterpret())
+    public fun `init`(): Unit = g_queue_init(gPointer)
 
     /**
      * Inserts @data into @queue after @sibling.
@@ -299,7 +299,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GLibVersion2_4
     public fun insertAfter(sibling: List? = null, `data`: gpointer? = null): Unit =
-        g_queue_insert_after(gPointer.reinterpret(), sibling?.gPointer?.reinterpret(), `data`)
+        g_queue_insert_after(gPointer, sibling?.gPointer, `data`)
 
     /**
      * Inserts @link_ into @queue after @sibling.
@@ -313,7 +313,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GLibVersion2_62
     public fun insertAfterLink(sibling: List? = null, link: List): Unit =
-        g_queue_insert_after_link(gPointer.reinterpret(), sibling?.gPointer?.reinterpret(), link.gPointer.reinterpret())
+        g_queue_insert_after_link(gPointer, sibling?.gPointer, link.gPointer)
 
     /**
      * Inserts @data into @queue before @sibling.
@@ -328,7 +328,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      */
     @GLibVersion2_4
     public fun insertBefore(sibling: List? = null, `data`: gpointer? = null): Unit =
-        g_queue_insert_before(gPointer.reinterpret(), sibling?.gPointer?.reinterpret(), `data`)
+        g_queue_insert_before(gPointer, sibling?.gPointer, `data`)
 
     /**
      * Inserts @link_ into @queue before @sibling.
@@ -341,11 +341,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.62
      */
     @GLibVersion2_62
-    public fun insertBeforeLink(sibling: List? = null, link: List): Unit = g_queue_insert_before_link(
-        gPointer.reinterpret(),
-        sibling?.gPointer?.reinterpret(),
-        link.gPointer.reinterpret()
-    )
+    public fun insertBeforeLink(sibling: List? = null, link: List): Unit =
+        g_queue_insert_before_link(gPointer, sibling?.gPointer, link.gPointer)
 
     /**
      * Inserts @data into @queue using @func to determine the new position.
@@ -359,19 +356,15 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun insertSorted(`data`: gpointer? = null, func: CompareDataFunc): Unit = g_queue_insert_sorted(
-        gPointer.reinterpret(),
-        `data`,
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun insertSorted(`data`: gpointer? = null, func: CompareDataFunc): Unit =
+        g_queue_insert_sorted(gPointer, `data`, CompareDataFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Returns true if the queue is empty.
      *
      * @return true if the queue is empty
      */
-    public fun isEmpty(): Boolean = g_queue_is_empty(gPointer.reinterpret()).asBoolean()
+    public fun isEmpty(): Boolean = g_queue_is_empty(gPointer).asBoolean()
 
     /**
      * Returns the position of @link_ in @queue.
@@ -382,7 +375,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun linkIndex(link: List): gint = g_queue_link_index(gPointer.reinterpret(), link.gPointer.reinterpret())
+    public fun linkIndex(link: List): gint = g_queue_link_index(gPointer, link.gPointer)
 
     /**
      * Returns the first element of the queue.
@@ -390,7 +383,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @return the data of the first element in the queue, or null
      *     if the queue is empty
      */
-    public fun peekHead(): gpointer? = g_queue_peek_head(gPointer.reinterpret())
+    public fun peekHead(): gpointer? = g_queue_peek_head(gPointer)
 
     /**
      * Returns the first link in @queue.
@@ -399,8 +392,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun peekHeadLink(): List = g_queue_peek_head_link(gPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun peekHeadLink(): List = g_queue_peek_head_link(gPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -412,7 +405,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun peekNth(n: guint): gpointer? = g_queue_peek_nth(gPointer.reinterpret(), n)
+    public fun peekNth(n: guint): gpointer? = g_queue_peek_nth(gPointer, n)
 
     /**
      * Returns the link at the given position
@@ -423,8 +416,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun peekNthLink(n: guint): List = g_queue_peek_nth_link(gPointer.reinterpret(), n)!!.run {
-        List(reinterpret())
+    public fun peekNthLink(n: guint): List = g_queue_peek_nth_link(gPointer, n)!!.run {
+        List(this)
     }
 
     /**
@@ -433,7 +426,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @return the data of the last element in the queue, or null
      *     if the queue is empty
      */
-    public fun peekTail(): gpointer? = g_queue_peek_tail(gPointer.reinterpret())
+    public fun peekTail(): gpointer? = g_queue_peek_tail(gPointer)
 
     /**
      * Returns the last link in @queue.
@@ -442,8 +435,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun peekTailLink(): List = g_queue_peek_tail_link(gPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun peekTailLink(): List = g_queue_peek_tail_link(gPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -452,7 +445,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @return the data of the first element in the queue, or null
      *     if the queue is empty
      */
-    public fun popHead(): gpointer? = g_queue_pop_head(gPointer.reinterpret())
+    public fun popHead(): gpointer? = g_queue_pop_head(gPointer)
 
     /**
      * Removes and returns the first element of the queue.
@@ -460,8 +453,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @return the #GList element at the head of the queue, or null
      *     if the queue is empty
      */
-    public fun popHeadLink(): List = g_queue_pop_head_link(gPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun popHeadLink(): List = g_queue_pop_head_link(gPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -472,7 +465,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun popNth(n: guint): gpointer? = g_queue_pop_nth(gPointer.reinterpret(), n)
+    public fun popNth(n: guint): gpointer? = g_queue_pop_nth(gPointer, n)
 
     /**
      * Removes and returns the link at the given position.
@@ -482,8 +475,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun popNthLink(n: guint): List = g_queue_pop_nth_link(gPointer.reinterpret(), n)!!.run {
-        List(reinterpret())
+    public fun popNthLink(n: guint): List = g_queue_pop_nth_link(gPointer, n)!!.run {
+        List(this)
     }
 
     /**
@@ -492,7 +485,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @return the data of the last element in the queue, or null
      *     if the queue is empty
      */
-    public fun popTail(): gpointer? = g_queue_pop_tail(gPointer.reinterpret())
+    public fun popTail(): gpointer? = g_queue_pop_tail(gPointer)
 
     /**
      * Removes and returns the last element of the queue.
@@ -500,8 +493,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @return the #GList element at the tail of the queue, or null
      *     if the queue is empty
      */
-    public fun popTailLink(): List = g_queue_pop_tail_link(gPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun popTailLink(): List = g_queue_pop_tail_link(gPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -509,15 +502,14 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param data the data for the new element.
      */
-    public fun pushHead(`data`: gpointer? = null): Unit = g_queue_push_head(gPointer.reinterpret(), `data`)
+    public fun pushHead(`data`: gpointer? = null): Unit = g_queue_push_head(gPointer, `data`)
 
     /**
      * Adds a new element at the head of the queue.
      *
      * @param link a single #GList element, not a list with more than one element
      */
-    public fun pushHeadLink(link: List): Unit =
-        g_queue_push_head_link(gPointer.reinterpret(), link.gPointer.reinterpret())
+    public fun pushHeadLink(link: List): Unit = g_queue_push_head_link(gPointer, link.gPointer)
 
     /**
      * Inserts a new element into @queue at the given position.
@@ -529,7 +521,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun pushNth(`data`: gpointer? = null, n: gint): Unit = g_queue_push_nth(gPointer.reinterpret(), `data`, n)
+    public fun pushNth(`data`: gpointer? = null, n: gint): Unit = g_queue_push_nth(gPointer, `data`, n)
 
     /**
      * Inserts @link into @queue at the given position.
@@ -541,23 +533,21 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun pushNthLink(n: gint, link: List): Unit =
-        g_queue_push_nth_link(gPointer.reinterpret(), n, link.gPointer.reinterpret())
+    public fun pushNthLink(n: gint, link: List): Unit = g_queue_push_nth_link(gPointer, n, link.gPointer)
 
     /**
      * Adds a new element at the tail of the queue.
      *
      * @param data the data for the new element
      */
-    public fun pushTail(`data`: gpointer? = null): Unit = g_queue_push_tail(gPointer.reinterpret(), `data`)
+    public fun pushTail(`data`: gpointer? = null): Unit = g_queue_push_tail(gPointer, `data`)
 
     /**
      * Adds a new element at the tail of the queue.
      *
      * @param link a single #GList element, not a list with more than one element
      */
-    public fun pushTailLink(link: List): Unit =
-        g_queue_push_tail_link(gPointer.reinterpret(), link.gPointer.reinterpret())
+    public fun pushTailLink(link: List): Unit = g_queue_push_tail_link(gPointer, link.gPointer)
 
     /**
      * Removes the first element in @queue that contains @data.
@@ -567,7 +557,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun remove(`data`: gpointer? = null): Boolean = g_queue_remove(gPointer.reinterpret(), `data`).asBoolean()
+    public fun remove(`data`: gpointer? = null): Boolean = g_queue_remove(gPointer, `data`).asBoolean()
 
     /**
      * Remove all elements whose data equals @data from @queue.
@@ -577,7 +567,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun removeAll(`data`: gpointer? = null): guint = g_queue_remove_all(gPointer.reinterpret(), `data`)
+    public fun removeAll(`data`: gpointer? = null): guint = g_queue_remove_all(gPointer, `data`)
 
     /**
      * Reverses the order of the items in @queue.
@@ -585,7 +575,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun reverse(): Unit = g_queue_reverse(gPointer.reinterpret())
+    public fun reverse(): Unit = g_queue_reverse(gPointer)
 
     /**
      * Sorts @queue using @compare_func.
@@ -597,11 +587,8 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun sort(compareFunc: CompareDataFunc): Unit = g_queue_sort(
-        gPointer.reinterpret(),
-        CompareDataFuncFunc.reinterpret(),
-        StableRef.create(compareFunc).asCPointer()
-    )
+    public fun sort(compareFunc: CompareDataFunc): Unit =
+        g_queue_sort(gPointer, CompareDataFuncFunc.reinterpret(), StableRef.create(compareFunc).asCPointer())
 
     /**
      * Unlinks @link_ so that it will no longer be part of @queue.
@@ -613,7 +600,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun unlink(link: List): Unit = g_queue_unlink(gPointer.reinterpret(), link.gPointer.reinterpret())
+    public fun unlink(link: List): Unit = g_queue_unlink(gPointer, link.gPointer)
 
     override fun toString(): String = "Queue(head=$head, tail=$tail, length=$length)"
 
@@ -624,7 +611,7 @@ public class Queue(pointer: CPointer<GQueue>, cleaner: Cleaner? = null) : ProxyI
          * @return a newly allocated #GQueue
          */
         public fun new(): Queue = g_queue_new()!!.run {
-            Queue(reinterpret())
+            Queue(this)
         }
     }
 }

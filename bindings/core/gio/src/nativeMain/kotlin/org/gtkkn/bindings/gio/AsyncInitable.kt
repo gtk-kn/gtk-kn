@@ -194,9 +194,9 @@ public interface AsyncInitable :
     @GioVersion2_22
     public fun initAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_async_initable_init_async(
-            gioAsyncInitablePointer.reinterpret(),
+            gioAsyncInitablePointer,
             ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -216,7 +216,7 @@ public interface AsyncInitable :
     public fun initFinish(res: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_async_initable_init_finish(
-            gioAsyncInitablePointer.reinterpret(),
+            gioAsyncInitablePointer,
             res.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -239,12 +239,8 @@ public interface AsyncInitable :
     @GioVersion2_22
     public fun newFinish(res: AsyncResult): Result<Object> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_async_initable_new_finish(
-            gioAsyncInitablePointer.reinterpret(),
-            res.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            Object(reinterpret())
+        val gResult = g_async_initable_new_finish(gioAsyncInitablePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
+            Object(this)
         }
 
         return if (gError.pointed != null) {
@@ -296,9 +292,9 @@ public interface AsyncInitable :
         ): Unit = g_async_initable_newv_async(
             objectType,
             nParameters,
-            parameters.gPointer.reinterpret(),
+            parameters.gPointer,
             ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },

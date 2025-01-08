@@ -132,8 +132,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      *   the newly created render node
      */
     public open fun appendCairo(bounds: Rect): Context =
-        gtk_snapshot_append_cairo(gtkSnapshotPointer.reinterpret(), bounds.gPointer.reinterpret())!!.run {
-            Context(reinterpret())
+        gtk_snapshot_append_cairo(gtkSnapshotPointer.reinterpret(), bounds.gPointer)!!.run {
+            Context(this)
         }
 
     /**
@@ -147,11 +147,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param color the color to draw
      * @param bounds the bounds for the new node
      */
-    public open fun appendColor(color: Rgba, bounds: Rect): Unit = gtk_snapshot_append_color(
-        gtkSnapshotPointer.reinterpret(),
-        color.gPointer.reinterpret(),
-        bounds.gPointer.reinterpret()
-    )
+    public open fun appendColor(color: Rgba, bounds: Rect): Unit =
+        gtk_snapshot_append_color(gtkSnapshotPointer.reinterpret(), color.gPointer, bounds.gPointer)
 
     /**
      * A convenience method to fill a path with a color.
@@ -166,12 +163,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun appendFill(path: Path, fillRule: FillRule, color: Rgba): Unit = gtk_snapshot_append_fill(
-        gtkSnapshotPointer.reinterpret(),
-        path.gPointer.reinterpret(),
-        fillRule.nativeValue,
-        color.gPointer.reinterpret()
-    )
+    public open fun appendFill(path: Path, fillRule: FillRule, color: Rgba): Unit =
+        gtk_snapshot_append_fill(gtkSnapshotPointer.reinterpret(), path.gPointer, fillRule.nativeValue, color.gPointer)
 
     /**
      * Appends an inset shadow into the box given by @outline.
@@ -192,19 +185,16 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
         blurRadius: gfloat,
     ): Unit = gtk_snapshot_append_inset_shadow(
         gtkSnapshotPointer.reinterpret(),
-        outline.gPointer.reinterpret(),
-        color.gPointer.reinterpret(),
+        outline.gPointer,
+        color.gPointer,
         dx,
         dy,
         spread,
         blurRadius
     )
 
-    public open fun appendLayout(layout: Layout, color: Rgba): Unit = gtk_snapshot_append_layout(
-        gtkSnapshotPointer.reinterpret(),
-        layout.pangoLayoutPointer.reinterpret(),
-        color.gPointer.reinterpret()
-    )
+    public open fun appendLayout(layout: Layout, color: Rgba): Unit =
+        gtk_snapshot_append_layout(gtkSnapshotPointer.reinterpret(), layout.pangoLayoutPointer, color.gPointer)
 
     /**
      * Appends @node to the current render node of @snapshot,
@@ -216,7 +206,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param node a `GskRenderNode`
      */
     public open fun appendNode(node: RenderNode): Unit =
-        gtk_snapshot_append_node(gtkSnapshotPointer.reinterpret(), node.gPointer.reinterpret())
+        gtk_snapshot_append_node(gtkSnapshotPointer.reinterpret(), node.gPointer)
 
     /**
      * Appends an outset shadow node around the box given by @outline.
@@ -237,8 +227,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
         blurRadius: gfloat,
     ): Unit = gtk_snapshot_append_outset_shadow(
         gtkSnapshotPointer.reinterpret(),
-        outline.gPointer.reinterpret(),
-        color.gPointer.reinterpret(),
+        outline.gPointer,
+        color.gPointer,
         dx,
         dy,
         spread,
@@ -263,9 +253,9 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
     public open fun appendScaledTexture(texture: Texture, filter: ScalingFilter, bounds: Rect): Unit =
         gtk_snapshot_append_scaled_texture(
             gtkSnapshotPointer.reinterpret(),
-            texture.gdkTexturePointer.reinterpret(),
+            texture.gdkTexturePointer,
             filter.nativeValue,
-            bounds.gPointer.reinterpret()
+            bounds.gPointer
         )
 
     /**
@@ -281,12 +271,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun appendStroke(path: Path, stroke: Stroke, color: Rgba): Unit = gtk_snapshot_append_stroke(
-        gtkSnapshotPointer.reinterpret(),
-        path.gPointer.reinterpret(),
-        stroke.gPointer.reinterpret(),
-        color.gPointer.reinterpret()
-    )
+    public open fun appendStroke(path: Path, stroke: Stroke, color: Rgba): Unit =
+        gtk_snapshot_append_stroke(gtkSnapshotPointer.reinterpret(), path.gPointer, stroke.gPointer, color.gPointer)
 
     /**
      * Creates a new render node drawing the @texture
@@ -300,11 +286,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param texture the texture to render
      * @param bounds the bounds for the new node
      */
-    public open fun appendTexture(texture: Texture, bounds: Rect): Unit = gtk_snapshot_append_texture(
-        gtkSnapshotPointer.reinterpret(),
-        texture.gdkTexturePointer.reinterpret(),
-        bounds.gPointer.reinterpret()
-    )
+    public open fun appendTexture(texture: Texture, bounds: Rect): Unit =
+        gtk_snapshot_append_texture(gtkSnapshotPointer.reinterpret(), texture.gdkTexturePointer, bounds.gPointer)
 
     /**
      * Returns the node that was constructed by @snapshot
@@ -315,7 +298,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @return a newly-created [class@Gsk.RenderNode]
      */
     public open fun freeToNode(): RenderNode? = gtk_snapshot_free_to_node(gtkSnapshotPointer.reinterpret())?.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -327,7 +310,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @return a newly-created [iface@Gdk.Paintable]
      */
     public open fun freeToPaintable(size: Size? = null): Paintable? =
-        gtk_snapshot_free_to_paintable(gtkSnapshotPointer.reinterpret(), size?.gPointer?.reinterpret())?.run {
+        gtk_snapshot_free_to_paintable(gtkSnapshotPointer.reinterpret(), size?.gPointer)?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -389,7 +372,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param bounds the rectangle to clip to
      */
     public open fun pushClip(bounds: Rect): Unit =
-        gtk_snapshot_push_clip(gtkSnapshotPointer.reinterpret(), bounds.gPointer.reinterpret())
+        gtk_snapshot_push_clip(gtkSnapshotPointer.reinterpret(), bounds.gPointer)
 
     /**
      * Modifies the colors of an image by applying an affine transformation
@@ -407,11 +390,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param colorMatrix the color matrix to use
      * @param colorOffset the color offset to use
      */
-    public open fun pushColorMatrix(colorMatrix: Matrix, colorOffset: Vec4): Unit = gtk_snapshot_push_color_matrix(
-        gtkSnapshotPointer.reinterpret(),
-        colorMatrix.gPointer.reinterpret(),
-        colorOffset.gPointer.reinterpret()
-    )
+    public open fun pushColorMatrix(colorMatrix: Matrix, colorOffset: Vec4): Unit =
+        gtk_snapshot_push_color_matrix(gtkSnapshotPointer.reinterpret(), colorMatrix.gPointer, colorOffset.gPointer)
 
     /**
      * Snapshots a cross-fade operation between two images with the
@@ -444,7 +424,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      */
     @GtkVersion4_14
     public open fun pushFill(path: Path, fillRule: FillRule): Unit =
-        gtk_snapshot_push_fill(gtkSnapshotPointer.reinterpret(), path.gPointer.reinterpret(), fillRule.nativeValue)
+        gtk_snapshot_push_fill(gtkSnapshotPointer.reinterpret(), path.gPointer, fillRule.nativeValue)
 
     /**
      * Push a [class@Gsk.GLShaderNode].
@@ -488,9 +468,9 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      */
     public open fun pushGlShader(shader: GlShader, bounds: Rect, takeArgs: Bytes): Unit = gtk_snapshot_push_gl_shader(
         gtkSnapshotPointer.reinterpret(),
-        shader.gskGlShaderPointer.reinterpret(),
-        bounds.gPointer.reinterpret(),
-        takeArgs.gPointer.reinterpret()
+        shader.gskGlShaderPointer,
+        bounds.gPointer,
+        takeArgs.gPointer
     )
 
     /**
@@ -528,11 +508,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param childBounds the bounds of the child or null
      *   to use the full size of the collected child node
      */
-    public open fun pushRepeat(bounds: Rect, childBounds: Rect? = null): Unit = gtk_snapshot_push_repeat(
-        gtkSnapshotPointer.reinterpret(),
-        bounds.gPointer.reinterpret(),
-        childBounds?.gPointer?.reinterpret()
-    )
+    public open fun pushRepeat(bounds: Rect, childBounds: Rect? = null): Unit =
+        gtk_snapshot_push_repeat(gtkSnapshotPointer.reinterpret(), bounds.gPointer, childBounds?.gPointer)
 
     /**
      * Clips an image to a rounded rectangle.
@@ -542,7 +519,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param bounds the rounded rectangle to clip to
      */
     public open fun pushRoundedClip(bounds: RoundedRect): Unit =
-        gtk_snapshot_push_rounded_clip(gtkSnapshotPointer.reinterpret(), bounds.gPointer.reinterpret())
+        gtk_snapshot_push_rounded_clip(gtkSnapshotPointer.reinterpret(), bounds.gPointer)
 
     /**
      * Strokes the given @path with the attributes given by @stroke and
@@ -562,11 +539,8 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun pushStroke(path: Path, stroke: Stroke): Unit = gtk_snapshot_push_stroke(
-        gtkSnapshotPointer.reinterpret(),
-        path.gPointer.reinterpret(),
-        stroke.gPointer.reinterpret()
-    )
+    public open fun pushStroke(path: Path, stroke: Stroke): Unit =
+        gtk_snapshot_push_stroke(gtkSnapshotPointer.reinterpret(), path.gPointer, stroke.gPointer)
 
     /**
      * Creates a render node for the CSS background according to @context,
@@ -587,7 +561,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
         height: gdouble,
     ): Unit = gtk_snapshot_render_background(
         gtkSnapshotPointer.reinterpret(),
-        context.gtkStyleContextPointer.reinterpret(),
+        context.gtkStyleContextPointer,
         x,
         y,
         width,
@@ -606,14 +580,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param height rectangle height
      */
     public open fun renderFocus(context: StyleContext, x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        gtk_snapshot_render_focus(
-            gtkSnapshotPointer.reinterpret(),
-            context.gtkStyleContextPointer.reinterpret(),
-            x,
-            y,
-            width,
-            height
-        )
+        gtk_snapshot_render_focus(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
      * Creates a render node for the CSS border according to @context,
@@ -627,14 +594,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param height rectangle height
      */
     public open fun renderFrame(context: StyleContext, x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        gtk_snapshot_render_frame(
-            gtkSnapshotPointer.reinterpret(),
-            context.gtkStyleContextPointer.reinterpret(),
-            x,
-            y,
-            width,
-            height
-        )
+        gtk_snapshot_render_frame(gtkSnapshotPointer.reinterpret(), context.gtkStyleContextPointer, x, y, width, height)
 
     /**
      * Draws a text caret using @snapshot at the specified index of @layout.
@@ -655,10 +615,10 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
         direction: Direction,
     ): Unit = gtk_snapshot_render_insertion_cursor(
         gtkSnapshotPointer.reinterpret(),
-        context.gtkStyleContextPointer.reinterpret(),
+        context.gtkStyleContextPointer,
         x,
         y,
-        layout.pangoLayoutPointer.reinterpret(),
+        layout.pangoLayoutPointer,
         index,
         direction.nativeValue
     )
@@ -676,10 +636,10 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
     public open fun renderLayout(context: StyleContext, x: gdouble, y: gdouble, layout: Layout): Unit =
         gtk_snapshot_render_layout(
             gtkSnapshotPointer.reinterpret(),
-            context.gtkStyleContextPointer.reinterpret(),
+            context.gtkStyleContextPointer,
             x,
             y,
-            layout.pangoLayoutPointer.reinterpret()
+            layout.pangoLayoutPointer
         )
 
     /**
@@ -709,7 +669,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param axis The rotation axis
      */
     public open fun rotate3d(angle: gfloat, axis: Vec3): Unit =
-        gtk_snapshot_rotate_3d(gtkSnapshotPointer.reinterpret(), angle, axis.gPointer.reinterpret())
+        gtk_snapshot_rotate_3d(gtkSnapshotPointer.reinterpret(), angle, axis.gPointer)
 
     /**
      * Makes a copy of the current state of @snapshot and saves it
@@ -765,7 +725,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      *   null if there are no nodes to render.
      */
     public open fun toNode(): RenderNode? = gtk_snapshot_to_node(gtkSnapshotPointer.reinterpret())?.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -781,7 +741,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @return a new `GdkPaintable`
      */
     public open fun toPaintable(size: Size? = null): Paintable? =
-        gtk_snapshot_to_paintable(gtkSnapshotPointer.reinterpret(), size?.gPointer?.reinterpret())?.run {
+        gtk_snapshot_to_paintable(gtkSnapshotPointer.reinterpret(), size?.gPointer)?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -791,7 +751,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param transform the transform to apply
      */
     public open fun transform(transform: Transform? = null): Unit =
-        gtk_snapshot_transform(gtkSnapshotPointer.reinterpret(), transform?.gPointer?.reinterpret())
+        gtk_snapshot_transform(gtkSnapshotPointer.reinterpret(), transform?.gPointer)
 
     /**
      * Transforms @snapshot's coordinate system with the given @matrix.
@@ -799,7 +759,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param matrix the matrix to multiply the transform with
      */
     public open fun transformMatrix(matrix: Matrix): Unit =
-        gtk_snapshot_transform_matrix(gtkSnapshotPointer.reinterpret(), matrix.gPointer.reinterpret())
+        gtk_snapshot_transform_matrix(gtkSnapshotPointer.reinterpret(), matrix.gPointer)
 
     /**
      * Translates @snapshot's coordinate system by @point in 2-dimensional space.
@@ -807,7 +767,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param point the point to translate the snapshot by
      */
     public open fun translate(point: Point): Unit =
-        gtk_snapshot_translate(gtkSnapshotPointer.reinterpret(), point.gPointer.reinterpret())
+        gtk_snapshot_translate(gtkSnapshotPointer.reinterpret(), point.gPointer)
 
     /**
      * Translates @snapshot's coordinate system by @point.
@@ -815,7 +775,7 @@ public open class Snapshot(pointer: CPointer<GdkSnapshot>) :
      * @param point the point to translate the snapshot by
      */
     public open fun translate3d(point: Point3d): Unit =
-        gtk_snapshot_translate_3d(gtkSnapshotPointer.reinterpret(), point.gPointer.reinterpret())
+        gtk_snapshot_translate_3d(gtkSnapshotPointer.reinterpret(), point.gPointer)
 
     public companion object : TypeCompanion<Snapshot> {
         override val type: GeneratedClassKGType<Snapshot> =

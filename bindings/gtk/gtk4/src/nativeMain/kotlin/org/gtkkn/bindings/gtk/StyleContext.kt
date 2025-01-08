@@ -92,8 +92,8 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
          *
          * @return a `GdkDisplay`.
          */
-        get() = gtk_style_context_get_display(gtkStyleContextPointer.reinterpret())!!.run {
-            Display(reinterpret())
+        get() = gtk_style_context_get_display(gtkStyleContextPointer)!!.run {
+            Display(this)
         }
 
         /**
@@ -108,9 +108,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
          *
          * @param display a `GdkDisplay`
          */
-        set(
-            display
-        ) = gtk_style_context_set_display(gtkStyleContextPointer.reinterpret(), display.gdkDisplayPointer.reinterpret())
+        set(display) = gtk_style_context_set_display(gtkStyleContextPointer, display.gdkDisplayPointer)
 
     /**
      * Adds a style class to @context, so later uses of the
@@ -131,8 +129,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      *
      * @param className class name to use in styling
      */
-    public open fun addClass(className: String): Unit =
-        gtk_style_context_add_class(gtkStyleContextPointer.reinterpret(), className)
+    public open fun addClass(className: String): Unit = gtk_style_context_add_class(gtkStyleContextPointer, className)
 
     /**
      * Adds a style provider to @context, to be used in style construction.
@@ -154,7 +151,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      *   %GTK_STYLE_PROVIDER_PRIORITY_USER
      */
     public open fun addProvider(provider: StyleProvider, priority: guint): Unit =
-        gtk_style_context_add_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer, priority)
+        gtk_style_context_add_provider(gtkStyleContextPointer, provider.gtkStyleProviderPointer, priority)
 
     /**
      * Gets the border for a given state as a `GtkBorder`.
@@ -162,15 +159,14 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param border return value for the border settings
      */
     public open fun getBorder(border: Border): Unit =
-        gtk_style_context_get_border(gtkStyleContextPointer.reinterpret(), border.gPointer.reinterpret())
+        gtk_style_context_get_border(gtkStyleContextPointer, border.gPointer)
 
     /**
      * Gets the foreground color for a given state.
      *
      * @param color return value for the foreground color
      */
-    public open fun getColor(color: Rgba): Unit =
-        gtk_style_context_get_color(gtkStyleContextPointer.reinterpret(), color.gPointer.reinterpret())
+    public open fun getColor(color: Rgba): Unit = gtk_style_context_get_color(gtkStyleContextPointer, color.gPointer)
 
     /**
      * Gets the margin for a given state as a `GtkBorder`.
@@ -178,7 +174,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param margin return value for the margin settings
      */
     public open fun getMargin(margin: Border): Unit =
-        gtk_style_context_get_margin(gtkStyleContextPointer.reinterpret(), margin.gPointer.reinterpret())
+        gtk_style_context_get_margin(gtkStyleContextPointer, margin.gPointer)
 
     /**
      * Gets the padding for a given state as a `GtkBorder`.
@@ -186,14 +182,14 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param padding return value for the padding settings
      */
     public open fun getPadding(padding: Border): Unit =
-        gtk_style_context_get_padding(gtkStyleContextPointer.reinterpret(), padding.gPointer.reinterpret())
+        gtk_style_context_get_padding(gtkStyleContextPointer, padding.gPointer)
 
     /**
      * Returns the scale used for assets.
      *
      * @return the scale
      */
-    public open fun getScale(): gint = gtk_style_context_get_scale(gtkStyleContextPointer.reinterpret())
+    public open fun getScale(): gint = gtk_style_context_get_scale(gtkStyleContextPointer)
 
     /**
      * Returns the state used for style matching.
@@ -206,7 +202,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      *
      * @return the state flags
      */
-    public open fun getState(): StateFlags = gtk_style_context_get_state(gtkStyleContextPointer.reinterpret()).run {
+    public open fun getState(): StateFlags = gtk_style_context_get_state(gtkStyleContextPointer).run {
         StateFlags(this)
     }
 
@@ -218,7 +214,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @return true if @context has @class_name defined
      */
     public open fun hasClass(className: String): Boolean =
-        gtk_style_context_has_class(gtkStyleContextPointer.reinterpret(), className).asBoolean()
+        gtk_style_context_has_class(gtkStyleContextPointer, className).asBoolean()
 
     /**
      * Looks up and resolves a color name in the @context color map.
@@ -227,11 +223,8 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param color Return location for the looked up color
      * @return true if @color_name was found and resolved, false otherwise
      */
-    public open fun lookupColor(colorName: String, color: Rgba): Boolean = gtk_style_context_lookup_color(
-        gtkStyleContextPointer.reinterpret(),
-        colorName,
-        color.gPointer.reinterpret()
-    ).asBoolean()
+    public open fun lookupColor(colorName: String, color: Rgba): Boolean =
+        gtk_style_context_lookup_color(gtkStyleContextPointer, colorName, color.gPointer).asBoolean()
 
     /**
      * Removes @class_name from @context.
@@ -239,7 +232,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param className class name to remove
      */
     public open fun removeClass(className: String): Unit =
-        gtk_style_context_remove_class(gtkStyleContextPointer.reinterpret(), className)
+        gtk_style_context_remove_class(gtkStyleContextPointer, className)
 
     /**
      * Removes @provider from the style providers list in @context.
@@ -247,14 +240,14 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @param provider a `GtkStyleProvider`
      */
     public open fun removeProvider(provider: StyleProvider): Unit =
-        gtk_style_context_remove_provider(gtkStyleContextPointer.reinterpret(), provider.gtkStyleProviderPointer)
+        gtk_style_context_remove_provider(gtkStyleContextPointer, provider.gtkStyleProviderPointer)
 
     /**
      * Restores @context state to a previous stage.
      *
      * See [method@Gtk.StyleContext.save].
      */
-    public open fun restore(): Unit = gtk_style_context_restore(gtkStyleContextPointer.reinterpret())
+    public open fun restore(): Unit = gtk_style_context_restore(gtkStyleContextPointer)
 
     /**
      * Saves the @context state.
@@ -268,23 +261,21 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * The matching call to [method@Gtk.StyleContext.restore]
      * must be done before GTK returns to the main loop.
      */
-    public open fun save(): Unit = gtk_style_context_save(gtkStyleContextPointer.reinterpret())
+    public open fun save(): Unit = gtk_style_context_save(gtkStyleContextPointer)
 
     /**
      * Sets the scale to use when getting image assets for the style.
      *
      * @param scale scale
      */
-    public open fun setScale(scale: gint): Unit =
-        gtk_style_context_set_scale(gtkStyleContextPointer.reinterpret(), scale)
+    public open fun setScale(scale: gint): Unit = gtk_style_context_set_scale(gtkStyleContextPointer, scale)
 
     /**
      * Sets the state to be used for style matching.
      *
      * @param flags state to represent
      */
-    public open fun setState(flags: StateFlags): Unit =
-        gtk_style_context_set_state(gtkStyleContextPointer.reinterpret(), flags.mask)
+    public open fun setState(flags: StateFlags): Unit = gtk_style_context_set_state(gtkStyleContextPointer, flags.mask)
 
     /**
      * Converts the style context into a string representation.
@@ -302,7 +293,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
      * @return a newly allocated string representing @context
      */
     public open fun toString(flags: StyleContextPrintFlags): String =
-        gtk_style_context_to_string(gtkStyleContextPointer.reinterpret(), flags.mask)?.toKString()
+        gtk_style_context_to_string(gtkStyleContextPointer, flags.mask)?.toKString()
             ?: error("Expected not null string")
 
     public companion object : TypeCompanion<StyleContext> {
@@ -334,7 +325,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
          */
         public fun addProviderForDisplay(display: Display, provider: StyleProvider, priority: guint): Unit =
             gtk_style_context_add_provider_for_display(
-                display.gdkDisplayPointer.reinterpret(),
+                display.gdkDisplayPointer,
                 provider.gtkStyleProviderPointer,
                 priority
             )
@@ -346,10 +337,7 @@ public open class StyleContext(pointer: CPointer<GtkStyleContext>) :
          * @param provider a `GtkStyleProvider`
          */
         public fun removeProviderForDisplay(display: Display, provider: StyleProvider): Unit =
-            gtk_style_context_remove_provider_for_display(
-                display.gdkDisplayPointer.reinterpret(),
-                provider.gtkStyleProviderPointer
-            )
+            gtk_style_context_remove_provider_for_display(display.gdkDisplayPointer, provider.gtkStyleProviderPointer)
 
         /**
          * Get the GType of StyleContext

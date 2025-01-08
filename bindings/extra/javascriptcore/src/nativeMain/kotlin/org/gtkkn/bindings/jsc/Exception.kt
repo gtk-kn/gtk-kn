@@ -50,7 +50,7 @@ public class Exception(pointer: CPointer<JSCException>) :
     public constructor(
         context: Context,
         message: String,
-    ) : this(jsc_exception_new(context.jscContextPointer.reinterpret(), message)!!.reinterpret())
+    ) : this(jsc_exception_new(context.jscContextPointer, message)!!.reinterpret())
 
     /**
      * Create a new #JSCException in @context with @name and @message.
@@ -64,29 +64,28 @@ public class Exception(pointer: CPointer<JSCException>) :
         context: Context,
         name: String,
         message: String,
-    ) : this(jsc_exception_new_with_name(context.jscContextPointer.reinterpret(), name, message)!!.reinterpret())
+    ) : this(jsc_exception_new_with_name(context.jscContextPointer, name, message)!!.reinterpret())
 
     /**
      * Get a string with the exception backtrace.
      *
      * @return the exception backtrace string or null.
      */
-    public fun getBacktraceString(): String? =
-        jsc_exception_get_backtrace_string(jscExceptionPointer.reinterpret())?.toKString()
+    public fun getBacktraceString(): String? = jsc_exception_get_backtrace_string(jscExceptionPointer)?.toKString()
 
     /**
      * Get the column number at which @exception happened.
      *
      * @return the column number of @exception.
      */
-    public fun getColumnNumber(): guint = jsc_exception_get_column_number(jscExceptionPointer.reinterpret())
+    public fun getColumnNumber(): guint = jsc_exception_get_column_number(jscExceptionPointer)
 
     /**
      * Get the line number at which @exception happened.
      *
      * @return the line number of @exception.
      */
-    public fun getLineNumber(): guint = jsc_exception_get_line_number(jscExceptionPointer.reinterpret())
+    public fun getLineNumber(): guint = jsc_exception_get_line_number(jscExceptionPointer)
 
     /**
      * Get the error message of @exception.
@@ -94,7 +93,7 @@ public class Exception(pointer: CPointer<JSCException>) :
      * @return the @exception error message.
      */
     public fun getMessage(): String =
-        jsc_exception_get_message(jscExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        jsc_exception_get_message(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the error name of @exception
@@ -102,14 +101,14 @@ public class Exception(pointer: CPointer<JSCException>) :
      * @return the @exception error name.
      */
     public fun getName(): String =
-        jsc_exception_get_name(jscExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        jsc_exception_get_name(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the source URI of @exception.
      *
      * @return the the source URI of @exception, or null.
      */
-    public fun getSourceUri(): String? = jsc_exception_get_source_uri(jscExceptionPointer.reinterpret())?.toKString()
+    public fun getSourceUri(): String? = jsc_exception_get_source_uri(jscExceptionPointer)?.toKString()
 
     /**
      * Return a report message of @exception, containing all the possible details such us
@@ -118,7 +117,7 @@ public class Exception(pointer: CPointer<JSCException>) :
      * @return a new string with the exception report
      */
     public fun report(): String =
-        jsc_exception_report(jscExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        jsc_exception_report(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the string representation of @exception error.
@@ -126,7 +125,7 @@ public class Exception(pointer: CPointer<JSCException>) :
      * @return the string representation of @exception.
      */
     override fun toString(): String =
-        jsc_exception_to_string(jscExceptionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        jsc_exception_to_string(jscExceptionPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Exception> {
         override val type: GeneratedClassKGType<Exception> =

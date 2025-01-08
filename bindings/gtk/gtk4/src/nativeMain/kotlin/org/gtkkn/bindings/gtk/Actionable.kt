@@ -51,7 +51,7 @@ public interface Actionable :
          *
          * @return the action name
          */
-        get() = gtk_actionable_get_action_name(gtkActionablePointer.reinterpret())?.toKString()
+        get() = gtk_actionable_get_action_name(gtkActionablePointer)?.toKString()
 
         /**
          * Specifies the name of the action with which this widget should be
@@ -70,25 +70,23 @@ public interface Actionable :
          *
          * @param actionName an action name
          */
-        set(actionName) = gtk_actionable_set_action_name(gtkActionablePointer.reinterpret(), actionName)
+        set(actionName) = gtk_actionable_set_action_name(gtkActionablePointer, actionName)
 
     /**
      * Gets the action name for @actionable.
      *
      * @return the action name
      */
-    public fun getActionName(): String? =
-        gtk_actionable_get_action_name(gtkActionablePointer.reinterpret())?.toKString()
+    public fun getActionName(): String? = gtk_actionable_get_action_name(gtkActionablePointer)?.toKString()
 
     /**
      * Gets the current target value of @actionable.
      *
      * @return the current target value
      */
-    public fun getActionTargetValue(): Variant? =
-        gtk_actionable_get_action_target_value(gtkActionablePointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getActionTargetValue(): Variant? = gtk_actionable_get_action_target_value(gtkActionablePointer)?.run {
+        Variant(this)
+    }
 
     /**
      * Specifies the name of the action with which this widget should be
@@ -108,7 +106,7 @@ public interface Actionable :
      * @param actionName an action name
      */
     public fun setActionName(actionName: String? = null): Unit =
-        gtk_actionable_set_action_name(gtkActionablePointer.reinterpret(), actionName)
+        gtk_actionable_set_action_name(gtkActionablePointer, actionName)
 
     /**
      * Sets the target value of an actionable widget.
@@ -133,7 +131,7 @@ public interface Actionable :
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
     public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(gtkActionablePointer.reinterpret(), targetValue?.gPointer?.reinterpret())
+        gtk_actionable_set_action_target_value(gtkActionablePointer, targetValue?.gPointer)
 
     /**
      * Sets the action-name and associated string target value of an
@@ -145,7 +143,7 @@ public interface Actionable :
      * @param detailedActionName the detailed action name
      */
     public fun setDetailedActionName(detailedActionName: String): Unit =
-        gtk_actionable_set_detailed_action_name(gtkActionablePointer.reinterpret(), detailedActionName)
+        gtk_actionable_set_detailed_action_name(gtkActionablePointer, detailedActionName)
 
     private data class Wrapper(private val pointer: CPointer<GtkActionable>) : Actionable {
         override val gtkActionablePointer: CPointer<GtkActionable> = pointer

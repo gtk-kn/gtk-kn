@@ -26,11 +26,9 @@ public open class TeeSurface(pointer: CPointer<cairo_surface_t>) :
     public val cairoTeeSurfacePointer: CPointer<cairo_surface_t>
         get() = gPointer.reinterpret()
 
-    public open fun add(target: Surface): Unit =
-        cairo_tee_surface_add(cairoTeeSurfacePointer.reinterpret(), target.gPointer.reinterpret())
+    public open fun add(target: Surface): Unit = cairo_tee_surface_add(cairoTeeSurfacePointer, target.gPointer)
 
-    public open fun remove(target: Surface): Unit =
-        cairo_tee_surface_remove(cairoTeeSurfacePointer.reinterpret(), target.gPointer.reinterpret())
+    public open fun remove(target: Surface): Unit = cairo_tee_surface_remove(cairoTeeSurfacePointer, target.gPointer)
 
     public companion object : TypeCompanion<TeeSurface> {
         override val type: GeneratedClassKGType<TeeSurface> =
@@ -40,10 +38,9 @@ public open class TeeSurface(pointer: CPointer<cairo_surface_t>) :
             CairoTypeProvider.register()
         }
 
-        public fun create(primary: Surface): TeeSurface =
-            cairo_tee_surface_create(primary.gPointer.reinterpret())!!.run {
-                TeeSurface(reinterpret())
-            }
+        public fun create(primary: Surface): TeeSurface = cairo_tee_surface_create(primary.gPointer)!!.run {
+            TeeSurface(reinterpret())
+        }
 
         /**
          * Get the GType of TeeSurface

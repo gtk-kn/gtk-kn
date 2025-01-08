@@ -181,7 +181,7 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
          * @return the `GtkPopoverMenuFlags`
          * @since 4.14
          */
-        get() = gtk_popover_menu_get_flags(gtkPopoverMenuPointer.reinterpret()).run {
+        get() = gtk_popover_menu_get_flags(gtkPopoverMenuPointer).run {
             PopoverMenuFlags(this)
         }
 
@@ -195,7 +195,7 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
          * @since 4.14
          */
         @GtkVersion4_14
-        set(flags) = gtk_popover_menu_set_flags(gtkPopoverMenuPointer.reinterpret(), flags.mask)
+        set(flags) = gtk_popover_menu_set_flags(gtkPopoverMenuPointer, flags.mask)
 
     /**
      * The model from which the menu is made.
@@ -206,8 +206,8 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
          *
          * @return the menu model of @popover
          */
-        get() = gtk_popover_menu_get_menu_model(gtkPopoverMenuPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
+        get() = gtk_popover_menu_get_menu_model(gtkPopoverMenuPointer)?.run {
+            MenuModel(this)
         }
 
         /**
@@ -219,12 +219,7 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
          *
          * @param model a `GMenuModel`
          */
-        set(
-            model
-        ) = gtk_popover_menu_set_menu_model(
-            gtkPopoverMenuPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        set(model) = gtk_popover_menu_set_menu_model(gtkPopoverMenuPointer, model?.gioMenuModelPointer)
 
     /**
      * Creates a `GtkPopoverMenu` and populates it according to @model.
@@ -246,7 +241,7 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
      */
     public constructor(
         model: MenuModel? = null,
-    ) : this(gtk_popover_menu_new_from_model(model?.gioMenuModelPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_popover_menu_new_from_model(model?.gioMenuModelPointer)!!.reinterpret())
 
     /**
      * Creates a `GtkPopoverMenu` and populates it according to @model.
@@ -264,7 +259,7 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
     public constructor(
         model: MenuModel,
         flags: PopoverMenuFlags,
-    ) : this(gtk_popover_menu_new_from_model_full(model.gioMenuModelPointer.reinterpret(), flags.mask)!!.reinterpret())
+    ) : this(gtk_popover_menu_new_from_model_full(model.gioMenuModelPointer, flags.mask)!!.reinterpret())
 
     /**
      * Adds a custom widget to a generated menu.
@@ -276,11 +271,8 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
      * @param id the ID to insert @child at
      * @return true if @id was found and the widget added
      */
-    public open fun addChild(child: Widget, id: String): Boolean = gtk_popover_menu_add_child(
-        gtkPopoverMenuPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        id
-    ).asBoolean()
+    public open fun addChild(child: Widget, id: String): Boolean =
+        gtk_popover_menu_add_child(gtkPopoverMenuPointer, child.gtkWidgetPointer, id).asBoolean()
 
     /**
      * Removes a widget that has previously been added with
@@ -289,10 +281,8 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
      * @param child the `GtkWidget` to remove
      * @return true if the widget was removed
      */
-    public open fun removeChild(child: Widget): Boolean = gtk_popover_menu_remove_child(
-        gtkPopoverMenuPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    ).asBoolean()
+    public open fun removeChild(child: Widget): Boolean =
+        gtk_popover_menu_remove_child(gtkPopoverMenuPointer, child.gtkWidgetPointer).asBoolean()
 
     public companion object : TypeCompanion<PopoverMenu> {
         override val type: GeneratedClassKGType<PopoverMenu> =

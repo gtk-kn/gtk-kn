@@ -87,6 +87,7 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.Char
 import kotlin.Result
@@ -258,7 +259,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return the identifier for @application, owned by @application
          * @since 2.28
          */
-        get() = g_application_get_application_id(gioApplicationPointer.reinterpret())?.toKString()
+        get() = g_application_get_application_id(gioApplicationPointer)?.toKString()
 
         /**
          * Sets the unique identifier for @application.
@@ -273,7 +274,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @since 2.28
          */
         @GioVersion2_28
-        set(applicationId) = g_application_set_application_id(gioApplicationPointer.reinterpret(), applicationId)
+        set(applicationId) = g_application_set_application_id(gioApplicationPointer, applicationId)
 
     /**
      * Flags specifying the behaviour of the application.
@@ -290,7 +291,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return the flags for @application
          * @since 2.28
          */
-        get() = g_application_get_flags(gioApplicationPointer.reinterpret()).run {
+        get() = g_application_get_flags(gioApplicationPointer).run {
             ApplicationFlags(this)
         }
 
@@ -306,7 +307,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @since 2.28
          */
         @GioVersion2_28
-        set(flags) = g_application_set_flags(gioApplicationPointer.reinterpret(), flags.mask)
+        set(flags) = g_application_set_flags(gioApplicationPointer, flags.mask)
 
     /**
      * Time (in milliseconds) to stay alive after becoming idle.
@@ -324,7 +325,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return the timeout, in milliseconds
          * @since 2.28
          */
-        get() = g_application_get_inactivity_timeout(gioApplicationPointer.reinterpret())
+        get() = g_application_get_inactivity_timeout(gioApplicationPointer)
 
         /**
          * Sets the current inactivity timeout for the application.
@@ -340,9 +341,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @since 2.28
          */
         @GioVersion2_28
-        set(
-            inactivityTimeout
-        ) = g_application_set_inactivity_timeout(gioApplicationPointer.reinterpret(), inactivityTimeout)
+        set(inactivityTimeout) = g_application_set_inactivity_timeout(gioApplicationPointer, inactivityTimeout)
 
     /**
      * Whether the application is currently marked as busy through
@@ -359,7 +358,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return true if @application is currently marked as busy
          * @since 2.44
          */
-        get() = g_application_get_is_busy(gioApplicationPointer.reinterpret()).asBoolean()
+        get() = g_application_get_is_busy(gioApplicationPointer).asBoolean()
 
     /**
      * Whether [method@Gio.Application.register] has been called.
@@ -377,7 +376,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return true if @application is registered
          * @since 2.28
          */
-        get() = g_application_get_is_registered(gioApplicationPointer.reinterpret()).asBoolean()
+        get() = g_application_get_is_registered(gioApplicationPointer).asBoolean()
 
     /**
      * Whether this application instance is remote.
@@ -401,7 +400,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return true if @application is remote
          * @since 2.28
          */
-        get() = g_application_get_is_remote(gioApplicationPointer.reinterpret()).asBoolean()
+        get() = g_application_get_is_remote(gioApplicationPointer).asBoolean()
 
     /**
      * The base resource path for the application.
@@ -418,7 +417,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @return the base resource path, if one is set
          * @since 2.42
          */
-        get() = g_application_get_resource_base_path(gioApplicationPointer.reinterpret())?.toKString()
+        get() = g_application_get_resource_base_path(gioApplicationPointer)?.toKString()
 
         /**
          * Sets (or unsets) the base resource path of @application.
@@ -459,7 +458,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          * @since 2.42
          */
         @GioVersion2_42
-        set(resourcePath) = g_application_set_resource_base_path(gioApplicationPointer.reinterpret(), resourcePath)
+        set(resourcePath) = g_application_set_resource_base_path(gioApplicationPointer, resourcePath)
 
     /**
      * Creates a new #GApplication instance.
@@ -490,7 +489,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun activate(): Unit = g_application_activate(gioApplicationPointer.reinterpret())
+    public open fun activate(): Unit = g_application_activate(gioApplicationPointer)
 
     /**
      * Add an option to be handled by @application.
@@ -525,7 +524,7 @@ public open class Application(pointer: CPointer<GApplication>) :
         description: String,
         argDescription: String? = null,
     ): Unit = g_application_add_main_option(
-        gioApplicationPointer.reinterpret(),
+        gioApplicationPointer,
         longName,
         shortName.code.toByte(),
         flags.mask,
@@ -566,7 +565,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_40
     public open fun addOptionGroup(group: OptionGroup): Unit =
-        g_application_add_option_group(gioApplicationPointer.reinterpret(), group.gPointer.reinterpret())
+        g_application_add_option_group(gioApplicationPointer, group.gPointer)
 
     /**
      * Marks @application as busy (see g_application_mark_busy()) while
@@ -581,11 +580,8 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun bindBusyProperty(`object`: Object, `property`: String): Unit = g_application_bind_busy_property(
-        gioApplicationPointer.reinterpret(),
-        `object`.gPointer.reinterpret(),
-        `property`
-    )
+    public open fun bindBusyProperty(`object`: Object, `property`: String): Unit =
+        g_application_bind_busy_property(gioApplicationPointer, `object`.gPointer.reinterpret(), `property`)
 
     /**
      * Gets the #GDBusConnection being used by the application, or null.
@@ -607,8 +603,8 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_34
     public open fun getDbusConnection(): DBusConnection? =
-        g_application_get_dbus_connection(gioApplicationPointer.reinterpret())?.run {
-            DBusConnection(reinterpret())
+        g_application_get_dbus_connection(gioApplicationPointer)?.run {
+            DBusConnection(this)
         }
 
     /**
@@ -632,7 +628,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_34
     public open fun getDbusObjectPath(): String? =
-        g_application_get_dbus_object_path(gioApplicationPointer.reinterpret())?.toKString()
+        g_application_get_dbus_object_path(gioApplicationPointer)?.toKString()
 
     /**
      * Gets the version of @application.
@@ -641,7 +637,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.80
      */
     @GioVersion2_80
-    public open fun getVersion(): String? = g_application_get_version(gioApplicationPointer.reinterpret())?.toKString()
+    public open fun getVersion(): String? = g_application_get_version(gioApplicationPointer)?.toKString()
 
     /**
      * Increases the use count of @application.
@@ -652,7 +648,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      *
      * To cancel the hold, call g_application_release().
      */
-    public open fun hold(): Unit = g_application_hold(gioApplicationPointer.reinterpret())
+    public open fun hold(): Unit = g_application_hold(gioApplicationPointer)
 
     /**
      * Increases the busy count of @application.
@@ -671,7 +667,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun markBusy(): Unit = g_application_mark_busy(gioApplicationPointer.reinterpret())
+    public open fun markBusy(): Unit = g_application_mark_busy(gioApplicationPointer)
 
     /**
      * Immediately quits the application.
@@ -691,7 +687,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun quit(): Unit = g_application_quit(gioApplicationPointer.reinterpret())
+    public open fun quit(): Unit = g_application_quit(gioApplicationPointer)
 
     /**
      * Attempts registration of the application.
@@ -733,8 +729,8 @@ public open class Application(pointer: CPointer<GApplication>) :
     public open fun register(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_application_register(
-            gioApplicationPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioApplicationPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -752,7 +748,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * Never call this function except to cancel the effect of a previous
      * call to g_application_hold().
      */
-    public open fun release(): Unit = g_application_release(gioApplicationPointer.reinterpret())
+    public open fun release(): Unit = g_application_release(gioApplicationPointer)
 
     /**
      * Runs the application.
@@ -838,7 +834,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_28
     public open fun run(argc: gint, argv: List<String>? = null): gint = memScoped {
-        return g_application_run(gioApplicationPointer.reinterpret(), argc, argv?.toCStringList(this))
+        return g_application_run(gioApplicationPointer, argc, argv?.toCStringList(this))
     }
 
     /**
@@ -878,11 +874,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_40
     public open fun sendNotification(id: String? = null, notification: Notification): Unit =
-        g_application_send_notification(
-            gioApplicationPointer.reinterpret(),
-            id,
-            notification.gioNotificationPointer.reinterpret()
-        )
+        g_application_send_notification(gioApplicationPointer, id, notification.gioNotificationPointer)
 
     /**
      * This used to be how actions were associated with a #GApplication.
@@ -893,7 +885,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_28
     public open fun setActionGroup(actionGroup: ActionGroup? = null): Unit =
-        g_application_set_action_group(gioApplicationPointer.reinterpret(), actionGroup?.gioActionGroupPointer)
+        g_application_set_action_group(gioApplicationPointer, actionGroup?.gioActionGroupPointer)
 
     /**
      * Sets or unsets the default application for the process, as returned
@@ -906,7 +898,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun setDefault(): Unit = g_application_set_default(gioApplicationPointer.reinterpret())
+    public open fun setDefault(): Unit = g_application_set_default(gioApplicationPointer)
 
     /**
      * Adds a description to the @application option context.
@@ -919,7 +911,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_56
     public open fun setOptionContextDescription(description: String? = null): Unit =
-        g_application_set_option_context_description(gioApplicationPointer.reinterpret(), description)
+        g_application_set_option_context_description(gioApplicationPointer, description)
 
     /**
      * Sets the parameter string to be used by the commandline handling of @application.
@@ -935,7 +927,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_56
     public open fun setOptionContextParameterString(parameterString: String? = null): Unit =
-        g_application_set_option_context_parameter_string(gioApplicationPointer.reinterpret(), parameterString)
+        g_application_set_option_context_parameter_string(gioApplicationPointer, parameterString)
 
     /**
      * Adds a summary to the @application option context.
@@ -948,7 +940,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_56
     public open fun setOptionContextSummary(summary: String? = null): Unit =
-        g_application_set_option_context_summary(gioApplicationPointer.reinterpret(), summary)
+        g_application_set_option_context_summary(gioApplicationPointer, summary)
 
     /**
      * Sets the version number of @application. This will be used to implement
@@ -961,8 +953,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.80
      */
     @GioVersion2_80
-    public open fun setVersion(version: String): Unit =
-        g_application_set_version(gioApplicationPointer.reinterpret(), version)
+    public open fun setVersion(version: String): Unit = g_application_set_version(gioApplicationPointer, version)
 
     /**
      * Destroys a binding between @property and the busy state of
@@ -974,11 +965,8 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun unbindBusyProperty(`object`: Object, `property`: String): Unit = g_application_unbind_busy_property(
-        gioApplicationPointer.reinterpret(),
-        `object`.gPointer.reinterpret(),
-        `property`
-    )
+    public open fun unbindBusyProperty(`object`: Object, `property`: String): Unit =
+        g_application_unbind_busy_property(gioApplicationPointer, `object`.gPointer.reinterpret(), `property`)
 
     /**
      * Decreases the busy count of @application.
@@ -992,7 +980,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun unmarkBusy(): Unit = g_application_unmark_busy(gioApplicationPointer.reinterpret())
+    public open fun unmarkBusy(): Unit = g_application_unmark_busy(gioApplicationPointer)
 
     /**
      * Withdraws a notification that was sent with
@@ -1014,42 +1002,49 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_40
     public open fun withdrawNotification(id: String): Unit =
-        g_application_withdraw_notification(gioApplicationPointer.reinterpret(), id)
+        g_application_withdraw_notification(gioApplicationPointer, id)
 
     /**
      * The ::activate signal is emitted on the primary instance when an
      * activation occurs. See g_application_activate().
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "activate" signal. See [onActivate].
+     */
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
+
+    /**
      * The ::command-line signal is emitted on the primary instance when
      * a commandline is not handled locally. See g_application_run() and
      * the #GApplicationCommandLine documentation for more information.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `commandLine` a #GApplicationCommandLine representing the
      *     passed commandline. Returns An integer that is set as the exit status for the calling
      *   process. See g_application_command_line_set_exit_status().
      */
-    public fun connectCommandLine(
+    public fun onCommandLine(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (commandLine: ApplicationCommandLine) -> gint,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "command-line",
-        connectCommandLineFunc.reinterpret(),
+        onCommandLineFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -1098,7 +1093,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * capabilities than what is provided here, but this should not
      * normally be required.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `options` the options dictionary. Returns an exit code. If you have handled your options and want
      * to exit the process, return a non-negative option, 0 for success,
      * and a positive value for failure. To continue, return -1 to let
@@ -1106,13 +1101,13 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.40
      */
     @GioVersion2_40
-    public fun connectHandleLocalOptions(
+    public fun onHandleLocalOptions(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (options: VariantDict) -> gint,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "handle-local-options",
-        connectHandleLocalOptionsFunc.reinterpret(),
+        onHandleLocalOptionsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -1125,16 +1120,16 @@ public open class Application(pointer: CPointer<GApplication>) :
      *
      * The default handler for this signal calls g_application_quit().
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true if the signal has been handled
      * @since 2.60
      */
     @GioVersion2_60
-    public fun connectNameLost(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onNameLost(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "name-lost",
-            connectNameLostFunc.reinterpret(),
+            onNameLostFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -1144,35 +1139,49 @@ public open class Application(pointer: CPointer<GApplication>) :
      * The ::shutdown signal is emitted only on the registered primary instance
      * immediately after the main loop terminates.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectShutdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onShutdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "shutdown",
-            connectShutdownFunc.reinterpret(),
+            onShutdownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "shutdown" signal. See [onShutdown].
+     */
+    public fun emitShutdown() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "shutdown")
+    }
+
+    /**
      * The ::startup signal is emitted on the primary instance immediately
      * after registration. See g_application_register().
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStartup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onStartup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "startup",
-            connectStartupFunc.reinterpret(),
+            onStartupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "startup" signal. See [onStartup].
+     */
+    public fun emitStartup() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "startup")
+    }
 
     public companion object : TypeCompanion<Application> {
         override val type: GeneratedClassKGType<Application> =
@@ -1196,7 +1205,7 @@ public open class Application(pointer: CPointer<GApplication>) :
          */
         @GioVersion2_32
         public fun getDefault(): Application? = g_application_get_default()?.run {
-            Application(reinterpret())
+            Application(this)
         }
 
         /**
@@ -1260,7 +1269,7 @@ public open class Application(pointer: CPointer<GApplication>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -1268,7 +1277,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> gint>> =
+private val onCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCommandLine>) -> gint>> =
     staticCFunction {
             _: COpaquePointer,
             commandLine: CPointer<GApplicationCommandLine>?,
@@ -1276,13 +1285,13 @@ private val connectCommandLineFunc: CPointer<CFunction<(CPointer<GApplicationCom
         ->
         userData.asStableRef<(commandLine: ApplicationCommandLine) -> gint>().get().invoke(
             commandLine!!.run {
-                ApplicationCommandLine(reinterpret())
+                ApplicationCommandLine(this)
             }
         )
     }
         .reinterpret()
 
-private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> gint>> =
+private val onHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariantDict>) -> gint>> =
     staticCFunction {
             _: COpaquePointer,
             options: CPointer<GVariantDict>?,
@@ -1290,13 +1299,13 @@ private val connectHandleLocalOptionsFunc: CPointer<CFunction<(CPointer<GVariant
         ->
         userData.asStableRef<(options: VariantDict) -> gint>().get().invoke(
             options!!.run {
-                VariantDict(reinterpret())
+                VariantDict(this)
             }
         )
     }
         .reinterpret()
 
-private val connectNameLostFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onNameLostFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -1304,7 +1313,7 @@ private val connectNameLostFunc: CPointer<CFunction<() -> gboolean>> = staticCFu
 }
     .reinterpret()
 
-private val connectShutdownFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onShutdownFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -1312,7 +1321,7 @@ private val connectShutdownFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectStartupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onStartupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

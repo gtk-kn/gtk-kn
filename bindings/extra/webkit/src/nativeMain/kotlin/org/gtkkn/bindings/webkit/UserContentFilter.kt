@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -33,8 +32,8 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Pro
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun getIdentifier(): String = webkit_user_content_filter_get_identifier(gPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getIdentifier(): String =
+        webkit_user_content_filter_get_identifier(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @user_content_filter by one.
@@ -45,8 +44,8 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Pro
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun ref(): UserContentFilter = webkit_user_content_filter_ref(gPointer.reinterpret())!!.run {
-        UserContentFilter(reinterpret())
+    public fun ref(): UserContentFilter = webkit_user_content_filter_ref(gPointer)!!.run {
+        UserContentFilter(this)
     }
 
     /**
@@ -59,7 +58,7 @@ public class UserContentFilter(pointer: CPointer<WebKitUserContentFilter>) : Pro
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun unref(): Unit = webkit_user_content_filter_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_user_content_filter_unref(gPointer)
 
     public companion object {
         /**

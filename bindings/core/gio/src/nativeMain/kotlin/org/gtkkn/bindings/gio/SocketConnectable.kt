@@ -91,8 +91,8 @@ public interface SocketConnectable :
      */
     @GioVersion2_22
     public fun enumerate(): SocketAddressEnumerator =
-        g_socket_connectable_enumerate(gioSocketConnectablePointer.reinterpret())!!.run {
-            SocketAddressEnumerator(reinterpret())
+        g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
+            SocketAddressEnumerator(this)
         }
 
     /**
@@ -109,8 +109,8 @@ public interface SocketConnectable :
      */
     @GioVersion2_26
     public fun proxyEnumerate(): SocketAddressEnumerator =
-        g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer.reinterpret())!!.run {
-            SocketAddressEnumerator(reinterpret())
+        g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
+            SocketAddressEnumerator(this)
         }
 
     /**
@@ -127,8 +127,7 @@ public interface SocketConnectable :
      */
     @GioVersion2_48
     public fun toStringSocketConnectable(): String =
-        g_socket_connectable_to_string(gioSocketConnectablePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_socket_connectable_to_string(gioSocketConnectablePointer)?.toKString() ?: error("Expected not null string")
 
     private data class Wrapper(private val pointer: CPointer<GSocketConnectable>) : SocketConnectable {
         override val gioSocketConnectablePointer: CPointer<GSocketConnectable> = pointer

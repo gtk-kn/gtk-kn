@@ -51,7 +51,7 @@ public interface DBusObject :
      */
     @GioVersion2_30
     public fun getInterface(interfaceName: String): DBusInterface? =
-        g_dbus_object_get_interface(gioDBusObjectPointer.reinterpret(), interfaceName)?.run {
+        g_dbus_object_get_interface(gioDBusObjectPointer, interfaceName)?.run {
             DBusInterface.wrap(reinterpret())
         }
 
@@ -64,8 +64,8 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getInterfaces(): List = g_dbus_object_get_interfaces(gioDBusObjectPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun getInterfaces(): List = g_dbus_object_get_interfaces(gioDBusObjectPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -75,24 +75,24 @@ public interface DBusObject :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getObjectPath(): String = g_dbus_object_get_object_path(gioDBusObjectPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getObjectPath(): String =
+        g_dbus_object_get_object_path(gioDBusObjectPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Emitted when @interface is added to @object.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was added.
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectInterfaceAdded(
+    public fun onInterfaceAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterface) -> Unit,
     ): ULong = g_signal_connect_data(
-        gioDBusObjectPointer.reinterpret(),
+        gioDBusObjectPointer,
         "interface-added",
-        connectInterfaceAddedFunc.reinterpret(),
+        onInterfaceAddedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -101,18 +101,18 @@ public interface DBusObject :
     /**
      * Emitted when @interface is removed from @object.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `interface` The #GDBusInterface that was removed.
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectInterfaceRemoved(
+    public fun onInterfaceRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterface) -> Unit,
     ): ULong = g_signal_connect_data(
-        gioDBusObjectPointer.reinterpret(),
+        gioDBusObjectPointer,
         "interface-removed",
-        connectInterfaceRemovedFunc.reinterpret(),
+        onInterfaceRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -141,7 +141,7 @@ public interface DBusObject :
     }
 }
 
-private val connectInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
+private val onInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             `interface`: CPointer<GDBusInterface>?,
@@ -155,7 +155,7 @@ private val connectInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterfa
     }
         .reinterpret()
 
-private val connectInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
+private val onInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             `interface`: CPointer<GDBusInterface>?,

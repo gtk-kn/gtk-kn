@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogMsg
@@ -127,7 +126,7 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
     /**
      * Internal function for gtester to free test log messages, no ABI guarantees provided.
      */
-    public fun free(): Unit = g_test_log_msg_free(gPointer.reinterpret())
+    public fun free(): Unit = g_test_log_msg_free(gPointer)
 
     override fun toString(): String = "TestLogMsg(logType=$logType, nStrings=$nStrings, nNums=$nNums)"
 }

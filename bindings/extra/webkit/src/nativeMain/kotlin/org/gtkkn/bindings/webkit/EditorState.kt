@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitEditorState
 import org.gtkkn.native.webkit.webkit_editor_state_get_type
 import org.gtkkn.native.webkit.webkit_editor_state_get_typing_attributes
@@ -67,7 +68,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
          * @return a bitmask of #WebKitEditorTypingAttributes flags
          * @since 2.10
          */
-        get() = webkit_editor_state_get_typing_attributes(webkitEditorStatePointer.reinterpret())
+        get() = webkit_editor_state_get_typing_attributes(webkitEditorStatePointer)
 
     /**
      * Gets whether a copy command can be issued.
@@ -76,8 +77,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun isCopyAvailable(): Boolean =
-        webkit_editor_state_is_copy_available(webkitEditorStatePointer.reinterpret()).asBoolean()
+    public fun isCopyAvailable(): Boolean = webkit_editor_state_is_copy_available(webkitEditorStatePointer).asBoolean()
 
     /**
      * Gets whether a cut command can be issued.
@@ -86,8 +86,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun isCutAvailable(): Boolean =
-        webkit_editor_state_is_cut_available(webkitEditorStatePointer.reinterpret()).asBoolean()
+    public fun isCutAvailable(): Boolean = webkit_editor_state_is_cut_available(webkitEditorStatePointer).asBoolean()
 
     /**
      * Gets whether a paste command can be issued.
@@ -97,7 +96,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
      */
     @WebKitVersion2_20
     public fun isPasteAvailable(): Boolean =
-        webkit_editor_state_is_paste_available(webkitEditorStatePointer.reinterpret()).asBoolean()
+        webkit_editor_state_is_paste_available(webkitEditorStatePointer).asBoolean()
 
     /**
      * Gets whether a redo command can be issued.
@@ -106,8 +105,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun isRedoAvailable(): Boolean =
-        webkit_editor_state_is_redo_available(webkitEditorStatePointer.reinterpret()).asBoolean()
+    public fun isRedoAvailable(): Boolean = webkit_editor_state_is_redo_available(webkitEditorStatePointer).asBoolean()
 
     /**
      * Gets whether an undo command can be issued.
@@ -116,26 +114,35 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
      * @since 2.20
      */
     @WebKitVersion2_20
-    public fun isUndoAvailable(): Boolean =
-        webkit_editor_state_is_undo_available(webkitEditorStatePointer.reinterpret()).asBoolean()
+    public fun isUndoAvailable(): Boolean = webkit_editor_state_is_undo_available(webkitEditorStatePointer).asBoolean()
 
     /**
      * Emitted when the #WebKitEdtorState is changed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.44
      */
     @WebKitVersion2_44
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "changed",
-            connectChangedFunc.reinterpret(),
+            onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @since 2.44
+     */
+    @WebKitVersion2_44
+    public fun emitChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+    }
 
     public companion object : TypeCompanion<EditorState> {
         override val type: GeneratedClassKGType<EditorState> =
@@ -154,7 +161,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

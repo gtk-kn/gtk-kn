@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_70
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -85,7 +84,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun compare(bytes2: Bytes): gint = g_bytes_compare(gPointer.reinterpret(), bytes2.gPointer.reinterpret())
+    public fun compare(bytes2: Bytes): gint = g_bytes_compare(gPointer, bytes2.gPointer)
 
     /**
      * Compares the two #GBytes values being pointed to and returns
@@ -99,8 +98,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun equal(bytes2: Bytes): Boolean =
-        g_bytes_equal(gPointer.reinterpret(), bytes2.gPointer.reinterpret()).asBoolean()
+    public fun equal(bytes2: Bytes): Boolean = g_bytes_equal(gPointer, bytes2.gPointer).asBoolean()
 
     /**
      * Gets a pointer to a region in @bytes.
@@ -132,7 +130,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_70
     public fun getRegion(elementSize: gsize, offset: gsize, nElements: gsize): gpointer? =
-        g_bytes_get_region(gPointer.reinterpret(), elementSize, offset, nElements)
+        g_bytes_get_region(gPointer, elementSize, offset, nElements)
 
     /**
      * Get the size of the byte data in the #GBytes.
@@ -143,7 +141,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun getSize(): gsize = g_bytes_get_size(gPointer.reinterpret())
+    public fun getSize(): gsize = g_bytes_get_size(gPointer)
 
     /**
      * Creates an integer hash code for the byte data in the #GBytes.
@@ -155,7 +153,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun hash(): guint = g_bytes_hash(gPointer.reinterpret())
+    public fun hash(): guint = g_bytes_hash(gPointer)
 
     /**
      * Creates a #GBytes which is a subsection of another #GBytes. The @offset +
@@ -177,8 +175,8 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_32
     public fun newFromBytes(offset: gsize, length: gsize): Bytes =
-        g_bytes_new_from_bytes(gPointer.reinterpret(), offset, length)!!.run {
-            Bytes(reinterpret())
+        g_bytes_new_from_bytes(gPointer, offset, length)!!.run {
+            Bytes(this)
         }
 
     /**
@@ -188,8 +186,8 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): Bytes = g_bytes_ref(gPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
+    public fun ref(): Bytes = g_bytes_ref(gPointer)!!.run {
+        Bytes(this)
     }
 
     /**
@@ -199,7 +197,7 @@ public class Bytes(pointer: CPointer<GBytes>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unref(): Unit = g_bytes_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_bytes_unref(gPointer)
 
     public companion object {
         /**

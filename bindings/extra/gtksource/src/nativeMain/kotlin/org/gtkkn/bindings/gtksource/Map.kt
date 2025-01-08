@@ -78,8 +78,8 @@ public open class Map(pointer: CPointer<GtkSourceMap>) :
      *
      * @return a #GtkSourceView or null.
      */
-    public open fun getView(): View? = gtk_source_map_get_view(gtksourceMapPointer.reinterpret())?.run {
-        View(reinterpret())
+    public open fun getView(): View? = gtk_source_map_get_view(gtksourceMapPointer)?.run {
+        View(this)
     }
 
     /**
@@ -87,8 +87,7 @@ public open class Map(pointer: CPointer<GtkSourceMap>) :
      *
      * @param view a #GtkSourceView
      */
-    public open fun setView(view: View): Unit =
-        gtk_source_map_set_view(gtksourceMapPointer.reinterpret(), view.gtksourceViewPointer.reinterpret())
+    public open fun setView(view: View): Unit = gtk_source_map_set_view(gtksourceMapPointer, view.gtksourceViewPointer)
 
     public companion object : TypeCompanion<Map> {
         override val type: GeneratedClassKGType<Map> =

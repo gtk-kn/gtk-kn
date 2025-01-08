@@ -34,7 +34,7 @@ public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
      */
     public open fun getChild(idx: guint): RenderNode =
         gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     /**

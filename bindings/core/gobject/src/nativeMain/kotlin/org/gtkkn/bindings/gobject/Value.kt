@@ -164,7 +164,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param destValue An initialized #GValue structure of the same type as @src_value.
      */
-    public fun copy(destValue: Value): Unit = g_value_copy(gPointer.reinterpret(), destValue.gPointer.reinterpret())
+    public fun copy(destValue: Value): Unit = g_value_copy(gPointer, destValue.gPointer)
 
     /**
      * Get the contents of a %G_TYPE_BOXED derived #GValue.  Upon getting,
@@ -174,7 +174,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return boxed contents of @value
      */
-    public fun dupBoxed(): gpointer? = g_value_dup_boxed(gPointer.reinterpret())
+    public fun dupBoxed(): gpointer? = g_value_dup_boxed(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
@@ -184,7 +184,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @return object content of @value,
      *          should be unreferenced when no longer needed.
      */
-    public fun dupObject(): Object? = g_value_dup_object(gPointer.reinterpret())?.run {
+    public fun dupObject(): Object? = g_value_dup_object(gPointer)?.run {
         Object(reinterpret())
     }
 
@@ -195,8 +195,8 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @return #GParamSpec content of @value, should be
      *     unreferenced when no longer needed.
      */
-    public fun dupParam(): ParamSpec = g_value_dup_param(gPointer.reinterpret())!!.run {
-        ParamSpec(reinterpret())
+    public fun dupParam(): ParamSpec = g_value_dup_param(gPointer)!!.run {
+        ParamSpec(this)
     }
 
     /**
@@ -204,7 +204,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return a newly allocated copy of the string content of @value
      */
-    public fun dupString(): String? = g_value_dup_string(gPointer.reinterpret())?.toKString()
+    public fun dupString(): String? = g_value_dup_string(gPointer)?.toKString()
 
     /**
      * Get the contents of a variant #GValue, increasing its refcount. The returned
@@ -215,8 +215,8 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun dupVariant(): Variant? = g_value_dup_variant(gPointer.reinterpret())?.run {
-        Variant(reinterpret())
+    public fun dupVariant(): Variant? = g_value_dup_variant(gPointer)?.run {
+        Variant(this)
     }
 
     /**
@@ -225,21 +225,21 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return true if @value will fit inside a pointer value.
      */
-    public fun fitsPointer(): Boolean = g_value_fits_pointer(gPointer.reinterpret()).asBoolean()
+    public fun fitsPointer(): Boolean = g_value_fits_pointer(gPointer).asBoolean()
 
     /**
      * Get the contents of a %G_TYPE_BOOLEAN #GValue.
      *
      * @return boolean contents of @value
      */
-    public fun getBoolean(): Boolean = g_value_get_boolean(gPointer.reinterpret()).asBoolean()
+    public fun getBoolean(): Boolean = g_value_get_boolean(gPointer).asBoolean()
 
     /**
      * Get the contents of a %G_TYPE_BOXED derived #GValue.
      *
      * @return boxed contents of @value
      */
-    public fun getBoxed(): gpointer? = g_value_get_boxed(gPointer.reinterpret())
+    public fun getBoxed(): gpointer? = g_value_get_boxed(gPointer)
 
     /**
      * Do not use this function; it is broken on platforms where the %char
@@ -249,35 +249,35 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return character contents of @value
      */
-    public fun getChar(): Char = g_value_get_char(gPointer.reinterpret()).toInt().toChar()
+    public fun getChar(): Char = g_value_get_char(gPointer).toInt().toChar()
 
     /**
      * Get the contents of a %G_TYPE_DOUBLE #GValue.
      *
      * @return double contents of @value
      */
-    public fun getDouble(): gdouble = g_value_get_double(gPointer.reinterpret())
+    public fun getDouble(): gdouble = g_value_get_double(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_ENUM #GValue.
      *
      * @return enum contents of @value
      */
-    public fun getEnum(): gint = g_value_get_enum(gPointer.reinterpret())
+    public fun getEnum(): gint = g_value_get_enum(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_FLAGS #GValue.
      *
      * @return flags contents of @value
      */
-    public fun getFlags(): guint = g_value_get_flags(gPointer.reinterpret())
+    public fun getFlags(): guint = g_value_get_flags(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_FLOAT #GValue.
      *
      * @return float contents of @value
      */
-    public fun getFloat(): gfloat = g_value_get_float(gPointer.reinterpret())
+    public fun getFloat(): gfloat = g_value_get_float(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_GTYPE #GValue.
@@ -286,35 +286,35 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.12
      */
     @GObjectVersion2_12
-    public fun getGtype(): GType = g_value_get_gtype(gPointer.reinterpret())
+    public fun getGtype(): GType = g_value_get_gtype(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_INT #GValue.
      *
      * @return integer contents of @value
      */
-    public fun getInt(): gint = g_value_get_int(gPointer.reinterpret())
+    public fun getInt(): gint = g_value_get_int(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_INT64 #GValue.
      *
      * @return 64bit integer contents of @value
      */
-    public fun getInt64(): gint64 = g_value_get_int64(gPointer.reinterpret())
+    public fun getInt64(): gint64 = g_value_get_int64(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_LONG #GValue.
      *
      * @return long integer contents of @value
      */
-    public fun getLong(): glong = g_value_get_long(gPointer.reinterpret())
+    public fun getLong(): glong = g_value_get_long(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_OBJECT derived #GValue.
      *
      * @return object contents of @value
      */
-    public fun getObject(): Object? = g_value_get_object(gPointer.reinterpret())?.run {
+    public fun getObject(): Object? = g_value_get_object(gPointer)?.run {
         Object(reinterpret())
     }
 
@@ -323,8 +323,8 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return #GParamSpec content of @value
      */
-    public fun getParam(): ParamSpec = g_value_get_param(gPointer.reinterpret())!!.run {
-        ParamSpec(reinterpret())
+    public fun getParam(): ParamSpec = g_value_get_param(gPointer)!!.run {
+        ParamSpec(this)
     }
 
     /**
@@ -332,7 +332,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return pointer contents of @value
      */
-    public fun getPointer(): gpointer? = g_value_get_pointer(gPointer.reinterpret())
+    public fun getPointer(): gpointer? = g_value_get_pointer(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_CHAR #GValue.
@@ -341,42 +341,42 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun getSchar(): gint8 = g_value_get_schar(gPointer.reinterpret())
+    public fun getSchar(): gint8 = g_value_get_schar(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_STRING #GValue.
      *
      * @return string content of @value
      */
-    public fun getString(): String? = g_value_get_string(gPointer.reinterpret())?.toKString()
+    public fun getString(): String? = g_value_get_string(gPointer)?.toKString()
 
     /**
      * Get the contents of a %G_TYPE_UCHAR #GValue.
      *
      * @return unsigned character contents of @value
      */
-    public fun getUchar(): guint8 = g_value_get_uchar(gPointer.reinterpret())
+    public fun getUchar(): guint8 = g_value_get_uchar(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_UINT #GValue.
      *
      * @return unsigned integer contents of @value
      */
-    public fun getUint(): guint = g_value_get_uint(gPointer.reinterpret())
+    public fun getUint(): guint = g_value_get_uint(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_UINT64 #GValue.
      *
      * @return unsigned 64bit integer contents of @value
      */
-    public fun getUint64(): guint64 = g_value_get_uint64(gPointer.reinterpret())
+    public fun getUint64(): guint64 = g_value_get_uint64(gPointer)
 
     /**
      * Get the contents of a %G_TYPE_ULONG #GValue.
      *
      * @return unsigned long integer contents of @value
      */
-    public fun getUlong(): gulong = g_value_get_ulong(gPointer.reinterpret())
+    public fun getUlong(): gulong = g_value_get_ulong(gPointer)
 
     /**
      * Get the contents of a variant #GValue.
@@ -385,8 +385,8 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun getVariant(): Variant? = g_value_get_variant(gPointer.reinterpret())?.run {
-        Variant(reinterpret())
+    public fun getVariant(): Variant? = g_value_get_variant(gPointer)?.run {
+        Variant(this)
     }
 
     /**
@@ -395,8 +395,8 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @param gType Type the #GValue should hold values of.
      * @return the #GValue structure that has been passed in
      */
-    public fun `init`(gType: GType): Value = g_value_init(gPointer.reinterpret(), gType)!!.run {
-        Value(reinterpret())
+    public fun `init`(gType: GType): Value = g_value_init(gPointer, gType)!!.run {
+        Value(this)
     }
 
     /**
@@ -412,8 +412,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.42
      */
     @GObjectVersion2_42
-    public fun initFromInstance(instance: TypeInstance): Unit =
-        g_value_init_from_instance(gPointer.reinterpret(), instance.gPointer.reinterpret())
+    public fun initFromInstance(instance: TypeInstance): Unit = g_value_init_from_instance(gPointer, instance.gPointer)
 
     /**
      * Returns the value contents as pointer. This function asserts that
@@ -422,7 +421,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return the value contents as pointer
      */
-    public fun peekPointer(): gpointer? = g_value_peek_pointer(gPointer.reinterpret())
+    public fun peekPointer(): gpointer? = g_value_peek_pointer(gPointer)
 
     /**
      * Clears the current value in @value and resets it to the default value
@@ -430,8 +429,8 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return the #GValue structure that has been passed in
      */
-    public fun reset(): Value = g_value_reset(gPointer.reinterpret())!!.run {
-        Value(reinterpret())
+    public fun reset(): Value = g_value_reset(gPointer)!!.run {
+        Value(this)
     }
 
     /**
@@ -439,14 +438,14 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param vBoolean boolean value to be set
      */
-    public fun setBoolean(vBoolean: Boolean): Unit = g_value_set_boolean(gPointer.reinterpret(), vBoolean.asGBoolean())
+    public fun setBoolean(vBoolean: Boolean): Unit = g_value_set_boolean(gPointer, vBoolean.asGBoolean())
 
     /**
      * Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
      *
      * @param vBoxed boxed value to be set
      */
-    public fun setBoxed(vBoxed: gpointer? = null): Unit = g_value_set_boxed(gPointer.reinterpret(), vBoxed)
+    public fun setBoxed(vBoxed: gpointer? = null): Unit = g_value_set_boxed(gPointer, vBoxed)
 
     /**
      * This is an internal function introduced mainly for C marshallers.
@@ -454,42 +453,42 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @param vBoxed duplicated unowned boxed value to be set
      */
     public fun setBoxedTakeOwnership(vBoxed: gpointer? = null): Unit =
-        g_value_set_boxed_take_ownership(gPointer.reinterpret(), vBoxed)
+        g_value_set_boxed_take_ownership(gPointer, vBoxed)
 
     /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
      *
      * @param vChar character value to be set
      */
-    public fun setChar(vChar: Char): Unit = g_value_set_char(gPointer.reinterpret(), vChar.code.toByte())
+    public fun setChar(vChar: Char): Unit = g_value_set_char(gPointer, vChar.code.toByte())
 
     /**
      * Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
      *
      * @param vDouble double value to be set
      */
-    public fun setDouble(vDouble: gdouble): Unit = g_value_set_double(gPointer.reinterpret(), vDouble)
+    public fun setDouble(vDouble: gdouble): Unit = g_value_set_double(gPointer, vDouble)
 
     /**
      * Set the contents of a %G_TYPE_ENUM #GValue to @v_enum.
      *
      * @param vEnum enum value to be set
      */
-    public fun setEnum(vEnum: gint): Unit = g_value_set_enum(gPointer.reinterpret(), vEnum)
+    public fun setEnum(vEnum: gint): Unit = g_value_set_enum(gPointer, vEnum)
 
     /**
      * Set the contents of a %G_TYPE_FLAGS #GValue to @v_flags.
      *
      * @param vFlags flags value to be set
      */
-    public fun setFlags(vFlags: guint): Unit = g_value_set_flags(gPointer.reinterpret(), vFlags)
+    public fun setFlags(vFlags: guint): Unit = g_value_set_flags(gPointer, vFlags)
 
     /**
      * Set the contents of a %G_TYPE_FLOAT #GValue to @v_float.
      *
      * @param vFloat float value to be set
      */
-    public fun setFloat(vFloat: gfloat): Unit = g_value_set_float(gPointer.reinterpret(), vFloat)
+    public fun setFloat(vFloat: gfloat): Unit = g_value_set_float(gPointer, vFloat)
 
     /**
      * Set the contents of a %G_TYPE_GTYPE #GValue to @v_gtype.
@@ -498,7 +497,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.12
      */
     @GObjectVersion2_12
-    public fun setGtype(vGtype: GType): Unit = g_value_set_gtype(gPointer.reinterpret(), vGtype)
+    public fun setGtype(vGtype: GType): Unit = g_value_set_gtype(gPointer, vGtype)
 
     /**
      * Sets @value from an instantiatable type via the
@@ -506,21 +505,21 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param instance the instance
      */
-    public fun setInstance(instance: gpointer? = null): Unit = g_value_set_instance(gPointer.reinterpret(), instance)
+    public fun setInstance(instance: gpointer? = null): Unit = g_value_set_instance(gPointer, instance)
 
     /**
      * Set the contents of a %G_TYPE_INT #GValue to @v_int.
      *
      * @param vInt integer value to be set
      */
-    public fun setInt(vInt: gint): Unit = g_value_set_int(gPointer.reinterpret(), vInt)
+    public fun setInt(vInt: gint): Unit = g_value_set_int(gPointer, vInt)
 
     /**
      * Set the contents of a %G_TYPE_INT64 #GValue to @v_int64.
      *
      * @param vInt64 64bit integer value to be set
      */
-    public fun setInt64(vInt64: gint64): Unit = g_value_set_int64(gPointer.reinterpret(), vInt64)
+    public fun setInt64(vInt64: gint64): Unit = g_value_set_int64(gPointer, vInt64)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.  The string is
@@ -531,15 +530,14 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.66
      */
     @GObjectVersion2_66
-    public fun setInternedString(vString: String? = null): Unit =
-        g_value_set_interned_string(gPointer.reinterpret(), vString)
+    public fun setInternedString(vString: String? = null): Unit = g_value_set_interned_string(gPointer, vString)
 
     /**
      * Set the contents of a %G_TYPE_LONG #GValue to @v_long.
      *
      * @param vLong long integer value to be set
      */
-    public fun setLong(vLong: glong): Unit = g_value_set_long(gPointer.reinterpret(), vLong)
+    public fun setLong(vLong: glong): Unit = g_value_set_long(gPointer, vLong)
 
     /**
      * Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
@@ -556,8 +554,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param vObject object value to be set
      */
-    public fun setObject(vObject: Object? = null): Unit =
-        g_value_set_object(gPointer.reinterpret(), vObject?.gPointer?.reinterpret())
+    public fun setObject(vObject: Object? = null): Unit = g_value_set_object(gPointer, vObject?.gPointer?.reinterpret())
 
     /**
      * This is an internal function introduced mainly for C marshallers.
@@ -565,15 +562,14 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @param vObject object value to be set
      */
     public fun setObjectTakeOwnership(vObject: gpointer? = null): Unit =
-        g_value_set_object_take_ownership(gPointer.reinterpret(), vObject)
+        g_value_set_object_take_ownership(gPointer, vObject)
 
     /**
      * Set the contents of a %G_TYPE_PARAM #GValue to @param.
      *
      * @param param the #GParamSpec to be set
      */
-    public fun setParam(`param`: ParamSpec? = null): Unit =
-        g_value_set_param(gPointer.reinterpret(), `param`?.gPointer?.reinterpret())
+    public fun setParam(`param`: ParamSpec? = null): Unit = g_value_set_param(gPointer, `param`?.gPointer)
 
     /**
      * This is an internal function introduced mainly for C marshallers.
@@ -581,14 +577,14 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @param param the #GParamSpec to be set
      */
     public fun setParamTakeOwnership(`param`: ParamSpec? = null): Unit =
-        g_value_set_param_take_ownership(gPointer.reinterpret(), `param`?.gPointer?.reinterpret())
+        g_value_set_param_take_ownership(gPointer, `param`?.gPointer)
 
     /**
      * Set the contents of a pointer #GValue to @v_pointer.
      *
      * @param vPointer pointer value to be set
      */
-    public fun setPointer(vPointer: gpointer? = null): Unit = g_value_set_pointer(gPointer.reinterpret(), vPointer)
+    public fun setPointer(vPointer: gpointer? = null): Unit = g_value_set_pointer(gPointer, vPointer)
 
     /**
      * Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
@@ -597,7 +593,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun setSchar(vChar: gint8): Unit = g_value_set_schar(gPointer.reinterpret(), vChar)
+    public fun setSchar(vChar: gint8): Unit = g_value_set_schar(gPointer, vChar)
 
     /**
      * Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
@@ -607,7 +603,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param vBoxed static boxed value to be set
      */
-    public fun setStaticBoxed(vBoxed: gpointer? = null): Unit = g_value_set_static_boxed(gPointer.reinterpret(), vBoxed)
+    public fun setStaticBoxed(vBoxed: gpointer? = null): Unit = g_value_set_static_boxed(gPointer, vBoxed)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to @v_string.
@@ -619,43 +615,42 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param vString static string to be set
      */
-    public fun setStaticString(vString: String? = null): Unit =
-        g_value_set_static_string(gPointer.reinterpret(), vString)
+    public fun setStaticString(vString: String? = null): Unit = g_value_set_static_string(gPointer, vString)
 
     /**
      * Set the contents of a %G_TYPE_STRING #GValue to a copy of @v_string.
      *
      * @param vString caller-owned string to be duplicated for the #GValue
      */
-    public fun setString(vString: String? = null): Unit = g_value_set_string(gPointer.reinterpret(), vString)
+    public fun setString(vString: String? = null): Unit = g_value_set_string(gPointer, vString)
 
     /**
      * Set the contents of a %G_TYPE_UCHAR #GValue to @v_uchar.
      *
      * @param vUchar unsigned character value to be set
      */
-    public fun setUchar(vUchar: guint8): Unit = g_value_set_uchar(gPointer.reinterpret(), vUchar)
+    public fun setUchar(vUchar: guint8): Unit = g_value_set_uchar(gPointer, vUchar)
 
     /**
      * Set the contents of a %G_TYPE_UINT #GValue to @v_uint.
      *
      * @param vUint unsigned integer value to be set
      */
-    public fun setUint(vUint: guint): Unit = g_value_set_uint(gPointer.reinterpret(), vUint)
+    public fun setUint(vUint: guint): Unit = g_value_set_uint(gPointer, vUint)
 
     /**
      * Set the contents of a %G_TYPE_UINT64 #GValue to @v_uint64.
      *
      * @param vUint64 unsigned 64bit integer value to be set
      */
-    public fun setUint64(vUint64: guint64): Unit = g_value_set_uint64(gPointer.reinterpret(), vUint64)
+    public fun setUint64(vUint64: guint64): Unit = g_value_set_uint64(gPointer, vUint64)
 
     /**
      * Set the contents of a %G_TYPE_ULONG #GValue to @v_ulong.
      *
      * @param vUlong unsigned long integer value to be set
      */
-    public fun setUlong(vUlong: gulong): Unit = g_value_set_ulong(gPointer.reinterpret(), vUlong)
+    public fun setUlong(vUlong: gulong): Unit = g_value_set_ulong(gPointer, vUlong)
 
     /**
      * Set the contents of a variant #GValue to @variant.
@@ -665,8 +660,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun setVariant(variant: Variant? = null): Unit =
-        g_value_set_variant(gPointer.reinterpret(), variant?.gPointer?.reinterpret())
+    public fun setVariant(variant: Variant? = null): Unit = g_value_set_variant(gPointer, variant?.gPointer)
 
     /**
      * Steal ownership on contents of a %G_TYPE_STRING #GValue.
@@ -684,7 +678,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.80
      */
     @GObjectVersion2_80
-    public fun stealString(): String? = g_value_steal_string(gPointer.reinterpret())?.toKString()
+    public fun stealString(): String? = g_value_steal_string(gPointer)?.toKString()
 
     /**
      * Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed
@@ -695,7 +689,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun takeBoxed(vBoxed: gpointer? = null): Unit = g_value_take_boxed(gPointer.reinterpret(), vBoxed)
+    public fun takeBoxed(vBoxed: gpointer? = null): Unit = g_value_take_boxed(gPointer, vBoxed)
 
     /**
      * Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
@@ -710,7 +704,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun takeObject(vObject: gpointer? = null): Unit = g_value_take_object(gPointer.reinterpret(), vObject)
+    public fun takeObject(vObject: gpointer? = null): Unit = g_value_take_object(gPointer, vObject)
 
     /**
      * Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
@@ -721,8 +715,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun takeParam(`param`: ParamSpec? = null): Unit =
-        g_value_take_param(gPointer.reinterpret(), `param`?.gPointer?.reinterpret())
+    public fun takeParam(`param`: ParamSpec? = null): Unit = g_value_take_param(gPointer, `param`?.gPointer)
 
     /**
      * Set the contents of a variant #GValue to @variant, and takes over
@@ -742,8 +735,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @since 2.26
      */
     @GObjectVersion2_26
-    public fun takeVariant(variant: Variant? = null): Unit =
-        g_value_take_variant(gPointer.reinterpret(), variant?.gPointer?.reinterpret())
+    public fun takeVariant(variant: Variant? = null): Unit = g_value_take_variant(gPointer, variant?.gPointer)
 
     /**
      * Tries to cast the contents of @src_value into a type appropriate
@@ -758,8 +750,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * @return Whether a transformation rule was found and could be applied.
      *  Upon failing transformations, @dest_value is left untouched.
      */
-    public fun transform(destValue: Value): Boolean =
-        g_value_transform(gPointer.reinterpret(), destValue.gPointer.reinterpret()).asBoolean()
+    public fun transform(destValue: Value): Boolean = g_value_transform(gPointer, destValue.gPointer).asBoolean()
 
     /**
      * Clears the current value in @value (if any) and "unsets" the type,
@@ -767,7 +758,7 @@ public class Value(pointer: CPointer<GValue>, cleaner: Cleaner? = null) : ProxyI
      * value is the same as an uninitialized (zero-filled) #GValue
      * structure.
      */
-    public fun unset(): Unit = g_value_unset(gPointer.reinterpret())
+    public fun unset(): Unit = g_value_unset(gPointer)
 
     override fun toString(): String = GObject.strdupValueContents(this)
 

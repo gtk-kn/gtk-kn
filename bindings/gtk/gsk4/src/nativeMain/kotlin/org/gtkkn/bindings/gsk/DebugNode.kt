@@ -39,7 +39,7 @@ public open class DebugNode(pointer: CPointer<GskDebugNode>) :
     public constructor(
         child: RenderNode,
         message: String,
-    ) : this(gsk_debug_node_new(child.gPointer.reinterpret(), message.cstr)!!.reinterpret())
+    ) : this(gsk_debug_node_new(child.gPointer, message.cstr)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -47,7 +47,7 @@ public open class DebugNode(pointer: CPointer<GskDebugNode>) :
      * @return the child `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_debug_node_get_child(gskDebugNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**

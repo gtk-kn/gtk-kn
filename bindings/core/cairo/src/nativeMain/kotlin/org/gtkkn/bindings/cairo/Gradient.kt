@@ -27,7 +27,7 @@ public open class Gradient(pointer: CPointer<cairo_pattern_t>) :
         get() = gPointer.reinterpret()
 
     public open fun addColorStopRgb(offset: gdouble, red: gdouble, green: gdouble, blue: gdouble): Unit =
-        cairo_pattern_add_color_stop_rgb(cairoGradientPointer.reinterpret(), offset, red, green, blue)
+        cairo_pattern_add_color_stop_rgb(cairoGradientPointer, offset, red, green, blue)
 
     public open fun addColorStopRgba(
         offset: gdouble,
@@ -35,7 +35,7 @@ public open class Gradient(pointer: CPointer<cairo_pattern_t>) :
         green: gdouble,
         blue: gdouble,
         alpha: gdouble,
-    ): Unit = cairo_pattern_add_color_stop_rgba(cairoGradientPointer.reinterpret(), offset, red, green, blue, alpha)
+    ): Unit = cairo_pattern_add_color_stop_rgba(cairoGradientPointer, offset, red, green, blue, alpha)
 
     public companion object : TypeCompanion<Gradient> {
         override val type: GeneratedClassKGType<Gradient> =

@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.guint
@@ -78,14 +77,14 @@ public class BitsetIter(pointer: CPointer<GtkBitsetIter>, cleaner: Cleaner? = nu
      *
      * @return The current value pointer to by @iter
      */
-    public fun getValue(): guint = gtk_bitset_iter_get_value(gPointer.reinterpret())
+    public fun getValue(): guint = gtk_bitset_iter_get_value(gPointer)
 
     /**
      * Checks if @iter points to a valid value.
      *
      * @return true if @iter points to a valid value
      */
-    public fun isValid(): Boolean = gtk_bitset_iter_is_valid(gPointer.reinterpret()).asBoolean()
+    public fun isValid(): Boolean = gtk_bitset_iter_is_valid(gPointer).asBoolean()
 
     public companion object {
         /**

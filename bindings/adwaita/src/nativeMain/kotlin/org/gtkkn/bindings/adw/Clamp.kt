@@ -82,8 +82,8 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @return the child widget of @self
          */
-        get() = adw_clamp_get_child(adwClampPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_clamp_get_child(adwClampPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -91,7 +91,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @param child the child widget
          */
-        set(child) = adw_clamp_set_child(adwClampPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_clamp_set_child(adwClampPointer, child?.gtkWidgetPointer)
 
     /**
      * The maximum size allocated to the child.
@@ -104,7 +104,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @return the maximum size to allocate to the child
          */
-        get() = adw_clamp_get_maximum_size(adwClampPointer.reinterpret())
+        get() = adw_clamp_get_maximum_size(adwClampPointer)
 
         /**
          * Sets the maximum size allocated to the child.
@@ -113,7 +113,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @param maximumSize the maximum size
          */
-        set(maximumSize) = adw_clamp_set_maximum_size(adwClampPointer.reinterpret(), maximumSize)
+        set(maximumSize) = adw_clamp_set_maximum_size(adwClampPointer, maximumSize)
 
     /**
      * The size above which the child is clamped.
@@ -137,7 +137,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @return the size above which the child is clamped
          */
-        get() = adw_clamp_get_tightening_threshold(adwClampPointer.reinterpret())
+        get() = adw_clamp_get_tightening_threshold(adwClampPointer)
 
         /**
          * Sets the size above which the child is clamped.
@@ -157,9 +157,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(
-            tighteningThreshold
-        ) = adw_clamp_set_tightening_threshold(adwClampPointer.reinterpret(), tighteningThreshold)
+        set(tighteningThreshold) = adw_clamp_set_tightening_threshold(adwClampPointer, tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -176,7 +174,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @return the length unit
          * @since 1.4
          */
-        get() = adw_clamp_get_unit(adwClampPointer.reinterpret()).run {
+        get() = adw_clamp_get_unit(adwClampPointer).run {
             LengthUnit.fromNativeValue(this)
         }
 
@@ -189,7 +187,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(unit) = adw_clamp_set_unit(adwClampPointer.reinterpret(), unit.nativeValue)
+        set(unit) = adw_clamp_set_unit(adwClampPointer, unit.nativeValue)
 
     /**
      * Creates a new `AdwClamp`.

@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -132,7 +131,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Size): Boolean = graphene_size_equal(gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun equal(b: Size): Boolean = graphene_size_equal(gPointer, b.gPointer)
 
     /**
      * Frees the resources allocated by graphene_size_alloc().
@@ -140,7 +139,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun free(): Unit = graphene_size_free(gPointer.reinterpret())
+    public fun free(): Unit = graphene_size_free(gPointer)
 
     /**
      * Initializes a #graphene_size_t using the given @width and @height.
@@ -151,10 +150,9 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(width: gfloat, height: gfloat): Size =
-        graphene_size_init(gPointer.reinterpret(), width, height)!!.run {
-            Size(reinterpret())
-        }
+    public fun `init`(width: gfloat, height: gfloat): Size = graphene_size_init(gPointer, width, height)!!.run {
+        Size(this)
+    }
 
     /**
      * Initializes a #graphene_size_t using the width and height of
@@ -165,10 +163,9 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromSize(src: Size): Size =
-        graphene_size_init_from_size(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
-            Size(reinterpret())
-        }
+    public fun initFromSize(src: Size): Size = graphene_size_init_from_size(gPointer, src.gPointer)!!.run {
+        Size(this)
+    }
 
     /**
      * Linearly interpolates the two given #graphene_size_t using the given
@@ -181,7 +178,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun interpolate(b: Size, factor: gdouble, res: Size): Unit =
-        graphene_size_interpolate(gPointer.reinterpret(), b.gPointer.reinterpret(), factor, res.gPointer.reinterpret())
+        graphene_size_interpolate(gPointer, b.gPointer, factor, res.gPointer)
 
     /**
      * Scales the components of a #graphene_size_t using the given @factor.
@@ -191,8 +188,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(factor: gfloat, res: Size): Unit =
-        graphene_size_scale(gPointer.reinterpret(), factor, res.gPointer.reinterpret())
+    public fun scale(factor: gfloat, res: Size): Unit = graphene_size_scale(gPointer, factor, res.gPointer)
 
     override fun toString(): String = "Size(width=$width, height=$height)"
 
@@ -205,7 +201,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
          * @return the newly allocated #graphene_size_t
          * @since 1.0
          */
-        public fun alloc(): Size = Size(graphene_size_alloc()!!.reinterpret())
+        public fun alloc(): Size = Size(graphene_size_alloc()!!)
 
         /**
          * A constant pointer to a zero #graphene_size_t, useful for
@@ -216,7 +212,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
          */
         @GrapheneVersion1_0
         public fun zero(): Size = graphene_size_zero()!!.run {
-            Size(reinterpret())
+            Size(this)
         }
 
         /**

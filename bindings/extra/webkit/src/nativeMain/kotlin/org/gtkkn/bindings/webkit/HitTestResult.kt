@@ -67,7 +67,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          *
          * @return a bitmask of #WebKitHitTestResultContext flags
          */
-        get() = webkit_hit_test_result_get_context(webkitHitTestResultPointer.reinterpret())
+        get() = webkit_hit_test_result_get_context(webkitHitTestResultPointer)
 
     /**
      * The URI of the image if flag %WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE
@@ -80,7 +80,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          * @return the URI of the image element in the coordinates of the Hit Test,
          *    or null if there isn't an image element in @hit_test_result context
          */
-        get() = webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
+        get() = webkit_hit_test_result_get_image_uri(webkitHitTestResultPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -95,7 +95,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          *    or null if there isn't a link element in @hit_test_result context or the
          *    link element doesn't have a label
          */
-        get() = webkit_hit_test_result_get_link_label(webkitHitTestResultPointer.reinterpret())?.toKString()
+        get() = webkit_hit_test_result_get_link_label(webkitHitTestResultPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -110,7 +110,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          *    or null if there isn't a link element in @hit_test_result context or the
          *    link element doesn't have a title
          */
-        get() = webkit_hit_test_result_get_link_title(webkitHitTestResultPointer.reinterpret())?.toKString()
+        get() = webkit_hit_test_result_get_link_title(webkitHitTestResultPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -124,7 +124,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          * @return the URI of the link element in the coordinates of the Hit Test,
          *    or null if there isn't a link element in @hit_test_result context
          */
-        get() = webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
+        get() = webkit_hit_test_result_get_link_uri(webkitHitTestResultPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -138,7 +138,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
          * @return the URI of the media element in the coordinates of the Hit Test,
          *    or null if there isn't a media element in @hit_test_result context
          */
-        get() = webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer.reinterpret())?.toKString()
+        get() = webkit_hit_test_result_get_media_uri(webkitHitTestResultPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -149,7 +149,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      *    or false otherwise
      */
     public fun contextIsEditable(): Boolean =
-        webkit_hit_test_result_context_is_editable(webkitHitTestResultPointer.reinterpret()).asBoolean()
+        webkit_hit_test_result_context_is_editable(webkitHitTestResultPointer).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_IMAGE flag is present in
@@ -159,7 +159,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      *    or false otherwise
      */
     public fun contextIsImage(): Boolean =
-        webkit_hit_test_result_context_is_image(webkitHitTestResultPointer.reinterpret()).asBoolean()
+        webkit_hit_test_result_context_is_image(webkitHitTestResultPointer).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_LINK flag is present in
@@ -168,8 +168,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      * @return true if there's a link element in the coordinates of the Hit Test,
      *    or false otherwise
      */
-    public fun contextIsLink(): Boolean =
-        webkit_hit_test_result_context_is_link(webkitHitTestResultPointer.reinterpret()).asBoolean()
+    public fun contextIsLink(): Boolean = webkit_hit_test_result_context_is_link(webkitHitTestResultPointer).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_MEDIA flag is present in
@@ -179,7 +178,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      *    or false otherwise
      */
     public fun contextIsMedia(): Boolean =
-        webkit_hit_test_result_context_is_media(webkitHitTestResultPointer.reinterpret()).asBoolean()
+        webkit_hit_test_result_context_is_media(webkitHitTestResultPointer).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_SCROLLBAR flag is present in
@@ -189,7 +188,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      *    or false otherwise
      */
     public fun contextIsScrollbar(): Boolean =
-        webkit_hit_test_result_context_is_scrollbar(webkitHitTestResultPointer.reinterpret()).asBoolean()
+        webkit_hit_test_result_context_is_scrollbar(webkitHitTestResultPointer).asBoolean()
 
     /**
      * Gets whether %WEBKIT_HIT_TEST_RESULT_CONTEXT_SELECTION flag is present in
@@ -201,7 +200,7 @@ public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
      */
     @WebKitVersion2_8
     public fun contextIsSelection(): Boolean =
-        webkit_hit_test_result_context_is_selection(webkitHitTestResultPointer.reinterpret()).asBoolean()
+        webkit_hit_test_result_context_is_selection(webkitHitTestResultPointer).asBoolean()
 
     public companion object : TypeCompanion<HitTestResult> {
         override val type: GeneratedClassKGType<HitTestResult> =

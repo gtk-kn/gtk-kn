@@ -35,7 +35,7 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      * @return A `GBytes` with the uniform arguments
      */
     public open fun getArgs(): Bytes = gsk_gl_shader_node_get_args(gskGlShaderNodePointer.reinterpret())!!.run {
-        Bytes(reinterpret())
+        Bytes(this)
     }
 
     /**
@@ -46,7 +46,7 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      */
     public open fun getChild(idx: guint): RenderNode =
         gsk_gl_shader_node_get_child(gskGlShaderNodePointer.reinterpret(), idx)!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     /**
@@ -62,7 +62,7 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      * @return the `GskGLShader` shader
      */
     public open fun getShader(): GlShader = gsk_gl_shader_node_get_shader(gskGlShaderNodePointer.reinterpret())!!.run {
-        GlShader(reinterpret())
+        GlShader(this)
     }
 
     public companion object : TypeCompanion<GlShaderNode> {

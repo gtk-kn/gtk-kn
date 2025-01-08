@@ -70,11 +70,11 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
     public open fun next(cancellable: Cancellable? = null): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_address_enumerator_next(
-            gioSocketAddressEnumeratorPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioSocketAddressEnumeratorPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketAddress(reinterpret())
+            SocketAddress(this)
         }
 
         return if (gError.pointed != null) {
@@ -97,8 +97,8 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
      */
     public open fun nextAsync(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_socket_address_enumerator_next_async(
-            gioSocketAddressEnumeratorPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioSocketAddressEnumeratorPointer,
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -119,11 +119,11 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
     public open fun nextFinish(result: AsyncResult): Result<SocketAddress?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_address_enumerator_next_finish(
-            gioSocketAddressEnumeratorPointer.reinterpret(),
+            gioSocketAddressEnumeratorPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketAddress(reinterpret())
+            SocketAddress(this)
         }
 
         return if (gError.pointed != null) {

@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -87,14 +88,14 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
          *
          * @return true if the dialog is modal
          */
-        get() = gtk_font_button_get_modal(gtkFontButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_font_button_get_modal(gtkFontButtonPointer).asBoolean()
 
         /**
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
          */
-        set(modal) = gtk_font_button_set_modal(gtkFontButtonPointer.reinterpret(), modal.asGBoolean())
+        set(modal) = gtk_font_button_set_modal(gtkFontButtonPointer, modal.asGBoolean())
 
     /**
      * The title of the font chooser dialog.
@@ -106,15 +107,14 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
          * @return an internal copy of the title string
          *   which must not be freed.
          */
-        get() = gtk_font_button_get_title(gtkFontButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_font_button_get_title(gtkFontButtonPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title for the font chooser dialog.
          *
          * @param title a string containing the font chooser dialog title
          */
-        set(title) = gtk_font_button_set_title(gtkFontButtonPointer.reinterpret(), title)
+        set(title) = gtk_font_button_set_title(gtkFontButtonPointer, title)
 
     /**
      * Whether the buttons label will be drawn in the selected font.
@@ -125,7 +125,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
          *
          * @return whether the selected font is used in the label.
          */
-        get() = gtk_font_button_get_use_font(gtkFontButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_font_button_get_use_font(gtkFontButtonPointer).asBoolean()
 
         /**
          * If @use_font is true, the font name will be written
@@ -133,7 +133,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
          *
          * @param useFont If true, font name will be written using font chosen.
          */
-        set(useFont) = gtk_font_button_set_use_font(gtkFontButtonPointer.reinterpret(), useFont.asGBoolean())
+        set(useFont) = gtk_font_button_set_use_font(gtkFontButtonPointer, useFont.asGBoolean())
 
     /**
      * Whether the buttons label will use the selected font size.
@@ -144,7 +144,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
          *
          * @return whether the selected size is used in the label.
          */
-        get() = gtk_font_button_get_use_size(gtkFontButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_font_button_get_use_size(gtkFontButtonPointer).asBoolean()
 
         /**
          * If @use_size is true, the font name will be written using
@@ -153,7 +153,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
          * @param useSize If true, font name will be written using the
          *   selected size.
          */
-        set(useSize) = gtk_font_button_set_use_size(gtkFontButtonPointer.reinterpret(), useSize.asGBoolean())
+        set(useSize) = gtk_font_button_set_use_size(gtkFontButtonPointer, useSize.asGBoolean())
 
     /**
      * Creates a new font picker widget.
@@ -176,20 +176,30 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
      * The `::activate` signal on `GtkFontButton` is an action signal and
      * emitting it causes the button to present its dialog.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     *
+     * @since 4.4
+     */
+    @GtkVersion4_4
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     /**
      * Emitted when the user selects a font.
@@ -201,18 +211,25 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
      * If you need to react to programmatic font changes as well, use
      * the notify::font signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFontSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onFontSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "font-set",
-            connectFontSetFunc.reinterpret(),
+            onFontSetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "font-set" signal. See [onFontSet].
+     */
+    public fun emitFontSet() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "font-set")
+    }
 
     public companion object : TypeCompanion<FontButton> {
         override val type: GeneratedClassKGType<FontButton> =
@@ -231,7 +248,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -239,7 +256,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectFontSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onFontSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

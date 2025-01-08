@@ -58,9 +58,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
     public constructor(
         inputStream: InputStream,
         streamLength: gint64,
-    ) : this(
-        webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer.reinterpret(), streamLength)!!.reinterpret()
-    )
+    ) : this(webkit_uri_scheme_response_new(inputStream.gioInputStreamPointer, streamLength)!!.reinterpret())
 
     /**
      * Sets the content type for the @response
@@ -70,7 +68,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      */
     @WebKitVersion2_36
     public fun setContentType(contentType: String): Unit =
-        webkit_uri_scheme_response_set_content_type(webkitUriSchemeResponsePointer.reinterpret(), contentType)
+        webkit_uri_scheme_response_set_content_type(webkitUriSchemeResponsePointer, contentType)
 
     /**
      * Assign the provided #SoupMessageHeaders to the response.
@@ -82,10 +80,8 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      * @since 2.36
      */
     @WebKitVersion2_36
-    public fun setHttpHeaders(headers: MessageHeaders): Unit = webkit_uri_scheme_response_set_http_headers(
-        webkitUriSchemeResponsePointer.reinterpret(),
-        headers.gPointer.reinterpret()
-    )
+    public fun setHttpHeaders(headers: MessageHeaders): Unit =
+        webkit_uri_scheme_response_set_http_headers(webkitUriSchemeResponsePointer, headers.gPointer)
 
     /**
      * Sets the status code and reason phrase for the @response.
@@ -98,7 +94,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      */
     @WebKitVersion2_36
     public fun setStatus(statusCode: guint, reasonPhrase: String? = null): Unit =
-        webkit_uri_scheme_response_set_status(webkitUriSchemeResponsePointer.reinterpret(), statusCode, reasonPhrase)
+        webkit_uri_scheme_response_set_status(webkitUriSchemeResponsePointer, statusCode, reasonPhrase)
 
     public companion object : TypeCompanion<UriSchemeResponse> {
         override val type: GeneratedClassKGType<UriSchemeResponse> =

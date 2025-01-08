@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTuples
@@ -101,7 +100,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * finished with the records. The records are not removed from the
      * #GRelation.
      */
-    public fun destroy(): Unit = g_tuples_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_tuples_destroy(gPointer)
 
     /**
      * Gets a field from the records returned by g_relation_select(). It
@@ -112,7 +111,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * @param field the field to return.
      * @return the field of the record.
      */
-    public fun index(index: gint, `field`: gint): gpointer? = g_tuples_index(gPointer.reinterpret(), index, `field`)
+    public fun index(index: gint, `field`: gint): gpointer? = g_tuples_index(gPointer, index, `field`)
 
     override fun toString(): String = "Tuples(len=$len)"
 }

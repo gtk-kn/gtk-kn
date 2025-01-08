@@ -41,13 +41,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
         child: RenderNode,
         path: Path,
         fillRule: FillRule,
-    ) : this(
-        gsk_fill_node_new(
-            child.gPointer.reinterpret(),
-            path.gPointer.reinterpret(),
-            fillRule.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_fill_node_new(child.gPointer, path.gPointer, fillRule.nativeValue)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -57,7 +51,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_fill_node_get_child(gskFillNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -80,7 +74,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
      */
     @GskVersion4_14
     public open fun getPath(): Path = gsk_fill_node_get_path(gskFillNodePointer.reinterpret())!!.run {
-        Path(reinterpret())
+        Path(this)
     }
 
     public companion object : TypeCompanion<FillNode> {

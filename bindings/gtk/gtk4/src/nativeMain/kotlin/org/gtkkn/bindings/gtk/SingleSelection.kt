@@ -71,7 +71,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @return true if autoselect is enabled
          */
-        get() = gtk_single_selection_get_autoselect(gtkSingleSelectionPointer.reinterpret()).asBoolean()
+        get() = gtk_single_selection_get_autoselect(gtkSingleSelectionPointer).asBoolean()
 
         /**
          * Enables or disables autoselect.
@@ -82,9 +82,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @param autoselect true to always select an item
          */
-        set(
-            autoselect
-        ) = gtk_single_selection_set_autoselect(gtkSingleSelectionPointer.reinterpret(), autoselect.asGBoolean())
+        set(autoselect) = gtk_single_selection_set_autoselect(gtkSingleSelectionPointer, autoselect.asGBoolean())
 
     /**
      * If unselecting the selected item is allowed.
@@ -96,7 +94,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @return true to support unselecting
          */
-        get() = gtk_single_selection_get_can_unselect(gtkSingleSelectionPointer.reinterpret()).asBoolean()
+        get() = gtk_single_selection_get_can_unselect(gtkSingleSelectionPointer).asBoolean()
 
         /**
          * If true, unselecting the current item via
@@ -108,9 +106,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @param canUnselect true to allow unselecting
          */
-        set(
-            canUnselect
-        ) = gtk_single_selection_set_can_unselect(gtkSingleSelectionPointer.reinterpret(), canUnselect.asGBoolean())
+        set(canUnselect) = gtk_single_selection_set_can_unselect(gtkSingleSelectionPointer, canUnselect.asGBoolean())
 
     /**
      * The model being managed.
@@ -121,7 +117,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @return The model being wrapped
          */
-        get() = gtk_single_selection_get_model(gtkSingleSelectionPointer.reinterpret())?.run {
+        get() = gtk_single_selection_get_model(gtkSingleSelectionPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -132,7 +128,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @param model A `GListModel` to wrap
          */
-        set(model) = gtk_single_selection_set_model(gtkSingleSelectionPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_single_selection_set_model(gtkSingleSelectionPointer, model?.gioListModelPointer)
 
     /**
      * Position of the selected item.
@@ -145,7 +141,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @return The position of the selected item
          */
-        get() = gtk_single_selection_get_selected(gtkSingleSelectionPointer.reinterpret())
+        get() = gtk_single_selection_get_selected(gtkSingleSelectionPointer)
 
         /**
          * Selects the item at the given position.
@@ -159,7 +155,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @param position the item to select or %GTK_INVALID_LIST_POSITION
          */
-        set(position) = gtk_single_selection_set_selected(gtkSingleSelectionPointer.reinterpret(), position)
+        set(position) = gtk_single_selection_set_selected(gtkSingleSelectionPointer, position)
 
     /**
      * The selected item.
@@ -172,7 +168,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          *
          * @return The selected item
          */
-        get() = gtk_single_selection_get_selected_item(gtkSingleSelectionPointer.reinterpret())?.run {
+        get() = gtk_single_selection_get_selected_item(gtkSingleSelectionPointer)?.run {
             Object(reinterpret())
         }
 

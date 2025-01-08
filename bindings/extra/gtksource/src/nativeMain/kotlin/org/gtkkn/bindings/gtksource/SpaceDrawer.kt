@@ -93,7 +93,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
          *
          * @return whether the #GtkSourceSpaceDrawer:matrix property is enabled.
          */
-        get() = gtk_source_space_drawer_get_enable_matrix(gtksourceSpaceDrawerPointer.reinterpret()).asBoolean()
+        get() = gtk_source_space_drawer_get_enable_matrix(gtksourceSpaceDrawerPointer).asBoolean()
 
         /**
          * Sets whether the [property@SpaceDrawer:matrix] property is enabled.
@@ -102,10 +102,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
          */
         set(
             enableMatrix
-        ) = gtk_source_space_drawer_set_enable_matrix(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            enableMatrix.asGBoolean()
-        )
+        ) = gtk_source_space_drawer_set_enable_matrix(gtksourceSpaceDrawerPointer, enableMatrix.asGBoolean())
 
     /**
      * Creates a new #GtkSourceSpaceDrawer object.
@@ -133,8 +130,8 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      */
     public open fun bindMatrixSetting(settings: Settings, key: String, flags: SettingsBindFlags): Unit =
         gtk_source_space_drawer_bind_matrix_setting(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            settings.gioSettingsPointer.reinterpret(),
+            gtksourceSpaceDrawerPointer,
+            settings.gioSettingsPointer,
             key,
             flags.mask
         )
@@ -150,10 +147,9 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @return the #GtkSourceSpaceDrawer:matrix value as a new floating #GVariant
      *   instance.
      */
-    public open fun getMatrix(): Variant =
-        gtk_source_space_drawer_get_matrix(gtksourceSpaceDrawerPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public open fun getMatrix(): Variant = gtk_source_space_drawer_get_matrix(gtksourceSpaceDrawerPointer)!!.run {
+        Variant(this)
+    }
 
     /**
      * If only one location is specified, this function returns what kind of
@@ -170,7 +166,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @return a combination of #GtkSourceSpaceTypeFlags.
      */
     public open fun getTypesForLocations(locations: SpaceLocationFlags): SpaceTypeFlags =
-        gtk_source_space_drawer_get_types_for_locations(gtksourceSpaceDrawerPointer.reinterpret(), locations.mask).run {
+        gtk_source_space_drawer_get_types_for_locations(gtksourceSpaceDrawerPointer, locations.mask).run {
             SpaceTypeFlags(this)
         }
 
@@ -187,7 +183,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @param matrix the new matrix value, or null.
      */
     public open fun setMatrix(matrix: Variant? = null): Unit =
-        gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer.reinterpret(), matrix?.gPointer?.reinterpret())
+        gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer, matrix?.gPointer)
 
     /**
      * Modifies the [property@SpaceDrawer:matrix] property at the specified
@@ -197,11 +193,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @param types a combination of #GtkSourceSpaceTypeFlags.
      */
     public open fun setTypesForLocations(locations: SpaceLocationFlags, types: SpaceTypeFlags): Unit =
-        gtk_source_space_drawer_set_types_for_locations(
-            gtksourceSpaceDrawerPointer.reinterpret(),
-            locations.mask,
-            types.mask
-        )
+        gtk_source_space_drawer_set_types_for_locations(gtksourceSpaceDrawerPointer, locations.mask, types.mask)
 
     public companion object : TypeCompanion<SpaceDrawer> {
         override val type: GeneratedClassKGType<SpaceDrawer> =

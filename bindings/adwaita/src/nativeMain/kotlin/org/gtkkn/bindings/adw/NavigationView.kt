@@ -44,6 +44,7 @@ import org.gtkkn.native.adw.adw_navigation_view_set_pop_on_escape
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -253,7 +254,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
          * @return whether to animate page transitions
          * @since 1.4
          */
-        get() = adw_navigation_view_get_animate_transitions(adwNavigationViewPointer.reinterpret()).asBoolean()
+        get() = adw_navigation_view_get_animate_transitions(adwNavigationViewPointer).asBoolean()
 
         /**
          * Sets whether @self should animate page transitions.
@@ -266,10 +267,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
         @AdwVersion1_4
         set(
             animateTransitions
-        ) = adw_navigation_view_set_animate_transitions(
-            adwNavigationViewPointer.reinterpret(),
-            animateTransitions.asGBoolean()
-        )
+        ) = adw_navigation_view_set_animate_transitions(adwNavigationViewPointer, animateTransitions.asGBoolean())
 
     /**
      * A list model that contains the pages in navigation stack.
@@ -292,7 +290,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
          * @return a list model for the navigation stack
          * @since 1.4
          */
-        get() = adw_navigation_view_get_navigation_stack(adwNavigationViewPointer.reinterpret())!!.run {
+        get() = adw_navigation_view_get_navigation_stack(adwNavigationViewPointer)!!.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -312,7 +310,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
          * @return whether to pop the current page
          * @since 1.4
          */
-        get() = adw_navigation_view_get_pop_on_escape(adwNavigationViewPointer.reinterpret()).asBoolean()
+        get() = adw_navigation_view_get_pop_on_escape(adwNavigationViewPointer).asBoolean()
 
         /**
          * Sets whether pressing Escape pops the current page on @self.
@@ -324,9 +322,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            popOnEscape
-        ) = adw_navigation_view_set_pop_on_escape(adwNavigationViewPointer.reinterpret(), popOnEscape.asGBoolean())
+        set(popOnEscape) = adw_navigation_view_set_pop_on_escape(adwNavigationViewPointer, popOnEscape.asGBoolean())
 
     /**
      * The currently visible page.
@@ -341,8 +337,8 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
          * @return the currently visible page
          * @since 1.4
          */
-        get() = adw_navigation_view_get_visible_page(adwNavigationViewPointer.reinterpret())?.run {
-            NavigationPage(reinterpret())
+        get() = adw_navigation_view_get_visible_page(adwNavigationViewPointer)?.run {
+            NavigationPage(this)
         }
 
     /**
@@ -369,7 +365,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun add(page: NavigationPage): Unit =
-        adw_navigation_view_add(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
+        adw_navigation_view_add(adwNavigationViewPointer, page.adwNavigationPagePointer)
 
     /**
      * Finds a page in @self by its tag.
@@ -382,8 +378,8 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun findPage(tag: String): NavigationPage? =
-        adw_navigation_view_find_page(adwNavigationViewPointer.reinterpret(), tag)?.run {
-            NavigationPage(reinterpret())
+        adw_navigation_view_find_page(adwNavigationViewPointer, tag)?.run {
+            NavigationPage(this)
         }
 
     /**
@@ -399,12 +395,10 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun getPreviousPage(page: NavigationPage): NavigationPage? = adw_navigation_view_get_previous_page(
-        adwNavigationViewPointer.reinterpret(),
-        page.adwNavigationPagePointer.reinterpret()
-    )?.run {
-        NavigationPage(reinterpret())
-    }
+    public fun getPreviousPage(page: NavigationPage): NavigationPage? =
+        adw_navigation_view_get_previous_page(adwNavigationViewPointer, page.adwNavigationPagePointer)?.run {
+            NavigationPage(this)
+        }
 
     /**
      * Pops the visible page from the navigation stack.
@@ -423,7 +417,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun pop(): Boolean = adw_navigation_view_pop(adwNavigationViewPointer.reinterpret()).asBoolean()
+    public fun pop(): Boolean = adw_navigation_view_pop(adwNavigationViewPointer).asBoolean()
 
     /**
      * Pops pages from the navigation stack until @page is visible.
@@ -443,10 +437,8 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun popToPage(page: NavigationPage): Boolean = adw_navigation_view_pop_to_page(
-        adwNavigationViewPointer.reinterpret(),
-        page.adwNavigationPagePointer.reinterpret()
-    ).asBoolean()
+    public fun popToPage(page: NavigationPage): Boolean =
+        adw_navigation_view_pop_to_page(adwNavigationViewPointer, page.adwNavigationPagePointer).asBoolean()
 
     /**
      * Pops pages from the navigation stack until page with the tag @tag is visible.
@@ -466,7 +458,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun popToTag(tag: String): Boolean =
-        adw_navigation_view_pop_to_tag(adwNavigationViewPointer.reinterpret(), tag).asBoolean()
+        adw_navigation_view_pop_to_tag(adwNavigationViewPointer, tag).asBoolean()
 
     /**
      * Pushes @page onto the navigation stack.
@@ -483,7 +475,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun push(page: NavigationPage): Unit =
-        adw_navigation_view_push(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
+        adw_navigation_view_push(adwNavigationViewPointer, page.adwNavigationPagePointer)
 
     /**
      * Pushes the page with the tag @tag onto the navigation stack.
@@ -499,8 +491,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun pushByTag(tag: String): Unit =
-        adw_navigation_view_push_by_tag(adwNavigationViewPointer.reinterpret(), tag)
+    public fun pushByTag(tag: String): Unit = adw_navigation_view_push_by_tag(adwNavigationViewPointer, tag)
 
     /**
      * Removes @page from @self.
@@ -515,7 +506,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun remove(page: NavigationPage): Unit =
-        adw_navigation_view_remove(adwNavigationViewPointer.reinterpret(), page.adwNavigationPagePointer.reinterpret())
+        adw_navigation_view_remove(adwNavigationViewPointer, page.adwNavigationPagePointer)
 
     /**
      * Replaces the current navigation stack with pages with the tags @tags.
@@ -541,11 +532,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun replaceWithTags(tags: List<String>, nTags: gint): Unit = memScoped {
-        return adw_navigation_view_replace_with_tags(
-            adwNavigationViewPointer.reinterpret(),
-            tags.toCStringList(this),
-            nTags
-        )
+        return adw_navigation_view_replace_with_tags(adwNavigationViewPointer, tags.toCStringList(this), nTags)
     }
 
     /**
@@ -561,22 +548,20 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      *
      * Instead, it should be done in the [signal@NavigationView::pushed] handler.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns the page to push
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectGetNextPage(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: () -> NavigationPage?,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "get-next-page",
-        connectGetNextPageFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onGetNextPage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> NavigationPage?): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "get-next-page",
+            onGetNextPageFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
 
     /**
      * Emitted after @page has been popped from the navigation stack.
@@ -587,62 +572,91 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      * [method@NavigationView.pop_to_tag], this signal is emitted for each of the
      * popped pages.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the popped page
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectPopped(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (page: NavigationPage) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "popped",
-        connectPoppedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onPopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: NavigationPage) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "popped",
+            onPoppedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "popped" signal. See [onPopped].
+     *
+     * @param page the popped page
+     * @since 1.4
+     */
+    @AdwVersion1_4
+    public fun emitPopped(page: NavigationPage) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "popped", page.adwNavigationPagePointer)
+    }
 
     /**
      * Emitted after a page has been pushed to the navigation stack.
      *
      * See [method@NavigationView.push].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectPushed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onPushed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "pushed",
-            connectPushedFunc.reinterpret(),
+            onPushedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "pushed" signal. See [onPushed].
+     *
+     * @since 1.4
+     */
+    @AdwVersion1_4
+    public fun emitPushed() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "pushed")
+    }
+
+    /**
      * Emitted after the navigation stack has been replaced.
      *
      * See [method@NavigationView.replace].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectReplaced(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onReplaced(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "replaced",
-            connectReplacedFunc.reinterpret(),
+            onReplacedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "replaced" signal. See [onReplaced].
+     *
+     * @since 1.4
+     */
+    @AdwVersion1_4
+    public fun emitReplaced() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "replaced")
+    }
 
     public companion object : TypeCompanion<NavigationView> {
         override val type: GeneratedClassKGType<NavigationView> =
@@ -661,7 +675,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
     }
 }
 
-private val connectGetNextPageFunc: CPointer<CFunction<() -> CPointer<AdwNavigationPage>?>> =
+private val onGetNextPageFunc: CPointer<CFunction<() -> CPointer<AdwNavigationPage>?>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
@@ -670,7 +684,7 @@ private val connectGetNextPageFunc: CPointer<CFunction<() -> CPointer<AdwNavigat
     }
         .reinterpret()
 
-private val connectPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) -> Unit>> =
+private val onPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<AdwNavigationPage>?,
@@ -678,13 +692,13 @@ private val connectPoppedFunc: CPointer<CFunction<(CPointer<AdwNavigationPage>) 
         ->
         userData.asStableRef<(page: NavigationPage) -> Unit>().get().invoke(
             page!!.run {
-                NavigationPage(reinterpret())
+                NavigationPage(this)
             }
         )
     }
         .reinterpret()
 
-private val connectPushedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onPushedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -692,7 +706,7 @@ private val connectPushedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
 }
     .reinterpret()
 
-private val connectReplacedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onReplacedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

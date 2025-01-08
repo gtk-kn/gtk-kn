@@ -246,9 +246,7 @@ public object WebKit {
      */
     @WebKitVersion2_32
     public fun mediaKeySystemPermissionGetName(request: MediaKeySystemPermissionRequest): String =
-        webkit_media_key_system_permission_get_name(
-            request.webkitMediaKeySystemPermissionRequestPointer.reinterpret()
-        )?.toKString()
+        webkit_media_key_system_permission_get_name(request.webkitMediaKeySystemPermissionRequestPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -277,9 +275,7 @@ public object WebKit {
      */
     @WebKitVersion2_8
     public fun userMediaPermissionIsForAudioDevice(request: UserMediaPermissionRequest): Boolean =
-        webkit_user_media_permission_is_for_audio_device(
-            request.webkitUserMediaPermissionRequestPointer.reinterpret()
-        ).asBoolean()
+        webkit_user_media_permission_is_for_audio_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
 
     /**
      * Check whether the permission request is for a display device.
@@ -290,9 +286,7 @@ public object WebKit {
      */
     @WebKitVersion2_34
     public fun userMediaPermissionIsForDisplayDevice(request: UserMediaPermissionRequest): Boolean =
-        webkit_user_media_permission_is_for_display_device(
-            request.webkitUserMediaPermissionRequestPointer.reinterpret()
-        ).asBoolean()
+        webkit_user_media_permission_is_for_display_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
 
     /**
      * Check whether the permission request is for a video device.
@@ -303,9 +297,7 @@ public object WebKit {
      */
     @WebKitVersion2_8
     public fun userMediaPermissionIsForVideoDevice(request: UserMediaPermissionRequest): Boolean =
-        webkit_user_media_permission_is_for_video_device(
-            request.webkitUserMediaPermissionRequestPointer.reinterpret()
-        ).asBoolean()
+        webkit_user_media_permission_is_for_video_device(request.webkitUserMediaPermissionRequestPointer).asBoolean()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -362,7 +354,7 @@ public val UriSchemeRequestCallbackFunc:
         ->
         userData!!.asStableRef<(request: UriSchemeRequest) -> Unit>().get().invoke(
             request!!.run {
-                UriSchemeRequest(reinterpret())
+                UriSchemeRequest(this)
             }
         )
     }

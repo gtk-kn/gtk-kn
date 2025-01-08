@@ -40,8 +40,8 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          *
          * @return the child to which @self belongs
          */
-        get() = adw_leaflet_page_get_child(adwLeafletPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = adw_leaflet_page_get_child(adwLeafletPagePointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -53,14 +53,14 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          *
          * @return the name of @self.
          */
-        get() = adw_leaflet_page_get_name(adwLeafletPagePointer.reinterpret())?.toKString()
+        get() = adw_leaflet_page_get_name(adwLeafletPagePointer)?.toKString()
 
         /**
          * Sets the name of the @self.
          *
          * @param name the new value to set
          */
-        set(name) = adw_leaflet_page_set_name(adwLeafletPagePointer.reinterpret(), name)
+        set(name) = adw_leaflet_page_set_name(adwLeafletPagePointer, name)
 
     /**
      * Whether the child can be navigated to when folded.
@@ -77,7 +77,7 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          *
          * @return whether @self can be navigated to when folded
          */
-        get() = adw_leaflet_page_get_navigatable(adwLeafletPagePointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_page_get_navigatable(adwLeafletPagePointer).asBoolean()
 
         /**
          * Sets whether @self can be navigated to when folded.
@@ -89,9 +89,7 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          *
          * @param navigatable whether @self can be navigated to when folded
          */
-        set(
-            navigatable
-        ) = adw_leaflet_page_set_navigatable(adwLeafletPagePointer.reinterpret(), navigatable.asGBoolean())
+        set(navigatable) = adw_leaflet_page_set_navigatable(adwLeafletPagePointer, navigatable.asGBoolean())
 
     public companion object : TypeCompanion<LeafletPage> {
         override val type: GeneratedClassKGType<LeafletPage> =

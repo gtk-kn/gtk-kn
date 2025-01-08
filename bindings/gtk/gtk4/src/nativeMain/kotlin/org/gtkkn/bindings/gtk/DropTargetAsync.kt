@@ -23,6 +23,7 @@ import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkDropTargetAsync
 import org.gtkkn.native.gtk.gtk_drop_target_async_get_actions
 import org.gtkkn.native.gtk.gtk_drop_target_async_get_formats
@@ -86,7 +87,7 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
          *
          * @return the actions that this drop target supports
          */
-        get() = gtk_drop_target_async_get_actions(gtkDropTargetAsyncPointer.reinterpret()).run {
+        get() = gtk_drop_target_async_get_actions(gtkDropTargetAsyncPointer).run {
             DragAction(this)
         }
 
@@ -95,7 +96,7 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
          *
          * @param actions the supported actions
          */
-        set(actions) = gtk_drop_target_async_set_actions(gtkDropTargetAsyncPointer.reinterpret(), actions.mask)
+        set(actions) = gtk_drop_target_async_set_actions(gtkDropTargetAsyncPointer, actions.mask)
 
     /**
      * The `GdkContentFormats` that determines the supported data formats.
@@ -108,8 +109,8 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
          *
          * @return the supported data formats
          */
-        get() = gtk_drop_target_async_get_formats(gtkDropTargetAsyncPointer.reinterpret())?.run {
-            ContentFormats(reinterpret())
+        get() = gtk_drop_target_async_get_formats(gtkDropTargetAsyncPointer)?.run {
+            ContentFormats(this)
         }
 
         /**
@@ -117,9 +118,7 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
          *
          * @param formats the supported data formats or null for any format
          */
-        set(
-            formats
-        ) = gtk_drop_target_async_set_formats(gtkDropTargetAsyncPointer.reinterpret(), formats?.gPointer?.reinterpret())
+        set(formats) = gtk_drop_target_async_set_formats(gtkDropTargetAsyncPointer, formats?.gPointer)
 
     /**
      * Creates a new `GtkDropTargetAsync` object.
@@ -131,7 +130,7 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
     public constructor(
         formats: ContentFormats? = null,
         actions: DragAction,
-    ) : this(gtk_drop_target_async_new(formats?.gPointer?.reinterpret(), actions.mask)!!.reinterpret())
+    ) : this(gtk_drop_target_async_new(formats?.gPointer, actions.mask)!!.reinterpret())
 
     /**
      * Sets the @drop as not accepted on this drag site.
@@ -143,7 +142,7 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
      * @param drop the `GdkDrop` of an ongoing drag operation
      */
     public open fun rejectDrop(drop: Drop): Unit =
-        gtk_drop_target_async_reject_drop(gtkDropTargetAsyncPointer.reinterpret(), drop.gdkDropPointer.reinterpret())
+        gtk_drop_target_async_reject_drop(gtkDropTargetAsyncPointer, drop.gdkDropPointer)
 
     /**
      * Emitted on the drop site when a drop operation is about to begin.
@@ -162,14 +161,14 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
      * return true and proceed as is @drop was accepted and if it decides to
      * reject the drop later, it should call [method@Gtk.DropTargetAsync.reject_drop].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drop` the `GdkDrop`. Returns true if @drop is accepted
      */
-    public fun connectAccept(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drop: Drop) -> Boolean): ULong =
+    public fun onAccept(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drop: Drop) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "accept",
-            connectAcceptFunc.reinterpret(),
+            onAcceptFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -180,10 +179,10 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
      *
      * It can be used to set up custom highlighting.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drop` the `GdkDrop`; `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns Preferred action for this drag operation.
      */
-    public fun connectDragEnter(
+    public fun onDragEnter(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             drop: Drop,
@@ -191,9 +190,9 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
             y: gdouble,
         ) -> DragAction,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-enter",
-        connectDragEnterFunc.reinterpret(),
+        onDragEnterFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -205,26 +204,35 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
      * Its main purpose it to undo things done in
      * `GtkDropTargetAsync`::drag-enter.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drop` the `GdkDrop`
      */
-    public fun connectDragLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drop: Drop) -> Unit): ULong =
+    public fun onDragLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drop: Drop) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "drag-leave",
-            connectDragLeaveFunc.reinterpret(),
+            onDragLeaveFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "drag-leave" signal. See [onDragLeave].
+     *
+     * @param drop the `GdkDrop`
+     */
+    public fun emitDragLeave(drop: Drop) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "drag-leave", drop.gdkDropPointer)
+    }
+
+    /**
      * Emitted while the pointer is moving over the drop target.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drop` the `GdkDrop`; `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns Preferred action for this drag operation.
      */
-    public fun connectDragMotion(
+    public fun onDragMotion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             drop: Drop,
@@ -232,9 +240,9 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
             y: gdouble,
         ) -> DragAction,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-motion",
-        connectDragMotionFunc.reinterpret(),
+        onDragMotionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -256,10 +264,10 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
      * [class@Gdk.Drop] such as [method@Gdk.Drop.read_async] or
      * [method@Gdk.Drop.read_value_async].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drop` the `GdkDrop`; `x` the x coordinate of the current pointer position; `y` the y coordinate of the current pointer position. Returns whether the drop is accepted at the given pointer position
      */
-    public fun connectDrop(
+    public fun onDrop(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             drop: Drop,
@@ -267,9 +275,9 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
             y: gdouble,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drop",
-        connectDropFunc.reinterpret(),
+        onDropFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -292,21 +300,20 @@ public open class DropTargetAsync(pointer: CPointer<GtkDropTargetAsync>) :
     }
 }
 
-private val connectAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            drop: CPointer<GdkDrop>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(
-            drop!!.run {
-                Drop(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+private val onAcceptFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        drop: CPointer<GdkDrop>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(drop: Drop) -> Boolean>().get().invoke(
+        drop!!.run {
+            Drop(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
-private val connectDragEnterFunc: CPointer<
+private val onDragEnterFunc: CPointer<
     CFunction<
         (
             CPointer<GdkDrop>,
@@ -329,7 +336,7 @@ private val connectDragEnterFunc: CPointer<
         ) -> DragAction
         >().get().invoke(
         drop!!.run {
-            Drop(reinterpret())
+            Drop(this)
         },
         x,
         y
@@ -337,21 +344,20 @@ private val connectDragEnterFunc: CPointer<
 }
     .reinterpret()
 
-private val connectDragLeaveFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            drop: CPointer<GdkDrop>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(drop: Drop) -> Unit>().get().invoke(
-            drop!!.run {
-                Drop(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+private val onDragLeaveFunc: CPointer<CFunction<(CPointer<GdkDrop>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        drop: CPointer<GdkDrop>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(drop: Drop) -> Unit>().get().invoke(
+        drop!!.run {
+            Drop(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectDragMotionFunc: CPointer<
+private val onDragMotionFunc: CPointer<
     CFunction<
         (
             CPointer<GdkDrop>,
@@ -374,7 +380,7 @@ private val connectDragMotionFunc: CPointer<
         ) -> DragAction
         >().get().invoke(
         drop!!.run {
-            Drop(reinterpret())
+            Drop(this)
         },
         x,
         y
@@ -382,7 +388,7 @@ private val connectDragMotionFunc: CPointer<
 }
     .reinterpret()
 
-private val connectDropFunc: CPointer<
+private val onDropFunc: CPointer<
     CFunction<
         (
             CPointer<GdkDrop>,
@@ -405,7 +411,7 @@ private val connectDropFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         drop!!.run {
-            Drop(reinterpret())
+            Drop(this)
         },
         x,
         y

@@ -35,7 +35,7 @@ public open class ImageSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.2
      */
     @CairoVersion1_2
-    public open fun getData(): gpointer = cairo_image_surface_get_data(cairoImageSurfacePointer.reinterpret())!!
+    public open fun getData(): gpointer = cairo_image_surface_get_data(cairoImageSurfacePointer)!!
 
     /**
      *
@@ -43,13 +43,13 @@ public open class ImageSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.2
      */
     @CairoVersion1_2
-    public open fun getFormat(): Format = cairo_image_surface_get_format(cairoImageSurfacePointer.reinterpret()).run {
+    public open fun getFormat(): Format = cairo_image_surface_get_format(cairoImageSurfacePointer).run {
         Format.fromNativeValue(this)
     }
 
-    public open fun getWidth(): gint = cairo_image_surface_get_width(cairoImageSurfacePointer.reinterpret())
+    public open fun getWidth(): gint = cairo_image_surface_get_width(cairoImageSurfacePointer)
 
-    public open fun getHeight(): gint = cairo_image_surface_get_height(cairoImageSurfacePointer.reinterpret())
+    public open fun getHeight(): gint = cairo_image_surface_get_height(cairoImageSurfacePointer)
 
     /**
      *
@@ -57,7 +57,7 @@ public open class ImageSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.2
      */
     @CairoVersion1_2
-    public open fun getStride(): gint = cairo_image_surface_get_stride(cairoImageSurfacePointer.reinterpret())
+    public open fun getStride(): gint = cairo_image_surface_get_stride(cairoImageSurfacePointer)
 
     public companion object : TypeCompanion<ImageSurface> {
         override val type: GeneratedClassKGType<ImageSurface> =

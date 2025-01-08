@@ -57,8 +57,8 @@ public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
          *
          * @return the observed widget.
          */
-        get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -66,12 +66,7 @@ public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
          *
          * @param widget the widget to observe
          */
-        set(
-            widget
-        ) = gtk_widget_paintable_set_widget(
-            gtkWidgetPaintablePointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(widget) = gtk_widget_paintable_set_widget(gtkWidgetPaintablePointer, widget?.gtkWidgetPointer)
 
     /**
      * Creates a new widget paintable observing the given widget.
@@ -81,7 +76,7 @@ public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
      */
     public constructor(
         widget: Widget? = null,
-    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_widget_paintable_new(widget?.gtkWidgetPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<WidgetPaintable> {
         override val type: GeneratedClassKGType<WidgetPaintable> =

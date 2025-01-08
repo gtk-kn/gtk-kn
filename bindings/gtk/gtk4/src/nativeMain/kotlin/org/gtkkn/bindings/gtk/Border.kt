@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
@@ -73,14 +72,14 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
      *
      * @return a copy of @border_.
      */
-    public fun copy(): Border = gtk_border_copy(gPointer.reinterpret())!!.run {
-        Border(reinterpret())
+    public fun copy(): Border = gtk_border_copy(gPointer)!!.run {
+        Border(this)
     }
 
     /**
      * Frees a `GtkBorder`.
      */
-    public fun free(): Unit = gtk_border_free(gPointer.reinterpret())
+    public fun free(): Unit = gtk_border_free(gPointer)
 
     override fun toString(): String = "Border(left=$left, right=$right, top=$top, bottom=$bottom)"
 
@@ -91,7 +90,7 @@ public class Border(pointer: CPointer<GtkBorder>) : ProxyInstance(pointer) {
          * @return a newly allocated `GtkBorder` struct.
          *  Free with [method@Gtk.Border.free]
          */
-        public fun new(): Border = Border(gtk_border_new()!!.reinterpret())
+        public fun new(): Border = Border(gtk_border_new()!!)
 
         /**
          * Get the GType of Border

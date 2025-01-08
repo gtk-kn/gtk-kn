@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GStaticMutex
@@ -73,7 +72,7 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
 
     public var mutex: Mutex?
         get() = gPointer.pointed.mutex?.run {
-            Mutex(reinterpret())
+            Mutex(this)
         }
 
         @UnsafeFieldSetter
@@ -145,17 +144,17 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      * Calling g_static_mutex_free() on a locked mutex may result in
      * undefined behaviour.
      */
-    public fun free(): Unit = g_static_mutex_free(gPointer.reinterpret())
+    public fun free(): Unit = g_static_mutex_free(gPointer)
 
-    public fun getMutexImpl(): Mutex = g_static_mutex_get_mutex_impl(gPointer.reinterpret())!!.run {
-        Mutex(reinterpret())
+    public fun getMutexImpl(): Mutex = g_static_mutex_get_mutex_impl(gPointer)!!.run {
+        Mutex(this)
     }
 
     /**
      * Initializes @mutex.
      * Alternatively you can initialize it with %G_STATIC_MUTEX_INIT.
      */
-    public fun `init`(): Unit = g_static_mutex_init(gPointer.reinterpret())
+    public fun `init`(): Unit = g_static_mutex_init(gPointer)
 
     override fun toString(): String = "StaticMutex(mutex=$mutex)"
 }

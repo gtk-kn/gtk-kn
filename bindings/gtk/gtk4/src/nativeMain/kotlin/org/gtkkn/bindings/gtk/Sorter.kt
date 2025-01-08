@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkSorter
 import org.gtkkn.native.gtk.GtkSorterChange
 import org.gtkkn.native.gtk.gtk_sorter_changed
@@ -69,8 +70,7 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
      *
      * @param change How the sorter changed
      */
-    public open fun changed(change: SorterChange): Unit =
-        gtk_sorter_changed(gtkSorterPointer.reinterpret(), change.nativeValue)
+    public open fun changed(change: SorterChange): Unit = gtk_sorter_changed(gtkSorterPointer, change.nativeValue)
 
     /**
      * Compares two given items according to the sort order implemented
@@ -92,13 +92,10 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
      *   %GTK_ORDERING_SMALLER if @item1 < @item2,
      *   %GTK_ORDERING_LARGER if @item1 > @item2
      */
-    public open fun compare(item1: Object, item2: Object): Ordering = gtk_sorter_compare(
-        gtkSorterPointer.reinterpret(),
-        item1.gPointer.reinterpret(),
-        item2.gPointer.reinterpret()
-    ).run {
-        Ordering.fromNativeValue(this)
-    }
+    public open fun compare(item1: Object, item2: Object): Ordering =
+        gtk_sorter_compare(gtkSorterPointer, item1.gPointer.reinterpret(), item2.gPointer.reinterpret()).run {
+            Ordering.fromNativeValue(this)
+        }
 
     /**
      * Gets the order that @self conforms to.
@@ -110,7 +107,7 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
      *
      * @return The order
      */
-    public open fun getOrder(): SorterOrder = gtk_sorter_get_order(gtkSorterPointer.reinterpret()).run {
+    public open fun getOrder(): SorterOrder = gtk_sorter_get_order(gtkSorterPointer).run {
         SorterOrder.fromNativeValue(this)
     }
 
@@ -126,20 +123,29 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
      * the sort order without a full resorting. Refer to the
      * [enum@Gtk.SorterChange] documentation for details.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `change` how the sorter changed
      */
-    public fun connectChanged(
+    public fun onChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (change: SorterChange) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "changed",
-        connectChangedFunc.reinterpret(),
+        onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @param change how the sorter changed
+     */
+    public fun emitChanged(change: SorterChange) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed", change.nativeValue)
+    }
 
     public companion object : TypeCompanion<Sorter> {
         override val type: GeneratedClassKGType<Sorter> =
@@ -158,7 +164,7 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<(GtkSorterChange) -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<(GtkSorterChange) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         change: GtkSorterChange,
         userData: COpaquePointer,

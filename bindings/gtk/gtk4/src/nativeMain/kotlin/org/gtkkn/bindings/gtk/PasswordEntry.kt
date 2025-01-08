@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -101,8 +102,8 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          *
          * @return the menu model
          */
-        get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
+        get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer)?.run {
+            MenuModel(this)
         }
 
         /**
@@ -111,12 +112,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          *
          * @param model a `GMenuModel`
          */
-        set(
-            model
-        ) = gtk_password_entry_set_extra_menu(
-            gtkPasswordEntryPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        set(model) = gtk_password_entry_set_extra_menu(gtkPasswordEntryPointer, model?.gioMenuModelPointer)
 
     /**
      * Whether to show an icon for revealing the content.
@@ -128,7 +124,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          *
          * @return true if an icon is shown
          */
-        get() = gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer.reinterpret()).asBoolean()
+        get() = gtk_password_entry_get_show_peek_icon(gtkPasswordEntryPointer).asBoolean()
 
         /**
          * Sets whether the entry should have a clickable icon
@@ -138,9 +134,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          *
          * @param showPeekIcon whether to show the peek icon
          */
-        set(
-            showPeekIcon
-        ) = gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer.reinterpret(), showPeekIcon.asGBoolean())
+        set(showPeekIcon) = gtk_password_entry_set_show_peek_icon(gtkPasswordEntryPointer, showPeekIcon.asGBoolean())
 
     /**
      * Creates a `GtkPasswordEntry`.
@@ -154,18 +148,25 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
      *
      * The keybindings for this signal are all forms of the Enter key.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     */
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     public companion object : TypeCompanion<PasswordEntry> {
         override val type: GeneratedClassKGType<PasswordEntry> =
@@ -184,7 +185,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

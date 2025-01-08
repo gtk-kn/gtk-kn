@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -63,7 +62,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      */
     @GdkVersion4_14
     public fun contains(fourcc: guint, modifier: guint64): Boolean =
-        gdk_dmabuf_formats_contains(gPointer.reinterpret(), fourcc, modifier).asBoolean()
+        gdk_dmabuf_formats_contains(gPointer, fourcc, modifier).asBoolean()
 
     /**
      * Returns whether @formats1 and @formats2 contain the
@@ -75,7 +74,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      */
     @GdkVersion4_14
     public fun equal(formats2: DmabufFormats? = null): Boolean =
-        gdk_dmabuf_formats_equal(gPointer.reinterpret(), formats2?.gPointer?.reinterpret()).asBoolean()
+        gdk_dmabuf_formats_equal(gPointer, formats2?.gPointer).asBoolean()
 
     /**
      * Returns the number of formats that the @formats object
@@ -89,7 +88,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun getNFormats(): gsize = gdk_dmabuf_formats_get_n_formats(gPointer.reinterpret())
+    public fun getNFormats(): gsize = gdk_dmabuf_formats_get_n_formats(gPointer)
 
     /**
      * Increases the reference count of @formats.
@@ -98,8 +97,8 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gPointer.reinterpret())!!.run {
-        DmabufFormats(reinterpret())
+    public fun ref(): DmabufFormats = gdk_dmabuf_formats_ref(gPointer)!!.run {
+        DmabufFormats(this)
     }
 
     /**
@@ -111,7 +110,7 @@ public class DmabufFormats(pointer: CPointer<GdkDmabufFormats>) : ProxyInstance(
      * @since 4.14
      */
     @GdkVersion4_14
-    public fun unref(): Unit = gdk_dmabuf_formats_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gdk_dmabuf_formats_unref(gPointer)
 
     public companion object {
         /**

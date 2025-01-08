@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtksource.GtkSourceSnippetContext
 import org.gtkkn.native.gtksource.gtk_source_snippet_context_clear_variables
 import org.gtkkn.native.gtksource.gtk_source_snippet_context_expand
@@ -65,11 +66,10 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
     /**
      * Removes all variables from the context.
      */
-    public open fun clearVariables(): Unit =
-        gtk_source_snippet_context_clear_variables(gtksourceSnippetContextPointer.reinterpret())
+    public open fun clearVariables(): Unit = gtk_source_snippet_context_clear_variables(gtksourceSnippetContextPointer)
 
     public open fun expand(input: String): String =
-        gtk_source_snippet_context_expand(gtksourceSnippetContextPointer.reinterpret(), input)?.toKString()
+        gtk_source_snippet_context_expand(gtksourceSnippetContextPointer, input)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -79,7 +79,7 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
      * @return the value for the variable, or null
      */
     public open fun getVariable(key: String): String? =
-        gtk_source_snippet_context_get_variable(gtksourceSnippetContextPointer.reinterpret(), key)?.toKString()
+        gtk_source_snippet_context_get_variable(gtksourceSnippetContextPointer, key)?.toKString()
 
     /**
      * Sets a constatnt within the context.
@@ -93,16 +93,16 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
      * @param value the value of the constant
      */
     public open fun setConstant(key: String, `value`: String): Unit =
-        gtk_source_snippet_context_set_constant(gtksourceSnippetContextPointer.reinterpret(), key, `value`)
+        gtk_source_snippet_context_set_constant(gtksourceSnippetContextPointer, key, `value`)
 
     public open fun setLinePrefix(linePrefix: String): Unit =
-        gtk_source_snippet_context_set_line_prefix(gtksourceSnippetContextPointer.reinterpret(), linePrefix)
+        gtk_source_snippet_context_set_line_prefix(gtksourceSnippetContextPointer, linePrefix)
 
     public open fun setTabWidth(tabWidth: gint): Unit =
-        gtk_source_snippet_context_set_tab_width(gtksourceSnippetContextPointer.reinterpret(), tabWidth)
+        gtk_source_snippet_context_set_tab_width(gtksourceSnippetContextPointer, tabWidth)
 
     public open fun setUseSpaces(useSpaces: Boolean): Unit =
-        gtk_source_snippet_context_set_use_spaces(gtksourceSnippetContextPointer.reinterpret(), useSpaces.asGBoolean())
+        gtk_source_snippet_context_set_use_spaces(gtksourceSnippetContextPointer, useSpaces.asGBoolean())
 
     /**
      * Sets a variable within the context.
@@ -114,7 +114,7 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
      * @param value the value for the variable
      */
     public open fun setVariable(key: String, `value`: String): Unit =
-        gtk_source_snippet_context_set_variable(gtksourceSnippetContextPointer.reinterpret(), key, `value`)
+        gtk_source_snippet_context_set_variable(gtksourceSnippetContextPointer, key, `value`)
 
     /**
      * The signal is emitted when a change has been
@@ -122,18 +122,25 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
      * caused a variable or other dynamic data within the context
      * to have changed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "changed",
-            connectChangedFunc.reinterpret(),
+            onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     */
+    public fun emitChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+    }
 
     public companion object : TypeCompanion<SnippetContext> {
         override val type: GeneratedClassKGType<SnippetContext> =
@@ -152,7 +159,7 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

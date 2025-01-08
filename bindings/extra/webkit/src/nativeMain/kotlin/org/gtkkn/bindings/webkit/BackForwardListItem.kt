@@ -37,7 +37,7 @@ public class BackForwardListItem(pointer: CPointer<WebKitBackForwardListItem>) :
      *    when the original URI is empty.
      */
     public fun getOriginalUri(): String =
-        webkit_back_forward_list_item_get_original_uri(webkitBackForwardListItemPointer.reinterpret())?.toKString()
+        webkit_back_forward_list_item_get_original_uri(webkitBackForwardListItemPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -47,7 +47,7 @@ public class BackForwardListItem(pointer: CPointer<WebKitBackForwardListItem>) :
      *    when the title is empty.
      */
     public fun getTitle(): String =
-        webkit_back_forward_list_item_get_title(webkitBackForwardListItemPointer.reinterpret())?.toKString()
+        webkit_back_forward_list_item_get_title(webkitBackForwardListItemPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -60,9 +60,8 @@ public class BackForwardListItem(pointer: CPointer<WebKitBackForwardListItem>) :
      * @return the URI of @list_item or null
      *    when the URI is empty.
      */
-    public fun getUri(): String =
-        webkit_back_forward_list_item_get_uri(webkitBackForwardListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getUri(): String = webkit_back_forward_list_item_get_uri(webkitBackForwardListItemPointer)?.toKString()
+        ?: error("Expected not null string")
 
     public companion object : TypeCompanion<BackForwardListItem> {
         override val type: GeneratedClassKGType<BackForwardListItem> =

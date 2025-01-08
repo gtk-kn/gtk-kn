@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_24
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GVariantIter
@@ -78,8 +77,8 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun copy(): VariantIter = g_variant_iter_copy(gPointer.reinterpret())!!.run {
-        VariantIter(reinterpret())
+    public fun copy(): VariantIter = g_variant_iter_copy(gPointer)!!.run {
+        VariantIter(this)
     }
 
     /**
@@ -90,7 +89,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun free(): Unit = g_variant_iter_free(gPointer.reinterpret())
+    public fun free(): Unit = g_variant_iter_free(gPointer)
 
     /**
      * Initialises (without allocating) a #GVariantIter.  @iter may be
@@ -105,8 +104,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `init`(`value`: Variant): gsize =
-        g_variant_iter_init(gPointer.reinterpret(), `value`.gPointer.reinterpret())
+    public fun `init`(`value`: Variant): gsize = g_variant_iter_init(gPointer, `value`.gPointer)
 
     /**
      * Queries the number of child items in the container that we are
@@ -119,7 +117,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun nChildren(): gsize = g_variant_iter_n_children(gPointer.reinterpret())
+    public fun nChildren(): gsize = g_variant_iter_n_children(gPointer)
 
     /**
      * Gets the next item in the container.  If no more items remain then
@@ -154,7 +152,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun nextValue(): Variant? = g_variant_iter_next_value(gPointer.reinterpret())?.run {
-        Variant(reinterpret())
+    public fun nextValue(): Variant? = g_variant_iter_next_value(gPointer)?.run {
+        Variant(this)
     }
 }

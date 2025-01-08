@@ -67,8 +67,8 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      * @return the cancellable for the current operation
      */
     public open fun getCancellable(): Cancellable? =
-        gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer.reinterpret())?.run {
-            Cancellable(reinterpret())
+        gdk_content_deserializer_get_cancellable(gdkContentDeserializerPointer)?.run {
+            Cancellable(this)
         }
 
     /**
@@ -76,7 +76,7 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      *
      * @return the `GType` for the current operation
      */
-    public open fun getGtype(): GType = gdk_content_deserializer_get_gtype(gdkContentDeserializerPointer.reinterpret())
+    public open fun getGtype(): GType = gdk_content_deserializer_get_gtype(gdkContentDeserializerPointer)
 
     /**
      * Gets the input stream for the current operation.
@@ -86,8 +86,8 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      * @return the input stream for the current operation
      */
     public open fun getInputStream(): InputStream =
-        gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer.reinterpret())!!.run {
-            InputStream(reinterpret())
+        gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
+            InputStream(this)
         }
 
     /**
@@ -96,7 +96,7 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      * @return the mime type for the current operation
      */
     public open fun getMimeType(): String =
-        gdk_content_deserializer_get_mime_type(gdkContentDeserializerPointer.reinterpret())?.toKString()
+        gdk_content_deserializer_get_mime_type(gdkContentDeserializerPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -106,8 +106,7 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      *
      * @return the I/O priority for the current operation
      */
-    public open fun getPriority(): gint =
-        gdk_content_deserializer_get_priority(gdkContentDeserializerPointer.reinterpret())
+    public open fun getPriority(): gint = gdk_content_deserializer_get_priority(gdkContentDeserializerPointer)
 
     /**
      * Gets the data that was associated with the current operation.
@@ -116,26 +115,23 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      *
      * @return the task data for @deserializer
      */
-    public open fun getTaskData(): gpointer? =
-        gdk_content_deserializer_get_task_data(gdkContentDeserializerPointer.reinterpret())
+    public open fun getTaskData(): gpointer? = gdk_content_deserializer_get_task_data(gdkContentDeserializerPointer)
 
     /**
      * Gets the user data that was passed when the deserializer was registered.
      *
      * @return the user data for this deserializer
      */
-    override fun getUserData(): gpointer? =
-        gdk_content_deserializer_get_user_data(gdkContentDeserializerPointer.reinterpret())
+    override fun getUserData(): gpointer? = gdk_content_deserializer_get_user_data(gdkContentDeserializerPointer)
 
     /**
      * Gets the `GValue` to store the deserialized object in.
      *
      * @return the `GValue` for the current operation
      */
-    public open fun getValue(): Value =
-        gdk_content_deserializer_get_value(gdkContentDeserializerPointer.reinterpret())!!.run {
-            Value(reinterpret())
-        }
+    public open fun getValue(): Value = gdk_content_deserializer_get_value(gdkContentDeserializerPointer)!!.run {
+        Value(this)
+    }
 
     /**
      * Indicate that the deserialization has ended with an error.
@@ -145,13 +141,12 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(gdkContentDeserializerPointer.reinterpret(), error.gPointer.reinterpret())
+        gdk_content_deserializer_return_error(gdkContentDeserializerPointer, error.gPointer)
 
     /**
      * Indicate that the deserialization has been successfully completed.
      */
-    public open fun returnSuccess(): Unit =
-        gdk_content_deserializer_return_success(gdkContentDeserializerPointer.reinterpret())
+    public open fun returnSuccess(): Unit = gdk_content_deserializer_return_success(gdkContentDeserializerPointer)
 
     public companion object : TypeCompanion<ContentDeserializer> {
         override val type: GeneratedClassKGType<ContentDeserializer> =

@@ -68,7 +68,7 @@ public open class NetworkAddress(pointer: CPointer<GNetworkAddress>) :
          * @return @addr's hostname
          * @since 2.22
          */
-        get() = g_network_address_get_hostname(gioNetworkAddressPointer.reinterpret())?.toKString()
+        get() = g_network_address_get_hostname(gioNetworkAddressPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -84,7 +84,7 @@ public open class NetworkAddress(pointer: CPointer<GNetworkAddress>) :
          * @return @addr's port (which may be 0)
          * @since 2.22
          */
-        get() = g_network_address_get_port(gioNetworkAddressPointer.reinterpret())
+        get() = g_network_address_get_port(gioNetworkAddressPointer)
 
     /**
      * URI scheme.
@@ -99,7 +99,7 @@ public open class NetworkAddress(pointer: CPointer<GNetworkAddress>) :
          * @return @addr's scheme (null if not built from URI)
          * @since 2.26
          */
-        get() = g_network_address_get_scheme(gioNetworkAddressPointer.reinterpret())?.toKString()
+        get() = g_network_address_get_scheme(gioNetworkAddressPointer)?.toKString()
 
     /**
      * Creates a new #GSocketConnectable for connecting to the given

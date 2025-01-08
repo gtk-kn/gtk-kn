@@ -35,6 +35,7 @@ import org.gtkkn.native.adw.adw_animation_skip
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.ULong
 import kotlin.Unit
@@ -113,7 +114,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @return whether to follow the global setting
          * @since 1.3
          */
-        get() = adw_animation_get_follow_enable_animations_setting(adwAnimationPointer.reinterpret()).asBoolean()
+        get() = adw_animation_get_follow_enable_animations_setting(adwAnimationPointer).asBoolean()
 
         /**
          * Sets whether to skip @self when animations are globally disabled.
@@ -130,9 +131,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(
-            setting
-        ) = adw_animation_set_follow_enable_animations_setting(adwAnimationPointer.reinterpret(), setting.asGBoolean())
+        set(setting) = adw_animation_set_follow_enable_animations_setting(adwAnimationPointer, setting.asGBoolean())
 
     /**
      * The animation state.
@@ -149,7 +148,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          *
          * @return the animation value
          */
-        get() = adw_animation_get_state(adwAnimationPointer.reinterpret()).run {
+        get() = adw_animation_get_state(adwAnimationPointer).run {
             AnimationState.fromNativeValue(this)
         }
 
@@ -162,8 +161,8 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          *
          * @return the animation target
          */
-        get() = adw_animation_get_target(adwAnimationPointer.reinterpret())!!.run {
-            AnimationTarget(reinterpret())
+        get() = adw_animation_get_target(adwAnimationPointer)!!.run {
+            AnimationTarget(this)
         }
 
         /**
@@ -171,9 +170,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          *
          * @param target an animation target
          */
-        set(
-            target
-        ) = adw_animation_set_target(adwAnimationPointer.reinterpret(), target.adwAnimationTargetPointer.reinterpret())
+        set(target) = adw_animation_set_target(adwAnimationPointer, target.adwAnimationTargetPointer)
 
     /**
      * The current value of the animation.
@@ -184,7 +181,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          *
          * @return the current value
          */
-        get() = adw_animation_get_value(adwAnimationPointer.reinterpret())
+        get() = adw_animation_get_value(adwAnimationPointer)
 
     /**
      * The animation widget.
@@ -209,8 +206,8 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          *
          * @return the animation widget
          */
-        get() = adw_animation_get_widget(adwAnimationPointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = adw_animation_get_widget(adwAnimationPointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -220,7 +217,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_PAUSED`.
      */
-    public open fun pause(): Unit = adw_animation_pause(adwAnimationPointer.reinterpret())
+    public open fun pause(): Unit = adw_animation_pause(adwAnimationPointer)
 
     /**
      * Starts the animation for @self.
@@ -239,14 +236,14 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      * immediately afterwards, it's entirely possible that the idle callback will
      * run after the animation has already finished, and not while it's playing.
      */
-    public open fun play(): Unit = adw_animation_play(adwAnimationPointer.reinterpret())
+    public open fun play(): Unit = adw_animation_play(adwAnimationPointer)
 
     /**
      * Resets the animation for @self.
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_IDLE`.
      */
-    public open fun reset(): Unit = adw_animation_reset(adwAnimationPointer.reinterpret())
+    public open fun reset(): Unit = adw_animation_reset(adwAnimationPointer)
 
     /**
      * Resumes a paused animation for @self.
@@ -256,7 +253,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
      */
-    public open fun resume(): Unit = adw_animation_resume(adwAnimationPointer.reinterpret())
+    public open fun resume(): Unit = adw_animation_resume(adwAnimationPointer)
 
     /**
      * Skips the animation for @self.
@@ -267,24 +264,31 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      *
      * Sets [property@Animation:state] to `ADW_ANIMATION_FINISHED`.
      */
-    public open fun skip(): Unit = adw_animation_skip(adwAnimationPointer.reinterpret())
+    public open fun skip(): Unit = adw_animation_skip(adwAnimationPointer)
 
     /**
      * This signal is emitted when the animation has been completed, either on its
      * own or via calling [method@Animation.skip].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "done",
-            connectDoneFunc.reinterpret(),
+            onDoneFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "done" signal. See [onDone].
+     */
+    public fun emitDone() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "done")
+    }
 
     public companion object : TypeCompanion<Animation> {
         override val type: GeneratedClassKGType<Animation> =
@@ -303,7 +307,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
     }
 }
 
-private val connectDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onDoneFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

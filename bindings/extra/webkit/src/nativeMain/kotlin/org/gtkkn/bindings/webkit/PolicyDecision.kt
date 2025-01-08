@@ -39,7 +39,7 @@ public open class PolicyDecision(pointer: CPointer<WebKitPolicyDecision>) :
     /**
      * Spawn a download from this decision.
      */
-    public open fun download(): Unit = webkit_policy_decision_download(webkitPolicyDecisionPointer.reinterpret())
+    public open fun download(): Unit = webkit_policy_decision_download(webkitPolicyDecisionPointer)
 
     /**
      * #WebKitResponsePolicyDecision, this would cancel the request.
@@ -47,12 +47,12 @@ public open class PolicyDecision(pointer: CPointer<WebKitPolicyDecision>) :
      * Ignore the action which triggered this decision. For instance, for a
      * #WebKitResponsePolicyDecision, this would cancel the request.
      */
-    public open fun ignore(): Unit = webkit_policy_decision_ignore(webkitPolicyDecisionPointer.reinterpret())
+    public open fun ignore(): Unit = webkit_policy_decision_ignore(webkitPolicyDecisionPointer)
 
     /**
      * Accept the action which triggered this decision.
      */
-    public open fun use(): Unit = webkit_policy_decision_use(webkitPolicyDecisionPointer.reinterpret())
+    public open fun use(): Unit = webkit_policy_decision_use(webkitPolicyDecisionPointer)
 
     /**
      * Accept the navigation action and continue with provided @policies.
@@ -69,10 +69,8 @@ public open class PolicyDecision(pointer: CPointer<WebKitPolicyDecision>) :
      * @since 2.30
      */
     @WebKitVersion2_30
-    public open fun useWithPolicies(policies: WebsitePolicies): Unit = webkit_policy_decision_use_with_policies(
-        webkitPolicyDecisionPointer.reinterpret(),
-        policies.webkitWebsitePoliciesPointer.reinterpret()
-    )
+    public open fun useWithPolicies(policies: WebsitePolicies): Unit =
+        webkit_policy_decision_use_with_policies(webkitPolicyDecisionPointer, policies.webkitWebsitePoliciesPointer)
 
     public companion object : TypeCompanion<PolicyDecision> {
         override val type: GeneratedClassKGType<PolicyDecision> =

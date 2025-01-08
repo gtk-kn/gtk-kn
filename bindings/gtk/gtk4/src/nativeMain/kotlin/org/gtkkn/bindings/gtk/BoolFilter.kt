@@ -38,8 +38,8 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          *
          * @return a `GtkExpression`
          */
-        get() = gtk_bool_filter_get_expression(gtkBoolFilterPointer.reinterpret())?.run {
-            Expression(reinterpret())
+        get() = gtk_bool_filter_get_expression(gtkBoolFilterPointer)?.run {
+            Expression(this)
         }
 
         /**
@@ -50,9 +50,7 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(
-            expression
-        ) = gtk_bool_filter_set_expression(gtkBoolFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = gtk_bool_filter_set_expression(gtkBoolFilterPointer, expression?.gPointer)
 
     /**
      * If the expression result should be inverted.
@@ -63,14 +61,14 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          *
          * @return true if the filter inverts
          */
-        get() = gtk_bool_filter_get_invert(gtkBoolFilterPointer.reinterpret()).asBoolean()
+        get() = gtk_bool_filter_get_invert(gtkBoolFilterPointer).asBoolean()
 
         /**
          * Sets whether the filter should invert the expression.
          *
          * @param invert true to invert
          */
-        set(invert) = gtk_bool_filter_set_invert(gtkBoolFilterPointer.reinterpret(), invert.asGBoolean())
+        set(invert) = gtk_bool_filter_set_invert(gtkBoolFilterPointer, invert.asGBoolean())
 
     /**
      * Creates a new bool filter.
@@ -78,9 +76,7 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
      * @param expression The expression to evaluate
      * @return a new `GtkBoolFilter`
      */
-    public constructor(
-        expression: Expression? = null,
-    ) : this(gtk_bool_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    public constructor(expression: Expression? = null) : this(gtk_bool_filter_new(expression?.gPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<BoolFilter> {
         override val type: GeneratedClassKGType<BoolFilter> =

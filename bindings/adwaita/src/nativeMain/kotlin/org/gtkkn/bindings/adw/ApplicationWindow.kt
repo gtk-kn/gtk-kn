@@ -107,8 +107,8 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          *
          * @return the content widget of @self
          */
-        get() = adw_application_window_get_content(adwApplicationWindowPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_application_window_get_content(adwApplicationWindowPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -118,12 +118,7 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          *
          * @param content the content widget
          */
-        set(
-            content
-        ) = adw_application_window_set_content(
-            adwApplicationWindowPointer.reinterpret(),
-            content?.gtkWidgetPointer?.reinterpret()
-        )
+        set(content) = adw_application_window_set_content(adwApplicationWindowPointer, content?.gtkWidgetPointer)
 
     /**
      * The current breakpoint.
@@ -138,8 +133,8 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          * @return the current breakpoint
          * @since 1.4
          */
-        get() = adw_application_window_get_current_breakpoint(adwApplicationWindowPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
+        get() = adw_application_window_get_current_breakpoint(adwApplicationWindowPointer)?.run {
+            Breakpoint(this)
         }
 
     /**
@@ -157,7 +152,7 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          * @return a list model for the dialogs of @self
          * @since 1.5
          */
-        get() = adw_application_window_get_dialogs(adwApplicationWindowPointer.reinterpret())!!.run {
+        get() = adw_application_window_get_dialogs(adwApplicationWindowPointer)!!.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -174,8 +169,8 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          * @return the visible dialog
          * @since 1.5
          */
-        get() = adw_application_window_get_visible_dialog(adwApplicationWindowPointer.reinterpret())?.run {
-            Dialog(reinterpret())
+        get() = adw_application_window_get_visible_dialog(adwApplicationWindowPointer)?.run {
+            Dialog(this)
         }
 
     /**
@@ -184,9 +179,7 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
      * @param app an application instance
      * @return the newly created `AdwApplicationWindow`
      */
-    public constructor(
-        app: Application,
-    ) : this(adw_application_window_new(app.gtkApplicationPointer.reinterpret())!!.reinterpret())
+    public constructor(app: Application) : this(adw_application_window_new(app.gtkApplicationPointer)!!.reinterpret())
 
     /**
      * Adds @breakpoint to @self.
@@ -195,10 +188,8 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_application_window_add_breakpoint(
-        adwApplicationWindowPointer.reinterpret(),
-        breakpoint.adwBreakpointPointer.reinterpret()
-    )
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
+        adw_application_window_add_breakpoint(adwApplicationWindowPointer, breakpoint.adwBreakpointPointer)
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =

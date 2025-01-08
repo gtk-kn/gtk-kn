@@ -69,7 +69,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return the accessible description
          * @since 4.12
          */
-        get() = gtk_list_item_get_accessible_description(gtkListItemPointer.reinterpret())?.toKString()
+        get() = gtk_list_item_get_accessible_description(gtkListItemPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -80,7 +80,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(description) = gtk_list_item_set_accessible_description(gtkListItemPointer.reinterpret(), description)
+        set(description) = gtk_list_item_set_accessible_description(gtkListItemPointer, description)
 
     /**
      * The accessible label to set on the list item.
@@ -95,8 +95,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return the accessible label
          * @since 4.12
          */
-        get() = gtk_list_item_get_accessible_label(gtkListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_list_item_get_accessible_label(gtkListItemPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the accessible label for the list item,
@@ -106,7 +105,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(label) = gtk_list_item_set_accessible_label(gtkListItemPointer.reinterpret(), label)
+        set(label) = gtk_list_item_set_accessible_label(gtkListItemPointer, label)
 
     /**
      * If the item can be activated by the user.
@@ -118,7 +117,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @return true if the item is activatable
          */
-        get() = gtk_list_item_get_activatable(gtkListItemPointer.reinterpret()).asBoolean()
+        get() = gtk_list_item_get_activatable(gtkListItemPointer).asBoolean()
 
         /**
          * Sets @self to be activatable.
@@ -133,7 +132,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @param activatable if the item should be activatable
          */
-        set(activatable) = gtk_list_item_set_activatable(gtkListItemPointer.reinterpret(), activatable.asGBoolean())
+        set(activatable) = gtk_list_item_set_activatable(gtkListItemPointer, activatable.asGBoolean())
 
     /**
      * Widget used for display.
@@ -145,8 +144,8 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @return The child
          */
-        get() = gtk_list_item_get_child(gtkListItemPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_list_item_get_child(gtkListItemPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -158,7 +157,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @param child The list item's child or null to unset
          */
-        set(child) = gtk_list_item_set_child(gtkListItemPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_list_item_set_child(gtkListItemPointer, child?.gtkWidgetPointer)
 
     /**
      * If the item can be focused with the keyboard.
@@ -174,7 +173,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return true if the item is focusable
          * @since 4.12
          */
-        get() = gtk_list_item_get_focusable(gtkListItemPointer.reinterpret()).asBoolean()
+        get() = gtk_list_item_get_focusable(gtkListItemPointer).asBoolean()
 
         /**
          * Sets @self to be focusable.
@@ -191,7 +190,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(focusable) = gtk_list_item_set_focusable(gtkListItemPointer.reinterpret(), focusable.asGBoolean())
+        set(focusable) = gtk_list_item_set_focusable(gtkListItemPointer, focusable.asGBoolean())
 
     /**
      * Displayed item.
@@ -204,7 +203,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @return The item displayed
          */
-        get() = gtk_list_item_get_item(gtkListItemPointer.reinterpret())?.run {
+        get() = gtk_list_item_get_item(gtkListItemPointer)?.run {
             Object(reinterpret())
         }
 
@@ -219,7 +218,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @return The position of this item
          */
-        get() = gtk_list_item_get_position(gtkListItemPointer.reinterpret())
+        get() = gtk_list_item_get_position(gtkListItemPointer)
 
     /**
      * If the item can be selected by the user.
@@ -233,7 +232,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @return true if the item is selectable
          */
-        get() = gtk_list_item_get_selectable(gtkListItemPointer.reinterpret()).asBoolean()
+        get() = gtk_list_item_get_selectable(gtkListItemPointer).asBoolean()
 
         /**
          * Sets @self to be selectable.
@@ -251,7 +250,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @param selectable if the item should be selectable
          */
-        set(selectable) = gtk_list_item_set_selectable(gtkListItemPointer.reinterpret(), selectable.asGBoolean())
+        set(selectable) = gtk_list_item_set_selectable(gtkListItemPointer, selectable.asGBoolean())
 
     /**
      * If the item is currently selected.
@@ -265,7 +264,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          *
          * @return true if the item is selected.
          */
-        get() = gtk_list_item_get_selected(gtkListItemPointer.reinterpret()).asBoolean()
+        get() = gtk_list_item_get_selected(gtkListItemPointer).asBoolean()
 
     public companion object : TypeCompanion<ListItem> {
         override val type: GeneratedClassKGType<ListItem> =

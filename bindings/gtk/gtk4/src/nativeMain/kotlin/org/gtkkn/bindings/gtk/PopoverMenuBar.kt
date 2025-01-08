@@ -79,8 +79,8 @@ public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
          *
          * @return a `GMenuModel`
          */
-        get() = gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
+        get() = gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer)?.run {
+            MenuModel(this)
         }
 
         /**
@@ -89,12 +89,7 @@ public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
          *
          * @param model a `GMenuModel`
          */
-        set(
-            model
-        ) = gtk_popover_menu_bar_set_menu_model(
-            gtkPopoverMenuBarPointer.reinterpret(),
-            model?.gioMenuModelPointer?.reinterpret()
-        )
+        set(model) = gtk_popover_menu_bar_set_menu_model(gtkPopoverMenuBarPointer, model?.gioMenuModelPointer)
 
     /**
      * Creates a `GtkPopoverMenuBar` from a `GMenuModel`.
@@ -104,7 +99,7 @@ public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
      */
     public constructor(
         model: MenuModel? = null,
-    ) : this(gtk_popover_menu_bar_new_from_model(model?.gioMenuModelPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_popover_menu_bar_new_from_model(model?.gioMenuModelPointer)!!.reinterpret())
 
     /**
      * Adds a custom widget to a generated menubar.
@@ -116,11 +111,8 @@ public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
      * @param id the ID to insert @child at
      * @return true if @id was found and the widget added
      */
-    public open fun addChild(child: Widget, id: String): Boolean = gtk_popover_menu_bar_add_child(
-        gtkPopoverMenuBarPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        id
-    ).asBoolean()
+    public open fun addChild(child: Widget, id: String): Boolean =
+        gtk_popover_menu_bar_add_child(gtkPopoverMenuBarPointer, child.gtkWidgetPointer, id).asBoolean()
 
     /**
      * Removes a widget that has previously been added with
@@ -129,10 +121,8 @@ public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
      * @param child the `GtkWidget` to remove
      * @return true if the widget was removed
      */
-    public open fun removeChild(child: Widget): Boolean = gtk_popover_menu_bar_remove_child(
-        gtkPopoverMenuBarPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    ).asBoolean()
+    public open fun removeChild(child: Widget): Boolean =
+        gtk_popover_menu_bar_remove_child(gtkPopoverMenuBarPointer, child.gtkWidgetPointer).asBoolean()
 
     public companion object : TypeCompanion<PopoverMenuBar> {
         override val type: GeneratedClassKGType<PopoverMenuBar> =

@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_32
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -132,7 +131,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * It is good practice to lock the same mutex as the waiting threads
      * while calling this function, though not required.
      */
-    public fun broadcast(): Unit = g_cond_broadcast(gPointer.reinterpret())
+    public fun broadcast(): Unit = g_cond_broadcast(gPointer)
 
     /**
      * Frees the resources allocated to a #GCond with g_cond_init().
@@ -146,7 +145,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_cond_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_cond_clear(gPointer)
 
     /**
      * Destroys a #GCond that has been created with g_cond_new().
@@ -154,7 +153,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * Calling g_cond_free() for a #GCond on which threads are
      * blocking leads to undefined behaviour.
      */
-    public fun free(): Unit = g_cond_free(gPointer.reinterpret())
+    public fun free(): Unit = g_cond_free(gPointer)
 
     /**
      * Initialises a #GCond so that it can be used.
@@ -172,7 +171,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_cond_init(gPointer.reinterpret())
+    public fun `init`(): Unit = g_cond_init(gPointer)
 
     /**
      * If threads are waiting for @cond, at least one of them is unblocked.
@@ -180,7 +179,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * It is good practice to hold the same lock as the waiting thread
      * while calling this function, though not required.
      */
-    public fun signal(): Unit = g_cond_signal(gPointer.reinterpret())
+    public fun signal(): Unit = g_cond_signal(gPointer)
 
     /**
      * Waits until this thread is woken up on @cond, but not longer than
@@ -199,11 +198,8 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @param absTime a #GTimeVal, determining the final time
      * @return true if @cond was signalled, or false on timeout
      */
-    public fun timedWait(mutex: Mutex, absTime: TimeVal): Boolean = g_cond_timed_wait(
-        gPointer.reinterpret(),
-        mutex.gPointer.reinterpret(),
-        absTime.gPointer.reinterpret()
-    ).asBoolean()
+    public fun timedWait(mutex: Mutex, absTime: TimeVal): Boolean =
+        g_cond_timed_wait(gPointer, mutex.gPointer, absTime.gPointer).asBoolean()
 
     /**
      * Atomically releases @mutex and waits until @cond is signalled.
@@ -223,7 +219,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      *
      * @param mutex a #GMutex that is currently locked
      */
-    public fun wait(mutex: Mutex): Unit = g_cond_wait(gPointer.reinterpret(), mutex.gPointer.reinterpret())
+    public fun wait(mutex: Mutex): Unit = g_cond_wait(gPointer, mutex.gPointer)
 
     /**
      * Waits until either @cond is signalled or @end_time has passed.
@@ -282,7 +278,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      */
     @GLibVersion2_32
     public fun waitUntil(mutex: Mutex, endTime: gint64): Boolean =
-        g_cond_wait_until(gPointer.reinterpret(), mutex.gPointer.reinterpret(), endTime).asBoolean()
+        g_cond_wait_until(gPointer, mutex.gPointer, endTime).asBoolean()
 
     public companion object {
         /**
@@ -291,7 +287,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
          * @return a newly allocated #GCond. Free with g_cond_free()
          */
         public fun new(): Cond = g_cond_new()!!.run {
-            Cond(reinterpret())
+            Cond(this)
         }
     }
 }

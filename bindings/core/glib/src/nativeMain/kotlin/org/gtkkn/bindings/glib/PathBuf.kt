@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_76
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -111,7 +110,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun clear(): Unit = g_path_buf_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_path_buf_clear(gPointer)
 
     /**
      * Clears the contents of the path buffer and returns the built path.
@@ -124,7 +123,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun clearToPath(): String? = g_path_buf_clear_to_path(gPointer.reinterpret())?.toKString()
+    public fun clearToPath(): String? = g_path_buf_clear_to_path(gPointer)?.toKString()
 
     /**
      * Copies the contents of a path buffer into a new `GPathBuf`.
@@ -133,8 +132,8 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun copy(): PathBuf = g_path_buf_copy(gPointer.reinterpret())!!.run {
-        PathBuf(reinterpret())
+    public fun copy(): PathBuf = g_path_buf_copy(gPointer)!!.run {
+        PathBuf(this)
     }
 
     /**
@@ -143,7 +142,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun free(): Unit = g_path_buf_free(gPointer.reinterpret())
+    public fun free(): Unit = g_path_buf_free(gPointer)
 
     /**
      * Frees a `GPathBuf` allocated by g_path_buf_new(), and
@@ -157,7 +156,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun freeToPath(): String? = g_path_buf_free_to_path(gPointer.reinterpret())?.toKString()
+    public fun freeToPath(): String? = g_path_buf_free_to_path(gPointer)?.toKString()
 
     /**
      * Initializes a `GPathBuf` instance.
@@ -166,8 +165,8 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun `init`(): PathBuf = g_path_buf_init(gPointer.reinterpret())!!.run {
-        PathBuf(reinterpret())
+    public fun `init`(): PathBuf = g_path_buf_init(gPointer)!!.run {
+        PathBuf(this)
     }
 
     /**
@@ -178,10 +177,9 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun initFromPath(path: String? = null): PathBuf =
-        g_path_buf_init_from_path(gPointer.reinterpret(), path)!!.run {
-            PathBuf(reinterpret())
-        }
+    public fun initFromPath(path: String? = null): PathBuf = g_path_buf_init_from_path(gPointer, path)!!.run {
+        PathBuf(this)
+    }
 
     /**
      * Removes the last element of the path buffer.
@@ -212,7 +210,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun pop(): Boolean = g_path_buf_pop(gPointer.reinterpret()).asBoolean()
+    public fun pop(): Boolean = g_path_buf_pop(gPointer).asBoolean()
 
     /**
      * Extends the given path buffer with @path.
@@ -248,8 +246,8 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun push(path: String): PathBuf = g_path_buf_push(gPointer.reinterpret(), path)!!.run {
-        PathBuf(reinterpret())
+    public fun push(path: String): PathBuf = g_path_buf_push(gPointer, path)!!.run {
+        PathBuf(this)
     }
 
     /**
@@ -266,7 +264,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      */
     @GLibVersion2_76
     public fun setExtension(extension: String? = null): Boolean =
-        g_path_buf_set_extension(gPointer.reinterpret(), extension).asBoolean()
+        g_path_buf_set_extension(gPointer, extension).asBoolean()
 
     /**
      * Sets the file name of the path.
@@ -305,8 +303,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun setFilename(fileName: String): Boolean =
-        g_path_buf_set_filename(gPointer.reinterpret(), fileName).asBoolean()
+    public fun setFilename(fileName: String): Boolean = g_path_buf_set_filename(gPointer, fileName).asBoolean()
 
     /**
      * Retrieves the built path from the path buffer.
@@ -320,7 +317,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun toPath(): String? = g_path_buf_to_path(gPointer.reinterpret())?.toKString()
+    public fun toPath(): String? = g_path_buf_to_path(gPointer)?.toKString()
 
     public companion object {
         /**
@@ -351,7 +348,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
          */
         @GLibVersion2_76
         public fun new(): PathBuf = g_path_buf_new()!!.run {
-            PathBuf(reinterpret())
+            PathBuf(this)
         }
 
         /**
@@ -363,7 +360,7 @@ public class PathBuf(pointer: CPointer<GPathBuf>, cleaner: Cleaner? = null) : Pr
          */
         @GLibVersion2_76
         public fun newFromPath(path: String? = null): PathBuf = g_path_buf_new_from_path(path)!!.run {
-            PathBuf(reinterpret())
+            PathBuf(this)
         }
     }
 }

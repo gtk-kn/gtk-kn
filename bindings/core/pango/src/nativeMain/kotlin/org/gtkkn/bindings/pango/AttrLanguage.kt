@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrLanguage
@@ -33,7 +32,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
      */
     public var `value`: Language?
         get() = gPointer.pointed.value?.run {
-            Language(reinterpret())
+            Language(this)
         }
 
         @UnsafeFieldSetter
@@ -107,8 +106,8 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(language: Language): Attribute = pango_attr_language_new(language.gPointer.reinterpret())!!.run {
-            Attribute(reinterpret())
+        public fun new(language: Language): Attribute = pango_attr_language_new(language.gPointer)!!.run {
+            Attribute(this)
         }
     }
 }

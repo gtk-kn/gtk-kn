@@ -39,7 +39,7 @@ public interface DBusInterface :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getObject(): DBusObject? = g_dbus_interface_dup_object(gioDBusInterfacePointer.reinterpret())?.run {
+    public fun getObject(): DBusObject? = g_dbus_interface_dup_object(gioDBusInterfacePointer)?.run {
         DBusObject.wrap(reinterpret())
     }
 
@@ -51,8 +51,8 @@ public interface DBusInterface :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun getInfo(): DBusInterfaceInfo = g_dbus_interface_get_info(gioDBusInterfacePointer.reinterpret())!!.run {
-        DBusInterfaceInfo(reinterpret())
+    public fun getInfo(): DBusInterfaceInfo = g_dbus_interface_get_info(gioDBusInterfacePointer)!!.run {
+        DBusInterfaceInfo(this)
     }
 
     /**
@@ -65,7 +65,7 @@ public interface DBusInterface :
      */
     @GioVersion2_30
     public fun setObject(`object`: DBusObject? = null): Unit =
-        g_dbus_interface_set_object(gioDBusInterfacePointer.reinterpret(), `object`?.gioDBusObjectPointer)
+        g_dbus_interface_set_object(gioDBusInterfacePointer, `object`?.gioDBusObjectPointer)
 
     private data class Wrapper(private val pointer: CPointer<GDBusInterface>) : DBusInterface {
         override val gioDBusInterfacePointer: CPointer<GDBusInterface> = pointer

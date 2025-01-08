@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
@@ -44,8 +43,8 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getDefaultValue(): Variant = g_settings_schema_key_get_default_value(gPointer.reinterpret())!!.run {
-        Variant(reinterpret())
+    public fun getDefaultValue(): Variant = g_settings_schema_key_get_default_value(gPointer)!!.run {
+        Variant(this)
     }
 
     /**
@@ -68,7 +67,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getDescription(): String? = g_settings_schema_key_get_description(gPointer.reinterpret())?.toKString()
+    public fun getDescription(): String? = g_settings_schema_key_get_description(gPointer)?.toKString()
 
     /**
      * Gets the name of @key.
@@ -78,7 +77,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      */
     @GioVersion2_44
     public fun getName(): String =
-        g_settings_schema_key_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_settings_schema_key_get_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries the range of a key.
@@ -122,8 +121,8 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getRange(): Variant = g_settings_schema_key_get_range(gPointer.reinterpret())!!.run {
-        Variant(reinterpret())
+    public fun getRange(): Variant = g_settings_schema_key_get_range(gPointer)!!.run {
+        Variant(this)
     }
 
     /**
@@ -145,7 +144,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getSummary(): String? = g_settings_schema_key_get_summary(gPointer.reinterpret())?.toKString()
+    public fun getSummary(): String? = g_settings_schema_key_get_summary(gPointer)?.toKString()
 
     /**
      * Gets the #GVariantType of @key.
@@ -154,8 +153,8 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getValueType(): VariantType = g_settings_schema_key_get_value_type(gPointer.reinterpret())!!.run {
-        VariantType(reinterpret())
+    public fun getValueType(): VariantType = g_settings_schema_key_get_value_type(gPointer)!!.run {
+        VariantType(this)
     }
 
     /**
@@ -171,7 +170,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      */
     @GioVersion2_40
     public fun rangeCheck(`value`: Variant): Boolean =
-        g_settings_schema_key_range_check(gPointer.reinterpret(), `value`.gPointer.reinterpret()).asBoolean()
+        g_settings_schema_key_range_check(gPointer, `value`.gPointer).asBoolean()
 
     /**
      * Increase the reference count of @key, returning a new reference.
@@ -180,8 +179,8 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gPointer.reinterpret())!!.run {
-        SettingsSchemaKey(reinterpret())
+    public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gPointer)!!.run {
+        SettingsSchemaKey(this)
     }
 
     /**
@@ -190,7 +189,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun unref(): Unit = g_settings_schema_key_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_settings_schema_key_unref(gPointer)
 
     public companion object {
         /**

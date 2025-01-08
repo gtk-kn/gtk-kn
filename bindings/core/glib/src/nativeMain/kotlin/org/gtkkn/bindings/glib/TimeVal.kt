@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -129,7 +128,7 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      *
      * @param microseconds number of microseconds to add to @time
      */
-    public fun add(microseconds: glong): Unit = g_time_val_add(gPointer.reinterpret(), microseconds)
+    public fun add(microseconds: glong): Unit = g_time_val_add(gPointer, microseconds)
 
     /**
      * Converts @time_ into an RFC 3339 encoded string, relative to the
@@ -172,7 +171,7 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun toIso8601(): String? = g_time_val_to_iso8601(gPointer.reinterpret())?.toKString()
+    public fun toIso8601(): String? = g_time_val_to_iso8601(gPointer)?.toKString()
 
     override fun toString(): String = "TimeVal(tvSec=$tvSec, tvUsec=$tvUsec)"
 
@@ -203,6 +202,6 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
          */
         @GLibVersion2_12
         public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
-            g_time_val_from_iso8601(isoDate, time.gPointer.reinterpret()).asBoolean()
+            g_time_val_from_iso8601(isoDate, time.gPointer).asBoolean()
     }
 }

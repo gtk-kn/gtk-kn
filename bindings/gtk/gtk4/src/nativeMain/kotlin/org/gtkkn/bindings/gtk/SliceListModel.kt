@@ -59,7 +59,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          *
          * @return The model in use
          */
-        get() = gtk_slice_list_model_get_model(gtkSliceListModelPointer.reinterpret())?.run {
+        get() = gtk_slice_list_model_get_model(gtkSliceListModelPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -70,7 +70,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          *
          * @param model The model to be sliced
          */
-        set(model) = gtk_slice_list_model_set_model(gtkSliceListModelPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_slice_list_model_set_model(gtkSliceListModelPointer, model?.gioListModelPointer)
 
     /**
      * Offset of slice.
@@ -81,7 +81,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          *
          * @return The offset
          */
-        get() = gtk_slice_list_model_get_offset(gtkSliceListModelPointer.reinterpret())
+        get() = gtk_slice_list_model_get_offset(gtkSliceListModelPointer)
 
         /**
          * Sets the offset into the original model for this slice.
@@ -91,7 +91,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          *
          * @param offset the new offset to use
          */
-        set(offset) = gtk_slice_list_model_set_offset(gtkSliceListModelPointer.reinterpret(), offset)
+        set(offset) = gtk_slice_list_model_set_offset(gtkSliceListModelPointer, offset)
 
     /**
      * Maximum size of slice.
@@ -102,7 +102,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          *
          * @return The size
          */
-        get() = gtk_slice_list_model_get_size(gtkSliceListModelPointer.reinterpret())
+        get() = gtk_slice_list_model_get_size(gtkSliceListModelPointer)
 
         /**
          * Sets the maximum size. @self will never have more items
@@ -113,7 +113,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          *
          * @param size the maximum size
          */
-        set(size) = gtk_slice_list_model_set_size(gtkSliceListModelPointer.reinterpret(), size)
+        set(size) = gtk_slice_list_model_set_size(gtkSliceListModelPointer, size)
 
     /**
      * Creates a new slice model.

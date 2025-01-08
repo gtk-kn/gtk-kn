@@ -22,6 +22,7 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -204,7 +205,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          * @return the group name,
          *   or null if none is set
          */
-        get() = gtk_notebook_get_group_name(gtkNotebookPointer.reinterpret())?.toKString()
+        get() = gtk_notebook_get_group_name(gtkNotebookPointer)?.toKString()
 
         /**
          * Sets a group name for @notebook.
@@ -216,7 +217,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          * @param groupName the name of the notebook group,
          *   or null to unset it
          */
-        set(groupName) = gtk_notebook_set_group_name(gtkNotebookPointer.reinterpret(), groupName)
+        set(groupName) = gtk_notebook_set_group_name(gtkNotebookPointer, groupName)
 
     /**
      * A selection model with the pages.
@@ -232,7 +233,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          * @return a
          *   `GListModel` for the notebook's children
          */
-        get() = gtk_notebook_get_pages(gtkNotebookPointer.reinterpret())!!.run {
+        get() = gtk_notebook_get_pages(gtkNotebookPointer)!!.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -245,7 +246,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @return true if arrows for scrolling are present
          */
-        get() = gtk_notebook_get_scrollable(gtkNotebookPointer.reinterpret()).asBoolean()
+        get() = gtk_notebook_get_scrollable(gtkNotebookPointer).asBoolean()
 
         /**
          * Sets whether the tab label area will have arrows for
@@ -253,7 +254,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @param scrollable true if scroll arrows should be added
          */
-        set(scrollable) = gtk_notebook_set_scrollable(gtkNotebookPointer.reinterpret(), scrollable.asGBoolean())
+        set(scrollable) = gtk_notebook_set_scrollable(gtkNotebookPointer, scrollable.asGBoolean())
 
     /**
      * Whether the border should be shown.
@@ -264,7 +265,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @return true if the bevel is drawn
          */
-        get() = gtk_notebook_get_show_border(gtkNotebookPointer.reinterpret()).asBoolean()
+        get() = gtk_notebook_get_show_border(gtkNotebookPointer).asBoolean()
 
         /**
          * Sets whether a bevel will be drawn around the notebook pages.
@@ -273,7 +274,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @param showBorder true if a bevel should be drawn around the notebook
          */
-        set(showBorder) = gtk_notebook_set_show_border(gtkNotebookPointer.reinterpret(), showBorder.asGBoolean())
+        set(showBorder) = gtk_notebook_set_show_border(gtkNotebookPointer, showBorder.asGBoolean())
 
     /**
      * Whether tabs should be shown.
@@ -284,14 +285,14 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @return true if the tabs are shown
          */
-        get() = gtk_notebook_get_show_tabs(gtkNotebookPointer.reinterpret()).asBoolean()
+        get() = gtk_notebook_get_show_tabs(gtkNotebookPointer).asBoolean()
 
         /**
          * Sets whether to show the tabs for the notebook or not.
          *
          * @param showTabs true if the tabs should be shown
          */
-        set(showTabs) = gtk_notebook_set_show_tabs(gtkNotebookPointer.reinterpret(), showTabs.asGBoolean())
+        set(showTabs) = gtk_notebook_set_show_tabs(gtkNotebookPointer, showTabs.asGBoolean())
 
     /**
      * Which side of the notebook holds the tabs.
@@ -302,7 +303,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @return the edge at which the tabs are drawn
          */
-        get() = gtk_notebook_get_tab_pos(gtkNotebookPointer.reinterpret()).run {
+        get() = gtk_notebook_get_tab_pos(gtkNotebookPointer).run {
             PositionType.fromNativeValue(this)
         }
 
@@ -311,7 +312,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
          *
          * @param pos the edge to draw the tabs at
          */
-        set(pos) = gtk_notebook_set_tab_pos(gtkNotebookPointer.reinterpret(), pos.nativeValue)
+        set(pos) = gtk_notebook_set_tab_pos(gtkNotebookPointer, pos.nativeValue)
 
     /**
      * Creates a new `GtkNotebook` widget with no pages.
@@ -329,11 +330,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @return the index (starting from 0) of the appended
      *   page in the notebook, or -1 if function fails
      */
-    public open fun appendPage(child: Widget, tabLabel: Widget? = null): gint = gtk_notebook_append_page(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        tabLabel?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun appendPage(child: Widget, tabLabel: Widget? = null): gint =
+        gtk_notebook_append_page(gtkNotebookPointer, child.gtkWidgetPointer, tabLabel?.gtkWidgetPointer)
 
     /**
      * Appends a page to @notebook, specifying the widget to use as the
@@ -353,10 +351,10 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      */
     public open fun appendPageMenu(child: Widget, tabLabel: Widget? = null, menuLabel: Widget? = null): gint =
         gtk_notebook_append_page_menu(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            tabLabel?.gtkWidgetPointer?.reinterpret(),
-            menuLabel?.gtkWidgetPointer?.reinterpret()
+            gtkNotebookPointer,
+            child.gtkWidgetPointer,
+            tabLabel?.gtkWidgetPointer,
+            menuLabel?.gtkWidgetPointer
         )
 
     /**
@@ -369,8 +367,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *
      * @param child a child
      */
-    public open fun detachTab(child: Widget): Unit =
-        gtk_notebook_detach_tab(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun detachTab(child: Widget): Unit = gtk_notebook_detach_tab(gtkNotebookPointer, child.gtkWidgetPointer)
 
     /**
      * Gets one of the action widgets.
@@ -383,8 +380,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   widget has not been set
      */
     public open fun getActionWidget(packType: PackType): Widget? =
-        gtk_notebook_get_action_widget(gtkNotebookPointer.reinterpret(), packType.nativeValue)?.run {
-            Widget(reinterpret())
+        gtk_notebook_get_action_widget(gtkNotebookPointer, packType.nativeValue)?.run {
+            Widget(this)
         }
 
     /**
@@ -394,7 +391,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   page in the notebook. If the notebook has no pages,
      *   then -1 will be returned.
      */
-    public open fun getCurrentPage(): gint = gtk_notebook_get_current_page(gtkNotebookPointer.reinterpret())
+    public open fun getCurrentPage(): gint = gtk_notebook_get_current_page(gtkNotebookPointer)
 
     /**
      * Retrieves the menu label widget of the page containing @child.
@@ -405,8 +402,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   the default (the tab label).
      */
     public open fun getMenuLabel(child: Widget): Widget? =
-        gtk_notebook_get_menu_label(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        gtk_notebook_get_menu_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
+            Widget(this)
         }
 
     /**
@@ -419,17 +416,15 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   menu label, or the menu label widget is not a `GtkLabel`.
      *   The string is owned by the widget and must not be freed.
      */
-    public open fun getMenuLabelText(child: Widget): String? = gtk_notebook_get_menu_label_text(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )?.toKString()
+    public open fun getMenuLabelText(child: Widget): String? =
+        gtk_notebook_get_menu_label_text(gtkNotebookPointer, child.gtkWidgetPointer)?.toKString()
 
     /**
      * Gets the number of pages in a notebook.
      *
      * @return the number of pages in the notebook
      */
-    public open fun getNPages(): gint = gtk_notebook_get_n_pages(gtkNotebookPointer.reinterpret())
+    public open fun getNPages(): gint = gtk_notebook_get_n_pages(gtkNotebookPointer)
 
     /**
      * Returns the child widget contained in page number @page_num.
@@ -439,10 +434,9 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @return the child widget, or null if @page_num
      * is out of bounds
      */
-    public open fun getNthPage(pageNum: gint): Widget? =
-        gtk_notebook_get_nth_page(gtkNotebookPointer.reinterpret(), pageNum)?.run {
-            Widget(reinterpret())
-        }
+    public open fun getNthPage(pageNum: gint): Widget? = gtk_notebook_get_nth_page(gtkNotebookPointer, pageNum)?.run {
+        Widget(this)
+    }
 
     /**
      * Returns the `GtkNotebookPage` for @child.
@@ -451,8 +445,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @return the `GtkNotebookPage` for @child
      */
     public open fun getPage(child: Widget): NotebookPage =
-        gtk_notebook_get_page(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            NotebookPage(reinterpret())
+        gtk_notebook_get_page(gtkNotebookPointer, child.gtkWidgetPointer)!!.run {
+            NotebookPage(this)
         }
 
     /**
@@ -461,10 +455,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param child a child `GtkWidget`
      * @return true if the tab is detachable.
      */
-    public open fun getTabDetachable(child: Widget): Boolean = gtk_notebook_get_tab_detachable(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    ).asBoolean()
+    public open fun getTabDetachable(child: Widget): Boolean =
+        gtk_notebook_get_tab_detachable(gtkNotebookPointer, child.gtkWidgetPointer).asBoolean()
 
     /**
      * Returns the tab label widget for the page @child.
@@ -476,8 +468,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @return the tab label
      */
     public open fun getTabLabel(child: Widget): Widget? =
-        gtk_notebook_get_tab_label(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        gtk_notebook_get_tab_label(gtkNotebookPointer, child.gtkWidgetPointer)?.run {
+            Widget(this)
         }
 
     /**
@@ -489,10 +481,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   the tab label widget is not a `GtkLabel`. The string is owned
      *   by the widget and must not be freed.
      */
-    public open fun getTabLabelText(child: Widget): String? = gtk_notebook_get_tab_label_text(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )?.toKString()
+    public open fun getTabLabelText(child: Widget): String? =
+        gtk_notebook_get_tab_label_text(gtkNotebookPointer, child.gtkWidgetPointer)?.toKString()
 
     /**
      * Gets whether the tab can be reordered via drag and drop or not.
@@ -500,10 +490,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param child a child `GtkWidget`
      * @return true if the tab is reorderable.
      */
-    public open fun getTabReorderable(child: Widget): Boolean = gtk_notebook_get_tab_reorderable(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    ).asBoolean()
+    public open fun getTabReorderable(child: Widget): Boolean =
+        gtk_notebook_get_tab_reorderable(gtkNotebookPointer, child.gtkWidgetPointer).asBoolean()
 
     /**
      * Insert a page into @notebook at the given position.
@@ -517,12 +505,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   page in the notebook, or -1 if function fails
      */
     public open fun insertPage(child: Widget, tabLabel: Widget? = null, position: gint): gint =
-        gtk_notebook_insert_page(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            tabLabel?.gtkWidgetPointer?.reinterpret(),
-            position
-        )
+        gtk_notebook_insert_page(gtkNotebookPointer, child.gtkWidgetPointer, tabLabel?.gtkWidgetPointer, position)
 
     /**
      * Insert a page into @notebook at the given position, specifying
@@ -548,10 +531,10 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
         menuLabel: Widget? = null,
         position: gint,
     ): gint = gtk_notebook_insert_page_menu(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        tabLabel?.gtkWidgetPointer?.reinterpret(),
-        menuLabel?.gtkWidgetPointer?.reinterpret(),
+        gtkNotebookPointer,
+        child.gtkWidgetPointer,
+        tabLabel?.gtkWidgetPointer,
+        menuLabel?.gtkWidgetPointer,
         position
     )
 
@@ -560,7 +543,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *
      * Nothing happens if the current page is the last page.
      */
-    public open fun nextPage(): Unit = gtk_notebook_next_page(gtkNotebookPointer.reinterpret())
+    public open fun nextPage(): Unit = gtk_notebook_next_page(gtkNotebookPointer)
 
     /**
      * Finds the index of the page which contains the given child
@@ -570,13 +553,12 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @return the index of the page containing @child, or
      *   -1 if @child is not in the notebook
      */
-    public open fun pageNum(child: Widget): gint =
-        gtk_notebook_page_num(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun pageNum(child: Widget): gint = gtk_notebook_page_num(gtkNotebookPointer, child.gtkWidgetPointer)
 
     /**
      * Disables the popup menu.
      */
-    public open fun popupDisable(): Unit = gtk_notebook_popup_disable(gtkNotebookPointer.reinterpret())
+    public open fun popupDisable(): Unit = gtk_notebook_popup_disable(gtkNotebookPointer)
 
     /**
      * Enables the popup menu.
@@ -584,7 +566,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * If the user clicks with the right mouse button on the tab labels,
      * a menu with all the pages will be popped up.
      */
-    public open fun popupEnable(): Unit = gtk_notebook_popup_enable(gtkNotebookPointer.reinterpret())
+    public open fun popupEnable(): Unit = gtk_notebook_popup_enable(gtkNotebookPointer)
 
     /**
      * Prepends a page to @notebook.
@@ -595,11 +577,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @return the index (starting from 0) of the prepended
      *   page in the notebook, or -1 if function fails
      */
-    public open fun prependPage(child: Widget, tabLabel: Widget? = null): gint = gtk_notebook_prepend_page(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        tabLabel?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun prependPage(child: Widget, tabLabel: Widget? = null): gint =
+        gtk_notebook_prepend_page(gtkNotebookPointer, child.gtkWidgetPointer, tabLabel?.gtkWidgetPointer)
 
     /**
      * Prepends a page to @notebook, specifying the widget to use as the
@@ -619,10 +598,10 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      */
     public open fun prependPageMenu(child: Widget, tabLabel: Widget? = null, menuLabel: Widget? = null): gint =
         gtk_notebook_prepend_page_menu(
-            gtkNotebookPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            tabLabel?.gtkWidgetPointer?.reinterpret(),
-            menuLabel?.gtkWidgetPointer?.reinterpret()
+            gtkNotebookPointer,
+            child.gtkWidgetPointer,
+            tabLabel?.gtkWidgetPointer,
+            menuLabel?.gtkWidgetPointer
         )
 
     /**
@@ -630,7 +609,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *
      * Nothing happens if the current page is the first page.
      */
-    public open fun prevPage(): Unit = gtk_notebook_prev_page(gtkNotebookPointer.reinterpret())
+    public open fun prevPage(): Unit = gtk_notebook_prev_page(gtkNotebookPointer)
 
     /**
      * Removes a page from the notebook given its index
@@ -639,8 +618,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param pageNum the index of a notebook page, starting
      *   from 0. If -1, the last page will be removed.
      */
-    public open fun removePage(pageNum: gint): Unit =
-        gtk_notebook_remove_page(gtkNotebookPointer.reinterpret(), pageNum)
+    public open fun removePage(pageNum: gint): Unit = gtk_notebook_remove_page(gtkNotebookPointer, pageNum)
 
     /**
      * Reorders the page containing @child, so that it appears in position
@@ -653,7 +631,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param position the new position, or -1 to move to the end
      */
     public open fun reorderChild(child: Widget, position: gint): Unit =
-        gtk_notebook_reorder_child(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+        gtk_notebook_reorder_child(gtkNotebookPointer, child.gtkWidgetPointer, position)
 
     /**
      * Sets @widget as one of the action widgets.
@@ -665,11 +643,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param widget a `GtkWidget`
      * @param packType pack type of the action widget
      */
-    public open fun setActionWidget(widget: Widget, packType: PackType): Unit = gtk_notebook_set_action_widget(
-        gtkNotebookPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        packType.nativeValue
-    )
+    public open fun setActionWidget(widget: Widget, packType: PackType): Unit =
+        gtk_notebook_set_action_widget(gtkNotebookPointer, widget.gtkWidgetPointer, packType.nativeValue)
 
     /**
      * Switches to the page number @page_num.
@@ -684,8 +659,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      *   than the number of pages in the notebook, nothing
      *   will be done.
      */
-    public open fun setCurrentPage(pageNum: gint): Unit =
-        gtk_notebook_set_current_page(gtkNotebookPointer.reinterpret(), pageNum)
+    public open fun setCurrentPage(pageNum: gint): Unit = gtk_notebook_set_current_page(gtkNotebookPointer, pageNum)
 
     /**
      * Changes the menu label for the page containing @child.
@@ -693,11 +667,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param child the child widget
      * @param menuLabel the menu label, or null for default
      */
-    public open fun setMenuLabel(child: Widget, menuLabel: Widget? = null): Unit = gtk_notebook_set_menu_label(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        menuLabel?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun setMenuLabel(child: Widget, menuLabel: Widget? = null): Unit =
+        gtk_notebook_set_menu_label(gtkNotebookPointer, child.gtkWidgetPointer, menuLabel?.gtkWidgetPointer)
 
     /**
      * Creates a new label and sets it as the menu label of @child.
@@ -705,11 +676,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param child the child widget
      * @param menuText the label text
      */
-    public open fun setMenuLabelText(child: Widget, menuText: String): Unit = gtk_notebook_set_menu_label_text(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        menuText
-    )
+    public open fun setMenuLabelText(child: Widget, menuText: String): Unit =
+        gtk_notebook_set_menu_label_text(gtkNotebookPointer, child.gtkWidgetPointer, menuText)
 
     /**
      * Sets whether the tab can be detached from @notebook to another
@@ -761,11 +729,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param child a child `GtkWidget`
      * @param detachable whether the tab is detachable or not
      */
-    public open fun setTabDetachable(child: Widget, detachable: Boolean): Unit = gtk_notebook_set_tab_detachable(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        detachable.asGBoolean()
-    )
+    public open fun setTabDetachable(child: Widget, detachable: Boolean): Unit =
+        gtk_notebook_set_tab_detachable(gtkNotebookPointer, child.gtkWidgetPointer, detachable.asGBoolean())
 
     /**
      * Changes the tab label for @child.
@@ -777,11 +742,8 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param tabLabel the tab label widget to use, or null
      *   for default tab label
      */
-    public open fun setTabLabel(child: Widget, tabLabel: Widget? = null): Unit = gtk_notebook_set_tab_label(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        tabLabel?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun setTabLabel(child: Widget, tabLabel: Widget? = null): Unit =
+        gtk_notebook_set_tab_label(gtkNotebookPointer, child.gtkWidgetPointer, tabLabel?.gtkWidgetPointer)
 
     /**
      * Creates a new label and sets it as the tab label for the page
@@ -791,7 +753,7 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param tabText the label text
      */
     public open fun setTabLabelText(child: Widget, tabText: String): Unit =
-        gtk_notebook_set_tab_label_text(gtkNotebookPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), tabText)
+        gtk_notebook_set_tab_label_text(gtkNotebookPointer, child.gtkWidgetPointer, tabText)
 
     /**
      * Sets whether the notebook tab can be reordered
@@ -800,25 +762,22 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * @param child a child `GtkWidget`
      * @param reorderable whether the tab is reorderable or not
      */
-    public open fun setTabReorderable(child: Widget, reorderable: Boolean): Unit = gtk_notebook_set_tab_reorderable(
-        gtkNotebookPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        reorderable.asGBoolean()
-    )
+    public open fun setTabReorderable(child: Widget, reorderable: Boolean): Unit =
+        gtk_notebook_set_tab_reorderable(gtkNotebookPointer, child.gtkWidgetPointer, reorderable.asGBoolean())
 
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object`
      */
-    public fun connectChangeCurrentPage(
+    public fun onChangeCurrentPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: gint) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "change-current-page",
-        connectChangeCurrentPageFunc.reinterpret(),
+        onChangeCurrentPageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -834,17 +793,17 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
      * necessary properties to the notebook (e.g. the
      * `GtkNotebook`:group-name ).
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the tab of @notebook that is being detached. Returns a `GtkNotebook` that
      *   @page should be added to
      */
-    public fun connectCreateWindow(
+    public fun onCreateWindow(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: Widget) -> Notebook?,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "create-window",
-        connectCreateWindowFunc.reinterpret(),
+        onCreateWindowFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -853,16 +812,16 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object`
      */
-    public fun connectFocusTab(
+    public fun onFocusTab(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: NotebookTab) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "focus-tab",
-        connectFocusTabFunc.reinterpret(),
+        onFocusTabFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -871,91 +830,130 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object`
      */
-    public fun connectMoveFocusOut(
+    public fun onMoveFocusOut(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: DirectionType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "move-focus-out",
-        connectMoveFocusOutFunc.reinterpret(),
+        onMoveFocusOutFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "move-focus-out" signal. See [onMoveFocusOut].
+     *
+     * @param object
+     */
+    public fun emitMoveFocusOut(`object`: DirectionType) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "move-focus-out", `object`.nativeValue)
+    }
 
     /**
      * the ::page-added signal is emitted in the notebook
      * right after a page is added to the notebook.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected; `pageNum` the new page number for @child
      */
-    public fun connectPageAdded(
+    public fun onPageAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (child: Widget, pageNum: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "page-added",
-        connectPageAddedFunc.reinterpret(),
+        onPageAddedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "page-added" signal. See [onPageAdded].
+     *
+     * @param child the child `GtkWidget` affected
+     * @param pageNum the new page number for @child
+     */
+    public fun emitPageAdded(child: Widget, pageNum: guint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "page-added", child.gtkWidgetPointer, pageNum)
+    }
 
     /**
      * the ::page-removed signal is emitted in the notebook
      * right after a page is removed from the notebook.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected; `pageNum` the @child page number
      */
-    public fun connectPageRemoved(
+    public fun onPageRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (child: Widget, pageNum: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "page-removed",
-        connectPageRemovedFunc.reinterpret(),
+        onPageRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "page-removed" signal. See [onPageRemoved].
+     *
+     * @param child the child `GtkWidget` affected
+     * @param pageNum the @child page number
+     */
+    public fun emitPageRemoved(child: Widget, pageNum: guint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "page-removed", child.gtkWidgetPointer, pageNum)
+    }
 
     /**
      * the ::page-reordered signal is emitted in the notebook
      * right after a page has been reordered.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `child` the child `GtkWidget` affected; `pageNum` the new page number for @child
      */
-    public fun connectPageReordered(
+    public fun onPageReordered(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (child: Widget, pageNum: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "page-reordered",
-        connectPageReorderedFunc.reinterpret(),
+        onPageReorderedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "page-reordered" signal. See [onPageReordered].
+     *
+     * @param child the child `GtkWidget` affected
+     * @param pageNum the new page number for @child
+     */
+    public fun emitPageReordered(child: Widget, pageNum: guint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "page-reordered", child.gtkWidgetPointer, pageNum)
+    }
+
+    /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` ; `p0`
      */
-    public fun connectReorderTab(
+    public fun onReorderTab(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: DirectionType, p0: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "reorder-tab",
-        connectReorderTabFunc.reinterpret(),
+        onReorderTabFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -964,16 +962,16 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object`
      */
-    public fun connectSelectPage(
+    public fun onSelectPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "select-page",
-        connectSelectPageFunc.reinterpret(),
+        onSelectPageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -982,20 +980,30 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
     /**
      * Emitted when the user or a function changes the current page.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the new current page; `pageNum` the index of the page
      */
-    public fun connectSwitchPage(
+    public fun onSwitchPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: Widget, pageNum: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "switch-page",
-        connectSwitchPageFunc.reinterpret(),
+        onSwitchPageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "switch-page" signal. See [onSwitchPage].
+     *
+     * @param page the new current page
+     * @param pageNum the index of the page
+     */
+    public fun emitSwitchPage(page: Widget, pageNum: guint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "switch-page", page.gtkWidgetPointer, pageNum)
+    }
 
     public companion object : TypeCompanion<Notebook> {
         override val type: GeneratedClassKGType<Notebook> =
@@ -1014,75 +1022,56 @@ public open class Notebook(pointer: CPointer<GtkNotebook>) :
     }
 }
 
-private val connectChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: gint,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
-    }
-        .reinterpret()
+private val onChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
+}
+    .reinterpret()
 
-private val connectCreateWindowFunc:
-    CPointer<CFunction<(CPointer<GtkWidget>) -> CPointer<GtkNotebook>?>> = staticCFunction {
+private val onCreateWindowFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> CPointer<GtkNotebook>?>> =
+    staticCFunction {
             _: COpaquePointer,
             page: CPointer<GtkWidget>?,
             userData: COpaquePointer,
         ->
         userData.asStableRef<(page: Widget) -> Notebook?>().get().invoke(
             page!!.run {
-                Widget(reinterpret())
+                Widget(this)
             }
         )?.gtkNotebookPointer
     }
         .reinterpret()
 
-private val connectFocusTabFunc: CPointer<CFunction<(GtkNotebookTab) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: GtkNotebookTab,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: NotebookTab) -> Boolean>().get().invoke(
-            `object`.run {
-                NotebookTab.fromNativeValue(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+private val onFocusTabFunc: CPointer<CFunction<(GtkNotebookTab) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: GtkNotebookTab,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: NotebookTab) -> Boolean>().get().invoke(
+        `object`.run {
+            NotebookTab.fromNativeValue(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
-private val connectMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: GtkDirectionType,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: DirectionType) -> Unit>().get().invoke(
-            `object`.run {
-                DirectionType.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+private val onMoveFocusOutFunc: CPointer<CFunction<(GtkDirectionType) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: GtkDirectionType,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: DirectionType) -> Unit>().get().invoke(
+        `object`.run {
+            DirectionType.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectPageAddedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            child: CPointer<GtkWidget>?,
-            pageNum: guint,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
-            child!!.run {
-                Widget(reinterpret())
-            },
-            pageNum
-        )
-    }
-        .reinterpret()
-
-private val connectPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
+private val onPageAddedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             child: CPointer<GtkWidget>?,
@@ -1091,14 +1080,14 @@ private val connectPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, gui
         ->
         userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
             child!!.run {
-                Widget(reinterpret())
+                Widget(this)
             },
             pageNum
         )
     }
         .reinterpret()
 
-private val connectPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
+private val onPageRemovedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             child: CPointer<GtkWidget>?,
@@ -1107,14 +1096,30 @@ private val connectPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, g
         ->
         userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
             child!!.run {
-                Widget(reinterpret())
+                Widget(this)
             },
             pageNum
         )
     }
         .reinterpret()
 
-private val connectReorderTabFunc: CPointer<CFunction<(GtkDirectionType, gboolean) -> gboolean>> =
+private val onPageReorderedFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
+    staticCFunction {
+            _: COpaquePointer,
+            child: CPointer<GtkWidget>?,
+            pageNum: guint,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(child: Widget, pageNum: guint) -> Unit>().get().invoke(
+            child!!.run {
+                Widget(this)
+            },
+            pageNum
+        )
+    }
+        .reinterpret()
+
+private val onReorderTabFunc: CPointer<CFunction<(GtkDirectionType, gboolean) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             `object`: GtkDirectionType,
@@ -1130,7 +1135,7 @@ private val connectReorderTabFunc: CPointer<CFunction<(GtkDirectionType, gboolea
     }
         .reinterpret()
 
-private val connectSelectPageFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
+private val onSelectPageFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         `object`: gboolean,
         userData: COpaquePointer,
@@ -1139,7 +1144,7 @@ private val connectSelectPageFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
 }
     .reinterpret()
 
-private val connectSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
+private val onSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, guint) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             page: CPointer<GtkWidget>?,
@@ -1148,7 +1153,7 @@ private val connectSwitchPageFunc: CPointer<CFunction<(CPointer<GtkWidget>, guin
         ->
         userData.asStableRef<(page: Widget, pageNum: guint) -> Unit>().get().invoke(
             page!!.run {
-                Widget(reinterpret())
+                Widget(this)
             },
             pageNum
         )

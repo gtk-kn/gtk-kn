@@ -68,7 +68,7 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
          * @return true if fallbacks are used by @converter
          * @since 2.24
          */
-        get() = g_charset_converter_get_use_fallback(gioCharsetConverterPointer.reinterpret()).asBoolean()
+        get() = g_charset_converter_get_use_fallback(gioCharsetConverterPointer).asBoolean()
 
         /**
          * Sets the #GCharsetConverter:use-fallback property.
@@ -77,9 +77,7 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
          * @since 2.24
          */
         @GioVersion2_24
-        set(
-            useFallback
-        ) = g_charset_converter_set_use_fallback(gioCharsetConverterPointer.reinterpret(), useFallback.asGBoolean())
+        set(useFallback) = g_charset_converter_set_use_fallback(gioCharsetConverterPointer, useFallback.asGBoolean())
 
     /**
      * Creates a new #GCharsetConverter.
@@ -108,8 +106,7 @@ public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getNumFallbacks(): guint =
-        g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer.reinterpret())
+    public open fun getNumFallbacks(): guint = g_charset_converter_get_num_fallbacks(gioCharsetConverterPointer)
 
     public companion object : TypeCompanion<CharsetConverter> {
         override val type: GeneratedClassKGType<CharsetConverter> =

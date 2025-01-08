@@ -34,7 +34,7 @@ public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
          *
          * @return the axes of @tool
          */
-        get() = gdk_device_tool_get_axes(gdkDeviceToolPointer.reinterpret()).run {
+        get() = gdk_device_tool_get_axes(gdkDeviceToolPointer).run {
             AxisFlags(this)
         }
 
@@ -57,7 +57,7 @@ public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
          *
          * @return The hardware identifier of this tool.
          */
-        get() = gdk_device_tool_get_hardware_id(gdkDeviceToolPointer.reinterpret())
+        get() = gdk_device_tool_get_hardware_id(gdkDeviceToolPointer)
 
     /**
      * The serial number of the tool.
@@ -71,7 +71,7 @@ public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
          *
          * @return The serial ID for this tool
          */
-        get() = gdk_device_tool_get_serial(gdkDeviceToolPointer.reinterpret())
+        get() = gdk_device_tool_get_serial(gdkDeviceToolPointer)
 
     /**
      * The type of the tool.
@@ -84,7 +84,7 @@ public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
          *   figure out what sort of pen is being used, such as an airbrush
          *   or a pencil.
          */
-        get() = gdk_device_tool_get_tool_type(gdkDeviceToolPointer.reinterpret()).run {
+        get() = gdk_device_tool_get_tool_type(gdkDeviceToolPointer).run {
             DeviceToolType.fromNativeValue(this)
         }
 

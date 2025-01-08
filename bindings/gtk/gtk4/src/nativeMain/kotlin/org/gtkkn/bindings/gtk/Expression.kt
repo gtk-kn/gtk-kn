@@ -201,12 +201,12 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
      */
     public open fun bind(target: Object, `property`: String, `this`: Object? = null): ExpressionWatch =
         gtk_expression_bind(
-            gPointer.reinterpret(),
+            gPointer,
             target.gPointer.reinterpret(),
             `property`,
             `this`?.gPointer?.reinterpret()
         )!!.run {
-            ExpressionWatch(reinterpret())
+            ExpressionWatch(this)
         }
 
     /**
@@ -225,11 +225,8 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
      * @param value an empty `GValue`
      * @return `TRUE` if the expression could be evaluated
      */
-    public open fun evaluate(`this`: Object? = null, `value`: Value): Boolean = gtk_expression_evaluate(
-        gPointer.reinterpret(),
-        `this`?.gPointer?.reinterpret(),
-        `value`.gPointer.reinterpret()
-    ).asBoolean()
+    public open fun evaluate(`this`: Object? = null, `value`: Value): Boolean =
+        gtk_expression_evaluate(gPointer, `this`?.gPointer?.reinterpret(), `value`.gPointer).asBoolean()
 
     /**
      * Gets the `GType` that this expression evaluates to.
@@ -239,7 +236,7 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
      *
      * @return The type returned from [method@Gtk.Expression.evaluate]
      */
-    public open fun getValueType(): GType = gtk_expression_get_value_type(gPointer.reinterpret())
+    public open fun getValueType(): GType = gtk_expression_get_value_type(gPointer)
 
     /**
      * Checks if the expression is static.
@@ -252,15 +249,15 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
      *
      * @return `TRUE` if the expression is static
      */
-    public open fun isStatic(): Boolean = gtk_expression_is_static(gPointer.reinterpret()).asBoolean()
+    public open fun isStatic(): Boolean = gtk_expression_is_static(gPointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpression`.
      *
      * @return the `GtkExpression` with an additional reference
      */
-    public open fun ref(): Expression = gtk_expression_ref(gPointer.reinterpret())!!.run {
-        Expression(reinterpret())
+    public open fun ref(): Expression = gtk_expression_ref(gPointer)!!.run {
+        Expression(this)
     }
 
     /**
@@ -269,7 +266,7 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
      * If the reference was the last, the resources associated to the `self` are
      * freed.
      */
-    public open fun unref(): Unit = gtk_expression_unref(gPointer.reinterpret())
+    public open fun unref(): Unit = gtk_expression_unref(gPointer)
 
     /**
      * Watch the given `expression` for changes.
@@ -291,13 +288,13 @@ public open class Expression(pointer: CPointer<GtkExpression>) : KGTyped {
      *   if you want to keep the watch around.
      */
     public open fun watch(`this`: Object? = null, notify: ExpressionNotify): ExpressionWatch = gtk_expression_watch(
-        gPointer.reinterpret(),
+        gPointer,
         `this`?.gPointer?.reinterpret(),
         ExpressionNotifyFunc.reinterpret(),
         StableRef.create(notify).asCPointer(),
         staticStableRefDestroy.reinterpret()
     )!!.run {
-        ExpressionWatch(reinterpret())
+        ExpressionWatch(this)
     }
 
     public companion object : TypeCompanion<Expression> {

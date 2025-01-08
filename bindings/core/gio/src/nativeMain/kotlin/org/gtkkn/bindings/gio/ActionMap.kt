@@ -55,8 +55,7 @@ public interface ActionMap :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun addAction(action: Action): Unit =
-        g_action_map_add_action(gioActionMapPointer.reinterpret(), action.gioActionPointer)
+    public fun addAction(action: Action): Unit = g_action_map_add_action(gioActionMapPointer, action.gioActionPointer)
 
     /**
      * Looks up the action with the name @action_name in @action_map.
@@ -69,7 +68,7 @@ public interface ActionMap :
      */
     @GioVersion2_32
     public fun lookupAction(actionName: String): Action? =
-        g_action_map_lookup_action(gioActionMapPointer.reinterpret(), actionName)?.run {
+        g_action_map_lookup_action(gioActionMapPointer, actionName)?.run {
             Action.wrap(reinterpret())
         }
 
@@ -82,8 +81,7 @@ public interface ActionMap :
      * @since 2.32
      */
     @GioVersion2_32
-    public fun removeAction(actionName: String): Unit =
-        g_action_map_remove_action(gioActionMapPointer.reinterpret(), actionName)
+    public fun removeAction(actionName: String): Unit = g_action_map_remove_action(gioActionMapPointer, actionName)
 
     private data class Wrapper(private val pointer: CPointer<GActionMap>) : ActionMap {
         override val gioActionMapPointer: CPointer<GActionMap> = pointer

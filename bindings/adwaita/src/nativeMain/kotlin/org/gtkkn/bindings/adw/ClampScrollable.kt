@@ -70,8 +70,8 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          *
          * @return the child widget of @self
          */
-        get() = adw_clamp_scrollable_get_child(adwClampScrollablePointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_clamp_scrollable_get_child(adwClampScrollablePointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -79,12 +79,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = adw_clamp_scrollable_set_child(
-            adwClampScrollablePointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = adw_clamp_scrollable_set_child(adwClampScrollablePointer, child?.gtkWidgetPointer)
 
     /**
      * The maximum size allocated to the child.
@@ -97,7 +92,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          *
          * @return the maximum size to allocate to the child
          */
-        get() = adw_clamp_scrollable_get_maximum_size(adwClampScrollablePointer.reinterpret())
+        get() = adw_clamp_scrollable_get_maximum_size(adwClampScrollablePointer)
 
         /**
          * Sets the maximum size allocated to the child.
@@ -106,7 +101,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          *
          * @param maximumSize the maximum size
          */
-        set(maximumSize) = adw_clamp_scrollable_set_maximum_size(adwClampScrollablePointer.reinterpret(), maximumSize)
+        set(maximumSize) = adw_clamp_scrollable_set_maximum_size(adwClampScrollablePointer, maximumSize)
 
     /**
      * The size above which the child is clamped.
@@ -130,7 +125,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          *
          * @return the size above which the child is clamped
          */
-        get() = adw_clamp_scrollable_get_tightening_threshold(adwClampScrollablePointer.reinterpret())
+        get() = adw_clamp_scrollable_get_tightening_threshold(adwClampScrollablePointer)
 
         /**
          * Sets the size above which the child is clamped.
@@ -152,7 +147,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          */
         set(
             tighteningThreshold
-        ) = adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer.reinterpret(), tighteningThreshold)
+        ) = adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer, tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -169,7 +164,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @return the length unit
          * @since 1.4
          */
-        get() = adw_clamp_scrollable_get_unit(adwClampScrollablePointer.reinterpret()).run {
+        get() = adw_clamp_scrollable_get_unit(adwClampScrollablePointer).run {
             LengthUnit.fromNativeValue(this)
         }
 
@@ -182,7 +177,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(unit) = adw_clamp_scrollable_set_unit(adwClampScrollablePointer.reinterpret(), unit.nativeValue)
+        set(unit) = adw_clamp_scrollable_set_unit(adwClampScrollablePointer, unit.nativeValue)
 
     /**
      * Creates a new `AdwClampScrollable`.

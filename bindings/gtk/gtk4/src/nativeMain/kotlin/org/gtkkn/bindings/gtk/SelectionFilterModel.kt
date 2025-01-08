@@ -44,7 +44,7 @@ public open class SelectionFilterModel(pointer: CPointer<GtkSelectionFilterModel
          *
          * @return The model that gets filtered
          */
-        get() = gtk_selection_filter_model_get_model(gtkSelectionFilterModelPointer.reinterpret())?.run {
+        get() = gtk_selection_filter_model_get_model(gtkSelectionFilterModelPointer)?.run {
             SelectionModel.wrap(reinterpret())
         }
 
@@ -60,10 +60,7 @@ public open class SelectionFilterModel(pointer: CPointer<GtkSelectionFilterModel
          */
         set(
             model
-        ) = gtk_selection_filter_model_set_model(
-            gtkSelectionFilterModelPointer.reinterpret(),
-            model?.gtkSelectionModelPointer
-        )
+        ) = gtk_selection_filter_model_set_model(gtkSelectionFilterModelPointer, model?.gtkSelectionModelPointer)
 
     /**
      * Creates a new `GtkSelectionFilterModel` that will include the

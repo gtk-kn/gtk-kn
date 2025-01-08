@@ -106,7 +106,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
          *
          * @return The human-readable name of the filter
          */
-        get() = gtk_file_filter_get_name(gtkFileFilterPointer.reinterpret())?.toKString()
+        get() = gtk_file_filter_get_name(gtkFileFilterPointer)?.toKString()
 
         /**
          * Sets a human-readable name of the filter.
@@ -117,7 +117,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
          * @param name the human-readable-name for the filter, or null
          *   to remove any existing name.
          */
-        set(name) = gtk_file_filter_set_name(gtkFileFilterPointer.reinterpret(), name)
+        set(name) = gtk_file_filter_set_name(gtkFileFilterPointer, name)
 
     /**
      * Creates a new `GtkFileFilter` with no rules added to it.
@@ -148,17 +148,14 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @param variant an `a{sv}` `GVariant`
      * @return a new `GtkFileFilter` object
      */
-    public constructor(
-        variant: Variant,
-    ) : this(gtk_file_filter_new_from_gvariant(variant.gPointer.reinterpret())!!.reinterpret())
+    public constructor(variant: Variant) : this(gtk_file_filter_new_from_gvariant(variant.gPointer)!!.reinterpret())
 
     /**
      * Adds a rule allowing a given mime type to @filter.
      *
      * @param mimeType name of a MIME type
      */
-    public open fun addMimeType(mimeType: String): Unit =
-        gtk_file_filter_add_mime_type(gtkFileFilterPointer.reinterpret(), mimeType)
+    public open fun addMimeType(mimeType: String): Unit = gtk_file_filter_add_mime_type(gtkFileFilterPointer, mimeType)
 
     /**
      * Adds a rule allowing a shell style glob to a filter.
@@ -169,8 +166,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      *
      * @param pattern a shell style glob
      */
-    public open fun addPattern(pattern: String): Unit =
-        gtk_file_filter_add_pattern(gtkFileFilterPointer.reinterpret(), pattern)
+    public open fun addPattern(pattern: String): Unit = gtk_file_filter_add_pattern(gtkFileFilterPointer, pattern)
 
     /**
      * Adds a rule allowing image files in the formats supported
@@ -179,7 +175,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * This is equivalent to calling [method@Gtk.FileFilter.add_mime_type]
      * for all the supported mime types.
      */
-    public open fun addPixbufFormats(): Unit = gtk_file_filter_add_pixbuf_formats(gtkFileFilterPointer.reinterpret())
+    public open fun addPixbufFormats(): Unit = gtk_file_filter_add_pixbuf_formats(gtkFileFilterPointer)
 
     /**
      * Adds a suffix match rule to a filter.
@@ -194,8 +190,7 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @since 4.4
      */
     @GtkVersion4_4
-    public open fun addSuffix(suffix: String): Unit =
-        gtk_file_filter_add_suffix(gtkFileFilterPointer.reinterpret(), suffix)
+    public open fun addSuffix(suffix: String): Unit = gtk_file_filter_add_suffix(gtkFileFilterPointer, suffix)
 
     /**
      * Gets the attributes that need to be filled in for the `GFileInfo`
@@ -208,16 +203,15 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @return the attributes
      */
     public open fun getAttributes(): List<String> =
-        gtk_file_filter_get_attributes(gtkFileFilterPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+        gtk_file_filter_get_attributes(gtkFileFilterPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Serialize a file filter to an `a{sv}` variant.
      *
      * @return a new, floating, `GVariant`
      */
-    public open fun toGvariant(): Variant = gtk_file_filter_to_gvariant(gtkFileFilterPointer.reinterpret())!!.run {
-        Variant(reinterpret())
+    public open fun toGvariant(): Variant = gtk_file_filter_to_gvariant(gtkFileFilterPointer)!!.run {
+        Variant(this)
     }
 
     public companion object : TypeCompanion<FileFilter> {

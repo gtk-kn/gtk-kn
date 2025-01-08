@@ -69,7 +69,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @return true if @value was not part of @self and @self
      *   was changed
      */
-    public fun add(`value`: guint): Boolean = gtk_bitset_add(gPointer.reinterpret(), `value`).asBoolean()
+    public fun add(`value`: guint): Boolean = gtk_bitset_add(gPointer, `value`).asBoolean()
 
     /**
      * Adds all values from @start (inclusive) to @start + @n_items
@@ -78,7 +78,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param start first value to add
      * @param nItems number of consecutive values to add
      */
-    public fun addRange(start: guint, nItems: guint): Unit = gtk_bitset_add_range(gPointer.reinterpret(), start, nItems)
+    public fun addRange(start: guint, nItems: guint): Unit = gtk_bitset_add_range(gPointer, start, nItems)
 
     /**
      * Adds the closed range [@first, @last], so @first, @last and all
@@ -87,8 +87,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param first first value to add
      * @param last last value to add
      */
-    public fun addRangeClosed(first: guint, last: guint): Unit =
-        gtk_bitset_add_range_closed(gPointer.reinterpret(), first, last)
+    public fun addRangeClosed(first: guint, last: guint): Unit = gtk_bitset_add_range_closed(gPointer, first, last)
 
     /**
      * Interprets the values as a 2-dimensional boolean grid with the given @stride
@@ -100,7 +99,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param stride row stride of the grid
      */
     public fun addRectangle(start: guint, width: guint, height: guint, stride: guint): Unit =
-        gtk_bitset_add_rectangle(gPointer.reinterpret(), start, width, height, stride)
+        gtk_bitset_add_rectangle(gPointer, start, width, height, stride)
 
     /**
      * Checks if the given @value has been added to @self
@@ -108,7 +107,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param value the value to check
      * @return true if @self contains @value
      */
-    public fun contains(`value`: guint): Boolean = gtk_bitset_contains(gPointer.reinterpret(), `value`).asBoolean()
+    public fun contains(`value`: guint): Boolean = gtk_bitset_contains(gPointer, `value`).asBoolean()
 
     /**
      * Creates a copy of @self.
@@ -116,8 +115,8 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @return A new bitset that contains the same
      *   values as @self
      */
-    public fun copy(): Bitset = gtk_bitset_copy(gPointer.reinterpret())!!.run {
-        Bitset(reinterpret())
+    public fun copy(): Bitset = gtk_bitset_copy(gPointer)!!.run {
+        Bitset(this)
     }
 
     /**
@@ -132,8 +131,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @param other the `GtkBitset` to compute the difference from
      */
-    public fun difference(other: Bitset): Unit =
-        gtk_bitset_difference(gPointer.reinterpret(), other.gPointer.reinterpret())
+    public fun difference(other: Bitset): Unit = gtk_bitset_difference(gPointer, other.gPointer)
 
     /**
      * Returns true if @self and @other contain the same values.
@@ -141,8 +139,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param other another `GtkBitset`
      * @return true if @self and @other contain the same values
      */
-    public fun equals(other: Bitset): Boolean =
-        gtk_bitset_equals(gPointer.reinterpret(), other.gPointer.reinterpret()).asBoolean()
+    public fun equals(other: Bitset): Boolean = gtk_bitset_equals(gPointer, other.gPointer).asBoolean()
 
     /**
      * Returns the largest value in @self.
@@ -151,7 +148,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @return The largest value in @self
      */
-    public fun getMaximum(): guint = gtk_bitset_get_maximum(gPointer.reinterpret())
+    public fun getMaximum(): guint = gtk_bitset_get_maximum(gPointer)
 
     /**
      * Returns the smallest value in @self.
@@ -160,7 +157,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @return The smallest value in @self
      */
-    public fun getMinimum(): guint = gtk_bitset_get_minimum(gPointer.reinterpret())
+    public fun getMinimum(): guint = gtk_bitset_get_minimum(gPointer)
 
     /**
      * Returns the value of the @nth item in self.
@@ -170,7 +167,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param nth index of the item to get
      * @return the value of the @nth item in @self
      */
-    public fun getNth(nth: guint): guint = gtk_bitset_get_nth(gPointer.reinterpret(), nth)
+    public fun getNth(nth: guint): guint = gtk_bitset_get_nth(gPointer, nth)
 
     /**
      * Gets the number of values that were added to the set.
@@ -184,7 +181,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @return The number of values in the set.
      */
-    public fun getSize(): guint64 = gtk_bitset_get_size(gPointer.reinterpret())
+    public fun getSize(): guint64 = gtk_bitset_get_size(gPointer)
 
     /**
      * Gets the number of values that are part of the set from @first to @last
@@ -198,8 +195,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param last the last element to include
      * @return The number of values in the set from @first to @last.
      */
-    public fun getSizeInRange(first: guint, last: guint): guint64 =
-        gtk_bitset_get_size_in_range(gPointer.reinterpret(), first, last)
+    public fun getSizeInRange(first: guint, last: guint): guint64 = gtk_bitset_get_size_in_range(gPointer, first, last)
 
     /**
      * Sets @self to be the intersection of @self and @other.
@@ -211,23 +207,22 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @param other the `GtkBitset` to intersect with
      */
-    public fun intersect(other: Bitset): Unit =
-        gtk_bitset_intersect(gPointer.reinterpret(), other.gPointer.reinterpret())
+    public fun intersect(other: Bitset): Unit = gtk_bitset_intersect(gPointer, other.gPointer)
 
     /**
      * Check if no value is contained in bitset.
      *
      * @return true if @self is empty
      */
-    public fun isEmpty(): Boolean = gtk_bitset_is_empty(gPointer.reinterpret()).asBoolean()
+    public fun isEmpty(): Boolean = gtk_bitset_is_empty(gPointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkBitset`.
      *
      * @return the `GtkBitset` with an additional reference
      */
-    public fun ref(): Bitset = gtk_bitset_ref(gPointer.reinterpret())!!.run {
-        Bitset(reinterpret())
+    public fun ref(): Bitset = gtk_bitset_ref(gPointer)!!.run {
+        Bitset(this)
     }
 
     /**
@@ -237,12 +232,12 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @return true if @value was part of @self and @self
      *   was changed
      */
-    public fun remove(`value`: guint): Boolean = gtk_bitset_remove(gPointer.reinterpret(), `value`).asBoolean()
+    public fun remove(`value`: guint): Boolean = gtk_bitset_remove(gPointer, `value`).asBoolean()
 
     /**
      * Removes all values from the bitset so that it is empty again.
      */
-    public fun removeAll(): Unit = gtk_bitset_remove_all(gPointer.reinterpret())
+    public fun removeAll(): Unit = gtk_bitset_remove_all(gPointer)
 
     /**
      * Removes all values from @start (inclusive) to @start + @n_items (exclusive)
@@ -251,8 +246,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param start first value to remove
      * @param nItems number of consecutive values to remove
      */
-    public fun removeRange(start: guint, nItems: guint): Unit =
-        gtk_bitset_remove_range(gPointer.reinterpret(), start, nItems)
+    public fun removeRange(start: guint, nItems: guint): Unit = gtk_bitset_remove_range(gPointer, start, nItems)
 
     /**
      * Removes the closed range [@first, @last], so @first, @last and all
@@ -262,7 +256,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param last last value to remove
      */
     public fun removeRangeClosed(first: guint, last: guint): Unit =
-        gtk_bitset_remove_range_closed(gPointer.reinterpret(), first, last)
+        gtk_bitset_remove_range_closed(gPointer, first, last)
 
     /**
      * Interprets the values as a 2-dimensional boolean grid with the given @stride
@@ -274,7 +268,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param stride row stride of the grid
      */
     public fun removeRectangle(start: guint, width: guint, height: guint, stride: guint): Unit =
-        gtk_bitset_remove_rectangle(gPointer.reinterpret(), start, width, height, stride)
+        gtk_bitset_remove_rectangle(gPointer, start, width, height, stride)
 
     /**
      * Shifts all values in @self to the left by @amount.
@@ -283,7 +277,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @param amount amount to shift all values to the left
      */
-    public fun shiftLeft(amount: guint): Unit = gtk_bitset_shift_left(gPointer.reinterpret(), amount)
+    public fun shiftLeft(amount: guint): Unit = gtk_bitset_shift_left(gPointer, amount)
 
     /**
      * Shifts all values in @self to the right by @amount.
@@ -292,7 +286,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @param amount amount to shift all values to the right
      */
-    public fun shiftRight(amount: guint): Unit = gtk_bitset_shift_right(gPointer.reinterpret(), amount)
+    public fun shiftRight(amount: guint): Unit = gtk_bitset_shift_right(gPointer, amount)
 
     /**
      * This is a support function for `GListModel` handling, by mirroring
@@ -311,7 +305,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * @param added number of values to add
      */
     public fun splice(position: guint, removed: guint, added: guint): Unit =
-        gtk_bitset_splice(gPointer.reinterpret(), position, removed, added)
+        gtk_bitset_splice(gPointer, position, removed, added)
 
     /**
      * Sets @self to be the subtraction of @other from @self.
@@ -323,7 +317,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @param other the `GtkBitset` to subtract
      */
-    public fun subtract(other: Bitset): Unit = gtk_bitset_subtract(gPointer.reinterpret(), other.gPointer.reinterpret())
+    public fun subtract(other: Bitset): Unit = gtk_bitset_subtract(gPointer, other.gPointer)
 
     /**
      * Sets @self to be the union of @self and @other.
@@ -335,7 +329,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      *
      * @param other the `GtkBitset` to union with
      */
-    public fun union(other: Bitset): Unit = gtk_bitset_union(gPointer.reinterpret(), other.gPointer.reinterpret())
+    public fun union(other: Bitset): Unit = gtk_bitset_union(gPointer, other.gPointer)
 
     /**
      * Releases a reference on the given `GtkBitset`.
@@ -343,7 +337,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
      * If the reference was the last, the resources associated to the @self are
      * freed.
      */
-    public fun unref(): Unit = gtk_bitset_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gtk_bitset_unref(gPointer)
 
     public companion object {
         /**
@@ -351,7 +345,7 @@ public class Bitset(pointer: CPointer<GtkBitset>) : ProxyInstance(pointer) {
          *
          * @return A new empty bitset
          */
-        public fun newEmpty(): Bitset = Bitset(gtk_bitset_new_empty()!!.reinterpret())
+        public fun newEmpty(): Bitset = Bitset(gtk_bitset_new_empty()!!)
 
         /**
          * Creates a bitset with the given range set.

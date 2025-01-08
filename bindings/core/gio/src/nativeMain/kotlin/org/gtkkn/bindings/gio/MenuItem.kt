@@ -87,7 +87,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
     public constructor(
         model: MenuModel,
         itemIndex: gint,
-    ) : this(g_menu_item_new_from_model(model.gioMenuModelPointer.reinterpret(), itemIndex)!!.reinterpret())
+    ) : this(g_menu_item_new_from_model(model.gioMenuModelPointer, itemIndex)!!.reinterpret())
 
     /**
      * Creates a new #GMenuItem representing a section.
@@ -159,7 +159,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
     public constructor(
         label: String? = null,
         section: MenuModel,
-    ) : this(g_menu_item_new_section(label, section.gioMenuModelPointer.reinterpret())!!.reinterpret())
+    ) : this(g_menu_item_new_section(label, section.gioMenuModelPointer)!!.reinterpret())
 
     /**
      * Queries the named @attribute on @menu_item.
@@ -175,12 +175,8 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_34
     public open fun getAttributeValue(attribute: String, expectedType: VariantType? = null): Variant? =
-        g_menu_item_get_attribute_value(
-            gioMenuItemPointer.reinterpret(),
-            attribute,
-            expectedType?.gPointer?.reinterpret()
-        )?.run {
-            Variant(reinterpret())
+        g_menu_item_get_attribute_value(gioMenuItemPointer, attribute, expectedType?.gPointer)?.run {
+            Variant(this)
         }
 
     /**
@@ -191,10 +187,9 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun getLink(link: String): MenuModel? =
-        g_menu_item_get_link(gioMenuItemPointer.reinterpret(), link)?.run {
-            MenuModel(reinterpret())
-        }
+    public open fun getLink(link: String): MenuModel? = g_menu_item_get_link(gioMenuItemPointer, link)?.run {
+        MenuModel(this)
+    }
 
     /**
      * Sets or unsets the "action" and "target" attributes of @menu_item.
@@ -240,11 +235,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setActionAndTargetValue(action: String? = null, targetValue: Variant? = null): Unit =
-        g_menu_item_set_action_and_target_value(
-            gioMenuItemPointer.reinterpret(),
-            action,
-            targetValue?.gPointer?.reinterpret()
-        )
+        g_menu_item_set_action_and_target_value(gioMenuItemPointer, action, targetValue?.gPointer)
 
     /**
      * Sets or unsets an attribute on @menu_item.
@@ -273,7 +264,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setAttributeValue(attribute: String, `value`: Variant? = null): Unit =
-        g_menu_item_set_attribute_value(gioMenuItemPointer.reinterpret(), attribute, `value`?.gPointer?.reinterpret())
+        g_menu_item_set_attribute_value(gioMenuItemPointer, attribute, `value`?.gPointer)
 
     /**
      * Sets the "action" and possibly the "target" attribute of @menu_item.
@@ -293,7 +284,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setDetailedAction(detailedAction: String): Unit =
-        g_menu_item_set_detailed_action(gioMenuItemPointer.reinterpret(), detailedAction)
+        g_menu_item_set_detailed_action(gioMenuItemPointer, detailedAction)
 
     /**
      * Sets (or unsets) the icon on @menu_item.
@@ -313,8 +304,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      * @since 2.38
      */
     @GioVersion2_38
-    public open fun setIcon(icon: Icon): Unit =
-        g_menu_item_set_icon(gioMenuItemPointer.reinterpret(), icon.gioIconPointer)
+    public open fun setIcon(icon: Icon): Unit = g_menu_item_set_icon(gioMenuItemPointer, icon.gioIconPointer)
 
     /**
      * Sets or unsets the "label" attribute of @menu_item.
@@ -326,8 +316,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun setLabel(label: String? = null): Unit =
-        g_menu_item_set_label(gioMenuItemPointer.reinterpret(), label)
+    public open fun setLabel(label: String? = null): Unit = g_menu_item_set_label(gioMenuItemPointer, label)
 
     /**
      * Creates a link from @menu_item to @model if non-null, or unsets it.
@@ -347,7 +336,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setLink(link: String, model: MenuModel? = null): Unit =
-        g_menu_item_set_link(gioMenuItemPointer.reinterpret(), link, model?.gioMenuModelPointer?.reinterpret())
+        g_menu_item_set_link(gioMenuItemPointer, link, model?.gioMenuModelPointer)
 
     /**
      * Sets or unsets the "section" link of @menu_item to @section.
@@ -363,7 +352,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setSection(section: MenuModel? = null): Unit =
-        g_menu_item_set_section(gioMenuItemPointer.reinterpret(), section?.gioMenuModelPointer?.reinterpret())
+        g_menu_item_set_section(gioMenuItemPointer, section?.gioMenuModelPointer)
 
     /**
      * Sets or unsets the "submenu" link of @menu_item to @submenu.
@@ -379,7 +368,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setSubmenu(submenu: MenuModel? = null): Unit =
-        g_menu_item_set_submenu(gioMenuItemPointer.reinterpret(), submenu?.gioMenuModelPointer?.reinterpret())
+        g_menu_item_set_submenu(gioMenuItemPointer, submenu?.gioMenuModelPointer)
 
     public companion object : TypeCompanion<MenuItem> {
         override val type: GeneratedClassKGType<MenuItem> =
@@ -457,7 +446,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
          * @since 2.32
          */
         public fun newSection(label: String? = null, section: MenuModel): MenuItem =
-            MenuItem(g_menu_item_new_section(label, section.gioMenuModelPointer.reinterpret())!!.reinterpret())
+            MenuItem(g_menu_item_new_section(label, section.gioMenuModelPointer)!!.reinterpret())
 
         /**
          * Creates a new #GMenuItem representing a submenu.
@@ -471,7 +460,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
          * @since 2.32
          */
         public fun newSubmenu(label: String? = null, submenu: MenuModel): MenuItem =
-            MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer.reinterpret())!!.reinterpret())
+            MenuItem(g_menu_item_new_submenu(label, submenu.gioMenuModelPointer)!!.reinterpret())
 
         /**
          * Get the GType of MenuItem

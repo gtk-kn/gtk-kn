@@ -78,7 +78,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      */
     public var hooks: Hook?
         get() = gPointer.pointed.hooks?.run {
-            Hook(reinterpret())
+            Hook(this)
         }
 
         @UnsafeFieldSetter
@@ -182,7 +182,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
     /**
      * Removes all the #GHook elements from a #GHookList.
      */
-    public fun clear(): Unit = g_hook_list_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_hook_list_clear(gPointer)
 
     /**
      * Initializes a #GHookList.
@@ -191,7 +191,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param hookSize the size of each element in the #GHookList,
      *     typically `sizeof (GHook)`.
      */
-    public fun `init`(hookSize: guint): Unit = g_hook_list_init(gPointer.reinterpret(), hookSize)
+    public fun `init`(hookSize: guint): Unit = g_hook_list_init(gPointer, hookSize)
 
     /**
      * Calls all of the #GHook functions in a #GHookList.
@@ -200,7 +200,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invoke(mayRecurse: Boolean): Unit = g_hook_list_invoke(gPointer.reinterpret(), mayRecurse.asGBoolean())
+    public fun invoke(mayRecurse: Boolean): Unit = g_hook_list_invoke(gPointer, mayRecurse.asGBoolean())
 
     /**
      * Calls all of the #GHook functions in a #GHookList.
@@ -210,8 +210,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invokeCheck(mayRecurse: Boolean): Unit =
-        g_hook_list_invoke_check(gPointer.reinterpret(), mayRecurse.asGBoolean())
+    public fun invokeCheck(mayRecurse: Boolean): Unit = g_hook_list_invoke_check(gPointer, mayRecurse.asGBoolean())
 
     /**
      * Calls a function on each valid #GHook.
@@ -222,7 +221,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param marshaller the function to call for each #GHook
      */
     public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(
-        gPointer.reinterpret(),
+        gPointer,
         mayRecurse.asGBoolean(),
         HookMarshallerFunc.reinterpret(),
         StableRef.create(marshaller).asCPointer()
@@ -238,7 +237,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param marshaller the function to call for each #GHook
      */
     public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(
-        gPointer.reinterpret(),
+        gPointer,
         mayRecurse.asGBoolean(),
         HookCheckMarshallerFunc.reinterpret(),
         StableRef.create(marshaller).asCPointer()

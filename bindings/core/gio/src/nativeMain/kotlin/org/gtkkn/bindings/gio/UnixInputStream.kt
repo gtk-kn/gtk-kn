@@ -60,7 +60,7 @@ public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
          * @return true if the file descriptor is closed when done
          * @since 2.20
          */
-        get() = g_unix_input_stream_get_close_fd(gioUnixInputStreamPointer.reinterpret()).asBoolean()
+        get() = g_unix_input_stream_get_close_fd(gioUnixInputStreamPointer).asBoolean()
 
         /**
          * Sets whether the file descriptor of @stream shall be closed
@@ -70,7 +70,7 @@ public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
          * @since 2.20
          */
         @GioVersion2_20
-        set(closeFd) = g_unix_input_stream_set_close_fd(gioUnixInputStreamPointer.reinterpret(), closeFd.asGBoolean())
+        set(closeFd) = g_unix_input_stream_set_close_fd(gioUnixInputStreamPointer, closeFd.asGBoolean())
 
     /**
      * The file descriptor that the stream reads from.
@@ -85,7 +85,7 @@ public open class UnixInputStream(pointer: CPointer<GUnixInputStream>) :
          * @return The file descriptor of @stream
          * @since 2.20
          */
-        get() = g_unix_input_stream_get_fd(gioUnixInputStreamPointer.reinterpret())
+        get() = g_unix_input_stream_get_fd(gioUnixInputStreamPointer)
 
     /**
      * Creates a new #GUnixInputStream for the given @fd.

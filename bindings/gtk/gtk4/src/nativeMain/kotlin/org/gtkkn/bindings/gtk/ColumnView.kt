@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkColumnView
@@ -155,7 +156,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return The list managing the columns
          */
-        get() = gtk_column_view_get_columns(gtkColumnViewPointer.reinterpret())!!.run {
+        get() = gtk_column_view_get_columns(gtkColumnViewPointer)!!.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -168,7 +169,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return true if rubberband selection is enabled
          */
-        get() = gtk_column_view_get_enable_rubberband(gtkColumnViewPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_get_enable_rubberband(gtkColumnViewPointer).asBoolean()
 
         /**
          * Sets whether selections can be changed by dragging with the mouse.
@@ -177,7 +178,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          */
         set(
             enableRubberband
-        ) = gtk_column_view_set_enable_rubberband(gtkColumnViewPointer.reinterpret(), enableRubberband.asGBoolean())
+        ) = gtk_column_view_set_enable_rubberband(gtkColumnViewPointer, enableRubberband.asGBoolean())
 
     /**
      * Factory for creating header widgets.
@@ -192,8 +193,8 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @return The factory in use
          * @since 4.12
          */
-        get() = gtk_column_view_get_header_factory(gtkColumnViewPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
+        get() = gtk_column_view_get_header_factory(gtkColumnViewPointer)?.run {
+            ListItemFactory(this)
         }
 
         /**
@@ -207,12 +208,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            factory
-        ) = gtk_column_view_set_header_factory(
-            gtkColumnViewPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = gtk_column_view_set_header_factory(gtkColumnViewPointer, factory?.gtkListItemFactoryPointer)
 
     /**
      * Model for the items displayed.
@@ -223,7 +219,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return The model in use
          */
-        get() = gtk_column_view_get_model(gtkColumnViewPointer.reinterpret())?.run {
+        get() = gtk_column_view_get_model(gtkColumnViewPointer)?.run {
             SelectionModel.wrap(reinterpret())
         }
 
@@ -234,7 +230,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @param model the model to use
          */
-        set(model) = gtk_column_view_set_model(gtkColumnViewPointer.reinterpret(), model?.gtkSelectionModelPointer)
+        set(model) = gtk_column_view_set_model(gtkColumnViewPointer, model?.gtkSelectionModelPointer)
 
     /**
      * Whether columns are reorderable.
@@ -245,14 +241,14 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return true if columns are reorderable
          */
-        get() = gtk_column_view_get_reorderable(gtkColumnViewPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_get_reorderable(gtkColumnViewPointer).asBoolean()
 
         /**
          * Sets whether columns should be reorderable by dragging.
          *
          * @param reorderable whether columns should be reorderable
          */
-        set(reorderable) = gtk_column_view_set_reorderable(gtkColumnViewPointer.reinterpret(), reorderable.asGBoolean())
+        set(reorderable) = gtk_column_view_set_reorderable(gtkColumnViewPointer, reorderable.asGBoolean())
 
     /**
      * The factory used for configuring rows.
@@ -267,8 +263,8 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @return The factory
          * @since 4.12
          */
-        get() = gtk_column_view_get_row_factory(gtkColumnViewPointer.reinterpret())?.run {
-            ListItemFactory(reinterpret())
+        get() = gtk_column_view_get_row_factory(gtkColumnViewPointer)?.run {
+            ListItemFactory(this)
         }
 
         /**
@@ -284,12 +280,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            factory
-        ) = gtk_column_view_set_row_factory(
-            gtkColumnViewPointer.reinterpret(),
-            factory?.gtkListItemFactoryPointer?.reinterpret()
-        )
+        set(factory) = gtk_column_view_set_row_factory(gtkColumnViewPointer, factory?.gtkListItemFactoryPointer)
 
     /**
      * Show separators between columns.
@@ -301,7 +292,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return true if the list shows column separators
          */
-        get() = gtk_column_view_get_show_column_separators(gtkColumnViewPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_get_show_column_separators(gtkColumnViewPointer).asBoolean()
 
         /**
          * Sets whether the list should show separators
@@ -311,10 +302,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          */
         set(
             showColumnSeparators
-        ) = gtk_column_view_set_show_column_separators(
-            gtkColumnViewPointer.reinterpret(),
-            showColumnSeparators.asGBoolean()
-        )
+        ) = gtk_column_view_set_show_column_separators(gtkColumnViewPointer, showColumnSeparators.asGBoolean())
 
     /**
      * Show separators between rows.
@@ -326,7 +314,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return true if the list shows separators
          */
-        get() = gtk_column_view_get_show_row_separators(gtkColumnViewPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_get_show_row_separators(gtkColumnViewPointer).asBoolean()
 
         /**
          * Sets whether the list should show separators
@@ -336,7 +324,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          */
         set(
             showRowSeparators
-        ) = gtk_column_view_set_show_row_separators(gtkColumnViewPointer.reinterpret(), showRowSeparators.asGBoolean())
+        ) = gtk_column_view_set_show_row_separators(gtkColumnViewPointer, showRowSeparators.asGBoolean())
 
     /**
      * Activate rows on single click and select them on hover.
@@ -348,7 +336,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return true if rows are activated on single click
          */
-        get() = gtk_column_view_get_single_click_activate(gtkColumnViewPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_get_single_click_activate(gtkColumnViewPointer).asBoolean()
 
         /**
          * Sets whether rows should be activated on single click and
@@ -358,10 +346,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          */
         set(
             singleClickActivate
-        ) = gtk_column_view_set_single_click_activate(
-            gtkColumnViewPointer.reinterpret(),
-            singleClickActivate.asGBoolean()
-        )
+        ) = gtk_column_view_set_single_click_activate(gtkColumnViewPointer, singleClickActivate.asGBoolean())
 
     /**
      * Sorter with the sorting choices of the user.
@@ -390,8 +375,8 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          *
          * @return the `GtkSorter` of @self
          */
-        get() = gtk_column_view_get_sorter(gtkColumnViewPointer.reinterpret())?.run {
-            Sorter(reinterpret())
+        get() = gtk_column_view_get_sorter(gtkColumnViewPointer)?.run {
+            Sorter(this)
         }
 
     /**
@@ -407,7 +392,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @return The behavior of the <kbd>Tab</kbd> key
          * @since 4.12
          */
-        get() = gtk_column_view_get_tab_behavior(gtkColumnViewPointer.reinterpret()).run {
+        get() = gtk_column_view_get_tab_behavior(gtkColumnViewPointer).run {
             ListTabBehavior.fromNativeValue(this)
         }
 
@@ -418,7 +403,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(tabBehavior) = gtk_column_view_set_tab_behavior(gtkColumnViewPointer.reinterpret(), tabBehavior.nativeValue)
+        set(tabBehavior) = gtk_column_view_set_tab_behavior(gtkColumnViewPointer, tabBehavior.nativeValue)
 
     /**
      * Creates a new `GtkColumnView`.
@@ -439,10 +424,8 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      * @param column a `GtkColumnViewColumn` that hasn't been added to a
      *   `GtkColumnView` yet
      */
-    public open fun appendColumn(column: ColumnViewColumn): Unit = gtk_column_view_append_column(
-        gtkColumnViewPointer.reinterpret(),
-        column.gtkColumnViewColumnPointer.reinterpret()
-    )
+    public open fun appendColumn(column: ColumnViewColumn): Unit =
+        gtk_column_view_append_column(gtkColumnViewPointer, column.gtkColumnViewColumnPointer)
 
     /**
      * Inserts a column at the given position in the columns of @self.
@@ -452,21 +435,16 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      * @param position the position to insert @column at
      * @param column the `GtkColumnViewColumn` to insert
      */
-    public open fun insertColumn(position: guint, column: ColumnViewColumn): Unit = gtk_column_view_insert_column(
-        gtkColumnViewPointer.reinterpret(),
-        position,
-        column.gtkColumnViewColumnPointer.reinterpret()
-    )
+    public open fun insertColumn(position: guint, column: ColumnViewColumn): Unit =
+        gtk_column_view_insert_column(gtkColumnViewPointer, position, column.gtkColumnViewColumnPointer)
 
     /**
      * Removes the @column from the list of columns of @self.
      *
      * @param column a `GtkColumnViewColumn` that's part of @self
      */
-    public open fun removeColumn(column: ColumnViewColumn): Unit = gtk_column_view_remove_column(
-        gtkColumnViewPointer.reinterpret(),
-        column.gtkColumnViewColumnPointer.reinterpret()
-    )
+    public open fun removeColumn(column: ColumnViewColumn): Unit =
+        gtk_column_view_remove_column(gtkColumnViewPointer, column.gtkColumnViewColumnPointer)
 
     /**
      * Scroll to the row at the given position - or cell if a column is
@@ -490,11 +468,11 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
         flags: ListScrollFlags,
         scroll: ScrollInfo? = null,
     ): Unit = gtk_column_view_scroll_to(
-        gtkColumnViewPointer.reinterpret(),
+        gtkColumnViewPointer,
         pos,
-        column?.gtkColumnViewColumnPointer?.reinterpret(),
+        column?.gtkColumnViewColumnPointer,
         flags.mask,
-        scroll?.gPointer?.reinterpret()
+        scroll?.gPointer
     )
 
     /**
@@ -515,11 +493,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      * @param direction the direction to sort in
      */
     public open fun sortByColumn(column: ColumnViewColumn? = null, direction: SortType): Unit =
-        gtk_column_view_sort_by_column(
-            gtkColumnViewPointer.reinterpret(),
-            column?.gtkColumnViewColumnPointer?.reinterpret(),
-            direction.nativeValue
-        )
+        gtk_column_view_sort_by_column(gtkColumnViewPointer, column?.gtkColumnViewColumnPointer, direction.nativeValue)
 
     /**
      * Emitted when a row has been activated by the user, usually via activating
@@ -529,20 +503,27 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      * See [method@Gtk.ListItem.set_activatable] for details on how to use this
      * signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` position of item to activate
      */
-    public fun connectActivate(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (position: guint) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "activate",
-        connectActivateFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "activate",
+            onActivateFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     *
+     * @param position position of item to activate
+     */
+    public fun emitActivate(position: guint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate", position)
+    }
 
     public companion object : TypeCompanion<ColumnView> {
         override val type: GeneratedClassKGType<ColumnView> =
@@ -561,7 +542,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         position: guint,
         userData: COpaquePointer,

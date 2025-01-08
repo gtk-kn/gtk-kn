@@ -3,7 +3,6 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
@@ -51,14 +50,14 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
      *
      * @return a copy of @requisition
      */
-    public fun copy(): Requisition = gtk_requisition_copy(gPointer.reinterpret())!!.run {
-        Requisition(reinterpret())
+    public fun copy(): Requisition = gtk_requisition_copy(gPointer)!!.run {
+        Requisition(this)
     }
 
     /**
      * Frees a `GtkRequisition`.
      */
-    public fun free(): Unit = gtk_requisition_free(gPointer.reinterpret())
+    public fun free(): Unit = gtk_requisition_free(gPointer)
 
     override fun toString(): String = "Requisition(width=$width, height=$height)"
 
@@ -72,7 +71,7 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
          *   allocated `GtkRequisition` should be freed with
          *   [method@Gtk.Requisition.free]
          */
-        public fun new(): Requisition = Requisition(gtk_requisition_new()!!.reinterpret())
+        public fun new(): Requisition = Requisition(gtk_requisition_new()!!)
 
         /**
          * Get the GType of Requisition

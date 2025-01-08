@@ -288,7 +288,7 @@ public val MountOperationFactoryFunc:
         ->
         userData.asStableRef<(`file`: File, userdata: gpointer?) -> MountOperation>().get().invoke(
             `file`!!.run {
-                File(reinterpret())
+                File(this)
             },
             userdata
         ).gioMountOperationPointer

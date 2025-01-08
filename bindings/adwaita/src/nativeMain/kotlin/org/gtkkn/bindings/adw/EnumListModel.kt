@@ -42,7 +42,7 @@ public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
          *
          * @return the enum type
          */
-        get() = adw_enum_list_model_get_enum_type(adwEnumListModelPointer.reinterpret())
+        get() = adw_enum_list_model_get_enum_type(adwEnumListModelPointer)
 
     /**
      * Creates a new `AdwEnumListModel` for @enum_type.
@@ -59,8 +59,7 @@ public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
      *
      * @param value an enum value
      */
-    public fun findPosition(`value`: gint): guint =
-        adw_enum_list_model_find_position(adwEnumListModelPointer.reinterpret(), `value`)
+    public fun findPosition(`value`: gint): guint = adw_enum_list_model_find_position(adwEnumListModelPointer, `value`)
 
     public companion object : TypeCompanion<EnumListModel> {
         override val type: GeneratedClassKGType<EnumListModel> =

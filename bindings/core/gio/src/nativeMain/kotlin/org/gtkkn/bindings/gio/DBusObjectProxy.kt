@@ -52,7 +52,7 @@ public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
     public constructor(
         connection: DBusConnection,
         objectPath: String,
-    ) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer.reinterpret(), objectPath)!!.reinterpret())
+    ) : this(g_dbus_object_proxy_new(connection.gioDBusConnectionPointer, objectPath)!!.reinterpret())
 
     /**
      * Gets the connection that @proxy is for.
@@ -63,8 +63,8 @@ public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
      */
     @GioVersion2_30
     public open fun getConnection(): DBusConnection =
-        g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer.reinterpret())!!.run {
-            DBusConnection(reinterpret())
+        g_dbus_object_proxy_get_connection(gioDBusObjectProxyPointer)!!.run {
+            DBusConnection(this)
         }
 
     public companion object : TypeCompanion<DBusObjectProxy> {

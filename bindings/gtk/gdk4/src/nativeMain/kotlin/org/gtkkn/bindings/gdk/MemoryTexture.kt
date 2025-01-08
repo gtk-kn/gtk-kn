@@ -54,9 +54,7 @@ public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
         format: MemoryFormat,
         bytes: Bytes,
         stride: gsize,
-    ) : this(
-        gdk_memory_texture_new(width, height, format.nativeValue, bytes.gPointer.reinterpret(), stride)!!.reinterpret()
-    )
+    ) : this(gdk_memory_texture_new(width, height, format.nativeValue, bytes.gPointer, stride)!!.reinterpret())
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =

@@ -76,7 +76,7 @@ public interface DtlsServerConnection :
                 val gError = allocPointerTo<GError>()
                 val gResult = g_dtls_server_connection_new(
                     baseSocket.gioDatagramBasedPointer,
-                    certificate?.gioTlsCertificatePointer?.reinterpret(),
+                    certificate?.gioTlsCertificatePointer,
                     gError.ptr
                 )?.run {
                     DtlsServerConnection.wrap(reinterpret())

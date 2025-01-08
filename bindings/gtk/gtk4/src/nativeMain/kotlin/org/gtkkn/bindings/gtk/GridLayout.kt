@@ -61,7 +61,7 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
          *
          * @return the global baseline row
          */
-        get() = gtk_grid_layout_get_baseline_row(gtkGridLayoutPointer.reinterpret())
+        get() = gtk_grid_layout_get_baseline_row(gtkGridLayoutPointer)
 
         /**
          * Sets which row defines the global baseline for the entire grid.
@@ -72,7 +72,7 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
          *
          * @param row the row index
          */
-        set(row) = gtk_grid_layout_set_baseline_row(gtkGridLayoutPointer.reinterpret(), row)
+        set(row) = gtk_grid_layout_set_baseline_row(gtkGridLayoutPointer, row)
 
     /**
      * Whether all the columns in the grid have the same width.
@@ -83,16 +83,14 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
          *
          * @return true if the columns are homogeneous, and false otherwise
          */
-        get() = gtk_grid_layout_get_column_homogeneous(gtkGridLayoutPointer.reinterpret()).asBoolean()
+        get() = gtk_grid_layout_get_column_homogeneous(gtkGridLayoutPointer).asBoolean()
 
         /**
          * Sets whether all columns of @grid should have the same width.
          *
          * @param homogeneous true to make columns homogeneous
          */
-        set(
-            homogeneous
-        ) = gtk_grid_layout_set_column_homogeneous(gtkGridLayoutPointer.reinterpret(), homogeneous.asGBoolean())
+        set(homogeneous) = gtk_grid_layout_set_column_homogeneous(gtkGridLayoutPointer, homogeneous.asGBoolean())
 
     /**
      * The amount of space between to consecutive columns.
@@ -103,14 +101,14 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
          *
          * @return the spacing between consecutive columns
          */
-        get() = gtk_grid_layout_get_column_spacing(gtkGridLayoutPointer.reinterpret())
+        get() = gtk_grid_layout_get_column_spacing(gtkGridLayoutPointer)
 
         /**
          * Sets the amount of space to insert between consecutive columns.
          *
          * @param spacing the amount of space between columns, in pixels
          */
-        set(spacing) = gtk_grid_layout_set_column_spacing(gtkGridLayoutPointer.reinterpret(), spacing)
+        set(spacing) = gtk_grid_layout_set_column_spacing(gtkGridLayoutPointer, spacing)
 
     /**
      * Whether all the rows in the grid have the same height.
@@ -121,16 +119,14 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
          *
          * @return true if the rows are homogeneous, and false otherwise
          */
-        get() = gtk_grid_layout_get_row_homogeneous(gtkGridLayoutPointer.reinterpret()).asBoolean()
+        get() = gtk_grid_layout_get_row_homogeneous(gtkGridLayoutPointer).asBoolean()
 
         /**
          * Sets whether all rows of @grid should have the same height.
          *
          * @param homogeneous true to make rows homogeneous
          */
-        set(
-            homogeneous
-        ) = gtk_grid_layout_set_row_homogeneous(gtkGridLayoutPointer.reinterpret(), homogeneous.asGBoolean())
+        set(homogeneous) = gtk_grid_layout_set_row_homogeneous(gtkGridLayoutPointer, homogeneous.asGBoolean())
 
     /**
      * The amount of space between to consecutive rows.
@@ -141,14 +137,14 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
          *
          * @return the spacing between consecutive rows
          */
-        get() = gtk_grid_layout_get_row_spacing(gtkGridLayoutPointer.reinterpret())
+        get() = gtk_grid_layout_get_row_spacing(gtkGridLayoutPointer)
 
         /**
          * Sets the amount of space to insert between consecutive rows.
          *
          * @param spacing the amount of space between rows, in pixels
          */
-        set(spacing) = gtk_grid_layout_set_row_spacing(gtkGridLayoutPointer.reinterpret(), spacing)
+        set(spacing) = gtk_grid_layout_set_row_spacing(gtkGridLayoutPointer, spacing)
 
     /**
      * Creates a new `GtkGridLayout`.
@@ -169,7 +165,7 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
      * @return the baseline position of @row
      */
     public open fun getRowBaselinePosition(row: gint): BaselinePosition =
-        gtk_grid_layout_get_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row).run {
+        gtk_grid_layout_get_row_baseline_position(gtkGridLayoutPointer, row).run {
             BaselinePosition.fromNativeValue(this)
         }
 
@@ -181,7 +177,7 @@ public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
      * @param pos a `GtkBaselinePosition`
      */
     public open fun setRowBaselinePosition(row: gint, pos: BaselinePosition): Unit =
-        gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer.reinterpret(), row, pos.nativeValue)
+        gtk_grid_layout_set_row_baseline_position(gtkGridLayoutPointer, row, pos.nativeValue)
 
     public companion object : TypeCompanion<GridLayout> {
         override val type: GeneratedClassKGType<GridLayout> =

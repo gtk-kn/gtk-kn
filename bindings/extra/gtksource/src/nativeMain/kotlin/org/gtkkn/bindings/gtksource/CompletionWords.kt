@@ -56,20 +56,16 @@ public open class CompletionWords(pointer: CPointer<GtkSourceCompletionWords>) :
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun register(buffer: TextBuffer): Unit = gtk_source_completion_words_register(
-        gtksourceCompletionWordsPointer.reinterpret(),
-        buffer.gtkTextBufferPointer.reinterpret()
-    )
+    public open fun register(buffer: TextBuffer): Unit =
+        gtk_source_completion_words_register(gtksourceCompletionWordsPointer, buffer.gtkTextBufferPointer)
 
     /**
      * Unregisters @buffer from the @words provider.
      *
      * @param buffer a #GtkTextBuffer
      */
-    public open fun unregister(buffer: TextBuffer): Unit = gtk_source_completion_words_unregister(
-        gtksourceCompletionWordsPointer.reinterpret(),
-        buffer.gtkTextBufferPointer.reinterpret()
-    )
+    public open fun unregister(buffer: TextBuffer): Unit =
+        gtk_source_completion_words_unregister(gtksourceCompletionWordsPointer, buffer.gtkTextBufferPointer)
 
     public companion object : TypeCompanion<CompletionWords> {
         override val type: GeneratedClassKGType<CompletionWords> =

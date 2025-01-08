@@ -56,8 +56,7 @@ public interface AppChooser :
          *
          * @return the content type of @self. Free with g_free()
          */
-        get() = gtk_app_chooser_get_content_type(gtkAppChooserPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the currently selected application.
@@ -65,7 +64,7 @@ public interface AppChooser :
      * @return a `GAppInfo` for the
      *   currently selected application
      */
-    public fun getAppInfo(): AppInfo? = gtk_app_chooser_get_app_info(gtkAppChooserPointer.reinterpret())?.run {
+    public fun getAppInfo(): AppInfo? = gtk_app_chooser_get_app_info(gtkAppChooserPointer)?.run {
         AppInfo.wrap(reinterpret())
     }
 
@@ -76,13 +75,12 @@ public interface AppChooser :
      * @return the content type of @self. Free with g_free()
      */
     public fun getContentType(): String =
-        gtk_app_chooser_get_content_type(gtkAppChooserPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_app_chooser_get_content_type(gtkAppChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Reloads the list of applications.
      */
-    public fun refresh(): Unit = gtk_app_chooser_refresh(gtkAppChooserPointer.reinterpret())
+    public fun refresh(): Unit = gtk_app_chooser_refresh(gtkAppChooserPointer)
 
     private data class Wrapper(private val pointer: CPointer<GtkAppChooser>) : AppChooser {
         override val gtkAppChooserPointer: CPointer<GtkAppChooser> = pointer

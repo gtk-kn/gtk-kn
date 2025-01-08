@@ -43,7 +43,7 @@ public interface DragSurface :
      * @return false if it failed to be presented, otherwise true.
      */
     public fun present(width: gint, height: gint): Boolean =
-        gdk_drag_surface_present(gdkDragSurfacePointer.reinterpret(), width, height).asBoolean()
+        gdk_drag_surface_present(gdkDragSurfacePointer, width, height).asBoolean()
 
     /**
      * Emitted when the size for the surface needs to be computed, when it is
@@ -60,18 +60,18 @@ public interface DragSurface :
      * Failing to set a size so will result in an arbitrary size being used as
      * a result.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `size` the size of the drag surface
      * @since 4.12
      */
     @GdkVersion4_12
-    public fun connectComputeSize(
+    public fun onComputeSize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (size: DragSurfaceSize) -> Unit,
     ): ULong = g_signal_connect_data(
-        gdkDragSurfacePointer.reinterpret(),
+        gdkDragSurfacePointer,
         "compute-size",
-        connectComputeSizeFunc.reinterpret(),
+        onComputeSizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -100,7 +100,7 @@ public interface DragSurface :
     }
 }
 
-private val connectComputeSizeFunc: CPointer<CFunction<(CPointer<GdkDragSurfaceSize>) -> Unit>> =
+private val onComputeSizeFunc: CPointer<CFunction<(CPointer<GdkDragSurfaceSize>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             size: CPointer<GdkDragSurfaceSize>?,
@@ -108,7 +108,7 @@ private val connectComputeSizeFunc: CPointer<CFunction<(CPointer<GdkDragSurfaceS
         ->
         userData.asStableRef<(size: DragSurfaceSize) -> Unit>().get().invoke(
             size!!.run {
-                DragSurfaceSize(reinterpret())
+                DragSurfaceSize(this)
             }
         )
     }

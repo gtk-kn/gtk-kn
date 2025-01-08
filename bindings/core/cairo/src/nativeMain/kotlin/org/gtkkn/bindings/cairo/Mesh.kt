@@ -42,24 +42,22 @@ public open class Mesh(pointer: CPointer<cairo_pattern_t>) :
 
     public constructor() : this(cairo_pattern_create_mesh()!!.reinterpret())
 
-    public open fun beginPatch(): Unit = cairo_mesh_pattern_begin_patch(cairoMeshPointer.reinterpret())
+    public open fun beginPatch(): Unit = cairo_mesh_pattern_begin_patch(cairoMeshPointer)
 
-    public open fun endPatch(): Unit = cairo_mesh_pattern_end_patch(cairoMeshPointer.reinterpret())
+    public open fun endPatch(): Unit = cairo_mesh_pattern_end_patch(cairoMeshPointer)
 
-    public open fun moveTo(x: gdouble, y: gdouble): Unit =
-        cairo_mesh_pattern_move_to(cairoMeshPointer.reinterpret(), x, y)
+    public open fun moveTo(x: gdouble, y: gdouble): Unit = cairo_mesh_pattern_move_to(cairoMeshPointer, x, y)
 
-    public open fun lineTo(x: gdouble, y: gdouble): Unit =
-        cairo_mesh_pattern_line_to(cairoMeshPointer.reinterpret(), x, y)
+    public open fun lineTo(x: gdouble, y: gdouble): Unit = cairo_mesh_pattern_line_to(cairoMeshPointer, x, y)
 
     public open fun curveTo(x1: gdouble, y1: gdouble, x2: gdouble, y2: gdouble, x3: gdouble, y3: gdouble): Unit =
-        cairo_mesh_pattern_curve_to(cairoMeshPointer.reinterpret(), x1, y1, x2, y2, x3, y3)
+        cairo_mesh_pattern_curve_to(cairoMeshPointer, x1, y1, x2, y2, x3, y3)
 
     public open fun setControlPoint(pointNum: guint, x: gdouble, y: gdouble): Unit =
-        cairo_mesh_pattern_set_control_point(cairoMeshPointer.reinterpret(), pointNum, x, y)
+        cairo_mesh_pattern_set_control_point(cairoMeshPointer, pointNum, x, y)
 
     public open fun setCornerColorRgb(cornerNum: guint, red: gdouble, green: gdouble, blue: gdouble): Unit =
-        cairo_mesh_pattern_set_corner_color_rgb(cairoMeshPointer.reinterpret(), cornerNum, red, green, blue)
+        cairo_mesh_pattern_set_corner_color_rgb(cairoMeshPointer, cornerNum, red, green, blue)
 
     public open fun setCornerColorRgba(
         cornerNum: guint,
@@ -67,13 +65,11 @@ public open class Mesh(pointer: CPointer<cairo_pattern_t>) :
         green: gdouble,
         blue: gdouble,
         alpha: gdouble,
-    ): Unit =
-        cairo_mesh_pattern_set_corner_color_rgba(cairoMeshPointer.reinterpret(), cornerNum, red, green, blue, alpha)
+    ): Unit = cairo_mesh_pattern_set_corner_color_rgba(cairoMeshPointer, cornerNum, red, green, blue, alpha)
 
-    public open fun getPath(patchNum: guint): Path =
-        cairo_mesh_pattern_get_path(cairoMeshPointer.reinterpret(), patchNum)!!.run {
-            Path(reinterpret())
-        }
+    public open fun getPath(patchNum: guint): Path = cairo_mesh_pattern_get_path(cairoMeshPointer, patchNum)!!.run {
+        Path(this)
+    }
 
     public companion object : TypeCompanion<Mesh> {
         override val type: GeneratedClassKGType<Mesh> =

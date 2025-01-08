@@ -76,8 +76,8 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @return the #GtkSourceBuffer to save.
          */
-        get() = gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
+        get() = gtk_source_file_saver_get_buffer(gtksourceFileSaverPointer)!!.run {
+            Buffer(this)
         }
 
     /**
@@ -89,7 +89,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @return the compression type.
          */
-        get() = gtk_source_file_saver_get_compression_type(gtksourceFileSaverPointer.reinterpret()).run {
+        get() = gtk_source_file_saver_get_compression_type(gtksourceFileSaverPointer).run {
             CompressionType.fromNativeValue(this)
         }
 
@@ -101,10 +101,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          */
         set(
             compressionType
-        ) = gtk_source_file_saver_set_compression_type(
-            gtksourceFileSaverPointer.reinterpret(),
-            compressionType.nativeValue
-        )
+        ) = gtk_source_file_saver_set_compression_type(gtksourceFileSaverPointer, compressionType.nativeValue)
 
     /**
      * The #GtkSourceFile. The #GtkSourceFileSaver object has a weak
@@ -116,8 +113,8 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @return the #GtkSourceFile.
          */
-        get() = gtk_source_file_saver_get_file(gtksourceFileSaverPointer.reinterpret())!!.run {
-            File(reinterpret())
+        get() = gtk_source_file_saver_get_file(gtksourceFileSaverPointer)!!.run {
+            File(this)
         }
 
     /**
@@ -129,7 +126,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @return the flags.
          */
-        get() = gtk_source_file_saver_get_flags(gtksourceFileSaverPointer.reinterpret()).run {
+        get() = gtk_source_file_saver_get_flags(gtksourceFileSaverPointer).run {
             FileSaverFlags(this)
         }
 
@@ -138,7 +135,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @param flags the new flags.
          */
-        set(flags) = gtk_source_file_saver_set_flags(gtksourceFileSaverPointer.reinterpret(), flags.mask)
+        set(flags) = gtk_source_file_saver_set_flags(gtksourceFileSaverPointer, flags.mask)
 
     /**
      * The #GFile where to save the buffer. By default the location is taken
@@ -150,7 +147,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @return the #GFile where to save the buffer to.
          */
-        get() = gtk_source_file_saver_get_location(gtksourceFileSaverPointer.reinterpret())!!.run {
+        get() = gtk_source_file_saver_get_location(gtksourceFileSaverPointer)!!.run {
             org.gtkkn.bindings.gio.File.wrap(reinterpret())
         }
 
@@ -163,7 +160,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @return the newline type.
          */
-        get() = gtk_source_file_saver_get_newline_type(gtksourceFileSaverPointer.reinterpret()).run {
+        get() = gtk_source_file_saver_get_newline_type(gtksourceFileSaverPointer).run {
             NewlineType.fromNativeValue(this)
         }
 
@@ -173,9 +170,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          *
          * @param newlineType the new newline type.
          */
-        set(
-            newlineType
-        ) = gtk_source_file_saver_set_newline_type(gtksourceFileSaverPointer.reinterpret(), newlineType.nativeValue)
+        set(newlineType) = gtk_source_file_saver_set_newline_type(gtksourceFileSaverPointer, newlineType.nativeValue)
 
     /**
      * Creates a new #GtkSourceFileSaver object. The @buffer will be saved to the
@@ -191,12 +186,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
     public constructor(
         buffer: Buffer,
         `file`: File,
-    ) : this(
-        gtk_source_file_saver_new(
-            buffer.gtksourceBufferPointer.reinterpret(),
-            `file`.gtksourceFilePointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gtk_source_file_saver_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!.reinterpret())
 
     /**
      * Creates a new #GtkSourceFileSaver object with a target location.
@@ -219,8 +209,8 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
         targetLocation: org.gtkkn.bindings.gio.File,
     ) : this(
         gtk_source_file_saver_new_with_target(
-            buffer.gtksourceBufferPointer.reinterpret(),
-            `file`.gtksourceFilePointer.reinterpret(),
+            buffer.gtksourceBufferPointer,
+            `file`.gtksourceFilePointer,
             targetLocation.gioFilePointer
         )!!.reinterpret()
     )
@@ -230,10 +220,9 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
      *
      * @return the encoding.
      */
-    public open fun getEncoding(): Encoding =
-        gtk_source_file_saver_get_encoding(gtksourceFileSaverPointer.reinterpret())!!.run {
-            Encoding(reinterpret())
-        }
+    public open fun getEncoding(): Encoding = gtk_source_file_saver_get_encoding(gtksourceFileSaverPointer)!!.run {
+        Encoding(this)
+    }
 
     /**
      * Saves asynchronously the buffer into the file.
@@ -254,9 +243,9 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
         progressCallback: FileProgressCallback?,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_file_saver_save_async(
-        gtksourceFileSaverPointer.reinterpret(),
+        gtksourceFileSaverPointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         progressCallback?.let {
             FileProgressCallbackFunc.reinterpret()
         },
@@ -288,7 +277,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
     public open fun saveFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_file_saver_save_finish(
-            gtksourceFileSaverPointer.reinterpret(),
+            gtksourceFileSaverPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -307,7 +296,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
      * @param encoding the new encoding, or null for UTF-8.
      */
     public open fun setEncoding(encoding: Encoding? = null): Unit =
-        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer.reinterpret(), encoding?.gPointer?.reinterpret())
+        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer, encoding?.gPointer)
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =

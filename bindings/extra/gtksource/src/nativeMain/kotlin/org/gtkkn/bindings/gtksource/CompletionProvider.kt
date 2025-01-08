@@ -77,8 +77,8 @@ public interface CompletionProvider :
      */
     public fun activate(context: CompletionContext, proposal: CompletionProposal): Unit =
         gtk_source_completion_provider_activate(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            context.gtksourceCompletionContextPointer.reinterpret(),
+            gtksourceCompletionProviderPointer,
+            context.gtksourceCompletionContextPointer,
             proposal.gtksourceCompletionProposalPointer
         )
 
@@ -98,10 +98,10 @@ public interface CompletionProvider :
      */
     public fun display(context: CompletionContext, proposal: CompletionProposal, cell: CompletionCell): Unit =
         gtk_source_completion_provider_display(
-            gtksourceCompletionProviderPointer.reinterpret(),
-            context.gtksourceCompletionContextPointer.reinterpret(),
+            gtksourceCompletionProviderPointer,
+            context.gtksourceCompletionContextPointer,
             proposal.gtksourceCompletionProposalPointer,
-            cell.gtksourceCompletionCellPointer.reinterpret()
+            cell.gtksourceCompletionCellPointer
         )
 
     /**
@@ -116,8 +116,8 @@ public interface CompletionProvider :
      * @param context a #GtkSourceCompletionContext
      */
     public fun getPriority(context: CompletionContext): gint = gtk_source_completion_provider_get_priority(
-        gtksourceCompletionProviderPointer.reinterpret(),
-        context.gtksourceCompletionContextPointer.reinterpret()
+        gtksourceCompletionProviderPointer,
+        context.gtksourceCompletionContextPointer
     )
 
     /**
@@ -129,7 +129,7 @@ public interface CompletionProvider :
      * @return a title for the provider or null
      */
     public fun getTitle(): String? =
-        gtk_source_completion_provider_get_title(gtksourceCompletionProviderPointer.reinterpret())?.toKString()
+        gtk_source_completion_provider_get_title(gtksourceCompletionProviderPointer)?.toKString()
 
     /**
      * This function is used to determine if a character inserted into the text
@@ -145,11 +145,8 @@ public interface CompletionProvider :
      * @param iter a #GtkTextIter
      * @param ch a #gunichar of the character inserted
      */
-    public fun isTrigger(iter: TextIter, ch: gunichar): Boolean = gtk_source_completion_provider_is_trigger(
-        gtksourceCompletionProviderPointer.reinterpret(),
-        iter.gPointer.reinterpret(),
-        ch
-    ).asBoolean()
+    public fun isTrigger(iter: TextIter, ch: gunichar): Boolean =
+        gtk_source_completion_provider_is_trigger(gtksourceCompletionProviderPointer, iter.gPointer, ch).asBoolean()
 
     /**
      * This function is used to determine if a key typed by the user should
@@ -170,8 +167,8 @@ public interface CompletionProvider :
         keyval: guint,
         state: ModifierType,
     ): Boolean = gtk_source_completion_provider_key_activates(
-        gtksourceCompletionProviderPointer.reinterpret(),
-        context.gtksourceCompletionContextPointer.reinterpret(),
+        gtksourceCompletionProviderPointer,
+        context.gtksourceCompletionContextPointer,
         proposal.gtksourceCompletionProposalPointer,
         keyval,
         state.mask
@@ -195,9 +192,9 @@ public interface CompletionProvider :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_completion_provider_populate_async(
-        gtksourceCompletionProviderPointer.reinterpret(),
-        context.gtksourceCompletionContextPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gtksourceCompletionProviderPointer,
+        context.gtksourceCompletionContextPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -213,7 +210,7 @@ public interface CompletionProvider :
     public fun populateFinish(result: AsyncResult): Result<ListModel> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_completion_provider_populate_finish(
-            gtksourceCompletionProviderPointer.reinterpret(),
+            gtksourceCompletionProviderPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
@@ -239,8 +236,8 @@ public interface CompletionProvider :
      * @param model a #GListModel
      */
     public fun refilter(context: CompletionContext, model: ListModel): Unit = gtk_source_completion_provider_refilter(
-        gtksourceCompletionProviderPointer.reinterpret(),
-        context.gtksourceCompletionContextPointer.reinterpret(),
+        gtksourceCompletionProviderPointer,
+        context.gtksourceCompletionContextPointer,
         model.gioListModelPointer
     )
 

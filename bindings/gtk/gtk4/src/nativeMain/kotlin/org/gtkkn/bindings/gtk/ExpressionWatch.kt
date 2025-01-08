@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -35,16 +34,15 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInsta
      * @param value an empty `GValue` to be set
      * @return `TRUE` if the expression could be evaluated and `value` was set
      */
-    public fun evaluate(`value`: Value): Boolean =
-        gtk_expression_watch_evaluate(gPointer.reinterpret(), `value`.gPointer.reinterpret()).asBoolean()
+    public fun evaluate(`value`: Value): Boolean = gtk_expression_watch_evaluate(gPointer, `value`.gPointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpressionWatch`.
      *
      * @return the `GtkExpressionWatch` with an additional reference
      */
-    public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gPointer.reinterpret())!!.run {
-        ExpressionWatch(reinterpret())
+    public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gPointer)!!.run {
+        ExpressionWatch(this)
     }
 
     /**
@@ -53,7 +51,7 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInsta
      * If the reference was the last, the resources associated to `self` are
      * freed.
      */
-    public fun unref(): Unit = gtk_expression_watch_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gtk_expression_watch_unref(gPointer)
 
     /**
      * Stops watching an expression.
@@ -61,7 +59,7 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInsta
      * See [method@Gtk.Expression.watch] for how the watch
      * was established.
      */
-    public fun unwatch(): Unit = gtk_expression_watch_unwatch(gPointer.reinterpret())
+    public fun unwatch(): Unit = gtk_expression_watch_unwatch(gPointer)
 
     public companion object {
         /**

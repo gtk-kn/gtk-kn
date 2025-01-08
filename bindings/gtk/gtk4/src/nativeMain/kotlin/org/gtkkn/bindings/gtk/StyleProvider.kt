@@ -40,14 +40,14 @@ public interface StyleProvider :
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGtkPrivateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onGtkPrivateChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gtkStyleProviderPointer.reinterpret(),
+            gtkStyleProviderPointer,
             "gtk-private-changed",
-            connectGtkPrivateChangedFunc.reinterpret(),
+            onGtkPrivateChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -76,7 +76,7 @@ public interface StyleProvider :
     }
 }
 
-private val connectGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onGtkPrivateChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -95,8 +95,8 @@ public open class Fixed(pointer: CPointer<GtkFixed>) :
      * @return a `GskTransform`
      */
     public open fun getChildTransform(widget: Widget): Transform? =
-        gtk_fixed_get_child_transform(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())?.run {
-            Transform(reinterpret())
+        gtk_fixed_get_child_transform(gtkFixedPointer, widget.gtkWidgetPointer)?.run {
+            Transform(this)
         }
 
     /**
@@ -108,7 +108,7 @@ public open class Fixed(pointer: CPointer<GtkFixed>) :
      * @param y the vertical position to move the widget to
      */
     public open fun move(widget: Widget, x: gdouble, y: gdouble): Unit =
-        gtk_fixed_move(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), x, y)
+        gtk_fixed_move(gtkFixedPointer, widget.gtkWidgetPointer, x, y)
 
     /**
      * Adds a widget to a `GtkFixed` at the given position.
@@ -118,15 +118,14 @@ public open class Fixed(pointer: CPointer<GtkFixed>) :
      * @param y the vertical position to place the widget at
      */
     public open fun put(widget: Widget, x: gdouble, y: gdouble): Unit =
-        gtk_fixed_put(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret(), x, y)
+        gtk_fixed_put(gtkFixedPointer, widget.gtkWidgetPointer, x, y)
 
     /**
      * Removes a child from @fixed.
      *
      * @param widget the child widget to remove
      */
-    public open fun remove(widget: Widget): Unit =
-        gtk_fixed_remove(gtkFixedPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun remove(widget: Widget): Unit = gtk_fixed_remove(gtkFixedPointer, widget.gtkWidgetPointer)
 
     /**
      * Sets the transformation for @widget.
@@ -140,11 +139,7 @@ public open class Fixed(pointer: CPointer<GtkFixed>) :
      *   to reset @widget's transform
      */
     public open fun setChildTransform(widget: Widget, transform: Transform? = null): Unit =
-        gtk_fixed_set_child_transform(
-            gtkFixedPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            transform?.gPointer?.reinterpret()
-        )
+        gtk_fixed_set_child_transform(gtkFixedPointer, widget.gtkWidgetPointer, transform?.gPointer)
 
     public companion object : TypeCompanion<Fixed> {
         override val type: GeneratedClassKGType<Fixed> =

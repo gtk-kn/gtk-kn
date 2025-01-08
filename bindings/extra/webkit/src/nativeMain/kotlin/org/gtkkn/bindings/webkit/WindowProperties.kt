@@ -98,7 +98,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if the window should be fullscreen or false otherwise.
          */
-        get() = webkit_window_properties_get_fullscreen(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+        get() = webkit_window_properties_get_fullscreen(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Whether the locationbar should be visible for the window.
@@ -109,9 +109,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if locationbar should be visible or false otherwise.
          */
-        get() = webkit_window_properties_get_locationbar_visible(
-            webkitWindowPropertiesPointer.reinterpret()
-        ).asBoolean()
+        get() = webkit_window_properties_get_locationbar_visible(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Whether the menubar should be visible for the window.
@@ -122,7 +120,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if menubar should be visible or false otherwise.
          */
-        get() = webkit_window_properties_get_menubar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+        get() = webkit_window_properties_get_menubar_visible(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Whether the window can be resized.
@@ -133,7 +131,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if the window should be resizable or false otherwise.
          */
-        get() = webkit_window_properties_get_resizable(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+        get() = webkit_window_properties_get_resizable(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Whether the scrollbars should be visible for the window.
@@ -144,7 +142,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if scrollbars should be visible or false otherwise.
          */
-        get() = webkit_window_properties_get_scrollbars_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+        get() = webkit_window_properties_get_scrollbars_visible(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Whether the statusbar should be visible for the window.
@@ -155,7 +153,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if statusbar should be visible or false otherwise.
          */
-        get() = webkit_window_properties_get_statusbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+        get() = webkit_window_properties_get_statusbar_visible(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Whether the toolbar should be visible for the window.
@@ -166,17 +164,15 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
          *
          * @return true if toolbar should be visible or false otherwise.
          */
-        get() = webkit_window_properties_get_toolbar_visible(webkitWindowPropertiesPointer.reinterpret()).asBoolean()
+        get() = webkit_window_properties_get_toolbar_visible(webkitWindowPropertiesPointer).asBoolean()
 
     /**
      * Get the geometry the window should have on the screen when shown.
      *
      * @param geometry return location for the window geometry
      */
-    public fun getGeometry(geometry: Rectangle): Unit = webkit_window_properties_get_geometry(
-        webkitWindowPropertiesPointer.reinterpret(),
-        geometry.gPointer.reinterpret()
-    )
+    public fun getGeometry(geometry: Rectangle): Unit =
+        webkit_window_properties_get_geometry(webkitWindowPropertiesPointer, geometry.gPointer)
 
     public companion object : TypeCompanion<WindowProperties> {
         override val type: GeneratedClassKGType<WindowProperties> =

@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_12
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
@@ -219,8 +218,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun concat(newMatrix: Matrix): Unit =
-        pango_matrix_concat(gPointer.reinterpret(), newMatrix.gPointer.reinterpret())
+    public fun concat(newMatrix: Matrix): Unit = pango_matrix_concat(gPointer, newMatrix.gPointer)
 
     /**
      * Copies a `PangoMatrix`.
@@ -229,8 +227,8 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun copy(): Matrix? = pango_matrix_copy(gPointer.reinterpret())?.run {
-        Matrix(reinterpret())
+    public fun copy(): Matrix? = pango_matrix_copy(gPointer)?.run {
+        Matrix(this)
     }
 
     /**
@@ -239,7 +237,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun free(): Unit = pango_matrix_free(gPointer.reinterpret())
+    public fun free(): Unit = pango_matrix_free(gPointer)
 
     /**
      * Returns the scale factor of a matrix on the height of the font.
@@ -253,7 +251,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.12
      */
     @PangoVersion1_12
-    public fun getFontScaleFactor(): gdouble = pango_matrix_get_font_scale_factor(gPointer.reinterpret())
+    public fun getFontScaleFactor(): gdouble = pango_matrix_get_font_scale_factor(gPointer)
 
     /**
      * Gets the slant ratio of a matrix.
@@ -269,7 +267,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getSlantRatio(): gdouble = pango_matrix_get_slant_ratio(gPointer.reinterpret())
+    public fun getSlantRatio(): gdouble = pango_matrix_get_slant_ratio(gPointer)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -280,7 +278,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun rotate(degrees: gdouble): Unit = pango_matrix_rotate(gPointer.reinterpret(), degrees)
+    public fun rotate(degrees: gdouble): Unit = pango_matrix_rotate(gPointer, degrees)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -293,8 +291,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit =
-        pango_matrix_scale(gPointer.reinterpret(), scaleX, scaleY)
+    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit = pango_matrix_scale(gPointer, scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -306,7 +303,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(tx: gdouble, ty: gdouble): Unit = pango_matrix_translate(gPointer.reinterpret(), tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit = pango_matrix_translate(gPointer, tx, ty)
 
     override fun toString(): String = "Matrix(xx=$xx, xy=$xy, yx=$yx, yy=$yy, x0=$x0, y0=$y0)"
 

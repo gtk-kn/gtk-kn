@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -55,8 +54,8 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun copy(): Hmac = g_hmac_copy(gPointer.reinterpret())!!.run {
-        Hmac(reinterpret())
+    public fun copy(): Hmac = g_hmac_copy(gPointer)!!.run {
+        Hmac(this)
     }
 
     /**
@@ -73,8 +72,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun getString(): String =
-        g_hmac_get_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_hmac_get_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically increments the reference count of @hmac by one.
@@ -85,8 +83,8 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun ref(): Hmac = g_hmac_ref(gPointer.reinterpret())!!.run {
-        Hmac(reinterpret())
+    public fun ref(): Hmac = g_hmac_ref(gPointer)!!.run {
+        Hmac(this)
     }
 
     /**
@@ -100,7 +98,7 @@ public class Hmac(pointer: CPointer<GHmac>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unref(): Unit = g_hmac_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_hmac_unref(gPointer)
 
     public companion object {
         /**

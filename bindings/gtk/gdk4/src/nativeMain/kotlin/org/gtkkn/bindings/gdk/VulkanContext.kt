@@ -19,6 +19,7 @@ import org.gtkkn.native.gdk.gdk_vulkan_context_get_type
 import org.gtkkn.native.gio.GInitable
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.ULong
 import kotlin.Unit
 
@@ -49,18 +50,25 @@ public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
      * Usually this means that the swapchain had to be recreated,
      * for example in response to a change of the surface size.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "images-updated",
-            connectImagesUpdatedFunc.reinterpret(),
+            onImagesUpdatedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "images-updated" signal. See [onImagesUpdated].
+     */
+    public fun emitImagesUpdated() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "images-updated")
+    }
 
     public companion object : TypeCompanion<VulkanContext> {
         override val type: GeneratedClassKGType<VulkanContext> =
@@ -79,7 +87,7 @@ public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
     }
 }
 
-private val connectImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onImagesUpdatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

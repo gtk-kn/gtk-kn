@@ -69,8 +69,7 @@ public open class TextChildAnchor(pointer: CPointer<GtkTextChildAnchor>) :
      *
      * @return true if the child anchor has been deleted from its buffer
      */
-    public open fun getDeleted(): Boolean =
-        gtk_text_child_anchor_get_deleted(gtkTextChildAnchorPointer.reinterpret()).asBoolean()
+    public open fun getDeleted(): Boolean = gtk_text_child_anchor_get_deleted(gtkTextChildAnchorPointer).asBoolean()
 
     public companion object : TypeCompanion<TextChildAnchor> {
         override val type: GeneratedClassKGType<TextChildAnchor> =

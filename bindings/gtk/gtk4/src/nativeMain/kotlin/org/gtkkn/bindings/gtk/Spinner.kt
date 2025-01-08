@@ -63,14 +63,14 @@ public open class Spinner(pointer: CPointer<GtkSpinner>) :
          *
          * @return true if the spinner is active
          */
-        get() = gtk_spinner_get_spinning(gtkSpinnerPointer.reinterpret()).asBoolean()
+        get() = gtk_spinner_get_spinning(gtkSpinnerPointer).asBoolean()
 
         /**
          * Sets the activity of the spinner.
          *
          * @param spinning whether the spinner should be spinning
          */
-        set(spinning) = gtk_spinner_set_spinning(gtkSpinnerPointer.reinterpret(), spinning.asGBoolean())
+        set(spinning) = gtk_spinner_set_spinning(gtkSpinnerPointer, spinning.asGBoolean())
 
     /**
      * Returns a new spinner widget. Not yet started.
@@ -82,12 +82,12 @@ public open class Spinner(pointer: CPointer<GtkSpinner>) :
     /**
      * Starts the animation of the spinner.
      */
-    public open fun start(): Unit = gtk_spinner_start(gtkSpinnerPointer.reinterpret())
+    public open fun start(): Unit = gtk_spinner_start(gtkSpinnerPointer)
 
     /**
      * Stops the animation of the spinner.
      */
-    public open fun stop(): Unit = gtk_spinner_stop(gtkSpinnerPointer.reinterpret())
+    public open fun stop(): Unit = gtk_spinner_stop(gtkSpinnerPointer)
 
     public companion object : TypeCompanion<Spinner> {
         override val type: GeneratedClassKGType<Spinner> =

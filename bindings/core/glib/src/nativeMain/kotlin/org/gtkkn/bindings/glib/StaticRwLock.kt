@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.glib.GStaticRWLock
@@ -140,14 +139,14 @@ public class StaticRwLock(pointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = 
      * a #GStaticRWLock as a member of a structure, and the structure is
      * freed, you should also free the #GStaticRWLock.
      */
-    public fun free(): Unit = g_static_rw_lock_free(gPointer.reinterpret())
+    public fun free(): Unit = g_static_rw_lock_free(gPointer)
 
     /**
      * A #GStaticRWLock must be initialized with this function before it
      * can be used. Alternatively you can initialize it with
      * %G_STATIC_RW_LOCK_INIT.
      */
-    public fun `init`(): Unit = g_static_rw_lock_init(gPointer.reinterpret())
+    public fun `init`(): Unit = g_static_rw_lock_init(gPointer)
 
     /**
      * Locks @lock for reading. There may be unlimited concurrent locks for
@@ -162,7 +161,7 @@ public class StaticRwLock(pointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = 
      * recursively lock for reading, but that can result in a deadlock, due
      * to writer preference.
      */
-    public fun readerLock(): Unit = g_static_rw_lock_reader_lock(gPointer.reinterpret())
+    public fun readerLock(): Unit = g_static_rw_lock_reader_lock(gPointer)
 
     /**
      * Tries to lock @lock for reading. If @lock is already locked for
@@ -173,14 +172,14 @@ public class StaticRwLock(pointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = 
      *
      * @return true, if @lock could be locked for reading
      */
-    public fun readerTrylock(): Boolean = g_static_rw_lock_reader_trylock(gPointer.reinterpret()).asBoolean()
+    public fun readerTrylock(): Boolean = g_static_rw_lock_reader_trylock(gPointer).asBoolean()
 
     /**
      * Unlocks @lock. If a thread waits to lock @lock for writing and all
      * locks for reading have been unlocked, the waiting thread is woken up
      * and can lock @lock for writing.
      */
-    public fun readerUnlock(): Unit = g_static_rw_lock_reader_unlock(gPointer.reinterpret())
+    public fun readerUnlock(): Unit = g_static_rw_lock_reader_unlock(gPointer)
 
     /**
      * Locks @lock for writing. If @lock is already locked for writing or
@@ -191,7 +190,7 @@ public class StaticRwLock(pointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = 
      * @lock (neither for reading nor writing). This lock has to be
      * unlocked by g_static_rw_lock_writer_unlock().
      */
-    public fun writerLock(): Unit = g_static_rw_lock_writer_lock(gPointer.reinterpret())
+    public fun writerLock(): Unit = g_static_rw_lock_writer_lock(gPointer)
 
     /**
      * Tries to lock @lock for writing. If @lock is already locked (for
@@ -201,7 +200,7 @@ public class StaticRwLock(pointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = 
      *
      * @return true, if @lock could be locked for writing
      */
-    public fun writerTrylock(): Boolean = g_static_rw_lock_writer_trylock(gPointer.reinterpret()).asBoolean()
+    public fun writerTrylock(): Boolean = g_static_rw_lock_writer_trylock(gPointer).asBoolean()
 
     /**
      * Unlocks @lock. If a thread is waiting to lock @lock for writing and
@@ -211,5 +210,5 @@ public class StaticRwLock(pointer: CPointer<GStaticRWLock>, cleaner: Cleaner? = 
      * lock @lock for reading, the waiting threads are woken up and can
      * lock @lock for reading.
      */
-    public fun writerUnlock(): Unit = g_static_rw_lock_writer_unlock(gPointer.reinterpret())
+    public fun writerUnlock(): Unit = g_static_rw_lock_writer_unlock(gPointer)
 }

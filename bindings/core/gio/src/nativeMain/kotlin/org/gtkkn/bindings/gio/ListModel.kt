@@ -113,7 +113,7 @@ public interface ListModel :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getItemType(): GType = g_list_model_get_item_type(gioListModelPointer.reinterpret())
+    public fun getItemType(): GType = g_list_model_get_item_type(gioListModelPointer)
 
     /**
      * Gets the number of items in @list.
@@ -126,7 +126,7 @@ public interface ListModel :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getNItems(): guint = g_list_model_get_n_items(gioListModelPointer.reinterpret())
+    public fun getNItems(): guint = g_list_model_get_n_items(gioListModelPointer)
 
     /**
      * Get the item at @position.
@@ -147,10 +147,9 @@ public interface ListModel :
      * @since 2.44
      */
     @GioVersion2_44
-    public fun getItem(position: guint): Object? =
-        g_list_model_get_object(gioListModelPointer.reinterpret(), position)?.run {
-            Object(reinterpret())
-        }
+    public fun getItem(position: guint): Object? = g_list_model_get_object(gioListModelPointer, position)?.run {
+        Object(this)
+    }
 
     /**
      * Emits the #GListModel::items-changed signal on @list.
@@ -181,7 +180,7 @@ public interface ListModel :
      */
     @GioVersion2_44
     public fun itemsChanged(position: guint, removed: guint, added: guint): Unit =
-        g_list_model_items_changed(gioListModelPointer.reinterpret(), position, removed, added)
+        g_list_model_items_changed(gioListModelPointer, position, removed, added)
 
     /**
      * This signal is emitted whenever items were added to or removed
@@ -191,12 +190,12 @@ public interface ListModel :
      * Note: If `removed != added`, the positions of all later items
      * in the model change.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` the position at which @list changed; `removed` the number of items removed; `added` the number of items added
      * @since 2.44
      */
     @GioVersion2_44
-    public fun connectItemsChanged(
+    public fun onItemsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             position: guint,
@@ -204,9 +203,9 @@ public interface ListModel :
             added: guint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gioListModelPointer.reinterpret(),
+        gioListModelPointer,
         "items-changed",
-        connectItemsChangedFunc.reinterpret(),
+        onItemsChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -235,7 +234,7 @@ public interface ListModel :
     }
 }
 
-private val connectItemsChangedFunc: CPointer<
+private val onItemsChangedFunc: CPointer<
     CFunction<
         (
             guint,

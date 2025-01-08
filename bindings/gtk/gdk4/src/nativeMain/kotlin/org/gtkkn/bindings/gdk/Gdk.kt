@@ -4742,7 +4742,7 @@ public object Gdk {
         width: gint,
         height: gint,
     ): Unit =
-        gdk_cairo_draw_from_gl(cr.gPointer.reinterpret(), surface.gdkSurfacePointer.reinterpret(), source, sourceType, bufferScale, x, y, width, height)
+        gdk_cairo_draw_from_gl(cr.gPointer, surface.gdkSurfacePointer, source, sourceType, bufferScale, x, y, width, height)
 
     /**
      * Adds the given rectangle to the current path of @cr.
@@ -4751,7 +4751,7 @@ public object Gdk {
      * @param rectangle a `GdkRectangle`
      */
     public fun cairoRectangle(cr: Context, rectangle: Rectangle): Unit =
-        gdk_cairo_rectangle(cr.gPointer.reinterpret(), rectangle.gPointer.reinterpret())
+        gdk_cairo_rectangle(cr.gPointer, rectangle.gPointer)
 
     /**
      * Adds the given region to the current path of @cr.
@@ -4759,8 +4759,7 @@ public object Gdk {
      * @param cr a cairo context
      * @param region a `cairo_region_t`
      */
-    public fun cairoRegion(cr: Context, region: Region): Unit =
-        gdk_cairo_region(cr.gPointer.reinterpret(), region.gPointer.reinterpret())
+    public fun cairoRegion(cr: Context, region: Region): Unit = gdk_cairo_region(cr.gPointer, region.gPointer)
 
     /**
      * Creates region that covers the area where the given
@@ -4773,8 +4772,8 @@ public object Gdk {
      * @return A `cairo_region_t`
      */
     public fun cairoRegionCreateFromSurface(surface: org.gtkkn.bindings.cairo.Surface): Region =
-        gdk_cairo_region_create_from_surface(surface.gPointer.reinterpret())!!.run {
-            Region(reinterpret())
+        gdk_cairo_region_create_from_surface(surface.gPointer)!!.run {
+            Region(this)
         }
 
     /**
@@ -4789,7 +4788,7 @@ public object Gdk {
      * @param pixbufY Y coordinate of location to place upper left corner of @pixbuf
      */
     public fun cairoSetSourcePixbuf(cr: Context, pixbuf: Pixbuf, pixbufX: gdouble, pixbufY: gdouble): Unit =
-        gdk_cairo_set_source_pixbuf(cr.gPointer.reinterpret(), pixbuf.gdkPixbufPointer.reinterpret(), pixbufX, pixbufY)
+        gdk_cairo_set_source_pixbuf(cr.gPointer, pixbuf.gdkPixbufPointer, pixbufX, pixbufY)
 
     /**
      * Sets the specified `GdkRGBA` as the source color of @cr.
@@ -4797,8 +4796,7 @@ public object Gdk {
      * @param cr a cairo context
      * @param rgba a `GdkRGBA`
      */
-    public fun cairoSetSourceRgba(cr: Context, rgba: Rgba): Unit =
-        gdk_cairo_set_source_rgba(cr.gPointer.reinterpret(), rgba.gPointer.reinterpret())
+    public fun cairoSetSourceRgba(cr: Context, rgba: Rgba): Unit = gdk_cairo_set_source_rgba(cr.gPointer, rgba.gPointer)
 
     /**
      * Read content from the given input stream and deserialize it, asynchronously.
@@ -4824,11 +4822,11 @@ public object Gdk {
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gdk_content_deserialize_async(
-        stream.gioInputStreamPointer.reinterpret(),
+        stream.gioInputStreamPointer,
         mimeType,
         type,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -4848,7 +4846,7 @@ public object Gdk {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_content_deserialize_finish(
             result.gioAsyncResultPointer,
-            `value`.gPointer.reinterpret(),
+            `value`.gPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -4914,11 +4912,11 @@ public object Gdk {
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gdk_content_serialize_async(
-        stream.gioOutputStreamPointer.reinterpret(),
+        stream.gioOutputStreamPointer,
         mimeType,
-        `value`.gPointer.reinterpret(),
+        `value`.gPointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -5055,8 +5053,8 @@ public object Gdk {
         srcY: gint,
         width: gint,
         height: gint,
-    ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.gPointer.reinterpret(), srcX, srcY, width, height)?.run {
-        Pixbuf(reinterpret())
+    ): Pixbuf? = gdk_pixbuf_get_from_surface(surface.gPointer, srcX, srcY, width, height)?.run {
+        Pixbuf(this)
     }
 
     /**
@@ -5070,8 +5068,8 @@ public object Gdk {
      * @return a new `GdkPixbuf`
      */
     public fun pixbufGetFromTexture(texture: Texture): Pixbuf? =
-        gdk_pixbuf_get_from_texture(texture.gdkTexturePointer.reinterpret())?.run {
-            Pixbuf(reinterpret())
+        gdk_pixbuf_get_from_texture(texture.gdkTexturePointer)?.run {
+            Pixbuf(this)
         }
 
     /**
@@ -5155,7 +5153,7 @@ public val ContentDeserializeFuncFunc:
         ->
         userData.asStableRef<(deserializer: ContentDeserializer) -> Unit>().get().invoke(
             deserializer!!.run {
-                ContentDeserializer(reinterpret())
+                ContentDeserializer(this)
             }
         )
     }
@@ -5168,7 +5166,7 @@ public val ContentSerializeFuncFunc: CPointer<CFunction<(CPointer<GdkContentSeri
         ->
         userData.asStableRef<(serializer: ContentSerializer) -> Unit>().get().invoke(
             serializer!!.run {
-                ContentSerializer(reinterpret())
+                ContentSerializer(this)
             }
         )
     }

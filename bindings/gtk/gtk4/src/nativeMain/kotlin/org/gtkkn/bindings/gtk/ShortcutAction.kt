@@ -92,10 +92,10 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
      */
     public open fun activate(flags: ShortcutActionFlags, widget: Widget, args: Variant? = null): Boolean =
         gtk_shortcut_action_activate(
-            gtkShortcutActionPointer.reinterpret(),
+            gtkShortcutActionPointer,
             flags.mask,
-            widget.gtkWidgetPointer.reinterpret(),
-            args?.gPointer?.reinterpret()
+            widget.gtkWidgetPointer,
+            args?.gPointer
         ).asBoolean()
 
     /**
@@ -109,7 +109,7 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_action_print(gtkShortcutActionPointer.reinterpret(), string.gPointer.reinterpret())
+        gtk_shortcut_action_print(gtkShortcutActionPointer, string.gPointer)
 
     /**
      * Prints the given action into a human-readable string.
@@ -120,8 +120,7 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
      * @return a new string
      */
     override fun toString(): KotlinString =
-        gtk_shortcut_action_to_string(gtkShortcutActionPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_shortcut_action_to_string(gtkShortcutActionPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<ShortcutAction> {
         override val type: GeneratedClassKGType<ShortcutAction> =

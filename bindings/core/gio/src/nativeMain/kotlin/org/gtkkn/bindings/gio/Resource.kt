@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Bytes
@@ -212,7 +211,7 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesRegister(): Unit = g_resources_register(gPointer.reinterpret())
+    public fun resourcesRegister(): Unit = g_resources_register(gPointer)
 
     /**
      * Unregisters the resource from the process-global set of resources.
@@ -220,7 +219,7 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesUnregister(): Unit = g_resources_unregister(gPointer.reinterpret())
+    public fun resourcesUnregister(): Unit = g_resources_unregister(gPointer)
 
     /**
      * Returns all the names of children at the specified @path in the resource.
@@ -240,12 +239,7 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
     @GioVersion2_32
     public fun enumerateChildren(path: String, lookupFlags: ResourceLookupFlags): Result<List<String>> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resource_enumerate_children(
-            gPointer.reinterpret(),
-            path,
-            lookupFlags.mask,
-            gError.ptr
-        )?.toKStringList()
+        val gResult = g_resource_enumerate_children(gPointer, path, lookupFlags.mask, gError.ptr)?.toKStringList()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -278,8 +272,8 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
     @GioVersion2_32
     public fun lookupData(path: String, lookupFlags: ResourceLookupFlags): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resource_lookup_data(gPointer.reinterpret(), path, lookupFlags.mask, gError.ptr)?.run {
-            Bytes(reinterpret())
+        val gResult = g_resource_lookup_data(gPointer, path, lookupFlags.mask, gError.ptr)?.run {
+            Bytes(this)
         }
 
         return if (gError.pointed != null) {
@@ -304,8 +298,8 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
     @GioVersion2_32
     public fun openStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_resource_open_stream(gPointer.reinterpret(), path, lookupFlags.mask, gError.ptr)?.run {
-            InputStream(reinterpret())
+        val gResult = g_resource_open_stream(gPointer, path, lookupFlags.mask, gError.ptr)?.run {
+            InputStream(this)
         }
 
         return if (gError.pointed != null) {
@@ -323,8 +317,8 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): Resource = g_resource_ref(gPointer.reinterpret())!!.run {
-        Resource(reinterpret())
+    public fun ref(): Resource = g_resource_ref(gPointer)!!.run {
+        Resource(this)
     }
 
     /**
@@ -336,7 +330,7 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unref(): Unit = g_resource_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_resource_unref(gPointer)
 
     public companion object {
         /**
@@ -360,7 +354,7 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
         public fun newFromData(`data`: Bytes): Result<Resource> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult = g_resource_new_from_data(`data`.gPointer.reinterpret(), gError.ptr)
+                val gResult = g_resource_new_from_data(`data`.gPointer, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {
@@ -389,7 +383,7 @@ public class Resource(pointer: CPointer<GResource>) : ProxyInstance(pointer) {
         public fun load(filename: String): Result<Resource> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_resource_load(filename, gError.ptr)?.run {
-                Resource(reinterpret())
+                Resource(this)
             }
 
             return if (gError.pointed != null) {

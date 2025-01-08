@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -134,7 +135,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
          *
          * @return The height requested for content of the drawing area
          */
-        get() = gtk_drawing_area_get_content_height(gtkDrawingAreaPointer.reinterpret())
+        get() = gtk_drawing_area_get_content_height(gtkDrawingAreaPointer)
 
         /**
          * Sets the desired height of the contents of the drawing area.
@@ -148,7 +149,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
          *
          * @param height the height of contents
          */
-        set(height) = gtk_drawing_area_set_content_height(gtkDrawingAreaPointer.reinterpret(), height)
+        set(height) = gtk_drawing_area_set_content_height(gtkDrawingAreaPointer, height)
 
     /**
      * The content width.
@@ -159,7 +160,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
          *
          * @return The width requested for content of the drawing area
          */
-        get() = gtk_drawing_area_get_content_width(gtkDrawingAreaPointer.reinterpret())
+        get() = gtk_drawing_area_get_content_width(gtkDrawingAreaPointer)
 
         /**
          * Sets the desired width of the contents of the drawing area.
@@ -173,7 +174,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
          *
          * @param width the width of contents
          */
-        set(width) = gtk_drawing_area_set_content_width(gtkDrawingAreaPointer.reinterpret(), width)
+        set(width) = gtk_drawing_area_set_content_width(gtkDrawingAreaPointer, width)
 
     /**
      * Creates a new drawing area.
@@ -202,7 +203,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
      *   the drawing area's contents
      */
     public open fun setDrawFunc(drawFunc: DrawingAreaDrawFunc?): Unit = gtk_drawing_area_set_draw_func(
-        gtkDrawingAreaPointer.reinterpret(),
+        gtkDrawingAreaPointer,
         drawFunc?.let {
             DrawingAreaDrawFuncFunc.reinterpret()
         },
@@ -219,20 +220,30 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
      * This is useful in order to keep state up to date with the widget size,
      * like for instance a backing surface.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
-    public fun connectResize(
+    public fun onResize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: gint, height: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "resize",
-        connectResizeFunc.reinterpret(),
+        onResizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "resize" signal. See [onResize].
+     *
+     * @param width the width of the viewport
+     * @param height the height of the viewport
+     */
+    public fun emitResize(width: gint, height: gint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "resize", width, height)
+    }
 
     public companion object : TypeCompanion<DrawingArea> {
         override val type: GeneratedClassKGType<DrawingArea> =
@@ -251,7 +262,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
     }
 }
 
-private val connectResizeFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
+private val onResizeFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         width: gint,
         height: gint,

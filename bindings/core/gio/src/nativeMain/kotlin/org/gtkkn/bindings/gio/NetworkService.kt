@@ -57,8 +57,7 @@ public open class NetworkService(pointer: CPointer<GNetworkService>) :
          * @return @srv's domain name
          * @since 2.22
          */
-        get() = g_network_service_get_domain(gioNetworkServicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_network_service_get_domain(gioNetworkServicePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Network protocol, for example `tcp`.
@@ -73,7 +72,7 @@ public open class NetworkService(pointer: CPointer<GNetworkService>) :
          * @return @srv's protocol name
          * @since 2.22
          */
-        get() = g_network_service_get_protocol(gioNetworkServicePointer.reinterpret())?.toKString()
+        get() = g_network_service_get_protocol(gioNetworkServicePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -90,8 +89,7 @@ public open class NetworkService(pointer: CPointer<GNetworkService>) :
          * @return @srv's scheme name
          * @since 2.26
          */
-        get() = g_network_service_get_scheme(gioNetworkServicePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_network_service_get_scheme(gioNetworkServicePointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Set's the URI scheme used to resolve proxies. By default, the service name
@@ -101,7 +99,7 @@ public open class NetworkService(pointer: CPointer<GNetworkService>) :
          * @since 2.26
          */
         @GioVersion2_26
-        set(scheme) = g_network_service_set_scheme(gioNetworkServicePointer.reinterpret(), scheme)
+        set(scheme) = g_network_service_set_scheme(gioNetworkServicePointer, scheme)
 
     /**
      * Service name, for example `ldap`.
@@ -116,7 +114,7 @@ public open class NetworkService(pointer: CPointer<GNetworkService>) :
          * @return @srv's service name
          * @since 2.22
          */
-        get() = g_network_service_get_service(gioNetworkServicePointer.reinterpret())?.toKString()
+        get() = g_network_service_get_service(gioNetworkServicePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**

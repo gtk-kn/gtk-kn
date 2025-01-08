@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkGestureDrag
 import org.gtkkn.native.gtk.gtk_gesture_drag_get_type
 import org.gtkkn.native.gtk.gtk_gesture_drag_new
@@ -54,56 +55,86 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
     /**
      * Emitted whenever dragging starts.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `startX` X coordinate, relative to the widget allocation; `startY` Y coordinate, relative to the widget allocation
      */
-    public fun connectDragBegin(
+    public fun onDragBegin(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startX: gdouble, startY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-begin",
-        connectDragBeginFunc.reinterpret(),
+        onDragBeginFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "drag-begin" signal. See [onDragBegin].
+     *
+     * @param startX X coordinate, relative to the widget allocation
+     * @param startY Y coordinate, relative to the widget allocation
+     */
+    public fun emitDragBegin(startX: gdouble, startY: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "drag-begin", startX, startY)
+    }
 
     /**
      * Emitted whenever the dragging is finished.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start point; `offsetY` Y offset, relative to the start point
      */
-    public fun connectDragEnd(
+    public fun onDragEnd(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-end",
-        connectDragEndFunc.reinterpret(),
+        onDragEndFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "drag-end" signal. See [onDragEnd].
+     *
+     * @param offsetX X offset, relative to the start point
+     * @param offsetY Y offset, relative to the start point
+     */
+    public fun emitDragEnd(offsetX: gdouble, offsetY: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "drag-end", offsetX, offsetY)
+    }
+
+    /**
      * Emitted whenever the dragging point moves.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `offsetX` X offset, relative to the start point; `offsetY` Y offset, relative to the start point
      */
-    public fun connectDragUpdate(
+    public fun onDragUpdate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-update",
-        connectDragUpdateFunc.reinterpret(),
+        onDragUpdateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "drag-update" signal. See [onDragUpdate].
+     *
+     * @param offsetX X offset, relative to the start point
+     * @param offsetY Y offset, relative to the start point
+     */
+    public fun emitDragUpdate(offsetX: gdouble, offsetY: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "drag-update", offsetX, offsetY)
+    }
 
     public companion object : TypeCompanion<GestureDrag> {
         override val type: GeneratedClassKGType<GestureDrag> =
@@ -122,18 +153,17 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
     }
 }
 
-private val connectDragBeginFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            startX: gdouble,
-            startY: gdouble,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(startX: gdouble, startY: gdouble) -> Unit>().get().invoke(startX, startY)
-    }
-        .reinterpret()
+private val onDragBeginFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        startX: gdouble,
+        startY: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(startX: gdouble, startY: gdouble) -> Unit>().get().invoke(startX, startY)
+}
+    .reinterpret()
 
-private val connectDragEndFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+private val onDragEndFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         offsetX: gdouble,
         offsetY: gdouble,
@@ -143,13 +173,12 @@ private val connectDragEndFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> 
 }
     .reinterpret()
 
-private val connectDragUpdateFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            offsetX: gdouble,
-            offsetY: gdouble,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)
-    }
-        .reinterpret()
+private val onDragUpdateFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        offsetX: gdouble,
+        offsetY: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(offsetX: gdouble, offsetY: gdouble) -> Unit>().get().invoke(offsetX, offsetY)
+}
+    .reinterpret()

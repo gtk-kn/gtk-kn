@@ -68,8 +68,8 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @return the child widget of @self
          */
-        get() = gtk_aspect_frame_get_child(gtkAspectFramePointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_aspect_frame_get_child(gtkAspectFramePointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -77,9 +77,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = gtk_aspect_frame_set_child(gtkAspectFramePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_aspect_frame_set_child(gtkAspectFramePointer, child?.gtkWidgetPointer)
 
     /**
      * Whether the `GtkAspectFrame` should use the aspect ratio of its child.
@@ -91,7 +89,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @return whether to obey the child's size request
          */
-        get() = gtk_aspect_frame_get_obey_child(gtkAspectFramePointer.reinterpret()).asBoolean()
+        get() = gtk_aspect_frame_get_obey_child(gtkAspectFramePointer).asBoolean()
 
         /**
          * Sets whether the aspect ratio of the child's size
@@ -101,7 +99,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          * @param obeyChild If true, @ratio is ignored, and the aspect
          *    ratio is taken from the requisition of the child.
          */
-        set(obeyChild) = gtk_aspect_frame_set_obey_child(gtkAspectFramePointer.reinterpret(), obeyChild.asGBoolean())
+        set(obeyChild) = gtk_aspect_frame_set_obey_child(gtkAspectFramePointer, obeyChild.asGBoolean())
 
     /**
      * The aspect ratio to be used by the `GtkAspectFrame`.
@@ -115,14 +113,14 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @return the desired aspect ratio
          */
-        get() = gtk_aspect_frame_get_ratio(gtkAspectFramePointer.reinterpret())
+        get() = gtk_aspect_frame_get_ratio(gtkAspectFramePointer)
 
         /**
          * Sets the desired aspect ratio of the child.
          *
          * @param ratio aspect ratio of the child
          */
-        set(ratio) = gtk_aspect_frame_set_ratio(gtkAspectFramePointer.reinterpret(), ratio)
+        set(ratio) = gtk_aspect_frame_set_ratio(gtkAspectFramePointer, ratio)
 
     /**
      * The horizontal alignment of the child.
@@ -134,7 +132,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @return the horizontal alignment
          */
-        get() = gtk_aspect_frame_get_xalign(gtkAspectFramePointer.reinterpret())
+        get() = gtk_aspect_frame_get_xalign(gtkAspectFramePointer)
 
         /**
          * Sets the horizontal alignment of the child within the allocation
@@ -142,7 +140,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @param xalign horizontal alignment, from 0.0 (left aligned) to 1.0 (right aligned)
          */
-        set(xalign) = gtk_aspect_frame_set_xalign(gtkAspectFramePointer.reinterpret(), xalign)
+        set(xalign) = gtk_aspect_frame_set_xalign(gtkAspectFramePointer, xalign)
 
     /**
      * The vertical alignment of the child.
@@ -154,7 +152,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @return the vertical alignment
          */
-        get() = gtk_aspect_frame_get_yalign(gtkAspectFramePointer.reinterpret())
+        get() = gtk_aspect_frame_get_yalign(gtkAspectFramePointer)
 
         /**
          * Sets the vertical alignment of the child within the allocation
@@ -162,7 +160,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          *
          * @param yalign horizontal alignment, from 0.0 (top aligned) to 1.0 (bottom aligned)
          */
-        set(yalign) = gtk_aspect_frame_set_yalign(gtkAspectFramePointer.reinterpret(), yalign)
+        set(yalign) = gtk_aspect_frame_set_yalign(gtkAspectFramePointer, yalign)
 
     /**
      * Create a new `GtkAspectFrame`.

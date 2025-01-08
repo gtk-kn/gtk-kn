@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -123,10 +124,8 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addSection(section: ShortcutsSection): Unit = gtk_shortcuts_window_add_section(
-        gtkShortcutsWindowPointer.reinterpret(),
-        section.gtkShortcutsSectionPointer.reinterpret()
-    )
+    public open fun addSection(section: ShortcutsSection): Unit =
+        gtk_shortcuts_window_add_section(gtkShortcutsWindowPointer, section.gtkShortcutsSectionPointer)
 
     /**
      * Emitted when the user uses a keybinding to close the window.
@@ -135,18 +134,25 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      *
      * The default binding for this signal is the Escape key.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "close",
-            connectCloseFunc.reinterpret(),
+            onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "close" signal. See [onClose].
+     */
+    public fun emitClose() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+    }
 
     /**
      * Emitted when the user uses a keybinding to start a search.
@@ -155,18 +161,25 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      *
      * The default binding for this signal is Control-F.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "search",
-            connectSearchFunc.reinterpret(),
+            onSearchFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "search" signal. See [onSearch].
+     */
+    public fun emitSearch() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "search")
+    }
 
     public companion object : TypeCompanion<ShortcutsWindow> {
         override val type: GeneratedClassKGType<ShortcutsWindow> =
@@ -185,7 +198,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
     }
 }
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -193,7 +206,7 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectSearchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onSearchFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

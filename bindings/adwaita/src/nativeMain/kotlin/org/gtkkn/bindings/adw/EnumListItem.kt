@@ -35,8 +35,7 @@ public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
          *
          * @return the enum value name
          */
-        get() = adw_enum_list_item_get_name(adwEnumListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_enum_list_item_get_name(adwEnumListItemPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The enum value nick.
@@ -47,8 +46,7 @@ public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
          *
          * @return the enum value nick
          */
-        get() = adw_enum_list_item_get_nick(adwEnumListItemPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_enum_list_item_get_nick(adwEnumListItemPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The enum value.
@@ -59,7 +57,7 @@ public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
          *
          * @return the enum value
          */
-        get() = adw_enum_list_item_get_value(adwEnumListItemPointer.reinterpret())
+        get() = adw_enum_list_item_get_value(adwEnumListItemPointer)
 
     public companion object : TypeCompanion<EnumListItem> {
         override val type: GeneratedClassKGType<EnumListItem> =

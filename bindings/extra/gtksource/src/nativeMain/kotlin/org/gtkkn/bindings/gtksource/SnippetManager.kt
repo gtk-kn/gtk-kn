@@ -56,7 +56,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      *   The array is owned by @lm and must not be modified.
      */
     public open fun getSearchPath(): List<String> =
-        gtk_source_snippet_manager_get_search_path(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList()
+        gtk_source_snippet_manager_get_search_path(gtksourceSnippetManagerPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -72,13 +72,8 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      *   matching snippet was found.
      */
     public open fun getSnippet(group: String? = null, languageId: String? = null, trigger: String): Snippet? =
-        gtk_source_snippet_manager_get_snippet(
-            gtksourceSnippetManagerPointer.reinterpret(),
-            group,
-            languageId,
-            trigger
-        )?.run {
-            Snippet(reinterpret())
+        gtk_source_snippet_manager_get_snippet(gtksourceSnippetManagerPointer, group, languageId, trigger)?.run {
+            Snippet(this)
         }
 
     /**
@@ -91,10 +86,9 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      * @since 5.6
      */
     @GtkSourceVersion5_6
-    public open fun listAll(): ListModel =
-        gtk_source_snippet_manager_list_all(gtksourceSnippetManagerPointer.reinterpret())!!.run {
-            ListModel.wrap(reinterpret())
-        }
+    public open fun listAll(): ListModel = gtk_source_snippet_manager_list_all(gtksourceSnippetManagerPointer)!!.run {
+        ListModel.wrap(reinterpret())
+    }
 
     /**
      * List all the known groups within the snippet manager.
@@ -105,7 +99,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      * @return An array of strings which should be freed with g_free().
      */
     public open fun listGroups(): List<String> =
-        gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer.reinterpret())?.toKStringList()
+        gtk_source_snippet_manager_list_groups(gtksourceSnippetManagerPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -129,7 +123,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
         languageId: String? = null,
         triggerPrefix: String? = null,
     ): ListModel = gtk_source_snippet_manager_list_matching(
-        gtksourceSnippetManagerPointer.reinterpret(),
+        gtksourceSnippetManagerPointer,
         group,
         languageId,
         triggerPrefix
@@ -152,10 +146,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      *   strings or null.
      */
     public open fun setSearchPath(dirs: List<String>? = null): Unit = memScoped {
-        return gtk_source_snippet_manager_set_search_path(
-            gtksourceSnippetManagerPointer.reinterpret(),
-            dirs?.toCStringList(this)
-        )
+        return gtk_source_snippet_manager_set_search_path(gtksourceSnippetManagerPointer, dirs?.toCStringList(this))
     }
 
     public companion object : TypeCompanion<SnippetManager> {
@@ -173,7 +164,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
          *   is owned by GtkSourceView library and must not be unref'd.
          */
         public fun getDefault(): SnippetManager = gtk_source_snippet_manager_get_default()!!.run {
-            SnippetManager(reinterpret())
+            SnippetManager(this)
         }
 
         /**

@@ -65,7 +65,7 @@ public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
      * @param sorter a sorter to add
      */
     public open fun append(sorter: Sorter): Unit =
-        gtk_multi_sorter_append(gtkMultiSorterPointer.reinterpret(), sorter.gtkSorterPointer.reinterpret())
+        gtk_multi_sorter_append(gtkMultiSorterPointer, sorter.gtkSorterPointer)
 
     /**
      * Removes the sorter at the given @position from the list of sorter
@@ -75,8 +75,7 @@ public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
      *
      * @param position position of sorter to remove
      */
-    public open fun remove(position: guint): Unit =
-        gtk_multi_sorter_remove(gtkMultiSorterPointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = gtk_multi_sorter_remove(gtkMultiSorterPointer, position)
 
     public companion object : TypeCompanion<MultiSorter> {
         override val type: GeneratedClassKGType<MultiSorter> =

@@ -78,8 +78,8 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The context
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_context(gdkGlTextureBuilderPointer.reinterpret())?.run {
-            GlContext(reinterpret())
+        get() = gdk_gl_texture_builder_get_context(gdkGlTextureBuilderPointer)?.run {
+            GlContext(this)
         }
 
         /**
@@ -92,12 +92,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(
-            context
-        ) = gdk_gl_texture_builder_set_context(
-            gdkGlTextureBuilderPointer.reinterpret(),
-            context?.gdkGlContextPointer?.reinterpret()
-        )
+        set(context) = gdk_gl_texture_builder_set_context(gdkGlTextureBuilderPointer, context?.gdkGlContextPointer)
 
     /**
      * The format when downloading the texture.
@@ -112,7 +107,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The format
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_format(gdkGlTextureBuilderPointer.reinterpret()).run {
+        get() = gdk_gl_texture_builder_get_format(gdkGlTextureBuilderPointer).run {
             MemoryFormat.fromNativeValue(this)
         }
 
@@ -138,7 +133,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(format) = gdk_gl_texture_builder_set_format(gdkGlTextureBuilderPointer.reinterpret(), format.nativeValue)
+        set(format) = gdk_gl_texture_builder_set_format(gdkGlTextureBuilderPointer, format.nativeValue)
 
     /**
      * If the texture has a mipmap.
@@ -153,7 +148,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return Whether the texture has a mipmap
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_has_mipmap(gdkGlTextureBuilderPointer.reinterpret()).asBoolean()
+        get() = gdk_gl_texture_builder_get_has_mipmap(gdkGlTextureBuilderPointer).asBoolean()
 
         /**
          * Sets whether the texture has a mipmap. This allows the renderer and other users of the
@@ -165,9 +160,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(
-            hasMipmap
-        ) = gdk_gl_texture_builder_set_has_mipmap(gdkGlTextureBuilderPointer.reinterpret(), hasMipmap.asGBoolean())
+        set(hasMipmap) = gdk_gl_texture_builder_set_has_mipmap(gdkGlTextureBuilderPointer, hasMipmap.asGBoolean())
 
     /**
      * The height of the texture.
@@ -183,7 +176,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The height
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_height(gdkGlTextureBuilderPointer.reinterpret())
+        get() = gdk_gl_texture_builder_get_height(gdkGlTextureBuilderPointer)
 
         /**
          * Sets the height of the texture.
@@ -194,7 +187,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(height) = gdk_gl_texture_builder_set_height(gdkGlTextureBuilderPointer.reinterpret(), height)
+        set(height) = gdk_gl_texture_builder_set_height(gdkGlTextureBuilderPointer, height)
 
     /**
      * The texture ID to use.
@@ -210,7 +203,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The id
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_id(gdkGlTextureBuilderPointer.reinterpret())
+        get() = gdk_gl_texture_builder_get_id(gdkGlTextureBuilderPointer)
 
         /**
          * Sets the texture id of the texture. The texture id must remain unmodified
@@ -223,7 +216,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(id) = gdk_gl_texture_builder_set_id(gdkGlTextureBuilderPointer.reinterpret(), id)
+        set(id) = gdk_gl_texture_builder_set_id(gdkGlTextureBuilderPointer, id)
 
     /**
      * An optional `GLSync` object.
@@ -240,7 +233,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return the `GLSync`
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_sync(gdkGlTextureBuilderPointer.reinterpret())
+        get() = gdk_gl_texture_builder_get_sync(gdkGlTextureBuilderPointer)
 
         /**
          * Sets the GLSync object to use for the texture.
@@ -256,7 +249,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(sync) = gdk_gl_texture_builder_set_sync(gdkGlTextureBuilderPointer.reinterpret(), sync)
+        set(sync) = gdk_gl_texture_builder_set_sync(gdkGlTextureBuilderPointer, sync)
 
     /**
      * The update region for [property@Gdk.GLTextureBuilder:update-texture].
@@ -272,8 +265,8 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The region
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_update_region(gdkGlTextureBuilderPointer.reinterpret())?.run {
-            Region(reinterpret())
+        get() = gdk_gl_texture_builder_get_update_region(gdkGlTextureBuilderPointer)?.run {
+            Region(this)
         }
 
         /**
@@ -292,12 +285,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(
-            region
-        ) = gdk_gl_texture_builder_set_update_region(
-            gdkGlTextureBuilderPointer.reinterpret(),
-            region?.gPointer?.reinterpret()
-        )
+        set(region) = gdk_gl_texture_builder_set_update_region(gdkGlTextureBuilderPointer, region?.gPointer)
 
     /**
      * The texture [property@Gdk.GLTextureBuilder:update-region] is an update for.
@@ -313,8 +301,8 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The texture
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_update_texture(gdkGlTextureBuilderPointer.reinterpret())?.run {
-            Texture(reinterpret())
+        get() = gdk_gl_texture_builder_get_update_texture(gdkGlTextureBuilderPointer)?.run {
+            Texture(this)
         }
 
         /**
@@ -325,12 +313,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(
-            texture
-        ) = gdk_gl_texture_builder_set_update_texture(
-            gdkGlTextureBuilderPointer.reinterpret(),
-            texture?.gdkTexturePointer?.reinterpret()
-        )
+        set(texture) = gdk_gl_texture_builder_set_update_texture(gdkGlTextureBuilderPointer, texture?.gdkTexturePointer)
 
     /**
      * The width of the texture.
@@ -346,7 +329,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @return The width
          * @since 4.12
          */
-        get() = gdk_gl_texture_builder_get_width(gdkGlTextureBuilderPointer.reinterpret())
+        get() = gdk_gl_texture_builder_get_width(gdkGlTextureBuilderPointer)
 
         /**
          * Sets the width of the texture.
@@ -357,7 +340,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(width) = gdk_gl_texture_builder_set_width(gdkGlTextureBuilderPointer.reinterpret(), width)
+        set(width) = gdk_gl_texture_builder_set_width(gdkGlTextureBuilderPointer, width)
 
     /**
      * Creates a new texture builder.

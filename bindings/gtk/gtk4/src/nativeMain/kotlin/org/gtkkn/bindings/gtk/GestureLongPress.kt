@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkGestureLongPress
 import org.gtkkn.native.gtk.gtk_gesture_long_press_get_delay_factor
 import org.gtkkn.native.gtk.gtk_gesture_long_press_get_type
@@ -56,7 +57,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
          *
          * @return the delay factor
          */
-        get() = gtk_gesture_long_press_get_delay_factor(gtkGestureLongPressPointer.reinterpret())
+        get() = gtk_gesture_long_press_get_delay_factor(gtkGestureLongPressPointer)
 
         /**
          * Applies the given delay factor.
@@ -66,9 +67,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
          *
          * @param delayFactor The delay factor to apply
          */
-        set(
-            delayFactor
-        ) = gtk_gesture_long_press_set_delay_factor(gtkGestureLongPressPointer.reinterpret(), delayFactor)
+        set(delayFactor) = gtk_gesture_long_press_set_delay_factor(gtkGestureLongPressPointer, delayFactor)
 
     /**
      * Returns a newly created `GtkGesture` that recognizes long presses.
@@ -81,37 +80,54 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
      * Emitted whenever a press moved too far, or was released
      * before [signal@Gtk.GestureLongPress::pressed] happened.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "cancelled",
-            connectCancelledFunc.reinterpret(),
+            onCancelledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "cancelled" signal. See [onCancelled].
+     */
+    public fun emitCancelled() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "cancelled")
+    }
+
+    /**
      * Emitted whenever a press goes unmoved/unreleased longer than
      * what the GTK defaults tell.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate where the press happened, relative to the widget allocation; `y` the Y coordinate where the press happened, relative to the widget allocation
      */
-    public fun connectPressed(
+    public fun onPressed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "pressed",
-        connectPressedFunc.reinterpret(),
+        onPressedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "pressed" signal. See [onPressed].
+     *
+     * @param x the X coordinate where the press happened, relative to the widget allocation
+     * @param y the Y coordinate where the press happened, relative to the widget allocation
+     */
+    public fun emitPressed(x: gdouble, y: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "pressed", x, y)
+    }
 
     public companion object : TypeCompanion<GestureLongPress> {
         override val type: GeneratedClassKGType<GestureLongPress> =
@@ -130,7 +146,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
     }
 }
 
-private val connectCancelledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCancelledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -138,7 +154,7 @@ private val connectCancelledFunc: CPointer<CFunction<() -> Unit>> = staticCFunct
 }
     .reinterpret()
 
-private val connectPressedFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+private val onPressedFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         x: gdouble,
         y: gdouble,

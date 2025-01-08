@@ -141,7 +141,7 @@ public object Adw {
      * @return whether animations are enabled for @widget
      */
     public fun getEnableAnimations(widget: Widget): Boolean =
-        adw_get_enable_animations(widget.gtkWidgetPointer.reinterpret()).asBoolean()
+        adw_get_enable_animations(widget.gtkWidgetPointer).asBoolean()
 
     /**
      * Returns the major version number of the Adwaita library.

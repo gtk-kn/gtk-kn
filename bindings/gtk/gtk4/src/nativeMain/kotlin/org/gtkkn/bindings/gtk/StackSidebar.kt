@@ -66,8 +66,8 @@ public open class StackSidebar(pointer: CPointer<GtkStackSidebar>) :
      * @return the associated `GtkStack` or
      *   null if none has been set explicitly
      */
-    public open fun getStack(): Stack? = gtk_stack_sidebar_get_stack(gtkStackSidebarPointer.reinterpret())?.run {
-        Stack(reinterpret())
+    public open fun getStack(): Stack? = gtk_stack_sidebar_get_stack(gtkStackSidebarPointer)?.run {
+        Stack(this)
     }
 
     /**
@@ -79,7 +79,7 @@ public open class StackSidebar(pointer: CPointer<GtkStackSidebar>) :
      * @param stack a `GtkStack`
      */
     public open fun setStack(stack: Stack): Unit =
-        gtk_stack_sidebar_set_stack(gtkStackSidebarPointer.reinterpret(), stack.gtkStackPointer.reinterpret())
+        gtk_stack_sidebar_set_stack(gtkStackSidebarPointer, stack.gtkStackPointer)
 
     public companion object : TypeCompanion<StackSidebar> {
         override val type: GeneratedClassKGType<StackSidebar> =

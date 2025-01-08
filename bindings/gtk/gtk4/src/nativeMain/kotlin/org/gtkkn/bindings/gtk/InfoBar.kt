@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -149,7 +150,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
          *
          * @return the message type of the message area.
          */
-        get() = gtk_info_bar_get_message_type(gtkInfoBarPointer.reinterpret()).run {
+        get() = gtk_info_bar_get_message_type(gtkInfoBarPointer).run {
             MessageType.fromNativeValue(this)
         }
 
@@ -160,7 +161,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
          *
          * @param messageType a `GtkMessageType`
          */
-        set(messageType) = gtk_info_bar_set_message_type(gtkInfoBarPointer.reinterpret(), messageType.nativeValue)
+        set(messageType) = gtk_info_bar_set_message_type(gtkInfoBarPointer, messageType.nativeValue)
 
     /**
      * Whether the info bar shows its contents.
@@ -171,7 +172,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
          *
          * @return the current value of the [property@Gtk.InfoBar:revealed] property
          */
-        get() = gtk_info_bar_get_revealed(gtkInfoBarPointer.reinterpret()).asBoolean()
+        get() = gtk_info_bar_get_revealed(gtkInfoBarPointer).asBoolean()
 
         /**
          * Sets whether the `GtkInfoBar` is revealed.
@@ -185,7 +186,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
          *
          * @param revealed The new value of the property
          */
-        set(revealed) = gtk_info_bar_set_revealed(gtkInfoBarPointer.reinterpret(), revealed.asGBoolean())
+        set(revealed) = gtk_info_bar_set_revealed(gtkInfoBarPointer, revealed.asGBoolean())
 
     /**
      * Whether to include a standard close button.
@@ -196,7 +197,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
          *
          * @return true if the widget displays standard close button
          */
-        get() = gtk_info_bar_get_show_close_button(gtkInfoBarPointer.reinterpret()).asBoolean()
+        get() = gtk_info_bar_get_show_close_button(gtkInfoBarPointer).asBoolean()
 
         /**
          * If true, a standard close button is shown.
@@ -205,7 +206,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
          *
          * @param setting true to include a close button
          */
-        set(setting) = gtk_info_bar_set_show_close_button(gtkInfoBarPointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_info_bar_set_show_close_button(gtkInfoBarPointer, setting.asGBoolean())
 
     /**
      * Creates a new `GtkInfoBar` object.
@@ -225,11 +226,8 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * @param child an activatable widget
      * @param responseId response ID for @child
      */
-    public open fun addActionWidget(child: Widget, responseId: gint): Unit = gtk_info_bar_add_action_widget(
-        gtkInfoBarPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        responseId
-    )
+    public open fun addActionWidget(child: Widget, responseId: gint): Unit =
+        gtk_info_bar_add_action_widget(gtkInfoBarPointer, child.gtkWidgetPointer, responseId)
 
     /**
      * Adds a button with the given text.
@@ -245,7 +243,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * that was added
      */
     public open fun addButton(buttonText: String, responseId: gint): Button =
-        gtk_info_bar_add_button(gtkInfoBarPointer.reinterpret(), buttonText, responseId)!!.run {
+        gtk_info_bar_add_button(gtkInfoBarPointer, buttonText, responseId)!!.run {
             Button(reinterpret())
         }
 
@@ -254,8 +252,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      *
      * @param widget the child to be added
      */
-    public open fun addChild(widget: Widget): Unit =
-        gtk_info_bar_add_child(gtkInfoBarPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun addChild(widget: Widget): Unit = gtk_info_bar_add_child(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
      * Removes a widget from the action area of @info_bar.
@@ -266,7 +263,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * @param widget an action widget to remove
      */
     public open fun removeActionWidget(widget: Widget): Unit =
-        gtk_info_bar_remove_action_widget(gtkInfoBarPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        gtk_info_bar_remove_action_widget(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
      * Removes a widget from the content area of the info bar.
@@ -274,15 +271,14 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * @param widget a child that has been added to the content area
      */
     public open fun removeChild(widget: Widget): Unit =
-        gtk_info_bar_remove_child(gtkInfoBarPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        gtk_info_bar_remove_child(gtkInfoBarPointer, widget.gtkWidgetPointer)
 
     /**
      * Emits the “response” signal with the given @response_id.
      *
      * @param responseId a response ID
      */
-    public open fun response(responseId: gint): Unit =
-        gtk_info_bar_response(gtkInfoBarPointer.reinterpret(), responseId)
+    public open fun response(responseId: gint): Unit = gtk_info_bar_response(gtkInfoBarPointer, responseId)
 
     /**
      * Sets the last widget in the info bar’s action area with
@@ -296,7 +292,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * @param responseId a response ID
      */
     public open fun setDefaultResponse(responseId: gint): Unit =
-        gtk_info_bar_set_default_response(gtkInfoBarPointer.reinterpret(), responseId)
+        gtk_info_bar_set_default_response(gtkInfoBarPointer, responseId)
 
     /**
      * Sets the sensitivity of action widgets for @response_id.
@@ -309,7 +305,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * @param setting TRUE for sensitive
      */
     public open fun setResponseSensitive(responseId: gint, setting: Boolean): Unit =
-        gtk_info_bar_set_response_sensitive(gtkInfoBarPointer.reinterpret(), responseId, setting.asGBoolean())
+        gtk_info_bar_set_response_sensitive(gtkInfoBarPointer, responseId, setting.asGBoolean())
 
     /**
      * Gets emitted when the user uses a keybinding to dismiss the info bar.
@@ -318,18 +314,25 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      *
      * The default binding for this signal is the Escape key.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "close",
-            connectCloseFunc.reinterpret(),
+            onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "close" signal. See [onClose].
+     */
+    public fun emitClose() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+    }
 
     /**
      * Emitted when an action widget is clicked.
@@ -338,20 +341,27 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * calls [method@Gtk.InfoBar.response]. The @response_id depends
      * on which action widget was clicked.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `responseId` the response ID
      */
-    public fun connectResponse(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (responseId: gint) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "response",
-        connectResponseFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "response",
+            onResponseFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "response" signal. See [onResponse].
+     *
+     * @param responseId the response ID
+     */
+    public fun emitResponse(responseId: gint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "response", responseId)
+    }
 
     public companion object : TypeCompanion<InfoBar> {
         override val type: GeneratedClassKGType<InfoBar> =
@@ -370,7 +380,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
     }
 }
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -378,7 +388,7 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectResponseFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
+private val onResponseFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         responseId: gint,
         userData: COpaquePointer,

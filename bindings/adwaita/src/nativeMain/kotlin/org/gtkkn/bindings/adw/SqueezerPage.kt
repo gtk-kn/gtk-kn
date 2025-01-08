@@ -36,8 +36,8 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
          *
          * @return the child to which @self belongs
          */
-        get() = adw_squeezer_page_get_child(adwSqueezerPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = adw_squeezer_page_get_child(adwSqueezerPagePointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -58,7 +58,7 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
          *
          * @return whether @self is enabled
          */
-        get() = adw_squeezer_page_get_enabled(adwSqueezerPagePointer.reinterpret()).asBoolean()
+        get() = adw_squeezer_page_get_enabled(adwSqueezerPagePointer).asBoolean()
 
         /**
          * Sets whether @self is enabled.
@@ -74,7 +74,7 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
          *
          * @param enabled whether @self is enabled
          */
-        set(enabled) = adw_squeezer_page_set_enabled(adwSqueezerPagePointer.reinterpret(), enabled.asGBoolean())
+        set(enabled) = adw_squeezer_page_set_enabled(adwSqueezerPagePointer, enabled.asGBoolean())
 
     public companion object : TypeCompanion<SqueezerPage> {
         override val type: GeneratedClassKGType<SqueezerPage> =

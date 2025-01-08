@@ -71,7 +71,7 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getEtag(): String? = g_file_io_stream_get_etag(gioFileIoStreamPointer.reinterpret())?.toKString()
+    public open fun getEtag(): String? = g_file_io_stream_get_etag(gioFileIoStreamPointer)?.toKString()
 
     /**
      * Queries a file io stream for the given @attributes.
@@ -101,12 +101,12 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_io_stream_query_info(
-            gioFileIoStreamPointer.reinterpret(),
+            gioFileIoStreamPointer,
             attributes,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            FileInfo(reinterpret())
+            FileInfo(this)
         }
 
         return if (gError.pointed != null) {
@@ -139,10 +139,10 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_file_io_stream_query_info_async(
-        gioFileIoStreamPointer.reinterpret(),
+        gioFileIoStreamPointer,
         attributes,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -161,11 +161,11 @@ public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_io_stream_query_info_finish(
-            gioFileIoStreamPointer.reinterpret(),
+            gioFileIoStreamPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            FileInfo(reinterpret())
+            FileInfo(this)
         }
 
         return if (gError.pointed != null) {

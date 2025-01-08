@@ -110,7 +110,7 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          * @return whether the button can shrink
          * @since 1.4
          */
-        get() = adw_button_content_get_can_shrink(adwButtonContentPointer.reinterpret()).asBoolean()
+        get() = adw_button_content_get_can_shrink(adwButtonContentPointer).asBoolean()
 
         /**
          * Sets whether the button can be smaller than the natural size of its contents.
@@ -123,9 +123,7 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            canShrink
-        ) = adw_button_content_set_can_shrink(adwButtonContentPointer.reinterpret(), canShrink.asGBoolean())
+        set(canShrink) = adw_button_content_set_can_shrink(adwButtonContentPointer, canShrink.asGBoolean())
 
     /**
      * The name of the displayed icon.
@@ -138,7 +136,7 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          *
          * @return the icon name
          */
-        get() = adw_button_content_get_icon_name(adwButtonContentPointer.reinterpret())?.toKString()
+        get() = adw_button_content_get_icon_name(adwButtonContentPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -148,7 +146,7 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          *
          * @param iconName the new icon name
          */
-        set(iconName) = adw_button_content_set_icon_name(adwButtonContentPointer.reinterpret(), iconName)
+        set(iconName) = adw_button_content_set_icon_name(adwButtonContentPointer, iconName)
 
     /**
      * The displayed label.
@@ -159,15 +157,14 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          *
          * @return the label
          */
-        get() = adw_button_content_get_label(adwButtonContentPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_button_content_get_label(adwButtonContentPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the displayed label.
          *
          * @param label the new label
          */
-        set(label) = adw_button_content_set_label(adwButtonContentPointer.reinterpret(), label)
+        set(label) = adw_button_content_set_label(adwButtonContentPointer, label)
 
     /**
      * Whether an underline in the text indicates a mnemonic.
@@ -182,7 +179,7 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          *
          * @return whether an underline in the text indicates a mnemonic
          */
-        get() = adw_button_content_get_use_underline(adwButtonContentPointer.reinterpret()).asBoolean()
+        get() = adw_button_content_get_use_underline(adwButtonContentPointer).asBoolean()
 
         /**
          * Sets whether an underline in the text indicates a mnemonic.
@@ -193,9 +190,7 @@ public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
          *
          * @param useUnderline whether an underline in the text indicates a mnemonic
          */
-        set(
-            useUnderline
-        ) = adw_button_content_set_use_underline(adwButtonContentPointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_button_content_set_use_underline(adwButtonContentPointer, useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwButtonContent`.

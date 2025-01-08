@@ -126,8 +126,8 @@ public interface AsyncResult :
      * @return a new reference to the source
      *    object for the @res, or null if there is none.
      */
-    public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer.reinterpret())?.run {
-        Object(reinterpret())
+    public fun getSourceObject(): Object? = g_async_result_get_source_object(gioAsyncResultPointer)?.run {
+        Object(this)
     }
 
     /**
@@ -135,7 +135,7 @@ public interface AsyncResult :
      *
      * @return the user data for @res.
      */
-    public fun getUserData(): gpointer? = g_async_result_get_user_data(gioAsyncResultPointer.reinterpret())
+    public fun getUserData(): gpointer? = g_async_result_get_user_data(gioAsyncResultPointer)
 
     /**
      * Checks if @res has the given @source_tag (generally a function
@@ -148,7 +148,7 @@ public interface AsyncResult :
      */
     @GioVersion2_34
     public fun isTagged(sourceTag: gpointer? = null): Boolean =
-        g_async_result_is_tagged(gioAsyncResultPointer.reinterpret(), sourceTag).asBoolean()
+        g_async_result_is_tagged(gioAsyncResultPointer, sourceTag).asBoolean()
 
     /**
      * If @res is a #GSimpleAsyncResult, this is equivalent to
@@ -169,7 +169,7 @@ public interface AsyncResult :
     @GioVersion2_34
     public fun legacyPropagateError(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_async_result_legacy_propagate_error(gioAsyncResultPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_async_result_legacy_propagate_error(gioAsyncResultPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {

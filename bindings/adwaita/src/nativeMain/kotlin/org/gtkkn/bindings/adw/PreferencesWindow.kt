@@ -105,7 +105,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
          *
          * @return whether gestures and shortcuts are enabled.
          */
-        get() = adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_window_get_can_navigate_back(adwPreferencesWindowPointer).asBoolean()
 
         /**
          * Sets whether gestures and shortcuts for closing subpages are enabled.
@@ -125,10 +125,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
          */
         set(
             canNavigateBack
-        ) = adw_preferences_window_set_can_navigate_back(
-            adwPreferencesWindowPointer.reinterpret(),
-            canNavigateBack.asGBoolean()
-        )
+        ) = adw_preferences_window_set_can_navigate_back(adwPreferencesWindowPointer, canNavigateBack.asGBoolean())
 
     /**
      * Whether search is enabled.
@@ -139,7 +136,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
          *
          * @return whether search is enabled for @self.
          */
-        get() = adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_window_get_search_enabled(adwPreferencesWindowPointer).asBoolean()
 
         /**
          * Sets whether search is enabled for @self.
@@ -148,10 +145,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
          */
         set(
             searchEnabled
-        ) = adw_preferences_window_set_search_enabled(
-            adwPreferencesWindowPointer.reinterpret(),
-            searchEnabled.asGBoolean()
-        )
+        ) = adw_preferences_window_set_search_enabled(adwPreferencesWindowPointer, searchEnabled.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesWindow`.
@@ -165,10 +159,8 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      *
      * @param page the page to add
      */
-    public open fun add(page: PreferencesPage): Unit = adw_preferences_window_add(
-        adwPreferencesWindowPointer.reinterpret(),
-        page.adwPreferencesPagePointer.reinterpret()
-    )
+    public open fun add(page: PreferencesPage): Unit =
+        adw_preferences_window_add(adwPreferencesWindowPointer, page.adwPreferencesPagePointer)
 
     /**
      * Displays @toast.
@@ -178,15 +170,14 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      * @param toast a toast
      */
     public open fun addToast(toast: Toast): Unit =
-        adw_preferences_window_add_toast(adwPreferencesWindowPointer.reinterpret(), toast.adwToastPointer.reinterpret())
+        adw_preferences_window_add_toast(adwPreferencesWindowPointer, toast.adwToastPointer)
 
     /**
      * Closes the current subpage.
      *
      * If there is no presented subpage, this does nothing.
      */
-    public open fun closeSubpage(): Unit =
-        adw_preferences_window_close_subpage(adwPreferencesWindowPointer.reinterpret())
+    public open fun closeSubpage(): Unit = adw_preferences_window_close_subpage(adwPreferencesWindowPointer)
 
     /**
      * Gets the currently visible page of @self.
@@ -194,8 +185,8 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      * @return the visible page
      */
     public open fun getVisiblePage(): PreferencesPage? =
-        adw_preferences_window_get_visible_page(adwPreferencesWindowPointer.reinterpret())?.run {
-            PreferencesPage(reinterpret())
+        adw_preferences_window_get_visible_page(adwPreferencesWindowPointer)?.run {
+            PreferencesPage(this)
         }
 
     /**
@@ -204,7 +195,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      * @return the name of the visible page
      */
     public open fun getVisiblePageName(): String? =
-        adw_preferences_window_get_visible_page_name(adwPreferencesWindowPointer.reinterpret())?.toKString()
+        adw_preferences_window_get_visible_page_name(adwPreferencesWindowPointer)?.toKString()
 
     /**
      * Pop the visible page from the subpage stack of @self.
@@ -213,8 +204,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun popSubpage(): Boolean =
-        adw_preferences_window_pop_subpage(adwPreferencesWindowPointer.reinterpret()).asBoolean()
+    public open fun popSubpage(): Boolean = adw_preferences_window_pop_subpage(adwPreferencesWindowPointer).asBoolean()
 
     /**
      * Sets @subpage as the window's subpage and opens it.
@@ -224,10 +214,8 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      *
      * @param subpage the subpage
      */
-    public open fun presentSubpage(subpage: Widget): Unit = adw_preferences_window_present_subpage(
-        adwPreferencesWindowPointer.reinterpret(),
-        subpage.gtkWidgetPointer.reinterpret()
-    )
+    public open fun presentSubpage(subpage: Widget): Unit =
+        adw_preferences_window_present_subpage(adwPreferencesWindowPointer, subpage.gtkWidgetPointer)
 
     /**
      * Pushes @page onto the subpage stack of @self.
@@ -238,30 +226,24 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun pushSubpage(page: NavigationPage): Unit = adw_preferences_window_push_subpage(
-        adwPreferencesWindowPointer.reinterpret(),
-        page.adwNavigationPagePointer.reinterpret()
-    )
+    public open fun pushSubpage(page: NavigationPage): Unit =
+        adw_preferences_window_push_subpage(adwPreferencesWindowPointer, page.adwNavigationPagePointer)
 
     /**
      * Removes a page from @self.
      *
      * @param page the page to remove
      */
-    public open fun remove(page: PreferencesPage): Unit = adw_preferences_window_remove(
-        adwPreferencesWindowPointer.reinterpret(),
-        page.adwPreferencesPagePointer.reinterpret()
-    )
+    public open fun remove(page: PreferencesPage): Unit =
+        adw_preferences_window_remove(adwPreferencesWindowPointer, page.adwPreferencesPagePointer)
 
     /**
      * Makes @page the visible page of @self.
      *
      * @param page a page of @self
      */
-    public open fun setVisiblePage(page: PreferencesPage): Unit = adw_preferences_window_set_visible_page(
-        adwPreferencesWindowPointer.reinterpret(),
-        page.adwPreferencesPagePointer.reinterpret()
-    )
+    public open fun setVisiblePage(page: PreferencesPage): Unit =
+        adw_preferences_window_set_visible_page(adwPreferencesWindowPointer, page.adwPreferencesPagePointer)
 
     /**
      * Makes the page with the given name visible.
@@ -271,7 +253,7 @@ public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
      * @param name the name of the page to make visible
      */
     public open fun setVisiblePageName(name: String): Unit =
-        adw_preferences_window_set_visible_page_name(adwPreferencesWindowPointer.reinterpret(), name)
+        adw_preferences_window_set_visible_page_name(adwPreferencesWindowPointer, name)
 
     public companion object : TypeCompanion<PreferencesWindow> {
         override val type: GeneratedClassKGType<PreferencesWindow> =

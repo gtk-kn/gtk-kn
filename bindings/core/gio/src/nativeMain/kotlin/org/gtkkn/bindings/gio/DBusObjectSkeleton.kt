@@ -81,10 +81,8 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun addInterface(`interface`: DBusInterfaceSkeleton): Unit = g_dbus_object_skeleton_add_interface(
-        gioDBusObjectSkeletonPointer.reinterpret(),
-        `interface`.gioDBusInterfaceSkeletonPointer.reinterpret()
-    )
+    public open fun addInterface(`interface`: DBusInterfaceSkeleton): Unit =
+        g_dbus_object_skeleton_add_interface(gioDBusObjectSkeletonPointer, `interface`.gioDBusInterfaceSkeletonPointer)
 
     /**
      * This method simply calls g_dbus_interface_skeleton_flush() on all
@@ -94,7 +92,7 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun flush(): Unit = g_dbus_object_skeleton_flush(gioDBusObjectSkeletonPointer.reinterpret())
+    public open fun flush(): Unit = g_dbus_object_skeleton_flush(gioDBusObjectSkeletonPointer)
 
     /**
      * Removes @interface_ from @object.
@@ -104,8 +102,8 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
      */
     @GioVersion2_30
     public open fun removeInterface(`interface`: DBusInterfaceSkeleton): Unit = g_dbus_object_skeleton_remove_interface(
-        gioDBusObjectSkeletonPointer.reinterpret(),
-        `interface`.gioDBusInterfaceSkeletonPointer.reinterpret()
+        gioDBusObjectSkeletonPointer,
+        `interface`.gioDBusInterfaceSkeletonPointer
     )
 
     /**
@@ -119,7 +117,7 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
      */
     @GioVersion2_30
     public open fun removeInterfaceByName(interfaceName: String): Unit =
-        g_dbus_object_skeleton_remove_interface_by_name(gioDBusObjectSkeletonPointer.reinterpret(), interfaceName)
+        g_dbus_object_skeleton_remove_interface_by_name(gioDBusObjectSkeletonPointer, interfaceName)
 
     /**
      * Sets the object path for @object.
@@ -129,7 +127,7 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
      */
     @GioVersion2_30
     public open fun setObjectPath(objectPath: String): Unit =
-        g_dbus_object_skeleton_set_object_path(gioDBusObjectSkeletonPointer.reinterpret(), objectPath)
+        g_dbus_object_skeleton_set_object_path(gioDBusObjectSkeletonPointer, objectPath)
 
     /**
      * Emitted when a method is invoked by a remote caller and used to
@@ -141,18 +139,18 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
      *
      * The default class handler just returns true.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `interface` The #GDBusInterfaceSkeleton that @invocation is for.; `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectAuthorizeMethod(
+    public fun onAuthorizeMethod(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "authorize-method",
-        connectAuthorizeMethodFunc.reinterpret(),
+        onAuthorizeMethodFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -175,7 +173,7 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
     }
 }
 
-private val connectAuthorizeMethodFunc:
+private val onAuthorizeMethodFunc:
     CPointer<CFunction<(CPointer<GDBusInterfaceSkeleton>, CPointer<GDBusMethodInvocation>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -190,10 +188,10 @@ private val connectAuthorizeMethodFunc:
             ) -> Boolean
             >().get().invoke(
             `interface`!!.run {
-                DBusInterfaceSkeleton(reinterpret())
+                DBusInterfaceSkeleton(this)
             },
             invocation!!.run {
-                DBusMethodInvocation(reinterpret())
+                DBusMethodInvocation(this)
             }
         ).asGBoolean()
     }

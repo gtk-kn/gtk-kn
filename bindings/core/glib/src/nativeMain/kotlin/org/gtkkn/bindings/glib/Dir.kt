@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_30
@@ -44,7 +43,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * [method@GLib.Dir.ref] and [method@GLib.Dir.unref] on a `GDir` after calling
      * [method@GLib.Dir.close] on it.
      */
-    public fun close(): Unit = g_dir_close(gPointer.reinterpret())
+    public fun close(): Unit = g_dir_close(gPointer)
 
     /**
      * Retrieves the name of another entry in the directory, or null.
@@ -65,8 +64,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      *   more entries. The return value is owned by GLib and
      *   must not be modified or freed.
      */
-    public fun readName(): String =
-        g_dir_read_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun readName(): String = g_dir_read_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Increment the reference count of `dir`.
@@ -75,15 +73,15 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun ref(): Dir = g_dir_ref(gPointer.reinterpret())!!.run {
-        Dir(reinterpret())
+    public fun ref(): Dir = g_dir_ref(gPointer)!!.run {
+        Dir(this)
     }
 
     /**
      * Resets the given directory. The next call to g_dir_read_name()
      * will return the first entry again.
      */
-    public fun rewind(): Unit = g_dir_rewind(gPointer.reinterpret())
+    public fun rewind(): Unit = g_dir_rewind(gPointer)
 
     /**
      * Decrements the reference count of `dir`.
@@ -101,7 +99,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun unref(): Unit = g_dir_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_dir_unref(gPointer)
 
     public companion object {
         /**

@@ -31,6 +31,7 @@ import org.gtkkn.native.gio.g_simple_action_set_state_hint
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -74,7 +75,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
     public constructor(
         name: String,
         parameterType: VariantType? = null,
-    ) : this(g_simple_action_new(name, parameterType?.gPointer?.reinterpret())!!.reinterpret())
+    ) : this(g_simple_action_new(name, parameterType?.gPointer)!!.reinterpret())
 
     /**
      * Creates a new stateful action.
@@ -95,13 +96,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
         name: String,
         parameterType: VariantType? = null,
         state: Variant,
-    ) : this(
-        g_simple_action_new_stateful(
-            name,
-            parameterType?.gPointer?.reinterpret(),
-            state.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(g_simple_action_new_stateful(name, parameterType?.gPointer, state.gPointer)!!.reinterpret())
 
     /**
      * Sets the action as enabled or not.
@@ -117,7 +112,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      */
     @GioVersion2_28
     public open fun setEnabled(enabled: Boolean): Unit =
-        g_simple_action_set_enabled(gioSimpleActionPointer.reinterpret(), enabled.asGBoolean())
+        g_simple_action_set_enabled(gioSimpleActionPointer, enabled.asGBoolean())
 
     /**
      * Sets the state of the action.
@@ -136,7 +131,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      */
     @GioVersion2_30
     public open fun setState(`value`: Variant): Unit =
-        g_simple_action_set_state(gioSimpleActionPointer.reinterpret(), `value`.gPointer.reinterpret())
+        g_simple_action_set_state(gioSimpleActionPointer, `value`.gPointer)
 
     /**
      * Sets the state hint for the action.
@@ -149,7 +144,7 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      */
     @GioVersion2_44
     public open fun setStateHint(stateHint: Variant? = null): Unit =
-        g_simple_action_set_state_hint(gioSimpleActionPointer.reinterpret(), stateHint?.gPointer?.reinterpret())
+        g_simple_action_set_state_hint(gioSimpleActionPointer, stateHint?.gPointer)
 
     /**
      * Indicates that the action was just activated.
@@ -166,23 +161,35 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      * #GSimpleAction::change-state.  This should allow almost all users
      * of #GSimpleAction to connect only one handler or the other.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `parameter` the parameter to the activation, or null if it has
      *   no parameter
      * @since 2.28
      */
     @GioVersion2_28
-    public fun connectActivate(
+    public fun onActivate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (parameter: Variant?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "activate",
-        connectActivateFunc.reinterpret(),
+        onActivateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     *
+     * @param parameter the parameter to the activation, or null if it has
+     *   no parameter
+     * @since 2.28
+     */
+    @GioVersion2_28
+    public fun emitActivate(parameter: Variant?) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate", parameter?.gPointer)
+    }
 
     /**
      * Indicates that the action just received a request to change its
@@ -219,22 +226,33 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
      * The handler need not set the state to the requested value.
      * It could set it to any value at all, or take some other action.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `value` the requested value for the state
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectChangeState(
+    public fun onChangeState(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`value`: Variant?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "change-state",
-        connectChangeStateFunc.reinterpret(),
+        onChangeStateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "change-state" signal. See [onChangeState].
+     *
+     * @param value the requested value for the state
+     * @since 2.30
+     */
+    @GioVersion2_30
+    public fun emitChangeState(`value`: Variant?) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "change-state", `value`?.gPointer)
+    }
 
     public companion object : TypeCompanion<SimpleAction> {
         override val type: GeneratedClassKGType<SimpleAction> =
@@ -253,21 +271,20 @@ public open class SimpleAction(pointer: CPointer<GSimpleAction>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            parameter: CPointer<GVariant>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(parameter: Variant?) -> Unit>().get().invoke(
-            parameter?.run {
-                Variant(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+private val onActivateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        parameter: CPointer<GVariant>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(parameter: Variant?) -> Unit>().get().invoke(
+        parameter?.run {
+            Variant(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> =
+private val onChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             `value`: CPointer<GVariant>?,
@@ -275,7 +292,7 @@ private val connectChangeStateFunc: CPointer<CFunction<(CPointer<GVariant>?) -> 
         ->
         userData.asStableRef<(`value`: Variant?) -> Unit>().get().invoke(
             `value`?.run {
-                Variant(reinterpret())
+                Variant(this)
             }
         )
     }

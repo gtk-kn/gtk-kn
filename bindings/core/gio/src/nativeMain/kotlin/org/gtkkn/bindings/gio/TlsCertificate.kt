@@ -107,8 +107,8 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * certificate.
          * @since 2.28
          */
-        get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
+        get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer)?.run {
+            TlsCertificate(this)
         }
 
     /**
@@ -125,7 +125,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @return The issuer name, or null if it's not available.
          * @since 2.70
          */
-        get() = g_tls_certificate_get_issuer_name(gioTlsCertificatePointer.reinterpret())?.toKString()
+        get() = g_tls_certificate_get_issuer_name(gioTlsCertificatePointer)?.toKString()
 
     /**
      * The time at which this cert is no longer valid,
@@ -141,8 +141,8 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @return The not-valid-after date, or null if it's not available.
          * @since 2.70
          */
-        get() = g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer.reinterpret())?.run {
-            DateTime(reinterpret())
+        get() = g_tls_certificate_get_not_valid_after(gioTlsCertificatePointer)?.run {
+            DateTime(this)
         }
 
     /**
@@ -159,8 +159,8 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @return The not-valid-before date, or null if it's not available.
          * @since 2.70
          */
-        get() = g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer.reinterpret())?.run {
-            DateTime(reinterpret())
+        get() = g_tls_certificate_get_not_valid_before(gioTlsCertificatePointer)?.run {
+            DateTime(this)
         }
 
     /**
@@ -177,7 +177,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @return The subject name, or null if it's not available.
          * @since 2.70
          */
-        get() = g_tls_certificate_get_subject_name(gioTlsCertificatePointer.reinterpret())?.toKString()
+        get() = g_tls_certificate_get_subject_name(gioTlsCertificatePointer)?.toKString()
 
     /**
      * Creates a #GTlsCertificate from the data in @file.
@@ -329,10 +329,8 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun isSame(certTwo: TlsCertificate): Boolean = g_tls_certificate_is_same(
-        gioTlsCertificatePointer.reinterpret(),
-        certTwo.gioTlsCertificatePointer.reinterpret()
-    ).asBoolean()
+    public open fun isSame(certTwo: TlsCertificate): Boolean =
+        g_tls_certificate_is_same(gioTlsCertificatePointer, certTwo.gioTlsCertificatePointer).asBoolean()
 
     /**
      * This verifies @cert and returns a set of #GTlsCertificateFlags
@@ -379,9 +377,9 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
         identity: SocketConnectable? = null,
         trustedCa: TlsCertificate? = null,
     ): TlsCertificateFlags = g_tls_certificate_verify(
-        gioTlsCertificatePointer.reinterpret(),
+        gioTlsCertificatePointer,
         identity?.gioSocketConnectablePointer,
-        trustedCa?.gioTlsCertificatePointer?.reinterpret()
+        trustedCa?.gioTlsCertificatePointer
     ).run {
         TlsCertificateFlags(this)
     }
@@ -471,7 +469,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
         public fun listNewFromFile(`file`: String): Result<List> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_tls_certificate_list_new_from_file(`file`, gError.ptr)?.run {
-                List(reinterpret())
+                List(this)
             }
 
             return if (gError.pointed != null) {

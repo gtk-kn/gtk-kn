@@ -79,7 +79,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @return `TRUE` if always asking for app
          * @since 4.12
          */
-        get() = gtk_file_launcher_get_always_ask(gtkFileLauncherPointer.reinterpret()).asBoolean()
+        get() = gtk_file_launcher_get_always_ask(gtkFileLauncherPointer).asBoolean()
 
         /**
          * Sets whether to awlays ask the user to choose an app for opening the file.
@@ -89,7 +89,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(alwaysAsk) = gtk_file_launcher_set_always_ask(gtkFileLauncherPointer.reinterpret(), alwaysAsk.asGBoolean())
+        set(alwaysAsk) = gtk_file_launcher_set_always_ask(gtkFileLauncherPointer, alwaysAsk.asGBoolean())
 
     /**
      * The file to launch.
@@ -104,7 +104,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @return the file
          * @since 4.10
          */
-        get() = gtk_file_launcher_get_file(gtkFileLauncherPointer.reinterpret())?.run {
+        get() = gtk_file_launcher_get_file(gtkFileLauncherPointer)?.run {
             File.wrap(reinterpret())
         }
 
@@ -115,7 +115,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(`file`) = gtk_file_launcher_set_file(gtkFileLauncherPointer.reinterpret(), `file`?.gioFilePointer)
+        set(`file`) = gtk_file_launcher_set_file(gtkFileLauncherPointer, `file`?.gioFilePointer)
 
     /**
      * Whether to make the file writable for the handler.
@@ -130,7 +130,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @return `TRUE` if the file will be made writable
          * @since 4.14
          */
-        get() = gtk_file_launcher_get_writable(gtkFileLauncherPointer.reinterpret()).asBoolean()
+        get() = gtk_file_launcher_get_writable(gtkFileLauncherPointer).asBoolean()
 
         /**
          * Sets whether to make the file writable for the handler.
@@ -139,7 +139,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @since 4.14
          */
         @GtkVersion4_14
-        set(writable) = gtk_file_launcher_set_writable(gtkFileLauncherPointer.reinterpret(), writable.asGBoolean())
+        set(writable) = gtk_file_launcher_set_writable(gtkFileLauncherPointer, writable.asGBoolean())
 
     /**
      * Creates a new `GtkFileLauncher` object.
@@ -170,9 +170,9 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_file_launcher_launch(
-        gtkFileLauncherPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gtkFileLauncherPointer,
+        parent?.gtkWindowPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -192,7 +192,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
     public open fun launchFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_file_launcher_launch_finish(
-            gtkFileLauncherPointer.reinterpret(),
+            gtkFileLauncherPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -224,9 +224,9 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_file_launcher_open_containing_folder(
-        gtkFileLauncherPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gtkFileLauncherPointer,
+        parent?.gtkWindowPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -246,7 +246,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
     public open fun openContainingFolderFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_file_launcher_open_containing_folder_finish(
-            gtkFileLauncherPointer.reinterpret(),
+            gtkFileLauncherPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()

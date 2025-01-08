@@ -37,7 +37,7 @@ public open class SvgSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.16
      */
     @CairoVersion1_16
-    public open fun getDocumentUnit(): guint = cairo_svg_surface_get_document_unit(cairoSvgSurfacePointer.reinterpret())
+    public open fun getDocumentUnit(): guint = cairo_svg_surface_get_document_unit(cairoSvgSurfacePointer)
 
     /**
      *
@@ -47,10 +47,10 @@ public open class SvgSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_16
     public open fun setDocumentUnit(unit: guint): Unit =
-        cairo_svg_surface_set_document_unit(cairoSvgSurfacePointer.reinterpret(), unit)
+        cairo_svg_surface_set_document_unit(cairoSvgSurfacePointer, unit)
 
     public open fun restrictToVersion(version: SvgVersion): Unit =
-        cairo_svg_surface_restrict_to_version(cairoSvgSurfacePointer.reinterpret(), version.nativeValue)
+        cairo_svg_surface_restrict_to_version(cairoSvgSurfacePointer, version.nativeValue)
 
     public companion object : TypeCompanion<SvgSurface> {
         override val type: GeneratedClassKGType<SvgSurface> =

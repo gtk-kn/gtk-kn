@@ -70,8 +70,8 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          *
          * @return The drag icon
          */
-        get() = gtk_drag_icon_get_child(gtkDragIconPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_drag_icon_get_child(gtkDragIconPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -79,7 +79,7 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          *
          * @param child a `GtkWidget`
          */
-        set(child) = gtk_drag_icon_set_child(gtkDragIconPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_drag_icon_set_child(gtkDragIconPointer, child?.gtkWidgetPointer)
 
     public companion object : TypeCompanion<DragIcon> {
         override val type: GeneratedClassKGType<DragIcon> =
@@ -106,8 +106,8 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          *   for displaying @value as a drag icon.
          */
         public fun createWidgetForValue(`value`: Value): Widget? =
-            gtk_drag_icon_create_widget_for_value(`value`.gPointer.reinterpret())?.run {
-                Widget(reinterpret())
+            gtk_drag_icon_create_widget_for_value(`value`.gPointer)?.run {
+                Widget(this)
             }
 
         /**
@@ -119,10 +119,9 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          * @param drag a `GdkDrag`
          * @return the `GtkDragIcon`
          */
-        public fun getForDrag(drag: Drag): Widget =
-            gtk_drag_icon_get_for_drag(drag.gdkDragPointer.reinterpret())!!.run {
-                Widget(reinterpret())
-            }
+        public fun getForDrag(drag: Drag): Widget = gtk_drag_icon_get_for_drag(drag.gdkDragPointer)!!.run {
+            Widget(this)
+        }
 
         /**
          * Creates a `GtkDragIcon` that shows @paintable, and associates
@@ -137,12 +136,7 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          * @param hotY Y coordinate of the hotspot
          */
         public fun setFromPaintable(drag: Drag, paintable: Paintable, hotX: gint, hotY: gint): Unit =
-            gtk_drag_icon_set_from_paintable(
-                drag.gdkDragPointer.reinterpret(),
-                paintable.gdkPaintablePointer,
-                hotX,
-                hotY
-            )
+            gtk_drag_icon_set_from_paintable(drag.gdkDragPointer, paintable.gdkPaintablePointer, hotX, hotY)
 
         /**
          * Get the GType of DragIcon

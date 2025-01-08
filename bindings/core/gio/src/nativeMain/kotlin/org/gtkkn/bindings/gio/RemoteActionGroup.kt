@@ -71,10 +71,10 @@ public interface RemoteActionGroup :
     @GioVersion2_32
     public fun activateActionFull(actionName: String, parameter: Variant? = null, platformData: Variant): Unit =
         g_remote_action_group_activate_action_full(
-            gioRemoteActionGroupPointer.reinterpret(),
+            gioRemoteActionGroupPointer,
             actionName,
-            parameter?.gPointer?.reinterpret(),
-            platformData.gPointer.reinterpret()
+            parameter?.gPointer,
+            platformData.gPointer
         )
 
     /**
@@ -96,10 +96,10 @@ public interface RemoteActionGroup :
     @GioVersion2_32
     public fun changeActionStateFull(actionName: String, `value`: Variant, platformData: Variant): Unit =
         g_remote_action_group_change_action_state_full(
-            gioRemoteActionGroupPointer.reinterpret(),
+            gioRemoteActionGroupPointer,
             actionName,
-            `value`.gPointer.reinterpret(),
-            platformData.gPointer.reinterpret()
+            `value`.gPointer,
+            platformData.gPointer
         )
 
     private data class Wrapper(private val pointer: CPointer<GRemoteActionGroup>) : RemoteActionGroup {

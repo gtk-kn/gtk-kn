@@ -191,7 +191,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nDays number of days to move the date forward
      */
-    public fun addDays(nDays: guint): Unit = g_date_add_days(gPointer.reinterpret(), nDays)
+    public fun addDays(nDays: guint): Unit = g_date_add_days(gPointer, nDays)
 
     /**
      * Increments a date by some number of months.
@@ -202,7 +202,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nMonths number of months to move forward
      */
-    public fun addMonths(nMonths: guint): Unit = g_date_add_months(gPointer.reinterpret(), nMonths)
+    public fun addMonths(nMonths: guint): Unit = g_date_add_months(gPointer, nMonths)
 
     /**
      * Increments a date by some number of years.
@@ -212,7 +212,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nYears number of years to move forward
      */
-    public fun addYears(nYears: guint): Unit = g_date_add_years(gPointer.reinterpret(), nYears)
+    public fun addYears(nYears: guint): Unit = g_date_add_years(gPointer, nYears)
 
     /**
      * If @date is prior to @min_date, sets @date equal to @min_date.
@@ -224,8 +224,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @param minDate minimum accepted value for @date
      * @param maxDate maximum accepted value for @date
      */
-    public fun clamp(minDate: Date, maxDate: Date): Unit =
-        g_date_clamp(gPointer.reinterpret(), minDate.gPointer.reinterpret(), maxDate.gPointer.reinterpret())
+    public fun clamp(minDate: Date, maxDate: Date): Unit = g_date_clamp(gPointer, minDate.gPointer, maxDate.gPointer)
 
     /**
      * Initializes one or more #GDate structs to a safe but invalid
@@ -235,7 +234,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nDates number of dates to clear
      */
-    public fun clear(nDates: guint): Unit = g_date_clear(gPointer.reinterpret(), nDates)
+    public fun clear(nDates: guint): Unit = g_date_clear(gPointer, nDates)
 
     /**
      * qsort()-style comparison function for dates.
@@ -245,7 +244,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @return 0 for equal, less than zero if @lhs is less than @rhs,
      *     greater than zero if @lhs is greater than @rhs
      */
-    public fun compare(rhs: Date): gint = g_date_compare(gPointer.reinterpret(), rhs.gPointer.reinterpret())
+    public fun compare(rhs: Date): gint = g_date_compare(gPointer, rhs.gPointer)
 
     /**
      * Copies a GDate to a newly-allocated GDate. If the input was invalid
@@ -256,8 +255,8 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @since 2.56
      */
     @GLibVersion2_56
-    public fun copy(): Date = g_date_copy(gPointer.reinterpret())!!.run {
-        Date(reinterpret())
+    public fun copy(): Date = g_date_copy(gPointer)!!.run {
+        Date(this)
     }
 
     /**
@@ -268,20 +267,19 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @param date2 the second date
      * @return the number of days between @date1 and @date2
      */
-    public fun daysBetween(date2: Date): gint =
-        g_date_days_between(gPointer.reinterpret(), date2.gPointer.reinterpret())
+    public fun daysBetween(date2: Date): gint = g_date_days_between(gPointer, date2.gPointer)
 
     /**
      * Frees a #GDate returned from g_date_new().
      */
-    public fun free(): Unit = g_date_free(gPointer.reinterpret())
+    public fun free(): Unit = g_date_free(gPointer)
 
     /**
      * Returns the day of the month. The date must be valid.
      *
      * @return day of the month
      */
-    public fun getDay(): DateDay = g_date_get_day(gPointer.reinterpret())
+    public fun getDay(): DateDay = g_date_get_day(gPointer)
 
     /**
      * Returns the day of the year, where Jan 1 is the first day of the
@@ -289,7 +287,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return day of the year
      */
-    public fun getDayOfYear(): guint = g_date_get_day_of_year(gPointer.reinterpret())
+    public fun getDayOfYear(): guint = g_date_get_day_of_year(gPointer)
 
     /**
      * Returns the week of the year, where weeks are interpreted according
@@ -299,7 +297,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getIso8601WeekOfYear(): guint = g_date_get_iso8601_week_of_year(gPointer.reinterpret())
+    public fun getIso8601WeekOfYear(): guint = g_date_get_iso8601_week_of_year(gPointer)
 
     /**
      * Returns the Julian day or "serial number" of the #GDate. The
@@ -309,7 +307,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return Julian day
      */
-    public fun getJulian(): guint = g_date_get_julian(gPointer.reinterpret())
+    public fun getJulian(): guint = g_date_get_julian(gPointer)
 
     /**
      * Returns the week of the year, where weeks are understood to start on
@@ -318,14 +316,14 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return week of the year
      */
-    public fun getMondayWeekOfYear(): guint = g_date_get_monday_week_of_year(gPointer.reinterpret())
+    public fun getMondayWeekOfYear(): guint = g_date_get_monday_week_of_year(gPointer)
 
     /**
      * Returns the month of the year. The date must be valid.
      *
      * @return month of the year as a #GDateMonth
      */
-    public fun getMonth(): DateMonth = g_date_get_month(gPointer.reinterpret()).run {
+    public fun getMonth(): DateMonth = g_date_get_month(gPointer).run {
         DateMonth.fromNativeValue(this)
     }
 
@@ -336,14 +334,14 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return week number
      */
-    public fun getSundayWeekOfYear(): guint = g_date_get_sunday_week_of_year(gPointer.reinterpret())
+    public fun getSundayWeekOfYear(): guint = g_date_get_sunday_week_of_year(gPointer)
 
     /**
      * Returns the day of the week for a #GDate. The date must be valid.
      *
      * @return day of the week as a #GDateWeekday.
      */
-    public fun getWeekday(): DateWeekday = g_date_get_weekday(gPointer.reinterpret()).run {
+    public fun getWeekday(): DateWeekday = g_date_get_weekday(gPointer).run {
         DateWeekday.fromNativeValue(this)
     }
 
@@ -352,7 +350,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return year in which the date falls
      */
-    public fun getYear(): DateYear = g_date_get_year(gPointer.reinterpret())
+    public fun getYear(): DateYear = g_date_get_year(gPointer)
 
     /**
      * Returns true if the date is on the first of a month.
@@ -360,7 +358,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return true if the date is the first of the month
      */
-    public fun isFirstOfMonth(): Boolean = g_date_is_first_of_month(gPointer.reinterpret()).asBoolean()
+    public fun isFirstOfMonth(): Boolean = g_date_is_first_of_month(gPointer).asBoolean()
 
     /**
      * Returns true if the date is the last day of the month.
@@ -368,7 +366,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return true if the date is the last day of the month
      */
-    public fun isLastOfMonth(): Boolean = g_date_is_last_of_month(gPointer.reinterpret()).asBoolean()
+    public fun isLastOfMonth(): Boolean = g_date_is_last_of_month(gPointer).asBoolean()
 
     /**
      * Checks if @date1 is less than or equal to @date2,
@@ -376,7 +374,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param date2 the second date
      */
-    public fun order(date2: Date): Unit = g_date_order(gPointer.reinterpret(), date2.gPointer.reinterpret())
+    public fun order(date2: Date): Unit = g_date_order(gPointer, date2.gPointer)
 
     /**
      * Sets the day of the month for a #GDate. If the resulting
@@ -384,7 +382,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param day day to set
      */
-    public fun setDay(day: DateDay): Unit = g_date_set_day(gPointer.reinterpret(), day)
+    public fun setDay(day: DateDay): Unit = g_date_set_day(gPointer, day)
 
     /**
      * Sets the value of a #GDate from a day, month, and year.
@@ -397,14 +395,14 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @param y year
      */
     public fun setDmy(day: DateDay, month: DateMonth, y: DateYear): Unit =
-        g_date_set_dmy(gPointer.reinterpret(), day, month.nativeValue, y)
+        g_date_set_dmy(gPointer, day, month.nativeValue, y)
 
     /**
      * Sets the value of a #GDate from a Julian day number.
      *
      * @param julianDate Julian day number (days since January 1, Year 1)
      */
-    public fun setJulian(julianDate: guint): Unit = g_date_set_julian(gPointer.reinterpret(), julianDate)
+    public fun setJulian(julianDate: guint): Unit = g_date_set_julian(gPointer, julianDate)
 
     /**
      * Sets the month of the year for a #GDate.  If the resulting
@@ -412,7 +410,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param month month to set
      */
-    public fun setMonth(month: DateMonth): Unit = g_date_set_month(gPointer.reinterpret(), month.nativeValue)
+    public fun setMonth(month: DateMonth): Unit = g_date_set_month(gPointer, month.nativeValue)
 
     /**
      * Parses a user-inputted string @str, and try to figure out what date it
@@ -429,7 +427,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param str string to parse
      */
-    public fun setParse(str: String): Unit = g_date_set_parse(gPointer.reinterpret(), str)
+    public fun setParse(str: String): Unit = g_date_set_parse(gPointer, str)
 
     /**
      * Sets the value of a date from a #GTime value.
@@ -437,7 +435,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param time #GTime value to set.
      */
-    public fun setTime(time: Time): Unit = g_date_set_time(gPointer.reinterpret(), time)
+    public fun setTime(time: Time): Unit = g_date_set_time(gPointer, time)
 
     /**
      * Sets the value of a date to the date corresponding to a time
@@ -456,7 +454,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @since 2.10
      */
     @GLibVersion2_10
-    public fun setTimeT(timet: Long): Unit = g_date_set_time_t(gPointer.reinterpret(), timet)
+    public fun setTimeT(timet: Long): Unit = g_date_set_time_t(gPointer, timet)
 
     /**
      * Sets the value of a date from a #GTimeVal value.  Note that the
@@ -469,8 +467,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      * @since 2.10
      */
     @GLibVersion2_10
-    public fun setTimeVal(timeval: TimeVal): Unit =
-        g_date_set_time_val(gPointer.reinterpret(), timeval.gPointer.reinterpret())
+    public fun setTimeVal(timeval: TimeVal): Unit = g_date_set_time_val(gPointer, timeval.gPointer)
 
     /**
      * Sets the year for a #GDate. If the resulting day-month-year
@@ -478,7 +475,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param year year to set
      */
-    public fun setYear(year: DateYear): Unit = g_date_set_year(gPointer.reinterpret(), year)
+    public fun setYear(year: DateYear): Unit = g_date_set_year(gPointer, year)
 
     /**
      * Moves a date some number of days into the past.
@@ -487,7 +484,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nDays number of days to move
      */
-    public fun subtractDays(nDays: guint): Unit = g_date_subtract_days(gPointer.reinterpret(), nDays)
+    public fun subtractDays(nDays: guint): Unit = g_date_subtract_days(gPointer, nDays)
 
     /**
      * Moves a date some number of months into the past.
@@ -497,7 +494,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nMonths number of months to move
      */
-    public fun subtractMonths(nMonths: guint): Unit = g_date_subtract_months(gPointer.reinterpret(), nMonths)
+    public fun subtractMonths(nMonths: guint): Unit = g_date_subtract_months(gPointer, nMonths)
 
     /**
      * Moves a date some number of years into the past.
@@ -508,7 +505,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @param nYears number of years to move
      */
-    public fun subtractYears(nYears: guint): Unit = g_date_subtract_years(gPointer.reinterpret(), nYears)
+    public fun subtractYears(nYears: guint): Unit = g_date_subtract_years(gPointer, nYears)
 
     /**
      * Returns true if the #GDate represents an existing day. The date must not
@@ -517,7 +514,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
      *
      * @return Whether the date is valid
      */
-    public fun valid(): Boolean = g_date_valid(gPointer.reinterpret()).asBoolean()
+    public fun valid(): Boolean = g_date_valid(gPointer).asBoolean()
 
     override fun toString(): String =
         "Date(julianDays=$julianDays, julian=$julian, dmy=$dmy, day=$day, month=$month, year=$year)"
@@ -531,7 +528,7 @@ public class Date(pointer: CPointer<GDate>) : ProxyInstance(pointer) {
          *
          * @return a newly-allocated #GDate
          */
-        public fun new(): Date = Date(g_date_new()!!.reinterpret())
+        public fun new(): Date = Date(g_date_new()!!)
 
         /**
          * Create a new #GDate representing the given day-month-year triplet.

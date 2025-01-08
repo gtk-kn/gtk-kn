@@ -49,8 +49,7 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @return 1, 0 or -1 if @mount1 is greater than, equal to,
      * or less than @mount2, respectively.
      */
-    public fun compare(mount2: UnixMountPoint): gint =
-        g_unix_mount_point_compare(gPointer.reinterpret(), mount2.gPointer.reinterpret())
+    public fun compare(mount2: UnixMountPoint): gint = g_unix_mount_point_compare(gPointer, mount2.gPointer)
 
     /**
      * Makes a copy of @mount_point.
@@ -59,14 +58,14 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @since 2.54
      */
     @GioVersion2_54
-    public fun copy(): UnixMountPoint = g_unix_mount_point_copy(gPointer.reinterpret())!!.run {
-        UnixMountPoint(reinterpret())
+    public fun copy(): UnixMountPoint = g_unix_mount_point_copy(gPointer)!!.run {
+        UnixMountPoint(this)
     }
 
     /**
      * Frees a unix mount point.
      */
-    public fun free(): Unit = g_unix_mount_point_free(gPointer.reinterpret())
+    public fun free(): Unit = g_unix_mount_point_free(gPointer)
 
     /**
      * Gets the device path for a unix mount point.
@@ -74,7 +73,7 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @return a string containing the device path.
      */
     public fun getDevicePath(): String =
-        g_unix_mount_point_get_device_path(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_unix_mount_point_get_device_path(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the file system type for the mount point.
@@ -82,7 +81,7 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @return a string containing the file system type.
      */
     public fun getFsType(): String =
-        g_unix_mount_point_get_fs_type(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_unix_mount_point_get_fs_type(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount point.
@@ -90,7 +89,7 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @return a string containing the mount path.
      */
     public fun getMountPath(): String =
-        g_unix_mount_point_get_mount_path(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_unix_mount_point_get_mount_path(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the options for the mount point.
@@ -99,21 +98,21 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getOptions(): String? = g_unix_mount_point_get_options(gPointer.reinterpret())?.toKString()
+    public fun getOptions(): String? = g_unix_mount_point_get_options(gPointer)?.toKString()
 
     /**
      * Guesses whether a Unix mount point can be ejected.
      *
      * @return true if @mount_point is deemed to be ejectable.
      */
-    public fun guessCanEject(): Boolean = g_unix_mount_point_guess_can_eject(gPointer.reinterpret()).asBoolean()
+    public fun guessCanEject(): Boolean = g_unix_mount_point_guess_can_eject(gPointer).asBoolean()
 
     /**
      * Guesses the icon of a Unix mount point.
      *
      * @return a #GIcon
      */
-    public fun guessIcon(): Icon = g_unix_mount_point_guess_icon(gPointer.reinterpret())!!.run {
+    public fun guessIcon(): Icon = g_unix_mount_point_guess_icon(gPointer)!!.run {
         Icon.wrap(reinterpret())
     }
 
@@ -125,7 +124,7 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      *     be freed with g_free()
      */
     public fun guessName(): String =
-        g_unix_mount_point_guess_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_unix_mount_point_guess_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Guesses the symbolic icon of a Unix mount point.
@@ -134,7 +133,7 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      * @since 2.34
      */
     @GioVersion2_34
-    public fun guessSymbolicIcon(): Icon = g_unix_mount_point_guess_symbolic_icon(gPointer.reinterpret())!!.run {
+    public fun guessSymbolicIcon(): Icon = g_unix_mount_point_guess_symbolic_icon(gPointer)!!.run {
         Icon.wrap(reinterpret())
     }
 
@@ -143,21 +142,21 @@ public class UnixMountPoint(pointer: CPointer<GUnixMountPoint>) : ProxyInstance(
      *
      * @return true if the mount point is a loopback. false otherwise.
      */
-    public fun isLoopback(): Boolean = g_unix_mount_point_is_loopback(gPointer.reinterpret()).asBoolean()
+    public fun isLoopback(): Boolean = g_unix_mount_point_is_loopback(gPointer).asBoolean()
 
     /**
      * Checks if a unix mount point is read only.
      *
      * @return true if a mount point is read only.
      */
-    public fun isReadonly(): Boolean = g_unix_mount_point_is_readonly(gPointer.reinterpret()).asBoolean()
+    public fun isReadonly(): Boolean = g_unix_mount_point_is_readonly(gPointer).asBoolean()
 
     /**
      * Checks if a unix mount point is mountable by the user.
      *
      * @return true if the mount point is user mountable.
      */
-    public fun isUserMountable(): Boolean = g_unix_mount_point_is_user_mountable(gPointer.reinterpret()).asBoolean()
+    public fun isUserMountable(): Boolean = g_unix_mount_point_is_user_mountable(gPointer).asBoolean()
 
     public companion object {
         /**

@@ -38,9 +38,7 @@ public open class TextureNode(pointer: CPointer<GskTextureNode>) :
     public constructor(
         texture: Texture,
         bounds: Rect,
-    ) : this(
-        gsk_texture_node_new(texture.gdkTexturePointer.reinterpret(), bounds.gPointer.reinterpret())!!.reinterpret()
-    )
+    ) : this(gsk_texture_node_new(texture.gdkTexturePointer, bounds.gPointer)!!.reinterpret())
 
     /**
      * Retrieves the `GdkTexture` used when creating this `GskRenderNode`.
@@ -48,7 +46,7 @@ public open class TextureNode(pointer: CPointer<GskTextureNode>) :
      * @return the `GdkTexture`
      */
     public open fun getTexture(): Texture = gsk_texture_node_get_texture(gskTextureNodePointer.reinterpret())!!.run {
-        Texture(reinterpret())
+        Texture(this)
     }
 
     public companion object : TypeCompanion<TextureNode> {

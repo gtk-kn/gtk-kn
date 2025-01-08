@@ -97,7 +97,7 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun isActive(): Boolean = g_socket_service_is_active(gioSocketServicePointer.reinterpret()).asBoolean()
+    public open fun isActive(): Boolean = g_socket_service_is_active(gioSocketServicePointer).asBoolean()
 
     /**
      * Restarts the service, i.e. start accepting connections
@@ -111,7 +111,7 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun start(): Unit = g_socket_service_start(gioSocketServicePointer.reinterpret())
+    public open fun start(): Unit = g_socket_service_start(gioSocketServicePointer)
 
     /**
      * Stops the service, i.e. stops accepting connections
@@ -133,7 +133,7 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun stop(): Unit = g_socket_service_stop(gioSocketServicePointer.reinterpret())
+    public open fun stop(): Unit = g_socket_service_stop(gioSocketServicePointer)
 
     /**
      * The ::incoming signal is emitted when a new incoming connection
@@ -144,19 +144,19 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
      * @connection will be unreffed once the signal handler returns,
      * so you need to ref it yourself if you are planning to use it.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection object; `sourceObject` the source_object passed to
      *     g_socket_listener_add_address(). Returns true to stop other handlers from being called
      * @since 2.22
      */
     @GioVersion2_22
-    public fun connectIncoming(
+    public fun onIncoming(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "incoming",
-        connectIncomingFunc.reinterpret(),
+        onIncomingFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -179,7 +179,7 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
     }
 }
 
-private val connectIncomingFunc:
+private val onIncomingFunc:
     CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -194,10 +194,10 @@ private val connectIncomingFunc:
             ) -> Boolean
             >().get().invoke(
             connection!!.run {
-                SocketConnection(reinterpret())
+                SocketConnection(this)
             },
             sourceObject?.run {
-                Object(reinterpret())
+                Object(this)
             }
         ).asGBoolean()
     }

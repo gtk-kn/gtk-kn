@@ -66,8 +66,8 @@ public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
          * @return the #GUnixFDList from @message
          * @since 2.24
          */
-        get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer.reinterpret())!!.run {
-            UnixFdList(reinterpret())
+        get() = g_unix_fd_message_get_fd_list(gioUnixFdMessagePointer)!!.run {
+            UnixFdList(this)
         }
 
     /**
@@ -88,7 +88,7 @@ public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
      */
     public constructor(
         fdList: UnixFdList,
-    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer.reinterpret())!!.reinterpret())
+    ) : this(g_unix_fd_message_new_with_fd_list(fdList.gioUnixFdListPointer)!!.reinterpret())
 
     /**
      * Adds a file descriptor to @message.
@@ -107,7 +107,7 @@ public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
     @GioVersion2_22
     public open fun appendFd(fd: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_unix_fd_message_append_fd(gioUnixFdMessagePointer.reinterpret(), fd, gError.ptr).asBoolean()
+        val gResult = g_unix_fd_message_append_fd(gioUnixFdMessagePointer, fd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {

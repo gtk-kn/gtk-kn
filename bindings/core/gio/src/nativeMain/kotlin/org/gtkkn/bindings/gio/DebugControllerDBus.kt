@@ -193,8 +193,8 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
             val gError = allocPointerTo<GError>()
             val gResult =
                 g_debug_controller_dbus_new(
-                    connection.gioDBusConnectionPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    connection.gioDBusConnectionPointer,
+                    cancellable?.gioCancellablePointer,
                     gError.ptr
                 )
             if (gError.pointed != null) {
@@ -225,7 +225,7 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
      * @since 2.72
      */
     @GioVersion2_72
-    public open fun stop(): Unit = g_debug_controller_dbus_stop(gioDebugControllerDBusPointer.reinterpret())
+    public open fun stop(): Unit = g_debug_controller_dbus_stop(gioDebugControllerDBusPointer)
 
     /**
      * Emitted when a D-Bus peer is trying to change the debug settings and used
@@ -246,18 +246,18 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
      *
      * The default class handler just returns true.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `invocation` A #GDBusMethodInvocation.. Returns true if the call is authorized, false otherwise.
      * @since 2.72
      */
     @GioVersion2_72
-    public fun connectAuthorize(
+    public fun onAuthorize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "authorize",
-        connectAuthorizeFunc.reinterpret(),
+        onAuthorizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -280,7 +280,7 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
     }
 }
 
-private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>> =
+private val onAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvocation>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             invocation: CPointer<GDBusMethodInvocation>?,
@@ -288,7 +288,7 @@ private val connectAuthorizeFunc: CPointer<CFunction<(CPointer<GDBusMethodInvoca
         ->
         userData.asStableRef<(invocation: DBusMethodInvocation) -> Boolean>().get().invoke(
             invocation!!.run {
-                DBusMethodInvocation(reinterpret())
+                DBusMethodInvocation(this)
             }
         ).asGBoolean()
     }

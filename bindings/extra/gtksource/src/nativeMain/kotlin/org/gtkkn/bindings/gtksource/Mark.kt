@@ -48,8 +48,7 @@ public open class Mark(pointer: CPointer<GtkSourceMark>) :
          *
          * @return the category of the #GtkSourceMark.
          */
-        get() = gtk_source_mark_get_category(gtksourceMarkPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_mark_get_category(gtksourceMarkPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a text mark.
@@ -83,10 +82,9 @@ public open class Mark(pointer: CPointer<GtkSourceMark>) :
      * @param category a string specifying the mark category, or null.
      * @return the next #GtkSourceMark, or null.
      */
-    public open fun next(category: String? = null): Mark? =
-        gtk_source_mark_next(gtksourceMarkPointer.reinterpret(), category)?.run {
-            Mark(reinterpret())
-        }
+    public open fun next(category: String? = null): Mark? = gtk_source_mark_next(gtksourceMarkPointer, category)?.run {
+        Mark(this)
+    }
 
     /**
      * Returns the previous `GtkSourceMark` in the buffer or null if the mark
@@ -99,10 +97,9 @@ public open class Mark(pointer: CPointer<GtkSourceMark>) :
      * @param category a string specifying the mark category, or null.
      * @return the previous #GtkSourceMark, or null.
      */
-    public open fun prev(category: String? = null): Mark? =
-        gtk_source_mark_prev(gtksourceMarkPointer.reinterpret(), category)?.run {
-            Mark(reinterpret())
-        }
+    public open fun prev(category: String? = null): Mark? = gtk_source_mark_prev(gtksourceMarkPointer, category)?.run {
+        Mark(this)
+    }
 
     public companion object : TypeCompanion<Mark> {
         override val type: GeneratedClassKGType<Mark> =

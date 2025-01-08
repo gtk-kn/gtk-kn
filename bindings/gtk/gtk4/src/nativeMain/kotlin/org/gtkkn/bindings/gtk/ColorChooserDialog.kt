@@ -82,7 +82,7 @@ public open class ColorChooserDialog(pointer: CPointer<GtkColorChooserDialog>) :
     public constructor(
         title: String? = null,
         parent: Window? = null,
-    ) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_color_chooser_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<ColorChooserDialog> {
         override val type: GeneratedClassKGType<ColorChooserDialog> =

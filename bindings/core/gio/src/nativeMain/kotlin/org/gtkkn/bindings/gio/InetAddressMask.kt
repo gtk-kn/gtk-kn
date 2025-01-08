@@ -67,8 +67,8 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
          * @return @mask's base address
          * @since 2.32
          */
-        get() = g_inet_address_mask_get_address(gioInetAddressMaskPointer.reinterpret())!!.run {
-            InetAddress(reinterpret())
+        get() = g_inet_address_mask_get_address(gioInetAddressMaskPointer)!!.run {
+            InetAddress(this)
         }
 
     /**
@@ -84,7 +84,7 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
          * @return the #GSocketFamily of @mask's address
          * @since 2.32
          */
-        get() = g_inet_address_mask_get_family(gioInetAddressMaskPointer.reinterpret()).run {
+        get() = g_inet_address_mask_get_family(gioInetAddressMaskPointer).run {
             SocketFamily.fromNativeValue(this)
         }
 
@@ -101,7 +101,7 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
          * @return @mask's length
          * @since 2.32
          */
-        get() = g_inet_address_mask_get_length(gioInetAddressMaskPointer.reinterpret())
+        get() = g_inet_address_mask_get_length(gioInetAddressMaskPointer)
 
     /**
      * Creates a new #GInetAddressMask representing all addresses whose
@@ -116,7 +116,7 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
     public constructor(addr: InetAddress, length: guint) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_inet_address_mask_new(addr.gioInetAddressPointer.reinterpret(), length, gError.ptr)
+            val gResult = g_inet_address_mask_new(addr.gioInetAddressPointer, length, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -155,10 +155,8 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun equal(mask2: InetAddressMask): Boolean = g_inet_address_mask_equal(
-        gioInetAddressMaskPointer.reinterpret(),
-        mask2.gioInetAddressMaskPointer.reinterpret()
-    ).asBoolean()
+    public open fun equal(mask2: InetAddressMask): Boolean =
+        g_inet_address_mask_equal(gioInetAddressMaskPointer, mask2.gioInetAddressMaskPointer).asBoolean()
 
     /**
      * Tests if @address falls within the range described by @mask.
@@ -169,10 +167,8 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun matches(address: InetAddress): Boolean = g_inet_address_mask_matches(
-        gioInetAddressMaskPointer.reinterpret(),
-        address.gioInetAddressPointer.reinterpret()
-    ).asBoolean()
+    public open fun matches(address: InetAddress): Boolean =
+        g_inet_address_mask_matches(gioInetAddressMaskPointer, address.gioInetAddressPointer).asBoolean()
 
     /**
      * Converts @mask back to its corresponding string form.
@@ -183,8 +179,7 @@ public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GioVersion2_32
     override fun toString(): String =
-        g_inet_address_mask_to_string(gioInetAddressMaskPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        g_inet_address_mask_to_string(gioInetAddressMaskPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<InetAddressMask> {
         override val type: GeneratedClassKGType<InetAddressMask> =

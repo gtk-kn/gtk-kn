@@ -20,9 +20,11 @@ import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gdk.GdkGLContext
+import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -162,7 +164,6 @@ import kotlin.Unit
  * ## Skipped during bindings generation
  *
  * - parameter `major`: major: Out parameter is not supported
- * - signal `render`: Signal render is ignored
  */
 public open class GlArea(pointer: CPointer<GtkGLArea>) :
     Widget(pointer.reinterpret()),
@@ -194,7 +195,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          * @return the allowed APIs
          * @since 4.12
          */
-        get() = gtk_gl_area_get_allowed_apis(gtkGlAreaPointer.reinterpret()).run {
+        get() = gtk_gl_area_get_allowed_apis(gtkGlAreaPointer).run {
             Glapi(this)
         }
 
@@ -210,7 +211,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(apis) = gtk_gl_area_set_allowed_apis(gtkGlAreaPointer.reinterpret(), apis.mask)
+        set(apis) = gtk_gl_area_set_allowed_apis(gtkGlAreaPointer, apis.mask)
 
     /**
      * The API currently in use.
@@ -227,7 +228,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          * @return the currently used API
          * @since 4.12
          */
-        get() = gtk_gl_area_get_api(gtkGlAreaPointer.reinterpret()).run {
+        get() = gtk_gl_area_get_api(gtkGlAreaPointer).run {
             Glapi(this)
         }
 
@@ -249,7 +250,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @return true if the @area is auto rendering, false otherwise
          */
-        get() = gtk_gl_area_get_auto_render(gtkGlAreaPointer.reinterpret()).asBoolean()
+        get() = gtk_gl_area_get_auto_render(gtkGlAreaPointer).asBoolean()
 
         /**
          * Sets whether the `GtkGLArea` is in auto render mode.
@@ -266,7 +267,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @param autoRender a boolean
          */
-        set(autoRender) = gtk_gl_area_set_auto_render(gtkGlAreaPointer.reinterpret(), autoRender.asGBoolean())
+        set(autoRender) = gtk_gl_area_set_auto_render(gtkGlAreaPointer, autoRender.asGBoolean())
 
     /**
      * The `GdkGLContext` used by the `GtkGLArea` widget.
@@ -281,8 +282,8 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @return the `GdkGLContext`
          */
-        get() = gtk_gl_area_get_context(gtkGlAreaPointer.reinterpret())?.run {
-            GlContext(reinterpret())
+        get() = gtk_gl_area_get_context(gtkGlAreaPointer)?.run {
+            GlContext(this)
         }
 
     /**
@@ -299,7 +300,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @return true if the @area has a depth buffer, false otherwise
          */
-        get() = gtk_gl_area_get_has_depth_buffer(gtkGlAreaPointer.reinterpret()).asBoolean()
+        get() = gtk_gl_area_get_has_depth_buffer(gtkGlAreaPointer).asBoolean()
 
         /**
          * Sets whether the `GtkGLArea` should use a depth buffer.
@@ -310,9 +311,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @param hasDepthBuffer true to add a depth buffer
          */
-        set(
-            hasDepthBuffer
-        ) = gtk_gl_area_set_has_depth_buffer(gtkGlAreaPointer.reinterpret(), hasDepthBuffer.asGBoolean())
+        set(hasDepthBuffer) = gtk_gl_area_set_has_depth_buffer(gtkGlAreaPointer, hasDepthBuffer.asGBoolean())
 
     /**
      * If set to true the widget will allocate and enable a stencil buffer for the
@@ -324,7 +323,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @return true if the @area has a stencil buffer, false otherwise
          */
-        get() = gtk_gl_area_get_has_stencil_buffer(gtkGlAreaPointer.reinterpret()).asBoolean()
+        get() = gtk_gl_area_get_has_stencil_buffer(gtkGlAreaPointer).asBoolean()
 
         /**
          * Sets whether the `GtkGLArea` should use a stencil buffer.
@@ -335,9 +334,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @param hasStencilBuffer true to add a stencil buffer
          */
-        set(
-            hasStencilBuffer
-        ) = gtk_gl_area_set_has_stencil_buffer(gtkGlAreaPointer.reinterpret(), hasStencilBuffer.asGBoolean())
+        set(hasStencilBuffer) = gtk_gl_area_set_has_stencil_buffer(gtkGlAreaPointer, hasStencilBuffer.asGBoolean())
 
     /**
      * If set to true the widget will try to create a `GdkGLContext` using
@@ -352,7 +349,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          * @return true if the `GtkGLArea` should create an OpenGL ES context
          *   and false otherwise
          */
-        get() = gtk_gl_area_get_use_es(gtkGlAreaPointer.reinterpret()).asBoolean()
+        get() = gtk_gl_area_get_use_es(gtkGlAreaPointer).asBoolean()
 
         /**
          * Sets whether the @area should create an OpenGL or an OpenGL ES context.
@@ -362,7 +359,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          *
          * @param useEs whether to use OpenGL or OpenGL ES
          */
-        set(useEs) = gtk_gl_area_set_use_es(gtkGlAreaPointer.reinterpret(), useEs.asGBoolean())
+        set(useEs) = gtk_gl_area_set_use_es(gtkGlAreaPointer, useEs.asGBoolean())
 
     /**
      * Creates a new `GtkGLArea` widget.
@@ -382,15 +379,15 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      * [signal@Gtk.GLArea::render] signal, and doesn't normally need to be
      * called by application code.
      */
-    public open fun attachBuffers(): Unit = gtk_gl_area_attach_buffers(gtkGlAreaPointer.reinterpret())
+    public open fun attachBuffers(): Unit = gtk_gl_area_attach_buffers(gtkGlAreaPointer)
 
     /**
      * Gets the current error set on the @area.
      *
      * @return the `GError`
      */
-    public open fun getError(): Error? = gtk_gl_area_get_error(gtkGlAreaPointer.reinterpret())?.run {
-        Error(reinterpret())
+    public open fun getError(): Error? = gtk_gl_area_get_error(gtkGlAreaPointer)?.run {
+        Error(this)
     }
 
     /**
@@ -401,7 +398,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      * [signal@Gtk.GLArea::render] signal, and doesn't normally need
      * to be called by application code.
      */
-    public open fun makeCurrent(): Unit = gtk_gl_area_make_current(gtkGlAreaPointer.reinterpret())
+    public open fun makeCurrent(): Unit = gtk_gl_area_make_current(gtkGlAreaPointer)
 
     /**
      * Marks the currently rendered data (if any) as invalid, and queues
@@ -414,7 +411,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      * been called with a false value. The default behaviour is to
      * emit [signal@Gtk.GLArea::render] on each draw.
      */
-    public open fun queueRender(): Unit = gtk_gl_area_queue_render(gtkGlAreaPointer.reinterpret())
+    public open fun queueRender(): Unit = gtk_gl_area_queue_render(gtkGlAreaPointer)
 
     /**
      * Sets an error on the area which will be shown instead of the
@@ -425,8 +422,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      *
      * @param error a new `GError`, or null to unset the error
      */
-    public open fun setError(error: Error? = null): Unit =
-        gtk_gl_area_set_error(gtkGlAreaPointer.reinterpret(), error?.gPointer?.reinterpret())
+    public open fun setError(error: Error? = null): Unit = gtk_gl_area_set_error(gtkGlAreaPointer, error?.gPointer)
 
     /**
      * Sets the required version of OpenGL to be used when creating
@@ -438,7 +434,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      * @param minor the minor version
      */
     public open fun setRequiredVersion(major: gint, minor: gint): Unit =
-        gtk_gl_area_set_required_version(gtkGlAreaPointer.reinterpret(), major, minor)
+        gtk_gl_area_set_required_version(gtkGlAreaPointer, major, minor)
 
     /**
      * Emitted when the widget is being realized.
@@ -451,19 +447,41 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      * [method@Gtk.GLArea.set_error] to register a more detailed error
      * of how the construction failed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns a newly created `GdkGLContext`;
      *     the `GtkGLArea` widget will take ownership of the returned value.
      */
-    public fun connectCreateContext(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> GlContext): ULong =
+    public fun onCreateContext(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> GlContext): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "create-context",
-            connectCreateContextFunc.reinterpret(),
+            onCreateContextFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emitted every time the contents of the `GtkGLArea` should be redrawn.
+     *
+     * The @context is bound to the @area prior to emitting this function,
+     * and the buffers are painted to the window once the emission terminates.
+     *
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `context` the `GdkGLContext` used by @area. Returns true to stop other handlers from being invoked for the event.
+     *   false to propagate the event further.
+     */
+    public fun onRender(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        handler: (context: GlContext) -> Boolean,
+    ): ULong = g_signal_connect_data(
+        gPointer,
+        "render",
+        onRenderFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
 
     /**
      * Emitted once when the widget is realized, and then each time the widget
@@ -478,20 +496,30 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      *
      * The default handler sets up the GL viewport.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `width` the width of the viewport; `height` the height of the viewport
      */
-    public fun connectResize(
+    public fun onResize(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: gint, height: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "resize",
-        connectResizeFunc.reinterpret(),
+        onResizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "resize" signal. See [onResize].
+     *
+     * @param width the width of the viewport
+     * @param height the height of the viewport
+     */
+    public fun emitResize(width: gint, height: gint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "resize", width, height)
+    }
 
     public companion object : TypeCompanion<GlArea> {
         override val type: GeneratedClassKGType<GlArea> =
@@ -510,7 +538,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
     }
 }
 
-private val connectCreateContextFunc: CPointer<CFunction<() -> CPointer<GdkGLContext>>> =
+private val onCreateContextFunc: CPointer<CFunction<() -> CPointer<GdkGLContext>>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
@@ -519,7 +547,21 @@ private val connectCreateContextFunc: CPointer<CFunction<() -> CPointer<GdkGLCon
     }
         .reinterpret()
 
-private val connectResizeFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
+private val onRenderFunc: CPointer<CFunction<(CPointer<GdkGLContext>) -> gboolean>> =
+    staticCFunction {
+            _: COpaquePointer,
+            context: CPointer<GdkGLContext>?,
+            userData: COpaquePointer,
+        ->
+        userData.asStableRef<(context: GlContext) -> Boolean>().get().invoke(
+            context!!.run {
+                GlContext(this)
+            }
+        ).asGBoolean()
+    }
+        .reinterpret()
+
+private val onResizeFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         width: gint,
         height: gint,

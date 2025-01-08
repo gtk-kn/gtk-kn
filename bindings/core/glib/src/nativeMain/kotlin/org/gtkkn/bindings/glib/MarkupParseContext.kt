@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_16
@@ -62,7 +61,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      */
     public fun endParse(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_markup_parse_context_end_parse(gPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_markup_parse_context_end_parse(gPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -76,7 +75,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      * This function can't be called from inside one of the
      * #GMarkupParser functions or while a subparser is pushed.
      */
-    public fun free(): Unit = g_markup_parse_context_free(gPointer.reinterpret())
+    public fun free(): Unit = g_markup_parse_context_free(gPointer)
 
     /**
      * Retrieves the name of the currently open element.
@@ -90,7 +89,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      */
     @GLibVersion2_2
     public fun getElement(): String =
-        g_markup_parse_context_get_element(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_markup_parse_context_get_element(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the element stack from the internal state of the parser.
@@ -109,8 +108,8 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getElementStack(): SList = g_markup_parse_context_get_element_stack(gPointer.reinterpret())!!.run {
-        SList(reinterpret())
+    public fun getElementStack(): SList = g_markup_parse_context_get_element_stack(gPointer)!!.run {
+        SList(this)
     }
 
     /**
@@ -126,7 +125,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun getUserData(): gpointer? = g_markup_parse_context_get_user_data(gPointer.reinterpret())
+    public fun getUserData(): gpointer? = g_markup_parse_context_get_user_data(gPointer)
 
     /**
      * Feed some data to the #GMarkupParseContext.
@@ -146,7 +145,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      */
     public fun parse(text: String, textLen: Long): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_markup_parse_context_parse(gPointer.reinterpret(), text, textLen, gError.ptr).asBoolean()
+        val gResult = g_markup_parse_context_parse(gPointer, text, textLen, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -173,7 +172,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun pop(): gpointer? = g_markup_parse_context_pop(gPointer.reinterpret())
+    public fun pop(): gpointer? = g_markup_parse_context_pop(gPointer)
 
     /**
      * Temporarily redirects markup data to a sub-parser.
@@ -297,7 +296,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      */
     @GLibVersion2_18
     public fun push(parser: MarkupParser, userData: gpointer? = null): Unit =
-        g_markup_parse_context_push(gPointer.reinterpret(), parser.gPointer.reinterpret(), userData)
+        g_markup_parse_context_push(gPointer, parser.gPointer, userData)
 
     /**
      * Increases the reference count of @context.
@@ -306,8 +305,8 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun ref(): MarkupParseContext = g_markup_parse_context_ref(gPointer.reinterpret())!!.run {
-        MarkupParseContext(reinterpret())
+    public fun ref(): MarkupParseContext = g_markup_parse_context_ref(gPointer)!!.run {
+        MarkupParseContext(this)
     }
 
     /**
@@ -317,7 +316,7 @@ public class MarkupParseContext(pointer: CPointer<GMarkupParseContext>) : ProxyI
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun unref(): Unit = g_markup_parse_context_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_markup_parse_context_unref(gPointer)
 
     public companion object {
         /**

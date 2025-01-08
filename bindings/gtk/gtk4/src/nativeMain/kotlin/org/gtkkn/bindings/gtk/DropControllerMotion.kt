@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkDropControllerMotion
 import org.gtkkn.native.gtk.gtk_drop_controller_motion_contains_pointer
 import org.gtkkn.native.gtk.gtk_drop_controller_motion_get_drop
@@ -70,8 +71,8 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
          * @return The `GdkDrop` currently
          *   happening within @self
          */
-        get() = gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer.reinterpret())?.run {
-            Drop(reinterpret())
+        get() = gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer)?.run {
+            Drop(this)
         }
 
     /**
@@ -89,7 +90,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
      * @return true if a dragging pointer is within @self or one of its children.
      */
     public open fun containsPointer(): Boolean =
-        gtk_drop_controller_motion_contains_pointer(gtkDropControllerMotionPointer.reinterpret()).asBoolean()
+        gtk_drop_controller_motion_contains_pointer(gtkDropControllerMotionPointer).asBoolean()
 
     /**
      * Returns if a Drag-and-Drop operation is within the widget
@@ -99,59 +100,86 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
      *   not one of its children
      */
     public open fun isPointer(): Boolean =
-        gtk_drop_controller_motion_is_pointer(gtkDropControllerMotionPointer.reinterpret()).asBoolean()
+        gtk_drop_controller_motion_is_pointer(gtkDropControllerMotionPointer).asBoolean()
 
     /**
      * Signals that the pointer has entered the widget.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` coordinates of pointer location; `y` coordinates of pointer location
      */
-    public fun connectEnter(
+    public fun onEnter(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "enter",
-        connectEnterFunc.reinterpret(),
+        onEnterFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "enter" signal. See [onEnter].
+     *
+     * @param x coordinates of pointer location
+     * @param y coordinates of pointer location
+     */
+    public fun emitEnter(x: gdouble, y: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "enter", x, y)
+    }
+
+    /**
      * Signals that the pointer has left the widget.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "leave",
-            connectLeaveFunc.reinterpret(),
+            onLeaveFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "leave" signal. See [onLeave].
+     */
+    public fun emitLeave() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "leave")
+    }
+
+    /**
      * Emitted when the pointer moves inside the widget.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the x coordinate; `y` the y coordinate
      */
-    public fun connectMotion(
+    public fun onMotion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "motion",
-        connectMotionFunc.reinterpret(),
+        onMotionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "motion" signal. See [onMotion].
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
+    public fun emitMotion(x: gdouble, y: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "motion", x, y)
+    }
 
     public companion object : TypeCompanion<DropControllerMotion> {
         override val type: GeneratedClassKGType<DropControllerMotion> =
@@ -170,7 +198,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+private val onEnterFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         x: gdouble,
         y: gdouble,
@@ -180,7 +208,7 @@ private val connectEnterFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = 
 }
     .reinterpret()
 
-private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -188,7 +216,7 @@ private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectMotionFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+private val onMotionFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         x: gdouble,
         y: gdouble,

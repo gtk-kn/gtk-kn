@@ -44,7 +44,7 @@ public open class GlTexture(pointer: CPointer<GdkGLTexture>) :
      * [method@Gdk.Texture.download] function, after this
      * function has been called.
      */
-    public open fun release(): Unit = gdk_gl_texture_release(gdkGlTexturePointer.reinterpret())
+    public open fun release(): Unit = gdk_gl_texture_release(gdkGlTexturePointer)
 
     public companion object : TypeCompanion<GlTexture> {
         override val type: GeneratedClassKGType<GlTexture> =

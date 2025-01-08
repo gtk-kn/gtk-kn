@@ -42,7 +42,7 @@ public interface CompletionProposal :
      */
     @GtkSourceVersion5_6
     public fun getTypedText(): String? =
-        gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer.reinterpret())?.toKString()
+        gtk_source_completion_proposal_get_typed_text(gtksourceCompletionProposalPointer)?.toKString()
 
     private data class Wrapper(private val pointer: CPointer<GtkSourceCompletionProposal>) : CompletionProposal {
         override val gtksourceCompletionProposalPointer: CPointer<GtkSourceCompletionProposal> =

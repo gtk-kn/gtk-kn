@@ -38,7 +38,7 @@ public interface FileDescriptorBased :
      * @since 2.24
      */
     @GioVersion2_24
-    public fun getFd(): gint = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer.reinterpret())
+    public fun getFd(): gint = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer)
 
     private data class Wrapper(private val pointer: CPointer<GFileDescriptorBased>) : FileDescriptorBased {
         override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased> = pointer

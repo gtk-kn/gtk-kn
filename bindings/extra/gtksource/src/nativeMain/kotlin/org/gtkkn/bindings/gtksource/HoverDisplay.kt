@@ -44,26 +44,20 @@ public open class HoverDisplay(pointer: CPointer<GtkSourceHoverDisplay>) :
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
         get() = gPointer.reinterpret()
 
-    public open fun append(child: Widget): Unit = gtk_source_hover_display_append(
-        gtksourceHoverDisplayPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )
+    public open fun append(child: Widget): Unit =
+        gtk_source_hover_display_append(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
 
     public open fun insertAfter(child: Widget, sibling: Widget): Unit = gtk_source_hover_display_insert_after(
-        gtksourceHoverDisplayPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        sibling.gtkWidgetPointer.reinterpret()
+        gtksourceHoverDisplayPointer,
+        child.gtkWidgetPointer,
+        sibling.gtkWidgetPointer
     )
 
-    public open fun prepend(child: Widget): Unit = gtk_source_hover_display_prepend(
-        gtksourceHoverDisplayPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )
+    public open fun prepend(child: Widget): Unit =
+        gtk_source_hover_display_prepend(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
 
-    public open fun remove(child: Widget): Unit = gtk_source_hover_display_remove(
-        gtksourceHoverDisplayPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )
+    public open fun remove(child: Widget): Unit =
+        gtk_source_hover_display_remove(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<HoverDisplay> {
         override val type: GeneratedClassKGType<HoverDisplay> =

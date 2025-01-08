@@ -51,8 +51,8 @@ public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
          * @return a #GFileInfo, or null
          * @since 2.26
          */
-        get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer.reinterpret())?.run {
-            FileInfo(reinterpret())
+        get() = g_zlib_compressor_get_file_info(gioZlibCompressorPointer)?.run {
+            FileInfo(this)
         }
 
         /**
@@ -69,12 +69,7 @@ public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
          * @since 2.26
          */
         @GioVersion2_26
-        set(
-            fileInfo
-        ) = g_zlib_compressor_set_file_info(
-            gioZlibCompressorPointer.reinterpret(),
-            fileInfo?.gioFileInfoPointer?.reinterpret()
-        )
+        set(fileInfo) = g_zlib_compressor_set_file_info(gioZlibCompressorPointer, fileInfo?.gioFileInfoPointer)
 
     /**
      * Creates a new #GZlibCompressor.

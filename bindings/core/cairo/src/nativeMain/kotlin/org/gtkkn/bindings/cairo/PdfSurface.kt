@@ -46,10 +46,10 @@ public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_10
     public open fun restrictToVersion(version: PdfVersion): Unit =
-        cairo_pdf_surface_restrict_to_version(cairoPdfSurfacePointer.reinterpret(), version.nativeValue)
+        cairo_pdf_surface_restrict_to_version(cairoPdfSurfacePointer, version.nativeValue)
 
     public open fun setSize(widthInPoints: gdouble, heightInPoints: gdouble): Unit =
-        cairo_pdf_surface_set_size(cairoPdfSurfacePointer.reinterpret(), widthInPoints, heightInPoints)
+        cairo_pdf_surface_set_size(cairoPdfSurfacePointer, widthInPoints, heightInPoints)
 
     /**
      *
@@ -62,7 +62,7 @@ public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_16
     public open fun addOutline(parentId: gint, utf8Name: String, linkAttribs: String, flags: guint): gint =
-        cairo_pdf_surface_add_outline(cairoPdfSurfacePointer.reinterpret(), parentId, utf8Name, linkAttribs, flags)
+        cairo_pdf_surface_add_outline(cairoPdfSurfacePointer, parentId, utf8Name, linkAttribs, flags)
 
     /**
      *
@@ -73,7 +73,7 @@ public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_16
     public open fun setMetadata(metadata: PdfMetadata, utf8Value: String): Unit =
-        cairo_pdf_surface_set_metadata(cairoPdfSurfacePointer.reinterpret(), metadata.nativeValue, utf8Value)
+        cairo_pdf_surface_set_metadata(cairoPdfSurfacePointer, metadata.nativeValue, utf8Value)
 
     /**
      *
@@ -84,7 +84,7 @@ public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_18
     public open fun setCustomMetadata(name: String, `value`: String): Unit =
-        cairo_pdf_surface_set_custom_metadata(cairoPdfSurfacePointer.reinterpret(), name, `value`)
+        cairo_pdf_surface_set_custom_metadata(cairoPdfSurfacePointer, name, `value`)
 
     /**
      *
@@ -93,8 +93,7 @@ public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.16
      */
     @CairoVersion1_16
-    public open fun setPageLabel(label: String): Unit =
-        cairo_pdf_surface_set_page_label(cairoPdfSurfacePointer.reinterpret(), label)
+    public open fun setPageLabel(label: String): Unit = cairo_pdf_surface_set_page_label(cairoPdfSurfacePointer, label)
 
     /**
      *
@@ -105,7 +104,7 @@ public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_16
     public open fun setThumbnailSize(width: gint, height: gint): Unit =
-        cairo_pdf_surface_set_thumbnail_size(cairoPdfSurfacePointer.reinterpret(), width, height)
+        cairo_pdf_surface_set_thumbnail_size(cairoPdfSurfacePointer, width, height)
 
     public companion object : TypeCompanion<PdfSurface> {
         override val type: GeneratedClassKGType<PdfSurface> =

@@ -70,8 +70,8 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
          *
          * @return a `GdkSurface`
          */
-        get() = gsk_renderer_get_surface(gskRendererPointer.reinterpret())?.run {
-            Surface(reinterpret())
+        get() = gsk_renderer_get_surface(gskRendererPointer)?.run {
+            Surface(this)
         }
 
     /**
@@ -86,16 +86,14 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
      * @param surface a `GdkSurface`
      * @return a `GskRenderer`
      */
-    public constructor(
-        surface: Surface,
-    ) : this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer.reinterpret())!!.reinterpret())
+    public constructor(surface: Surface) : this(gsk_renderer_new_for_surface(surface.gdkSurfacePointer)!!.reinterpret())
 
     /**
      * Checks whether the @renderer is realized or not.
      *
      * @return true if the `GskRenderer` was realized, and false otherwise
      */
-    public open fun isRealized(): Boolean = gsk_renderer_is_realized(gskRendererPointer.reinterpret()).asBoolean()
+    public open fun isRealized(): Boolean = gsk_renderer_is_realized(gskRendererPointer).asBoolean()
 
     /**
      * Creates the resources needed by the @renderer to render the scene
@@ -114,11 +112,7 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
      */
     public open fun realize(surface: Surface? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gsk_renderer_realize(
-            gskRendererPointer.reinterpret(),
-            surface?.gdkSurfacePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = gsk_renderer_realize(gskRendererPointer, surface?.gdkSurfacePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -141,8 +135,8 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
     public open fun realizeForDisplay(display: Display): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gsk_renderer_realize_for_display(
-            gskRendererPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret(),
+            gskRendererPointer,
+            display.gdkDisplayPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -170,11 +164,8 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
      * @param region the `cairo_region_t` that must be redrawn or null
      *   for the whole window
      */
-    public open fun render(root: RenderNode, region: Region? = null): Unit = gsk_renderer_render(
-        gskRendererPointer.reinterpret(),
-        root.gPointer.reinterpret(),
-        region?.gPointer?.reinterpret()
-    )
+    public open fun render(root: RenderNode, region: Region? = null): Unit =
+        gsk_renderer_render(gskRendererPointer, root.gPointer, region?.gPointer)
 
     /**
      * Renders the scene graph, described by a tree of `GskRenderNode` instances,
@@ -190,18 +181,15 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
      * @param viewport the section to draw or null to use @root's bounds
      * @return a `GdkTexture` with the rendered contents of @root.
      */
-    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(
-        gskRendererPointer.reinterpret(),
-        root.gPointer.reinterpret(),
-        viewport?.gPointer?.reinterpret()
-    )!!.run {
-        Texture(reinterpret())
-    }
+    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture =
+        gsk_renderer_render_texture(gskRendererPointer, root.gPointer, viewport?.gPointer)!!.run {
+            Texture(this)
+        }
 
     /**
      * Releases all the resources created by gsk_renderer_realize().
      */
-    public open fun unrealize(): Unit = gsk_renderer_unrealize(gskRendererPointer.reinterpret())
+    public open fun unrealize(): Unit = gsk_renderer_unrealize(gskRendererPointer)
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =

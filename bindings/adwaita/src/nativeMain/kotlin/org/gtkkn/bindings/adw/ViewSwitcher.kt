@@ -115,7 +115,7 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
          *
          * @return the policy of @self
          */
-        get() = adw_view_switcher_get_policy(adwViewSwitcherPointer.reinterpret()).run {
+        get() = adw_view_switcher_get_policy(adwViewSwitcherPointer).run {
             ViewSwitcherPolicy.fromNativeValue(this)
         }
 
@@ -124,7 +124,7 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
          *
          * @param policy the new policy
          */
-        set(policy) = adw_view_switcher_set_policy(adwViewSwitcherPointer.reinterpret(), policy.nativeValue)
+        set(policy) = adw_view_switcher_set_policy(adwViewSwitcherPointer, policy.nativeValue)
 
     /**
      * The stack the view switcher controls.
@@ -135,8 +135,8 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
          *
          * @return the stack
          */
-        get() = adw_view_switcher_get_stack(adwViewSwitcherPointer.reinterpret())?.run {
-            ViewStack(reinterpret())
+        get() = adw_view_switcher_get_stack(adwViewSwitcherPointer)?.run {
+            ViewStack(this)
         }
 
         /**
@@ -144,9 +144,7 @@ public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
          *
          * @param stack a stack
          */
-        set(
-            stack
-        ) = adw_view_switcher_set_stack(adwViewSwitcherPointer.reinterpret(), stack?.adwViewStackPointer?.reinterpret())
+        set(stack) = adw_view_switcher_set_stack(adwViewSwitcherPointer, stack?.adwViewStackPointer)
 
     /**
      * Creates a new `AdwViewSwitcher`.

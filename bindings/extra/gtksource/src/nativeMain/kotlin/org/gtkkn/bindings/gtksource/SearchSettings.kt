@@ -53,9 +53,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          *
          * @return whether to search at word boundaries.
          */
-        get() = gtk_source_search_settings_get_at_word_boundaries(
-            gtksourceSearchSettingsPointer.reinterpret()
-        ).asBoolean()
+        get() = gtk_source_search_settings_get_at_word_boundaries(gtksourceSearchSettingsPointer).asBoolean()
 
         /**
          * Change whether the search is done at word boundaries.
@@ -69,7 +67,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
         set(
             atWordBoundaries
         ) = gtk_source_search_settings_set_at_word_boundaries(
-            gtksourceSearchSettingsPointer.reinterpret(),
+            gtksourceSearchSettingsPointer,
             atWordBoundaries.asGBoolean()
         )
 
@@ -82,7 +80,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          *
          * @return whether the search is case sensitive.
          */
-        get() = gtk_source_search_settings_get_case_sensitive(gtksourceSearchSettingsPointer.reinterpret()).asBoolean()
+        get() = gtk_source_search_settings_get_case_sensitive(gtksourceSearchSettingsPointer).asBoolean()
 
         /**
          * Enables or disables the case sensitivity for the search.
@@ -91,10 +89,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          */
         set(
             caseSensitive
-        ) = gtk_source_search_settings_set_case_sensitive(
-            gtksourceSearchSettingsPointer.reinterpret(),
-            caseSensitive.asGBoolean()
-        )
+        ) = gtk_source_search_settings_set_case_sensitive(gtksourceSearchSettingsPointer, caseSensitive.asGBoolean())
 
     /**
      * Search by regular expressions with
@@ -106,7 +101,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          *
          * @return whether to search by regular expressions.
          */
-        get() = gtk_source_search_settings_get_regex_enabled(gtksourceSearchSettingsPointer.reinterpret()).asBoolean()
+        get() = gtk_source_search_settings_get_regex_enabled(gtksourceSearchSettingsPointer).asBoolean()
 
         /**
          * Enables or disables whether to search by regular expressions.
@@ -122,10 +117,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          */
         set(
             regexEnabled
-        ) = gtk_source_search_settings_set_regex_enabled(
-            gtksourceSearchSettingsPointer.reinterpret(),
-            regexEnabled.asGBoolean()
-        )
+        ) = gtk_source_search_settings_set_regex_enabled(gtksourceSearchSettingsPointer, regexEnabled.asGBoolean())
 
     /**
      * A search string, or null if the search is disabled.
@@ -144,7 +136,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          *
          * @return the text to search, or null if the search is disabled.
          */
-        get() = gtk_source_search_settings_get_search_text(gtksourceSearchSettingsPointer.reinterpret())?.toKString()
+        get() = gtk_source_search_settings_get_search_text(gtksourceSearchSettingsPointer)?.toKString()
 
         /**
          * Sets the text to search.
@@ -157,9 +149,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          *
          * @param searchText the nul-terminated text to search, or null to disable the search.
          */
-        set(
-            searchText
-        ) = gtk_source_search_settings_set_search_text(gtksourceSearchSettingsPointer.reinterpret(), searchText)
+        set(searchText) = gtk_source_search_settings_set_search_text(gtksourceSearchSettingsPointer, searchText)
 
     /**
      * Exclude invisible text from the search.
@@ -175,7 +165,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          * @return whether to exclude invisible text from the search.
          * @since 5.12
          */
-        get() = gtk_source_search_settings_get_visible_only(gtksourceSearchSettingsPointer.reinterpret()).asBoolean()
+        get() = gtk_source_search_settings_get_visible_only(gtksourceSearchSettingsPointer).asBoolean()
 
         /**
          * Enables or disables whether to exclude invisible text from the search.
@@ -189,10 +179,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
         @GtkSourceVersion5_12
         set(
             visibleOnly
-        ) = gtk_source_search_settings_set_visible_only(
-            gtksourceSearchSettingsPointer.reinterpret(),
-            visibleOnly.asGBoolean()
-        )
+        ) = gtk_source_search_settings_set_visible_only(gtksourceSearchSettingsPointer, visibleOnly.asGBoolean())
 
     /**
      * For a forward search, continue at the beginning of the buffer if no
@@ -205,7 +192,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          *
          * @return whether to wrap around the search.
          */
-        get() = gtk_source_search_settings_get_wrap_around(gtksourceSearchSettingsPointer.reinterpret()).asBoolean()
+        get() = gtk_source_search_settings_get_wrap_around(gtksourceSearchSettingsPointer).asBoolean()
 
         /**
          * Enables or disables the wrap around search.
@@ -218,10 +205,7 @@ public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
          */
         set(
             wrapAround
-        ) = gtk_source_search_settings_set_wrap_around(
-            gtksourceSearchSettingsPointer.reinterpret(),
-            wrapAround.asGBoolean()
-        )
+        ) = gtk_source_search_settings_set_wrap_around(gtksourceSearchSettingsPointer, wrapAround.asGBoolean())
 
     /**
      * Creates a new search settings object.

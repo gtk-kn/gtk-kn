@@ -55,10 +55,10 @@ public open class GutterRendererText(pointer: CPointer<GtkSourceGutterRendererTe
     public constructor() : this(gtk_source_gutter_renderer_text_new()!!.reinterpret())
 
     public open fun setMarkup(markup: String, length: gint): Unit =
-        gtk_source_gutter_renderer_text_set_markup(gtksourceGutterRendererTextPointer.reinterpret(), markup, length)
+        gtk_source_gutter_renderer_text_set_markup(gtksourceGutterRendererTextPointer, markup, length)
 
     public open fun setText(text: String, length: gint): Unit =
-        gtk_source_gutter_renderer_text_set_text(gtksourceGutterRendererTextPointer.reinterpret(), text, length)
+        gtk_source_gutter_renderer_text_set_text(gtksourceGutterRendererTextPointer, text, length)
 
     public companion object : TypeCompanion<GutterRendererText> {
         override val type: GeneratedClassKGType<GutterRendererText> =

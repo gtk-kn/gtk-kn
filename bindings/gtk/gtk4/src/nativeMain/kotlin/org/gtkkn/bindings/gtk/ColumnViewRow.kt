@@ -59,7 +59,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return the accessible description
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_accessible_description(gtkColumnViewRowPointer.reinterpret())?.toKString()
+        get() = gtk_column_view_row_get_accessible_description(gtkColumnViewRowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -70,9 +70,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            description
-        ) = gtk_column_view_row_set_accessible_description(gtkColumnViewRowPointer.reinterpret(), description)
+        set(description) = gtk_column_view_row_set_accessible_description(gtkColumnViewRowPointer, description)
 
     /**
      * The accessible label to set on the row.
@@ -87,7 +85,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return the accessible label
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_accessible_label(gtkColumnViewRowPointer.reinterpret())?.toKString()
+        get() = gtk_column_view_row_get_accessible_label(gtkColumnViewRowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -98,7 +96,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(label) = gtk_column_view_row_set_accessible_label(gtkColumnViewRowPointer.reinterpret(), label)
+        set(label) = gtk_column_view_row_set_accessible_label(gtkColumnViewRowPointer, label)
 
     /**
      * If the row can be activated by the user.
@@ -114,7 +112,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return true if the row is activatable
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_activatable(gtkColumnViewRowPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_row_get_activatable(gtkColumnViewRowPointer).asBoolean()
 
         /**
          * Sets @self to be activatable.
@@ -130,9 +128,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            activatable
-        ) = gtk_column_view_row_set_activatable(gtkColumnViewRowPointer.reinterpret(), activatable.asGBoolean())
+        set(activatable) = gtk_column_view_row_set_activatable(gtkColumnViewRowPointer, activatable.asGBoolean())
 
     /**
      * If the row can be focused with the keyboard.
@@ -148,7 +144,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return true if the row is focusable
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_focusable(gtkColumnViewRowPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_row_get_focusable(gtkColumnViewRowPointer).asBoolean()
 
         /**
          * Sets @self to be focusable.
@@ -165,9 +161,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            focusable
-        ) = gtk_column_view_row_set_focusable(gtkColumnViewRowPointer.reinterpret(), focusable.asGBoolean())
+        set(focusable) = gtk_column_view_row_set_focusable(gtkColumnViewRowPointer, focusable.asGBoolean())
 
     /**
      * The item for this row.
@@ -184,7 +178,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return The item displayed
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_item(gtkColumnViewRowPointer.reinterpret())?.run {
+        get() = gtk_column_view_row_get_item(gtkColumnViewRowPointer)?.run {
             Object(reinterpret())
         }
 
@@ -203,7 +197,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return The position of this row
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_position(gtkColumnViewRowPointer.reinterpret())
+        get() = gtk_column_view_row_get_position(gtkColumnViewRowPointer)
 
     /**
      * If the row can be selected by the user.
@@ -221,7 +215,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return true if the row is selectable
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_selectable(gtkColumnViewRowPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_row_get_selectable(gtkColumnViewRowPointer).asBoolean()
 
         /**
          * Sets @self to be selectable.
@@ -240,9 +234,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            selectable
-        ) = gtk_column_view_row_set_selectable(gtkColumnViewRowPointer.reinterpret(), selectable.asGBoolean())
+        set(selectable) = gtk_column_view_row_set_selectable(gtkColumnViewRowPointer, selectable.asGBoolean())
 
     /**
      * If the item in the row is currently selected.
@@ -260,7 +252,7 @@ public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
          * @return true if the item is selected.
          * @since 4.12
          */
-        get() = gtk_column_view_row_get_selected(gtkColumnViewRowPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_row_get_selected(gtkColumnViewRowPointer).asBoolean()
 
     public companion object : TypeCompanion<ColumnViewRow> {
         override val type: GeneratedClassKGType<ColumnViewRow> =

@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.jsc.Value
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_40
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -33,8 +32,8 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun ref(): ScriptMessageReply = webkit_script_message_reply_ref(gPointer.reinterpret())!!.run {
-        ScriptMessageReply(reinterpret())
+    public fun ref(): ScriptMessageReply = webkit_script_message_reply_ref(gPointer)!!.run {
+        ScriptMessageReply(this)
     }
 
     /**
@@ -45,7 +44,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      */
     @WebKitVersion2_40
     public fun returnErrorMessage(errorMessage: String): Unit =
-        webkit_script_message_reply_return_error_message(gPointer.reinterpret(), errorMessage)
+        webkit_script_message_reply_return_error_message(gPointer, errorMessage)
 
     /**
      * Reply to a script message with a value.
@@ -57,7 +56,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      */
     @WebKitVersion2_40
     public fun returnValue(replyValue: Value): Unit =
-        webkit_script_message_reply_return_value(gPointer.reinterpret(), replyValue.jscValuePointer.reinterpret())
+        webkit_script_message_reply_return_value(gPointer, replyValue.jscValuePointer)
 
     /**
      * Atomically decrements the reference count of @script_message_reply by one.
@@ -69,7 +68,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun unref(): Unit = webkit_script_message_reply_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_script_message_reply_unref(gPointer)
 
     public companion object {
         /**

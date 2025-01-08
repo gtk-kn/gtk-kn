@@ -60,7 +60,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          *
          * @return The queried attributes
          */
-        get() = gtk_bookmark_list_get_attributes(gtkBookmarkListPointer.reinterpret())?.toKString()
+        get() = gtk_bookmark_list_get_attributes(gtkBookmarkListPointer)?.toKString()
 
         /**
          * Sets the @attributes to be enumerated and starts the enumeration.
@@ -70,7 +70,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          *
          * @param attributes the attributes to enumerate
          */
-        set(attributes) = gtk_bookmark_list_set_attributes(gtkBookmarkListPointer.reinterpret(), attributes)
+        set(attributes) = gtk_bookmark_list_set_attributes(gtkBookmarkListPointer, attributes)
 
     /**
      * The bookmark file to load.
@@ -82,8 +82,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          *
          * @return the filename of the .xbel file
          */
-        get() = gtk_bookmark_list_get_filename(gtkBookmarkListPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_bookmark_list_get_filename(gtkBookmarkListPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Priority used when loading.
@@ -94,7 +93,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          *
          * @return The IO priority.
          */
-        get() = gtk_bookmark_list_get_io_priority(gtkBookmarkListPointer.reinterpret())
+        get() = gtk_bookmark_list_get_io_priority(gtkBookmarkListPointer)
 
         /**
          * Sets the IO priority to use while loading files.
@@ -103,7 +102,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
          *
          * @param ioPriority IO priority to use
          */
-        set(ioPriority) = gtk_bookmark_list_set_io_priority(gtkBookmarkListPointer.reinterpret(), ioPriority)
+        set(ioPriority) = gtk_bookmark_list_set_io_priority(gtkBookmarkListPointer, ioPriority)
 
     /**
      * Creates a new `GtkBookmarkList` with the given @attributes.
@@ -126,8 +125,7 @@ public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
      *
      * @return true if @self is loading
      */
-    public open fun isLoading(): Boolean =
-        gtk_bookmark_list_is_loading(gtkBookmarkListPointer.reinterpret()).asBoolean()
+    public open fun isLoading(): Boolean = gtk_bookmark_list_is_loading(gtkBookmarkListPointer).asBoolean()
 
     public companion object : TypeCompanion<BookmarkList> {
         override val type: GeneratedClassKGType<BookmarkList> =

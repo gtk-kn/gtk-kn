@@ -69,7 +69,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      * @param customWidget a `GtkWidget`, or null to unset the old custom widget.
      */
     public open fun setCustom(customWidget: Widget? = null): Unit =
-        gtk_tooltip_set_custom(gtkTooltipPointer.reinterpret(), customWidget?.gtkWidgetPointer?.reinterpret())
+        gtk_tooltip_set_custom(gtkTooltipPointer, customWidget?.gtkWidgetPointer)
 
     /**
      * Sets the icon of the tooltip (which is in front of the text) to be
@@ -78,7 +78,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      * @param paintable a `GdkPaintable`
      */
     public open fun setIcon(paintable: Paintable? = null): Unit =
-        gtk_tooltip_set_icon(gtkTooltipPointer.reinterpret(), paintable?.gdkPaintablePointer)
+        gtk_tooltip_set_icon(gtkTooltipPointer, paintable?.gdkPaintablePointer)
 
     /**
      * Sets the icon of the tooltip (which is in front of the text)
@@ -88,7 +88,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      * @param gicon a `GIcon` representing the icon
      */
     public open fun setIconFromGicon(gicon: Icon? = null): Unit =
-        gtk_tooltip_set_icon_from_gicon(gtkTooltipPointer.reinterpret(), gicon?.gioIconPointer)
+        gtk_tooltip_set_icon_from_gicon(gtkTooltipPointer, gicon?.gioIconPointer)
 
     /**
      * Sets the icon of the tooltip (which is in front of the text) to be
@@ -98,7 +98,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      * @param iconName an icon name
      */
     public open fun setIconFromIconName(iconName: String? = null): Unit =
-        gtk_tooltip_set_icon_from_icon_name(gtkTooltipPointer.reinterpret(), iconName)
+        gtk_tooltip_set_icon_from_icon_name(gtkTooltipPointer, iconName)
 
     /**
      * Sets the text of the tooltip to be @markup.
@@ -108,8 +108,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      *
      * @param markup a string with Pango markup or %NLL
      */
-    public open fun setMarkup(markup: String? = null): Unit =
-        gtk_tooltip_set_markup(gtkTooltipPointer.reinterpret(), markup)
+    public open fun setMarkup(markup: String? = null): Unit = gtk_tooltip_set_markup(gtkTooltipPointer, markup)
 
     /**
      * Sets the text of the tooltip to be @text.
@@ -119,7 +118,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      *
      * @param text a text string
      */
-    public open fun setText(text: String? = null): Unit = gtk_tooltip_set_text(gtkTooltipPointer.reinterpret(), text)
+    public open fun setText(text: String? = null): Unit = gtk_tooltip_set_text(gtkTooltipPointer, text)
 
     /**
      * Sets the area of the widget, where the contents of this tooltip apply,
@@ -133,8 +132,7 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      *
      * @param rect a `GdkRectangle`
      */
-    public open fun setTipArea(rect: Rectangle): Unit =
-        gtk_tooltip_set_tip_area(gtkTooltipPointer.reinterpret(), rect.gPointer.reinterpret())
+    public open fun setTipArea(rect: Rectangle): Unit = gtk_tooltip_set_tip_area(gtkTooltipPointer, rect.gPointer)
 
     public companion object : TypeCompanion<Tooltip> {
         override val type: GeneratedClassKGType<Tooltip> =

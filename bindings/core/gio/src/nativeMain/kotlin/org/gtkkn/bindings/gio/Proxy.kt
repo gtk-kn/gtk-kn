@@ -67,13 +67,13 @@ public interface Proxy :
     ): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect(
-            gioProxyPointer.reinterpret(),
-            connection.gioIoStreamPointer.reinterpret(),
-            proxyAddress.gioProxyAddressPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioProxyPointer,
+            connection.gioIoStreamPointer,
+            proxyAddress.gioProxyAddressPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            IoStream(reinterpret())
+            IoStream(this)
         }
 
         return if (gError.pointed != null) {
@@ -99,10 +99,10 @@ public interface Proxy :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_proxy_connect_async(
-        gioProxyPointer.reinterpret(),
-        connection.gioIoStreamPointer.reinterpret(),
-        proxyAddress.gioProxyAddressPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gioProxyPointer,
+        connection.gioIoStreamPointer,
+        proxyAddress.gioProxyAddressPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -119,12 +119,8 @@ public interface Proxy :
     @GioVersion2_26
     public fun connectFinish(result: AsyncResult): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_proxy_connect_finish(
-            gioProxyPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            IoStream(reinterpret())
+        val gResult = g_proxy_connect_finish(gioProxyPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            IoStream(this)
         }
 
         return if (gError.pointed != null) {
@@ -147,7 +143,7 @@ public interface Proxy :
      * @since 2.26
      */
     @GioVersion2_26
-    public fun supportsHostname(): Boolean = g_proxy_supports_hostname(gioProxyPointer.reinterpret()).asBoolean()
+    public fun supportsHostname(): Boolean = g_proxy_supports_hostname(gioProxyPointer).asBoolean()
 
     private data class Wrapper(private val pointer: CPointer<GProxy>) : Proxy {
         override val gioProxyPointer: CPointer<GProxy> = pointer

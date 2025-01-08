@@ -32,8 +32,8 @@ public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : ProxyInstanc
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getObjects(): List = gtk_accessible_list_get_objects(gPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun getObjects(): List = gtk_accessible_list_get_objects(gPointer)!!.run {
+        List(this)
     }
 
     public companion object {
@@ -46,7 +46,7 @@ public class AccessibleList(pointer: CPointer<GtkAccessibleList>) : ProxyInstanc
          * @since 4.14
          */
         public fun newFromList(list: List): AccessibleList =
-            AccessibleList(gtk_accessible_list_new_from_list(list.gPointer.reinterpret())!!.reinterpret())
+            AccessibleList(gtk_accessible_list_new_from_list(list.gPointer)!!.reinterpret())
 
         /**
          * Get the GType of AccessibleList

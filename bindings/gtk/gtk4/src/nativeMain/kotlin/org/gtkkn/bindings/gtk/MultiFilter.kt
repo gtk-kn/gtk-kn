@@ -45,7 +45,7 @@ public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
      * @param filter A new filter to use
      */
     public open fun append(filter: Filter): Unit =
-        gtk_multi_filter_append(gtkMultiFilterPointer.reinterpret(), filter.gtkFilterPointer.reinterpret())
+        gtk_multi_filter_append(gtkMultiFilterPointer, filter.gtkFilterPointer)
 
     /**
      * Removes the filter at the given @position from the list of filters used
@@ -56,8 +56,7 @@ public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
      *
      * @param position position of filter to remove
      */
-    public open fun remove(position: guint): Unit =
-        gtk_multi_filter_remove(gtkMultiFilterPointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = gtk_multi_filter_remove(gtkMultiFilterPointer, position)
 
     public companion object : TypeCompanion<MultiFilter> {
         override val type: GeneratedClassKGType<MultiFilter> =

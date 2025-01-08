@@ -50,7 +50,7 @@ public interface DevicePad :
      * @return The group number of the queried pad feature.
      */
     public fun getFeatureGroup(feature: DevicePadFeature, featureIdx: gint): gint =
-        gdk_device_pad_get_feature_group(gdkDevicePadPointer.reinterpret(), feature.nativeValue, featureIdx)
+        gdk_device_pad_get_feature_group(gdkDevicePadPointer, feature.nativeValue, featureIdx)
 
     /**
      * Returns the number of modes that @group may have.
@@ -58,8 +58,7 @@ public interface DevicePad :
      * @param groupIdx group to get the number of available modes from
      * @return The number of modes available in @group.
      */
-    public fun getGroupNModes(groupIdx: gint): gint =
-        gdk_device_pad_get_group_n_modes(gdkDevicePadPointer.reinterpret(), groupIdx)
+    public fun getGroupNModes(groupIdx: gint): gint = gdk_device_pad_get_group_n_modes(gdkDevicePadPointer, groupIdx)
 
     /**
      * Returns the number of features a tablet pad has.
@@ -68,7 +67,7 @@ public interface DevicePad :
      * @return The amount of elements of type @feature that this pad has.
      */
     public fun getNFeatures(feature: DevicePadFeature): gint =
-        gdk_device_pad_get_n_features(gdkDevicePadPointer.reinterpret(), feature.nativeValue)
+        gdk_device_pad_get_n_features(gdkDevicePadPointer, feature.nativeValue)
 
     /**
      * Returns the number of groups this pad device has.
@@ -79,7 +78,7 @@ public interface DevicePad :
      *
      * @return The number of button/ring/strip groups in the pad.
      */
-    public fun getNGroups(): gint = gdk_device_pad_get_n_groups(gdkDevicePadPointer.reinterpret())
+    public fun getNGroups(): gint = gdk_device_pad_get_n_groups(gdkDevicePadPointer)
 
     private data class Wrapper(private val pointer: CPointer<GdkDevicePad>) : DevicePad {
         override val gdkDevicePadPointer: CPointer<GdkDevicePad> = pointer

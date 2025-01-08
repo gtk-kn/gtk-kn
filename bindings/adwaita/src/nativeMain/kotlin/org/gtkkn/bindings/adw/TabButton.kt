@@ -23,6 +23,7 @@ import org.gtkkn.native.adw.adw_tab_button_new
 import org.gtkkn.native.adw.adw_tab_button_set_view
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -94,8 +95,8 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
          * @return the tab view
          * @since 1.3
          */
-        get() = adw_tab_button_get_view(adwTabButtonPointer.reinterpret())?.run {
-            TabView(reinterpret())
+        get() = adw_tab_button_get_view(adwTabButtonPointer)?.run {
+            TabView(this)
         }
 
         /**
@@ -105,7 +106,7 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(view) = adw_tab_button_set_view(adwTabButtonPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
+        set(view) = adw_tab_button_set_view(adwTabButtonPointer, view?.adwTabViewPointer)
 
     /**
      * Creates a new `AdwTabButton`.
@@ -121,38 +122,58 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
      * This is an action signal. Applications should never connect to this signal,
      * but use the [signal@TabButton::clicked] signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "activate" signal. See [onActivate].
+     *
+     * @since 1.3
+     */
+    @AdwVersion1_3
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
+
+    /**
      * Emitted when the button has been activated (pressed and released).
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "clicked",
-            connectClickedFunc.reinterpret(),
+            onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "clicked" signal. See [onClicked].
+     *
+     * @since 1.3
+     */
+    @AdwVersion1_3
+    public fun emitClicked() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+    }
 
     public companion object : TypeCompanion<TabButton> {
         override val type: GeneratedClassKGType<TabButton> =
@@ -171,7 +192,7 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -179,7 +200,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

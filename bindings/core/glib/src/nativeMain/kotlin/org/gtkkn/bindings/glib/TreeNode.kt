@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_68
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTreeNode
@@ -27,7 +26,7 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun key(): gpointer? = g_tree_node_key(gPointer.reinterpret())
+    public fun key(): gpointer? = g_tree_node_key(gPointer)
 
     /**
      * Returns the next in-order node of the tree, or null
@@ -37,8 +36,8 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun next(): TreeNode? = g_tree_node_next(gPointer.reinterpret())?.run {
-        TreeNode(reinterpret())
+    public fun next(): TreeNode? = g_tree_node_next(gPointer)?.run {
+        TreeNode(this)
     }
 
     /**
@@ -49,8 +48,8 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun previous(): TreeNode? = g_tree_node_previous(gPointer.reinterpret())?.run {
-        TreeNode(reinterpret())
+    public fun previous(): TreeNode? = g_tree_node_previous(gPointer)?.run {
+        TreeNode(this)
     }
 
     /**
@@ -60,5 +59,5 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun `value`(): gpointer? = g_tree_node_value(gPointer.reinterpret())
+    public fun `value`(): gpointer? = g_tree_node_value(gPointer)
 }

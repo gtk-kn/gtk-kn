@@ -63,7 +63,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * you supplied will be called on all keys and values before destroying
      * the #GTree.
      */
-    public fun destroy(): Unit = g_tree_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_tree_destroy(gPointer)
 
     /**
      * Calls the given function for each of the key/value pairs in the #GTree.
@@ -79,7 +79,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      *     If this function returns true, the traversal is stopped.
      */
     public fun foreach(func: TraverseFunc): Unit =
-        g_tree_foreach(gPointer.reinterpret(), TraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        g_tree_foreach(gPointer, TraverseFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Calls the given function for each of the nodes in the #GTree.
@@ -96,11 +96,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun foreachNode(func: TraverseNodeFunc): Unit = g_tree_foreach_node(
-        gPointer.reinterpret(),
-        TraverseNodeFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
+    public fun foreachNode(func: TraverseNodeFunc): Unit =
+        g_tree_foreach_node(gPointer, TraverseNodeFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Gets the height of a #GTree.
@@ -111,7 +108,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      *
      * @return the height of @tree
      */
-    public fun height(): gint = g_tree_height(gPointer.reinterpret())
+    public fun height(): gint = g_tree_height(gPointer)
 
     /**
      * Inserts a key/value pair into a #GTree.
@@ -122,8 +119,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @param key the key to insert
      * @param value the value corresponding to the key
      */
-    public fun insert(key: gpointer? = null, `value`: gpointer? = null): Unit =
-        g_tree_insert(gPointer.reinterpret(), key, `value`)
+    public fun insert(key: gpointer? = null, `value`: gpointer? = null): Unit = g_tree_insert(gPointer, key, `value`)
 
     /**
      * Inserts a key/value pair into a #GTree.
@@ -148,8 +144,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_68
     public fun insertNode(key: gpointer? = null, `value`: gpointer? = null): TreeNode? =
-        g_tree_insert_node(gPointer.reinterpret(), key, `value`)?.run {
-            TreeNode(reinterpret())
+        g_tree_insert_node(gPointer, key, `value`)?.run {
+            TreeNode(this)
         }
 
     /**
@@ -161,7 +157,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @return the value corresponding to the key, or null
      *     if the key was not found
      */
-    public fun lookup(key: gpointer? = null): gpointer? = g_tree_lookup(gPointer.reinterpret(), key)
+    public fun lookup(key: gpointer? = null): gpointer? = g_tree_lookup(gPointer, key)
 
     /**
      * Gets the tree node corresponding to the given key. Since a #GTree is
@@ -174,8 +170,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun lookupNode(key: gpointer? = null): TreeNode? = g_tree_lookup_node(gPointer.reinterpret(), key)?.run {
-        TreeNode(reinterpret())
+    public fun lookupNode(key: gpointer? = null): TreeNode? = g_tree_lookup_node(gPointer, key)?.run {
+        TreeNode(this)
     }
 
     /**
@@ -193,8 +189,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun lowerBound(key: gpointer? = null): TreeNode? = g_tree_lower_bound(gPointer.reinterpret(), key)?.run {
-        TreeNode(reinterpret())
+    public fun lowerBound(key: gpointer? = null): TreeNode? = g_tree_lower_bound(gPointer, key)?.run {
+        TreeNode(this)
     }
 
     /**
@@ -207,7 +203,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * compatibility issues (can be cast back to #guint to
      * support its full range of values).
      */
-    public fun nnodes(): gint = g_tree_nnodes(gPointer.reinterpret())
+    public fun nnodes(): gint = g_tree_nnodes(gPointer)
 
     /**
      * Returns the first in-order node of the tree, or null
@@ -217,8 +213,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun nodeFirst(): TreeNode? = g_tree_node_first(gPointer.reinterpret())?.run {
-        TreeNode(reinterpret())
+    public fun nodeFirst(): TreeNode? = g_tree_node_first(gPointer)?.run {
+        TreeNode(this)
     }
 
     /**
@@ -229,8 +225,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun nodeLast(): TreeNode? = g_tree_node_last(gPointer.reinterpret())?.run {
-        TreeNode(reinterpret())
+    public fun nodeLast(): TreeNode? = g_tree_node_last(gPointer)?.run {
+        TreeNode(this)
     }
 
     /**
@@ -242,8 +238,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun ref(): Tree = g_tree_ref(gPointer.reinterpret())!!.run {
-        Tree(reinterpret())
+    public fun ref(): Tree = g_tree_ref(gPointer)!!.run {
+        Tree(this)
     }
 
     /**
@@ -262,7 +258,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @return true if the key was found (prior to 2.8, this function
      *     returned nothing)
      */
-    public fun remove(key: gpointer? = null): Boolean = g_tree_remove(gPointer.reinterpret(), key).asBoolean()
+    public fun remove(key: gpointer? = null): Boolean = g_tree_remove(gPointer, key).asBoolean()
 
     /**
      * Removes all nodes from a #GTree and destroys their keys and values,
@@ -271,7 +267,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun removeAll(): Unit = g_tree_remove_all(gPointer.reinterpret())
+    public fun removeAll(): Unit = g_tree_remove_all(gPointer)
 
     /**
      * Inserts a new key and value into a #GTree as g_tree_replace_node() does,
@@ -280,8 +276,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @param key the key to insert
      * @param value the value corresponding to the key
      */
-    public fun replace(key: gpointer? = null, `value`: gpointer? = null): Unit =
-        g_tree_replace(gPointer.reinterpret(), key, `value`)
+    public fun replace(key: gpointer? = null, `value`: gpointer? = null): Unit = g_tree_replace(gPointer, key, `value`)
 
     /**
      * Inserts a new key and value into a #GTree similar to g_tree_insert_node().
@@ -302,8 +297,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_68
     public fun replaceNode(key: gpointer? = null, `value`: gpointer? = null): TreeNode? =
-        g_tree_replace_node(gPointer.reinterpret(), key, `value`)?.run {
-            TreeNode(reinterpret())
+        g_tree_replace_node(gPointer, key, `value`)?.run {
+            TreeNode(this)
         }
 
     /**
@@ -322,7 +317,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      *     if the key was not found
      */
     public fun search(searchFunc: CompareFunc): gpointer? =
-        g_tree_search(gPointer.reinterpret(), CompareFuncFunc.reinterpret(), StableRef.create(searchFunc).asCPointer())
+        g_tree_search(gPointer, CompareFuncFunc.reinterpret(), StableRef.create(searchFunc).asCPointer())
 
     /**
      * Searches a #GTree using @search_func.
@@ -341,13 +336,10 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun searchNode(searchFunc: CompareFunc): TreeNode? = g_tree_search_node(
-        gPointer.reinterpret(),
-        CompareFuncFunc.reinterpret(),
-        StableRef.create(searchFunc).asCPointer()
-    )?.run {
-        TreeNode(reinterpret())
-    }
+    public fun searchNode(searchFunc: CompareFunc): TreeNode? =
+        g_tree_search_node(gPointer, CompareFuncFunc.reinterpret(), StableRef.create(searchFunc).asCPointer())?.run {
+            TreeNode(this)
+        }
 
     /**
      * Removes a key and its associated value from a #GTree without calling
@@ -359,7 +351,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @return true if the key was found (prior to 2.8, this function
      *     returned nothing)
      */
-    public fun steal(key: gpointer? = null): Boolean = g_tree_steal(gPointer.reinterpret(), key).asBoolean()
+    public fun steal(key: gpointer? = null): Boolean = g_tree_steal(gPointer, key).asBoolean()
 
     /**
      * Decrements the reference count of @tree by one.
@@ -372,7 +364,7 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun unref(): Unit = g_tree_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_tree_unref(gPointer)
 
     /**
      * Gets the upper bound node corresponding to the given key,
@@ -389,8 +381,8 @@ public class Tree(pointer: CPointer<GTree>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun upperBound(key: gpointer? = null): TreeNode? = g_tree_upper_bound(gPointer.reinterpret(), key)?.run {
-        TreeNode(reinterpret())
+    public fun upperBound(key: gpointer? = null): TreeNode? = g_tree_upper_bound(gPointer, key)?.run {
+        TreeNode(this)
     }
 
     public companion object {

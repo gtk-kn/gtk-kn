@@ -63,7 +63,7 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getLevel(): gint = g_socket_control_message_get_level(gioSocketControlMessagePointer.reinterpret())
+    public open fun getLevel(): gint = g_socket_control_message_get_level(gioSocketControlMessagePointer)
 
     /**
      * Returns the protocol specific type of the control message.
@@ -73,8 +73,7 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getMsgType(): gint =
-        g_socket_control_message_get_msg_type(gioSocketControlMessagePointer.reinterpret())
+    public open fun getMsgType(): gint = g_socket_control_message_get_msg_type(gioSocketControlMessagePointer)
 
     /**
      * Returns the space required for the control message, not including
@@ -84,7 +83,7 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getSize(): gsize = g_socket_control_message_get_size(gioSocketControlMessagePointer.reinterpret())
+    public open fun getSize(): gsize = g_socket_control_message_get_size(gioSocketControlMessagePointer)
 
     /**
      * Converts the data in the message to bytes placed in the
@@ -99,7 +98,7 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
      */
     @GioVersion2_22
     public open fun serialize(`data`: gpointer): Unit =
-        g_socket_control_message_serialize(gioSocketControlMessagePointer.reinterpret(), `data`)
+        g_socket_control_message_serialize(gioSocketControlMessagePointer, `data`)
 
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =

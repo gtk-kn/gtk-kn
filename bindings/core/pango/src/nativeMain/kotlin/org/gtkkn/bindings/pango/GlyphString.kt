@@ -3,7 +3,6 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_14
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -56,8 +55,8 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : ProxyInstance(po
      *
      * @return the newly allocated `PangoGlyphString`
      */
-    public fun copy(): GlyphString? = pango_glyph_string_copy(gPointer.reinterpret())?.run {
-        GlyphString(reinterpret())
+    public fun copy(): GlyphString? = pango_glyph_string_copy(gPointer)?.run {
+        GlyphString(this)
     }
 
     /**
@@ -74,12 +73,8 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : ProxyInstance(po
      * @param inkRect rectangle used to store the extents of the glyph string as drawn
      * @param logicalRect rectangle used to store the logical extents of the glyph string
      */
-    public fun extents(font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_glyph_string_extents(
-        gPointer.reinterpret(),
-        font.pangoFontPointer.reinterpret(),
-        inkRect?.gPointer?.reinterpret(),
-        logicalRect?.gPointer?.reinterpret()
-    )
+    public fun extents(font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
+        pango_glyph_string_extents(gPointer, font.pangoFontPointer, inkRect?.gPointer, logicalRect?.gPointer)
 
     /**
      * Computes the extents of a sub-portion of a glyph string.
@@ -99,18 +94,18 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : ProxyInstance(po
      */
     public fun extentsRange(start: gint, end: gint, font: Font, inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
         pango_glyph_string_extents_range(
-            gPointer.reinterpret(),
+            gPointer,
             start,
             end,
-            font.pangoFontPointer.reinterpret(),
-            inkRect?.gPointer?.reinterpret(),
-            logicalRect?.gPointer?.reinterpret()
+            font.pangoFontPointer,
+            inkRect?.gPointer,
+            logicalRect?.gPointer
         )
 
     /**
      * Free a glyph string and associated storage.
      */
-    public fun free(): Unit = pango_glyph_string_free(gPointer.reinterpret())
+    public fun free(): Unit = pango_glyph_string_free(gPointer)
 
     /**
      * Computes the logical width of the glyph string.
@@ -124,14 +119,14 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : ProxyInstance(po
      * @since 1.14
      */
     @PangoVersion1_14
-    public fun getWidth(): gint = pango_glyph_string_get_width(gPointer.reinterpret())
+    public fun getWidth(): gint = pango_glyph_string_get_width(gPointer)
 
     /**
      * Resize a glyph string to the given length.
      *
      * @param newLen the new length of the string
      */
-    public fun setSize(newLen: gint): Unit = pango_glyph_string_set_size(gPointer.reinterpret(), newLen)
+    public fun setSize(newLen: gint): Unit = pango_glyph_string_set_size(gPointer, newLen)
 
     override fun toString(): String = "GlyphString(numGlyphs=$numGlyphs)"
 
@@ -142,7 +137,7 @@ public class GlyphString(pointer: CPointer<PangoGlyphString>) : ProxyInstance(po
          * @return the newly allocated `PangoGlyphString`, which
          *   should be freed with [method@Pango.GlyphString.free].
          */
-        public fun new(): GlyphString = GlyphString(pango_glyph_string_new()!!.reinterpret())
+        public fun new(): GlyphString = GlyphString(pango_glyph_string_new()!!)
 
         /**
          * Get the GType of GlyphString

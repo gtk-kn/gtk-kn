@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -73,7 +72,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      */
     @WebKitVersion2_42
     public fun getCategory(): String =
-        webkit_feature_get_category(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        webkit_feature_get_category(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets whether the feature is enabled by default.
@@ -87,7 +86,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getDefaultValue(): Boolean = webkit_feature_get_default_value(gPointer.reinterpret()).asBoolean()
+    public fun getDefaultValue(): Boolean = webkit_feature_get_default_value(gPointer).asBoolean()
 
     /**
      * Gets a description for the @feature.
@@ -105,7 +104,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getDetails(): String? = webkit_feature_get_details(gPointer.reinterpret())?.toKString()
+    public fun getDetails(): String? = webkit_feature_get_details(gPointer)?.toKString()
 
     /**
      * Gets a string that uniquely identifies the @feature.
@@ -115,7 +114,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      */
     @WebKitVersion2_42
     public fun getIdentifier(): String =
-        webkit_feature_get_identifier(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        webkit_feature_get_identifier(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets a short name for the @feature.
@@ -130,7 +129,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getName(): String? = webkit_feature_get_name(gPointer.reinterpret())?.toKString()
+    public fun getName(): String? = webkit_feature_get_name(gPointer)?.toKString()
 
     /**
      * Gets the status of the feature.
@@ -139,7 +138,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun getStatus(): FeatureStatus = webkit_feature_get_status(gPointer.reinterpret()).run {
+    public fun getStatus(): FeatureStatus = webkit_feature_get_status(gPointer).run {
         FeatureStatus.fromNativeValue(this)
     }
 
@@ -152,8 +151,8 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): Feature = webkit_feature_ref(gPointer.reinterpret())!!.run {
-        Feature(reinterpret())
+    public fun ref(): Feature = webkit_feature_ref(gPointer)!!.run {
+        Feature(this)
     }
 
     /**
@@ -166,7 +165,7 @@ public class Feature(pointer: CPointer<WebKitFeature>) : ProxyInstance(pointer) 
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun unref(): Unit = webkit_feature_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_feature_unref(gPointer)
 
     public companion object {
         /**

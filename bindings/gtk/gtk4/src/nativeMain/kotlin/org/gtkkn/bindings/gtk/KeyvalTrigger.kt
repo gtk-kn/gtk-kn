@@ -34,7 +34,7 @@ public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
          *
          * @return the keyval
          */
-        get() = gtk_keyval_trigger_get_keyval(gtkKeyvalTriggerPointer.reinterpret())
+        get() = gtk_keyval_trigger_get_keyval(gtkKeyvalTriggerPointer)
 
     /**
      * The key modifiers for the trigger.
@@ -46,7 +46,7 @@ public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
          *
          * @return the modifiers
          */
-        get() = gtk_keyval_trigger_get_modifiers(gtkKeyvalTriggerPointer.reinterpret()).run {
+        get() = gtk_keyval_trigger_get_modifiers(gtkKeyvalTriggerPointer).run {
             ModifierType(this)
         }
 

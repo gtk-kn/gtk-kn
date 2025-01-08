@@ -122,7 +122,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return whether @stack is horizontally homogeneous.
          */
-        get() = gtk_stack_get_hhomogeneous(gtkStackPointer.reinterpret()).asBoolean()
+        get() = gtk_stack_get_hhomogeneous(gtkStackPointer).asBoolean()
 
         /**
          * Sets the `GtkStack` to be horizontally homogeneous or not.
@@ -133,7 +133,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @param hhomogeneous true to make @stack horizontally homogeneous
          */
-        set(hhomogeneous) = gtk_stack_set_hhomogeneous(gtkStackPointer.reinterpret(), hhomogeneous.asGBoolean())
+        set(hhomogeneous) = gtk_stack_set_hhomogeneous(gtkStackPointer, hhomogeneous.asGBoolean())
 
     /**
      * Whether or not the size should smoothly change during the transition.
@@ -145,7 +145,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return true if child sizes are interpolated
          */
-        get() = gtk_stack_get_interpolate_size(gtkStackPointer.reinterpret()).asBoolean()
+        get() = gtk_stack_get_interpolate_size(gtkStackPointer).asBoolean()
 
         /**
          * Sets whether or not @stack will interpolate its size when
@@ -158,9 +158,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @param interpolateSize the new value
          */
-        set(
-            interpolateSize
-        ) = gtk_stack_set_interpolate_size(gtkStackPointer.reinterpret(), interpolateSize.asGBoolean())
+        set(interpolateSize) = gtk_stack_set_interpolate_size(gtkStackPointer, interpolateSize.asGBoolean())
 
     /**
      * A selection model with the stack pages.
@@ -175,7 +173,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return a `GtkSelectionModel` for the stack's children
          */
-        get() = gtk_stack_get_pages(gtkStackPointer.reinterpret())!!.run {
+        get() = gtk_stack_get_pages(gtkStackPointer)!!.run {
             SelectionModel.wrap(reinterpret())
         }
 
@@ -189,7 +187,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return the transition duration
          */
-        get() = gtk_stack_get_transition_duration(gtkStackPointer.reinterpret())
+        get() = gtk_stack_get_transition_duration(gtkStackPointer)
 
         /**
          * Sets the duration that transitions between pages in @stack
@@ -197,7 +195,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) = gtk_stack_set_transition_duration(gtkStackPointer.reinterpret(), duration)
+        set(duration) = gtk_stack_set_transition_duration(gtkStackPointer, duration)
 
     /**
      * Whether or not the transition is currently running.
@@ -209,7 +207,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return true if the transition is currently running, false otherwise.
          */
-        get() = gtk_stack_get_transition_running(gtkStackPointer.reinterpret()).asBoolean()
+        get() = gtk_stack_get_transition_running(gtkStackPointer).asBoolean()
 
     /**
      * The type of animation used to transition.
@@ -221,7 +219,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return the current transition type of @stack
          */
-        get() = gtk_stack_get_transition_type(gtkStackPointer.reinterpret()).run {
+        get() = gtk_stack_get_transition_type(gtkStackPointer).run {
             StackTransitionType.fromNativeValue(this)
         }
 
@@ -237,7 +235,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @param transition the new transition type
          */
-        set(transition) = gtk_stack_set_transition_type(gtkStackPointer.reinterpret(), transition.nativeValue)
+        set(transition) = gtk_stack_set_transition_type(gtkStackPointer, transition.nativeValue)
 
     /**
      * true if the stack allocates the same height for all children.
@@ -248,7 +246,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @return whether @stack is vertically homogeneous.
          */
-        get() = gtk_stack_get_vhomogeneous(gtkStackPointer.reinterpret()).asBoolean()
+        get() = gtk_stack_get_vhomogeneous(gtkStackPointer).asBoolean()
 
         /**
          * Sets the `GtkStack` to be vertically homogeneous or not.
@@ -259,7 +257,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          *
          * @param vhomogeneous true to make @stack vertically homogeneous
          */
-        set(vhomogeneous) = gtk_stack_set_vhomogeneous(gtkStackPointer.reinterpret(), vhomogeneous.asGBoolean())
+        set(vhomogeneous) = gtk_stack_set_vhomogeneous(gtkStackPointer, vhomogeneous.asGBoolean())
 
     /**
      * Creates a new `GtkStack`.
@@ -275,8 +273,8 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the `GtkStackPage` for @child
      */
     public open fun addChild(child: Widget): StackPage =
-        gtk_stack_add_child(gtkStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            StackPage(reinterpret())
+        gtk_stack_add_child(gtkStackPointer, child.gtkWidgetPointer)!!.run {
+            StackPage(this)
         }
 
     /**
@@ -289,8 +287,8 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the `GtkStackPage` for @child
      */
     public open fun addNamed(child: Widget, name: String? = null): StackPage =
-        gtk_stack_add_named(gtkStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), name)!!.run {
-            StackPage(reinterpret())
+        gtk_stack_add_named(gtkStackPointer, child.gtkWidgetPointer, name)!!.run {
+            StackPage(this)
         }
 
     /**
@@ -306,8 +304,8 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the `GtkStackPage` for @child
      */
     public open fun addTitled(child: Widget, name: String? = null, title: String): StackPage =
-        gtk_stack_add_titled(gtkStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), name, title)!!.run {
-            StackPage(reinterpret())
+        gtk_stack_add_titled(gtkStackPointer, child.gtkWidgetPointer, name, title)!!.run {
+            StackPage(this)
         }
 
     /**
@@ -319,10 +317,9 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the requested child
      *   of the `GtkStack`
      */
-    public open fun getChildByName(name: String): Widget? =
-        gtk_stack_get_child_by_name(gtkStackPointer.reinterpret(), name)?.run {
-            Widget(reinterpret())
-        }
+    public open fun getChildByName(name: String): Widget? = gtk_stack_get_child_by_name(gtkStackPointer, name)?.run {
+        Widget(this)
+    }
 
     /**
      * Returns the `GtkStackPage` object for @child.
@@ -331,8 +328,8 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the `GtkStackPage` for @child
      */
     public open fun getPage(child: Widget): StackPage =
-        gtk_stack_get_page(gtkStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            StackPage(reinterpret())
+        gtk_stack_get_page(gtkStackPointer, child.gtkWidgetPointer)!!.run {
+            StackPage(this)
         }
 
     /**
@@ -342,8 +339,8 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      *
      * @return the visible child of the `GtkStack`
      */
-    public open fun getVisibleChild(): Widget? = gtk_stack_get_visible_child(gtkStackPointer.reinterpret())?.run {
-        Widget(reinterpret())
+    public open fun getVisibleChild(): Widget? = gtk_stack_get_visible_child(gtkStackPointer)?.run {
+        Widget(this)
     }
 
     /**
@@ -354,16 +351,14 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the name of the visible child
      *   of the `GtkStack`
      */
-    public open fun getVisibleChildName(): String? =
-        gtk_stack_get_visible_child_name(gtkStackPointer.reinterpret())?.toKString()
+    public open fun getVisibleChildName(): String? = gtk_stack_get_visible_child_name(gtkStackPointer)?.toKString()
 
     /**
      * Removes a child widget from @stack.
      *
      * @param child the child to remove
      */
-    public open fun remove(child: Widget): Unit =
-        gtk_stack_remove(gtkStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = gtk_stack_remove(gtkStackPointer, child.gtkWidgetPointer)
 
     /**
      * Makes @child the visible child of @stack.
@@ -379,7 +374,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @param child a child of @stack
      */
     public open fun setVisibleChild(child: Widget): Unit =
-        gtk_stack_set_visible_child(gtkStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        gtk_stack_set_visible_child(gtkStackPointer, child.gtkWidgetPointer)
 
     /**
      * Makes the child with the given name visible.
@@ -392,7 +387,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @param transition the transition type to use
      */
     public open fun setVisibleChildFull(name: String, transition: StackTransitionType): Unit =
-        gtk_stack_set_visible_child_full(gtkStackPointer.reinterpret(), name, transition.nativeValue)
+        gtk_stack_set_visible_child_full(gtkStackPointer, name, transition.nativeValue)
 
     /**
      * Makes the child with the given name visible.
@@ -407,8 +402,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      *
      * @param name the name of the child to make visible
      */
-    public open fun setVisibleChildName(name: String): Unit =
-        gtk_stack_set_visible_child_name(gtkStackPointer.reinterpret(), name)
+    public open fun setVisibleChildName(name: String): Unit = gtk_stack_set_visible_child_name(gtkStackPointer, name)
 
     public companion object : TypeCompanion<Stack> {
         override val type: GeneratedClassKGType<Stack> =

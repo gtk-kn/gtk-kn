@@ -62,8 +62,8 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @return The child
          * @since 4.12
          */
-        get() = gtk_column_view_cell_get_child(gtkColumnViewCellPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_column_view_cell_get_child(gtkColumnViewCellPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -77,12 +77,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            child
-        ) = gtk_column_view_cell_set_child(
-            gtkColumnViewCellPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = gtk_column_view_cell_set_child(gtkColumnViewCellPointer, child?.gtkWidgetPointer)
 
     /**
      * If the item can be focused with the keyboard.
@@ -98,7 +93,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @return true if the item is focusable
          * @since 4.12
          */
-        get() = gtk_column_view_cell_get_focusable(gtkColumnViewCellPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_cell_get_focusable(gtkColumnViewCellPointer).asBoolean()
 
         /**
          * Sets @self to be focusable.
@@ -115,9 +110,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            focusable
-        ) = gtk_column_view_cell_set_focusable(gtkColumnViewCellPointer.reinterpret(), focusable.asGBoolean())
+        set(focusable) = gtk_column_view_cell_set_focusable(gtkColumnViewCellPointer, focusable.asGBoolean())
 
     /**
      * Displayed item.
@@ -134,7 +127,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @return The item displayed
          * @since 4.12
          */
-        get() = gtk_column_view_cell_get_item(gtkColumnViewCellPointer.reinterpret())?.run {
+        get() = gtk_column_view_cell_get_item(gtkColumnViewCellPointer)?.run {
             Object(reinterpret())
         }
 
@@ -153,7 +146,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @return The position of this item
          * @since 4.12
          */
-        get() = gtk_column_view_cell_get_position(gtkColumnViewCellPointer.reinterpret())
+        get() = gtk_column_view_cell_get_position(gtkColumnViewCellPointer)
 
     /**
      * If the item is currently selected.
@@ -171,7 +164,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @return true if the item is selected.
          * @since 4.12
          */
-        get() = gtk_column_view_cell_get_selected(gtkColumnViewCellPointer.reinterpret()).asBoolean()
+        get() = gtk_column_view_cell_get_selected(gtkColumnViewCellPointer).asBoolean()
 
     public companion object : TypeCompanion<ColumnViewCell> {
         override val type: GeneratedClassKGType<ColumnViewCell> =

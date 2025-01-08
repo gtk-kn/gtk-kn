@@ -59,7 +59,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
          *
          * @return the compression type.
          */
-        get() = gtk_source_file_get_compression_type(gtksourceFilePointer.reinterpret()).run {
+        get() = gtk_source_file_get_compression_type(gtksourceFilePointer).run {
             CompressionType.fromNativeValue(this)
         }
 
@@ -74,8 +74,8 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
          *
          * @return the character encoding.
          */
-        get() = gtk_source_file_get_encoding(gtksourceFilePointer.reinterpret())!!.run {
-            Encoding(reinterpret())
+        get() = gtk_source_file_get_encoding(gtksourceFilePointer)!!.run {
+            Encoding(this)
         }
 
     /**
@@ -87,7 +87,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
          *
          * @return the newline type.
          */
-        get() = gtk_source_file_get_newline_type(gtksourceFilePointer.reinterpret()).run {
+        get() = gtk_source_file_get_newline_type(gtksourceFilePointer).run {
             NewlineType.fromNativeValue(this)
         }
 
@@ -109,7 +109,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      * Since this function is synchronous, it is advised to call it only on local
      * files. See [method@File.is_local].
      */
-    public open fun checkFileOnDisk(): Unit = gtk_source_file_check_file_on_disk(gtksourceFilePointer.reinterpret())
+    public open fun checkFileOnDisk(): Unit = gtk_source_file_check_file_on_disk(gtksourceFilePointer)
 
     /**
      *
@@ -117,7 +117,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      * @return the #GFile.
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File =
-        gtk_source_file_get_location(gtksourceFilePointer.reinterpret())!!.run {
+        gtk_source_file_get_location(gtksourceFilePointer)!!.run {
             org.gtkkn.bindings.gio.File.wrap(reinterpret())
         }
 
@@ -130,7 +130,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      *
      * @return whether the file has been deleted.
      */
-    public open fun isDeleted(): Boolean = gtk_source_file_is_deleted(gtksourceFilePointer.reinterpret()).asBoolean()
+    public open fun isDeleted(): Boolean = gtk_source_file_is_deleted(gtksourceFilePointer).asBoolean()
 
     /**
      * Returns whether the file is externally modified. If the
@@ -142,7 +142,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      * @return whether the file is externally modified.
      */
     public open fun isExternallyModified(): Boolean =
-        gtk_source_file_is_externally_modified(gtksourceFilePointer.reinterpret()).asBoolean()
+        gtk_source_file_is_externally_modified(gtksourceFilePointer).asBoolean()
 
     /**
      * Returns whether the file is local. If the [property@File:location] is null,
@@ -150,7 +150,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      *
      * @return whether the file is local.
      */
-    public open fun isLocal(): Boolean = gtk_source_file_is_local(gtksourceFilePointer.reinterpret()).asBoolean()
+    public open fun isLocal(): Boolean = gtk_source_file_is_local(gtksourceFilePointer).asBoolean()
 
     /**
      * Returns whether the file is read-only. If the
@@ -161,7 +161,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      *
      * @return whether the file is read-only.
      */
-    public open fun isReadonly(): Boolean = gtk_source_file_is_readonly(gtksourceFilePointer.reinterpret()).asBoolean()
+    public open fun isReadonly(): Boolean = gtk_source_file_is_readonly(gtksourceFilePointer).asBoolean()
 
     /**
      * Sets the location.
@@ -169,7 +169,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      * @param location the new #GFile, or null.
      */
     public open fun setLocation(location: org.gtkkn.bindings.gio.File? = null): Unit =
-        gtk_source_file_set_location(gtksourceFilePointer.reinterpret(), location?.gioFilePointer)
+        gtk_source_file_set_location(gtksourceFilePointer, location?.gioFilePointer)
 
     /**
      * Sets a [callback@MountOperationFactory] function that will be called when a
@@ -185,7 +185,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      */
     public open fun setMountOperationFactory(callback: MountOperationFactory): Unit =
         gtk_source_file_set_mount_operation_factory(
-            gtksourceFilePointer.reinterpret(),
+            gtksourceFilePointer,
             MountOperationFactoryFunc.reinterpret(),
             StableRef.create(callback).asCPointer(),
             staticStableRefDestroy.reinterpret()

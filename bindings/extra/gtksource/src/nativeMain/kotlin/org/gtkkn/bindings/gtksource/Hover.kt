@@ -40,10 +40,10 @@ public open class Hover(pointer: CPointer<GtkSourceHover>) :
         get() = gPointer.reinterpret()
 
     public open fun addProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_add_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
+        gtk_source_hover_add_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 
     public open fun removeProvider(provider: HoverProvider): Unit =
-        gtk_source_hover_remove_provider(gtksourceHoverPointer.reinterpret(), provider.gtksourceHoverProviderPointer)
+        gtk_source_hover_remove_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 
     public companion object : TypeCompanion<Hover> {
         override val type: GeneratedClassKGType<Hover> =

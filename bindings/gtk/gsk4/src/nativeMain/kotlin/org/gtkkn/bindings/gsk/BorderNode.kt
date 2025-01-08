@@ -34,7 +34,7 @@ public open class BorderNode(pointer: CPointer<GskBorderNode>) :
      *     for the top, right, bottom and left color of the border
      */
     public open fun getColors(): Rgba = gsk_border_node_get_colors(gskBorderNodePointer.reinterpret())!!.run {
-        Rgba(reinterpret())
+        Rgba(this)
     }
 
     /**
@@ -43,7 +43,7 @@ public open class BorderNode(pointer: CPointer<GskBorderNode>) :
      * @return the outline of the border
      */
     public open fun getOutline(): RoundedRect = gsk_border_node_get_outline(gskBorderNodePointer.reinterpret())!!.run {
-        RoundedRect(reinterpret())
+        RoundedRect(this)
     }
 
     public companion object : TypeCompanion<BorderNode> {

@@ -53,7 +53,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's destination hostname
          * @since 2.26
          */
-        get() = g_proxy_address_get_destination_hostname(gioProxyAddressPointer.reinterpret())?.toKString()
+        get() = g_proxy_address_get_destination_hostname(gioProxyAddressPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -71,7 +71,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's destination port
          * @since 2.26
          */
-        get() = g_proxy_address_get_destination_port(gioProxyAddressPointer.reinterpret())
+        get() = g_proxy_address_get_destination_port(gioProxyAddressPointer)
 
     /**
      * The protocol being spoke to the destination host, or null if
@@ -88,7 +88,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's destination protocol
          * @since 2.34
          */
-        get() = g_proxy_address_get_destination_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
+        get() = g_proxy_address_get_destination_protocol(gioProxyAddressPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -104,7 +104,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's password
          * @since 2.26
          */
-        get() = g_proxy_address_get_password(gioProxyAddressPointer.reinterpret())?.toKString()
+        get() = g_proxy_address_get_password(gioProxyAddressPointer)?.toKString()
 
     /**
      * The proxy protocol.
@@ -119,8 +119,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's protocol
          * @since 2.26
          */
-        get() = g_proxy_address_get_protocol(gioProxyAddressPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_proxy_address_get_protocol(gioProxyAddressPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The URI string that the proxy was constructed from (or null
@@ -136,7 +135,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's URI, or null if unknown
          * @since 2.34
          */
-        get() = g_proxy_address_get_uri(gioProxyAddressPointer.reinterpret())?.toKString()
+        get() = g_proxy_address_get_uri(gioProxyAddressPointer)?.toKString()
 
     /**
      * The proxy username.
@@ -151,7 +150,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
          * @return the @proxy's username
          * @since 2.26
          */
-        get() = g_proxy_address_get_username(gioProxyAddressPointer.reinterpret())?.toKString()
+        get() = g_proxy_address_get_username(gioProxyAddressPointer)?.toKString()
 
     /**
      * Creates a new #GProxyAddress for @inetaddr with @protocol that should
@@ -183,7 +182,7 @@ public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
         password: String? = null,
     ) : this(
         g_proxy_address_new(
-            inetaddr.gioInetAddressPointer.reinterpret(),
+            inetaddr.gioInetAddressPointer,
             port,
             protocol,
             destHostname,

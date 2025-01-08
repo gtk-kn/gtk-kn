@@ -37,13 +37,7 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
         bounds: Rect,
         child: RenderNode,
         childBounds: Rect? = null,
-    ) : this(
-        gsk_repeat_node_new(
-            bounds.gPointer.reinterpret(),
-            child.gPointer.reinterpret(),
-            childBounds?.gPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_repeat_node_new(bounds.gPointer, child.gPointer, childBounds?.gPointer)!!.reinterpret())
 
     /**
      * Retrieves the child of @node.
@@ -51,7 +45,7 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
      * @return a `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -61,7 +55,7 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
      */
     public open fun getChildBounds(): Rect =
         gsk_repeat_node_get_child_bounds(gskRepeatNodePointer.reinterpret())!!.run {
-            Rect(reinterpret())
+            Rect(this)
         }
 
     public companion object : TypeCompanion<RepeatNode> {

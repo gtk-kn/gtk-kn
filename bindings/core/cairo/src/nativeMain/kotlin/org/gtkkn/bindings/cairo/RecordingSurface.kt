@@ -34,10 +34,8 @@ public open class RecordingSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun getExtents(extents: Rectangle): Boolean = cairo_recording_surface_get_extents(
-        cairoRecordingSurfacePointer.reinterpret(),
-        extents.gPointer.reinterpret()
-    ).asBoolean()
+    public open fun getExtents(extents: Rectangle): Boolean =
+        cairo_recording_surface_get_extents(cairoRecordingSurfacePointer, extents.gPointer).asBoolean()
 
     public companion object : TypeCompanion<RecordingSurface> {
         override val type: GeneratedClassKGType<RecordingSurface> =
@@ -56,7 +54,7 @@ public open class RecordingSurface(pointer: CPointer<cairo_surface_t>) :
          */
         @CairoVersion1_10
         public fun create(content: Content, extents: Rectangle): RecordingSurface =
-            cairo_recording_surface_create(content.nativeValue, extents.gPointer.reinterpret())!!.run {
+            cairo_recording_surface_create(content.nativeValue, extents.gPointer)!!.run {
                 RecordingSurface(reinterpret())
             }
 

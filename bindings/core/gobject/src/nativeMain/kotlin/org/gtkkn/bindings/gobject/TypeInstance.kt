@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
@@ -53,6 +52,5 @@ public class TypeInstance(pointer: CPointer<GTypeInstance>, cleaner: Cleaner? = 
      */
     public constructor(scope: AutofreeScope) : this(scope.alloc<GTypeInstance>().ptr)
 
-    public fun getPrivate(privateType: GType): gpointer? =
-        g_type_instance_get_private(gPointer.reinterpret(), privateType)
+    public fun getPrivate(privateType: GType): gpointer? = g_type_instance_get_private(gPointer, privateType)
 }

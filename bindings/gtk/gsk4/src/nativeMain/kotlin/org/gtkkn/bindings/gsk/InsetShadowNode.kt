@@ -47,16 +47,7 @@ public open class InsetShadowNode(pointer: CPointer<GskInsetShadowNode>) :
         dy: gfloat,
         spread: gfloat,
         blurRadius: gfloat,
-    ) : this(
-        gsk_inset_shadow_node_new(
-            outline.gPointer.reinterpret(),
-            color.gPointer.reinterpret(),
-            dx,
-            dy,
-            spread,
-            blurRadius
-        )!!.reinterpret()
-    )
+    ) : this(gsk_inset_shadow_node_new(outline.gPointer, color.gPointer, dx, dy, spread, blurRadius)!!.reinterpret())
 
     /**
      * Retrieves the blur radius to apply to the shadow.
@@ -72,7 +63,7 @@ public open class InsetShadowNode(pointer: CPointer<GskInsetShadowNode>) :
      * @return the color of the shadow
      */
     public open fun getColor(): Rgba = gsk_inset_shadow_node_get_color(gskInsetShadowNodePointer.reinterpret())!!.run {
-        Rgba(reinterpret())
+        Rgba(this)
     }
 
     /**
@@ -96,7 +87,7 @@ public open class InsetShadowNode(pointer: CPointer<GskInsetShadowNode>) :
      */
     public open fun getOutline(): RoundedRect =
         gsk_inset_shadow_node_get_outline(gskInsetShadowNodePointer.reinterpret())!!.run {
-            RoundedRect(reinterpret())
+            RoundedRect(this)
         }
 
     /**

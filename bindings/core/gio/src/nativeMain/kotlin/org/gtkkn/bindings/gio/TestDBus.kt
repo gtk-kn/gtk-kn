@@ -124,7 +124,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
          *
          * @return the value of #GTestDBus:flags property
          */
-        get() = g_test_dbus_get_flags(gioTestDBusPointer.reinterpret()).run {
+        get() = g_test_dbus_get_flags(gioTestDBusPointer).run {
             TestDBusFlags(this)
         }
 
@@ -142,8 +142,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      *
      * @param path path to a directory containing .service files
      */
-    public open fun addServiceDir(path: String): Unit =
-        g_test_dbus_add_service_dir(gioTestDBusPointer.reinterpret(), path)
+    public open fun addServiceDir(path: String): Unit = g_test_dbus_add_service_dir(gioTestDBusPointer, path)
 
     /**
      * Stop the session bus started by g_test_dbus_up().
@@ -152,7 +151,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      * to be destroyed. This is done to ensure that the next unit test won't get a
      * leaked singleton from this test.
      */
-    public open fun down(): Unit = g_test_dbus_down(gioTestDBusPointer.reinterpret())
+    public open fun down(): Unit = g_test_dbus_down(gioTestDBusPointer)
 
     /**
      * Get the address on which dbus-daemon is running. If g_test_dbus_up() has not
@@ -161,8 +160,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      *
      * @return the address of the bus, or null.
      */
-    public open fun getBusAddress(): String? =
-        g_test_dbus_get_bus_address(gioTestDBusPointer.reinterpret())?.toKString()
+    public open fun getBusAddress(): String? = g_test_dbus_get_bus_address(gioTestDBusPointer)?.toKString()
 
     /**
      * Stop the session bus started by g_test_dbus_up().
@@ -172,7 +170,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      * tests wanting to verify behaviour after the session bus has been stopped
      * can use this function but should still call g_test_dbus_down() when done.
      */
-    public open fun stop(): Unit = g_test_dbus_stop(gioTestDBusPointer.reinterpret())
+    public open fun stop(): Unit = g_test_dbus_stop(gioTestDBusPointer)
 
     /**
      * Start a dbus-daemon instance and set DBUS_SESSION_BUS_ADDRESS. After this
@@ -184,7 +182,7 @@ public open class TestDBus(pointer: CPointer<GTestDBus>) :
      * If this function is called from unit test's main(), then g_test_dbus_down()
      * must be called after g_test_run().
      */
-    public open fun up(): Unit = g_test_dbus_up(gioTestDBusPointer.reinterpret())
+    public open fun up(): Unit = g_test_dbus_up(gioTestDBusPointer)
 
     public companion object : TypeCompanion<TestDBus> {
         override val type: GeneratedClassKGType<TestDBus> =

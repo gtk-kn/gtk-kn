@@ -70,7 +70,7 @@ public interface PowerProfileMonitor :
          * @return Whether the system is in “Power Saver” mode.
          * @since 2.70
          */
-        get() = g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
+        get() = g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer).asBoolean()
 
     /**
      * Gets whether the system is in “Power Saver” mode.
@@ -84,7 +84,7 @@ public interface PowerProfileMonitor :
      */
     @GioVersion2_70
     public fun getPowerSaverEnabled(): Boolean =
-        g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer.reinterpret()).asBoolean()
+        g_power_profile_monitor_get_power_saver_enabled(gioPowerProfileMonitorPointer).asBoolean()
 
     private data class Wrapper(private val pointer: CPointer<GPowerProfileMonitor>) : PowerProfileMonitor {
         override val gioPowerProfileMonitorPointer: CPointer<GPowerProfileMonitor> = pointer

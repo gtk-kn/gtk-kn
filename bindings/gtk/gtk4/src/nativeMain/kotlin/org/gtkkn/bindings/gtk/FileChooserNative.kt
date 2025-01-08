@@ -186,7 +186,7 @@ public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
          *
          * @return The custom label
          */
-        get() = gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
+        get() = gtk_file_chooser_native_get_accept_label(gtkFileChooserNativePointer)?.toKString()
 
         /**
          * Sets the custom label text for the accept button.
@@ -200,9 +200,7 @@ public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
          *
          * @param acceptLabel custom label
          */
-        set(
-            acceptLabel
-        ) = gtk_file_chooser_native_set_accept_label(gtkFileChooserNativePointer.reinterpret(), acceptLabel)
+        set(acceptLabel) = gtk_file_chooser_native_set_accept_label(gtkFileChooserNativePointer, acceptLabel)
 
     /**
      * The text used for the label on the cancel button in the dialog, or
@@ -214,7 +212,7 @@ public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
          *
          * @return The custom label
          */
-        get() = gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer.reinterpret())?.toKString()
+        get() = gtk_file_chooser_native_get_cancel_label(gtkFileChooserNativePointer)?.toKString()
 
         /**
          * Sets the custom label text for the cancel button.
@@ -228,9 +226,7 @@ public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
          *
          * @param cancelLabel custom label
          */
-        set(
-            cancelLabel
-        ) = gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer.reinterpret(), cancelLabel)
+        set(cancelLabel) = gtk_file_chooser_native_set_cancel_label(gtkFileChooserNativePointer, cancelLabel)
 
     /**
      * Creates a new `GtkFileChooserNative`.
@@ -251,7 +247,7 @@ public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
     ) : this(
         gtk_file_chooser_native_new(
             title,
-            parent?.gtkWindowPointer?.reinterpret(),
+            parent?.gtkWindowPointer,
             action.nativeValue,
             acceptLabel,
             cancelLabel

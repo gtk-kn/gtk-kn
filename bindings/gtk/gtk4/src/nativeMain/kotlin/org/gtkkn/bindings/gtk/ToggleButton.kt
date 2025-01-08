@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -146,7 +147,7 @@ public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
          *
          * @return whether the button is pressed
          */
-        get() = gtk_toggle_button_get_active(gtkToggleButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_toggle_button_get_active(gtkToggleButtonPointer).asBoolean()
 
         /**
          * Sets the status of the toggle button.
@@ -159,7 +160,7 @@ public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
          *
          * @param isActive true or false.
          */
-        set(isActive) = gtk_toggle_button_set_active(gtkToggleButtonPointer.reinterpret(), isActive.asGBoolean())
+        set(isActive) = gtk_toggle_button_set_active(gtkToggleButtonPointer, isActive.asGBoolean())
 
     /**
      * Creates a new toggle button.
@@ -195,28 +196,35 @@ public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
      *   form a group with
      */
     public open fun setGroup(group: ToggleButton? = null): Unit =
-        gtk_toggle_button_set_group(gtkToggleButtonPointer.reinterpret(), group?.gtkToggleButtonPointer?.reinterpret())
+        gtk_toggle_button_set_group(gtkToggleButtonPointer, group?.gtkToggleButtonPointer)
 
     /**
      * Emits the ::toggled signal on the `GtkToggleButton`.
      */
-    public open fun toggled(): Unit = gtk_toggle_button_toggled(gtkToggleButtonPointer.reinterpret())
+    public open fun toggled(): Unit = gtk_toggle_button_toggled(gtkToggleButtonPointer)
 
     /**
      * Emitted whenever the `GtkToggleButton`'s state is changed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "toggled",
-            connectToggledFunc.reinterpret(),
+            onToggledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "toggled" signal. See [onToggled].
+     */
+    public fun emitToggled() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "toggled")
+    }
 
     public companion object : TypeCompanion<ToggleButton> {
         override val type: GeneratedClassKGType<ToggleButton> =
@@ -257,7 +265,7 @@ public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
     }
 }
 
-private val connectToggledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onToggledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

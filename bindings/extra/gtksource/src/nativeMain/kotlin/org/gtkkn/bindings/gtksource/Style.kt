@@ -61,8 +61,7 @@ public open class Style(pointer: CPointer<GtkSourceStyle>) :
      *
      * @param tag a #GtkTextTag to apply styles to.
      */
-    public open fun apply(tag: TextTag): Unit =
-        gtk_source_style_apply(gtksourceStylePointer.reinterpret(), tag.gtkTextTagPointer.reinterpret())
+    public open fun apply(tag: TextTag): Unit = gtk_source_style_apply(gtksourceStylePointer, tag.gtkTextTagPointer)
 
     /**
      * Creates a copy of @style, that is a new #GtkSourceStyle instance which
@@ -71,8 +70,8 @@ public open class Style(pointer: CPointer<GtkSourceStyle>) :
      * @return copy of @style, call g_object_unref()
      * when you are done with it.
      */
-    public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer.reinterpret())!!.run {
-        Style(reinterpret())
+    public open fun copy(): Style = gtk_source_style_copy(gtksourceStylePointer)!!.run {
+        Style(this)
     }
 
     public companion object : TypeCompanion<Style> {

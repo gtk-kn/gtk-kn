@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAdjustment
 import org.gtkkn.native.gtk.gtk_adjustment_clamp_page
 import org.gtkkn.native.gtk.gtk_adjustment_configure
@@ -66,7 +67,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @return The current minimum value of the adjustment
          */
-        get() = gtk_adjustment_get_lower(gtkAdjustmentPointer.reinterpret())
+        get() = gtk_adjustment_get_lower(gtkAdjustmentPointer)
 
         /**
          * Sets the minimum value of the adjustment.
@@ -85,7 +86,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @param lower the new minimum value
          */
-        set(lower) = gtk_adjustment_set_lower(gtkAdjustmentPointer.reinterpret(), lower)
+        set(lower) = gtk_adjustment_set_lower(gtkAdjustmentPointer, lower)
 
     /**
      * The page increment of the adjustment.
@@ -96,7 +97,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @return The current page increment of the adjustment
          */
-        get() = gtk_adjustment_get_page_increment(gtkAdjustmentPointer.reinterpret())
+        get() = gtk_adjustment_get_page_increment(gtkAdjustmentPointer)
 
         /**
          * Sets the page increment of the adjustment.
@@ -107,7 +108,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @param pageIncrement the new page increment
          */
-        set(pageIncrement) = gtk_adjustment_set_page_increment(gtkAdjustmentPointer.reinterpret(), pageIncrement)
+        set(pageIncrement) = gtk_adjustment_set_page_increment(gtkAdjustmentPointer, pageIncrement)
 
     /**
      * The page size of the adjustment.
@@ -122,7 +123,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @return The current page size of the adjustment
          */
-        get() = gtk_adjustment_get_page_size(gtkAdjustmentPointer.reinterpret())
+        get() = gtk_adjustment_get_page_size(gtkAdjustmentPointer)
 
         /**
          * Sets the page size of the adjustment.
@@ -133,7 +134,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @param pageSize the new page size
          */
-        set(pageSize) = gtk_adjustment_set_page_size(gtkAdjustmentPointer.reinterpret(), pageSize)
+        set(pageSize) = gtk_adjustment_set_page_size(gtkAdjustmentPointer, pageSize)
 
     /**
      * The step increment of the adjustment.
@@ -144,7 +145,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @return The current step increment of the adjustment.
          */
-        get() = gtk_adjustment_get_step_increment(gtkAdjustmentPointer.reinterpret())
+        get() = gtk_adjustment_get_step_increment(gtkAdjustmentPointer)
 
         /**
          * Sets the step increment of the adjustment.
@@ -155,7 +156,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @param stepIncrement the new step increment
          */
-        set(stepIncrement) = gtk_adjustment_set_step_increment(gtkAdjustmentPointer.reinterpret(), stepIncrement)
+        set(stepIncrement) = gtk_adjustment_set_step_increment(gtkAdjustmentPointer, stepIncrement)
 
     /**
      * The maximum value of the adjustment.
@@ -169,7 +170,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @return The current maximum value of the adjustment
          */
-        get() = gtk_adjustment_get_upper(gtkAdjustmentPointer.reinterpret())
+        get() = gtk_adjustment_get_upper(gtkAdjustmentPointer)
 
         /**
          * Sets the maximum value of the adjustment.
@@ -183,7 +184,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @param upper the new maximum value
          */
-        set(upper) = gtk_adjustment_set_upper(gtkAdjustmentPointer.reinterpret(), upper)
+        set(upper) = gtk_adjustment_set_upper(gtkAdjustmentPointer, upper)
 
     /**
      * The value of the adjustment.
@@ -194,7 +195,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @return The current value of the adjustment
          */
-        get() = gtk_adjustment_get_value(gtkAdjustmentPointer.reinterpret())
+        get() = gtk_adjustment_get_value(gtkAdjustmentPointer)
 
         /**
          * Sets the `GtkAdjustment` value.
@@ -209,7 +210,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
          *
          * @param value the new value
          */
-        set(`value`) = gtk_adjustment_set_value(gtkAdjustmentPointer.reinterpret(), `value`)
+        set(`value`) = gtk_adjustment_set_value(gtkAdjustmentPointer, `value`)
 
     /**
      * Creates a new `GtkAdjustment`.
@@ -246,7 +247,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
      * @param upper the upper value
      */
     public open fun clampPage(lower: gdouble, upper: gdouble): Unit =
-        gtk_adjustment_clamp_page(gtkAdjustmentPointer.reinterpret(), lower, upper)
+        gtk_adjustment_clamp_page(gtkAdjustmentPointer, lower, upper)
 
     /**
      * Sets all properties of the adjustment at once.
@@ -271,23 +272,15 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
         stepIncrement: gdouble,
         pageIncrement: gdouble,
         pageSize: gdouble,
-    ): Unit = gtk_adjustment_configure(
-        gtkAdjustmentPointer.reinterpret(),
-        `value`,
-        lower,
-        upper,
-        stepIncrement,
-        pageIncrement,
-        pageSize
-    )
+    ): Unit =
+        gtk_adjustment_configure(gtkAdjustmentPointer, `value`, lower, upper, stepIncrement, pageIncrement, pageSize)
 
     /**
      * Gets the smaller of step increment and page increment.
      *
      * @return the minimum increment of @adjustment
      */
-    public open fun getMinimumIncrement(): gdouble =
-        gtk_adjustment_get_minimum_increment(gtkAdjustmentPointer.reinterpret())
+    public open fun getMinimumIncrement(): gdouble = gtk_adjustment_get_minimum_increment(gtkAdjustmentPointer)
 
     /**
      * Emitted when one or more of the `GtkAdjustment` properties have been
@@ -296,34 +289,48 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
      * Note that the [property@Gtk.Adjustment:value] property is
      * covered by the [signal@Gtk.Adjustment::value-changed] signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "changed",
-            connectChangedFunc.reinterpret(),
+            onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "changed" signal. See [onChanged].
+     */
+    public fun emitChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+    }
+
+    /**
      * Emitted when the value has been changed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "value-changed",
-            connectValueChangedFunc.reinterpret(),
+            onValueChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "value-changed" signal. See [onValueChanged].
+     */
+    public fun emitValueChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "value-changed")
+    }
 
     public companion object : TypeCompanion<Adjustment> {
         override val type: GeneratedClassKGType<Adjustment> =
@@ -342,7 +349,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -350,7 +357,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunctio
 }
     .reinterpret()
 
-private val connectValueChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onValueChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -28,6 +28,7 @@ import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkDragSource
 import org.gtkkn.native.gtk.gtk_drag_source_drag_cancel
 import org.gtkkn.native.gtk.gtk_drag_source_get_actions
@@ -138,7 +139,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
          *
          * @return the actions set on @source
          */
-        get() = gtk_drag_source_get_actions(gtkDragSourcePointer.reinterpret()).run {
+        get() = gtk_drag_source_get_actions(gtkDragSourcePointer).run {
             DragAction(this)
         }
 
@@ -155,7 +156,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
          *
          * @param actions the actions to offer
          */
-        set(actions) = gtk_drag_source_set_actions(gtkDragSourcePointer.reinterpret(), actions.mask)
+        set(actions) = gtk_drag_source_set_actions(gtkDragSourcePointer, actions.mask)
 
     /**
      * The data that is offered by drag operations from this source.
@@ -166,8 +167,8 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
          *
          * @return the `GdkContentProvider` of @source
          */
-        get() = gtk_drag_source_get_content(gtkDragSourcePointer.reinterpret())?.run {
-            ContentProvider(reinterpret())
+        get() = gtk_drag_source_get_content(gtkDragSourcePointer)?.run {
+            ContentProvider(this)
         }
 
         /**
@@ -184,12 +185,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
          *
          * @param content a `GdkContentProvider`
          */
-        set(
-            content
-        ) = gtk_drag_source_set_content(
-            gtkDragSourcePointer.reinterpret(),
-            content?.gdkContentProviderPointer?.reinterpret()
-        )
+        set(content) = gtk_drag_source_set_content(gtkDragSourcePointer, content?.gdkContentProviderPointer)
 
     /**
      * Creates a new `GtkDragSource` object.
@@ -201,7 +197,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
     /**
      * Cancels a currently ongoing drag operation.
      */
-    public open fun dragCancel(): Unit = gtk_drag_source_drag_cancel(gtkDragSourcePointer.reinterpret())
+    public open fun dragCancel(): Unit = gtk_drag_source_drag_cancel(gtkDragSourcePointer)
 
     /**
      * Returns the underlying `GdkDrag` object for an ongoing drag.
@@ -209,8 +205,8 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * @return the `GdkDrag` of the current
      *   drag operation
      */
-    public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer.reinterpret())?.run {
-        Drag(reinterpret())
+    public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer)?.run {
+        Drag(this)
     }
 
     /**
@@ -230,7 +226,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * @param hotY the hotspot Y coordinate on the icon
      */
     public open fun setIcon(paintable: Paintable? = null, hotX: gint, hotY: gint): Unit =
-        gtk_drag_source_set_icon(gtkDragSourcePointer.reinterpret(), paintable?.gdkPaintablePointer, hotX, hotY)
+        gtk_drag_source_set_icon(gtkDragSourcePointer, paintable?.gdkPaintablePointer, hotX, hotY)
 
     /**
      * Emitted on the drag source when a drag is started.
@@ -238,18 +234,27 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * It can be used to e.g. set a custom drag icon with
      * [method@Gtk.DragSource.set_icon].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drag` the `GdkDrag` object
      */
-    public fun connectDragBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drag: Drag) -> Unit): ULong =
+    public fun onDragBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drag: Drag) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "drag-begin",
-            connectDragBeginFunc.reinterpret(),
+            onDragBeginFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "drag-begin" signal. See [onDragBegin].
+     *
+     * @param drag the `GdkDrag` object
+     */
+    public fun emitDragBegin(drag: Drag) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "drag-begin", drag.gdkDragPointer)
+    }
 
     /**
      * Emitted on the drag source when a drag has failed.
@@ -258,16 +263,16 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * the type of error. It should return true if the failure has been handled
      * and the default "drag operation failed" animation should not be shown.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drag` the `GdkDrag` object; `reason` information on why the drag failed. Returns true if the failed drag operation has been already handled
      */
-    public fun connectDragCancel(
+    public fun onDragCancel(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drag: Drag, reason: DragCancelReason) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-cancel",
-        connectDragCancelFunc.reinterpret(),
+        onDragCancelFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -280,21 +285,32 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * things done in [signal@Gtk.DragSource::prepare] or
      * [signal@Gtk.DragSource::drag-begin] handlers.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `drag` the `GdkDrag` object; `deleteData` true if the drag was performing %GDK_ACTION_MOVE,
      *    and the data should be deleted
      */
-    public fun connectDragEnd(
+    public fun onDragEnd(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drag: Drag, deleteData: Boolean) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "drag-end",
-        connectDragEndFunc.reinterpret(),
+        onDragEndFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "drag-end" signal. See [onDragEnd].
+     *
+     * @param drag the `GdkDrag` object
+     * @param deleteData true if the drag was performing %GDK_ACTION_MOVE,
+     *    and the data should be deleted
+     */
+    public fun emitDragEnd(drag: Drag, deleteData: Boolean) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "drag-end", drag.gdkDragPointer, deleteData.asGBoolean())
+    }
 
     /**
      * Emitted when a drag is about to be initiated.
@@ -304,16 +320,16 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * the [property@Gtk.DragSource:content] property, so if you set up that
      * property ahead of time, you don't need to connect to this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `x` the X coordinate of the drag starting point; `y` the Y coordinate of the drag starting point. Returns a `GdkContentProvider`
      */
-    public fun connectPrepare(
+    public fun onPrepare(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> ContentProvider?,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "prepare",
-        connectPrepareFunc.reinterpret(),
+        onPrepareFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -336,21 +352,20 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
     }
 }
 
-private val connectDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            drag: CPointer<GdkDrag>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(drag: Drag) -> Unit>().get().invoke(
-            drag!!.run {
-                Drag(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+private val onDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        drag: CPointer<GdkDrag>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(drag: Drag) -> Unit>().get().invoke(
+        drag!!.run {
+            Drag(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectDragCancelFunc:
+private val onDragCancelFunc:
     CPointer<CFunction<(CPointer<GdkDrag>, GdkDragCancelReason) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -360,7 +375,7 @@ private val connectDragCancelFunc:
         ->
         userData.asStableRef<(drag: Drag, reason: DragCancelReason) -> Boolean>().get().invoke(
             drag!!.run {
-                Drag(reinterpret())
+                Drag(this)
             },
             reason.run {
                 DragCancelReason.fromNativeValue(this)
@@ -369,7 +384,7 @@ private val connectDragCancelFunc:
     }
         .reinterpret()
 
-private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean) -> Unit>> =
+private val onDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             drag: CPointer<GdkDrag>?,
@@ -378,15 +393,15 @@ private val connectDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean)
         ->
         userData.asStableRef<(drag: Drag, deleteData: Boolean) -> Unit>().get().invoke(
             drag!!.run {
-                Drag(reinterpret())
+                Drag(this)
             },
             deleteData.asBoolean()
         )
     }
         .reinterpret()
 
-private val connectPrepareFunc:
-    CPointer<CFunction<(gdouble, gdouble) -> CPointer<GdkContentProvider>?>> = staticCFunction {
+private val onPrepareFunc: CPointer<CFunction<(gdouble, gdouble) -> CPointer<GdkContentProvider>?>> =
+    staticCFunction {
             _: COpaquePointer,
             x: gdouble,
             y: gdouble,

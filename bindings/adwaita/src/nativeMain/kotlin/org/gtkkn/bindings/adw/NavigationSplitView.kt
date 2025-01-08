@@ -208,7 +208,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return whether @self is collapsed
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_collapsed(adwNavigationSplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_navigation_split_view_get_collapsed(adwNavigationSplitViewPointer).asBoolean()
 
         /**
          * Sets whether @self is collapsed.
@@ -223,9 +223,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            collapsed
-        ) = adw_navigation_split_view_set_collapsed(adwNavigationSplitViewPointer.reinterpret(), collapsed.asGBoolean())
+        set(collapsed) = adw_navigation_split_view_set_collapsed(adwNavigationSplitViewPointer, collapsed.asGBoolean())
 
     /**
      * The content widget.
@@ -240,8 +238,8 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return the content widget
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_content(adwNavigationSplitViewPointer.reinterpret())?.run {
-            NavigationPage(reinterpret())
+        get() = adw_navigation_split_view_get_content(adwNavigationSplitViewPointer)?.run {
+            NavigationPage(this)
         }
 
         /**
@@ -253,10 +251,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
         @AdwVersion1_4
         set(
             content
-        ) = adw_navigation_split_view_set_content(
-            adwNavigationSplitViewPointer.reinterpret(),
-            content?.adwNavigationPagePointer?.reinterpret()
-        )
+        ) = adw_navigation_split_view_set_content(adwNavigationSplitViewPointer, content?.adwNavigationPagePointer)
 
     /**
      * The maximum sidebar width.
@@ -277,7 +272,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return the maximum width
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_max_sidebar_width(adwNavigationSplitViewPointer.reinterpret())
+        get() = adw_navigation_split_view_get_max_sidebar_width(adwNavigationSplitViewPointer)
 
         /**
          * Sets the maximum sidebar width for @self.
@@ -292,7 +287,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(width) = adw_navigation_split_view_set_max_sidebar_width(adwNavigationSplitViewPointer.reinterpret(), width)
+        set(width) = adw_navigation_split_view_set_max_sidebar_width(adwNavigationSplitViewPointer, width)
 
     /**
      * The minimum sidebar width.
@@ -313,7 +308,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return the minimum width
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_min_sidebar_width(adwNavigationSplitViewPointer.reinterpret())
+        get() = adw_navigation_split_view_get_min_sidebar_width(adwNavigationSplitViewPointer)
 
         /**
          * Sets the minimum sidebar width for @self.
@@ -328,7 +323,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(width) = adw_navigation_split_view_set_min_sidebar_width(adwNavigationSplitViewPointer.reinterpret(), width)
+        set(width) = adw_navigation_split_view_set_min_sidebar_width(adwNavigationSplitViewPointer, width)
 
     /**
      * Determines the visible page when collapsed.
@@ -350,7 +345,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return whether to show content when collapsed
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_show_content(adwNavigationSplitViewPointer.reinterpret()).asBoolean()
+        get() = adw_navigation_split_view_get_show_content(adwNavigationSplitViewPointer).asBoolean()
 
         /**
          * Sets which page is visible when @self is collapsed.
@@ -367,10 +362,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
         @AdwVersion1_4
         set(
             showContent
-        ) = adw_navigation_split_view_set_show_content(
-            adwNavigationSplitViewPointer.reinterpret(),
-            showContent.asGBoolean()
-        )
+        ) = adw_navigation_split_view_set_show_content(adwNavigationSplitViewPointer, showContent.asGBoolean())
 
     /**
      * The sidebar widget.
@@ -385,8 +377,8 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return the sidebar widget
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_sidebar(adwNavigationSplitViewPointer.reinterpret())?.run {
-            NavigationPage(reinterpret())
+        get() = adw_navigation_split_view_get_sidebar(adwNavigationSplitViewPointer)?.run {
+            NavigationPage(this)
         }
 
         /**
@@ -398,10 +390,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
         @AdwVersion1_4
         set(
             sidebar
-        ) = adw_navigation_split_view_set_sidebar(
-            adwNavigationSplitViewPointer.reinterpret(),
-            sidebar?.adwNavigationPagePointer?.reinterpret()
-        )
+        ) = adw_navigation_split_view_set_sidebar(adwNavigationSplitViewPointer, sidebar?.adwNavigationPagePointer)
 
     /**
      * The preferred sidebar width as a fraction of the total width.
@@ -423,7 +412,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return the preferred width fraction
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_sidebar_width_fraction(adwNavigationSplitViewPointer.reinterpret())
+        get() = adw_navigation_split_view_get_sidebar_width_fraction(adwNavigationSplitViewPointer)
 
         /**
          * Sets the preferred sidebar width as a fraction of the total width of @self.
@@ -439,9 +428,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            fraction
-        ) = adw_navigation_split_view_set_sidebar_width_fraction(adwNavigationSplitViewPointer.reinterpret(), fraction)
+        set(fraction) = adw_navigation_split_view_set_sidebar_width_fraction(adwNavigationSplitViewPointer, fraction)
 
     /**
      * The length unit for minimum and maximum sidebar widths.
@@ -459,7 +446,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @return the length unit
          * @since 1.4
          */
-        get() = adw_navigation_split_view_get_sidebar_width_unit(adwNavigationSplitViewPointer.reinterpret()).run {
+        get() = adw_navigation_split_view_get_sidebar_width_unit(adwNavigationSplitViewPointer).run {
             LengthUnit.fromNativeValue(this)
         }
 
@@ -473,12 +460,7 @@ public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            unit
-        ) = adw_navigation_split_view_set_sidebar_width_unit(
-            adwNavigationSplitViewPointer.reinterpret(),
-            unit.nativeValue
-        )
+        set(unit) = adw_navigation_split_view_set_sidebar_width_unit(adwNavigationSplitViewPointer, unit.nativeValue)
 
     /**
      * Creates a new `AdwNavigationSplitView`.

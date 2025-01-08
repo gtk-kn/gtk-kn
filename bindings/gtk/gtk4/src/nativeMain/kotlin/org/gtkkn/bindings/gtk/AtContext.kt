@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkATContext
 import org.gtkkn.native.gtk.gtk_at_context_create
 import org.gtkkn.native.gtk.gtk_at_context_get_accessible
@@ -52,7 +53,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
          *
          * @return a `GtkAccessible`
          */
-        get() = gtk_at_context_get_accessible(gtkAtContextPointer.reinterpret())!!.run {
+        get() = gtk_at_context_get_accessible(gtkAtContextPointer)!!.run {
             Accessible.wrap(reinterpret())
         }
 
@@ -68,7 +69,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
          *
          * @return a `GtkAccessibleRole`
          */
-        get() = gtk_at_context_get_accessible_role(gtkAtContextPointer.reinterpret()).run {
+        get() = gtk_at_context_get_accessible_role(gtkAtContextPointer).run {
             AccessibleRole.fromNativeValue(this)
         }
 
@@ -92,7 +93,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
         gtk_at_context_create(
             accessibleRole.nativeValue,
             accessible.gtkAccessiblePointer,
-            display.gdkDisplayPointer.reinterpret()
+            display.gdkDisplayPointer
         )!!.reinterpret()
     )
 
@@ -100,18 +101,25 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
      * Emitted when the attributes of the accessible for the
      * `GtkATContext` instance change.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "state-change",
-            connectStateChangeFunc.reinterpret(),
+            onStateChangeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "state-change" signal. See [onStateChange].
+     */
+    public fun emitStateChange() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "state-change")
+    }
 
     public companion object : TypeCompanion<AtContext> {
         override val type: GeneratedClassKGType<AtContext> =
@@ -130,7 +138,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
     }
 }
 
-private val connectStateChangeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onStateChangeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

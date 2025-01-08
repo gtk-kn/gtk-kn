@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -96,14 +97,14 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
          *
          * @return true if the `GtkSwitch` is active, and false otherwise
          */
-        get() = gtk_switch_get_active(gtkSwitchPointer.reinterpret()).asBoolean()
+        get() = gtk_switch_get_active(gtkSwitchPointer).asBoolean()
 
         /**
          * Changes the state of @self to the desired one.
          *
          * @param isActive true if @self should be active, and false otherwise
          */
-        set(isActive) = gtk_switch_set_active(gtkSwitchPointer.reinterpret(), isActive.asGBoolean())
+        set(isActive) = gtk_switch_set_active(gtkSwitchPointer, isActive.asGBoolean())
 
     /**
      * The backend state that is controlled by the switch.
@@ -116,7 +117,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
          *
          * @return the underlying state
          */
-        get() = gtk_switch_get_state(gtkSwitchPointer.reinterpret()).asBoolean()
+        get() = gtk_switch_get_state(gtkSwitchPointer).asBoolean()
 
         /**
          * Sets the underlying state of the `GtkSwitch`.
@@ -128,7 +129,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
          *
          * @param state the new state
          */
-        set(state) = gtk_switch_set_state(gtkSwitchPointer.reinterpret(), state.asGBoolean())
+        set(state) = gtk_switch_set_state(gtkSwitchPointer, state.asGBoolean())
 
     /**
      * Creates a new `GtkSwitch` widget.
@@ -143,18 +144,25 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      * Applications should never connect to this signal,
      * but use the [property@Gtk.Switch:active] property.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     */
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     /**
      * Emitted to change the underlying state.
@@ -173,20 +181,18 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      * the switch, while the [property@Gtk.Switch:active] property is
      * represented by the position of the switch.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `state` the new state of the switch. Returns true to stop the signal emission
      */
-    public fun connectStateSet(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (state: Boolean) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "state-set",
-        connectStateSetFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onStateSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (state: Boolean) -> Boolean): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "state-set",
+            onStateSetFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
 
     public companion object : TypeCompanion<Switch> {
         override val type: GeneratedClassKGType<Switch> =
@@ -205,7 +211,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -213,7 +219,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectStateSetFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
+private val onStateSetFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         state: gboolean,
         userData: COpaquePointer,

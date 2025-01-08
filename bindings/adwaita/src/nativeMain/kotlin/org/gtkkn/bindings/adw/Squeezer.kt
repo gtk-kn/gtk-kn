@@ -102,7 +102,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return whether @self allows squeezing beyond the last child
          */
-        get() = adw_squeezer_get_allow_none(adwSqueezerPointer.reinterpret()).asBoolean()
+        get() = adw_squeezer_get_allow_none(adwSqueezerPointer).asBoolean()
 
         /**
          * Sets whether to allow squeezing beyond the last child's minimum size.
@@ -113,7 +113,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param allowNone whether @self allows squeezing beyond the last child
          */
-        set(allowNone) = adw_squeezer_set_allow_none(adwSqueezerPointer.reinterpret(), allowNone.asGBoolean())
+        set(allowNone) = adw_squeezer_set_allow_none(adwSqueezerPointer, allowNone.asGBoolean())
 
     /**
      * Whether all children have the same size for the opposite orientation.
@@ -128,7 +128,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return whether @self is homogeneous
          */
-        get() = adw_squeezer_get_homogeneous(adwSqueezerPointer.reinterpret()).asBoolean()
+        get() = adw_squeezer_get_homogeneous(adwSqueezerPointer).asBoolean()
 
         /**
          * Sets whether all children have the same size for the opposite orientation.
@@ -139,7 +139,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param homogeneous whether @self is homogeneous
          */
-        set(homogeneous) = adw_squeezer_set_homogeneous(adwSqueezerPointer.reinterpret(), homogeneous.asGBoolean())
+        set(homogeneous) = adw_squeezer_set_homogeneous(adwSqueezerPointer, homogeneous.asGBoolean())
 
     /**
      * Whether the squeezer interpolates its size when changing the visible child.
@@ -155,7 +155,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return whether the size is interpolated
          */
-        get() = adw_squeezer_get_interpolate_size(adwSqueezerPointer.reinterpret()).asBoolean()
+        get() = adw_squeezer_get_interpolate_size(adwSqueezerPointer).asBoolean()
 
         /**
          * Sets whether @self interpolates its size when changing the visible child.
@@ -167,9 +167,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param interpolateSize whether to interpolate the size
          */
-        set(
-            interpolateSize
-        ) = adw_squeezer_set_interpolate_size(adwSqueezerPointer.reinterpret(), interpolateSize.asGBoolean())
+        set(interpolateSize) = adw_squeezer_set_interpolate_size(adwSqueezerPointer, interpolateSize.asGBoolean())
 
     /**
      * A selection model with the squeezer's pages.
@@ -186,7 +184,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return a `GtkSelectionModel` for the squeezer's children
          */
-        get() = adw_squeezer_get_pages(adwSqueezerPointer.reinterpret())!!.run {
+        get() = adw_squeezer_get_pages(adwSqueezerPointer)!!.run {
             SelectionModel.wrap(reinterpret())
         }
 
@@ -206,7 +204,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
         /**
          * Gets the switch threshold policy for @self.
          */
-        get() = adw_squeezer_get_switch_threshold_policy(adwSqueezerPointer.reinterpret()).run {
+        get() = adw_squeezer_get_switch_threshold_policy(adwSqueezerPointer).run {
             FoldThresholdPolicy.fromNativeValue(this)
         }
 
@@ -224,7 +222,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param policy the policy to use
          */
-        set(policy) = adw_squeezer_set_switch_threshold_policy(adwSqueezerPointer.reinterpret(), policy.nativeValue)
+        set(policy) = adw_squeezer_set_switch_threshold_policy(adwSqueezerPointer, policy.nativeValue)
 
     /**
      * The transition animation duration, in milliseconds.
@@ -235,14 +233,14 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return the transition duration, in milliseconds
          */
-        get() = adw_squeezer_get_transition_duration(adwSqueezerPointer.reinterpret())
+        get() = adw_squeezer_get_transition_duration(adwSqueezerPointer)
 
         /**
          * Sets the transition animation duration for @self.
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) = adw_squeezer_set_transition_duration(adwSqueezerPointer.reinterpret(), duration)
+        set(duration) = adw_squeezer_set_transition_duration(adwSqueezerPointer, duration)
 
     /**
      * Whether a transition is currently running.
@@ -261,7 +259,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return whether a transition is currently running
          */
-        get() = adw_squeezer_get_transition_running(adwSqueezerPointer.reinterpret()).asBoolean()
+        get() = adw_squeezer_get_transition_running(adwSqueezerPointer).asBoolean()
 
     /**
      * The type of animation used for transitions between children.
@@ -272,7 +270,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return the current transition type of @self
          */
-        get() = adw_squeezer_get_transition_type(adwSqueezerPointer.reinterpret()).run {
+        get() = adw_squeezer_get_transition_type(adwSqueezerPointer).run {
             SqueezerTransitionType.fromNativeValue(this)
         }
 
@@ -281,7 +279,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param transition the new transition type
          */
-        set(transition) = adw_squeezer_set_transition_type(adwSqueezerPointer.reinterpret(), transition.nativeValue)
+        set(transition) = adw_squeezer_set_transition_type(adwSqueezerPointer, transition.nativeValue)
 
     /**
      * The currently visible child.
@@ -292,8 +290,8 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return the visible child
          */
-        get() = adw_squeezer_get_visible_child(adwSqueezerPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_squeezer_get_visible_child(adwSqueezerPointer)?.run {
+            Widget(this)
         }
 
     /**
@@ -311,7 +309,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return the alignment value
          */
-        get() = adw_squeezer_get_xalign(adwSqueezerPointer.reinterpret())
+        get() = adw_squeezer_get_xalign(adwSqueezerPointer)
 
         /**
          * Sets the horizontal alignment, from 0 (start) to 1 (end).
@@ -324,7 +322,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param xalign the new alignment value
          */
-        set(xalign) = adw_squeezer_set_xalign(adwSqueezerPointer.reinterpret(), xalign)
+        set(xalign) = adw_squeezer_set_xalign(adwSqueezerPointer, xalign)
 
     /**
      * The vertical alignment, from 0 (top) to 1 (bottom).
@@ -341,7 +339,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @return the alignment value
          */
-        get() = adw_squeezer_get_yalign(adwSqueezerPointer.reinterpret())
+        get() = adw_squeezer_get_yalign(adwSqueezerPointer)
 
         /**
          * Sets the vertical alignment, from 0 (top) to 1 (bottom).
@@ -354,7 +352,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          *
          * @param yalign the new alignment value
          */
-        set(yalign) = adw_squeezer_set_yalign(adwSqueezerPointer.reinterpret(), yalign)
+        set(yalign) = adw_squeezer_set_yalign(adwSqueezerPointer, yalign)
 
     /**
      * Creates a new `AdwSqueezer`.
@@ -369,10 +367,9 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
      * @param child the widget to add
      * @return the [class@SqueezerPage] for @child
      */
-    public fun add(child: Widget): SqueezerPage =
-        adw_squeezer_add(adwSqueezerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            SqueezerPage(reinterpret())
-        }
+    public fun add(child: Widget): SqueezerPage = adw_squeezer_add(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
+        SqueezerPage(this)
+    }
 
     /**
      * Returns the [class@SqueezerPage] object for @child.
@@ -381,8 +378,8 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
      * @return the page object for @child
      */
     public fun getPage(child: Widget): SqueezerPage =
-        adw_squeezer_get_page(adwSqueezerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            SqueezerPage(reinterpret())
+        adw_squeezer_get_page(adwSqueezerPointer, child.gtkWidgetPointer)!!.run {
+            SqueezerPage(this)
         }
 
     /**
@@ -390,8 +387,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
      *
      * @param child the child to remove
      */
-    public fun remove(child: Widget): Unit =
-        adw_squeezer_remove(adwSqueezerPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun remove(child: Widget): Unit = adw_squeezer_remove(adwSqueezerPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<Squeezer> {
         override val type: GeneratedClassKGType<Squeezer> =

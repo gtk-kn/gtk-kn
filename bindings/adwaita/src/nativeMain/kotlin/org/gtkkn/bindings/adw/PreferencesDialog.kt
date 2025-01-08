@@ -84,7 +84,7 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
          * @return whether search is enabled for @self.
          * @since 1.5
          */
-        get() = adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_dialog_get_search_enabled(adwPreferencesDialogPointer).asBoolean()
 
         /**
          * Sets whether search is enabled for @self.
@@ -95,10 +95,7 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
         @AdwVersion1_5
         set(
             searchEnabled
-        ) = adw_preferences_dialog_set_search_enabled(
-            adwPreferencesDialogPointer.reinterpret(),
-            searchEnabled.asGBoolean()
-        )
+        ) = adw_preferences_dialog_set_search_enabled(adwPreferencesDialogPointer, searchEnabled.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesDialog`.
@@ -115,10 +112,8 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun add(page: PreferencesPage): Unit = adw_preferences_dialog_add(
-        adwPreferencesDialogPointer.reinterpret(),
-        page.adwPreferencesPagePointer.reinterpret()
-    )
+    public open fun add(page: PreferencesPage): Unit =
+        adw_preferences_dialog_add(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
 
     /**
      * Displays @toast.
@@ -130,7 +125,7 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      */
     @AdwVersion1_5
     public open fun addToast(toast: Toast): Unit =
-        adw_preferences_dialog_add_toast(adwPreferencesDialogPointer.reinterpret(), toast.adwToastPointer.reinterpret())
+        adw_preferences_dialog_add_toast(adwPreferencesDialogPointer, toast.adwToastPointer)
 
     /**
      * Gets the currently visible page of @self.
@@ -140,8 +135,8 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      */
     @AdwVersion1_5
     public open fun getVisiblePage(): PreferencesPage? =
-        adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer.reinterpret())?.run {
-            PreferencesPage(reinterpret())
+        adw_preferences_dialog_get_visible_page(adwPreferencesDialogPointer)?.run {
+            PreferencesPage(this)
         }
 
     /**
@@ -152,7 +147,7 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      */
     @AdwVersion1_5
     public open fun getVisiblePageName(): String? =
-        adw_preferences_dialog_get_visible_page_name(adwPreferencesDialogPointer.reinterpret())?.toKString()
+        adw_preferences_dialog_get_visible_page_name(adwPreferencesDialogPointer)?.toKString()
 
     /**
      * Pop the visible page from the subpage stack of @self.
@@ -161,8 +156,7 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun popSubpage(): Boolean =
-        adw_preferences_dialog_pop_subpage(adwPreferencesDialogPointer.reinterpret()).asBoolean()
+    public open fun popSubpage(): Boolean = adw_preferences_dialog_pop_subpage(adwPreferencesDialogPointer).asBoolean()
 
     /**
      * Pushes @page onto the subpage stack of @self.
@@ -173,10 +167,8 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun pushSubpage(page: NavigationPage): Unit = adw_preferences_dialog_push_subpage(
-        adwPreferencesDialogPointer.reinterpret(),
-        page.adwNavigationPagePointer.reinterpret()
-    )
+    public open fun pushSubpage(page: NavigationPage): Unit =
+        adw_preferences_dialog_push_subpage(adwPreferencesDialogPointer, page.adwNavigationPagePointer)
 
     /**
      * Removes a page from @self.
@@ -185,10 +177,8 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun remove(page: PreferencesPage): Unit = adw_preferences_dialog_remove(
-        adwPreferencesDialogPointer.reinterpret(),
-        page.adwPreferencesPagePointer.reinterpret()
-    )
+    public open fun remove(page: PreferencesPage): Unit =
+        adw_preferences_dialog_remove(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
 
     /**
      * Makes @page the visible page of @self.
@@ -197,10 +187,8 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun setVisiblePage(page: PreferencesPage): Unit = adw_preferences_dialog_set_visible_page(
-        adwPreferencesDialogPointer.reinterpret(),
-        page.adwPreferencesPagePointer.reinterpret()
-    )
+    public open fun setVisiblePage(page: PreferencesPage): Unit =
+        adw_preferences_dialog_set_visible_page(adwPreferencesDialogPointer, page.adwPreferencesPagePointer)
 
     /**
      * Makes the page with the given name visible.
@@ -212,7 +200,7 @@ public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
      */
     @AdwVersion1_5
     public open fun setVisiblePageName(name: String): Unit =
-        adw_preferences_dialog_set_visible_page_name(adwPreferencesDialogPointer.reinterpret(), name)
+        adw_preferences_dialog_set_visible_page_name(adwPreferencesDialogPointer, name)
 
     public companion object : TypeCompanion<PreferencesDialog> {
         override val type: GeneratedClassKGType<PreferencesDialog> =

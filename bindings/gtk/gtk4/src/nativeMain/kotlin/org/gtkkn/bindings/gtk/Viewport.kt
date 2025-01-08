@@ -73,8 +73,8 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          *
          * @return the child widget of @viewport
          */
-        get() = gtk_viewport_get_child(gtkViewportPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_viewport_get_child(gtkViewportPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -82,7 +82,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          *
          * @param child the child widget
          */
-        set(child) = gtk_viewport_set_child(gtkViewportPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_viewport_set_child(gtkViewportPointer, child?.gtkWidgetPointer)
 
     /**
      * Whether to scroll when the focus changes.
@@ -98,7 +98,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          *
          * @return true if the viewport keeps the focus child scrolled to view
          */
-        get() = gtk_viewport_get_scroll_to_focus(gtkViewportPointer.reinterpret()).asBoolean()
+        get() = gtk_viewport_get_scroll_to_focus(gtkViewportPointer).asBoolean()
 
         /**
          * Sets whether the viewport should automatically scroll
@@ -106,9 +106,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          *
          * @param scrollToFocus whether to keep the focus widget scrolled to view
          */
-        set(
-            scrollToFocus
-        ) = gtk_viewport_set_scroll_to_focus(gtkViewportPointer.reinterpret(), scrollToFocus.asGBoolean())
+        set(scrollToFocus) = gtk_viewport_set_scroll_to_focus(gtkViewportPointer, scrollToFocus.asGBoolean())
 
     /**
      * Creates a new `GtkViewport`.
@@ -123,12 +121,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
     public constructor(
         hadjustment: Adjustment? = null,
         vadjustment: Adjustment? = null,
-    ) : this(
-        gtk_viewport_new(
-            hadjustment?.gtkAdjustmentPointer?.reinterpret(),
-            vadjustment?.gtkAdjustmentPointer?.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gtk_viewport_new(hadjustment?.gtkAdjustmentPointer, vadjustment?.gtkAdjustmentPointer)!!.reinterpret())
 
     /**
      * Scrolls a descendant of the viewport into view.
@@ -142,11 +135,8 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
      * @since 4.12
      */
     @GtkVersion4_12
-    public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit = gtk_viewport_scroll_to(
-        gtkViewportPointer.reinterpret(),
-        descendant.gtkWidgetPointer.reinterpret(),
-        scroll?.gPointer?.reinterpret()
-    )
+    public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit =
+        gtk_viewport_scroll_to(gtkViewportPointer, descendant.gtkWidgetPointer, scroll?.gPointer)
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =

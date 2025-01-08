@@ -47,7 +47,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return the expected content length of @response.
          */
-        get() = webkit_uri_response_get_content_length(webkitUriResponsePointer.reinterpret())
+        get() = webkit_uri_response_get_content_length(webkitUriResponsePointer)
 
     /**
      * The HTTP headers of the response, or null if the response is not an HTTP response.
@@ -63,8 +63,8 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *    or null if @response is not an HTTP response.
          * @since 2.6
          */
-        get() = webkit_uri_response_get_http_headers(webkitUriResponsePointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
+        get() = webkit_uri_response_get_http_headers(webkitUriResponsePointer)!!.run {
+            MessageHeaders(this)
         }
 
     /**
@@ -76,7 +76,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return MIME type, as a string.
          */
-        get() = webkit_uri_response_get_mime_type(webkitUriResponsePointer.reinterpret())?.toKString()
+        get() = webkit_uri_response_get_mime_type(webkitUriResponsePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -93,7 +93,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return the status code of @response
          */
-        get() = webkit_uri_response_get_status_code(webkitUriResponsePointer.reinterpret())
+        get() = webkit_uri_response_get_status_code(webkitUriResponsePointer)
 
     /**
      * The suggested filename for the URI response.
@@ -109,7 +109,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          * @return the suggested filename or null if
          *    the 'Content-Disposition' HTTP header is not present.
          */
-        get() = webkit_uri_response_get_suggested_filename(webkitUriResponsePointer.reinterpret())?.toKString()
+        get() = webkit_uri_response_get_suggested_filename(webkitUriResponsePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -121,8 +121,7 @@ public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
          *
          * @return response URI, as a string.
          */
-        get() = webkit_uri_response_get_uri(webkitUriResponsePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_uri_response_get_uri(webkitUriResponsePointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<UriResponse> {
         override val type: GeneratedClassKGType<UriResponse> =

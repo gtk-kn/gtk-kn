@@ -62,8 +62,7 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
          *
          * @return the subtitle
          */
-        get() = adw_window_title_get_subtitle(adwWindowTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_window_title_get_subtitle(adwWindowTitlePointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the subtitle of @self.
@@ -72,7 +71,7 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
          *
          * @param subtitle a subtitle
          */
-        set(subtitle) = adw_window_title_set_subtitle(adwWindowTitlePointer.reinterpret(), subtitle)
+        set(subtitle) = adw_window_title_set_subtitle(adwWindowTitlePointer, subtitle)
 
     /**
      * The title to display.
@@ -86,8 +85,7 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
          *
          * @return the title
          */
-        get() = adw_window_title_get_title(adwWindowTitlePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_window_title_get_title(adwWindowTitlePointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title of @self.
@@ -97,7 +95,7 @@ public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
          *
          * @param title a title
          */
-        set(title) = adw_window_title_set_title(adwWindowTitlePointer.reinterpret(), title)
+        set(title) = adw_window_title_set_title(adwWindowTitlePointer, title)
 
     /**
      * Creates a new `AdwWindowTitle`.

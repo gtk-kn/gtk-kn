@@ -57,8 +57,8 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      *   with a reference count of one, which should be freed with
      *   [method@Pango.Coverage.unref].
      */
-    public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer.reinterpret())!!.run {
-        Coverage(reinterpret())
+    public open fun copy(): Coverage = pango_coverage_copy(pangoCoveragePointer)!!.run {
+        Coverage(this)
     }
 
     /**
@@ -67,10 +67,9 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      * @param index the index to check
      * @return the coverage level of @coverage for character @index_.
      */
-    public open fun `get`(index: gint): CoverageLevel =
-        pango_coverage_get(pangoCoveragePointer.reinterpret(), index).run {
-            CoverageLevel.fromNativeValue(this)
-        }
+    public open fun `get`(index: gint): CoverageLevel = pango_coverage_get(pangoCoveragePointer, index).run {
+        CoverageLevel.fromNativeValue(this)
+    }
 
     /**
      * Set the coverage for each index in @coverage to be the max (better)
@@ -79,16 +78,15 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      *
      * @param other another `PangoCoverage`
      */
-    public open fun max(other: Coverage): Unit =
-        pango_coverage_max(pangoCoveragePointer.reinterpret(), other.pangoCoveragePointer.reinterpret())
+    public open fun max(other: Coverage): Unit = pango_coverage_max(pangoCoveragePointer, other.pangoCoveragePointer)
 
     /**
      * Increase the reference count on the `PangoCoverage` by one.
      *
      * @return @coverage
      */
-    override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer.reinterpret())!!.run {
-        Coverage(reinterpret())
+    override fun ref(): Coverage = pango_coverage_ref(pangoCoveragePointer)!!.run {
+        Coverage(this)
     }
 
     /**
@@ -98,14 +96,14 @@ public open class Coverage(pointer: CPointer<PangoCoverage>) :
      * @param level the new level for @index_
      */
     public open fun `set`(index: gint, level: CoverageLevel): Unit =
-        pango_coverage_set(pangoCoveragePointer.reinterpret(), index, level.nativeValue)
+        pango_coverage_set(pangoCoveragePointer, index, level.nativeValue)
 
     /**
      * Decrease the reference count on the `PangoCoverage` by one.
      *
      * If the result is zero, free the coverage and all associated memory.
      */
-    override fun unref(): Unit = pango_coverage_unref(pangoCoveragePointer.reinterpret())
+    override fun unref(): Unit = pango_coverage_unref(pangoCoveragePointer)
 
     public companion object : TypeCompanion<Coverage> {
         override val type: GeneratedClassKGType<Coverage> =

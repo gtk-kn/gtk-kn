@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_8
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -141,7 +140,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(size: gint): Attribute = pango_attr_size_new(size)!!.run {
-            Attribute(reinterpret())
+            Attribute(this)
         }
 
         /**
@@ -155,7 +154,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
          */
         @PangoVersion1_8
         public fun newAbsolute(size: gint): Attribute = pango_attr_size_new_absolute(size)!!.run {
-            Attribute(reinterpret())
+            Attribute(this)
         }
     }
 }

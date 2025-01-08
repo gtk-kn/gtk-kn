@@ -66,8 +66,8 @@ public class CarouselIndicatorLines(pointer: CPointer<AdwCarouselIndicatorLines>
          *
          * @return the displayed carousel
          */
-        get() = adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer.reinterpret())?.run {
-            Carousel(reinterpret())
+        get() = adw_carousel_indicator_lines_get_carousel(adwCarouselIndicatorLinesPointer)?.run {
+            Carousel(this)
         }
 
         /**
@@ -77,10 +77,7 @@ public class CarouselIndicatorLines(pointer: CPointer<AdwCarouselIndicatorLines>
          */
         set(
             carousel
-        ) = adw_carousel_indicator_lines_set_carousel(
-            adwCarouselIndicatorLinesPointer.reinterpret(),
-            carousel?.adwCarouselPointer?.reinterpret()
-        )
+        ) = adw_carousel_indicator_lines_set_carousel(adwCarouselIndicatorLinesPointer, carousel?.adwCarouselPointer)
 
     /**
      * Creates a new `AdwCarouselIndicatorLines`.

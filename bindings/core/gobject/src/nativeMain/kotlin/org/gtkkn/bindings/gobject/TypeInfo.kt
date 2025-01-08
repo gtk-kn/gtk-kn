@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
@@ -90,7 +89,7 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      */
     public var valueTable: TypeValueTable?
         get() = gPointer.pointed.value_table?.run {
-            TypeValueTable(reinterpret())
+            TypeValueTable(this)
         }
 
         @UnsafeFieldSetter

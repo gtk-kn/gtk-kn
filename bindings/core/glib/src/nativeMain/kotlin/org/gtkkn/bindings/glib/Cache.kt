@@ -37,7 +37,7 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      * Note that it does not destroy the keys and values which were
      * contained in the #GCache.
      */
-    public fun destroy(): Unit = g_cache_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_cache_destroy(gPointer)
 
     /**
      * Gets the value corresponding to the given key, creating it if
@@ -52,7 +52,7 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      * @param key a key describing a #GCache object
      * @return a pointer to a #GCache value
      */
-    public fun insert(key: gpointer? = null): gpointer? = g_cache_insert(gPointer.reinterpret(), key)
+    public fun insert(key: gpointer? = null): gpointer? = g_cache_insert(gPointer, key)
 
     /**
      * Calls the given function for each of the keys in the #GCache.
@@ -65,7 +65,7 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      * @param func the function to call with each #GCache key
      */
     public fun keyForeach(func: HFunc): Unit =
-        g_cache_key_foreach(gPointer.reinterpret(), HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        g_cache_key_foreach(gPointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Decreases the reference count of the given value. If it drops to 0
@@ -74,7 +74,7 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      *
      * @param value the value to remove
      */
-    public fun remove(`value`: gpointer? = null): Unit = g_cache_remove(gPointer.reinterpret(), `value`)
+    public fun remove(`value`: gpointer? = null): Unit = g_cache_remove(gPointer, `value`)
 
     /**
      * Calls the given function for each of the values in the #GCache.
@@ -82,5 +82,5 @@ public class Cache(pointer: CPointer<GCache>) : ProxyInstance(pointer) {
      * @param func the function to call with each #GCache value
      */
     public fun valueForeach(func: HFunc): Unit =
-        g_cache_value_foreach(gPointer.reinterpret(), HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        g_cache_value_foreach(gPointer, HFuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 }

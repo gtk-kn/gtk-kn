@@ -48,7 +48,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
         thisType: GType,
         expression: Expression? = null,
         propertyName: String,
-    ) : this(gtk_property_expression_new(thisType, expression?.gPointer?.reinterpret(), propertyName)!!.reinterpret())
+    ) : this(gtk_property_expression_new(thisType, expression?.gPointer, propertyName)!!.reinterpret())
 
     /**
      * Creates an expression that looks up a property.
@@ -69,12 +69,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
     public constructor(
         expression: Expression? = null,
         pspec: ParamSpec,
-    ) : this(
-        gtk_property_expression_new_for_pspec(
-            expression?.gPointer?.reinterpret(),
-            pspec.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gtk_property_expression_new_for_pspec(expression?.gPointer, pspec.gPointer)!!.reinterpret())
 
     /**
      * Gets the expression specifying the object of
@@ -84,7 +79,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      */
     public open fun getExpression(): Expression? =
         gtk_property_expression_get_expression(gtkPropertyExpressionPointer.reinterpret())?.run {
-            Expression(reinterpret())
+            Expression(this)
         }
 
     /**
@@ -95,7 +90,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      */
     public open fun getPspec(): ParamSpec =
         gtk_property_expression_get_pspec(gtkPropertyExpressionPointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
+            ParamSpec(this)
         }
 
     public companion object : TypeCompanion<PropertyExpression> {

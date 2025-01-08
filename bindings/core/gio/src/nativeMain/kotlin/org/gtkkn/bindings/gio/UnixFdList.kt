@@ -83,7 +83,7 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
     @GioVersion2_24
     public open fun append(fd: gint): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_unix_fd_list_append(gioUnixFdListPointer.reinterpret(), fd, gError.ptr)
+        val gResult = g_unix_fd_list_append(gioUnixFdListPointer, fd, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -112,7 +112,7 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
     @GioVersion2_24
     public open fun `get`(index: gint): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_unix_fd_list_get(gioUnixFdListPointer.reinterpret(), index, gError.ptr)
+        val gResult = g_unix_fd_list_get(gioUnixFdListPointer, index, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -128,7 +128,7 @@ public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
      * @since 2.24
      */
     @GioVersion2_24
-    public open fun getLength(): gint = g_unix_fd_list_get_length(gioUnixFdListPointer.reinterpret())
+    public open fun getLength(): gint = g_unix_fd_list_get_length(gioUnixFdListPointer)
 
     public companion object : TypeCompanion<UnixFdList> {
         override val type: GeneratedClassKGType<UnixFdList> =

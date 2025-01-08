@@ -76,8 +76,8 @@ public interface DtlsClientConnection :
          * the free the list with g_list_free().
          * @since 2.48
          */
-        get() = g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer.reinterpret())!!.run {
-            List(reinterpret())
+        get() = g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer)!!.run {
+            List(this)
         }
 
     /**
@@ -108,7 +108,7 @@ public interface DtlsClientConnection :
          * known.
          * @since 2.48
          */
-        get() = g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer.reinterpret())!!.run {
+        get() = g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer)!!.run {
             SocketConnectable.wrap(reinterpret())
         }
 
@@ -125,7 +125,7 @@ public interface DtlsClientConnection :
         set(
             identity
         ) = g_dtls_client_connection_set_server_identity(
-            gioDtlsClientConnectionPointer.reinterpret(),
+            gioDtlsClientConnectionPointer,
             identity.gioSocketConnectablePointer
         )
 
@@ -161,7 +161,7 @@ public interface DtlsClientConnection :
          * @return the validation flags
          * @since 2.48
          */
-        get() = g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer.reinterpret()).run {
+        get() = g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer).run {
             TlsCertificateFlags(this)
         }
 
@@ -178,9 +178,7 @@ public interface DtlsClientConnection :
          * @since 2.48
          */
         @GioVersion2_48
-        set(
-            flags
-        ) = g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
+        set(flags) = g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer, flags.mask)
 
     /**
      * Gets the list of distinguished names of the Certificate Authorities
@@ -198,8 +196,8 @@ public interface DtlsClientConnection :
      */
     @GioVersion2_48
     public fun getAcceptedCas(): List =
-        g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer.reinterpret())!!.run {
-            List(reinterpret())
+        g_dtls_client_connection_get_accepted_cas(gioDtlsClientConnectionPointer)!!.run {
+            List(this)
         }
 
     /**
@@ -212,7 +210,7 @@ public interface DtlsClientConnection :
      */
     @GioVersion2_48
     public fun getServerIdentity(): SocketConnectable =
-        g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer.reinterpret())!!.run {
+        g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer)!!.run {
             SocketConnectable.wrap(reinterpret())
         }
 
@@ -228,7 +226,7 @@ public interface DtlsClientConnection :
      */
     @GioVersion2_48
     public fun getValidationFlags(): TlsCertificateFlags =
-        g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer.reinterpret()).run {
+        g_dtls_client_connection_get_validation_flags(gioDtlsClientConnectionPointer).run {
             TlsCertificateFlags(this)
         }
 
@@ -243,7 +241,7 @@ public interface DtlsClientConnection :
      */
     @GioVersion2_48
     public fun setServerIdentity(identity: SocketConnectable): Unit = g_dtls_client_connection_set_server_identity(
-        gioDtlsClientConnectionPointer.reinterpret(),
+        gioDtlsClientConnectionPointer,
         identity.gioSocketConnectablePointer
     )
 
@@ -261,7 +259,7 @@ public interface DtlsClientConnection :
      */
     @GioVersion2_48
     public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
-        g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer.reinterpret(), flags.mask)
+        g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer, flags.mask)
 
     private data class Wrapper(private val pointer: CPointer<GDtlsClientConnection>) : DtlsClientConnection {
         override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection> = pointer

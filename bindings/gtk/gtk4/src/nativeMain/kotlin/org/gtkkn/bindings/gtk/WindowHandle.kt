@@ -56,8 +56,8 @@ public open class WindowHandle(pointer: CPointer<GtkWindowHandle>) :
          *
          * @return the child widget of @self
          */
-        get() = gtk_window_handle_get_child(gtkWindowHandlePointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_window_handle_get_child(gtkWindowHandlePointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -65,9 +65,7 @@ public open class WindowHandle(pointer: CPointer<GtkWindowHandle>) :
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = gtk_window_handle_set_child(gtkWindowHandlePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_window_handle_set_child(gtkWindowHandlePointer, child?.gtkWidgetPointer)
 
     /**
      * Creates a new `GtkWindowHandle`.

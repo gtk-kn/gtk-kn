@@ -125,7 +125,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * a lot of unreffed access to nodes. As a side effect of this function,
      * all unreffed iters will be invalid.
      */
-    public open fun clearCache(): Unit = gtk_tree_model_filter_clear_cache(gtkTreeModelFilterPointer.reinterpret())
+    public open fun clearCache(): Unit = gtk_tree_model_filter_clear_cache(gtkTreeModelFilterPointer)
 
     /**
      * Sets @filter_iter to point to the row in @filter that corresponds to the
@@ -139,9 +139,9 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      */
     public open fun convertChildIterToIter(filterIter: TreeIter, childIter: TreeIter): Boolean =
         gtk_tree_model_filter_convert_child_iter_to_iter(
-            gtkTreeModelFilterPointer.reinterpret(),
-            filterIter.gPointer.reinterpret(),
-            childIter.gPointer.reinterpret()
+            gtkTreeModelFilterPointer,
+            filterIter.gPointer,
+            childIter.gPointer
         ).asBoolean()
 
     /**
@@ -155,11 +155,8 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @return A newly allocated `GtkTreePath`
      */
     public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
-        gtk_tree_model_filter_convert_child_path_to_path(
-            gtkTreeModelFilterPointer.reinterpret(),
-            childPath.gPointer.reinterpret()
-        )?.run {
-            TreePath(reinterpret())
+        gtk_tree_model_filter_convert_child_path_to_path(gtkTreeModelFilterPointer, childPath.gPointer)?.run {
+            TreePath(this)
         }
 
     /**
@@ -170,9 +167,9 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      */
     public open fun convertIterToChildIter(childIter: TreeIter, filterIter: TreeIter): Unit =
         gtk_tree_model_filter_convert_iter_to_child_iter(
-            gtkTreeModelFilterPointer.reinterpret(),
-            childIter.gPointer.reinterpret(),
-            filterIter.gPointer.reinterpret()
+            gtkTreeModelFilterPointer,
+            childIter.gPointer,
+            filterIter.gPointer
         )
 
     /**
@@ -185,11 +182,8 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @return A newly allocated `GtkTreePath`
      */
     public open fun convertPathToChildPath(filterPath: TreePath): TreePath? =
-        gtk_tree_model_filter_convert_path_to_child_path(
-            gtkTreeModelFilterPointer.reinterpret(),
-            filterPath.gPointer.reinterpret()
-        )?.run {
-            TreePath(reinterpret())
+        gtk_tree_model_filter_convert_path_to_child_path(gtkTreeModelFilterPointer, filterPath.gPointer)?.run {
+            TreePath(this)
         }
 
     /**
@@ -197,16 +191,15 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      *
      * @return A pointer to a `GtkTreeModel`
      */
-    public open fun getModel(): TreeModel =
-        gtk_tree_model_filter_get_model(gtkTreeModelFilterPointer.reinterpret())!!.run {
-            TreeModel.wrap(reinterpret())
-        }
+    public open fun getModel(): TreeModel = gtk_tree_model_filter_get_model(gtkTreeModelFilterPointer)!!.run {
+        TreeModel.wrap(reinterpret())
+    }
 
     /**
      * Emits ::row_changed for each row in the child model, which causes
      * the filter to re-evaluate whether a row is visible or not.
      */
-    public open fun refilter(): Unit = gtk_tree_model_filter_refilter(gtkTreeModelFilterPointer.reinterpret())
+    public open fun refilter(): Unit = gtk_tree_model_filter_refilter(gtkTreeModelFilterPointer)
 
     /**
      * Sets @column of the child_model to be the column where @filter should
@@ -221,7 +214,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @param column A `int` which is the column containing the visible information
      */
     public open fun setVisibleColumn(column: gint): Unit =
-        gtk_tree_model_filter_set_visible_column(gtkTreeModelFilterPointer.reinterpret(), column)
+        gtk_tree_model_filter_set_visible_column(gtkTreeModelFilterPointer, column)
 
     /**
      * Sets the visible function used when filtering the @filter to be @func.
@@ -263,7 +256,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @param func A `GtkTreeModelFilterVisibleFunc`, the visible function
      */
     public open fun setVisibleFunc(func: TreeModelFilterVisibleFunc): Unit = gtk_tree_model_filter_set_visible_func(
-        gtkTreeModelFilterPointer.reinterpret(),
+        gtkTreeModelFilterPointer,
         TreeModelFilterVisibleFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()

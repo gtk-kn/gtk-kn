@@ -78,7 +78,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @return `TRUE` if the color chooser dialog is modal
          * @since 4.10
          */
-        get() = gtk_color_dialog_get_modal(gtkColorDialogPointer.reinterpret()).asBoolean()
+        get() = gtk_color_dialog_get_modal(gtkColorDialogPointer).asBoolean()
 
         /**
          * Sets whether the color chooser dialog
@@ -89,7 +89,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(modal) = gtk_color_dialog_set_modal(gtkColorDialogPointer.reinterpret(), modal.asGBoolean())
+        set(modal) = gtk_color_dialog_set_modal(gtkColorDialogPointer, modal.asGBoolean())
 
     /**
      * A title that may be shown on the color chooser
@@ -106,8 +106,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @return the title
          * @since 4.10
          */
-        get() = gtk_color_dialog_get_title(gtkColorDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_color_dialog_get_title(gtkColorDialogPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title that will be shown on the
@@ -117,7 +116,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(title) = gtk_color_dialog_set_title(gtkColorDialogPointer.reinterpret(), title)
+        set(title) = gtk_color_dialog_set_title(gtkColorDialogPointer, title)
 
     /**
      * Whether colors may have alpha (translucency).
@@ -135,7 +134,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @return `TRUE` if colors may have alpha
          * @since 4.10
          */
-        get() = gtk_color_dialog_get_with_alpha(gtkColorDialogPointer.reinterpret()).asBoolean()
+        get() = gtk_color_dialog_get_with_alpha(gtkColorDialogPointer).asBoolean()
 
         /**
          * Sets whether colors may have alpha.
@@ -144,7 +143,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(withAlpha) = gtk_color_dialog_set_with_alpha(gtkColorDialogPointer.reinterpret(), withAlpha.asGBoolean())
+        set(withAlpha) = gtk_color_dialog_set_with_alpha(gtkColorDialogPointer, withAlpha.asGBoolean())
 
     /**
      * Creates a new `GtkColorDialog` object.
@@ -175,10 +174,10 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_color_dialog_choose_rgba(
-        gtkColorDialogPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        initialColor?.gPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gtkColorDialogPointer,
+        parent?.gtkWindowPointer,
+        initialColor?.gPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -198,11 +197,11 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
     public open fun chooseRgbaFinish(result: AsyncResult): Result<Rgba?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_color_dialog_choose_rgba_finish(
-            gtkColorDialogPointer.reinterpret(),
+            gtkColorDialogPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            Rgba(reinterpret())
+            Rgba(this)
         }
 
         return if (gError.pointed != null) {

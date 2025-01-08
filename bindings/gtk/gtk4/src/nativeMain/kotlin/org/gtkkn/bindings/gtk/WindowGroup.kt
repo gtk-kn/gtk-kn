@@ -57,7 +57,7 @@ public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
      * @param window the `GtkWindow` to add
      */
     public open fun addWindow(window: Window): Unit =
-        gtk_window_group_add_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
+        gtk_window_group_add_window(gtkWindowGroupPointer, window.gtkWindowPointer)
 
     /**
      * Returns a list of the `GtkWindows` that belong to @window_group.
@@ -65,8 +65,8 @@ public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
      * @return A
      *   newly-allocated list of windows inside the group.
      */
-    public open fun listWindows(): List = gtk_window_group_list_windows(gtkWindowGroupPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public open fun listWindows(): List = gtk_window_group_list_windows(gtkWindowGroupPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -75,7 +75,7 @@ public open class WindowGroup(pointer: CPointer<GtkWindowGroup>) :
      * @param window the `GtkWindow` to remove
      */
     public open fun removeWindow(window: Window): Unit =
-        gtk_window_group_remove_window(gtkWindowGroupPointer.reinterpret(), window.gtkWindowPointer.reinterpret())
+        gtk_window_group_remove_window(gtkWindowGroupPointer, window.gtkWindowPointer)
 
     public companion object : TypeCompanion<WindowGroup> {
         override val type: GeneratedClassKGType<WindowGroup> =

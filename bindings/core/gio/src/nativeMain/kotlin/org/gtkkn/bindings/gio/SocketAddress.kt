@@ -59,7 +59,7 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
          * @return the socket family type of @address
          * @since 2.22
          */
-        get() = g_socket_address_get_family(gioSocketAddressPointer.reinterpret()).run {
+        get() = g_socket_address_get_family(gioSocketAddressPointer).run {
             SocketFamily.fromNativeValue(this)
         }
 
@@ -88,7 +88,7 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getNativeSize(): Long = g_socket_address_get_native_size(gioSocketAddressPointer.reinterpret())
+    public open fun getNativeSize(): Long = g_socket_address_get_native_size(gioSocketAddressPointer)
 
     /**
      * Converts a #GSocketAddress to a native struct sockaddr, which can
@@ -108,12 +108,7 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
     @GioVersion2_22
     public open fun toNative(dest: gpointer? = null, destlen: gsize): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_address_to_native(
-            gioSocketAddressPointer.reinterpret(),
-            dest,
-            destlen,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_address_to_native(gioSocketAddressPointer, dest, destlen, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {

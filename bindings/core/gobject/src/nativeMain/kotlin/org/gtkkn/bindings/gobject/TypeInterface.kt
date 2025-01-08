@@ -73,7 +73,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      *     instance type to which @g_iface belongs, or null if the parent
      *     type doesn't conform to the interface
      */
-    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gPointer.reinterpret())!!.run {
+    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gPointer)!!.run {
         TypeInterface(reinterpret())
     }
 
@@ -134,7 +134,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          *     otherwise
          */
         public fun peek(instanceClass: TypeClass, ifaceType: GType): TypeInterface =
-            g_type_interface_peek(instanceClass.gPointer.reinterpret(), ifaceType)!!.run {
+            g_type_interface_peek(instanceClass.gPointer, ifaceType)!!.run {
                 TypeInterface(reinterpret())
             }
     }

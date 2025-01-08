@@ -147,8 +147,8 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the content widget for @self
          */
-        get() = adw_flap_get_content(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_flap_get_content(adwFlapPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -158,7 +158,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param content the content widget
          */
-        set(content) = adw_flap_set_content(adwFlapPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
+        set(content) = adw_flap_set_content(adwFlapPointer, content?.gtkWidgetPointer)
 
     /**
      * The flap widget.
@@ -171,8 +171,8 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the flap widget for @self
          */
-        get() = adw_flap_get_flap(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_flap_get_flap(adwFlapPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -182,7 +182,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param flap the flap widget
          */
-        set(flap) = adw_flap_set_flap(adwFlapPointer.reinterpret(), flap?.gtkWidgetPointer?.reinterpret())
+        set(flap) = adw_flap_set_flap(adwFlapPointer, flap?.gtkWidgetPointer)
 
     /**
      * The flap position.
@@ -196,7 +196,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the flap position for @self
          */
-        get() = adw_flap_get_flap_position(adwFlapPointer.reinterpret()).run {
+        get() = adw_flap_get_flap_position(adwFlapPointer).run {
             PackType.fromNativeValue(this)
         }
 
@@ -208,7 +208,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param position the new value
          */
-        set(position) = adw_flap_set_flap_position(adwFlapPointer.reinterpret(), position.nativeValue)
+        set(position) = adw_flap_set_flap_position(adwFlapPointer, position.nativeValue)
 
     /**
      * The fold transition animation duration, in milliseconds.
@@ -219,14 +219,14 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the fold transition duration
          */
-        get() = adw_flap_get_fold_duration(adwFlapPointer.reinterpret())
+        get() = adw_flap_get_fold_duration(adwFlapPointer)
 
         /**
          * Sets the fold transition animation duration for @self, in milliseconds.
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) = adw_flap_set_fold_duration(adwFlapPointer.reinterpret(), duration)
+        set(duration) = adw_flap_set_fold_duration(adwFlapPointer, duration)
 
     /**
      * The fold policy for the flap.
@@ -237,7 +237,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the fold policy for @self
          */
-        get() = adw_flap_get_fold_policy(adwFlapPointer.reinterpret()).run {
+        get() = adw_flap_get_fold_policy(adwFlapPointer).run {
             FlapFoldPolicy.fromNativeValue(this)
         }
 
@@ -246,7 +246,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param policy the fold policy
          */
-        set(policy) = adw_flap_set_fold_policy(adwFlapPointer.reinterpret(), policy.nativeValue)
+        set(policy) = adw_flap_set_fold_policy(adwFlapPointer, policy.nativeValue)
 
     /**
      * Determines when the flap will fold.
@@ -262,7 +262,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
         /**
          * Gets the fold threshold policy for @self.
          */
-        get() = adw_flap_get_fold_threshold_policy(adwFlapPointer.reinterpret()).run {
+        get() = adw_flap_get_fold_threshold_policy(adwFlapPointer).run {
             FoldThresholdPolicy.fromNativeValue(this)
         }
 
@@ -278,7 +278,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param policy the policy to use
          */
-        set(policy) = adw_flap_set_fold_threshold_policy(adwFlapPointer.reinterpret(), policy.nativeValue)
+        set(policy) = adw_flap_set_fold_threshold_policy(adwFlapPointer, policy.nativeValue)
 
     /**
      * Whether the flap is currently folded.
@@ -293,7 +293,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return `TRUE` if @self is currently folded
          */
-        get() = adw_flap_get_folded(adwFlapPointer.reinterpret()).asBoolean()
+        get() = adw_flap_get_folded(adwFlapPointer).asBoolean()
 
     /**
      * Whether the flap is locked.
@@ -308,7 +308,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return `TRUE` if @self is locked
          */
-        get() = adw_flap_get_locked(adwFlapPointer.reinterpret()).asBoolean()
+        get() = adw_flap_get_locked(adwFlapPointer).asBoolean()
 
         /**
          * Sets whether @self is locked.
@@ -319,7 +319,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param locked the new value
          */
-        set(locked) = adw_flap_set_locked(adwFlapPointer.reinterpret(), locked.asGBoolean())
+        set(locked) = adw_flap_set_locked(adwFlapPointer, locked.asGBoolean())
 
     /**
      * Whether the flap is modal.
@@ -334,7 +334,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return `TRUE` if @self is modal
          */
-        get() = adw_flap_get_modal(adwFlapPointer.reinterpret()).asBoolean()
+        get() = adw_flap_get_modal(adwFlapPointer).asBoolean()
 
         /**
          * Sets whether @self is modal.
@@ -345,7 +345,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param modal whether @self is modal
          */
-        set(modal) = adw_flap_set_modal(adwFlapPointer.reinterpret(), modal.asGBoolean())
+        set(modal) = adw_flap_set_modal(adwFlapPointer, modal.asGBoolean())
 
     /**
      * Whether the flap widget is revealed.
@@ -356,14 +356,14 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return `TRUE` if the flap widget is revealed
          */
-        get() = adw_flap_get_reveal_flap(adwFlapPointer.reinterpret()).asBoolean()
+        get() = adw_flap_get_reveal_flap(adwFlapPointer).asBoolean()
 
         /**
          * Sets whether the flap widget is revealed for @self.
          *
          * @param revealFlap whether to reveal the flap widget
          */
-        set(revealFlap) = adw_flap_set_reveal_flap(adwFlapPointer.reinterpret(), revealFlap.asGBoolean())
+        set(revealFlap) = adw_flap_set_reveal_flap(adwFlapPointer, revealFlap.asGBoolean())
 
     /**
      * The reveal animation spring parameters.
@@ -380,8 +380,8 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the reveal animation parameters
          */
-        get() = adw_flap_get_reveal_params(adwFlapPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
+        get() = adw_flap_get_reveal_params(adwFlapPointer)!!.run {
+            SpringParams(this)
         }
 
         /**
@@ -395,7 +395,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param params the new parameters
          */
-        set(params) = adw_flap_set_reveal_params(adwFlapPointer.reinterpret(), params.gPointer.reinterpret())
+        set(params) = adw_flap_set_reveal_params(adwFlapPointer, params.gPointer)
 
     /**
      * The current reveal transition progress.
@@ -414,7 +414,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the current reveal progress for @self
          */
-        get() = adw_flap_get_reveal_progress(adwFlapPointer.reinterpret())
+        get() = adw_flap_get_reveal_progress(adwFlapPointer)
 
     /**
      * The separator widget.
@@ -429,8 +429,8 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the separator widget for @self
          */
-        get() = adw_flap_get_separator(adwFlapPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_flap_get_separator(adwFlapPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -442,9 +442,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param separator the separator widget
          */
-        set(
-            separator
-        ) = adw_flap_set_separator(adwFlapPointer.reinterpret(), separator?.gtkWidgetPointer?.reinterpret())
+        set(separator) = adw_flap_set_separator(adwFlapPointer, separator?.gtkWidgetPointer)
 
     /**
      * Whether the flap can be closed with a swipe gesture.
@@ -458,7 +456,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return `TRUE` if @self can be closed with a swipe gesture
          */
-        get() = adw_flap_get_swipe_to_close(adwFlapPointer.reinterpret()).asBoolean()
+        get() = adw_flap_get_swipe_to_close(adwFlapPointer).asBoolean()
 
         /**
          * Sets whether @self can be closed with a swipe gesture.
@@ -468,7 +466,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param swipeToClose whether @self can be closed with a swipe gesture
          */
-        set(swipeToClose) = adw_flap_set_swipe_to_close(adwFlapPointer.reinterpret(), swipeToClose.asGBoolean())
+        set(swipeToClose) = adw_flap_set_swipe_to_close(adwFlapPointer, swipeToClose.asGBoolean())
 
     /**
      * Whether the flap can be opened with a swipe gesture.
@@ -482,7 +480,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return `TRUE` if @self can be opened with a swipe gesture
          */
-        get() = adw_flap_get_swipe_to_open(adwFlapPointer.reinterpret()).asBoolean()
+        get() = adw_flap_get_swipe_to_open(adwFlapPointer).asBoolean()
 
         /**
          * Sets whether @self can be opened with a swipe gesture.
@@ -492,7 +490,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param swipeToOpen whether @self can be opened with a swipe gesture
          */
-        set(swipeToOpen) = adw_flap_set_swipe_to_open(adwFlapPointer.reinterpret(), swipeToOpen.asGBoolean())
+        set(swipeToOpen) = adw_flap_set_swipe_to_open(adwFlapPointer, swipeToOpen.asGBoolean())
 
     /**
      * the type of animation used for reveal and fold transitions.
@@ -508,7 +506,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @return the current transition type of @self
          */
-        get() = adw_flap_get_transition_type(adwFlapPointer.reinterpret()).run {
+        get() = adw_flap_get_transition_type(adwFlapPointer).run {
             FlapTransitionType.fromNativeValue(this)
         }
 
@@ -522,7 +520,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param transitionType the new transition type
          */
-        set(transitionType) = adw_flap_set_transition_type(adwFlapPointer.reinterpret(), transitionType.nativeValue)
+        set(transitionType) = adw_flap_set_transition_type(adwFlapPointer, transitionType.nativeValue)
 
     /**
      * Creates a new `AdwFlap`.

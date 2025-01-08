@@ -45,7 +45,7 @@ public open class PsSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_6
     public open fun restrictToLevel(level: PsLevel): Unit =
-        cairo_ps_surface_restrict_to_level(cairoPsSurfacePointer.reinterpret(), level.nativeValue)
+        cairo_ps_surface_restrict_to_level(cairoPsSurfacePointer, level.nativeValue)
 
     /**
      *
@@ -54,8 +54,7 @@ public open class PsSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.6
      */
     @CairoVersion1_6
-    public open fun setEps(eps: Boolean): Unit =
-        cairo_ps_surface_set_eps(cairoPsSurfacePointer.reinterpret(), eps.asGBoolean())
+    public open fun setEps(eps: Boolean): Unit = cairo_ps_surface_set_eps(cairoPsSurfacePointer, eps.asGBoolean())
 
     /**
      *
@@ -63,18 +62,16 @@ public open class PsSurface(pointer: CPointer<cairo_surface_t>) :
      * @since 1.6
      */
     @CairoVersion1_6
-    public open fun getEps(): Boolean = cairo_ps_surface_get_eps(cairoPsSurfacePointer.reinterpret()).asBoolean()
+    public open fun getEps(): Boolean = cairo_ps_surface_get_eps(cairoPsSurfacePointer).asBoolean()
 
     public open fun setSize(widthInPoints: gdouble, heightInPoints: gdouble): Unit =
-        cairo_ps_surface_set_size(cairoPsSurfacePointer.reinterpret(), widthInPoints, heightInPoints)
+        cairo_ps_surface_set_size(cairoPsSurfacePointer, widthInPoints, heightInPoints)
 
-    public open fun dscBeginSetup(): Unit = cairo_ps_surface_dsc_begin_setup(cairoPsSurfacePointer.reinterpret())
+    public open fun dscBeginSetup(): Unit = cairo_ps_surface_dsc_begin_setup(cairoPsSurfacePointer)
 
-    public open fun dscBeginPageSetup(): Unit =
-        cairo_ps_surface_dsc_begin_page_setup(cairoPsSurfacePointer.reinterpret())
+    public open fun dscBeginPageSetup(): Unit = cairo_ps_surface_dsc_begin_page_setup(cairoPsSurfacePointer)
 
-    public open fun dscComment(comment: String): Unit =
-        cairo_ps_surface_dsc_comment(cairoPsSurfacePointer.reinterpret(), comment)
+    public open fun dscComment(comment: String): Unit = cairo_ps_surface_dsc_comment(cairoPsSurfacePointer, comment)
 
     public companion object : TypeCompanion<PsSurface> {
         override val type: GeneratedClassKGType<PsSurface> =

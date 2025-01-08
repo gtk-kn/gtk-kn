@@ -39,8 +39,8 @@ public open class AlternativeTrigger(pointer: CPointer<GtkAlternativeTrigger>) :
          *
          * @return the first alternative trigger
          */
-        get() = gtk_alternative_trigger_get_first(gtkAlternativeTriggerPointer.reinterpret())!!.run {
-            ShortcutTrigger(reinterpret())
+        get() = gtk_alternative_trigger_get_first(gtkAlternativeTriggerPointer)!!.run {
+            ShortcutTrigger(this)
         }
 
     /**
@@ -56,8 +56,8 @@ public open class AlternativeTrigger(pointer: CPointer<GtkAlternativeTrigger>) :
          *
          * @return the second alternative trigger
          */
-        get() = gtk_alternative_trigger_get_second(gtkAlternativeTriggerPointer.reinterpret())!!.run {
-            ShortcutTrigger(reinterpret())
+        get() = gtk_alternative_trigger_get_second(gtkAlternativeTriggerPointer)!!.run {
+            ShortcutTrigger(this)
         }
 
     /**
@@ -75,10 +75,7 @@ public open class AlternativeTrigger(pointer: CPointer<GtkAlternativeTrigger>) :
         first: ShortcutTrigger,
         second: ShortcutTrigger,
     ) : this(
-        gtk_alternative_trigger_new(
-            first.gtkShortcutTriggerPointer.reinterpret(),
-            second.gtkShortcutTriggerPointer.reinterpret()
-        )!!.reinterpret()
+        gtk_alternative_trigger_new(first.gtkShortcutTriggerPointer, second.gtkShortcutTriggerPointer)!!.reinterpret()
     )
 
     public companion object : TypeCompanion<AlternativeTrigger> {

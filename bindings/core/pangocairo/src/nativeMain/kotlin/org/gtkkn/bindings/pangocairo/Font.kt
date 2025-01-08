@@ -38,10 +38,9 @@ public interface Font :
      * @since 1.18
      */
     @PangoCairoVersion1_18
-    public fun getScaledFont(): ScaledFont? =
-        pango_cairo_font_get_scaled_font(pangocairoFontPointer.reinterpret())?.run {
-            ScaledFont(reinterpret())
-        }
+    public fun getScaledFont(): ScaledFont? = pango_cairo_font_get_scaled_font(pangocairoFontPointer)?.run {
+        ScaledFont(this)
+    }
 
     private data class Wrapper(private val pointer: CPointer<PangoCairoFont>) : Font {
         override val pangocairoFontPointer: CPointer<PangoCairoFont> = pointer

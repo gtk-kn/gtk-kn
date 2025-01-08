@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitGeolocationManager
 import org.gtkkn.native.webkit.webkit_geolocation_manager_failed
 import org.gtkkn.native.webkit.webkit_geolocation_manager_get_enable_high_accuracy
@@ -63,9 +64,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
          * @return Whether the setting is enabled.
          * @since 2.26
          */
-        get() = webkit_geolocation_manager_get_enable_high_accuracy(
-            webkitGeolocationManagerPointer.reinterpret()
-        ).asBoolean()
+        get() = webkit_geolocation_manager_get_enable_high_accuracy(webkitGeolocationManagerPointer).asBoolean()
 
     /**
      * Notify @manager that determining the position failed.
@@ -75,7 +74,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
      */
     @WebKitVersion2_26
     public fun failed(errorMessage: String): Unit =
-        webkit_geolocation_manager_failed(webkitGeolocationManagerPointer.reinterpret(), errorMessage)
+        webkit_geolocation_manager_failed(webkitGeolocationManagerPointer, errorMessage)
 
     /**
      * Notify @manager that position has been updated to @position.
@@ -84,10 +83,8 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun updatePosition(position: GeolocationPosition): Unit = webkit_geolocation_manager_update_position(
-        webkitGeolocationManagerPointer.reinterpret(),
-        position.gPointer.reinterpret()
-    )
+    public fun updatePosition(position: GeolocationPosition): Unit =
+        webkit_geolocation_manager_update_position(webkitGeolocationManagerPointer, position.gPointer)
 
     /**
      * The signal is emitted to notify that @manager needs to start receiving
@@ -99,17 +96,17 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
      * If the signal is not handled, WebKit will try to determine the position
      * using GeoClue if available.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun connectStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "start",
-            connectStartFunc.reinterpret(),
+            onStartFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -119,20 +116,30 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
      * The signal is emitted to notify that @manager doesn't need to receive
      * position updates anymore.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun connectStop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onStop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "stop",
-            connectStopFunc.reinterpret(),
+            onStopFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "stop" signal. See [onStop].
+     *
+     * @since 2.26
+     */
+    @WebKitVersion2_26
+    public fun emitStop() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "stop")
+    }
 
     public companion object : TypeCompanion<GeolocationManager> {
         override val type: GeneratedClassKGType<GeolocationManager> =
@@ -151,7 +158,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
     }
 }
 
-private val connectStartFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onStartFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -159,7 +166,7 @@ private val connectStartFunc: CPointer<CFunction<() -> gboolean>> = staticCFunct
 }
     .reinterpret()
 
-private val connectStopFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onStopFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

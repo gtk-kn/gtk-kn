@@ -67,8 +67,7 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
          * @return the name of the family. This string is owned
          *   by the family object and must not be modified or freed.
          */
-        get() = pango_font_family_get_name(pangoFontFamilyPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = pango_font_family_get_name(pangoFontFamilyPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `PangoFontFace` of @family with the given name.
@@ -82,8 +81,8 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
      */
     @PangoVersion1_46
     public open fun getFace(name: String? = null): FontFace? =
-        pango_font_family_get_face(pangoFontFamilyPointer.reinterpret(), name)?.run {
-            FontFace(reinterpret())
+        pango_font_family_get_face(pangoFontFamilyPointer, name)?.run {
+            FontFace(this)
         }
 
     /**
@@ -106,8 +105,7 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
      * @since 1.4
      */
     @PangoVersion1_4
-    public open fun isMonospace(): Boolean =
-        pango_font_family_is_monospace(pangoFontFamilyPointer.reinterpret()).asBoolean()
+    public open fun isMonospace(): Boolean = pango_font_family_is_monospace(pangoFontFamilyPointer).asBoolean()
 
     /**
      * A variable font is a font which has axes that can be modified to
@@ -120,8 +118,7 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
      * @since 1.44
      */
     @PangoVersion1_44
-    public open fun isVariable(): Boolean =
-        pango_font_family_is_variable(pangoFontFamilyPointer.reinterpret()).asBoolean()
+    public open fun isVariable(): Boolean = pango_font_family_is_variable(pangoFontFamilyPointer).asBoolean()
 
     public companion object : TypeCompanion<FontFamily> {
         override val type: GeneratedClassKGType<FontFamily> =

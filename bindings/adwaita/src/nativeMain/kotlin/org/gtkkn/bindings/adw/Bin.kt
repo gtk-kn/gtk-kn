@@ -55,8 +55,8 @@ public open class Bin(pointer: CPointer<AdwBin>) :
          *
          * @return the child widget of @self
          */
-        get() = adw_bin_get_child(adwBinPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_bin_get_child(adwBinPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -64,7 +64,7 @@ public open class Bin(pointer: CPointer<AdwBin>) :
          *
          * @param child the child widget
          */
-        set(child) = adw_bin_set_child(adwBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_bin_set_child(adwBinPointer, child?.gtkWidgetPointer)
 
     /**
      * Creates a new `AdwBin`.

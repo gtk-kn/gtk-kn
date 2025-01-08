@@ -80,8 +80,8 @@ public open class StackSwitcher(pointer: CPointer<GtkStackSwitcher>) :
          *
          * @return the stack
          */
-        get() = gtk_stack_switcher_get_stack(gtkStackSwitcherPointer.reinterpret())?.run {
-            Stack(reinterpret())
+        get() = gtk_stack_switcher_get_stack(gtkStackSwitcherPointer)?.run {
+            Stack(this)
         }
 
         /**
@@ -89,9 +89,7 @@ public open class StackSwitcher(pointer: CPointer<GtkStackSwitcher>) :
          *
          * @param stack a `GtkStack`
          */
-        set(
-            stack
-        ) = gtk_stack_switcher_set_stack(gtkStackSwitcherPointer.reinterpret(), stack?.gtkStackPointer?.reinterpret())
+        set(stack) = gtk_stack_switcher_set_stack(gtkStackSwitcherPointer, stack?.gtkStackPointer)
 
     /**
      * Create a new `GtkStackSwitcher`.

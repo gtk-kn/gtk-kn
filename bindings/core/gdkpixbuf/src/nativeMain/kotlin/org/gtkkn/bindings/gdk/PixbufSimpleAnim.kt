@@ -44,7 +44,7 @@ public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
          * @return true if the animation loops forever, false otherwise
          * @since 2.18
          */
-        get() = gdk_pixbuf_simple_anim_get_loop(gdkPixbufSimpleAnimPointer.reinterpret()).asBoolean()
+        get() = gdk_pixbuf_simple_anim_get_loop(gdkPixbufSimpleAnimPointer).asBoolean()
 
         /**
          * Sets whether @animation should loop indefinitely when it reaches the end.
@@ -53,7 +53,7 @@ public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
          * @since 2.18
          */
         @GdkPixbufVersion2_18
-        set(loop) = gdk_pixbuf_simple_anim_set_loop(gdkPixbufSimpleAnimPointer.reinterpret(), loop.asGBoolean())
+        set(loop) = gdk_pixbuf_simple_anim_set_loop(gdkPixbufSimpleAnimPointer, loop.asGBoolean())
 
     /**
      * Creates a new, empty animation.
@@ -79,10 +79,8 @@ public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
      * @since 2.8
      */
     @GdkPixbufVersion2_8
-    public open fun addFrame(pixbuf: Pixbuf): Unit = gdk_pixbuf_simple_anim_add_frame(
-        gdkPixbufSimpleAnimPointer.reinterpret(),
-        pixbuf.gdkPixbufPointer.reinterpret()
-    )
+    public open fun addFrame(pixbuf: Pixbuf): Unit =
+        gdk_pixbuf_simple_anim_add_frame(gdkPixbufSimpleAnimPointer, pixbuf.gdkPixbufPointer)
 
     public companion object : TypeCompanion<PixbufSimpleAnim> {
         override val type: GeneratedClassKGType<PixbufSimpleAnim> =

@@ -84,9 +84,7 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
          * @return path, as a string.
          * @since 2.24
          */
-        get() = webkit_user_content_filter_store_get_path(
-            webkitUserContentFilterStorePointer.reinterpret()
-        )?.toKString()
+        get() = webkit_user_content_filter_store_get_path(webkitUserContentFilterStorePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -114,8 +112,8 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     @WebKitVersion2_24
     public fun fetchIdentifiers(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_user_content_filter_store_fetch_identifiers(
-            webkitUserContentFilterStorePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            webkitUserContentFilterStorePointer,
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -135,7 +133,7 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     @WebKitVersion2_24
     public fun fetchIdentifiersFinish(result: AsyncResult): List<String> =
         webkit_user_content_filter_store_fetch_identifiers_finish(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             result.gioAsyncResultPointer
         )?.toKStringList()
             ?: error("Expected not null string array")
@@ -157,9 +155,9 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     @WebKitVersion2_24
     public fun load(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_user_content_filter_store_load(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             identifier,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -178,11 +176,11 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     public fun loadFinish(result: AsyncResult): Result<UserContentFilter> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_user_content_filter_store_load_finish(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            UserContentFilter(reinterpret())
+            UserContentFilter(this)
         }
 
         return if (gError.pointed != null) {
@@ -207,9 +205,9 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     @WebKitVersion2_24
     public fun remove(identifier: String, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_user_content_filter_store_remove(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             identifier,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -228,7 +226,7 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     public fun removeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_user_content_filter_store_remove_finish(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -266,10 +264,10 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = webkit_user_content_filter_store_save(
-        webkitUserContentFilterStorePointer.reinterpret(),
+        webkitUserContentFilterStorePointer,
         identifier,
-        source.gPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        source.gPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -288,11 +286,11 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     public fun saveFinish(result: AsyncResult): Result<UserContentFilter> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_user_content_filter_store_save_finish(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            UserContentFilter(reinterpret())
+            UserContentFilter(this)
         }
 
         return if (gError.pointed != null) {
@@ -325,10 +323,10 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = webkit_user_content_filter_store_save_from_file(
-        webkitUserContentFilterStorePointer.reinterpret(),
+        webkitUserContentFilterStorePointer,
         identifier,
         `file`.gioFilePointer,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -347,11 +345,11 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     public fun saveFromFileFinish(result: AsyncResult): Result<UserContentFilter> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = webkit_user_content_filter_store_save_from_file_finish(
-            webkitUserContentFilterStorePointer.reinterpret(),
+            webkitUserContentFilterStorePointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            UserContentFilter(reinterpret())
+            UserContentFilter(this)
         }
 
         return if (gError.pointed != null) {

@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.adw
 
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.adw.annotations.AdwVersion1_4
 import org.gtkkn.bindings.gtk.Settings
 import org.gtkkn.native.adw.AdwLengthUnit
@@ -60,7 +59,7 @@ public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
          */
         @AdwVersion1_4
         public fun fromPx(unit: LengthUnit, `value`: gdouble, settings: Settings? = null): gdouble =
-            adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+            adw_length_unit_from_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer)
 
         /**
          * Converts @value from @unit to pixels.
@@ -73,7 +72,7 @@ public enum class LengthUnit(public val nativeValue: AdwLengthUnit) {
          */
         @AdwVersion1_4
         public fun toPx(unit: LengthUnit, `value`: gdouble, settings: Settings? = null): gdouble =
-            adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer?.reinterpret())
+            adw_length_unit_to_px(unit.nativeValue, `value`, settings?.gtkSettingsPointer)
 
         /**
          * Get the GType of LengthUnit

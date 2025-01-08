@@ -62,7 +62,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return the badge number for this page
          */
-        get() = adw_view_stack_page_get_badge_number(adwViewStackPagePointer.reinterpret())
+        get() = adw_view_stack_page_get_badge_number(adwViewStackPagePointer)
 
         /**
          * Sets the badge number for this page.
@@ -74,7 +74,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @param badgeNumber the new value to set
          */
-        set(badgeNumber) = adw_view_stack_page_set_badge_number(adwViewStackPagePointer.reinterpret(), badgeNumber)
+        set(badgeNumber) = adw_view_stack_page_set_badge_number(adwViewStackPagePointer, badgeNumber)
 
     /**
      * The stack child to which the page belongs.
@@ -85,8 +85,8 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return the child to which @self belongs
          */
-        get() = adw_view_stack_page_get_child(adwViewStackPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = adw_view_stack_page_get_child(adwViewStackPagePointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -98,14 +98,14 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return the icon name of the page
          */
-        get() = adw_view_stack_page_get_icon_name(adwViewStackPagePointer.reinterpret())?.toKString()
+        get() = adw_view_stack_page_get_icon_name(adwViewStackPagePointer)?.toKString()
 
         /**
          * Sets the icon name of the page.
          *
          * @param iconName the icon name
          */
-        set(iconName) = adw_view_stack_page_set_icon_name(adwViewStackPagePointer.reinterpret(), iconName)
+        set(iconName) = adw_view_stack_page_set_icon_name(adwViewStackPagePointer, iconName)
 
     /**
      * The name of the child page.
@@ -116,14 +116,14 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return the name of the page
          */
-        get() = adw_view_stack_page_get_name(adwViewStackPagePointer.reinterpret())?.toKString()
+        get() = adw_view_stack_page_get_name(adwViewStackPagePointer)?.toKString()
 
         /**
          * Sets the name of the page.
          *
          * @param name the page name
          */
-        set(name) = adw_view_stack_page_set_name(adwViewStackPagePointer.reinterpret(), name)
+        set(name) = adw_view_stack_page_set_name(adwViewStackPagePointer, name)
 
     /**
      * Whether the page requires the user attention.
@@ -136,7 +136,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return whether the page needs attention
          */
-        get() = adw_view_stack_page_get_needs_attention(adwViewStackPagePointer.reinterpret()).asBoolean()
+        get() = adw_view_stack_page_get_needs_attention(adwViewStackPagePointer).asBoolean()
 
         /**
          * Sets whether the page requires the user attention.
@@ -147,7 +147,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          */
         set(
             needsAttention
-        ) = adw_view_stack_page_set_needs_attention(adwViewStackPagePointer.reinterpret(), needsAttention.asGBoolean())
+        ) = adw_view_stack_page_set_needs_attention(adwViewStackPagePointer, needsAttention.asGBoolean())
 
     /**
      * The title of the child page.
@@ -158,14 +158,14 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return the page title
          */
-        get() = adw_view_stack_page_get_title(adwViewStackPagePointer.reinterpret())?.toKString()
+        get() = adw_view_stack_page_get_title(adwViewStackPagePointer)?.toKString()
 
         /**
          * Sets the page title.
          *
          * @param title the page title
          */
-        set(title) = adw_view_stack_page_set_title(adwViewStackPagePointer.reinterpret(), title)
+        set(title) = adw_view_stack_page_set_title(adwViewStackPagePointer, title)
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
@@ -176,16 +176,14 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return whether underlines in the page title indicate mnemonics
          */
-        get() = adw_view_stack_page_get_use_underline(adwViewStackPagePointer.reinterpret()).asBoolean()
+        get() = adw_view_stack_page_get_use_underline(adwViewStackPagePointer).asBoolean()
 
         /**
          * Sets whether underlines in the page title indicate mnemonics.
          *
          * @param useUnderline the new value to set
          */
-        set(
-            useUnderline
-        ) = adw_view_stack_page_set_use_underline(adwViewStackPagePointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_view_stack_page_set_use_underline(adwViewStackPagePointer, useUnderline.asGBoolean())
 
     /**
      * Whether this page is visible.
@@ -202,7 +200,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @return whether @self is visible
          */
-        get() = adw_view_stack_page_get_visible(adwViewStackPagePointer.reinterpret()).asBoolean()
+        get() = adw_view_stack_page_get_visible(adwViewStackPagePointer).asBoolean()
 
         /**
          * Sets whether @page is visible in its `AdwViewStack`.
@@ -212,7 +210,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          *
          * @param visible whether @self is visible
          */
-        set(visible) = adw_view_stack_page_set_visible(adwViewStackPagePointer.reinterpret(), visible.asGBoolean())
+        set(visible) = adw_view_stack_page_set_visible(adwViewStackPagePointer, visible.asGBoolean())
 
     public companion object : TypeCompanion<ViewStackPage> {
         override val type: GeneratedClassKGType<ViewStackPage> =

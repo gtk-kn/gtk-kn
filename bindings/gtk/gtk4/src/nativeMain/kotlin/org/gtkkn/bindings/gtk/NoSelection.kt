@@ -59,7 +59,7 @@ public open class NoSelection(pointer: CPointer<GtkNoSelection>) :
          *
          * @return The model being wrapped
          */
-        get() = gtk_no_selection_get_model(gtkNoSelectionPointer.reinterpret())?.run {
+        get() = gtk_no_selection_get_model(gtkNoSelectionPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -70,7 +70,7 @@ public open class NoSelection(pointer: CPointer<GtkNoSelection>) :
          *
          * @param model A `GListModel` to wrap
          */
-        set(model) = gtk_no_selection_set_model(gtkNoSelectionPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_no_selection_set_model(gtkNoSelectionPointer, model?.gioListModelPointer)
 
     /**
      * Creates a new selection to handle @model.

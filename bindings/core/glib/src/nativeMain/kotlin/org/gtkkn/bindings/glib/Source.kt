@@ -93,8 +93,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun addChildSource(childSource: Source): Unit =
-        g_source_add_child_source(gPointer.reinterpret(), childSource.gPointer.reinterpret())
+    public fun addChildSource(childSource: Source): Unit = g_source_add_child_source(gPointer, childSource.gPointer)
 
     /**
      * Adds a file descriptor to the set of file descriptors polled for
@@ -113,7 +112,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @param fd a #GPollFD structure holding information about a file
      *      descriptor to watch.
      */
-    public fun addPoll(fd: PollFd): Unit = g_source_add_poll(gPointer.reinterpret(), fd.gPointer.reinterpret())
+    public fun addPoll(fd: PollFd): Unit = g_source_add_poll(gPointer, fd.gPointer)
 
     /**
      * Monitors @fd for the IO events in @events.
@@ -136,8 +135,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun addUnixFd(fd: gint, events: IoCondition): gpointer =
-        g_source_add_unix_fd(gPointer.reinterpret(), fd, events.mask)!!
+    public fun addUnixFd(fd: gint, events: IoCondition): gpointer = g_source_add_unix_fd(gPointer, fd, events.mask)!!
 
     /**
      * Adds a #GSource to a @context so that it will be executed within
@@ -151,8 +149,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @return the ID (greater than 0) for the source within the
      *   #GMainContext.
      */
-    public fun attach(context: MainContext? = null): guint =
-        g_source_attach(gPointer.reinterpret(), context?.gPointer?.reinterpret())
+    public fun attach(context: MainContext? = null): guint = g_source_attach(gPointer, context?.gPointer)
 
     /**
      * Removes a source from its #GMainContext, if any, and mark it as
@@ -170,7 +167,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * will effectively unset the callback similar to calling g_source_set_callback().
      * This can mean, that the data's #GDestroyNotify gets called right away.
      */
-    public fun destroy(): Unit = g_source_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_source_destroy(gPointer)
 
     /**
      * Checks whether a source is allowed to be called recursively.
@@ -178,7 +175,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @return whether recursion is allowed.
      */
-    public fun getCanRecurse(): Boolean = g_source_get_can_recurse(gPointer.reinterpret()).asBoolean()
+    public fun getCanRecurse(): Boolean = g_source_get_can_recurse(gPointer).asBoolean()
 
     /**
      * Gets the #GMainContext with which the source is associated.
@@ -194,8 +191,8 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *               source is associated, or null if the context has not
      *               yet been added to a source.
      */
-    public fun getContext(): MainContext? = g_source_get_context(gPointer.reinterpret())?.run {
-        MainContext(reinterpret())
+    public fun getContext(): MainContext? = g_source_get_context(gPointer)?.run {
+        MainContext(this)
     }
 
     /**
@@ -204,8 +201,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @param timeval #GTimeVal structure in which to store current time.
      */
-    public fun getCurrentTime(timeval: TimeVal): Unit =
-        g_source_get_current_time(gPointer.reinterpret(), timeval.gPointer.reinterpret())
+    public fun getCurrentTime(timeval: TimeVal): Unit = g_source_get_current_time(gPointer, timeval.gPointer)
 
     /**
      * Returns the numeric ID for a particular source. The ID of a source
@@ -220,7 +216,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @return the ID (greater than 0) for the source
      */
-    public fun getId(): guint = g_source_get_id(gPointer.reinterpret())
+    public fun getId(): guint = g_source_get_id(gPointer)
 
     /**
      * Gets a name for the source, used in debugging and profiling.  The
@@ -230,14 +226,14 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getName(): String? = g_source_get_name(gPointer.reinterpret())?.toKString()
+    public fun getName(): String? = g_source_get_name(gPointer)?.toKString()
 
     /**
      * Gets the priority of a source.
      *
      * @return the priority of the source
      */
-    public fun getPriority(): gint = g_source_get_priority(gPointer.reinterpret())
+    public fun getPriority(): gint = g_source_get_priority(gPointer)
 
     /**
      * Gets the "ready time" of @source, as set by
@@ -248,7 +244,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @return the monotonic ready time, -1 for "never"
      */
-    public fun getReadyTime(): gint64 = g_source_get_ready_time(gPointer.reinterpret())
+    public fun getReadyTime(): gint64 = g_source_get_ready_time(gPointer)
 
     /**
      * Gets the time to be used when checking this source. The advantage of
@@ -263,7 +259,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun getTime(): gint64 = g_source_get_time(gPointer.reinterpret())
+    public fun getTime(): gint64 = g_source_get_time(gPointer)
 
     /**
      * Returns whether @source has been destroyed.
@@ -349,7 +345,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun isDestroyed(): Boolean = g_source_is_destroyed(gPointer.reinterpret()).asBoolean()
+    public fun isDestroyed(): Boolean = g_source_is_destroyed(gPointer).asBoolean()
 
     /**
      * Updates the event mask to watch for the fd identified by @tag.
@@ -370,7 +366,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_36
     public fun modifyUnixFd(tag: gpointer, newEvents: IoCondition): Unit =
-        g_source_modify_unix_fd(gPointer.reinterpret(), tag, newEvents.mask)
+        g_source_modify_unix_fd(gPointer, tag, newEvents.mask)
 
     /**
      * Queries the events reported for the fd corresponding to @tag on
@@ -389,7 +385,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun queryUnixFd(tag: gpointer): IoCondition = g_source_query_unix_fd(gPointer.reinterpret(), tag).run {
+    public fun queryUnixFd(tag: gpointer): IoCondition = g_source_query_unix_fd(gPointer, tag).run {
         IoCondition(this)
     }
 
@@ -398,8 +394,8 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @return @source
      */
-    public fun ref(): Source = g_source_ref(gPointer.reinterpret())!!.run {
-        Source(reinterpret())
+    public fun ref(): Source = g_source_ref(gPointer)!!.run {
+        Source(this)
     }
 
     /**
@@ -414,7 +410,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_28
     public fun removeChildSource(childSource: Source): Unit =
-        g_source_remove_child_source(gPointer.reinterpret(), childSource.gPointer.reinterpret())
+        g_source_remove_child_source(gPointer, childSource.gPointer)
 
     /**
      * Removes a file descriptor from the set of file descriptors polled for
@@ -425,7 +421,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @param fd a #GPollFD structure previously passed to g_source_add_poll().
      */
-    public fun removePoll(fd: PollFd): Unit = g_source_remove_poll(gPointer.reinterpret(), fd.gPointer.reinterpret())
+    public fun removePoll(fd: PollFd): Unit = g_source_remove_poll(gPointer, fd.gPointer)
 
     /**
      * Reverses the effect of a previous call to g_source_add_unix_fd().
@@ -443,7 +439,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun removeUnixFd(tag: gpointer): Unit = g_source_remove_unix_fd(gPointer.reinterpret(), tag)
+    public fun removeUnixFd(tag: gpointer): Unit = g_source_remove_unix_fd(gPointer, tag)
 
     /**
      * Sets the callback function for a source. The callback for a source is
@@ -470,7 +466,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @param func a callback function
      */
     public fun setCallback(func: SourceFunc): Unit = g_source_set_callback(
-        gPointer.reinterpret(),
+        gPointer,
         SourceFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -493,7 +489,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *                  and getting the callback and data
      */
     public fun setCallbackIndirect(callbackData: gpointer? = null, callbackFuncs: SourceCallbackFuncs): Unit =
-        g_source_set_callback_indirect(gPointer.reinterpret(), callbackData, callbackFuncs.gPointer.reinterpret())
+        g_source_set_callback_indirect(gPointer, callbackData, callbackFuncs.gPointer)
 
     /**
      * Sets whether a source can be called recursively. If @can_recurse is
@@ -503,8 +499,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @param canRecurse whether recursion is allowed for this source
      */
-    public fun setCanRecurse(canRecurse: Boolean): Unit =
-        g_source_set_can_recurse(gPointer.reinterpret(), canRecurse.asGBoolean())
+    public fun setCanRecurse(canRecurse: Boolean): Unit = g_source_set_can_recurse(gPointer, canRecurse.asGBoolean())
 
     /**
      * Sets the source functions (can be used to override
@@ -514,8 +509,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setFuncs(funcs: SourceFuncs): Unit =
-        g_source_set_funcs(gPointer.reinterpret(), funcs.gPointer.reinterpret())
+    public fun setFuncs(funcs: SourceFuncs): Unit = g_source_set_funcs(gPointer, funcs.gPointer)
 
     /**
      * Sets a name for the source, used in debugging and profiling.
@@ -541,7 +535,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun setName(name: String): Unit = g_source_set_name(gPointer.reinterpret(), name)
+    public fun setName(name: String): Unit = g_source_set_name(gPointer, name)
 
     /**
      * Sets the priority of a source. While the main loop is being run, a
@@ -555,7 +549,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      *
      * @param priority the new priority.
      */
-    public fun setPriority(priority: gint): Unit = g_source_set_priority(gPointer.reinterpret(), priority)
+    public fun setPriority(priority: gint): Unit = g_source_set_priority(gPointer, priority)
 
     /**
      * Sets a #GSource to be dispatched when the given monotonic time is
@@ -586,7 +580,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.36
      */
     @GLibVersion2_36
-    public fun setReadyTime(readyTime: gint64): Unit = g_source_set_ready_time(gPointer.reinterpret(), readyTime)
+    public fun setReadyTime(readyTime: gint64): Unit = g_source_set_ready_time(gPointer, readyTime)
 
     /**
      * A variant of g_source_set_name() that does not
@@ -597,14 +591,14 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun setStaticName(name: String): Unit = g_source_set_static_name(gPointer.reinterpret(), name)
+    public fun setStaticName(name: String): Unit = g_source_set_static_name(gPointer, name)
 
     /**
      * Decreases the reference count of a source by one. If the
      * resulting reference count is zero the source and associated
      * memory will be destroyed.
      */
-    public fun unref(): Unit = g_source_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_source_unref(gPointer)
 
     public companion object {
         /**
@@ -623,7 +617,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
          * @return the newly-created #GSource.
          */
         public fun new(sourceFuncs: SourceFuncs, structSize: guint): Source =
-            Source(g_source_new(sourceFuncs.gPointer.reinterpret(), structSize)!!.reinterpret())
+            Source(g_source_new(sourceFuncs.gPointer, structSize)!!.reinterpret())
 
         /**
          * Removes the source with the given ID from the default main context. You must
@@ -661,7 +655,7 @@ public class Source(pointer: CPointer<GSource>) : ProxyInstance(pointer) {
          * @return true if a source was found and removed.
          */
         public fun removeByFuncsUserData(funcs: SourceFuncs, userData: gpointer? = null): Boolean =
-            g_source_remove_by_funcs_user_data(funcs.gPointer.reinterpret(), userData).asBoolean()
+            g_source_remove_by_funcs_user_data(funcs.gPointer, userData).asBoolean()
 
         /**
          * Removes a source from the default main loop context given the user

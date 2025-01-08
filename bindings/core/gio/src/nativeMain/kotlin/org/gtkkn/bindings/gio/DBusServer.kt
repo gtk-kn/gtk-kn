@@ -105,8 +105,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
          * by @server.
          * @since 2.26
          */
-        get() = g_dbus_server_get_client_address(gioDBusServerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_dbus_server_get_client_address(gioDBusServerPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Flags from the #GDBusServerFlags enumeration.
@@ -121,7 +120,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
          * @return A set of flags from the #GDBusServerFlags enumeration.
          * @since 2.26
          */
-        get() = g_dbus_server_get_flags(gioDBusServerPointer.reinterpret()).run {
+        get() = g_dbus_server_get_flags(gioDBusServerPointer).run {
             DBusServerFlags(this)
         }
 
@@ -140,8 +139,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
          * @return A D-Bus GUID. Do not free this string, it is owned by @server.
          * @since 2.26
          */
-        get() = g_dbus_server_get_guid(gioDBusServerPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_dbus_server_get_guid(gioDBusServerPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a new D-Bus server that listens on the first address in
@@ -189,8 +187,8 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
                     address,
                     flags.mask,
                     guid,
-                    observer?.gioDBusAuthObserverPointer?.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    observer?.gioDBusAuthObserverPointer,
+                    cancellable?.gioCancellablePointer,
                     gError.ptr
                 )
             if (gError.pointed != null) {
@@ -207,7 +205,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun isActive(): Boolean = g_dbus_server_is_active(gioDBusServerPointer.reinterpret()).asBoolean()
+    public open fun isActive(): Boolean = g_dbus_server_is_active(gioDBusServerPointer).asBoolean()
 
     /**
      * Starts @server.
@@ -215,7 +213,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun start(): Unit = g_dbus_server_start(gioDBusServerPointer.reinterpret())
+    public open fun start(): Unit = g_dbus_server_start(gioDBusServerPointer)
 
     /**
      * Stops @server.
@@ -223,7 +221,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun stop(): Unit = g_dbus_server_stop(gioDBusServerPointer.reinterpret())
+    public open fun stop(): Unit = g_dbus_server_stop(gioDBusServerPointer)
 
     /**
      * Emitted when a new authenticated connection has been made. Use
@@ -248,19 +246,19 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
      * that it's suitable to call g_dbus_connection_register_object() or
      * similar from the signal handler.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `connection` A #GDBusConnection for the new connection.. Returns true to claim @connection, false to let other handlers
      * run.
      * @since 2.26
      */
     @GioVersion2_26
-    public fun connectNewConnection(
+    public fun onNewConnection(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: DBusConnection) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "new-connection",
-        connectNewConnectionFunc.reinterpret(),
+        onNewConnectionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -283,7 +281,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
     }
 }
 
-private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> gboolean>> =
+private val onNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnection>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             connection: CPointer<GDBusConnection>?,
@@ -291,7 +289,7 @@ private val connectNewConnectionFunc: CPointer<CFunction<(CPointer<GDBusConnecti
         ->
         userData.asStableRef<(connection: DBusConnection) -> Boolean>().get().invoke(
             connection!!.run {
-                DBusConnection(reinterpret())
+                DBusConnection(this)
             }
         ).asGBoolean()
     }

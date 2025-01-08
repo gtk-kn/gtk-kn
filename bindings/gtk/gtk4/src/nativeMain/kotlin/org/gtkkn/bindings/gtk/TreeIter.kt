@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
@@ -163,8 +162,8 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      *
      * @return a newly-allocated copy of @iter
      */
-    public fun copy(): TreeIter = gtk_tree_iter_copy(gPointer.reinterpret())!!.run {
-        TreeIter(reinterpret())
+    public fun copy(): TreeIter = gtk_tree_iter_copy(gPointer)!!.run {
+        TreeIter(this)
     }
 
     /**
@@ -172,7 +171,7 @@ public class TreeIter(pointer: CPointer<GtkTreeIter>, cleaner: Cleaner? = null) 
      *
      * This function is mainly used for language bindings.
      */
-    public fun free(): Unit = gtk_tree_iter_free(gPointer.reinterpret())
+    public fun free(): Unit = gtk_tree_iter_free(gPointer)
 
     override fun toString(): String =
         "TreeIter(stamp=$stamp, userData=$userData, userData2=$userData2, userData3=$userData3)"

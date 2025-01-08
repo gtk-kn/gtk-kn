@@ -82,7 +82,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
          *
          * @return the @stream's current #GDataStreamByteOrder.
          */
-        get() = g_data_input_stream_get_byte_order(gioDataInputStreamPointer.reinterpret()).run {
+        get() = g_data_input_stream_get_byte_order(gioDataInputStreamPointer).run {
             DataStreamByteOrder.fromNativeValue(this)
         }
 
@@ -92,7 +92,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
          *
          * @param order a #GDataStreamByteOrder to set.
          */
-        set(order) = g_data_input_stream_set_byte_order(gioDataInputStreamPointer.reinterpret(), order.nativeValue)
+        set(order) = g_data_input_stream_set_byte_order(gioDataInputStreamPointer, order.nativeValue)
 
     /**
      * The :newline-type property determines what is considered
@@ -104,7 +104,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
          *
          * @return #GDataStreamNewlineType for the given @stream.
          */
-        get() = g_data_input_stream_get_newline_type(gioDataInputStreamPointer.reinterpret()).run {
+        get() = g_data_input_stream_get_newline_type(gioDataInputStreamPointer).run {
             DataStreamNewlineType.fromNativeValue(this)
         }
 
@@ -117,7 +117,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
          *
          * @param type the type of new line return as #GDataStreamNewlineType.
          */
-        set(type) = g_data_input_stream_set_newline_type(gioDataInputStreamPointer.reinterpret(), type.nativeValue)
+        set(type) = g_data_input_stream_set_newline_type(gioDataInputStreamPointer, type.nativeValue)
 
     /**
      * Creates a new data input stream for the @base_stream.
@@ -127,7 +127,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
      */
     public constructor(
         baseStream: InputStream,
-    ) : this(g_data_input_stream_new(baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
+    ) : this(g_data_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret())
 
     /**
      * Reads an unsigned 8-bit/1-byte value from @stream.
@@ -139,11 +139,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readByte(cancellable: Cancellable? = null): Result<guint8> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_byte(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_byte(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -164,11 +160,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readInt16(cancellable: Cancellable? = null): Result<Short> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_int16(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_int16(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -193,11 +185,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readInt32(cancellable: Cancellable? = null): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_int32(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_int32(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -222,11 +210,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readInt64(cancellable: Cancellable? = null): Result<gint64> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_int64(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_int64(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -253,9 +237,9 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_data_input_stream_read_line_async(
-        gioDataInputStreamPointer.reinterpret(),
+        gioDataInputStreamPointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -275,11 +259,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readUint16(cancellable: Cancellable? = null): Result<guint16> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_uint16(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_uint16(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -304,11 +284,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readUint32(cancellable: Cancellable? = null): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_uint32(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_uint32(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -333,11 +309,7 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
     public open fun readUint64(cancellable: Cancellable? = null): Result<guint64> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_data_input_stream_read_uint64(
-                gioDataInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
-                gError.ptr
-            )
+            g_data_input_stream_read_uint64(gioDataInputStreamPointer, cancellable?.gioCancellablePointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -375,10 +347,10 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_data_input_stream_read_until_async(
-        gioDataInputStreamPointer.reinterpret(),
+        gioDataInputStreamPointer,
         stopChars,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -417,11 +389,11 @@ public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_data_input_stream_read_upto_async(
-        gioDataInputStreamPointer.reinterpret(),
+        gioDataInputStreamPointer,
         stopChars,
         stopCharsLen,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },

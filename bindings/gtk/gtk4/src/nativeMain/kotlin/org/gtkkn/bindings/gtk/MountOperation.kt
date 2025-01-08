@@ -54,8 +54,8 @@ public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
          *
          * @return the display on which windows of @op are shown
          */
-        get() = gtk_mount_operation_get_display(gtkMountOperationPointer.reinterpret())!!.run {
-            Display(reinterpret())
+        get() = gtk_mount_operation_get_display(gtkMountOperationPointer)!!.run {
+            Display(this)
         }
 
         /**
@@ -63,12 +63,7 @@ public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
          *
          * @param display a `GdkDisplay`
          */
-        set(
-            display
-        ) = gtk_mount_operation_set_display(
-            gtkMountOperationPointer.reinterpret(),
-            display.gdkDisplayPointer.reinterpret()
-        )
+        set(display) = gtk_mount_operation_set_display(gtkMountOperationPointer, display.gdkDisplayPointer)
 
     /**
      * The parent window.
@@ -79,8 +74,8 @@ public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
          *
          * @return the transient parent for windows shown by @op
          */
-        get() = gtk_mount_operation_get_parent(gtkMountOperationPointer.reinterpret())?.run {
-            Window(reinterpret())
+        get() = gtk_mount_operation_get_parent(gtkMountOperationPointer)?.run {
+            Window(this)
         }
 
         /**
@@ -89,12 +84,7 @@ public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
          *
          * @param parent transient parent of the window
          */
-        set(
-            parent
-        ) = gtk_mount_operation_set_parent(
-            gtkMountOperationPointer.reinterpret(),
-            parent?.gtkWindowPointer?.reinterpret()
-        )
+        set(parent) = gtk_mount_operation_set_parent(gtkMountOperationPointer, parent?.gtkWindowPointer)
 
     /**
      * Creates a new `GtkMountOperation`.
@@ -102,9 +92,7 @@ public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
      * @param parent transient parent of the window
      * @return a new `GtkMountOperation`
      */
-    public constructor(
-        parent: Window? = null,
-    ) : this(gtk_mount_operation_new(parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    public constructor(parent: Window? = null) : this(gtk_mount_operation_new(parent?.gtkWindowPointer)!!.reinterpret())
 
     /**
      * Returns whether the `GtkMountOperation` is currently displaying
@@ -112,8 +100,7 @@ public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
      *
      * @return true if @op is currently displaying a window
      */
-    public open fun isShowing(): Boolean =
-        gtk_mount_operation_is_showing(gtkMountOperationPointer.reinterpret()).asBoolean()
+    public open fun isShowing(): Boolean = gtk_mount_operation_is_showing(gtkMountOperationPointer).asBoolean()
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =

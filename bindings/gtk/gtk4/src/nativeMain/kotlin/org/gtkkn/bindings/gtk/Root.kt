@@ -46,8 +46,8 @@ public interface Root :
      *
      * @return the display of @root
      */
-    public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer.reinterpret())!!.run {
-        Display(reinterpret())
+    public fun getRootDisplay(): Display = gtk_root_get_display(gtkRootPointer)!!.run {
+        Display(this)
     }
 
     /**
@@ -60,8 +60,8 @@ public interface Root :
      *
      * @return the currently focused widget
      */
-    public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer.reinterpret())?.run {
-        Widget(reinterpret())
+    public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer)?.run {
+        Widget(this)
     }
 
     /**
@@ -77,8 +77,7 @@ public interface Root :
      * @param focus widget to be the new focus widget, or null
      *    to unset the focus widget
      */
-    public fun setFocus(focus: Widget? = null): Unit =
-        gtk_root_set_focus(gtkRootPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
+    public fun setFocus(focus: Widget? = null): Unit = gtk_root_set_focus(gtkRootPointer, focus?.gtkWidgetPointer)
 
     private data class Wrapper(private val pointer: CPointer<GtkRoot>) : Root {
         override val gtkRootPointer: CPointer<GtkRoot> = pointer

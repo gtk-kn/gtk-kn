@@ -68,7 +68,7 @@ public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
         get() = gPointer.reinterpret()
 
     public open val column: CompletionColumn
-        get() = gtk_source_completion_cell_get_column(gtksourceCompletionCellPointer.reinterpret()).run {
+        get() = gtk_source_completion_cell_get_column(gtksourceCompletionCellPointer).run {
             CompletionColumn.fromNativeValue(this)
         }
 
@@ -77,24 +77,21 @@ public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
      *
      * @return a #GtkWidget or null
      */
-    public open fun getWidget(): Widget? =
-        gtk_source_completion_cell_get_widget(gtksourceCompletionCellPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getWidget(): Widget? = gtk_source_completion_cell_get_widget(gtksourceCompletionCellPointer)?.run {
+        Widget(this)
+    }
 
     public open fun setGicon(gicon: Icon): Unit =
-        gtk_source_completion_cell_set_gicon(gtksourceCompletionCellPointer.reinterpret(), gicon.gioIconPointer)
+        gtk_source_completion_cell_set_gicon(gtksourceCompletionCellPointer, gicon.gioIconPointer)
 
     public open fun setIconName(iconName: String): Unit =
-        gtk_source_completion_cell_set_icon_name(gtksourceCompletionCellPointer.reinterpret(), iconName)
+        gtk_source_completion_cell_set_icon_name(gtksourceCompletionCellPointer, iconName)
 
     public open fun setMarkup(markup: String): Unit =
-        gtk_source_completion_cell_set_markup(gtksourceCompletionCellPointer.reinterpret(), markup)
+        gtk_source_completion_cell_set_markup(gtksourceCompletionCellPointer, markup)
 
-    public open fun setPaintable(paintable: Paintable): Unit = gtk_source_completion_cell_set_paintable(
-        gtksourceCompletionCellPointer.reinterpret(),
-        paintable.gdkPaintablePointer
-    )
+    public open fun setPaintable(paintable: Paintable): Unit =
+        gtk_source_completion_cell_set_paintable(gtksourceCompletionCellPointer, paintable.gdkPaintablePointer)
 
     /**
      * Sets the text for the column cell. Use null to unset.
@@ -102,19 +99,13 @@ public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
      * @param text the text to set or null
      */
     public open fun setText(text: String? = null): Unit =
-        gtk_source_completion_cell_set_text(gtksourceCompletionCellPointer.reinterpret(), text)
+        gtk_source_completion_cell_set_text(gtksourceCompletionCellPointer, text)
 
     public open fun setTextWithAttributes(text: String, attrs: AttrList): Unit =
-        gtk_source_completion_cell_set_text_with_attributes(
-            gtksourceCompletionCellPointer.reinterpret(),
-            text,
-            attrs.gPointer.reinterpret()
-        )
+        gtk_source_completion_cell_set_text_with_attributes(gtksourceCompletionCellPointer, text, attrs.gPointer)
 
-    public open fun setWidget(child: Widget): Unit = gtk_source_completion_cell_set_widget(
-        gtksourceCompletionCellPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )
+    public open fun setWidget(child: Widget): Unit =
+        gtk_source_completion_cell_set_widget(gtksourceCompletionCellPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<CompletionCell> {
         override val type: GeneratedClassKGType<CompletionCell> =

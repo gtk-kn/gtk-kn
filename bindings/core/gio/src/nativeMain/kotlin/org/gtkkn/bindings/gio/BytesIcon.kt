@@ -47,8 +47,8 @@ public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
          * @return a #GBytes.
          * @since 2.38
          */
-        get() = g_bytes_icon_get_bytes(gioBytesIconPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
+        get() = g_bytes_icon_get_bytes(gioBytesIconPointer)!!.run {
+            Bytes(this)
         }
 
     /**
@@ -62,7 +62,7 @@ public open class BytesIcon(pointer: CPointer<GBytesIcon>) :
      *   @bytes.
      * @since 2.38
      */
-    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.gPointer.reinterpret())!!.reinterpret())
+    public constructor(bytes: Bytes) : this(g_bytes_icon_new(bytes.gPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<BytesIcon> {
         override val type: GeneratedClassKGType<BytesIcon> =

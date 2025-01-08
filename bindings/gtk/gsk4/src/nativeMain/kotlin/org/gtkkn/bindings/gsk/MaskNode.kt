@@ -43,13 +43,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
         source: RenderNode,
         mask: RenderNode,
         maskMode: MaskMode,
-    ) : this(
-        gsk_mask_node_new(
-            source.gPointer.reinterpret(),
-            mask.gPointer.reinterpret(),
-            maskMode.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_mask_node_new(source.gPointer, mask.gPointer, maskMode.nativeValue)!!.reinterpret())
 
     /**
      * Retrieves the mask `GskRenderNode` child of the @node.
@@ -59,7 +53,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getMask(): RenderNode = gsk_mask_node_get_mask(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -81,7 +75,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getSource(): RenderNode = gsk_mask_node_get_source(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     public companion object : TypeCompanion<MaskNode> {

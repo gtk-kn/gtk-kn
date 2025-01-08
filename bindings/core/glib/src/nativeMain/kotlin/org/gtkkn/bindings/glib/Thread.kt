@@ -80,7 +80,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      *
      * @return the return value of the thread
      */
-    public fun join(): gpointer? = g_thread_join(gPointer.reinterpret())
+    public fun join(): gpointer? = g_thread_join(gPointer)
 
     /**
      * Increase the reference count on @thread.
@@ -89,8 +89,8 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): Thread = g_thread_ref(gPointer.reinterpret())!!.run {
-        Thread(reinterpret())
+    public fun ref(): Thread = g_thread_ref(gPointer)!!.run {
+        Thread(this)
     }
 
     /**
@@ -98,8 +98,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      *
      * @param priority ignored
      */
-    public fun setPriority(priority: ThreadPriority): Unit =
-        g_thread_set_priority(gPointer.reinterpret(), priority.nativeValue)
+    public fun setPriority(priority: ThreadPriority): Unit = g_thread_set_priority(gPointer, priority.nativeValue)
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -112,7 +111,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unref(): Unit = g_thread_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_thread_unref(gPointer)
 
     public companion object {
         /**
@@ -209,7 +208,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
                 joinable.asGBoolean(),
                 gError.ptr
             )?.run {
-                Thread(reinterpret())
+                Thread(this)
             }
 
             return if (gError.pointed != null) {
@@ -246,7 +245,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
                 priority.nativeValue,
                 gError.ptr
             )?.run {
-                Thread(reinterpret())
+                Thread(this)
             }
 
             return if (gError.pointed != null) {
@@ -349,7 +348,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
          * @return the #GThread representing the current thread
          */
         public fun self(): Thread = g_thread_self()!!.run {
-            Thread(reinterpret())
+            Thread(this)
         }
 
         /**

@@ -59,8 +59,8 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          *
          * @return the child to which @self belongs
          */
-        get() = gtk_stack_page_get_child(gtkStackPagePointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = gtk_stack_page_get_child(gtkStackPagePointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -77,14 +77,14 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          * @return The value of the [property@Gtk.StackPage:needs-attention]
          *   property.
          */
-        get() = gtk_stack_page_get_needs_attention(gtkStackPagePointer.reinterpret()).asBoolean()
+        get() = gtk_stack_page_get_needs_attention(gtkStackPagePointer).asBoolean()
 
         /**
          * Sets whether the page is marked as “needs attention”.
          *
          * @param setting the new value to set
          */
-        set(setting) = gtk_stack_page_set_needs_attention(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_stack_page_set_needs_attention(gtkStackPagePointer, setting.asGBoolean())
 
     /**
      * If set, an underline in the title indicates a mnemonic.
@@ -95,14 +95,14 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          *
          * @return The value of the [property@Gtk.StackPage:use-underline] property
          */
-        get() = gtk_stack_page_get_use_underline(gtkStackPagePointer.reinterpret()).asBoolean()
+        get() = gtk_stack_page_get_use_underline(gtkStackPagePointer).asBoolean()
 
         /**
          * Sets whether underlines in the page title indicate mnemonics.
          *
          * @param setting the new value to set
          */
-        set(setting) = gtk_stack_page_set_use_underline(gtkStackPagePointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_stack_page_set_use_underline(gtkStackPagePointer, setting.asGBoolean())
 
     /**
      * Whether this page is visible.
@@ -116,59 +116,56 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          *
          * @return true if @page is visible
          */
-        get() = gtk_stack_page_get_visible(gtkStackPagePointer.reinterpret()).asBoolean()
+        get() = gtk_stack_page_get_visible(gtkStackPagePointer).asBoolean()
 
         /**
          * Sets whether @page is visible in its `GtkStack`.
          *
          * @param visible The new property value
          */
-        set(visible) = gtk_stack_page_set_visible(gtkStackPagePointer.reinterpret(), visible.asGBoolean())
+        set(visible) = gtk_stack_page_set_visible(gtkStackPagePointer, visible.asGBoolean())
 
     /**
      * Returns the icon name of the page.
      *
      * @return The value of the [property@Gtk.StackPage:icon-name] property
      */
-    public open fun getIconName(): String? =
-        gtk_stack_page_get_icon_name(gtkStackPagePointer.reinterpret())?.toKString()
+    public open fun getIconName(): String? = gtk_stack_page_get_icon_name(gtkStackPagePointer)?.toKString()
 
     /**
      * Returns the name of the page.
      *
      * @return The value of the [property@Gtk.StackPage:name] property
      */
-    public open fun getName(): String? = gtk_stack_page_get_name(gtkStackPagePointer.reinterpret())?.toKString()
+    public open fun getName(): String? = gtk_stack_page_get_name(gtkStackPagePointer)?.toKString()
 
     /**
      * Gets the page title.
      *
      * @return The value of the [property@Gtk.StackPage:title] property
      */
-    public open fun getTitle(): String? = gtk_stack_page_get_title(gtkStackPagePointer.reinterpret())?.toKString()
+    public open fun getTitle(): String? = gtk_stack_page_get_title(gtkStackPagePointer)?.toKString()
 
     /**
      * Sets the icon name of the page.
      *
      * @param setting the new value to set
      */
-    public open fun setIconName(setting: String): Unit =
-        gtk_stack_page_set_icon_name(gtkStackPagePointer.reinterpret(), setting)
+    public open fun setIconName(setting: String): Unit = gtk_stack_page_set_icon_name(gtkStackPagePointer, setting)
 
     /**
      * Sets the name of the page.
      *
      * @param setting the new value to set
      */
-    public open fun setName(setting: String): Unit = gtk_stack_page_set_name(gtkStackPagePointer.reinterpret(), setting)
+    public open fun setName(setting: String): Unit = gtk_stack_page_set_name(gtkStackPagePointer, setting)
 
     /**
      * Sets the page title.
      *
      * @param setting the new value to set
      */
-    public open fun setTitle(setting: String): Unit =
-        gtk_stack_page_set_title(gtkStackPagePointer.reinterpret(), setting)
+    public open fun setTitle(setting: String): Unit = gtk_stack_page_set_title(gtkStackPagePointer, setting)
 
     public companion object : TypeCompanion<StackPage> {
         override val type: GeneratedClassKGType<StackPage> =

@@ -237,7 +237,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
          * @return true if the invocation was remote
          * @since 2.28
          */
-        get() = g_application_command_line_get_is_remote(gioApplicationCommandLinePointer.reinterpret()).asBoolean()
+        get() = g_application_command_line_get_is_remote(gioApplicationCommandLinePointer).asBoolean()
 
     /**
      * Creates a #GFile corresponding to a filename that was given as part
@@ -253,7 +253,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_36
     public open fun createFileForArg(arg: String): File =
-        g_application_command_line_create_file_for_arg(gioApplicationCommandLinePointer.reinterpret(), arg)!!.run {
+        g_application_command_line_create_file_for_arg(gioApplicationCommandLinePointer, arg)!!.run {
             File.wrap(reinterpret())
         }
 
@@ -277,7 +277,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.80
      */
     @GioVersion2_80
-    public open fun done(): Unit = g_application_command_line_done(gioApplicationCommandLinePointer.reinterpret())
+    public open fun done(): Unit = g_application_command_line_done(gioApplicationCommandLinePointer)
 
     /**
      * Gets the working directory of the command line invocation.
@@ -294,7 +294,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_28
     public open fun getCwd(): String? =
-        g_application_command_line_get_cwd(gioApplicationCommandLinePointer.reinterpret())?.toKString()
+        g_application_command_line_get_cwd(gioApplicationCommandLinePointer)?.toKString()
 
     /**
      * Gets the contents of the 'environ' variable of the command line
@@ -318,7 +318,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_28
     public open fun getEnviron(): List<String> =
-        g_application_command_line_get_environ(gioApplicationCommandLinePointer.reinterpret())?.toKStringList()
+        g_application_command_line_get_environ(gioApplicationCommandLinePointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -329,8 +329,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun getExitStatus(): gint =
-        g_application_command_line_get_exit_status(gioApplicationCommandLinePointer.reinterpret())
+    public open fun getExitStatus(): gint = g_application_command_line_get_exit_status(gioApplicationCommandLinePointer)
 
     /**
      * Gets the options that were passed to g_application_command_line().
@@ -351,8 +350,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_40
     public open fun getOptionsDict(): VariantDict =
-        g_application_command_line_get_options_dict(gioApplicationCommandLinePointer.reinterpret())!!.run {
-            VariantDict(reinterpret())
+        g_application_command_line_get_options_dict(gioApplicationCommandLinePointer)!!.run {
+            VariantDict(this)
         }
 
     /**
@@ -373,8 +372,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_28
     public open fun getPlatformData(): Variant? =
-        g_application_command_line_get_platform_data(gioApplicationCommandLinePointer.reinterpret())?.run {
-            Variant(reinterpret())
+        g_application_command_line_get_platform_data(gioApplicationCommandLinePointer)?.run {
+            Variant(this)
         }
 
     /**
@@ -394,8 +393,8 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_34
     public open fun getStdin(): InputStream? =
-        g_application_command_line_get_stdin(gioApplicationCommandLinePointer.reinterpret())?.run {
-            InputStream(reinterpret())
+        g_application_command_line_get_stdin(gioApplicationCommandLinePointer)?.run {
+            InputStream(this)
         }
 
     /**
@@ -417,7 +416,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_28
     public open fun getenv(name: String): String? =
-        g_application_command_line_getenv(gioApplicationCommandLinePointer.reinterpret(), name)?.toKString()
+        g_application_command_line_getenv(gioApplicationCommandLinePointer, name)?.toKString()
 
     /**
      * Prints a message using the stdout print handler in the invoking process.
@@ -431,7 +430,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_80
     public open fun printLiteral(message: String): Unit =
-        g_application_command_line_print_literal(gioApplicationCommandLinePointer.reinterpret(), message)
+        g_application_command_line_print_literal(gioApplicationCommandLinePointer, message)
 
     /**
      * Prints a message using the stderr print handler in the invoking process.
@@ -445,7 +444,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_80
     public open fun printerrLiteral(message: String): Unit =
-        g_application_command_line_printerr_literal(gioApplicationCommandLinePointer.reinterpret(), message)
+        g_application_command_line_printerr_literal(gioApplicationCommandLinePointer, message)
 
     /**
      * Sets the exit status that will be used when the invoking process
@@ -478,7 +477,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
      */
     @GioVersion2_28
     public open fun setExitStatus(exitStatus: gint): Unit =
-        g_application_command_line_set_exit_status(gioApplicationCommandLinePointer.reinterpret(), exitStatus)
+        g_application_command_line_set_exit_status(gioApplicationCommandLinePointer, exitStatus)
 
     public companion object : TypeCompanion<ApplicationCommandLine> {
         override val type: GeneratedClassKGType<ApplicationCommandLine> =

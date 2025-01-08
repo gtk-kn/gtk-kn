@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GStaticResource
@@ -66,7 +65,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun fini(): Unit = g_static_resource_fini(gPointer.reinterpret())
+    public fun fini(): Unit = g_static_resource_fini(gPointer)
 
     /**
      * Gets the GResource that was registered by a call to g_static_resource_init().
@@ -79,8 +78,8 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getResource(): Resource = g_static_resource_get_resource(gPointer.reinterpret())!!.run {
-        Resource(reinterpret())
+    public fun getResource(): Resource = g_static_resource_get_resource(gPointer)!!.run {
+        Resource(this)
     }
 
     /**
@@ -94,5 +93,5 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun `init`(): Unit = g_static_resource_init(gPointer.reinterpret())
+    public fun `init`(): Unit = g_static_resource_init(gPointer)
 }

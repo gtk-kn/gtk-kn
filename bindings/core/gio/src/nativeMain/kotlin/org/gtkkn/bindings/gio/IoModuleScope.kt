@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gio.GIOModuleScope
@@ -33,7 +32,7 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
      * @since 2.30
      */
     @GioVersion2_30
-    public fun block(basename: String): Unit = g_io_module_scope_block(gPointer.reinterpret(), basename)
+    public fun block(basename: String): Unit = g_io_module_scope_block(gPointer, basename)
 
     /**
      * Free a module scope.
@@ -41,7 +40,7 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
      * @since 2.30
      */
     @GioVersion2_30
-    public fun free(): Unit = g_io_module_scope_free(gPointer.reinterpret())
+    public fun free(): Unit = g_io_module_scope_free(gPointer)
 
     public companion object {
         /**
@@ -58,7 +57,7 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
          */
         @GioVersion2_30
         public fun new(flags: IoModuleScopeFlags): IoModuleScope = g_io_module_scope_new(flags.nativeValue)!!.run {
-            IoModuleScope(reinterpret())
+            IoModuleScope(this)
         }
     }
 }

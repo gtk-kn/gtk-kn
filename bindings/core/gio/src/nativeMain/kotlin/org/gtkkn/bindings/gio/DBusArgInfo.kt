@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -152,8 +151,8 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gPointer.reinterpret())!!.run {
-        DBusArgInfo(reinterpret())
+    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gPointer)!!.run {
+        DBusArgInfo(this)
     }
 
     /**
@@ -164,7 +163,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_arg_info_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_arg_info_unref(gPointer)
 
     override fun toString(): String = "DBusArgInfo(refCount=$refCount, name=$name, signature=$signature)"
 

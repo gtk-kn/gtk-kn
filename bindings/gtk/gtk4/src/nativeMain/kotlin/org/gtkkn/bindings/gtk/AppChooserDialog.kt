@@ -92,13 +92,7 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
         parent: Window? = null,
         flags: DialogFlags,
         `file`: File,
-    ) : this(
-        gtk_app_chooser_dialog_new(
-            parent?.gtkWindowPointer?.reinterpret(),
-            flags.mask,
-            `file`.gioFilePointer
-        )!!.reinterpret()
-    )
+    ) : this(gtk_app_chooser_dialog_new(parent?.gtkWindowPointer, flags.mask, `file`.gioFilePointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkAppChooserDialog` for the provided content type.
@@ -115,11 +109,7 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
         flags: DialogFlags,
         contentType: String,
     ) : this(
-        gtk_app_chooser_dialog_new_for_content_type(
-            parent?.gtkWindowPointer?.reinterpret(),
-            flags.mask,
-            contentType
-        )!!.reinterpret()
+        gtk_app_chooser_dialog_new_for_content_type(parent?.gtkWindowPointer, flags.mask, contentType)!!.reinterpret()
     )
 
     /**
@@ -128,18 +118,16 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
      * @return the text to display at the top of the dialog,
      *   or null, in which case a default text is displayed
      */
-    public open fun getHeading(): String? =
-        gtk_app_chooser_dialog_get_heading(gtkAppChooserDialogPointer.reinterpret())?.toKString()
+    public open fun getHeading(): String? = gtk_app_chooser_dialog_get_heading(gtkAppChooserDialogPointer)?.toKString()
 
     /**
      * Returns the `GtkAppChooserWidget` of this dialog.
      *
      * @return the `GtkAppChooserWidget` of @self
      */
-    public open fun getWidget(): Widget =
-        gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer.reinterpret())!!.run {
-            Widget(reinterpret())
-        }
+    public open fun getWidget(): Widget = gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer)!!.run {
+        Widget(this)
+    }
 
     /**
      * Sets the text to display at the top of the dialog.
@@ -149,7 +137,7 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
      * @param heading a string containing Pango markup
      */
     public open fun setHeading(heading: String): Unit =
-        gtk_app_chooser_dialog_set_heading(gtkAppChooserDialogPointer.reinterpret(), heading)
+        gtk_app_chooser_dialog_set_heading(gtkAppChooserDialogPointer, heading)
 
     public companion object : TypeCompanion<AppChooserDialog> {
         override val type: GeneratedClassKGType<AppChooserDialog> =

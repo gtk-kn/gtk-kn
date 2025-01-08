@@ -55,10 +55,8 @@ public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>)
      * @param currentTime current time
      * @return `TRUE` if the image may need updating
      */
-    public open fun advance(currentTime: TimeVal? = null): Boolean = gdk_pixbuf_animation_iter_advance(
-        gdkPixbufAnimationIterPointer.reinterpret(),
-        currentTime?.gPointer?.reinterpret()
-    ).asBoolean()
+    public open fun advance(currentTime: TimeVal? = null): Boolean =
+        gdk_pixbuf_animation_iter_advance(gdkPixbufAnimationIterPointer, currentTime?.gPointer).asBoolean()
 
     /**
      * Gets the number of milliseconds the current pixbuf should be displayed,
@@ -73,8 +71,7 @@ public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>)
      *
      * @return delay time in milliseconds (thousandths of a second)
      */
-    public open fun getDelayTime(): gint =
-        gdk_pixbuf_animation_iter_get_delay_time(gdkPixbufAnimationIterPointer.reinterpret())
+    public open fun getDelayTime(): gint = gdk_pixbuf_animation_iter_get_delay_time(gdkPixbufAnimationIterPointer)
 
     /**
      * Gets the current pixbuf which should be displayed.
@@ -95,10 +92,9 @@ public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>)
      *
      * @return the pixbuf to be displayed
      */
-    public open fun getPixbuf(): Pixbuf =
-        gdk_pixbuf_animation_iter_get_pixbuf(gdkPixbufAnimationIterPointer.reinterpret())!!.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun getPixbuf(): Pixbuf = gdk_pixbuf_animation_iter_get_pixbuf(gdkPixbufAnimationIterPointer)!!.run {
+        Pixbuf(this)
+    }
 
     /**
      * Used to determine how to respond to the area_updated signal on
@@ -111,7 +107,7 @@ public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>)
      * @return `TRUE` if the frame we're on is partially loaded, or the last frame
      */
     public open fun onCurrentlyLoadingFrame(): Boolean =
-        gdk_pixbuf_animation_iter_on_currently_loading_frame(gdkPixbufAnimationIterPointer.reinterpret()).asBoolean()
+        gdk_pixbuf_animation_iter_on_currently_loading_frame(gdkPixbufAnimationIterPointer).asBoolean()
 
     public companion object : TypeCompanion<PixbufAnimationIter> {
         override val type: GeneratedClassKGType<PixbufAnimationIter> =

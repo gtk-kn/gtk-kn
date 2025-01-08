@@ -56,7 +56,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @return The button number, or 0 for any button
          */
-        get() = gtk_gesture_single_get_button(gtkGestureSinglePointer.reinterpret())
+        get() = gtk_gesture_single_get_button(gtkGestureSinglePointer)
 
         /**
          * Sets the button number @gesture listens to.
@@ -67,7 +67,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @param button button number to listen to, or 0 for any button
          */
-        set(button) = gtk_gesture_single_set_button(gtkGestureSinglePointer.reinterpret(), button)
+        set(button) = gtk_gesture_single_set_button(gtkGestureSinglePointer, button)
 
     /**
      * Whether the gesture is exclusive.
@@ -82,7 +82,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @return Whether the gesture is exclusive
          */
-        get() = gtk_gesture_single_get_exclusive(gtkGestureSinglePointer.reinterpret()).asBoolean()
+        get() = gtk_gesture_single_get_exclusive(gtkGestureSinglePointer).asBoolean()
 
         /**
          * Sets whether @gesture is exclusive.
@@ -93,7 +93,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @param exclusive true to make @gesture exclusive
          */
-        set(exclusive) = gtk_gesture_single_set_exclusive(gtkGestureSinglePointer.reinterpret(), exclusive.asGBoolean())
+        set(exclusive) = gtk_gesture_single_set_exclusive(gtkGestureSinglePointer, exclusive.asGBoolean())
 
     /**
      * Whether the gesture handles only touch events.
@@ -104,7 +104,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @return true if the gesture only handles touch events
          */
-        get() = gtk_gesture_single_get_touch_only(gtkGestureSinglePointer.reinterpret()).asBoolean()
+        get() = gtk_gesture_single_get_touch_only(gtkGestureSinglePointer).asBoolean()
 
         /**
          * Sets whether to handle only touch events.
@@ -115,9 +115,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
          *
          * @param touchOnly whether @gesture handles only touch events
          */
-        set(
-            touchOnly
-        ) = gtk_gesture_single_set_touch_only(gtkGestureSinglePointer.reinterpret(), touchOnly.asGBoolean())
+        set(touchOnly) = gtk_gesture_single_set_touch_only(gtkGestureSinglePointer, touchOnly.asGBoolean())
 
     /**
      * Returns the button number currently interacting
@@ -125,8 +123,7 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
      *
      * @return The current button number
      */
-    public open fun getCurrentButton(): guint =
-        gtk_gesture_single_get_current_button(gtkGestureSinglePointer.reinterpret())
+    public open fun getCurrentButton(): guint = gtk_gesture_single_get_current_button(gtkGestureSinglePointer)
 
     /**
      * Returns the event sequence currently interacting with @gesture.
@@ -137,8 +134,8 @@ public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
      * @return the current sequence
      */
     public open fun getCurrentSequence(): EventSequence? =
-        gtk_gesture_single_get_current_sequence(gtkGestureSinglePointer.reinterpret())?.run {
-            EventSequence(reinterpret())
+        gtk_gesture_single_get_current_sequence(gtkGestureSinglePointer)?.run {
+            EventSequence(this)
         }
 
     public companion object : TypeCompanion<GestureSingle> {

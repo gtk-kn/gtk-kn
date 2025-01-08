@@ -62,7 +62,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          *
          * @return The model containing the children
          */
-        get() = gtk_tree_list_row_get_children(gtkTreeListRowPointer.reinterpret())?.run {
+        get() = gtk_tree_list_row_get_children(gtkTreeListRowPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -82,7 +82,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          *
          * @return The depth of this row
          */
-        get() = gtk_tree_list_row_get_depth(gtkTreeListRowPointer.reinterpret())
+        get() = gtk_tree_list_row_get_depth(gtkTreeListRowPointer)
 
     /**
      * If this row is currently expanded.
@@ -93,7 +93,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          *
          * @return true if the row is expanded
          */
-        get() = gtk_tree_list_row_get_expanded(gtkTreeListRowPointer.reinterpret()).asBoolean()
+        get() = gtk_tree_list_row_get_expanded(gtkTreeListRowPointer).asBoolean()
 
         /**
          * Expands or collapses a row.
@@ -107,7 +107,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          *
          * @param expanded true if the row should be expanded
          */
-        set(expanded) = gtk_tree_list_row_set_expanded(gtkTreeListRowPointer.reinterpret(), expanded.asGBoolean())
+        set(expanded) = gtk_tree_list_row_set_expanded(gtkTreeListRowPointer, expanded.asGBoolean())
 
     /**
      * The item held in this row.
@@ -120,7 +120,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          *   of this row. This function is only marked as nullable for backwards
          *   compatibility reasons.
          */
-        get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer.reinterpret())?.run {
+        get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer)?.run {
             Object(reinterpret())
         }
 
@@ -132,8 +132,8 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      * @return the child in @position
      */
     public open fun getChildRow(position: guint): TreeListRow? =
-        gtk_tree_list_row_get_child_row(gtkTreeListRowPointer.reinterpret(), position)?.run {
-            TreeListRow(reinterpret())
+        gtk_tree_list_row_get_child_row(gtkTreeListRowPointer, position)?.run {
+            TreeListRow(this)
         }
 
     /**
@@ -151,8 +151,8 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      *
      * @return The parent of @self
      */
-    public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer.reinterpret())?.run {
-        TreeListRow(reinterpret())
+    public open fun getParent(): TreeListRow? = gtk_tree_list_row_get_parent(gtkTreeListRowPointer)?.run {
+        TreeListRow(this)
     }
 
     /**
@@ -161,7 +161,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      *
      * @return The position in the model
      */
-    public open fun getPosition(): guint = gtk_tree_list_row_get_position(gtkTreeListRowPointer.reinterpret())
+    public open fun getPosition(): guint = gtk_tree_list_row_get_position(gtkTreeListRowPointer)
 
     /**
      * Checks if a row can be expanded.
@@ -174,8 +174,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
      *
      * @return true if the row is expandable
      */
-    public open fun isExpandable(): Boolean =
-        gtk_tree_list_row_is_expandable(gtkTreeListRowPointer.reinterpret()).asBoolean()
+    public open fun isExpandable(): Boolean = gtk_tree_list_row_is_expandable(gtkTreeListRowPointer).asBoolean()
 
     public companion object : TypeCompanion<TreeListRow> {
         override val type: GeneratedClassKGType<TreeListRow> =

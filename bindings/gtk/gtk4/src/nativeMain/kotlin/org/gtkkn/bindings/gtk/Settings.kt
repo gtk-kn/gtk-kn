@@ -121,8 +121,7 @@ public open class Settings(pointer: CPointer<GtkSettings>) :
      *
      * @param name the name of the setting to reset
      */
-    public open fun resetProperty(name: String): Unit =
-        gtk_settings_reset_property(gtkSettingsPointer.reinterpret(), name)
+    public open fun resetProperty(name: String): Unit = gtk_settings_reset_property(gtkSettingsPointer, name)
 
     public companion object : TypeCompanion<Settings> {
         override val type: GeneratedClassKGType<Settings> =
@@ -142,7 +141,7 @@ public open class Settings(pointer: CPointer<GtkSettings>) :
          *   no default display, then returns null.
          */
         public fun getDefault(): Settings? = gtk_settings_get_default()?.run {
-            Settings(reinterpret())
+            Settings(this)
         }
 
         /**
@@ -152,8 +151,8 @@ public open class Settings(pointer: CPointer<GtkSettings>) :
          * @return a `GtkSettings` object
          */
         public fun getForDisplay(display: Display): Settings =
-            gtk_settings_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
-                Settings(reinterpret())
+            gtk_settings_get_for_display(display.gdkDisplayPointer)!!.run {
+                Settings(this)
             }
 
         /**

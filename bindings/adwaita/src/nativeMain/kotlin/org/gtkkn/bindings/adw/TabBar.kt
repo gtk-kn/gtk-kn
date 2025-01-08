@@ -107,7 +107,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return whether the tabs automatically hide
          */
-        get() = adw_tab_bar_get_autohide(adwTabBarPointer.reinterpret()).asBoolean()
+        get() = adw_tab_bar_get_autohide(adwTabBarPointer).asBoolean()
 
         /**
          * Sets whether the tabs automatically hide.
@@ -119,7 +119,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @param autohide whether the tabs automatically hide
          */
-        set(autohide) = adw_tab_bar_set_autohide(adwTabBarPointer.reinterpret(), autohide.asGBoolean())
+        set(autohide) = adw_tab_bar_set_autohide(adwTabBarPointer, autohide.asGBoolean())
 
     /**
      * The widget shown after the tabs.
@@ -130,8 +130,8 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return the widget shown after the tabs
          */
-        get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -139,9 +139,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @param widget the widget to show after the tabs
          */
-        set(
-            widget
-        ) = adw_tab_bar_set_end_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        set(widget) = adw_tab_bar_set_end_action_widget(adwTabBarPointer, widget?.gtkWidgetPointer)
 
     /**
      * Whether tabs expand to full width.
@@ -155,7 +153,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return whether tabs expand to full width.
          */
-        get() = adw_tab_bar_get_expand_tabs(adwTabBarPointer.reinterpret()).asBoolean()
+        get() = adw_tab_bar_get_expand_tabs(adwTabBarPointer).asBoolean()
 
         /**
          * Sets whether tabs expand to full width.
@@ -165,7 +163,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @param expandTabs whether to expand tabs
          */
-        set(expandTabs) = adw_tab_bar_set_expand_tabs(adwTabBarPointer.reinterpret(), expandTabs.asGBoolean())
+        set(expandTabs) = adw_tab_bar_set_expand_tabs(adwTabBarPointer, expandTabs.asGBoolean())
 
     /**
      * The unique action on the `current-drop` of the
@@ -185,7 +183,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return the drag action of the current drop.
          * @since 1.4
          */
-        get() = adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer.reinterpret()).run {
+        get() = adw_tab_bar_get_extra_drag_preferred_action(adwTabBarPointer).run {
             DragAction(this)
         }
 
@@ -204,7 +202,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return whether drop data should be preloaded on hover
          * @since 1.3
          */
-        get() = adw_tab_bar_get_extra_drag_preload(adwTabBarPointer.reinterpret()).asBoolean()
+        get() = adw_tab_bar_get_extra_drag_preload(adwTabBarPointer).asBoolean()
 
         /**
          * Sets whether drop data should be preloaded on hover.
@@ -215,7 +213,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(preload) = adw_tab_bar_set_extra_drag_preload(adwTabBarPointer.reinterpret(), preload.asGBoolean())
+        set(preload) = adw_tab_bar_set_extra_drag_preload(adwTabBarPointer, preload.asGBoolean())
 
     /**
      * Whether tabs use inverted layout.
@@ -229,7 +227,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return whether tabs use inverted layout
          */
-        get() = adw_tab_bar_get_inverted(adwTabBarPointer.reinterpret()).asBoolean()
+        get() = adw_tab_bar_get_inverted(adwTabBarPointer).asBoolean()
 
         /**
          * Sets whether tabs tabs use inverted layout.
@@ -239,7 +237,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @param inverted whether tabs use inverted layout
          */
-        set(inverted) = adw_tab_bar_set_inverted(adwTabBarPointer.reinterpret(), inverted.asGBoolean())
+        set(inverted) = adw_tab_bar_set_inverted(adwTabBarPointer, inverted.asGBoolean())
 
     /**
      * Whether the tab bar is overflowing.
@@ -254,7 +252,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return whether @self is overflowing
          */
-        get() = adw_tab_bar_get_is_overflowing(adwTabBarPointer.reinterpret()).asBoolean()
+        get() = adw_tab_bar_get_is_overflowing(adwTabBarPointer).asBoolean()
 
     /**
      * The widget shown before the tabs.
@@ -265,8 +263,8 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return the widget shown before the tabs
          */
-        get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -274,9 +272,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @param widget the widget to show before the tabs
          */
-        set(
-            widget
-        ) = adw_tab_bar_set_start_action_widget(adwTabBarPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        set(widget) = adw_tab_bar_set_start_action_widget(adwTabBarPointer, widget?.gtkWidgetPointer)
 
     /**
      * Whether the tabs are currently revealed.
@@ -291,7 +287,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return whether the tabs are currently revealed
          */
-        get() = adw_tab_bar_get_tabs_revealed(adwTabBarPointer.reinterpret()).asBoolean()
+        get() = adw_tab_bar_get_tabs_revealed(adwTabBarPointer).asBoolean()
 
     /**
      * The tab view the tab bar controls.
@@ -302,8 +298,8 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @return the view @self controls
          */
-        get() = adw_tab_bar_get_view(adwTabBarPointer.reinterpret())?.run {
-            TabView(reinterpret())
+        get() = adw_tab_bar_get_view(adwTabBarPointer)?.run {
+            TabView(this)
         }
 
         /**
@@ -311,7 +307,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          *
          * @param view a tab view
          */
-        set(view) = adw_tab_bar_set_view(adwTabBarPointer.reinterpret(), view?.adwTabViewPointer?.reinterpret())
+        set(view) = adw_tab_bar_set_view(adwTabBarPointer, view?.adwTabViewPointer)
 
     /**
      * Creates a new `AdwTabBar`.
@@ -328,16 +324,16 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
      *
      * See [signal@Gtk.DropTarget::drop].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns whether the drop was accepted for @page
      */
-    public fun connectExtraDragDrop(
+    public fun onExtraDragDrop(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "extra-drag-drop",
-        connectExtraDragDropFunc.reinterpret(),
+        onExtraDragDropFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -354,18 +350,18 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
      *
      * See [property@Gtk.DropTarget:value].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the page matching the tab the content was dropped onto; `value` the `GValue` being dropped. Returns the preferred action for the drop on @page
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectExtraDragValue(
+    public fun onExtraDragValue(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> DragAction,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "extra-drag-value",
-        connectExtraDragValueFunc.reinterpret(),
+        onExtraDragValueFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -388,7 +384,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
     }
 }
 
-private val connectExtraDragDropFunc:
+private val onExtraDragDropFunc:
     CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -398,16 +394,16 @@ private val connectExtraDragDropFunc:
         ->
         userData.asStableRef<(page: TabPage, `value`: Value) -> Boolean>().get().invoke(
             page!!.run {
-                TabPage(reinterpret())
+                TabPage(this)
             },
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         ).asGBoolean()
     }
         .reinterpret()
 
-private val connectExtraDragValueFunc:
+private val onExtraDragValueFunc:
     CPointer<CFunction<(CPointer<AdwTabPage>, CPointer<GValue>) -> GdkDragAction>> =
     staticCFunction {
             _: COpaquePointer,
@@ -417,10 +413,10 @@ private val connectExtraDragValueFunc:
         ->
         userData.asStableRef<(page: TabPage, `value`: Value) -> DragAction>().get().invoke(
             page!!.run {
-                TabPage(reinterpret())
+                TabPage(this)
             },
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         ).mask
     }

@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -43,8 +42,9 @@ import kotlin.native.ref.createCleaner
  *
  * ## Skipped during bindings generation
  *
+ * - field `address`: Unsupported pointer-to-pointer cType GSocketAddress**
  * - field `vectors`: Array parameter of type InputVector is not supported
- * - field `control_messages`: Array parameter of type SocketControlMessage is not supported
+ * - field `control_messages`: Unsupported pointer-to-pointer cType GSocketControlMessage**
  * - field `num_control_messages`: Unsupported pointer to primitive type
  *
  * @since 2.48
@@ -52,20 +52,6 @@ import kotlin.native.ref.createCleaner
 @GioVersion2_48
 public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GInputMessage> = pointer
-
-    /**
-     * return location
-     *   for a #GSocketAddress, or null
-     */
-    public var address: SocketAddress?
-        get() = gPointer.pointed.address?.run {
-            SocketAddress(reinterpret())
-        }
-
-        @UnsafeFieldSetter
-        set(`value`) {
-            gPointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
-        }
 
     /**
      * the number of input vectors pointed to by @vectors
@@ -139,8 +125,6 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      * This instance will be allocated on the native heap and automatically freed when
      * this class instance is garbage collected.
      *
-     * @param address return location
-     *   for a #GSocketAddress, or null
      * @param numVectors the number of input vectors pointed to by @vectors
      * @param bytesReceived will be set to the number of bytes that have been
      *   received
@@ -148,12 +132,10 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *   outputted by the call
      */
     public constructor(
-        address: SocketAddress?,
         numVectors: guint,
         bytesReceived: gsize,
         flags: gint,
     ) : this() {
-        this.address = address
         this.numVectors = numVectors
         this.bytesReceived = bytesReceived
         this.flags = flags
@@ -164,8 +146,6 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *
      * The [AutofreeScope] manages the allocation lifetime. The most common usage is with `memScoped`.
      *
-     * @param address return location
-     *   for a #GSocketAddress, or null
      * @param numVectors the number of input vectors pointed to by @vectors
      * @param bytesReceived will be set to the number of bytes that have been
      *   received
@@ -174,18 +154,15 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      * @param scope The [AutofreeScope] to allocate this structure in.
      */
     public constructor(
-        address: SocketAddress?,
         numVectors: guint,
         bytesReceived: gsize,
         flags: gint,
         scope: AutofreeScope,
     ) : this(scope) {
-        this.address = address
         this.numVectors = numVectors
         this.bytesReceived = bytesReceived
         this.flags = flags
     }
 
-    override fun toString(): String =
-        "InputMessage(address=$address, numVectors=$numVectors, bytesReceived=$bytesReceived, flags=$flags)"
+    override fun toString(): String = "InputMessage(numVectors=$numVectors, bytesReceived=$bytesReceived, flags=$flags)"
 }

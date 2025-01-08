@@ -38,8 +38,8 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun copy(): BreakpointCondition = adw_breakpoint_condition_copy(gPointer.reinterpret())!!.run {
-        BreakpointCondition(reinterpret())
+    public fun copy(): BreakpointCondition = adw_breakpoint_condition_copy(gPointer)!!.run {
+        BreakpointCondition(this)
     }
 
     /**
@@ -48,7 +48,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun free(): Unit = adw_breakpoint_condition_free(gPointer.reinterpret())
+    public fun free(): Unit = adw_breakpoint_condition_free(gPointer)
 
     /**
      * Returns a textual representation of @self.
@@ -61,7 +61,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @AdwVersion1_4
     override fun toString(): String =
-        adw_breakpoint_condition_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        adw_breakpoint_condition_to_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -75,10 +75,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
          */
         public fun newAnd(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
             BreakpointCondition(
-                adw_breakpoint_condition_new_and(
-                    condition1.gPointer.reinterpret(),
-                    condition2.gPointer.reinterpret()
-                )!!.reinterpret()
+                adw_breakpoint_condition_new_and(condition1.gPointer, condition2.gPointer)!!.reinterpret()
             )
 
         /**
@@ -109,10 +106,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
          */
         public fun newOr(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
             BreakpointCondition(
-                adw_breakpoint_condition_new_or(
-                    condition1.gPointer.reinterpret(),
-                    condition2.gPointer.reinterpret()
-                )!!.reinterpret()
+                adw_breakpoint_condition_new_or(condition1.gPointer, condition2.gPointer)!!.reinterpret()
             )
 
         /**
@@ -192,7 +186,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
          */
         @AdwVersion1_4
         public fun parse(str: String): BreakpointCondition = adw_breakpoint_condition_parse(str)!!.run {
-            BreakpointCondition(reinterpret())
+            BreakpointCondition(this)
         }
 
         /**

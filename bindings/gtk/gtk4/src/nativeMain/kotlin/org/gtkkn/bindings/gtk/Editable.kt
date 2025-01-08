@@ -212,7 +212,7 @@ public interface Editable :
          *
          * @return true if @editable is editable.
          */
-        get() = gtk_editable_get_editable(gtkEditablePointer.reinterpret()).asBoolean()
+        get() = gtk_editable_get_editable(gtkEditablePointer).asBoolean()
 
         /**
          * Determines if the user can edit the text in the editable widget.
@@ -220,7 +220,7 @@ public interface Editable :
          * @param isEditable true if the user is allowed to edit the text
          *   in the widget
          */
-        set(isEditable) = gtk_editable_set_editable(gtkEditablePointer.reinterpret(), isEditable.asGBoolean())
+        set(isEditable) = gtk_editable_set_editable(gtkEditablePointer, isEditable.asGBoolean())
 
     /**
      * If undo/redo should be enabled for the editable.
@@ -231,7 +231,7 @@ public interface Editable :
          *
          * @return true if undo is enabled
          */
-        get() = gtk_editable_get_enable_undo(gtkEditablePointer.reinterpret()).asBoolean()
+        get() = gtk_editable_get_enable_undo(gtkEditablePointer).asBoolean()
 
         /**
          * If enabled, changes to @editable will be saved for undo/redo
@@ -243,7 +243,7 @@ public interface Editable :
          *
          * @param enableUndo if undo/redo should be enabled
          */
-        set(enableUndo) = gtk_editable_set_enable_undo(gtkEditablePointer.reinterpret(), enableUndo.asGBoolean())
+        set(enableUndo) = gtk_editable_set_enable_undo(gtkEditablePointer, enableUndo.asGBoolean())
 
     /**
      * The desired maximum width of the entry, in characters.
@@ -254,14 +254,14 @@ public interface Editable :
          *
          * @return the maximum width of the entry, in characters
          */
-        get() = gtk_editable_get_max_width_chars(gtkEditablePointer.reinterpret())
+        get() = gtk_editable_get_max_width_chars(gtkEditablePointer)
 
         /**
          * Sets the desired maximum width in characters of @editable.
          *
          * @param nChars the new desired maximum width, in characters
          */
-        set(nChars) = gtk_editable_set_max_width_chars(gtkEditablePointer.reinterpret(), nChars)
+        set(nChars) = gtk_editable_set_max_width_chars(gtkEditablePointer, nChars)
 
     /**
      * The contents of the entry.
@@ -274,8 +274,7 @@ public interface Editable :
          *
          * @return a pointer to the contents of the editable
          */
-        get() = gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_editable_get_text(gtkEditablePointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the text in the editable to the given value.
@@ -284,7 +283,7 @@ public interface Editable :
          *
          * @param text the text to set
          */
-        set(text) = gtk_editable_set_text(gtkEditablePointer.reinterpret(), text)
+        set(text) = gtk_editable_set_text(gtkEditablePointer, text)
 
     /**
      * Number of characters to leave space for in the entry.
@@ -296,7 +295,7 @@ public interface Editable :
          *
          * @return number of chars to request space for, or negative if unset
          */
-        get() = gtk_editable_get_width_chars(gtkEditablePointer.reinterpret())
+        get() = gtk_editable_get_width_chars(gtkEditablePointer)
 
         /**
          * Changes the size request of the editable to be about the
@@ -308,7 +307,7 @@ public interface Editable :
          *
          * @param nChars width in chars
          */
-        set(nChars) = gtk_editable_set_width_chars(gtkEditablePointer.reinterpret(), nChars)
+        set(nChars) = gtk_editable_set_width_chars(gtkEditablePointer, nChars)
 
     /**
      * Retrieves the accessible platform state from the editable delegate.
@@ -340,17 +339,14 @@ public interface Editable :
      */
     @GtkVersion4_10
     public fun delegateGetAccessiblePlatformState(state: AccessiblePlatformState): Boolean =
-        gtk_editable_delegate_get_accessible_platform_state(
-            gtkEditablePointer.reinterpret(),
-            state.nativeValue
-        ).asBoolean()
+        gtk_editable_delegate_get_accessible_platform_state(gtkEditablePointer, state.nativeValue).asBoolean()
 
     /**
      * Deletes the currently selected text of the editable.
      *
      * This call doesn’t do anything if there is no selected text.
      */
-    public fun deleteSelection(): Unit = gtk_editable_delete_selection(gtkEditablePointer.reinterpret())
+    public fun deleteSelection(): Unit = gtk_editable_delete_selection(gtkEditablePointer)
 
     /**
      * Deletes a sequence of characters.
@@ -366,7 +362,7 @@ public interface Editable :
      * @param endPos end position
      */
     public fun deleteText(startPos: gint, endPos: gint): Unit =
-        gtk_editable_delete_text(gtkEditablePointer.reinterpret(), startPos, endPos)
+        gtk_editable_delete_text(gtkEditablePointer, startPos, endPos)
 
     /**
      * Undoes the setup done by [method@Gtk.Editable.init_delegate].
@@ -374,14 +370,14 @@ public interface Editable :
      * This is a helper function that should be called from dispose,
      * before removing the delegate object.
      */
-    public fun finishDelegate(): Unit = gtk_editable_finish_delegate(gtkEditablePointer.reinterpret())
+    public fun finishDelegate(): Unit = gtk_editable_finish_delegate(gtkEditablePointer)
 
     /**
      * Gets the alignment of the editable.
      *
      * @return the alignment
      */
-    public fun getAlignment(): gfloat = gtk_editable_get_alignment(gtkEditablePointer.reinterpret())
+    public fun getAlignment(): gfloat = gtk_editable_get_alignment(gtkEditablePointer)
 
     /**
      * Retrieves a sequence of characters.
@@ -400,8 +396,7 @@ public interface Editable :
      *   and should be freed by the caller.
      */
     public fun getChars(startPos: gint, endPos: gint): String =
-        gtk_editable_get_chars(gtkEditablePointer.reinterpret(), startPos, endPos)?.toKString()
-            ?: error("Expected not null string")
+        gtk_editable_get_chars(gtkEditablePointer, startPos, endPos)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `GtkEditable` that @editable is delegating its
@@ -411,7 +406,7 @@ public interface Editable :
      *
      * @return the delegate `GtkEditable`
      */
-    public fun getDelegate(): Editable? = gtk_editable_get_delegate(gtkEditablePointer.reinterpret())?.run {
+    public fun getDelegate(): Editable? = gtk_editable_get_delegate(gtkEditablePointer)?.run {
         Editable.wrap(reinterpret())
     }
 
@@ -420,21 +415,21 @@ public interface Editable :
      *
      * @return true if @editable is editable.
      */
-    public fun getEditable(): Boolean = gtk_editable_get_editable(gtkEditablePointer.reinterpret()).asBoolean()
+    public fun getEditable(): Boolean = gtk_editable_get_editable(gtkEditablePointer).asBoolean()
 
     /**
      * Gets if undo/redo actions are enabled for @editable
      *
      * @return true if undo is enabled
      */
-    public fun getEnableUndo(): Boolean = gtk_editable_get_enable_undo(gtkEditablePointer.reinterpret()).asBoolean()
+    public fun getEnableUndo(): Boolean = gtk_editable_get_enable_undo(gtkEditablePointer).asBoolean()
 
     /**
      * Retrieves the desired maximum width of @editable, in characters.
      *
      * @return the maximum width of the entry, in characters
      */
-    public fun getMaxWidthChars(): gint = gtk_editable_get_max_width_chars(gtkEditablePointer.reinterpret())
+    public fun getMaxWidthChars(): gint = gtk_editable_get_max_width_chars(gtkEditablePointer)
 
     /**
      * Retrieves the current position of the cursor relative
@@ -444,7 +439,7 @@ public interface Editable :
      *
      * @return the cursor position
      */
-    public fun getPosition(): gint = gtk_editable_get_position(gtkEditablePointer.reinterpret())
+    public fun getPosition(): gint = gtk_editable_get_position(gtkEditablePointer)
 
     /**
      * Retrieves the contents of @editable.
@@ -454,7 +449,7 @@ public interface Editable :
      * @return a pointer to the contents of the editable
      */
     public fun getText(): String =
-        gtk_editable_get_text(gtkEditablePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_editable_get_text(gtkEditablePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the number of characters of space reserved
@@ -462,7 +457,7 @@ public interface Editable :
      *
      * @return number of chars to request space for, or negative if unset
      */
-    public fun getWidthChars(): gint = gtk_editable_get_width_chars(gtkEditablePointer.reinterpret())
+    public fun getWidthChars(): gint = gtk_editable_get_width_chars(gtkEditablePointer)
 
     /**
      * Sets up a delegate for `GtkEditable`.
@@ -473,7 +468,7 @@ public interface Editable :
      * This is a helper function that should be called in instance init,
      * after creating the delegate object.
      */
-    public fun initDelegate(): Unit = gtk_editable_init_delegate(gtkEditablePointer.reinterpret())
+    public fun initDelegate(): Unit = gtk_editable_init_delegate(gtkEditablePointer)
 
     /**
      * Selects a region of text.
@@ -489,7 +484,7 @@ public interface Editable :
      * @param endPos end of region
      */
     public fun selectRegion(startPos: gint, endPos: gint): Unit =
-        gtk_editable_select_region(gtkEditablePointer.reinterpret(), startPos, endPos)
+        gtk_editable_select_region(gtkEditablePointer, startPos, endPos)
 
     /**
      * Sets the alignment for the contents of the editable.
@@ -500,7 +495,7 @@ public interface Editable :
      * @param xalign The horizontal alignment, from 0 (left) to 1 (right).
      *   Reversed for RTL layouts
      */
-    public fun setAlignment(xalign: gfloat): Unit = gtk_editable_set_alignment(gtkEditablePointer.reinterpret(), xalign)
+    public fun setAlignment(xalign: gfloat): Unit = gtk_editable_set_alignment(gtkEditablePointer, xalign)
 
     /**
      * Determines if the user can edit the text in the editable widget.
@@ -509,7 +504,7 @@ public interface Editable :
      *   in the widget
      */
     public fun setEditable(isEditable: Boolean): Unit =
-        gtk_editable_set_editable(gtkEditablePointer.reinterpret(), isEditable.asGBoolean())
+        gtk_editable_set_editable(gtkEditablePointer, isEditable.asGBoolean())
 
     /**
      * If enabled, changes to @editable will be saved for undo/redo
@@ -522,15 +517,14 @@ public interface Editable :
      * @param enableUndo if undo/redo should be enabled
      */
     public fun setEnableUndo(enableUndo: Boolean): Unit =
-        gtk_editable_set_enable_undo(gtkEditablePointer.reinterpret(), enableUndo.asGBoolean())
+        gtk_editable_set_enable_undo(gtkEditablePointer, enableUndo.asGBoolean())
 
     /**
      * Sets the desired maximum width in characters of @editable.
      *
      * @param nChars the new desired maximum width, in characters
      */
-    public fun setMaxWidthChars(nChars: gint): Unit =
-        gtk_editable_set_max_width_chars(gtkEditablePointer.reinterpret(), nChars)
+    public fun setMaxWidthChars(nChars: gint): Unit = gtk_editable_set_max_width_chars(gtkEditablePointer, nChars)
 
     /**
      * Sets the cursor position in the editable to the given value.
@@ -543,7 +537,7 @@ public interface Editable :
      *
      * @param position the position of the cursor
      */
-    public fun setPosition(position: gint): Unit = gtk_editable_set_position(gtkEditablePointer.reinterpret(), position)
+    public fun setPosition(position: gint): Unit = gtk_editable_set_position(gtkEditablePointer, position)
 
     /**
      * Sets the text in the editable to the given value.
@@ -552,7 +546,7 @@ public interface Editable :
      *
      * @param text the text to set
      */
-    public fun setText(text: String): Unit = gtk_editable_set_text(gtkEditablePointer.reinterpret(), text)
+    public fun setText(text: String): Unit = gtk_editable_set_text(gtkEditablePointer, text)
 
     /**
      * Changes the size request of the editable to be about the
@@ -564,8 +558,7 @@ public interface Editable :
      *
      * @param nChars width in chars
      */
-    public fun setWidthChars(nChars: gint): Unit =
-        gtk_editable_set_width_chars(gtkEditablePointer.reinterpret(), nChars)
+    public fun setWidthChars(nChars: gint): Unit = gtk_editable_set_width_chars(gtkEditablePointer, nChars)
 
     /**
      * Emitted at the end of a single user-visible operation on the
@@ -577,14 +570,14 @@ public interface Editable :
      * the new content, and may cause multiple ::notify::text signals
      * to be emitted).
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gtkEditablePointer.reinterpret(),
+            gtkEditablePointer,
             "changed",
-            connectChangedFunc.reinterpret(),
+            onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -601,16 +594,16 @@ public interface Editable :
      * The @start_pos and @end_pos parameters are interpreted as for
      * [method@Gtk.Editable.delete_text].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `startPos` the starting position; `endPos` the end position
      */
-    public fun connectDeleteText(
+    public fun onDeleteText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startPos: gint, endPos: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gtkEditablePointer.reinterpret(),
+        gtkEditablePointer,
         "delete-text",
-        connectDeleteTextFunc.reinterpret(),
+        onDeleteTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -644,12 +637,7 @@ public interface Editable :
          * @return true if the property was found
          */
         public fun delegateGetProperty(`object`: Object, propId: guint, `value`: Value, pspec: ParamSpec): Boolean =
-            gtk_editable_delegate_get_property(
-                `object`.gPointer.reinterpret(),
-                propId,
-                `value`.gPointer.reinterpret(),
-                pspec.gPointer.reinterpret()
-            ).asBoolean()
+            gtk_editable_delegate_get_property(`object`.gPointer, propId, `value`.gPointer, pspec.gPointer).asBoolean()
 
         /**
          * Sets a property on the `GtkEditable` delegate for @object.
@@ -665,12 +653,7 @@ public interface Editable :
          * @return true if the property was found
          */
         public fun delegateSetProperty(`object`: Object, propId: guint, `value`: Value, pspec: ParamSpec): Boolean =
-            gtk_editable_delegate_set_property(
-                `object`.gPointer.reinterpret(),
-                propId,
-                `value`.gPointer.reinterpret(),
-                pspec.gPointer.reinterpret()
-            ).asBoolean()
+            gtk_editable_delegate_set_property(`object`.gPointer, propId, `value`.gPointer, pspec.gPointer).asBoolean()
 
         /**
          * Overrides the `GtkEditable` properties for @class.
@@ -694,7 +677,7 @@ public interface Editable :
          * @return the number of properties that were installed
          */
         public fun installProperties(objectClass: ObjectClass, firstProp: guint): guint =
-            gtk_editable_install_properties(objectClass.gPointer.reinterpret(), firstProp)
+            gtk_editable_install_properties(objectClass.gPointer, firstProp)
 
         /**
          * Get the GType of Editable
@@ -705,7 +688,7 @@ public interface Editable :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -713,7 +696,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunctio
 }
     .reinterpret()
 
-private val connectDeleteTextFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
+private val onDeleteTextFunc: CPointer<CFunction<(gint, gint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         startPos: gint,
         endPos: gint,

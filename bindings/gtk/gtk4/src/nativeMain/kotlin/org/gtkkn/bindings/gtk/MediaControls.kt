@@ -47,8 +47,8 @@ public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
          *
          * @return The media stream managed by @controls
          */
-        get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer.reinterpret())?.run {
-            MediaStream(reinterpret())
+        get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer)?.run {
+            MediaStream(this)
         }
 
         /**
@@ -56,12 +56,7 @@ public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
          *
          * @param stream a `GtkMediaStream`
          */
-        set(
-            stream
-        ) = gtk_media_controls_set_media_stream(
-            gtkMediaControlsPointer.reinterpret(),
-            stream?.gtkMediaStreamPointer?.reinterpret()
-        )
+        set(stream) = gtk_media_controls_set_media_stream(gtkMediaControlsPointer, stream?.gtkMediaStreamPointer)
 
     /**
      * Creates a new `GtkMediaControls` managing the @stream passed to it.
@@ -71,7 +66,7 @@ public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
      */
     public constructor(
         stream: MediaStream? = null,
-    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_media_controls_new(stream?.gtkMediaStreamPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<MediaControls> {
         override val type: GeneratedClassKGType<MediaControls> =

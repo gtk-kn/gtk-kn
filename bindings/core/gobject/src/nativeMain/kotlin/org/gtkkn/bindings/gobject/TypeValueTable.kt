@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -178,7 +177,7 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
          *     null if there is no #GTypeValueTable associated with @type
          */
         public fun peek(type: GType): TypeValueTable = g_type_value_table_peek(type)!!.run {
-            TypeValueTable(reinterpret())
+            TypeValueTable(this)
         }
     }
 }

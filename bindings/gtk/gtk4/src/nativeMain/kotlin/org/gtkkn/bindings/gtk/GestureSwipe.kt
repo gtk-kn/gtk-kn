@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkGestureSwipe
 import org.gtkkn.native.gtk.gtk_gesture_swipe_get_type
 import org.gtkkn.native.gtk.gtk_gesture_swipe_new
@@ -58,20 +59,30 @@ public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
      *
      * Velocity and direction are a product of previously recorded events.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `velocityX` velocity in the X axis, in pixels/sec; `velocityY` velocity in the Y axis, in pixels/sec
      */
-    public fun connectSwipe(
+    public fun onSwipe(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (velocityX: gdouble, velocityY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "swipe",
-        connectSwipeFunc.reinterpret(),
+        onSwipeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "swipe" signal. See [onSwipe].
+     *
+     * @param velocityX velocity in the X axis, in pixels/sec
+     * @param velocityY velocity in the Y axis, in pixels/sec
+     */
+    public fun emitSwipe(velocityX: gdouble, velocityY: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "swipe", velocityX, velocityY)
+    }
 
     public companion object : TypeCompanion<GestureSwipe> {
         override val type: GeneratedClassKGType<GestureSwipe> =
@@ -90,7 +101,7 @@ public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
     }
 }
 
-private val connectSwipeFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+private val onSwipeFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         velocityX: gdouble,
         velocityY: gdouble,

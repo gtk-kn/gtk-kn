@@ -63,7 +63,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
          * @return whether to shrink the center widget after others
          * @since 4.12
          */
-        get() = gtk_center_layout_get_shrink_center_last(gtkCenterLayoutPointer.reinterpret()).asBoolean()
+        get() = gtk_center_layout_get_shrink_center_last(gtkCenterLayoutPointer).asBoolean()
 
         /**
          * Sets whether to shrink the center widget after other children.
@@ -81,10 +81,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
         @GtkVersion4_12
         set(
             shrinkCenterLast
-        ) = gtk_center_layout_set_shrink_center_last(
-            gtkCenterLayoutPointer.reinterpret(),
-            shrinkCenterLast.asGBoolean()
-        )
+        ) = gtk_center_layout_set_shrink_center_last(gtkCenterLayoutPointer, shrinkCenterLast.asGBoolean())
 
     /**
      * Creates a new `GtkCenterLayout`.
@@ -99,7 +96,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @return The current baseline position of @self.
      */
     public open fun getBaselinePosition(): BaselinePosition =
-        gtk_center_layout_get_baseline_position(gtkCenterLayoutPointer.reinterpret()).run {
+        gtk_center_layout_get_baseline_position(gtkCenterLayoutPointer).run {
             BaselinePosition.fromNativeValue(this)
         }
 
@@ -108,40 +105,36 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      *
      * @return the current center widget of @self
      */
-    public open fun getCenterWidget(): Widget? =
-        gtk_center_layout_get_center_widget(gtkCenterLayoutPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getCenterWidget(): Widget? = gtk_center_layout_get_center_widget(gtkCenterLayoutPointer)?.run {
+        Widget(this)
+    }
 
     /**
      * Returns the end widget of the layout.
      *
      * @return the current end widget of @self
      */
-    public open fun getEndWidget(): Widget? =
-        gtk_center_layout_get_end_widget(gtkCenterLayoutPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getEndWidget(): Widget? = gtk_center_layout_get_end_widget(gtkCenterLayoutPointer)?.run {
+        Widget(this)
+    }
 
     /**
      * Gets the current orienration of the layout manager.
      *
      * @return The current orientation of @self
      */
-    public open fun getOrientation(): Orientation =
-        gtk_center_layout_get_orientation(gtkCenterLayoutPointer.reinterpret()).run {
-            Orientation.fromNativeValue(this)
-        }
+    public open fun getOrientation(): Orientation = gtk_center_layout_get_orientation(gtkCenterLayoutPointer).run {
+        Orientation.fromNativeValue(this)
+    }
 
     /**
      * Returns the start widget of the layout.
      *
      * @return The current start widget of @self
      */
-    public open fun getStartWidget(): Widget? =
-        gtk_center_layout_get_start_widget(gtkCenterLayoutPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getStartWidget(): Widget? = gtk_center_layout_get_start_widget(gtkCenterLayoutPointer)?.run {
+        Widget(this)
+    }
 
     /**
      * Sets the new baseline position of @self
@@ -149,7 +142,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @param baselinePosition the new baseline position
      */
     public open fun setBaselinePosition(baselinePosition: BaselinePosition): Unit =
-        gtk_center_layout_set_baseline_position(gtkCenterLayoutPointer.reinterpret(), baselinePosition.nativeValue)
+        gtk_center_layout_set_baseline_position(gtkCenterLayoutPointer, baselinePosition.nativeValue)
 
     /**
      * Sets the new center widget of @self.
@@ -158,10 +151,8 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      *
      * @param widget the new center widget
      */
-    public open fun setCenterWidget(widget: Widget? = null): Unit = gtk_center_layout_set_center_widget(
-        gtkCenterLayoutPointer.reinterpret(),
-        widget?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun setCenterWidget(widget: Widget? = null): Unit =
+        gtk_center_layout_set_center_widget(gtkCenterLayoutPointer, widget?.gtkWidgetPointer)
 
     /**
      * Sets the new end widget of @self.
@@ -171,7 +162,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @param widget the new end widget
      */
     public open fun setEndWidget(widget: Widget? = null): Unit =
-        gtk_center_layout_set_end_widget(gtkCenterLayoutPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        gtk_center_layout_set_end_widget(gtkCenterLayoutPointer, widget?.gtkWidgetPointer)
 
     /**
      * Sets the orientation of @self.
@@ -179,7 +170,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @param orientation the new orientation
      */
     public open fun setOrientation(orientation: Orientation): Unit =
-        gtk_center_layout_set_orientation(gtkCenterLayoutPointer.reinterpret(), orientation.nativeValue)
+        gtk_center_layout_set_orientation(gtkCenterLayoutPointer, orientation.nativeValue)
 
     /**
      * Sets the new start widget of @self.
@@ -188,10 +179,8 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      *
      * @param widget the new start widget
      */
-    public open fun setStartWidget(widget: Widget? = null): Unit = gtk_center_layout_set_start_widget(
-        gtkCenterLayoutPointer.reinterpret(),
-        widget?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun setStartWidget(widget: Widget? = null): Unit =
+        gtk_center_layout_set_start_widget(gtkCenterLayoutPointer, widget?.gtkWidgetPointer)
 
     public companion object : TypeCompanion<CenterLayout> {
         override val type: GeneratedClassKGType<CenterLayout> =

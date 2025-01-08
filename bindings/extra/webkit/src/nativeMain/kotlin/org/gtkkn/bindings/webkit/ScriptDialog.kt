@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_24
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -39,7 +38,7 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun close(): Unit = webkit_script_dialog_close(gPointer.reinterpret())
+    public fun close(): Unit = webkit_script_dialog_close(gPointer)
 
     /**
      * Set whether the user confirmed the dialog.
@@ -54,14 +53,14 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      * @param confirmed whether user confirmed the dialog
      */
     public fun confirmSetConfirmed(confirmed: Boolean): Unit =
-        webkit_script_dialog_confirm_set_confirmed(gPointer.reinterpret(), confirmed.asGBoolean())
+        webkit_script_dialog_confirm_set_confirmed(gPointer, confirmed.asGBoolean())
 
     /**
      * Get the dialog type of a #WebKitScriptDialog.
      *
      * @return the #WebKitScriptDialogType of @dialog
      */
-    public fun getDialogType(): ScriptDialogType = webkit_script_dialog_get_dialog_type(gPointer.reinterpret()).run {
+    public fun getDialogType(): ScriptDialogType = webkit_script_dialog_get_dialog_type(gPointer).run {
         ScriptDialogType.fromNativeValue(this)
     }
 
@@ -71,7 +70,7 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      * @return the message of @dialog.
      */
     public fun getMessage(): String =
-        webkit_script_dialog_get_message(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        webkit_script_dialog_get_message(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the default text of a #WebKitScriptDialog of type %WEBKIT_SCRIPT_DIALOG_PROMPT.
@@ -82,8 +81,7 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      * @return the default text of @dialog
      */
     public fun promptGetDefaultText(): String =
-        webkit_script_dialog_prompt_get_default_text(gPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_script_dialog_prompt_get_default_text(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Set the text entered by the user in the dialog.
@@ -97,7 +95,7 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      *
      * @param text the text to set
      */
-    public fun promptSetText(text: String): Unit = webkit_script_dialog_prompt_set_text(gPointer.reinterpret(), text)
+    public fun promptSetText(text: String): Unit = webkit_script_dialog_prompt_set_text(gPointer, text)
 
     /**
      * Atomically increments the reference count of @dialog by one.
@@ -109,8 +107,8 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun ref(): ScriptDialog = webkit_script_dialog_ref(gPointer.reinterpret())!!.run {
-        ScriptDialog(reinterpret())
+    public fun ref(): ScriptDialog = webkit_script_dialog_ref(gPointer)!!.run {
+        ScriptDialog(this)
     }
 
     /**
@@ -124,7 +122,7 @@ public class ScriptDialog(pointer: CPointer<WebKitScriptDialog>) : ProxyInstance
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun unref(): Unit = webkit_script_dialog_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_script_dialog_unref(gPointer)
 
     public companion object {
         /**

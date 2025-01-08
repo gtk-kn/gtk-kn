@@ -101,7 +101,7 @@ public open class PadController(pointer: CPointer<GtkPadController>) :
     public constructor(
         group: ActionGroup,
         pad: Device? = null,
-    ) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_pad_controller_new(group.gioActionGroupPointer, pad?.gdkDevicePointer)!!.reinterpret())
 
     /**
      * Adds an individual action to @controller.
@@ -122,14 +122,7 @@ public open class PadController(pointer: CPointer<GtkPadController>) :
      * @param actionName action name that will be activated in the `GActionGroup`
      */
     public open fun setAction(type: PadActionType, index: gint, mode: gint, label: String, actionName: String): Unit =
-        gtk_pad_controller_set_action(
-            gtkPadControllerPointer.reinterpret(),
-            type.nativeValue,
-            index,
-            mode,
-            label,
-            actionName
-        )
+        gtk_pad_controller_set_action(gtkPadControllerPointer, type.nativeValue, index, mode, label, actionName)
 
     public companion object : TypeCompanion<PadController> {
         override val type: GeneratedClassKGType<PadController> =

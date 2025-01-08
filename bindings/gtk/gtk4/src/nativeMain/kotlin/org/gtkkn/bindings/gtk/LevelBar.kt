@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -20,6 +21,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAccessibleRange
 import org.gtkkn.native.gtk.GtkBuildable
@@ -184,14 +186,14 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @return true if the level bar is inverted
          */
-        get() = gtk_level_bar_get_inverted(gtkLevelBarPointer.reinterpret()).asBoolean()
+        get() = gtk_level_bar_get_inverted(gtkLevelBarPointer).asBoolean()
 
         /**
          * Sets whether the `GtkLevelBar` is inverted.
          *
          * @param inverted true to invert the level bar
          */
-        set(inverted) = gtk_level_bar_set_inverted(gtkLevelBarPointer.reinterpret(), inverted.asGBoolean())
+        set(inverted) = gtk_level_bar_set_inverted(gtkLevelBarPointer, inverted.asGBoolean())
 
     /**
      * Determines the maximum value of the interval that can be displayed by the bar.
@@ -202,7 +204,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @return a positive value
          */
-        get() = gtk_level_bar_get_max_value(gtkLevelBarPointer.reinterpret())
+        get() = gtk_level_bar_get_max_value(gtkLevelBarPointer)
 
         /**
          * Sets the `max-value` of the `GtkLevelBar`.
@@ -212,7 +214,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @param value a positive value
          */
-        set(`value`) = gtk_level_bar_set_max_value(gtkLevelBarPointer.reinterpret(), `value`)
+        set(`value`) = gtk_level_bar_set_max_value(gtkLevelBarPointer, `value`)
 
     /**
      * Determines the minimum value of the interval that can be displayed by the bar.
@@ -223,7 +225,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @return a positive value
          */
-        get() = gtk_level_bar_get_min_value(gtkLevelBarPointer.reinterpret())
+        get() = gtk_level_bar_get_min_value(gtkLevelBarPointer)
 
         /**
          * Sets the `min-value` of the `GtkLevelBar`.
@@ -233,7 +235,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @param value a positive value
          */
-        set(`value`) = gtk_level_bar_set_min_value(gtkLevelBarPointer.reinterpret(), `value`)
+        set(`value`) = gtk_level_bar_set_min_value(gtkLevelBarPointer, `value`)
 
     /**
      * Determines the way `GtkLevelBar` interprets the value properties to draw the
@@ -253,7 +255,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @return a `GtkLevelBarMode`
          */
-        get() = gtk_level_bar_get_mode(gtkLevelBarPointer.reinterpret()).run {
+        get() = gtk_level_bar_get_mode(gtkLevelBarPointer).run {
             LevelBarMode.fromNativeValue(this)
         }
 
@@ -262,7 +264,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          *
          * @param mode a `GtkLevelBarMode`
          */
-        set(mode) = gtk_level_bar_set_mode(gtkLevelBarPointer.reinterpret(), mode.nativeValue)
+        set(mode) = gtk_level_bar_set_mode(gtkLevelBarPointer, mode.nativeValue)
 
     /**
      * Determines the currently filled value of the level bar.
@@ -274,7 +276,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          * @return a value in the interval between
          *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
          */
-        get() = gtk_level_bar_get_value(gtkLevelBarPointer.reinterpret())
+        get() = gtk_level_bar_get_value(gtkLevelBarPointer)
 
         /**
          * Sets the value of the `GtkLevelBar`.
@@ -282,7 +284,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
          * @param value a value in the interval between
          *   [property@Gtk.LevelBar:min-value] and [property@Gtk.LevelBar:max-value]
          */
-        set(`value`) = gtk_level_bar_set_value(gtkLevelBarPointer.reinterpret(), `value`)
+        set(`value`) = gtk_level_bar_set_value(gtkLevelBarPointer, `value`)
 
     /**
      * Creates a new `GtkLevelBar`.
@@ -318,7 +320,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
      * @param value the value for the new offset
      */
     public open fun addOffsetValue(name: String, `value`: gdouble): Unit =
-        gtk_level_bar_add_offset_value(gtkLevelBarPointer.reinterpret(), name, `value`)
+        gtk_level_bar_add_offset_value(gtkLevelBarPointer, name, `value`)
 
     /**
      * Removes an offset marker from a `GtkLevelBar`.
@@ -329,7 +331,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
      * @param name the name of an offset in the bar
      */
     public open fun removeOffsetValue(name: String? = null): Unit =
-        gtk_level_bar_remove_offset_value(gtkLevelBarPointer.reinterpret(), name)
+        gtk_level_bar_remove_offset_value(gtkLevelBarPointer, name)
 
     /**
      * Emitted when an offset specified on the bar changes value.
@@ -341,20 +343,36 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
      * detailed signal "changed::x" in order to only receive callbacks when
      * the value of offset "x" changes.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param detail the signal detail
      * @param handler the Callback to connect. Params: `name` the name of the offset that changed value
      */
-    public fun connectOffsetChanged(
+    public fun onOffsetChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
+        detail: String? = null,
         handler: (name: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "offset-changed",
-        connectOffsetChangedFunc.reinterpret(),
+        gPointer,
+        "offset-changed" + (
+            detail?.let {
+                "::$it"
+            } ?: ""
+            ),
+        onOffsetChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "offset-changed" signal. See [onOffsetChanged].
+     *
+     * @param detail the signal detail
+     * @param name the name of the offset that changed value
+     */
+    public fun emitOffsetChanged(detail: String? = null, name: String) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "offset-changed" + (detail?.let { "::$it" } ?: ""), name.cstr)
+    }
 
     public companion object : TypeCompanion<LevelBar> {
         override val type: GeneratedClassKGType<LevelBar> =
@@ -373,7 +391,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
     }
 }
 
-private val connectOffsetChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
+private val onOffsetChangedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             name: CPointer<ByteVar>?,

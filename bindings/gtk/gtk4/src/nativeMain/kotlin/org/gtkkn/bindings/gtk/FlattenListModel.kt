@@ -53,7 +53,7 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
          *
          * @return The model flattened by @self
          */
-        get() = gtk_flatten_list_model_get_model(gtkFlattenListModelPointer.reinterpret())?.run {
+        get() = gtk_flatten_list_model_get_model(gtkFlattenListModelPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -62,9 +62,7 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
          *
          * @param model the new model
          */
-        set(
-            model
-        ) = gtk_flatten_list_model_set_model(gtkFlattenListModelPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_flatten_list_model_set_model(gtkFlattenListModelPointer, model?.gioListModelPointer)
 
     /**
      * Creates a new `GtkFlattenListModel` that flattens @list.
@@ -83,7 +81,7 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
      * @return the model containing the item at @position
      */
     public open fun getModelForItem(position: guint): ListModel? =
-        gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer.reinterpret(), position)?.run {
+        gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer, position)?.run {
             ListModel.wrap(reinterpret())
         }
 

@@ -46,8 +46,8 @@ public open class FontFace(pointer: CPointer<PangoFontFace>) :
      *   holding the description of the face. Use [method@Pango.FontDescription.free]
      *   to free the result.
      */
-    public open fun describe(): FontDescription = pango_font_face_describe(pangoFontFacePointer.reinterpret())!!.run {
-        FontDescription(reinterpret())
+    public open fun describe(): FontDescription = pango_font_face_describe(pangoFontFacePointer)!!.run {
+        FontDescription(this)
     }
 
     /**
@@ -61,8 +61,7 @@ public open class FontFace(pointer: CPointer<PangoFontFace>) :
      *   owned by the face object and must not be modified or freed.
      */
     public open fun getFaceName(): String =
-        pango_font_face_get_face_name(pangoFontFacePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        pango_font_face_get_face_name(pangoFontFacePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the `PangoFontFamily` that @face belongs to.
@@ -71,8 +70,8 @@ public open class FontFace(pointer: CPointer<PangoFontFace>) :
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer.reinterpret())!!.run {
-        FontFamily(reinterpret())
+    public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer)!!.run {
+        FontFamily(this)
     }
 
     /**
@@ -86,8 +85,7 @@ public open class FontFace(pointer: CPointer<PangoFontFace>) :
      * @since 1.18
      */
     @PangoVersion1_18
-    public open fun isSynthesized(): Boolean =
-        pango_font_face_is_synthesized(pangoFontFacePointer.reinterpret()).asBoolean()
+    public open fun isSynthesized(): Boolean = pango_font_face_is_synthesized(pangoFontFacePointer).asBoolean()
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =

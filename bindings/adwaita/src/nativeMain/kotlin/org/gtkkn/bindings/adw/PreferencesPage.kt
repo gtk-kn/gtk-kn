@@ -83,7 +83,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          * @return the description of @self.
          * @since 1.4
          */
-        get() = adw_preferences_page_get_description(adwPreferencesPagePointer.reinterpret())?.toKString()
+        get() = adw_preferences_page_get_description(adwPreferencesPagePointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -95,7 +95,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(description) = adw_preferences_page_set_description(adwPreferencesPagePointer.reinterpret(), description)
+        set(description) = adw_preferences_page_set_description(adwPreferencesPagePointer, description)
 
     /**
      * The icon name for this page.
@@ -106,14 +106,14 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          *
          * @return the icon name for @self
          */
-        get() = adw_preferences_page_get_icon_name(adwPreferencesPagePointer.reinterpret())?.toKString()
+        get() = adw_preferences_page_get_icon_name(adwPreferencesPagePointer)?.toKString()
 
         /**
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
          */
-        set(iconName) = adw_preferences_page_set_icon_name(adwPreferencesPagePointer.reinterpret(), iconName)
+        set(iconName) = adw_preferences_page_set_icon_name(adwPreferencesPagePointer, iconName)
 
     /**
      * The name of this page.
@@ -124,14 +124,14 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          *
          * @return the name of @self
          */
-        get() = adw_preferences_page_get_name(adwPreferencesPagePointer.reinterpret())?.toKString()
+        get() = adw_preferences_page_get_name(adwPreferencesPagePointer)?.toKString()
 
         /**
          * Sets the name of @self.
          *
          * @param name the name
          */
-        set(name) = adw_preferences_page_set_name(adwPreferencesPagePointer.reinterpret(), name)
+        set(name) = adw_preferences_page_set_name(adwPreferencesPagePointer, name)
 
     /**
      * The title for this page.
@@ -142,7 +142,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          *
          * @return the title of @self.
          */
-        get() = adw_preferences_page_get_title(adwPreferencesPagePointer.reinterpret())?.toKString()
+        get() = adw_preferences_page_get_title(adwPreferencesPagePointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -150,7 +150,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          *
          * @param title the title
          */
-        set(title) = adw_preferences_page_set_title(adwPreferencesPagePointer.reinterpret(), title)
+        set(title) = adw_preferences_page_set_title(adwPreferencesPagePointer, title)
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
@@ -161,16 +161,14 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
          *
          * @return whether an embedded underline in the title indicates a mnemonic
          */
-        get() = adw_preferences_page_get_use_underline(adwPreferencesPagePointer.reinterpret()).asBoolean()
+        get() = adw_preferences_page_get_use_underline(adwPreferencesPagePointer).asBoolean()
 
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
          */
-        set(
-            useUnderline
-        ) = adw_preferences_page_set_use_underline(adwPreferencesPagePointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_preferences_page_set_use_underline(adwPreferencesPagePointer, useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesPage`.
@@ -184,20 +182,16 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
      *
      * @param group the group to add
      */
-    public open fun add(group: PreferencesGroup): Unit = adw_preferences_page_add(
-        adwPreferencesPagePointer.reinterpret(),
-        group.adwPreferencesGroupPointer.reinterpret()
-    )
+    public open fun add(group: PreferencesGroup): Unit =
+        adw_preferences_page_add(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
 
     /**
      * Removes a group from @self.
      *
      * @param group the group to remove
      */
-    public open fun remove(group: PreferencesGroup): Unit = adw_preferences_page_remove(
-        adwPreferencesPagePointer.reinterpret(),
-        group.adwPreferencesGroupPointer.reinterpret()
-    )
+    public open fun remove(group: PreferencesGroup): Unit =
+        adw_preferences_page_remove(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
 
     /**
      * Scrolls the scrolled window of @self to the top.
@@ -205,7 +199,7 @@ public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun scrollToTop(): Unit = adw_preferences_page_scroll_to_top(adwPreferencesPagePointer.reinterpret())
+    public open fun scrollToTop(): Unit = adw_preferences_page_scroll_to_top(adwPreferencesPagePointer)
 
     public companion object : TypeCompanion<PreferencesPage> {
         override val type: GeneratedClassKGType<PreferencesPage> =

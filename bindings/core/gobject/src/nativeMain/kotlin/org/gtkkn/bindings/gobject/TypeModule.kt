@@ -82,12 +82,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
      * @param interfaceInfo type information structure
      */
     public open fun addInterface(instanceType: GType, interfaceType: GType, interfaceInfo: InterfaceInfo): Unit =
-        g_type_module_add_interface(
-            gobjectTypeModulePointer.reinterpret(),
-            instanceType,
-            interfaceType,
-            interfaceInfo.gPointer.reinterpret()
-        )
+        g_type_module_add_interface(gobjectTypeModulePointer, instanceType, interfaceType, interfaceInfo.gPointer)
 
     /**
      * Looks up or registers an enumeration that is implemented with a particular
@@ -110,11 +105,8 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerEnum(name: String, constStaticValues: EnumValue): GType = g_type_module_register_enum(
-        gobjectTypeModulePointer.reinterpret(),
-        name,
-        constStaticValues.gPointer.reinterpret()
-    )
+    public open fun registerEnum(name: String, constStaticValues: EnumValue): GType =
+        g_type_module_register_enum(gobjectTypeModulePointer, name, constStaticValues.gPointer)
 
     /**
      * Looks up or registers a flags type that is implemented with a particular
@@ -137,11 +129,8 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
      * @since 2.6
      */
     @GObjectVersion2_6
-    public open fun registerFlags(name: String, constStaticValues: FlagsValue): GType = g_type_module_register_flags(
-        gobjectTypeModulePointer.reinterpret(),
-        name,
-        constStaticValues.gPointer.reinterpret()
-    )
+    public open fun registerFlags(name: String, constStaticValues: FlagsValue): GType =
+        g_type_module_register_flags(gobjectTypeModulePointer, name, constStaticValues.gPointer)
 
     /**
      * Looks up or registers a type that is implemented with a particular
@@ -166,20 +155,14 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
      * @return the new or existing type ID
      */
     public open fun registerType(parentType: GType, typeName: String, typeInfo: TypeInfo, flags: TypeFlags): GType =
-        g_type_module_register_type(
-            gobjectTypeModulePointer.reinterpret(),
-            parentType,
-            typeName,
-            typeInfo.gPointer.reinterpret(),
-            flags.mask
-        )
+        g_type_module_register_type(gobjectTypeModulePointer, parentType, typeName, typeInfo.gPointer, flags.mask)
 
     /**
      * Sets the name for a #GTypeModule
      *
      * @param name a human-readable name to use in error messages.
      */
-    public open fun setName(name: String): Unit = g_type_module_set_name(gobjectTypeModulePointer.reinterpret(), name)
+    public open fun setName(name: String): Unit = g_type_module_set_name(gobjectTypeModulePointer, name)
 
     /**
      * Decreases the use count of a #GTypeModule by one. If the
@@ -188,7 +171,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
      * #GTypeModule are not unregistered. Once a #GTypeModule is
      * initialized, it must exist forever.)
      */
-    override fun unuse(): Unit = g_type_module_unuse(gobjectTypeModulePointer.reinterpret())
+    override fun unuse(): Unit = g_type_module_unuse(gobjectTypeModulePointer)
 
     /**
      * Increases the use count of a #GTypeModule by one. If the
@@ -199,7 +182,7 @@ public open class TypeModule(pointer: CPointer<GTypeModule>) :
      * @return false if the plugin needed to be loaded and
      *  loading the plugin failed.
      */
-    public open fun useTypeModule(): Boolean = g_type_module_use(gobjectTypeModulePointer.reinterpret()).asBoolean()
+    public open fun useTypeModule(): Boolean = g_type_module_use(gobjectTypeModulePointer).asBoolean()
 
     public companion object : TypeCompanion<TypeModule> {
         override val type: GeneratedClassKGType<TypeModule> =

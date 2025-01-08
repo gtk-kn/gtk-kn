@@ -155,7 +155,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @return the number of decimal places that are displayed
          */
-        get() = gtk_scale_get_digits(gtkScalePointer.reinterpret())
+        get() = gtk_scale_get_digits(gtkScalePointer)
 
         /**
          * Sets the number of decimal places that are displayed in the value.
@@ -174,7 +174,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          * @param digits the number of decimal places to display,
          *   e.g. use 1 to display 1.0, 2 to display 1.00, etc
          */
-        set(digits) = gtk_scale_set_digits(gtkScalePointer.reinterpret(), digits)
+        set(digits) = gtk_scale_set_digits(gtkScalePointer, digits)
 
     /**
      * Whether the current value is displayed as a string next to the slider.
@@ -186,7 +186,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @return whether the current value is displayed as a string
          */
-        get() = gtk_scale_get_draw_value(gtkScalePointer.reinterpret()).asBoolean()
+        get() = gtk_scale_get_draw_value(gtkScalePointer).asBoolean()
 
         /**
          * Specifies whether the current value is displayed as a string next
@@ -194,7 +194,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @param drawValue true to draw the value
          */
-        set(drawValue) = gtk_scale_set_draw_value(gtkScalePointer.reinterpret(), drawValue.asGBoolean())
+        set(drawValue) = gtk_scale_set_draw_value(gtkScalePointer, drawValue.asGBoolean())
 
     /**
      * Whether the scale has an origin.
@@ -205,7 +205,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @return true if the scale has an origin.
          */
-        get() = gtk_scale_get_has_origin(gtkScalePointer.reinterpret()).asBoolean()
+        get() = gtk_scale_get_has_origin(gtkScalePointer).asBoolean()
 
         /**
          * Sets whether the scale has an origin.
@@ -216,7 +216,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @param hasOrigin true if the scale has an origin
          */
-        set(hasOrigin) = gtk_scale_set_has_origin(gtkScalePointer.reinterpret(), hasOrigin.asGBoolean())
+        set(hasOrigin) = gtk_scale_set_has_origin(gtkScalePointer, hasOrigin.asGBoolean())
 
     /**
      * The position in which the current value is displayed.
@@ -227,7 +227,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @return the position in which the current value is displayed
          */
-        get() = gtk_scale_get_value_pos(gtkScalePointer.reinterpret()).run {
+        get() = gtk_scale_get_value_pos(gtkScalePointer).run {
             PositionType.fromNativeValue(this)
         }
 
@@ -236,7 +236,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
          *
          * @param pos the position in which the current value is displayed
          */
-        set(pos) = gtk_scale_set_value_pos(gtkScalePointer.reinterpret(), pos.nativeValue)
+        set(pos) = gtk_scale_set_value_pos(gtkScalePointer, pos.nativeValue)
 
     /**
      * Creates a new `GtkScale`.
@@ -249,7 +249,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
     public constructor(
         orientation: Orientation,
         adjustment: Adjustment? = null,
-    ) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_scale_new(orientation.nativeValue, adjustment?.gtkAdjustmentPointer)!!.reinterpret())
 
     /**
      * Creates a new scale widget with a range from @min to @max.
@@ -297,12 +297,12 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      * @param markup Text to be shown at the mark, using Pango markup
      */
     public open fun addMark(`value`: gdouble, position: PositionType, markup: String? = null): Unit =
-        gtk_scale_add_mark(gtkScalePointer.reinterpret(), `value`, position.nativeValue, markup)
+        gtk_scale_add_mark(gtkScalePointer, `value`, position.nativeValue, markup)
 
     /**
      * Removes any marks that have been added.
      */
-    public open fun clearMarks(): Unit = gtk_scale_clear_marks(gtkScalePointer.reinterpret())
+    public open fun clearMarks(): Unit = gtk_scale_clear_marks(gtkScalePointer)
 
     /**
      * Gets the `PangoLayout` used to display the scale.
@@ -314,8 +314,8 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      *   for this scale, or null if the [property@Gtk.Scale:draw-value]
      *   property is false.
      */
-    public open fun getLayout(): Layout? = gtk_scale_get_layout(gtkScalePointer.reinterpret())?.run {
-        Layout(reinterpret())
+    public open fun getLayout(): Layout? = gtk_scale_get_layout(gtkScalePointer)?.run {
+        Layout(this)
     }
 
     /**
@@ -331,7 +331,7 @@ public open class Scale(pointer: CPointer<GtkScale>) :
      * @param func function that formats the value
      */
     public open fun setFormatValueFunc(func: ScaleFormatValueFunc?): Unit = gtk_scale_set_format_value_func(
-        gtkScalePointer.reinterpret(),
+        gtkScalePointer,
         func?.let {
             ScaleFormatValueFuncFunc.reinterpret()
         },

@@ -58,7 +58,7 @@ public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
          *
          * @return the `GFile` for the icon
          */
-        get() = gtk_icon_paintable_get_file(gtkIconPaintablePointer.reinterpret())?.run {
+        get() = gtk_icon_paintable_get_file(gtkIconPaintablePointer)?.run {
             File.wrap(reinterpret())
         }
 
@@ -80,7 +80,7 @@ public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
          * @return the themed icon-name for the
          *   icon, or null if its not a themed icon.
          */
-        get() = gtk_icon_paintable_get_icon_name(gtkIconPaintablePointer.reinterpret())?.toKString()
+        get() = gtk_icon_paintable_get_icon_name(gtkIconPaintablePointer)?.toKString()
 
     /**
      * Creates a `GtkIconPaintable` for a file with a given size and scale.
@@ -110,8 +110,7 @@ public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
      *
      * @return true if the icon is symbolic, false otherwise
      */
-    public open fun isSymbolic(): Boolean =
-        gtk_icon_paintable_is_symbolic(gtkIconPaintablePointer.reinterpret()).asBoolean()
+    public open fun isSymbolic(): Boolean = gtk_icon_paintable_is_symbolic(gtkIconPaintablePointer).asBoolean()
 
     public companion object : TypeCompanion<IconPaintable> {
         override val type: GeneratedClassKGType<IconPaintable> =

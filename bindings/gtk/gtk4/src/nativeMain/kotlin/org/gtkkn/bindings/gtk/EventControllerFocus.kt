@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkEventControllerFocus
 import org.gtkkn.native.gtk.gtk_event_controller_focus_contains_focus
 import org.gtkkn.native.gtk.gtk_event_controller_focus_get_type
@@ -60,15 +61,14 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * @return true if focus is within @self or one of its children
      */
     public open fun containsFocus(): Boolean =
-        gtk_event_controller_focus_contains_focus(gtkEventControllerFocusPointer.reinterpret()).asBoolean()
+        gtk_event_controller_focus_contains_focus(gtkEventControllerFocusPointer).asBoolean()
 
     /**
      * Returns true if focus is within @self, but not one of its children.
      *
      * @return true if focus is within @self, but not one of its children
      */
-    public open fun isFocus(): Boolean =
-        gtk_event_controller_focus_is_focus(gtkEventControllerFocusPointer.reinterpret()).asBoolean()
+    public open fun isFocus(): Boolean = gtk_event_controller_focus_is_focus(gtkEventControllerFocusPointer).asBoolean()
 
     /**
      * Emitted whenever the focus enters into the widget or one
@@ -82,18 +82,25 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * [property@Gtk.EventControllerFocus:is-focus]
      * property for changes.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "enter",
-            connectEnterFunc.reinterpret(),
+            onEnterFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "enter" signal. See [onEnter].
+     */
+    public fun emitEnter() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "enter")
+    }
 
     /**
      * Emitted whenever the focus leaves the widget hierarchy
@@ -106,18 +113,25 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * can monitor the [property@Gtk.EventControllerFocus:is-focus]
      * property for changes.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "leave",
-            connectLeaveFunc.reinterpret(),
+            onLeaveFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "leave" signal. See [onLeave].
+     */
+    public fun emitLeave() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "leave")
+    }
 
     public companion object : TypeCompanion<EventControllerFocus> {
         override val type: GeneratedClassKGType<EventControllerFocus> =
@@ -136,7 +150,7 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
     }
 }
 
-private val connectEnterFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onEnterFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -144,7 +158,7 @@ private val connectEnterFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onLeaveFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

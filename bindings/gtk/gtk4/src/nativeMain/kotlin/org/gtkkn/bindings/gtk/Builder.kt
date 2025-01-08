@@ -415,8 +415,8 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
          *
          * @return the current object
          */
-        get() = gtk_builder_get_current_object(gtkBuilderPointer.reinterpret())?.run {
-            Object(reinterpret())
+        get() = gtk_builder_get_current_object(gtkBuilderPointer)?.run {
+            Object(this)
         }
 
         /**
@@ -432,9 +432,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
          *
          * @param currentObject the new current object
          */
-        set(
-            currentObject
-        ) = gtk_builder_set_current_object(gtkBuilderPointer.reinterpret(), currentObject?.gPointer?.reinterpret())
+        set(currentObject) = gtk_builder_set_current_object(gtkBuilderPointer, currentObject?.gPointer)
 
     /**
      * The translation domain used when translating property values that
@@ -449,14 +447,14 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
          *
          * @return the translation domain
          */
-        get() = gtk_builder_get_translation_domain(gtkBuilderPointer.reinterpret())?.toKString()
+        get() = gtk_builder_get_translation_domain(gtkBuilderPointer)?.toKString()
 
         /**
          * Sets the translation domain of @builder.
          *
          * @param domain the translation domain
          */
-        set(domain) = gtk_builder_set_translation_domain(gtkBuilderPointer.reinterpret(), domain)
+        set(domain) = gtk_builder_set_translation_domain(gtkBuilderPointer, domain)
 
     /**
      * Creates a new empty builder object.
@@ -523,7 +521,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      */
     public open fun addFromFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_builder_add_from_file(gtkBuilderPointer.reinterpret(), filename, gError.ptr).asBoolean()
+        val gResult = gtk_builder_add_from_file(gtkBuilderPointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -553,11 +551,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      */
     public open fun addFromResource(resourcePath: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_builder_add_from_resource(
-            gtkBuilderPointer.reinterpret(),
-            resourcePath,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_builder_add_from_resource(gtkBuilderPointer, resourcePath, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -588,12 +582,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      */
     public open fun addFromString(buffer: String, length: Long): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_builder_add_from_string(
-            gtkBuilderPointer.reinterpret(),
-            buffer,
-            length,
-            gError.ptr
-        ).asBoolean()
+        val gResult = gtk_builder_add_from_string(gtkBuilderPointer, buffer, length, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -621,7 +610,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
     public open fun addObjectsFromFile(filename: String, objectIds: List<String>): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_add_objects_from_file(
-            gtkBuilderPointer.reinterpret(),
+            gtkBuilderPointer,
             filename,
             objectIds.toCStringList(this),
             gError.ptr
@@ -653,7 +642,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
     public open fun addObjectsFromResource(resourcePath: String, objectIds: List<String>): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_add_objects_from_resource(
-            gtkBuilderPointer.reinterpret(),
+            gtkBuilderPointer,
             resourcePath,
             objectIds.toCStringList(this),
             gError.ptr
@@ -686,7 +675,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = gtk_builder_add_objects_from_string(
-                gtkBuilderPointer.reinterpret(),
+                gtkBuilderPointer,
                 buffer,
                 length,
                 objectIds.toCStringList(this),
@@ -720,13 +709,13 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
     ): Result<Closure?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_create_closure(
-            gtkBuilderPointer.reinterpret(),
+            gtkBuilderPointer,
             functionName,
             flags.mask,
-            `object`?.gPointer?.reinterpret(),
+            `object`?.gPointer,
             gError.ptr
         )?.run {
-            Closure(reinterpret())
+            Closure(this)
         }
 
         return if (gError.pointed != null) {
@@ -749,7 +738,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      * @param object the object to expose
      */
     public open fun exposeObject(name: String, `object`: Object): Unit =
-        gtk_builder_expose_object(gtkBuilderPointer.reinterpret(), name, `object`.gPointer.reinterpret())
+        gtk_builder_expose_object(gtkBuilderPointer, name, `object`.gPointer)
 
     /**
      * Main private entry point for building composite components
@@ -772,8 +761,8 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_extend_with_template(
-            gtkBuilderPointer.reinterpret(),
-            `object`.gPointer.reinterpret(),
+            gtkBuilderPointer,
+            `object`.gPointer,
             templateType,
             buffer,
             length,
@@ -795,10 +784,9 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      * @param name name of object to get
      * @return the object named @name
      */
-    public open fun getObject(name: String): Object? =
-        gtk_builder_get_object(gtkBuilderPointer.reinterpret(), name)?.run {
-            Object(reinterpret())
-        }
+    public open fun getObject(name: String): Object? = gtk_builder_get_object(gtkBuilderPointer, name)?.run {
+        Object(this)
+    }
 
     /**
      * Gets all objects that have been constructed by @builder.
@@ -811,8 +799,8 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      *   constructed by the `GtkBuilder instance`. It should be
      *   freed by g_slist_free()
      */
-    public open fun getObjects(): SList = gtk_builder_get_objects(gtkBuilderPointer.reinterpret())!!.run {
-        SList(reinterpret())
+    public open fun getObjects(): SList = gtk_builder_get_objects(gtkBuilderPointer)!!.run {
+        SList(this)
     }
 
     /**
@@ -820,7 +808,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      *
      * @return the current scope
      */
-    public open fun getScope(): BuilderScope = gtk_builder_get_scope(gtkBuilderPointer.reinterpret())!!.run {
+    public open fun getScope(): BuilderScope = gtk_builder_get_scope(gtkBuilderPointer)!!.run {
         BuilderScope.wrap(reinterpret())
     }
 
@@ -836,7 +824,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      *   if no type was found
      */
     public open fun getTypeFromName(typeName: String): GType =
-        gtk_builder_get_type_from_name(gtkBuilderPointer.reinterpret(), typeName)
+        gtk_builder_get_type_from_name(gtkBuilderPointer, typeName)
 
     /**
      * Sets the scope the builder should operate in.
@@ -846,7 +834,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      * @param scope the scope to use
      */
     public open fun setScope(scope: BuilderScope? = null): Unit =
-        gtk_builder_set_scope(gtkBuilderPointer.reinterpret(), scope?.gtkBuilderScopePointer)
+        gtk_builder_set_scope(gtkBuilderPointer, scope?.gtkBuilderScopePointer)
 
     /**
      * Demarshals a value from a string.
@@ -869,10 +857,10 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
     public open fun valueFromString(pspec: ParamSpec, string: String, `value`: Value): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_value_from_string(
-            gtkBuilderPointer.reinterpret(),
-            pspec.gPointer.reinterpret(),
+            gtkBuilderPointer,
+            pspec.gPointer,
             string,
-            `value`.gPointer.reinterpret(),
+            `value`.gPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -902,10 +890,10 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
     public open fun valueFromStringType(type: GType, string: String, `value`: Value): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_value_from_string_type(
-            gtkBuilderPointer.reinterpret(),
+            gtkBuilderPointer,
             type,
             string,
-            `value`.gPointer.reinterpret(),
+            `value`.gPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {

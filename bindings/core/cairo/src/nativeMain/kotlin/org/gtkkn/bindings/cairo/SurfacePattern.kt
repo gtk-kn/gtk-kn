@@ -22,9 +22,7 @@ public open class SurfacePattern(pointer: CPointer<cairo_pattern_t>) :
     public val cairoSurfacePatternPointer: CPointer<cairo_pattern_t>
         get() = gPointer.reinterpret()
 
-    public constructor(surface: Surface) : this(
-        cairo_pattern_create_for_surface(surface.gPointer.reinterpret())!!.reinterpret()
-    )
+    public constructor(surface: Surface) : this(cairo_pattern_create_for_surface(surface.gPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<SurfacePattern> {
         override val type: GeneratedClassKGType<SurfacePattern> =

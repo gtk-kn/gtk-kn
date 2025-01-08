@@ -109,7 +109,7 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
      */
     @GioVersion2_26
     public open fun getNative(nativeType: CredentialsType): gpointer? =
-        g_credentials_get_native(gioCredentialsPointer.reinterpret(), nativeType.nativeValue)
+        g_credentials_get_native(gioCredentialsPointer, nativeType.nativeValue)
 
     /**
      * Tries to get the UNIX process identifier from @credentials. This
@@ -125,7 +125,7 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
     @GioVersion2_36
     public open fun getUnixPid(): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_credentials_get_unix_pid(gioCredentialsPointer.reinterpret(), gError.ptr)
+        val gResult = g_credentials_get_unix_pid(gioCredentialsPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -147,7 +147,7 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
     @GioVersion2_26
     public open fun getUnixUser(): Result<guint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_credentials_get_unix_user(gioCredentialsPointer.reinterpret(), gError.ptr)
+        val gResult = g_credentials_get_unix_user(gioCredentialsPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -170,8 +170,8 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
     public open fun isSameUser(otherCredentials: Credentials): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_credentials_is_same_user(
-            gioCredentialsPointer.reinterpret(),
-            otherCredentials.gioCredentialsPointer.reinterpret(),
+            gioCredentialsPointer,
+            otherCredentials.gioCredentialsPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -195,7 +195,7 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
      */
     @GioVersion2_26
     public open fun setNative(nativeType: CredentialsType, native: gpointer): Unit =
-        g_credentials_set_native(gioCredentialsPointer.reinterpret(), nativeType.nativeValue, native)
+        g_credentials_set_native(gioCredentialsPointer, nativeType.nativeValue, native)
 
     /**
      * Tries to set the UNIX user identifier on @credentials. This method
@@ -213,7 +213,7 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
     @GioVersion2_26
     public open fun setUnixUser(uid: guint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_credentials_set_unix_user(gioCredentialsPointer.reinterpret(), uid, gError.ptr).asBoolean()
+        val gResult = g_credentials_set_unix_user(gioCredentialsPointer, uid, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -232,7 +232,7 @@ public open class Credentials(pointer: CPointer<GCredentials>) :
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GioVersion2_26
     override fun toString(): String =
-        g_credentials_to_string(gioCredentialsPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_credentials_to_string(gioCredentialsPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<Credentials> {
         override val type: GeneratedClassKGType<Credentials> =

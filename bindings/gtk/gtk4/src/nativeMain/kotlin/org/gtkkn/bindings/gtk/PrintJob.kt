@@ -30,6 +30,7 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkPrintJob
 import org.gtkkn.native.gtk.gtk_print_job_get_collate
 import org.gtkkn.native.gtk.gtk_print_job_get_n_up
@@ -100,8 +101,8 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
          *
          * @return the printer of @job
          */
-        get() = gtk_print_job_get_printer(gtkPrintJobPointer.reinterpret())!!.run {
-            Printer(reinterpret())
+        get() = gtk_print_job_get_printer(gtkPrintJobPointer)!!.run {
+            Printer(this)
         }
 
     /**
@@ -113,8 +114,8 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
          *
          * @return the settings of @job
          */
-        get() = gtk_print_job_get_settings(gtkPrintJobPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
+        get() = gtk_print_job_get_settings(gtkPrintJobPointer)!!.run {
+            PrintSettings(this)
         }
 
     /**
@@ -126,8 +127,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
          *
          * @return the title of @job
          */
-        get() = gtk_print_job_get_title(gtkPrintJobPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_print_job_get_title(gtkPrintJobPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * true if the print job will continue to emit status-changed
@@ -141,7 +141,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
          *
          * @return true if print job status will be reported after printing
          */
-        get() = gtk_print_job_get_track_print_status(gtkPrintJobPointer.reinterpret()).asBoolean()
+        get() = gtk_print_job_get_track_print_status(gtkPrintJobPointer).asBoolean()
 
         /**
          * If track_status is true, the print job will try to continue report
@@ -155,9 +155,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
          *
          * @param trackStatus true to track status after printing
          */
-        set(
-            trackStatus
-        ) = gtk_print_job_set_track_print_status(gtkPrintJobPointer.reinterpret(), trackStatus.asGBoolean())
+        set(trackStatus) = gtk_print_job_set_track_print_status(gtkPrintJobPointer, trackStatus.asGBoolean())
 
     /**
      * Creates a new `GtkPrintJob`.
@@ -176,9 +174,9 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
     ) : this(
         gtk_print_job_new(
             title,
-            printer.gtkPrinterPointer.reinterpret(),
-            settings.gtkPrintSettingsPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
+            printer.gtkPrinterPointer,
+            settings.gtkPrintSettingsPointer,
+            pageSetup.gtkPageSetupPointer
         )!!.reinterpret()
     )
 
@@ -187,38 +185,37 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      *
      * @return whether the job is printed collated
      */
-    public open fun getCollate(): Boolean = gtk_print_job_get_collate(gtkPrintJobPointer.reinterpret()).asBoolean()
+    public open fun getCollate(): Boolean = gtk_print_job_get_collate(gtkPrintJobPointer).asBoolean()
 
     /**
      * Gets the n-up setting for this job.
      *
      * @return the n-up setting
      */
-    public open fun getNUp(): guint = gtk_print_job_get_n_up(gtkPrintJobPointer.reinterpret())
+    public open fun getNUp(): guint = gtk_print_job_get_n_up(gtkPrintJobPointer)
 
     /**
      * Gets the n-up layout setting for this job.
      *
      * @return the n-up layout
      */
-    public open fun getNUpLayout(): NumberUpLayout =
-        gtk_print_job_get_n_up_layout(gtkPrintJobPointer.reinterpret()).run {
-            NumberUpLayout.fromNativeValue(this)
-        }
+    public open fun getNUpLayout(): NumberUpLayout = gtk_print_job_get_n_up_layout(gtkPrintJobPointer).run {
+        NumberUpLayout.fromNativeValue(this)
+    }
 
     /**
      * Gets the number of copies of this job.
      *
      * @return the number of copies
      */
-    public open fun getNumCopies(): gint = gtk_print_job_get_num_copies(gtkPrintJobPointer.reinterpret())
+    public open fun getNumCopies(): gint = gtk_print_job_get_num_copies(gtkPrintJobPointer)
 
     /**
      * Gets the `GtkPageSet` setting for this job.
      *
      * @return the `GtkPageSet` setting
      */
-    public open fun getPageSet(): PageSet = gtk_print_job_get_page_set(gtkPrintJobPointer.reinterpret()).run {
+    public open fun getPageSet(): PageSet = gtk_print_job_get_page_set(gtkPrintJobPointer).run {
         PageSet.fromNativeValue(this)
     }
 
@@ -227,7 +224,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      *
      * @return the `GtkPrintPages` setting
      */
-    public open fun getPages(): PrintPages = gtk_print_job_get_pages(gtkPrintJobPointer.reinterpret()).run {
+    public open fun getPages(): PrintPages = gtk_print_job_get_pages(gtkPrintJobPointer).run {
         PrintPages.fromNativeValue(this)
     }
 
@@ -236,28 +233,28 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      *
      * @return whether the job is printed reversed.
      */
-    public open fun getReverse(): Boolean = gtk_print_job_get_reverse(gtkPrintJobPointer.reinterpret()).asBoolean()
+    public open fun getReverse(): Boolean = gtk_print_job_get_reverse(gtkPrintJobPointer).asBoolean()
 
     /**
      * Gets whether the job is printed rotated.
      *
      * @return whether the job is printed rotated
      */
-    public open fun getRotate(): Boolean = gtk_print_job_get_rotate(gtkPrintJobPointer.reinterpret()).asBoolean()
+    public open fun getRotate(): Boolean = gtk_print_job_get_rotate(gtkPrintJobPointer).asBoolean()
 
     /**
      * Gets the scale for this job.
      *
      * @return the scale
      */
-    public open fun getScale(): gdouble = gtk_print_job_get_scale(gtkPrintJobPointer.reinterpret())
+    public open fun getScale(): gdouble = gtk_print_job_get_scale(gtkPrintJobPointer)
 
     /**
      * Gets the status of the print job.
      *
      * @return the status of @job
      */
-    public open fun getStatus(): PrintStatus = gtk_print_job_get_status(gtkPrintJobPointer.reinterpret()).run {
+    public open fun getStatus(): PrintStatus = gtk_print_job_get_status(gtkPrintJobPointer).run {
         PrintStatus.fromNativeValue(this)
     }
 
@@ -269,8 +266,8 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      */
     public open fun getSurface(): Result<Surface> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_print_job_get_surface(gtkPrintJobPointer.reinterpret(), gError.ptr)?.run {
-            Surface(reinterpret())
+        val gResult = gtk_print_job_get_surface(gtkPrintJobPointer, gError.ptr)?.run {
+            Surface(this)
         }
 
         return if (gError.pointed != null) {
@@ -286,7 +283,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * @param callback function to call when the job completes or an error occurs
      */
     public open fun send(callback: PrintJobCompleteFunc): Unit = gtk_print_job_send(
-        gtkPrintJobPointer.reinterpret(),
+        gtkPrintJobPointer,
         PrintJobCompleteFuncFunc.reinterpret(),
         StableRef.create(callback).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -298,14 +295,14 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * @param collate whether the job is printed collated
      */
     public open fun setCollate(collate: Boolean): Unit =
-        gtk_print_job_set_collate(gtkPrintJobPointer.reinterpret(), collate.asGBoolean())
+        gtk_print_job_set_collate(gtkPrintJobPointer, collate.asGBoolean())
 
     /**
      * Sets the n-up setting for this job.
      *
      * @param nUp the n-up value
      */
-    public open fun setNUp(nUp: guint): Unit = gtk_print_job_set_n_up(gtkPrintJobPointer.reinterpret(), nUp)
+    public open fun setNUp(nUp: guint): Unit = gtk_print_job_set_n_up(gtkPrintJobPointer, nUp)
 
     /**
      * Sets the n-up layout setting for this job.
@@ -313,15 +310,14 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * @param layout the n-up layout setting
      */
     public open fun setNUpLayout(layout: NumberUpLayout): Unit =
-        gtk_print_job_set_n_up_layout(gtkPrintJobPointer.reinterpret(), layout.nativeValue)
+        gtk_print_job_set_n_up_layout(gtkPrintJobPointer, layout.nativeValue)
 
     /**
      * Sets the number of copies for this job.
      *
      * @param numCopies the number of copies
      */
-    public open fun setNumCopies(numCopies: gint): Unit =
-        gtk_print_job_set_num_copies(gtkPrintJobPointer.reinterpret(), numCopies)
+    public open fun setNumCopies(numCopies: gint): Unit = gtk_print_job_set_num_copies(gtkPrintJobPointer, numCopies)
 
     /**
      * Sets the `GtkPageSet` setting for this job.
@@ -329,15 +325,14 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * @param pageSet a `GtkPageSet` setting
      */
     public open fun setPageSet(pageSet: PageSet): Unit =
-        gtk_print_job_set_page_set(gtkPrintJobPointer.reinterpret(), pageSet.nativeValue)
+        gtk_print_job_set_page_set(gtkPrintJobPointer, pageSet.nativeValue)
 
     /**
      * Sets the `GtkPrintPages` setting for this job.
      *
      * @param pages the `GtkPrintPages` setting
      */
-    public open fun setPages(pages: PrintPages): Unit =
-        gtk_print_job_set_pages(gtkPrintJobPointer.reinterpret(), pages.nativeValue)
+    public open fun setPages(pages: PrintPages): Unit = gtk_print_job_set_pages(gtkPrintJobPointer, pages.nativeValue)
 
     /**
      * Sets whether this job is printed reversed.
@@ -345,15 +340,14 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * @param reverse whether the job is printed reversed
      */
     public open fun setReverse(reverse: Boolean): Unit =
-        gtk_print_job_set_reverse(gtkPrintJobPointer.reinterpret(), reverse.asGBoolean())
+        gtk_print_job_set_reverse(gtkPrintJobPointer, reverse.asGBoolean())
 
     /**
      * Sets whether this job is printed rotated.
      *
      * @param rotate whether to print rotated
      */
-    public open fun setRotate(rotate: Boolean): Unit =
-        gtk_print_job_set_rotate(gtkPrintJobPointer.reinterpret(), rotate.asGBoolean())
+    public open fun setRotate(rotate: Boolean): Unit = gtk_print_job_set_rotate(gtkPrintJobPointer, rotate.asGBoolean())
 
     /**
      * Sets the scale for this job.
@@ -362,7 +356,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      *
      * @param scale the scale
      */
-    public open fun setScale(scale: gdouble): Unit = gtk_print_job_set_scale(gtkPrintJobPointer.reinterpret(), scale)
+    public open fun setScale(scale: gdouble): Unit = gtk_print_job_set_scale(gtkPrintJobPointer, scale)
 
     /**
      * Make the `GtkPrintJob` send an existing document to the
@@ -382,7 +376,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      */
     public open fun setSourceFd(fd: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_print_job_set_source_fd(gtkPrintJobPointer.reinterpret(), fd, gError.ptr).asBoolean()
+        val gResult = gtk_print_job_set_source_fd(gtkPrintJobPointer, fd, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -404,7 +398,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      */
     public open fun setSourceFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gtk_print_job_set_source_file(gtkPrintJobPointer.reinterpret(), filename, gError.ptr).asBoolean()
+        val gResult = gtk_print_job_set_source_file(gtkPrintJobPointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -418,18 +412,25 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * The signal handler can use [method@Gtk.PrintJob.get_status]
      * to obtain the new status.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectStatusChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onStatusChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "status-changed",
-            connectStatusChangedFunc.reinterpret(),
+            onStatusChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "status-changed" signal. See [onStatusChanged].
+     */
+    public fun emitStatusChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "status-changed")
+    }
 
     public companion object : TypeCompanion<PrintJob> {
         override val type: GeneratedClassKGType<PrintJob> =
@@ -448,7 +449,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
     }
 }
 
-private val connectStatusChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onStatusChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

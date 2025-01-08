@@ -92,18 +92,18 @@ public interface MemoryMonitor :
      * warning level. See the #GMemoryMonitorWarningLevel documentation for
      * details.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `level` the #GMemoryMonitorWarningLevel warning level
      * @since 2.64
      */
     @GioVersion2_64
-    public fun connectLowMemoryWarning(
+    public fun onLowMemoryWarning(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (level: MemoryMonitorWarningLevel) -> Unit,
     ): ULong = g_signal_connect_data(
-        gioMemoryMonitorPointer.reinterpret(),
+        gioMemoryMonitorPointer,
         "low-memory-warning",
-        connectLowMemoryWarningFunc.reinterpret(),
+        onLowMemoryWarningFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -143,7 +143,7 @@ public interface MemoryMonitor :
     }
 }
 
-private val connectLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarningLevel) -> Unit>> =
+private val onLowMemoryWarningFunc: CPointer<CFunction<(GMemoryMonitorWarningLevel) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             level: GMemoryMonitorWarningLevel,

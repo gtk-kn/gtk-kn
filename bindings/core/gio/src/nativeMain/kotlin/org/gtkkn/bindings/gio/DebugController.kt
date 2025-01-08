@@ -62,7 +62,7 @@ public interface DebugController :
          * @return true if debug output should be exposed, false otherwise
          * @since 2.72
          */
-        get() = g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
+        get() = g_debug_controller_get_debug_enabled(gioDebugControllerPointer).asBoolean()
 
         /**
          * Set the value of #GDebugController:debug-enabled.
@@ -71,9 +71,7 @@ public interface DebugController :
          * @since 2.72
          */
         @GioVersion2_72
-        set(
-            debugEnabled
-        ) = g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
+        set(debugEnabled) = g_debug_controller_set_debug_enabled(gioDebugControllerPointer, debugEnabled.asGBoolean())
 
     /**
      * Get the value of #GDebugController:debug-enabled.
@@ -82,8 +80,7 @@ public interface DebugController :
      * @since 2.72
      */
     @GioVersion2_72
-    public fun getDebugEnabled(): Boolean =
-        g_debug_controller_get_debug_enabled(gioDebugControllerPointer.reinterpret()).asBoolean()
+    public fun getDebugEnabled(): Boolean = g_debug_controller_get_debug_enabled(gioDebugControllerPointer).asBoolean()
 
     /**
      * Set the value of #GDebugController:debug-enabled.
@@ -93,7 +90,7 @@ public interface DebugController :
      */
     @GioVersion2_72
     public fun setDebugEnabled(debugEnabled: Boolean): Unit =
-        g_debug_controller_set_debug_enabled(gioDebugControllerPointer.reinterpret(), debugEnabled.asGBoolean())
+        g_debug_controller_set_debug_enabled(gioDebugControllerPointer, debugEnabled.asGBoolean())
 
     private data class Wrapper(private val pointer: CPointer<GDebugController>) : DebugController {
         override val gioDebugControllerPointer: CPointer<GDebugController> = pointer

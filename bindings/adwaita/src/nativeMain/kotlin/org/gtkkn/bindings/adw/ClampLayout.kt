@@ -67,7 +67,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          *
          * @return the maximum size to allocate to the children
          */
-        get() = adw_clamp_layout_get_maximum_size(adwClampLayoutPointer.reinterpret())
+        get() = adw_clamp_layout_get_maximum_size(adwClampLayoutPointer)
 
         /**
          * Sets the maximum size allocated to the children.
@@ -76,7 +76,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          *
          * @param maximumSize the maximum size
          */
-        set(maximumSize) = adw_clamp_layout_set_maximum_size(adwClampLayoutPointer.reinterpret(), maximumSize)
+        set(maximumSize) = adw_clamp_layout_set_maximum_size(adwClampLayoutPointer, maximumSize)
 
     /**
      * The size above which the children are clamped.
@@ -100,7 +100,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          *
          * @return the size above which the children are clamped
          */
-        get() = adw_clamp_layout_get_tightening_threshold(adwClampLayoutPointer.reinterpret())
+        get() = adw_clamp_layout_get_tightening_threshold(adwClampLayoutPointer)
 
         /**
          * Sets the size above which the children are clamped.
@@ -120,9 +120,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          *
          * @param tighteningThreshold the tightening threshold
          */
-        set(
-            tighteningThreshold
-        ) = adw_clamp_layout_set_tightening_threshold(adwClampLayoutPointer.reinterpret(), tighteningThreshold)
+        set(tighteningThreshold) = adw_clamp_layout_set_tightening_threshold(adwClampLayoutPointer, tighteningThreshold)
 
     /**
      * The length unit for maximum size and tightening threshold.
@@ -139,7 +137,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          * @return the length unit
          * @since 1.4
          */
-        get() = adw_clamp_layout_get_unit(adwClampLayoutPointer.reinterpret()).run {
+        get() = adw_clamp_layout_get_unit(adwClampLayoutPointer).run {
             LengthUnit.fromNativeValue(this)
         }
 
@@ -152,7 +150,7 @@ public class ClampLayout(pointer: CPointer<AdwClampLayout>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(unit) = adw_clamp_layout_set_unit(adwClampLayoutPointer.reinterpret(), unit.nativeValue)
+        set(unit) = adw_clamp_layout_set_unit(adwClampLayoutPointer, unit.nativeValue)
 
     /**
      * Creates a new `AdwClampLayout`.

@@ -25,22 +25,21 @@ import kotlin.Unit
 public open class FontFace(pointer: CPointer<cairo_font_face_t>) : KGTyped {
     public val gPointer: CPointer<cairo_font_face_t> = pointer
 
-    public open fun destroy(): Unit = cairo_font_face_destroy(gPointer.reinterpret())
+    public open fun destroy(): Unit = cairo_font_face_destroy(gPointer)
 
-    public open fun status(): Status = cairo_font_face_status(gPointer.reinterpret()).run {
+    public open fun status(): Status = cairo_font_face_status(gPointer).run {
         Status.fromNativeValue(this)
     }
 
-    public open fun getFontType(): FontType = cairo_font_face_get_type(gPointer.reinterpret()).run {
+    public open fun getFontType(): FontType = cairo_font_face_get_type(gPointer).run {
         FontType.fromNativeValue(this)
     }
 
-    public open fun reference(): FontFace = cairo_font_face_reference(gPointer.reinterpret())!!.run {
+    public open fun reference(): FontFace = cairo_font_face_reference(gPointer)!!.run {
         FontFace(reinterpret())
     }
 
-    public open fun getUserData(key: UserDataKey): gpointer =
-        cairo_font_face_get_user_data(gPointer.reinterpret(), key.gPointer.reinterpret())!!
+    public open fun getUserData(key: UserDataKey): gpointer = cairo_font_face_get_user_data(gPointer, key.gPointer)!!
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =

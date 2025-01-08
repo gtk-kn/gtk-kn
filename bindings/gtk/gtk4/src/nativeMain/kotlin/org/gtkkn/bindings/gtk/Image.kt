@@ -121,7 +121,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @return a `GIcon`
          */
-        get() = gtk_image_get_gicon(gtkImagePointer.reinterpret())?.run {
+        get() = gtk_image_get_gicon(gtkImagePointer)?.run {
             Icon.wrap(reinterpret())
         }
 
@@ -141,7 +141,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @return the icon name
          */
-        get() = gtk_image_get_icon_name(gtkImagePointer.reinterpret())?.toKString()
+        get() = gtk_image_get_icon_name(gtkImagePointer)?.toKString()
 
     /**
      * The symbolic size to display icons at.
@@ -152,7 +152,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @return the image size used by icons
          */
-        get() = gtk_image_get_icon_size(gtkImagePointer.reinterpret()).run {
+        get() = gtk_image_get_icon_size(gtkImagePointer).run {
             IconSize.fromNativeValue(this)
         }
 
@@ -161,7 +161,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @param iconSize the new icon size
          */
-        set(iconSize) = gtk_image_set_icon_size(gtkImagePointer.reinterpret(), iconSize.nativeValue)
+        set(iconSize) = gtk_image_set_icon_size(gtkImagePointer, iconSize.nativeValue)
 
     /**
      * The `GdkPaintable` to display.
@@ -177,7 +177,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @return the displayed paintable
          */
-        get() = gtk_image_get_paintable(gtkImagePointer.reinterpret())?.run {
+        get() = gtk_image_get_paintable(gtkImagePointer)?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -194,7 +194,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @return the pixel size used for named icons.
          */
-        get() = gtk_image_get_pixel_size(gtkImagePointer.reinterpret())
+        get() = gtk_image_get_pixel_size(gtkImagePointer)
 
         /**
          * Sets the pixel size to use for named icons.
@@ -204,7 +204,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @param pixelSize the new pixel size
          */
-        set(pixelSize) = gtk_image_set_pixel_size(gtkImagePointer.reinterpret(), pixelSize)
+        set(pixelSize) = gtk_image_set_pixel_size(gtkImagePointer, pixelSize)
 
     /**
      * The representation being used for image data.
@@ -219,7 +219,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          *
          * @return image representation being used
          */
-        get() = gtk_image_get_storage_type(gtkImagePointer.reinterpret()).run {
+        get() = gtk_image_get_storage_type(gtkImagePointer).run {
             ImageType.fromNativeValue(this)
         }
 
@@ -310,12 +310,12 @@ public open class Image(pointer: CPointer<GtkImage>) :
      */
     public constructor(
         pixbuf: Pixbuf? = null,
-    ) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkPixbufPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_image_new_from_pixbuf(pixbuf?.gdkPixbufPointer)!!.reinterpret())
 
     /**
      * Resets the image to be empty.
      */
-    public open fun clear(): Unit = gtk_image_clear(gtkImagePointer.reinterpret())
+    public open fun clear(): Unit = gtk_image_clear(gtkImagePointer)
 
     /**
      * Sets a `GtkImage` to show a file.
@@ -324,8 +324,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      *
      * @param filename a filename
      */
-    public open fun setFromFile(filename: String? = null): Unit =
-        gtk_image_set_from_file(gtkImagePointer.reinterpret(), filename)
+    public open fun setFromFile(filename: String? = null): Unit = gtk_image_set_from_file(gtkImagePointer, filename)
 
     /**
      * Sets a `GtkImage` to show a `GIcon`.
@@ -334,8 +333,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      *
      * @param icon an icon
      */
-    public open fun setFromGicon(icon: Icon): Unit =
-        gtk_image_set_from_gicon(gtkImagePointer.reinterpret(), icon.gioIconPointer)
+    public open fun setFromGicon(icon: Icon): Unit = gtk_image_set_from_gicon(gtkImagePointer, icon.gioIconPointer)
 
     /**
      * Sets a `GtkImage` to show a named icon.
@@ -345,7 +343,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      * @param iconName an icon name
      */
     public open fun setFromIconName(iconName: String? = null): Unit =
-        gtk_image_set_from_icon_name(gtkImagePointer.reinterpret(), iconName)
+        gtk_image_set_from_icon_name(gtkImagePointer, iconName)
 
     /**
      * Sets a `GtkImage` to show a `GdkPaintable`.
@@ -355,7 +353,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      * @param paintable a `GdkPaintable`
      */
     public open fun setFromPaintable(paintable: Paintable? = null): Unit =
-        gtk_image_set_from_paintable(gtkImagePointer.reinterpret(), paintable?.gdkPaintablePointer)
+        gtk_image_set_from_paintable(gtkImagePointer, paintable?.gdkPaintablePointer)
 
     /**
      * Sets a `GtkImage` to show a `GdkPixbuf`.
@@ -369,7 +367,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      * @param pixbuf a `GdkPixbuf` or `NULL`
      */
     public open fun setFromPixbuf(pixbuf: Pixbuf? = null): Unit =
-        gtk_image_set_from_pixbuf(gtkImagePointer.reinterpret(), pixbuf?.gdkPixbufPointer?.reinterpret())
+        gtk_image_set_from_pixbuf(gtkImagePointer, pixbuf?.gdkPixbufPointer)
 
     /**
      * Sets a `GtkImage` to show a resource.
@@ -379,7 +377,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
      * @param resourcePath a resource path
      */
     public open fun setFromResource(resourcePath: String? = null): Unit =
-        gtk_image_set_from_resource(gtkImagePointer.reinterpret(), resourcePath)
+        gtk_image_set_from_resource(gtkImagePointer, resourcePath)
 
     public companion object : TypeCompanion<Image> {
         override val type: GeneratedClassKGType<Image> =

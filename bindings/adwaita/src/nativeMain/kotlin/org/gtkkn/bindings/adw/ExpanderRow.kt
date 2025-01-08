@@ -106,7 +106,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          *
          * @return whether the expansion of @self is enabled.
          */
-        get() = adw_expander_row_get_enable_expansion(adwExpanderRowPointer.reinterpret()).asBoolean()
+        get() = adw_expander_row_get_enable_expansion(adwExpanderRowPointer).asBoolean()
 
         /**
          * Sets whether the expansion of @self is enabled.
@@ -115,7 +115,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          */
         set(
             enableExpansion
-        ) = adw_expander_row_set_enable_expansion(adwExpanderRowPointer.reinterpret(), enableExpansion.asGBoolean())
+        ) = adw_expander_row_set_enable_expansion(adwExpanderRowPointer, enableExpansion.asGBoolean())
 
     /**
      * Whether the row is expanded.
@@ -126,14 +126,14 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          *
          * @return whether @self is expanded
          */
-        get() = adw_expander_row_get_expanded(adwExpanderRowPointer.reinterpret()).asBoolean()
+        get() = adw_expander_row_get_expanded(adwExpanderRowPointer).asBoolean()
 
         /**
          * Sets whether @self is expanded.
          *
          * @param expanded whether to expand the row
          */
-        set(expanded) = adw_expander_row_set_expanded(adwExpanderRowPointer.reinterpret(), expanded.asGBoolean())
+        set(expanded) = adw_expander_row_set_expanded(adwExpanderRowPointer, expanded.asGBoolean())
 
     /**
      * The icon name for this row.
@@ -144,14 +144,14 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          *
          * @return the icon name for @self
          */
-        get() = adw_expander_row_get_icon_name(adwExpanderRowPointer.reinterpret())?.toKString()
+        get() = adw_expander_row_get_icon_name(adwExpanderRowPointer)?.toKString()
 
         /**
          * Sets the icon name for @self.
          *
          * @param iconName the icon name
          */
-        set(iconName) = adw_expander_row_set_icon_name(adwExpanderRowPointer.reinterpret(), iconName)
+        set(iconName) = adw_expander_row_set_icon_name(adwExpanderRowPointer, iconName)
 
     /**
      * Whether the switch enabling the expansion is visible.
@@ -162,7 +162,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          *
          * @return whether the switch enabling the expansion is visible
          */
-        get() = adw_expander_row_get_show_enable_switch(adwExpanderRowPointer.reinterpret()).asBoolean()
+        get() = adw_expander_row_get_show_enable_switch(adwExpanderRowPointer).asBoolean()
 
         /**
          * Sets whether the switch enabling the expansion of @self is visible.
@@ -171,7 +171,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          */
         set(
             showEnableSwitch
-        ) = adw_expander_row_set_show_enable_switch(adwExpanderRowPointer.reinterpret(), showEnableSwitch.asGBoolean())
+        ) = adw_expander_row_set_show_enable_switch(adwExpanderRowPointer, showEnableSwitch.asGBoolean())
 
     /**
      * The subtitle for this row.
@@ -185,8 +185,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          *
          * @return the subtitle for @self
          */
-        get() = adw_expander_row_get_subtitle(adwExpanderRowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_expander_row_get_subtitle(adwExpanderRowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the subtitle for @self.
@@ -196,7 +195,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
          *
          * @param subtitle the subtitle
          */
-        set(subtitle) = adw_expander_row_set_subtitle(adwExpanderRowPointer.reinterpret(), subtitle)
+        set(subtitle) = adw_expander_row_set_subtitle(adwExpanderRowPointer, subtitle)
 
     /**
      * Creates a new `AdwExpanderRow`.
@@ -211,7 +210,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      * @param widget a widget
      */
     public open fun addAction(widget: Widget): Unit =
-        adw_expander_row_add_action(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_expander_row_add_action(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a prefix widget to @self.
@@ -219,7 +218,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      * @param widget a widget
      */
     public open fun addPrefix(widget: Widget): Unit =
-        adw_expander_row_add_prefix(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_expander_row_add_prefix(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a widget to @self.
@@ -229,7 +228,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      * @param child a widget
      */
     public open fun addRow(child: Widget): Unit =
-        adw_expander_row_add_row(adwExpanderRowPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        adw_expander_row_add_row(adwExpanderRowPointer, child.gtkWidgetPointer)
 
     /**
      * Adds an suffix widget to @self.
@@ -239,7 +238,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      */
     @AdwVersion1_4
     public open fun addSuffix(widget: Widget): Unit =
-        adw_expander_row_add_suffix(adwExpanderRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_expander_row_add_suffix(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Gets the number of lines at the end of which the subtitle label will be
@@ -250,8 +249,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun getSubtitleLines(): Boolean =
-        adw_expander_row_get_subtitle_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
+    public open fun getSubtitleLines(): Boolean = adw_expander_row_get_subtitle_lines(adwExpanderRowPointer).asBoolean()
 
     /**
      * Gets the number of lines at the end of which the title label will be
@@ -262,11 +260,9 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      * @since 1.3
      */
     @AdwVersion1_3
-    public open fun getTitleLines(): Boolean =
-        adw_expander_row_get_title_lines(adwExpanderRowPointer.reinterpret()).asBoolean()
+    public open fun getTitleLines(): Boolean = adw_expander_row_get_title_lines(adwExpanderRowPointer).asBoolean()
 
-    public open fun remove(child: Widget): Unit =
-        adw_expander_row_remove(adwExpanderRowPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = adw_expander_row_remove(adwExpanderRowPointer, child.gtkWidgetPointer)
 
     /**
      * Sets the number of lines at the end of which the subtitle label will be
@@ -279,7 +275,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      */
     @AdwVersion1_3
     public open fun setSubtitleLines(subtitleLines: gint): Unit =
-        adw_expander_row_set_subtitle_lines(adwExpanderRowPointer.reinterpret(), subtitleLines)
+        adw_expander_row_set_subtitle_lines(adwExpanderRowPointer, subtitleLines)
 
     /**
      * Sets the number of lines at the end of which the title label will be
@@ -292,7 +288,7 @@ public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
      */
     @AdwVersion1_3
     public open fun setTitleLines(titleLines: gint): Unit =
-        adw_expander_row_set_title_lines(adwExpanderRowPointer.reinterpret(), titleLines)
+        adw_expander_row_set_title_lines(adwExpanderRowPointer, titleLines)
 
     public companion object : TypeCompanion<ExpanderRow> {
         override val type: GeneratedClassKGType<ExpanderRow> =

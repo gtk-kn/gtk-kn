@@ -76,12 +76,7 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
     public constructor(
         msg: Message,
         baseStream: InputStream,
-    ) : this(
-        soup_multipart_input_stream_new(
-            msg.soupMessagePointer.reinterpret(),
-            baseStream.gioInputStreamPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(soup_multipart_input_stream_new(msg.soupMessagePointer, baseStream.gioInputStreamPointer)!!.reinterpret())
 
     /**
      * Obtains the headers for the part currently being processed.
@@ -99,8 +94,8 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      *   null if the headers failed to parse.
      */
     public fun getHeaders(): MessageHeaders? =
-        soup_multipart_input_stream_get_headers(soupMultipartInputStreamPointer.reinterpret())?.run {
-            MessageHeaders(reinterpret())
+        soup_multipart_input_stream_get_headers(soupMultipartInputStreamPointer)?.run {
+            MessageHeaders(this)
         }
 
     /**
@@ -123,11 +118,11 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
     public fun nextPart(cancellable: Cancellable? = null): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_multipart_input_stream_next_part(
-            soupMultipartInputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            soupMultipartInputStreamPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            InputStream(reinterpret())
+            InputStream(this)
         }
 
         return if (gError.pointed != null) {
@@ -148,9 +143,9 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
      */
     public fun nextPartAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         soup_multipart_input_stream_next_part_async(
-            soupMultipartInputStreamPointer.reinterpret(),
+            soupMultipartInputStreamPointer,
             ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -168,11 +163,11 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
     public fun nextPartFinish(result: AsyncResult): Result<InputStream?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_multipart_input_stream_next_part_finish(
-            soupMultipartInputStreamPointer.reinterpret(),
+            soupMultipartInputStreamPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            InputStream(reinterpret())
+            InputStream(this)
         }
 
         return if (gError.pointed != null) {

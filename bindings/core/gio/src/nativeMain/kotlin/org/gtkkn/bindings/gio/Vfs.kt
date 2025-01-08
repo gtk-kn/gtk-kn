@@ -44,10 +44,9 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @return a #GFile.
      *     Free the returned object with g_object_unref().
      */
-    public open fun getFileForPath(path: String): File =
-        g_vfs_get_file_for_path(gioVfsPointer.reinterpret(), path)!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun getFileForPath(path: String): File = g_vfs_get_file_for_path(gioVfsPointer, path)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Gets a #GFile for @uri.
@@ -60,7 +59,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @return a #GFile.
      *     Free the returned object with g_object_unref().
      */
-    public open fun getFileForUri(uri: String): File = g_vfs_get_file_for_uri(gioVfsPointer.reinterpret(), uri)!!.run {
+    public open fun getFileForUri(uri: String): File = g_vfs_get_file_for_uri(gioVfsPointer, uri)!!.run {
         File.wrap(reinterpret())
     }
 
@@ -72,8 +71,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      *     not be freed or modified.
      */
     public open fun getSupportedUriSchemes(): List<String> =
-        g_vfs_get_supported_uri_schemes(gioVfsPointer.reinterpret())?.toKStringList()
-            ?: error("Expected not null string array")
+        g_vfs_get_supported_uri_schemes(gioVfsPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Checks if the VFS is active.
@@ -81,7 +79,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @return true if construction of the @vfs was successful
      *     and it is now active.
      */
-    public open fun isActive(): Boolean = g_vfs_is_active(gioVfsPointer.reinterpret()).asBoolean()
+    public open fun isActive(): Boolean = g_vfs_is_active(gioVfsPointer).asBoolean()
 
     /**
      * This operation never fails, but the returned object might
@@ -92,10 +90,9 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      * @return a #GFile for the given @parse_name.
      *     Free the returned object with g_object_unref().
      */
-    public open fun parseName(parseName: String): File =
-        g_vfs_parse_name(gioVfsPointer.reinterpret(), parseName)!!.run {
-            File.wrap(reinterpret())
-        }
+    public open fun parseName(parseName: String): File = g_vfs_parse_name(gioVfsPointer, parseName)!!.run {
+        File.wrap(reinterpret())
+    }
 
     /**
      * Registers @uri_func and @parse_name_func as the #GFile URI and parse name
@@ -132,7 +129,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
         uriFunc: VfsFileLookupFunc?,
         parseNameFunc: VfsFileLookupFunc?,
     ): Boolean = g_vfs_register_uri_scheme(
-        gioVfsPointer.reinterpret(),
+        gioVfsPointer,
         scheme,
         uriFunc?.let {
             VfsFileLookupFuncFunc.reinterpret()
@@ -163,7 +160,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      */
     @GioVersion2_50
     public open fun unregisterUriScheme(scheme: String): Boolean =
-        g_vfs_unregister_uri_scheme(gioVfsPointer.reinterpret(), scheme).asBoolean()
+        g_vfs_unregister_uri_scheme(gioVfsPointer, scheme).asBoolean()
 
     public companion object : TypeCompanion<Vfs> {
         override val type: GeneratedClassKGType<Vfs> =
@@ -180,7 +177,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
          *     file system #GVfs if no other implementation is available.
          */
         public fun getDefault(): Vfs = g_vfs_get_default()!!.run {
-            Vfs(reinterpret())
+            Vfs(this)
         }
 
         /**
@@ -189,7 +186,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
          * @return a #GVfs.
          */
         public fun getLocal(): Vfs = g_vfs_get_local()!!.run {
-            Vfs(reinterpret())
+            Vfs(this)
         }
 
         /**

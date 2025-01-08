@@ -122,7 +122,7 @@ public open class Binding(pointer: CPointer<GBinding>) :
          * @return the #GBindingFlags used by the #GBinding
          * @since 2.26
          */
-        get() = g_binding_get_flags(gobjectBindingPointer.reinterpret()).run {
+        get() = g_binding_get_flags(gobjectBindingPointer).run {
             BindingFlags(this)
         }
 
@@ -148,8 +148,8 @@ public open class Binding(pointer: CPointer<GBinding>) :
          *     source does not exist any more.
          * @since 2.26
          */
-        get() = g_binding_get_source(gobjectBindingPointer.reinterpret())?.run {
-            Object(reinterpret())
+        get() = g_binding_get_source(gobjectBindingPointer)?.run {
+            Object(this)
         }
 
     /**
@@ -170,8 +170,7 @@ public open class Binding(pointer: CPointer<GBinding>) :
          * @return the name of the source property
          * @since 2.26
          */
-        get() = g_binding_get_source_property(gobjectBindingPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_binding_get_source_property(gobjectBindingPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The #GObject that should be used as the target of the binding
@@ -195,8 +194,8 @@ public open class Binding(pointer: CPointer<GBinding>) :
          *     target does not exist any more.
          * @since 2.26
          */
-        get() = g_binding_get_target(gobjectBindingPointer.reinterpret())?.run {
-            Object(reinterpret())
+        get() = g_binding_get_target(gobjectBindingPointer)?.run {
+            Object(this)
         }
 
     /**
@@ -217,8 +216,7 @@ public open class Binding(pointer: CPointer<GBinding>) :
          * @return the name of the target property
          * @since 2.26
          */
-        get() = g_binding_get_target_property(gobjectBindingPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_binding_get_target_property(gobjectBindingPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the #GObject instance used as the source of the binding.
@@ -232,8 +230,8 @@ public open class Binding(pointer: CPointer<GBinding>) :
      * @since 2.68
      */
     @GObjectVersion2_68
-    public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer.reinterpret())?.run {
-        Object(reinterpret())
+    public open fun dupSource(): Object? = g_binding_dup_source(gobjectBindingPointer)?.run {
+        Object(this)
     }
 
     /**
@@ -248,8 +246,8 @@ public open class Binding(pointer: CPointer<GBinding>) :
      * @since 2.68
      */
     @GObjectVersion2_68
-    public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer.reinterpret())?.run {
-        Object(reinterpret())
+    public open fun dupTarget(): Object? = g_binding_dup_target(gobjectBindingPointer)?.run {
+        Object(this)
     }
 
     /**
@@ -268,7 +266,7 @@ public open class Binding(pointer: CPointer<GBinding>) :
      * @since 2.38
      */
     @GObjectVersion2_38
-    public open fun unbind(): Unit = g_binding_unbind(gobjectBindingPointer.reinterpret())
+    public open fun unbind(): Unit = g_binding_unbind(gobjectBindingPointer)
 
     public companion object : TypeCompanion<Binding> {
         override val type: GeneratedClassKGType<Binding> =

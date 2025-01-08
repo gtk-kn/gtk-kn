@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.pango.PangoAttrFontDesc
@@ -33,7 +32,7 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
      */
     public var desc: FontDescription?
         get() = gPointer.pointed.desc?.run {
-            FontDescription(reinterpret())
+            FontDescription(this)
         }
 
         @UnsafeFieldSetter
@@ -110,8 +109,8 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(desc: FontDescription): Attribute = pango_attr_font_desc_new(desc.gPointer.reinterpret())!!.run {
-            Attribute(reinterpret())
+        public fun new(desc: FontDescription): Attribute = pango_attr_font_desc_new(desc.gPointer)!!.run {
+            Attribute(this)
         }
     }
 }

@@ -47,6 +47,7 @@ import org.gtkkn.native.adw.adw_dialog_set_title
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -150,7 +151,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return whether the dialog can be closed
          * @since 1.5
          */
-        get() = adw_dialog_get_can_close(adwDialogPointer.reinterpret()).asBoolean()
+        get() = adw_dialog_get_can_close(adwDialogPointer).asBoolean()
 
         /**
          * Sets whether @self can be closed.
@@ -164,7 +165,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(canClose) = adw_dialog_set_can_close(adwDialogPointer.reinterpret(), canClose.asGBoolean())
+        set(canClose) = adw_dialog_set_can_close(adwDialogPointer, canClose.asGBoolean())
 
     /**
      * The child widget of the `AdwDialog`.
@@ -179,8 +180,8 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the child widget of @self
          * @since 1.5
          */
-        get() = adw_dialog_get_child(adwDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_dialog_get_child(adwDialogPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -190,7 +191,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(child) = adw_dialog_set_child(adwDialogPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_dialog_set_child(adwDialogPointer, child?.gtkWidgetPointer)
 
     /**
      * The height of the dialog's contents.
@@ -209,7 +210,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the content height
          * @since 1.5
          */
-        get() = adw_dialog_get_content_height(adwDialogPointer.reinterpret())
+        get() = adw_dialog_get_content_height(adwDialogPointer)
 
         /**
          * Sets the height of the dialog's contents.
@@ -222,7 +223,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(contentHeight) = adw_dialog_set_content_height(adwDialogPointer.reinterpret(), contentHeight)
+        set(contentHeight) = adw_dialog_set_content_height(adwDialogPointer, contentHeight)
 
     /**
      * The width of the dialog's contents.
@@ -241,7 +242,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the content width
          * @since 1.5
          */
-        get() = adw_dialog_get_content_width(adwDialogPointer.reinterpret())
+        get() = adw_dialog_get_content_width(adwDialogPointer)
 
         /**
          * Sets the width of the dialog's contents.
@@ -254,7 +255,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(contentWidth) = adw_dialog_set_content_width(adwDialogPointer.reinterpret(), contentWidth)
+        set(contentWidth) = adw_dialog_set_content_width(adwDialogPointer, contentWidth)
 
     /**
      * The current breakpoint.
@@ -269,8 +270,8 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the current breakpoint
          * @since 1.5
          */
-        get() = adw_dialog_get_current_breakpoint(adwDialogPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
+        get() = adw_dialog_get_current_breakpoint(adwDialogPointer)?.run {
+            Breakpoint(this)
         }
 
     /**
@@ -288,8 +289,8 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the default widget
          * @since 1.5
          */
-        get() = adw_dialog_get_default_widget(adwDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_dialog_get_default_widget(adwDialogPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -301,12 +302,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            defaultWidget
-        ) = adw_dialog_set_default_widget(
-            adwDialogPointer.reinterpret(),
-            defaultWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(defaultWidget) = adw_dialog_set_default_widget(adwDialogPointer, defaultWidget?.gtkWidgetPointer)
 
     /**
      * Whether to size content automatically.
@@ -327,7 +323,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return whether to size content automatically
          * @since 1.5
          */
-        get() = adw_dialog_get_follows_content_size(adwDialogPointer.reinterpret()).asBoolean()
+        get() = adw_dialog_get_follows_content_size(adwDialogPointer).asBoolean()
 
         /**
          * Sets whether to size content of @self automatically.
@@ -342,9 +338,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            followsContentSize
-        ) = adw_dialog_set_follows_content_size(adwDialogPointer.reinterpret(), followsContentSize.asGBoolean())
+        set(followsContentSize) = adw_dialog_set_follows_content_size(adwDialogPointer, followsContentSize.asGBoolean())
 
     /**
      * The dialog's presentation mode.
@@ -369,7 +363,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the presentation mode
          * @since 1.5
          */
-        get() = adw_dialog_get_presentation_mode(adwDialogPointer.reinterpret()).run {
+        get() = adw_dialog_get_presentation_mode(adwDialogPointer).run {
             DialogPresentationMode.fromNativeValue(this)
         }
 
@@ -390,9 +384,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            presentationMode
-        ) = adw_dialog_set_presentation_mode(adwDialogPointer.reinterpret(), presentationMode.nativeValue)
+        set(presentationMode) = adw_dialog_set_presentation_mode(adwDialogPointer, presentationMode.nativeValue)
 
     /**
      * The title of the dialog.
@@ -407,7 +399,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @return the title
          * @since 1.5
          */
-        get() = adw_dialog_get_title(adwDialogPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = adw_dialog_get_title(adwDialogPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title of @self.
@@ -416,7 +408,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(title) = adw_dialog_set_title(adwDialogPointer.reinterpret(), title)
+        set(title) = adw_dialog_set_title(adwDialogPointer, title)
 
     /**
      * Creates a new `AdwDialog`.
@@ -434,7 +426,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      */
     @AdwVersion1_5
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_dialog_add_breakpoint(adwDialogPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
+        adw_dialog_add_breakpoint(adwDialogPointer, breakpoint.adwBreakpointPointer)
 
     /**
      * Attempts to close @self.
@@ -448,7 +440,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun close(): Boolean = adw_dialog_close(adwDialogPointer.reinterpret()).asBoolean()
+    public open fun close(): Boolean = adw_dialog_close(adwDialogPointer).asBoolean()
 
     /**
      * Closes @self.
@@ -459,7 +451,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun forceClose(): Unit = adw_dialog_force_close(adwDialogPointer.reinterpret())
+    public open fun forceClose(): Unit = adw_dialog_force_close(adwDialogPointer)
 
     /**
      * Gets the focus widget for @self.
@@ -468,8 +460,8 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun getFocus(): Widget? = adw_dialog_get_focus(adwDialogPointer.reinterpret())?.run {
-        Widget(reinterpret())
+    public open fun getFocus(): Widget? = adw_dialog_get_focus(adwDialogPointer)?.run {
+        Widget(this)
     }
 
     /**
@@ -485,7 +477,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      */
     @AdwVersion1_5
     public open fun present(parent: Widget? = null): Unit =
-        adw_dialog_present(adwDialogPointer.reinterpret(), parent?.gtkWidgetPointer?.reinterpret())
+        adw_dialog_present(adwDialogPointer, parent?.gtkWidgetPointer)
 
     /**
      * Sets the focus widget for @self.
@@ -502,45 +494,65 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      */
     @AdwVersion1_5
     public open fun setFocus(focus: Widget? = null): Unit =
-        adw_dialog_set_focus(adwDialogPointer.reinterpret(), focus?.gtkWidgetPointer?.reinterpret())
+        adw_dialog_set_focus(adwDialogPointer, focus?.gtkWidgetPointer)
 
     /**
      * Emitted when the close button or shortcut is used, or
      * [method@Dialog.close] is called while [property@Dialog:can-close] is set to
      * `FALSE`.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun connectCloseAttempt(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onCloseAttempt(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "close-attempt",
-            connectCloseAttemptFunc.reinterpret(),
+            onCloseAttemptFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "close-attempt" signal. See [onCloseAttempt].
+     *
+     * @since 1.5
+     */
+    @AdwVersion1_5
+    public fun emitCloseAttempt() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "close-attempt")
+    }
+
+    /**
      * Emitted when the dialog is successfully closed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "closed",
-            connectClosedFunc.reinterpret(),
+            onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "closed" signal. See [onClosed].
+     *
+     * @since 1.5
+     */
+    @AdwVersion1_5
+    public fun emitClosed() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+    }
 
     public companion object : TypeCompanion<Dialog> {
         override val type: GeneratedClassKGType<Dialog> =
@@ -559,7 +571,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
     }
 }
 
-private val connectCloseAttemptFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCloseAttemptFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -567,7 +579,7 @@ private val connectCloseAttemptFunc: CPointer<CFunction<() -> Unit>> = staticCFu
 }
     .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

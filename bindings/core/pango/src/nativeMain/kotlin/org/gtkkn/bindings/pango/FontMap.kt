@@ -64,7 +64,7 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      * @since 1.34
      */
     @PangoVersion1_34
-    public open fun changed(): Unit = pango_font_map_changed(pangoFontMapPointer.reinterpret())
+    public open fun changed(): Unit = pango_font_map_changed(pangoFontMapPointer)
 
     /**
      * Creates a `PangoContext` connected to @fontmap.
@@ -82,8 +82,8 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      * @since 1.22
      */
     @PangoVersion1_22
-    public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer.reinterpret())!!.run {
-        Context(reinterpret())
+    public open fun createContext(): Context = pango_font_map_create_context(pangoFontMapPointer)!!.run {
+        Context(this)
     }
 
     /**
@@ -94,10 +94,9 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      * @since 1.46
      */
     @PangoVersion1_46
-    public open fun getFamily(name: String): FontFamily =
-        pango_font_map_get_family(pangoFontMapPointer.reinterpret(), name)!!.run {
-            FontFamily(reinterpret())
-        }
+    public open fun getFamily(name: String): FontFamily = pango_font_map_get_family(pangoFontMapPointer, name)!!.run {
+        FontFamily(this)
+    }
 
     /**
      * Returns the current serial number of @fontmap.
@@ -117,7 +116,7 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      * @since 1.32.4
      */
     @PangoVersion1_32_4
-    public open fun getSerial(): guint = pango_font_map_get_serial(pangoFontMapPointer.reinterpret())
+    public open fun getSerial(): guint = pango_font_map_get_serial(pangoFontMapPointer)
 
     /**
      * Load the font in the fontmap that is the closest match for @desc.
@@ -127,13 +126,10 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      * @return the newly allocated `PangoFont`
      *   loaded, or null if no font matched.
      */
-    public open fun loadFont(context: Context, desc: FontDescription): Font? = pango_font_map_load_font(
-        pangoFontMapPointer.reinterpret(),
-        context.pangoContextPointer.reinterpret(),
-        desc.gPointer.reinterpret()
-    )?.run {
-        Font(reinterpret())
-    }
+    public open fun loadFont(context: Context, desc: FontDescription): Font? =
+        pango_font_map_load_font(pangoFontMapPointer, context.pangoContextPointer, desc.gPointer)?.run {
+            Font(this)
+        }
 
     /**
      * Load a set of fonts in the fontmap that can be used to render
@@ -147,12 +143,12 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
      */
     public open fun loadFontset(context: Context, desc: FontDescription, language: Language): Fontset? =
         pango_font_map_load_fontset(
-            pangoFontMapPointer.reinterpret(),
-            context.pangoContextPointer.reinterpret(),
-            desc.gPointer.reinterpret(),
-            language.gPointer.reinterpret()
+            pangoFontMapPointer,
+            context.pangoContextPointer,
+            desc.gPointer,
+            language.gPointer
         )?.run {
-            Fontset(reinterpret())
+            Fontset(this)
         }
 
     /**
@@ -175,13 +171,13 @@ public open class FontMap(pointer: CPointer<PangoFontMap>) :
         context: Context? = null,
         variations: String? = null,
     ): Font = pango_font_map_reload_font(
-        pangoFontMapPointer.reinterpret(),
-        font.pangoFontPointer.reinterpret(),
+        pangoFontMapPointer,
+        font.pangoFontPointer,
         scale,
-        context?.pangoContextPointer?.reinterpret(),
+        context?.pangoContextPointer,
         variations
     )!!.run {
-        Font(reinterpret())
+        Font(this)
     }
 
     public companion object : TypeCompanion<FontMap> {

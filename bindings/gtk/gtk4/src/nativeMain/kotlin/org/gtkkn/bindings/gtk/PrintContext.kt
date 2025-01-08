@@ -115,8 +115,8 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      * @return a new Pango context for @context
      */
     public open fun createPangoContext(): PangoContext =
-        gtk_print_context_create_pango_context(gtkPrintContextPointer.reinterpret())!!.run {
-            PangoContext(reinterpret())
+        gtk_print_context_create_pango_context(gtkPrintContextPointer)!!.run {
+            PangoContext(this)
         }
 
     /**
@@ -125,10 +125,9 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return a new Pango layout for @context
      */
-    public open fun createPangoLayout(): Layout =
-        gtk_print_context_create_pango_layout(gtkPrintContextPointer.reinterpret())!!.run {
-            Layout(reinterpret())
-        }
+    public open fun createPangoLayout(): Layout = gtk_print_context_create_pango_layout(gtkPrintContextPointer)!!.run {
+        Layout(this)
+    }
 
     /**
      * Obtains the cairo context that is associated with the
@@ -137,8 +136,8 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      * @return the cairo context of @context
      */
     public open fun getCairoContext(): CairoContext =
-        gtk_print_context_get_cairo_context(gtkPrintContextPointer.reinterpret())!!.run {
-            CairoContext(reinterpret())
+        gtk_print_context_get_cairo_context(gtkPrintContextPointer)!!.run {
+            CairoContext(this)
         }
 
     /**
@@ -147,7 +146,7 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return the horizontal resolution of @context
      */
-    public open fun getDpiX(): gdouble = gtk_print_context_get_dpi_x(gtkPrintContextPointer.reinterpret())
+    public open fun getDpiX(): gdouble = gtk_print_context_get_dpi_x(gtkPrintContextPointer)
 
     /**
      * Obtains the vertical resolution of the `GtkPrintContext`,
@@ -155,14 +154,14 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return the vertical resolution of @context
      */
-    public open fun getDpiY(): gdouble = gtk_print_context_get_dpi_y(gtkPrintContextPointer.reinterpret())
+    public open fun getDpiY(): gdouble = gtk_print_context_get_dpi_y(gtkPrintContextPointer)
 
     /**
      * Obtains the height of the `GtkPrintContext`, in pixels.
      *
      * @return the height of @context
      */
-    public open fun getHeight(): gdouble = gtk_print_context_get_height(gtkPrintContextPointer.reinterpret())
+    public open fun getHeight(): gdouble = gtk_print_context_get_height(gtkPrintContextPointer)
 
     /**
      * Obtains the `GtkPageSetup` that determines the page
@@ -170,10 +169,9 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return the page setup of @context
      */
-    public open fun getPageSetup(): PageSetup =
-        gtk_print_context_get_page_setup(gtkPrintContextPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
-        }
+    public open fun getPageSetup(): PageSetup = gtk_print_context_get_page_setup(gtkPrintContextPointer)!!.run {
+        PageSetup(this)
+    }
 
     /**
      * Returns a `PangoFontMap` that is suitable for use
@@ -181,17 +179,16 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      *
      * @return the font map of @context
      */
-    public open fun getPangoFontmap(): FontMap =
-        gtk_print_context_get_pango_fontmap(gtkPrintContextPointer.reinterpret())!!.run {
-            FontMap(reinterpret())
-        }
+    public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer)!!.run {
+        FontMap(this)
+    }
 
     /**
      * Obtains the width of the `GtkPrintContext`, in pixels.
      *
      * @return the width of @context
      */
-    public open fun getWidth(): gdouble = gtk_print_context_get_width(gtkPrintContextPointer.reinterpret())
+    public open fun getWidth(): gdouble = gtk_print_context_get_width(gtkPrintContextPointer)
 
     /**
      * Sets a new cairo context on a print context.
@@ -206,7 +203,7 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      * @param dpiY the vertical resolution to use with @cr
      */
     public open fun setCairoContext(cr: CairoContext, dpiX: gdouble, dpiY: gdouble): Unit =
-        gtk_print_context_set_cairo_context(gtkPrintContextPointer.reinterpret(), cr.gPointer.reinterpret(), dpiX, dpiY)
+        gtk_print_context_set_cairo_context(gtkPrintContextPointer, cr.gPointer, dpiX, dpiY)
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =

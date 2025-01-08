@@ -83,7 +83,7 @@ public interface Accessible :
          *
          * @return the accessible role
          */
-        get() = gtk_accessible_get_accessible_role(gtkAccessiblePointer.reinterpret()).run {
+        get() = gtk_accessible_get_accessible_role(gtkAccessiblePointer).run {
             AccessibleRole.fromNativeValue(this)
         }
 
@@ -104,7 +104,7 @@ public interface Accessible :
      */
     @GtkVersion4_14
     public fun announce(message: String, priority: AccessibleAnnouncementPriority): Unit =
-        gtk_accessible_announce(gtkAccessiblePointer.reinterpret(), message, priority.nativeValue)
+        gtk_accessible_announce(gtkAccessiblePointer, message, priority.nativeValue)
 
     /**
      * Retrieves the accessible parent for an accessible object.
@@ -115,20 +115,18 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getAccessibleParent(): Accessible? =
-        gtk_accessible_get_accessible_parent(gtkAccessiblePointer.reinterpret())?.run {
-            Accessible.wrap(reinterpret())
-        }
+    public fun getAccessibleParent(): Accessible? = gtk_accessible_get_accessible_parent(gtkAccessiblePointer)?.run {
+        Accessible.wrap(reinterpret())
+    }
 
     /**
      * Retrieves the accessible role of an accessible object.
      *
      * @return the accessible role
      */
-    public fun getAccessibleRole(): AccessibleRole =
-        gtk_accessible_get_accessible_role(gtkAccessiblePointer.reinterpret()).run {
-            AccessibleRole.fromNativeValue(this)
-        }
+    public fun getAccessibleRole(): AccessibleRole = gtk_accessible_get_accessible_role(gtkAccessiblePointer).run {
+        AccessibleRole.fromNativeValue(this)
+    }
 
     /**
      * Retrieves the accessible implementation for the given `GtkAccessible`.
@@ -137,8 +135,8 @@ public interface Accessible :
      * @since 4.10
      */
     @GtkVersion4_10
-    public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer.reinterpret())!!.run {
-        AtContext(reinterpret())
+    public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer)!!.run {
+        AtContext(this)
     }
 
     /**
@@ -149,7 +147,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getFirstAccessibleChild(): Accessible? =
-        gtk_accessible_get_first_accessible_child(gtkAccessiblePointer.reinterpret())?.run {
+        gtk_accessible_get_first_accessible_child(gtkAccessiblePointer)?.run {
             Accessible.wrap(reinterpret())
         }
 
@@ -161,7 +159,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getNextAccessibleSibling(): Accessible? =
-        gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer.reinterpret())?.run {
+        gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer)?.run {
             Accessible.wrap(reinterpret())
         }
 
@@ -180,7 +178,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getPlatformState(state: AccessiblePlatformState): Boolean =
-        gtk_accessible_get_platform_state(gtkAccessiblePointer.reinterpret(), state.nativeValue).asBoolean()
+        gtk_accessible_get_platform_state(gtkAccessiblePointer, state.nativeValue).asBoolean()
 
     /**
      * Resets the accessible @property to its default value.
@@ -188,7 +186,7 @@ public interface Accessible :
      * @param property a `GtkAccessibleProperty`
      */
     public fun resetProperty(`property`: AccessibleProperty): Unit =
-        gtk_accessible_reset_property(gtkAccessiblePointer.reinterpret(), `property`.nativeValue)
+        gtk_accessible_reset_property(gtkAccessiblePointer, `property`.nativeValue)
 
     /**
      * Resets the accessible @relation to its default value.
@@ -196,7 +194,7 @@ public interface Accessible :
      * @param relation a `GtkAccessibleRelation`
      */
     public fun resetRelation(relation: AccessibleRelation): Unit =
-        gtk_accessible_reset_relation(gtkAccessiblePointer.reinterpret(), relation.nativeValue)
+        gtk_accessible_reset_relation(gtkAccessiblePointer, relation.nativeValue)
 
     /**
      * Resets the accessible @state to its default value.
@@ -204,7 +202,7 @@ public interface Accessible :
      * @param state a `GtkAccessibleState`
      */
     public fun resetState(state: AccessibleState): Unit =
-        gtk_accessible_reset_state(gtkAccessiblePointer.reinterpret(), state.nativeValue)
+        gtk_accessible_reset_state(gtkAccessiblePointer, state.nativeValue)
 
     /**
      * Sets the parent and sibling of an accessible object.
@@ -224,7 +222,7 @@ public interface Accessible :
     @GtkVersion4_10
     public fun setAccessibleParent(parent: Accessible? = null, nextSibling: Accessible? = null): Unit =
         gtk_accessible_set_accessible_parent(
-            gtkAccessiblePointer.reinterpret(),
+            gtkAccessiblePointer,
             parent?.gtkAccessiblePointer,
             nextSibling?.gtkAccessiblePointer
         )
@@ -240,10 +238,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun updateNextAccessibleSibling(newSibling: Accessible? = null): Unit =
-        gtk_accessible_update_next_accessible_sibling(
-            gtkAccessiblePointer.reinterpret(),
-            newSibling?.gtkAccessiblePointer
-        )
+        gtk_accessible_update_next_accessible_sibling(gtkAccessiblePointer, newSibling?.gtkAccessiblePointer)
 
     private data class Wrapper(private val pointer: CPointer<GtkAccessible>) : Accessible {
         override val gtkAccessiblePointer: CPointer<GtkAccessible> = pointer

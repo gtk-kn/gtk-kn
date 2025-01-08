@@ -95,7 +95,7 @@ public interface NetworkMonitor :
          * @return the network connectivity state
          * @since 2.44
          */
-        get() = g_network_monitor_get_connectivity(gioNetworkMonitorPointer.reinterpret()).run {
+        get() = g_network_monitor_get_connectivity(gioNetworkMonitorPointer).run {
             NetworkConnectivity.fromNativeValue(this)
         }
 
@@ -131,7 +131,7 @@ public interface NetworkMonitor :
          * @return whether the network is available
          * @since 2.32
          */
-        get() = g_network_monitor_get_network_available(gioNetworkMonitorPointer.reinterpret()).asBoolean()
+        get() = g_network_monitor_get_network_available(gioNetworkMonitorPointer).asBoolean()
 
     /**
      * Whether the network is considered metered.
@@ -167,7 +167,7 @@ public interface NetworkMonitor :
          * @return whether the connection is metered
          * @since 2.46
          */
-        get() = g_network_monitor_get_network_metered(gioNetworkMonitorPointer.reinterpret()).asBoolean()
+        get() = g_network_monitor_get_network_metered(gioNetworkMonitorPointer).asBoolean()
 
     /**
      * Attempts to determine whether or not the host pointed to by
@@ -197,9 +197,9 @@ public interface NetworkMonitor :
     public fun canReach(connectable: SocketConnectable, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_network_monitor_can_reach(
-            gioNetworkMonitorPointer.reinterpret(),
+            gioNetworkMonitorPointer,
             connectable.gioSocketConnectablePointer,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -230,9 +230,9 @@ public interface NetworkMonitor :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_network_monitor_can_reach_async(
-        gioNetworkMonitorPointer.reinterpret(),
+        gioNetworkMonitorPointer,
         connectable.gioSocketConnectablePointer,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -249,7 +249,7 @@ public interface NetworkMonitor :
     public fun canReachFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_network_monitor_can_reach_finish(
-            gioNetworkMonitorPointer.reinterpret(),
+            gioNetworkMonitorPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -286,7 +286,7 @@ public interface NetworkMonitor :
      */
     @GioVersion2_44
     public fun getConnectivity(): NetworkConnectivity =
-        g_network_monitor_get_connectivity(gioNetworkMonitorPointer.reinterpret()).run {
+        g_network_monitor_get_connectivity(gioNetworkMonitorPointer).run {
             NetworkConnectivity.fromNativeValue(this)
         }
 
@@ -301,7 +301,7 @@ public interface NetworkMonitor :
      */
     @GioVersion2_32
     public fun getNetworkAvailable(): Boolean =
-        g_network_monitor_get_network_available(gioNetworkMonitorPointer.reinterpret()).asBoolean()
+        g_network_monitor_get_network_available(gioNetworkMonitorPointer).asBoolean()
 
     /**
      * Checks if the network is metered.
@@ -312,23 +312,23 @@ public interface NetworkMonitor :
      */
     @GioVersion2_46
     public fun getNetworkMetered(): Boolean =
-        g_network_monitor_get_network_metered(gioNetworkMonitorPointer.reinterpret()).asBoolean()
+        g_network_monitor_get_network_metered(gioNetworkMonitorPointer).asBoolean()
 
     /**
      * Emitted when the network configuration changes.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `networkAvailable` the current value of #GNetworkMonitor:network-available
      * @since 2.32
      */
     @GioVersion2_32
-    public fun connectNetworkChanged(
+    public fun onNetworkChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (networkAvailable: Boolean) -> Unit,
     ): ULong = g_signal_connect_data(
-        gioNetworkMonitorPointer.reinterpret(),
+        gioNetworkMonitorPointer,
         "network-changed",
-        connectNetworkChangedFunc.reinterpret(),
+        onNetworkChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -369,7 +369,7 @@ public interface NetworkMonitor :
     }
 }
 
-private val connectNetworkChangedFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
+private val onNetworkChangedFunc: CPointer<CFunction<(gboolean) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         networkAvailable: gboolean,
         userData: COpaquePointer,

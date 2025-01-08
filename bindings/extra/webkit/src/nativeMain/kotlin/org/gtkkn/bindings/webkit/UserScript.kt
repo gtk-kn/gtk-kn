@@ -35,8 +35,8 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserScript = webkit_user_script_ref(gPointer.reinterpret())!!.run {
-        UserScript(reinterpret())
+    public fun ref(): UserScript = webkit_user_script_ref(gPointer)!!.run {
+        UserScript(this)
     }
 
     /**
@@ -49,7 +49,7 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun unref(): Unit = webkit_user_script_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_user_script_unref(gPointer)
 
     public companion object {
         /**

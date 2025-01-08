@@ -37,9 +37,7 @@ public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
         start: RenderNode,
         end: RenderNode,
         progress: gfloat,
-    ) : this(
-        gsk_cross_fade_node_new(start.gPointer.reinterpret(), end.gPointer.reinterpret(), progress)!!.reinterpret()
-    )
+    ) : this(gsk_cross_fade_node_new(start.gPointer, end.gPointer, progress)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` at the end of the cross-fade.
@@ -48,7 +46,7 @@ public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
      */
     public open fun getEndChild(): RenderNode =
         gsk_cross_fade_node_get_end_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     /**
@@ -65,7 +63,7 @@ public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
      */
     public open fun getStartChild(): RenderNode =
         gsk_cross_fade_node_get_start_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     public companion object : TypeCompanion<CrossFadeNode> {

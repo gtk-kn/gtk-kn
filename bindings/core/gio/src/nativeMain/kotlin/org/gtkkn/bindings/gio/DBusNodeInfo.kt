@@ -9,7 +9,6 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
@@ -150,7 +149,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      */
     @GioVersion2_26
     public fun generateXml(indent: guint, stringBuilder: GlibString): Unit =
-        g_dbus_node_info_generate_xml(gPointer.reinterpret(), indent, stringBuilder.gPointer.reinterpret())
+        g_dbus_node_info_generate_xml(gPointer, indent, stringBuilder.gPointer)
 
     /**
      * Looks up information about an interface.
@@ -163,8 +162,8 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      */
     @GioVersion2_26
     public fun lookupInterface(name: KotlinString): DBusInterfaceInfo? =
-        g_dbus_node_info_lookup_interface(gPointer.reinterpret(), name)?.run {
-            DBusInterfaceInfo(reinterpret())
+        g_dbus_node_info_lookup_interface(gPointer, name)?.run {
+            DBusInterfaceInfo(this)
         }
 
     /**
@@ -175,8 +174,8 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gPointer.reinterpret())!!.run {
-        DBusNodeInfo(reinterpret())
+    public fun ref(): DBusNodeInfo = g_dbus_node_info_ref(gPointer)!!.run {
+        DBusNodeInfo(this)
     }
 
     /**
@@ -187,7 +186,7 @@ public class DBusNodeInfo(pointer: CPointer<GDBusNodeInfo>, cleaner: Cleaner? = 
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_node_info_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_node_info_unref(gPointer)
 
     override fun toString(): KotlinString = "DBusNodeInfo(refCount=$refCount, path=$path)"
 

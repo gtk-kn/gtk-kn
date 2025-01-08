@@ -95,7 +95,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
          *
          * @return the height of the `GdkTexture`
          */
-        get() = gdk_texture_get_height(gdkTexturePointer.reinterpret())
+        get() = gdk_texture_get_height(gdkTexturePointer)
 
     /**
      * The width of the texture, in pixels.
@@ -106,7 +106,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
          *
          * @return the width of the `GdkTexture`
          */
-        get() = gdk_texture_get_width(gdkTexturePointer.reinterpret())
+        get() = gdk_texture_get_width(gdkTexturePointer)
 
     /**
      * Creates a new texture object representing the `GdkPixbuf`.
@@ -118,9 +118,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      * @param pixbuf a `GdkPixbuf`
      * @return a new `GdkTexture`
      */
-    public constructor(
-        pixbuf: Pixbuf,
-    ) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer.reinterpret())!!.reinterpret())
+    public constructor(pixbuf: Pixbuf) : this(gdk_texture_new_for_pixbuf(pixbuf.gdkPixbufPointer)!!.reinterpret())
 
     /**
      * Creates a new texture by loading an image from memory,
@@ -142,7 +140,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
     public constructor(bytes: Bytes) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_bytes(bytes.gPointer.reinterpret(), gError.ptr)
+            val gResult = gdk_texture_new_from_bytes(bytes.gPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -220,7 +218,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      * @since 4.10
      */
     @GdkVersion4_10
-    public open fun getFormat(): MemoryFormat = gdk_texture_get_format(gdkTexturePointer.reinterpret()).run {
+    public open fun getFormat(): MemoryFormat = gdk_texture_get_format(gdkTexturePointer).run {
         MemoryFormat.fromNativeValue(this)
     }
 
@@ -237,7 +235,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      * @return true if saving succeeded, false on failure.
      */
     public open fun saveToPng(filename: String): Boolean =
-        gdk_texture_save_to_png(gdkTexturePointer.reinterpret(), filename).asBoolean()
+        gdk_texture_save_to_png(gdkTexturePointer, filename).asBoolean()
 
     /**
      * Store the given @texture in memory as a PNG file.
@@ -259,8 +257,8 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      * @since 4.6
      */
     @GdkVersion4_6
-    public open fun saveToPngBytes(): Bytes = gdk_texture_save_to_png_bytes(gdkTexturePointer.reinterpret())!!.run {
-        Bytes(reinterpret())
+    public open fun saveToPngBytes(): Bytes = gdk_texture_save_to_png_bytes(gdkTexturePointer)!!.run {
+        Bytes(this)
     }
 
     /**
@@ -274,7 +272,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      */
     @GdkVersion4_6
     public open fun saveToTiff(filename: String): Boolean =
-        gdk_texture_save_to_tiff(gdkTexturePointer.reinterpret(), filename).asBoolean()
+        gdk_texture_save_to_tiff(gdkTexturePointer, filename).asBoolean()
 
     /**
      * Store the given @texture in memory as a TIFF file.
@@ -294,8 +292,8 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
      * @since 4.6
      */
     @GdkVersion4_6
-    public open fun saveToTiffBytes(): Bytes = gdk_texture_save_to_tiff_bytes(gdkTexturePointer.reinterpret())!!.run {
-        Bytes(reinterpret())
+    public open fun saveToTiffBytes(): Bytes = gdk_texture_save_to_tiff_bytes(gdkTexturePointer)!!.run {
+        Bytes(this)
     }
 
     public companion object : TypeCompanion<Texture> {
