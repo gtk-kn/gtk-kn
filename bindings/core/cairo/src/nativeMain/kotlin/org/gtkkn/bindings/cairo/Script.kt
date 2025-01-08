@@ -35,31 +35,30 @@ public open class Script(pointer: CPointer<cairo_device_t>) :
 
     public open fun fromRecordingSurface(recordingSurface: RecordingSurface): Status =
         cairo_script_from_recording_surface(
-            cairoScriptPointer.reinterpret(),
+            cairoScriptPointer,
             recordingSurface.cairoRecordingSurfacePointer.reinterpret()
         ).run {
             Status.fromNativeValue(this)
         }
 
-    public open fun getMode(): ScriptMode = cairo_script_get_mode(cairoScriptPointer.reinterpret()).run {
+    public open fun getMode(): ScriptMode = cairo_script_get_mode(cairoScriptPointer).run {
         ScriptMode.fromNativeValue(this)
     }
 
-    public open fun setMode(mode: ScriptMode): Unit =
-        cairo_script_set_mode(cairoScriptPointer.reinterpret(), mode.nativeValue)
+    public open fun setMode(mode: ScriptMode): Unit = cairo_script_set_mode(cairoScriptPointer, mode.nativeValue)
 
     public open fun createScriptSurface(content: Content, width: gdouble, height: gdouble): Surface =
-        cairo_script_surface_create(cairoScriptPointer.reinterpret(), content.nativeValue, width, height)!!.run {
-            Surface(reinterpret())
+        cairo_script_surface_create(cairoScriptPointer, content.nativeValue, width, height)!!.run {
+            Surface(this)
         }
 
     public open fun createScriptSurfaceForTarget(target: Surface): Surface =
-        cairo_script_surface_create_for_target(cairoScriptPointer.reinterpret(), target.gPointer.reinterpret())!!.run {
-            Surface(reinterpret())
+        cairo_script_surface_create_for_target(cairoScriptPointer, target.gPointer)!!.run {
+            Surface(this)
         }
 
     public open fun writeComment(comment: String, length: gint): Unit =
-        cairo_script_write_comment(cairoScriptPointer.reinterpret(), comment, length)
+        cairo_script_write_comment(cairoScriptPointer, comment, length)
 
     public companion object : TypeCompanion<Script> {
         override val type: GeneratedClassKGType<Script> =

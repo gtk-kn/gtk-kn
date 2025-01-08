@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkColorButton
@@ -89,14 +90,14 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
          *
          * @return true if the dialog is modal
          */
-        get() = gtk_color_button_get_modal(gtkColorButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_color_button_get_modal(gtkColorButtonPointer).asBoolean()
 
         /**
          * Sets whether the dialog should be modal.
          *
          * @param modal true to make the dialog modal
          */
-        set(modal) = gtk_color_button_set_modal(gtkColorButtonPointer.reinterpret(), modal.asGBoolean())
+        set(modal) = gtk_color_button_set_modal(gtkColorButtonPointer, modal.asGBoolean())
 
     /**
      * The title of the color chooser dialog
@@ -107,15 +108,14 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
          *
          * @return An internal string, do not free the return value
          */
-        get() = gtk_color_button_get_title(gtkColorButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_color_button_get_title(gtkColorButtonPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title for the color chooser dialog.
          *
          * @param title String containing new window title
          */
-        set(title) = gtk_color_button_set_title(gtkColorButtonPointer.reinterpret(), title)
+        set(title) = gtk_color_button_set_title(gtkColorButtonPointer, title)
 
     /**
      * Creates a new color button.
@@ -136,7 +136,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gPointer.reinterpret())!!.reinterpret())
+    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gPointer)!!.reinterpret())
 
     /**
      * Emitted to when the color button is activated.
@@ -144,20 +144,30 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * The `::activate` signal on `GtkMenuButton` is an action signal and
      * emitting it causes the button to pop up its dialog.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     *
+     * @since 4.4
+     */
+    @GtkVersion4_4
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     /**
      * Emitted when the user selects a color.
@@ -169,18 +179,25 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * If you need to react to programmatic color changes as well, use
      * the notify::rgba signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectColorSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onColorSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "color-set",
-            connectColorSetFunc.reinterpret(),
+            onColorSetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "color-set" signal. See [onColorSet].
+     */
+    public fun emitColorSet() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "color-set")
+    }
 
     public companion object : TypeCompanion<ColorButton> {
         override val type: GeneratedClassKGType<ColorButton> =
@@ -199,7 +216,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -207,7 +224,7 @@ private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectColorSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onColorSetFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -10,6 +10,7 @@ import kotlinx.cinterop.CPointerVarOf
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
@@ -24,6 +25,7 @@ import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.GLibException
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -50,6 +52,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Result
 import kotlin.String
 import kotlin.Throws
@@ -180,8 +183,8 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
          *   the object belongs to @manager.
          * @since 2.30
          */
-        get() = g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer.reinterpret())!!.run {
-            DBusConnection(reinterpret())
+        get() = g_dbus_object_manager_client_get_connection(gioDBusObjectManagerClientPointer)!!.run {
+            DBusConnection(this)
         }
 
     /**
@@ -198,7 +201,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
          * enumeration.
          * @since 2.30
          */
-        get() = g_dbus_object_manager_client_get_flags(gioDBusObjectManagerClientPointer.reinterpret()).run {
+        get() = g_dbus_object_manager_client_get_flags(gioDBusObjectManagerClientPointer).run {
             DBusObjectManagerClientFlags(this)
         }
 
@@ -217,7 +220,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
          * belongs to @manager.
          * @since 2.30
          */
-        get() = g_dbus_object_manager_client_get_name(gioDBusObjectManagerClientPointer.reinterpret())?.toKString()
+        get() = g_dbus_object_manager_client_get_name(gioDBusObjectManagerClientPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -239,9 +242,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
          * exists. Free with g_free().
          * @since 2.30
          */
-        get() = g_dbus_object_manager_client_get_name_owner(
-            gioDBusObjectManagerClientPointer.reinterpret()
-        )?.toKString()
+        get() = g_dbus_object_manager_client_get_name_owner(gioDBusObjectManagerClientPointer)?.toKString()
 
     /**
      * Finishes an operation started with g_dbus_object_manager_client_new().
@@ -306,7 +307,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
                     getProxyTypeFunc?.let {
                         staticStableRefDestroy.reinterpret()
                     },
-                    cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr
+                    cancellable?.gioCancellablePointer, gError.ptr
                 )
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
@@ -346,7 +347,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             val gError = allocPointerTo<GError>()
             val gResult =
                 g_dbus_object_manager_client_new_sync(
-                    connection.gioDBusConnectionPointer.reinterpret(), flags.mask, name, objectPath,
+                    connection.gioDBusConnectionPointer, flags.mask, name, objectPath,
                     getProxyTypeFunc?.let {
                         DBusProxyTypeFuncFunc.reinterpret()
                     },
@@ -356,7 +357,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
                     getProxyTypeFunc?.let {
                         staticStableRefDestroy.reinterpret()
                     },
-                    cancellable?.gioCancellablePointer?.reinterpret(), gError.ptr
+                    cancellable?.gioCancellablePointer, gError.ptr
                 )
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
@@ -378,13 +379,13 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
      * [thread-default main context][g-main-context-push-thread-default]
      * that @manager was constructed in.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which an interface has properties that are changing.; `interfaceProxy` The #GDBusProxy that has properties that are changing.; `changedProperties` A #GVariant containing the properties that changed (type: `a{sv}`).; `invalidatedProperties` A null terminated
      *   array of properties that were invalidated.
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectInterfaceProxyPropertiesChanged(
+    public fun onInterfaceProxyPropertiesChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             objectProxy: DBusObjectProxy,
@@ -393,13 +394,40 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             invalidatedProperties: List<String>,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "interface-proxy-properties-changed",
-        connectInterfaceProxyPropertiesChangedFunc.reinterpret(),
+        onInterfaceProxyPropertiesChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "interface-proxy-properties-changed" signal. See [onInterfaceProxyPropertiesChanged].
+     *
+     * @param objectProxy The #GDBusObjectProxy on which an interface has properties that are changing.
+     * @param interfaceProxy The #GDBusProxy that has properties that are changing.
+     * @param changedProperties A #GVariant containing the properties that changed (type: `a{sv}`).
+     * @param invalidatedProperties A null terminated
+     *   array of properties that were invalidated.
+     * @since 2.30
+     */
+    @GioVersion2_30
+    public fun emitInterfaceProxyPropertiesChanged(
+        objectProxy: DBusObjectProxy,
+        interfaceProxy: DBusProxy,
+        changedProperties: Variant,
+        invalidatedProperties: List<String>,
+    ): Unit = memScoped {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "interface-proxy-properties-changed",
+            objectProxy.gioDBusObjectProxyPointer,
+            interfaceProxy.gioDBusProxyPointer,
+            changedProperties.gPointer,
+            invalidatedProperties.toCStringList(this)
+        )
+    }
 
     /**
      * Emitted when a D-Bus signal is received on @interface_proxy.
@@ -411,12 +439,12 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
      * [thread-default main context][g-main-context-push-thread-default]
      * that @manager was constructed in.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `objectProxy` The #GDBusObjectProxy on which an interface is emitting a D-Bus signal.; `interfaceProxy` The #GDBusProxy that is emitting a D-Bus signal.; `senderName` The sender of the signal or NULL if the connection is not a bus connection.; `signalName` The signal name.; `parameters` A #GVariant tuple with parameters for the signal.
      * @since 2.30
      */
     @GioVersion2_30
-    public fun connectInterfaceProxySignal(
+    public fun onInterfaceProxySignal(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             objectProxy: DBusObjectProxy,
@@ -426,13 +454,42 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             parameters: Variant,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "interface-proxy-signal",
-        connectInterfaceProxySignalFunc.reinterpret(),
+        onInterfaceProxySignalFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "interface-proxy-signal" signal. See [onInterfaceProxySignal].
+     *
+     * @param objectProxy The #GDBusObjectProxy on which an interface is emitting a D-Bus signal.
+     * @param interfaceProxy The #GDBusProxy that is emitting a D-Bus signal.
+     * @param senderName The sender of the signal or NULL if the connection is not a bus connection.
+     * @param signalName The signal name.
+     * @param parameters A #GVariant tuple with parameters for the signal.
+     * @since 2.30
+     */
+    @GioVersion2_30
+    public fun emitInterfaceProxySignal(
+        objectProxy: DBusObjectProxy,
+        interfaceProxy: DBusProxy,
+        senderName: String,
+        signalName: String,
+        parameters: Variant,
+    ) {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "interface-proxy-signal",
+            objectProxy.gioDBusObjectProxyPointer,
+            interfaceProxy.gioDBusProxyPointer,
+            senderName.cstr,
+            signalName.cstr,
+            parameters.gPointer
+        )
+    }
 
     public companion object : TypeCompanion<DBusObjectManagerClient> {
         override val type: GeneratedClassKGType<DBusObjectManagerClient> =
@@ -513,7 +570,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
         ): Unit = g_dbus_object_manager_client_new(
-            connection.gioDBusConnectionPointer.reinterpret(), flags.mask, name, objectPath,
+            connection.gioDBusConnectionPointer, flags.mask, name, objectPath,
             getProxyTypeFunc?.let {
                 DBusProxyTypeFuncFunc.reinterpret()
             },
@@ -523,7 +580,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             getProxyTypeFunc?.let {
                 staticStableRefDestroy.reinterpret()
             },
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -570,7 +627,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             getProxyTypeFunc?.let {
                 staticStableRefDestroy.reinterpret()
             },
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -586,7 +643,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
     }
 }
 
-private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
+private val onInterfaceProxyPropertiesChangedFunc: CPointer<
     CFunction<
         (
             CPointer<GDBusObjectProxy>,
@@ -613,13 +670,13 @@ private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
             ) -> Unit
             >().get().invoke(
             objectProxy!!.run {
-                DBusObjectProxy(reinterpret())
+                DBusObjectProxy(this)
             },
             interfaceProxy!!.run {
-                DBusProxy(reinterpret())
+                DBusProxy(this)
             },
             changedProperties!!.run {
-                Variant(reinterpret())
+                Variant(this)
             },
             invalidatedProperties?.toKStringList() ?: error("Expected not null string array")
         )
@@ -627,7 +684,7 @@ private val connectInterfaceProxyPropertiesChangedFunc: CPointer<
 }
     .reinterpret()
 
-private val connectInterfaceProxySignalFunc: CPointer<
+private val onInterfaceProxySignalFunc: CPointer<
     CFunction<
         (
             CPointer<GDBusObjectProxy>,
@@ -656,15 +713,15 @@ private val connectInterfaceProxySignalFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         objectProxy!!.run {
-            DBusObjectProxy(reinterpret())
+            DBusObjectProxy(this)
         },
         interfaceProxy!!.run {
-            DBusProxy(reinterpret())
+            DBusProxy(this)
         },
         senderName?.toKString() ?: error("Expected not null string"),
         signalName?.toKString() ?: error("Expected not null string"),
         parameters!!.run {
-            Variant(reinterpret())
+            Variant(this)
         }
     )
 }

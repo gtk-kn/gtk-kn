@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_30
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -173,10 +172,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_BOOLEAN__BOXED_BOXED(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -207,10 +206,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_BOOLEAN__FLAGS(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -240,10 +239,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_STRING__OBJECT_POINTER(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -272,10 +271,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__BOOLEAN(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -304,10 +303,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__BOXED(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -336,10 +335,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__CHAR(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -368,10 +367,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__DOUBLE(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -400,10 +399,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__ENUM(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -432,10 +431,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__FLAGS(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -464,10 +463,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__FLOAT(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -496,10 +495,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__INT(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -528,10 +527,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__LONG(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -560,10 +559,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__OBJECT(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -592,10 +591,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__PARAM(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -628,10 +627,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__POINTER(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -660,10 +659,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__STRING(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -692,10 +691,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__UCHAR(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -724,10 +723,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__UINT(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -756,10 +755,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__UINT_POINTER(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -788,10 +787,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__ULONG(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -820,10 +819,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__VARIANT(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -851,10 +850,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__VOID(
-            closure.gPointer.reinterpret(),
-            returnValue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnValue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )
@@ -888,10 +887,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_generic(
-            closure.gPointer.reinterpret(),
-            returnGvalue.gPointer.reinterpret(),
+            closure.gPointer,
+            returnGvalue.gPointer,
             nParamValues,
-            paramValues.gPointer.reinterpret(),
+            paramValues.gPointer,
             invocationHint,
             marshalData
         )

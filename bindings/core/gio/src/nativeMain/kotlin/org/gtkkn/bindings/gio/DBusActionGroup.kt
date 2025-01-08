@@ -69,8 +69,8 @@ public open class DBusActionGroup(pointer: CPointer<GDBusActionGroup>) :
          */
         @GioVersion2_32
         public fun `get`(connection: DBusConnection, busName: String? = null, objectPath: String): DBusActionGroup =
-            g_dbus_action_group_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
-                DBusActionGroup(reinterpret())
+            g_dbus_action_group_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
+                DBusActionGroup(this)
             }
 
         /**

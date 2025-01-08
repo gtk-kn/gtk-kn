@@ -64,16 +64,14 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return whether @self alternates
          */
-        get() = adw_timed_animation_get_alternate(adwTimedAnimationPointer.reinterpret()).asBoolean()
+        get() = adw_timed_animation_get_alternate(adwTimedAnimationPointer).asBoolean()
 
         /**
          * Sets whether @self changes direction on every iteration.
          *
          * @param alternate whether @self alternates
          */
-        set(
-            alternate
-        ) = adw_timed_animation_set_alternate(adwTimedAnimationPointer.reinterpret(), alternate.asGBoolean())
+        set(alternate) = adw_timed_animation_set_alternate(adwTimedAnimationPointer, alternate.asGBoolean())
 
     /**
      * Duration of the animation, in milliseconds.
@@ -89,7 +87,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return the duration of @self, in milliseconds
          */
-        get() = adw_timed_animation_get_duration(adwTimedAnimationPointer.reinterpret())
+        get() = adw_timed_animation_get_duration(adwTimedAnimationPointer)
 
         /**
          * Sets the duration of @self.
@@ -98,7 +96,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @param duration the duration to use, in milliseconds
          */
-        set(duration) = adw_timed_animation_set_duration(adwTimedAnimationPointer.reinterpret(), duration)
+        set(duration) = adw_timed_animation_set_duration(adwTimedAnimationPointer, duration)
 
     /**
      * Easing function used in the animation.
@@ -113,7 +111,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return the easing function @self uses
          */
-        get() = adw_timed_animation_get_easing(adwTimedAnimationPointer.reinterpret()).run {
+        get() = adw_timed_animation_get_easing(adwTimedAnimationPointer).run {
             Easing.fromNativeValue(this)
         }
 
@@ -124,7 +122,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @param easing the easing function to use
          */
-        set(easing) = adw_timed_animation_set_easing(adwTimedAnimationPointer.reinterpret(), easing.nativeValue)
+        set(easing) = adw_timed_animation_set_easing(adwTimedAnimationPointer, easing.nativeValue)
 
     /**
      * Number of times the animation will play.
@@ -137,7 +135,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return the number of times @self will play
          */
-        get() = adw_timed_animation_get_repeat_count(adwTimedAnimationPointer.reinterpret())
+        get() = adw_timed_animation_get_repeat_count(adwTimedAnimationPointer)
 
         /**
          * Sets the number of times @self will play.
@@ -146,7 +144,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @param repeatCount the number of times @self will play
          */
-        set(repeatCount) = adw_timed_animation_set_repeat_count(adwTimedAnimationPointer.reinterpret(), repeatCount)
+        set(repeatCount) = adw_timed_animation_set_repeat_count(adwTimedAnimationPointer, repeatCount)
 
     /**
      * Whether the animation plays backwards.
@@ -157,14 +155,14 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return whether @self plays backwards
          */
-        get() = adw_timed_animation_get_reverse(adwTimedAnimationPointer.reinterpret()).asBoolean()
+        get() = adw_timed_animation_get_reverse(adwTimedAnimationPointer).asBoolean()
 
         /**
          * Sets whether @self plays backwards.
          *
          * @param reverse whether @self plays backwards
          */
-        set(reverse) = adw_timed_animation_set_reverse(adwTimedAnimationPointer.reinterpret(), reverse.asGBoolean())
+        set(reverse) = adw_timed_animation_set_reverse(adwTimedAnimationPointer, reverse.asGBoolean())
 
     /**
      * The value to animate from.
@@ -181,7 +179,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return the value to animate from
          */
-        get() = adw_timed_animation_get_value_from(adwTimedAnimationPointer.reinterpret())
+        get() = adw_timed_animation_get_value_from(adwTimedAnimationPointer)
 
         /**
          * Sets the value @self will animate from.
@@ -194,7 +192,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @param value the value to animate from
          */
-        set(`value`) = adw_timed_animation_set_value_from(adwTimedAnimationPointer.reinterpret(), `value`)
+        set(`value`) = adw_timed_animation_set_value_from(adwTimedAnimationPointer, `value`)
 
     /**
      * The value to animate to.
@@ -211,7 +209,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @return the value to animate to
          */
-        get() = adw_timed_animation_get_value_to(adwTimedAnimationPointer.reinterpret())
+        get() = adw_timed_animation_get_value_to(adwTimedAnimationPointer)
 
         /**
          * Sets the value @self will animate to.
@@ -224,7 +222,7 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
          *
          * @param value the value to animate to
          */
-        set(`value`) = adw_timed_animation_set_value_to(adwTimedAnimationPointer.reinterpret(), `value`)
+        set(`value`) = adw_timed_animation_set_value_to(adwTimedAnimationPointer, `value`)
 
     /**
      * Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
@@ -245,11 +243,11 @@ public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
         target: AnimationTarget,
     ) : this(
         adw_timed_animation_new(
-            widget.gtkWidgetPointer.reinterpret(),
+            widget.gtkWidgetPointer,
             from,
             to,
             duration,
-            target.adwAnimationTargetPointer.reinterpret()
+            target.adwAnimationTargetPointer
         )!!.reinterpret()
     )
 

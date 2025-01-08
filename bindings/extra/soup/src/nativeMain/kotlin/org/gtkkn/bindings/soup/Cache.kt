@@ -60,7 +60,7 @@ public open class Cache(pointer: CPointer<SoupCache>) :
      *
      * This is not thread safe and must be called only from the thread that created the #SoupCache
      */
-    public open fun clear(): Unit = soup_cache_clear(soupCachePointer.reinterpret())
+    public open fun clear(): Unit = soup_cache_clear(soupCachePointer)
 
     /**
      * Synchronously writes the cache index out to disk.
@@ -73,7 +73,7 @@ public open class Cache(pointer: CPointer<SoupCache>) :
      *
      * This is not thread safe and must be called only from the thread that created the #SoupCache
      */
-    public open fun dump(): Unit = soup_cache_dump(soupCachePointer.reinterpret())
+    public open fun dump(): Unit = soup_cache_dump(soupCachePointer)
 
     /**
      * Forces all pending writes in the @cache to be
@@ -84,28 +84,28 @@ public open class Cache(pointer: CPointer<SoupCache>) :
      *
      * Contrast with [method@Cache.dump], which writes out the cache index file.
      */
-    public open fun flush(): Unit = soup_cache_flush(soupCachePointer.reinterpret())
+    public open fun flush(): Unit = soup_cache_flush(soupCachePointer)
 
     /**
      * Gets the maximum size of the cache.
      *
      * @return the maximum size of the cache, in bytes.
      */
-    public open fun getMaxSize(): guint = soup_cache_get_max_size(soupCachePointer.reinterpret())
+    public open fun getMaxSize(): guint = soup_cache_get_max_size(soupCachePointer)
 
     /**
      * Loads the contents of @cache's index into memory.
      *
      * This is not thread safe and must be called only from the thread that created the #SoupCache
      */
-    public open fun load(): Unit = soup_cache_load(soupCachePointer.reinterpret())
+    public open fun load(): Unit = soup_cache_load(soupCachePointer)
 
     /**
      * Sets the maximum size of the cache.
      *
      * @param maxSize the maximum size of the cache, in bytes
      */
-    public open fun setMaxSize(maxSize: guint): Unit = soup_cache_set_max_size(soupCachePointer.reinterpret(), maxSize)
+    public open fun setMaxSize(maxSize: guint): Unit = soup_cache_set_max_size(soupCachePointer, maxSize)
 
     public companion object : TypeCompanion<Cache> {
         override val type: GeneratedClassKGType<Cache> =

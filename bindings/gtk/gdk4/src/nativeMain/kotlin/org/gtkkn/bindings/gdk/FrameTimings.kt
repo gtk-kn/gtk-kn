@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.native.gdk.GdkFrameTimings
@@ -51,7 +50,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      * @return true if all information that will be available
      *   for the frame has been filled in.
      */
-    public fun getComplete(): Boolean = gdk_frame_timings_get_complete(gPointer.reinterpret()).asBoolean()
+    public fun getComplete(): Boolean = gdk_frame_timings_get_complete(gPointer).asBoolean()
 
     /**
      * Gets the frame counter value of the `GdkFrameClock` when
@@ -59,7 +58,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      *
      * @return the frame counter value for this frame
      */
-    public fun getFrameCounter(): gint64 = gdk_frame_timings_get_frame_counter(gPointer.reinterpret())
+    public fun getFrameCounter(): gint64 = gdk_frame_timings_get_frame_counter(gPointer)
 
     /**
      * Returns the frame time for the frame.
@@ -70,7 +69,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      * @return the frame time for the frame, in the timescale
      *  of g_get_monotonic_time()
      */
-    public fun getFrameTime(): gint64 = gdk_frame_timings_get_frame_time(gPointer.reinterpret())
+    public fun getFrameTime(): gint64 = gdk_frame_timings_get_frame_time(gPointer)
 
     /**
      * Gets the predicted time at which this frame will be displayed.
@@ -90,8 +89,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      *   in the timescale of g_get_monotonic_time(), or 0 if no predicted
      *   presentation time is available.
      */
-    public fun getPredictedPresentationTime(): gint64 =
-        gdk_frame_timings_get_predicted_presentation_time(gPointer.reinterpret())
+    public fun getPredictedPresentationTime(): gint64 = gdk_frame_timings_get_predicted_presentation_time(gPointer)
 
     /**
      * Reurns the presentation time.
@@ -102,7 +100,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      *   timescale of g_get_monotonic_time(), or 0 if no presentation
      *   time is available. See [method@Gdk.FrameTimings.get_complete]
      */
-    public fun getPresentationTime(): gint64 = gdk_frame_timings_get_presentation_time(gPointer.reinterpret())
+    public fun getPresentationTime(): gint64 = gdk_frame_timings_get_presentation_time(gPointer)
 
     /**
      * Gets the natural interval between presentation times for
@@ -115,15 +113,15 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      *   or 0 if the refresh interval is not available.
      *   See [method@Gdk.FrameTimings.get_complete].
      */
-    public fun getRefreshInterval(): gint64 = gdk_frame_timings_get_refresh_interval(gPointer.reinterpret())
+    public fun getRefreshInterval(): gint64 = gdk_frame_timings_get_refresh_interval(gPointer)
 
     /**
      * Increases the reference count of @timings.
      *
      * @return @timings
      */
-    public fun ref(): FrameTimings = gdk_frame_timings_ref(gPointer.reinterpret())!!.run {
-        FrameTimings(reinterpret())
+    public fun ref(): FrameTimings = gdk_frame_timings_ref(gPointer)!!.run {
+        FrameTimings(this)
     }
 
     /**
@@ -131,7 +129,7 @@ public class FrameTimings(pointer: CPointer<GdkFrameTimings>) : ProxyInstance(po
      *
      * If @timings is no longer referenced, it will be freed.
      */
-    public fun unref(): Unit = gdk_frame_timings_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gdk_frame_timings_unref(gPointer)
 
     public companion object {
         /**

@@ -81,19 +81,15 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @param items a #GList of #WebKitContextMenuItem
      * @return The newly created #WebKitContextMenu object
      */
-    public constructor(
-        items: List,
-    ) : this(webkit_context_menu_new_with_items(items.gPointer.reinterpret())!!.reinterpret())
+    public constructor(items: List) : this(webkit_context_menu_new_with_items(items.gPointer)!!.reinterpret())
 
     /**
      * Adds @item at the end of the @menu.
      *
      * @param item the #WebKitContextMenuItem to add
      */
-    public fun append(item: ContextMenuItem): Unit = webkit_context_menu_append(
-        webkitContextMenuPointer.reinterpret(),
-        item.webkitContextMenuItemPointer.reinterpret()
-    )
+    public fun append(item: ContextMenuItem): Unit =
+        webkit_context_menu_append(webkitContextMenuPointer, item.webkitContextMenuItemPointer)
 
     /**
      * Gets the first item in the @menu.
@@ -101,8 +97,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @return the first #WebKitContextMenuItem of @menu,
      *    or null if the #WebKitContextMenu is empty.
      */
-    public fun first(): ContextMenuItem = webkit_context_menu_first(webkitContextMenuPointer.reinterpret())!!.run {
-        ContextMenuItem(reinterpret())
+    public fun first(): ContextMenuItem = webkit_context_menu_first(webkitContextMenuPointer)!!.run {
+        ContextMenuItem(this)
     }
 
     /**
@@ -127,8 +123,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getEvent(): Event = webkit_context_menu_get_event(webkitContextMenuPointer.reinterpret())!!.run {
-        Event(reinterpret())
+    public fun getEvent(): Event = webkit_context_menu_get_event(webkitContextMenuPointer)!!.run {
+        Event(this)
     }
 
     /**
@@ -139,8 +135,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      *    or null if the position is off the end of the @menu.
      */
     public fun getItemAtPosition(position: guint): ContextMenuItem =
-        webkit_context_menu_get_item_at_position(webkitContextMenuPointer.reinterpret(), position)!!.run {
-            ContextMenuItem(reinterpret())
+        webkit_context_menu_get_item_at_position(webkitContextMenuPointer, position)!!.run {
+            ContextMenuItem(this)
         }
 
     /**
@@ -149,8 +145,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @return a #GList of
      *    #WebKitContextMenuItem<!-- -->s
      */
-    public fun getItems(): List = webkit_context_menu_get_items(webkitContextMenuPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public fun getItems(): List = webkit_context_menu_get_items(webkitContextMenuPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -158,7 +154,7 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      *
      * @return the number of #WebKitContextMenuItem<!-- -->s in @menu
      */
-    public fun getNItems(): guint = webkit_context_menu_get_n_items(webkitContextMenuPointer.reinterpret())
+    public fun getNItems(): guint = webkit_context_menu_get_n_items(webkitContextMenuPointer)
 
     /**
      * Gets the user data of @menu.
@@ -170,10 +166,9 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun getUserData(): Variant =
-        webkit_context_menu_get_user_data(webkitContextMenuPointer.reinterpret())!!.run {
-            Variant(reinterpret())
-        }
+    public fun getUserData(): Variant = webkit_context_menu_get_user_data(webkitContextMenuPointer)!!.run {
+        Variant(this)
+    }
 
     /**
      * Inserts @item into the @menu at the given position.
@@ -185,11 +180,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @param item the #WebKitContextMenuItem to add
      * @param position the position to insert the item
      */
-    public fun insert(item: ContextMenuItem, position: gint): Unit = webkit_context_menu_insert(
-        webkitContextMenuPointer.reinterpret(),
-        item.webkitContextMenuItemPointer.reinterpret(),
-        position
-    )
+    public fun insert(item: ContextMenuItem, position: gint): Unit =
+        webkit_context_menu_insert(webkitContextMenuPointer, item.webkitContextMenuItemPointer, position)
 
     /**
      * Gets the last item in the @menu.
@@ -197,8 +189,8 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @return the last #WebKitContextMenuItem of @menu,
      *    or null if the #WebKitContextMenu is empty.
      */
-    public fun last(): ContextMenuItem = webkit_context_menu_last(webkitContextMenuPointer.reinterpret())!!.run {
-        ContextMenuItem(reinterpret())
+    public fun last(): ContextMenuItem = webkit_context_menu_last(webkitContextMenuPointer)!!.run {
+        ContextMenuItem(this)
     }
 
     /**
@@ -212,21 +204,16 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @param item the #WebKitContextMenuItem to add
      * @param position the new position to move the item
      */
-    public fun moveItem(item: ContextMenuItem, position: gint): Unit = webkit_context_menu_move_item(
-        webkitContextMenuPointer.reinterpret(),
-        item.webkitContextMenuItemPointer.reinterpret(),
-        position
-    )
+    public fun moveItem(item: ContextMenuItem, position: gint): Unit =
+        webkit_context_menu_move_item(webkitContextMenuPointer, item.webkitContextMenuItemPointer, position)
 
     /**
      * Adds @item at the beginning of the @menu.
      *
      * @param item the #WebKitContextMenuItem to add
      */
-    public fun prepend(item: ContextMenuItem): Unit = webkit_context_menu_prepend(
-        webkitContextMenuPointer.reinterpret(),
-        item.webkitContextMenuItemPointer.reinterpret()
-    )
+    public fun prepend(item: ContextMenuItem): Unit =
+        webkit_context_menu_prepend(webkitContextMenuPointer, item.webkitContextMenuItemPointer)
 
     /**
      * Removes @item from the @menu.
@@ -235,15 +222,13 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      *
      * @param item the #WebKitContextMenuItem to remove
      */
-    public fun remove(item: ContextMenuItem): Unit = webkit_context_menu_remove(
-        webkitContextMenuPointer.reinterpret(),
-        item.webkitContextMenuItemPointer.reinterpret()
-    )
+    public fun remove(item: ContextMenuItem): Unit =
+        webkit_context_menu_remove(webkitContextMenuPointer, item.webkitContextMenuItemPointer)
 
     /**
      * Removes all items of the @menu.
      */
-    public fun removeAll(): Unit = webkit_context_menu_remove_all(webkitContextMenuPointer.reinterpret())
+    public fun removeAll(): Unit = webkit_context_menu_remove_all(webkitContextMenuPointer)
 
     /**
      * Sets user data to @menu.
@@ -257,7 +242,7 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      */
     @WebKitVersion2_8
     public fun setUserData(userData: Variant): Unit =
-        webkit_context_menu_set_user_data(webkitContextMenuPointer.reinterpret(), userData.gPointer.reinterpret())
+        webkit_context_menu_set_user_data(webkitContextMenuPointer, userData.gPointer)
 
     public companion object : TypeCompanion<ContextMenu> {
         override val type: GeneratedClassKGType<ContextMenu> =

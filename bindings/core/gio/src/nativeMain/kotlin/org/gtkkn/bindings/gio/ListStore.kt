@@ -74,8 +74,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun append(item: Object): Unit =
-        g_list_store_append(gioListStorePointer.reinterpret(), item.gPointer.reinterpret())
+    public open fun append(item: Object): Unit = g_list_store_append(gioListStorePointer, item.gPointer.reinterpret())
 
     /**
      * Inserts @item into @store at @position. @item must be of type
@@ -93,7 +92,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      */
     @GioVersion2_44
     public open fun insert(position: guint, item: Object): Unit =
-        g_list_store_insert(gioListStorePointer.reinterpret(), position, item.gPointer.reinterpret())
+        g_list_store_insert(gioListStorePointer, position, item.gPointer.reinterpret())
 
     /**
      * Inserts @item into @store at a position to be determined by the
@@ -112,7 +111,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      */
     @GioVersion2_44
     public open fun insertSorted(item: Object, compareFunc: CompareDataFunc): guint = g_list_store_insert_sorted(
-        gioListStorePointer.reinterpret(),
+        gioListStorePointer,
         item.gPointer.reinterpret(),
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(compareFunc).asCPointer()
@@ -129,7 +128,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun remove(position: guint): Unit = g_list_store_remove(gioListStorePointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = g_list_store_remove(gioListStorePointer, position)
 
     /**
      * Removes all items from @store.
@@ -137,7 +136,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun removeAll(): Unit = g_list_store_remove_all(gioListStorePointer.reinterpret())
+    public open fun removeAll(): Unit = g_list_store_remove_all(gioListStorePointer)
 
     /**
      * Sort the items in @store according to @compare_func.
@@ -147,7 +146,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      */
     @GioVersion2_46
     public open fun sort(compareFunc: CompareDataFunc): Unit = g_list_store_sort(
-        gioListStorePointer.reinterpret(),
+        gioListStorePointer,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(compareFunc).asCPointer()
     )

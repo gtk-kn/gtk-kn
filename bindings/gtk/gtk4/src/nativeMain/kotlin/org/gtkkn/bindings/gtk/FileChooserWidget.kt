@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -18,6 +19,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -89,18 +91,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>D</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDesktopFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onDesktopFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "desktop-folder",
-            connectDesktopFolderFunc.reinterpret(),
+            onDesktopFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "desktop-folder" signal. See [onDesktopFolder].
+     */
+    public fun emitDesktopFolder() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "desktop-folder")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -116,18 +125,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>Down</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDownFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onDownFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "down-folder",
-            connectDownFolderFunc.reinterpret(),
+            onDownFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "down-folder" signal. See [onDownFolder].
+     */
+    public fun emitDownFolder() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "down-folder")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -139,18 +155,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>Home</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectHomeFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onHomeFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "home-folder",
-            connectHomeFolderFunc.reinterpret(),
+            onHomeFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "home-folder" signal. See [onHomeFolder].
+     */
+    public fun emitHomeFolder() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "home-folder")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -167,20 +190,27 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * bound to <kbd>~</kbd> (tilde) with a @path string of "~" itself for
      * access to home directories.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` a string that gets put in the text entry for the file name
      */
-    public fun connectLocationPopup(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (path: String) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "location-popup",
-        connectLocationPopupFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onLocationPopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "location-popup",
+            onLocationPopupFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "location-popup" signal. See [onLocationPopup].
+     *
+     * @param path a string that gets put in the text entry for the file name
+     */
+    public fun emitLocationPopup(path: String) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "location-popup", path.cstr)
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -192,18 +222,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Control</kbd>-<kbd>V</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLocationPopupOnPaste(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onLocationPopupOnPaste(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "location-popup-on-paste",
-            connectLocationPopupOnPasteFunc.reinterpret(),
+            onLocationPopupOnPasteFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "location-popup-on-paste" signal. See [onLocationPopupOnPaste].
+     */
+    public fun emitLocationPopupOnPaste() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "location-popup-on-paste")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -216,18 +253,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Control</kbd>-<kbd>L</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLocationTogglePopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onLocationTogglePopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "location-toggle-popup",
-            connectLocationTogglePopupFunc.reinterpret(),
+            onLocationTogglePopupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "location-toggle-popup" signal. See [onLocationTogglePopup].
+     */
+    public fun emitLocationTogglePopup() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "location-toggle-popup")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -238,18 +282,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>P</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPlacesShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onPlacesShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "places-shortcut",
-            connectPlacesShortcutFunc.reinterpret(),
+            onPlacesShortcutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "places-shortcut" signal. See [onPlacesShortcut].
+     */
+    public fun emitPlacesShortcut() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "places-shortcut")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -267,20 +318,29 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * actually defined to switch to the bookmark at index 0, and so on
      * successively.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `bookmarkIndex` the number of the bookmark to switch to
      */
-    public fun connectQuickBookmark(
+    public fun onQuickBookmark(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (bookmarkIndex: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "quick-bookmark",
-        connectQuickBookmarkFunc.reinterpret(),
+        onQuickBookmarkFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "quick-bookmark" signal. See [onQuickBookmark].
+     *
+     * @param bookmarkIndex the number of the bookmark to switch to
+     */
+    public fun emitQuickBookmark(bookmarkIndex: gint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "quick-bookmark", bookmarkIndex)
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -291,18 +351,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>R</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectRecentShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onRecentShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "recent-shortcut",
-            connectRecentShortcutFunc.reinterpret(),
+            onRecentShortcutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "recent-shortcut" signal. See [onRecentShortcut].
+     */
+    public fun emitRecentShortcut() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "recent-shortcut")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -313,18 +380,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>S</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSearchShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onSearchShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "search-shortcut",
-            connectSearchShortcutFunc.reinterpret(),
+            onSearchShortcutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "search-shortcut" signal. See [onSearchShortcut].
+     */
+    public fun emitSearchShortcut() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "search-shortcut")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -335,18 +409,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Control</kbd>-<kbd>H</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectShowHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onShowHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "show-hidden",
-            connectShowHiddenFunc.reinterpret(),
+            onShowHiddenFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "show-hidden" signal. See [onShowHidden].
+     */
+    public fun emitShowHidden() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "show-hidden")
+    }
 
     /**
      * Emitted when the user asks for it.
@@ -358,18 +439,25 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      *
      * The default binding for this signal is <kbd>Alt</kbd>-<kbd>Up</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectUpFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onUpFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "up-folder",
-            connectUpFolderFunc.reinterpret(),
+            onUpFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "up-folder" signal. See [onUpFolder].
+     */
+    public fun emitUpFolder() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "up-folder")
+    }
 
     public companion object : TypeCompanion<FileChooserWidget> {
         override val type: GeneratedClassKGType<FileChooserWidget> =
@@ -388,7 +476,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
     }
 }
 
-private val connectDesktopFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onDesktopFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -396,7 +484,7 @@ private val connectDesktopFolderFunc: CPointer<CFunction<() -> Unit>> = staticCF
 }
     .reinterpret()
 
-private val connectDownFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onDownFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -404,7 +492,7 @@ private val connectDownFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
 }
     .reinterpret()
 
-private val connectHomeFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onHomeFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -412,7 +500,7 @@ private val connectHomeFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
 }
     .reinterpret()
 
-private val connectLocationPopupFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
+private val onLocationPopupFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<ByteVar>?,
@@ -426,7 +514,7 @@ private val connectLocationPopupFunc: CPointer<CFunction<(CPointer<ByteVar>) -> 
     }
         .reinterpret()
 
-private val connectLocationPopupOnPasteFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onLocationPopupOnPasteFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -434,7 +522,7 @@ private val connectLocationPopupOnPasteFunc: CPointer<CFunction<() -> Unit>> = s
 }
     .reinterpret()
 
-private val connectLocationTogglePopupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onLocationTogglePopupFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -442,7 +530,7 @@ private val connectLocationTogglePopupFunc: CPointer<CFunction<() -> Unit>> = st
 }
     .reinterpret()
 
-private val connectPlacesShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onPlacesShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -450,7 +538,7 @@ private val connectPlacesShortcutFunc: CPointer<CFunction<() -> Unit>> = staticC
 }
     .reinterpret()
 
-private val connectQuickBookmarkFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
+private val onQuickBookmarkFunc: CPointer<CFunction<(gint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         bookmarkIndex: gint,
         userData: COpaquePointer,
@@ -459,7 +547,7 @@ private val connectQuickBookmarkFunc: CPointer<CFunction<(gint) -> Unit>> = stat
 }
     .reinterpret()
 
-private val connectRecentShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onRecentShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -467,7 +555,7 @@ private val connectRecentShortcutFunc: CPointer<CFunction<() -> Unit>> = staticC
 }
     .reinterpret()
 
-private val connectSearchShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onSearchShortcutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -475,7 +563,7 @@ private val connectSearchShortcutFunc: CPointer<CFunction<() -> Unit>> = staticC
 }
     .reinterpret()
 
-private val connectShowHiddenFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onShowHiddenFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -483,7 +571,7 @@ private val connectShowHiddenFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
 }
     .reinterpret()
 
-private val connectUpFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onUpFolderFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

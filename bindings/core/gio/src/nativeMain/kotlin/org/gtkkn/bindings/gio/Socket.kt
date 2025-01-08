@@ -210,7 +210,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return true if blocking I/O is used, false otherwise.
          * @since 2.22
          */
-        get() = g_socket_get_blocking(gioSocketPointer.reinterpret()).asBoolean()
+        get() = g_socket_get_blocking(gioSocketPointer).asBoolean()
 
         /**
          * Sets the blocking mode of the socket. In blocking mode
@@ -227,7 +227,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.22
          */
         @GioVersion2_22
-        set(blocking) = g_socket_set_blocking(gioSocketPointer.reinterpret(), blocking.asGBoolean())
+        set(blocking) = g_socket_set_blocking(gioSocketPointer, blocking.asGBoolean())
 
     /**
      * Whether the socket should allow sending to broadcast addresses.
@@ -244,7 +244,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the broadcast setting on @socket
          * @since 2.32
          */
-        get() = g_socket_get_broadcast(gioSocketPointer.reinterpret()).asBoolean()
+        get() = g_socket_get_broadcast(gioSocketPointer).asBoolean()
 
         /**
          * Sets whether @socket should allow sending to broadcast addresses.
@@ -255,7 +255,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.32
          */
         @GioVersion2_32
-        set(broadcast) = g_socket_set_broadcast(gioSocketPointer.reinterpret(), broadcast.asGBoolean())
+        set(broadcast) = g_socket_set_broadcast(gioSocketPointer, broadcast.asGBoolean())
 
     /**
      * The socket’s address family.
@@ -270,7 +270,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return a #GSocketFamily
          * @since 2.22
          */
-        get() = g_socket_get_family(gioSocketPointer.reinterpret()).run {
+        get() = g_socket_get_family(gioSocketPointer).run {
             SocketFamily.fromNativeValue(this)
         }
 
@@ -291,7 +291,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the file descriptor of the socket.
          * @since 2.22
          */
-        get() = g_socket_get_fd(gioSocketPointer.reinterpret())
+        get() = g_socket_get_fd(gioSocketPointer)
 
     /**
      * Whether to keep the connection alive by sending periodic pings.
@@ -307,7 +307,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return true if keepalive is active, false otherwise.
          * @since 2.22
          */
-        get() = g_socket_get_keepalive(gioSocketPointer.reinterpret()).asBoolean()
+        get() = g_socket_get_keepalive(gioSocketPointer).asBoolean()
 
         /**
          * Sets or unsets the %SO_KEEPALIVE flag on the underlying socket. When
@@ -330,7 +330,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.22
          */
         @GioVersion2_22
-        set(keepalive) = g_socket_set_keepalive(gioSocketPointer.reinterpret(), keepalive.asGBoolean())
+        set(keepalive) = g_socket_set_keepalive(gioSocketPointer, keepalive.asGBoolean())
 
     /**
      * The number of outstanding connections in the listen queue.
@@ -346,7 +346,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the maximum number of pending connections.
          * @since 2.22
          */
-        get() = g_socket_get_listen_backlog(gioSocketPointer.reinterpret())
+        get() = g_socket_get_listen_backlog(gioSocketPointer)
 
         /**
          * Sets the maximum number of outstanding connections allowed
@@ -361,7 +361,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.22
          */
         @GioVersion2_22
-        set(backlog) = g_socket_set_listen_backlog(gioSocketPointer.reinterpret(), backlog)
+        set(backlog) = g_socket_set_listen_backlog(gioSocketPointer, backlog)
 
     /**
      * Whether outgoing multicast packets loop back to the local host.
@@ -378,7 +378,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the multicast loopback setting on @socket
          * @since 2.32
          */
-        get() = g_socket_get_multicast_loopback(gioSocketPointer.reinterpret()).asBoolean()
+        get() = g_socket_get_multicast_loopback(gioSocketPointer).asBoolean()
 
         /**
          * Sets whether outgoing multicast packets will be received by sockets
@@ -390,7 +390,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.32
          */
         @GioVersion2_32
-        set(loopback) = g_socket_set_multicast_loopback(gioSocketPointer.reinterpret(), loopback.asGBoolean())
+        set(loopback) = g_socket_set_multicast_loopback(gioSocketPointer, loopback.asGBoolean())
 
     /**
      * Time-to-live out outgoing multicast packets
@@ -406,7 +406,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the multicast time-to-live setting on @socket
          * @since 2.32
          */
-        get() = g_socket_get_multicast_ttl(gioSocketPointer.reinterpret())
+        get() = g_socket_get_multicast_ttl(gioSocketPointer)
 
         /**
          * Sets the time-to-live for outgoing multicast datagrams on @socket.
@@ -417,7 +417,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.32
          */
         @GioVersion2_32
-        set(ttl) = g_socket_set_multicast_ttl(gioSocketPointer.reinterpret(), ttl)
+        set(ttl) = g_socket_set_multicast_ttl(gioSocketPointer, ttl)
 
     /**
      * The ID of the protocol to use, or `-1` for unknown.
@@ -433,7 +433,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return a protocol id, or -1 if unknown
          * @since 2.22
          */
-        get() = g_socket_get_protocol(gioSocketPointer.reinterpret()).run {
+        get() = g_socket_get_protocol(gioSocketPointer).run {
             SocketProtocol.fromNativeValue(this)
         }
 
@@ -451,7 +451,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the timeout in seconds
          * @since 2.26
          */
-        get() = g_socket_get_timeout(gioSocketPointer.reinterpret())
+        get() = g_socket_get_timeout(gioSocketPointer)
 
         /**
          * Sets the time in seconds after which I/O operations on @socket will
@@ -479,7 +479,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.26
          */
         @GioVersion2_26
-        set(timeout) = g_socket_set_timeout(gioSocketPointer.reinterpret(), timeout)
+        set(timeout) = g_socket_set_timeout(gioSocketPointer, timeout)
 
     /**
      * Time-to-live for outgoing unicast packets
@@ -495,7 +495,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @return the time-to-live setting on @socket
          * @since 2.32
          */
-        get() = g_socket_get_ttl(gioSocketPointer.reinterpret())
+        get() = g_socket_get_ttl(gioSocketPointer)
 
         /**
          * Sets the time-to-live for outgoing unicast packets on @socket.
@@ -505,7 +505,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
          * @since 2.32
          */
         @GioVersion2_32
-        set(ttl) = g_socket_set_ttl(gioSocketPointer.reinterpret(), ttl)
+        set(ttl) = g_socket_set_ttl(gioSocketPointer, ttl)
 
     /**
      * Creates a new #GSocket with the defined family, type and protocol.
@@ -597,12 +597,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun accept(cancellable: Cancellable? = null): Result<Socket> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_accept(
-            gioSocketPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        )?.run {
-            Socket(reinterpret())
+        val gResult = g_socket_accept(gioSocketPointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
+            Socket(this)
         }
 
         return if (gError.pointed != null) {
@@ -646,8 +642,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     public open fun bind(address: SocketAddress, allowReuse: Boolean): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_bind(
-            gioSocketPointer.reinterpret(),
-            address.gioSocketAddressPointer.reinterpret(),
+            gioSocketPointer,
+            address.gioSocketAddressPointer,
             allowReuse.asGBoolean(),
             gError.ptr
         ).asBoolean()
@@ -669,7 +665,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun checkConnectResult(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_check_connect_result(gioSocketPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_socket_check_connect_result(gioSocketPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -714,7 +710,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun close(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_close(gioSocketPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_socket_close(gioSocketPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -747,7 +743,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      */
     @GioVersion2_22
     override fun conditionCheck(condition: IoCondition): IoCondition =
-        g_socket_condition_check(gioSocketPointer.reinterpret(), condition.mask).run {
+        g_socket_condition_check(gioSocketPointer, condition.mask).run {
             IoCondition(this)
         }
 
@@ -783,10 +779,10 @@ public open class Socket(pointer: CPointer<GSocket>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_condition_timed_wait(
-            gioSocketPointer.reinterpret(),
+            gioSocketPointer,
             condition.mask,
             timeoutUs,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -818,9 +814,9 @@ public open class Socket(pointer: CPointer<GSocket>) :
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_socket_condition_wait(
-                gioSocketPointer.reinterpret(),
+                gioSocketPointer,
                 condition.mask,
-                cancellable?.gioCancellablePointer?.reinterpret(),
+                cancellable?.gioCancellablePointer,
                 gError.ptr
             ).asBoolean()
             return if (gError.pointed != null) {
@@ -857,9 +853,9 @@ public open class Socket(pointer: CPointer<GSocket>) :
     public open fun connect(address: SocketAddress, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connect(
-            gioSocketPointer.reinterpret(),
-            address.gioSocketAddressPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioSocketPointer,
+            address.gioSocketAddressPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -878,8 +874,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
      */
     @GioVersion2_22
     public open fun connectionFactoryCreateConnection(): SocketConnection =
-        g_socket_connection_factory_create_connection(gioSocketPointer.reinterpret())!!.run {
-            SocketConnection(reinterpret())
+        g_socket_connection_factory_create_connection(gioSocketPointer)!!.run {
+            SocketConnection(this)
         }
 
     /**
@@ -910,13 +906,10 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    override fun createSource(condition: IoCondition, cancellable: Cancellable?): Source = g_socket_create_source(
-        gioSocketPointer.reinterpret(),
-        condition.mask,
-        cancellable?.gioCancellablePointer?.reinterpret()
-    )!!.run {
-        Source(reinterpret())
-    }
+    override fun createSource(condition: IoCondition, cancellable: Cancellable?): Source =
+        g_socket_create_source(gioSocketPointer, condition.mask, cancellable?.gioCancellablePointer)!!.run {
+            Source(this)
+        }
 
     /**
      * Get the amount of data pending in the OS input buffer, without blocking.
@@ -937,7 +930,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getAvailableBytes(): Long = g_socket_get_available_bytes(gioSocketPointer.reinterpret())
+    public open fun getAvailableBytes(): Long = g_socket_get_available_bytes(gioSocketPointer)
 
     /**
      * Returns the credentials of the foreign process connected to this
@@ -968,8 +961,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_26
     public open fun getCredentials(): Result<Credentials> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_get_credentials(gioSocketPointer.reinterpret(), gError.ptr)?.run {
-            Credentials(reinterpret())
+        val gResult = g_socket_get_credentials(gioSocketPointer, gError.ptr)?.run {
+            Credentials(this)
         }
 
         return if (gError.pointed != null) {
@@ -991,8 +984,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_get_local_address(gioSocketPointer.reinterpret(), gError.ptr)?.run {
-            SocketAddress(reinterpret())
+        val gResult = g_socket_get_local_address(gioSocketPointer, gError.ptr)?.run {
+            SocketAddress(this)
         }
 
         return if (gError.pointed != null) {
@@ -1013,8 +1006,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_get_remote_address(gioSocketPointer.reinterpret(), gError.ptr)?.run {
-            SocketAddress(reinterpret())
+        val gResult = g_socket_get_remote_address(gioSocketPointer, gError.ptr)?.run {
+            SocketAddress(this)
         }
 
         return if (gError.pointed != null) {
@@ -1031,7 +1024,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getSocketType(): SocketType = g_socket_get_socket_type(gioSocketPointer.reinterpret()).run {
+    public open fun getSocketType(): SocketType = g_socket_get_socket_type(gioSocketPointer).run {
         SocketType.fromNativeValue(this)
     }
 
@@ -1042,7 +1035,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun isClosed(): Boolean = g_socket_is_closed(gioSocketPointer.reinterpret()).asBoolean()
+    public open fun isClosed(): Boolean = g_socket_is_closed(gioSocketPointer).asBoolean()
 
     /**
      * Check whether the socket is connected. This is only useful for
@@ -1057,7 +1050,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun isConnected(): Boolean = g_socket_is_connected(gioSocketPointer.reinterpret()).asBoolean()
+    public open fun isConnected(): Boolean = g_socket_is_connected(gioSocketPointer).asBoolean()
 
     /**
      * Registers @socket to receive multicast messages sent to @group.
@@ -1089,8 +1082,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_join_multicast_group(
-            gioSocketPointer.reinterpret(),
-            group.gioInetAddressPointer.reinterpret(),
+            gioSocketPointer,
+            group.gioInetAddressPointer,
             sourceSpecific.asGBoolean(),
             iface,
             gError.ptr
@@ -1134,9 +1127,9 @@ public open class Socket(pointer: CPointer<GSocket>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_join_multicast_group_ssm(
-            gioSocketPointer.reinterpret(),
-            group.gioInetAddressPointer.reinterpret(),
-            sourceSpecific?.gioInetAddressPointer?.reinterpret(),
+            gioSocketPointer,
+            group.gioInetAddressPointer,
+            sourceSpecific?.gioInetAddressPointer,
             iface,
             gError.ptr
         ).asBoolean()
@@ -1172,8 +1165,8 @@ public open class Socket(pointer: CPointer<GSocket>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_leave_multicast_group(
-            gioSocketPointer.reinterpret(),
-            group.gioInetAddressPointer.reinterpret(),
+            gioSocketPointer,
+            group.gioInetAddressPointer,
             sourceSpecific.asGBoolean(),
             iface,
             gError.ptr
@@ -1208,9 +1201,9 @@ public open class Socket(pointer: CPointer<GSocket>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_leave_multicast_group_ssm(
-            gioSocketPointer.reinterpret(),
-            group.gioInetAddressPointer.reinterpret(),
-            sourceSpecific?.gioInetAddressPointer?.reinterpret(),
+            gioSocketPointer,
+            group.gioInetAddressPointer,
+            sourceSpecific?.gioInetAddressPointer,
             iface,
             gError.ptr
         ).asBoolean()
@@ -1237,7 +1230,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_22
     public open fun listen(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_listen(gioSocketPointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_socket_listen(gioSocketPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1269,13 +1262,13 @@ public open class Socket(pointer: CPointer<GSocket>) :
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_socket_receive_bytes(
-                gioSocketPointer.reinterpret(),
+                gioSocketPointer,
                 size,
                 timeoutUs,
-                cancellable?.gioCancellablePointer?.reinterpret(),
+                cancellable?.gioCancellablePointer,
                 gError.ptr
             )?.run {
-                Bytes(reinterpret())
+                Bytes(this)
             }
 
             return if (gError.pointed != null) {
@@ -1307,13 +1300,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     @GioVersion2_36
     public open fun setOption(level: gint, optname: gint, `value`: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_set_option(
-            gioSocketPointer.reinterpret(),
-            level,
-            optname,
-            `value`,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_socket_set_option(gioSocketPointer, level, optname, `value`, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -1346,7 +1333,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     public open fun shutdown(shutdownRead: Boolean, shutdownWrite: Boolean): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_shutdown(
-            gioSocketPointer.reinterpret(),
+            gioSocketPointer,
             shutdownRead.asGBoolean(),
             shutdownWrite.asGBoolean(),
             gError.ptr
@@ -1373,7 +1360,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun speaksIpv4(): Boolean = g_socket_speaks_ipv4(gioSocketPointer.reinterpret()).asBoolean()
+    public open fun speaksIpv4(): Boolean = g_socket_speaks_ipv4(gioSocketPointer).asBoolean()
 
     public companion object : TypeCompanion<Socket> {
         override val type: GeneratedClassKGType<Socket> =

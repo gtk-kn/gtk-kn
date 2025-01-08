@@ -84,8 +84,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @param type the `GType` to search for
      * @return true if the `GType` was found
      */
-    public fun containGtype(type: GType): Boolean =
-        gdk_content_formats_contain_gtype(gPointer.reinterpret(), type).asBoolean()
+    public fun containGtype(type: GType): Boolean = gdk_content_formats_contain_gtype(gPointer, type).asBoolean()
 
     /**
      * Checks if a given mime type is part of the given @formats.
@@ -94,7 +93,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @return true if the mime_type was found
      */
     public fun containMimeType(mimeType: KotlinString): Boolean =
-        gdk_content_formats_contain_mime_type(gPointer.reinterpret(), mimeType).asBoolean()
+        gdk_content_formats_contain_mime_type(gPointer, mimeType).asBoolean()
 
     /**
      * Checks if @first and @second have any matching formats.
@@ -102,8 +101,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @param second the `GdkContentFormats` to intersect with
      * @return true if a matching format was found.
      */
-    public fun match(second: ContentFormats): Boolean =
-        gdk_content_formats_match(gPointer.reinterpret(), second.gPointer.reinterpret()).asBoolean()
+    public fun match(second: ContentFormats): Boolean = gdk_content_formats_match(gPointer, second.gPointer).asBoolean()
 
     /**
      * Finds the first `GType` from @first that is also contained
@@ -114,8 +112,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @param second the `GdkContentFormats` to intersect with
      * @return The first common `GType` or %G_TYPE_INVALID if none.
      */
-    public fun matchGtype(second: ContentFormats): GType =
-        gdk_content_formats_match_gtype(gPointer.reinterpret(), second.gPointer.reinterpret())
+    public fun matchGtype(second: ContentFormats): GType = gdk_content_formats_match_gtype(gPointer, second.gPointer)
 
     /**
      * Finds the first mime type from @first that is also contained
@@ -127,7 +124,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @return The first common mime type or null if none
      */
     public fun matchMimeType(second: ContentFormats): KotlinString? =
-        gdk_content_formats_match_mime_type(gPointer.reinterpret(), second.gPointer.reinterpret())?.toKString()
+        gdk_content_formats_match_mime_type(gPointer, second.gPointer)?.toKString()
 
     /**
      * Prints the given @formats into a string for human consumption.
@@ -137,16 +134,15 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      *
      * @param string a `GString` to print into
      */
-    public fun print(string: GlibString): Unit =
-        gdk_content_formats_print(gPointer.reinterpret(), string.gPointer.reinterpret())
+    public fun print(string: GlibString): Unit = gdk_content_formats_print(gPointer, string.gPointer)
 
     /**
      * Increases the reference count of a `GdkContentFormats` by one.
      *
      * @return the passed in `GdkContentFormats`.
      */
-    public fun ref(): ContentFormats = gdk_content_formats_ref(gPointer.reinterpret())!!.run {
-        ContentFormats(reinterpret())
+    public fun ref(): ContentFormats = gdk_content_formats_ref(gPointer)!!.run {
+        ContentFormats(this)
     }
 
     /**
@@ -160,7 +156,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @return a new string
      */
     override fun toString(): KotlinString =
-        gdk_content_formats_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gdk_content_formats_to_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Append all missing types from @second to @first, in the order
@@ -170,8 +166,8 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @return a new `GdkContentFormats`
      */
     public fun union(second: ContentFormats): ContentFormats =
-        gdk_content_formats_union(gPointer.reinterpret(), second.gPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
+        gdk_content_formats_union(gPointer, second.gPointer)!!.run {
+            ContentFormats(this)
         }
 
     /**
@@ -180,10 +176,9 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      *
      * @return a new `GdkContentFormats`
      */
-    public fun unionDeserializeGtypes(): ContentFormats =
-        gdk_content_formats_union_deserialize_gtypes(gPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
-        }
+    public fun unionDeserializeGtypes(): ContentFormats = gdk_content_formats_union_deserialize_gtypes(gPointer)!!.run {
+        ContentFormats(this)
+    }
 
     /**
      * Add mime types for GTypes in @formats for which deserializers are
@@ -192,8 +187,8 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @return a new `GdkContentFormats`
      */
     public fun unionDeserializeMimeTypes(): ContentFormats =
-        gdk_content_formats_union_deserialize_mime_types(gPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
+        gdk_content_formats_union_deserialize_mime_types(gPointer)!!.run {
+            ContentFormats(this)
         }
 
     /**
@@ -202,10 +197,9 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      *
      * @return a new `GdkContentFormats`
      */
-    public fun unionSerializeGtypes(): ContentFormats =
-        gdk_content_formats_union_serialize_gtypes(gPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
-        }
+    public fun unionSerializeGtypes(): ContentFormats = gdk_content_formats_union_serialize_gtypes(gPointer)!!.run {
+        ContentFormats(this)
+    }
 
     /**
      * Add mime types for GTypes in @formats for which serializers are
@@ -214,8 +208,8 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      * @return a new `GdkContentFormats`
      */
     public fun unionSerializeMimeTypes(): ContentFormats =
-        gdk_content_formats_union_serialize_mime_types(gPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
+        gdk_content_formats_union_serialize_mime_types(gPointer)!!.run {
+            ContentFormats(this)
         }
 
     /**
@@ -223,7 +217,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
      *
      * If the resulting reference count is zero, frees the formats.
      */
-    public fun unref(): Unit = gdk_content_formats_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gdk_content_formats_unref(gPointer)
 
     public companion object {
         /**
@@ -271,7 +265,7 @@ public class ContentFormats(pointer: CPointer<GdkContentFormats>) : ProxyInstanc
          */
         @GdkVersion4_4
         public fun parse(string: KotlinString): ContentFormats? = gdk_content_formats_parse(string)?.run {
-            ContentFormats(reinterpret())
+            ContentFormats(this)
         }
 
         /**

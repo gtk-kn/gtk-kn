@@ -114,16 +114,6 @@ import org.gtkkn.native.glib.g_compute_checksum_for_bytes
 import org.gtkkn.native.glib.g_compute_checksum_for_string
 import org.gtkkn.native.glib.g_compute_hmac_for_bytes
 import org.gtkkn.native.glib.g_convert_error_quark
-import org.gtkkn.native.glib.g_datalist_clear
-import org.gtkkn.native.glib.g_datalist_foreach
-import org.gtkkn.native.glib.g_datalist_get_data
-import org.gtkkn.native.glib.g_datalist_get_flags
-import org.gtkkn.native.glib.g_datalist_id_dup_data
-import org.gtkkn.native.glib.g_datalist_id_get_data
-import org.gtkkn.native.glib.g_datalist_id_remove_no_notify
-import org.gtkkn.native.glib.g_datalist_init
-import org.gtkkn.native.glib.g_datalist_set_flags
-import org.gtkkn.native.glib.g_datalist_unset_flags
 import org.gtkkn.native.glib.g_dataset_destroy
 import org.gtkkn.native.glib.g_dataset_foreach
 import org.gtkkn.native.glib.g_dataset_id_get_data
@@ -512,18 +502,28 @@ import kotlin.collections.List
  * - parameter `args`: va_list type is not supported
  * - function `build_path`: Varargs parameter is not supported
  * - parameter `tag_ptr`: Unsupported pointer to primitive type
- * - parameter `destroy`: DestroyNotify
+ * - parameter `list_ptr`: Unsupported pointer-to-pointer cType GList**
  * - function `clear_pointer`: In/Out parameter is not supported
- * - parameter `destroy`: DestroyNotify
+ * - parameter `slist_ptr`: Unsupported pointer-to-pointer cType GSList**
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
  * - parameter `key`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
  * - parameter `str`: Array parameter of type guint8 is not supported
- * - parameter `keys`: Array parameter of type Quark is not supported
- * - parameter `destroy`: DestroyNotify
- * - parameter `destroy_func`: DestroyNotify
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
+ * - parameter `datalist`: Unsupported pointer-to-pointer cType GData**
  * - parameter `destroy_func`: DestroyNotify
  * - parameter `contents`: contents: Out parameter is not supported
  * - parameter `name_used`: name_used: Out parameter is not supported
@@ -1695,16 +1695,7 @@ public object GLib {
         error: Error,
         errorDomain: Quark,
         errorCode: gint,
-    ): Unit = g_assertion_message_error(
-        domain,
-        `file`,
-        line,
-        func,
-        expr,
-        error.gPointer.reinterpret(),
-        errorDomain,
-        errorCode
-    )
+    ): Unit = g_assertion_message_error(domain, `file`, line, func, expr, error.gPointer, errorDomain, errorCode)
 
     /**
      * Internal function used to print messages from the public g_assert() and
@@ -2060,7 +2051,7 @@ public object GLib {
      */
     @GLibVersion2_4
     public fun childWatchSourceNew(pid: Pid): Source = g_child_watch_source_new(pid)!!.run {
-        Source(reinterpret())
+        Source(this)
     }
 
     /**
@@ -2152,7 +2143,7 @@ public object GLib {
      */
     @GLibVersion2_34
     public fun computeChecksumForBytes(checksumType: ChecksumType, `data`: Bytes): kotlin.String? =
-        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.gPointer.reinterpret())?.toKString()
+        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.gPointer)?.toKString()
 
     /**
      * Computes the checksum of a string.
@@ -2187,168 +2178,10 @@ public object GLib {
      */
     @GLibVersion2_50
     public fun computeHmacForBytes(digestType: ChecksumType, key: Bytes, `data`: Bytes): kotlin.String =
-        g_compute_hmac_for_bytes(
-            digestType.nativeValue,
-            key.gPointer.reinterpret(),
-            `data`.gPointer.reinterpret()
-        )?.toKString()
+        g_compute_hmac_for_bytes(digestType.nativeValue, key.gPointer, `data`.gPointer)?.toKString()
             ?: error("Expected not null string")
 
     public fun convertErrorQuark(): Quark = g_convert_error_quark()
-
-    /**
-     * Frees all the data elements of the datalist.
-     * The data elements' destroy functions are called
-     * if they have been set.
-     *
-     * @param datalist a datalist.
-     */
-    public fun datalistClear(datalist: Data): Unit = g_datalist_clear(datalist.gPointer.reinterpret())
-
-    /**
-     * Calls the given function for each data element of the datalist. The
-     * function is called with each data element's #GQuark id and data,
-     * together with the given @user_data parameter. Note that this
-     * function is NOT thread-safe. So unless @datalist can be protected
-     * from any modifications during invocation of this function, it should
-     * not be called.
-     *
-     * @func can make changes to @datalist, but the iteration will not
-     * reflect changes made during the g_datalist_foreach() call, other
-     * than skipping over elements that are removed.
-     *
-     * @param datalist a datalist.
-     * @param func the function to call for each data element.
-     */
-    public fun datalistForeach(datalist: Data, func: DataForeachFunc): Unit = g_datalist_foreach(
-        datalist.gPointer.reinterpret(),
-        DataForeachFuncFunc.reinterpret(),
-        StableRef.create(func).asCPointer()
-    )
-
-    /**
-     * Gets a data element, using its string identifier. This is slower than
-     * g_datalist_id_get_data() because it compares strings.
-     *
-     * @param datalist a datalist.
-     * @param key the string identifying a data element.
-     * @return the data element, or null if it
-     *          is not found.
-     */
-    public fun datalistGetData(datalist: Data, key: kotlin.String): gpointer? =
-        g_datalist_get_data(datalist.gPointer.reinterpret(), key)
-
-    /**
-     * Gets flags values packed in together with the datalist.
-     * See g_datalist_set_flags().
-     *
-     * @param datalist pointer to the location that holds a list
-     * @return the flags of the datalist
-     * @since 2.8
-     */
-    @GLibVersion2_8
-    public fun datalistGetFlags(datalist: Data): guint = g_datalist_get_flags(datalist.gPointer.reinterpret())
-
-    /**
-     * This is a variant of g_datalist_id_get_data() which
-     * returns a 'duplicate' of the value. @dup_func defines the
-     * meaning of 'duplicate' in this context, it could e.g.
-     * take a reference on a ref-counted object.
-     *
-     * If the @key_id is not set in the datalist then @dup_func
-     * will be called with a null argument.
-     *
-     * Note that @dup_func is called while the datalist is locked, so it
-     * is not allowed to read or modify the datalist.
-     *
-     * This function can be useful to avoid races when multiple
-     * threads are using the same datalist and the same key.
-     *
-     * @param datalist location of a datalist
-     * @param keyId the #GQuark identifying a data element
-     * @param dupFunc function to
-     *   duplicate the old value
-     * @return the result of calling @dup_func on the value
-     *     associated with @key_id in @datalist, or null if not set.
-     *     If @dup_func is null, the value is returned unmodified.
-     * @since 2.34
-     */
-    @GLibVersion2_34
-    public fun datalistIdDupData(datalist: Data, keyId: Quark, dupFunc: DuplicateFunc?): gpointer? =
-        g_datalist_id_dup_data(
-            datalist.gPointer.reinterpret(),
-            keyId,
-            dupFunc?.let {
-                DuplicateFuncFunc.reinterpret()
-            },
-            dupFunc?.let { StableRef.create(dupFunc).asCPointer() }
-        )
-
-    /**
-     * Retrieves the data element corresponding to @key_id.
-     *
-     * @param datalist a datalist.
-     * @param keyId the #GQuark identifying a data element.
-     * @return the data element, or null if
-     *          it is not found.
-     */
-    public fun datalistIdGetData(datalist: Data, keyId: Quark): gpointer? =
-        g_datalist_id_get_data(datalist.gPointer.reinterpret(), keyId)
-
-    /**
-     * Removes an element, without calling its destroy notification
-     * function.
-     *
-     * @param datalist a datalist.
-     * @param keyId the #GQuark identifying a data element.
-     * @return the data previously stored at @key_id,
-     *          or null if none.
-     */
-    public fun datalistIdRemoveNoNotify(datalist: Data, keyId: Quark): gpointer? =
-        g_datalist_id_remove_no_notify(datalist.gPointer.reinterpret(), keyId)
-
-    /**
-     * Resets the datalist to null. It does not free any memory or call
-     * any destroy functions.
-     *
-     * @param datalist a pointer to a pointer to a datalist.
-     */
-    public fun datalistInit(datalist: Data): Unit = g_datalist_init(datalist.gPointer.reinterpret())
-
-    /**
-     * Turns on flag values for a data list. This function is used
-     * to keep a small number of boolean flags in an object with
-     * a data list without using any additional space. It is
-     * not generally useful except in circumstances where space
-     * is very tight. (It is used in the base #GObject type, for
-     * example.)
-     *
-     * @param datalist pointer to the location that holds a list
-     * @param flags the flags to turn on. The values of the flags are
-     *   restricted by %G_DATALIST_FLAGS_MASK (currently
-     *   3; giving two possible boolean flags).
-     *   A value for @flags that doesn't fit within the mask is
-     *   an error.
-     * @since 2.8
-     */
-    @GLibVersion2_8
-    public fun datalistSetFlags(datalist: Data, flags: guint): Unit =
-        g_datalist_set_flags(datalist.gPointer.reinterpret(), flags)
-
-    /**
-     * Turns off flag values for a data list. See g_datalist_unset_flags()
-     *
-     * @param datalist pointer to the location that holds a list
-     * @param flags the flags to turn off. The values of the flags are
-     *   restricted by %G_DATALIST_FLAGS_MASK (currently
-     *   3: giving two possible boolean flags).
-     *   A value for @flags that doesn't fit within the mask is
-     *   an error.
-     * @since 2.8
-     */
-    @GLibVersion2_8
-    public fun datalistUnsetFlags(datalist: Data, flags: guint): Unit =
-        g_datalist_unset_flags(datalist.gPointer.reinterpret(), flags)
 
     /**
      * Destroys the dataset, freeing all memory allocated, and calling any
@@ -3060,7 +2893,7 @@ public object GLib {
      *
      * @param result #GTimeVal structure in which to store current time.
      */
-    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.gPointer.reinterpret())
+    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.gPointer)
 
     /**
      * Gets the list of environment variables for the current process.
@@ -3707,7 +3540,7 @@ public object GLib {
      * @return the newly-created idle source
      */
     public fun idleSourceNew(): Source = g_idle_source_new()!!.run {
-        Source(reinterpret())
+        Source(this)
     }
 
     /**
@@ -3821,7 +3654,7 @@ public object GLib {
      */
     public fun ioAddWatch(channel: IoChannel, priority: gint, condition: IoCondition, func: IoFunc): guint =
         g_io_add_watch_full(
-            channel.gPointer.reinterpret(),
+            channel.gPointer,
             priority,
             condition.mask,
             IoFuncFunc.reinterpret(),
@@ -3850,8 +3683,8 @@ public object GLib {
      * @return a new #GSource
      */
     public fun ioCreateWatch(channel: IoChannel, condition: IoCondition): Source =
-        g_io_create_watch(channel.gPointer.reinterpret(), condition.mask)!!.run {
-            Source(reinterpret())
+        g_io_create_watch(channel.gPointer, condition.mask)!!.run {
+            Source(this)
         }
 
     /**
@@ -4088,7 +3921,7 @@ public object GLib {
      */
     @GLibVersion2_50
     public fun logVariant(logDomain: kotlin.String? = null, logLevel: LogLevelFlags, fields: Variant): Unit =
-        g_log_variant(logDomain, logLevel.mask, fields.gPointer.reinterpret())
+        g_log_variant(logDomain, logLevel.mask, fields.gPointer)
 
     /**
      * Configure whether the built-in log functions will output all log messages to
@@ -4193,7 +4026,7 @@ public object GLib {
      */
     @GLibVersion2_12
     public fun mainCurrentSource(): Source? = g_main_current_source()?.run {
-        Source(reinterpret())
+        Source(this)
     }
 
     /**
@@ -4408,7 +4241,7 @@ public object GLib {
      *
      * @param vtable table of memory allocation routines.
      */
-    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.gPointer.reinterpret())
+    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.gPointer)
 
     /**
      * Allocates @byte_size bytes of memory, and copies @byte_size bytes into it
@@ -4730,7 +4563,7 @@ public object GLib {
         stringLength: guint,
         string: kotlin.String,
         stringReversed: kotlin.String? = null,
-    ): Boolean = g_pattern_match(pspec.gPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
+    ): Boolean = g_pattern_match(pspec.gPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a pattern given as a string. If this
@@ -4755,7 +4588,7 @@ public object GLib {
      * @return true if @string matches @pspec
      */
     public fun patternMatchString(pspec: PatternSpec, string: kotlin.String): Boolean =
-        g_pattern_match_string(pspec.gPointer.reinterpret(), string).asBoolean()
+        g_pattern_match_string(pspec.gPointer, string).asBoolean()
 
     /**
      * This mangles @ptr as g_pointer_bit_lock() and g_pointer_bit_unlock()
@@ -4813,7 +4646,7 @@ public object GLib {
      * @since 2.20
      */
     @GLibVersion2_20
-    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint = g_poll(fds.gPointer.reinterpret(), nfds, timeout)
+    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint = g_poll(fds.gPointer, nfds, timeout)
 
     /**
      * This is just like the standard C qsort() function, but
@@ -6991,7 +6824,7 @@ public object GLib {
      * @return the newly-created timeout source
      */
     public fun timeoutSourceNew(interval: guint): Source = g_timeout_source_new(interval)!!.run {
-        Source(reinterpret())
+        Source(this)
     }
 
     /**
@@ -7013,7 +6846,7 @@ public object GLib {
      */
     @GLibVersion2_14
     public fun timeoutSourceNewSeconds(interval: guint): Source = g_timeout_source_new_seconds(interval)!!.run {
-        Source(reinterpret())
+        Source(this)
     }
 
     /**
@@ -7469,7 +7302,7 @@ public object GLib {
     @GLibVersion2_36
     public fun unixFdSourceNew(fd: gint, condition: IoCondition): Source =
         g_unix_fd_source_new(fd, condition.mask)!!.run {
-            Source(reinterpret())
+            Source(this)
         }
 
     /**
@@ -7545,7 +7378,7 @@ public object GLib {
      */
     @GLibVersion2_30
     public fun unixSignalSourceNew(signum: gint): Source = g_unix_signal_source_new(signum)!!.run {
-        Source(reinterpret())
+        Source(this)
     }
 
     /**
@@ -8286,7 +8119,7 @@ public val ErrorClearFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.gli
         ->
         userData.asStableRef<(error: Error) -> Unit>().get().invoke(
             error!!.run {
-                Error(reinterpret())
+                Error(this)
             }
         )
     }
@@ -8301,10 +8134,10 @@ public val ErrorCopyFuncFunc:
         ->
         userData.asStableRef<(srcError: Error, destError: Error) -> Unit>().get().invoke(
             srcError!!.run {
-                Error(reinterpret())
+                Error(this)
             },
             destError!!.run {
-                Error(reinterpret())
+                Error(this)
             }
         )
     }
@@ -8317,7 +8150,7 @@ public val ErrorInitFuncFunc: CPointer<CFunction<(CPointer<org.gtkkn.native.glib
         ->
         userData.asStableRef<(error: Error) -> Unit>().get().invoke(
             error!!.run {
-                Error(reinterpret())
+                Error(this)
             }
         )
     }
@@ -8381,7 +8214,7 @@ public val HookCheckMarshallerFunc: CPointer<CFunction<(CPointer<GHook>, gpointe
         ->
         userData.asStableRef<(hook: Hook, marshalData: gpointer?) -> Boolean>().get().invoke(
             hook!!.run {
-                Hook(reinterpret())
+                Hook(this)
             },
             marshalData
         ).asGBoolean()
@@ -8396,10 +8229,10 @@ public val HookCompareFuncFunc: CPointer<CFunction<(CPointer<GHook>, CPointer<GH
         ->
         userData.asStableRef<(newHook: Hook, sibling: Hook) -> gint>().get().invoke(
             newHook!!.run {
-                Hook(reinterpret())
+                Hook(this)
             },
             sibling!!.run {
-                Hook(reinterpret())
+                Hook(this)
             }
         )
     }
@@ -8413,10 +8246,10 @@ public val HookFinalizeFuncFunc: CPointer<CFunction<(CPointer<GHookList>, CPoint
         ->
         userData.asStableRef<(hookList: HookList, hook: Hook) -> Unit>().get().invoke(
             hookList!!.run {
-                HookList(reinterpret())
+                HookList(this)
             },
             hook!!.run {
-                Hook(reinterpret())
+                Hook(this)
             }
         )
     }
@@ -8430,7 +8263,7 @@ public val HookFindFuncFunc: CPointer<CFunction<(CPointer<GHook>, gpointer?) -> 
         ->
         userData.asStableRef<(hook: Hook, `data`: gpointer?) -> Boolean>().get().invoke(
             hook!!.run {
-                Hook(reinterpret())
+                Hook(this)
             },
             `data`
         ).asGBoolean()
@@ -8453,7 +8286,7 @@ public val HookMarshallerFunc: CPointer<CFunction<(CPointer<GHook>, gpointer?) -
         ->
         userData.asStableRef<(hook: Hook, marshalData: gpointer?) -> Unit>().get().invoke(
             hook!!.run {
-                Hook(reinterpret())
+                Hook(this)
             },
             marshalData
         )
@@ -8482,7 +8315,7 @@ public val IoFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         source!!.run {
-            IoChannel(reinterpret())
+            IoChannel(this)
         },
         condition.run {
             IoCondition(this)
@@ -8545,7 +8378,7 @@ public val NodeForeachFuncFunc: CPointer<CFunction<(CPointer<GNode>, gpointer?) 
         ->
         userData.asStableRef<(node: Node, `data`: gpointer?) -> Unit>().get().invoke(
             node!!.run {
-                Node(reinterpret())
+                Node(this)
             },
             `data`
         )
@@ -8560,7 +8393,7 @@ public val NodeTraverseFuncFunc: CPointer<CFunction<(CPointer<GNode>, gpointer?)
         ->
         userData.asStableRef<(node: Node, `data`: gpointer?) -> Boolean>().get().invoke(
             node!!.run {
-                Node(reinterpret())
+                Node(this)
             },
             `data`
         ).asGBoolean()
@@ -8589,7 +8422,7 @@ public val PollFuncFunc: CPointer<
         ) -> gint
         >().get().invoke(
         ufds!!.run {
-            PollFd(reinterpret())
+            PollFd(this)
         },
         nfsd,
         timeout
@@ -8616,10 +8449,10 @@ public val RegexEvalCallbackFunc:
         ->
         userData!!.asStableRef<(matchInfo: MatchInfo, result: String) -> Boolean>().get().invoke(
             matchInfo!!.run {
-                MatchInfo(reinterpret())
+                MatchInfo(this)
             },
             result!!.run {
-                String(reinterpret())
+                String(this)
             }
         ).asGBoolean()
     }
@@ -8647,7 +8480,7 @@ public val ScannerMsgFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         scanner!!.run {
-            Scanner(reinterpret())
+            Scanner(this)
         },
         message?.toKString() ?: error("Expected not null string"),
         error.asBoolean()
@@ -8677,10 +8510,10 @@ public val SequenceIterCompareFuncFunc: CPointer<
         ) -> gint
         >().get().invoke(
         a!!.run {
-            SequenceIter(reinterpret())
+            SequenceIter(this)
         },
         b!!.run {
-            SequenceIter(reinterpret())
+            SequenceIter(this)
         },
         `data`
     )
@@ -8694,7 +8527,7 @@ public val SourceDisposeFuncFunc: CPointer<CFunction<(CPointer<GSource>) -> Unit
         ->
         userData.asStableRef<(source: Source) -> Unit>().get().invoke(
             source!!.run {
-                Source(reinterpret())
+                Source(this)
             }
         )
     }
@@ -8824,7 +8657,7 @@ public val TraverseNodeFuncFunc: CPointer<CFunction<(CPointer<GTreeNode>, gpoint
         ->
         userData.asStableRef<(node: TreeNode, `data`: gpointer?) -> Boolean>().get().invoke(
             node!!.run {
-                TreeNode(reinterpret())
+                TreeNode(this)
             },
             `data`
         ).asGBoolean()

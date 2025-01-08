@@ -45,13 +45,7 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
         child: RenderNode,
         colorMatrix: Matrix,
         colorOffset: Vec4,
-    ) : this(
-        gsk_color_matrix_node_new(
-            child.gPointer.reinterpret(),
-            colorMatrix.gPointer.reinterpret(),
-            colorOffset.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_color_matrix_node_new(child.gPointer, colorMatrix.gPointer, colorOffset.gPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting its colors modified by the given @node.
@@ -60,7 +54,7 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
      */
     public open fun getChild(): RenderNode =
         gsk_color_matrix_node_get_child(gskColorMatrixNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     /**
@@ -70,7 +64,7 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
      */
     public open fun getColorMatrix(): Matrix =
         gsk_color_matrix_node_get_color_matrix(gskColorMatrixNodePointer.reinterpret())!!.run {
-            Matrix(reinterpret())
+            Matrix(this)
         }
 
     /**
@@ -80,7 +74,7 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
      */
     public open fun getColorOffset(): Vec4 =
         gsk_color_matrix_node_get_color_offset(gskColorMatrixNodePointer.reinterpret())!!.run {
-            Vec4(reinterpret())
+            Vec4(this)
         }
 
     public companion object : TypeCompanion<ColorMatrixNode> {

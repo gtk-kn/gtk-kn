@@ -37,7 +37,7 @@ import org.gtkkn.gir.blueprints.TypeInfo
  * Provides functions to generate class constructors, factory methods, and
  * related initialization code for classes, records, and unions.
  */
-interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBlockGenerator, KDocGenerator {
+interface ConstructorGenerator : FieldGenerator, MethodGenerator {
     /**
      * Builds the primary pointer constructor for a class.
      *
@@ -79,19 +79,19 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         constructor: ConstructorBlueprint,
         callThisConstructor: FunSpec.Builder.(CodeBlock) -> Unit
     ): FunSpec {
-        val funBuilder = FunSpec.constructorBuilder()
+        val builder = FunSpec.constructorBuilder()
 
         ensureReturnTypeIsObjectPointer(constructor)
 
-        addConstructorKDocAndAnnotations(funBuilder, constructor)
+        addConstructorKDocAndAnnotations(builder, constructor)
 
         if (constructor.parameters.isEmpty()) {
             // No-arg constructor
             if (constructor.throws) error("Throwing no-argument constructors are not supported")
-            funBuilder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
+            builder.callThisConstructor(CodeBlock.of("%M()!!.reinterpret()", constructor.nativeMemberName))
         } else {
             // Constructor with arguments
-            appendSignatureParameters(funBuilder, constructor.parameters)
+            appendSignatureParameters(builder, constructor.parameters)
 
             val codeBlockBuilder = CodeBlock.builder()
             if (constructor.needsMemscoped) {
@@ -140,10 +140,10 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
                 codeBlockBuilder.endControlFlow()
             }
 
-            funBuilder.callThisConstructor(codeBlockBuilder.build())
+            builder.callThisConstructor(codeBlockBuilder.build())
         }
 
-        return funBuilder.build()
+        return builder.build()
     }
 
     /**
@@ -166,30 +166,28 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
         addGErrorAllocation: FunSpec.Builder.() -> Unit,
         addErrorHandling: FunSpec.Builder.(ConstructorBlueprint, String) -> Unit,
     ): FunSpec {
-        val funBuilder = FunSpec.builder(constructor.kotlinName)
+        val builder = FunSpec.builder(constructor.kotlinName)
         val returnTypeName = determineConstructorReturnType(typeName, constructor)
-        funBuilder.returns(returnTypeName)
+        builder.returns(returnTypeName)
 
         ensureReturnTypeIsObjectPointer(constructor)
-        addConstructorKDocIfAny(funBuilder, constructor)
+        addConstructorKDocIfAny(builder, constructor)
 
         // If memscoped is needed
-        if (constructor.needsMemscoped) {
-            funBuilder.beginControlFlow("return %M", BindingsGenerator.MEMSCOPED)
-        }
+        handleMemScopedStart(builder, constructor)
 
         if (constructor.parameters.isEmpty()) {
             // No-arg factory constructor
             if (constructor.throws) {
-                funBuilder.addGErrorAllocation()
-                funBuilder.addStatement(
+                builder.addGErrorAllocation()
+                builder.addStatement(
                     "val gResult = %M(gError.%M)",
                     constructor.nativeMemberName,
                     BindingsGenerator.PTR_FUNC,
                 )
-                funBuilder.addErrorHandling(constructor, "gResult")
+                builder.addErrorHandling(constructor, "gResult")
             } else {
-                funBuilder.addStatement(
+                builder.addStatement(
                     "return %T(%M()!!.%M())",
                     typeName,
                     constructor.nativeMemberName,
@@ -198,41 +196,39 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
             }
 
             if (constructor.needsMemscoped) {
-                funBuilder.endControlFlow()
+                builder.endControlFlow()
             }
         } else {
             // Factory constructor with arguments
-            funBuilder.appendSignatureParameters(constructor.parameters)
+            builder.appendSignatureParameters(constructor.parameters)
 
             if (constructor.throws) {
-                funBuilder.addGErrorAllocation()
-                funBuilder.addCode("val gResult = %M(", constructor.nativeMemberName)
+                builder.addGErrorAllocation()
+                builder.addCode("val gResult = %M(", constructor.nativeMemberName)
             } else {
-                funBuilder.addCode("return %T(%M(", typeName, constructor.nativeMemberName)
+                builder.addCode("return %T(%M(", typeName, constructor.nativeMemberName)
             }
 
             // Append parameters
             constructor.parameters.forEachIndexed { index, param ->
                 if (index > 0) {
-                    funBuilder.addCode(", ")
+                    builder.addCode(", ")
                 }
-                funBuilder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
+                builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
             }
 
             if (constructor.throws) {
-                funBuilder.addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
-                funBuilder.addCode(")\n")
-                funBuilder.addErrorHandling(constructor, "gResult")
+                builder.addCode(", gError.%M", BindingsGenerator.PTR_FUNC)
+                builder.addCode(")\n")
+                builder.addErrorHandling(constructor, "gResult")
             } else {
-                funBuilder.addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
+                builder.addCode(")!!.%M())", BindingsGenerator.REINTERPRET_FUNC)
             }
 
-            if (constructor.needsMemscoped) {
-                funBuilder.endControlFlow()
-            }
+            handleMemScopedEnd(builder, constructor)
         }
 
-        return funBuilder.build()
+        return builder.build()
     }
 
     /**
@@ -338,7 +334,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator, ConversionBloc
 
         if (addCleaner) {
             constructorBuilder.addParameter(
-                com.squareup.kotlinpoet.ParameterSpec.builder(
+                ParameterSpec.builder(
                     "cleaner",
                     BindingsGenerator.CLEANER.copy(nullable = true),
                 )

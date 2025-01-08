@@ -34,29 +34,25 @@ import kotlin.Unit
 public open class Pattern(pointer: CPointer<cairo_pattern_t>) : KGTyped {
     public val gPointer: CPointer<cairo_pattern_t> = pointer
 
-    public open fun status(): Status = cairo_pattern_status(gPointer.reinterpret()).run {
+    public open fun status(): Status = cairo_pattern_status(gPointer).run {
         Status.fromNativeValue(this)
     }
 
-    public open fun setExtend(extend: Extend): Unit =
-        cairo_pattern_set_extend(gPointer.reinterpret(), extend.nativeValue)
+    public open fun setExtend(extend: Extend): Unit = cairo_pattern_set_extend(gPointer, extend.nativeValue)
 
-    public open fun getExtend(): Extend = cairo_pattern_get_extend(gPointer.reinterpret()).run {
+    public open fun getExtend(): Extend = cairo_pattern_get_extend(gPointer).run {
         Extend.fromNativeValue(this)
     }
 
-    public open fun setFilter(filter: Filter): Unit =
-        cairo_pattern_set_filter(gPointer.reinterpret(), filter.nativeValue)
+    public open fun setFilter(filter: Filter): Unit = cairo_pattern_set_filter(gPointer, filter.nativeValue)
 
-    public open fun getFilter(): Filter = cairo_pattern_get_filter(gPointer.reinterpret()).run {
+    public open fun getFilter(): Filter = cairo_pattern_get_filter(gPointer).run {
         Filter.fromNativeValue(this)
     }
 
-    public open fun setMatrix(matrix: Matrix): Unit =
-        cairo_pattern_set_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public open fun setMatrix(matrix: Matrix): Unit = cairo_pattern_set_matrix(gPointer, matrix.gPointer)
 
-    public open fun getMatrix(matrix: Matrix): Unit =
-        cairo_pattern_get_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())
+    public open fun getMatrix(matrix: Matrix): Unit = cairo_pattern_get_matrix(gPointer, matrix.gPointer)
 
     /**
      *
@@ -64,7 +60,7 @@ public open class Pattern(pointer: CPointer<cairo_pattern_t>) : KGTyped {
      * @since 1.2
      */
     @CairoVersion1_2
-    public open fun getPatternType(): PatternType = cairo_pattern_get_type(gPointer.reinterpret()).run {
+    public open fun getPatternType(): PatternType = cairo_pattern_get_type(gPointer).run {
         PatternType.fromNativeValue(this)
     }
 
@@ -75,8 +71,7 @@ public open class Pattern(pointer: CPointer<cairo_pattern_t>) : KGTyped {
      * @since 1.4
      */
     @CairoVersion1_4
-    public open fun getUserData(key: UserDataKey): gpointer =
-        cairo_pattern_get_user_data(gPointer.reinterpret(), key.gPointer.reinterpret())!!
+    public open fun getUserData(key: UserDataKey): gpointer = cairo_pattern_get_user_data(gPointer, key.gPointer)!!
 
     /**
      *
@@ -85,8 +80,7 @@ public open class Pattern(pointer: CPointer<cairo_pattern_t>) : KGTyped {
      * @since 1.18
      */
     @CairoVersion1_18
-    public open fun setDither(dither: Dither): Unit =
-        cairo_pattern_set_dither(gPointer.reinterpret(), dither.nativeValue)
+    public open fun setDither(dither: Dither): Unit = cairo_pattern_set_dither(gPointer, dither.nativeValue)
 
     /**
      *
@@ -94,7 +88,7 @@ public open class Pattern(pointer: CPointer<cairo_pattern_t>) : KGTyped {
      * @since 1.18
      */
     @CairoVersion1_18
-    public open fun getDither(): Dither = cairo_pattern_get_dither(gPointer.reinterpret()).run {
+    public open fun getDither(): Dither = cairo_pattern_get_dither(gPointer).run {
         Dither.fromNativeValue(this)
     }
 

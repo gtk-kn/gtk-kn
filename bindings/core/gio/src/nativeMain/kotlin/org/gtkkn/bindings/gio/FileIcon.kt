@@ -44,7 +44,7 @@ public open class FileIcon(pointer: CPointer<GFileIcon>) :
          *
          * @return a #GFile.
          */
-        get() = g_file_icon_get_file(gioFileIconPointer.reinterpret())!!.run {
+        get() = g_file_icon_get_file(gioFileIconPointer)!!.run {
             File.wrap(reinterpret())
         }
 

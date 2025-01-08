@@ -92,7 +92,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun changed(key: String, originTag: gpointer? = null): Unit =
-        g_settings_backend_changed(gioSettingsBackendPointer.reinterpret(), key, originTag)
+        g_settings_backend_changed(gioSettingsBackendPointer, key, originTag)
 
     /**
      * This call is a convenience wrapper.  It gets the list of changes from
@@ -105,7 +105,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun changedTree(tree: Tree, originTag: gpointer? = null): Unit =
-        g_settings_backend_changed_tree(gioSettingsBackendPointer.reinterpret(), tree.gPointer.reinterpret(), originTag)
+        g_settings_backend_changed_tree(gioSettingsBackendPointer, tree.gPointer, originTag)
 
     /**
      * Signals that a list of keys have possibly changed.  Backend
@@ -137,12 +137,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun keysChanged(path: String, items: List<String>, originTag: gpointer? = null): Unit = memScoped {
-        return g_settings_backend_keys_changed(
-            gioSettingsBackendPointer.reinterpret(),
-            path,
-            items.toCStringList(this),
-            originTag
-        )
+        return g_settings_backend_keys_changed(gioSettingsBackendPointer, path, items.toCStringList(this), originTag)
     }
 
     /**
@@ -174,7 +169,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun pathChanged(path: String, originTag: gpointer? = null): Unit =
-        g_settings_backend_path_changed(gioSettingsBackendPointer.reinterpret(), path, originTag)
+        g_settings_backend_path_changed(gioSettingsBackendPointer, path, originTag)
 
     /**
      * Signals that the writability of all keys below a given path may have
@@ -188,7 +183,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun pathWritableChanged(path: String): Unit =
-        g_settings_backend_path_writable_changed(gioSettingsBackendPointer.reinterpret(), path)
+        g_settings_backend_path_writable_changed(gioSettingsBackendPointer, path)
 
     /**
      * Signals that the writability of a single key has possibly changed.
@@ -201,7 +196,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun writableChanged(key: String): Unit =
-        g_settings_backend_writable_changed(gioSettingsBackendPointer.reinterpret(), key)
+        g_settings_backend_writable_changed(gioSettingsBackendPointer, key)
 
     public companion object : TypeCompanion<SettingsBackend> {
         override val type: GeneratedClassKGType<SettingsBackend> =
@@ -225,7 +220,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
          */
         @GioVersion2_28
         public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
-            SettingsBackend(reinterpret())
+            SettingsBackend(this)
         }
 
         /**

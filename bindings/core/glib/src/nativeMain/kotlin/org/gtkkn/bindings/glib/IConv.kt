@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.glib
 
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GIConv
 import org.gtkkn.native.glib.g_iconv_close
@@ -32,7 +31,7 @@ public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
      *
      * @return -1 on error, 0 on success
      */
-    public fun close(): gint = g_iconv_close(gPointer.reinterpret())
+    public fun close(): gint = g_iconv_close(gPointer)
 
     public companion object {
         /**
@@ -49,7 +48,7 @@ public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
          *  opening the converter failed.
          */
         public fun `open`(toCodeset: String, fromCodeset: String): IConv = g_iconv_open(toCodeset, fromCodeset)!!.run {
-            IConv(reinterpret())
+            IConv(this)
         }
     }
 }

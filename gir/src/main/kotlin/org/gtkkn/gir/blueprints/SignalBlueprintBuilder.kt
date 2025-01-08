@@ -16,10 +16,15 @@
 
 package org.gtkkn.gir.blueprints
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.ParameterSpec
 import net.pearx.kasechange.toPascalCase
+import net.pearx.kasechange.toSnakeCase
+import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirArrayType
+import org.gtkkn.gir.model.GirFunction
+import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
 import org.gtkkn.gir.model.GirSignal
@@ -32,6 +37,8 @@ class SignalBlueprintBuilder(
     context: ProcessorContext,
     girNamespace: GirNamespace,
     private val girNode: GirSignal,
+    private val methods: List<GirMethod>,
+    private val functions: List<GirFunction>,
 ) : CallableBlueprintBuilder<SignalBlueprint>(context, girNamespace) {
     private val signalParameters = mutableListOf<ParameterBlueprint>()
 
@@ -39,20 +46,7 @@ class SignalBlueprintBuilder(
 
     override fun blueprintObjectName(): String = girNode.name
 
-    private fun addParameter(param: GirParameter) {
-        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
-            is BlueprintResult.Ok -> signalParameters.add(result.blueprint)
-            is BlueprintResult.Skip -> {
-                throw UnresolvableTypeException(
-                    "Unsupported parameter `${param.name}` : ${result.skippedObject.reason}",
-                )
-            }
-        }
-    }
-
     override fun buildInternal(): SignalBlueprint {
-        context.checkIgnoredSignal(girNode.name)
-
         girNode.parameters?.parameters?.forEach { addParameter(it) }
 
         // return value
@@ -71,20 +65,33 @@ class SignalBlueprintBuilder(
             LambdaTypeName.get(
                 parameters = signalParameters
                     .filterNot { it.isUserData }
-                    .map { param ->
-                        ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build()
-                    },
+                    .map { param -> ParameterSpec.builder(param.kotlinName, param.typeInfo.kotlinTypeName).build() },
                 returnType = returnTypeInfo.kotlinTypeName,
             )
 
-        val kotlinConnectName = "connect${girNode.name.toPascalCase()}"
+        val kotlinConnectName = "on${girNode.name.toPascalCase()}"
+        val kotlinEmitName = when {
+            emitMethodAlreadyExists() -> null
+            returnTypeInfo is TypeInfo.Primitive && (returnTypeInfo.typeName as ClassName).simpleName == "Unit" ->
+                "emit${girNode.name.toPascalCase()}"
+
+            else -> {
+                // This should be handled together with the out parameters
+                logger.warn {
+                    "Emit signal with return type ${(returnTypeInfo.nativeTypeName as ClassName).simpleName} " +
+                        "is not supported"
+                }
+                null
+            }
+        }
         return SignalBlueprint(
             signalName = girNode.name,
             kotlinConnectName = kotlinConnectName,
+            kotlinEmitName = kotlinEmitName,
             returnTypeInfo = returnTypeInfo,
             parameters = signalParameters,
             lambdaTypeName = handlerLambdaTypeName,
-            throws = false, // signals cannot throw
+            detailed = girNode.detailed == true,
             exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
@@ -92,5 +99,22 @@ class SignalBlueprintBuilder(
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girNode.returnValue.doc?.doc?.text),
         )
+    }
+
+    private fun addParameter(param: GirParameter) {
+        when (val result = ParameterBlueprintBuilder(context, girNamespace, param).build()) {
+            is BlueprintResult.Ok -> signalParameters.add(result.blueprint)
+            is BlueprintResult.Skip -> {
+                throw UnresolvableTypeException(
+                    "Unsupported parameter `${param.name}` : ${result.skippedObject.reason}",
+                )
+            }
+        }
+    }
+
+    private fun emitMethodAlreadyExists(): Boolean {
+        val emitName = "emit_${girNode.name.toSnakeCase()}"
+        return methods.any { it.callable.getName() == emitName } ||
+            functions.any { it.callable.getName() == emitName }
     }
 }

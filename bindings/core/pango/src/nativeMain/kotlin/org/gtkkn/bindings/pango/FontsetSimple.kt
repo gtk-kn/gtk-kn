@@ -34,9 +34,7 @@ public open class FontsetSimple(pointer: CPointer<PangoFontsetSimple>) :
      * @param language a `PangoLanguage` tag
      * @return the newly allocated `PangoFontsetSimple`
      */
-    public constructor(
-        language: Language,
-    ) : this(pango_fontset_simple_new(language.gPointer.reinterpret())!!.reinterpret())
+    public constructor(language: Language) : this(pango_fontset_simple_new(language.gPointer)!!.reinterpret())
 
     /**
      * Adds a font to the fontset.
@@ -46,14 +44,14 @@ public open class FontsetSimple(pointer: CPointer<PangoFontsetSimple>) :
      * @param font a `PangoFont`.
      */
     public open fun append(font: Font): Unit =
-        pango_fontset_simple_append(pangoFontsetSimplePointer.reinterpret(), font.pangoFontPointer.reinterpret())
+        pango_fontset_simple_append(pangoFontsetSimplePointer, font.pangoFontPointer)
 
     /**
      * Returns the number of fonts in the fontset.
      *
      * @return the size of @fontset
      */
-    public open fun size(): gint = pango_fontset_simple_size(pangoFontsetSimplePointer.reinterpret())
+    public open fun size(): gint = pango_fontset_simple_size(pangoFontsetSimplePointer)
 
     public companion object : TypeCompanion<FontsetSimple> {
         override val type: GeneratedClassKGType<FontsetSimple> =

@@ -77,7 +77,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @return true if streams should autoplay
          */
-        get() = gtk_video_get_autoplay(gtkVideoPointer.reinterpret()).asBoolean()
+        get() = gtk_video_get_autoplay(gtkVideoPointer).asBoolean()
 
         /**
          * Sets whether @self automatically starts playback when it
@@ -85,7 +85,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @param autoplay whether media streams should autoplay
          */
-        set(autoplay) = gtk_video_set_autoplay(gtkVideoPointer.reinterpret(), autoplay.asGBoolean())
+        set(autoplay) = gtk_video_set_autoplay(gtkVideoPointer, autoplay.asGBoolean())
 
     /**
      * The file played by this video if the video is playing a file.
@@ -97,7 +97,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @return The file played by @self
          */
-        get() = gtk_video_get_file(gtkVideoPointer.reinterpret())?.run {
+        get() = gtk_video_get_file(gtkVideoPointer)?.run {
             File.wrap(reinterpret())
         }
 
@@ -106,7 +106,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @param file the file to play
          */
-        set(`file`) = gtk_video_set_file(gtkVideoPointer.reinterpret(), `file`?.gioFilePointer)
+        set(`file`) = gtk_video_set_file(gtkVideoPointer, `file`?.gioFilePointer)
 
     /**
      * Whether to enable graphics offload.
@@ -123,7 +123,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          * @return the graphics offload status
          * @since 4.14
          */
-        get() = gtk_video_get_graphics_offload(gtkVideoPointer.reinterpret()).run {
+        get() = gtk_video_get_graphics_offload(gtkVideoPointer).run {
             GraphicsOffloadEnabled.fromNativeValue(this)
         }
 
@@ -136,7 +136,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          * @since 4.14
          */
         @GtkVersion4_14
-        set(enabled) = gtk_video_set_graphics_offload(gtkVideoPointer.reinterpret(), enabled.nativeValue)
+        set(enabled) = gtk_video_set_graphics_offload(gtkVideoPointer, enabled.nativeValue)
 
     /**
      * If new media files should be set to loop.
@@ -147,14 +147,14 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @return true if streams should loop
          */
-        get() = gtk_video_get_loop(gtkVideoPointer.reinterpret()).asBoolean()
+        get() = gtk_video_get_loop(gtkVideoPointer).asBoolean()
 
         /**
          * Sets whether new files loaded by @self should be set to loop.
          *
          * @param loop whether media streams should loop
          */
-        set(loop) = gtk_video_set_loop(gtkVideoPointer.reinterpret(), loop.asGBoolean())
+        set(loop) = gtk_video_set_loop(gtkVideoPointer, loop.asGBoolean())
 
     /**
      * The media-stream played
@@ -165,8 +165,8 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @return The media stream managed by @self
          */
-        get() = gtk_video_get_media_stream(gtkVideoPointer.reinterpret())?.run {
-            MediaStream(reinterpret())
+        get() = gtk_video_get_media_stream(gtkVideoPointer)?.run {
+            MediaStream(this)
         }
 
         /**
@@ -181,9 +181,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          *
          * @param stream The media stream to play or null to unset
          */
-        set(
-            stream
-        ) = gtk_video_set_media_stream(gtkVideoPointer.reinterpret(), stream?.gtkMediaStreamPointer?.reinterpret())
+        set(stream) = gtk_video_set_media_stream(gtkVideoPointer, stream?.gtkMediaStreamPointer)
 
     /**
      * Creates a new empty `GtkVideo`.
@@ -219,7 +217,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
      */
     public constructor(
         stream: MediaStream? = null,
-    ) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_video_new_for_media_stream(stream?.gtkMediaStreamPointer)!!.reinterpret())
 
     /**
      * Makes @self play the given @filename.
@@ -228,8 +226,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
      *
      * @param filename the filename to play
      */
-    public open fun setFilename(filename: String? = null): Unit =
-        gtk_video_set_filename(gtkVideoPointer.reinterpret(), filename)
+    public open fun setFilename(filename: String? = null): Unit = gtk_video_set_filename(gtkVideoPointer, filename)
 
     /**
      * Makes @self play the resource at the given @resource_path.
@@ -239,7 +236,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
      * @param resourcePath the resource to set
      */
     public open fun setResource(resourcePath: String? = null): Unit =
-        gtk_video_set_resource(gtkVideoPointer.reinterpret(), resourcePath)
+        gtk_video_set_resource(gtkVideoPointer, resourcePath)
 
     public companion object : TypeCompanion<Video> {
         override val type: GeneratedClassKGType<Video> =

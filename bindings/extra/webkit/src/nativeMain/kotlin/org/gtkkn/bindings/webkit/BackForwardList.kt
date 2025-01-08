@@ -20,6 +20,7 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitBackForwardList
 import org.gtkkn.native.webkit.WebKitBackForwardListItem
 import org.gtkkn.native.webkit.webkit_back_forward_list_get_back_item
@@ -65,8 +66,8 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *    preceding the current item or null.
      */
     public fun getBackItem(): BackForwardListItem? =
-        webkit_back_forward_list_get_back_item(webkitBackForwardListPointer.reinterpret())?.run {
-            BackForwardListItem(reinterpret())
+        webkit_back_forward_list_get_back_item(webkitBackForwardListPointer)?.run {
+            BackForwardListItem(this)
         }
 
     /**
@@ -75,10 +76,9 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      * @return a #GList of
      *    items preceding the current item.
      */
-    public fun getBackList(): List =
-        webkit_back_forward_list_get_back_list(webkitBackForwardListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getBackList(): List = webkit_back_forward_list_get_back_list(webkitBackForwardListPointer)!!.run {
+        List(this)
+    }
 
     /**
      * Obtain a list up to some number of items preceding the current one.
@@ -88,8 +88,8 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *    items preceding the current item limited by @limit.
      */
     public fun getBackListWithLimit(limit: guint): List =
-        webkit_back_forward_list_get_back_list_with_limit(webkitBackForwardListPointer.reinterpret(), limit)!!.run {
-            List(reinterpret())
+        webkit_back_forward_list_get_back_list_with_limit(webkitBackForwardListPointer, limit)!!.run {
+            List(this)
         }
 
     /**
@@ -99,8 +99,8 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *    or null if @back_forward_list is empty.
      */
     public fun getCurrentItem(): BackForwardListItem? =
-        webkit_back_forward_list_get_current_item(webkitBackForwardListPointer.reinterpret())?.run {
-            BackForwardListItem(reinterpret())
+        webkit_back_forward_list_get_current_item(webkitBackForwardListPointer)?.run {
+            BackForwardListItem(this)
         }
 
     /**
@@ -110,8 +110,8 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *    following the current item or null.
      */
     public fun getForwardItem(): BackForwardListItem? =
-        webkit_back_forward_list_get_forward_item(webkitBackForwardListPointer.reinterpret())?.run {
-            BackForwardListItem(reinterpret())
+        webkit_back_forward_list_get_forward_item(webkitBackForwardListPointer)?.run {
+            BackForwardListItem(this)
         }
 
     /**
@@ -120,10 +120,9 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      * @return a #GList of
      *    items following the current item.
      */
-    public fun getForwardList(): List =
-        webkit_back_forward_list_get_forward_list(webkitBackForwardListPointer.reinterpret())!!.run {
-            List(reinterpret())
-        }
+    public fun getForwardList(): List = webkit_back_forward_list_get_forward_list(webkitBackForwardListPointer)!!.run {
+        List(this)
+    }
 
     /**
      * Obtain a list up to some number of items following the current one.
@@ -133,8 +132,8 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *    items following the current item limited by @limit.
      */
     public fun getForwardListWithLimit(limit: guint): List =
-        webkit_back_forward_list_get_forward_list_with_limit(webkitBackForwardListPointer.reinterpret(), limit)!!.run {
-            List(reinterpret())
+        webkit_back_forward_list_get_forward_list_with_limit(webkitBackForwardListPointer, limit)!!.run {
+            List(this)
         }
 
     /**
@@ -142,7 +141,7 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *
      * @return the length of @back_forward_list.
      */
-    public fun getLength(): guint = webkit_back_forward_list_get_length(webkitBackForwardListPointer.reinterpret())
+    public fun getLength(): guint = webkit_back_forward_list_get_length(webkitBackForwardListPointer)
 
     /**
      * Returns the item at a given index relative to the current item.
@@ -152,8 +151,8 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      *    located at the specified index relative to the current item or null.
      */
     public fun getNthItem(index: gint): BackForwardListItem? =
-        webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer.reinterpret(), index)?.run {
-            BackForwardListItem(reinterpret())
+        webkit_back_forward_list_get_nth_item(webkitBackForwardListPointer, index)?.run {
+            BackForwardListItem(this)
         }
 
     /**
@@ -163,20 +162,35 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      * null when only the current item is updated. Items are only removed
      * when the list is cleared or the maximum items limit is reached.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `itemAdded` the #WebKitBackForwardListItem added or null; `itemsRemoved` a #GList of #WebKitBackForwardListItem<!-- -->s
      */
-    public fun connectChanged(
+    public fun onChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (itemAdded: BackForwardListItem?, itemsRemoved: gpointer?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "changed",
-        connectChangedFunc.reinterpret(),
+        onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @param itemAdded the #WebKitBackForwardListItem added or null
+     * @param itemsRemoved a #GList of #WebKitBackForwardListItem<!-- -->s
+     */
+    public fun emitChanged(itemAdded: BackForwardListItem?, itemsRemoved: gpointer?) {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "changed",
+            itemAdded?.webkitBackForwardListItemPointer,
+            itemsRemoved
+        )
+    }
 
     public companion object : TypeCompanion<BackForwardList> {
         override val type: GeneratedClassKGType<BackForwardList> =
@@ -195,7 +209,7 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
     }
 }
 
-private val connectChangedFunc:
+private val onChangedFunc:
     CPointer<CFunction<(CPointer<WebKitBackForwardListItem>?, gpointer?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -210,7 +224,7 @@ private val connectChangedFunc:
             ) -> Unit
             >().get().invoke(
             itemAdded?.run {
-                BackForwardListItem(reinterpret())
+                BackForwardListItem(this)
             },
             itemsRemoved
         )

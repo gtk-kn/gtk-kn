@@ -52,8 +52,8 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun copy(): Stroke = gsk_stroke_copy(gPointer.reinterpret())!!.run {
-        Stroke(reinterpret())
+    public fun copy(): Stroke = gsk_stroke_copy(gPointer)!!.run {
+        Stroke(this)
     }
 
     /**
@@ -62,7 +62,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun free(): Unit = gsk_stroke_free(gPointer.reinterpret())
+    public fun free(): Unit = gsk_stroke_free(gPointer)
 
     /**
      * Returns the dash_offset of a `GskStroke`.
@@ -70,7 +70,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getDashOffset(): gfloat = gsk_stroke_get_dash_offset(gPointer.reinterpret())
+    public fun getDashOffset(): gfloat = gsk_stroke_get_dash_offset(gPointer)
 
     /**
      * Gets the line cap used.
@@ -81,7 +81,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getLineCap(): LineCap = gsk_stroke_get_line_cap(gPointer.reinterpret()).run {
+    public fun getLineCap(): LineCap = gsk_stroke_get_line_cap(gPointer).run {
         LineCap.fromNativeValue(this)
     }
 
@@ -94,7 +94,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getLineJoin(): LineJoin = gsk_stroke_get_line_join(gPointer.reinterpret()).run {
+    public fun getLineJoin(): LineJoin = gsk_stroke_get_line_join(gPointer).run {
         LineJoin.fromNativeValue(this)
     }
 
@@ -105,7 +105,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getLineWidth(): gfloat = gsk_stroke_get_line_width(gPointer.reinterpret())
+    public fun getLineWidth(): gfloat = gsk_stroke_get_line_width(gPointer)
 
     /**
      * Returns the miter limit of a `GskStroke`.
@@ -113,7 +113,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getMiterLimit(): gfloat = gsk_stroke_get_miter_limit(gPointer.reinterpret())
+    public fun getMiterLimit(): gfloat = gsk_stroke_get_miter_limit(gPointer)
 
     /**
      * Sets the offset into the dash pattern where dashing should begin.
@@ -127,7 +127,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setDashOffset(offset: gfloat): Unit = gsk_stroke_set_dash_offset(gPointer.reinterpret(), offset)
+    public fun setDashOffset(offset: gfloat): Unit = gsk_stroke_set_dash_offset(gPointer, offset)
 
     /**
      * Sets the line cap to be used when stroking.
@@ -138,7 +138,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setLineCap(lineCap: LineCap): Unit = gsk_stroke_set_line_cap(gPointer.reinterpret(), lineCap.nativeValue)
+    public fun setLineCap(lineCap: LineCap): Unit = gsk_stroke_set_line_cap(gPointer, lineCap.nativeValue)
 
     /**
      * Sets the line join to be used when stroking.
@@ -149,8 +149,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setLineJoin(lineJoin: LineJoin): Unit =
-        gsk_stroke_set_line_join(gPointer.reinterpret(), lineJoin.nativeValue)
+    public fun setLineJoin(lineJoin: LineJoin): Unit = gsk_stroke_set_line_join(gPointer, lineJoin.nativeValue)
 
     /**
      * Sets the line width to be used when stroking.
@@ -161,7 +160,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setLineWidth(lineWidth: gfloat): Unit = gsk_stroke_set_line_width(gPointer.reinterpret(), lineWidth)
+    public fun setLineWidth(lineWidth: gfloat): Unit = gsk_stroke_set_line_width(gPointer, lineWidth)
 
     /**
      * Sets the limit for the distance from the corner where sharp
@@ -177,7 +176,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun setMiterLimit(limit: gfloat): Unit = gsk_stroke_set_miter_limit(gPointer.reinterpret(), limit)
+    public fun setMiterLimit(limit: gfloat): Unit = gsk_stroke_set_miter_limit(gPointer, limit)
 
     /**
      * A helper function that sets the stroke parameters
@@ -187,7 +186,7 @@ public class Stroke(pointer: CPointer<GskStroke>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun toCairo(cr: Context): Unit = gsk_stroke_to_cairo(gPointer.reinterpret(), cr.gPointer.reinterpret())
+    public fun toCairo(cr: Context): Unit = gsk_stroke_to_cairo(gPointer, cr.gPointer)
 
     public companion object {
         /**

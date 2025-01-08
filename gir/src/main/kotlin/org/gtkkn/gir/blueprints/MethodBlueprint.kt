@@ -28,6 +28,8 @@ data class MethodBlueprint(
     override val exceptionResolvingFunctionMember: MemberName,
     val isOverride: Boolean,
     val isOpen: Boolean,
+    val reinterpretInstanceParameter: Boolean,
+    val reinterpretReturnValue: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,

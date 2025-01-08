@@ -36,7 +36,7 @@ public class FormSubmissionRequest(pointer: CPointer<WebKitFormSubmissionRequest
     /**
      * Continue the form submission.
      */
-    public fun submit(): Unit = webkit_form_submission_request_submit(webkitFormSubmissionRequestPointer.reinterpret())
+    public fun submit(): Unit = webkit_form_submission_request_submit(webkitFormSubmissionRequestPointer)
 
     public companion object : TypeCompanion<FormSubmissionRequest> {
         override val type: GeneratedClassKGType<FormSubmissionRequest> =

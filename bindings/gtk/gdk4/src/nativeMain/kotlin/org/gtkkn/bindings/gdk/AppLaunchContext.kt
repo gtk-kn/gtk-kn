@@ -56,8 +56,8 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
          *
          * @return the display of @context
          */
-        get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer.reinterpret())!!.run {
-            Display(reinterpret())
+        get() = gdk_app_launch_context_get_display(gdkAppLaunchContextPointer)!!.run {
+            Display(this)
         }
 
     /**
@@ -78,7 +78,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      * @param desktop the number of a workspace, or -1
      */
     public open fun setDesktop(desktop: gint): Unit =
-        gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer.reinterpret(), desktop)
+        gdk_app_launch_context_set_desktop(gdkAppLaunchContextPointer, desktop)
 
     /**
      * Sets the icon for applications that are launched with this
@@ -92,7 +92,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      * @param icon a `GIcon`
      */
     public open fun setIcon(icon: Icon? = null): Unit =
-        gdk_app_launch_context_set_icon(gdkAppLaunchContextPointer.reinterpret(), icon?.gioIconPointer)
+        gdk_app_launch_context_set_icon(gdkAppLaunchContextPointer, icon?.gioIconPointer)
 
     /**
      * Sets the icon for applications that are launched with this context.
@@ -108,7 +108,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      * @param iconName an icon name
      */
     public open fun setIconName(iconName: String? = null): Unit =
-        gdk_app_launch_context_set_icon_name(gdkAppLaunchContextPointer.reinterpret(), iconName)
+        gdk_app_launch_context_set_icon_name(gdkAppLaunchContextPointer, iconName)
 
     /**
      * Sets the timestamp of @context.
@@ -124,7 +124,7 @@ public open class AppLaunchContext(pointer: CPointer<GdkAppLaunchContext>) :
      * @param timestamp a timestamp
      */
     public open fun setTimestamp(timestamp: guint): Unit =
-        gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer.reinterpret(), timestamp)
+        gdk_app_launch_context_set_timestamp(gdkAppLaunchContextPointer, timestamp)
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =

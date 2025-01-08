@@ -39,10 +39,9 @@ public open class CairoContext(pointer: CPointer<GdkCairoContext>) :
      * @return a Cairo context
      *   to draw on `GdkSurface
      */
-    public open fun cairoCreate(): Context? =
-        gdk_cairo_context_cairo_create(gdkCairoContextPointer.reinterpret())?.run {
-            Context(reinterpret())
-        }
+    public open fun cairoCreate(): Context? = gdk_cairo_context_cairo_create(gdkCairoContextPointer)?.run {
+        Context(this)
+    }
 
     public companion object : TypeCompanion<CairoContext> {
         override val type: GeneratedClassKGType<CairoContext> =

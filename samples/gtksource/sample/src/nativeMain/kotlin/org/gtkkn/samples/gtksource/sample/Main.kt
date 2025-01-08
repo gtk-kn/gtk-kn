@@ -72,7 +72,7 @@ fun main() = Application {
 
     val spacesForTabCheckButton = CheckButton.newWithLabel("Spaces for tab").apply {
         active = sourceView.insertSpacesInsteadOfTabs
-        connectToggled {
+        onToggled {
             log { "spacesForTabCheckButton Toggled = $active" }
             sourceView.insertSpacesInsteadOfTabs = active
         }
@@ -80,7 +80,7 @@ fun main() = Application {
 
     val showLineNumberButton = CheckButton.newWithLabel("Show line number").apply {
         active = sourceView.showLineNumbers
-        connectToggled {
+        onToggled {
             log { "showLineNumberButton Toggled = $active" }
             sourceView.showLineNumbers = active
         }
@@ -109,14 +109,14 @@ private val HELLO_WORLD_TEXT =
             val app = Application(APP_ID, ApplicationFlags.FLAGS_NONE)
 
             // Connect to "activate" signal of `app`
-            app.connectActivate {
+            app.onActivate {
                 // Create a button with label and margins
                 val button = Button()
                 button.setLabel("Click me!")
                 button.setMargins(12)
 
                 // Connect to "clicked" signal of `button`
-                button.connectClicked {
+                button.onClicked {
                     // Set the label to "Hello World!" after the button has been clicked on
                     button.setLabel("Hello World!")
                 }

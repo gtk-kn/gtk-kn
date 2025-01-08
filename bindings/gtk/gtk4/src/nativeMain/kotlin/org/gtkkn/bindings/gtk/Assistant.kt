@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkAssistant
 import org.gtkkn.native.gtk.GtkBuildable
@@ -133,7 +134,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
          *
          * @return A list model of the pages.
          */
-        get() = gtk_assistant_get_pages(gtkAssistantPointer.reinterpret())!!.run {
+        get() = gtk_assistant_get_pages(gtkAssistantPointer)!!.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -150,7 +151,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param child a `GtkWidget`
      */
     public open fun addActionWidget(child: Widget): Unit =
-        gtk_assistant_add_action_widget(gtkAssistantPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        gtk_assistant_add_action_widget(gtkAssistantPointer, child.gtkWidgetPointer)
 
     /**
      * Appends a page to the @assistant.
@@ -159,7 +160,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @return the index (starting at 0) of the inserted page
      */
     public open fun appendPage(page: Widget): gint =
-        gtk_assistant_append_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret())
+        gtk_assistant_append_page(gtkAssistantPointer, page.gtkWidgetPointer)
 
     /**
      * Erases the visited page history.
@@ -173,7 +174,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * a long-running, unreversible operation after the user has
      * clicked apply on a confirmation page.
      */
-    public open fun commit(): Unit = gtk_assistant_commit(gtkAssistantPointer.reinterpret())
+    public open fun commit(): Unit = gtk_assistant_commit(gtkAssistantPointer)
 
     /**
      * Returns the page number of the current page.
@@ -182,14 +183,14 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      *   page in the @assistant, or -1 if the @assistant has no pages,
      *   or no current page
      */
-    public open fun getCurrentPage(): gint = gtk_assistant_get_current_page(gtkAssistantPointer.reinterpret())
+    public open fun getCurrentPage(): gint = gtk_assistant_get_current_page(gtkAssistantPointer)
 
     /**
      * Returns the number of pages in the @assistant
      *
      * @return the number of pages in the @assistant
      */
-    public open fun getNPages(): gint = gtk_assistant_get_n_pages(gtkAssistantPointer.reinterpret())
+    public open fun getNPages(): gint = gtk_assistant_get_n_pages(gtkAssistantPointer)
 
     /**
      * Returns the child widget contained in page number @page_num.
@@ -199,10 +200,9 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @return the child widget, or null
      *   if @page_num is out of bounds
      */
-    public open fun getNthPage(pageNum: gint): Widget? =
-        gtk_assistant_get_nth_page(gtkAssistantPointer.reinterpret(), pageNum)?.run {
-            Widget(reinterpret())
-        }
+    public open fun getNthPage(pageNum: gint): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer, pageNum)?.run {
+        Widget(this)
+    }
 
     /**
      * Returns the `GtkAssistantPage` object for @child.
@@ -211,8 +211,8 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @return the `GtkAssistantPage` for @child
      */
     public open fun getPage(child: Widget): AssistantPage =
-        gtk_assistant_get_page(gtkAssistantPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            AssistantPage(reinterpret())
+        gtk_assistant_get_page(gtkAssistantPointer, child.gtkWidgetPointer)!!.run {
+            AssistantPage(this)
         }
 
     /**
@@ -221,10 +221,8 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param page a page of @assistant
      * @return true if @page is complete.
      */
-    public open fun getPageComplete(page: Widget): Boolean = gtk_assistant_get_page_complete(
-        gtkAssistantPointer.reinterpret(),
-        page.gtkWidgetPointer.reinterpret()
-    ).asBoolean()
+    public open fun getPageComplete(page: Widget): Boolean =
+        gtk_assistant_get_page_complete(gtkAssistantPointer, page.gtkWidgetPointer).asBoolean()
 
     /**
      * Gets the title for @page.
@@ -232,11 +230,9 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param page a page of @assistant
      * @return the title for @page
      */
-    public open fun getPageTitle(page: Widget): String = gtk_assistant_get_page_title(
-        gtkAssistantPointer.reinterpret(),
-        page.gtkWidgetPointer.reinterpret()
-    )?.toKString()
-        ?: error("Expected not null string")
+    public open fun getPageTitle(page: Widget): String =
+        gtk_assistant_get_page_title(gtkAssistantPointer, page.gtkWidgetPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets the page type of @page.
@@ -245,7 +241,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @return the page type of @page
      */
     public open fun getPageType(page: Widget): AssistantPageType =
-        gtk_assistant_get_page_type(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret()).run {
+        gtk_assistant_get_page_type(gtkAssistantPointer, page.gtkWidgetPointer).run {
             AssistantPageType.fromNativeValue(this)
         }
 
@@ -258,7 +254,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @return the index (starting from 0) of the inserted page
      */
     public open fun insertPage(page: Widget, position: gint): gint =
-        gtk_assistant_insert_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret(), position)
+        gtk_assistant_insert_page(gtkAssistantPointer, page.gtkWidgetPointer, position)
 
     /**
      * Navigate to the next page.
@@ -269,7 +265,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * This function is for use when creating pages of the
      * %GTK_ASSISTANT_PAGE_CUSTOM type.
      */
-    public open fun nextPage(): Unit = gtk_assistant_next_page(gtkAssistantPointer.reinterpret())
+    public open fun nextPage(): Unit = gtk_assistant_next_page(gtkAssistantPointer)
 
     /**
      * Prepends a page to the @assistant.
@@ -278,7 +274,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @return the index (starting at 0) of the inserted page
      */
     public open fun prependPage(page: Widget): gint =
-        gtk_assistant_prepend_page(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret())
+        gtk_assistant_prepend_page(gtkAssistantPointer, page.gtkWidgetPointer)
 
     /**
      * Navigate to the previous visited page.
@@ -289,7 +285,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * This function is for use when creating pages of the
      * %GTK_ASSISTANT_PAGE_CUSTOM type.
      */
-    public open fun previousPage(): Unit = gtk_assistant_previous_page(gtkAssistantPointer.reinterpret())
+    public open fun previousPage(): Unit = gtk_assistant_previous_page(gtkAssistantPointer)
 
     /**
      * Removes a widget from the action area of a `GtkAssistant`.
@@ -297,7 +293,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param child a `GtkWidget`
      */
     public open fun removeActionWidget(child: Widget): Unit =
-        gtk_assistant_remove_action_widget(gtkAssistantPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        gtk_assistant_remove_action_widget(gtkAssistantPointer, child.gtkWidgetPointer)
 
     /**
      * Removes the @page_num’s page from @assistant.
@@ -305,8 +301,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param pageNum the index of a page in the @assistant,
      *   or -1 to remove the last page
      */
-    public open fun removePage(pageNum: gint): Unit =
-        gtk_assistant_remove_page(gtkAssistantPointer.reinterpret(), pageNum)
+    public open fun removePage(pageNum: gint): Unit = gtk_assistant_remove_page(gtkAssistantPointer, pageNum)
 
     /**
      * Switches the page to @page_num.
@@ -320,8 +315,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      *   than the number of pages in the @assistant, nothing
      *   will be done.
      */
-    public open fun setCurrentPage(pageNum: gint): Unit =
-        gtk_assistant_set_current_page(gtkAssistantPointer.reinterpret(), pageNum)
+    public open fun setCurrentPage(pageNum: gint): Unit = gtk_assistant_set_current_page(gtkAssistantPointer, pageNum)
 
     /**
      * Sets the page forwarding function to be @page_func.
@@ -336,7 +330,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      *   to use the default one
      */
     public open fun setForwardPageFunc(pageFunc: AssistantPageFunc?): Unit = gtk_assistant_set_forward_page_func(
-        gtkAssistantPointer.reinterpret(),
+        gtkAssistantPointer,
         pageFunc?.let {
             AssistantPageFuncFunc.reinterpret()
         },
@@ -355,11 +349,8 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param page a page of @assistant
      * @param complete the completeness status of the page
      */
-    public open fun setPageComplete(page: Widget, complete: Boolean): Unit = gtk_assistant_set_page_complete(
-        gtkAssistantPointer.reinterpret(),
-        page.gtkWidgetPointer.reinterpret(),
-        complete.asGBoolean()
-    )
+    public open fun setPageComplete(page: Widget, complete: Boolean): Unit =
+        gtk_assistant_set_page_complete(gtkAssistantPointer, page.gtkWidgetPointer, complete.asGBoolean())
 
     /**
      * Sets a title for @page.
@@ -371,7 +362,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param title the new title for @page
      */
     public open fun setPageTitle(page: Widget, title: String): Unit =
-        gtk_assistant_set_page_title(gtkAssistantPointer.reinterpret(), page.gtkWidgetPointer.reinterpret(), title)
+        gtk_assistant_set_page_title(gtkAssistantPointer, page.gtkWidgetPointer, title)
 
     /**
      * Sets the page type for @page.
@@ -381,11 +372,8 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param page a page of @assistant
      * @param type the new type for @page
      */
-    public open fun setPageType(page: Widget, type: AssistantPageType): Unit = gtk_assistant_set_page_type(
-        gtkAssistantPointer.reinterpret(),
-        page.gtkWidgetPointer.reinterpret(),
-        type.nativeValue
-    )
+    public open fun setPageType(page: Widget, type: AssistantPageType): Unit =
+        gtk_assistant_set_page_type(gtkAssistantPointer, page.gtkWidgetPointer, type.nativeValue)
 
     /**
      * Forces @assistant to recompute the buttons state.
@@ -398,7 +386,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * function is when changing a value on the current page
      * affects the future page flow of the assistant.
      */
-    public open fun updateButtonsState(): Unit = gtk_assistant_update_buttons_state(gtkAssistantPointer.reinterpret())
+    public open fun updateButtonsState(): Unit = gtk_assistant_update_buttons_state(gtkAssistantPointer)
 
     /**
      * Emitted when the apply button is clicked.
@@ -413,68 +401,96 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * this operation within the [signal@Gtk.Assistant::prepare] signal of
      * the progress page.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "apply",
-            connectApplyFunc.reinterpret(),
+            onApplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "apply" signal. See [onApply].
+     */
+    public fun emitApply() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "apply")
+    }
+
+    /**
      * Emitted when then the cancel button is clicked.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCancel(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onCancel(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "cancel",
-            connectCancelFunc.reinterpret(),
+            onCancelFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "cancel" signal. See [onCancel].
+     */
+    public fun emitCancel() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "cancel")
+    }
 
     /**
      * Emitted either when the close button of a summary page is clicked,
      * or when the apply button in the last page in the flow (of type
      * %GTK_ASSISTANT_PAGE_CONFIRM) is clicked.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "close",
-            connectCloseFunc.reinterpret(),
+            onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "close" signal. See [onClose].
+     */
+    public fun emitClose() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+    }
+
+    /**
      * The action signal for the Escape binding.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectEscape(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onEscape(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "escape",
-            connectEscapeFunc.reinterpret(),
+            onEscapeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "escape" signal. See [onEscape].
+     */
+    public fun emitEscape() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "escape")
+    }
 
     /**
      * Emitted when a new page is set as the assistant's current page,
@@ -483,18 +499,27 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * A handler for this signal can do any preparations which are
      * necessary before showing @page.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `page` the current page
      */
-    public fun connectPrepare(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: Widget) -> Unit): ULong =
+    public fun onPrepare(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: Widget) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "prepare",
-            connectPrepareFunc.reinterpret(),
+            onPrepareFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "prepare" signal. See [onPrepare].
+     *
+     * @param page the current page
+     */
+    public fun emitPrepare(page: Widget) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "prepare", page.gtkWidgetPointer)
+    }
 
     public companion object : TypeCompanion<Assistant> {
         override val type: GeneratedClassKGType<Assistant> =
@@ -513,7 +538,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
     }
 }
 
-private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -521,7 +546,7 @@ private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectCancelFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCancelFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -529,7 +554,7 @@ private val connectCancelFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
 }
     .reinterpret()
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -537,7 +562,7 @@ private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectEscapeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onEscapeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -545,16 +570,15 @@ private val connectEscapeFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
 }
     .reinterpret()
 
-private val connectPrepareFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            page: CPointer<GtkWidget>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(page: Widget) -> Unit>().get().invoke(
-            page!!.run {
-                Widget(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
+private val onPrepareFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        page: CPointer<GtkWidget>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(page: Widget) -> Unit>().get().invoke(
+        page!!.run {
+            Widget(this)
+        }
+    )
+}
+    .reinterpret()

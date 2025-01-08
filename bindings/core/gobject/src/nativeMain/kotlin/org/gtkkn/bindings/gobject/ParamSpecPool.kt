@@ -39,7 +39,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @since 2.80
      */
     @GObjectVersion2_80
-    public fun free(): Unit = g_param_spec_pool_free(gPointer.reinterpret())
+    public fun free(): Unit = g_param_spec_pool_free(gPointer)
 
     /**
      * Inserts a #GParamSpec in the pool.
@@ -48,7 +48,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * @param ownerType a #GType identifying the owner of @pspec
      */
     public fun insert(pspec: ParamSpec, ownerType: GType): Unit =
-        g_param_spec_pool_insert(gPointer.reinterpret(), pspec.gPointer.reinterpret(), ownerType)
+        g_param_spec_pool_insert(gPointer, pspec.gPointer, ownerType)
 
     /**
      * Gets an #GList of all #GParamSpecs owned by @owner_type in
@@ -59,10 +59,9 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      *          #GList of all #GParamSpecs owned by @owner_type in
      *          the pool#GParamSpecs.
      */
-    public fun listOwned(ownerType: GType): List =
-        g_param_spec_pool_list_owned(gPointer.reinterpret(), ownerType)!!.run {
-            List(reinterpret())
-        }
+    public fun listOwned(ownerType: GType): List = g_param_spec_pool_list_owned(gPointer, ownerType)!!.run {
+        List(reinterpret())
+    }
 
     /**
      * Looks up a #GParamSpec in the pool.
@@ -75,8 +74,8 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      * matching #GParamSpec was found.
      */
     public fun lookup(paramName: String, ownerType: GType, walkAncestors: Boolean): ParamSpec? =
-        g_param_spec_pool_lookup(gPointer.reinterpret(), paramName, ownerType, walkAncestors.asGBoolean())?.run {
-            ParamSpec(reinterpret())
+        g_param_spec_pool_lookup(gPointer, paramName, ownerType, walkAncestors.asGBoolean())?.run {
+            ParamSpec(this)
         }
 
     /**
@@ -84,8 +83,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
      *
      * @param pspec the #GParamSpec to remove
      */
-    public fun remove(pspec: ParamSpec): Unit =
-        g_param_spec_pool_remove(gPointer.reinterpret(), pspec.gPointer.reinterpret())
+    public fun remove(pspec: ParamSpec): Unit = g_param_spec_pool_remove(gPointer, pspec.gPointer)
 
     public companion object {
         /**
@@ -101,7 +99,7 @@ public class ParamSpecPool(pointer: CPointer<GParamSpecPool>) : ProxyInstance(po
          */
         public fun new(typePrefixing: Boolean): ParamSpecPool =
             g_param_spec_pool_new(typePrefixing.asGBoolean())!!.run {
-                ParamSpecPool(reinterpret())
+                ParamSpecPool(this)
             }
     }
 }

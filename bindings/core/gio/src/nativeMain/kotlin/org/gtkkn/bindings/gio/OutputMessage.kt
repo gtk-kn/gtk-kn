@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -42,12 +41,12 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var address: SocketAddress?
         get() = gPointer.pointed.address?.run {
-            SocketAddress(reinterpret())
+            SocketAddress(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.address = value?.gioSocketAddressPointer?.reinterpret()
+            gPointer.pointed.address = value?.gioSocketAddressPointer
         }
 
     /**
@@ -55,7 +54,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     public var vectors: OutputVector?
         get() = gPointer.pointed.vectors?.run {
-            OutputVector(reinterpret())
+            OutputVector(this)
         }
 
         @UnsafeFieldSetter

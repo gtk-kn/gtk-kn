@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -19,6 +20,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkCellRendererToggle
 import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_get_activatable
 import org.gtkkn.native.gtk.gtk_cell_renderer_toggle_get_active
@@ -58,16 +60,14 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          *
          * @return true if the cell renderer is activatable.
          */
-        get() = gtk_cell_renderer_toggle_get_activatable(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
+        get() = gtk_cell_renderer_toggle_get_activatable(gtkCellRendererTogglePointer).asBoolean()
 
         /**
          * Makes the cell renderer activatable.
          *
          * @param setting the value to set.
          */
-        set(
-            setting
-        ) = gtk_cell_renderer_toggle_set_activatable(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_cell_renderer_toggle_set_activatable(gtkCellRendererTogglePointer, setting.asGBoolean())
 
     public open var active: Boolean
         /**
@@ -76,16 +76,14 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          *
          * @return true if the cell renderer is active.
          */
-        get() = gtk_cell_renderer_toggle_get_active(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
+        get() = gtk_cell_renderer_toggle_get_active(gtkCellRendererTogglePointer).asBoolean()
 
         /**
          * Activates or deactivates a cell renderer.
          *
          * @param setting the value to set.
          */
-        set(
-            setting
-        ) = gtk_cell_renderer_toggle_set_active(gtkCellRendererTogglePointer.reinterpret(), setting.asGBoolean())
+        set(setting) = gtk_cell_renderer_toggle_set_active(gtkCellRendererTogglePointer, setting.asGBoolean())
 
     public open var radio: Boolean
         /**
@@ -93,7 +91,7 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          *
          * @return true if we’re rendering radio toggles rather than checkboxes
          */
-        get() = gtk_cell_renderer_toggle_get_radio(gtkCellRendererTogglePointer.reinterpret()).asBoolean()
+        get() = gtk_cell_renderer_toggle_get_radio(gtkCellRendererTogglePointer).asBoolean()
 
         /**
          * If @radio is true, the cell renderer renders a radio toggle
@@ -106,7 +104,7 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
          *
          * @param radio true to make the toggle look like a radio button
          */
-        set(radio) = gtk_cell_renderer_toggle_set_radio(gtkCellRendererTogglePointer.reinterpret(), radio.asGBoolean())
+        set(radio) = gtk_cell_renderer_toggle_set_radio(gtkCellRendererTogglePointer, radio.asGBoolean())
 
     /**
      * Creates a new `GtkCellRendererToggle`. Adjust rendering
@@ -128,19 +126,29 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
      * with the correct value to store at @path.  Often this is simply the
      * opposite of the value currently stored at @path.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` string representation of `GtkTreePath` describing the
      *        event location
      */
-    public fun connectToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong =
+    public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "toggled",
-            connectToggledFunc.reinterpret(),
+            onToggledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "toggled" signal. See [onToggled].
+     *
+     * @param path string representation of `GtkTreePath` describing the
+     *        event location
+     */
+    public fun emitToggled(path: String) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "toggled", path.cstr)
+    }
 
     public companion object : TypeCompanion<CellRendererToggle> {
         override val type: GeneratedClassKGType<CellRendererToggle> =
@@ -159,7 +167,7 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
     }
 }
 
-private val connectToggledFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
+private val onToggledFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         path: CPointer<ByteVar>?,
         userData: COpaquePointer,

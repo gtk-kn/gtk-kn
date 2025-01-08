@@ -54,7 +54,7 @@ public open class MultiSelection(pointer: CPointer<GtkMultiSelection>) :
          *
          * @return the underlying model
          */
-        get() = gtk_multi_selection_get_model(gtkMultiSelectionPointer.reinterpret())?.run {
+        get() = gtk_multi_selection_get_model(gtkMultiSelectionPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -65,7 +65,7 @@ public open class MultiSelection(pointer: CPointer<GtkMultiSelection>) :
          *
          * @param model A `GListModel` to wrap
          */
-        set(model) = gtk_multi_selection_set_model(gtkMultiSelectionPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_multi_selection_set_model(gtkMultiSelectionPointer, model?.gioListModelPointer)
 
     /**
      * Creates a new selection to handle @model.

@@ -84,14 +84,14 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          *
          * @return the description of @self
          */
-        get() = adw_preferences_group_get_description(adwPreferencesGroupPointer.reinterpret())?.toKString()
+        get() = adw_preferences_group_get_description(adwPreferencesGroupPointer)?.toKString()
 
         /**
          * Sets the description for @self.
          *
          * @param description the description
          */
-        set(description) = adw_preferences_group_set_description(adwPreferencesGroupPointer.reinterpret(), description)
+        set(description) = adw_preferences_group_set_description(adwPreferencesGroupPointer, description)
 
     /**
      * The header suffix widget.
@@ -111,8 +111,8 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          * @return the suffix for @self's header.
          * @since 1.1
          */
-        get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -126,12 +126,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          * @since 1.1
          */
         @AdwVersion1_1
-        set(
-            suffix
-        ) = adw_preferences_group_set_header_suffix(
-            adwPreferencesGroupPointer.reinterpret(),
-            suffix?.gtkWidgetPointer?.reinterpret()
-        )
+        set(suffix) = adw_preferences_group_set_header_suffix(adwPreferencesGroupPointer, suffix?.gtkWidgetPointer)
 
     /**
      * The title for this group of preferences.
@@ -142,7 +137,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          *
          * @return the title of @self
          */
-        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer.reinterpret())?.toKString()
+        get() = adw_preferences_group_get_title(adwPreferencesGroupPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -150,7 +145,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          *
          * @param title the title
          */
-        set(title) = adw_preferences_group_set_title(adwPreferencesGroupPointer.reinterpret(), title)
+        set(title) = adw_preferences_group_set_title(adwPreferencesGroupPointer, title)
 
     /**
      * Creates a new `AdwPreferencesGroup`.
@@ -165,7 +160,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
      * @param child the widget to add
      */
     public open fun add(child: Widget): Unit =
-        adw_preferences_group_add(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        adw_preferences_group_add(adwPreferencesGroupPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child from @self.
@@ -173,7 +168,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
      * @param child the child to remove
      */
     public open fun remove(child: Widget): Unit =
-        adw_preferences_group_remove(adwPreferencesGroupPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        adw_preferences_group_remove(adwPreferencesGroupPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<PreferencesGroup> {
         override val type: GeneratedClassKGType<PreferencesGroup> =

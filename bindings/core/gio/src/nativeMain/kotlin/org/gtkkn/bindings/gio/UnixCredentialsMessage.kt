@@ -59,8 +59,8 @@ public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessa
          * @return A #GCredentials instance. Do not free, it is owned by @message.
          * @since 2.26
          */
-        get() = g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer.reinterpret())!!.run {
-            Credentials(reinterpret())
+        get() = g_unix_credentials_message_get_credentials(gioUnixCredentialsMessagePointer)!!.run {
+            Credentials(this)
         }
 
     /**
@@ -80,9 +80,7 @@ public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessa
      */
     public constructor(
         credentials: Credentials,
-    ) : this(
-        g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer.reinterpret())!!.reinterpret()
-    )
+    ) : this(g_unix_credentials_message_new_with_credentials(credentials.gioCredentialsPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<UnixCredentialsMessage> {
         override val type: GeneratedClassKGType<UnixCredentialsMessage> =

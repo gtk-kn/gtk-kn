@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
@@ -56,7 +55,7 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      */
     public var values: FlagsValue?
         get() = gPointer.pointed.values?.run {
-            FlagsValue(reinterpret())
+            FlagsValue(this)
         }
 
         @UnsafeFieldSetter

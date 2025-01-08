@@ -45,7 +45,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun free(): Unit = g_option_group_free(gPointer.reinterpret())
+    public fun free(): Unit = g_option_group_free(gPointer)
 
     /**
      * Increments the reference count of @group by one.
@@ -54,8 +54,8 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun ref(): OptionGroup = g_option_group_ref(gPointer.reinterpret())!!.run {
-        OptionGroup(reinterpret())
+    public fun ref(): OptionGroup = g_option_group_ref(gPointer)!!.run {
+        OptionGroup(this)
     }
 
     /**
@@ -71,7 +71,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      */
     @GLibVersion2_6
     public fun setTranslateFunc(func: TranslateFunc?): Unit = g_option_group_set_translate_func(
-        gPointer.reinterpret(),
+        gPointer,
         func?.let {
             TranslateFuncFunc.reinterpret()
         },
@@ -87,8 +87,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setTranslationDomain(domain: String): Unit =
-        g_option_group_set_translation_domain(gPointer.reinterpret(), domain)
+    public fun setTranslationDomain(domain: String): Unit = g_option_group_set_translation_domain(gPointer, domain)
 
     /**
      * Decrements the reference count of @group by one.
@@ -98,7 +97,7 @@ public class OptionGroup(pointer: CPointer<GOptionGroup>) : ProxyInstance(pointe
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun unref(): Unit = g_option_group_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_option_group_unref(gPointer)
 
     public companion object {
         /**

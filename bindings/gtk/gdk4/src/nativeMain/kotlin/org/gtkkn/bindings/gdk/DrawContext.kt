@@ -47,8 +47,8 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
          *
          * @return the `GdkDisplay`
          */
-        get() = gdk_draw_context_get_display(gdkDrawContextPointer.reinterpret())?.run {
-            Display(reinterpret())
+        get() = gdk_draw_context_get_display(gdkDrawContextPointer)?.run {
+            Display(this)
         }
 
     /**
@@ -60,8 +60,8 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
          *
          * @return a `GdkSurface`
          */
-        get() = gdk_draw_context_get_surface(gdkDrawContextPointer.reinterpret())?.run {
-            Surface(reinterpret())
+        get() = gdk_draw_context_get_surface(gdkDrawContextPointer)?.run {
+            Surface(this)
         }
 
     /**
@@ -93,7 +93,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
      * @param region minimum region that should be drawn
      */
     public open fun beginFrame(region: Region): Unit =
-        gdk_draw_context_begin_frame(gdkDrawContextPointer.reinterpret(), region.gPointer.reinterpret())
+        gdk_draw_context_begin_frame(gdkDrawContextPointer, region.gPointer)
 
     /**
      * Ends a drawing operation started with gdk_draw_context_begin_frame().
@@ -105,7 +105,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
      * implicitly before returning; it is not recommended to call `glFlush()`
      * explicitly before calling this function.
      */
-    public open fun endFrame(): Unit = gdk_draw_context_end_frame(gdkDrawContextPointer.reinterpret())
+    public open fun endFrame(): Unit = gdk_draw_context_end_frame(gdkDrawContextPointer)
 
     /**
      * Retrieves the region that is currently being repainted.
@@ -119,10 +119,9 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
      *
      * @return a Cairo region
      */
-    public open fun getFrameRegion(): Region? =
-        gdk_draw_context_get_frame_region(gdkDrawContextPointer.reinterpret())?.run {
-            Region(reinterpret())
-        }
+    public open fun getFrameRegion(): Region? = gdk_draw_context_get_frame_region(gdkDrawContextPointer)?.run {
+        Region(this)
+    }
 
     /**
      * Returns true if @context is in the process of drawing to its surface.
@@ -134,7 +133,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
      * @return true if the context is between [method@Gdk.DrawContext.begin_frame]
      *   and [method@Gdk.DrawContext.end_frame] calls.
      */
-    public open fun isInFrame(): Boolean = gdk_draw_context_is_in_frame(gdkDrawContextPointer.reinterpret()).asBoolean()
+    public open fun isInFrame(): Boolean = gdk_draw_context_is_in_frame(gdkDrawContextPointer).asBoolean()
 
     public companion object : TypeCompanion<DrawContext> {
         override val type: GeneratedClassKGType<DrawContext> =

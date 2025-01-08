@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_6
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -89,7 +88,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @return the character width, in Pango units.
      */
-    public fun getApproximateCharWidth(): gint = pango_font_metrics_get_approximate_char_width(gPointer.reinterpret())
+    public fun getApproximateCharWidth(): gint = pango_font_metrics_get_approximate_char_width(gPointer)
 
     /**
      * Gets the approximate digit width for a font metrics structure.
@@ -102,7 +101,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @return the digit width, in Pango units.
      */
-    public fun getApproximateDigitWidth(): gint = pango_font_metrics_get_approximate_digit_width(gPointer.reinterpret())
+    public fun getApproximateDigitWidth(): gint = pango_font_metrics_get_approximate_digit_width(gPointer)
 
     /**
      * Gets the ascent from a font metrics structure.
@@ -114,7 +113,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @return the ascent, in Pango units.
      */
-    public fun getAscent(): gint = pango_font_metrics_get_ascent(gPointer.reinterpret())
+    public fun getAscent(): gint = pango_font_metrics_get_ascent(gPointer)
 
     /**
      * Gets the descent from a font metrics structure.
@@ -126,7 +125,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * @return the descent, in Pango units.
      */
-    public fun getDescent(): gint = pango_font_metrics_get_descent(gPointer.reinterpret())
+    public fun getDescent(): gint = pango_font_metrics_get_descent(gPointer)
 
     /**
      * Gets the line height from a font metrics structure.
@@ -140,7 +139,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun getHeight(): gint = pango_font_metrics_get_height(gPointer.reinterpret())
+    public fun getHeight(): gint = pango_font_metrics_get_height(gPointer)
 
     /**
      * Gets the suggested position to draw the strikethrough.
@@ -152,7 +151,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughPosition(): gint = pango_font_metrics_get_strikethrough_position(gPointer.reinterpret())
+    public fun getStrikethroughPosition(): gint = pango_font_metrics_get_strikethrough_position(gPointer)
 
     /**
      * Gets the suggested thickness to draw for the strikethrough.
@@ -161,8 +160,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getStrikethroughThickness(): gint =
-        pango_font_metrics_get_strikethrough_thickness(gPointer.reinterpret())
+    public fun getStrikethroughThickness(): gint = pango_font_metrics_get_strikethrough_thickness(gPointer)
 
     /**
      * Gets the suggested position to draw the underline.
@@ -175,7 +173,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getUnderlinePosition(): gint = pango_font_metrics_get_underline_position(gPointer.reinterpret())
+    public fun getUnderlinePosition(): gint = pango_font_metrics_get_underline_position(gPointer)
 
     /**
      * Gets the suggested thickness to draw for the underline.
@@ -184,15 +182,15 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun getUnderlineThickness(): gint = pango_font_metrics_get_underline_thickness(gPointer.reinterpret())
+    public fun getUnderlineThickness(): gint = pango_font_metrics_get_underline_thickness(gPointer)
 
     /**
      * Increase the reference count of a font metrics structure by one.
      *
      * @return @metrics
      */
-    public fun ref(): FontMetrics? = pango_font_metrics_ref(gPointer.reinterpret())?.run {
-        FontMetrics(reinterpret())
+    public fun ref(): FontMetrics? = pango_font_metrics_ref(gPointer)?.run {
+        FontMetrics(this)
     }
 
     /**
@@ -200,7 +198,7 @@ public class FontMetrics(pointer: CPointer<PangoFontMetrics>, cleaner: Cleaner? 
      *
      * If the result is zero, frees the structure and any associated memory.
      */
-    public fun unref(): Unit = pango_font_metrics_unref(gPointer.reinterpret())
+    public fun unref(): Unit = pango_font_metrics_unref(gPointer)
 
     public companion object {
         /**

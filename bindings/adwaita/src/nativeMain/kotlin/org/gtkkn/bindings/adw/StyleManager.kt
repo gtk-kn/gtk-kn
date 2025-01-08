@@ -81,7 +81,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @return the color scheme
          */
-        get() = adw_style_manager_get_color_scheme(adwStyleManagerPointer.reinterpret()).run {
+        get() = adw_style_manager_get_color_scheme(adwStyleManagerPointer).run {
             ColorScheme.fromNativeValue(this)
         }
 
@@ -120,9 +120,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @param colorScheme the color scheme
          */
-        set(
-            colorScheme
-        ) = adw_style_manager_set_color_scheme(adwStyleManagerPointer.reinterpret(), colorScheme.nativeValue)
+        set(colorScheme) = adw_style_manager_set_color_scheme(adwStyleManagerPointer, colorScheme.nativeValue)
 
     /**
      * Whether the application is using dark appearance.
@@ -139,7 +137,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @return whether the application is using dark appearance
          */
-        get() = adw_style_manager_get_dark(adwStyleManagerPointer.reinterpret()).asBoolean()
+        get() = adw_style_manager_get_dark(adwStyleManagerPointer).asBoolean()
 
     /**
      * The display the style manager is associated with.
@@ -156,8 +154,8 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @return the display
          */
-        get() = adw_style_manager_get_display(adwStyleManagerPointer.reinterpret())?.run {
-            Display(reinterpret())
+        get() = adw_style_manager_get_display(adwStyleManagerPointer)?.run {
+            Display(this)
         }
 
     /**
@@ -173,7 +171,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @return whether the application is using high contrast appearance
          */
-        get() = adw_style_manager_get_high_contrast(adwStyleManagerPointer.reinterpret()).asBoolean()
+        get() = adw_style_manager_get_high_contrast(adwStyleManagerPointer).asBoolean()
 
     /**
      * Whether the system supports color schemes.
@@ -194,7 +192,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          *
          * @return whether the system supports color schemes
          */
-        get() = adw_style_manager_get_system_supports_color_schemes(adwStyleManagerPointer.reinterpret()).asBoolean()
+        get() = adw_style_manager_get_system_supports_color_schemes(adwStyleManagerPointer).asBoolean()
 
     public companion object : TypeCompanion<StyleManager> {
         override val type: GeneratedClassKGType<StyleManager> =
@@ -215,7 +213,7 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          * @return the default style manager
          */
         public fun getDefault(): StyleManager = adw_style_manager_get_default()!!.run {
-            StyleManager(reinterpret())
+            StyleManager(this)
         }
 
         /**
@@ -230,8 +228,8 @@ public class StyleManager(pointer: CPointer<AdwStyleManager>) :
          * @return the style manager for @display
          */
         public fun getForDisplay(display: Display): StyleManager =
-            adw_style_manager_get_for_display(display.gdkDisplayPointer.reinterpret())!!.run {
-                StyleManager(reinterpret())
+            adw_style_manager_get_for_display(display.gdkDisplayPointer)!!.run {
+                StyleManager(this)
             }
 
         /**

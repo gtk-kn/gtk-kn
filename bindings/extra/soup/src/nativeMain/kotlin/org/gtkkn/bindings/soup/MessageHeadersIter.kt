@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.soup.SoupMessageHeadersIter
 import org.gtkkn.native.soup.soup_message_headers_iter_init
@@ -72,6 +71,6 @@ public class MessageHeadersIter(pointer: CPointer<SoupMessageHeadersIter>, clean
          * @param hdrs a %SoupMessageHeaders
          */
         public fun `init`(iter: MessageHeadersIter, hdrs: MessageHeaders): Unit =
-            soup_message_headers_iter_init(iter.gPointer.reinterpret(), hdrs.gPointer.reinterpret())
+            soup_message_headers_iter_init(iter.gPointer, hdrs.gPointer)
     }
 }

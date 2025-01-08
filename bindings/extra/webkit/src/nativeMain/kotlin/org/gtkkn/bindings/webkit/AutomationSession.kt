@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitAutomationSession
 import org.gtkkn.native.webkit.WebKitWebView
 import org.gtkkn.native.webkit.webkit_automation_session_get_application_info
@@ -60,7 +61,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
          * @return the unique identifier of @session
          * @since 2.18
          */
-        get() = webkit_automation_session_get_id(webkitAutomationSessionPointer.reinterpret())?.toKString()
+        get() = webkit_automation_session_get_id(webkitAutomationSessionPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -73,8 +74,8 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      */
     @WebKitVersion2_18
     public fun getApplicationInfo(): ApplicationInfo =
-        webkit_automation_session_get_application_info(webkitAutomationSessionPointer.reinterpret())!!.run {
-            ApplicationInfo(reinterpret())
+        webkit_automation_session_get_application_info(webkitAutomationSessionPointer)!!.run {
+            ApplicationInfo(this)
         }
 
     /**
@@ -91,10 +92,8 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setApplicationInfo(info: ApplicationInfo): Unit = webkit_automation_session_set_application_info(
-        webkitAutomationSessionPointer.reinterpret(),
-        info.gPointer.reinterpret()
-    )
+    public fun setApplicationInfo(info: ApplicationInfo): Unit =
+        webkit_automation_session_set_application_info(webkitAutomationSessionPointer, info.gPointer)
 
     /**
      * This signal is emitted when the automation client requests a new
@@ -110,39 +109,57 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * When creating a new web view and there's an active browsing context, the new window
      * or tab shouldn't be focused.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param detail the signal detail
      * @param handler the Callback to connect. Returns a #WebKitWebView widget.
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectCreateWebView(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> WebView): ULong =
+    public fun onCreateWebView(
+        connectFlags: ConnectFlags = ConnectFlags(0u),
+        detail: String? = null,
+        handler: () -> WebView,
+    ): ULong = g_signal_connect_data(
+        gPointer,
+        "create-web-view" + (
+            detail?.let {
+                "::$it"
+            } ?: ""
+            ),
+        onCreateWebViewFunc.reinterpret(),
+        StableRef.create(handler).asCPointer(),
+        staticStableRefDestroy.reinterpret(),
+        connectFlags.mask
+    )
+
+    /**
+     * This signal is emitted when the given automation session is about to finish.
+     * It allows clients to perform any cleanup tasks before the session is destroyed.
+     *
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param handler the Callback to connect
+     * @since 2.46
+     */
+    @WebKitVersion2_46
+    public fun onWillClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
-            "create-web-view",
-            connectCreateWebViewFunc.reinterpret(),
+            gPointer,
+            "will-close",
+            onWillCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
-     * This signal is emitted when the given automation session is about to finish.
-     * It allows clients to perform any cleanup tasks before the session is destroyed.
+     * Emits the "will-close" signal. See [onWillClose].
      *
-     * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect
      * @since 2.46
      */
     @WebKitVersion2_46
-    public fun connectWillClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
-        g_signal_connect_data(
-            gPointer.reinterpret(),
-            "will-close",
-            connectWillCloseFunc.reinterpret(),
-            StableRef.create(handler).asCPointer(),
-            staticStableRefDestroy.reinterpret(),
-            connectFlags.mask
-        )
+    public fun emitWillClose() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "will-close")
+    }
 
     public companion object : TypeCompanion<AutomationSession> {
         override val type: GeneratedClassKGType<AutomationSession> =
@@ -161,7 +178,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
     }
 }
 
-private val connectCreateWebViewFunc: CPointer<CFunction<() -> CPointer<WebKitWebView>>> =
+private val onCreateWebViewFunc: CPointer<CFunction<() -> CPointer<WebKitWebView>>> =
     staticCFunction {
             _: COpaquePointer,
             userData: COpaquePointer,
@@ -170,7 +187,7 @@ private val connectCreateWebViewFunc: CPointer<CFunction<() -> CPointer<WebKitWe
     }
         .reinterpret()
 
-private val connectWillCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onWillCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

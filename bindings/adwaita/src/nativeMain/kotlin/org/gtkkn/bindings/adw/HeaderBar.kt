@@ -152,7 +152,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @return the centering policy
          */
-        get() = adw_header_bar_get_centering_policy(adwHeaderBarPointer.reinterpret()).run {
+        get() = adw_header_bar_get_centering_policy(adwHeaderBarPointer).run {
             CenteringPolicy.fromNativeValue(this)
         }
 
@@ -161,9 +161,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @param centeringPolicy the centering policy
          */
-        set(
-            centeringPolicy
-        ) = adw_header_bar_set_centering_policy(adwHeaderBarPointer.reinterpret(), centeringPolicy.nativeValue)
+        set(centeringPolicy) = adw_header_bar_set_centering_policy(adwHeaderBarPointer, centeringPolicy.nativeValue)
 
     /**
      * The decoration layout for buttons.
@@ -185,7 +183,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @return the decoration layout
          */
-        get() = adw_header_bar_get_decoration_layout(adwHeaderBarPointer.reinterpret())?.toKString()
+        get() = adw_header_bar_get_decoration_layout(adwHeaderBarPointer)?.toKString()
 
         /**
          * Sets the decoration layout for @self.
@@ -203,7 +201,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @param layout a decoration layout
          */
-        set(layout) = adw_header_bar_set_decoration_layout(adwHeaderBarPointer.reinterpret(), layout)
+        set(layout) = adw_header_bar_set_decoration_layout(adwHeaderBarPointer, layout)
 
     /**
      * Whether the header bar can show the back button.
@@ -221,7 +219,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          * @return whether to show the back button
          * @since 1.4
          */
-        get() = adw_header_bar_get_show_back_button(adwHeaderBarPointer.reinterpret()).asBoolean()
+        get() = adw_header_bar_get_show_back_button(adwHeaderBarPointer).asBoolean()
 
         /**
          * Sets whether @self can show the back button.
@@ -233,9 +231,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            showBackButton
-        ) = adw_header_bar_set_show_back_button(adwHeaderBarPointer.reinterpret(), showBackButton.asGBoolean())
+        set(showBackButton) = adw_header_bar_set_show_back_button(adwHeaderBarPointer, showBackButton.asGBoolean())
 
     /**
      * Whether to show title buttons at the end of the header bar.
@@ -253,7 +249,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @return `TRUE` if title buttons at the end are shown
          */
-        get() = adw_header_bar_get_show_end_title_buttons(adwHeaderBarPointer.reinterpret()).asBoolean()
+        get() = adw_header_bar_get_show_end_title_buttons(adwHeaderBarPointer).asBoolean()
 
         /**
          * Sets whether to show title buttons at the end of @self.
@@ -266,9 +262,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @param setting `TRUE` to show standard title buttons
          */
-        set(
-            setting
-        ) = adw_header_bar_set_show_end_title_buttons(adwHeaderBarPointer.reinterpret(), setting.asGBoolean())
+        set(setting) = adw_header_bar_set_show_end_title_buttons(adwHeaderBarPointer, setting.asGBoolean())
 
     /**
      * Whether to show title buttons at the start of the header bar.
@@ -286,7 +280,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @return `TRUE` if title buttons at the start are shown
          */
-        get() = adw_header_bar_get_show_start_title_buttons(adwHeaderBarPointer.reinterpret()).asBoolean()
+        get() = adw_header_bar_get_show_start_title_buttons(adwHeaderBarPointer).asBoolean()
 
         /**
          * Sets whether to show title buttons at the start of @self.
@@ -299,9 +293,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @param setting `TRUE` to show standard title buttons
          */
-        set(
-            setting
-        ) = adw_header_bar_set_show_start_title_buttons(adwHeaderBarPointer.reinterpret(), setting.asGBoolean())
+        set(setting) = adw_header_bar_set_show_start_title_buttons(adwHeaderBarPointer, setting.asGBoolean())
 
     /**
      * Whether the title widget should be shown.
@@ -316,7 +308,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          * @return whether the title widget should be shown.
          * @since 1.4
          */
-        get() = adw_header_bar_get_show_title(adwHeaderBarPointer.reinterpret()).asBoolean()
+        get() = adw_header_bar_get_show_title(adwHeaderBarPointer).asBoolean()
 
         /**
          * Sets whether the title widget should be shown.
@@ -325,7 +317,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(showTitle) = adw_header_bar_set_show_title(adwHeaderBarPointer.reinterpret(), showTitle.asGBoolean())
+        set(showTitle) = adw_header_bar_set_show_title(adwHeaderBarPointer, showTitle.asGBoolean())
 
     /**
      * The title widget to display.
@@ -351,8 +343,8 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @return the title widget
          */
-        get() = adw_header_bar_get_title_widget(adwHeaderBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_header_bar_get_title_widget(adwHeaderBarPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -375,12 +367,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          *
          * @param titleWidget a widget to use for a title
          */
-        set(
-            titleWidget
-        ) = adw_header_bar_set_title_widget(
-            adwHeaderBarPointer.reinterpret(),
-            titleWidget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(titleWidget) = adw_header_bar_set_title_widget(adwHeaderBarPointer, titleWidget?.gtkWidgetPointer)
 
     /**
      * Creates a new `AdwHeaderBar`.
@@ -394,16 +381,14 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
      *
      * @param child the widget to be added to @self
      */
-    public fun packEnd(child: Widget): Unit =
-        adw_header_bar_pack_end(adwHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun packEnd(child: Widget): Unit = adw_header_bar_pack_end(adwHeaderBarPointer, child.gtkWidgetPointer)
 
     /**
      * Adds @child to @self, packed with reference to the start of the @self.
      *
      * @param child the widget to be added to @self
      */
-    public fun packStart(child: Widget): Unit =
-        adw_header_bar_pack_start(adwHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun packStart(child: Widget): Unit = adw_header_bar_pack_start(adwHeaderBarPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child from @self.
@@ -413,8 +398,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
      *
      * @param child the child to remove
      */
-    public fun remove(child: Widget): Unit =
-        adw_header_bar_remove(adwHeaderBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun remove(child: Widget): Unit = adw_header_bar_remove(adwHeaderBarPointer, child.gtkWidgetPointer)
 
     public companion object : TypeCompanion<HeaderBar> {
         override val type: GeneratedClassKGType<HeaderBar> =

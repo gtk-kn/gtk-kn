@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.TypeClass
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -30,22 +29,21 @@ public class IoExtension(pointer: CPointer<GIOExtension>) : ProxyInstance(pointe
      *
      * @return the name of @extension.
      */
-    public fun getName(): String =
-        g_io_extension_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_io_extension_get_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the priority with which @extension was registered.
      *
      * @return the priority of @extension
      */
-    public fun getPriority(): gint = g_io_extension_get_priority(gPointer.reinterpret())
+    public fun getPriority(): gint = g_io_extension_get_priority(gPointer)
 
     /**
      * Gets the type associated with @extension.
      *
      * @return the type of @extension
      */
-    public fun getType(): GType = g_io_extension_get_type(gPointer.reinterpret())
+    public fun getType(): GType = g_io_extension_get_type(gPointer)
 
     /**
      * Gets a reference to the class for the type that is
@@ -53,7 +51,7 @@ public class IoExtension(pointer: CPointer<GIOExtension>) : ProxyInstance(pointe
      *
      * @return the #GTypeClass for the type of @extension
      */
-    public fun refClass(): TypeClass = g_io_extension_ref_class(gPointer.reinterpret())!!.run {
-        TypeClass(reinterpret())
+    public fun refClass(): TypeClass = g_io_extension_ref_class(gPointer)!!.run {
+        TypeClass(this)
     }
 }

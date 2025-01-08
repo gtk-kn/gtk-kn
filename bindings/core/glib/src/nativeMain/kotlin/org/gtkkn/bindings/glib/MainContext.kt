@@ -78,7 +78,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @return true if the operation succeeded, and
      *   this thread is now the owner of @context.
      */
-    public fun acquire(): Boolean = g_main_context_acquire(gPointer.reinterpret()).asBoolean()
+    public fun acquire(): Boolean = g_main_context_acquire(gPointer).asBoolean()
 
     /**
      * Adds a file descriptor to the set of file descriptors polled for
@@ -91,8 +91,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      *      the same as the priority used for g_source_attach() to ensure that the
      *      file descriptor is polled whenever the results may be needed.
      */
-    public fun addPoll(fd: PollFd, priority: gint): Unit =
-        g_main_context_add_poll(gPointer.reinterpret(), fd.gPointer.reinterpret(), priority)
+    public fun addPoll(fd: PollFd, priority: gint): Unit = g_main_context_add_poll(gPointer, fd.gPointer, priority)
 
     /**
      * Dispatches all pending sources.
@@ -103,7 +102,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * Since 2.76 @context can be null to use the global-default
      * main context.
      */
-    public fun dispatch(): Unit = g_main_context_dispatch(gPointer.reinterpret())
+    public fun dispatch(): Unit = g_main_context_dispatch(gPointer)
 
     /**
      * Finds a source with the given source functions and user data.  If
@@ -115,12 +114,8 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @return the source, if one was found, otherwise null
      */
     public fun findSourceByFuncsUserData(funcs: SourceFuncs, userData: gpointer? = null): Source =
-        g_main_context_find_source_by_funcs_user_data(
-            gPointer.reinterpret(),
-            funcs.gPointer.reinterpret(),
-            userData
-        )!!.run {
-            Source(reinterpret())
+        g_main_context_find_source_by_funcs_user_data(gPointer, funcs.gPointer, userData)!!.run {
+            Source(this)
         }
 
     /**
@@ -140,10 +135,9 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @param sourceId the source ID, as returned by g_source_get_id().
      * @return the #GSource
      */
-    public fun findSourceById(sourceId: guint): Source =
-        g_main_context_find_source_by_id(gPointer.reinterpret(), sourceId)!!.run {
-            Source(reinterpret())
-        }
+    public fun findSourceById(sourceId: guint): Source = g_main_context_find_source_by_id(gPointer, sourceId)!!.run {
+        Source(this)
+    }
 
     /**
      * Finds a source with the given user data for the callback.  If
@@ -154,8 +148,8 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @return the source, if one was found, otherwise null
      */
     public fun findSourceByUserData(userData: gpointer? = null): Source =
-        g_main_context_find_source_by_user_data(gPointer.reinterpret(), userData)!!.run {
-            Source(reinterpret())
+        g_main_context_find_source_by_user_data(gPointer, userData)!!.run {
+            Source(this)
         }
 
     /**
@@ -185,11 +179,8 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @since 2.28
      */
     @GLibVersion2_28
-    public fun invoke(function: SourceFunc): Unit = g_main_context_invoke(
-        gPointer.reinterpret(),
-        SourceFuncFunc.reinterpret(),
-        StableRef.create(function).asCPointer()
-    )
+    public fun invoke(function: SourceFunc): Unit =
+        g_main_context_invoke(gPointer, SourceFuncFunc.reinterpret(), StableRef.create(function).asCPointer())
 
     /**
      * Invokes a function in such a way that @context is owned during the
@@ -208,7 +199,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      */
     @GLibVersion2_28
     public fun invokeFull(priority: gint, function: SourceFunc): Unit = g_main_context_invoke_full(
-        gPointer.reinterpret(),
+        gPointer,
         priority,
         SourceFuncFunc.reinterpret(),
         StableRef.create(function).asCPointer(),
@@ -225,7 +216,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @since 2.10
      */
     @GLibVersion2_10
-    public fun isOwner(): Boolean = g_main_context_is_owner(gPointer.reinterpret()).asBoolean()
+    public fun isOwner(): Boolean = g_main_context_is_owner(gPointer).asBoolean()
 
     /**
      * Runs a single iteration for the given main loop. This involves
@@ -245,14 +236,14 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @return true if events were dispatched.
      */
     public fun iteration(mayBlock: Boolean): Boolean =
-        g_main_context_iteration(gPointer.reinterpret(), mayBlock.asGBoolean()).asBoolean()
+        g_main_context_iteration(gPointer, mayBlock.asGBoolean()).asBoolean()
 
     /**
      * Checks if any sources have pending events for the given context.
      *
      * @return true if events are pending.
      */
-    public fun pending(): Boolean = g_main_context_pending(gPointer.reinterpret()).asBoolean()
+    public fun pending(): Boolean = g_main_context_pending(gPointer).asBoolean()
 
     /**
      * Pops @context off the thread-default context stack (verifying that
@@ -261,7 +252,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun popThreadDefault(): Unit = g_main_context_pop_thread_default(gPointer.reinterpret())
+    public fun popThreadDefault(): Unit = g_main_context_pop_thread_default(gPointer)
 
     /**
      * Acquires @context and sets it as the thread-default context for the
@@ -306,15 +297,15 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun pushThreadDefault(): Unit = g_main_context_push_thread_default(gPointer.reinterpret())
+    public fun pushThreadDefault(): Unit = g_main_context_push_thread_default(gPointer)
 
     /**
      * Increases the reference count on a #GMainContext object by one.
      *
      * @return the @context that was passed in (since 2.6)
      */
-    public fun ref(): MainContext = g_main_context_ref(gPointer.reinterpret())!!.run {
-        MainContext(reinterpret())
+    public fun ref(): MainContext = g_main_context_ref(gPointer)!!.run {
+        MainContext(this)
     }
 
     /**
@@ -326,7 +317,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * You must have successfully acquired the context with
      * g_main_context_acquire() before you may call this function.
      */
-    public fun release(): Unit = g_main_context_release(gPointer.reinterpret())
+    public fun release(): Unit = g_main_context_release(gPointer)
 
     /**
      * Removes file descriptor from the set of file descriptors to be
@@ -334,14 +325,13 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      *
      * @param fd a #GPollFD descriptor previously added with g_main_context_add_poll()
      */
-    public fun removePoll(fd: PollFd): Unit =
-        g_main_context_remove_poll(gPointer.reinterpret(), fd.gPointer.reinterpret())
+    public fun removePoll(fd: PollFd): Unit = g_main_context_remove_poll(gPointer, fd.gPointer)
 
     /**
      * Decreases the reference count on a #GMainContext object by one. If
      * the result is zero, free the context and free all associated memory.
      */
-    public fun unref(): Unit = g_main_context_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_main_context_unref(gPointer)
 
     /**
      * Tries to become the owner of the specified context,
@@ -355,11 +345,8 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      * @return true if the operation succeeded, and
      *   this thread is now the owner of @context.
      */
-    public fun wait(cond: Cond, mutex: Mutex): Boolean = g_main_context_wait(
-        gPointer.reinterpret(),
-        cond.gPointer.reinterpret(),
-        mutex.gPointer.reinterpret()
-    ).asBoolean()
+    public fun wait(cond: Cond, mutex: Mutex): Boolean =
+        g_main_context_wait(gPointer, cond.gPointer, mutex.gPointer).asBoolean()
 
     /**
      * If @context is currently blocking in g_main_context_iteration()
@@ -391,7 +378,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
      *     g_main_context_wakeup (NULL);
      * ]|
      */
-    public fun wakeup(): Unit = g_main_context_wakeup(gPointer.reinterpret())
+    public fun wakeup(): Unit = g_main_context_wakeup(gPointer)
 
     public companion object {
         /**
@@ -399,7 +386,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
          *
          * @return the new #GMainContext
          */
-        public fun new(): MainContext = MainContext(g_main_context_new()!!.reinterpret())
+        public fun new(): MainContext = MainContext(g_main_context_new()!!)
 
         /**
          * Creates a new #GMainContext structure.
@@ -421,7 +408,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
          * @return the global-default main context.
          */
         public fun default(): MainContext = g_main_context_default()!!.run {
-            MainContext(reinterpret())
+            MainContext(this)
         }
 
         /**
@@ -443,7 +430,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
          */
         @GLibVersion2_22
         public fun getThreadDefault(): MainContext? = g_main_context_get_thread_default()?.run {
-            MainContext(reinterpret())
+            MainContext(this)
         }
 
         /**
@@ -460,7 +447,7 @@ public class MainContext(pointer: CPointer<GMainContext>) : ProxyInstance(pointe
          */
         @GLibVersion2_32
         public fun refThreadDefault(): MainContext = g_main_context_ref_thread_default()!!.run {
-            MainContext(reinterpret())
+            MainContext(this)
         }
 
         /**

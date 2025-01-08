@@ -32,7 +32,7 @@ public open class NamedAction(pointer: CPointer<GtkNamedAction>) :
          *
          * @return the name of the action to activate
          */
-        get() = gtk_named_action_get_action_name(gtkNamedActionPointer.reinterpret())?.toKString()
+        get() = gtk_named_action_get_action_name(gtkNamedActionPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**

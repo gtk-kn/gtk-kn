@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -37,14 +36,14 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      *
      * @return a copy of @enc.
      */
-    public fun copy(): Encoding = gtk_source_encoding_copy(gPointer.reinterpret())!!.run {
-        Encoding(reinterpret())
+    public fun copy(): Encoding = gtk_source_encoding_copy(gPointer)!!.run {
+        Encoding(this)
     }
 
     /**
      * Used by language bindings.
      */
-    public fun free(): Unit = gtk_source_encoding_free(gPointer.reinterpret())
+    public fun free(): Unit = gtk_source_encoding_free(gPointer)
 
     /**
      * Gets the character set of the #GtkSourceEncoding, such as "UTF-8" or
@@ -53,7 +52,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return the character set of the #GtkSourceEncoding.
      */
     public fun getCharset(): String =
-        gtk_source_encoding_get_charset(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_source_encoding_get_charset(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the #GtkSourceEncoding such as "Unicode" or "Western".
@@ -61,7 +60,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return the name of the #GtkSourceEncoding.
      */
     public fun getName(): String =
-        gtk_source_encoding_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_source_encoding_get_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      *
@@ -69,7 +68,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return a string representation. Free with g_free() when no longer needed.
      */
     override fun toString(): String =
-        gtk_source_encoding_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gtk_source_encoding_to_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -79,7 +78,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
          * all #GtkSourceEncoding's. Free with g_slist_free().
          */
         public fun getAll(): SList = gtk_source_encoding_get_all()!!.run {
-            SList(reinterpret())
+            SList(this)
         }
 
         /**
@@ -90,7 +89,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
          * @return the current locale encoding.
          */
         public fun getCurrent(): Encoding = gtk_source_encoding_get_current()!!.run {
-            Encoding(reinterpret())
+            Encoding(this)
         }
 
         /**
@@ -106,7 +105,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
          * default candidate encodings. Free with g_slist_free().
          */
         public fun getDefaultCandidates(): SList = gtk_source_encoding_get_default_candidates()!!.run {
-            SList(reinterpret())
+            SList(this)
         }
 
         /**
@@ -118,7 +117,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
          * if not found.
          */
         public fun getFromCharset(charset: String): Encoding? = gtk_source_encoding_get_from_charset(charset)?.run {
-            Encoding(reinterpret())
+            Encoding(this)
         }
 
         /**
@@ -127,7 +126,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
          * @return the UTF-8 encoding.
          */
         public fun getUtf8(): Encoding = gtk_source_encoding_get_utf8()!!.run {
-            Encoding(reinterpret())
+            Encoding(this)
         }
 
         /**

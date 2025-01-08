@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_2
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
@@ -49,7 +48,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     public var item: Item?
         get() = gPointer.pointed.item?.run {
-            Item(reinterpret())
+            Item(this)
         }
 
         @UnsafeFieldSetter
@@ -62,7 +61,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     public var glyphs: GlyphString?
         get() = gPointer.pointed.glyphs?.run {
-            GlyphString(reinterpret())
+            GlyphString(this)
         }
 
         @UnsafeFieldSetter
@@ -225,8 +224,8 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     @PangoVersion1_2
     public fun applyAttrs(text: String, list: AttrList): SList =
-        pango_glyph_item_apply_attrs(gPointer.reinterpret(), text, list.gPointer.reinterpret())!!.run {
-            SList(reinterpret())
+        pango_glyph_item_apply_attrs(gPointer, text, list.gPointer)!!.run {
+            SList(this)
         }
 
     /**
@@ -236,8 +235,8 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.20
      */
     @PangoVersion1_20
-    public fun copy(): GlyphItem? = pango_glyph_item_copy(gPointer.reinterpret())?.run {
-        GlyphItem(reinterpret())
+    public fun copy(): GlyphItem? = pango_glyph_item_copy(gPointer)?.run {
+        GlyphItem(this)
     }
 
     /**
@@ -246,7 +245,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun free(): Unit = pango_glyph_item_free(gPointer.reinterpret())
+    public fun free(): Unit = pango_glyph_item_free(gPointer)
 
     /**
      * Modifies @orig to cover only the text after @split_index, and
@@ -271,8 +270,8 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     @PangoVersion1_2
     public fun split(text: String, splitIndex: gint): GlyphItem? =
-        pango_glyph_item_split(gPointer.reinterpret(), text, splitIndex)?.run {
-            GlyphItem(reinterpret())
+        pango_glyph_item_split(gPointer, text, splitIndex)?.run {
+            GlyphItem(this)
         }
 
     override fun toString(): String =

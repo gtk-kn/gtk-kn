@@ -49,8 +49,7 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateCaretPosition(): Unit =
-        gtk_accessible_text_update_caret_position(gtkAccessibleTextPointer.reinterpret())
+    public fun updateCaretPosition(): Unit = gtk_accessible_text_update_caret_position(gtkAccessibleTextPointer)
 
     /**
      * Notifies assistive technologies of a change in contents.
@@ -70,7 +69,7 @@ public interface AccessibleText :
      */
     @GtkVersion4_14
     public fun updateContents(change: AccessibleTextContentChange, start: guint, end: guint): Unit =
-        gtk_accessible_text_update_contents(gtkAccessibleTextPointer.reinterpret(), change.nativeValue, start, end)
+        gtk_accessible_text_update_contents(gtkAccessibleTextPointer, change.nativeValue, start, end)
 
     /**
      * Updates the boundary of the selection.
@@ -82,8 +81,7 @@ public interface AccessibleText :
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun updateSelectionBound(): Unit =
-        gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer.reinterpret())
+    public fun updateSelectionBound(): Unit = gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer)
 
     private data class Wrapper(private val pointer: CPointer<GtkAccessibleText>) : AccessibleText {
         override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText> = pointer

@@ -53,8 +53,8 @@ public open class ZlibDecompressor(pointer: CPointer<GZlibDecompressor>) :
          * @return a #GFileInfo, or null
          * @since 2.26
          */
-        get() = g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer.reinterpret())?.run {
-            FileInfo(reinterpret())
+        get() = g_zlib_decompressor_get_file_info(gioZlibDecompressorPointer)?.run {
+            FileInfo(this)
         }
 
     /**

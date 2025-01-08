@@ -78,9 +78,7 @@ public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
          * accepted. This array and its contents are owned by WebKit and
          * should not be modified or freed.
          */
-        get() = webkit_file_chooser_request_get_mime_types(
-            webkitFileChooserRequestPointer.reinterpret()
-        )?.toKStringList()
+        get() = webkit_file_chooser_request_get_mime_types(webkitFileChooserRequestPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -100,9 +98,7 @@ public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
          *
          * @return true if the file chooser should allow selecting multiple files or false otherwise.
          */
-        get() = webkit_file_chooser_request_get_select_multiple(
-            webkitFileChooserRequestPointer.reinterpret()
-        ).asBoolean()
+        get() = webkit_file_chooser_request_get_select_multiple(webkitFileChooserRequestPointer).asBoolean()
 
     /**
      * A null-terminated array of strings containing the list of
@@ -129,9 +125,7 @@ public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
          * contents are owned by WebKit and should not be modified or
          * freed.
          */
-        get() = webkit_file_chooser_request_get_selected_files(
-            webkitFileChooserRequestPointer.reinterpret()
-        )?.toKStringList()
+        get() = webkit_file_chooser_request_get_selected_files(webkitFileChooserRequestPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -142,7 +136,7 @@ public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
      * won't be properly completed and the browser will keep the request
      * pending forever, which might cause the browser to hang.
      */
-    public fun cancel(): Unit = webkit_file_chooser_request_cancel(webkitFileChooserRequestPointer.reinterpret())
+    public fun cancel(): Unit = webkit_file_chooser_request_cancel(webkitFileChooserRequestPointer)
 
     /**
      * Get the filter currently associated with the request.
@@ -161,8 +155,8 @@ public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
      * owned by WebKit should not be modified or freed.
      */
     public fun getMimeTypesFilter(): FileFilter =
-        webkit_file_chooser_request_get_mime_types_filter(webkitFileChooserRequestPointer.reinterpret())!!.run {
-            FileFilter(reinterpret())
+        webkit_file_chooser_request_get_mime_types_filter(webkitFileChooserRequestPointer)!!.run {
+            FileFilter(this)
         }
 
     /**
@@ -173,10 +167,7 @@ public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
      * null-terminated array of strings, containing paths to local files.
      */
     public fun selectFiles(files: List<String>): Unit = memScoped {
-        return webkit_file_chooser_request_select_files(
-            webkitFileChooserRequestPointer.reinterpret(),
-            files.toCStringList(this)
-        )
+        return webkit_file_chooser_request_select_files(webkitFileChooserRequestPointer, files.toCStringList(this))
     }
 
     public companion object : TypeCompanion<FileChooserRequest> {

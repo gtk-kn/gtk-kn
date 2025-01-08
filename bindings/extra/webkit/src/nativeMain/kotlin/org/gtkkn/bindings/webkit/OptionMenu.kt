@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitOptionMenu
 import org.gtkkn.native.webkit.webkit_option_menu_activate_item
 import org.gtkkn.native.webkit.webkit_option_menu_close
@@ -58,8 +59,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun activateItem(index: guint): Unit =
-        webkit_option_menu_activate_item(webkitOptionMenuPointer.reinterpret(), index)
+    public fun activateItem(index: guint): Unit = webkit_option_menu_activate_item(webkitOptionMenuPointer, index)
 
     /**
      * Request to close a #WebKitOptionMenu.
@@ -73,7 +73,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun close(): Unit = webkit_option_menu_close(webkitOptionMenuPointer.reinterpret())
+    public fun close(): Unit = webkit_option_menu_close(webkitOptionMenuPointer)
 
     /**
      * Gets the #GdkEvent that triggered the dropdown menu.
@@ -84,8 +84,8 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer.reinterpret())!!.run {
-        Event(reinterpret())
+    public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer)!!.run {
+        Event(this)
     }
 
     /**
@@ -97,8 +97,8 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      */
     @WebKitVersion2_18
     public fun getItem(index: guint): OptionMenuItem =
-        webkit_option_menu_get_item(webkitOptionMenuPointer.reinterpret(), index)!!.run {
-            OptionMenuItem(reinterpret())
+        webkit_option_menu_get_item(webkitOptionMenuPointer, index)!!.run {
+            OptionMenuItem(this)
         }
 
     /**
@@ -108,7 +108,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getNItems(): guint = webkit_option_menu_get_n_items(webkitOptionMenuPointer.reinterpret())
+    public fun getNItems(): guint = webkit_option_menu_get_n_items(webkitOptionMenuPointer)
 
     /**
      * Selects the #WebKitOptionMenuItem at @index in @menu.
@@ -122,28 +122,37 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun selectItem(index: guint): Unit =
-        webkit_option_menu_select_item(webkitOptionMenuPointer.reinterpret(), index)
+    public fun selectItem(index: guint): Unit = webkit_option_menu_select_item(webkitOptionMenuPointer, index)
 
     /**
      * Emitted when closing a #WebKitOptionMenu is requested. This can happen
      * when the user explicitly calls webkit_option_menu_close() or when the
      * element is detached from the current page.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun connectClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "close",
-            connectCloseFunc.reinterpret(),
+            onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "close" signal. See [onClose].
+     *
+     * @since 2.18
+     */
+    @WebKitVersion2_18
+    public fun emitClose() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+    }
 
     public companion object : TypeCompanion<OptionMenu> {
         override val type: GeneratedClassKGType<OptionMenu> =
@@ -162,7 +171,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
     }
 }
 
-private val connectCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCloseFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -207,6 +207,11 @@ enum class ArgumentType {
     REF_SINK_FUNCTION,
 
     /**
+     * Whether the symbol's pointer require a reinterpret().
+     */
+    REINTERPRET,
+
+    /**
      * Deprecation replacement, implies deprecated=true.
      */
     REPLACEMENT,

@@ -16,6 +16,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkGestureRotate
 import org.gtkkn.native.gtk.gtk_gesture_rotate_get_angle_delta
 import org.gtkkn.native.gtk.gtk_gesture_rotate_get_type
@@ -52,25 +53,35 @@ public open class GestureRotate(pointer: CPointer<GtkGestureRotate>) :
      *
      * @return the angle delta in radians
      */
-    public open fun getAngleDelta(): gdouble = gtk_gesture_rotate_get_angle_delta(gtkGestureRotatePointer.reinterpret())
+    public open fun getAngleDelta(): gdouble = gtk_gesture_rotate_get_angle_delta(gtkGestureRotatePointer)
 
     /**
      * Emitted when the angle between both tracked points changes.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `angle` Current angle in radians; `angleDelta` Difference with the starting angle, in radians
      */
-    public fun connectAngleChanged(
+    public fun onAngleChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (angle: gdouble, angleDelta: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "angle-changed",
-        connectAngleChangedFunc.reinterpret(),
+        onAngleChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "angle-changed" signal. See [onAngleChanged].
+     *
+     * @param angle Current angle in radians
+     * @param angleDelta Difference with the starting angle, in radians
+     */
+    public fun emitAngleChanged(angle: gdouble, angleDelta: gdouble) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "angle-changed", angle, angleDelta)
+    }
 
     public companion object : TypeCompanion<GestureRotate> {
         override val type: GeneratedClassKGType<GestureRotate> =
@@ -89,13 +100,12 @@ public open class GestureRotate(pointer: CPointer<GtkGestureRotate>) :
     }
 }
 
-private val connectAngleChangedFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            angle: gdouble,
-            angleDelta: gdouble,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(angle: gdouble, angleDelta: gdouble) -> Unit>().get().invoke(angle, angleDelta)
-    }
-        .reinterpret()
+private val onAngleChangedFunc: CPointer<CFunction<(gdouble, gdouble) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        angle: gdouble,
+        angleDelta: gdouble,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(angle: gdouble, angleDelta: gdouble) -> Unit>().get().invoke(angle, angleDelta)
+}
+    .reinterpret()

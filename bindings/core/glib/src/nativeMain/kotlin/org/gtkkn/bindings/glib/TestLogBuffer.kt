@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GTestLogBuffer
 import org.gtkkn.native.glib.g_test_log_buffer_free
@@ -59,13 +58,13 @@ public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? 
     /**
      * Internal function for gtester to free test log messages, no ABI guarantees provided.
      */
-    public fun free(): Unit = g_test_log_buffer_free(gPointer.reinterpret())
+    public fun free(): Unit = g_test_log_buffer_free(gPointer)
 
     /**
      * Internal function for gtester to retrieve test log messages, no ABI guarantees provided.
      */
-    public fun pop(): TestLogMsg = g_test_log_buffer_pop(gPointer.reinterpret())!!.run {
-        TestLogMsg(reinterpret())
+    public fun pop(): TestLogMsg = g_test_log_buffer_pop(gPointer)!!.run {
+        TestLogMsg(this)
     }
 
     public companion object {
@@ -73,7 +72,7 @@ public class TestLogBuffer(pointer: CPointer<GTestLogBuffer>, cleaner: Cleaner? 
          * Internal function for gtester to decode test log messages, no ABI guarantees provided.
          */
         public fun new(): TestLogBuffer = g_test_log_buffer_new()!!.run {
-            TestLogBuffer(reinterpret())
+            TestLogBuffer(this)
         }
     }
 }

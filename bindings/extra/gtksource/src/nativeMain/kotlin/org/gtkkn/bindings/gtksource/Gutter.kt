@@ -69,8 +69,8 @@ public open class Gutter(pointer: CPointer<GtkSourceGutter>) :
          *
          * @return the associated #GtkSourceView.
          */
-        get() = gtk_source_gutter_get_view(gtksourceGutterPointer.reinterpret())!!.run {
-            View(reinterpret())
+        get() = gtk_source_gutter_get_view(gtksourceGutterPointer)!!.run {
+            View(this)
         }
 
     /**
@@ -82,16 +82,11 @@ public open class Gutter(pointer: CPointer<GtkSourceGutter>) :
      * @param position the renderer position.
      * @return true if operation succeeded. Otherwise false.
      */
-    public open fun insert(renderer: GutterRenderer, position: gint): Boolean = gtk_source_gutter_insert(
-        gtksourceGutterPointer.reinterpret(),
-        renderer.gtksourceGutterRendererPointer.reinterpret(),
-        position
-    ).asBoolean()
+    public open fun insert(renderer: GutterRenderer, position: gint): Boolean =
+        gtk_source_gutter_insert(gtksourceGutterPointer, renderer.gtksourceGutterRendererPointer, position).asBoolean()
 
-    public open fun remove(renderer: GutterRenderer): Unit = gtk_source_gutter_remove(
-        gtksourceGutterPointer.reinterpret(),
-        renderer.gtksourceGutterRendererPointer.reinterpret()
-    )
+    public open fun remove(renderer: GutterRenderer): Unit =
+        gtk_source_gutter_remove(gtksourceGutterPointer, renderer.gtksourceGutterRendererPointer)
 
     /**
      * Reorders @renderer in @gutter to new @position.
@@ -99,11 +94,8 @@ public open class Gutter(pointer: CPointer<GtkSourceGutter>) :
      * @param renderer a #GtkCellRenderer.
      * @param position the new renderer position.
      */
-    public open fun reorder(renderer: GutterRenderer, position: gint): Unit = gtk_source_gutter_reorder(
-        gtksourceGutterPointer.reinterpret(),
-        renderer.gtksourceGutterRendererPointer.reinterpret(),
-        position
-    )
+    public open fun reorder(renderer: GutterRenderer, position: gint): Unit =
+        gtk_source_gutter_reorder(gtksourceGutterPointer, renderer.gtksourceGutterRendererPointer, position)
 
     public companion object : TypeCompanion<Gutter> {
         override val type: GeneratedClassKGType<Gutter> =

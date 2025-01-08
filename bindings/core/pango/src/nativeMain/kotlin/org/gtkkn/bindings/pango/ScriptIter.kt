@@ -34,7 +34,7 @@ public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(poin
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun free(): Unit = pango_script_iter_free(gPointer.reinterpret())
+    public fun free(): Unit = pango_script_iter_free(gPointer)
 
     /**
      * Advances a `PangoScriptIter` to the next range.
@@ -46,7 +46,7 @@ public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(poin
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun next(): Boolean = pango_script_iter_next(gPointer.reinterpret()).asBoolean()
+    public fun next(): Boolean = pango_script_iter_next(gPointer).asBoolean()
 
     public companion object {
         /**

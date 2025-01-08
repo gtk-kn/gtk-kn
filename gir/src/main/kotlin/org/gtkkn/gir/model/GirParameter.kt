@@ -35,7 +35,8 @@ package org.gtkkn.gir.model
  * @property doc Documentation elements.
  * @property annotations Annotations associated with the parameter.
  * @property type The type of the parameter.
- * @property gtkKnRawValue Whether the enum should use raw value or not.
+ * @property gtkKnEnumRawValue Whether the enum should use raw value or not.
+ * @property gtkKnReinterpret Whether the parameter requires a reinterpret().
  */
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirParameter(
@@ -54,7 +55,8 @@ data class GirParameter(
     val doc: GirDoc? = null,
     val annotations: List<GirAnnotation> = emptyList(),
     val type: GirAnyTypeOrVarargs,
-    val gtkKnRawValue: Boolean? = null,
+    val gtkKnEnumRawValue: Boolean? = null,
+    val gtkKnReinterpret: Boolean? = null,
 ) : GirNode {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace

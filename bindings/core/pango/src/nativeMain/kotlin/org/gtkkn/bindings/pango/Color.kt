@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_16
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -154,14 +153,14 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      * @return the newly allocated `PangoColor`,
      *   which should be freed with [method@Pango.Color.free]
      */
-    public fun copy(): Color? = pango_color_copy(gPointer.reinterpret())?.run {
-        Color(reinterpret())
+    public fun copy(): Color? = pango_color_copy(gPointer)?.run {
+        Color(this)
     }
 
     /**
      * Frees a color allocated by [method@Pango.Color.copy].
      */
-    public fun free(): Unit = pango_color_free(gPointer.reinterpret())
+    public fun free(): Unit = pango_color_free(gPointer)
 
     /**
      * Fill in the fields of a color from a string specification.
@@ -178,7 +177,7 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      * @return true if parsing of the specifier succeeded,
      *   otherwise false
      */
-    public fun parse(spec: String): Boolean = pango_color_parse(gPointer.reinterpret(), spec).asBoolean()
+    public fun parse(spec: String): Boolean = pango_color_parse(gPointer, spec).asBoolean()
 
     /**
      * Returns a textual specification of @color.
@@ -193,8 +192,7 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_16
-    override fun toString(): String =
-        pango_color_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = pango_color_to_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

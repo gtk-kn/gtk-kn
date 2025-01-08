@@ -43,6 +43,7 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.soup.SoupMessage
 import org.gtkkn.native.soup.SoupSession
 import org.gtkkn.native.soup.soup_session_abort
@@ -161,7 +162,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          * @return true if @session sets "Accept-Language" header automatically, or
          *   false otherwise.
          */
-        get() = soup_session_get_accept_language_auto(soupSessionPointer.reinterpret()).asBoolean()
+        get() = soup_session_get_accept_language_auto(soupSessionPointer).asBoolean()
 
         /**
          * Set whether @session will automatically set the "Accept-Language" header on
@@ -174,7 +175,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          */
         set(
             acceptLanguageAuto
-        ) = soup_session_set_accept_language_auto(soupSessionPointer.reinterpret(), acceptLanguageAuto.asGBoolean())
+        ) = soup_session_set_accept_language_auto(soupSessionPointer, acceptLanguageAuto.asGBoolean())
 
     /**
      * Connection lifetime (in seconds) when idle. Any connection
@@ -193,7 +194,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return the timeout in seconds
          */
-        get() = soup_session_get_idle_timeout(soupSessionPointer.reinterpret())
+        get() = soup_session_get_idle_timeout(soupSessionPointer)
 
         /**
          * Set a timeout in seconds for idle connection lifetime to be used by @session
@@ -203,7 +204,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @param timeout a timeout in seconds
          */
-        set(timeout) = soup_session_set_idle_timeout(soupSessionPointer.reinterpret(), timeout)
+        set(timeout) = soup_session_set_idle_timeout(soupSessionPointer, timeout)
 
     /**
      * Sets the [class@Gio.InetSocketAddress] to use for the client side of
@@ -219,8 +220,8 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return a #GInetSocketAddress
          */
-        get() = soup_session_get_local_address(soupSessionPointer.reinterpret())?.run {
-            InetSocketAddress(reinterpret())
+        get() = soup_session_get_local_address(soupSessionPointer)?.run {
+            InetSocketAddress(this)
         }
 
     /**
@@ -232,7 +233,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return the maximum number of connections
          */
-        get() = soup_session_get_max_conns(soupSessionPointer.reinterpret())
+        get() = soup_session_get_max_conns(soupSessionPointer)
 
     /**
      * The maximum number of connections that the session can open at once
@@ -245,7 +246,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return the maximum number of connections per host
          */
-        get() = soup_session_get_max_conns_per_host(soupSessionPointer.reinterpret())
+        get() = soup_session_get_max_conns_per_host(soupSessionPointer)
 
     /**
      * A [iface@Gio.ProxyResolver] to use with this session.
@@ -263,7 +264,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          * @return a #GProxyResolver or null if proxies
          *   are disabled in @session
          */
-        get() = soup_session_get_proxy_resolver(soupSessionPointer.reinterpret())?.run {
+        get() = soup_session_get_proxy_resolver(soupSessionPointer)?.run {
             ProxyResolver.wrap(reinterpret())
         }
 
@@ -275,9 +276,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @param proxyResolver a #GProxyResolver or null
          */
-        set(
-            proxyResolver
-        ) = soup_session_set_proxy_resolver(soupSessionPointer.reinterpret(), proxyResolver?.gioProxyResolverPointer)
+        set(proxyResolver) = soup_session_set_proxy_resolver(soupSessionPointer, proxyResolver?.gioProxyResolverPointer)
 
     /**
      * Sets a socket to make outgoing connections on. This will override the default
@@ -294,7 +293,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return the #GSocketConnectable
          */
-        get() = soup_session_get_remote_connectable(soupSessionPointer.reinterpret())?.run {
+        get() = soup_session_get_remote_connectable(soupSessionPointer)?.run {
             SocketConnectable.wrap(reinterpret())
         }
 
@@ -320,7 +319,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return the timeout in seconds
          */
-        get() = soup_session_get_timeout(soupSessionPointer.reinterpret())
+        get() = soup_session_get_timeout(soupSessionPointer)
 
         /**
          * Set a timeout in seconds for socket I/O operations to be used by @session
@@ -330,7 +329,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @param timeout a timeout in seconds
          */
-        set(timeout) = soup_session_set_timeout(soupSessionPointer.reinterpret(), timeout)
+        set(timeout) = soup_session_set_timeout(soupSessionPointer, timeout)
 
     /**
      * Sets the [class@Gio.TlsDatabase] to use for validating SSL/TLS
@@ -345,8 +344,8 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return a #GTlsDatabase
          */
-        get() = soup_session_get_tls_database(soupSessionPointer.reinterpret())?.run {
-            TlsDatabase(reinterpret())
+        get() = soup_session_get_tls_database(soupSessionPointer)?.run {
+            TlsDatabase(this)
         }
 
         /**
@@ -357,12 +356,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @param tlsDatabase a #GTlsDatabase
          */
-        set(
-            tlsDatabase
-        ) = soup_session_set_tls_database(
-            soupSessionPointer.reinterpret(),
-            tlsDatabase?.gioTlsDatabasePointer?.reinterpret()
-        )
+        set(tlsDatabase) = soup_session_set_tls_database(soupSessionPointer, tlsDatabase?.gioTlsDatabasePointer)
 
     /**
      * A [class@Gio.TlsInteraction] object that will be passed on to any
@@ -376,8 +370,8 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *
          * @return a #GTlsInteraction
          */
-        get() = soup_session_get_tls_interaction(soupSessionPointer.reinterpret())?.run {
-            TlsInteraction(reinterpret())
+        get() = soup_session_get_tls_interaction(soupSessionPointer)?.run {
+            TlsInteraction(this)
         }
 
         /**
@@ -392,10 +386,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          */
         set(
             tlsInteraction
-        ) = soup_session_set_tls_interaction(
-            soupSessionPointer.reinterpret(),
-            tlsInteraction?.gioTlsInteractionPointer?.reinterpret()
-        )
+        ) = soup_session_set_tls_interaction(soupSessionPointer, tlsInteraction?.gioTlsInteractionPointer)
 
     /**
      * Creates a #SoupSession with the default options.
@@ -408,7 +399,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * Cancels all pending requests in @session and closes all idle
      * persistent connections.
      */
-    public open fun abort(): Unit = soup_session_abort(soupSessionPointer.reinterpret())
+    public open fun abort(): Unit = soup_session_abort(soupSessionPointer)
 
     /**
      * Adds @feature's functionality to @session. You cannot add multiple
@@ -420,7 +411,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param feature an object that implements #SoupSessionFeature
      */
     public open fun addFeature(feature: SessionFeature): Unit =
-        soup_session_add_feature(soupSessionPointer.reinterpret(), feature.soupSessionFeaturePointer)
+        soup_session_add_feature(soupSessionPointer, feature.soupSessionFeaturePointer)
 
     /**
      * If @feature_type is the type of a class that implements
@@ -439,7 +430,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param featureType a #GType
      */
     public open fun addFeatureByType(featureType: GType): Unit =
-        soup_session_add_feature_by_type(soupSessionPointer.reinterpret(), featureType)
+        soup_session_add_feature_by_type(soupSessionPointer, featureType)
 
     /**
      * Get the value used by @session for the "Accept-Language" header on new
@@ -447,8 +438,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      *
      * @return the accept language string
      */
-    public open fun getAcceptLanguage(): String? =
-        soup_session_get_accept_language(soupSessionPointer.reinterpret())?.toKString()
+    public open fun getAcceptLanguage(): String? = soup_session_get_accept_language(soupSessionPointer)?.toKString()
 
     /**
      * Gets the [class@Message] of the @result asynchronous operation This is useful
@@ -460,8 +450,8 @@ public open class Session(pointer: CPointer<SoupSession>) :
      *   null if @result is not a valid @session async operation result.
      */
     public open fun getAsyncResultMessage(result: AsyncResult): Message? =
-        soup_session_get_async_result_message(soupSessionPointer.reinterpret(), result.gioAsyncResultPointer)?.run {
-            Message(reinterpret())
+        soup_session_get_async_result_message(soupSessionPointer, result.gioAsyncResultPointer)?.run {
+            Message(this)
         }
 
     /**
@@ -472,7 +462,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      *   feature is owned by @session.
      */
     public open fun getFeature(featureType: GType): SessionFeature? =
-        soup_session_get_feature(soupSessionPointer.reinterpret(), featureType)?.run {
+        soup_session_get_feature(soupSessionPointer, featureType)?.run {
             SessionFeature.wrap(reinterpret())
         }
 
@@ -486,11 +476,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      *   owned by @session.
      */
     public open fun getFeatureForMessage(featureType: GType, msg: Message): SessionFeature? =
-        soup_session_get_feature_for_message(
-            soupSessionPointer.reinterpret(),
-            featureType,
-            msg.soupMessagePointer.reinterpret()
-        )?.run {
+        soup_session_get_feature_for_message(soupSessionPointer, featureType, msg.soupMessagePointer)?.run {
             SessionFeature.wrap(reinterpret())
         }
 
@@ -499,7 +485,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      *
      * @return the user agent string
      */
-    public open fun getUserAgent(): String? = soup_session_get_user_agent(soupSessionPointer.reinterpret())?.toKString()
+    public open fun getUserAgent(): String? = soup_session_get_user_agent(soupSessionPointer)?.toKString()
 
     /**
      * Tests if @session has at a feature of type @feature_type (which can
@@ -510,7 +496,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @return true or false
      */
     public open fun hasFeature(featureType: GType): Boolean =
-        soup_session_has_feature(soupSessionPointer.reinterpret(), featureType).asBoolean()
+        soup_session_has_feature(soupSessionPointer, featureType).asBoolean()
 
     /**
      * Start a preconnection to @msg.
@@ -536,10 +522,10 @@ public open class Session(pointer: CPointer<SoupSession>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = soup_session_preconnect_async(
-        soupSessionPointer.reinterpret(),
-        msg.soupMessagePointer.reinterpret(),
+        soupSessionPointer,
+        msg.soupMessagePointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -555,7 +541,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
     public open fun preconnectFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_preconnect_finish(
-            soupSessionPointer.reinterpret(),
+            soupSessionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -572,7 +558,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param feature a feature that has previously been added to @session
      */
     public open fun removeFeature(feature: SessionFeature): Unit =
-        soup_session_remove_feature(soupSessionPointer.reinterpret(), feature.soupSessionFeaturePointer)
+        soup_session_remove_feature(soupSessionPointer, feature.soupSessionFeaturePointer)
 
     /**
      * Removes all features of type @feature_type (or any subclass of
@@ -581,7 +567,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param featureType a #GType
      */
     public open fun removeFeatureByType(featureType: GType): Unit =
-        soup_session_remove_feature_by_type(soupSessionPointer.reinterpret(), featureType)
+        soup_session_remove_feature_by_type(soupSessionPointer, featureType)
 
     /**
      * Synchronously sends @msg and waits for the beginning of a response.
@@ -611,12 +597,12 @@ public open class Session(pointer: CPointer<SoupSession>) :
     public open fun send(msg: Message, cancellable: Cancellable? = null): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send(
-            soupSessionPointer.reinterpret(),
-            msg.soupMessagePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            soupSessionPointer,
+            msg.soupMessagePointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            InputStream(reinterpret())
+            InputStream(this)
         }
 
         return if (gError.pointed != null) {
@@ -642,12 +628,12 @@ public open class Session(pointer: CPointer<SoupSession>) :
     public open fun sendAndRead(msg: Message, cancellable: Cancellable? = null): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_and_read(
-            soupSessionPointer.reinterpret(),
-            msg.soupMessagePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            soupSessionPointer,
+            msg.soupMessagePointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            Bytes(reinterpret())
+            Bytes(this)
         }
 
         return if (gError.pointed != null) {
@@ -679,10 +665,10 @@ public open class Session(pointer: CPointer<SoupSession>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = soup_session_send_and_read_async(
-        soupSessionPointer.reinterpret(),
-        msg.soupMessagePointer.reinterpret(),
+        soupSessionPointer,
+        msg.soupMessagePointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -700,11 +686,11 @@ public open class Session(pointer: CPointer<SoupSession>) :
     public open fun sendAndReadFinish(result: AsyncResult): Result<Bytes> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_and_read_finish(
-            soupSessionPointer.reinterpret(),
+            soupSessionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            Bytes(reinterpret())
+            Bytes(this)
         }
 
         return if (gError.pointed != null) {
@@ -736,11 +722,11 @@ public open class Session(pointer: CPointer<SoupSession>) :
         val gError = allocPointerTo<GError>()
         val gResult =
             soup_session_send_and_splice(
-                soupSessionPointer.reinterpret(),
-                msg.soupMessagePointer.reinterpret(),
-                outStream.gioOutputStreamPointer.reinterpret(),
+                soupSessionPointer,
+                msg.soupMessagePointer,
+                outStream.gioOutputStreamPointer,
                 flags.mask,
-                cancellable?.gioCancellablePointer?.reinterpret(),
+                cancellable?.gioCancellablePointer,
                 gError.ptr
             )
         return if (gError.pointed != null) {
@@ -774,12 +760,12 @@ public open class Session(pointer: CPointer<SoupSession>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = soup_session_send_and_splice_async(
-        soupSessionPointer.reinterpret(),
-        msg.soupMessagePointer.reinterpret(),
-        outStream.gioOutputStreamPointer.reinterpret(),
+        soupSessionPointer,
+        msg.soupMessagePointer,
+        outStream.gioOutputStreamPointer,
         flags.mask,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -796,12 +782,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
     @SoupVersion3_4
     public open fun sendAndSpliceFinish(result: AsyncResult): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult =
-            soup_session_send_and_splice_finish(
-                soupSessionPointer.reinterpret(),
-                result.gioAsyncResultPointer,
-                gError.ptr
-            )
+        val gResult = soup_session_send_and_splice_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -830,10 +811,10 @@ public open class Session(pointer: CPointer<SoupSession>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = soup_session_send_async(
-        soupSessionPointer.reinterpret(),
-        msg.soupMessagePointer.reinterpret(),
+        soupSessionPointer,
+        msg.soupMessagePointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -852,12 +833,8 @@ public open class Session(pointer: CPointer<SoupSession>) :
      */
     public open fun sendFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = soup_session_send_finish(
-            soupSessionPointer.reinterpret(),
-            result.gioAsyncResultPointer,
-            gError.ptr
-        )?.run {
-            InputStream(reinterpret())
+        val gResult = soup_session_send_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
+            InputStream(this)
         }
 
         return if (gError.pointed != null) {
@@ -877,7 +854,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param acceptLanguage the languages string
      */
     public open fun setAcceptLanguage(acceptLanguage: String): Unit =
-        soup_session_set_accept_language(soupSessionPointer.reinterpret(), acceptLanguage)
+        soup_session_set_accept_language(soupSessionPointer, acceptLanguage)
 
     /**
      * Set the value to use for the "User-Agent" header on [class@Message]s sent
@@ -890,8 +867,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      *
      * @param userAgent the user agent string
      */
-    public open fun setUserAgent(userAgent: String): Unit =
-        soup_session_set_user_agent(soupSessionPointer.reinterpret(), userAgent)
+    public open fun setUserAgent(userAgent: String): Unit = soup_session_set_user_agent(soupSessionPointer, userAgent)
 
     /**
      * Asynchronously creates a [class@WebsocketConnection] to communicate with a
@@ -929,12 +905,12 @@ public open class Session(pointer: CPointer<SoupSession>) :
         callback: AsyncReadyCallback?,
     ): Unit = memScoped {
         return soup_session_websocket_connect_async(
-            soupSessionPointer.reinterpret(),
-            msg.soupMessagePointer.reinterpret(),
+            soupSessionPointer,
+            msg.soupMessagePointer,
             origin,
             protocols?.toCStringList(this),
             ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -956,11 +932,11 @@ public open class Session(pointer: CPointer<SoupSession>) :
     public open fun websocketConnectFinish(result: AsyncResult): Result<WebsocketConnection> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_websocket_connect_finish(
-            soupSessionPointer.reinterpret(),
+            soupSessionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            WebsocketConnection(reinterpret())
+            WebsocketConnection(this)
         }
 
         return if (gError.pointed != null) {
@@ -1000,20 +976,27 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * [class@Message] signals) may be invoked multiple times for a given
      * message.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `msg` the request that was queued
      */
-    public fun connectRequestQueued(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (msg: Message) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "request-queued",
-        connectRequestQueuedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onRequestQueued(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (msg: Message) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "request-queued",
+            onRequestQueuedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "request-queued" signal. See [onRequestQueued].
+     *
+     * @param msg the request that was queued
+     */
+    public fun emitRequestQueued(msg: Message) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "request-queued", msg.soupMessagePointer)
+    }
 
     /**
      * Emitted when a request is removed from @session's queue,
@@ -1022,20 +1005,29 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * See [signal@Session::request-queued] for a detailed description of
      * the message lifecycle within a session.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `msg` the request that was unqueued
      */
-    public fun connectRequestUnqueued(
+    public fun onRequestUnqueued(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (msg: Message) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "request-unqueued",
-        connectRequestUnqueuedFunc.reinterpret(),
+        onRequestUnqueuedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "request-unqueued" signal. See [onRequestUnqueued].
+     *
+     * @param msg the request that was unqueued
+     */
+    public fun emitRequestUnqueued(msg: Message) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "request-unqueued", msg.soupMessagePointer)
+    }
 
     public companion object : TypeCompanion<Session> {
         override val type: GeneratedClassKGType<Session> =
@@ -1054,7 +1046,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
     }
 }
 
-private val connectRequestQueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> Unit>> =
+private val onRequestQueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             msg: CPointer<SoupMessage>?,
@@ -1062,13 +1054,13 @@ private val connectRequestQueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>)
         ->
         userData.asStableRef<(msg: Message) -> Unit>().get().invoke(
             msg!!.run {
-                Message(reinterpret())
+                Message(this)
             }
         )
     }
         .reinterpret()
 
-private val connectRequestUnqueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> Unit>> =
+private val onRequestUnqueuedFunc: CPointer<CFunction<(CPointer<SoupMessage>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             msg: CPointer<SoupMessage>?,
@@ -1076,7 +1068,7 @@ private val connectRequestUnqueuedFunc: CPointer<CFunction<(CPointer<SoupMessage
         ->
         userData.asStableRef<(msg: Message) -> Unit>().get().invoke(
             msg!!.run {
-                Message(reinterpret())
+                Message(this)
             }
         )
     }

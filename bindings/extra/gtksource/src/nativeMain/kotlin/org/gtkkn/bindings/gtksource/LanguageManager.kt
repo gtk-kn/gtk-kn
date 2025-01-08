@@ -58,9 +58,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
          * The array is sorted alphabetically according to the language name.
          * The array is owned by @lm and must not be modified.
          */
-        get() = gtk_source_language_manager_get_language_ids(
-            gtksourceLanguageManagerPointer.reinterpret()
-        )?.toKStringList()
+        get() = gtk_source_language_manager_get_language_ids(gtksourceLanguageManagerPointer)?.toKStringList()
 
     /**
      * Creates a new language manager.
@@ -83,7 +81,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      */
     @GtkSourceVersion5_4
     public open fun appendSearchPath(path: String): Unit =
-        gtk_source_language_manager_append_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
+        gtk_source_language_manager_append_search_path(gtksourceLanguageManagerPointer, path)
 
     /**
      * Gets the [class@Language] identified by the given @id in the language
@@ -95,8 +93,8 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * owned by @lm and should not be freed.
      */
     public open fun getLanguage(id: String): Language? =
-        gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer.reinterpret(), id)?.run {
-            Language(reinterpret())
+        gtk_source_language_manager_get_language(gtksourceLanguageManagerPointer, id)?.run {
+            Language(this)
         }
 
     /**
@@ -107,7 +105,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * The array is owned by @lm and must not be modified.
      */
     public open fun getSearchPath(): List<String> =
-        gtk_source_language_manager_get_search_path(gtksourceLanguageManagerPointer.reinterpret())?.toKStringList()
+        gtk_source_language_manager_get_search_path(gtksourceLanguageManagerPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -156,12 +154,8 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      * value is owned by @lm and should not be freed.
      */
     public open fun guessLanguage(filename: String? = null, contentType: String? = null): Language? =
-        gtk_source_language_manager_guess_language(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            filename,
-            contentType
-        )?.run {
-            Language(reinterpret())
+        gtk_source_language_manager_guess_language(gtksourceLanguageManagerPointer, filename, contentType)?.run {
+            Language(this)
         }
 
     /**
@@ -175,7 +169,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      */
     @GtkSourceVersion5_4
     public open fun prependSearchPath(path: String): Unit =
-        gtk_source_language_manager_prepend_search_path(gtksourceLanguageManagerPointer.reinterpret(), path)
+        gtk_source_language_manager_prepend_search_path(gtksourceLanguageManagerPointer, path)
 
     /**
      * Sets the list of directories where the @lm looks for
@@ -196,10 +190,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
      *   strings or null.
      */
     public open fun setSearchPath(dirs: List<String>? = null): Unit = memScoped {
-        return gtk_source_language_manager_set_search_path(
-            gtksourceLanguageManagerPointer.reinterpret(),
-            dirs?.toCStringList(this)
-        )
+        return gtk_source_language_manager_set_search_path(gtksourceLanguageManagerPointer, dirs?.toCStringList(this))
     }
 
     public companion object : TypeCompanion<LanguageManager> {
@@ -217,7 +208,7 @@ public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
          * Return value is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): LanguageManager = gtk_source_language_manager_get_default()!!.run {
-            LanguageManager(reinterpret())
+            LanguageManager(this)
         }
 
         /**

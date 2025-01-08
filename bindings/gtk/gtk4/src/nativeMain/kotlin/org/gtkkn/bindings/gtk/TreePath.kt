@@ -48,7 +48,7 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      *
      * @param index the index
      */
-    public fun appendIndex(index: gint): Unit = gtk_tree_path_append_index(gPointer.reinterpret(), index)
+    public fun appendIndex(index: gint): Unit = gtk_tree_path_append_index(gPointer, index)
 
     /**
      * Compares two paths.
@@ -60,33 +60,33 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      * @param b a `GtkTreePath` to compare with
      * @return the relative positions of @a and @b
      */
-    public fun compare(b: TreePath): gint = gtk_tree_path_compare(gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun compare(b: TreePath): gint = gtk_tree_path_compare(gPointer, b.gPointer)
 
     /**
      * Creates a new `GtkTreePath` as a copy of @path.
      *
      * @return a new `GtkTreePath`
      */
-    public fun copy(): TreePath = gtk_tree_path_copy(gPointer.reinterpret())!!.run {
-        TreePath(reinterpret())
+    public fun copy(): TreePath = gtk_tree_path_copy(gPointer)!!.run {
+        TreePath(this)
     }
 
     /**
      * Moves @path to point to the first child of the current path.
      */
-    public fun down(): Unit = gtk_tree_path_down(gPointer.reinterpret())
+    public fun down(): Unit = gtk_tree_path_down(gPointer)
 
     /**
      * Frees @path. If @path is null, it simply returns.
      */
-    public fun free(): Unit = gtk_tree_path_free(gPointer.reinterpret())
+    public fun free(): Unit = gtk_tree_path_free(gPointer)
 
     /**
      * Returns the current depth of @path.
      *
      * @return The depth of @path
      */
-    public fun getDepth(): gint = gtk_tree_path_get_depth(gPointer.reinterpret())
+    public fun getDepth(): gint = gtk_tree_path_get_depth(gPointer)
 
     /**
      * Returns true if @descendant is a descendant of @path.
@@ -95,7 +95,7 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      * @return true if @descendant is contained inside @path
      */
     public fun isAncestor(descendant: TreePath): Boolean =
-        gtk_tree_path_is_ancestor(gPointer.reinterpret(), descendant.gPointer.reinterpret()).asBoolean()
+        gtk_tree_path_is_ancestor(gPointer, descendant.gPointer).asBoolean()
 
     /**
      * Returns true if @path is a descendant of @ancestor.
@@ -104,12 +104,12 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      * @return true if @ancestor contains @path somewhere below it
      */
     public fun isDescendant(ancestor: TreePath): Boolean =
-        gtk_tree_path_is_descendant(gPointer.reinterpret(), ancestor.gPointer.reinterpret()).asBoolean()
+        gtk_tree_path_is_descendant(gPointer, ancestor.gPointer).asBoolean()
 
     /**
      * Moves the @path to point to the next node at the current depth.
      */
-    public fun next(): Unit = gtk_tree_path_next(gPointer.reinterpret())
+    public fun next(): Unit = gtk_tree_path_next(gPointer)
 
     /**
      * Prepends a new index to a path.
@@ -118,7 +118,7 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      *
      * @param index the index
      */
-    public fun prependIndex(index: gint): Unit = gtk_tree_path_prepend_index(gPointer.reinterpret(), index)
+    public fun prependIndex(index: gint): Unit = gtk_tree_path_prepend_index(gPointer, index)
 
     /**
      * Moves the @path to point to the previous node at the
@@ -127,7 +127,7 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      * @return true if @path has a previous node, and
      *   the move was made
      */
-    public fun prev(): Boolean = gtk_tree_path_prev(gPointer.reinterpret()).asBoolean()
+    public fun prev(): Boolean = gtk_tree_path_prev(gPointer).asBoolean()
 
     /**
      * Generates a string representation of the path.
@@ -139,14 +139,14 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
      *
      * @return A newly-allocated string
      */
-    public fun toStringTreePath(): String? = gtk_tree_path_to_string(gPointer.reinterpret())?.toKString()
+    public fun toStringTreePath(): String? = gtk_tree_path_to_string(gPointer)?.toKString()
 
     /**
      * Moves the @path to point to its parent node, if it has a parent.
      *
      * @return true if @path has a parent, and the move was made
      */
-    public fun up(): Boolean = gtk_tree_path_up(gPointer.reinterpret()).asBoolean()
+    public fun up(): Boolean = gtk_tree_path_up(gPointer).asBoolean()
 
     public companion object {
         /**
@@ -155,7 +155,7 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
          *
          * @return A newly created `GtkTreePath`.
          */
-        public fun new(): TreePath = TreePath(gtk_tree_path_new()!!.reinterpret())
+        public fun new(): TreePath = TreePath(gtk_tree_path_new()!!)
 
         /**
          * Creates a new `GtkTreePath`.
@@ -164,7 +164,7 @@ public class TreePath(pointer: CPointer<GtkTreePath>) : ProxyInstance(pointer) {
          *
          * @return A new `GtkTreePath`
          */
-        public fun newFirst(): TreePath = TreePath(gtk_tree_path_new_first()!!.reinterpret())
+        public fun newFirst(): TreePath = TreePath(gtk_tree_path_new_first()!!)
 
         /**
          * Creates a new `GtkTreePath` initialized to @path.

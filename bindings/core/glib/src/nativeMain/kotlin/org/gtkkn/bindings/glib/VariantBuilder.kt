@@ -52,7 +52,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
 
     public var type: VariantType?
         get() = gPointer.pointed.u.s.type?.run {
-            VariantType(reinterpret())
+            VariantType(this)
         }
 
         @UnsafeFieldSetter
@@ -76,8 +76,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun addValue(`value`: Variant): Unit =
-        g_variant_builder_add_value(gPointer.reinterpret(), `value`.gPointer.reinterpret())
+    public fun addValue(`value`: Variant): Unit = g_variant_builder_add_value(gPointer, `value`.gPointer)
 
     /**
      * Releases all memory associated with a #GVariantBuilder without
@@ -98,7 +97,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun clear(): Unit = g_variant_builder_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_variant_builder_clear(gPointer)
 
     /**
      * Closes the subcontainer inside the given @builder that was opened by
@@ -111,7 +110,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun close(): Unit = g_variant_builder_close(gPointer.reinterpret())
+    public fun close(): Unit = g_variant_builder_close(gPointer)
 
     /**
      * Ends the builder process and returns the constructed value.
@@ -136,8 +135,8 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun end(): Variant = g_variant_builder_end(gPointer.reinterpret())!!.run {
-        Variant(reinterpret())
+    public fun end(): Variant = g_variant_builder_end(gPointer)!!.run {
+        Variant(this)
     }
 
     /**
@@ -175,8 +174,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `init`(type: VariantType): Unit =
-        g_variant_builder_init(gPointer.reinterpret(), type.gPointer.reinterpret())
+    public fun `init`(type: VariantType): Unit = g_variant_builder_init(gPointer, type.gPointer)
 
     /**
      * Opens a subcontainer inside the given @builder.  When done adding
@@ -220,8 +218,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `open`(type: VariantType): Unit =
-        g_variant_builder_open(gPointer.reinterpret(), type.gPointer.reinterpret())
+    public fun `open`(type: VariantType): Unit = g_variant_builder_open(gPointer, type.gPointer)
 
     /**
      * Increases the reference count on @builder.
@@ -233,8 +230,8 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun ref(): VariantBuilder = g_variant_builder_ref(gPointer.reinterpret())!!.run {
-        VariantBuilder(reinterpret())
+    public fun ref(): VariantBuilder = g_variant_builder_ref(gPointer)!!.run {
+        VariantBuilder(this)
     }
 
     /**
@@ -249,7 +246,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun unref(): Unit = g_variant_builder_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_variant_builder_unref(gPointer)
 
     override fun toString(): String = "VariantBuilder(partialMagic=$partialMagic, type=$type)"
 
@@ -270,7 +267,7 @@ public class VariantBuilder(pointer: CPointer<GVariantBuilder>) : ProxyInstance(
          * @since 2.24
          */
         public fun new(type: VariantType): VariantBuilder =
-            VariantBuilder(g_variant_builder_new(type.gPointer.reinterpret())!!.reinterpret())
+            VariantBuilder(g_variant_builder_new(type.gPointer)!!.reinterpret())
 
         /**
          * Get the GType of VariantBuilder

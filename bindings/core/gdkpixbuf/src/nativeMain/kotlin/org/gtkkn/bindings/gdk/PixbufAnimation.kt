@@ -119,8 +119,8 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
             val gError = allocPointerTo<GError>()
             val gResult =
                 gdk_pixbuf_animation_new_from_stream(
-                    stream.gioInputStreamPointer.reinterpret(),
-                    cancellable?.gioCancellablePointer?.reinterpret(),
+                    stream.gioInputStreamPointer,
+                    cancellable?.gioCancellablePointer,
                     gError.ptr
                 )
             if (gError.pointed != null) {
@@ -155,7 +155,7 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
      *
      * @return Height of the bounding box of the animation.
      */
-    public open fun getHeight(): gint = gdk_pixbuf_animation_get_height(gdkPixbufAnimationPointer.reinterpret())
+    public open fun getHeight(): gint = gdk_pixbuf_animation_get_height(gdkPixbufAnimationPointer)
 
     /**
      * Get an iterator for displaying an animation.
@@ -196,12 +196,10 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
      * @param startTime time when the animation starts playing
      * @return an iterator to move over the animation
      */
-    public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter = gdk_pixbuf_animation_get_iter(
-        gdkPixbufAnimationPointer.reinterpret(),
-        startTime?.gPointer?.reinterpret()
-    )!!.run {
-        PixbufAnimationIter(reinterpret())
-    }
+    public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter =
+        gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.gPointer)!!.run {
+            PixbufAnimationIter(this)
+        }
 
     /**
      * Retrieves a static image for the animation.
@@ -218,17 +216,16 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
      *
      * @return unanimated image representing the animation
      */
-    public open fun getStaticImage(): Pixbuf =
-        gdk_pixbuf_animation_get_static_image(gdkPixbufAnimationPointer.reinterpret())!!.run {
-            Pixbuf(reinterpret())
-        }
+    public open fun getStaticImage(): Pixbuf = gdk_pixbuf_animation_get_static_image(gdkPixbufAnimationPointer)!!.run {
+        Pixbuf(this)
+    }
 
     /**
      * Queries the width of the bounding box of a pixbuf animation.
      *
      * @return Width of the bounding box of the animation.
      */
-    public open fun getWidth(): gint = gdk_pixbuf_animation_get_width(gdkPixbufAnimationPointer.reinterpret())
+    public open fun getWidth(): gint = gdk_pixbuf_animation_get_width(gdkPixbufAnimationPointer)
 
     /**
      * Checks whether the animation is a static image.
@@ -241,21 +238,21 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
      * @return `TRUE` if the "animation" was really just an image
      */
     public open fun isStaticImage(): Boolean =
-        gdk_pixbuf_animation_is_static_image(gdkPixbufAnimationPointer.reinterpret()).asBoolean()
+        gdk_pixbuf_animation_is_static_image(gdkPixbufAnimationPointer).asBoolean()
 
     /**
      * Adds a reference to an animation.
      *
      * @return The same as the @animation argument.
      */
-    override fun ref(): PixbufAnimation = gdk_pixbuf_animation_ref(gdkPixbufAnimationPointer.reinterpret())!!.run {
-        PixbufAnimation(reinterpret())
+    override fun ref(): PixbufAnimation = gdk_pixbuf_animation_ref(gdkPixbufAnimationPointer)!!.run {
+        PixbufAnimation(this)
     }
 
     /**
      * Removes a reference from an animation.
      */
-    override fun unref(): Unit = gdk_pixbuf_animation_unref(gdkPixbufAnimationPointer.reinterpret())
+    override fun unref(): Unit = gdk_pixbuf_animation_unref(gdkPixbufAnimationPointer)
 
     public companion object : TypeCompanion<PixbufAnimation> {
         override val type: GeneratedClassKGType<PixbufAnimation> =
@@ -332,8 +329,8 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
         ): Unit = gdk_pixbuf_animation_new_from_stream_async(
-            stream.gioInputStreamPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            stream.gioInputStreamPointer,
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },

@@ -26,7 +26,7 @@ public open class DndEvent(pointer: CPointer<GdkDNDEvent>) :
      * @return the drop
      */
     public open fun getDrop(): Drop? = gdk_dnd_event_get_drop(gdkDndEventPointer.reinterpret())?.run {
-        Drop(reinterpret())
+        Drop(this)
     }
 
     public companion object : TypeCompanion<DndEvent> {

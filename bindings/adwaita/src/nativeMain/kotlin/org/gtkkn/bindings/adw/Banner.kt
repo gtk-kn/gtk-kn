@@ -32,6 +32,7 @@ import org.gtkkn.native.adw.adw_banner_set_title
 import org.gtkkn.native.adw.adw_banner_set_use_markup
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -104,7 +105,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @return the button label for @self
          * @since 1.3
          */
-        get() = adw_banner_get_button_label(adwBannerPointer.reinterpret())?.toKString()
+        get() = adw_banner_get_button_label(adwBannerPointer)?.toKString()
 
         /**
          * Sets the button label for @self.
@@ -118,7 +119,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(label) = adw_banner_set_button_label(adwBannerPointer.reinterpret(), label)
+        set(label) = adw_banner_set_button_label(adwBannerPointer, label)
 
     /**
      * Whether the banner is currently revealed.
@@ -133,7 +134,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @return Whether a banner is revealed
          * @since 1.3
          */
-        get() = adw_banner_get_revealed(adwBannerPointer.reinterpret()).asBoolean()
+        get() = adw_banner_get_revealed(adwBannerPointer).asBoolean()
 
         /**
          * Sets whether a banner should be revealed
@@ -142,7 +143,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(revealed) = adw_banner_set_revealed(adwBannerPointer.reinterpret(), revealed.asGBoolean())
+        set(revealed) = adw_banner_set_revealed(adwBannerPointer, revealed.asGBoolean())
 
     /**
      * The title for this banner.
@@ -159,7 +160,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @return the title for @self
          * @since 1.3
          */
-        get() = adw_banner_get_title(adwBannerPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = adw_banner_get_title(adwBannerPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title for this banner.
@@ -170,7 +171,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(title) = adw_banner_set_title(adwBannerPointer.reinterpret(), title)
+        set(title) = adw_banner_set_title(adwBannerPointer, title)
 
     /**
      * Whether to use Pango markup for the banner title.
@@ -187,7 +188,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @return whether to use markup
          * @since 1.3
          */
-        get() = adw_banner_get_use_markup(adwBannerPointer.reinterpret()).asBoolean()
+        get() = adw_banner_get_use_markup(adwBannerPointer).asBoolean()
 
         /**
          * Sets whether to use Pango markup for the banner title.
@@ -198,7 +199,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
          * @since 1.3
          */
         @AdwVersion1_3
-        set(useMarkup) = adw_banner_set_use_markup(adwBannerPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_banner_set_use_markup(adwBannerPointer, useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwBanner`.
@@ -214,20 +215,30 @@ public class Banner(pointer: CPointer<AdwBanner>) :
      *
      * It can be used as an alternative to setting an action.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.3
      */
     @AdwVersion1_3
-    public fun connectButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "button-clicked",
-            connectButtonClickedFunc.reinterpret(),
+            onButtonClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "button-clicked" signal. See [onButtonClicked].
+     *
+     * @since 1.3
+     */
+    @AdwVersion1_3
+    public fun emitButtonClicked() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "button-clicked")
+    }
 
     public companion object : TypeCompanion<Banner> {
         override val type: GeneratedClassKGType<Banner> =
@@ -246,7 +257,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
     }
 }
 
-private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

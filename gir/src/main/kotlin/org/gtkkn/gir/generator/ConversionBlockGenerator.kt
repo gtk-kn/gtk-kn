@@ -41,11 +41,13 @@ interface ConversionBlockGenerator {
                 is TypeInfo.Enumeration -> add("%N$safeCall.nativeValue", kotlinName)
                 is TypeInfo.ObjectPointer -> {
                     add(
-                        "%N$safeCall.%N$safeCall.%M()",
+                        "%N$safeCall.%N",
                         kotlinName,
                         typeInfo.objectPointerName,
-                        BindingsGenerator.REINTERPRET_FUNC,
                     )
+                    if (typeInfo.needsReinterpret()) {
+                        add("$safeCall.%M()", BindingsGenerator.REINTERPRET_FUNC)
+                    }
                 }
 
                 is TypeInfo.InterfacePointer -> {
@@ -58,10 +60,9 @@ interface ConversionBlockGenerator {
 
                 is TypeInfo.RecordUnionPointer -> {
                     add(
-                        "%N$safeCall.%N$safeCall.%M()",
+                        "%N$safeCall.%N",
                         kotlinName,
                         typeInfo.objectPointerName,
-                        BindingsGenerator.REINTERPRET_FUNC,
                     )
                 }
 
@@ -179,7 +180,10 @@ interface ConversionBlockGenerator {
             }
         }.build()
 
-    fun buildNativeToKotlinConversionsBlock(returnTypeInfo: TypeInfo): CodeBlock =
+    fun buildNativeToKotlinConversionsBlock(
+        returnTypeInfo: TypeInfo,
+        reinterpretReturnValue: Boolean = false
+    ): CodeBlock =
         CodeBlock.builder().apply {
             val isNullable = returnTypeInfo.kotlinTypeName.isNullable
 
@@ -196,6 +200,7 @@ interface ConversionBlockGenerator {
                     isNullable,
                     this,
                     returnTypeInfo,
+                    reinterpretReturnValue,
                 )
 
                 is TypeInfo.Alias -> add(buildNativeToKotlinConversionsBlock(returnTypeInfo.baseTypeInfo))
@@ -233,26 +238,24 @@ private object NativeToKotlinConversions {
         returnTypeInfo: TypeInfo.ObjectPointer,
         codeBlockBuilder: CodeBlock.Builder,
     ) {
-        if (returnTypeInfo.kotlinTypeName.isNullable) {
-            codeBlockBuilder
-                .beginControlFlow("?.run")
-                .add(
+        codeBlockBuilder.apply {
+            if (returnTypeInfo.kotlinTypeName.isNullable) {
+                beginControlFlow("?.run")
+            } else {
+                // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
+                // nullable type, so we use force !! here
+                beginControlFlow("!!.run")
+            }
+            if (returnTypeInfo.needsReinterpret()) {
+                add(
                     "%T(%M())",
                     returnTypeInfo.withNullable(false).kotlinTypeName,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
-                .endControlFlow()
-        } else {
-            // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
-            // nullable type, so we use force !! here
-            codeBlockBuilder
-                .beginControlFlow("!!.run")
-                .add(
-                    "%T(%M())",
-                    returnTypeInfo.withNullable(false).kotlinTypeName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
-                .endControlFlow()
+            } else {
+                add("%T(this)", returnTypeInfo.withNullable(false).kotlinTypeName)
+            }
+            endControlFlow()
         }
     }
 
@@ -288,17 +291,23 @@ private object NativeToKotlinConversions {
         isNullable: Boolean,
         codeBlockBuilder: CodeBlock.Builder,
         returnTypeInfo: TypeInfo.RecordUnionPointer,
+        reinterpretReturnValue: Boolean,
     ) {
         // some C functions that according to gir are not nullable, will be mapped by cinterop to return a
         // nullable type, so we use force !! here
-        codeBlockBuilder
-            .beginControlFlow("%L.run", if (isNullable) "?" else "!!")
-            .add(
-                "%T(%M())",
-                returnTypeInfo.withNullable(false).kotlinTypeName,
-                BindingsGenerator.REINTERPRET_FUNC,
-            )
-            .endControlFlow()
+        codeBlockBuilder.apply {
+            beginControlFlow("%L.run", if (isNullable) "?" else "!!")
+            if (returnTypeInfo.needsReinterpret() || reinterpretReturnValue) {
+                add(
+                    "%T(%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    BindingsGenerator.REINTERPRET_FUNC,
+                )
+            } else {
+                add("%T(this)", returnTypeInfo.withNullable(false).kotlinTypeName)
+            }
+            endControlFlow()
+        }
     }
 
     fun buildGPointer(

@@ -71,7 +71,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          *     in vertical layout, or -1
          * @since 4.12
          */
-        get() = gtk_box_layout_get_baseline_child(gtkBoxLayoutPointer.reinterpret())
+        get() = gtk_box_layout_get_baseline_child(gtkBoxLayoutPointer)
 
         /**
          * Sets the index of the child that determines the baseline
@@ -81,7 +81,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(child) = gtk_box_layout_set_baseline_child(gtkBoxLayoutPointer.reinterpret(), child)
+        set(child) = gtk_box_layout_set_baseline_child(gtkBoxLayoutPointer, child)
 
     /**
      * The position of the allocated baseline within the extra space
@@ -96,7 +96,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          *
          * @return the baseline position
          */
-        get() = gtk_box_layout_get_baseline_position(gtkBoxLayoutPointer.reinterpret()).run {
+        get() = gtk_box_layout_get_baseline_position(gtkBoxLayoutPointer).run {
             BaselinePosition.fromNativeValue(this)
         }
 
@@ -111,7 +111,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          *
          * @param position a `GtkBaselinePosition`
          */
-        set(position) = gtk_box_layout_set_baseline_position(gtkBoxLayoutPointer.reinterpret(), position.nativeValue)
+        set(position) = gtk_box_layout_set_baseline_position(gtkBoxLayoutPointer, position.nativeValue)
 
     /**
      * Whether the box layout should distribute the available space
@@ -123,7 +123,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          *
          * @return true if the layout is homogeneous
          */
-        get() = gtk_box_layout_get_homogeneous(gtkBoxLayoutPointer.reinterpret()).asBoolean()
+        get() = gtk_box_layout_get_homogeneous(gtkBoxLayoutPointer).asBoolean()
 
         /**
          * Sets whether the box layout will allocate the same
@@ -131,7 +131,7 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          *
          * @param homogeneous true to set the box layout as homogeneous
          */
-        set(homogeneous) = gtk_box_layout_set_homogeneous(gtkBoxLayoutPointer.reinterpret(), homogeneous.asGBoolean())
+        set(homogeneous) = gtk_box_layout_set_homogeneous(gtkBoxLayoutPointer, homogeneous.asGBoolean())
 
     /**
      * The space to put between the children.
@@ -142,14 +142,14 @@ public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
          *
          * @return the spacing of the layout
          */
-        get() = gtk_box_layout_get_spacing(gtkBoxLayoutPointer.reinterpret())
+        get() = gtk_box_layout_get_spacing(gtkBoxLayoutPointer)
 
         /**
          * Sets how much spacing to put between children.
          *
          * @param spacing the spacing to apply between children
          */
-        set(spacing) = gtk_box_layout_set_spacing(gtkBoxLayoutPointer.reinterpret(), spacing)
+        set(spacing) = gtk_box_layout_set_spacing(gtkBoxLayoutPointer, spacing)
 
     /**
      * Creates a new `GtkBoxLayout`.

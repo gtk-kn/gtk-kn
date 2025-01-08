@@ -107,14 +107,14 @@ public class Logger(pointer: CPointer<SoupLogger>) :
          *
          * @return the maximum body size, or -1 if unlimited
          */
-        get() = soup_logger_get_max_body_size(soupLoggerPointer.reinterpret())
+        get() = soup_logger_get_max_body_size(soupLoggerPointer)
 
         /**
          * Sets the maximum body size for @logger (-1 means no limit).
          *
          * @param maxBodySize the maximum body size to log
          */
-        set(maxBodySize) = soup_logger_set_max_body_size(soupLoggerPointer.reinterpret(), maxBodySize)
+        set(maxBodySize) = soup_logger_set_max_body_size(soupLoggerPointer, maxBodySize)
 
     /**
      * Creates a new #SoupLogger with the given debug level.
@@ -135,7 +135,7 @@ public class Logger(pointer: CPointer<SoupLogger>) :
      * @param printer the callback for printing logging output
      */
     public fun setPrinter(printer: LoggerPrinter): Unit = soup_logger_set_printer(
-        soupLoggerPointer.reinterpret(),
+        soupLoggerPointer,
         LoggerPrinterFunc.reinterpret(),
         StableRef.create(printer).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -152,7 +152,7 @@ public class Logger(pointer: CPointer<SoupLogger>) :
      * @param requestFilter the callback for request debugging
      */
     public fun setRequestFilter(requestFilter: LoggerFilter): Unit = soup_logger_set_request_filter(
-        soupLoggerPointer.reinterpret(),
+        soupLoggerPointer,
         LoggerFilterFunc.reinterpret(),
         StableRef.create(requestFilter).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -169,7 +169,7 @@ public class Logger(pointer: CPointer<SoupLogger>) :
      * @param responseFilter the callback for response debugging
      */
     public fun setResponseFilter(responseFilter: LoggerFilter): Unit = soup_logger_set_response_filter(
-        soupLoggerPointer.reinterpret(),
+        soupLoggerPointer,
         LoggerFilterFunc.reinterpret(),
         StableRef.create(responseFilter).asCPointer(),
         staticStableRefDestroy.reinterpret()

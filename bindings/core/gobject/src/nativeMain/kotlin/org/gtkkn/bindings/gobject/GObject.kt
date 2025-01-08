@@ -58,7 +58,6 @@ import org.gtkkn.native.gobject.GTypeValueTable
 import org.gtkkn.native.gobject.GValue
 import org.gtkkn.native.gobject.g_boxed_copy
 import org.gtkkn.native.gobject.g_boxed_free
-import org.gtkkn.native.gobject.g_clear_object
 import org.gtkkn.native.gobject.g_enum_get_value
 import org.gtkkn.native.gobject.g_enum_get_value_by_name
 import org.gtkkn.native.gobject.g_enum_get_value_by_nick
@@ -175,6 +174,7 @@ import kotlin.Unit
  *
  * - alias `SignalCMarshaller`: ClosureMarshal
  * - parameter `boxed_copy`: BoxedCopyFunc
+ * - parameter `object_ptr`: Unsupported pointer-to-pointer cType GObject**
  * - parameter `handler_id_ptr`: Unsupported pointer to primitive type
  * - parameter `info`: info: Out parameter is not supported
  * - parameter `info`: info: Out parameter is not supported
@@ -329,24 +329,6 @@ public object GObject {
     public fun boxedFree(boxedType: GType, boxed: gpointer): Unit = g_boxed_free(boxedType, boxed)
 
     /**
-     * Clears a reference to a #GObject.
-     *
-     * @object_ptr must not be null.
-     *
-     * If the reference is null then this function does nothing.
-     * Otherwise, the reference count of the object is decreased and the
-     * pointer is set to null.
-     *
-     * A macro is also included that allows this function to be used without
-     * pointer casts.
-     *
-     * @param objectPtr a pointer to a #GObject reference
-     * @since 2.28
-     */
-    @GObjectVersion2_28
-    public fun clearObject(objectPtr: Object): Unit = g_clear_object(objectPtr.gPointer.reinterpret())
-
-    /**
      * Returns the #GEnumValue for a value.
      *
      * @param enumClass a #GEnumClass
@@ -355,8 +337,8 @@ public object GObject {
      *          if @value is not a member of the enumeration
      */
     public fun enumGetValue(enumClass: EnumClass, `value`: gint): EnumValue? =
-        g_enum_get_value(enumClass.gPointer.reinterpret(), `value`)?.run {
-            EnumValue(reinterpret())
+        g_enum_get_value(enumClass.gPointer, `value`)?.run {
+            EnumValue(this)
         }
 
     /**
@@ -369,8 +351,8 @@ public object GObject {
      *          with that name
      */
     public fun enumGetValueByName(enumClass: EnumClass, name: String): EnumValue? =
-        g_enum_get_value_by_name(enumClass.gPointer.reinterpret(), name)?.run {
-            EnumValue(reinterpret())
+        g_enum_get_value_by_name(enumClass.gPointer, name)?.run {
+            EnumValue(this)
         }
 
     /**
@@ -383,8 +365,8 @@ public object GObject {
      *          with that nickname
      */
     public fun enumGetValueByNick(enumClass: EnumClass, nick: String): EnumValue? =
-        g_enum_get_value_by_nick(enumClass.gPointer.reinterpret(), nick)?.run {
-            EnumValue(reinterpret())
+        g_enum_get_value_by_nick(enumClass.gPointer, nick)?.run {
+            EnumValue(this)
         }
 
     /**
@@ -402,7 +384,7 @@ public object GObject {
      * @return The new type identifier.
      */
     public fun enumRegisterStatic(name: String, constStaticValues: EnumValue): GType =
-        g_enum_register_static(name, constStaticValues.gPointer.reinterpret())
+        g_enum_register_static(name, constStaticValues.gPointer)
 
     /**
      * Pretty-prints @value in the form of the enum’s name.
@@ -428,8 +410,8 @@ public object GObject {
      *          @value, or null if none is set
      */
     public fun flagsGetFirstValue(flagsClass: FlagsClass, `value`: guint): FlagsValue? =
-        g_flags_get_first_value(flagsClass.gPointer.reinterpret(), `value`)?.run {
-            FlagsValue(reinterpret())
+        g_flags_get_first_value(flagsClass.gPointer, `value`)?.run {
+            FlagsValue(this)
         }
 
     /**
@@ -441,8 +423,8 @@ public object GObject {
      *          or null if there is no flag with that name
      */
     public fun flagsGetValueByName(flagsClass: FlagsClass, name: String): FlagsValue? =
-        g_flags_get_value_by_name(flagsClass.gPointer.reinterpret(), name)?.run {
-            FlagsValue(reinterpret())
+        g_flags_get_value_by_name(flagsClass.gPointer, name)?.run {
+            FlagsValue(this)
         }
 
     /**
@@ -454,8 +436,8 @@ public object GObject {
      *          or null if there is no flag with that nickname
      */
     public fun flagsGetValueByNick(flagsClass: FlagsClass, nick: String): FlagsValue? =
-        g_flags_get_value_by_nick(flagsClass.gPointer.reinterpret(), nick)?.run {
-            FlagsValue(reinterpret())
+        g_flags_get_value_by_nick(flagsClass.gPointer, nick)?.run {
+            FlagsValue(this)
         }
 
     /**
@@ -472,7 +454,7 @@ public object GObject {
      * @return The new type identifier.
      */
     public fun flagsRegisterStatic(name: String, constStaticValues: FlagsValue): GType =
-        g_flags_register_static(name, constStaticValues.gPointer.reinterpret())
+        g_flags_register_static(name, constStaticValues.gPointer)
 
     /**
      * Pretty-prints @value in the form of the flag names separated by ` | ` and
@@ -515,7 +497,7 @@ public object GObject {
         defaultValue: Boolean,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_boolean(name, nick, blurb, defaultValue.asGBoolean(), flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -538,7 +520,7 @@ public object GObject {
         boxedType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_boxed(name, nick, blurb, boxedType, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -562,7 +544,7 @@ public object GObject {
         defaultValue: gint8,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_char(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -589,7 +571,7 @@ public object GObject {
         defaultValue: gdouble,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_double(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -614,7 +596,7 @@ public object GObject {
         defaultValue: gint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_enum(name, nick, blurb, enumType, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -639,7 +621,7 @@ public object GObject {
         defaultValue: guint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_flags(name, nick, blurb, flagsType, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -665,7 +647,7 @@ public object GObject {
         defaultValue: gfloat,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_float(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -691,7 +673,7 @@ public object GObject {
         isAType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_gtype(name, nick, blurb, isAType, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -717,7 +699,7 @@ public object GObject {
         defaultValue: gint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_int(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -743,7 +725,7 @@ public object GObject {
         defaultValue: gint64,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_int64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -769,7 +751,7 @@ public object GObject {
         defaultValue: glong,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_long(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -792,7 +774,7 @@ public object GObject {
         objectType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_object(name, nick, blurb, objectType, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -807,8 +789,8 @@ public object GObject {
      */
     @GObjectVersion2_4
     public fun paramSpecOverride(name: String, overridden: ParamSpec): ParamSpec =
-        g_param_spec_override(name, overridden.gPointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
+        g_param_spec_override(name, overridden.gPointer)!!.run {
+            ParamSpec(this)
         }
 
     /**
@@ -831,7 +813,7 @@ public object GObject {
         paramType: GType,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_param(name, nick, blurb, paramType, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -853,7 +835,7 @@ public object GObject {
         blurb: String? = null,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_pointer(name, nick, blurb, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -875,7 +857,7 @@ public object GObject {
         defaultValue: String? = null,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_string(name, nick, blurb, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -899,7 +881,7 @@ public object GObject {
         defaultValue: guint8,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uchar(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -925,7 +907,7 @@ public object GObject {
         defaultValue: guint,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uint(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -952,7 +934,7 @@ public object GObject {
         defaultValue: guint64,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_uint64(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -979,7 +961,7 @@ public object GObject {
         defaultValue: gulong,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_ulong(name, nick, blurb, minimum, maximum, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -1003,7 +985,7 @@ public object GObject {
         defaultValue: gunichar,
         flags: ParamFlags,
     ): ParamSpec = g_param_spec_unichar(name, nick, blurb, defaultValue, flags.mask)!!.run {
-        ParamSpec(reinterpret())
+        ParamSpec(this)
     }
 
     /**
@@ -1028,8 +1010,8 @@ public object GObject {
         blurb: String? = null,
         elementSpec: ParamSpec,
         flags: ParamFlags,
-    ): ParamSpec = g_param_spec_value_array(name, nick, blurb, elementSpec.gPointer.reinterpret(), flags.mask)!!.run {
-        ParamSpec(reinterpret())
+    ): ParamSpec = g_param_spec_value_array(name, nick, blurb, elementSpec.gPointer, flags.mask)!!.run {
+        ParamSpec(this)
     }
 
     /**
@@ -1058,15 +1040,8 @@ public object GObject {
         type: VariantType,
         defaultValue: Variant? = null,
         flags: ParamFlags,
-    ): ParamSpec = g_param_spec_variant(
-        name,
-        nick,
-        blurb,
-        type.gPointer.reinterpret(),
-        defaultValue?.gPointer?.reinterpret(),
-        flags.mask
-    )!!.run {
-        ParamSpec(reinterpret())
+    ): ParamSpec = g_param_spec_variant(name, nick, blurb, type.gPointer, defaultValue?.gPointer, flags.mask)!!.run {
+        ParamSpec(this)
     }
 
     /**
@@ -1082,7 +1057,7 @@ public object GObject {
      * @return The new type identifier.
      */
     public fun paramTypeRegisterStatic(name: String, pspecInfo: ParamSpecTypeInfo): GType =
-        g_param_type_register_static(name, pspecInfo.gPointer.reinterpret())
+        g_param_type_register_static(name, pspecInfo.gPointer)
 
     /**
      * Transforms @src_value into @dest_value if possible, and then
@@ -1107,9 +1082,9 @@ public object GObject {
         destValue: Value,
         strictValidation: Boolean,
     ): Boolean = g_param_value_convert(
-        pspec.gPointer.reinterpret(),
-        srcValue.gPointer.reinterpret(),
-        destValue.gPointer.reinterpret(),
+        pspec.gPointer,
+        srcValue.gPointer,
+        destValue.gPointer,
         strictValidation.asGBoolean()
     ).asBoolean()
 
@@ -1121,7 +1096,7 @@ public object GObject {
      * @return whether @value contains the canonical default for this @pspec
      */
     public fun paramValueDefaults(pspec: ParamSpec, `value`: Value): Boolean =
-        g_param_value_defaults(pspec.gPointer.reinterpret(), `value`.gPointer.reinterpret()).asBoolean()
+        g_param_value_defaults(pspec.gPointer, `value`.gPointer).asBoolean()
 
     /**
      * Return whether the contents of @value comply with the specifications
@@ -1135,7 +1110,7 @@ public object GObject {
      */
     @GObjectVersion2_74
     public fun paramValueIsValid(pspec: ParamSpec, `value`: Value): Boolean =
-        g_param_value_is_valid(pspec.gPointer.reinterpret(), `value`.gPointer.reinterpret()).asBoolean()
+        g_param_value_is_valid(pspec.gPointer, `value`.gPointer).asBoolean()
 
     /**
      * Sets @value to its default value as specified in @pspec.
@@ -1145,7 +1120,7 @@ public object GObject {
      *   can also pass an empty #GValue, initialized with %G_VALUE_INIT
      */
     public fun paramValueSetDefault(pspec: ParamSpec, `value`: Value): Unit =
-        g_param_value_set_default(pspec.gPointer.reinterpret(), `value`.gPointer.reinterpret())
+        g_param_value_set_default(pspec.gPointer, `value`.gPointer)
 
     /**
      * Ensures that the contents of @value comply with the specifications
@@ -1160,7 +1135,7 @@ public object GObject {
      * @return whether modifying @value was necessary to ensure validity
      */
     public fun paramValueValidate(pspec: ParamSpec, `value`: Value): Boolean =
-        g_param_value_validate(pspec.gPointer.reinterpret(), `value`.gPointer.reinterpret()).asBoolean()
+        g_param_value_validate(pspec.gPointer, `value`.gPointer).asBoolean()
 
     /**
      * Compares @value1 with @value2 according to @pspec, and return -1, 0 or +1,
@@ -1173,7 +1148,7 @@ public object GObject {
      * @return -1, 0 or +1, for a less than, equal to or greater than result
      */
     public fun paramValuesCmp(pspec: ParamSpec, value1: Value, value2: Value): gint =
-        g_param_values_cmp(pspec.gPointer.reinterpret(), value1.gPointer.reinterpret(), value2.gPointer.reinterpret())
+        g_param_values_cmp(pspec.gPointer, value1.gPointer, value2.gPointer)
 
     /**
      * Creates a new %G_TYPE_POINTER derived type id for a new
@@ -1209,12 +1184,8 @@ public object GObject {
         returnAccu: Value,
         handlerReturn: Value,
         dummy: gpointer? = null,
-    ): Boolean = g_signal_accumulator_first_wins(
-        ihint.gPointer.reinterpret(),
-        returnAccu.gPointer.reinterpret(),
-        handlerReturn.gPointer.reinterpret(),
-        dummy
-    ).asBoolean()
+    ): Boolean =
+        g_signal_accumulator_first_wins(ihint.gPointer, returnAccu.gPointer, handlerReturn.gPointer, dummy).asBoolean()
 
     /**
      * A predefined #GSignalAccumulator for signals that return a
@@ -1239,9 +1210,9 @@ public object GObject {
         handlerReturn: Value,
         dummy: gpointer? = null,
     ): Boolean = g_signal_accumulator_true_handled(
-        ihint.gPointer.reinterpret(),
-        returnAccu.gPointer.reinterpret(),
-        handlerReturn.gPointer.reinterpret(),
+        ihint.gPointer,
+        returnAccu.gPointer,
+        handlerReturn.gPointer,
         dummy
     ).asBoolean()
 
@@ -1285,12 +1256,8 @@ public object GObject {
         detailedSignal: String,
         closure: Closure,
         after: Boolean,
-    ): gulong = g_signal_connect_closure(
-        instance.gPointer.reinterpret(),
-        detailedSignal,
-        closure.gPointer.reinterpret(),
-        after.asGBoolean()
-    )
+    ): gulong =
+        g_signal_connect_closure(instance.gPointer.reinterpret(), detailedSignal, closure.gPointer, after.asGBoolean())
 
     /**
      * Connects a closure to a signal for a particular object.
@@ -1319,7 +1286,7 @@ public object GObject {
         instance.gPointer.reinterpret(),
         signalId,
         detail,
-        closure.gPointer.reinterpret(),
+        closure.gPointer,
         after.asGBoolean()
     )
 
@@ -1332,7 +1299,7 @@ public object GObject {
      */
     public fun signalGetInvocationHint(instance: Object): SignalInvocationHint? =
         g_signal_get_invocation_hint(instance.gPointer.reinterpret())?.run {
-            SignalInvocationHint(reinterpret())
+            SignalInvocationHint(this)
         }
 
     /**
@@ -1502,7 +1469,7 @@ public object GObject {
      * @param classClosure the closure.
      */
     public fun signalOverrideClassClosure(signalId: guint, instanceType: GType, classClosure: Closure): Unit =
-        g_signal_override_class_closure(signalId, instanceType, classClosure.gPointer.reinterpret())
+        g_signal_override_class_closure(signalId, instanceType, classClosure.gPointer)
 
     /**
      * Queries the signal system for in-depth information about a
@@ -1516,8 +1483,7 @@ public object GObject {
      * @param query A user provided structure that is
      *  filled in with constant values upon success.
      */
-    public fun signalQuery(signalId: guint, query: SignalQuery): Unit =
-        g_signal_query(signalId, query.gPointer.reinterpret())
+    public fun signalQuery(signalId: guint, query: SignalQuery): Unit = g_signal_query(signalId, query.gPointer)
 
     /**
      * Deletes an emission hook.
@@ -1569,7 +1535,7 @@ public object GObject {
      */
     public fun signalTypeCclosureNew(itype: GType, structOffset: guint): Closure =
         g_signal_type_cclosure_new(itype, structOffset)!!.run {
-            Closure(reinterpret())
+            Closure(this)
         }
 
     /**
@@ -1582,7 +1548,7 @@ public object GObject {
      * @return Newly allocated string.
      */
     public fun strdupValueContents(`value`: Value): String =
-        g_strdup_value_contents(`value`.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_strdup_value_contents(`value`.gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Registers a private class structure for a classed type;
@@ -1630,15 +1596,15 @@ public object GObject {
      *        (@instance_type, @interface_type) combination
      */
     public fun typeAddInterfaceStatic(instanceType: GType, interfaceType: GType, info: InterfaceInfo): Unit =
-        g_type_add_interface_static(instanceType, interfaceType, info.gPointer.reinterpret())
+        g_type_add_interface_static(instanceType, interfaceType, info.gPointer)
 
     public fun typeCheckClassCast(gClass: TypeClass, isAType: GType): TypeClass =
-        g_type_check_class_cast(gClass.gPointer.reinterpret(), isAType)!!.run {
-            TypeClass(reinterpret())
+        g_type_check_class_cast(gClass.gPointer, isAType)!!.run {
+            TypeClass(this)
         }
 
     public fun typeCheckClassIsA(gClass: TypeClass, isAType: GType): Boolean =
-        g_type_check_class_is_a(gClass.gPointer.reinterpret(), isAType).asBoolean()
+        g_type_check_class_is_a(gClass.gPointer, isAType).asBoolean()
 
     /**
      * Private helper function to aid implementation of the
@@ -1647,26 +1613,25 @@ public object GObject {
      * @param instance a valid #GTypeInstance structure
      * @return true if @instance is valid, false otherwise
      */
-    public fun typeCheckInstance(instance: TypeInstance): Boolean =
-        g_type_check_instance(instance.gPointer.reinterpret()).asBoolean()
+    public fun typeCheckInstance(instance: TypeInstance): Boolean = g_type_check_instance(instance.gPointer).asBoolean()
 
     public fun typeCheckInstanceCast(instance: TypeInstance, ifaceType: GType): TypeInstance =
-        g_type_check_instance_cast(instance.gPointer.reinterpret(), ifaceType)!!.run {
-            TypeInstance(reinterpret())
+        g_type_check_instance_cast(instance.gPointer, ifaceType)!!.run {
+            TypeInstance(this)
         }
 
     public fun typeCheckInstanceIsA(instance: TypeInstance, ifaceType: GType): Boolean =
-        g_type_check_instance_is_a(instance.gPointer.reinterpret(), ifaceType).asBoolean()
+        g_type_check_instance_is_a(instance.gPointer, ifaceType).asBoolean()
 
     public fun typeCheckInstanceIsFundamentallyA(instance: TypeInstance, fundamentalType: GType): Boolean =
-        g_type_check_instance_is_fundamentally_a(instance.gPointer.reinterpret(), fundamentalType).asBoolean()
+        g_type_check_instance_is_fundamentally_a(instance.gPointer, fundamentalType).asBoolean()
 
     public fun typeCheckIsValueType(type: GType): Boolean = g_type_check_is_value_type(type).asBoolean()
 
-    public fun typeCheckValue(`value`: Value): Boolean = g_type_check_value(`value`.gPointer.reinterpret()).asBoolean()
+    public fun typeCheckValue(`value`: Value): Boolean = g_type_check_value(`value`.gPointer).asBoolean()
 
     public fun typeCheckValueHolds(`value`: Value, type: GType): Boolean =
-        g_type_check_value_holds(`value`.gPointer.reinterpret(), type).asBoolean()
+        g_type_check_value_holds(`value`.gPointer, type).asBoolean()
 
     /**
      * Creates and initializes an instance of @type if @type is valid and
@@ -1691,7 +1656,7 @@ public object GObject {
      *     treatment by the fundamental type implementation
      */
     public fun typeCreateInstance(type: GType): TypeInstance = g_type_create_instance(type)!!.run {
-        TypeInstance(reinterpret())
+        TypeInstance(this)
     }
 
     /**
@@ -1744,8 +1709,7 @@ public object GObject {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun typeDefaultInterfaceUnref(gIface: TypeInterface): Unit =
-        g_type_default_interface_unref(gIface.gPointer.reinterpret())
+    public fun typeDefaultInterfaceUnref(gIface: TypeInterface): Unit = g_type_default_interface_unref(gIface.gPointer)
 
     /**
      * Returns the length of the ancestry of the passed in type. This
@@ -1785,7 +1749,7 @@ public object GObject {
      *
      * @param instance an instance of a type
      */
-    public fun typeFreeInstance(instance: TypeInstance): Unit = g_type_free_instance(instance.gPointer.reinterpret())
+    public fun typeFreeInstance(instance: TypeInstance): Unit = g_type_free_instance(instance.gPointer)
 
     /**
      * Look up the type ID from a given type name, returning 0 if no type
@@ -1915,10 +1879,10 @@ public object GObject {
     public fun typeName(type: GType): String? = g_type_name(type)?.toKString()
 
     public fun typeNameFromClass(gClass: TypeClass): String =
-        g_type_name_from_class(gClass.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_type_name_from_class(gClass.gPointer)?.toKString() ?: error("Expected not null string")
 
     public fun typeNameFromInstance(instance: TypeInstance): String =
-        g_type_name_from_instance(instance.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_type_name_from_instance(instance.gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Given a @leaf_type and a @root_type which is contained in its
@@ -1968,7 +1932,7 @@ public object GObject {
      * @param query a user provided structure that is
      *     filled in with constant values upon success
      */
-    public fun typeQuery(type: GType, query: TypeQuery): Unit = g_type_query(type, query.gPointer.reinterpret())
+    public fun typeQuery(type: GType, query: TypeQuery): Unit = g_type_query(type, query.gPointer)
 
     /**
      * Registers @type_name as the name of a new dynamic type derived from
@@ -2008,13 +1972,7 @@ public object GObject {
         info: TypeInfo,
         finfo: TypeFundamentalInfo,
         flags: TypeFlags,
-    ): GType = g_type_register_fundamental(
-        typeId,
-        typeName,
-        info.gPointer.reinterpret(),
-        finfo.gPointer.reinterpret(),
-        flags.mask
-    )
+    ): GType = g_type_register_fundamental(typeId, typeName, info.gPointer, finfo.gPointer, flags.mask)
 
     /**
      * Registers @type_name as the name of a new static type derived from
@@ -2030,7 +1988,7 @@ public object GObject {
      * @return the new type identifier
      */
     public fun typeRegisterStatic(parentType: GType, typeName: String, info: TypeInfo, flags: TypeFlags): GType =
-        g_type_register_static(parentType, typeName, info.gPointer.reinterpret(), flags.mask)
+        g_type_register_static(parentType, typeName, info.gPointer, flags.mask)
 
     /**
      * Attaches arbitrary data to a type.
@@ -2094,13 +2052,13 @@ public val BindingTransformFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         binding!!.run {
-            Binding(reinterpret())
+            Binding(this)
         },
         fromValue!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         toValue!!.run {
-            Value(reinterpret())
+            Value(this)
         }
     ).asGBoolean()
 }
@@ -2185,10 +2143,10 @@ public val ClosureMarshalFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         closure!!.run {
-            Closure(reinterpret())
+            Closure(this)
         },
         returnValue?.run {
-            Value(reinterpret())
+            Value(this)
         },
         nParamValues,
         invocationHint,
@@ -2206,7 +2164,7 @@ public val ClosureNotifyFunc: CPointer<CFunction<(gpointer?, CPointer<GClosure>)
         userData.asStableRef<(`data`: gpointer?, closure: Closure) -> Unit>().get().invoke(
             `data`,
             closure!!.run {
-                Closure(reinterpret())
+                Closure(this)
             }
         )
     }
@@ -2221,7 +2179,7 @@ public val InstanceInitFuncFunc:
         ->
         userData.asStableRef<(instance: TypeInstance, gClass: TypeClass) -> Unit>().get().invoke(
             instance!!.run {
-                TypeInstance(reinterpret())
+                TypeInstance(this)
             },
             gClass!!.run {
                 TypeClass(reinterpret())
@@ -2267,7 +2225,7 @@ public val ObjectFinalizeFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> Uni
         ->
         userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
             `object`!!.run {
-                Object(reinterpret())
+                Object(this)
             }
         )
     }
@@ -2298,14 +2256,14 @@ public val ObjectGetPropertyFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         `object`!!.run {
-            Object(reinterpret())
+            Object(this)
         },
         propertyId,
         `value`!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         pspec!!.run {
-            ParamSpec(reinterpret())
+            ParamSpec(this)
         }
     )
 }
@@ -2336,14 +2294,14 @@ public val ObjectSetPropertyFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         `object`!!.run {
-            Object(reinterpret())
+            Object(this)
         },
         propertyId,
         `value`!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         pspec!!.run {
-            ParamSpec(reinterpret())
+            ParamSpec(this)
         }
     )
 }
@@ -2374,13 +2332,13 @@ public val SignalAccumulatorFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         ihint!!.run {
-            SignalInvocationHint(reinterpret())
+            SignalInvocationHint(this)
         },
         returnAccu!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         handlerReturn!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         `data`
     ).asGBoolean()
@@ -2409,7 +2367,7 @@ public val SignalEmissionHookFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         ihint!!.run {
-            SignalInvocationHint(reinterpret())
+            SignalInvocationHint(this)
         },
         nParamValues,
         `data`
@@ -2440,7 +2398,7 @@ public val ToggleNotifyFunc: CPointer<
         >().get().invoke(
         `data`,
         `object`!!.run {
-            Object(reinterpret())
+            Object(this)
         },
         isLastRef.asBoolean()
     )
@@ -2456,7 +2414,7 @@ public val TypeClassCacheFuncFunc:
         userData.asStableRef<(cacheData: gpointer?, gClass: TypeClass) -> Boolean>().get().invoke(
             cacheData,
             gClass!!.run {
-                TypeClass(reinterpret())
+                TypeClass(this)
             }
         ).asGBoolean()
     }
@@ -2507,7 +2465,7 @@ public val TypePluginCompleteInterfaceInfoFunc: CPointer<
         instanceType,
         interfaceType,
         info!!.run {
-            InterfaceInfo(reinterpret())
+            InterfaceInfo(this)
         }
     )
 }
@@ -2542,10 +2500,10 @@ public val TypePluginCompleteTypeInfoFunc: CPointer<
         },
         gType,
         info!!.run {
-            TypeInfo(reinterpret())
+            TypeInfo(this)
         },
         valueTable!!.run {
-            TypeValueTable(reinterpret())
+            TypeValueTable(this)
         }
     )
 }
@@ -2599,7 +2557,7 @@ public val TypeValueCollectFuncFunc: CPointer<
         ) -> String?
         >().get().invoke(
         `value`!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         nCollectValues,
         collectFlags
@@ -2615,10 +2573,10 @@ public val TypeValueCopyFuncFunc: CPointer<CFunction<(CPointer<GValue>, CPointer
         ->
         userData.asStableRef<(srcValue: Value, destValue: Value) -> Unit>().get().invoke(
             srcValue!!.run {
-                Value(reinterpret())
+                Value(this)
             },
             destValue!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         )
     }
@@ -2631,7 +2589,7 @@ public val TypeValueFreeFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
         ->
         userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         )
     }
@@ -2644,7 +2602,7 @@ public val TypeValueInitFuncFunc: CPointer<CFunction<(CPointer<GValue>) -> Unit>
         ->
         userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         )
     }
@@ -2672,7 +2630,7 @@ public val TypeValueLCopyFuncFunc: CPointer<
         ) -> String?
         >().get().invoke(
         `value`!!.run {
-            Value(reinterpret())
+            Value(this)
         },
         nCollectValues,
         collectFlags
@@ -2687,7 +2645,7 @@ public val TypeValuePeekPointerFuncFunc: CPointer<CFunction<(CPointer<GValue>) -
         ->
         userData.asStableRef<(`value`: Value) -> gpointer?>().get().invoke(
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         )
     }
@@ -2701,10 +2659,10 @@ public val ValueTransformFunc: CPointer<CFunction<(CPointer<GValue>, CPointer<GV
         ->
         userData.asStableRef<(srcValue: Value, destValue: Value) -> Unit>().get().invoke(
             srcValue!!.run {
-                Value(reinterpret())
+                Value(this)
             },
             destValue!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         )
     }
@@ -2724,7 +2682,7 @@ public val WeakNotifyFunc: CPointer<CFunction<(gpointer?, CPointer<GObject>) -> 
             >().get().invoke(
             `data`,
             whereTheObjectWas!!.run {
-                Object(reinterpret())
+                Object(this)
             }
         )
     }

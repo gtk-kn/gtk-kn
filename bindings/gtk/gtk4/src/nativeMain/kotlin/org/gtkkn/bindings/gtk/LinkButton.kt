@@ -91,8 +91,7 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
          * @return a valid URI. The returned string is owned by the link button
          *   and should not be modified or freed.
          */
-        get() = gtk_link_button_get_uri(gtkLinkButtonPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_link_button_get_uri(gtkLinkButtonPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets @uri as the URI where the `GtkLinkButton` points.
@@ -101,7 +100,7 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
          *
          * @param uri a valid URI
          */
-        set(uri) = gtk_link_button_set_uri(gtkLinkButtonPointer.reinterpret(), uri)
+        set(uri) = gtk_link_button_set_uri(gtkLinkButtonPointer, uri)
 
     /**
      * The 'visited' state of this button.
@@ -119,7 +118,7 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
          *
          * @return true if the link has been visited, false otherwise
          */
-        get() = gtk_link_button_get_visited(gtkLinkButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_link_button_get_visited(gtkLinkButtonPointer).asBoolean()
 
         /**
          * Sets the “visited” state of the `GtkLinkButton`.
@@ -128,7 +127,7 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
          *
          * @param visited the new “visited” state
          */
-        set(visited) = gtk_link_button_set_visited(gtkLinkButtonPointer.reinterpret(), visited.asGBoolean())
+        set(visited) = gtk_link_button_set_visited(gtkLinkButtonPointer, visited.asGBoolean())
 
     /**
      * Creates a new `GtkLinkButton` with the URI as its text.
@@ -160,14 +159,14 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
      * ::activate-link signal and stop the propagation of the signal
      * by returning true from your handler.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns true if the signal has been handled
      */
-    public fun connectActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate-link",
-            connectActivateLinkFunc.reinterpret(),
+            onActivateLinkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -190,7 +189,7 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onActivateLinkFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

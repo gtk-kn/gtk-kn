@@ -31,8 +31,8 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      *
      * @return the #GMainContext of @loop
      */
-    public fun getContext(): MainContext = g_main_loop_get_context(gPointer.reinterpret())!!.run {
-        MainContext(reinterpret())
+    public fun getContext(): MainContext = g_main_loop_get_context(gPointer)!!.run {
+        MainContext(this)
     }
 
     /**
@@ -40,7 +40,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      *
      * @return true if the mainloop is currently being run.
      */
-    public fun isRunning(): Boolean = g_main_loop_is_running(gPointer.reinterpret()).asBoolean()
+    public fun isRunning(): Boolean = g_main_loop_is_running(gPointer).asBoolean()
 
     /**
      * Stops a #GMainLoop from running. Any calls to g_main_loop_run()
@@ -49,15 +49,15 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      * Note that sources that have already been dispatched when
      * g_main_loop_quit() is called will still be executed.
      */
-    public fun quit(): Unit = g_main_loop_quit(gPointer.reinterpret())
+    public fun quit(): Unit = g_main_loop_quit(gPointer)
 
     /**
      * Increases the reference count on a #GMainLoop object by one.
      *
      * @return @loop
      */
-    public fun ref(): MainLoop = g_main_loop_ref(gPointer.reinterpret())!!.run {
-        MainLoop(reinterpret())
+    public fun ref(): MainLoop = g_main_loop_ref(gPointer)!!.run {
+        MainLoop(this)
     }
 
     /**
@@ -66,13 +66,13 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      * it will process events from the loop, otherwise it will
      * simply wait.
      */
-    public fun run(): Unit = g_main_loop_run(gPointer.reinterpret())
+    public fun run(): Unit = g_main_loop_run(gPointer)
 
     /**
      * Decreases the reference count on a #GMainLoop object by one. If
      * the result is zero, free the loop and free all associated memory.
      */
-    public fun unref(): Unit = g_main_loop_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_main_loop_unref(gPointer)
 
     public companion object {
         /**
@@ -86,7 +86,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
          * @return a new #GMainLoop.
          */
         public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop =
-            MainLoop(g_main_loop_new(context?.gPointer?.reinterpret(), isRunning.asGBoolean())!!.reinterpret())
+            MainLoop(g_main_loop_new(context?.gPointer, isRunning.asGBoolean())!!.reinterpret())
 
         /**
          * Get the GType of MainLoop

@@ -48,15 +48,15 @@ public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLega
     /**
      * Emitted for each GDK event delivered to @controller.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `event` the `GdkEvent` which triggered this signal. Returns true to stop other handlers from being invoked for the event
      *   and the emission of this signal. false to propagate the event further.
      */
-    public fun connectEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
+    public fun onEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "event",
-            connectEventFunc.reinterpret(),
+            onEventFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -79,16 +79,15 @@ public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLega
     }
 }
 
-private val connectEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            event: CPointer<GdkEvent>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
-            event!!.run {
-                Event(reinterpret())
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+private val onEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        event: CPointer<GdkEvent>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
+        event!!.run {
+            Event(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()

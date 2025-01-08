@@ -90,7 +90,7 @@ public interface Action :
          * @return whether the action is enabled
          * @since 2.28
          */
-        get() = g_action_get_enabled(gioActionPointer.reinterpret()).asBoolean()
+        get() = g_action_get_enabled(gioActionPointer).asBoolean()
 
     /**
      * The name of the action.  This is mostly meaningful for identifying
@@ -106,7 +106,7 @@ public interface Action :
          * @return the name of the action
          * @since 2.28
          */
-        get() = g_action_get_name(gioActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = g_action_get_name(gioActionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The type of the parameter that must be given when activating the
@@ -130,8 +130,8 @@ public interface Action :
          * @return the parameter type
          * @since 2.28
          */
-        get() = g_action_get_parameter_type(gioActionPointer.reinterpret())?.run {
-            VariantType(reinterpret())
+        get() = g_action_get_parameter_type(gioActionPointer)?.run {
+            VariantType(this)
         }
 
     /**
@@ -154,8 +154,8 @@ public interface Action :
          * @return the current state of the action
          * @since 2.28
          */
-        get() = g_action_get_state(gioActionPointer.reinterpret())?.run {
-            Variant(reinterpret())
+        get() = g_action_get_state(gioActionPointer)?.run {
+            Variant(this)
         }
 
     /**
@@ -183,8 +183,8 @@ public interface Action :
          * @return the state type, if the action is stateful
          * @since 2.28
          */
-        get() = g_action_get_state_type(gioActionPointer.reinterpret())?.run {
-            VariantType(reinterpret())
+        get() = g_action_get_state_type(gioActionPointer)?.run {
+            VariantType(this)
         }
 
     /**
@@ -200,8 +200,7 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun activate(parameter: Variant? = null): Unit =
-        g_action_activate(gioActionPointer.reinterpret(), parameter?.gPointer?.reinterpret())
+    public fun activate(parameter: Variant? = null): Unit = g_action_activate(gioActionPointer, parameter?.gPointer)
 
     /**
      * Request for the state of @action to be changed to @value.
@@ -219,8 +218,7 @@ public interface Action :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun changeState(`value`: Variant): Unit =
-        g_action_change_state(gioActionPointer.reinterpret(), `value`.gPointer.reinterpret())
+    public fun changeState(`value`: Variant): Unit = g_action_change_state(gioActionPointer, `value`.gPointer)
 
     /**
      * Checks if @action is currently enabled.
@@ -232,7 +230,7 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getEnabled(): Boolean = g_action_get_enabled(gioActionPointer.reinterpret()).asBoolean()
+    public fun getEnabled(): Boolean = g_action_get_enabled(gioActionPointer).asBoolean()
 
     /**
      * Queries the name of @action.
@@ -241,8 +239,7 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getName(): String =
-        g_action_get_name(gioActionPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getName(): String = g_action_get_name(gioActionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries the type of the parameter that must be given when activating
@@ -258,8 +255,8 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getParameterType(): VariantType? = g_action_get_parameter_type(gioActionPointer.reinterpret())?.run {
-        VariantType(reinterpret())
+    public fun getParameterType(): VariantType? = g_action_get_parameter_type(gioActionPointer)?.run {
+        VariantType(this)
     }
 
     /**
@@ -276,8 +273,8 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getState(): Variant? = g_action_get_state(gioActionPointer.reinterpret())?.run {
-        Variant(reinterpret())
+    public fun getState(): Variant? = g_action_get_state(gioActionPointer)?.run {
+        Variant(this)
     }
 
     /**
@@ -304,8 +301,8 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getStateHint(): Variant? = g_action_get_state_hint(gioActionPointer.reinterpret())?.run {
-        Variant(reinterpret())
+    public fun getStateHint(): Variant? = g_action_get_state_hint(gioActionPointer)?.run {
+        Variant(this)
     }
 
     /**
@@ -326,8 +323,8 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun getStateType(): VariantType? = g_action_get_state_type(gioActionPointer.reinterpret())?.run {
-        VariantType(reinterpret())
+    public fun getStateType(): VariantType? = g_action_get_state_type(gioActionPointer)?.run {
+        VariantType(this)
     }
 
     private data class Wrapper(private val pointer: CPointer<GAction>) : Action {
@@ -379,7 +376,7 @@ public interface Action :
          */
         @GioVersion2_38
         public fun printDetailedName(actionName: String, targetValue: Variant? = null): String =
-            g_action_print_detailed_name(actionName, targetValue?.gPointer?.reinterpret())?.toKString()
+            g_action_print_detailed_name(actionName, targetValue?.gPointer)?.toKString()
                 ?: error("Expected not null string")
 
         /**

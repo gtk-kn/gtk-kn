@@ -87,7 +87,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun clear(): Unit = g_weak_ref_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_weak_ref_clear(gPointer)
 
     /**
      * If @weak_ref is not empty, atomically acquire a strong
@@ -105,7 +105,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun `get`(): Object = g_weak_ref_get(gPointer.reinterpret())!!.run {
+    public fun `get`(): Object = g_weak_ref_get(gPointer)!!.run {
         Object(reinterpret())
     }
 
@@ -124,8 +124,7 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun `init`(`object`: Object? = null): Unit =
-        g_weak_ref_init(gPointer.reinterpret(), `object`?.gPointer?.reinterpret())
+    public fun `init`(`object`: Object? = null): Unit = g_weak_ref_init(gPointer, `object`?.gPointer?.reinterpret())
 
     /**
      * Change the object to which @weak_ref points, or set it to
@@ -138,6 +137,5 @@ public class WeakRef(pointer: CPointer<GWeakRef>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GObjectVersion2_32
-    public fun `set`(`object`: Object? = null): Unit =
-        g_weak_ref_set(gPointer.reinterpret(), `object`?.gPointer?.reinterpret())
+    public fun `set`(`object`: Object? = null): Unit = g_weak_ref_set(gPointer, `object`?.gPointer?.reinterpret())
 }

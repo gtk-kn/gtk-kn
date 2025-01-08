@@ -58,7 +58,7 @@ public interface TreeSortable :
      * @return true, if the model has a default sort function
      */
     public fun hasDefaultSortFunc(): Boolean =
-        gtk_tree_sortable_has_default_sort_func(gtkTreeSortablePointer.reinterpret()).asBoolean()
+        gtk_tree_sortable_has_default_sort_func(gtkTreeSortablePointer).asBoolean()
 
     /**
      * Sets the default comparison function used when sorting to be @sort_func.
@@ -74,7 +74,7 @@ public interface TreeSortable :
      * @param sortFunc The comparison function
      */
     public fun setDefaultSortFunc(sortFunc: TreeIterCompareFunc): Unit = gtk_tree_sortable_set_default_sort_func(
-        gtkTreeSortablePointer.reinterpret(),
+        gtkTreeSortablePointer,
         TreeIterCompareFuncFunc.reinterpret(),
         StableRef.create(sortFunc).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -95,7 +95,7 @@ public interface TreeSortable :
      * @param order The sort order of the column
      */
     public fun setSortColumnId(sortColumnId: gint, order: SortType): Unit =
-        gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer.reinterpret(), sortColumnId, order.nativeValue)
+        gtk_tree_sortable_set_sort_column_id(gtkTreeSortablePointer, sortColumnId, order.nativeValue)
 
     /**
      * Sets the comparison function used when sorting to be @sort_func. If the
@@ -106,7 +106,7 @@ public interface TreeSortable :
      * @param sortFunc The comparison function
      */
     public fun setSortFunc(sortColumnId: gint, sortFunc: TreeIterCompareFunc): Unit = gtk_tree_sortable_set_sort_func(
-        gtkTreeSortablePointer.reinterpret(),
+        gtkTreeSortablePointer,
         sortColumnId,
         TreeIterCompareFuncFunc.reinterpret(),
         StableRef.create(sortFunc).asCPointer(),
@@ -116,21 +116,21 @@ public interface TreeSortable :
     /**
      * Emits a `GtkTreeSortable::sort-column-changed` signal on @sortable.
      */
-    public fun sortColumnChanged(): Unit = gtk_tree_sortable_sort_column_changed(gtkTreeSortablePointer.reinterpret())
+    public fun sortColumnChanged(): Unit = gtk_tree_sortable_sort_column_changed(gtkTreeSortablePointer)
 
     /**
      * The ::sort-column-changed signal is emitted when the sort column
      * or sort order of @sortable is changed. The signal is emitted before
      * the contents of @sortable are resorted.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectSortColumnChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onSortColumnChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gtkTreeSortablePointer.reinterpret(),
+            gtkTreeSortablePointer,
             "sort-column-changed",
-            connectSortColumnChangedFunc.reinterpret(),
+            onSortColumnChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -159,7 +159,7 @@ public interface TreeSortable :
     }
 }
 
-private val connectSortColumnChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onSortColumnChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

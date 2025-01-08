@@ -76,16 +76,16 @@ public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService
      * @connection and may perform blocking IO. The signal handler need
      * not return until the connection is closed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `connection` a new #GSocketConnection object.; `sourceObject` the source_object passed to g_socket_listener_add_address().. Returns true to stop further signal handlers from being called
      */
-    public fun connectRun(
+    public fun onRun(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "run",
-        connectRunFunc.reinterpret(),
+        onRunFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -108,7 +108,7 @@ public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService
     }
 }
 
-private val connectRunFunc:
+private val onRunFunc:
     CPointer<CFunction<(CPointer<GSocketConnection>, CPointer<GObject>?) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -123,10 +123,10 @@ private val connectRunFunc:
             ) -> Boolean
             >().get().invoke(
             connection!!.run {
-                SocketConnection(reinterpret())
+                SocketConnection(this)
             },
             sourceObject?.run {
-                Object(reinterpret())
+                Object(this)
             }
         ).asGBoolean()
     }

@@ -180,7 +180,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return the current bottom bar height
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_bottom_bar_height(adwToolbarViewPointer.reinterpret())
+        get() = adw_toolbar_view_get_bottom_bar_height(adwToolbarViewPointer)
 
     /**
      * Appearance of the bottom bars.
@@ -218,7 +218,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return bottom bar style
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_bottom_bar_style(adwToolbarViewPointer.reinterpret()).run {
+        get() = adw_toolbar_view_get_bottom_bar_style(adwToolbarViewPointer).run {
             ToolbarStyle.fromNativeValue(this)
         }
 
@@ -252,7 +252,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(style) = adw_toolbar_view_set_bottom_bar_style(adwToolbarViewPointer.reinterpret(), style.nativeValue)
+        set(style) = adw_toolbar_view_set_bottom_bar_style(adwToolbarViewPointer, style.nativeValue)
 
     /**
      * The content widget.
@@ -267,8 +267,8 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return the content widget
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_content(adwToolbarViewPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_toolbar_view_get_content(adwToolbarViewPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -278,9 +278,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            content
-        ) = adw_toolbar_view_set_content(adwToolbarViewPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
+        set(content) = adw_toolbar_view_set_content(adwToolbarViewPointer, content?.gtkWidgetPointer)
 
     /**
      * Whether the content widget can extend behind bottom bars.
@@ -301,7 +299,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return whether content extends behind bottom bars
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_extend_content_to_bottom_edge(adwToolbarViewPointer.reinterpret()).asBoolean()
+        get() = adw_toolbar_view_get_extend_content_to_bottom_edge(adwToolbarViewPointer).asBoolean()
 
         /**
          * Sets whether the content widget can extend behind bottom bars.
@@ -315,9 +313,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            extend
-        ) = adw_toolbar_view_set_extend_content_to_bottom_edge(adwToolbarViewPointer.reinterpret(), extend.asGBoolean())
+        set(extend) = adw_toolbar_view_set_extend_content_to_bottom_edge(adwToolbarViewPointer, extend.asGBoolean())
 
     /**
      * Whether the content widget can extend behind top bars.
@@ -337,7 +333,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return whether content extends behind top bars
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_extend_content_to_top_edge(adwToolbarViewPointer.reinterpret()).asBoolean()
+        get() = adw_toolbar_view_get_extend_content_to_top_edge(adwToolbarViewPointer).asBoolean()
 
         /**
          * Sets whether the content widget can extend behind top bars.
@@ -351,9 +347,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            extend
-        ) = adw_toolbar_view_set_extend_content_to_top_edge(adwToolbarViewPointer.reinterpret(), extend.asGBoolean())
+        set(extend) = adw_toolbar_view_set_extend_content_to_top_edge(adwToolbarViewPointer, extend.asGBoolean())
 
     /**
      * Whether bottom bars are visible.
@@ -376,7 +370,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return whether bottom bars are revealed
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_reveal_bottom_bars(adwToolbarViewPointer.reinterpret()).asBoolean()
+        get() = adw_toolbar_view_get_reveal_bottom_bars(adwToolbarViewPointer).asBoolean()
 
         /**
          * Sets whether bottom bars are revealed for @self.
@@ -393,7 +387,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(reveal) = adw_toolbar_view_set_reveal_bottom_bars(adwToolbarViewPointer.reinterpret(), reveal.asGBoolean())
+        set(reveal) = adw_toolbar_view_set_reveal_bottom_bars(adwToolbarViewPointer, reveal.asGBoolean())
 
     /**
      * Whether top bars are revealed.
@@ -416,7 +410,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return whether top bars are revealed
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_reveal_top_bars(adwToolbarViewPointer.reinterpret()).asBoolean()
+        get() = adw_toolbar_view_get_reveal_top_bars(adwToolbarViewPointer).asBoolean()
 
         /**
          * Sets whether top bars are revealed for @self.
@@ -433,7 +427,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(reveal) = adw_toolbar_view_set_reveal_top_bars(adwToolbarViewPointer.reinterpret(), reveal.asGBoolean())
+        set(reveal) = adw_toolbar_view_set_reveal_top_bars(adwToolbarViewPointer, reveal.asGBoolean())
 
     /**
      * The current top bar height.
@@ -458,7 +452,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return the current top bar height
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_top_bar_height(adwToolbarViewPointer.reinterpret())
+        get() = adw_toolbar_view_get_top_bar_height(adwToolbarViewPointer)
 
     /**
      * Appearance of the top bars.
@@ -496,7 +490,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @return top bar style
          * @since 1.4
          */
-        get() = adw_toolbar_view_get_top_bar_style(adwToolbarViewPointer.reinterpret()).run {
+        get() = adw_toolbar_view_get_top_bar_style(adwToolbarViewPointer).run {
             ToolbarStyle.fromNativeValue(this)
         }
 
@@ -530,7 +524,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(style) = adw_toolbar_view_set_top_bar_style(adwToolbarViewPointer.reinterpret(), style.nativeValue)
+        set(style) = adw_toolbar_view_set_top_bar_style(adwToolbarViewPointer, style.nativeValue)
 
     /**
      * Creates a new `AdwToolbarView`.
@@ -548,7 +542,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
      */
     @AdwVersion1_4
     public fun addBottomBar(widget: Widget): Unit =
-        adw_toolbar_view_add_bottom_bar(adwToolbarViewPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_toolbar_view_add_bottom_bar(adwToolbarViewPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a top bar to @self.
@@ -558,7 +552,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
      */
     @AdwVersion1_4
     public fun addTopBar(widget: Widget): Unit =
-        adw_toolbar_view_add_top_bar(adwToolbarViewPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_toolbar_view_add_top_bar(adwToolbarViewPointer, widget.gtkWidgetPointer)
 
     /**
      * Removes a child from @self.
@@ -567,8 +561,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun remove(widget: Widget): Unit =
-        adw_toolbar_view_remove(adwToolbarViewPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public fun remove(widget: Widget): Unit = adw_toolbar_view_remove(adwToolbarViewPointer, widget.gtkWidgetPointer)
 
     public companion object : TypeCompanion<ToolbarView> {
         override val type: GeneratedClassKGType<ToolbarView> =

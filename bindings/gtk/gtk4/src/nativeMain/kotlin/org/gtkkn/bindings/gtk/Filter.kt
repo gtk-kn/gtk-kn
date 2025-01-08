@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkFilter
 import org.gtkkn.native.gtk.GtkFilterChange
 import org.gtkkn.native.gtk.gtk_filter_changed
@@ -69,8 +70,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      *
      * @param change How the filter changed
      */
-    public open fun changed(change: FilterChange): Unit =
-        gtk_filter_changed(gtkFilterPointer.reinterpret(), change.nativeValue)
+    public open fun changed(change: FilterChange): Unit = gtk_filter_changed(gtkFilterPointer, change.nativeValue)
 
     /**
      * Gets the known strictness of @filters.
@@ -85,7 +85,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      *
      * @return the strictness of @self
      */
-    public open fun getStrictness(): FilterMatch = gtk_filter_get_strictness(gtkFilterPointer.reinterpret()).run {
+    public open fun getStrictness(): FilterMatch = gtk_filter_get_strictness(gtkFilterPointer).run {
         FilterMatch.fromNativeValue(this)
     }
 
@@ -97,7 +97,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      *   keep it, false if not.
      */
     public open fun match(item: Object): Boolean =
-        gtk_filter_match(gtkFilterPointer.reinterpret(), item.gPointer.reinterpret()).asBoolean()
+        gtk_filter_match(gtkFilterPointer, item.gPointer.reinterpret()).asBoolean()
 
     /**
      * Emitted whenever the filter changed.
@@ -111,20 +111,29 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      * to be checked, but only some. Refer to the [enum@Gtk.FilterChange]
      * documentation for details.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `change` how the filter changed
      */
-    public fun connectChanged(
+    public fun onChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (change: FilterChange) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "changed",
-        connectChangedFunc.reinterpret(),
+        onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @param change how the filter changed
+     */
+    public fun emitChanged(change: FilterChange) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed", change.nativeValue)
+    }
 
     public companion object : TypeCompanion<Filter> {
         override val type: GeneratedClassKGType<Filter> =
@@ -143,7 +152,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<(GtkFilterChange) -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<(GtkFilterChange) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         change: GtkFilterChange,
         userData: COpaquePointer,

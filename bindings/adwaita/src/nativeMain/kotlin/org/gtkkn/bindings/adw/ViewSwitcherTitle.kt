@@ -114,8 +114,8 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return the stack
          */
-        get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer.reinterpret())?.run {
-            ViewStack(reinterpret())
+        get() = adw_view_switcher_title_get_stack(adwViewSwitcherTitlePointer)?.run {
+            ViewStack(this)
         }
 
         /**
@@ -123,12 +123,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @param stack a stack
          */
-        set(
-            stack
-        ) = adw_view_switcher_title_set_stack(
-            adwViewSwitcherTitlePointer.reinterpret(),
-            stack?.adwViewStackPointer?.reinterpret()
-        )
+        set(stack) = adw_view_switcher_title_set_stack(adwViewSwitcherTitlePointer, stack?.adwViewStackPointer)
 
     /**
      * The subtitle to display.
@@ -141,7 +136,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return the subtitle
          */
-        get() = adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
+        get() = adw_view_switcher_title_get_subtitle(adwViewSwitcherTitlePointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -151,7 +146,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @param subtitle a subtitle
          */
-        set(subtitle) = adw_view_switcher_title_set_subtitle(adwViewSwitcherTitlePointer.reinterpret(), subtitle)
+        set(subtitle) = adw_view_switcher_title_set_subtitle(adwViewSwitcherTitlePointer, subtitle)
 
     /**
      * The title to display.
@@ -165,7 +160,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return the title
          */
-        get() = adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer.reinterpret())?.toKString()
+        get() = adw_view_switcher_title_get_title(adwViewSwitcherTitlePointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -176,7 +171,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @param title a title
          */
-        set(title) = adw_view_switcher_title_set_title(adwViewSwitcherTitlePointer.reinterpret(), title)
+        set(title) = adw_view_switcher_title_set_title(adwViewSwitcherTitlePointer, title)
 
     /**
      * Whether the title is currently visible.
@@ -193,7 +188,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return whether the title of @self is currently visible
          */
-        get() = adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
+        get() = adw_view_switcher_title_get_title_visible(adwViewSwitcherTitlePointer).asBoolean()
 
     /**
      * Whether the view switcher is enabled.
@@ -211,7 +206,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          *
          * @return whether the view switcher is enabled
          */
-        get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer.reinterpret()).asBoolean()
+        get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer).asBoolean()
 
         /**
          * Sets whether @self's view switcher is enabled.
@@ -227,10 +222,7 @@ public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
          */
         set(
             enabled
-        ) = adw_view_switcher_title_set_view_switcher_enabled(
-            adwViewSwitcherTitlePointer.reinterpret(),
-            enabled.asGBoolean()
-        )
+        ) = adw_view_switcher_title_set_view_switcher_enabled(adwViewSwitcherTitlePointer, enabled.asGBoolean())
 
     /**
      * Creates a new `AdwViewSwitcherTitle`.

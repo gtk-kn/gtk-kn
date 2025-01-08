@@ -187,21 +187,21 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      * @param wait should the function wait for all tasks to be finished?
      */
     public fun free(immediate: Boolean, wait: Boolean): Unit =
-        g_thread_pool_free(gPointer.reinterpret(), immediate.asGBoolean(), wait.asGBoolean())
+        g_thread_pool_free(gPointer, immediate.asGBoolean(), wait.asGBoolean())
 
     /**
      * Returns the maximal number of threads for @pool.
      *
      * @return the maximal number of threads
      */
-    public fun getMaxThreads(): gint = g_thread_pool_get_max_threads(gPointer.reinterpret())
+    public fun getMaxThreads(): gint = g_thread_pool_get_max_threads(gPointer)
 
     /**
      * Returns the number of threads currently running in @pool.
      *
      * @return the number of threads currently running
      */
-    public fun getNumThreads(): guint = g_thread_pool_get_num_threads(gPointer.reinterpret())
+    public fun getNumThreads(): guint = g_thread_pool_get_num_threads(gPointer)
 
     /**
      * Moves the item to the front of the queue of unprocessed
@@ -213,7 +213,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     @GLibVersion2_46
     public fun moveToFront(`data`: gpointer? = null): Boolean =
-        g_thread_pool_move_to_front(gPointer.reinterpret(), `data`).asBoolean()
+        g_thread_pool_move_to_front(gPointer, `data`).asBoolean()
 
     /**
      * Inserts @data into the list of tasks to be executed by @pool.
@@ -236,7 +236,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public fun push(`data`: gpointer? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_thread_pool_push(gPointer.reinterpret(), `data`, gError.ptr).asBoolean()
+        val gResult = g_thread_pool_push(gPointer, `data`, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -272,7 +272,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public fun setMaxThreads(maxThreads: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_thread_pool_set_max_threads(gPointer.reinterpret(), maxThreads, gError.ptr).asBoolean()
+        val gResult = g_thread_pool_set_max_threads(gPointer, maxThreads, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -301,7 +301,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     @GLibVersion2_10
     public fun setSortFunction(func: CompareDataFunc): Unit = g_thread_pool_set_sort_function(
-        gPointer.reinterpret(),
+        gPointer,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
@@ -311,7 +311,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      *
      * @return the number of unprocessed tasks
      */
-    public fun unprocessed(): guint = g_thread_pool_unprocessed(gPointer.reinterpret())
+    public fun unprocessed(): guint = g_thread_pool_unprocessed(gPointer)
 
     override fun toString(): String = "ThreadPool(userData=$userData, exclusive=$exclusive)"
 
@@ -403,7 +403,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
                 exclusive.asGBoolean(),
                 gError.ptr
             )?.run {
-                ThreadPool(reinterpret())
+                ThreadPool(this)
             }
 
             return if (gError.pointed != null) {
@@ -440,7 +440,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
                 exclusive.asGBoolean(),
                 gError.ptr
             )?.run {
-                ThreadPool(reinterpret())
+                ThreadPool(this)
             }
 
             return if (gError.pointed != null) {

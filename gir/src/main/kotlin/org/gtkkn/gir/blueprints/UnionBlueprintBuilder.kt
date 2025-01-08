@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirFunction
@@ -50,8 +51,10 @@ class UnionBlueprintBuilder(
 
         girNode.cType?.let { context.checkIgnoredType(it) }
 
+        val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girNode)
+
         // Add top-level methods, constructors, functions
-        girNode.methods.forEach { addMethod(it) }
+        girNode.methods.forEach { addMethod(it, objectPointerTypeName as? ParameterizedTypeName) }
         girNode.constructors.forEach { addConstructor(it) }
         girNode.functions.forEach { addFunction(it) }
 
@@ -64,7 +67,6 @@ class UnionBlueprintBuilder(
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
         val objectPointerName = "gPointer"
-        val objectPointerTypeName = context.resolveUnionObjectPointerTypeName(girNamespace, girNode)
 
         val nativeTypeName = context.buildNativeClassName(girNamespace, girNode)
 
@@ -91,8 +93,13 @@ class UnionBlueprintBuilder(
         )
     }
 
-    private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
+    private fun addMethod(method: GirMethod, objectPointerTypeName: ParameterizedTypeName?) {
+        when (val result = MethodBlueprintBuilder(
+            context = context,
+            girNamespace = girNamespace,
+            girNode = method,
+            objectPointerTypeName = objectPointerTypeName,
+        ).build()) {
             is BlueprintResult.Ok -> methodBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }

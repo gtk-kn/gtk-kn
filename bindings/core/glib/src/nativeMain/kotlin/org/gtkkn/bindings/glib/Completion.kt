@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -64,7 +63,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      */
     public var items: List?
         get() = gPointer.pointed.items?.run {
-            List(reinterpret())
+            List(this)
         }
 
         @UnsafeFieldSetter
@@ -90,7 +89,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      */
     public var cache: List?
         get() = gPointer.pointed.cache?.run {
-            List(reinterpret())
+            List(this)
         }
 
         @UnsafeFieldSetter
@@ -175,22 +174,21 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      *
      * @param items the list of items to add.
      */
-    public fun addItems(items: List): Unit =
-        g_completion_add_items(gPointer.reinterpret(), items.gPointer.reinterpret())
+    public fun addItems(items: List): Unit = g_completion_add_items(gPointer, items.gPointer)
 
     /**
      * Removes all items from the #GCompletion. The items are not freed, so if the
      * memory was dynamically allocated, it should be freed after calling this
      * function.
      */
-    public fun clearItems(): Unit = g_completion_clear_items(gPointer.reinterpret())
+    public fun clearItems(): Unit = g_completion_clear_items(gPointer)
 
     /**
      * Frees all memory used by the #GCompletion. The items are not freed, so if
      * the memory was dynamically allocated, it should be freed after calling this
      * function.
      */
-    public fun free(): Unit = g_completion_free(gPointer.reinterpret())
+    public fun free(): Unit = g_completion_free(gPointer)
 
     /**
      * Removes items from a #GCompletion. The items are not freed, so if the memory
@@ -199,8 +197,7 @@ public class Completion(pointer: CPointer<GCompletion>, cleaner: Cleaner? = null
      *
      * @param items the items to remove.
      */
-    public fun removeItems(items: List): Unit =
-        g_completion_remove_items(gPointer.reinterpret(), items.gPointer.reinterpret())
+    public fun removeItems(items: List): Unit = g_completion_remove_items(gPointer, items.gPointer)
 
     override fun toString(): String = "Completion(items=$items, prefix=$prefix, cache=$cache)"
 }

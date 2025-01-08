@@ -81,8 +81,8 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
          *
          * @return the #GtkSourceBuffer to load the contents into.
          */
-        get() = gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
+        get() = gtk_source_file_loader_get_buffer(gtksourceFileLoaderPointer)!!.run {
+            Buffer(this)
         }
 
     /**
@@ -95,8 +95,8 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
          *
          * @return the #GtkSourceFile.
          */
-        get() = gtk_source_file_loader_get_file(gtksourceFileLoaderPointer.reinterpret())!!.run {
-            File(reinterpret())
+        get() = gtk_source_file_loader_get_file(gtksourceFileLoaderPointer)!!.run {
+            File(this)
         }
 
     /**
@@ -110,8 +110,8 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
          * @return the #GInputStream to load, or null
          * if a #GFile is used.
          */
-        get() = gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer.reinterpret())?.run {
-            InputStream(reinterpret())
+        get() = gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer)?.run {
+            InputStream(this)
         }
 
     /**
@@ -126,7 +126,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
          * @return the #GFile to load, or null
          * if an input stream is used.
          */
-        get() = gtk_source_file_loader_get_location(gtksourceFileLoaderPointer.reinterpret())?.run {
+        get() = gtk_source_file_loader_get_location(gtksourceFileLoaderPointer)?.run {
             org.gtkkn.bindings.gio.File.wrap(reinterpret())
         }
 
@@ -145,12 +145,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
     public constructor(
         buffer: Buffer,
         `file`: File,
-    ) : this(
-        gtk_source_file_loader_new(
-            buffer.gtksourceBufferPointer.reinterpret(),
-            `file`.gtksourceFilePointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gtk_source_file_loader_new(buffer.gtksourceBufferPointer, `file`.gtksourceFilePointer)!!.reinterpret())
 
     /**
      * Creates a new #GtkSourceFileLoader object. The contents is read from @stream.
@@ -166,9 +161,9 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
         stream: InputStream,
     ) : this(
         gtk_source_file_loader_new_from_stream(
-            buffer.gtksourceBufferPointer.reinterpret(),
-            `file`.gtksourceFilePointer.reinterpret(),
-            stream.gioInputStreamPointer.reinterpret()
+            buffer.gtksourceBufferPointer,
+            `file`.gtksourceFilePointer,
+            stream.gioInputStreamPointer
         )!!.reinterpret()
     )
 
@@ -178,7 +173,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
      * @return the detected compression type.
      */
     public open fun getCompressionType(): CompressionType =
-        gtk_source_file_loader_get_compression_type(gtksourceFileLoaderPointer.reinterpret()).run {
+        gtk_source_file_loader_get_compression_type(gtksourceFileLoaderPointer).run {
             CompressionType.fromNativeValue(this)
         }
 
@@ -187,10 +182,9 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
      *
      * @return the detected file encoding.
      */
-    public open fun getEncoding(): Encoding =
-        gtk_source_file_loader_get_encoding(gtksourceFileLoaderPointer.reinterpret())!!.run {
-            Encoding(reinterpret())
-        }
+    public open fun getEncoding(): Encoding = gtk_source_file_loader_get_encoding(gtksourceFileLoaderPointer)!!.run {
+        Encoding(this)
+    }
 
     /**
      *
@@ -198,7 +192,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
      * @return the detected newline type.
      */
     public open fun getNewlineType(): NewlineType =
-        gtk_source_file_loader_get_newline_type(gtksourceFileLoaderPointer.reinterpret()).run {
+        gtk_source_file_loader_get_newline_type(gtksourceFileLoaderPointer).run {
             NewlineType.fromNativeValue(this)
         }
 
@@ -222,9 +216,9 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
         progressCallback: FileProgressCallback?,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_file_loader_load_async(
-        gtksourceFileLoaderPointer.reinterpret(),
+        gtksourceFileLoaderPointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         progressCallback?.let {
             FileProgressCallbackFunc.reinterpret()
         },
@@ -253,7 +247,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
     public open fun loadFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_file_loader_load_finish(
-            gtksourceFileLoaderPointer.reinterpret(),
+            gtksourceFileLoaderPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -281,10 +275,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
      *   #GtkSourceEncoding<!-- -->s.
      */
     public open fun setCandidateEncodings(candidateEncodings: SList): Unit =
-        gtk_source_file_loader_set_candidate_encodings(
-            gtksourceFileLoaderPointer.reinterpret(),
-            candidateEncodings.gPointer.reinterpret()
-        )
+        gtk_source_file_loader_set_candidate_encodings(gtksourceFileLoaderPointer, candidateEncodings.gPointer)
 
     public companion object : TypeCompanion<FileLoader> {
         override val type: GeneratedClassKGType<FileLoader> =

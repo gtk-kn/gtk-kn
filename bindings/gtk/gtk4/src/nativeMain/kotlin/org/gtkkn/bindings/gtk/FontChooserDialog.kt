@@ -78,7 +78,7 @@ public open class FontChooserDialog(pointer: CPointer<GtkFontChooserDialog>) :
     public constructor(
         title: String? = null,
         parent: Window? = null,
-    ) : this(gtk_font_chooser_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_font_chooser_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<FontChooserDialog> {
         override val type: GeneratedClassKGType<FontChooserDialog> =

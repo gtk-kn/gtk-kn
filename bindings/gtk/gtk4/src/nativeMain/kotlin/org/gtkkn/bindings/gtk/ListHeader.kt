@@ -49,8 +49,8 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @return The child
          * @since 4.12
          */
-        get() = gtk_list_header_get_child(gtkListHeaderPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_list_header_get_child(gtkListHeaderPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -64,9 +64,7 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(
-            child
-        ) = gtk_list_header_set_child(gtkListHeaderPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_list_header_set_child(gtkListHeaderPointer, child?.gtkWidgetPointer)
 
     /**
      * The first position no longer part of this section.
@@ -84,7 +82,7 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @return The end position of the section
          * @since 4.12
          */
-        get() = gtk_list_header_get_end(gtkListHeaderPointer.reinterpret())
+        get() = gtk_list_header_get_end(gtkListHeaderPointer)
 
     /**
      * The item at the start of the section.
@@ -103,7 +101,7 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @return The item displayed
          * @since 4.12
          */
-        get() = gtk_list_header_get_item(gtkListHeaderPointer.reinterpret())?.run {
+        get() = gtk_list_header_get_item(gtkListHeaderPointer)?.run {
             Object(reinterpret())
         }
 
@@ -122,7 +120,7 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @return The number of items in the section
          * @since 4.12
          */
-        get() = gtk_list_header_get_n_items(gtkListHeaderPointer.reinterpret())
+        get() = gtk_list_header_get_n_items(gtkListHeaderPointer)
 
     /**
      * First position of items in this section.
@@ -140,7 +138,7 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @return The start position of the section
          * @since 4.12
          */
-        get() = gtk_list_header_get_start(gtkListHeaderPointer.reinterpret())
+        get() = gtk_list_header_get_start(gtkListHeaderPointer)
 
     public companion object : TypeCompanion<ListHeader> {
         override val type: GeneratedClassKGType<ListHeader> =

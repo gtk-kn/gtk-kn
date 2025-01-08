@@ -17,6 +17,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GObject
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkSignalListItemFactory
 import org.gtkkn.native.gtk.gtk_signal_list_item_factory_get_type
 import org.gtkkn.native.gtk.gtk_signal_list_item_factory_new
@@ -92,18 +93,27 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * opposite of this signal and can be used to undo everything done
      * in this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` The `GObject` to bind
      */
-    public fun connectBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
+    public fun onBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "bind",
-            connectBindFunc.reinterpret(),
+            onBindFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "bind" signal. See [onBind].
+     *
+     * @param object The `GObject` to bind
+     */
+    public fun emitBind(`object`: Object) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "bind", `object`.gPointer)
+    }
 
     /**
      * Emitted when a new listitem has been created and needs to be setup for use.
@@ -113,18 +123,27 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * The [signal@Gtk.SignalListItemFactory::teardown] signal is the opposite
      * of this signal and can be used to undo everything done in this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` The `GObject` to set up
      */
-    public fun connectSetup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
+    public fun onSetup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "setup",
-            connectSetupFunc.reinterpret(),
+            onSetupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "setup" signal. See [onSetup].
+     *
+     * @param object The `GObject` to set up
+     */
+    public fun emitSetup(`object`: Object) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "setup", `object`.gPointer)
+    }
 
     /**
      * Emitted when an object is about to be destroyed.
@@ -134,20 +153,27 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * This signal is the opposite of the [signal@Gtk.SignalListItemFactory::setup]
      * signal and should be used to undo everything done in that signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` The `GObject` to tear down
      */
-    public fun connectTeardown(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Object) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "teardown",
-        connectTeardownFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onTeardown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "teardown",
+            onTeardownFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "teardown" signal. See [onTeardown].
+     *
+     * @param object The `GObject` to tear down
+     */
+    public fun emitTeardown(`object`: Object) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "teardown", `object`.gPointer)
+    }
 
     /**
      * Emitted when an object has been unbound from its item, for example when
@@ -157,20 +183,27 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * This signal is the opposite of the [signal@Gtk.SignalListItemFactory::bind]
      * signal and should be used to undo everything done in that signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object` The `GObject` to unbind
      */
-    public fun connectUnbind(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (`object`: Object) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "unbind",
-        connectUnbindFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onUnbind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "unbind",
+            onUnbindFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "unbind" signal. See [onUnbind].
+     *
+     * @param object The `GObject` to unbind
+     */
+    public fun emitUnbind(`object`: Object) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "unbind", `object`.gPointer)
+    }
 
     public companion object : TypeCompanion<SignalListItemFactory> {
         override val type: GeneratedClassKGType<SignalListItemFactory> =
@@ -191,54 +224,53 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
     }
 }
 
-private val connectBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+private val onBindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         `object`: CPointer<GObject>?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
         `object`!!.run {
-            Object(reinterpret())
+            Object(this)
         }
     )
 }
     .reinterpret()
 
-private val connectSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+private val onSetupFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         `object`: CPointer<GObject>?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
         `object`!!.run {
-            Object(reinterpret())
+            Object(this)
         }
     )
 }
     .reinterpret()
 
-private val connectTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: CPointer<GObject>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
-            `object`!!.run {
-                Object(reinterpret())
-            }
-        )
-    }
-        .reinterpret()
-
-private val connectUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+private val onTeardownFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         `object`: CPointer<GObject>?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
         `object`!!.run {
-            Object(reinterpret())
+            Object(this)
+        }
+    )
+}
+    .reinterpret()
+
+private val onUnbindFunc: CPointer<CFunction<(CPointer<GObject>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: CPointer<GObject>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: Object) -> Unit>().get().invoke(
+        `object`!!.run {
+            Object(this)
         }
     )
 }

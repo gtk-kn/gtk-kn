@@ -72,7 +72,7 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
          *
          * @return the current buffer size.
          */
-        get() = g_buffered_input_stream_get_buffer_size(gioBufferedInputStreamPointer.reinterpret())
+        get() = g_buffered_input_stream_get_buffer_size(gioBufferedInputStreamPointer)
 
         /**
          * Sets the size of the internal buffer of @stream to @size, or to the
@@ -81,7 +81,7 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
          *
          * @param size a #gsize
          */
-        set(size) = g_buffered_input_stream_set_buffer_size(gioBufferedInputStreamPointer.reinterpret(), size)
+        set(size) = g_buffered_input_stream_set_buffer_size(gioBufferedInputStreamPointer, size)
 
     /**
      * Creates a new #GInputStream from the given @base_stream, with
@@ -92,7 +92,7 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
      */
     public constructor(
         baseStream: InputStream,
-    ) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer.reinterpret())!!.reinterpret())
+    ) : this(g_buffered_input_stream_new(baseStream.gioInputStreamPointer)!!.reinterpret())
 
     /**
      * Creates a new #GBufferedInputStream from the given @base_stream,
@@ -105,7 +105,7 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
     public constructor(
         baseStream: InputStream,
         size: gsize,
-    ) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer.reinterpret(), size)!!.reinterpret())
+    ) : this(g_buffered_input_stream_new_sized(baseStream.gioInputStreamPointer, size)!!.reinterpret())
 
     /**
      * Tries to read @count bytes from the stream into the buffer.
@@ -142,9 +142,9 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
         val gError = allocPointerTo<GError>()
         val gResult =
             g_buffered_input_stream_fill(
-                gioBufferedInputStreamPointer.reinterpret(),
+                gioBufferedInputStreamPointer,
                 count,
-                cancellable?.gioCancellablePointer?.reinterpret(),
+                cancellable?.gioCancellablePointer,
                 gError.ptr
             )
         return if (gError.pointed != null) {
@@ -173,10 +173,10 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_buffered_input_stream_fill_async(
-        gioBufferedInputStreamPointer.reinterpret(),
+        gioBufferedInputStreamPointer,
         count,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -192,11 +192,7 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
     public open fun fillFinish(result: AsyncResult): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult =
-            g_buffered_input_stream_fill_finish(
-                gioBufferedInputStreamPointer.reinterpret(),
-                result.gioAsyncResultPointer,
-                gError.ptr
-            )
+            g_buffered_input_stream_fill_finish(gioBufferedInputStreamPointer, result.gioAsyncResultPointer, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -209,8 +205,7 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
      *
      * @return size of the available stream.
      */
-    public open fun getAvailable(): gsize =
-        g_buffered_input_stream_get_available(gioBufferedInputStreamPointer.reinterpret())
+    public open fun getAvailable(): gsize = g_buffered_input_stream_get_available(gioBufferedInputStreamPointer)
 
     /**
      * Tries to read a single byte from the stream or the buffer. Will block
@@ -234,8 +229,8 @@ public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
         val gError = allocPointerTo<GError>()
         val gResult =
             g_buffered_input_stream_read_byte(
-                gioBufferedInputStreamPointer.reinterpret(),
-                cancellable?.gioCancellablePointer?.reinterpret(),
+                gioBufferedInputStreamPointer,
+                cancellable?.gioCancellablePointer,
                 gError.ptr
             )
         return if (gError.pointed != null) {

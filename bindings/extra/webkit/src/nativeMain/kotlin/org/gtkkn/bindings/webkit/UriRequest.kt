@@ -42,15 +42,14 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
          *
          * @return request URI, as a string.
          */
-        get() = webkit_uri_request_get_uri(webkitUriRequestPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_uri_request_get_uri(webkitUriRequestPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Set the URI of @request
          *
          * @param uri an URI
          */
-        set(uri) = webkit_uri_request_set_uri(webkitUriRequestPointer.reinterpret(), uri)
+        set(uri) = webkit_uri_request_set_uri(webkitUriRequestPointer, uri)
 
     /**
      * Creates a new #WebKitURIRequest for the given URI.
@@ -66,10 +65,9 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
      * @return a #SoupMessageHeaders with the HTTP headers of @request
      *    or null if @request is not an HTTP request.
      */
-    public fun getHttpHeaders(): MessageHeaders =
-        webkit_uri_request_get_http_headers(webkitUriRequestPointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
-        }
+    public fun getHttpHeaders(): MessageHeaders = webkit_uri_request_get_http_headers(webkitUriRequestPointer)!!.run {
+        MessageHeaders(this)
+    }
 
     /**
      * Get the HTTP method of the #WebKitURIRequest.
@@ -80,8 +78,7 @@ public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
      */
     @WebKitVersion2_12
     public fun getHttpMethod(): String =
-        webkit_uri_request_get_http_method(webkitUriRequestPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        webkit_uri_request_get_http_method(webkitUriRequestPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<UriRequest> {
         override val type: GeneratedClassKGType<UriRequest> =

@@ -75,8 +75,8 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
          * @return a #GSocket or null on error.
          * @since 2.22
          */
-        get() = g_socket_connection_get_socket(gioSocketConnectionPointer.reinterpret())!!.run {
-            Socket(reinterpret())
+        get() = g_socket_connection_get_socket(gioSocketConnectionPointer)!!.run {
+            Socket(this)
         }
 
     /**
@@ -91,9 +91,9 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     public open fun connect(address: SocketAddress, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_connect(
-            gioSocketConnectionPointer.reinterpret(),
-            address.gioSocketAddressPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioSocketConnectionPointer,
+            address.gioSocketAddressPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -126,9 +126,9 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_socket_connection_connect_async(
-        gioSocketConnectionPointer.reinterpret(),
-        address.gioSocketAddressPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gioSocketConnectionPointer,
+        address.gioSocketAddressPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -146,7 +146,7 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     public open fun connectFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_connect_finish(
-            gioSocketConnectionPointer.reinterpret(),
+            gioSocketConnectionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -167,8 +167,8 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     @GioVersion2_22
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer.reinterpret(), gError.ptr)?.run {
-            SocketAddress(reinterpret())
+        val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer, gError.ptr)?.run {
+            SocketAddress(this)
         }
 
         return if (gError.pointed != null) {
@@ -195,11 +195,8 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     @GioVersion2_22
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_connection_get_remote_address(
-            gioSocketConnectionPointer.reinterpret(),
-            gError.ptr
-        )?.run {
-            SocketAddress(reinterpret())
+        val gResult = g_socket_connection_get_remote_address(gioSocketConnectionPointer, gError.ptr)?.run {
+            SocketAddress(this)
         }
 
         return if (gError.pointed != null) {
@@ -217,8 +214,7 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun isConnected(): Boolean =
-        g_socket_connection_is_connected(gioSocketConnectionPointer.reinterpret()).asBoolean()
+    public open fun isConnected(): Boolean = g_socket_connection_is_connected(gioSocketConnectionPointer).asBoolean()
 
     public companion object : TypeCompanion<SocketConnection> {
         override val type: GeneratedClassKGType<SocketConnection> =

@@ -40,6 +40,7 @@ import org.gtkkn.native.gdk.gdk_device_has_bidi_layouts
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -78,7 +79,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return true if Caps Lock is on for @device
          */
-        get() = gdk_device_get_caps_lock_state(gdkDevicePointer.reinterpret()).asBoolean()
+        get() = gdk_device_get_caps_lock_state(gdkDevicePointer).asBoolean()
 
     /**
      * The direction of the current layout.
@@ -98,7 +99,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *   if it can determine the direction. %PANGO_DIRECTION_NEUTRAL
          *   otherwise
          */
-        get() = gdk_device_get_direction(gdkDevicePointer.reinterpret()).run {
+        get() = gdk_device_get_direction(gdkDevicePointer).run {
             Direction.fromNativeValue(this)
         }
 
@@ -111,8 +112,8 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return a `GdkDisplay`
          */
-        get() = gdk_device_get_display(gdkDevicePointer.reinterpret())!!.run {
-            Display(reinterpret())
+        get() = gdk_device_get_display(gdkDevicePointer)!!.run {
+            Display(this)
         }
 
     /**
@@ -127,7 +128,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return true if the pointer follows device motion
          */
-        get() = gdk_device_get_has_cursor(gdkDevicePointer.reinterpret()).asBoolean()
+        get() = gdk_device_get_has_cursor(gdkDevicePointer).asBoolean()
 
     /**
      * The current modifier state of the device.
@@ -142,7 +143,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return the current modifier state
          */
-        get() = gdk_device_get_modifier_state(gdkDevicePointer.reinterpret()).run {
+        get() = gdk_device_get_modifier_state(gdkDevicePointer).run {
             ModifierType(this)
         }
 
@@ -155,7 +156,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return a name
          */
-        get() = gdk_device_get_name(gdkDevicePointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = gdk_device_get_name(gdkDevicePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Whether Num Lock is on.
@@ -170,7 +171,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return true if Num Lock is on for @device
          */
-        get() = gdk_device_get_num_lock_state(gdkDevicePointer.reinterpret()).asBoolean()
+        get() = gdk_device_get_num_lock_state(gdkDevicePointer).asBoolean()
 
     /**
      * The maximal number of concurrent touches on a touch device.
@@ -184,7 +185,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return the number of touch points
          */
-        get() = gdk_device_get_num_touches(gdkDevicePointer.reinterpret())
+        get() = gdk_device_get_num_touches(gdkDevicePointer)
 
     /**
      * Product ID of this device.
@@ -200,7 +201,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return the product ID
          */
-        get() = gdk_device_get_product_id(gdkDevicePointer.reinterpret())?.toKString()
+        get() = gdk_device_get_product_id(gdkDevicePointer)?.toKString()
 
     /**
      * Whether Scroll Lock is on.
@@ -215,7 +216,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return true if Scroll Lock is on for @device
          */
-        get() = gdk_device_get_scroll_lock_state(gdkDevicePointer.reinterpret()).asBoolean()
+        get() = gdk_device_get_scroll_lock_state(gdkDevicePointer).asBoolean()
 
     /**
      * `GdkSeat` of this device.
@@ -226,8 +227,8 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return a `GdkSeat`
          */
-        get() = gdk_device_get_seat(gdkDevicePointer.reinterpret())!!.run {
-            Seat(reinterpret())
+        get() = gdk_device_get_seat(gdkDevicePointer)!!.run {
+            Seat(this)
         }
 
     /**
@@ -239,7 +240,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return a `GdkInputSource`
          */
-        get() = gdk_device_get_source(gdkDevicePointer.reinterpret()).run {
+        get() = gdk_device_get_source(gdkDevicePointer).run {
             InputSource.fromNativeValue(this)
         }
 
@@ -280,15 +281,15 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          *
          * @return the vendor ID
          */
-        get() = gdk_device_get_vendor_id(gdkDevicePointer.reinterpret())?.toKString()
+        get() = gdk_device_get_vendor_id(gdkDevicePointer)?.toKString()
 
     /**
      * Retrieves the current tool for @device.
      *
      * @return the `GdkDeviceTool`
      */
-    public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer.reinterpret())?.run {
-        DeviceTool(reinterpret())
+    public open fun getDeviceTool(): DeviceTool? = gdk_device_get_device_tool(gdkDevicePointer)?.run {
+        DeviceTool(this)
     }
 
     /**
@@ -303,7 +304,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * @since 4.2
      */
     @GdkVersion4_2
-    public open fun getTimestamp(): guint = gdk_device_get_timestamp(gdkDevicePointer.reinterpret())
+    public open fun getTimestamp(): guint = gdk_device_get_timestamp(gdkDevicePointer)
 
     /**
      * Determines if layouts for both right-to-left and
@@ -313,7 +314,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      *
      * @return true if there are layouts with both directions, false otherwise
      */
-    public open fun hasBidiLayouts(): Boolean = gdk_device_has_bidi_layouts(gdkDevicePointer.reinterpret()).asBoolean()
+    public open fun hasBidiLayouts(): Boolean = gdk_device_has_bidi_layouts(gdkDevicePointer).asBoolean()
 
     /**
      * Emitted either when the number of either axes or keys changes.
@@ -324,36 +325,52 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * that case the logical device will change to reflect the axes
      * and keys on the new physical device.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "changed",
-            connectChangedFunc.reinterpret(),
+            onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "changed" signal. See [onChanged].
+     */
+    public fun emitChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+    }
+
+    /**
      * Emitted on pen/eraser devices whenever tools enter or leave proximity.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `tool` The new current tool
      */
-    public fun connectToolChanged(
+    public fun onToolChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tool: DeviceTool) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "tool-changed",
-        connectToolChangedFunc.reinterpret(),
+        onToolChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "tool-changed" signal. See [onToolChanged].
+     *
+     * @param tool The new current tool
+     */
+    public fun emitToolChanged(tool: DeviceTool) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "tool-changed", tool.gdkDeviceToolPointer)
+    }
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
@@ -372,7 +389,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -380,7 +397,7 @@ private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunctio
 }
     .reinterpret()
 
-private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
+private val onToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             tool: CPointer<GdkDeviceTool>?,
@@ -388,7 +405,7 @@ private val connectToolChangedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>)
         ->
         userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(
             tool!!.run {
-                DeviceTool(reinterpret())
+                DeviceTool(this)
             }
         )
     }

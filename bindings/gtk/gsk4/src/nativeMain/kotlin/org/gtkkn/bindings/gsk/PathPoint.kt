@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.Point
 import org.gtkkn.bindings.graphene.Vec2
 import org.gtkkn.bindings.gsk.annotations.GskVersion4_14
@@ -166,11 +165,10 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      * @since 4.14
      */
     @GskVersion4_14
-    public fun compare(point2: PathPoint): gint =
-        gsk_path_point_compare(gPointer.reinterpret(), point2.gPointer.reinterpret())
+    public fun compare(point2: PathPoint): gint = gsk_path_point_compare(gPointer, point2.gPointer)
 
-    public fun copy(): PathPoint = gsk_path_point_copy(gPointer.reinterpret())!!.run {
-        PathPoint(reinterpret())
+    public fun copy(): PathPoint = gsk_path_point_copy(gPointer)!!.run {
+        PathPoint(this)
     }
 
     /**
@@ -188,10 +186,9 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      * @since 4.14
      */
     @GskVersion4_14
-    public fun equal(point2: PathPoint): Boolean =
-        gsk_path_point_equal(gPointer.reinterpret(), point2.gPointer.reinterpret()).asBoolean()
+    public fun equal(point2: PathPoint): Boolean = gsk_path_point_equal(gPointer, point2.gPointer).asBoolean()
 
-    public fun free(): Unit = gsk_path_point_free(gPointer.reinterpret())
+    public fun free(): Unit = gsk_path_point_free(gPointer)
 
     /**
      * Calculates the curvature of the path at the point.
@@ -224,12 +221,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      */
     @GskVersion4_14
     public fun getCurvature(path: Path, direction: PathDirection, center: Point?): gfloat =
-        gsk_path_point_get_curvature(
-            gPointer.reinterpret(),
-            path.gPointer.reinterpret(),
-            direction.nativeValue,
-            center?.gPointer?.reinterpret()
-        )
+        gsk_path_point_get_curvature(gPointer, path.gPointer, direction.nativeValue, center?.gPointer)
 
     /**
      * Returns the distance from the beginning of the path
@@ -240,8 +232,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getDistance(measure: PathMeasure): gfloat =
-        gsk_path_point_get_distance(gPointer.reinterpret(), measure.gPointer.reinterpret())
+    public fun getDistance(measure: PathMeasure): gfloat = gsk_path_point_get_distance(gPointer, measure.gPointer)
 
     /**
      * Gets the position of the point.
@@ -252,11 +243,8 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getPosition(path: Path, position: Point): Unit = gsk_path_point_get_position(
-        gPointer.reinterpret(),
-        path.gPointer.reinterpret(),
-        position.gPointer.reinterpret()
-    )
+    public fun getPosition(path: Path, position: Point): Unit =
+        gsk_path_point_get_position(gPointer, path.gPointer, position.gPointer)
 
     /**
      * Gets the direction of the tangent at a given point.
@@ -273,7 +261,7 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      */
     @GskVersion4_14
     public fun getRotation(path: Path, direction: PathDirection): gfloat =
-        gsk_path_point_get_rotation(gPointer.reinterpret(), path.gPointer.reinterpret(), direction.nativeValue)
+        gsk_path_point_get_rotation(gPointer, path.gPointer, direction.nativeValue)
 
     /**
      * Gets the tangent of the path at the point.
@@ -298,12 +286,8 @@ public class PathPoint(pointer: CPointer<GskPathPoint>, cleaner: Cleaner? = null
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getTangent(path: Path, direction: PathDirection, tangent: Vec2): Unit = gsk_path_point_get_tangent(
-        gPointer.reinterpret(),
-        path.gPointer.reinterpret(),
-        direction.nativeValue,
-        tangent.gPointer.reinterpret()
-    )
+    public fun getTangent(path: Path, direction: PathDirection, tangent: Vec2): Unit =
+        gsk_path_point_get_tangent(gPointer, path.gPointer, direction.nativeValue, tangent.gPointer)
 
     override fun toString(): String = "PathPoint(contour=$contour, idx=$idx, t=$t)"
 

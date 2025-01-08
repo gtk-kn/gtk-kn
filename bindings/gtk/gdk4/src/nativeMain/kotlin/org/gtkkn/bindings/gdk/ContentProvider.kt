@@ -42,6 +42,7 @@ import org.gtkkn.native.glib.GError
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.String
@@ -83,7 +84,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     public constructor(
         mimeType: String,
         bytes: Bytes,
-    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.gPointer.reinterpret())!!.reinterpret())
+    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.gPointer)!!.reinterpret())
 
     /**
      * Create a content provider that provides the given @value.
@@ -91,15 +92,12 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      * @param value a `GValue`
      * @return a new `GdkContentProvider`
      */
-    public constructor(
-        `value`: Value,
-    ) : this(gdk_content_provider_new_for_value(`value`.gPointer.reinterpret())!!.reinterpret())
+    public constructor(`value`: Value) : this(gdk_content_provider_new_for_value(`value`.gPointer)!!.reinterpret())
 
     /**
      * Emits the ::content-changed signal.
      */
-    public open fun contentChanged(): Unit =
-        gdk_content_provider_content_changed(gdkContentProviderPointer.reinterpret())
+    public open fun contentChanged(): Unit = gdk_content_provider_content_changed(gdkContentProviderPointer)
 
     /**
      * Gets the contents of @provider stored in @value.
@@ -117,8 +115,8 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     public open fun getValue(`value`: Value): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_content_provider_get_value(
-            gdkContentProviderPointer.reinterpret(),
-            `value`.gPointer.reinterpret(),
+            gdkContentProviderPointer,
+            `value`.gPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -133,10 +131,9 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      *
      * @return The formats of the provider
      */
-    public open fun refFormats(): ContentFormats =
-        gdk_content_provider_ref_formats(gdkContentProviderPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
-        }
+    public open fun refFormats(): ContentFormats = gdk_content_provider_ref_formats(gdkContentProviderPointer)!!.run {
+        ContentFormats(this)
+    }
 
     /**
      * Gets the formats that the provider suggests other applications to store
@@ -149,8 +146,8 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      * @return The storable formats of the provider
      */
     public open fun refStorableFormats(): ContentFormats =
-        gdk_content_provider_ref_storable_formats(gdkContentProviderPointer.reinterpret())!!.run {
-            ContentFormats(reinterpret())
+        gdk_content_provider_ref_storable_formats(gdkContentProviderPointer)!!.run {
+            ContentFormats(this)
         }
 
     /**
@@ -180,11 +177,11 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gdk_content_provider_write_mime_type_async(
-        gdkContentProviderPointer.reinterpret(),
+        gdkContentProviderPointer,
         mimeType,
-        stream.gioOutputStreamPointer.reinterpret(),
+        stream.gioOutputStreamPointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -203,7 +200,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     public open fun writeMimeTypeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_content_provider_write_mime_type_finish(
-            gdkContentProviderPointer.reinterpret(),
+            gdkContentProviderPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -217,18 +214,25 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     /**
      * Emitted whenever the content provided by this provider has changed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectContentChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onContentChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "content-changed",
-            connectContentChangedFunc.reinterpret(),
+            onContentChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "content-changed" signal. See [onContentChanged].
+     */
+    public fun emitContentChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "content-changed")
+    }
 
     public companion object : TypeCompanion<ContentProvider> {
         override val type: GeneratedClassKGType<ContentProvider> =
@@ -247,7 +251,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     }
 }
 
-private val connectContentChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onContentChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

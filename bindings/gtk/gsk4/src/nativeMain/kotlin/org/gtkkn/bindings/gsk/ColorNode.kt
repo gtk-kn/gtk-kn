@@ -34,7 +34,7 @@ public open class ColorNode(pointer: CPointer<GskColorNode>) :
     public constructor(
         rgba: Rgba,
         bounds: Rect,
-    ) : this(gsk_color_node_new(rgba.gPointer.reinterpret(), bounds.gPointer.reinterpret())!!.reinterpret())
+    ) : this(gsk_color_node_new(rgba.gPointer, bounds.gPointer)!!.reinterpret())
 
     /**
      * Retrieves the color of the given @node.
@@ -42,7 +42,7 @@ public open class ColorNode(pointer: CPointer<GskColorNode>) :
      * @return the color of the node
      */
     public open fun getColor(): Rgba = gsk_color_node_get_color(gskColorNodePointer.reinterpret())!!.run {
-        Rgba(reinterpret())
+        Rgba(this)
     }
 
     public companion object : TypeCompanion<ColorNode> {

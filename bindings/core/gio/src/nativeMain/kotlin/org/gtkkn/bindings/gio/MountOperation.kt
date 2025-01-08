@@ -9,6 +9,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.CPointerVarOf
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
@@ -20,6 +21,7 @@ import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
+import org.gtkkn.extensions.glib.ext.toCStringList
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
@@ -54,6 +56,7 @@ import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -104,14 +107,14 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          *
          * @return true if mount operation is anonymous.
          */
-        get() = g_mount_operation_get_anonymous(gioMountOperationPointer.reinterpret()).asBoolean()
+        get() = g_mount_operation_get_anonymous(gioMountOperationPointer).asBoolean()
 
         /**
          * Sets the mount operation to use an anonymous user if @anonymous is true.
          *
          * @param anonymous boolean value.
          */
-        set(anonymous) = g_mount_operation_set_anonymous(gioMountOperationPointer.reinterpret(), anonymous.asGBoolean())
+        set(anonymous) = g_mount_operation_set_anonymous(gioMountOperationPointer, anonymous.asGBoolean())
 
     /**
      * The index of the user's choice when a question is asked during the
@@ -124,14 +127,14 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          * @return an integer containing an index of the user's choice from
          * the choice's list, or `0`.
          */
-        get() = g_mount_operation_get_choice(gioMountOperationPointer.reinterpret())
+        get() = g_mount_operation_get_choice(gioMountOperationPointer)
 
         /**
          * Sets a default choice for the mount operation.
          *
          * @param choice an integer.
          */
-        set(choice) = g_mount_operation_set_choice(gioMountOperationPointer.reinterpret(), choice)
+        set(choice) = g_mount_operation_set_choice(gioMountOperationPointer, choice)
 
     /**
      * The domain to use for the mount operation.
@@ -142,14 +145,14 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          *
          * @return a string set to the domain.
          */
-        get() = g_mount_operation_get_domain(gioMountOperationPointer.reinterpret())?.toKString()
+        get() = g_mount_operation_get_domain(gioMountOperationPointer)?.toKString()
 
         /**
          * Sets the mount operation's domain.
          *
          * @param domain the domain to set.
          */
-        set(domain) = g_mount_operation_set_domain(gioMountOperationPointer.reinterpret(), domain)
+        set(domain) = g_mount_operation_set_domain(gioMountOperationPointer, domain)
 
     /**
      * Whether the device to be unlocked is a TCRYPT hidden volume.
@@ -166,7 +169,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          * @return true if mount operation is for hidden volume.
          * @since 2.58
          */
-        get() = g_mount_operation_get_is_tcrypt_hidden_volume(gioMountOperationPointer.reinterpret()).asBoolean()
+        get() = g_mount_operation_get_is_tcrypt_hidden_volume(gioMountOperationPointer).asBoolean()
 
         /**
          * Sets the mount operation to use a hidden volume if @hidden_volume is true.
@@ -177,10 +180,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
         @GioVersion2_58
         set(
             hiddenVolume
-        ) = g_mount_operation_set_is_tcrypt_hidden_volume(
-            gioMountOperationPointer.reinterpret(),
-            hiddenVolume.asGBoolean()
-        )
+        ) = g_mount_operation_set_is_tcrypt_hidden_volume(gioMountOperationPointer, hiddenVolume.asGBoolean())
 
     /**
      * Whether the device to be unlocked is a TCRYPT system volume.
@@ -200,7 +200,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          * @return true if mount operation is for system volume.
          * @since 2.58
          */
-        get() = g_mount_operation_get_is_tcrypt_system_volume(gioMountOperationPointer.reinterpret()).asBoolean()
+        get() = g_mount_operation_get_is_tcrypt_system_volume(gioMountOperationPointer).asBoolean()
 
         /**
          * Sets the mount operation to use a system volume if @system_volume is true.
@@ -211,10 +211,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
         @GioVersion2_58
         set(
             systemVolume
-        ) = g_mount_operation_set_is_tcrypt_system_volume(
-            gioMountOperationPointer.reinterpret(),
-            systemVolume.asGBoolean()
-        )
+        ) = g_mount_operation_set_is_tcrypt_system_volume(gioMountOperationPointer, systemVolume.asGBoolean())
 
     /**
      * The password that is used for authentication when carrying out
@@ -226,14 +223,14 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          *
          * @return a string containing the password within @op.
          */
-        get() = g_mount_operation_get_password(gioMountOperationPointer.reinterpret())?.toKString()
+        get() = g_mount_operation_get_password(gioMountOperationPointer)?.toKString()
 
         /**
          * Sets the mount operation's password to @password.
          *
          * @param password password to set.
          */
-        set(password) = g_mount_operation_set_password(gioMountOperationPointer.reinterpret(), password)
+        set(password) = g_mount_operation_set_password(gioMountOperationPointer, password)
 
     /**
      * Determines if and how the password information should be saved.
@@ -244,7 +241,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          *
          * @return a #GPasswordSave flag.
          */
-        get() = g_mount_operation_get_password_save(gioMountOperationPointer.reinterpret()).run {
+        get() = g_mount_operation_get_password_save(gioMountOperationPointer).run {
             PasswordSave.fromNativeValue(this)
         }
 
@@ -253,7 +250,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          *
          * @param save a set of #GPasswordSave flags.
          */
-        set(save) = g_mount_operation_set_password_save(gioMountOperationPointer.reinterpret(), save.nativeValue)
+        set(save) = g_mount_operation_set_password_save(gioMountOperationPointer, save.nativeValue)
 
     /**
      * The VeraCrypt PIM value, when unlocking a VeraCrypt volume. See
@@ -269,7 +266,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          * @return The VeraCrypt PIM within @op.
          * @since 2.58
          */
-        get() = g_mount_operation_get_pim(gioMountOperationPointer.reinterpret())
+        get() = g_mount_operation_get_pim(gioMountOperationPointer)
 
         /**
          * Sets the mount operation's PIM to @pim.
@@ -278,7 +275,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          * @since 2.58
          */
         @GioVersion2_58
-        set(pim) = g_mount_operation_set_pim(gioMountOperationPointer.reinterpret(), pim)
+        set(pim) = g_mount_operation_set_pim(gioMountOperationPointer, pim)
 
     /**
      * The user name that is used for authentication when carrying out
@@ -290,14 +287,14 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
          *
          * @return a string containing the user name.
          */
-        get() = g_mount_operation_get_username(gioMountOperationPointer.reinterpret())?.toKString()
+        get() = g_mount_operation_get_username(gioMountOperationPointer)?.toKString()
 
         /**
          * Sets the user name within @op to @username.
          *
          * @param username input username.
          */
-        set(username) = g_mount_operation_set_username(gioMountOperationPointer.reinterpret(), username)
+        set(username) = g_mount_operation_set_username(gioMountOperationPointer, username)
 
     /**
      * Creates a new mount operation.
@@ -312,7 +309,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * @param result a #GMountOperationResult
      */
     public open fun reply(result: MountOperationResult): Unit =
-        g_mount_operation_reply(gioMountOperationPointer.reinterpret(), result.nativeValue)
+        g_mount_operation_reply(gioMountOperationPointer, result.nativeValue)
 
     /**
      * Emitted by the backend when e.g. a device becomes unavailable
@@ -321,20 +318,30 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * Implementations of GMountOperation should handle this signal
      * by dismissing open password dialogs.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.20
      */
     @GioVersion2_20
-    public fun connectAborted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onAborted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "aborted",
-            connectAbortedFunc.reinterpret(),
+            onAbortedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "aborted" signal. See [onAborted].
+     *
+     * @since 2.20
+     */
+    @GioVersion2_20
+    public fun emitAborted() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "aborted")
+    }
 
     /**
      * Emitted when a mount operation asks the user for a password.
@@ -343,10 +350,10 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * presented as a heading. For example, it may be used as the
      * primary text in a #GtkMessageDialog.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` string containing a message to display to the user.; `defaultUser` string containing the default user name.; `defaultDomain` string containing the default domain.; `flags` a set of #GAskPasswordFlags.
      */
-    public fun connectAskPassword(
+    public fun onAskPassword(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             message: String,
@@ -355,13 +362,32 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
             flags: AskPasswordFlags,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "ask-password",
-        connectAskPasswordFunc.reinterpret(),
+        onAskPasswordFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "ask-password" signal. See [onAskPassword].
+     *
+     * @param message string containing a message to display to the user.
+     * @param defaultUser string containing the default user name.
+     * @param defaultDomain string containing the default domain.
+     * @param flags a set of #GAskPasswordFlags.
+     */
+    public fun emitAskPassword(message: String, defaultUser: String, defaultDomain: String, flags: AskPasswordFlags) {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "ask-password",
+            message.cstr,
+            defaultUser.cstr,
+            defaultDomain.cstr,
+            flags.mask
+        )
+    }
 
     /**
      * Emitted when asking the user a question and gives a list of
@@ -371,38 +397,57 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * presented as a heading. For example, it may be used as the
      * primary text in a #GtkMessageDialog.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` string containing a message to display to the user.; `choices` an array of strings for each possible choice.
      */
-    public fun connectAskQuestion(
+    public fun onAskQuestion(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: String, choices: List<String>) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "ask-question",
-        connectAskQuestionFunc.reinterpret(),
+        onAskQuestionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "ask-question" signal. See [onAskQuestion].
+     *
+     * @param message string containing a message to display to the user.
+     * @param choices an array of strings for each possible choice.
+     */
+    public fun emitAskQuestion(message: String, choices: List<String>): Unit = memScoped {
+        g_signal_emit_by_name(gPointer.reinterpret(), "ask-question", message.cstr, choices.toCStringList(this))
+    }
+
+    /**
      * Emitted when the user has replied to the mount operation.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `result` a #GMountOperationResult indicating how the request was handled
      */
-    public fun connectReply(
+    public fun onReply(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (result: MountOperationResult) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "reply",
-        connectReplyFunc.reinterpret(),
+        onReplyFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "reply" signal. See [onReply].
+     *
+     * @param result a #GMountOperationResult indicating how the request was handled
+     */
+    public fun emitReply(result: MountOperationResult) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "reply", result.nativeValue)
+    }
 
     /**
      * Emitted when an unmount operation has been busy for more than some time
@@ -422,7 +467,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * presented as a heading. For example, it may be used as the
      * primary text in a #GtkMessageDialog.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `message` string containing a message to display to the user; `timeLeft` the estimated time left before the operation completes,
      *     in microseconds, or -1; `bytesLeft` the amount of bytes to be written before the operation
      *     completes (or -1 if such amount is not known), or zero if the operation
@@ -430,7 +475,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public fun connectShowUnmountProgress(
+    public fun onShowUnmountProgress(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             message: String,
@@ -438,13 +483,29 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
             bytesLeft: gint64,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "show-unmount-progress",
-        connectShowUnmountProgressFunc.reinterpret(),
+        onShowUnmountProgressFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "show-unmount-progress" signal. See [onShowUnmountProgress].
+     *
+     * @param message string containing a message to display to the user
+     * @param timeLeft the estimated time left before the operation completes,
+     *     in microseconds, or -1
+     * @param bytesLeft the amount of bytes to be written before the operation
+     *     completes (or -1 if such amount is not known), or zero if the operation
+     *     is completed
+     * @since 2.34
+     */
+    @GioVersion2_34
+    public fun emitShowUnmountProgress(message: String, timeLeft: gint64, bytesLeft: gint64) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "show-unmount-progress", message.cstr, timeLeft, bytesLeft)
+    }
 
     public companion object : TypeCompanion<MountOperation> {
         override val type: GeneratedClassKGType<MountOperation> =
@@ -463,7 +524,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
     }
 }
 
-private val connectAbortedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onAbortedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -471,7 +532,7 @@ private val connectAbortedFunc: CPointer<CFunction<() -> Unit>> = staticCFunctio
 }
     .reinterpret()
 
-private val connectAskPasswordFunc: CPointer<
+private val onAskPasswordFunc: CPointer<
     CFunction<
         (
             CPointer<ByteVar>,
@@ -506,7 +567,7 @@ private val connectAskPasswordFunc: CPointer<
 }
     .reinterpret()
 
-private val connectAskQuestionFunc:
+private val onAskQuestionFunc:
     CPointer<CFunction<(CPointer<ByteVar>, CArrayPointer<CPointerVarOf<CPointer<ByteVar>>>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -523,21 +584,20 @@ private val connectAskQuestionFunc:
     }
         .reinterpret()
 
-private val connectReplyFunc: CPointer<CFunction<(GMountOperationResult) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            result: GMountOperationResult,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(result: MountOperationResult) -> Unit>().get().invoke(
-            result.run {
-                MountOperationResult.fromNativeValue(this)
-            }
-        )
-    }
-        .reinterpret()
+private val onReplyFunc: CPointer<CFunction<(GMountOperationResult) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        result: GMountOperationResult,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(result: MountOperationResult) -> Unit>().get().invoke(
+        result.run {
+            MountOperationResult.fromNativeValue(this)
+        }
+    )
+}
+    .reinterpret()
 
-private val connectShowUnmountProgressFunc: CPointer<
+private val onShowUnmountProgressFunc: CPointer<
     CFunction<
         (
             CPointer<ByteVar>,

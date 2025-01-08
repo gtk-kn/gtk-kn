@@ -64,7 +64,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @param cr cairo context to draw to
      */
-    public open fun draw(cr: Context): Unit = gsk_render_node_draw(gPointer.reinterpret(), cr.gPointer.reinterpret())
+    public open fun draw(cr: Context): Unit = gsk_render_node_draw(gPointer, cr.gPointer)
 
     /**
      * Retrieves the boundaries of the @node.
@@ -73,15 +73,14 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @param bounds return location for the boundaries
      */
-    public open fun getBounds(bounds: Rect): Unit =
-        gsk_render_node_get_bounds(gPointer.reinterpret(), bounds.gPointer.reinterpret())
+    public open fun getBounds(bounds: Rect): Unit = gsk_render_node_get_bounds(gPointer, bounds.gPointer)
 
     /**
      * Returns the type of the @node.
      *
      * @return the type of the `GskRenderNode`
      */
-    public open fun getNodeType(): RenderNodeType = gsk_render_node_get_node_type(gPointer.reinterpret()).run {
+    public open fun getNodeType(): RenderNodeType = gsk_render_node_get_node_type(gPointer).run {
         RenderNodeType.fromNativeValue(this)
     }
 
@@ -90,8 +89,8 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @return the `GskRenderNode` with an additional reference
      */
-    public open fun ref(): RenderNode = gsk_render_node_ref(gPointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+    public open fun ref(): RenderNode = gsk_render_node_ref(gPointer)!!.run {
+        RenderNode(this)
     }
 
     /**
@@ -107,8 +106,8 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @return a `GBytes` representing the node.
      */
-    public open fun serialize(): Bytes = gsk_render_node_serialize(gPointer.reinterpret())!!.run {
-        Bytes(reinterpret())
+    public open fun serialize(): Bytes = gsk_render_node_serialize(gPointer)!!.run {
+        Bytes(this)
     }
 
     /**
@@ -117,7 +116,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      * If the reference was the last, the resources associated to the @node are
      * freed.
      */
-    public open fun unref(): Unit = gsk_render_node_unref(gPointer.reinterpret())
+    public open fun unref(): Unit = gsk_render_node_unref(gPointer)
 
     /**
      * This function is equivalent to calling [method@Gsk.RenderNode.serialize]
@@ -133,7 +132,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      */
     public open fun writeToFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gsk_render_node_write_to_file(gPointer.reinterpret(), filename, gError.ptr).asBoolean()
+        val gResult = gsk_render_node_write_to_file(gPointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -159,13 +158,13 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
          * @return a new `GskRenderNode`
          */
         public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc?): RenderNode? = gsk_render_node_deserialize(
-            bytes.gPointer.reinterpret(),
+            bytes.gPointer,
             errorFunc?.let {
                 ParseErrorFuncFunc.reinterpret()
             },
             errorFunc?.let { StableRef.create(errorFunc).asCPointer() }
         )?.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
         /**

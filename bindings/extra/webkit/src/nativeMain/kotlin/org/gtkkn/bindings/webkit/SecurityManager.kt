@@ -51,7 +51,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      */
     public fun registerUriSchemeAsCorsEnabled(scheme: String): Unit =
-        webkit_security_manager_register_uri_scheme_as_cors_enabled(webkitSecurityManagerPointer.reinterpret(), scheme)
+        webkit_security_manager_register_uri_scheme_as_cors_enabled(webkitSecurityManagerPointer, scheme)
 
     /**
      * Register @scheme as a display isolated scheme.
@@ -62,10 +62,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      */
     public fun registerUriSchemeAsDisplayIsolated(scheme: String): Unit =
-        webkit_security_manager_register_uri_scheme_as_display_isolated(
-            webkitSecurityManagerPointer.reinterpret(),
-            scheme
-        )
+        webkit_security_manager_register_uri_scheme_as_display_isolated(webkitSecurityManagerPointer, scheme)
 
     /**
      * Register @scheme as an empty document scheme.
@@ -76,10 +73,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      */
     public fun registerUriSchemeAsEmptyDocument(scheme: String): Unit =
-        webkit_security_manager_register_uri_scheme_as_empty_document(
-            webkitSecurityManagerPointer.reinterpret(),
-            scheme
-        )
+        webkit_security_manager_register_uri_scheme_as_empty_document(webkitSecurityManagerPointer, scheme)
 
     /**
      * Register @scheme as a local scheme.
@@ -90,7 +84,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      */
     public fun registerUriSchemeAsLocal(scheme: String): Unit =
-        webkit_security_manager_register_uri_scheme_as_local(webkitSecurityManagerPointer.reinterpret(), scheme)
+        webkit_security_manager_register_uri_scheme_as_local(webkitSecurityManagerPointer, scheme)
 
     /**
      * Register @scheme as a no-access scheme.
@@ -101,7 +95,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      */
     public fun registerUriSchemeAsNoAccess(scheme: String): Unit =
-        webkit_security_manager_register_uri_scheme_as_no_access(webkitSecurityManagerPointer.reinterpret(), scheme)
+        webkit_security_manager_register_uri_scheme_as_no_access(webkitSecurityManagerPointer, scheme)
 
     /**
      * Register @scheme as a secure scheme.
@@ -113,7 +107,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      */
     public fun registerUriSchemeAsSecure(scheme: String): Unit =
-        webkit_security_manager_register_uri_scheme_as_secure(webkitSecurityManagerPointer.reinterpret(), scheme)
+        webkit_security_manager_register_uri_scheme_as_secure(webkitSecurityManagerPointer, scheme)
 
     /**
      * Whether @scheme is considered as a CORS enabled scheme.
@@ -123,10 +117,8 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      * @return true if @scheme is a CORS enabled scheme or false otherwise.
      */
-    public fun uriSchemeIsCorsEnabled(scheme: String): Boolean = webkit_security_manager_uri_scheme_is_cors_enabled(
-        webkitSecurityManagerPointer.reinterpret(),
-        scheme
-    ).asBoolean()
+    public fun uriSchemeIsCorsEnabled(scheme: String): Boolean =
+        webkit_security_manager_uri_scheme_is_cors_enabled(webkitSecurityManagerPointer, scheme).asBoolean()
 
     /**
      * Whether @scheme is considered as a display isolated scheme.
@@ -137,10 +129,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @return true if @scheme is a display isolated scheme or false otherwise.
      */
     public fun uriSchemeIsDisplayIsolated(scheme: String): Boolean =
-        webkit_security_manager_uri_scheme_is_display_isolated(
-            webkitSecurityManagerPointer.reinterpret(),
-            scheme
-        ).asBoolean()
+        webkit_security_manager_uri_scheme_is_display_isolated(webkitSecurityManagerPointer, scheme).asBoolean()
 
     /**
      * Whether @scheme is considered as an empty document scheme.
@@ -150,10 +139,8 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @param scheme a URI scheme
      * @return true if @scheme is an empty document scheme or false otherwise.
      */
-    public fun uriSchemeIsEmptyDocument(scheme: String): Boolean = webkit_security_manager_uri_scheme_is_empty_document(
-        webkitSecurityManagerPointer.reinterpret(),
-        scheme
-    ).asBoolean()
+    public fun uriSchemeIsEmptyDocument(scheme: String): Boolean =
+        webkit_security_manager_uri_scheme_is_empty_document(webkitSecurityManagerPointer, scheme).asBoolean()
 
     /**
      * Whether @scheme is considered as a local scheme.
@@ -164,7 +151,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @return true if @scheme is a local scheme or false otherwise.
      */
     public fun uriSchemeIsLocal(scheme: String): Boolean =
-        webkit_security_manager_uri_scheme_is_local(webkitSecurityManagerPointer.reinterpret(), scheme).asBoolean()
+        webkit_security_manager_uri_scheme_is_local(webkitSecurityManagerPointer, scheme).asBoolean()
 
     /**
      * Whether @scheme is considered as a no-access scheme.
@@ -175,7 +162,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @return true if @scheme is a no-access scheme or false otherwise.
      */
     public fun uriSchemeIsNoAccess(scheme: String): Boolean =
-        webkit_security_manager_uri_scheme_is_no_access(webkitSecurityManagerPointer.reinterpret(), scheme).asBoolean()
+        webkit_security_manager_uri_scheme_is_no_access(webkitSecurityManagerPointer, scheme).asBoolean()
 
     /**
      * Whether @scheme is considered as a secure scheme.
@@ -186,7 +173,7 @@ public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
      * @return true if @scheme is a secure scheme or false otherwise.
      */
     public fun uriSchemeIsSecure(scheme: String): Boolean =
-        webkit_security_manager_uri_scheme_is_secure(webkitSecurityManagerPointer.reinterpret(), scheme).asBoolean()
+        webkit_security_manager_uri_scheme_is_secure(webkitSecurityManagerPointer, scheme).asBoolean()
 
     public companion object : TypeCompanion<SecurityManager> {
         override val type: GeneratedClassKGType<SecurityManager> =

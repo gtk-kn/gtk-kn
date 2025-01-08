@@ -52,10 +52,10 @@ public interface HoverProvider :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_hover_provider_populate_async(
-        gtksourceHoverProviderPointer.reinterpret(),
-        context.gtksourceHoverContextPointer.reinterpret(),
-        display.gtksourceHoverDisplayPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gtksourceHoverProviderPointer,
+        context.gtksourceHoverContextPointer,
+        display.gtksourceHoverDisplayPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -65,7 +65,7 @@ public interface HoverProvider :
     public fun populateFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_hover_provider_populate_finish(
-            gtksourceHoverProviderPointer.reinterpret(),
+            gtksourceHoverProviderPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()

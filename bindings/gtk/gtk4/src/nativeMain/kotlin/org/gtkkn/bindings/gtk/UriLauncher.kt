@@ -70,7 +70,7 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
          * @return the uri
          * @since 4.10
          */
-        get() = gtk_uri_launcher_get_uri(gtkUriLauncherPointer.reinterpret())?.toKString()
+        get() = gtk_uri_launcher_get_uri(gtkUriLauncherPointer)?.toKString()
 
         /**
          * Sets the uri that will be opened.
@@ -79,7 +79,7 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(uri) = gtk_uri_launcher_set_uri(gtkUriLauncherPointer.reinterpret(), uri)
+        set(uri) = gtk_uri_launcher_set_uri(gtkUriLauncherPointer, uri)
 
     /**
      * Creates a new `GtkUriLauncher` object.
@@ -110,9 +110,9 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = gtk_uri_launcher_launch(
-        gtkUriLauncherPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        gtkUriLauncherPointer,
+        parent?.gtkWindowPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -132,7 +132,7 @@ public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
     public open fun launchFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_uri_launcher_launch_finish(
-            gtkUriLauncherPointer.reinterpret(),
+            gtkUriLauncherPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()

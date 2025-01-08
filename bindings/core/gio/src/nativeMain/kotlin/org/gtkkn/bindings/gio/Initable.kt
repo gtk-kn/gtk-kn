@@ -111,11 +111,7 @@ public interface Initable :
     @GioVersion2_22
     public fun `init`(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_initable_init(
-            gioInitablePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_initable_init(gioInitablePointer, cancellable?.gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {

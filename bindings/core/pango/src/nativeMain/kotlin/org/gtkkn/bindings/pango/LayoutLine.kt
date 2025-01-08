@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_10
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
@@ -57,12 +56,12 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      */
     public var layout: Layout?
         get() = gPointer.pointed.layout?.run {
-            Layout(reinterpret())
+            Layout(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.layout = value?.pangoLayoutPointer?.reinterpret()
+            gPointer.pointed.layout = value?.pangoLayoutPointer
         }
 
     /**
@@ -93,7 +92,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      */
     public var runs: SList?
         get() = gPointer.pointed.runs?.run {
-            SList(reinterpret())
+            SList(this)
         }
 
         @UnsafeFieldSetter
@@ -226,11 +225,8 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * @param logicalRect rectangle used to store the logical
      *   extents of the glyph string
      */
-    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit = pango_layout_line_get_extents(
-        gPointer.reinterpret(),
-        inkRect?.gPointer?.reinterpret(),
-        logicalRect?.gPointer?.reinterpret()
-    )
+    public fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
+        pango_layout_line_get_extents(gPointer, inkRect?.gPointer, logicalRect?.gPointer)
 
     /**
      * Returns the length of the line, in bytes.
@@ -239,7 +235,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getLength(): gint = pango_layout_line_get_length(gPointer.reinterpret())
+    public fun getLength(): gint = pango_layout_line_get_length(gPointer)
 
     /**
      * Computes the logical and ink extents of @layout_line in device units.
@@ -255,11 +251,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      *   extents of the glyph string
      */
     public fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_line_get_pixel_extents(
-            gPointer.reinterpret(),
-            inkRect?.gPointer?.reinterpret(),
-            logicalRect?.gPointer?.reinterpret()
-        )
+        pango_layout_line_get_pixel_extents(gPointer, inkRect?.gPointer, logicalRect?.gPointer)
 
     /**
      * Returns the resolved direction of the line.
@@ -268,10 +260,9 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getResolvedDirection(): Direction =
-        pango_layout_line_get_resolved_direction(gPointer.reinterpret()).run {
-            Direction.fromNativeValue(this)
-        }
+    public fun getResolvedDirection(): Direction = pango_layout_line_get_resolved_direction(gPointer).run {
+        Direction.fromNativeValue(this)
+    }
 
     /**
      * Returns the start index of the line, as byte index
@@ -281,7 +272,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getStartIndex(): gint = pango_layout_line_get_start_index(gPointer.reinterpret())
+    public fun getStartIndex(): gint = pango_layout_line_get_start_index(gPointer)
 
     /**
      * Returns whether this is the first line of the paragraph.
@@ -290,7 +281,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun isParagraphStart(): Boolean = pango_layout_line_is_paragraph_start(gPointer.reinterpret()).asBoolean()
+    public fun isParagraphStart(): Boolean = pango_layout_line_is_paragraph_start(gPointer).asBoolean()
 
     /**
      * Increase the reference count of a `PangoLayoutLine` by one.
@@ -299,8 +290,8 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * @since 1.10
      */
     @PangoVersion1_10
-    public fun ref(): LayoutLine? = pango_layout_line_ref(gPointer.reinterpret())?.run {
-        LayoutLine(reinterpret())
+    public fun ref(): LayoutLine? = pango_layout_line_ref(gPointer)?.run {
+        LayoutLine(this)
     }
 
     /**
@@ -309,7 +300,7 @@ public class LayoutLine(pointer: CPointer<PangoLayoutLine>, cleaner: Cleaner? = 
      * If the result is zero, the line and all associated memory
      * will be freed.
      */
-    public fun unref(): Unit = pango_layout_line_unref(gPointer.reinterpret())
+    public fun unref(): Unit = pango_layout_line_unref(gPointer)
 
     override fun toString(): String =
         "LayoutLine(layout=$layout, startIndex=$startIndex, length=$length, runs=$runs, isParagraphStart=$isParagraphStart, resolvedDir=$resolvedDir)"

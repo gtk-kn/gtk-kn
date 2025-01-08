@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -22,6 +23,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtksource.GtkSourceView
 import org.gtkkn.native.gtksource.GtkSourceVimIMContext
@@ -98,7 +100,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
          * @return A string containing the command-bar text
          * @since 5.4
          */
-        get() = gtk_source_vim_im_context_get_command_bar_text(gtksourceVimImContextPointer.reinterpret())?.toKString()
+        get() = gtk_source_vim_im_context_get_command_bar_text(gtksourceVimImContextPointer)?.toKString()
             ?: error("Expected not null string")
 
     public open val commandText: String
@@ -108,7 +110,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
          * @return A string containing the command text
          * @since 5.4
          */
-        get() = gtk_source_vim_im_context_get_command_text(gtksourceVimImContextPointer.reinterpret())?.toKString()
+        get() = gtk_source_vim_im_context_get_command_text(gtksourceVimImContextPointer)?.toKString()
             ?: error("Expected not null string")
 
     public constructor() : this(gtk_source_vim_im_context_new()!!.reinterpret())
@@ -123,7 +125,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      */
     @GtkSourceVersion5_4
     public open fun executeCommand(command: String): Unit =
-        gtk_source_vim_im_context_execute_command(gtksourceVimImContextPointer.reinterpret(), command)
+        gtk_source_vim_im_context_execute_command(gtksourceVimImContextPointer, command)
 
     /**
      * Requests the application open the file found at @path.
@@ -133,22 +135,34 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      * This may be executed in relation to the user running the
      * `:edit` or `:e` commands.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `view` the #GtkSourceView; `path` the path if provided, otherwise null
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public fun connectEdit(
+    public fun onEdit(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (view: View, path: String?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "edit",
-        connectEditFunc.reinterpret(),
+        onEditFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "edit" signal. See [onEdit].
+     *
+     * @param view the #GtkSourceView
+     * @param path the path if provided, otherwise null
+     * @since 5.4
+     */
+    @GtkSourceVersion5_4
+    public fun emitEdit(view: View, path: String?) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "edit", view.gtksourceViewPointer, path?.cstr)
+    }
 
     /**
      * The signal is emitted when a command should be
@@ -157,18 +171,18 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      * If the application chooses to implement this, it should return
      * true from this signal to indicate the command has been handled.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `command` the command to execute. Returns true if handled; otherwise false.
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public fun connectExecuteCommand(
+    public fun onExecuteCommand(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (command: String) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "execute-command",
-        connectExecuteCommandFunc.reinterpret(),
+        onExecuteCommandFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -178,22 +192,34 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      * Requests that the application format the text between
      * @begin and @end.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `begin` the start location; `end` the end location
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public fun connectFormatText(
+    public fun onFormatText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (begin: TextIter, end: TextIter) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "format-text",
-        connectFormatTextFunc.reinterpret(),
+        onFormatTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "format-text" signal. See [onFormatText].
+     *
+     * @param begin the start location
+     * @param end the end location
+     * @since 5.4
+     */
+    @GtkSourceVersion5_4
+    public fun emitFormatText(begin: TextIter, end: TextIter) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "format-text", begin.gPointer, end.gPointer)
+    }
 
     /**
      * Requests the application save the file.
@@ -201,22 +227,34 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      * If a filename was provided, it will be available to the signal handler as @path.
      * This may be executed in relation to the user running the `:write` or `:w` commands.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `view` the #GtkSourceView; `path` the path if provided, otherwise null
      * @since 5.4
      */
     @GtkSourceVersion5_4
-    public fun connectWrite(
+    public fun onWrite(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (view: View, path: String?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "write",
-        connectWriteFunc.reinterpret(),
+        onWriteFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "write" signal. See [onWrite].
+     *
+     * @param view the #GtkSourceView
+     * @param path the path if provided, otherwise null
+     * @since 5.4
+     */
+    @GtkSourceVersion5_4
+    public fun emitWrite(view: View, path: String?) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "write", view.gtksourceViewPointer, path?.cstr)
+    }
 
     public companion object : TypeCompanion<VimImContext> {
         override val type: GeneratedClassKGType<VimImContext> =
@@ -235,8 +273,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
     }
 }
 
-private val connectEditFunc:
-    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
+private val onEditFunc: CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             view: CPointer<GtkSourceView>?,
@@ -245,14 +282,14 @@ private val connectEditFunc:
         ->
         userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
-                View(reinterpret())
+                View(this)
             },
             path?.toKString()
         )
     }
         .reinterpret()
 
-private val connectExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
+private val onExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             command: CPointer<ByteVar>?,
@@ -264,7 +301,7 @@ private val connectExecuteCommandFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
     }
         .reinterpret()
 
-private val connectFormatTextFunc:
+private val onFormatTextFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GtkTextIter>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -274,17 +311,16 @@ private val connectFormatTextFunc:
         ->
         userData.asStableRef<(begin: TextIter, end: TextIter) -> Unit>().get().invoke(
             begin!!.run {
-                TextIter(reinterpret())
+                TextIter(this)
             },
             end!!.run {
-                TextIter(reinterpret())
+                TextIter(this)
             }
         )
     }
         .reinterpret()
 
-private val connectWriteFunc:
-    CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
+private val onWriteFunc: CPointer<CFunction<(CPointer<GtkSourceView>, CPointer<ByteVar>?) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             view: CPointer<GtkSourceView>?,
@@ -293,7 +329,7 @@ private val connectWriteFunc:
         ->
         userData.asStableRef<(view: View, path: String?) -> Unit>().get().invoke(
             view!!.run {
-                View(reinterpret())
+                View(this)
             },
             path?.toKString()
         )

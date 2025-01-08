@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gint
@@ -68,7 +67,7 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      */
     public var values: EnumValue?
         get() = gPointer.pointed.values?.run {
-            EnumValue(reinterpret())
+            EnumValue(this)
         }
 
         @UnsafeFieldSetter

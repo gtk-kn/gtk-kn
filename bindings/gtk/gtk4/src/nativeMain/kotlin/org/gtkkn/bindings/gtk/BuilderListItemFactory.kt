@@ -59,8 +59,8 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
          *
          * @return The `GtkBuilder` data
          */
-        get() = gtk_builder_list_item_factory_get_bytes(gtkBuilderListItemFactoryPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
+        get() = gtk_builder_list_item_factory_get_bytes(gtkBuilderListItemFactoryPointer)!!.run {
+            Bytes(this)
         }
 
     /**
@@ -72,7 +72,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
          *
          * @return The path to the resource
          */
-        get() = gtk_builder_list_item_factory_get_resource(gtkBuilderListItemFactoryPointer.reinterpret())?.toKString()
+        get() = gtk_builder_list_item_factory_get_resource(gtkBuilderListItemFactoryPointer)?.toKString()
 
     /**
      * `GtkBuilderScope` to use when instantiating listitems
@@ -83,7 +83,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
          *
          * @return The scope used when constructing listitems
          */
-        get() = gtk_builder_list_item_factory_get_scope(gtkBuilderListItemFactoryPointer.reinterpret())?.run {
+        get() = gtk_builder_list_item_factory_get_scope(gtkBuilderListItemFactoryPointer)?.run {
             BuilderScope.wrap(reinterpret())
         }
 
@@ -99,10 +99,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
         scope: BuilderScope? = null,
         bytes: Bytes,
     ) : this(
-        gtk_builder_list_item_factory_new_from_bytes(
-            scope?.gtkBuilderScopePointer,
-            bytes.gPointer.reinterpret()
-        )!!.reinterpret()
+        gtk_builder_list_item_factory_new_from_bytes(scope?.gtkBuilderScopePointer, bytes.gPointer)!!.reinterpret()
     )
 
     /**

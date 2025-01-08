@@ -56,7 +56,7 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
          * @return true if the @stream's buffer automatically grows,
          * false otherwise.
          */
-        get() = g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer.reinterpret()).asBoolean()
+        get() = g_buffered_output_stream_get_auto_grow(gioBufferedOutputStreamPointer).asBoolean()
 
         /**
          * Sets whether or not the @stream's buffer should automatically grow.
@@ -66,9 +66,7 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
          *
          * @param autoGrow a #gboolean.
          */
-        set(
-            autoGrow
-        ) = g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer.reinterpret(), autoGrow.asGBoolean())
+        set(autoGrow) = g_buffered_output_stream_set_auto_grow(gioBufferedOutputStreamPointer, autoGrow.asGBoolean())
 
     /**
      * The size of the backend buffer, in bytes.
@@ -79,14 +77,14 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
          *
          * @return the current size of the buffer.
          */
-        get() = g_buffered_output_stream_get_buffer_size(gioBufferedOutputStreamPointer.reinterpret())
+        get() = g_buffered_output_stream_get_buffer_size(gioBufferedOutputStreamPointer)
 
         /**
          * Sets the size of the internal buffer to @size.
          *
          * @param size a #gsize.
          */
-        set(size) = g_buffered_output_stream_set_buffer_size(gioBufferedOutputStreamPointer.reinterpret(), size)
+        set(size) = g_buffered_output_stream_set_buffer_size(gioBufferedOutputStreamPointer, size)
 
     /**
      * Creates a new buffered output stream for a base stream.
@@ -96,7 +94,7 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
      */
     public constructor(
         baseStream: OutputStream,
-    ) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer.reinterpret())!!.reinterpret())
+    ) : this(g_buffered_output_stream_new(baseStream.gioOutputStreamPointer)!!.reinterpret())
 
     /**
      * Creates a new buffered output stream with a given buffer size.
@@ -108,7 +106,7 @@ public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>)
     public constructor(
         baseStream: OutputStream,
         size: gsize,
-    ) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer.reinterpret(), size)!!.reinterpret())
+    ) : this(g_buffered_output_stream_new_sized(baseStream.gioOutputStreamPointer, size)!!.reinterpret())
 
     public companion object : TypeCompanion<BufferedOutputStream> {
         override val type: GeneratedClassKGType<BufferedOutputStream> =

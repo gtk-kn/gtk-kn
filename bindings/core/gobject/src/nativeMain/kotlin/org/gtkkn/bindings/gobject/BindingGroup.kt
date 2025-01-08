@@ -65,7 +65,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
     @GObjectVersion2_72
     public open fun bind(sourceProperty: String, target: Object, targetProperty: String, flags: BindingFlags): Unit =
         g_binding_group_bind(
-            gobjectBindingGroupPointer.reinterpret(),
+            gobjectBindingGroupPointer,
             sourceProperty,
             target.gPointer.reinterpret(),
             targetProperty,
@@ -105,13 +105,13 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
         transformTo: Closure? = null,
         transformFrom: Closure? = null,
     ): Unit = g_binding_group_bind_with_closures(
-        gobjectBindingGroupPointer.reinterpret(),
+        gobjectBindingGroupPointer,
         sourceProperty,
         target.gPointer.reinterpret(),
         targetProperty,
         flags.mask,
-        transformTo?.gPointer?.reinterpret(),
-        transformFrom?.gPointer?.reinterpret()
+        transformTo?.gPointer,
+        transformFrom?.gPointer
     )
 
     /**
@@ -121,7 +121,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
      * @since 2.72
      */
     @GObjectVersion2_72
-    public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer.reinterpret())?.run {
+    public open fun dupSource(): Object? = g_binding_group_dup_source(gobjectBindingGroupPointer)?.run {
         Object(reinterpret())
     }
 
@@ -138,7 +138,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
      */
     @GObjectVersion2_72
     public open fun setSource(source: Object? = null): Unit =
-        g_binding_group_set_source(gobjectBindingGroupPointer.reinterpret(), source?.gPointer?.reinterpret())
+        g_binding_group_set_source(gobjectBindingGroupPointer, source?.gPointer?.reinterpret())
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =

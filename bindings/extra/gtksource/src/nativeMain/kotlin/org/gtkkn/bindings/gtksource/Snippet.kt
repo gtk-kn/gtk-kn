@@ -70,7 +70,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
         /**
          * Gets the description for the snippet.
          */
-        get() = gtk_source_snippet_get_description(gtksourceSnippetPointer.reinterpret())?.toKString()
+        get() = gtk_source_snippet_get_description(gtksourceSnippetPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -78,7 +78,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
          *
          * @param description the snippet description
          */
-        set(description) = gtk_source_snippet_set_description(gtksourceSnippetPointer.reinterpret(), description)
+        set(description) = gtk_source_snippet_set_description(gtksourceSnippetPointer, description)
 
     public open val focusPosition: gint
         /**
@@ -88,7 +88,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
          *
          * @return The focus position, or -1 if unset.
          */
-        get() = gtk_source_snippet_get_focus_position(gtksourceSnippetPointer.reinterpret())
+        get() = gtk_source_snippet_get_focus_position(gtksourceSnippetPointer)
 
     public open var languageId: String
         /**
@@ -99,7 +99,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
          *
          * @return the language identifier
          */
-        get() = gtk_source_snippet_get_language_id(gtksourceSnippetPointer.reinterpret())?.toKString()
+        get() = gtk_source_snippet_get_language_id(gtksourceSnippetPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -109,21 +109,20 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
          *
          * @param languageId the language identifier for the snippet
          */
-        set(languageId) = gtk_source_snippet_set_language_id(gtksourceSnippetPointer.reinterpret(), languageId)
+        set(languageId) = gtk_source_snippet_set_language_id(gtksourceSnippetPointer, languageId)
 
     public open var name: String
         /**
          * Gets the name for the snippet.
          */
-        get() = gtk_source_snippet_get_name(gtksourceSnippetPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_source_snippet_get_name(gtksourceSnippetPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the name for the snippet.
          *
          * @param name the snippet name
          */
-        set(name) = gtk_source_snippet_set_name(gtksourceSnippetPointer.reinterpret(), name)
+        set(name) = gtk_source_snippet_set_name(gtksourceSnippetPointer, name)
 
     /**
      * Creates a new #GtkSourceSnippet
@@ -165,18 +164,16 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      *
      * @param chunk a #GtkSourceSnippetChunk
      */
-    public open fun addChunk(chunk: SnippetChunk): Unit = gtk_source_snippet_add_chunk(
-        gtksourceSnippetPointer.reinterpret(),
-        chunk.gtksourceSnippetChunkPointer.reinterpret()
-    )
+    public open fun addChunk(chunk: SnippetChunk): Unit =
+        gtk_source_snippet_add_chunk(gtksourceSnippetPointer, chunk.gtksourceSnippetChunkPointer)
 
     /**
      * Does a deep copy of the snippet.
      *
      * @return A new #GtkSourceSnippet
      */
-    public open fun copy(): Snippet = gtk_source_snippet_copy(gtksourceSnippetPointer.reinterpret())!!.run {
-        Snippet(reinterpret())
+    public open fun copy(): Snippet = gtk_source_snippet_copy(gtksourceSnippetPointer)!!.run {
+        Snippet(this)
     }
 
     /**
@@ -184,10 +181,9 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      *
      * @return an #GtkSourceSnippetContext
      */
-    public open fun getContext(): SnippetContext? =
-        gtk_source_snippet_get_context(gtksourceSnippetPointer.reinterpret())?.run {
-            SnippetContext(reinterpret())
-        }
+    public open fun getContext(): SnippetContext? = gtk_source_snippet_get_context(gtksourceSnippetPointer)?.run {
+        SnippetContext(this)
+    }
 
     /**
      * Gets the number of chunks in the snippet.
@@ -196,7 +192,7 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      *
      * @return The number of chunks.
      */
-    public open fun getNChunks(): guint = gtk_source_snippet_get_n_chunks(gtksourceSnippetPointer.reinterpret())
+    public open fun getNChunks(): guint = gtk_source_snippet_get_n_chunks(gtksourceSnippetPointer)
 
     /**
      * Gets the chunk at @nth.
@@ -205,8 +201,8 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      * @return an #GtkSourceSnippetChunk
      */
     public open fun getNthChunk(nth: guint): SnippetChunk =
-        gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer.reinterpret(), nth)!!.run {
-            SnippetChunk(reinterpret())
+        gtk_source_snippet_get_nth_chunk(gtksourceSnippetPointer, nth)!!.run {
+            SnippetChunk(this)
         }
 
     /**
@@ -217,16 +213,14 @@ public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
      *
      * @return A string or null
      */
-    public open fun getTrigger(): String? =
-        gtk_source_snippet_get_trigger(gtksourceSnippetPointer.reinterpret())?.toKString()
+    public open fun getTrigger(): String? = gtk_source_snippet_get_trigger(gtksourceSnippetPointer)?.toKString()
 
     /**
      * Sets the trigger for the snippet.
      *
      * @param trigger the trigger word
      */
-    public open fun setTrigger(trigger: String): Unit =
-        gtk_source_snippet_set_trigger(gtksourceSnippetPointer.reinterpret(), trigger)
+    public open fun setTrigger(trigger: String): Unit = gtk_source_snippet_set_trigger(gtksourceSnippetPointer, trigger)
 
     public companion object : TypeCompanion<Snippet> {
         override val type: GeneratedClassKGType<Snippet> =

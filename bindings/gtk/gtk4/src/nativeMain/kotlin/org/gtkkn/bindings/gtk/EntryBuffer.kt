@@ -65,7 +65,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
          *
          * @return The number of characters in the buffer.
          */
-        get() = gtk_entry_buffer_get_length(gtkEntryBufferPointer.reinterpret())
+        get() = gtk_entry_buffer_get_length(gtkEntryBufferPointer)
 
     /**
      * The maximum length (in characters) of the text in the buffer.
@@ -77,7 +77,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
          * @return the maximum allowed number of characters
          *   in `GtkEntryBuffer`, or 0 if there is no maximum.
          */
-        get() = gtk_entry_buffer_get_max_length(gtkEntryBufferPointer.reinterpret())
+        get() = gtk_entry_buffer_get_max_length(gtkEntryBufferPointer)
 
         /**
          * Sets the maximum allowed length of the contents of the buffer.
@@ -89,7 +89,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
          *   (other than the maximum length of entries.) The value passed in will
          *   be clamped to the range 0-65536.
          */
-        set(maxLength) = gtk_entry_buffer_set_max_length(gtkEntryBufferPointer.reinterpret(), maxLength)
+        set(maxLength) = gtk_entry_buffer_set_max_length(gtkEntryBufferPointer, maxLength)
 
     /**
      * The contents of the buffer.
@@ -105,8 +105,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
          *   string. This string points to internally allocated storage
          *   in the buffer and must not be freed, modified or stored.
          */
-        get() = gtk_entry_buffer_get_text(gtkEntryBufferPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_entry_buffer_get_text(gtkEntryBufferPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Create a new `GtkEntryBuffer` object.
@@ -140,7 +139,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @return The number of characters deleted.
      */
     public open fun deleteText(position: guint, nChars: gint): guint =
-        gtk_entry_buffer_delete_text(gtkEntryBufferPointer.reinterpret(), position, nChars)
+        gtk_entry_buffer_delete_text(gtkEntryBufferPointer, position, nChars)
 
     /**
      * Used when subclassing `GtkEntryBuffer`.
@@ -149,7 +148,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param nChars number of characters deleted
      */
     public open fun emitDeletedText(position: guint, nChars: guint): Unit =
-        gtk_entry_buffer_emit_deleted_text(gtkEntryBufferPointer.reinterpret(), position, nChars)
+        gtk_entry_buffer_emit_deleted_text(gtkEntryBufferPointer, position, nChars)
 
     /**
      * Used when subclassing `GtkEntryBuffer`.
@@ -159,7 +158,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param nChars number of characters inserted
      */
     public open fun emitInsertedText(position: guint, chars: String, nChars: guint): Unit =
-        gtk_entry_buffer_emit_inserted_text(gtkEntryBufferPointer.reinterpret(), position, chars, nChars)
+        gtk_entry_buffer_emit_inserted_text(gtkEntryBufferPointer, position, chars, nChars)
 
     /**
      * Retrieves the length in bytes of the buffer.
@@ -168,7 +167,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      *
      * @return The byte length of the buffer.
      */
-    public open fun getBytes(): gsize = gtk_entry_buffer_get_bytes(gtkEntryBufferPointer.reinterpret())
+    public open fun getBytes(): gsize = gtk_entry_buffer_get_bytes(gtkEntryBufferPointer)
 
     /**
      * Inserts @n_chars characters of @chars into the contents of the
@@ -187,7 +186,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @return The number of characters actually inserted.
      */
     public open fun insertText(position: guint, chars: String, nChars: gint): guint =
-        gtk_entry_buffer_insert_text(gtkEntryBufferPointer.reinterpret(), position, chars, nChars)
+        gtk_entry_buffer_insert_text(gtkEntryBufferPointer, position, chars, nChars)
 
     /**
      * Sets the text in the buffer.
@@ -202,7 +201,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * @param nChars the number of characters in @text, or -1
      */
     public open fun setText(chars: String, nChars: gint): Unit =
-        gtk_entry_buffer_set_text(gtkEntryBufferPointer.reinterpret(), chars, nChars)
+        gtk_entry_buffer_set_text(gtkEntryBufferPointer, chars, nChars)
 
     /**
      * The text is altered in the default handler for this signal.
@@ -210,16 +209,16 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
      * If you want access to the text after the text has been modified,
      * use %G_CONNECT_AFTER.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` the position the text was deleted at.; `nChars` The number of characters that were deleted.
      */
-    public fun connectDeletedText(
+    public fun onDeletedText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (position: guint, nChars: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "deleted-text",
-        connectDeletedTextFunc.reinterpret(),
+        onDeletedTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -228,10 +227,10 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
     /**
      * This signal is emitted after text is inserted into the buffer.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` the position the text was inserted at.; `chars` The text that was inserted.; `nChars` The number of characters that were inserted.
      */
-    public fun connectInsertedText(
+    public fun onInsertedText(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (
             position: guint,
@@ -239,9 +238,9 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
             nChars: guint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "inserted-text",
-        connectInsertedTextFunc.reinterpret(),
+        onInsertedTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -264,7 +263,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
     }
 }
 
-private val connectDeletedTextFunc: CPointer<CFunction<(guint, guint) -> Unit>> = staticCFunction {
+private val onDeletedTextFunc: CPointer<CFunction<(guint, guint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         position: guint,
         nChars: guint,
@@ -274,7 +273,7 @@ private val connectDeletedTextFunc: CPointer<CFunction<(guint, guint) -> Unit>> 
 }
     .reinterpret()
 
-private val connectInsertedTextFunc: CPointer<
+private val onInsertedTextFunc: CPointer<
     CFunction<
         (
             guint,

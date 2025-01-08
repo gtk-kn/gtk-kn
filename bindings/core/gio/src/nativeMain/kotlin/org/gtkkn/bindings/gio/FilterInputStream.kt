@@ -37,8 +37,8 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
          *
          * @return a #GInputStream.
          */
-        get() = g_filter_input_stream_get_base_stream(gioFilterInputStreamPointer.reinterpret())!!.run {
-            InputStream(reinterpret())
+        get() = g_filter_input_stream_get_base_stream(gioFilterInputStreamPointer)!!.run {
+            InputStream(this)
         }
 
     /**
@@ -51,7 +51,7 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
          *
          * @return true if the base stream will be closed.
          */
-        get() = g_filter_input_stream_get_close_base_stream(gioFilterInputStreamPointer.reinterpret()).asBoolean()
+        get() = g_filter_input_stream_get_close_base_stream(gioFilterInputStreamPointer).asBoolean()
 
         /**
          * Sets whether the base stream will be closed when @stream is closed.
@@ -60,10 +60,7 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
          */
         set(
             closeBase
-        ) = g_filter_input_stream_set_close_base_stream(
-            gioFilterInputStreamPointer.reinterpret(),
-            closeBase.asGBoolean()
-        )
+        ) = g_filter_input_stream_set_close_base_stream(gioFilterInputStreamPointer, closeBase.asGBoolean())
 
     public companion object : TypeCompanion<FilterInputStream> {
         override val type: GeneratedClassKGType<FilterInputStream> =

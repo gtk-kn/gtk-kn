@@ -60,7 +60,7 @@ public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
          * @return true if the file descriptor is closed when done
          * @since 2.20
          */
-        get() = g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer.reinterpret()).asBoolean()
+        get() = g_unix_output_stream_get_close_fd(gioUnixOutputStreamPointer).asBoolean()
 
         /**
          * Sets whether the file descriptor of @stream shall be closed
@@ -70,7 +70,7 @@ public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
          * @since 2.20
          */
         @GioVersion2_20
-        set(closeFd) = g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer.reinterpret(), closeFd.asGBoolean())
+        set(closeFd) = g_unix_output_stream_set_close_fd(gioUnixOutputStreamPointer, closeFd.asGBoolean())
 
     /**
      * The file descriptor that the stream writes to.
@@ -85,7 +85,7 @@ public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
          * @return The file descriptor of @stream
          * @since 2.20
          */
-        get() = g_unix_output_stream_get_fd(gioUnixOutputStreamPointer.reinterpret())
+        get() = g_unix_output_stream_get_fd(gioUnixOutputStreamPointer)
 
     /**
      * Creates a new #GUnixOutputStream for the given @fd.

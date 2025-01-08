@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -34,6 +35,7 @@ import org.gtkkn.native.gio.g_app_launch_context_unsetenv
 import org.gtkkn.native.glib.GVariant
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -69,9 +71,9 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      * @return a display string for the display.
      */
     public open fun getDisplay(info: AppInfo, files: GlibList): String? = g_app_launch_context_get_display(
-        gioAppLaunchContextPointer.reinterpret(),
+        gioAppLaunchContextPointer,
         info.gioAppInfoPointer,
-        files.gPointer.reinterpret()
+        files.gPointer
     )?.toKString()
 
     /**
@@ -85,7 +87,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     @GioVersion2_32
     public open fun getEnvironment(): CollectionsList<String> =
-        g_app_launch_context_get_environment(gioAppLaunchContextPointer.reinterpret())?.toKStringList()
+        g_app_launch_context_get_environment(gioAppLaunchContextPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -110,9 +112,9 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     public open fun getStartupNotifyId(info: AppInfo, files: GlibList): String? =
         g_app_launch_context_get_startup_notify_id(
-            gioAppLaunchContextPointer.reinterpret(),
+            gioAppLaunchContextPointer,
             info.gioAppInfoPointer,
-            files.gPointer.reinterpret()
+            files.gPointer
         )?.toKString()
 
     /**
@@ -122,7 +124,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      * @param startupNotifyId the startup notification id that was returned by g_app_launch_context_get_startup_notify_id().
      */
     public open fun launchFailed(startupNotifyId: String): Unit =
-        g_app_launch_context_launch_failed(gioAppLaunchContextPointer.reinterpret(), startupNotifyId)
+        g_app_launch_context_launch_failed(gioAppLaunchContextPointer, startupNotifyId)
 
     /**
      * Arranges for @variable to be set to @value in the child's
@@ -134,7 +136,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     @GioVersion2_32
     public open fun setenv(variable: String, `value`: String): Unit =
-        g_app_launch_context_setenv(gioAppLaunchContextPointer.reinterpret(), variable, `value`)
+        g_app_launch_context_setenv(gioAppLaunchContextPointer, variable, `value`)
 
     /**
      * Arranges for @variable to be unset in the child's environment
@@ -145,7 +147,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     @GioVersion2_32
     public open fun unsetenv(variable: String): Unit =
-        g_app_launch_context_unsetenv(gioAppLaunchContextPointer.reinterpret(), variable)
+        g_app_launch_context_unsetenv(gioAppLaunchContextPointer, variable)
 
     /**
      * The #GAppLaunchContext::launch-failed signal is emitted when a #GAppInfo launch
@@ -156,22 +158,33 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      * target application, you should expect this signal to be emitted multiple
      * times, one for each spawned instance.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `startupNotifyId` the startup notification id for the failed launch
      * @since 2.36
      */
     @GioVersion2_36
-    public fun connectLaunchFailed(
+    public fun onLaunchFailed(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startupNotifyId: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "launch-failed",
-        connectLaunchFailedFunc.reinterpret(),
+        onLaunchFailedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "launch-failed" signal. See [onLaunchFailed].
+     *
+     * @param startupNotifyId the startup notification id for the failed launch
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public fun emitLaunchFailed(startupNotifyId: String) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "launch-failed", startupNotifyId.cstr)
+    }
 
     /**
      * The #GAppLaunchContext::launch-started signal is emitted when a #GAppInfo is
@@ -193,22 +206,34 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      * target application, you should expect this signal to be emitted multiple
      * times, one for each spawned instance.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `info` the #GAppInfo that is about to be launched; `platformData` additional platform-specific data for this launch
      * @since 2.72
      */
     @GioVersion2_72
-    public fun connectLaunchStarted(
+    public fun onLaunchStarted(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (info: AppInfo, platformData: Variant?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "launch-started",
-        connectLaunchStartedFunc.reinterpret(),
+        onLaunchStartedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "launch-started" signal. See [onLaunchStarted].
+     *
+     * @param info the #GAppInfo that is about to be launched
+     * @param platformData additional platform-specific data for this launch
+     * @since 2.72
+     */
+    @GioVersion2_72
+    public fun emitLaunchStarted(info: AppInfo, platformData: Variant?) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "launch-started", info.gioAppInfoPointer, platformData?.gPointer)
+    }
 
     /**
      * The #GAppLaunchContext::launched signal is emitted when a #GAppInfo is successfully
@@ -232,22 +257,34 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      * GLib will call g_spawn_close_pid(). If you need to keep the #GPid after the
      * signal has been emitted, then you can duplicate `pid` using `DuplicateHandle()`.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `info` the #GAppInfo that was just launched; `platformData` additional platform-specific data for this launch
      * @since 2.36
      */
     @GioVersion2_36
-    public fun connectLaunched(
+    public fun onLaunched(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (info: AppInfo, platformData: Variant) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "launched",
-        connectLaunchedFunc.reinterpret(),
+        onLaunchedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "launched" signal. See [onLaunched].
+     *
+     * @param info the #GAppInfo that was just launched
+     * @param platformData additional platform-specific data for this launch
+     * @since 2.36
+     */
+    @GioVersion2_36
+    public fun emitLaunched(info: AppInfo, platformData: Variant) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "launched", info.gioAppInfoPointer, platformData.gPointer)
+    }
 
     public companion object : TypeCompanion<AppLaunchContext> {
         override val type: GeneratedClassKGType<AppLaunchContext> =
@@ -266,19 +303,18 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
     }
 }
 
-private val connectLaunchFailedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            startupNotifyId: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(startupNotifyId: String) -> Unit>().get().invoke(
-            startupNotifyId?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+private val onLaunchFailedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        startupNotifyId: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(startupNotifyId: String) -> Unit>().get().invoke(
+        startupNotifyId?.toKString() ?: error("Expected not null string")
+    )
+}
+    .reinterpret()
 
-private val connectLaunchStartedFunc:
+private val onLaunchStartedFunc:
     CPointer<CFunction<(CPointer<GAppInfo>, CPointer<GVariant>?) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             info: CPointer<GAppInfo>?,
@@ -290,14 +326,14 @@ private val connectLaunchStartedFunc:
                 AppInfo.wrap(reinterpret())
             },
             platformData?.run {
-                Variant(reinterpret())
+                Variant(this)
             }
         )
     }
         .reinterpret()
 
-private val connectLaunchedFunc:
-    CPointer<CFunction<(CPointer<GAppInfo>, CPointer<GVariant>) -> Unit>> = staticCFunction {
+private val onLaunchedFunc: CPointer<CFunction<(CPointer<GAppInfo>, CPointer<GVariant>) -> Unit>> =
+    staticCFunction {
             _: COpaquePointer,
             info: CPointer<GAppInfo>?,
             platformData: CPointer<GVariant>?,
@@ -308,7 +344,7 @@ private val connectLaunchedFunc:
                 AppInfo.wrap(reinterpret())
             },
             platformData!!.run {
-                Variant(reinterpret())
+                Variant(this)
             }
         )
     }

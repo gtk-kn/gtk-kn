@@ -47,10 +47,9 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueDupRenderNode(`value`: Value): RenderNode? =
-        gsk_value_dup_render_node(`value`.gPointer.reinterpret())?.run {
-            RenderNode(reinterpret())
-        }
+    public fun valueDupRenderNode(`value`: Value): RenderNode? = gsk_value_dup_render_node(`value`.gPointer)?.run {
+        RenderNode(this)
+    }
 
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`.
@@ -60,10 +59,9 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueGetRenderNode(`value`: Value): RenderNode? =
-        gsk_value_get_render_node(`value`.gPointer.reinterpret())?.run {
-            RenderNode(reinterpret())
-        }
+    public fun valueGetRenderNode(`value`: Value): RenderNode? = gsk_value_get_render_node(`value`.gPointer)?.run {
+        RenderNode(this)
+    }
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -76,7 +74,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit =
-        gsk_value_set_render_node(`value`.gPointer.reinterpret(), node.gPointer.reinterpret())
+        gsk_value_set_render_node(`value`.gPointer, node.gPointer)
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -89,7 +87,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit =
-        gsk_value_take_render_node(`value`.gPointer.reinterpret(), node?.gPointer?.reinterpret())
+        gsk_value_take_render_node(`value`.gPointer, node?.gPointer)
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -125,13 +123,13 @@ public val ParseErrorFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         start!!.run {
-            ParseLocation(reinterpret())
+            ParseLocation(this)
         },
         end!!.run {
-            ParseLocation(reinterpret())
+            ParseLocation(this)
         },
         error!!.run {
-            Error(reinterpret())
+            Error(this)
         }
     )
 }
@@ -165,7 +163,7 @@ public val PathForeachFuncFunc: CPointer<
             PathOperation.fromNativeValue(this)
         },
         pts!!.run {
-            Point(reinterpret())
+            Point(this)
         },
         nPts,
         weight

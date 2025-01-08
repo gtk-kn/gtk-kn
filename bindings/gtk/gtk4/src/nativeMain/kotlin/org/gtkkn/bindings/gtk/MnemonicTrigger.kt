@@ -34,7 +34,7 @@ public open class MnemonicTrigger(pointer: CPointer<GtkMnemonicTrigger>) :
          *
          * @return the keyval
          */
-        get() = gtk_mnemonic_trigger_get_keyval(gtkMnemonicTriggerPointer.reinterpret())
+        get() = gtk_mnemonic_trigger_get_keyval(gtkMnemonicTriggerPointer)
 
     /**
      * Creates a `GtkShortcutTrigger` that will trigger whenever the key with

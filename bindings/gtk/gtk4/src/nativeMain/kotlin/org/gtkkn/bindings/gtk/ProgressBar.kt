@@ -127,7 +127,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @return `PangoEllipsizeMode`
          */
-        get() = gtk_progress_bar_get_ellipsize(gtkProgressBarPointer.reinterpret()).run {
+        get() = gtk_progress_bar_get_ellipsize(gtkProgressBarPointer).run {
             EllipsizeMode.fromNativeValue(this)
         }
 
@@ -139,7 +139,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @param mode a `PangoEllipsizeMode`
          */
-        set(mode) = gtk_progress_bar_set_ellipsize(gtkProgressBarPointer.reinterpret(), mode.nativeValue)
+        set(mode) = gtk_progress_bar_set_ellipsize(gtkProgressBarPointer, mode.nativeValue)
 
     /**
      * The fraction of total work that has been completed.
@@ -150,7 +150,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @return a fraction from 0.0 to 1.0
          */
-        get() = gtk_progress_bar_get_fraction(gtkProgressBarPointer.reinterpret())
+        get() = gtk_progress_bar_get_fraction(gtkProgressBarPointer)
 
         /**
          * Causes the progress bar to “fill in” the given fraction
@@ -160,7 +160,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @param fraction fraction of the task that’s been completed
          */
-        set(fraction) = gtk_progress_bar_set_fraction(gtkProgressBarPointer.reinterpret(), fraction)
+        set(fraction) = gtk_progress_bar_set_fraction(gtkProgressBarPointer, fraction)
 
     /**
      * Invert the direction in which the progress bar grows.
@@ -171,7 +171,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @return true if the progress bar is inverted
          */
-        get() = gtk_progress_bar_get_inverted(gtkProgressBarPointer.reinterpret()).asBoolean()
+        get() = gtk_progress_bar_get_inverted(gtkProgressBarPointer).asBoolean()
 
         /**
          * Sets whether the progress bar is inverted.
@@ -181,7 +181,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @param inverted true to invert the progress bar
          */
-        set(inverted) = gtk_progress_bar_set_inverted(gtkProgressBarPointer.reinterpret(), inverted.asGBoolean())
+        set(inverted) = gtk_progress_bar_set_inverted(gtkProgressBarPointer, inverted.asGBoolean())
 
     /**
      * The fraction of total progress to move the bounding block when pulsed.
@@ -194,7 +194,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @return a fraction from 0.0 to 1.0
          */
-        get() = gtk_progress_bar_get_pulse_step(gtkProgressBarPointer.reinterpret())
+        get() = gtk_progress_bar_get_pulse_step(gtkProgressBarPointer)
 
         /**
          * Sets the fraction of total progress bar length to move the
@@ -205,7 +205,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @param fraction fraction between 0.0 and 1.0
          */
-        set(fraction) = gtk_progress_bar_set_pulse_step(gtkProgressBarPointer.reinterpret(), fraction)
+        set(fraction) = gtk_progress_bar_set_pulse_step(gtkProgressBarPointer, fraction)
 
     /**
      * Sets whether the progress bar will show a text in addition
@@ -227,7 +227,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @return true if text is shown in the progress bar
          */
-        get() = gtk_progress_bar_get_show_text(gtkProgressBarPointer.reinterpret()).asBoolean()
+        get() = gtk_progress_bar_get_show_text(gtkProgressBarPointer).asBoolean()
 
         /**
          * Sets whether the progress bar will show text next to the bar.
@@ -242,7 +242,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @param showText whether to show text
          */
-        set(showText) = gtk_progress_bar_set_show_text(gtkProgressBarPointer.reinterpret(), showText.asGBoolean())
+        set(showText) = gtk_progress_bar_set_show_text(gtkProgressBarPointer, showText.asGBoolean())
 
     /**
      * Text to be displayed in the progress bar.
@@ -256,7 +256,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @return the text
          */
-        get() = gtk_progress_bar_get_text(gtkProgressBarPointer.reinterpret())?.toKString()
+        get() = gtk_progress_bar_get_text(gtkProgressBarPointer)?.toKString()
 
         /**
          * Causes the given @text to appear next to the progress bar.
@@ -273,7 +273,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
          *
          * @param text a UTF-8 string
          */
-        set(text) = gtk_progress_bar_set_text(gtkProgressBarPointer.reinterpret(), text)
+        set(text) = gtk_progress_bar_set_text(gtkProgressBarPointer, text)
 
     /**
      * Creates a new `GtkProgressBar`.
@@ -290,7 +290,7 @@ public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
      * causes the block to move by a little bit (the amount of movement
      * per pulse is determined by [method@Gtk.ProgressBar.set_pulse_step]).
      */
-    public open fun pulse(): Unit = gtk_progress_bar_pulse(gtkProgressBarPointer.reinterpret())
+    public open fun pulse(): Unit = gtk_progress_bar_pulse(gtkProgressBarPointer)
 
     public companion object : TypeCompanion<ProgressBar> {
         override val type: GeneratedClassKGType<ProgressBar> =

@@ -81,7 +81,7 @@ public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
          *
          * @return true if @self is currently in editing mode
          */
-        get() = gtk_editable_label_get_editing(gtkEditableLabelPointer.reinterpret()).asBoolean()
+        get() = gtk_editable_label_get_editing(gtkEditableLabelPointer).asBoolean()
 
     /**
      * Creates a new `GtkEditableLabel` widget.
@@ -94,7 +94,7 @@ public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
     /**
      * Switches the label into “editing mode”.
      */
-    public open fun startEditing(): Unit = gtk_editable_label_start_editing(gtkEditableLabelPointer.reinterpret())
+    public open fun startEditing(): Unit = gtk_editable_label_start_editing(gtkEditableLabelPointer)
 
     /**
      * Switches the label out of “editing mode”.
@@ -107,7 +107,7 @@ public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
      * @param commit whether to set the edited text on the label
      */
     public open fun stopEditing(commit: Boolean): Unit =
-        gtk_editable_label_stop_editing(gtkEditableLabelPointer.reinterpret(), commit.asGBoolean())
+        gtk_editable_label_stop_editing(gtkEditableLabelPointer, commit.asGBoolean())
 
     public companion object : TypeCompanion<EditableLabel> {
         override val type: GeneratedClassKGType<EditableLabel> =

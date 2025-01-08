@@ -39,7 +39,7 @@ import org.gtkkn.extensions.gio.runApplication
  */
 fun main() {
     val app = Application("org.gtkkn.samples.cairo.shapes", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         val window = buildWindow(app)
         window.present()
     }

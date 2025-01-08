@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -66,18 +65,15 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * @return true if @start and @end have been set successfully (if non-null),
      *   or false if @iter is the end iterator or if the region is empty.
      */
-    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(
-        gPointer.reinterpret(),
-        start?.gPointer?.reinterpret(),
-        end?.gPointer?.reinterpret()
-    ).asBoolean()
+    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean =
+        gtk_source_region_iter_get_subregion(gPointer, start?.gPointer, end?.gPointer).asBoolean()
 
     /**
      *
      *
      * @return whether @iter is the end iterator.
      */
-    public fun isEnd(): Boolean = gtk_source_region_iter_is_end(gPointer.reinterpret()).asBoolean()
+    public fun isEnd(): Boolean = gtk_source_region_iter_is_end(gPointer).asBoolean()
 
     /**
      * Moves @iter to the next subregion.
@@ -85,5 +81,5 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * @return true if @iter moved and is dereferenceable, or false if @iter has
      *   been set to the end iterator.
      */
-    public fun next(): Boolean = gtk_source_region_iter_next(gPointer.reinterpret()).asBoolean()
+    public fun next(): Boolean = gtk_source_region_iter_next(gPointer).asBoolean()
 }

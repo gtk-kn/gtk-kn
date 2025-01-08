@@ -36,13 +36,7 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
         bottom: RenderNode,
         top: RenderNode,
         blendMode: BlendMode,
-    ) : this(
-        gsk_blend_node_new(
-            bottom.gPointer.reinterpret(),
-            top.gPointer.reinterpret(),
-            blendMode.nativeValue
-        )!!.reinterpret()
-    )
+    ) : this(gsk_blend_node_new(bottom.gPointer, top.gPointer, blendMode.nativeValue)!!.reinterpret())
 
     /**
      * Retrieves the blend mode used by @node.
@@ -60,7 +54,7 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
      */
     public open fun getBottomChild(): RenderNode =
         gsk_blend_node_get_bottom_child(gskBlendNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     /**
@@ -69,7 +63,7 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
      * @return the top child node
      */
     public open fun getTopChild(): RenderNode = gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     public companion object : TypeCompanion<BlendNode> {

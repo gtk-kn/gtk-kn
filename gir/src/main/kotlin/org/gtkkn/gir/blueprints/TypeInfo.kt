@@ -19,6 +19,7 @@ package org.gtkkn.gir.blueprints
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.LIST
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.STRING
 import com.squareup.kotlinpoet.TypeName
@@ -184,26 +185,21 @@ sealed class TypeInfo {
         )
     }
 
-    /**
-     * Native type is a CPointer and kotlin type is a generated wrapper class.
-     *
-     * native to kotlin conversion: wrap the pointer
-     * kotlin to native conversion: extract the objectPointer
-     *
-     * @property nativeTypeName TypeName for the native side
-     * @property kotlinTypeName TypeName for the kotlin side
-     * @property objectPointerName name for the pointer to be used as instancePointer
-     */
     data class ObjectPointer(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
         val objectPointerName: String,
+        private val needsReinterpret: Boolean = false,
     ) : TypeInfo() {
         override val isCinteropNullable = true
         override fun withNullable(nullable: Boolean): ObjectPointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
         )
+
+        fun needsReinterpret() = !((nativeTypeName as ParameterizedTypeName).typeArguments.first() as ClassName)
+            .simpleName
+            .contains((kotlinTypeName as ClassName).simpleName, ignoreCase = true) || needsReinterpret
     }
 
     /**
@@ -225,12 +221,15 @@ sealed class TypeInfo {
         override val kotlinTypeName: TypeName,
         override val nativeTypeName: TypeName,
         val objectPointerName: String,
+        private val needsReinterpret: Boolean = false,
     ) : TypeInfo() {
         override val isCinteropNullable: Boolean = true
         override fun withNullable(nullable: Boolean): TypeInfo = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
         )
+
+        fun needsReinterpret() = needsReinterpret
     }
 
     data class StringList(

@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
@@ -91,7 +92,9 @@ class ClassBlueprintBuilder(
         addInterfaces()
         addInterfaceOverrides()
 
-        girNode.methods.forEach { addMethod(it) }
+        val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girNode)
+
+        girNode.methods.forEach { addMethod(it, objectPointerTypeName) }
         girNode.properties.forEach { addProperty(it) }
         girNode.constructors.forEach { addConstructor(it) }
         girNode.signals.forEach { addSignal(it) }
@@ -105,7 +108,6 @@ class ClassBlueprintBuilder(
         } else {
             "gPointer"
         }
-        val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girNode)
 
         val glibGetTypeMember = if (girNode.glibGetType != "intern") {
             MemberName(namespaceNativePackageName(girNamespace), girNode.glibGetType)
@@ -164,15 +166,16 @@ class ClassBlueprintBuilder(
         }
     }
 
-    private fun addMethod(method: GirMethod) {
+    private fun addMethod(method: GirMethod, objectPointerTypeName: ParameterizedTypeName) {
         when (val result =
             MethodBlueprintBuilder(
-                context,
-                girNamespace,
-                method,
-                superClasses,
-                interfaces,
+                context = context,
+                girNamespace = girNamespace,
+                girNode = method,
+                superClasses = superClasses,
+                superInterfaces = interfaces,
                 isOpen = girNode.final != true,
+                objectPointerTypeName = objectPointerTypeName,
             ).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
@@ -195,7 +198,13 @@ class ClassBlueprintBuilder(
     }
 
     private fun addSignal(signal: GirSignal) {
-        when (val result = SignalBlueprintBuilder(context, girNamespace, signal).build()) {
+        when (val result = SignalBlueprintBuilder(
+            context = context,
+            girNamespace = girNamespace,
+            girNode = signal,
+            methods = girNode.methods,
+            functions = girNode.functions,
+        ).build()) {
             is BlueprintResult.Ok -> signalBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }

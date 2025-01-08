@@ -33,7 +33,7 @@ public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
     public constructor(
         child: RenderNode,
         clip: RoundedRect,
-    ) : this(gsk_rounded_clip_node_new(child.gPointer.reinterpret(), clip.gPointer.reinterpret())!!.reinterpret())
+    ) : this(gsk_rounded_clip_node_new(child.gPointer, clip.gPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.
@@ -42,7 +42,7 @@ public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
      */
     public open fun getChild(): RenderNode =
         gsk_rounded_clip_node_get_child(gskRoundedClipNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     /**
@@ -52,7 +52,7 @@ public open class RoundedClipNode(pointer: CPointer<GskRoundedClipNode>) :
      */
     public open fun getClip(): RoundedRect =
         gsk_rounded_clip_node_get_clip(gskRoundedClipNodePointer.reinterpret())!!.run {
-            RoundedRect(reinterpret())
+            RoundedRect(this)
         }
 
     public companion object : TypeCompanion<RoundedClipNode> {

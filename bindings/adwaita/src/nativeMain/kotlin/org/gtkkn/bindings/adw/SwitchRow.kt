@@ -82,7 +82,7 @@ public class SwitchRow(pointer: CPointer<AdwSwitchRow>) :
          * @return whether @self is active or not
          * @since 1.4
          */
-        get() = adw_switch_row_get_active(adwSwitchRowPointer.reinterpret()).asBoolean()
+        get() = adw_switch_row_get_active(adwSwitchRowPointer).asBoolean()
 
         /**
          * Sets whether @self is in its "on" or "off" position
@@ -91,7 +91,7 @@ public class SwitchRow(pointer: CPointer<AdwSwitchRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(isActive) = adw_switch_row_set_active(adwSwitchRowPointer.reinterpret(), isActive.asGBoolean())
+        set(isActive) = adw_switch_row_set_active(adwSwitchRowPointer, isActive.asGBoolean())
 
     /**
      * Creates a new `AdwSwitchRow`.

@@ -39,8 +39,8 @@ public open class LayoutChild(pointer: CPointer<GtkLayoutChild>) :
          *
          * @return a `GtkWidget`
          */
-        get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -53,8 +53,8 @@ public open class LayoutChild(pointer: CPointer<GtkLayoutChild>) :
          *
          * @return a `GtkLayoutManager`
          */
-        get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer.reinterpret())!!.run {
-            LayoutManager(reinterpret())
+        get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer)!!.run {
+            LayoutManager(this)
         }
 
     public companion object : TypeCompanion<LayoutChild> {

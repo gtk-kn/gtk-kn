@@ -35,7 +35,7 @@ public open class SignalAction(pointer: CPointer<GtkSignalAction>) :
          *
          * @return the name of the signal to emit
          */
-        get() = gtk_signal_action_get_signal_name(gtkSignalActionPointer.reinterpret())?.toKString()
+        get() = gtk_signal_action_get_signal_name(gtkSignalActionPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**

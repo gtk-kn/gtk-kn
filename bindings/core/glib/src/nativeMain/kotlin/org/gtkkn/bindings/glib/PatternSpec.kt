@@ -48,8 +48,8 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun copy(): PatternSpec = g_pattern_spec_copy(gPointer.reinterpret())!!.run {
-        PatternSpec(reinterpret())
+    public fun copy(): PatternSpec = g_pattern_spec_copy(gPointer)!!.run {
+        PatternSpec(this)
     }
 
     /**
@@ -59,13 +59,12 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @param pspec2 another #GPatternSpec
      * @return Whether the compiled patterns are equal
      */
-    public fun equal(pspec2: PatternSpec): Boolean =
-        g_pattern_spec_equal(gPointer.reinterpret(), pspec2.gPointer.reinterpret()).asBoolean()
+    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(gPointer, pspec2.gPointer).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
      */
-    public fun free(): Unit = g_pattern_spec_free(gPointer.reinterpret())
+    public fun free(): Unit = g_pattern_spec_free(gPointer)
 
     /**
      * Matches a string against a compiled pattern. Passing the correct
@@ -95,7 +94,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      */
     @GLibVersion2_70
     public fun match(stringLength: gsize, string: String, stringReversed: String? = null): Boolean =
-        g_pattern_spec_match(gPointer.reinterpret(), stringLength, string, stringReversed).asBoolean()
+        g_pattern_spec_match(gPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a compiled pattern. If the string is to be
@@ -107,8 +106,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun matchString(string: String): Boolean =
-        g_pattern_spec_match_string(gPointer.reinterpret(), string).asBoolean()
+    public fun matchString(string: String): Boolean = g_pattern_spec_match_string(gPointer, string).asBoolean()
 
     public companion object {
         /**

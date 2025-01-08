@@ -85,7 +85,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @return the custom image
          */
-        get() = adw_avatar_get_custom_image(adwAvatarPointer.reinterpret())?.run {
+        get() = adw_avatar_get_custom_image(adwAvatarPointer)?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -96,7 +96,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @param customImage a custom image
          */
-        set(customImage) = adw_avatar_set_custom_image(adwAvatarPointer.reinterpret(), customImage?.gdkPaintablePointer)
+        set(customImage) = adw_avatar_set_custom_image(adwAvatarPointer, customImage?.gdkPaintablePointer)
 
     /**
      * The name of an icon to use as a fallback.
@@ -109,7 +109,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @return the icon name
          */
-        get() = adw_avatar_get_icon_name(adwAvatarPointer.reinterpret())?.toKString()
+        get() = adw_avatar_get_icon_name(adwAvatarPointer)?.toKString()
 
         /**
          * Sets the name of an icon to use as a fallback.
@@ -118,7 +118,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @param iconName the icon name
          */
-        set(iconName) = adw_avatar_set_icon_name(adwAvatarPointer.reinterpret(), iconName)
+        set(iconName) = adw_avatar_set_icon_name(adwAvatarPointer, iconName)
 
     /**
      * Whether initials are used instead of an icon on the fallback avatar.
@@ -131,7 +131,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @return whether initials are used instead of an icon as fallback
          */
-        get() = adw_avatar_get_show_initials(adwAvatarPointer.reinterpret()).asBoolean()
+        get() = adw_avatar_get_show_initials(adwAvatarPointer).asBoolean()
 
         /**
          * Sets whether to use initials instead of an icon on the fallback avatar.
@@ -140,7 +140,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @param showInitials whether to use initials instead of an icon as fallback
          */
-        set(showInitials) = adw_avatar_set_show_initials(adwAvatarPointer.reinterpret(), showInitials.asGBoolean())
+        set(showInitials) = adw_avatar_set_show_initials(adwAvatarPointer, showInitials.asGBoolean())
 
     /**
      * The size of the avatar.
@@ -151,14 +151,14 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @return the size of the avatar
          */
-        get() = adw_avatar_get_size(adwAvatarPointer.reinterpret())
+        get() = adw_avatar_get_size(adwAvatarPointer)
 
         /**
          * Sets the size of the avatar.
          *
          * @param size The size of the avatar
          */
-        set(size) = adw_avatar_set_size(adwAvatarPointer.reinterpret(), size)
+        set(size) = adw_avatar_set_size(adwAvatarPointer, size)
 
     /**
      * Sets the text used to generate the fallback initials and color.
@@ -173,7 +173,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          * @return the text used to generate the fallback initials and
          *   color
          */
-        get() = adw_avatar_get_text(adwAvatarPointer.reinterpret())?.toKString()
+        get() = adw_avatar_get_text(adwAvatarPointer)?.toKString()
 
         /**
          * Sets the text used to generate the fallback initials and color.
@@ -183,7 +183,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          *
          * @param text the text used to get the initials and color
          */
-        set(text) = adw_avatar_set_text(adwAvatarPointer.reinterpret(), text)
+        set(text) = adw_avatar_set_text(adwAvatarPointer, text)
 
     /**
      * Creates a new `AdwAvatar`.
@@ -208,8 +208,8 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
      * @return the texture
      */
     public fun drawToTexture(scaleFactor: gint): Texture =
-        adw_avatar_draw_to_texture(adwAvatarPointer.reinterpret(), scaleFactor)!!.run {
-            Texture(reinterpret())
+        adw_avatar_draw_to_texture(adwAvatarPointer, scaleFactor)!!.run {
+            Texture(this)
         }
 
     public companion object : TypeCompanion<Avatar> {

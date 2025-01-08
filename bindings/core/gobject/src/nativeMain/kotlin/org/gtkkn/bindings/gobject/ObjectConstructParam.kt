@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GObjectConstructParam
@@ -29,12 +28,12 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      */
     public var pspec: ParamSpec?
         get() = gPointer.pointed.pspec?.run {
-            ParamSpec(reinterpret())
+            ParamSpec(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.pspec = value?.gPointer?.reinterpret()
+            gPointer.pointed.pspec = value?.gPointer
         }
 
     /**
@@ -42,7 +41,7 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      */
     public var `value`: Value?
         get() = gPointer.pointed.value?.run {
-            Value(reinterpret())
+            Value(this)
         }
 
         @UnsafeFieldSetter

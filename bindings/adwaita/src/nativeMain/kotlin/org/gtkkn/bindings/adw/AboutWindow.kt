@@ -292,7 +292,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the application icon name
          * @since 1.2
          */
-        get() = adw_about_window_get_application_icon(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_application_icon(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -304,9 +304,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            applicationIcon
-        ) = adw_about_window_set_application_icon(adwAboutWindowPointer.reinterpret(), applicationIcon)
+        set(applicationIcon) = adw_about_window_set_application_icon(adwAboutWindowPointer, applicationIcon)
 
     /**
      * The name of the application.
@@ -323,7 +321,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the application name
          * @since 1.2
          */
-        get() = adw_about_window_get_application_name(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_application_name(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -335,9 +333,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            applicationName
-        ) = adw_about_window_set_application_name(adwAboutWindowPointer.reinterpret(), applicationName)
+        set(applicationName) = adw_about_window_set_application_name(adwAboutWindowPointer, applicationName)
 
     /**
      * The list of artists of the application.
@@ -366,7 +362,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return The list of artists
          * @since 1.2
          */
-        get() = adw_about_window_get_artists(adwAboutWindowPointer.reinterpret())?.toKStringList()
+        get() = adw_about_window_get_artists(adwAboutWindowPointer)?.toKStringList()
 
         /**
          * Sets the list of artists of the application.
@@ -390,7 +386,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          */
         @AdwVersion1_2
         set(artists) = memScoped {
-            return adw_about_window_set_artists(adwAboutWindowPointer.reinterpret(), artists?.toCStringList(this))
+            return adw_about_window_set_artists(adwAboutWindowPointer, artists?.toCStringList(this))
         }
 
     /**
@@ -411,8 +407,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the comments
          * @since 1.2
          */
-        get() = adw_about_window_get_comments(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_comments(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the comments about the application.
@@ -426,7 +421,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(comments) = adw_about_window_set_comments(adwAboutWindowPointer.reinterpret(), comments)
+        set(comments) = adw_about_window_set_comments(adwAboutWindowPointer, comments)
 
     /**
      * The copyright information.
@@ -450,8 +445,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the copyright information
          * @since 1.2
          */
-        get() = adw_about_window_get_copyright(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_copyright(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the copyright information for @self.
@@ -469,7 +463,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(copyright) = adw_about_window_set_copyright(adwAboutWindowPointer.reinterpret(), copyright)
+        set(copyright) = adw_about_window_set_copyright(adwAboutWindowPointer, copyright)
 
     /**
      * The debug information.
@@ -494,8 +488,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the debug information
          * @since 1.2
          */
-        get() = adw_about_window_get_debug_info(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_debug_info(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the debug information for @self.
@@ -514,7 +507,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(debugInfo) = adw_about_window_set_debug_info(adwAboutWindowPointer.reinterpret(), debugInfo)
+        set(debugInfo) = adw_about_window_set_debug_info(adwAboutWindowPointer, debugInfo)
 
     /**
      * The debug information filename.
@@ -534,7 +527,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the debug information filename
          * @since 1.2
          */
-        get() = adw_about_window_get_debug_info_filename(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_debug_info_filename(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -549,7 +542,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(filename) = adw_about_window_set_debug_info_filename(adwAboutWindowPointer.reinterpret(), filename)
+        set(filename) = adw_about_window_set_debug_info_filename(adwAboutWindowPointer, filename)
 
     /**
      * The list of designers of the application.
@@ -578,7 +571,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return The list of designers
          * @since 1.2
          */
-        get() = adw_about_window_get_designers(adwAboutWindowPointer.reinterpret())?.toKStringList()
+        get() = adw_about_window_get_designers(adwAboutWindowPointer)?.toKStringList()
 
         /**
          * Sets the list of designers of the application.
@@ -602,7 +595,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          */
         @AdwVersion1_2
         set(designers) = memScoped {
-            return adw_about_window_set_designers(adwAboutWindowPointer.reinterpret(), designers?.toCStringList(this))
+            return adw_about_window_set_designers(adwAboutWindowPointer, designers?.toCStringList(this))
         }
 
     /**
@@ -627,7 +620,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the developer_name
          * @since 1.2
          */
-        get() = adw_about_window_get_developer_name(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_developer_name(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -644,7 +637,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(developerName) = adw_about_window_set_developer_name(adwAboutWindowPointer.reinterpret(), developerName)
+        set(developerName) = adw_about_window_set_developer_name(adwAboutWindowPointer, developerName)
 
     /**
      * The list of developers of the application.
@@ -673,7 +666,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return The list of developers
          * @since 1.2
          */
-        get() = adw_about_window_get_developers(adwAboutWindowPointer.reinterpret())?.toKStringList()
+        get() = adw_about_window_get_developers(adwAboutWindowPointer)?.toKStringList()
 
         /**
          * Sets the list of developers of the application.
@@ -697,7 +690,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          */
         @AdwVersion1_2
         set(developers) = memScoped {
-            return adw_about_window_set_developers(adwAboutWindowPointer.reinterpret(), developers?.toCStringList(this))
+            return adw_about_window_set_developers(adwAboutWindowPointer, developers?.toCStringList(this))
         }
 
     /**
@@ -727,7 +720,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return The list of documenters
          * @since 1.2
          */
-        get() = adw_about_window_get_documenters(adwAboutWindowPointer.reinterpret())?.toKStringList()
+        get() = adw_about_window_get_documenters(adwAboutWindowPointer)?.toKStringList()
 
         /**
          * Sets the list of documenters of the application.
@@ -751,10 +744,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          */
         @AdwVersion1_2
         set(documenters) = memScoped {
-            return adw_about_window_set_documenters(
-                adwAboutWindowPointer.reinterpret(),
-                documenters?.toCStringList(this)
-            )
+            return adw_about_window_set_documenters(adwAboutWindowPointer, documenters?.toCStringList(this))
         }
 
     /**
@@ -772,8 +762,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the issue tracker URL
          * @since 1.2
          */
-        get() = adw_about_window_get_issue_url(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_issue_url(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the issue tracker URL for @self.
@@ -784,7 +773,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(issueUrl) = adw_about_window_set_issue_url(adwAboutWindowPointer.reinterpret(), issueUrl)
+        set(issueUrl) = adw_about_window_set_issue_url(adwAboutWindowPointer, issueUrl)
 
     /**
      * The license text.
@@ -813,8 +802,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the license
          * @since 1.2
          */
-        get() = adw_about_window_get_license(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_license(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the license for @self.
@@ -837,7 +825,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(license) = adw_about_window_set_license(adwAboutWindowPointer.reinterpret(), license)
+        set(license) = adw_about_window_set_license(adwAboutWindowPointer, license)
 
     /**
      * The license type.
@@ -869,7 +857,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the license type
          * @since 1.2
          */
-        get() = adw_about_window_get_license_type(adwAboutWindowPointer.reinterpret()).run {
+        get() = adw_about_window_get_license_type(adwAboutWindowPointer).run {
             License.fromNativeValue(this)
         }
 
@@ -895,9 +883,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            licenseType
-        ) = adw_about_window_set_license_type(adwAboutWindowPointer.reinterpret(), licenseType.nativeValue)
+        set(licenseType) = adw_about_window_set_license_type(adwAboutWindowPointer, licenseType.nativeValue)
 
     /**
      * The release notes of the application.
@@ -935,7 +921,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the release notes
          * @since 1.2
          */
-        get() = adw_about_window_get_release_notes(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_release_notes(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -968,7 +954,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(releaseNotes) = adw_about_window_set_release_notes(adwAboutWindowPointer.reinterpret(), releaseNotes)
+        set(releaseNotes) = adw_about_window_set_release_notes(adwAboutWindowPointer, releaseNotes)
 
     /**
      * The version described by the application's release notes.
@@ -994,7 +980,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the release notes version
          * @since 1.2
          */
-        get() = adw_about_window_get_release_notes_version(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_release_notes_version(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -1015,7 +1001,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(version) = adw_about_window_set_release_notes_version(adwAboutWindowPointer.reinterpret(), version)
+        set(version) = adw_about_window_set_release_notes_version(adwAboutWindowPointer, version)
 
     /**
      * The URL of the application's support page.
@@ -1032,7 +1018,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the support page URL
          * @since 1.2
          */
-        get() = adw_about_window_get_support_url(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_support_url(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -1044,7 +1030,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(supportUrl) = adw_about_window_set_support_url(adwAboutWindowPointer.reinterpret(), supportUrl)
+        set(supportUrl) = adw_about_window_set_support_url(adwAboutWindowPointer, supportUrl)
 
     /**
      * The translator credits string.
@@ -1076,7 +1062,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return The translator credits string
          * @since 1.2
          */
-        get() = adw_about_window_get_translator_credits(adwAboutWindowPointer.reinterpret())?.toKString()
+        get() = adw_about_window_get_translator_credits(adwAboutWindowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -1103,9 +1089,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            translatorCredits
-        ) = adw_about_window_set_translator_credits(adwAboutWindowPointer.reinterpret(), translatorCredits)
+        set(translatorCredits) = adw_about_window_set_translator_credits(adwAboutWindowPointer, translatorCredits)
 
     /**
      * The version of the application.
@@ -1125,8 +1109,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the version
          * @since 1.2
          */
-        get() = adw_about_window_get_version(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_version(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the version for @self.
@@ -1140,7 +1123,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(version) = adw_about_window_set_version(adwAboutWindowPointer.reinterpret(), version)
+        set(version) = adw_about_window_set_version(adwAboutWindowPointer, version)
 
     /**
      * The URL of the application's website.
@@ -1160,8 +1143,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @return the website URL
          * @since 1.2
          */
-        get() = adw_about_window_get_website(adwAboutWindowPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_about_window_get_website(adwAboutWindowPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the application website URL for @self.
@@ -1175,7 +1157,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(website) = adw_about_window_set_website(adwAboutWindowPointer.reinterpret(), website)
+        set(website) = adw_about_window_set_website(adwAboutWindowPointer, website)
 
     /**
      * Creates a new `AdwAboutWindow`.
@@ -1242,11 +1224,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
      */
     @AdwVersion1_2
     public fun addAcknowledgementSection(name: String? = null, people: List<String>): Unit = memScoped {
-        return adw_about_window_add_acknowledgement_section(
-            adwAboutWindowPointer.reinterpret(),
-            name,
-            people.toCStringList(this)
-        )
+        return adw_about_window_add_acknowledgement_section(adwAboutWindowPointer, name, people.toCStringList(this))
     }
 
     /**
@@ -1272,11 +1250,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
      */
     @AdwVersion1_2
     public fun addCreditSection(name: String? = null, people: List<String>): Unit = memScoped {
-        return adw_about_window_add_credit_section(
-            adwAboutWindowPointer.reinterpret(),
-            name,
-            people.toCStringList(this)
-        )
+        return adw_about_window_add_credit_section(adwAboutWindowPointer, name, people.toCStringList(this))
     }
 
     /**
@@ -1333,13 +1307,8 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
         copyright: String? = null,
         licenseType: License,
         license: String? = null,
-    ): Unit = adw_about_window_add_legal_section(
-        adwAboutWindowPointer.reinterpret(),
-        title,
-        copyright,
-        licenseType.nativeValue,
-        license
-    )
+    ): Unit =
+        adw_about_window_add_legal_section(adwAboutWindowPointer, title, copyright, licenseType.nativeValue, license)
 
     /**
      * Adds an extra link to the Details page.
@@ -1355,8 +1324,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun addLink(title: String, url: String): Unit =
-        adw_about_window_add_link(adwAboutWindowPointer.reinterpret(), title, url)
+    public fun addLink(title: String, url: String): Unit = adw_about_window_add_link(adwAboutWindowPointer, title, url)
 
     /**
      * Emitted when a URL is activated.
@@ -1364,22 +1332,20 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
      * Applications may connect to it to override the default behavior, which is
      * to call [func@Gtk.show_uri].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `uri` the URI to activate. Returns `TRUE` if the link has been activated
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun connectActivateLink(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (uri: String) -> Boolean,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "activate-link",
-        connectActivateLinkFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "activate-link",
+            onActivateLinkFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
 
     public companion object : TypeCompanion<AboutWindow> {
         override val type: GeneratedClassKGType<AboutWindow> =
@@ -1398,7 +1364,7 @@ public class AboutWindow(pointer: CPointer<AdwAboutWindow>) :
     }
 }
 
-private val connectActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
+private val onActivateLinkFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             uri: CPointer<ByteVar>?,

@@ -72,10 +72,8 @@ public open class ShortcutsGroup(pointer: CPointer<GtkShortcutsGroup>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit = gtk_shortcuts_group_add_shortcut(
-        gtkShortcutsGroupPointer.reinterpret(),
-        shortcut.gtkShortcutsShortcutPointer.reinterpret()
-    )
+    public open fun addShortcut(shortcut: ShortcutsShortcut): Unit =
+        gtk_shortcuts_group_add_shortcut(gtkShortcutsGroupPointer, shortcut.gtkShortcutsShortcutPointer)
 
     public companion object : TypeCompanion<ShortcutsGroup> {
         override val type: GeneratedClassKGType<ShortcutsGroup> =

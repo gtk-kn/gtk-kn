@@ -22,6 +22,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkCssProvider
 import org.gtkkn.native.gtk.GtkCssSection
 import org.gtkkn.native.gtk.GtkStyleProvider
@@ -98,7 +99,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      */
     @GtkVersion4_12
     public open fun loadFromBytes(`data`: Bytes): Unit =
-        gtk_css_provider_load_from_bytes(gtkCssProviderPointer.reinterpret(), `data`.gPointer.reinterpret())
+        gtk_css_provider_load_from_bytes(gtkCssProviderPointer, `data`.gPointer)
 
     /**
      * Loads @data into @css_provider.
@@ -109,7 +110,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      * @param length the length of @data in bytes, or -1 for NUL terminated strings
      */
     public open fun loadFromData(`data`: String, length: Long): Unit =
-        gtk_css_provider_load_from_data(gtkCssProviderPointer.reinterpret(), `data`, length)
+        gtk_css_provider_load_from_data(gtkCssProviderPointer, `data`, length)
 
     /**
      * Loads the data contained in @file into @css_provider.
@@ -119,7 +120,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      * @param file `GFile` pointing to a file to load
      */
     public open fun loadFromFile(`file`: File): Unit =
-        gtk_css_provider_load_from_file(gtkCssProviderPointer.reinterpret(), `file`.gioFilePointer)
+        gtk_css_provider_load_from_file(gtkCssProviderPointer, `file`.gioFilePointer)
 
     /**
      * Loads the data contained in @path into @css_provider.
@@ -128,8 +129,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      *
      * @param path the path of a filename to load, in the GLib filename encoding
      */
-    public open fun loadFromPath(path: String): Unit =
-        gtk_css_provider_load_from_path(gtkCssProviderPointer.reinterpret(), path)
+    public open fun loadFromPath(path: String): Unit = gtk_css_provider_load_from_path(gtkCssProviderPointer, path)
 
     /**
      * Loads the data contained in the resource at @resource_path into
@@ -140,7 +140,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      * @param resourcePath a `GResource` resource path
      */
     public open fun loadFromResource(resourcePath: String): Unit =
-        gtk_css_provider_load_from_resource(gtkCssProviderPointer.reinterpret(), resourcePath)
+        gtk_css_provider_load_from_resource(gtkCssProviderPointer, resourcePath)
 
     /**
      * Loads @string into @css_provider.
@@ -152,7 +152,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      */
     @GtkVersion4_12
     public open fun loadFromString(string: String): Unit =
-        gtk_css_provider_load_from_string(gtkCssProviderPointer.reinterpret(), string)
+        gtk_css_provider_load_from_string(gtkCssProviderPointer, string)
 
     /**
      * Loads a theme from the usual theme paths.
@@ -166,7 +166,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      *   null for the default
      */
     public open fun loadNamed(name: String, variant: String? = null): Unit =
-        gtk_css_provider_load_named(gtkCssProviderPointer.reinterpret(), name, variant)
+        gtk_css_provider_load_named(gtkCssProviderPointer, name, variant)
 
     /**
      * Converts the @provider into a string representation in CSS
@@ -179,8 +179,8 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      *
      * @return a new string representing the @provider.
      */
-    override fun toString(): String = gtk_css_provider_to_string(gtkCssProviderPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    override fun toString(): String =
+        gtk_css_provider_to_string(gtkCssProviderPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Signals that a parsing error occurred.
@@ -197,20 +197,30 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      * may opt to defer parsing parts or all of the input to a later time
      * than when a loading function was called.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `section` section the error happened in; `error` The parsing error
      */
-    public fun connectParsingError(
+    public fun onParsingError(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (section: CssSection, error: Error) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "parsing-error",
-        connectParsingErrorFunc.reinterpret(),
+        onParsingErrorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "parsing-error" signal. See [onParsingError].
+     *
+     * @param section section the error happened in
+     * @param error The parsing error
+     */
+    public fun emitParsingError(section: CssSection, error: Error) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "parsing-error", section.gPointer, error.gPointer)
+    }
 
     public companion object : TypeCompanion<CssProvider> {
         override val type: GeneratedClassKGType<CssProvider> =
@@ -229,7 +239,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
     }
 }
 
-private val connectParsingErrorFunc:
+private val onParsingErrorFunc:
     CPointer<CFunction<(CPointer<GtkCssSection>, CPointer<GError>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             section: CPointer<GtkCssSection>?,
@@ -238,10 +248,10 @@ private val connectParsingErrorFunc:
         ->
         userData.asStableRef<(section: CssSection, error: Error) -> Unit>().get().invoke(
             section!!.run {
-                CssSection(reinterpret())
+                CssSection(this)
             },
             error!!.run {
-                Error(reinterpret())
+                Error(this)
             }
         )
     }

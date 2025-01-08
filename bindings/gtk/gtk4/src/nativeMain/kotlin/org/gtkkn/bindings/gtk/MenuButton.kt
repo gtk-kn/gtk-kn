@@ -23,6 +23,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -159,7 +160,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @return TRUE if the button is active
          * @since 4.10
          */
-        get() = gtk_menu_button_get_active(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_active(gtkMenuButtonPointer).asBoolean()
 
         /**
          * Sets whether the menu button is active.
@@ -168,7 +169,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(active) = gtk_menu_button_set_active(gtkMenuButtonPointer.reinterpret(), active.asGBoolean())
+        set(active) = gtk_menu_button_set_active(gtkMenuButtonPointer, active.asGBoolean())
 
     /**
      * Whether to show a dropdown arrow even when using an icon or a custom child.
@@ -185,7 +186,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * child.
          * @since 4.4
          */
-        get() = gtk_menu_button_get_always_show_arrow(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_always_show_arrow(gtkMenuButtonPointer).asBoolean()
 
         /**
          * Sets whether to show a dropdown arrow even when using an icon or a custom
@@ -196,9 +197,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @since 4.4
          */
         @GtkVersion4_4
-        set(
-            alwaysShowArrow
-        ) = gtk_menu_button_set_always_show_arrow(gtkMenuButtonPointer.reinterpret(), alwaysShowArrow.asGBoolean())
+        set(alwaysShowArrow) = gtk_menu_button_set_always_show_arrow(gtkMenuButtonPointer, alwaysShowArrow.asGBoolean())
 
     /**
      * Whether the size of the button can be made smaller than the natural
@@ -215,7 +214,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @return true if the button can shrink, and false otherwise
          * @since 4.12
          */
-        get() = gtk_menu_button_get_can_shrink(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_can_shrink(gtkMenuButtonPointer).asBoolean()
 
         /**
          * Sets whether the button size can be smaller than the natural size of
@@ -229,7 +228,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(canShrink) = gtk_menu_button_set_can_shrink(gtkMenuButtonPointer.reinterpret(), canShrink.asGBoolean())
+        set(canShrink) = gtk_menu_button_set_can_shrink(gtkMenuButtonPointer, canShrink.asGBoolean())
 
     /**
      * The child widget.
@@ -244,8 +243,8 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @return the child widget of @menu_button
          * @since 4.6
          */
-        get() = gtk_menu_button_get_child(gtkMenuButtonPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_menu_button_get_child(gtkMenuButtonPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -262,9 +261,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @since 4.6
          */
         @GtkVersion4_6
-        set(
-            child
-        ) = gtk_menu_button_set_child(gtkMenuButtonPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_menu_button_set_child(gtkMenuButtonPointer, child?.gtkWidgetPointer)
 
     /**
      * The `GtkArrowType` representing the direction in which the
@@ -276,7 +273,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          *
          * @return a `GtkArrowType` value
          */
-        get() = gtk_menu_button_get_direction(gtkMenuButtonPointer.reinterpret()).run {
+        get() = gtk_menu_button_get_direction(gtkMenuButtonPointer).run {
             ArrowType.fromNativeValue(this)
         }
 
@@ -294,7 +291,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          *
          * @param direction a `GtkArrowType`
          */
-        set(direction) = gtk_menu_button_set_direction(gtkMenuButtonPointer.reinterpret(), direction.nativeValue)
+        set(direction) = gtk_menu_button_set_direction(gtkMenuButtonPointer, direction.nativeValue)
 
     /**
      * Whether the button has a frame.
@@ -305,14 +302,14 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          *
          * @return true if the button has a frame
          */
-        get() = gtk_menu_button_get_has_frame(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_has_frame(gtkMenuButtonPointer).asBoolean()
 
         /**
          * Sets the style of the button.
          *
          * @param hasFrame whether the button should have a visible frame
          */
-        set(hasFrame) = gtk_menu_button_set_has_frame(gtkMenuButtonPointer.reinterpret(), hasFrame.asGBoolean())
+        set(hasFrame) = gtk_menu_button_set_has_frame(gtkMenuButtonPointer, hasFrame.asGBoolean())
 
     /**
      * The `GMenuModel` from which the popup will be created.
@@ -326,8 +323,8 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          *
          * @return a `GMenuModel`
          */
-        get() = gtk_menu_button_get_menu_model(gtkMenuButtonPointer.reinterpret())?.run {
-            MenuModel(reinterpret())
+        get() = gtk_menu_button_get_menu_model(gtkMenuButtonPointer)?.run {
+            MenuModel(this)
         }
 
         /**
@@ -345,12 +342,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @param menuModel a `GMenuModel`, or null to unset and disable the
          *   button
          */
-        set(
-            menuModel
-        ) = gtk_menu_button_set_menu_model(
-            gtkMenuButtonPointer.reinterpret(),
-            menuModel?.gioMenuModelPointer?.reinterpret()
-        )
+        set(menuModel) = gtk_menu_button_set_menu_model(gtkMenuButtonPointer, menuModel?.gioMenuModelPointer)
 
     /**
      * Whether the menu button acts as a primary menu.
@@ -367,7 +359,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @return true if the button is a primary menu
          * @since 4.4
          */
-        get() = gtk_menu_button_get_primary(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_primary(gtkMenuButtonPointer).asBoolean()
 
         /**
          * Sets whether menu button acts as a primary menu.
@@ -378,7 +370,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @since 4.4
          */
         @GtkVersion4_4
-        set(primary) = gtk_menu_button_set_primary(gtkMenuButtonPointer.reinterpret(), primary.asGBoolean())
+        set(primary) = gtk_menu_button_set_primary(gtkMenuButtonPointer, primary.asGBoolean())
 
     /**
      * If set an underscore in the text indicates a mnemonic.
@@ -391,16 +383,14 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @return true whether an embedded underline in the text indicates
          *   the mnemonic accelerator keys.
          */
-        get() = gtk_menu_button_get_use_underline(gtkMenuButtonPointer.reinterpret()).asBoolean()
+        get() = gtk_menu_button_get_use_underline(gtkMenuButtonPointer).asBoolean()
 
         /**
          * If true, an underline in the text indicates a mnemonic.
          *
          * @param useUnderline true if underlines in the text indicate mnemonics
          */
-        set(
-            useUnderline
-        ) = gtk_menu_button_set_use_underline(gtkMenuButtonPointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = gtk_menu_button_set_use_underline(gtkMenuButtonPointer, useUnderline.asGBoolean())
 
     /**
      * Creates a new `GtkMenuButton` widget with downwards-pointing
@@ -418,15 +408,14 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      *
      * @return the name of the icon shown in the button
      */
-    public open fun getIconName(): String? =
-        gtk_menu_button_get_icon_name(gtkMenuButtonPointer.reinterpret())?.toKString()
+    public open fun getIconName(): String? = gtk_menu_button_get_icon_name(gtkMenuButtonPointer)?.toKString()
 
     /**
      * Gets the label shown in the button
      *
      * @return the label shown in the button
      */
-    public open fun getLabel(): String? = gtk_menu_button_get_label(gtkMenuButtonPointer.reinterpret())?.toKString()
+    public open fun getLabel(): String? = gtk_menu_button_get_label(gtkMenuButtonPointer)?.toKString()
 
     /**
      * Returns the `GtkPopover` that pops out of the button.
@@ -436,19 +425,19 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      *
      * @return a `GtkPopover` or null
      */
-    public open fun getPopover(): Popover? = gtk_menu_button_get_popover(gtkMenuButtonPointer.reinterpret())?.run {
-        Popover(reinterpret())
+    public open fun getPopover(): Popover? = gtk_menu_button_get_popover(gtkMenuButtonPointer)?.run {
+        Popover(this)
     }
 
     /**
      * Dismiss the menu.
      */
-    public open fun popdown(): Unit = gtk_menu_button_popdown(gtkMenuButtonPointer.reinterpret())
+    public open fun popdown(): Unit = gtk_menu_button_popdown(gtkMenuButtonPointer)
 
     /**
      * Pop up the menu.
      */
-    public open fun popup(): Unit = gtk_menu_button_popup(gtkMenuButtonPointer.reinterpret())
+    public open fun popup(): Unit = gtk_menu_button_popup(gtkMenuButtonPointer)
 
     /**
      * Sets @func to be called when a popup is about to be shown.
@@ -469,7 +458,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      *   to reset to default behavior.
      */
     public open fun setCreatePopupFunc(func: MenuButtonCreatePopupFunc?): Unit = gtk_menu_button_set_create_popup_func(
-        gtkMenuButtonPointer.reinterpret(),
+        gtkMenuButtonPointer,
         func?.let {
             MenuButtonCreatePopupFuncFunc.reinterpret()
         },
@@ -489,8 +478,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      *
      * @param iconName the icon name
      */
-    public open fun setIconName(iconName: String): Unit =
-        gtk_menu_button_set_icon_name(gtkMenuButtonPointer.reinterpret(), iconName)
+    public open fun setIconName(iconName: String): Unit = gtk_menu_button_set_icon_name(gtkMenuButtonPointer, iconName)
 
     /**
      * Sets the label to show inside the menu button.
@@ -503,7 +491,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      *
      * @param label the label
      */
-    public open fun setLabel(label: String): Unit = gtk_menu_button_set_label(gtkMenuButtonPointer.reinterpret(), label)
+    public open fun setLabel(label: String): Unit = gtk_menu_button_set_label(gtkMenuButtonPointer, label)
 
     /**
      * Sets the `GtkPopover` that will be popped up when the @menu_button is clicked.
@@ -516,7 +504,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      * @param popover a `GtkPopover`, or null to unset and disable the button
      */
     public open fun setPopover(popover: Widget? = null): Unit =
-        gtk_menu_button_set_popover(gtkMenuButtonPointer.reinterpret(), popover?.gtkWidgetPointer?.reinterpret())
+        gtk_menu_button_set_popover(gtkMenuButtonPointer, popover?.gtkWidgetPointer)
 
     /**
      * Emitted to when the menu button is activated.
@@ -524,20 +512,30 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      * The `::activate` signal on `GtkMenuButton` is an action signal and
      * emitting it causes the button to pop up its menu.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 4.4
      */
     @GtkVersion4_4
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     *
+     * @since 4.4
+     */
+    @GtkVersion4_4
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     public companion object : TypeCompanion<MenuButton> {
         override val type: GeneratedClassKGType<MenuButton> =
@@ -556,7 +554,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

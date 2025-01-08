@@ -20,13 +20,15 @@ import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.MemberName
 
 data class SignalBlueprint(
-    val kotlinConnectName: String,
     val signalName: String,
+    val kotlinConnectName: String,
+    val kotlinEmitName: String?,
     override val returnTypeInfo: TypeInfo,
     override val parameters: List<ParameterBlueprint>,
-    override val throws: Boolean,
+    override val throws: Boolean = false,  // signals cannot throw
     override val exceptionResolvingFunctionMember: MemberName,
     override val lambdaTypeName: LambdaTypeName,
+    val detailed: Boolean,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
     val returnTypeKDoc: String?,

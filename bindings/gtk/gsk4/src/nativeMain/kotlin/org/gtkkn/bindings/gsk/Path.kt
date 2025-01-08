@@ -88,7 +88,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      */
     @GskVersion4_14
     public fun foreach(flags: PathForeachFlags, func: PathForeachFunc): Boolean = gsk_path_foreach(
-        gPointer.reinterpret(),
+        gPointer,
         flags.mask,
         PathForeachFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
@@ -116,8 +116,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getBounds(bounds: Rect): Boolean =
-        gsk_path_get_bounds(gPointer.reinterpret(), bounds.gPointer.reinterpret()).asBoolean()
+    public fun getBounds(bounds: Rect): Boolean = gsk_path_get_bounds(gPointer, bounds.gPointer).asBoolean()
 
     /**
      * Gets the end point of the path.
@@ -130,8 +129,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getEndPoint(result: PathPoint): Boolean =
-        gsk_path_get_end_point(gPointer.reinterpret(), result.gPointer.reinterpret()).asBoolean()
+    public fun getEndPoint(result: PathPoint): Boolean = gsk_path_get_end_point(gPointer, result.gPointer).asBoolean()
 
     /**
      * Gets the start point of the path.
@@ -145,7 +143,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      */
     @GskVersion4_14
     public fun getStartPoint(result: PathPoint): Boolean =
-        gsk_path_get_start_point(gPointer.reinterpret(), result.gPointer.reinterpret()).asBoolean()
+        gsk_path_get_start_point(gPointer, result.gPointer).asBoolean()
 
     /**
      * Computes the bounds for stroking the given path with the
@@ -163,11 +161,8 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean = gsk_path_get_stroke_bounds(
-        gPointer.reinterpret(),
-        stroke.gPointer.reinterpret(),
-        bounds.gPointer.reinterpret()
-    ).asBoolean()
+    public fun getStrokeBounds(stroke: Stroke, bounds: Rect): Boolean =
+        gsk_path_get_stroke_bounds(gPointer, stroke.gPointer, bounds.gPointer).asBoolean()
 
     /**
      * Returns whether the given point is inside the area
@@ -184,7 +179,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      */
     @GskVersion4_14
     public fun inFill(point: Point, fillRule: FillRule): Boolean =
-        gsk_path_in_fill(gPointer.reinterpret(), point.gPointer.reinterpret(), fillRule.nativeValue).asBoolean()
+        gsk_path_in_fill(gPointer, point.gPointer, fillRule.nativeValue).asBoolean()
 
     /**
      * Returns if the path represents a single closed
@@ -194,7 +189,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun isClosed(): Boolean = gsk_path_is_closed(gPointer.reinterpret()).asBoolean()
+    public fun isClosed(): Boolean = gsk_path_is_closed(gPointer).asBoolean()
 
     /**
      * Checks if the path is empty, i.e. contains no lines or curves.
@@ -203,7 +198,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun isEmpty(): Boolean = gsk_path_is_empty(gPointer.reinterpret()).asBoolean()
+    public fun isEmpty(): Boolean = gsk_path_is_empty(gPointer).asBoolean()
 
     /**
      * Converts @self into a human-readable string representation suitable
@@ -217,7 +212,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun print(string: GlibString): Unit = gsk_path_print(gPointer.reinterpret(), string.gPointer.reinterpret())
+    public fun print(string: GlibString): Unit = gsk_path_print(gPointer, string.gPointer)
 
     /**
      * Increases the reference count of a `GskPath` by one.
@@ -226,8 +221,8 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun ref(): Path = gsk_path_ref(gPointer.reinterpret())!!.run {
-        Path(reinterpret())
+    public fun ref(): Path = gsk_path_ref(gPointer)!!.run {
+        Path(this)
     }
 
     /**
@@ -244,7 +239,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun toCairo(cr: Context): Unit = gsk_path_to_cairo(gPointer.reinterpret(), cr.gPointer.reinterpret())
+    public fun toCairo(cr: Context): Unit = gsk_path_to_cairo(gPointer, cr.gPointer)
 
     /**
      * Converts the path into a string that is suitable for printing.
@@ -261,7 +256,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GskVersion4_14
     override fun toString(): KotlinString =
-        gsk_path_to_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        gsk_path_to_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Decreases the reference count of a `GskPath` by one.
@@ -271,7 +266,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
      * @since 4.14
      */
     @GskVersion4_14
-    public fun unref(): Unit = gsk_path_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gsk_path_unref(gPointer)
 
     public companion object {
         /**
@@ -307,7 +302,7 @@ public class Path(pointer: CPointer<GskPath>) : ProxyInstance(pointer) {
          */
         @GskVersion4_14
         public fun parse(string: KotlinString): Path? = gsk_path_parse(string)?.run {
-            Path(reinterpret())
+            Path(this)
         }
 
         /**

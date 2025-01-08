@@ -32,9 +32,7 @@ public open class ConstantExpression(pointer: CPointer<GtkConstantExpression>) :
      * @param value a `GValue`
      * @return a new `GtkExpression`
      */
-    public constructor(
-        `value`: Value,
-    ) : this(gtk_constant_expression_new_for_value(`value`.gPointer.reinterpret())!!.reinterpret())
+    public constructor(`value`: Value) : this(gtk_constant_expression_new_for_value(`value`.gPointer)!!.reinterpret())
 
     /**
      * Gets the value that a constant expression evaluates to.
@@ -43,7 +41,7 @@ public open class ConstantExpression(pointer: CPointer<GtkConstantExpression>) :
      */
     public open fun getValue(): Value =
         gtk_constant_expression_get_value(gtkConstantExpressionPointer.reinterpret())!!.run {
-            Value(reinterpret())
+            Value(this)
         }
 
     public companion object : TypeCompanion<ConstantExpression> {

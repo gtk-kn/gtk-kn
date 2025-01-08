@@ -20,6 +20,7 @@ import org.gtkkn.native.gio.g_app_info_monitor_get
 import org.gtkkn.native.gio.g_app_info_monitor_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.ULong
 import kotlin.Unit
 
@@ -76,20 +77,30 @@ public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
      * Signal emitted when the app info database changes, when applications are
      * installed or removed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.40
      */
     @GioVersion2_40
-    public fun connectChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "changed",
-            connectChangedFunc.reinterpret(),
+            onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @since 2.40
+     */
+    @GioVersion2_40
+    public fun emitChanged() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+    }
 
     public companion object : TypeCompanion<AppInfoMonitor> {
         override val type: GeneratedClassKGType<AppInfoMonitor> =
@@ -119,7 +130,7 @@ public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
          */
         @GioVersion2_40
         public fun `get`(): AppInfoMonitor = g_app_info_monitor_get()!!.run {
-            AppInfoMonitor(reinterpret())
+            AppInfoMonitor(this)
         }
 
         /**
@@ -131,7 +142,7 @@ public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
     }
 }
 
-private val connectChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -85,7 +85,7 @@ public interface FontChooser :
          *
          * @return the currently selected font features
          */
-        get() = gtk_font_chooser_get_font_features(gtkFontChooserPointer.reinterpret())?.toKString()
+        get() = gtk_font_chooser_get_font_features(gtkFontChooserPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -97,15 +97,14 @@ public interface FontChooser :
          *
          * @return the currently selected language
          */
-        get() = gtk_font_chooser_get_language(gtkFontChooserPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_font_chooser_get_language(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the language to use for font features.
          *
          * @param language a language
          */
-        set(language) = gtk_font_chooser_set_language(gtkFontChooserPointer.reinterpret(), language)
+        set(language) = gtk_font_chooser_set_language(gtkFontChooserPointer, language)
 
     /**
      * The level of granularity to offer for selecting fonts.
@@ -116,7 +115,7 @@ public interface FontChooser :
          *
          * @return the current granularity level
          */
-        get() = gtk_font_chooser_get_level(gtkFontChooserPointer.reinterpret()).run {
+        get() = gtk_font_chooser_get_level(gtkFontChooserPointer).run {
             FontChooserLevel(this)
         }
 
@@ -125,7 +124,7 @@ public interface FontChooser :
          *
          * @param level the desired level of granularity
          */
-        set(level) = gtk_font_chooser_set_level(gtkFontChooserPointer.reinterpret(), level.mask)
+        set(level) = gtk_font_chooser_set_level(gtkFontChooserPointer, level.mask)
 
     /**
      * The string with which to preview the font.
@@ -136,7 +135,7 @@ public interface FontChooser :
          *
          * @return the text displayed in the preview area
          */
-        get() = gtk_font_chooser_get_preview_text(gtkFontChooserPointer.reinterpret())?.toKString()
+        get() = gtk_font_chooser_get_preview_text(gtkFontChooserPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -146,7 +145,7 @@ public interface FontChooser :
          *
          * @param text the text to display in the preview area
          */
-        set(text) = gtk_font_chooser_set_preview_text(gtkFontChooserPointer.reinterpret(), text)
+        set(text) = gtk_font_chooser_set_preview_text(gtkFontChooserPointer, text)
 
     /**
      * Whether to show an entry to change the preview text.
@@ -157,7 +156,7 @@ public interface FontChooser :
          *
          * @return true if the preview entry is shown or false if it is hidden.
          */
-        get() = gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer.reinterpret()).asBoolean()
+        get() = gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer).asBoolean()
 
         /**
          * Shows or hides the editable preview entry.
@@ -166,7 +165,7 @@ public interface FontChooser :
          */
         set(
             showPreviewEntry
-        ) = gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer.reinterpret(), showPreviewEntry.asGBoolean())
+        ) = gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer, showPreviewEntry.asGBoolean())
 
     /**
      * Gets the currently-selected font name.
@@ -183,7 +182,7 @@ public interface FontChooser :
      * @return A string with the name
      *   of the current font
      */
-    public fun getFont(): String? = gtk_font_chooser_get_font(gtkFontChooserPointer.reinterpret())?.toKString()
+    public fun getFont(): String? = gtk_font_chooser_get_font(gtkFontChooserPointer)?.toKString()
 
     /**
      * Gets the currently-selected font.
@@ -200,10 +199,9 @@ public interface FontChooser :
      * @return A `PangoFontDescription` for the
      *   current font
      */
-    public fun getFontDesc(): FontDescription? =
-        gtk_font_chooser_get_font_desc(gtkFontChooserPointer.reinterpret())?.run {
-            FontDescription(reinterpret())
-        }
+    public fun getFontDesc(): FontDescription? = gtk_font_chooser_get_font_desc(gtkFontChooserPointer)?.run {
+        FontDescription(this)
+    }
 
     /**
      * Gets the `PangoFontFace` representing the selected font group
@@ -214,8 +212,8 @@ public interface FontChooser :
      * @return A `PangoFontFace` representing the
      *   selected font group details
      */
-    public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer.reinterpret())?.run {
-        FontFace(reinterpret())
+    public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer)?.run {
+        FontFace(this)
     }
 
     /**
@@ -228,10 +226,9 @@ public interface FontChooser :
      * @return A `PangoFontFamily` representing the
      *   selected font family
      */
-    public fun getFontFamily(): FontFamily? =
-        gtk_font_chooser_get_font_family(gtkFontChooserPointer.reinterpret())?.run {
-            FontFamily(reinterpret())
-        }
+    public fun getFontFamily(): FontFamily? = gtk_font_chooser_get_font_family(gtkFontChooserPointer)?.run {
+        FontFamily(this)
+    }
 
     /**
      * Gets the currently-selected font features.
@@ -243,8 +240,7 @@ public interface FontChooser :
      * @return the currently selected font features
      */
     public fun getFontFeatures(): String =
-        gtk_font_chooser_get_font_features(gtkFontChooserPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_font_chooser_get_font_features(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the custom font map of this font chooser widget,
@@ -252,10 +248,9 @@ public interface FontChooser :
      *
      * @return a `PangoFontMap`
      */
-    public fun getFontChooserFontMap(): FontMap? =
-        gtk_font_chooser_get_font_map(gtkFontChooserPointer.reinterpret())?.run {
-            FontMap(reinterpret())
-        }
+    public fun getFontChooserFontMap(): FontMap? = gtk_font_chooser_get_font_map(gtkFontChooserPointer)?.run {
+        FontMap(this)
+    }
 
     /**
      * The selected font size.
@@ -263,22 +258,22 @@ public interface FontChooser :
      * @return A n integer representing the selected font size,
      *   or -1 if no font size is selected.
      */
-    public fun getFontSize(): gint = gtk_font_chooser_get_font_size(gtkFontChooserPointer.reinterpret())
+    public fun getFontSize(): gint = gtk_font_chooser_get_font_size(gtkFontChooserPointer)
 
     /**
      * Gets the language that is used for font features.
      *
      * @return the currently selected language
      */
-    public fun getLanguage(): String = gtk_font_chooser_get_language(gtkFontChooserPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public fun getLanguage(): String =
+        gtk_font_chooser_get_language(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the current level of granularity for selecting fonts.
      *
      * @return the current granularity level
      */
-    public fun getLevel(): FontChooserLevel = gtk_font_chooser_get_level(gtkFontChooserPointer.reinterpret()).run {
+    public fun getLevel(): FontChooserLevel = gtk_font_chooser_get_level(gtkFontChooserPointer).run {
         FontChooserLevel(this)
     }
 
@@ -288,8 +283,7 @@ public interface FontChooser :
      * @return the text displayed in the preview area
      */
     public fun getPreviewText(): String =
-        gtk_font_chooser_get_preview_text(gtkFontChooserPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        gtk_font_chooser_get_preview_text(gtkFontChooserPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns whether the preview entry is shown or not.
@@ -297,7 +291,7 @@ public interface FontChooser :
      * @return true if the preview entry is shown or false if it is hidden.
      */
     public fun getShowPreviewEntry(): Boolean =
-        gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer.reinterpret()).asBoolean()
+        gtk_font_chooser_get_show_preview_entry(gtkFontChooserPointer).asBoolean()
 
     /**
      * Adds a filter function that decides which fonts to display
@@ -306,7 +300,7 @@ public interface FontChooser :
      * @param filter a `GtkFontFilterFunc`
      */
     public fun setFilterFunc(filter: FontFilterFunc?): Unit = gtk_font_chooser_set_filter_func(
-        gtkFontChooserPointer.reinterpret(),
+        gtkFontChooserPointer,
         filter?.let {
             FontFilterFuncFunc.reinterpret()
         },
@@ -319,8 +313,7 @@ public interface FontChooser :
      *
      * @param fontname a font name like “Helvetica 12” or “Times Bold 18”
      */
-    public fun setFont(fontname: String): Unit =
-        gtk_font_chooser_set_font(gtkFontChooserPointer.reinterpret(), fontname)
+    public fun setFont(fontname: String): Unit = gtk_font_chooser_set_font(gtkFontChooserPointer, fontname)
 
     /**
      * Sets the currently-selected font from @font_desc.
@@ -328,7 +321,7 @@ public interface FontChooser :
      * @param fontDesc a `PangoFontDescription`
      */
     public fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_chooser_set_font_desc(gtkFontChooserPointer.reinterpret(), fontDesc.gPointer.reinterpret())
+        gtk_font_chooser_set_font_desc(gtkFontChooserPointer, fontDesc.gPointer)
 
     /**
      * Sets a custom font map to use for this font chooser widget.
@@ -360,23 +353,21 @@ public interface FontChooser :
      * @param fontmap a `PangoFontMap`
      */
     public fun setFontChooserFontMap(fontmap: FontMap? = null): Unit =
-        gtk_font_chooser_set_font_map(gtkFontChooserPointer.reinterpret(), fontmap?.pangoFontMapPointer?.reinterpret())
+        gtk_font_chooser_set_font_map(gtkFontChooserPointer, fontmap?.pangoFontMapPointer)
 
     /**
      * Sets the language to use for font features.
      *
      * @param language a language
      */
-    public fun setLanguage(language: String): Unit =
-        gtk_font_chooser_set_language(gtkFontChooserPointer.reinterpret(), language)
+    public fun setLanguage(language: String): Unit = gtk_font_chooser_set_language(gtkFontChooserPointer, language)
 
     /**
      * Sets the desired level of granularity for selecting fonts.
      *
      * @param level the desired level of granularity
      */
-    public fun setLevel(level: FontChooserLevel): Unit =
-        gtk_font_chooser_set_level(gtkFontChooserPointer.reinterpret(), level.mask)
+    public fun setLevel(level: FontChooserLevel): Unit = gtk_font_chooser_set_level(gtkFontChooserPointer, level.mask)
 
     /**
      * Sets the text displayed in the preview area.
@@ -385,8 +376,7 @@ public interface FontChooser :
      *
      * @param text the text to display in the preview area
      */
-    public fun setPreviewText(text: String): Unit =
-        gtk_font_chooser_set_preview_text(gtkFontChooserPointer.reinterpret(), text)
+    public fun setPreviewText(text: String): Unit = gtk_font_chooser_set_preview_text(gtkFontChooserPointer, text)
 
     /**
      * Shows or hides the editable preview entry.
@@ -394,7 +384,7 @@ public interface FontChooser :
      * @param showPreviewEntry whether to show the editable preview entry or not
      */
     public fun setShowPreviewEntry(showPreviewEntry: Boolean): Unit =
-        gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer.reinterpret(), showPreviewEntry.asGBoolean())
+        gtk_font_chooser_set_show_preview_entry(gtkFontChooserPointer, showPreviewEntry.asGBoolean())
 
     /**
      * Emitted when a font is activated.
@@ -403,16 +393,16 @@ public interface FontChooser :
      * or an item is selected and the user presses one of the keys
      * Space, Shift+Space, Return or Enter.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `fontname` the font name
      */
-    public fun connectFontActivated(
+    public fun onFontActivated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (fontname: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gtkFontChooserPointer.reinterpret(),
+        gtkFontChooserPointer,
         "font-activated",
-        connectFontActivatedFunc.reinterpret(),
+        onFontActivatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -441,7 +431,7 @@ public interface FontChooser :
     }
 }
 
-private val connectFontActivatedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
+private val onFontActivatedFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             fontname: CPointer<ByteVar>?,

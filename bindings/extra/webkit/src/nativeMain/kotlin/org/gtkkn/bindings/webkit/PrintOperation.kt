@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitPrintOperation
 import org.gtkkn.native.webkit.webkit_print_operation_get_page_setup
 import org.gtkkn.native.webkit.webkit_print_operation_get_print_settings
@@ -64,8 +65,8 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          *
          * @return the current #GtkPageSetup of @print_operation.
          */
-        get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
+        get() = webkit_print_operation_get_page_setup(webkitPrintOperationPointer)!!.run {
+            PageSetup(this)
         }
 
         /**
@@ -78,10 +79,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          */
         set(
             pageSetup
-        ) = webkit_print_operation_set_page_setup(
-            webkitPrintOperationPointer.reinterpret(),
-            pageSetup.gtkPageSetupPointer.reinterpret()
-        )
+        ) = webkit_print_operation_set_page_setup(webkitPrintOperationPointer, pageSetup.gtkPageSetupPointer)
 
     /**
      * The initial #GtkPrintSettings for the print operation.
@@ -96,8 +94,8 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
          *
          * @return the current #GtkPrintSettings of @print_operation.
          */
-        get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer.reinterpret())!!.run {
-            PrintSettings(reinterpret())
+        get() = webkit_print_operation_get_print_settings(webkitPrintOperationPointer)!!.run {
+            PrintSettings(this)
         }
 
         /**
@@ -111,8 +109,8 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
         set(
             printSettings
         ) = webkit_print_operation_set_print_settings(
-            webkitPrintOperationPointer.reinterpret(),
-            printSettings.gtkPrintSettingsPointer.reinterpret()
+            webkitPrintOperationPointer,
+            printSettings.gtkPrintSettingsPointer
         )
 
     /**
@@ -123,7 +121,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      */
     public constructor(
         webView: WebView,
-    ) : this(webkit_print_operation_new(webView.webkitWebViewPointer.reinterpret())!!.reinterpret())
+    ) : this(webkit_print_operation_new(webView.webkitWebViewPointer)!!.reinterpret())
 
     /**
      * Start a print operation using current print settings and page setup.
@@ -142,7 +140,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * through the File Chooser portal. This function will not work for physical
      * printers when running in a sandbox.
      */
-    public fun print(): Unit = webkit_print_operation_print(webkitPrintOperationPointer.reinterpret())
+    public fun print(): Unit = webkit_print_operation_print(webkitPrintOperationPointer)
 
     /**
      * Run the print dialog and start printing.
@@ -163,47 +161,61 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * @param parent transient parent of the print dialog
      * @return the #WebKitPrintOperationResponse of the print dialog
      */
-    public fun runDialog(parent: Window? = null): PrintOperationResponse = webkit_print_operation_run_dialog(
-        webkitPrintOperationPointer.reinterpret(),
-        parent?.gtkWindowPointer?.reinterpret()
-    ).run {
-        PrintOperationResponse.fromNativeValue(this)
-    }
+    public fun runDialog(parent: Window? = null): PrintOperationResponse =
+        webkit_print_operation_run_dialog(webkitPrintOperationPointer, parent?.gtkWindowPointer).run {
+            PrintOperationResponse.fromNativeValue(this)
+        }
 
     /**
      * Emitted when an error occurs while printing. The given @error, of the domain
      * %WEBKIT_PRINT_ERROR, contains further details of the failure.
      * The #WebKitPrintOperation::finished signal is emitted after this one.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun connectFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
+    public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "failed",
-            connectFailedFunc.reinterpret(),
+            onFailedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "failed" signal. See [onFailed].
+     *
+     * @param error the #GError that was triggered
+     */
+    public fun emitFailed(error: Error) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "failed", error.gPointer)
+    }
+
+    /**
      * Emitted when the print operation has finished doing everything
      * required for printing.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "finished",
-            connectFinishedFunc.reinterpret(),
+            onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "finished" signal. See [onFinished].
+     */
+    public fun emitFinished() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+    }
 
     public companion object : TypeCompanion<PrintOperation> {
         override val type: GeneratedClassKGType<PrintOperation> =
@@ -222,20 +234,20 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
     }
 }
 
-private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
+private val onFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         error: CPointer<GError>?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<(error: Error) -> Unit>().get().invoke(
         error!!.run {
-            Error(reinterpret())
+            Error(this)
         }
     )
 }
     .reinterpret()
 
-private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -185,7 +185,7 @@ public object JavaScriptCore {
      */
     @JavaScriptCoreVersion2_24
     public fun optionsGetOptionGroup(): OptionGroup = jsc_options_get_option_group()!!.run {
-        OptionGroup(reinterpret())
+        OptionGroup(this)
     }
 
     /**
@@ -300,10 +300,10 @@ public val ClassDeletePropertyFunctionFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         jscClass!!.run {
-            Class(reinterpret())
+            Class(this)
         },
         context!!.run {
-            Context(reinterpret())
+            Context(this)
         },
         instance,
         name?.toKString() ?: error("Expected not null string")
@@ -334,10 +334,10 @@ public val ClassEnumeratePropertiesFunctionFunc: CPointer<
             ) -> List<String>?
             >().get().invoke(
             jscClass!!.run {
-                Class(reinterpret())
+                Class(this)
             },
             context!!.run {
-                Context(reinterpret())
+                Context(this)
             },
             instance
         )?.toCStringList(this)
@@ -370,10 +370,10 @@ public val ClassGetPropertyFunctionFunc: CPointer<
         ) -> Value?
         >().get().invoke(
         jscClass!!.run {
-            Class(reinterpret())
+            Class(this)
         },
         context!!.run {
-            Context(reinterpret())
+            Context(this)
         },
         instance,
         name?.toKString() ?: error("Expected not null string")
@@ -406,10 +406,10 @@ public val ClassHasPropertyFunctionFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         jscClass!!.run {
-            Class(reinterpret())
+            Class(this)
         },
         context!!.run {
-            Context(reinterpret())
+            Context(this)
         },
         instance,
         name?.toKString() ?: error("Expected not null string")
@@ -445,15 +445,15 @@ public val ClassSetPropertyFunctionFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         jscClass!!.run {
-            Class(reinterpret())
+            Class(this)
         },
         context!!.run {
-            Context(reinterpret())
+            Context(this)
         },
         instance,
         name?.toKString() ?: error("Expected not null string"),
         `value`!!.run {
-            Value(reinterpret())
+            Value(this)
         }
     ).asGBoolean()
 }
@@ -468,10 +468,10 @@ public val ExceptionHandlerFunc:
         ->
         userData!!.asStableRef<(context: Context, exception: Exception) -> Unit>().get().invoke(
             context!!.run {
-                Context(reinterpret())
+                Context(this)
             },
             exception!!.run {
-                Exception(reinterpret())
+                Exception(this)
             }
         )
     }

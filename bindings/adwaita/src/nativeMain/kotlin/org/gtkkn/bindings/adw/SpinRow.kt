@@ -47,6 +47,7 @@ import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -131,7 +132,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return the acceleration rate when you hold down a button or key
          * @since 1.4
          */
-        get() = adw_spin_row_get_climb_rate(adwSpinRowPointer.reinterpret())
+        get() = adw_spin_row_get_climb_rate(adwSpinRowPointer)
 
         /**
          * Sets the acceleration rate when you hold down a button or key.
@@ -140,7 +141,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(climbRate) = adw_spin_row_set_climb_rate(adwSpinRowPointer.reinterpret(), climbRate)
+        set(climbRate) = adw_spin_row_set_climb_rate(adwSpinRowPointer, climbRate)
 
     /**
      * The number of decimal places to display.
@@ -155,7 +156,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return the number of decimal places to display
          * @since 1.4
          */
-        get() = adw_spin_row_get_digits(adwSpinRowPointer.reinterpret())
+        get() = adw_spin_row_get_digits(adwSpinRowPointer)
 
         /**
          * Sets the number of decimal places to display.
@@ -164,7 +165,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(digits) = adw_spin_row_set_digits(adwSpinRowPointer.reinterpret(), digits)
+        set(digits) = adw_spin_row_set_digits(adwSpinRowPointer, digits)
 
     /**
      * Whether non-numeric characters should be ignored.
@@ -179,7 +180,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return whether non-numeric characters should be ignored.
          * @since 1.4
          */
-        get() = adw_spin_row_get_numeric(adwSpinRowPointer.reinterpret()).asBoolean()
+        get() = adw_spin_row_get_numeric(adwSpinRowPointer).asBoolean()
 
         /**
          * Sets whether non-numeric characters should be ignored.
@@ -188,7 +189,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(numeric) = adw_spin_row_set_numeric(adwSpinRowPointer.reinterpret(), numeric.asGBoolean())
+        set(numeric) = adw_spin_row_set_numeric(adwSpinRowPointer, numeric.asGBoolean())
 
     /**
      * Whether invalid values are snapped to the nearest step increment.
@@ -203,7 +204,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return whether invalid values are snapped to the nearest step increment
          * @since 1.4
          */
-        get() = adw_spin_row_get_snap_to_ticks(adwSpinRowPointer.reinterpret()).asBoolean()
+        get() = adw_spin_row_get_snap_to_ticks(adwSpinRowPointer).asBoolean()
 
         /**
          * Sets whether invalid values are snapped to the nearest step increment.
@@ -212,7 +213,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(snapToTicks) = adw_spin_row_set_snap_to_ticks(adwSpinRowPointer.reinterpret(), snapToTicks.asGBoolean())
+        set(snapToTicks) = adw_spin_row_set_snap_to_ticks(adwSpinRowPointer, snapToTicks.asGBoolean())
 
     /**
      * The policy for updating the spin row.
@@ -229,7 +230,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return the policy for updating the spin row
          * @since 1.4
          */
-        get() = adw_spin_row_get_update_policy(adwSpinRowPointer.reinterpret()).run {
+        get() = adw_spin_row_get_update_policy(adwSpinRowPointer).run {
             SpinButtonUpdatePolicy.fromNativeValue(this)
         }
 
@@ -242,7 +243,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(policy) = adw_spin_row_set_update_policy(adwSpinRowPointer.reinterpret(), policy.nativeValue)
+        set(policy) = adw_spin_row_set_update_policy(adwSpinRowPointer, policy.nativeValue)
 
     /**
      * The current value.
@@ -257,7 +258,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return the current value
          * @since 1.4
          */
-        get() = adw_spin_row_get_value(adwSpinRowPointer.reinterpret())
+        get() = adw_spin_row_get_value(adwSpinRowPointer)
 
         /**
          * Sets the current value.
@@ -266,7 +267,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(`value`) = adw_spin_row_set_value(adwSpinRowPointer.reinterpret(), `value`)
+        set(`value`) = adw_spin_row_set_value(adwSpinRowPointer, `value`)
 
     /**
      * Whether the spin row should wrap upon reaching its limits.
@@ -281,7 +282,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @return whether the spin row should wrap upon reaching its limits
          * @since 1.4
          */
-        get() = adw_spin_row_get_wrap(adwSpinRowPointer.reinterpret()).asBoolean()
+        get() = adw_spin_row_get_wrap(adwSpinRowPointer).asBoolean()
 
         /**
          * Sets whether the spin row should wrap upon reaching its limits.
@@ -290,7 +291,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(wrap) = adw_spin_row_set_wrap(adwSpinRowPointer.reinterpret(), wrap.asGBoolean())
+        set(wrap) = adw_spin_row_set_wrap(adwSpinRowPointer, wrap.asGBoolean())
 
     /**
      * Creates a new `AdwSpinRow`.
@@ -305,7 +306,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
         adjustment: Adjustment? = null,
         climbRate: gdouble,
         digits: guint,
-    ) : this(adw_spin_row_new(adjustment?.gtkAdjustmentPointer?.reinterpret(), climbRate, digits)!!.reinterpret())
+    ) : this(adw_spin_row_new(adjustment?.gtkAdjustmentPointer, climbRate, digits)!!.reinterpret())
 
     /**
      * Creates a new `AdwSpinRow` with the given properties.
@@ -345,12 +346,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      */
     @AdwVersion1_4
     public fun configure(adjustment: Adjustment? = null, climbRate: gdouble, digits: guint): Unit =
-        adw_spin_row_configure(
-            adwSpinRowPointer.reinterpret(),
-            adjustment?.gtkAdjustmentPointer?.reinterpret(),
-            climbRate,
-            digits
-        )
+        adw_spin_row_configure(adwSpinRowPointer, adjustment?.gtkAdjustmentPointer, climbRate, digits)
 
     /**
      * Gets the adjustment that holds the value for the spin row.
@@ -359,8 +355,8 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun getAdjustment(): Adjustment = adw_spin_row_get_adjustment(adwSpinRowPointer.reinterpret())!!.run {
-        Adjustment(reinterpret())
+    public fun getAdjustment(): Adjustment = adw_spin_row_get_adjustment(adwSpinRowPointer)!!.run {
+        Adjustment(this)
     }
 
     /**
@@ -371,7 +367,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      */
     @AdwVersion1_4
     public fun setAdjustment(adjustment: Adjustment? = null): Unit =
-        adw_spin_row_set_adjustment(adwSpinRowPointer.reinterpret(), adjustment?.gtkAdjustmentPointer?.reinterpret())
+        adw_spin_row_set_adjustment(adwSpinRowPointer, adjustment?.gtkAdjustmentPointer)
 
     /**
      * Sets the minimum and maximum allowable values for @self.
@@ -384,8 +380,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun setRange(min: gdouble, max: gdouble): Unit =
-        adw_spin_row_set_range(adwSpinRowPointer.reinterpret(), min, max)
+    public fun setRange(min: gdouble, max: gdouble): Unit = adw_spin_row_set_range(adwSpinRowPointer, min, max)
 
     /**
      * Manually force an update of the spin row.
@@ -393,23 +388,23 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun update(): Unit = adw_spin_row_update(adwSpinRowPointer.reinterpret())
+    public fun update(): Unit = adw_spin_row_update(adwSpinRowPointer)
 
     /**
      * Emitted to tweak the formatting of the value for display.
      *
      * See [signal@Gtk.SpinButton::output].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Returns `TRUE` if the value has been displayed
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectOutput(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onOutput(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "output",
-            connectOutputFunc.reinterpret(),
+            onOutputFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -420,20 +415,30 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      *
      * See [signal@Gtk.SpinButton::wrapped].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectWrapped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onWrapped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "wrapped",
-            connectWrappedFunc.reinterpret(),
+            onWrappedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "wrapped" signal. See [onWrapped].
+     *
+     * @since 1.4
+     */
+    @AdwVersion1_4
+    public fun emitWrapped() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "wrapped")
+    }
 
     public companion object : TypeCompanion<SpinRow> {
         override val type: GeneratedClassKGType<SpinRow> =
@@ -452,7 +457,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
     }
 }
 
-private val connectOutputFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onOutputFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -460,7 +465,7 @@ private val connectOutputFunc: CPointer<CFunction<() -> gboolean>> = staticCFunc
 }
     .reinterpret()
 
-private val connectWrappedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onWrappedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

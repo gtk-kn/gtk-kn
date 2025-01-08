@@ -63,13 +63,13 @@ import kotlin.coroutines.CoroutineContext
  *     withContext(gtkMainThread) {
  *         // Initialize GTK application and start the main loop
  *         val application = Application("com.example.myapp", ApplicationFlags.DEFAULT_FLAGS)
- *         application.connectActivate {
+ *         application.onActivate {
  *             // Launch coroutines on the GTK main dispatcher
  *             CoroutineScope(Dispatchers.Main).launch {
  *                 // Your UI code here
  *             }
  *         }
- *         application.connectShutdown {
+ *         application.onShutdown {
  *             GtkDispatcher.cancel()
  *             gtkMainThread.cancel()
  *     }

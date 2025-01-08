@@ -53,7 +53,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
          *
          * @return @scheme description (if defined), or null.
          */
-        get() = gtk_source_style_scheme_get_description(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+        get() = gtk_source_style_scheme_get_description(gtksourceStyleSchemePointer)?.toKString()
 
     /**
      * Style scheme filename or null.
@@ -65,7 +65,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
          * @return @scheme file name if the scheme was created
          * parsing a style scheme file or null in the other cases.
          */
-        get() = gtk_source_style_scheme_get_filename(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+        get() = gtk_source_style_scheme_get_filename(gtksourceStyleSchemePointer)?.toKString()
 
     /**
      * Style scheme id, a unique string used to identify the style scheme
@@ -77,7 +77,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
          *
          * @return @scheme id.
          */
-        get() = gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+        get() = gtk_source_style_scheme_get_id(gtksourceStyleSchemePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -89,7 +89,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
          *
          * @return @scheme name.
          */
-        get() = gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer.reinterpret())?.toKString()
+        get() = gtk_source_style_scheme_get_name(gtksourceStyleSchemePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -100,7 +100,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
      * no author is specified by the style scheme.
      */
     public open fun getAuthors(): List<String>? =
-        gtk_source_style_scheme_get_authors(gtksourceStyleSchemePointer.reinterpret())?.toKStringList()
+        gtk_source_style_scheme_get_authors(gtksourceStyleSchemePointer)?.toKStringList()
 
     /**
      * Gets a metadata property from the style scheme.
@@ -113,7 +113,7 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
      */
     @GtkSourceVersion5_4
     public open fun getMetadata(name: String): String? =
-        gtk_source_style_scheme_get_metadata(gtksourceStyleSchemePointer.reinterpret(), name)?.toKString()
+        gtk_source_style_scheme_get_metadata(gtksourceStyleSchemePointer, name)?.toKString()
 
     /**
      *
@@ -124,8 +124,8 @@ public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
      * @scheme and may not be unref'ed.
      */
     public open fun getStyle(styleId: String): Style? =
-        gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer.reinterpret(), styleId)?.run {
-            Style(reinterpret())
+        gtk_source_style_scheme_get_style(gtksourceStyleSchemePointer, styleId)?.run {
+            Style(this)
         }
 
     public companion object : TypeCompanion<StyleScheme> {

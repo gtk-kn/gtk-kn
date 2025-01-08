@@ -54,7 +54,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
     public constructor(
         icon: Icon,
         emblem: Emblem? = null,
-    ) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer?.reinterpret())!!.reinterpret())
+    ) : this(g_emblemed_icon_new(icon.gioIconPointer, emblem?.gioEmblemPointer)!!.reinterpret())
 
     /**
      * Adds @emblem to the #GList of #GEmblems.
@@ -64,7 +64,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      */
     @GioVersion2_18
     public open fun addEmblem(emblem: Emblem): Unit =
-        g_emblemed_icon_add_emblem(gioEmblemedIconPointer.reinterpret(), emblem.gioEmblemPointer.reinterpret())
+        g_emblemed_icon_add_emblem(gioEmblemedIconPointer, emblem.gioEmblemPointer)
 
     /**
      * Removes all the emblems from @icon.
@@ -72,7 +72,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun clearEmblems(): Unit = g_emblemed_icon_clear_emblems(gioEmblemedIconPointer.reinterpret())
+    public open fun clearEmblems(): Unit = g_emblemed_icon_clear_emblems(gioEmblemedIconPointer)
 
     /**
      * Gets the list of emblems for the @icon.
@@ -82,8 +82,8 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun getEmblems(): List = g_emblemed_icon_get_emblems(gioEmblemedIconPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public open fun getEmblems(): List = g_emblemed_icon_get_emblems(gioEmblemedIconPointer)!!.run {
+        List(this)
     }
 
     /**
@@ -93,7 +93,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun getIcon(): Icon = g_emblemed_icon_get_icon(gioEmblemedIconPointer.reinterpret())!!.run {
+    public open fun getIcon(): Icon = g_emblemed_icon_get_icon(gioEmblemedIconPointer)!!.run {
         Icon.wrap(reinterpret())
     }
 

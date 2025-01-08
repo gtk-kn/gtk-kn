@@ -53,8 +53,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @return The description of the password.
          * @since 2.30
          */
-        get() = g_tls_password_get_description(gioTlsPasswordPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_tls_password_get_description(gioTlsPasswordPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Set a description string about what the password will be used for.
@@ -63,7 +62,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @since 2.30
          */
         @GioVersion2_30
-        set(description) = g_tls_password_set_description(gioTlsPasswordPointer.reinterpret(), description)
+        set(description) = g_tls_password_set_description(gioTlsPasswordPointer, description)
 
     /**
      * Flags about the password.
@@ -78,7 +77,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @return The flags about the password.
          * @since 2.30
          */
-        get() = g_tls_password_get_flags(gioTlsPasswordPointer.reinterpret()).run {
+        get() = g_tls_password_get_flags(gioTlsPasswordPointer).run {
             TlsPasswordFlags(this)
         }
 
@@ -89,7 +88,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @since 2.30
          */
         @GioVersion2_30
-        set(flags) = g_tls_password_set_flags(gioTlsPasswordPointer.reinterpret(), flags.mask)
+        set(flags) = g_tls_password_set_flags(gioTlsPasswordPointer, flags.mask)
 
     /**
      * Warning about the password.
@@ -106,8 +105,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @return The warning.
          * @since 2.30
          */
-        get() = g_tls_password_get_warning(gioTlsPasswordPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = g_tls_password_get_warning(gioTlsPasswordPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Set a user readable translated warning. Usually this warning is a
@@ -118,7 +116,7 @@ public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
          * @since 2.30
          */
         @GioVersion2_30
-        set(warning) = g_tls_password_set_warning(gioTlsPasswordPointer.reinterpret(), warning)
+        set(warning) = g_tls_password_set_warning(gioTlsPasswordPointer, warning)
 
     /**
      * Create a new #GTlsPassword object.

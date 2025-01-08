@@ -33,7 +33,7 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
     public constructor(
         child: RenderNode,
         transform: Transform,
-    ) : this(gsk_transform_node_new(child.gPointer.reinterpret(), transform.gPointer.reinterpret())!!.reinterpret())
+    ) : this(gsk_transform_node_new(child.gPointer, transform.gPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting transformed by the given @node.
@@ -41,7 +41,7 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
      * @return The child that is getting transformed
      */
     public open fun getChild(): RenderNode = gsk_transform_node_get_child(gskTransformNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -51,7 +51,7 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
      */
     public open fun getTransform(): Transform =
         gsk_transform_node_get_transform(gskTransformNodePointer.reinterpret())!!.run {
-            Transform(reinterpret())
+            Transform(this)
         }
 
     public companion object : TypeCompanion<TransformNode> {

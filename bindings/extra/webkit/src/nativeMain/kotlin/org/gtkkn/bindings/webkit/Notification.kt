@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.guint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitNotification
 import org.gtkkn.native.webkit.webkit_notification_clicked
 import org.gtkkn.native.webkit.webkit_notification_close
@@ -57,7 +58,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
          * @return the body for the notification
          * @since 2.8
          */
-        get() = webkit_notification_get_body(webkitNotificationPointer.reinterpret())?.toKString()
+        get() = webkit_notification_get_body(webkitNotificationPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -73,7 +74,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
          * @return the unique id for the notification
          * @since 2.8
          */
-        get() = webkit_notification_get_id(webkitNotificationPointer.reinterpret())
+        get() = webkit_notification_get_id(webkitNotificationPointer)
 
     /**
      * The tag identifier for the notification.
@@ -88,7 +89,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
          * @return the tag for the notification
          * @since 2.16
          */
-        get() = webkit_notification_get_tag(webkitNotificationPointer.reinterpret())?.toKString()
+        get() = webkit_notification_get_tag(webkitNotificationPointer)?.toKString()
 
     /**
      * The title for the notification.
@@ -103,7 +104,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
          * @return the title for the notification
          * @since 2.8
          */
-        get() = webkit_notification_get_title(webkitNotificationPointer.reinterpret())?.toKString()
+        get() = webkit_notification_get_title(webkitNotificationPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -115,7 +116,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun clicked(): Unit = webkit_notification_clicked(webkitNotificationPointer.reinterpret())
+    public fun clicked(): Unit = webkit_notification_clicked(webkitNotificationPointer)
 
     /**
      * Closes the notification.
@@ -123,25 +124,35 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun close(): Unit = webkit_notification_close(webkitNotificationPointer.reinterpret())
+    public fun close(): Unit = webkit_notification_close(webkitNotificationPointer)
 
     /**
      * Emitted when a notification has been clicked. See webkit_notification_clicked().
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun connectClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "clicked",
-            connectClickedFunc.reinterpret(),
+            onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "clicked" signal. See [onClicked].
+     *
+     * @since 2.12
+     */
+    @WebKitVersion2_12
+    public fun emitClicked() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+    }
 
     /**
      * Emitted when a notification has been withdrawn.
@@ -149,20 +160,30 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
      * The default handler will close the notification using libnotify, if built with
      * support for it.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "closed",
-            connectClosedFunc.reinterpret(),
+            onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "closed" signal. See [onClosed].
+     *
+     * @since 2.8
+     */
+    @WebKitVersion2_8
+    public fun emitClosed() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+    }
 
     public companion object : TypeCompanion<Notification> {
         override val type: GeneratedClassKGType<Notification> =
@@ -181,7 +202,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
     }
 }
 
-private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -189,7 +210,7 @@ private val connectClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunctio
 }
     .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -136,7 +136,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * @since 2.4
      */
     @GObjectVersion2_4
-    public fun addPrivate(privateSize: gsize): Unit = g_type_class_add_private(gPointer.reinterpret(), privateSize)
+    public fun addPrivate(privateSize: gsize): Unit = g_type_class_add_private(gPointer, privateSize)
 
     /**
      * Gets the offset of the private data for instances of @g_class.
@@ -152,9 +152,9 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * @since 2.38
      */
     @GObjectVersion2_38
-    public fun getInstancePrivateOffset(): gint = g_type_class_get_instance_private_offset(gPointer.reinterpret())
+    public fun getInstancePrivateOffset(): gint = g_type_class_get_instance_private_offset(gPointer)
 
-    public fun getPrivate(privateType: GType): gpointer? = g_type_class_get_private(gPointer.reinterpret(), privateType)
+    public fun getPrivate(privateType: GType): gpointer? = g_type_class_get_private(gPointer, privateType)
 
     /**
      * This is a convenience function often needed in class initializers.
@@ -169,7 +169,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * @return the parent class
      *     of @g_class
      */
-    public fun peekParent(): TypeClass = g_type_class_peek_parent(gPointer.reinterpret())!!.run {
+    public fun peekParent(): TypeClass = g_type_class_peek_parent(gPointer)!!.run {
         TypeClass(reinterpret())
     }
 
@@ -179,7 +179,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * may be finalized by the type system, so further dereferencing of a
      * class pointer after g_type_class_unref() are invalid.
      */
-    public fun unref(): Unit = g_type_class_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_type_class_unref(gPointer)
 
     /**
      * A variant of g_type_class_unref() for use in #GTypeClassCacheFunc
@@ -187,7 +187,7 @@ public class TypeClass(pointer: CPointer<GTypeClass>, cleaner: Cleaner? = null) 
      * of #GTypeClassCacheFuncs, avoiding the recursion which would occur
      * otherwise.
      */
-    public fun unrefUncached(): Unit = g_type_class_unref_uncached(gPointer.reinterpret())
+    public fun unrefUncached(): Unit = g_type_class_unref_uncached(gPointer)
 
     public companion object {
         /**

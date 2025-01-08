@@ -61,7 +61,7 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
          *
          * @return a list of icon names.
          */
-        get() = g_themed_icon_get_names(gioThemedIconPointer.reinterpret())?.toKStringList()
+        get() = g_themed_icon_get_names(gioThemedIconPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -94,8 +94,7 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
      *
      * @param iconname name of icon to append to list of icons from within @icon.
      */
-    public open fun appendName(iconname: String): Unit =
-        g_themed_icon_append_name(gioThemedIconPointer.reinterpret(), iconname)
+    public open fun appendName(iconname: String): Unit = g_themed_icon_append_name(gioThemedIconPointer, iconname)
 
     /**
      * Prepend a name to the list of icons from within @icon.
@@ -107,8 +106,7 @@ public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
      * @since 2.18
      */
     @GioVersion2_18
-    public open fun prependName(iconname: String): Unit =
-        g_themed_icon_prepend_name(gioThemedIconPointer.reinterpret(), iconname)
+    public open fun prependName(iconname: String): Unit = g_themed_icon_prepend_name(gioThemedIconPointer, iconname)
 
     public companion object : TypeCompanion<ThemedIcon> {
         override val type: GeneratedClassKGType<ThemedIcon> =

@@ -35,8 +35,8 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : ProxyInst
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(gPointer.reinterpret())!!.run {
-        UserStyleSheet(reinterpret())
+    public fun ref(): UserStyleSheet = webkit_user_style_sheet_ref(gPointer)!!.run {
+        UserStyleSheet(this)
     }
 
     /**
@@ -49,7 +49,7 @@ public class UserStyleSheet(pointer: CPointer<WebKitUserStyleSheet>) : ProxyInst
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun unref(): Unit = webkit_user_style_sheet_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_user_style_sheet_unref(gPointer)
 
     public companion object {
         /**

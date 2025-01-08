@@ -43,7 +43,7 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      */
     @PangoVersion1_4
     public open fun foreach(func: FontsetForeachFunc): Unit = pango_fontset_foreach(
-        pangoFontsetPointer.reinterpret(),
+        pangoFontsetPointer,
         FontsetForeachFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
@@ -55,8 +55,8 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      * @param wc a Unicode character
      * @return a `PangoFont`
      */
-    public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer.reinterpret(), wc)!!.run {
-        Font(reinterpret())
+    public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer, wc)!!.run {
+        Font(this)
     }
 
     /**
@@ -64,8 +64,8 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      *
      * @return a `PangoFontMetrics` object
      */
-    public open fun getMetrics(): FontMetrics = pango_fontset_get_metrics(pangoFontsetPointer.reinterpret())!!.run {
-        FontMetrics(reinterpret())
+    public open fun getMetrics(): FontMetrics = pango_fontset_get_metrics(pangoFontsetPointer)!!.run {
+        FontMetrics(this)
     }
 
     public companion object : TypeCompanion<Fontset> {

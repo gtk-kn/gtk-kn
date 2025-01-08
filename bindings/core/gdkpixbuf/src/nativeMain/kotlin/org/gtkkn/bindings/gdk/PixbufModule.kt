@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gmodule.Module
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -116,7 +115,7 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      */
     public var module: Module?
         get() = gPointer.pointed.module?.run {
-            Module(reinterpret())
+            Module(this)
         }
 
         @UnsafeFieldSetter
@@ -129,7 +128,7 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      */
     public var info: PixbufFormat?
         get() = gPointer.pointed.info?.run {
-            PixbufFormat(reinterpret())
+            PixbufFormat(this)
         }
 
         @UnsafeFieldSetter

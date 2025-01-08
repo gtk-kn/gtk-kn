@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -87,8 +86,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(p: Point3d): Boolean =
-        graphene_triangle_contains_point(gPointer.reinterpret(), p.gPointer.reinterpret())
+    public fun containsPoint(p: Point3d): Boolean = graphene_triangle_contains_point(gPointer, p.gPointer)
 
     /**
      * Checks whether the two given #graphene_triangle_t are equal.
@@ -98,7 +96,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun equal(b: Triangle): Boolean = graphene_triangle_equal(gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun equal(b: Triangle): Boolean = graphene_triangle_equal(gPointer, b.gPointer)
 
     /**
      * Frees the resources allocated by graphene_triangle_alloc().
@@ -106,7 +104,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun free(): Unit = graphene_triangle_free(gPointer.reinterpret())
+    public fun free(): Unit = graphene_triangle_free(gPointer)
 
     /**
      * Computes the area of the given #graphene_triangle_t.
@@ -115,7 +113,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getArea(): gfloat = graphene_triangle_get_area(gPointer.reinterpret())
+    public fun getArea(): gfloat = graphene_triangle_get_area(gPointer)
 
     /**
      * Computes the [barycentric coordinates](http://en.wikipedia.org/wiki/Barycentric_coordinate_system)
@@ -143,7 +141,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      */
     @GrapheneVersion1_2
     public fun getBarycoords(p: Point3d? = null, res: Vec2): Boolean =
-        graphene_triangle_get_barycoords(gPointer.reinterpret(), p?.gPointer?.reinterpret(), res.gPointer.reinterpret())
+        graphene_triangle_get_barycoords(gPointer, p?.gPointer, res.gPointer)
 
     /**
      * Computes the bounding box of the given #graphene_triangle_t.
@@ -152,8 +150,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getBoundingBox(res: Box): Unit =
-        graphene_triangle_get_bounding_box(gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun getBoundingBox(res: Box): Unit = graphene_triangle_get_bounding_box(gPointer, res.gPointer)
 
     /**
      * Computes the coordinates of the midpoint of the given #graphene_triangle_t.
@@ -166,8 +163,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getMidpoint(res: Point3d): Unit =
-        graphene_triangle_get_midpoint(gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun getMidpoint(res: Point3d): Unit = graphene_triangle_get_midpoint(gPointer, res.gPointer)
 
     /**
      * Computes the normal vector of the given #graphene_triangle_t.
@@ -176,8 +172,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getNormal(res: Vec3): Unit =
-        graphene_triangle_get_normal(gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun getNormal(res: Vec3): Unit = graphene_triangle_get_normal(gPointer, res.gPointer)
 
     /**
      * Computes the plane based on the vertices of the given #graphene_triangle_t.
@@ -186,8 +181,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getPlane(res: Plane): Unit =
-        graphene_triangle_get_plane(gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun getPlane(res: Plane): Unit = graphene_triangle_get_plane(gPointer, res.gPointer)
 
     /**
      * Retrieves the three vertices of the given #graphene_triangle_t and returns
@@ -202,12 +196,8 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getPoints(a: Point3d?, b: Point3d?, c: Point3d?): Unit = graphene_triangle_get_points(
-        gPointer.reinterpret(),
-        a?.gPointer?.reinterpret(),
-        b?.gPointer?.reinterpret(),
-        c?.gPointer?.reinterpret()
-    )
+    public fun getPoints(a: Point3d?, b: Point3d?, c: Point3d?): Unit =
+        graphene_triangle_get_points(gPointer, a?.gPointer, b?.gPointer, c?.gPointer)
 
     /**
      * Computes the UV coordinates of the given point @p.
@@ -234,14 +224,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      */
     @GrapheneVersion1_10
     public fun getUv(p: Point3d? = null, uvA: Vec2, uvB: Vec2, uvC: Vec2, res: Vec2): Boolean =
-        graphene_triangle_get_uv(
-            gPointer.reinterpret(),
-            p?.gPointer?.reinterpret(),
-            uvA.gPointer.reinterpret(),
-            uvB.gPointer.reinterpret(),
-            uvC.gPointer.reinterpret(),
-            res.gPointer.reinterpret()
-        )
+        graphene_triangle_get_uv(gPointer, p?.gPointer, uvA.gPointer, uvB.gPointer, uvC.gPointer, res.gPointer)
 
     /**
      * Retrieves the three vertices of the given #graphene_triangle_t.
@@ -252,12 +235,8 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getVertices(a: Vec3?, b: Vec3?, c: Vec3?): Unit = graphene_triangle_get_vertices(
-        gPointer.reinterpret(),
-        a?.gPointer?.reinterpret(),
-        b?.gPointer?.reinterpret(),
-        c?.gPointer?.reinterpret()
-    )
+    public fun getVertices(a: Vec3?, b: Vec3?, c: Vec3?): Unit =
+        graphene_triangle_get_vertices(gPointer, a?.gPointer, b?.gPointer, c?.gPointer)
 
     /**
      * Initializes a #graphene_triangle_t using the three given 3D points.
@@ -270,13 +249,8 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      */
     @GrapheneVersion1_2
     public fun initFromPoint3d(a: Point3d? = null, b: Point3d? = null, c: Point3d? = null): Triangle =
-        graphene_triangle_init_from_point3d(
-            gPointer.reinterpret(),
-            a?.gPointer?.reinterpret(),
-            b?.gPointer?.reinterpret(),
-            c?.gPointer?.reinterpret()
-        )!!.run {
-            Triangle(reinterpret())
+        graphene_triangle_init_from_point3d(gPointer, a?.gPointer, b?.gPointer, c?.gPointer)!!.run {
+            Triangle(this)
         }
 
     /**
@@ -290,13 +264,8 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
      */
     @GrapheneVersion1_2
     public fun initFromVec3(a: Vec3? = null, b: Vec3? = null, c: Vec3? = null): Triangle =
-        graphene_triangle_init_from_vec3(
-            gPointer.reinterpret(),
-            a?.gPointer?.reinterpret(),
-            b?.gPointer?.reinterpret(),
-            c?.gPointer?.reinterpret()
-        )!!.run {
-            Triangle(reinterpret())
+        graphene_triangle_init_from_vec3(gPointer, a?.gPointer, b?.gPointer, c?.gPointer)!!.run {
+            Triangle(this)
         }
 
     public companion object {
@@ -310,7 +279,7 @@ public class Triangle(pointer: CPointer<graphene_triangle_t>, cleaner: Cleaner? 
          *   allocated by this function
          * @since 1.2
          */
-        public fun alloc(): Triangle = Triangle(graphene_triangle_alloc()!!.reinterpret())
+        public fun alloc(): Triangle = Triangle(graphene_triangle_alloc()!!)
 
         /**
          * Get the GType of Triangle

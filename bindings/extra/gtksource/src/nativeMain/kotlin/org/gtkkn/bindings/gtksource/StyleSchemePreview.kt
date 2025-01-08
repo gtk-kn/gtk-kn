@@ -20,6 +20,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -70,20 +71,15 @@ public open class StyleSchemePreview(pointer: CPointer<GtkSourceStyleSchemePrevi
          * @return a #GtkSourceStyleScheme
          * @since 5.4
          */
-        get() = gtk_source_style_scheme_preview_get_scheme(gtksourceStyleSchemePreviewPointer.reinterpret())!!.run {
-            StyleScheme(reinterpret())
+        get() = gtk_source_style_scheme_preview_get_scheme(gtksourceStyleSchemePreviewPointer)!!.run {
+            StyleScheme(this)
         }
 
     public open var selected: Boolean
-        get() = gtk_source_style_scheme_preview_get_selected(
-            gtksourceStyleSchemePreviewPointer.reinterpret()
-        ).asBoolean()
+        get() = gtk_source_style_scheme_preview_get_selected(gtksourceStyleSchemePreviewPointer).asBoolean()
         set(
             selected
-        ) = gtk_source_style_scheme_preview_set_selected(
-            gtksourceStyleSchemePreviewPointer.reinterpret(),
-            selected.asGBoolean()
-        )
+        ) = gtk_source_style_scheme_preview_set_selected(gtksourceStyleSchemePreviewPointer, selected.asGBoolean())
 
     /**
      * Creates a new #GtkSourceStyleSchemePreview to preview the style scheme
@@ -95,23 +91,30 @@ public open class StyleSchemePreview(pointer: CPointer<GtkSourceStyleSchemePrevi
      */
     public constructor(
         scheme: StyleScheme,
-    ) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer.reinterpret())!!.reinterpret())
+    ) : this(gtk_source_style_scheme_preview_new(scheme.gtksourceStyleSchemePointer)!!.reinterpret())
 
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate",
-            connectActivateFunc.reinterpret(),
+            onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "activate" signal. See [onActivate].
+     */
+    public fun emitActivate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+    }
 
     public companion object : TypeCompanion<StyleSchemePreview> {
         override val type: GeneratedClassKGType<StyleSchemePreview> =
@@ -132,7 +135,7 @@ public open class StyleSchemePreview(pointer: CPointer<GtkSourceStyleSchemePrevi
     }
 }
 
-private val connectActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

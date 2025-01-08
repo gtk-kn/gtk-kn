@@ -22,3 +22,6 @@ WeakRef.priv ignore
 
 // Cannot pass forward declaration 'GTypeCValue /* = _GTypeCValue */' for reified type parameter
 TypeCValue.*#field ignore
+
+// The bindings expect a GLib.GList but the native function actually returns a GObject.GList
+ParamSpecPool.list_owned reinterpret

@@ -33,7 +33,7 @@ public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
      * @return the child render node
      */
     public open fun getChild(): RenderNode = gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -51,7 +51,7 @@ public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
      */
     public open fun getShadow(i: gsize): Shadow =
         gsk_shadow_node_get_shadow(gskShadowNodePointer.reinterpret(), i)!!.run {
-            Shadow(reinterpret())
+            Shadow(this)
         }
 
     public companion object : TypeCompanion<ShadowNode> {

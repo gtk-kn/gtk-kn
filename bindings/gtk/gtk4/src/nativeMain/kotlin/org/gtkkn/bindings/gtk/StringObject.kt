@@ -37,8 +37,7 @@ public open class StringObject(pointer: CPointer<GtkStringObject>) :
          *
          * @return the string of @self
          */
-        get() = gtk_string_object_get_string(gtkStringObjectPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = gtk_string_object_get_string(gtkStringObjectPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Wraps a string in an object for use with `GListModel`.

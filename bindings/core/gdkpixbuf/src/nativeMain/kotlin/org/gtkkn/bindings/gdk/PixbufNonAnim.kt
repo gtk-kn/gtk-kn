@@ -17,9 +17,7 @@ public open class PixbufNonAnim(pointer: CPointer<GdkPixbufAnimation>) :
     public val gdkPixbufNonAnimPointer: CPointer<GdkPixbufAnimation>
         get() = gPointer.reinterpret()
 
-    public constructor(pixbuf: Pixbuf) : this(
-        gdk_pixbuf_non_anim_new(pixbuf.gdkPixbufPointer.reinterpret())!!.reinterpret()
-    )
+    public constructor(pixbuf: Pixbuf) : this(gdk_pixbuf_non_anim_new(pixbuf.gdkPixbufPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<PixbufNonAnim> {
         override val type: GeneratedClassKGType<PixbufNonAnim> =

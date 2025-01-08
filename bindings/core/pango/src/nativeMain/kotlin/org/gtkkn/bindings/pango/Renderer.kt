@@ -69,7 +69,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.8
      */
     @PangoVersion1_8
-    public open fun activate(): Unit = pango_renderer_activate(pangoRendererPointer.reinterpret())
+    public open fun activate(): Unit = pango_renderer_activate(pangoRendererPointer)
 
     /**
      * Cleans up after rendering operations on @renderer.
@@ -79,7 +79,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.8
      */
     @PangoVersion1_8
-    public open fun deactivate(): Unit = pango_renderer_deactivate(pangoRendererPointer.reinterpret())
+    public open fun deactivate(): Unit = pango_renderer_deactivate(pangoRendererPointer)
 
     /**
      * Draw a squiggly line that approximately covers the given rectangle
@@ -100,7 +100,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawErrorUnderline(x: gint, y: gint, width: gint, height: gint): Unit =
-        pango_renderer_draw_error_underline(pangoRendererPointer.reinterpret(), x, y, width, height)
+        pango_renderer_draw_error_underline(pangoRendererPointer, x, y, width, height)
 
     /**
      * Draws a single glyph with coordinates in device space.
@@ -113,7 +113,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawGlyph(font: Font, glyph: Glyph, x: gdouble, y: gdouble): Unit =
-        pango_renderer_draw_glyph(pangoRendererPointer.reinterpret(), font.pangoFontPointer.reinterpret(), glyph, x, y)
+        pango_renderer_draw_glyph(pangoRendererPointer, font.pangoFontPointer, glyph, x, y)
 
     /**
      * Draws the glyphs in @glyph_item with the specified `PangoRenderer`,
@@ -145,7 +145,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_22
     public open fun drawGlyphItem(text: String? = null, glyphItem: GlyphItem, x: gint, y: gint): Unit =
-        pango_renderer_draw_glyph_item(pangoRendererPointer.reinterpret(), text, glyphItem.gPointer.reinterpret(), x, y)
+        pango_renderer_draw_glyph_item(pangoRendererPointer, text, glyphItem.gPointer, x, y)
 
     /**
      * Draws the glyphs in @glyphs with the specified `PangoRenderer`.
@@ -159,13 +159,8 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.8
      */
     @PangoVersion1_8
-    public open fun drawGlyphs(font: Font, glyphs: GlyphString, x: gint, y: gint): Unit = pango_renderer_draw_glyphs(
-        pangoRendererPointer.reinterpret(),
-        font.pangoFontPointer.reinterpret(),
-        glyphs.gPointer.reinterpret(),
-        x,
-        y
-    )
+    public open fun drawGlyphs(font: Font, glyphs: GlyphString, x: gint, y: gint): Unit =
+        pango_renderer_draw_glyphs(pangoRendererPointer, font.pangoFontPointer, glyphs.gPointer, x, y)
 
     /**
      * Draws @layout with the specified `PangoRenderer`.
@@ -182,7 +177,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawLayout(layout: Layout, x: gint, y: gint): Unit =
-        pango_renderer_draw_layout(pangoRendererPointer.reinterpret(), layout.pangoLayoutPointer.reinterpret(), x, y)
+        pango_renderer_draw_layout(pangoRendererPointer, layout.pangoLayoutPointer, x, y)
 
     /**
      * Draws @line with the specified `PangoRenderer`.
@@ -200,7 +195,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawLayoutLine(line: LayoutLine, x: gint, y: gint): Unit =
-        pango_renderer_draw_layout_line(pangoRendererPointer.reinterpret(), line.gPointer.reinterpret(), x, y)
+        pango_renderer_draw_layout_line(pangoRendererPointer, line.gPointer, x, y)
 
     /**
      * Draws an axis-aligned rectangle in user space coordinates with the
@@ -220,7 +215,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawRectangle(part: RenderPart, x: gint, y: gint, width: gint, height: gint): Unit =
-        pango_renderer_draw_rectangle(pangoRendererPointer.reinterpret(), part.nativeValue, x, y, width, height)
+        pango_renderer_draw_rectangle(pangoRendererPointer, part.nativeValue, x, y, width, height)
 
     /**
      * Draws a trapezoid with the parallel sides aligned with the X axis
@@ -244,8 +239,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
         y2: gdouble,
         x12: gdouble,
         x22: gdouble,
-    ): Unit =
-        pango_renderer_draw_trapezoid(pangoRendererPointer.reinterpret(), part.nativeValue, y1, x11, x21, y2, x12, x22)
+    ): Unit = pango_renderer_draw_trapezoid(pangoRendererPointer, part.nativeValue, y1, x11, x21, y2, x12, x22)
 
     /**
      * Gets the current alpha for the specified part.
@@ -258,7 +252,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_38
     public open fun getAlpha(part: RenderPart): guint16 =
-        pango_renderer_get_alpha(pangoRendererPointer.reinterpret(), part.nativeValue)
+        pango_renderer_get_alpha(pangoRendererPointer, part.nativeValue)
 
     /**
      * Gets the current rendering color for the specified part.
@@ -271,8 +265,8 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun getColor(part: RenderPart): Color? =
-        pango_renderer_get_color(pangoRendererPointer.reinterpret(), part.nativeValue)?.run {
-            Color(reinterpret())
+        pango_renderer_get_color(pangoRendererPointer, part.nativeValue)?.run {
+            Color(this)
         }
 
     /**
@@ -289,8 +283,8 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.20
      */
     @PangoVersion1_20
-    public open fun getLayout(): Layout? = pango_renderer_get_layout(pangoRendererPointer.reinterpret())?.run {
-        Layout(reinterpret())
+    public open fun getLayout(): Layout? = pango_renderer_get_layout(pangoRendererPointer)?.run {
+        Layout(this)
     }
 
     /**
@@ -307,10 +301,9 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.20
      */
     @PangoVersion1_20
-    public open fun getLayoutLine(): LayoutLine? =
-        pango_renderer_get_layout_line(pangoRendererPointer.reinterpret())?.run {
-            LayoutLine(reinterpret())
-        }
+    public open fun getLayoutLine(): LayoutLine? = pango_renderer_get_layout_line(pangoRendererPointer)?.run {
+        LayoutLine(this)
+    }
 
     /**
      * Gets the transformation matrix that will be applied when
@@ -324,8 +317,8 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      * @since 1.8
      */
     @PangoVersion1_8
-    public open fun getMatrix(): Matrix? = pango_renderer_get_matrix(pangoRendererPointer.reinterpret())?.run {
-        Matrix(reinterpret())
+    public open fun getMatrix(): Matrix? = pango_renderer_get_matrix(pangoRendererPointer)?.run {
+        Matrix(this)
     }
 
     /**
@@ -350,7 +343,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun partChanged(part: RenderPart): Unit =
-        pango_renderer_part_changed(pangoRendererPointer.reinterpret(), part.nativeValue)
+        pango_renderer_part_changed(pangoRendererPointer, part.nativeValue)
 
     /**
      * Sets the alpha for part of the rendering.
@@ -364,7 +357,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_38
     public open fun setAlpha(part: RenderPart, alpha: guint16): Unit =
-        pango_renderer_set_alpha(pangoRendererPointer.reinterpret(), part.nativeValue, alpha)
+        pango_renderer_set_alpha(pangoRendererPointer, part.nativeValue, alpha)
 
     /**
      * Sets the color for part of the rendering.
@@ -377,7 +370,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun setColor(part: RenderPart, color: Color? = null): Unit =
-        pango_renderer_set_color(pangoRendererPointer.reinterpret(), part.nativeValue, color?.gPointer?.reinterpret())
+        pango_renderer_set_color(pangoRendererPointer, part.nativeValue, color?.gPointer)
 
     /**
      * Sets the transformation matrix that will be applied when rendering.
@@ -388,7 +381,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun setMatrix(matrix: Matrix? = null): Unit =
-        pango_renderer_set_matrix(pangoRendererPointer.reinterpret(), matrix?.gPointer?.reinterpret())
+        pango_renderer_set_matrix(pangoRendererPointer, matrix?.gPointer)
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =

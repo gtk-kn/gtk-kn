@@ -54,8 +54,8 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @return the message list of file descriptors
          * @since 2.28
          */
-        get() = webkit_user_message_get_fd_list(webkitUserMessagePointer.reinterpret())?.run {
-            UnixFdList(reinterpret())
+        get() = webkit_user_message_get_fd_list(webkitUserMessagePointer)?.run {
+            UnixFdList(this)
         }
 
     /**
@@ -71,8 +71,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @return the message name
          * @since 2.28
          */
-        get() = webkit_user_message_get_name(webkitUserMessagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_user_message_get_name(webkitUserMessagePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The parameters of the user message as a #GVariant, or null
@@ -89,8 +88,8 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
          * @return the message parameters
          * @since 2.28
          */
-        get() = webkit_user_message_get_parameters(webkitUserMessagePointer.reinterpret())?.run {
-            Variant(reinterpret())
+        get() = webkit_user_message_get_parameters(webkitUserMessagePointer)?.run {
+            Variant(this)
         }
 
     /**
@@ -104,7 +103,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
     public constructor(
         name: String,
         parameters: Variant? = null,
-    ) : this(webkit_user_message_new(name, parameters?.gPointer?.reinterpret())!!.reinterpret())
+    ) : this(webkit_user_message_new(name, parameters?.gPointer)!!.reinterpret())
 
     /**
      * Create a new #WebKitUserMessage including also a list of UNIX file descriptors to be sent.
@@ -120,11 +119,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
         parameters: Variant? = null,
         fdList: UnixFdList? = null,
     ) : this(
-        webkit_user_message_new_with_fd_list(
-            name,
-            parameters?.gPointer?.reinterpret(),
-            fdList?.gioUnixFdListPointer?.reinterpret()
-        )!!.reinterpret()
+        webkit_user_message_new_with_fd_list(name, parameters?.gPointer, fdList?.gioUnixFdListPointer)!!.reinterpret()
     )
 
     /**
@@ -138,10 +133,8 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun sendReply(reply: UserMessage): Unit = webkit_user_message_send_reply(
-        webkitUserMessagePointer.reinterpret(),
-        reply.webkitUserMessagePointer.reinterpret()
-    )
+    public fun sendReply(reply: UserMessage): Unit =
+        webkit_user_message_send_reply(webkitUserMessagePointer, reply.webkitUserMessagePointer)
 
     public companion object : TypeCompanion<UserMessage> {
         override val type: GeneratedClassKGType<UserMessage> =

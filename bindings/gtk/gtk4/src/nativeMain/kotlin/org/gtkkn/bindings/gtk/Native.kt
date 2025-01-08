@@ -50,8 +50,8 @@ public interface Native :
      *
      * @return the renderer for @self
      */
-    public fun getRenderer(): Renderer? = gtk_native_get_renderer(gtkNativePointer.reinterpret())?.run {
-        Renderer(reinterpret())
+    public fun getRenderer(): Renderer? = gtk_native_get_renderer(gtkNativePointer)?.run {
+        Renderer(this)
     }
 
     /**
@@ -59,8 +59,8 @@ public interface Native :
      *
      * @return the surface of @self
      */
-    public fun getSurface(): Surface? = gtk_native_get_surface(gtkNativePointer.reinterpret())?.run {
-        Surface(reinterpret())
+    public fun getSurface(): Surface? = gtk_native_get_surface(gtkNativePointer)?.run {
+        Surface(this)
     }
 
     /**
@@ -68,14 +68,14 @@ public interface Native :
      *
      * This should only be used by subclasses.
      */
-    public fun nativeRealize(): Unit = gtk_native_realize(gtkNativePointer.reinterpret())
+    public fun nativeRealize(): Unit = gtk_native_realize(gtkNativePointer)
 
     /**
      * Unrealizes a `GtkNative`.
      *
      * This should only be used by subclasses.
      */
-    public fun nativeUnrealize(): Unit = gtk_native_unrealize(gtkNativePointer.reinterpret())
+    public fun nativeUnrealize(): Unit = gtk_native_unrealize(gtkNativePointer)
 
     private data class Wrapper(private val pointer: CPointer<GtkNative>) : Native {
         override val gtkNativePointer: CPointer<GtkNative> = pointer
@@ -98,7 +98,7 @@ public interface Native :
          * @return the `GtkNative` that is associated with @surface
          */
         public fun getForSurface(surface: Surface): Native? =
-            gtk_native_get_for_surface(surface.gdkSurfacePointer.reinterpret())?.run {
+            gtk_native_get_for_surface(surface.gdkSurfacePointer)?.run {
                 Native.wrap(reinterpret())
             }
 

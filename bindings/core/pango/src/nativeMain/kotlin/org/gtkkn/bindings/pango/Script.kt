@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.pango
 
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_4
 import org.gtkkn.native.glib.gunichar
 import org.gtkkn.native.gobject.GType
@@ -800,7 +799,7 @@ public enum class Script(public val nativeValue: PangoScript) {
         @PangoVersion1_4
         public fun getSampleLanguage(script: Script): Language? =
             pango_script_get_sample_language(script.nativeValue)?.run {
-                Language(reinterpret())
+                Language(this)
             }
 
         /**

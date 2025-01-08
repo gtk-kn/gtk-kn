@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
@@ -118,8 +117,8 @@ public class AttrShape(pointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = nu
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(inkRect: Rectangle, logicalRect: Rectangle): Attribute =
-            pango_attr_shape_new(inkRect.gPointer.reinterpret(), logicalRect.gPointer.reinterpret())!!.run {
-                Attribute(reinterpret())
+            pango_attr_shape_new(inkRect.gPointer, logicalRect.gPointer)!!.run {
+                Attribute(this)
             }
     }
 }

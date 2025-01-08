@@ -109,14 +109,14 @@ public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
          *
          * @return whether @self is revealed
          */
-        get() = adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer.reinterpret()).asBoolean()
+        get() = adw_view_switcher_bar_get_reveal(adwViewSwitcherBarPointer).asBoolean()
 
         /**
          * Sets whether @self should be revealed or hidden.
          *
          * @param reveal whether to reveal @self
          */
-        set(reveal) = adw_view_switcher_bar_set_reveal(adwViewSwitcherBarPointer.reinterpret(), reveal.asGBoolean())
+        set(reveal) = adw_view_switcher_bar_set_reveal(adwViewSwitcherBarPointer, reveal.asGBoolean())
 
     /**
      * The stack the view switcher controls.
@@ -127,8 +127,8 @@ public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
          *
          * @return the stack
          */
-        get() = adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer.reinterpret())?.run {
-            ViewStack(reinterpret())
+        get() = adw_view_switcher_bar_get_stack(adwViewSwitcherBarPointer)?.run {
+            ViewStack(this)
         }
 
         /**
@@ -136,12 +136,7 @@ public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
          *
          * @param stack a stack
          */
-        set(
-            stack
-        ) = adw_view_switcher_bar_set_stack(
-            adwViewSwitcherBarPointer.reinterpret(),
-            stack?.adwViewStackPointer?.reinterpret()
-        )
+        set(stack) = adw_view_switcher_bar_set_stack(adwViewSwitcherBarPointer, stack?.adwViewStackPointer)
 
     /**
      * Creates a new `AdwViewSwitcherBar`.

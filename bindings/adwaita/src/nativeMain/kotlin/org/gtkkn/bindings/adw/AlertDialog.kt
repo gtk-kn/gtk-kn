@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -53,6 +54,7 @@ import org.gtkkn.native.adw.adw_alert_dialog_set_response_enabled
 import org.gtkkn.native.adw.adw_alert_dialog_set_response_label
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -233,8 +235,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return the body of @self.
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_body(adwAlertDialogPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_alert_dialog_get_body(adwAlertDialogPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the body text of @self.
@@ -243,7 +244,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(body) = adw_alert_dialog_set_body(adwAlertDialogPointer.reinterpret(), body)
+        set(body) = adw_alert_dialog_set_body(adwAlertDialogPointer, body)
 
     /**
      * Whether the body text includes Pango markup.
@@ -260,7 +261,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return whether @self uses markup for body text
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_body_use_markup(adwAlertDialogPointer.reinterpret()).asBoolean()
+        get() = adw_alert_dialog_get_body_use_markup(adwAlertDialogPointer).asBoolean()
 
         /**
          * Sets whether the body text of @self includes Pango markup.
@@ -271,9 +272,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            useMarkup
-        ) = adw_alert_dialog_set_body_use_markup(adwAlertDialogPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_alert_dialog_set_body_use_markup(adwAlertDialogPointer, useMarkup.asGBoolean())
 
     /**
      * The ID of the close response.
@@ -295,7 +294,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return the close response ID
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_close_response(adwAlertDialogPointer.reinterpret())?.toKString()
+        get() = adw_alert_dialog_get_close_response(adwAlertDialogPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -312,7 +311,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(response) = adw_alert_dialog_set_close_response(adwAlertDialogPointer.reinterpret(), response)
+        set(response) = adw_alert_dialog_set_close_response(adwAlertDialogPointer, response)
 
     /**
      * The response ID of the default response.
@@ -332,7 +331,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return the default response ID
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_default_response(adwAlertDialogPointer.reinterpret())?.toKString()
+        get() = adw_alert_dialog_get_default_response(adwAlertDialogPointer)?.toKString()
 
         /**
          * Sets the ID of the default response of @self.
@@ -346,7 +345,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(response) = adw_alert_dialog_set_default_response(adwAlertDialogPointer.reinterpret(), response)
+        set(response) = adw_alert_dialog_set_default_response(adwAlertDialogPointer, response)
 
     /**
      * The child widget.
@@ -363,8 +362,8 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return the child widget of @self.
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_extra_child(adwAlertDialogPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_alert_dialog_get_extra_child(adwAlertDialogPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -376,12 +375,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            child
-        ) = adw_alert_dialog_set_extra_child(
-            adwAlertDialogPointer.reinterpret(),
-            child?.gtkWidgetPointer?.reinterpret()
-        )
+        set(child) = adw_alert_dialog_set_extra_child(adwAlertDialogPointer, child?.gtkWidgetPointer)
 
     /**
      * The heading of the dialog.
@@ -396,7 +390,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return the heading of @self.
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_heading(adwAlertDialogPointer.reinterpret())?.toKString()
+        get() = adw_alert_dialog_get_heading(adwAlertDialogPointer)?.toKString()
 
         /**
          * Sets the heading of @self.
@@ -405,7 +399,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(heading) = adw_alert_dialog_set_heading(adwAlertDialogPointer.reinterpret(), heading)
+        set(heading) = adw_alert_dialog_set_heading(adwAlertDialogPointer, heading)
 
     /**
      * Whether the heading includes Pango markup.
@@ -422,7 +416,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @return whether @self uses markup for heading
          * @since 1.5
          */
-        get() = adw_alert_dialog_get_heading_use_markup(adwAlertDialogPointer.reinterpret()).asBoolean()
+        get() = adw_alert_dialog_get_heading_use_markup(adwAlertDialogPointer).asBoolean()
 
         /**
          * Sets whether the heading of @self includes Pango markup.
@@ -433,9 +427,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         @AdwVersion1_5
-        set(
-            useMarkup
-        ) = adw_alert_dialog_set_heading_use_markup(adwAlertDialogPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_alert_dialog_set_heading_use_markup(adwAlertDialogPointer, useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwAlertDialog`.
@@ -487,7 +479,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun addResponse(id: String, label: String): Unit =
-        adw_alert_dialog_add_response(adwAlertDialogPointer.reinterpret(), id, label)
+        adw_alert_dialog_add_response(adwAlertDialogPointer, id, label)
 
     /**
      * This function shows @self to the user.
@@ -509,9 +501,9 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = adw_alert_dialog_choose(
-        adwAlertDialogPointer.reinterpret(),
-        parent?.gtkWidgetPointer?.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        adwAlertDialogPointer,
+        parent?.gtkWidgetPointer,
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -528,7 +520,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun chooseFinish(result: AsyncResult): String =
-        adw_alert_dialog_choose_finish(adwAlertDialogPointer.reinterpret(), result.gioAsyncResultPointer)?.toKString()
+        adw_alert_dialog_choose_finish(adwAlertDialogPointer, result.gioAsyncResultPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -542,7 +534,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun getResponseAppearance(response: String): ResponseAppearance =
-        adw_alert_dialog_get_response_appearance(adwAlertDialogPointer.reinterpret(), response).run {
+        adw_alert_dialog_get_response_appearance(adwAlertDialogPointer, response).run {
             ResponseAppearance.fromNativeValue(this)
         }
 
@@ -557,7 +549,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun getResponseEnabled(response: String): Boolean =
-        adw_alert_dialog_get_response_enabled(adwAlertDialogPointer.reinterpret(), response).asBoolean()
+        adw_alert_dialog_get_response_enabled(adwAlertDialogPointer, response).asBoolean()
 
     /**
      * Gets the label of @response.
@@ -570,7 +562,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun getResponseLabel(response: String): String =
-        adw_alert_dialog_get_response_label(adwAlertDialogPointer.reinterpret(), response)?.toKString()
+        adw_alert_dialog_get_response_label(adwAlertDialogPointer, response)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -582,7 +574,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun hasResponse(response: String): Boolean =
-        adw_alert_dialog_has_response(adwAlertDialogPointer.reinterpret(), response).asBoolean()
+        adw_alert_dialog_has_response(adwAlertDialogPointer, response).asBoolean()
 
     /**
      * Removes a response from @self.
@@ -591,8 +583,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun removeResponse(id: String): Unit =
-        adw_alert_dialog_remove_response(adwAlertDialogPointer.reinterpret(), id)
+    public open fun removeResponse(id: String): Unit = adw_alert_dialog_remove_response(adwAlertDialogPointer, id)
 
     /**
      * Sets the appearance for @response.
@@ -619,7 +610,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun setResponseAppearance(response: String, appearance: ResponseAppearance): Unit =
-        adw_alert_dialog_set_response_appearance(adwAlertDialogPointer.reinterpret(), response, appearance.nativeValue)
+        adw_alert_dialog_set_response_appearance(adwAlertDialogPointer, response, appearance.nativeValue)
 
     /**
      * Sets whether @response is enabled.
@@ -639,7 +630,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun setResponseEnabled(response: String, enabled: Boolean): Unit =
-        adw_alert_dialog_set_response_enabled(adwAlertDialogPointer.reinterpret(), response, enabled.asGBoolean())
+        adw_alert_dialog_set_response_enabled(adwAlertDialogPointer, response, enabled.asGBoolean())
 
     /**
      * Sets the label of @response to @label.
@@ -653,7 +644,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public open fun setResponseLabel(response: String, label: String): Unit =
-        adw_alert_dialog_set_response_label(adwAlertDialogPointer.reinterpret(), response, label)
+        adw_alert_dialog_set_response_label(adwAlertDialogPointer, response, label)
 
     /**
      * This signal is emitted when the dialog is closed.
@@ -665,22 +656,40 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      * action, @response will be set to the value of
      * [property@AlertDialog:close-response].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param detail the signal detail
      * @param handler the Callback to connect. Params: `response` the response ID
      * @since 1.5
      */
     @AdwVersion1_5
-    public fun connectResponse(
+    public fun onResponse(
         connectFlags: ConnectFlags = ConnectFlags(0u),
+        detail: String? = null,
         handler: (response: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "response",
-        connectResponseFunc.reinterpret(),
+        gPointer,
+        "response" + (
+            detail?.let {
+                "::$it"
+            } ?: ""
+            ),
+        onResponseFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "response" signal. See [onResponse].
+     *
+     * @param detail the signal detail
+     * @param response the response ID
+     * @since 1.5
+     */
+    @AdwVersion1_5
+    public fun emitResponse(detail: String? = null, response: String) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "response" + (detail?.let { "::$it" } ?: ""), response.cstr)
+    }
 
     public companion object : TypeCompanion<AlertDialog> {
         override val type: GeneratedClassKGType<AlertDialog> =
@@ -699,14 +708,13 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
     }
 }
 
-private val connectResponseFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            response: CPointer<ByteVar>?,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(response: String) -> Unit>().get().invoke(
-            response?.toKString() ?: error("Expected not null string")
-        )
-    }
-        .reinterpret()
+private val onResponseFunc: CPointer<CFunction<(CPointer<ByteVar>) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        response: CPointer<ByteVar>?,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(response: String) -> Unit>().get().invoke(
+        response?.toKString() ?: error("Expected not null string")
+    )
+}
+    .reinterpret()

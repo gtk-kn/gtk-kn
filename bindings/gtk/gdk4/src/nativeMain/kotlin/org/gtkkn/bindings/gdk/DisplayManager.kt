@@ -25,6 +25,7 @@ import org.gtkkn.native.gdk.gdk_display_manager_open_display
 import org.gtkkn.native.gdk.gdk_display_manager_set_default_display
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.String
 import kotlin.ULong
 import kotlin.Unit
@@ -89,8 +90,8 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
      * @return a `GdkDisplay`
      */
     public open fun getDefaultDisplay(): Display? =
-        gdk_display_manager_get_default_display(gdkDisplayManagerPointer.reinterpret())?.run {
-            Display(reinterpret())
+        gdk_display_manager_get_default_display(gdkDisplayManagerPointer)?.run {
+            Display(this)
         }
 
     /**
@@ -99,10 +100,9 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
      * @return a newly
      *   allocated `GSList` of `GdkDisplay` objects
      */
-    public open fun listDisplays(): SList =
-        gdk_display_manager_list_displays(gdkDisplayManagerPointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public open fun listDisplays(): SList = gdk_display_manager_list_displays(gdkDisplayManagerPointer)!!.run {
+        SList(this)
+    }
 
     /**
      * Opens a display.
@@ -112,8 +112,8 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
      *   if the display could not be opened
      */
     public open fun openDisplay(name: String? = null): Display? =
-        gdk_display_manager_open_display(gdkDisplayManagerPointer.reinterpret(), name)?.run {
-            Display(reinterpret())
+        gdk_display_manager_open_display(gdkDisplayManagerPointer, name)?.run {
+            Display(this)
         }
 
     /**
@@ -121,28 +121,35 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
      *
      * @param display a `GdkDisplay`
      */
-    public open fun setDefaultDisplay(display: Display): Unit = gdk_display_manager_set_default_display(
-        gdkDisplayManagerPointer.reinterpret(),
-        display.gdkDisplayPointer.reinterpret()
-    )
+    public open fun setDefaultDisplay(display: Display): Unit =
+        gdk_display_manager_set_default_display(gdkDisplayManagerPointer, display.gdkDisplayPointer)
 
     /**
      * Emitted when a display is opened.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `display` the opened display
      */
-    public fun connectDisplayOpened(
+    public fun onDisplayOpened(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (display: Display) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "display-opened",
-        connectDisplayOpenedFunc.reinterpret(),
+        onDisplayOpenedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "display-opened" signal. See [onDisplayOpened].
+     *
+     * @param display the opened display
+     */
+    public fun emitDisplayOpened(display: Display) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "display-opened", display.gdkDisplayPointer)
+    }
 
     public companion object : TypeCompanion<DisplayManager> {
         override val type: GeneratedClassKGType<DisplayManager> =
@@ -166,7 +173,7 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
          * @return The global `GdkDisplayManager` singleton
          */
         public fun `get`(): DisplayManager = gdk_display_manager_get()!!.run {
-            DisplayManager(reinterpret())
+            DisplayManager(this)
         }
 
         /**
@@ -178,7 +185,7 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
     }
 }
 
-private val connectDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) -> Unit>> =
+private val onDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             display: CPointer<GdkDisplay>?,
@@ -186,7 +193,7 @@ private val connectDisplayOpenedFunc: CPointer<CFunction<(CPointer<GdkDisplay>) 
         ->
         userData.asStableRef<(display: Display) -> Unit>().get().invoke(
             display!!.run {
-                Display(reinterpret())
+                Display(this)
             }
         )
     }

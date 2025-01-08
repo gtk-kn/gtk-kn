@@ -64,7 +64,7 @@ public open class CustomFilter(pointer: CPointer<GtkCustomFilter>) :
      * @param matchFunc function to filter items
      */
     public open fun setFilterFunc(matchFunc: CustomFilterFunc?): Unit = gtk_custom_filter_set_filter_func(
-        gtkCustomFilterPointer.reinterpret(),
+        gtkCustomFilterPointer,
         matchFunc?.let {
             CustomFilterFuncFunc.reinterpret()
         },

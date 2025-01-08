@@ -52,8 +52,8 @@ public open class DBusMenuModel(pointer: CPointer<GDBusMenuModel>) :
          */
         @GioVersion2_32
         public fun `get`(connection: DBusConnection, busName: String? = null, objectPath: String): DBusMenuModel =
-            g_dbus_menu_model_get(connection.gioDBusConnectionPointer.reinterpret(), busName, objectPath)!!.run {
-                DBusMenuModel(reinterpret())
+            g_dbus_menu_model_get(connection.gioDBusConnectionPointer, busName, objectPath)!!.run {
+                DBusMenuModel(this)
             }
 
         /**

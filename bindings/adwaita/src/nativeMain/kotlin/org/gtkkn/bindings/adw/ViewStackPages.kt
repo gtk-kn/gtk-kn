@@ -57,8 +57,8 @@ public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
      */
     @AdwVersion1_4
     public fun getSelectedPage(): ViewStackPage? =
-        adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer.reinterpret())?.run {
-            ViewStackPage(reinterpret())
+        adw_view_stack_pages_get_selected_page(adwViewStackPagesPointer)?.run {
+            ViewStackPage(this)
         }
 
     /**
@@ -70,10 +70,8 @@ public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun setSelectedPage(page: ViewStackPage): Unit = adw_view_stack_pages_set_selected_page(
-        adwViewStackPagesPointer.reinterpret(),
-        page.adwViewStackPagePointer.reinterpret()
-    )
+    public fun setSelectedPage(page: ViewStackPage): Unit =
+        adw_view_stack_pages_set_selected_page(adwViewStackPagesPointer, page.adwViewStackPagePointer)
 
     public companion object : TypeCompanion<ViewStackPages> {
         override val type: GeneratedClassKGType<ViewStackPages> =

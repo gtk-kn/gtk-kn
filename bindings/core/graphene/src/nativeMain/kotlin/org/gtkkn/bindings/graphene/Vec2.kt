@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_0
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_10
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
@@ -100,8 +99,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun add(b: Vec2, res: Vec2): Unit =
-        graphene_vec2_add(gPointer.reinterpret(), b.gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun add(b: Vec2, res: Vec2): Unit = graphene_vec2_add(gPointer, b.gPointer, res.gPointer)
 
     /**
      * Divides each component of the first operand @a by the corresponding
@@ -113,8 +111,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun divide(b: Vec2, res: Vec2): Unit =
-        graphene_vec2_divide(gPointer.reinterpret(), b.gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun divide(b: Vec2, res: Vec2): Unit = graphene_vec2_divide(gPointer, b.gPointer, res.gPointer)
 
     /**
      * Computes the dot product of the two given vectors.
@@ -124,7 +121,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun dot(b: Vec2): gfloat = graphene_vec2_dot(gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun dot(b: Vec2): gfloat = graphene_vec2_dot(gPointer, b.gPointer)
 
     /**
      * Checks whether the two given #graphene_vec2_t are equal.
@@ -134,7 +131,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun equal(v2: Vec2): Boolean = graphene_vec2_equal(gPointer.reinterpret(), v2.gPointer.reinterpret())
+    public fun equal(v2: Vec2): Boolean = graphene_vec2_equal(gPointer, v2.gPointer)
 
     /**
      * Frees the resources allocated by @v
@@ -142,7 +139,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun free(): Unit = graphene_vec2_free(gPointer.reinterpret())
+    public fun free(): Unit = graphene_vec2_free(gPointer)
 
     /**
      * Retrieves the X component of the #graphene_vec2_t.
@@ -151,7 +148,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getX(): gfloat = graphene_vec2_get_x(gPointer.reinterpret())
+    public fun getX(): gfloat = graphene_vec2_get_x(gPointer)
 
     /**
      * Retrieves the Y component of the #graphene_vec2_t.
@@ -160,7 +157,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getY(): gfloat = graphene_vec2_get_y(gPointer.reinterpret())
+    public fun getY(): gfloat = graphene_vec2_get_y(gPointer)
 
     /**
      * Initializes a #graphene_vec2_t using the given values.
@@ -173,8 +170,8 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(x: gfloat, y: gfloat): Vec2 = graphene_vec2_init(gPointer.reinterpret(), x, y)!!.run {
-        Vec2(reinterpret())
+    public fun `init`(x: gfloat, y: gfloat): Vec2 = graphene_vec2_init(gPointer, x, y)!!.run {
+        Vec2(this)
     }
 
     /**
@@ -185,10 +182,9 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromVec2(src: Vec2): Vec2 =
-        graphene_vec2_init_from_vec2(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
-            Vec2(reinterpret())
-        }
+    public fun initFromVec2(src: Vec2): Vec2 = graphene_vec2_init_from_vec2(gPointer, src.gPointer)!!.run {
+        Vec2(this)
+    }
 
     /**
      * Linearly interpolates @v1 and @v2 using the given @factor.
@@ -200,7 +196,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_10
     public fun interpolate(v2: Vec2, factor: gdouble, res: Vec2): Unit =
-        graphene_vec2_interpolate(gPointer.reinterpret(), v2.gPointer.reinterpret(), factor, res.gPointer.reinterpret())
+        graphene_vec2_interpolate(gPointer, v2.gPointer, factor, res.gPointer)
 
     /**
      * Computes the length of the given vector.
@@ -209,7 +205,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun length(): gfloat = graphene_vec2_length(gPointer.reinterpret())
+    public fun length(): gfloat = graphene_vec2_length(gPointer)
 
     /**
      * Compares the two given vectors and places the maximum
@@ -220,8 +216,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun max(b: Vec2, res: Vec2): Unit =
-        graphene_vec2_max(gPointer.reinterpret(), b.gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun max(b: Vec2, res: Vec2): Unit = graphene_vec2_max(gPointer, b.gPointer, res.gPointer)
 
     /**
      * Compares the two given vectors and places the minimum
@@ -232,8 +227,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun min(b: Vec2, res: Vec2): Unit =
-        graphene_vec2_min(gPointer.reinterpret(), b.gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun min(b: Vec2, res: Vec2): Unit = graphene_vec2_min(gPointer, b.gPointer, res.gPointer)
 
     /**
      * Multiplies each component of the two passed vectors and places
@@ -244,8 +238,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun multiply(b: Vec2, res: Vec2): Unit =
-        graphene_vec2_multiply(gPointer.reinterpret(), b.gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun multiply(b: Vec2, res: Vec2): Unit = graphene_vec2_multiply(gPointer, b.gPointer, res.gPointer)
 
     /**
      * Compares the two given #graphene_vec2_t vectors and checks
@@ -257,8 +250,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun near(v2: Vec2, epsilon: gfloat): Boolean =
-        graphene_vec2_near(gPointer.reinterpret(), v2.gPointer.reinterpret(), epsilon)
+    public fun near(v2: Vec2, epsilon: gfloat): Boolean = graphene_vec2_near(gPointer, v2.gPointer, epsilon)
 
     /**
      * Negates the given #graphene_vec2_t.
@@ -267,7 +259,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun negate(res: Vec2): Unit = graphene_vec2_negate(gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun negate(res: Vec2): Unit = graphene_vec2_negate(gPointer, res.gPointer)
 
     /**
      * Computes the normalized vector for the given vector @v.
@@ -277,7 +269,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun normalize(res: Vec2): Unit = graphene_vec2_normalize(gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun normalize(res: Vec2): Unit = graphene_vec2_normalize(gPointer, res.gPointer)
 
     /**
      * Multiplies all components of the given vector with the given scalar @factor.
@@ -287,8 +279,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun scale(factor: gfloat, res: Vec2): Unit =
-        graphene_vec2_scale(gPointer.reinterpret(), factor, res.gPointer.reinterpret())
+    public fun scale(factor: gfloat, res: Vec2): Unit = graphene_vec2_scale(gPointer, factor, res.gPointer)
 
     /**
      * Subtracts from each component of the first operand @a the
@@ -300,8 +291,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun subtract(b: Vec2, res: Vec2): Unit =
-        graphene_vec2_subtract(gPointer.reinterpret(), b.gPointer.reinterpret(), res.gPointer.reinterpret())
+    public fun subtract(b: Vec2, res: Vec2): Unit = graphene_vec2_subtract(gPointer, b.gPointer, res.gPointer)
 
     public companion object {
         /**
@@ -316,7 +306,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
          *   by this function.
          * @since 1.0
          */
-        public fun alloc(): Vec2 = Vec2(graphene_vec2_alloc()!!.reinterpret())
+        public fun alloc(): Vec2 = Vec2(graphene_vec2_alloc()!!)
 
         /**
          * Retrieves a constant vector with (1, 1) components.
@@ -326,7 +316,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
          */
         @GrapheneVersion1_0
         public fun one(): Vec2 = graphene_vec2_one()!!.run {
-            Vec2(reinterpret())
+            Vec2(this)
         }
 
         /**
@@ -337,7 +327,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
          */
         @GrapheneVersion1_0
         public fun xAxis(): Vec2 = graphene_vec2_x_axis()!!.run {
-            Vec2(reinterpret())
+            Vec2(this)
         }
 
         /**
@@ -348,7 +338,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
          */
         @GrapheneVersion1_0
         public fun yAxis(): Vec2 = graphene_vec2_y_axis()!!.run {
-            Vec2(reinterpret())
+            Vec2(this)
         }
 
         /**
@@ -359,7 +349,7 @@ public class Vec2(pointer: CPointer<graphene_vec2_t>, cleaner: Cleaner? = null) 
          */
         @GrapheneVersion1_0
         public fun zero(): Vec2 = graphene_vec2_zero()!!.run {
-            Vec2(reinterpret())
+            Vec2(this)
         }
 
         /**

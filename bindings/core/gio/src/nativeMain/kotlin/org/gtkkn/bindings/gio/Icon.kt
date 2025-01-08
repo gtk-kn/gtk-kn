@@ -76,8 +76,7 @@ public interface Icon :
      * @param icon2 pointer to the second #GIcon.
      * @return true if @icon1 is equal to @icon2. false otherwise.
      */
-    public fun equal(icon2: Icon? = null): Boolean =
-        g_icon_equal(gioIconPointer.reinterpret(), icon2?.gioIconPointer).asBoolean()
+    public fun equal(icon2: Icon? = null): Boolean = g_icon_equal(gioIconPointer, icon2?.gioIconPointer).asBoolean()
 
     /**
      * Gets a hash for an icon.
@@ -85,7 +84,7 @@ public interface Icon :
      * @return a #guint containing a hash for the @icon, suitable for
      *   use in a #GHashTable or similar data structure.
      */
-    public fun hash(): guint = g_icon_hash(gioIconPointer.reinterpret())
+    public fun hash(): guint = g_icon_hash(gioIconPointer)
 
     /**
      * Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
@@ -98,8 +97,8 @@ public interface Icon :
      * @since 2.38
      */
     @GioVersion2_38
-    public fun serialize(): Variant? = g_icon_serialize(gioIconPointer.reinterpret())?.run {
-        Variant(reinterpret())
+    public fun serialize(): Variant? = g_icon_serialize(gioIconPointer)?.run {
+        Variant(this)
     }
 
     /**
@@ -125,7 +124,7 @@ public interface Icon :
      * @since 2.20
      */
     @GioVersion2_20
-    public fun toStringIcon(): String? = g_icon_to_string(gioIconPointer.reinterpret())?.toKString()
+    public fun toStringIcon(): String? = g_icon_to_string(gioIconPointer)?.toKString()
 
     private data class Wrapper(private val pointer: CPointer<GIcon>) : Icon {
         override val gioIconPointer: CPointer<GIcon> = pointer
@@ -149,7 +148,7 @@ public interface Icon :
          * @since 2.38
          */
         @GioVersion2_38
-        public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.gPointer.reinterpret())?.run {
+        public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.gPointer)?.run {
             Icon.wrap(reinterpret())
         }
 

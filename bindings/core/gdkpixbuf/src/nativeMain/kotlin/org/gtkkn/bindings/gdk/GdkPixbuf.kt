@@ -95,7 +95,7 @@ public val PixbufModuleFillInfoFuncFunc: CPointer<CFunction<(CPointer<GdkPixbufF
         ->
         userData.asStableRef<(info: PixbufFormat) -> Unit>().get().invoke(
             info!!.run {
-                PixbufFormat(reinterpret())
+                PixbufFormat(this)
             }
         )
     }
@@ -108,7 +108,7 @@ public val PixbufModuleFillVtableFuncFunc: CPointer<CFunction<(CPointer<GdkPixbu
         ->
         userData.asStableRef<(module: PixbufModule) -> Unit>().get().invoke(
             module!!.run {
-                PixbufModule(reinterpret())
+                PixbufModule(this)
             }
         )
     }
@@ -137,10 +137,10 @@ public val PixbufModulePreparedFuncFunc:
         ->
         userData!!.asStableRef<(pixbuf: Pixbuf, anim: PixbufAnimation) -> Unit>().get().invoke(
             pixbuf!!.run {
-                Pixbuf(reinterpret())
+                Pixbuf(this)
             },
             anim!!.run {
-                PixbufAnimation(reinterpret())
+                PixbufAnimation(this)
             }
         )
     }
@@ -190,7 +190,7 @@ public val PixbufModuleUpdatedFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         pixbuf!!.run {
-            Pixbuf(reinterpret())
+            Pixbuf(this)
         },
         x,
         y,

@@ -20,6 +20,7 @@ import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeAliasSpec
@@ -375,10 +376,10 @@ class BindingsGenerator(
         internal val KP_CPOINTER = ClassName("kotlinx.cinterop", "CPointer")
         internal val KP_OPAQUE_POINTER = ClassName("kotlinx.cinterop", "COpaquePointer")
         internal val KP_STRING_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(
-            ClassName("kotlinx.cinterop", "CPointerVarOf").parameterizedBy(cpointerOf(KP_BYTEVAR)),
+            ClassName("kotlinx.cinterop", "CPointerVarOf").parameterizedBy(cPointerOf(KP_BYTEVAR)),
         )
         internal val KP_GPOINTER_ARRAY = ClassName("kotlinx.cinterop", "CArrayPointer").parameterizedBy(G_POINTER_VAR)
-        internal val KP_WILDCARD_CPOINTER = cpointerOf(WildcardTypeName.producerOf(KP_CPOINTED))
+        internal val KP_WILDCARD_CPOINTER = cPointerOf(WildcardTypeName.producerOf(KP_CPOINTED))
         internal val MEMSCOPED = MemberName("kotlinx.cinterop", "memScoped")
         internal val NATIVE_HEAP_OBJECT = ClassName("kotlinx.cinterop", "nativeHeap")
         internal val NATIVE_PLACEMENT_ALLOC = ClassName("kotlinx.cinterop", "alloc")
@@ -408,6 +409,7 @@ class BindingsGenerator(
         // gobject
         internal val G_OBJECT = ClassName("org.gtkkn.bindings.gobject", "GObject")
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
+        internal val G_SIGNAL_EMIT_BY_NAME = MemberName("org.gtkkn.native.gobject", "g_signal_emit_by_name")
 
         // glib
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")
@@ -418,7 +420,7 @@ class BindingsGenerator(
         /**
          * A [TypeName] for kotlinx.cinterop.CPointer pointing to [typeName]
          */
-        internal fun cpointerOf(typeName: TypeName): TypeName = KP_CPOINTER.parameterizedBy(typeName)
+        internal fun cPointerOf(typeName: TypeName): ParameterizedTypeName = KP_CPOINTER.parameterizedBy(typeName)
     }
 }
 

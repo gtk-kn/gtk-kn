@@ -29,17 +29,15 @@ public open class ToyFontFace(pointer: CPointer<cairo_font_face_t>) :
     ) : this(cairo_toy_font_face_create(family, slant.nativeValue, weight.nativeValue)!!.reinterpret())
 
     public open fun getFamily(): String =
-        cairo_toy_font_face_get_family(cairoToyFontFacePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        cairo_toy_font_face_get_family(cairoToyFontFacePointer)?.toKString() ?: error("Expected not null string")
 
-    public open fun getSlant(): FontSlant = cairo_toy_font_face_get_slant(cairoToyFontFacePointer.reinterpret()).run {
+    public open fun getSlant(): FontSlant = cairo_toy_font_face_get_slant(cairoToyFontFacePointer).run {
         FontSlant.fromNativeValue(this)
     }
 
-    public open fun getWeight(): FontWeight =
-        cairo_toy_font_face_get_weight(cairoToyFontFacePointer.reinterpret()).run {
-            FontWeight.fromNativeValue(this)
-        }
+    public open fun getWeight(): FontWeight = cairo_toy_font_face_get_weight(cairoToyFontFacePointer).run {
+        FontWeight.fromNativeValue(this)
+    }
 
     public companion object : TypeCompanion<ToyFontFace> {
         override val type: GeneratedClassKGType<ToyFontFace> =

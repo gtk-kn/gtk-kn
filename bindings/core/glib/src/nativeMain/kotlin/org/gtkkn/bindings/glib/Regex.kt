@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
@@ -125,7 +124,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getCaptureCount(): gint = g_regex_get_capture_count(gPointer.reinterpret())
+    public fun getCaptureCount(): gint = g_regex_get_capture_count(gPointer)
 
     /**
      * Returns the compile options that @regex was created with.
@@ -138,7 +137,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getCompileFlags(): RegexCompileFlags = g_regex_get_compile_flags(gPointer.reinterpret()).run {
+    public fun getCompileFlags(): RegexCompileFlags = g_regex_get_compile_flags(gPointer).run {
         RegexCompileFlags(this)
     }
 
@@ -149,7 +148,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun getHasCrOrLf(): Boolean = g_regex_get_has_cr_or_lf(gPointer.reinterpret()).asBoolean()
+    public fun getHasCrOrLf(): Boolean = g_regex_get_has_cr_or_lf(gPointer).asBoolean()
 
     /**
      * Returns the match options that @regex was created with.
@@ -158,7 +157,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getMatchFlags(): RegexMatchFlags = g_regex_get_match_flags(gPointer.reinterpret()).run {
+    public fun getMatchFlags(): RegexMatchFlags = g_regex_get_match_flags(gPointer).run {
         RegexMatchFlags(this)
     }
 
@@ -171,7 +170,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getMaxBackref(): gint = g_regex_get_max_backref(gPointer.reinterpret())
+    public fun getMaxBackref(): gint = g_regex_get_max_backref(gPointer)
 
     /**
      * Gets the number of characters in the longest lookbehind assertion in the
@@ -182,7 +181,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.38
      */
     @GLibVersion2_38
-    public fun getMaxLookbehind(): gint = g_regex_get_max_lookbehind(gPointer.reinterpret())
+    public fun getMaxLookbehind(): gint = g_regex_get_max_lookbehind(gPointer)
 
     /**
      * Gets the pattern string associated with @regex, i.e. a copy of
@@ -192,8 +191,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getPattern(): String =
-        g_regex_get_pattern(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getPattern(): String = g_regex_get_pattern(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Retrieves the number of the subexpression named @name.
@@ -204,7 +202,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getStringNumber(name: String): gint = g_regex_get_string_number(gPointer.reinterpret(), name)
+    public fun getStringNumber(name: String): gint = g_regex_get_string_number(gPointer, name)
 
     /**
      * Increases reference count of @regex by 1.
@@ -213,8 +211,8 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun ref(): Regex = g_regex_ref(gPointer.reinterpret())!!.run {
-        Regex(reinterpret())
+    public fun ref(): Regex = g_regex_ref(gPointer)!!.run {
+        Regex(this)
     }
 
     /**
@@ -244,8 +242,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun split(string: String, matchOptions: RegexMatchFlags): List<String> =
-        g_regex_split(gPointer.reinterpret(), string, matchOptions.mask)?.toKStringList()
-            ?: error("Expected not null string array")
+        g_regex_split(gPointer, string, matchOptions.mask)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Decreases reference count of @regex by 1. When reference count drops
@@ -254,7 +251,7 @@ public class Regex(pointer: CPointer<GRegex>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun unref(): Unit = g_regex_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_regex_unref(gPointer)
 
     public companion object {
         /**

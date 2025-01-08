@@ -54,14 +54,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
         glyphs: GlyphString,
         color: Rgba,
         offset: Point,
-    ) : this(
-        gsk_text_node_new(
-            font.pangoFontPointer.reinterpret(),
-            glyphs.gPointer.reinterpret(),
-            color.gPointer.reinterpret(),
-            offset.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_text_node_new(font.pangoFontPointer, glyphs.gPointer, color.gPointer, offset.gPointer)!!.reinterpret())
 
     /**
      * Retrieves the color used by the text @node.
@@ -69,7 +62,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return the text color
      */
     public open fun getColor(): Rgba = gsk_text_node_get_color(gskTextNodePointer.reinterpret())!!.run {
-        Rgba(reinterpret())
+        Rgba(this)
     }
 
     /**
@@ -78,7 +71,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        Font(reinterpret())
+        Font(this)
     }
 
     /**
@@ -94,7 +87,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return a point with the horizontal and vertical offsets
      */
     public open fun getOffset(): Point = gsk_text_node_get_offset(gskTextNodePointer.reinterpret())!!.run {
-        Point(reinterpret())
+        Point(this)
     }
 
     /**

@@ -152,7 +152,7 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
          *
          * @return true if @window will display a menubar when needed
          */
-        get() = gtk_application_window_get_show_menubar(gtkApplicationWindowPointer.reinterpret()).asBoolean()
+        get() = gtk_application_window_get_show_menubar(gtkApplicationWindowPointer).asBoolean()
 
         /**
          * Sets whether the window will display a menubar for the app menu
@@ -162,7 +162,7 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
          */
         set(
             showMenubar
-        ) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer.reinterpret(), showMenubar.asGBoolean())
+        ) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer, showMenubar.asGBoolean())
 
     /**
      * Creates a new `GtkApplicationWindow`.
@@ -172,7 +172,7 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      */
     public constructor(
         application: Application,
-    ) : this(gtk_application_window_new(application.gtkApplicationPointer.reinterpret())!!.reinterpret())
+    ) : this(gtk_application_window_new(application.gtkApplicationPointer)!!.reinterpret())
 
     /**
      * Gets the `GtkShortcutsWindow` that is associated with @window.
@@ -183,8 +183,8 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      *   with @window
      */
     public open fun getHelpOverlay(): ShortcutsWindow? =
-        gtk_application_window_get_help_overlay(gtkApplicationWindowPointer.reinterpret())?.run {
-            ShortcutsWindow(reinterpret())
+        gtk_application_window_get_help_overlay(gtkApplicationWindowPointer)?.run {
+            ShortcutsWindow(this)
         }
 
     /**
@@ -195,7 +195,7 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      * @return the unique ID for @window, or `0` if the window
      *   has not yet been added to a `GtkApplication`
      */
-    public open fun getId(): guint = gtk_application_window_get_id(gtkApplicationWindowPointer.reinterpret())
+    public open fun getId(): guint = gtk_application_window_get_id(gtkApplicationWindowPointer)
 
     /**
      * Associates a shortcuts window with the application window.
@@ -208,10 +208,7 @@ public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
      * @param helpOverlay a `GtkShortcutsWindow`
      */
     public open fun setHelpOverlay(helpOverlay: ShortcutsWindow? = null): Unit =
-        gtk_application_window_set_help_overlay(
-            gtkApplicationWindowPointer.reinterpret(),
-            helpOverlay?.gtkShortcutsWindowPointer?.reinterpret()
-        )
+        gtk_application_window_set_help_overlay(gtkApplicationWindowPointer, helpOverlay?.gtkShortcutsWindowPointer)
 
     public companion object : TypeCompanion<ApplicationWindow> {
         override val type: GeneratedClassKGType<ApplicationWindow> =

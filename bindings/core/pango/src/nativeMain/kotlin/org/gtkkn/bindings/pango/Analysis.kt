@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.SList
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -30,12 +29,12 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var font: Font?
         get() = gPointer.pointed.font?.run {
-            Font(reinterpret())
+            Font(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.font = value?.pangoFontPointer?.reinterpret()
+            gPointer.pointed.font = value?.pangoFontPointer
         }
 
     /**
@@ -87,7 +86,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var language: Language?
         get() = gPointer.pointed.language?.run {
-            Language(reinterpret())
+            Language(this)
         }
 
         @UnsafeFieldSetter
@@ -100,7 +99,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     public var extraAttrs: SList?
         get() = gPointer.pointed.extra_attrs?.run {
-            SList(reinterpret())
+            SList(this)
         }
 
         @UnsafeFieldSetter

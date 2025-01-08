@@ -61,12 +61,12 @@ public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
     public open fun queryInfo(attributes: String, cancellable: Cancellable? = null): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_input_stream_query_info(
-            gioFileInputStreamPointer.reinterpret(),
+            gioFileInputStreamPointer,
             attributes,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            FileInfo(reinterpret())
+            FileInfo(this)
         }
 
         return if (gError.pointed != null) {
@@ -101,10 +101,10 @@ public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_file_input_stream_query_info_async(
-        gioFileInputStreamPointer.reinterpret(),
+        gioFileInputStreamPointer,
         attributes,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -120,11 +120,11 @@ public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
     public open fun queryInfoFinish(result: AsyncResult): Result<FileInfo> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_input_stream_query_info_finish(
-            gioFileInputStreamPointer.reinterpret(),
+            gioFileInputStreamPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            FileInfo(reinterpret())
+            FileInfo(this)
         }
 
         return if (gError.pointed != null) {

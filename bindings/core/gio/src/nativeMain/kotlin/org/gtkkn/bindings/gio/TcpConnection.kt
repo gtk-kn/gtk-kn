@@ -42,7 +42,7 @@ public open class TcpConnection(pointer: CPointer<GTcpConnection>) :
          * @return true if graceful disconnect is used on close, false otherwise
          * @since 2.22
          */
-        get() = g_tcp_connection_get_graceful_disconnect(gioTcpConnectionPointer.reinterpret()).asBoolean()
+        get() = g_tcp_connection_get_graceful_disconnect(gioTcpConnectionPointer).asBoolean()
 
         /**
          * This enables graceful disconnects on close. A graceful disconnect
@@ -61,10 +61,7 @@ public open class TcpConnection(pointer: CPointer<GTcpConnection>) :
         @GioVersion2_22
         set(
             gracefulDisconnect
-        ) = g_tcp_connection_set_graceful_disconnect(
-            gioTcpConnectionPointer.reinterpret(),
-            gracefulDisconnect.asGBoolean()
-        )
+        ) = g_tcp_connection_set_graceful_disconnect(gioTcpConnectionPointer, gracefulDisconnect.asGBoolean())
 
     public companion object : TypeCompanion<TcpConnection> {
         override val type: GeneratedClassKGType<TcpConnection> =

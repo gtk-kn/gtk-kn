@@ -166,8 +166,8 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @return the child widget of @self
          * @since 1.4
          */
-        get() = adw_breakpoint_bin_get_child(adwBreakpointBinPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_breakpoint_bin_get_child(adwBreakpointBinPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -177,9 +177,7 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            child
-        ) = adw_breakpoint_bin_set_child(adwBreakpointBinPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_breakpoint_bin_set_child(adwBreakpointBinPointer, child?.gtkWidgetPointer)
 
     /**
      * The current breakpoint.
@@ -194,8 +192,8 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @return the current breakpoint
          * @since 1.4
          */
-        get() = adw_breakpoint_bin_get_current_breakpoint(adwBreakpointBinPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
+        get() = adw_breakpoint_bin_get_current_breakpoint(adwBreakpointBinPointer)?.run {
+            Breakpoint(this)
         }
 
     /**
@@ -213,10 +211,8 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public open fun addBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_add_breakpoint(
-        adwBreakpointBinPointer.reinterpret(),
-        breakpoint.adwBreakpointPointer.reinterpret()
-    )
+    public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
+        adw_breakpoint_bin_add_breakpoint(adwBreakpointBinPointer, breakpoint.adwBreakpointPointer)
 
     /**
      * Removes @breakpoint from @self.
@@ -225,10 +221,8 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
      * @since 1.5
      */
     @AdwVersion1_5
-    public open fun removeBreakpoint(breakpoint: Breakpoint): Unit = adw_breakpoint_bin_remove_breakpoint(
-        adwBreakpointBinPointer.reinterpret(),
-        breakpoint.adwBreakpointPointer.reinterpret()
-    )
+    public open fun removeBreakpoint(breakpoint: Breakpoint): Unit =
+        adw_breakpoint_bin_remove_breakpoint(adwBreakpointBinPointer, breakpoint.adwBreakpointPointer)
 
     public companion object : TypeCompanion<BreakpointBin> {
         override val type: GeneratedClassKGType<BreakpointBin> =

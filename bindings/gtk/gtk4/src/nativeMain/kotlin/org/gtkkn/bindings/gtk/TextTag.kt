@@ -156,14 +156,14 @@ public open class TextTag(pointer: CPointer<GtkTextTag>) :
      * @param sizeChanged whether the change affects the `GtkTextView` layout
      */
     public open fun changed(sizeChanged: Boolean): Unit =
-        gtk_text_tag_changed(gtkTextTagPointer.reinterpret(), sizeChanged.asGBoolean())
+        gtk_text_tag_changed(gtkTextTagPointer, sizeChanged.asGBoolean())
 
     /**
      * Get the tag priority.
      *
      * @return The tag’s priority.
      */
-    public open fun getPriority(): gint = gtk_text_tag_get_priority(gtkTextTagPointer.reinterpret())
+    public open fun getPriority(): gint = gtk_text_tag_get_priority(gtkTextTagPointer)
 
     /**
      * Sets the priority of a `GtkTextTag`.
@@ -183,8 +183,7 @@ public open class TextTag(pointer: CPointer<GtkTextTag>) :
      *
      * @param priority the new priority
      */
-    public open fun setPriority(priority: gint): Unit =
-        gtk_text_tag_set_priority(gtkTextTagPointer.reinterpret(), priority)
+    public open fun setPriority(priority: gint): Unit = gtk_text_tag_set_priority(gtkTextTagPointer, priority)
 
     public companion object : TypeCompanion<TextTag> {
         override val type: GeneratedClassKGType<TextTag> =

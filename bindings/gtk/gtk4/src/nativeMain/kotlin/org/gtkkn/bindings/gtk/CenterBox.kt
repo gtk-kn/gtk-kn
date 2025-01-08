@@ -94,7 +94,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @return the baseline position
          */
-        get() = gtk_center_box_get_baseline_position(gtkCenterBoxPointer.reinterpret()).run {
+        get() = gtk_center_box_get_baseline_position(gtkCenterBoxPointer).run {
             BaselinePosition.fromNativeValue(this)
         }
 
@@ -109,7 +109,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @param position a `GtkBaselinePosition`
          */
-        set(position) = gtk_center_box_set_baseline_position(gtkCenterBoxPointer.reinterpret(), position.nativeValue)
+        set(position) = gtk_center_box_set_baseline_position(gtkCenterBoxPointer, position.nativeValue)
 
     /**
      * The widget that is placed at the center position.
@@ -123,8 +123,8 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @return the center widget.
          */
-        get() = gtk_center_box_get_center_widget(gtkCenterBoxPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_center_box_get_center_widget(gtkCenterBoxPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -134,9 +134,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @param child the new center widget
          */
-        set(
-            child
-        ) = gtk_center_box_set_center_widget(gtkCenterBoxPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_center_box_set_center_widget(gtkCenterBoxPointer, child?.gtkWidgetPointer)
 
     /**
      * The widget that is placed at the end position.
@@ -154,8 +152,8 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @return the end widget.
          */
-        get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -165,9 +163,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @param child the new end widget
          */
-        set(
-            child
-        ) = gtk_center_box_set_end_widget(gtkCenterBoxPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_center_box_set_end_widget(gtkCenterBoxPointer, child?.gtkWidgetPointer)
 
     /**
      * Whether to shrink the center widget after other children.
@@ -189,7 +185,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          * @return whether to shrink the center widget after others
          * @since 4.12
          */
-        get() = gtk_center_box_get_shrink_center_last(gtkCenterBoxPointer.reinterpret()).asBoolean()
+        get() = gtk_center_box_get_shrink_center_last(gtkCenterBoxPointer).asBoolean()
 
         /**
          * Sets whether to shrink the center widget after other children.
@@ -207,7 +203,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
         @GtkVersion4_12
         set(
             shrinkCenterLast
-        ) = gtk_center_box_set_shrink_center_last(gtkCenterBoxPointer.reinterpret(), shrinkCenterLast.asGBoolean())
+        ) = gtk_center_box_set_shrink_center_last(gtkCenterBoxPointer, shrinkCenterLast.asGBoolean())
 
     /**
      * The widget that is placed at the start position.
@@ -225,8 +221,8 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @return the start widget.
          */
-        get() = gtk_center_box_get_start_widget(gtkCenterBoxPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_center_box_get_start_widget(gtkCenterBoxPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -236,9 +232,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          *
          * @param child the new start widget
          */
-        set(
-            child
-        ) = gtk_center_box_set_start_widget(gtkCenterBoxPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_center_box_set_start_widget(gtkCenterBoxPointer, child?.gtkWidgetPointer)
 
     /**
      * Creates a new `GtkCenterBox`.

@@ -53,8 +53,8 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return a `GdkDevice`
      */
-    public open fun getDevice(): Device? = gdk_event_get_device(gPointer.reinterpret())?.run {
-        Device(reinterpret())
+    public open fun getDevice(): Device? = gdk_event_get_device(gPointer)?.run {
+        Device(this)
     }
 
     /**
@@ -71,8 +71,8 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return The current device tool
      */
-    public open fun getDeviceTool(): DeviceTool? = gdk_event_get_device_tool(gPointer.reinterpret())?.run {
-        DeviceTool(reinterpret())
+    public open fun getDeviceTool(): DeviceTool? = gdk_event_get_device_tool(gPointer)?.run {
+        DeviceTool(this)
     }
 
     /**
@@ -80,8 +80,8 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return a `GdkDisplay`
      */
-    public open fun getDisplay(): Display? = gdk_event_get_display(gPointer.reinterpret())?.run {
-        Display(reinterpret())
+    public open fun getDisplay(): Display? = gdk_event_get_display(gPointer)?.run {
+        Display(this)
     }
 
     /**
@@ -92,8 +92,8 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return the event sequence that the event belongs to
      */
-    public open fun getEventSequence(): EventSequence = gdk_event_get_event_sequence(gPointer.reinterpret())!!.run {
-        EventSequence(reinterpret())
+    public open fun getEventSequence(): EventSequence = gdk_event_get_event_sequence(gPointer)!!.run {
+        EventSequence(this)
     }
 
     /**
@@ -101,7 +101,7 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return a `GdkEvent`Type
      */
-    public open fun getEventType(): EventType = gdk_event_get_event_type(gPointer.reinterpret()).run {
+    public open fun getEventType(): EventType = gdk_event_get_event_type(gPointer).run {
         EventType.fromNativeValue(this)
     }
 
@@ -110,7 +110,7 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return the modifier state of @event
      */
-    public open fun getModifierState(): ModifierType = gdk_event_get_modifier_state(gPointer.reinterpret()).run {
+    public open fun getModifierState(): ModifierType = gdk_event_get_modifier_state(gPointer).run {
         ModifierType(this)
     }
 
@@ -121,15 +121,15 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return true if this event is emulated
      */
-    public open fun getPointerEmulated(): Boolean = gdk_event_get_pointer_emulated(gPointer.reinterpret()).asBoolean()
+    public open fun getPointerEmulated(): Boolean = gdk_event_get_pointer_emulated(gPointer).asBoolean()
 
     /**
      * Returns the seat that originated the event.
      *
      * @return a `GdkSeat`.
      */
-    public open fun getSeat(): Seat? = gdk_event_get_seat(gPointer.reinterpret())?.run {
-        Seat(reinterpret())
+    public open fun getSeat(): Seat? = gdk_event_get_seat(gPointer)?.run {
+        Seat(this)
     }
 
     /**
@@ -137,8 +137,8 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return The `GdkSurface` associated with the event
      */
-    public open fun getSurface(): Surface? = gdk_event_get_surface(gPointer.reinterpret())?.run {
-        Surface(reinterpret())
+    public open fun getSurface(): Surface? = gdk_event_get_surface(gPointer)?.run {
+        Surface(this)
     }
 
     /**
@@ -149,15 +149,15 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return timestamp field from @event
      */
-    public open fun getTime(): guint = gdk_event_get_time(gPointer.reinterpret())
+    public open fun getTime(): guint = gdk_event_get_time(gPointer)
 
     /**
      * Increase the ref count of @event.
      *
      * @return @event
      */
-    public open fun ref(): Event = gdk_event_ref(gPointer.reinterpret())!!.run {
-        Event(reinterpret())
+    public open fun ref(): Event = gdk_event_ref(gPointer)!!.run {
+        Event(this)
     }
 
     /**
@@ -171,14 +171,14 @@ public open class Event(pointer: CPointer<GdkEvent>) : KGTyped {
      *
      * @return true if the event should trigger a context menu.
      */
-    public open fun triggersContextMenu(): Boolean = gdk_event_triggers_context_menu(gPointer.reinterpret()).asBoolean()
+    public open fun triggersContextMenu(): Boolean = gdk_event_triggers_context_menu(gPointer).asBoolean()
 
     /**
      * Decrease the ref count of @event.
      *
      * If the last reference is dropped, the structure is freed.
      */
-    public open fun unref(): Unit = gdk_event_unref(gPointer.reinterpret())
+    public open fun unref(): Unit = gdk_event_unref(gPointer)
 
     public companion object : TypeCompanion<Event> {
         override val type: GeneratedClassKGType<Event> =

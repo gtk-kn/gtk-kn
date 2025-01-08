@@ -81,8 +81,8 @@ public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
          * @return the primary sort column
          * @since 4.10
          */
-        get() = gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer.reinterpret())?.run {
-            ColumnViewColumn(reinterpret())
+        get() = gtk_column_view_sorter_get_primary_sort_column(gtkColumnViewSorterPointer)?.run {
+            ColumnViewColumn(this)
         }
 
     /**
@@ -109,7 +109,7 @@ public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
          * @return the primary sort order
          * @since 4.10
          */
-        get() = gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer.reinterpret()).run {
+        get() = gtk_column_view_sorter_get_primary_sort_order(gtkColumnViewSorterPointer).run {
             SortType.fromNativeValue(this)
         }
 
@@ -127,8 +127,7 @@ public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getNSortColumns(): guint =
-        gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer.reinterpret())
+    public open fun getNSortColumns(): guint = gtk_column_view_sorter_get_n_sort_columns(gtkColumnViewSorterPointer)
 
     public companion object : TypeCompanion<ColumnViewSorter> {
         override val type: GeneratedClassKGType<ColumnViewSorter> =

@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_66
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GUriParamsIter
@@ -118,5 +117,5 @@ public class UriParamsIter(pointer: CPointer<GUriParamsIter>, cleaner: Cleaner? 
      */
     @GLibVersion2_66
     public fun `init`(params: String, length: Long, separators: String, flags: UriParamsFlags): Unit =
-        g_uri_params_iter_init(gPointer.reinterpret(), params, length, separators, flags.mask)
+        g_uri_params_iter_init(gPointer, params, length, separators, flags.mask)
 }

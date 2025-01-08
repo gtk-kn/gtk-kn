@@ -45,7 +45,7 @@ fun Application(builder: ApplicationWindow.() -> Unit) {
 
     log(logDomain = "playground") { "Playground" }
     val app = Application("org.gtkkn.samples.playground", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         val window = ApplicationWindow(app)
         window.setDefaultSize(800, 600)
         window.builder()

@@ -84,7 +84,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
          *
          * @return The model that gets mapped
          */
-        get() = gtk_map_list_model_get_model(gtkMapListModelPointer.reinterpret())?.run {
+        get() = gtk_map_list_model_get_model(gtkMapListModelPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -116,7 +116,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      *
      * @return true if a map function is set
      */
-    public open fun hasMap(): Boolean = gtk_map_list_model_has_map(gtkMapListModelPointer.reinterpret()).asBoolean()
+    public open fun hasMap(): Boolean = gtk_map_list_model_has_map(gtkMapListModelPointer).asBoolean()
 
     /**
      * Sets the function used to map items.
@@ -134,7 +134,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      * @param mapFunc map function
      */
     public open fun setMapFunc(mapFunc: MapListModelMapFunc?): Unit = gtk_map_list_model_set_map_func(
-        gtkMapListModelPointer.reinterpret(),
+        gtkMapListModelPointer,
         mapFunc?.let {
             MapListModelMapFuncFunc.reinterpret()
         },
@@ -152,7 +152,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
      * @param model The model to be mapped
      */
     public open fun setModel(model: ListModel? = null): Unit =
-        gtk_map_list_model_set_model(gtkMapListModelPointer.reinterpret(), model?.gioListModelPointer)
+        gtk_map_list_model_set_model(gtkMapListModelPointer, model?.gioListModelPointer)
 
     public companion object : TypeCompanion<MapListModel> {
         override val type: GeneratedClassKGType<MapListModel> =

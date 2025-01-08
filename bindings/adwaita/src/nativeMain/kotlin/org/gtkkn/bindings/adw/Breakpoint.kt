@@ -25,6 +25,7 @@ import org.gtkkn.native.adw.adw_breakpoint_new
 import org.gtkkn.native.adw.adw_breakpoint_set_condition
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkBuildable
 import kotlin.String
 import kotlin.ULong
@@ -109,8 +110,8 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
          * @return the condition
          * @since 1.4
          */
-        get() = adw_breakpoint_get_condition(adwBreakpointPointer.reinterpret())?.run {
-            BreakpointCondition(reinterpret())
+        get() = adw_breakpoint_get_condition(adwBreakpointPointer)?.run {
+            BreakpointCondition(this)
         }
 
         /**
@@ -120,9 +121,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(
-            condition
-        ) = adw_breakpoint_set_condition(adwBreakpointPointer.reinterpret(), condition?.gPointer?.reinterpret())
+        set(condition) = adw_breakpoint_set_condition(adwBreakpointPointer, condition?.gPointer)
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -131,9 +130,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @return the newly created `AdwBreakpoint`
      * @since 1.4
      */
-    public constructor(
-        condition: BreakpointCondition,
-    ) : this(adw_breakpoint_new(condition.gPointer.reinterpret())!!.reinterpret())
+    public constructor(condition: BreakpointCondition) : this(adw_breakpoint_new(condition.gPointer)!!.reinterpret())
 
     /**
      * Adds a setter to @self.
@@ -179,52 +176,68 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit = adw_breakpoint_add_setter(
-        adwBreakpointPointer.reinterpret(),
-        `object`.gPointer.reinterpret(),
-        `property`,
-        `value`.gPointer.reinterpret()
-    )
+    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit =
+        adw_breakpoint_add_setter(adwBreakpointPointer, `object`.gPointer, `property`, `value`.gPointer)
 
     /**
      * Emitted when the breakpoint is applied.
      *
      * This signal is emitted after the setters have been applied.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "apply",
-            connectApplyFunc.reinterpret(),
+            onApplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "apply" signal. See [onApply].
+     *
+     * @since 1.4
+     */
+    @AdwVersion1_4
+    public fun emitApply() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "apply")
+    }
+
+    /**
      * Emitted when the breakpoint is unapplied.
      *
      * This signal is emitted before resetting the setter values.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun connectUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "unapply",
-            connectUnapplyFunc.reinterpret(),
+            onUnapplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "unapply" signal. See [onUnapply].
+     *
+     * @since 1.4
+     */
+    @AdwVersion1_4
+    public fun emitUnapply() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "unapply")
+    }
 
     public companion object : TypeCompanion<Breakpoint> {
         override val type: GeneratedClassKGType<Breakpoint> =
@@ -243,7 +256,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
     }
 }
 
-private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -251,7 +264,7 @@ private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectUnapplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onUnapplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

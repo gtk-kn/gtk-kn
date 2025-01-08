@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Error
@@ -58,8 +57,8 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      */
     @GioVersion2_32
     public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? =
-        g_settings_schema_source_lookup(gPointer.reinterpret(), schemaId, recursive.asGBoolean())?.run {
-            SettingsSchema(reinterpret())
+        g_settings_schema_source_lookup(gPointer, schemaId, recursive.asGBoolean())?.run {
+            SettingsSchema(this)
         }
 
     /**
@@ -69,8 +68,8 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchemaSource = g_settings_schema_source_ref(gPointer.reinterpret())!!.run {
-        SettingsSchemaSource(reinterpret())
+    public fun ref(): SettingsSchemaSource = g_settings_schema_source_ref(gPointer)!!.run {
+        SettingsSchemaSource(this)
     }
 
     /**
@@ -79,7 +78,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unref(): Unit = g_settings_schema_source_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_settings_schema_source_unref(gPointer)
 
     public companion object {
         /**
@@ -130,7 +129,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
                 val gResult =
                     g_settings_schema_source_new_from_directory(
                         directory,
-                        parent?.gPointer?.reinterpret(),
+                        parent?.gPointer,
                         trusted.asGBoolean(),
                         gError.ptr
                     )
@@ -162,7 +161,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
          */
         @GioVersion2_32
         public fun getDefault(): SettingsSchemaSource? = g_settings_schema_source_get_default()?.run {
-            SettingsSchemaSource(reinterpret())
+            SettingsSchemaSource(this)
         }
 
         /**

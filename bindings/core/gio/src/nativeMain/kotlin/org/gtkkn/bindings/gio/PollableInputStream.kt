@@ -54,8 +54,7 @@ public interface PollableInputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun canPoll(): Boolean =
-        g_pollable_input_stream_can_poll(gioPollableInputStreamPointer.reinterpret()).asBoolean()
+    public fun canPoll(): Boolean = g_pollable_input_stream_can_poll(gioPollableInputStreamPointer).asBoolean()
 
     /**
      * Creates a #GSource that triggers when @stream can be read, or
@@ -75,12 +74,10 @@ public interface PollableInputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun createSource(cancellable: Cancellable? = null): Source = g_pollable_input_stream_create_source(
-        gioPollableInputStreamPointer.reinterpret(),
-        cancellable?.gioCancellablePointer?.reinterpret()
-    )!!.run {
-        Source(reinterpret())
-    }
+    public fun createSource(cancellable: Cancellable? = null): Source =
+        g_pollable_input_stream_create_source(gioPollableInputStreamPointer, cancellable?.gioCancellablePointer)!!.run {
+            Source(this)
+        }
 
     /**
      * Checks if @stream can be read.
@@ -102,8 +99,7 @@ public interface PollableInputStream :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun isReadable(): Boolean =
-        g_pollable_input_stream_is_readable(gioPollableInputStreamPointer.reinterpret()).asBoolean()
+    public fun isReadable(): Boolean = g_pollable_input_stream_is_readable(gioPollableInputStreamPointer).asBoolean()
 
     private data class Wrapper(private val pointer: CPointer<GPollableInputStream>) : PollableInputStream {
         override val gioPollableInputStreamPointer: CPointer<GPollableInputStream> = pointer

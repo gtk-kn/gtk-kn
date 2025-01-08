@@ -3,7 +3,6 @@ package org.gtkkn.bindings.pango
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_44
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -82,22 +81,21 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun applyAttrs(iter: AttrIterator): Unit =
-        pango_item_apply_attrs(gPointer.reinterpret(), iter.gPointer.reinterpret())
+    public fun applyAttrs(iter: AttrIterator): Unit = pango_item_apply_attrs(gPointer, iter.gPointer)
 
     /**
      * Copy an existing `PangoItem` structure.
      *
      * @return the newly allocated `PangoItem`
      */
-    public fun copy(): Item? = pango_item_copy(gPointer.reinterpret())?.run {
-        Item(reinterpret())
+    public fun copy(): Item? = pango_item_copy(gPointer)?.run {
+        Item(this)
     }
 
     /**
      * Free a `PangoItem` and all associated memory.
      */
-    public fun free(): Unit = pango_item_free(gPointer.reinterpret())
+    public fun free(): Unit = pango_item_free(gPointer)
 
     /**
      * Modifies @orig to cover only the text after @split_index, and
@@ -120,8 +118,8 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
      *   should be freed with [method@Pango.Item.free].
      */
     public fun split(splitIndex: gint, splitOffset: gint): Item =
-        pango_item_split(gPointer.reinterpret(), splitIndex, splitOffset)!!.run {
-            Item(reinterpret())
+        pango_item_split(gPointer, splitIndex, splitOffset)!!.run {
+            Item(this)
         }
 
     override fun toString(): String = "Item(offset=$offset, length=$length, numChars=$numChars)"
@@ -133,7 +131,7 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
          * @return the newly allocated `PangoItem`, which should
          *   be freed with [method@Pango.Item.free].
          */
-        public fun new(): Item = Item(pango_item_new()!!.reinterpret())
+        public fun new(): Item = Item(pango_item_new()!!)
 
         /**
          * Get the GType of Item

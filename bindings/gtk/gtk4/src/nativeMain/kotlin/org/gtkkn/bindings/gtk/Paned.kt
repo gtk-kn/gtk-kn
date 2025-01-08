@@ -154,8 +154,8 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return the end child widget
          */
-        get() = gtk_paned_get_end_child(gtkPanedPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_paned_get_end_child(gtkPanedPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -165,7 +165,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @param child the widget to add
          */
-        set(child) = gtk_paned_set_end_child(gtkPanedPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_paned_set_end_child(gtkPanedPointer, child?.gtkWidgetPointer)
 
     /**
      * Position of the separator in pixels, from the left/top.
@@ -176,7 +176,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return the position of the divider, in pixels
          */
-        get() = gtk_paned_get_position(gtkPanedPointer.reinterpret())
+        get() = gtk_paned_get_position(gtkPanedPointer)
 
         /**
          * Sets the position of the divider between the two panes.
@@ -184,7 +184,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          * @param position pixel position of divider, a negative value means that the position
          *   is unset
          */
-        set(position) = gtk_paned_set_position(gtkPanedPointer.reinterpret(), position)
+        set(position) = gtk_paned_set_position(gtkPanedPointer, position)
 
     /**
      * Determines whether the second child expands and shrinks
@@ -196,14 +196,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return true if the end child is resizable
          */
-        get() = gtk_paned_get_resize_end_child(gtkPanedPointer.reinterpret()).asBoolean()
+        get() = gtk_paned_get_resize_end_child(gtkPanedPointer).asBoolean()
 
         /**
          * Sets whether the [property@Gtk.Paned:end-child] can be resized.
          *
          * @param resize true to let the end child be resized
          */
-        set(resize) = gtk_paned_set_resize_end_child(gtkPanedPointer.reinterpret(), resize.asGBoolean())
+        set(resize) = gtk_paned_set_resize_end_child(gtkPanedPointer, resize.asGBoolean())
 
     /**
      * Determines whether the first child expands and shrinks
@@ -215,14 +215,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return true if the start child is resizable
          */
-        get() = gtk_paned_get_resize_start_child(gtkPanedPointer.reinterpret()).asBoolean()
+        get() = gtk_paned_get_resize_start_child(gtkPanedPointer).asBoolean()
 
         /**
          * Sets whether the [property@Gtk.Paned:start-child] can be resized.
          *
          * @param resize true to let the start child be resized
          */
-        set(resize) = gtk_paned_set_resize_start_child(gtkPanedPointer.reinterpret(), resize.asGBoolean())
+        set(resize) = gtk_paned_set_resize_start_child(gtkPanedPointer, resize.asGBoolean())
 
     /**
      * Determines whether the second child can be made smaller
@@ -234,14 +234,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return true if the end child is shrinkable
          */
-        get() = gtk_paned_get_shrink_end_child(gtkPanedPointer.reinterpret()).asBoolean()
+        get() = gtk_paned_get_shrink_end_child(gtkPanedPointer).asBoolean()
 
         /**
          * Sets whether the [property@Gtk.Paned:end-child] can shrink.
          *
          * @param resize true to let the end child be shrunk
          */
-        set(resize) = gtk_paned_set_shrink_end_child(gtkPanedPointer.reinterpret(), resize.asGBoolean())
+        set(resize) = gtk_paned_set_shrink_end_child(gtkPanedPointer, resize.asGBoolean())
 
     /**
      * Determines whether the first child can be made smaller
@@ -253,14 +253,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return true if the start child is shrinkable
          */
-        get() = gtk_paned_get_shrink_start_child(gtkPanedPointer.reinterpret()).asBoolean()
+        get() = gtk_paned_get_shrink_start_child(gtkPanedPointer).asBoolean()
 
         /**
          * Sets whether the [property@Gtk.Paned:start-child] can shrink.
          *
          * @param resize true to let the start child be shrunk
          */
-        set(resize) = gtk_paned_set_shrink_start_child(gtkPanedPointer.reinterpret(), resize.asGBoolean())
+        set(resize) = gtk_paned_set_shrink_start_child(gtkPanedPointer, resize.asGBoolean())
 
     /**
      * The first child.
@@ -271,8 +271,8 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return the start child widget
          */
-        get() = gtk_paned_get_start_child(gtkPanedPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_paned_get_start_child(gtkPanedPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -282,7 +282,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @param child the widget to add
          */
-        set(child) = gtk_paned_set_start_child(gtkPanedPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_paned_set_start_child(gtkPanedPointer, child?.gtkWidgetPointer)
 
     /**
      * Whether the `GtkPaned` should provide a stronger visual separation.
@@ -296,14 +296,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          *
          * @return true if the paned should have a wide handle
          */
-        get() = gtk_paned_get_wide_handle(gtkPanedPointer.reinterpret()).asBoolean()
+        get() = gtk_paned_get_wide_handle(gtkPanedPointer).asBoolean()
 
         /**
          * Sets whether the separator should be wide.
          *
          * @param wide the new value for the [property@Gtk.Paned:wide-handle] property
          */
-        set(wide) = gtk_paned_set_wide_handle(gtkPanedPointer.reinterpret(), wide.asGBoolean())
+        set(wide) = gtk_paned_set_wide_handle(gtkPanedPointer, wide.asGBoolean())
 
     /**
      * Creates a new `GtkPaned` widget.
@@ -322,14 +322,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      * The default binding for this signal is <kbd>Return</kbd> or
      * <kbd>Space</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectAcceptPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onAcceptPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "accept-position",
-            connectAcceptPositionFunc.reinterpret(),
+            onAcceptPositionFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -346,14 +346,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      *
      * The default binding for this signal is <kbd>Escape</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCancelPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onCancelPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "cancel-position",
-            connectCancelPositionFunc.reinterpret(),
+            onCancelPositionFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -366,16 +366,16 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      *
      * The default binding is <kbd>F6</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `reversed` whether cycling backward or forward
      */
-    public fun connectCycleChildFocus(
+    public fun onCycleChildFocus(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reversed: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "cycle-child-focus",
-        connectCycleChildFocusFunc.reinterpret(),
+        onCycleChildFocusFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -389,16 +389,16 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      *
      * The default binding for this signal is <kbd>F8</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `reversed` whether cycling backward or forward
      */
-    public fun connectCycleHandleFocus(
+    public fun onCycleHandleFocus(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reversed: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "cycle-handle-focus",
-        connectCycleHandleFocusFunc.reinterpret(),
+        onCycleHandleFocusFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -409,16 +409,16 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      *
      * This is a [keybinding signal](class.SignalAction.html).
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `scrollType` a `GtkScrollType`
      */
-    public fun connectMoveHandle(
+    public fun onMoveHandle(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scrollType: ScrollType) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "move-handle",
-        connectMoveHandleFunc.reinterpret(),
+        onMoveHandleFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -432,14 +432,14 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      *
      * The default binding is <kbd>Tab</kbd>.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectToggleHandleFocus(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
+    public fun onToggleHandleFocus(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "toggle-handle-focus",
-            connectToggleHandleFocusFunc.reinterpret(),
+            onToggleHandleFocusFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
@@ -462,7 +462,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
     }
 }
 
-private val connectAcceptPositionFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onAcceptPositionFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -470,7 +470,7 @@ private val connectAcceptPositionFunc: CPointer<CFunction<() -> gboolean>> = sta
 }
     .reinterpret()
 
-private val connectCancelPositionFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onCancelPositionFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -478,41 +478,38 @@ private val connectCancelPositionFunc: CPointer<CFunction<() -> gboolean>> = sta
 }
     .reinterpret()
 
-private val connectCycleChildFocusFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            reversed: gboolean,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(reversed: Boolean) -> Boolean>().get().invoke(reversed.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+private val onCycleChildFocusFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        reversed: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(reversed: Boolean) -> Boolean>().get().invoke(reversed.asBoolean()).asGBoolean()
+}
+    .reinterpret()
 
-private val connectCycleHandleFocusFunc: CPointer<CFunction<(gboolean) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            reversed: gboolean,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(reversed: Boolean) -> Boolean>().get().invoke(reversed.asBoolean()).asGBoolean()
-    }
-        .reinterpret()
+private val onCycleHandleFocusFunc: CPointer<CFunction<(gboolean) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        reversed: gboolean,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(reversed: Boolean) -> Boolean>().get().invoke(reversed.asBoolean()).asGBoolean()
+}
+    .reinterpret()
 
-private val connectMoveHandleFunc: CPointer<CFunction<(GtkScrollType) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            scrollType: GtkScrollType,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(scrollType: ScrollType) -> Boolean>().get().invoke(
-            scrollType.run {
-                ScrollType.fromNativeValue(this)
-            }
-        ).asGBoolean()
-    }
-        .reinterpret()
+private val onMoveHandleFunc: CPointer<CFunction<(GtkScrollType) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        scrollType: GtkScrollType,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(scrollType: ScrollType) -> Boolean>().get().invoke(
+        scrollType.run {
+            ScrollType.fromNativeValue(this)
+        }
+    ).asGBoolean()
+}
+    .reinterpret()
 
-private val connectToggleHandleFocusFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
+private val onToggleHandleFocusFunc: CPointer<CFunction<() -> gboolean>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

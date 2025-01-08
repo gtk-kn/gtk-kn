@@ -60,7 +60,7 @@ public interface SectionModel :
         get() = gtkSectionModelPointer.reinterpret()
 
     public fun sectionsChanged(position: guint, nItems: guint): Unit =
-        gtk_section_model_sections_changed(gtkSectionModelPointer.reinterpret(), position, nItems)
+        gtk_section_model_sections_changed(gtkSectionModelPointer, position, nItems)
 
     /**
      * Emitted when the start-of-section state of some of the items in @model changes.
@@ -74,18 +74,18 @@ public interface SectionModel :
      * [signal@Gtk.SectionModel::sections-changed] signal for all the items
      * it covers.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `position` The first item that may have changed; `nItems` number of items with changes
      * @since 4.12
      */
     @GtkVersion4_12
-    public fun connectSectionsChanged(
+    public fun onSectionsChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (position: guint, nItems: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gtkSectionModelPointer.reinterpret(),
+        gtkSectionModelPointer,
         "sections-changed",
-        connectSectionsChangedFunc.reinterpret(),
+        onSectionsChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -114,13 +114,12 @@ public interface SectionModel :
     }
 }
 
-private val connectSectionsChangedFunc: CPointer<CFunction<(guint, guint) -> Unit>> =
-    staticCFunction {
-            _: COpaquePointer,
-            position: guint,
-            nItems: guint,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(position: guint, nItems: guint) -> Unit>().get().invoke(position, nItems)
-    }
-        .reinterpret()
+private val onSectionsChangedFunc: CPointer<CFunction<(guint, guint) -> Unit>> = staticCFunction {
+        _: COpaquePointer,
+        position: guint,
+        nItems: guint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(position: guint, nItems: guint) -> Unit>().get().invoke(position, nItems)
+}
+    .reinterpret()

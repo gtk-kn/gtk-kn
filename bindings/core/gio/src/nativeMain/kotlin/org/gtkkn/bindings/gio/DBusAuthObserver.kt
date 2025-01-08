@@ -124,7 +124,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
      */
     @GioVersion2_34
     public open fun allowMechanism(mechanism: String): Boolean =
-        g_dbus_auth_observer_allow_mechanism(gioDBusAuthObserverPointer.reinterpret(), mechanism).asBoolean()
+        g_dbus_auth_observer_allow_mechanism(gioDBusAuthObserverPointer, mechanism).asBoolean()
 
     /**
      * Emits the #GDBusAuthObserver::authorize-authenticated-peer signal on @observer.
@@ -137,26 +137,26 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
     @GioVersion2_26
     public open fun authorizeAuthenticatedPeer(stream: IoStream, credentials: Credentials? = null): Boolean =
         g_dbus_auth_observer_authorize_authenticated_peer(
-            gioDBusAuthObserverPointer.reinterpret(),
-            stream.gioIoStreamPointer.reinterpret(),
-            credentials?.gioCredentialsPointer?.reinterpret()
+            gioDBusAuthObserverPointer,
+            stream.gioIoStreamPointer,
+            credentials?.gioCredentialsPointer
         ).asBoolean()
 
     /**
      * Emitted to check if @mechanism is allowed to be used.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `mechanism` The name of the mechanism, e.g. `DBUS_COOKIE_SHA1`.. Returns true if @mechanism can be used to authenticate the other peer, false if not.
      * @since 2.34
      */
     @GioVersion2_34
-    public fun connectAllowMechanism(
+    public fun onAllowMechanism(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mechanism: String) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "allow-mechanism",
-        connectAllowMechanismFunc.reinterpret(),
+        onAllowMechanismFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -166,18 +166,18 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
      * Emitted to check if a peer that is successfully authenticated
      * is authorized.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `stream` A #GIOStream for the #GDBusConnection.; `credentials` Credentials received from the peer or null.. Returns true if the peer is authorized, false if not.
      * @since 2.26
      */
     @GioVersion2_26
-    public fun connectAuthorizeAuthenticatedPeer(
+    public fun onAuthorizeAuthenticatedPeer(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (stream: IoStream, credentials: Credentials?) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "authorize-authenticated-peer",
-        connectAuthorizeAuthenticatedPeerFunc.reinterpret(),
+        onAuthorizeAuthenticatedPeerFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -200,7 +200,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
     }
 }
 
-private val connectAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
+private val onAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
             mechanism: CPointer<ByteVar>?,
@@ -212,7 +212,7 @@ private val connectAllowMechanismFunc: CPointer<CFunction<(CPointer<ByteVar>) ->
     }
         .reinterpret()
 
-private val connectAuthorizeAuthenticatedPeerFunc:
+private val onAuthorizeAuthenticatedPeerFunc:
     CPointer<CFunction<(CPointer<GIOStream>, CPointer<GCredentials>?) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -222,10 +222,10 @@ private val connectAuthorizeAuthenticatedPeerFunc:
         ->
         userData.asStableRef<(stream: IoStream, credentials: Credentials?) -> Boolean>().get().invoke(
             stream!!.run {
-                IoStream(reinterpret())
+                IoStream(this)
             },
             credentials?.run {
-                Credentials(reinterpret())
+                Credentials(this)
             }
         ).asGBoolean()
     }

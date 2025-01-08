@@ -34,7 +34,7 @@ public open class ClipNode(pointer: CPointer<GskClipNode>) :
     public constructor(
         child: RenderNode,
         clip: Rect,
-    ) : this(gsk_clip_node_new(child.gPointer.reinterpret(), clip.gPointer.reinterpret())!!.reinterpret())
+    ) : this(gsk_clip_node_new(child.gPointer, clip.gPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.
@@ -42,7 +42,7 @@ public open class ClipNode(pointer: CPointer<GskClipNode>) :
      * @return The child that is getting clipped
      */
     public open fun getChild(): RenderNode = gsk_clip_node_get_child(gskClipNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -51,7 +51,7 @@ public open class ClipNode(pointer: CPointer<GskClipNode>) :
      * @return a clip rectangle
      */
     public open fun getClip(): Rect = gsk_clip_node_get_clip(gskClipNodePointer.reinterpret())!!.run {
-        Rect(reinterpret())
+        Rect(this)
     }
 
     public companion object : TypeCompanion<ClipNode> {

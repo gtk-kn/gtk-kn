@@ -97,7 +97,7 @@ public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
          *
          * @return the controller's scope
          */
-        get() = gtk_shortcut_controller_get_scope(gtkShortcutControllerPointer.reinterpret()).run {
+        get() = gtk_shortcut_controller_get_scope(gtkShortcutControllerPointer).run {
             ShortcutScope.fromNativeValue(this)
         }
 
@@ -114,7 +114,7 @@ public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
          *
          * @param scope the new scope to use
          */
-        set(scope) = gtk_shortcut_controller_set_scope(gtkShortcutControllerPointer.reinterpret(), scope.nativeValue)
+        set(scope) = gtk_shortcut_controller_set_scope(gtkShortcutControllerPointer, scope.nativeValue)
 
     /**
      * Creates a new shortcut controller.
@@ -146,10 +146,8 @@ public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
      *
      * @param shortcut a `GtkShortcut`
      */
-    public open fun addShortcut(shortcut: Shortcut): Unit = gtk_shortcut_controller_add_shortcut(
-        gtkShortcutControllerPointer.reinterpret(),
-        shortcut.gtkShortcutPointer.reinterpret()
-    )
+    public open fun addShortcut(shortcut: Shortcut): Unit =
+        gtk_shortcut_controller_add_shortcut(gtkShortcutControllerPointer, shortcut.gtkShortcutPointer)
 
     /**
      * Gets the mnemonics modifiers for when this controller activates its shortcuts.
@@ -157,7 +155,7 @@ public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
      * @return the controller's mnemonics modifiers
      */
     public open fun getMnemonicsModifiers(): ModifierType =
-        gtk_shortcut_controller_get_mnemonics_modifiers(gtkShortcutControllerPointer.reinterpret()).run {
+        gtk_shortcut_controller_get_mnemonics_modifiers(gtkShortcutControllerPointer).run {
             ModifierType(this)
         }
 
@@ -169,10 +167,8 @@ public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
      *
      * @param shortcut a `GtkShortcut`
      */
-    public open fun removeShortcut(shortcut: Shortcut): Unit = gtk_shortcut_controller_remove_shortcut(
-        gtkShortcutControllerPointer.reinterpret(),
-        shortcut.gtkShortcutPointer.reinterpret()
-    )
+    public open fun removeShortcut(shortcut: Shortcut): Unit =
+        gtk_shortcut_controller_remove_shortcut(gtkShortcutControllerPointer, shortcut.gtkShortcutPointer)
 
     /**
      * Sets the controller to use the given modifier for mnemonics.
@@ -192,7 +188,7 @@ public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
      * @param modifiers the new mnemonics_modifiers to use
      */
     public open fun setMnemonicsModifiers(modifiers: ModifierType): Unit =
-        gtk_shortcut_controller_set_mnemonics_modifiers(gtkShortcutControllerPointer.reinterpret(), modifiers.mask)
+        gtk_shortcut_controller_set_mnemonics_modifiers(gtkShortcutControllerPointer, modifiers.mask)
 
     public companion object : TypeCompanion<ShortcutController> {
         override val type: GeneratedClassKGType<ShortcutController> =

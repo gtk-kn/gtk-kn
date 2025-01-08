@@ -67,8 +67,8 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @return The filter currently in use
          */
-        get() = gtk_filter_list_model_get_filter(gtkFilterListModelPointer.reinterpret())?.run {
-            Filter(reinterpret())
+        get() = gtk_filter_list_model_get_filter(gtkFilterListModelPointer)?.run {
+            Filter(this)
         }
 
         /**
@@ -76,12 +76,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @param filter filter to use
          */
-        set(
-            filter
-        ) = gtk_filter_list_model_set_filter(
-            gtkFilterListModelPointer.reinterpret(),
-            filter?.gtkFilterPointer?.reinterpret()
-        )
+        set(filter) = gtk_filter_list_model_set_filter(gtkFilterListModelPointer, filter?.gtkFilterPointer)
 
     /**
      * If the model should filter items incrementally.
@@ -94,7 +89,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @return true if incremental filtering is enabled
          */
-        get() = gtk_filter_list_model_get_incremental(gtkFilterListModelPointer.reinterpret()).asBoolean()
+        get() = gtk_filter_list_model_get_incremental(gtkFilterListModelPointer).asBoolean()
 
         /**
          * Sets the filter model to do an incremental sort.
@@ -116,9 +111,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @param incremental true to enable incremental filtering
          */
-        set(
-            incremental
-        ) = gtk_filter_list_model_set_incremental(gtkFilterListModelPointer.reinterpret(), incremental.asGBoolean())
+        set(incremental) = gtk_filter_list_model_set_incremental(gtkFilterListModelPointer, incremental.asGBoolean())
 
     /**
      * The model being filtered.
@@ -129,7 +122,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @return The model that gets filtered
          */
-        get() = gtk_filter_list_model_get_model(gtkFilterListModelPointer.reinterpret())?.run {
+        get() = gtk_filter_list_model_get_model(gtkFilterListModelPointer)?.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -143,9 +136,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @param model The model to be filtered
          */
-        set(
-            model
-        ) = gtk_filter_list_model_set_model(gtkFilterListModelPointer.reinterpret(), model?.gioListModelPointer)
+        set(model) = gtk_filter_list_model_set_model(gtkFilterListModelPointer, model?.gioListModelPointer)
 
     /**
      * Number of items not yet filtered.
@@ -171,7 +162,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          *
          * @return The number of items not yet filtered
          */
-        get() = gtk_filter_list_model_get_pending(gtkFilterListModelPointer.reinterpret())
+        get() = gtk_filter_list_model_get_pending(gtkFilterListModelPointer)
 
     /**
      * Creates a new `GtkFilterListModel` that will filter @model using the given
@@ -184,9 +175,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
     public constructor(
         model: ListModel? = null,
         filter: Filter? = null,
-    ) : this(
-        gtk_filter_list_model_new(model?.gioListModelPointer, filter?.gtkFilterPointer?.reinterpret())!!.reinterpret()
-    )
+    ) : this(gtk_filter_list_model_new(model?.gioListModelPointer, filter?.gtkFilterPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<FilterListModel> {
         override val type: GeneratedClassKGType<FilterListModel> =

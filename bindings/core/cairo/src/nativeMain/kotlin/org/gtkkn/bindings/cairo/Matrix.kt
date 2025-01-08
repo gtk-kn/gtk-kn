@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.cairo.cairo_matrix_init
@@ -173,26 +172,24 @@ public class Matrix(pointer: CPointer<cairo_matrix_t>, cleaner: Cleaner? = null)
         this.y0 = y0
     }
 
-    public fun initIdentity(): Unit = cairo_matrix_init_identity(gPointer.reinterpret())
+    public fun initIdentity(): Unit = cairo_matrix_init_identity(gPointer)
 
-    public fun initTranslate(tx: gdouble, ty: gdouble): Unit =
-        cairo_matrix_init_translate(gPointer.reinterpret(), tx, ty)
+    public fun initTranslate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_init_translate(gPointer, tx, ty)
 
-    public fun translate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_translate(gPointer.reinterpret(), tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_translate(gPointer, tx, ty)
 
-    public fun scale(sx: gdouble, sy: gdouble): Unit = cairo_matrix_scale(gPointer.reinterpret(), sx, sy)
+    public fun scale(sx: gdouble, sy: gdouble): Unit = cairo_matrix_scale(gPointer, sx, sy)
 
-    public fun rotate(radians: gdouble): Unit = cairo_matrix_rotate(gPointer.reinterpret(), radians)
+    public fun rotate(radians: gdouble): Unit = cairo_matrix_rotate(gPointer, radians)
 
-    public fun invert(): Status = cairo_matrix_invert(gPointer.reinterpret()).run {
+    public fun invert(): Status = cairo_matrix_invert(gPointer).run {
         Status.fromNativeValue(this)
     }
 
-    public fun multiply(a: Matrix, b: Matrix): Unit =
-        cairo_matrix_multiply(gPointer.reinterpret(), a.gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun multiply(a: Matrix, b: Matrix): Unit = cairo_matrix_multiply(gPointer, a.gPointer, b.gPointer)
 
     public fun `init`(xx: gdouble, yx: gdouble, xy: gdouble, yy: gdouble, x0: gdouble, y0: gdouble): Unit =
-        cairo_matrix_init(gPointer.reinterpret(), xx, yx, xy, yy, x0, y0)
+        cairo_matrix_init(gPointer, xx, yx, xy, yy, x0, y0)
 
     override fun toString(): String = "Matrix(xx=$xx, yx=$yx, xy=$xy, yy=$yy, x0=$x0, y0=$y0)"
 }

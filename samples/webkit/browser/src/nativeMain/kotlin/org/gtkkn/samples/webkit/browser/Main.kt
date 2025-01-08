@@ -54,7 +54,7 @@ fun main() = Application {
 
     val back = Button.newFromIconName("go-previous-symbolic").apply {
         tooltipText = "Back"
-        connectClicked {
+        onClicked {
             log { "Back clicked" }
             webView.goBack()
         }
@@ -62,7 +62,7 @@ fun main() = Application {
 
     val forward = Button.newFromIconName("go-next-symbolic").apply {
         tooltipText = "Forward"
-        connectClicked {
+        onClicked {
             log { "Forward clicked" }
             webView.goForward()
         }
@@ -70,7 +70,7 @@ fun main() = Application {
 
     val stopOrReload = Button.newFromIconName("process-stop-symbolic").apply {
         tooltipText = "Stop"
-        connectClicked {
+        onClicked {
             log { "Stop clicked" }
             if (loading) webView.stopLoading() else webView.reload()
         }
@@ -78,7 +78,7 @@ fun main() = Application {
 
     val home = Button.newFromIconName("go-home-symbolic").apply {
         tooltipText = "Home"
-        connectClicked {
+        onClicked {
             log { "Home clicked" }
             webView.loadUri(HOME_PAGE)
         }
@@ -99,7 +99,7 @@ fun main() = Application {
     // When navigating to another page, update the URL bar
     webView.bindProperty("uri", urlBar.buffer, "text", BindingFlags.DEFAULT)
 
-    webView.connectLoadChanged { loadEvent: LoadEvent ->
+    webView.onLoadChanged { loadEvent: LoadEvent ->
         when (loadEvent) {
             STARTED -> {
                 log { "loadEvent = Started" }
@@ -119,7 +119,7 @@ fun main() = Application {
         }
     }
 
-    urlBar.connectActivate {
+    urlBar.onActivate {
         var url = urlBar.buffer.text
         val scheme = Uri.peekScheme(url)
         if (scheme == null) {
@@ -129,7 +129,7 @@ fun main() = Application {
         webView.loadUri(url)
     }
 
-    webView.connectNotify { pspecs ->
+    webView.onNotify { pspecs ->
         log { "pspecs = ${pspecs.getName()}" }
         if (pspecs.getName() == "estimated-load-progress") {
             urlBar.progressFraction = webView.estimatedLoadProgress

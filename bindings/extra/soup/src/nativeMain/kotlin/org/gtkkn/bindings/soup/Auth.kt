@@ -65,7 +65,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
          *
          * @return the authority
          */
-        get() = soup_auth_get_authority(soupAuthPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = soup_auth_get_authority(soupAuthPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The authentication realm.
@@ -80,7 +80,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
          *
          * @return the realm name
          */
-        get() = soup_auth_get_realm(soupAuthPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = soup_auth_get_realm(soupAuthPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The authentication scheme name.
@@ -92,8 +92,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
          *
          * @return the scheme name
          */
-        get() = soup_auth_get_scheme_name(soupAuthPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = soup_auth_get_scheme_name(soupAuthPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Creates a new #SoupAuth of type @type with the information from
@@ -112,7 +111,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
         type: GType,
         msg: Message,
         authHeader: String,
-    ) : this(soup_auth_new(type, msg.soupMessagePointer.reinterpret(), authHeader)!!.reinterpret())
+    ) : this(soup_auth_new(type, msg.soupMessagePointer, authHeader)!!.reinterpret())
 
     /**
      * Call this on an auth to authenticate it.
@@ -124,7 +123,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @param password the password provided by the user or client
      */
     public open fun authenticate(username: String, password: String): Unit =
-        soup_auth_authenticate(soupAuthPointer.reinterpret(), username, password)
+        soup_auth_authenticate(soupAuthPointer, username, password)
 
     /**
      * Tests if @auth is able to authenticate by providing credentials to the
@@ -132,7 +131,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *
      * @return true if @auth is able to accept credentials.
      */
-    public open fun canAuthenticate(): Boolean = soup_auth_can_authenticate(soupAuthPointer.reinterpret()).asBoolean()
+    public open fun canAuthenticate(): Boolean = soup_auth_can_authenticate(soupAuthPointer).asBoolean()
 
     /**
      * Call this on an auth to cancel it.
@@ -141,7 +140,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * when no credentials are provided ([method@Auth.authenticate] is not called).
      * The #SoupAuth will be cancelled on dispose if it hans't been authenticated.
      */
-    public open fun cancel(): Unit = soup_auth_cancel(soupAuthPointer.reinterpret())
+    public open fun cancel(): Unit = soup_auth_cancel(soupAuthPointer)
 
     /**
      * Frees @space.
@@ -149,7 +148,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @param space the return value from [method@Auth.get_protection_space]
      */
     public open fun freeProtectionSpace(space: SList): Unit =
-        soup_auth_free_protection_space(soupAuthPointer.reinterpret(), space.gPointer.reinterpret())
+        soup_auth_free_protection_space(soupAuthPointer, space.gPointer)
 
     /**
      * Generates an appropriate "Authorization" header for @msg.
@@ -161,7 +160,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @return the "Authorization" header, which must be freed.
      */
     public open fun getAuthorization(msg: Message): String =
-        soup_auth_get_authorization(soupAuthPointer.reinterpret(), msg.soupMessagePointer.reinterpret())?.toKString()
+        soup_auth_get_authorization(soupAuthPointer, msg.soupMessagePointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -175,7 +174,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @return the identifier
      */
     public open fun getInfo(): String =
-        soup_auth_get_info(soupAuthPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        soup_auth_get_info(soupAuthPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a list of paths on the server which @auth extends over.
@@ -190,8 +189,8 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *   paths, which can be freed with [method@Auth.free_protection_space].
      */
     public open fun getProtectionSpace(sourceUri: Uri): SList =
-        soup_auth_get_protection_space(soupAuthPointer.reinterpret(), sourceUri.gPointer.reinterpret())!!.run {
-            SList(reinterpret())
+        soup_auth_get_protection_space(soupAuthPointer, sourceUri.gPointer)!!.run {
+            SList(this)
         }
 
     /**
@@ -199,14 +198,14 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *
      * @return true if @auth has been given a username and password
      */
-    public open fun isAuthenticated(): Boolean = soup_auth_is_authenticated(soupAuthPointer.reinterpret()).asBoolean()
+    public open fun isAuthenticated(): Boolean = soup_auth_is_authenticated(soupAuthPointer).asBoolean()
 
     /**
      * Tests if @auth has been cancelled
      *
      * @return true if @auth has been cancelled
      */
-    public open fun isCancelled(): Boolean = soup_auth_is_cancelled(soupAuthPointer.reinterpret()).asBoolean()
+    public open fun isCancelled(): Boolean = soup_auth_is_cancelled(soupAuthPointer).asBoolean()
 
     /**
      * Tests whether or not @auth is associated with a proxy server rather
@@ -214,7 +213,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *
      * @return true or false
      */
-    public open fun isForProxy(): Boolean = soup_auth_is_for_proxy(soupAuthPointer.reinterpret()).asBoolean()
+    public open fun isForProxy(): Boolean = soup_auth_is_for_proxy(soupAuthPointer).asBoolean()
 
     /**
      * Tests if @auth is ready to make a request for @msg with.
@@ -227,7 +226,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @return true if @auth is ready to make a request with.
      */
     public open fun isReady(msg: Message): Boolean =
-        soup_auth_is_ready(soupAuthPointer.reinterpret(), msg.soupMessagePointer.reinterpret()).asBoolean()
+        soup_auth_is_ready(soupAuthPointer, msg.soupMessagePointer).asBoolean()
 
     /**
      * Updates @auth with the information from @msg and @auth_header,
@@ -242,7 +241,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *   could not be parsed or incorporated into @auth at all.
      */
     public open fun update(msg: Message, authHeader: String): Boolean =
-        soup_auth_update(soupAuthPointer.reinterpret(), msg.soupMessagePointer.reinterpret(), authHeader).asBoolean()
+        soup_auth_update(soupAuthPointer, msg.soupMessagePointer, authHeader).asBoolean()
 
     public companion object : TypeCompanion<Auth> {
         override val type: GeneratedClassKGType<Auth> =

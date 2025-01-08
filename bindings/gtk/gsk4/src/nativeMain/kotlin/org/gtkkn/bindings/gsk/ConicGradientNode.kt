@@ -53,7 +53,7 @@ public open class ConicGradientNode(pointer: CPointer<GskConicGradientNode>) :
      */
     public open fun getCenter(): Point =
         gsk_conic_gradient_node_get_center(gskConicGradientNodePointer.reinterpret())!!.run {
-            Point(reinterpret())
+            Point(this)
         }
 
     /**

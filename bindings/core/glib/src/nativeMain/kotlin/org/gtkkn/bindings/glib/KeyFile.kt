@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.GLib.resolveException
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_12
@@ -233,7 +232,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun free(): Unit = g_key_file_free(gPointer.reinterpret())
+    public fun free(): Unit = g_key_file_free(gPointer)
 
     /**
      * Returns the value associated with @key under @group_name as a
@@ -253,7 +252,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun getBoolean(groupName: String, key: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_boolean(gPointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        val gResult = g_key_file_get_boolean(gPointer, groupName, key, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -279,7 +278,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun getComment(groupName: String? = null, key: String? = null): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_comment(gPointer.reinterpret(), groupName, key, gError.ptr)?.toKString()
+        val gResult = g_key_file_get_comment(gPointer, groupName, key, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -305,7 +304,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_12
     public fun getDouble(groupName: String, key: String): Result<gdouble> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_double(gPointer.reinterpret(), groupName, key, gError.ptr)
+        val gResult = g_key_file_get_double(gPointer, groupName, key, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -327,7 +326,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_26
     public fun getInt64(groupName: String, key: String): Result<gint64> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_int64(gPointer.reinterpret(), groupName, key, gError.ptr)
+        val gResult = g_key_file_get_int64(gPointer, groupName, key, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -354,7 +353,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun getInteger(groupName: String, key: String): Result<gint> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_integer(gPointer.reinterpret(), groupName, key, gError.ptr)
+        val gResult = g_key_file_get_integer(gPointer, groupName, key, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -382,7 +381,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_56
     public fun getLocaleForKey(groupName: String, key: String, locale: String? = null): String? =
-        g_key_file_get_locale_for_key(gPointer.reinterpret(), groupName, key, locale)?.toKString()
+        g_key_file_get_locale_for_key(gPointer, groupName, key, locale)?.toKString()
 
     /**
      * Returns the value associated with @key under @group_name
@@ -408,13 +407,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun getLocaleString(groupName: String, key: String, locale: String? = null): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_locale_string(
-            gPointer.reinterpret(),
-            groupName,
-            key,
-            locale,
-            gError.ptr
-        )?.toKString()
+        val gResult = g_key_file_get_locale_string(gPointer, groupName, key, locale, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -429,7 +422,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getStartGroup(): String? = g_key_file_get_start_group(gPointer.reinterpret())?.toKString()
+    public fun getStartGroup(): String? = g_key_file_get_start_group(gPointer)?.toKString()
 
     /**
      * Returns the string value associated with @key under @group_name.
@@ -450,7 +443,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun getString(groupName: String, key: String): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_string(gPointer.reinterpret(), groupName, key, gError.ptr)?.toKString()
+        val gResult = g_key_file_get_string(gPointer, groupName, key, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -472,7 +465,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_26
     public fun getUint64(groupName: String, key: String): Result<guint64> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_uint64(gPointer.reinterpret(), groupName, key, gError.ptr)
+        val gResult = g_key_file_get_uint64(gPointer, groupName, key, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -498,7 +491,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun getValue(groupName: String, key: String): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_get_value(gPointer.reinterpret(), groupName, key, gError.ptr)?.toKString()
+        val gResult = g_key_file_get_value(gPointer, groupName, key, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -515,8 +508,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun hasGroup(groupName: String): Boolean =
-        g_key_file_has_group(gPointer.reinterpret(), groupName).asBoolean()
+    public fun hasGroup(groupName: String): Boolean = g_key_file_has_group(gPointer, groupName).asBoolean()
 
     /**
      * Looks whether the key file has the key @key in the group
@@ -538,7 +530,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun hasKey(groupName: String, key: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_has_key(gPointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        val gResult = g_key_file_has_key(gPointer, groupName, key, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -558,12 +550,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_50
     public fun loadFromBytes(bytes: Bytes, flags: KeyFileFlags): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_load_from_bytes(
-            gPointer.reinterpret(),
-            bytes.gPointer.reinterpret(),
-            flags.mask,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_key_file_load_from_bytes(gPointer, bytes.gPointer, flags.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -584,13 +571,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun loadFromData(`data`: String, length: gsize, flags: KeyFileFlags): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_load_from_data(
-            gPointer.reinterpret(),
-            `data`,
-            length,
-            flags.mask,
-            gError.ptr
-        ).asBoolean()
+        val gResult = g_key_file_load_from_data(gPointer, `data`, length, flags.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -616,7 +597,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun loadFromFile(`file`: String, flags: KeyFileFlags): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_load_from_file(gPointer.reinterpret(), `file`, flags.mask, gError.ptr).asBoolean()
+        val gResult = g_key_file_load_from_file(gPointer, `file`, flags.mask, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -631,8 +612,8 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): KeyFile = g_key_file_ref(gPointer.reinterpret())!!.run {
-        KeyFile(reinterpret())
+    public fun ref(): KeyFile = g_key_file_ref(gPointer)!!.run {
+        KeyFile(this)
     }
 
     /**
@@ -649,7 +630,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun removeComment(groupName: String? = null, key: String? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_remove_comment(gPointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        val gResult = g_key_file_remove_comment(gPointer, groupName, key, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -668,7 +649,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun removeGroup(groupName: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_remove_group(gPointer.reinterpret(), groupName, gError.ptr).asBoolean()
+        val gResult = g_key_file_remove_group(gPointer, groupName, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -687,7 +668,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_6
     public fun removeKey(groupName: String, key: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_remove_key(gPointer.reinterpret(), groupName, key, gError.ptr).asBoolean()
+        val gResult = g_key_file_remove_key(gPointer, groupName, key, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -711,7 +692,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     @GLibVersion2_40
     public fun saveToFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_key_file_save_to_file(gPointer.reinterpret(), filename, gError.ptr).asBoolean()
+        val gResult = g_key_file_save_to_file(gPointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -730,7 +711,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setBoolean(groupName: String, key: String, `value`: Boolean): Unit =
-        g_key_file_set_boolean(gPointer.reinterpret(), groupName, key, `value`.asGBoolean())
+        g_key_file_set_boolean(gPointer, groupName, key, `value`.asGBoolean())
 
     /**
      * Places a comment above @key from @group_name.
@@ -752,13 +733,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
     public fun setComment(groupName: String? = null, key: String? = null, comment: String): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_key_file_set_comment(
-                gPointer.reinterpret(),
-                groupName,
-                key,
-                comment,
-                gError.ptr
-            ).asBoolean()
+            val gResult = g_key_file_set_comment(gPointer, groupName, key, comment, gError.ptr).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -777,7 +752,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_12
     public fun setDouble(groupName: String, key: String, `value`: gdouble): Unit =
-        g_key_file_set_double(gPointer.reinterpret(), groupName, key, `value`)
+        g_key_file_set_double(gPointer, groupName, key, `value`)
 
     /**
      * Associates a new integer value with @key under @group_name.
@@ -790,7 +765,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun setInt64(groupName: String, key: String, `value`: gint64): Unit =
-        g_key_file_set_int64(gPointer.reinterpret(), groupName, key, `value`)
+        g_key_file_set_int64(gPointer, groupName, key, `value`)
 
     /**
      * Associates a new integer value with @key under @group_name.
@@ -803,7 +778,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setInteger(groupName: String, key: String, `value`: gint): Unit =
-        g_key_file_set_integer(gPointer.reinterpret(), groupName, key, `value`)
+        g_key_file_set_integer(gPointer, groupName, key, `value`)
 
     /**
      * Sets the character which is used to separate
@@ -815,7 +790,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setListSeparator(separator: Char): Unit =
-        g_key_file_set_list_separator(gPointer.reinterpret(), separator.code.toByte())
+        g_key_file_set_list_separator(gPointer, separator.code.toByte())
 
     /**
      * Associates a string value for @key and @locale under @group_name.
@@ -829,7 +804,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setLocaleString(groupName: String, key: String, locale: String, string: String): Unit =
-        g_key_file_set_locale_string(gPointer.reinterpret(), groupName, key, locale, string)
+        g_key_file_set_locale_string(gPointer, groupName, key, locale, string)
 
     /**
      * Associates a list of string values for @key and @locale under
@@ -851,14 +826,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
         list: List<String>,
         length: gsize,
     ): Unit = memScoped {
-        return g_key_file_set_locale_string_list(
-            gPointer.reinterpret(),
-            groupName,
-            key,
-            locale,
-            list.toCStringList(this),
-            length
-        )
+        return g_key_file_set_locale_string_list(gPointer, groupName, key, locale, list.toCStringList(this), length)
     }
 
     /**
@@ -875,7 +843,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setString(groupName: String, key: String, string: String): Unit =
-        g_key_file_set_string(gPointer.reinterpret(), groupName, key, string)
+        g_key_file_set_string(gPointer, groupName, key, string)
 
     /**
      * Associates a list of string values for @key under @group_name.
@@ -890,7 +858,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setStringList(groupName: String, key: String, list: List<String>, length: gsize): Unit = memScoped {
-        return g_key_file_set_string_list(gPointer.reinterpret(), groupName, key, list.toCStringList(this), length)
+        return g_key_file_set_string_list(gPointer, groupName, key, list.toCStringList(this), length)
     }
 
     /**
@@ -904,7 +872,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun setUint64(groupName: String, key: String, `value`: guint64): Unit =
-        g_key_file_set_uint64(gPointer.reinterpret(), groupName, key, `value`)
+        g_key_file_set_uint64(gPointer, groupName, key, `value`)
 
     /**
      * Associates a new value with @key under @group_name.
@@ -921,7 +889,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_6
     public fun setValue(groupName: String, key: String, `value`: String): Unit =
-        g_key_file_set_value(gPointer.reinterpret(), groupName, key, `value`)
+        g_key_file_set_value(gPointer, groupName, key, `value`)
 
     /**
      * Decreases the reference count of @key_file by 1. If the reference count
@@ -930,7 +898,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unref(): Unit = g_key_file_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_key_file_unref(gPointer)
 
     public companion object {
         /**
@@ -942,7 +910,7 @@ public class KeyFile(pointer: CPointer<GKeyFile>) : ProxyInstance(pointer) {
          * @return an empty #GKeyFile.
          * @since 2.6
          */
-        public fun new(): KeyFile = KeyFile(g_key_file_new()!!.reinterpret())
+        public fun new(): KeyFile = KeyFile(g_key_file_new()!!)
 
         public fun errorQuark(): Quark = g_key_file_error_quark()
 

@@ -21,6 +21,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.soup.SoupCookie
 import org.gtkkn.native.soup.SoupCookieJar
 import org.gtkkn.native.soup.SoupSessionFeature
@@ -78,7 +79,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
          *
          * @return the #SoupCookieJarAcceptPolicy set in the @jar
          */
-        get() = soup_cookie_jar_get_accept_policy(soupCookieJarPointer.reinterpret()).run {
+        get() = soup_cookie_jar_get_accept_policy(soupCookieJarPointer).run {
             CookieJarAcceptPolicy.fromNativeValue(this)
         }
 
@@ -87,7 +88,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
          *
          * @param policy a #SoupCookieJarAcceptPolicy
          */
-        set(policy) = soup_cookie_jar_set_accept_policy(soupCookieJarPointer.reinterpret(), policy.nativeValue)
+        set(policy) = soup_cookie_jar_set_accept_policy(soupCookieJarPointer, policy.nativeValue)
 
     /**
      * Creates a new #SoupCookieJar.
@@ -110,8 +111,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      *
      * @param cookie a #SoupCookie
      */
-    public open fun addCookie(cookie: Cookie): Unit =
-        soup_cookie_jar_add_cookie(soupCookieJarPointer.reinterpret(), cookie.gPointer.reinterpret())
+    public open fun addCookie(cookie: Cookie): Unit = soup_cookie_jar_add_cookie(soupCookieJarPointer, cookie.gPointer)
 
     /**
      * Adds @cookie to @jar.
@@ -133,12 +133,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @param firstParty the URI for the main document
      */
     public open fun addCookieFull(cookie: Cookie, uri: Uri? = null, firstParty: Uri? = null): Unit =
-        soup_cookie_jar_add_cookie_full(
-            soupCookieJarPointer.reinterpret(),
-            cookie.gPointer.reinterpret(),
-            uri?.gPointer?.reinterpret(),
-            firstParty?.gPointer?.reinterpret()
-        )
+        soup_cookie_jar_add_cookie_full(soupCookieJarPointer, cookie.gPointer, uri?.gPointer, firstParty?.gPointer)
 
     /**
      * Adds @cookie to @jar.
@@ -159,11 +154,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @param cookie a #SoupCookie
      */
     public open fun addCookieWithFirstParty(firstParty: Uri, cookie: Cookie): Unit =
-        soup_cookie_jar_add_cookie_with_first_party(
-            soupCookieJarPointer.reinterpret(),
-            firstParty.gPointer.reinterpret(),
-            cookie.gPointer.reinterpret()
-        )
+        soup_cookie_jar_add_cookie_with_first_party(soupCookieJarPointer, firstParty.gPointer, cookie.gPointer)
 
     /**
      * Constructs a [struct@GLib.List] with every cookie inside the @jar.
@@ -174,8 +165,8 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @return a #GSList
      *   with all the cookies in the @jar.
      */
-    public open fun allCookies(): SList = soup_cookie_jar_all_cookies(soupCookieJarPointer.reinterpret())!!.run {
-        SList(reinterpret())
+    public open fun allCookies(): SList = soup_cookie_jar_all_cookies(soupCookieJarPointer)!!.run {
+        SList(this)
     }
 
     /**
@@ -186,7 +177,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @param cookie a #SoupCookie
      */
     public open fun deleteCookie(cookie: Cookie): Unit =
-        soup_cookie_jar_delete_cookie(soupCookieJarPointer.reinterpret(), cookie.gPointer.reinterpret())
+        soup_cookie_jar_delete_cookie(soupCookieJarPointer, cookie.gPointer)
 
     /**
      * Retrieves the list of cookies that would be sent with a request to @uri
@@ -206,13 +197,10 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @return a #GSList
      *   with the cookies in the @jar that would be sent with a request to @uri.
      */
-    public open fun getCookieList(uri: Uri, forHttp: Boolean): SList = soup_cookie_jar_get_cookie_list(
-        soupCookieJarPointer.reinterpret(),
-        uri.gPointer.reinterpret(),
-        forHttp.asGBoolean()
-    )!!.run {
-        SList(reinterpret())
-    }
+    public open fun getCookieList(uri: Uri, forHttp: Boolean): SList =
+        soup_cookie_jar_get_cookie_list(soupCookieJarPointer, uri.gPointer, forHttp.asGBoolean())!!.run {
+            SList(this)
+        }
 
     /**
      * This is an extended version of [method@CookieJar.get_cookie_list] that
@@ -241,15 +229,15 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
         isSafeMethod: Boolean,
         isTopLevelNavigation: Boolean,
     ): SList = soup_cookie_jar_get_cookie_list_with_same_site_info(
-        soupCookieJarPointer.reinterpret(),
-        uri.gPointer.reinterpret(),
-        topLevel?.gPointer?.reinterpret(),
-        siteForCookies?.gPointer?.reinterpret(),
+        soupCookieJarPointer,
+        uri.gPointer,
+        topLevel?.gPointer,
+        siteForCookies?.gPointer,
         forHttp.asGBoolean(),
         isSafeMethod.asGBoolean(),
         isTopLevelNavigation.asGBoolean()
     )!!.run {
-        SList(reinterpret())
+        SList(this)
     }
 
     /**
@@ -270,19 +258,15 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @return the cookies, in string form, or null if
      *   there are no cookies for @uri.
      */
-    public open fun getCookies(uri: Uri, forHttp: Boolean): String? = soup_cookie_jar_get_cookies(
-        soupCookieJarPointer.reinterpret(),
-        uri.gPointer.reinterpret(),
-        forHttp.asGBoolean()
-    )?.toKString()
+    public open fun getCookies(uri: Uri, forHttp: Boolean): String? =
+        soup_cookie_jar_get_cookies(soupCookieJarPointer, uri.gPointer, forHttp.asGBoolean())?.toKString()
 
     /**
      * Gets whether @jar stores cookies persistenly.
      *
      * @return true if @jar storage is persistent or false otherwise.
      */
-    public open fun isPersistent(): Boolean =
-        soup_cookie_jar_is_persistent(soupCookieJarPointer.reinterpret()).asBoolean()
+    public open fun isPersistent(): Boolean = soup_cookie_jar_is_persistent(soupCookieJarPointer).asBoolean()
 
     /**
      * Adds @cookie to @jar, exactly as though it had appeared in a
@@ -299,7 +283,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @param cookie the stringified cookie to set
      */
     public open fun setCookie(uri: Uri, cookie: String): Unit =
-        soup_cookie_jar_set_cookie(soupCookieJarPointer.reinterpret(), uri.gPointer.reinterpret(), cookie)
+        soup_cookie_jar_set_cookie(soupCookieJarPointer, uri.gPointer, cookie)
 
     /**
      * Adds @cookie to @jar, exactly as though it had appeared in a
@@ -313,12 +297,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @param cookie the stringified cookie to set
      */
     public open fun setCookieWithFirstParty(uri: Uri, firstParty: Uri, cookie: String): Unit =
-        soup_cookie_jar_set_cookie_with_first_party(
-            soupCookieJarPointer.reinterpret(),
-            uri.gPointer.reinterpret(),
-            firstParty.gPointer.reinterpret(),
-            cookie
-        )
+        soup_cookie_jar_set_cookie_with_first_party(soupCookieJarPointer, uri.gPointer, firstParty.gPointer, cookie)
 
     /**
      * Emitted when @jar changes.
@@ -331,20 +310,30 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
      * @old_cookie will contain its old value, and @new_cookie its
      * new value.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `oldCookie` the old #SoupCookie value; `newCookie` the new #SoupCookie value
      */
-    public fun connectChanged(
+    public fun onChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (oldCookie: Cookie, newCookie: Cookie) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "changed",
-        connectChangedFunc.reinterpret(),
+        onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @param oldCookie the old #SoupCookie value
+     * @param newCookie the new #SoupCookie value
+     */
+    public fun emitChanged(oldCookie: Cookie, newCookie: Cookie) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed", oldCookie.gPointer, newCookie.gPointer)
+    }
 
     public companion object : TypeCompanion<CookieJar> {
         override val type: GeneratedClassKGType<CookieJar> =
@@ -363,8 +352,7 @@ public open class CookieJar(pointer: CPointer<SoupCookieJar>) :
     }
 }
 
-private val connectChangedFunc:
-    CPointer<CFunction<(CPointer<SoupCookie>, CPointer<SoupCookie>) -> Unit>> =
+private val onChangedFunc: CPointer<CFunction<(CPointer<SoupCookie>, CPointer<SoupCookie>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             oldCookie: CPointer<SoupCookie>?,
@@ -373,10 +361,10 @@ private val connectChangedFunc:
         ->
         userData.asStableRef<(oldCookie: Cookie, newCookie: Cookie) -> Unit>().get().invoke(
             oldCookie!!.run {
-                Cookie(reinterpret())
+                Cookie(this)
             },
             newCookie!!.run {
-                Cookie(reinterpret())
+                Cookie(this)
             }
         )
     }

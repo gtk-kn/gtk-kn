@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.webkit.annotations.WebKitVersion2_42
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gsize
@@ -47,8 +46,8 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun `get`(index: gsize): Feature = webkit_feature_list_get(gPointer.reinterpret(), index)!!.run {
-        Feature(reinterpret())
+    public fun `get`(index: gsize): Feature = webkit_feature_list_get(gPointer, index)!!.run {
+        Feature(this)
     }
 
     /**
@@ -58,7 +57,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      *
      * Since 2.42
      */
-    public fun getLength(): gsize = webkit_feature_list_get_length(gPointer.reinterpret())
+    public fun getLength(): gsize = webkit_feature_list_get_length(gPointer)
 
     /**
      * Atomically acquires a reference on the given @feature_list.
@@ -69,8 +68,8 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): FeatureList = webkit_feature_list_ref(gPointer.reinterpret())!!.run {
-        FeatureList(reinterpret())
+    public fun ref(): FeatureList = webkit_feature_list_ref(gPointer)!!.run {
+        FeatureList(this)
     }
 
     /**
@@ -83,7 +82,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun unref(): Unit = webkit_feature_list_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_feature_list_unref(gPointer)
 
     public companion object {
         /**

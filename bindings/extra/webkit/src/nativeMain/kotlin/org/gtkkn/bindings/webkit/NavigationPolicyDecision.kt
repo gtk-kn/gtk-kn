@@ -38,10 +38,8 @@ public class NavigationPolicyDecision(pointer: CPointer<WebKitNavigationPolicyDe
          * @return The #WebKitNavigationAction triggering this policy decision.
          * @since 2.6
          */
-        get() = webkit_navigation_policy_decision_get_navigation_action(
-            webkitNavigationPolicyDecisionPointer.reinterpret()
-        )!!.run {
-            NavigationAction(reinterpret())
+        get() = webkit_navigation_policy_decision_get_navigation_action(webkitNavigationPolicyDecisionPointer)!!.run {
+            NavigationAction(this)
         }
 
     public companion object : TypeCompanion<NavigationPolicyDecision> {

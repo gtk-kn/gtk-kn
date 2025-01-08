@@ -71,8 +71,8 @@ public open class Application(pointer: CPointer<AdwApplication>) :
          *
          * @return the style manager
          */
-        get() = adw_application_get_style_manager(adwApplicationPointer.reinterpret())!!.run {
-            StyleManager(reinterpret())
+        get() = adw_application_get_style_manager(adwApplicationPointer)!!.run {
+            StyleManager(this)
         }
 
     /**

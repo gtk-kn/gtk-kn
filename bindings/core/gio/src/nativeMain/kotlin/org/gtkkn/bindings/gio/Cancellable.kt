@@ -48,6 +48,7 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gulong
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.Result
 import kotlin.ULong
@@ -98,7 +99,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * then the operation's #GAsyncReadyCallback will not be invoked until
      * the application returns to the main loop.
      */
-    public open fun cancel(): Unit = g_cancellable_cancel(gioCancellablePointer.reinterpret())
+    public open fun cancel(): Unit = g_cancellable_cancel(gioCancellablePointer)
 
     /**
      * Convenience function to connect to the #GCancellable::cancelled
@@ -127,7 +128,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      */
     @GioVersion2_22
     public open fun connect(callback: Callback): gulong = g_cancellable_connect(
-        gioCancellablePointer.reinterpret(),
+        gioCancellablePointer,
         CallbackFunc.reinterpret(),
         StableRef.create(callback).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -153,8 +154,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun disconnect(handlerId: gulong): Unit =
-        g_cancellable_disconnect(gioCancellablePointer.reinterpret(), handlerId)
+    public open fun disconnect(handlerId: gulong): Unit = g_cancellable_disconnect(gioCancellablePointer, handlerId)
 
     /**
      * Gets the file descriptor for a cancellable job. This can be used to
@@ -174,7 +174,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @return A valid file descriptor. `-1` if the file descriptor
      * is not supported, or on errors.
      */
-    public open fun getFd(): gint = g_cancellable_get_fd(gioCancellablePointer.reinterpret())
+    public open fun getFd(): gint = g_cancellable_get_fd(gioCancellablePointer)
 
     /**
      * Checks if a cancellable job has been cancelled.
@@ -182,7 +182,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @return true if @cancellable is cancelled,
      * FALSE if called with null or if item is not cancelled.
      */
-    public open fun isCancelled(): Boolean = g_cancellable_is_cancelled(gioCancellablePointer.reinterpret()).asBoolean()
+    public open fun isCancelled(): Boolean = g_cancellable_is_cancelled(gioCancellablePointer).asBoolean()
 
     /**
      * Creates a #GPollFD corresponding to @cancellable; this can be passed
@@ -211,13 +211,13 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      */
     @GioVersion2_22
     public open fun makePollfd(pollfd: PollFd): Boolean =
-        g_cancellable_make_pollfd(gioCancellablePointer.reinterpret(), pollfd.gPointer.reinterpret()).asBoolean()
+        g_cancellable_make_pollfd(gioCancellablePointer, pollfd.gPointer).asBoolean()
 
     /**
      * Pops @cancellable off the cancellable stack (verifying that @cancellable
      * is on the top of the stack).
      */
-    public open fun popCurrent(): Unit = g_cancellable_pop_current(gioCancellablePointer.reinterpret())
+    public open fun popCurrent(): Unit = g_cancellable_pop_current(gioCancellablePointer)
 
     /**
      * Pushes @cancellable onto the cancellable stack. The current
@@ -229,7 +229,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * This is typically called automatically by e.g. #GFile operations,
      * so you rarely have to call this yourself.
      */
-    public open fun pushCurrent(): Unit = g_cancellable_push_current(gioCancellablePointer.reinterpret())
+    public open fun pushCurrent(): Unit = g_cancellable_push_current(gioCancellablePointer)
 
     /**
      * Releases a resources previously allocated by g_cancellable_get_fd()
@@ -245,7 +245,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun releaseFd(): Unit = g_cancellable_release_fd(gioCancellablePointer.reinterpret())
+    public open fun releaseFd(): Unit = g_cancellable_release_fd(gioCancellablePointer)
 
     /**
      * Resets @cancellable to its uncancelled state.
@@ -260,7 +260,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * and let it die with the outstanding async operations. You should
      * create a fresh cancellable for further async operations.
      */
-    public open fun reset(): Unit = g_cancellable_reset(gioCancellablePointer.reinterpret())
+    public open fun reset(): Unit = g_cancellable_reset(gioCancellablePointer)
 
     /**
      * If the @cancellable is cancelled, sets the error to notify
@@ -270,7 +270,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      */
     public open fun setErrorIfCancelled(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_cancellable_set_error_if_cancelled(gioCancellablePointer.reinterpret(), gError.ptr).asBoolean()
+        val gResult = g_cancellable_set_error_if_cancelled(gioCancellablePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -293,8 +293,8 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * @since 2.28
      */
     @GioVersion2_28
-    public open fun sourceNew(): Source = g_cancellable_source_new(gioCancellablePointer.reinterpret())!!.run {
-        Source(reinterpret())
+    public open fun sourceNew(): Source = g_cancellable_source_new(gioCancellablePointer)!!.run {
+        Source(this)
     }
 
     /**
@@ -350,18 +350,25 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * the user cancelled from, which may be the main thread. So, the
      * cancellable signal should not do something that can block.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "cancelled",
-            connectCancelledFunc.reinterpret(),
+            onCancelledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "cancelled" signal. See [onCancelled].
+     */
+    public fun emitCancelled() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "cancelled")
+    }
 
     public companion object : TypeCompanion<Cancellable> {
         override val type: GeneratedClassKGType<Cancellable> =
@@ -378,7 +385,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
          * of the stack, or null if the stack is empty.
          */
         public fun getCurrent(): Cancellable? = g_cancellable_get_current()?.run {
-            Cancellable(reinterpret())
+            Cancellable(this)
         }
 
         /**
@@ -390,7 +397,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
     }
 }
 
-private val connectCancelledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCancelledFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

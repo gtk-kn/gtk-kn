@@ -90,7 +90,7 @@ public open class ActionBar(pointer: CPointer<GtkActionBar>) :
          * @return the current value of the [property@Gtk.ActionBar:revealed]
          *   property
          */
-        get() = gtk_action_bar_get_revealed(gtkActionBarPointer.reinterpret()).asBoolean()
+        get() = gtk_action_bar_get_revealed(gtkActionBarPointer).asBoolean()
 
         /**
          * Reveals or conceals the content of the action bar.
@@ -101,7 +101,7 @@ public open class ActionBar(pointer: CPointer<GtkActionBar>) :
          *
          * @param revealed The new value of the property
          */
-        set(revealed) = gtk_action_bar_set_revealed(gtkActionBarPointer.reinterpret(), revealed.asGBoolean())
+        set(revealed) = gtk_action_bar_set_revealed(gtkActionBarPointer, revealed.asGBoolean())
 
     /**
      * Creates a new `GtkActionBar` widget.
@@ -115,10 +115,9 @@ public open class ActionBar(pointer: CPointer<GtkActionBar>) :
      *
      * @return the center `GtkWidget`
      */
-    public open fun getCenterWidget(): Widget? =
-        gtk_action_bar_get_center_widget(gtkActionBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
-        }
+    public open fun getCenterWidget(): Widget? = gtk_action_bar_get_center_widget(gtkActionBarPointer)?.run {
+        Widget(this)
+    }
 
     /**
      * Adds @child to @action_bar, packed with reference to the
@@ -126,8 +125,7 @@ public open class ActionBar(pointer: CPointer<GtkActionBar>) :
      *
      * @param child the `GtkWidget` to be added to @action_bar
      */
-    public open fun packEnd(child: Widget): Unit =
-        gtk_action_bar_pack_end(gtkActionBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun packEnd(child: Widget): Unit = gtk_action_bar_pack_end(gtkActionBarPointer, child.gtkWidgetPointer)
 
     /**
      * Adds @child to @action_bar, packed with reference to the
@@ -136,25 +134,22 @@ public open class ActionBar(pointer: CPointer<GtkActionBar>) :
      * @param child the `GtkWidget` to be added to @action_bar
      */
     public open fun packStart(child: Widget): Unit =
-        gtk_action_bar_pack_start(gtkActionBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        gtk_action_bar_pack_start(gtkActionBarPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child from @action_bar.
      *
      * @param child the `GtkWidget` to be removed
      */
-    public open fun remove(child: Widget): Unit =
-        gtk_action_bar_remove(gtkActionBarPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = gtk_action_bar_remove(gtkActionBarPointer, child.gtkWidgetPointer)
 
     /**
      * Sets the center widget for the `GtkActionBar`.
      *
      * @param centerWidget a widget to use for the center
      */
-    public open fun setCenterWidget(centerWidget: Widget? = null): Unit = gtk_action_bar_set_center_widget(
-        gtkActionBarPointer.reinterpret(),
-        centerWidget?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun setCenterWidget(centerWidget: Widget? = null): Unit =
+        gtk_action_bar_set_center_widget(gtkActionBarPointer, centerWidget?.gtkWidgetPointer)
 
     public companion object : TypeCompanion<ActionBar> {
         override val type: GeneratedClassKGType<ActionBar> =

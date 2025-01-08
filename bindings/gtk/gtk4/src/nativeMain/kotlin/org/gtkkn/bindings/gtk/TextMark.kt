@@ -78,7 +78,7 @@ public open class TextMark(pointer: CPointer<GtkTextMark>) :
          *
          * @return true if the mark has left gravity, false otherwise
          */
-        get() = gtk_text_mark_get_left_gravity(gtkTextMarkPointer.reinterpret()).asBoolean()
+        get() = gtk_text_mark_get_left_gravity(gtkTextMarkPointer).asBoolean()
 
     /**
      * The name of the mark or null if the mark is anonymous.
@@ -91,7 +91,7 @@ public open class TextMark(pointer: CPointer<GtkTextMark>) :
          *
          * @return mark name
          */
-        get() = gtk_text_mark_get_name(gtkTextMarkPointer.reinterpret())?.toKString()
+        get() = gtk_text_mark_get_name(gtkTextMarkPointer)?.toKString()
 
     /**
      * Creates a text mark.
@@ -122,8 +122,8 @@ public open class TextMark(pointer: CPointer<GtkTextMark>) :
      *
      * @return the mark’s `GtkTextBuffer`
      */
-    public open fun getBuffer(): TextBuffer? = gtk_text_mark_get_buffer(gtkTextMarkPointer.reinterpret())?.run {
-        TextBuffer(reinterpret())
+    public open fun getBuffer(): TextBuffer? = gtk_text_mark_get_buffer(gtkTextMarkPointer)?.run {
+        TextBuffer(this)
     }
 
     /**
@@ -134,7 +134,7 @@ public open class TextMark(pointer: CPointer<GtkTextMark>) :
      *
      * @return whether the mark is deleted
      */
-    public open fun getDeleted(): Boolean = gtk_text_mark_get_deleted(gtkTextMarkPointer.reinterpret()).asBoolean()
+    public open fun getDeleted(): Boolean = gtk_text_mark_get_deleted(gtkTextMarkPointer).asBoolean()
 
     /**
      * Returns true if the mark is visible.
@@ -143,10 +143,10 @@ public open class TextMark(pointer: CPointer<GtkTextMark>) :
      *
      * @return true if visible
      */
-    public open fun getVisible(): Boolean = gtk_text_mark_get_visible(gtkTextMarkPointer.reinterpret()).asBoolean()
+    public open fun getVisible(): Boolean = gtk_text_mark_get_visible(gtkTextMarkPointer).asBoolean()
 
     public open fun setVisible(setting: Boolean): Unit =
-        gtk_text_mark_set_visible(gtkTextMarkPointer.reinterpret(), setting.asGBoolean())
+        gtk_text_mark_set_visible(gtkTextMarkPointer, setting.asGBoolean())
 
     public companion object : TypeCompanion<TextMark> {
         override val type: GeneratedClassKGType<TextMark> =

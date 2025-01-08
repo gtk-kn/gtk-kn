@@ -88,7 +88,7 @@ In your application, define an action that accepts the application ID as a param
 val action = SimpleAction("launch", VariantType.new("s"))
 
 // Assuming `launchApplication()` is defined elsewhere
-action.connectActivate(handler = launchApplication())
+action.onActivate(handler = launchApplication())
 app.addAction(action)
 ```
 

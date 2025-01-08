@@ -132,7 +132,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
 
     public var asv: Variant?
         get() = gPointer.pointed.u.s.asv?.run {
-            Variant(reinterpret())
+            Variant(this)
         }
 
         @UnsafeFieldSetter
@@ -167,7 +167,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun clear(): Unit = g_variant_dict_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_variant_dict_clear(gPointer)
 
     /**
      * Checks if @key exists in @dict.
@@ -177,7 +177,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun contains(key: String): Boolean = g_variant_dict_contains(gPointer.reinterpret(), key).asBoolean()
+    public fun contains(key: String): Boolean = g_variant_dict_contains(gPointer, key).asBoolean()
 
     /**
      * Returns the current value of @dict as a #GVariant of type
@@ -192,8 +192,8 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun end(): Variant = g_variant_dict_end(gPointer.reinterpret())!!.run {
-        Variant(reinterpret())
+    public fun end(): Variant = g_variant_dict_end(gPointer)!!.run {
+        Variant(this)
     }
 
     /**
@@ -218,8 +218,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun `init`(fromAsv: Variant? = null): Unit =
-        g_variant_dict_init(gPointer.reinterpret(), fromAsv?.gPointer?.reinterpret())
+    public fun `init`(fromAsv: Variant? = null): Unit = g_variant_dict_init(gPointer, fromAsv?.gPointer)
 
     /**
      * Inserts (or replaces) a key in a #GVariantDict.
@@ -232,7 +231,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      */
     @GLibVersion2_40
     public fun insertValue(key: String, `value`: Variant): Unit =
-        g_variant_dict_insert_value(gPointer.reinterpret(), key, `value`.gPointer.reinterpret())
+        g_variant_dict_insert_value(gPointer, key, `value`.gPointer)
 
     /**
      * Looks up a value in a #GVariantDict.
@@ -254,8 +253,8 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      */
     @GLibVersion2_40
     public fun lookupValue(key: String, expectedType: VariantType? = null): Variant? =
-        g_variant_dict_lookup_value(gPointer.reinterpret(), key, expectedType?.gPointer?.reinterpret())?.run {
-            Variant(reinterpret())
+        g_variant_dict_lookup_value(gPointer, key, expectedType?.gPointer)?.run {
+            Variant(this)
         }
 
     /**
@@ -268,8 +267,8 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun ref(): VariantDict = g_variant_dict_ref(gPointer.reinterpret())!!.run {
-        VariantDict(reinterpret())
+    public fun ref(): VariantDict = g_variant_dict_ref(gPointer)!!.run {
+        VariantDict(this)
     }
 
     /**
@@ -280,7 +279,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun remove(key: String): Boolean = g_variant_dict_remove(gPointer.reinterpret(), key).asBoolean()
+    public fun remove(key: String): Boolean = g_variant_dict_remove(gPointer, key).asBoolean()
 
     /**
      * Decreases the reference count on @dict.
@@ -294,7 +293,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
      * @since 2.40
      */
     @GLibVersion2_40
-    public fun unref(): Unit = g_variant_dict_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_variant_dict_unref(gPointer)
 
     override fun toString(): String = "VariantDict(asv=$asv, partialMagic=$partialMagic)"
 
@@ -317,7 +316,7 @@ public class VariantDict(pointer: CPointer<GVariantDict>) : ProxyInstance(pointe
          * @since 2.40
          */
         public fun new(fromAsv: Variant? = null): VariantDict =
-            VariantDict(g_variant_dict_new(fromAsv?.gPointer?.reinterpret())!!.reinterpret())
+            VariantDict(g_variant_dict_new(fromAsv?.gPointer)!!.reinterpret())
 
         /**
          * Get the GType of VariantDict

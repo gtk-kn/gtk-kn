@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GRelation
 import org.gtkkn.native.glib.g_relation_count
@@ -73,8 +72,7 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @param field the field of each record to match.
      * @return the number of matches.
      */
-    public fun count(key: gpointer? = null, `field`: gint): gint =
-        g_relation_count(gPointer.reinterpret(), key, `field`)
+    public fun count(key: gpointer? = null, `field`: gint): gint = g_relation_count(gPointer, key, `field`)
 
     /**
      * Deletes any records from a #GRelation that have the given key value
@@ -84,21 +82,20 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @param field the field of each record to match.
      * @return the number of records deleted.
      */
-    public fun delete(key: gpointer? = null, `field`: gint): gint =
-        g_relation_delete(gPointer.reinterpret(), key, `field`)
+    public fun delete(key: gpointer? = null, `field`: gint): gint = g_relation_delete(gPointer, key, `field`)
 
     /**
      * Destroys the #GRelation, freeing all memory allocated. However, it
      * does not free memory allocated for the tuple data, so you should
      * free that first if appropriate.
      */
-    public fun destroy(): Unit = g_relation_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_relation_destroy(gPointer)
 
     /**
      * Outputs information about all records in a #GRelation, as well as
      * the indexes. It is for debugging.
      */
-    public fun print(): Unit = g_relation_print(gPointer.reinterpret())
+    public fun print(): Unit = g_relation_print(gPointer)
 
     /**
      * Returns all of the tuples which have the given key in the given
@@ -109,10 +106,9 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
      * @param field the field of each record to match.
      * @return the records (tuples) that matched.
      */
-    public fun select(key: gpointer? = null, `field`: gint): Tuples =
-        g_relation_select(gPointer.reinterpret(), key, `field`)!!.run {
-            Tuples(reinterpret())
-        }
+    public fun select(key: gpointer? = null, `field`: gint): Tuples = g_relation_select(gPointer, key, `field`)!!.run {
+        Tuples(this)
+    }
 
     public companion object {
         /**
@@ -123,7 +119,7 @@ public class Relation(pointer: CPointer<GRelation>) : ProxyInstance(pointer) {
          * @return a new #GRelation.
          */
         public fun new(fields: gint): Relation = g_relation_new(fields)!!.run {
-            Relation(reinterpret())
+            Relation(this)
         }
     }
 }

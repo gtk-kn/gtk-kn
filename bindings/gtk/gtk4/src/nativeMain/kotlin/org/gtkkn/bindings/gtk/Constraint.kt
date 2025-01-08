@@ -60,7 +60,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return a constant factor
          */
-        get() = gtk_constraint_get_constant(gtkConstraintPointer.reinterpret())
+        get() = gtk_constraint_get_constant(gtkConstraintPointer)
 
     /**
      * The multiplication factor to be applied to
@@ -73,7 +73,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return a multiplication factor
          */
-        get() = gtk_constraint_get_multiplier(gtkConstraintPointer.reinterpret())
+        get() = gtk_constraint_get_multiplier(gtkConstraintPointer)
 
     /**
      * The order relation between the terms of the constraint.
@@ -84,7 +84,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return a relation type
          */
-        get() = gtk_constraint_get_relation(gtkConstraintPointer.reinterpret()).run {
+        get() = gtk_constraint_get_relation(gtkConstraintPointer).run {
             ConstraintRelation.fromNativeValue(this)
         }
 
@@ -105,7 +105,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return the source of the constraint
          */
-        get() = gtk_constraint_get_source(gtkConstraintPointer.reinterpret())?.run {
+        get() = gtk_constraint_get_source(gtkConstraintPointer)?.run {
             ConstraintTarget.wrap(reinterpret())
         }
 
@@ -119,7 +119,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return the source's attribute
          */
-        get() = gtk_constraint_get_source_attribute(gtkConstraintPointer.reinterpret()).run {
+        get() = gtk_constraint_get_source_attribute(gtkConstraintPointer).run {
             ConstraintAttribute.fromNativeValue(this)
         }
 
@@ -136,7 +136,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return the strength value
          */
-        get() = gtk_constraint_get_strength(gtkConstraintPointer.reinterpret())
+        get() = gtk_constraint_get_strength(gtkConstraintPointer)
 
     /**
      * The target of the constraint.
@@ -155,7 +155,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return a `GtkConstraintTarget`
          */
-        get() = gtk_constraint_get_target(gtkConstraintPointer.reinterpret())?.run {
+        get() = gtk_constraint_get_target(gtkConstraintPointer)?.run {
             ConstraintTarget.wrap(reinterpret())
         }
 
@@ -168,7 +168,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          *
          * @return the target's attribute
          */
-        get() = gtk_constraint_get_target_attribute(gtkConstraintPointer.reinterpret()).run {
+        get() = gtk_constraint_get_target_attribute(gtkConstraintPointer).run {
             ConstraintAttribute.fromNativeValue(this)
         }
 
@@ -241,7 +241,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
      *
      * @return `TRUE` if the constraint is attached
      */
-    public open fun isAttached(): Boolean = gtk_constraint_is_attached(gtkConstraintPointer.reinterpret()).asBoolean()
+    public open fun isAttached(): Boolean = gtk_constraint_is_attached(gtkConstraintPointer).asBoolean()
 
     /**
      * Checks whether the constraint describes a relation between an attribute
@@ -249,7 +249,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
      *
      * @return `TRUE` if the constraint is a constant relation
      */
-    public open fun isConstant(): Boolean = gtk_constraint_is_constant(gtkConstraintPointer.reinterpret()).asBoolean()
+    public open fun isConstant(): Boolean = gtk_constraint_is_constant(gtkConstraintPointer).asBoolean()
 
     /**
      * Checks whether the constraint is a required relation for solving the
@@ -257,7 +257,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
      *
      * @return true if the constraint is required
      */
-    public open fun isRequired(): Boolean = gtk_constraint_is_required(gtkConstraintPointer.reinterpret()).asBoolean()
+    public open fun isRequired(): Boolean = gtk_constraint_is_required(gtkConstraintPointer).asBoolean()
 
     public companion object : TypeCompanion<Constraint> {
         override val type: GeneratedClassKGType<Constraint> =

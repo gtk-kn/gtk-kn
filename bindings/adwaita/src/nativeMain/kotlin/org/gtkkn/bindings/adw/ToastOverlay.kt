@@ -84,8 +84,8 @@ public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
          *
          * @return the child widget of @self
          */
-        get() = adw_toast_overlay_get_child(adwToastOverlayPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_toast_overlay_get_child(adwToastOverlayPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -93,9 +93,7 @@ public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = adw_toast_overlay_set_child(adwToastOverlayPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_toast_overlay_set_child(adwToastOverlayPointer, child?.gtkWidgetPointer)
 
     /**
      * Creates a new `AdwToastOverlay`.
@@ -118,8 +116,7 @@ public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
      *
      * @param toast a toast
      */
-    public fun addToast(toast: Toast): Unit =
-        adw_toast_overlay_add_toast(adwToastOverlayPointer.reinterpret(), toast.adwToastPointer.reinterpret())
+    public fun addToast(toast: Toast): Unit = adw_toast_overlay_add_toast(adwToastOverlayPointer, toast.adwToastPointer)
 
     public companion object : TypeCompanion<ToastOverlay> {
         override val type: GeneratedClassKGType<ToastOverlay> =

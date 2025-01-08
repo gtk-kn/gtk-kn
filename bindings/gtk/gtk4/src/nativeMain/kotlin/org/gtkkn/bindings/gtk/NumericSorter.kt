@@ -36,8 +36,8 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
          *
          * @return a `GtkExpression`
          */
-        get() = gtk_numeric_sorter_get_expression(gtkNumericSorterPointer.reinterpret())?.run {
-            Expression(reinterpret())
+        get() = gtk_numeric_sorter_get_expression(gtkNumericSorterPointer)?.run {
+            Expression(this)
         }
 
         /**
@@ -51,12 +51,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(
-            expression
-        ) = gtk_numeric_sorter_set_expression(
-            gtkNumericSorterPointer.reinterpret(),
-            expression?.gPointer?.reinterpret()
-        )
+        set(expression) = gtk_numeric_sorter_set_expression(gtkNumericSorterPointer, expression?.gPointer)
 
     /**
      * Whether the sorter will sort smaller numbers first.
@@ -67,7 +62,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
          *
          * @return the order of the numbers
          */
-        get() = gtk_numeric_sorter_get_sort_order(gtkNumericSorterPointer.reinterpret()).run {
+        get() = gtk_numeric_sorter_get_sort_order(gtkNumericSorterPointer).run {
             SortType.fromNativeValue(this)
         }
 
@@ -76,7 +71,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
          *
          * @param sortOrder whether to sort smaller numbers first
          */
-        set(sortOrder) = gtk_numeric_sorter_set_sort_order(gtkNumericSorterPointer.reinterpret(), sortOrder.nativeValue)
+        set(sortOrder) = gtk_numeric_sorter_set_sort_order(gtkNumericSorterPointer, sortOrder.nativeValue)
 
     /**
      * Creates a new numeric sorter using the given @expression.
@@ -89,7 +84,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
      */
     public constructor(
         expression: Expression? = null,
-    ) : this(gtk_numeric_sorter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_numeric_sorter_new(expression?.gPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<NumericSorter> {
         override val type: GeneratedClassKGType<NumericSorter> =

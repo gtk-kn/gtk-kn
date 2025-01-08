@@ -75,14 +75,14 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      *
      * @return a new #GError
      */
-    public fun copy(): Error = g_error_copy(gPointer.reinterpret())!!.run {
-        Error(reinterpret())
+    public fun copy(): Error = g_error_copy(gPointer)!!.run {
+        Error(this)
     }
 
     /**
      * Frees a #GError and associated resources.
      */
-    public fun free(): Unit = g_error_free(gPointer.reinterpret())
+    public fun free(): Unit = g_error_free(gPointer)
 
     /**
      * Returns true if @error matches @domain and @code, false
@@ -100,8 +100,7 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      * @param code an error code
      * @return whether @error has @domain and @code
      */
-    public fun matches(domain: Quark, code: gint): Boolean =
-        g_error_matches(gPointer.reinterpret(), domain, code).asBoolean()
+    public fun matches(domain: Quark, code: gint): Boolean = g_error_matches(gPointer, domain, code).asBoolean()
 
     override fun toString(): String = "Error(domain=$domain, code=$code, message=$message)"
 

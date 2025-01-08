@@ -49,6 +49,7 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -109,7 +110,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return `TRUE` if long swipes are allowed
          */
-        get() = adw_carousel_get_allow_long_swipes(adwCarouselPointer.reinterpret()).asBoolean()
+        get() = adw_carousel_get_allow_long_swipes(adwCarouselPointer).asBoolean()
 
         /**
          * Sets whether to allow swiping for more than one page at a time.
@@ -119,9 +120,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param allowLongSwipes whether to allow long swipes
          */
-        set(
-            allowLongSwipes
-        ) = adw_carousel_set_allow_long_swipes(adwCarouselPointer.reinterpret(), allowLongSwipes.asGBoolean())
+        set(allowLongSwipes) = adw_carousel_set_allow_long_swipes(adwCarouselPointer, allowLongSwipes.asGBoolean())
 
     /**
      * Sets whether the `AdwCarousel` can be dragged with mouse pointer.
@@ -134,7 +133,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return whether @self can be dragged with mouse pointer
          */
-        get() = adw_carousel_get_allow_mouse_drag(adwCarouselPointer.reinterpret()).asBoolean()
+        get() = adw_carousel_get_allow_mouse_drag(adwCarouselPointer).asBoolean()
 
         /**
          * Sets whether @self can be dragged with mouse pointer.
@@ -143,9 +142,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param allowMouseDrag whether @self can be dragged with mouse pointer
          */
-        set(
-            allowMouseDrag
-        ) = adw_carousel_set_allow_mouse_drag(adwCarouselPointer.reinterpret(), allowMouseDrag.asGBoolean())
+        set(allowMouseDrag) = adw_carousel_set_allow_mouse_drag(adwCarouselPointer, allowMouseDrag.asGBoolean())
 
     /**
      * Whether the widget will respond to scroll wheel events.
@@ -158,7 +155,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return `TRUE` if @self will respond to scroll wheel events
          */
-        get() = adw_carousel_get_allow_scroll_wheel(adwCarouselPointer.reinterpret()).asBoolean()
+        get() = adw_carousel_get_allow_scroll_wheel(adwCarouselPointer).asBoolean()
 
         /**
          * Sets whether @self will respond to scroll wheel events.
@@ -167,9 +164,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param allowScrollWheel whether @self will respond to scroll wheel events
          */
-        set(
-            allowScrollWheel
-        ) = adw_carousel_set_allow_scroll_wheel(adwCarouselPointer.reinterpret(), allowScrollWheel.asGBoolean())
+        set(allowScrollWheel) = adw_carousel_set_allow_scroll_wheel(adwCarouselPointer, allowScrollWheel.asGBoolean())
 
     /**
      * Whether the carousel can be navigated.
@@ -183,7 +178,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return whether @self can be navigated
          */
-        get() = adw_carousel_get_interactive(adwCarouselPointer.reinterpret()).asBoolean()
+        get() = adw_carousel_get_interactive(adwCarouselPointer).asBoolean()
 
         /**
          * Sets whether @self can be navigated.
@@ -193,7 +188,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param interactive whether @self can be navigated
          */
-        set(interactive) = adw_carousel_set_interactive(adwCarouselPointer.reinterpret(), interactive.asGBoolean())
+        set(interactive) = adw_carousel_set_interactive(adwCarouselPointer, interactive.asGBoolean())
 
     /**
      * The number of pages in a `AdwCarousel`.
@@ -204,7 +199,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return the number of pages in @self
          */
-        get() = adw_carousel_get_n_pages(adwCarouselPointer.reinterpret())
+        get() = adw_carousel_get_n_pages(adwCarouselPointer)
 
     /**
      * Current scrolling position, unitless.
@@ -219,7 +214,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return the scroll position
          */
-        get() = adw_carousel_get_position(adwCarouselPointer.reinterpret())
+        get() = adw_carousel_get_position(adwCarouselPointer)
 
     /**
      * Page reveal duration, in milliseconds.
@@ -232,7 +227,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return the duration
          */
-        get() = adw_carousel_get_reveal_duration(adwCarouselPointer.reinterpret())
+        get() = adw_carousel_get_reveal_duration(adwCarouselPointer)
 
         /**
          * Sets the page reveal duration, in milliseconds.
@@ -241,7 +236,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param revealDuration the new reveal duration value
          */
-        set(revealDuration) = adw_carousel_set_reveal_duration(adwCarouselPointer.reinterpret(), revealDuration)
+        set(revealDuration) = adw_carousel_set_reveal_duration(adwCarouselPointer, revealDuration)
 
     /**
      * Scroll animation spring parameters.
@@ -258,8 +253,8 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return the animation parameters
          */
-        get() = adw_carousel_get_scroll_params(adwCarouselPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
+        get() = adw_carousel_get_scroll_params(adwCarouselPointer)!!.run {
+            SpringParams(this)
         }
 
         /**
@@ -273,7 +268,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param params the new parameters
          */
-        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer.reinterpret(), params.gPointer.reinterpret())
+        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer, params.gPointer)
 
     /**
      * Spacing between pages in pixels.
@@ -284,14 +279,14 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @return spacing between pages
          */
-        get() = adw_carousel_get_spacing(adwCarouselPointer.reinterpret())
+        get() = adw_carousel_get_spacing(adwCarouselPointer)
 
         /**
          * Sets spacing between pages in pixels.
          *
          * @param spacing the new spacing value
          */
-        set(spacing) = adw_carousel_set_spacing(adwCarouselPointer.reinterpret(), spacing)
+        set(spacing) = adw_carousel_set_spacing(adwCarouselPointer, spacing)
 
     /**
      * Creates a new `AdwCarousel`.
@@ -305,8 +300,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      *
      * @param child a widget to add
      */
-    public fun append(child: Widget): Unit =
-        adw_carousel_append(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun append(child: Widget): Unit = adw_carousel_append(adwCarouselPointer, child.gtkWidgetPointer)
 
     /**
      * Gets the page at position @n.
@@ -314,8 +308,8 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * @param n index of the page
      * @return the page
      */
-    public fun getNthPage(n: guint): Widget = adw_carousel_get_nth_page(adwCarouselPointer.reinterpret(), n)!!.run {
-        Widget(reinterpret())
+    public fun getNthPage(n: guint): Widget = adw_carousel_get_nth_page(adwCarouselPointer, n)!!.run {
+        Widget(this)
     }
 
     /**
@@ -328,23 +322,21 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * @param position the position to insert @child at
      */
     public fun insert(child: Widget, position: gint): Unit =
-        adw_carousel_insert(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+        adw_carousel_insert(adwCarouselPointer, child.gtkWidgetPointer, position)
 
     /**
      * Prepends @child to @self.
      *
      * @param child a widget to add
      */
-    public fun prepend(child: Widget): Unit =
-        adw_carousel_prepend(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun prepend(child: Widget): Unit = adw_carousel_prepend(adwCarouselPointer, child.gtkWidgetPointer)
 
     /**
      * Removes @child from @self.
      *
      * @param child a widget to remove
      */
-    public fun remove(child: Widget): Unit =
-        adw_carousel_remove(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun remove(child: Widget): Unit = adw_carousel_remove(adwCarouselPointer, child.gtkWidgetPointer)
 
     /**
      * Moves @child into position @position.
@@ -356,7 +348,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * @param position the position to move @child to
      */
     public fun reorder(child: Widget, position: gint): Unit =
-        adw_carousel_reorder(adwCarouselPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), position)
+        adw_carousel_reorder(adwCarouselPointer, child.gtkWidgetPointer, position)
 
     /**
      * Scrolls to @widget.
@@ -366,11 +358,8 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * @param widget a child of @self
      * @param animate whether to animate the transition
      */
-    public fun scrollTo(widget: Widget, animate: Boolean): Unit = adw_carousel_scroll_to(
-        adwCarouselPointer.reinterpret(),
-        widget.gtkWidgetPointer.reinterpret(),
-        animate.asGBoolean()
-    )
+    public fun scrollTo(widget: Widget, animate: Boolean): Unit =
+        adw_carousel_scroll_to(adwCarouselPointer, widget.gtkWidgetPointer, animate.asGBoolean())
 
     /**
      * This signal is emitted after a page has been changed.
@@ -381,20 +370,27 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * ::: note
      *     An empty carousel is indicated by `(int)index == -1`.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `index` current page
      */
-    public fun connectPageChanged(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (index: guint) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "page-changed",
-        connectPageChangedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun onPageChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (index: guint) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "page-changed",
+            onPageChangedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "page-changed" signal. See [onPageChanged].
+     *
+     * @param index current page
+     */
+    public fun emitPageChanged(index: guint) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "page-changed", index)
+    }
 
     public companion object : TypeCompanion<Carousel> {
         override val type: GeneratedClassKGType<Carousel> =
@@ -413,7 +409,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
     }
 }
 
-private val connectPageChangedFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
+private val onPageChangedFunc: CPointer<CFunction<(guint) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         index: guint,
         userData: COpaquePointer,

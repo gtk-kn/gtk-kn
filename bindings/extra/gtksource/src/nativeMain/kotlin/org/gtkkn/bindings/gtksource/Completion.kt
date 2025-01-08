@@ -18,6 +18,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtksource.GtkSourceCompletion
 import org.gtkkn.native.gtksource.GtkSourceCompletionProvider
 import org.gtkkn.native.gtksource.gtk_source_completion_add_provider
@@ -90,16 +91,16 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
          *
          * @return A #GtkSourceBuffer
          */
-        get() = gtk_source_completion_get_buffer(gtksourceCompletionPointer.reinterpret())!!.run {
-            Buffer(reinterpret())
+        get() = gtk_source_completion_get_buffer(gtksourceCompletionPointer)!!.run {
+            Buffer(this)
         }
 
     /**
      * The number of rows to display to the user before scrolling.
      */
     public open var pageSize: guint
-        get() = gtk_source_completion_get_page_size(gtksourceCompletionPointer.reinterpret())
-        set(pageSize) = gtk_source_completion_set_page_size(gtksourceCompletionPointer.reinterpret(), pageSize)
+        get() = gtk_source_completion_get_page_size(gtksourceCompletionPointer)
+        set(pageSize) = gtk_source_completion_set_page_size(gtksourceCompletionPointer, pageSize)
 
     /**
      * The "view" property is the #GtkTextView for which this #GtkSourceCompletion
@@ -111,8 +112,8 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
          *
          * @return A #GtkSourceView
          */
-        get() = gtk_source_completion_get_view(gtksourceCompletionPointer.reinterpret())!!.run {
-            View(reinterpret())
+        get() = gtk_source_completion_get_view(gtksourceCompletionPointer)!!.run {
+            View(this)
         }
 
     /**
@@ -121,13 +122,10 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      *
      * @param provider a #GtkSourceCompletionProvider
      */
-    public open fun addProvider(provider: CompletionProvider): Unit = gtk_source_completion_add_provider(
-        gtksourceCompletionPointer.reinterpret(),
-        provider.gtksourceCompletionProviderPointer
-    )
+    public open fun addProvider(provider: CompletionProvider): Unit =
+        gtk_source_completion_add_provider(gtksourceCompletionPointer, provider.gtksourceCompletionProviderPointer)
 
-    public open fun blockInteractive(): Unit =
-        gtk_source_completion_block_interactive(gtksourceCompletionPointer.reinterpret())
+    public open fun blockInteractive(): Unit = gtk_source_completion_block_interactive(gtksourceCompletionPointer)
 
     /**
      * Emits the "hide" signal.
@@ -135,7 +133,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      * When the "hide" signal is emitted, the completion window will be
      * dismissed.
      */
-    public open fun hide(): Unit = gtk_source_completion_hide(gtksourceCompletionPointer.reinterpret())
+    public open fun hide(): Unit = gtk_source_completion_hide(gtksourceCompletionPointer)
 
     /**
      * Removes a [iface@CompletionProvider] previously added with
@@ -143,10 +141,8 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      *
      * @param provider a #GtkSourceCompletionProvider
      */
-    public open fun removeProvider(provider: CompletionProvider): Unit = gtk_source_completion_remove_provider(
-        gtksourceCompletionPointer.reinterpret(),
-        provider.gtksourceCompletionProviderPointer
-    )
+    public open fun removeProvider(provider: CompletionProvider): Unit =
+        gtk_source_completion_remove_provider(gtksourceCompletionPointer, provider.gtksourceCompletionProviderPointer)
 
     /**
      * Emits the "show" signal.
@@ -154,82 +150,113 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      * When the "show" signal is emitted, the completion window will be
      * displayed if there are any results available.
      */
-    public open fun show(): Unit = gtk_source_completion_show(gtksourceCompletionPointer.reinterpret())
+    public open fun show(): Unit = gtk_source_completion_show(gtksourceCompletionPointer)
 
-    public open fun unblockInteractive(): Unit =
-        gtk_source_completion_unblock_interactive(gtksourceCompletionPointer.reinterpret())
+    public open fun unblockInteractive(): Unit = gtk_source_completion_unblock_interactive(gtksourceCompletionPointer)
 
     /**
      * The "hide" signal is emitted when the completion window should
      * be hidden.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "hide",
-            connectHideFunc.reinterpret(),
+            onHideFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "hide" signal. See [onHide].
+     */
+    public fun emitHide() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "hide")
+    }
 
     /**
      * The "provided-added" signal is emitted when a new provider is
      * added to the completion.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `provider` a #GtkSourceCompletionProvider
      */
-    public fun connectProviderAdded(
+    public fun onProviderAdded(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "provider-added",
-        connectProviderAddedFunc.reinterpret(),
+        onProviderAddedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "provider-added" signal. See [onProviderAdded].
+     *
+     * @param provider a #GtkSourceCompletionProvider
+     */
+    public fun emitProviderAdded(provider: CompletionProvider) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "provider-added", provider.gtksourceCompletionProviderPointer)
+    }
 
     /**
      * The "provided-removed" signal is emitted when a provider has
      * been removed from the completion.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `provider` a #GtkSourceCompletionProvider
      */
-    public fun connectProviderRemoved(
+    public fun onProviderRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "provider-removed",
-        connectProviderRemovedFunc.reinterpret(),
+        onProviderRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "provider-removed" signal. See [onProviderRemoved].
+     *
+     * @param provider a #GtkSourceCompletionProvider
+     */
+    public fun emitProviderRemoved(provider: CompletionProvider) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "provider-removed", provider.gtksourceCompletionProviderPointer)
+    }
+
+    /**
      * The "show" signal is emitted when the completion window should
      * be shown.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "show",
-            connectShowFunc.reinterpret(),
+            onShowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "show" signal. See [onShow].
+     */
+    public fun emitShow() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "show")
+    }
 
     public companion object : TypeCompanion<Completion> {
         override val type: GeneratedClassKGType<Completion> =
@@ -249,7 +276,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
          */
         public fun fuzzyHighlight(haystack: String, casefoldQuery: String): AttrList? =
             gtk_source_completion_fuzzy_highlight(haystack, casefoldQuery)?.run {
-                AttrList(reinterpret())
+                AttrList(this)
             }
 
         /**
@@ -261,7 +288,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
     }
 }
 
-private val connectHideFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onHideFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -269,7 +296,7 @@ private val connectHideFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
 }
     .reinterpret()
 
-private val connectProviderAddedFunc:
+private val onProviderAddedFunc:
     CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             provider: CPointer<GtkSourceCompletionProvider>?,
@@ -283,7 +310,7 @@ private val connectProviderAddedFunc:
     }
         .reinterpret()
 
-private val connectProviderRemovedFunc:
+private val onProviderRemovedFunc:
     CPointer<CFunction<(CPointer<GtkSourceCompletionProvider>) -> Unit>> = staticCFunction {
             _: COpaquePointer,
             provider: CPointer<GtkSourceCompletionProvider>?,
@@ -297,7 +324,7 @@ private val connectProviderRemovedFunc:
     }
         .reinterpret()
 
-private val connectShowFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onShowFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -47,10 +47,9 @@ public interface FontMap :
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun createContext(): Context =
-        pango_cairo_font_map_create_context(pangocairoFontMapPointer.reinterpret())!!.run {
-            Context(reinterpret())
-        }
+    public fun createContext(): Context = pango_cairo_font_map_create_context(pangocairoFontMapPointer)!!.run {
+        Context(this)
+    }
 
     /**
      * Gets the type of Cairo font backend that @fontmap uses.
@@ -59,10 +58,9 @@ public interface FontMap :
      * @since 1.18
      */
     @PangoCairoVersion1_18
-    public fun getFontType(): FontType =
-        pango_cairo_font_map_get_font_type(pangocairoFontMapPointer.reinterpret()).run {
-            FontType.fromNativeValue(this)
-        }
+    public fun getFontType(): FontType = pango_cairo_font_map_get_font_type(pangocairoFontMapPointer).run {
+        FontType.fromNativeValue(this)
+    }
 
     /**
      * Gets the resolution for the fontmap.
@@ -73,7 +71,7 @@ public interface FontMap :
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun getResolution(): gdouble = pango_cairo_font_map_get_resolution(pangocairoFontMapPointer.reinterpret())
+    public fun getResolution(): gdouble = pango_cairo_font_map_get_resolution(pangocairoFontMapPointer)
 
     /**
      * Sets a default `PangoCairoFontMap` to use with Cairo.
@@ -95,7 +93,7 @@ public interface FontMap :
      * @since 1.22
      */
     @PangoCairoVersion1_22
-    public fun setDefault(): Unit = pango_cairo_font_map_set_default(pangocairoFontMapPointer.reinterpret())
+    public fun setDefault(): Unit = pango_cairo_font_map_set_default(pangocairoFontMapPointer)
 
     /**
      * Sets the resolution for the fontmap.
@@ -110,8 +108,7 @@ public interface FontMap :
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun setResolution(dpi: gdouble): Unit =
-        pango_cairo_font_map_set_resolution(pangocairoFontMapPointer.reinterpret(), dpi)
+    public fun setResolution(dpi: gdouble): Unit = pango_cairo_font_map_set_resolution(pangocairoFontMapPointer, dpi)
 
     private data class Wrapper(private val pointer: CPointer<PangoCairoFontMap>) : FontMap {
         override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap> = pointer
@@ -151,7 +148,7 @@ public interface FontMap :
          */
         @PangoCairoVersion1_10
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_get_default()!!.run {
-            org.gtkkn.bindings.pango.FontMap(reinterpret())
+            org.gtkkn.bindings.pango.FontMap(this)
         }
 
         /**
@@ -180,7 +177,7 @@ public interface FontMap :
          */
         @PangoCairoVersion1_10
         public fun new(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_new()!!.run {
-            org.gtkkn.bindings.pango.FontMap(reinterpret())
+            org.gtkkn.bindings.pango.FontMap(this)
         }
 
         /**
@@ -200,7 +197,7 @@ public interface FontMap :
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? =
             pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-                org.gtkkn.bindings.pango.FontMap(reinterpret())
+                org.gtkkn.bindings.pango.FontMap(this)
             }
 
         /**

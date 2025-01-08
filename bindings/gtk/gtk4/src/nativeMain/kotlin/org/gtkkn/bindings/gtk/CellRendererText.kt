@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -18,6 +19,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkCellRendererText
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_get_type
 import org.gtkkn.native.gtk.gtk_cell_renderer_text_new
@@ -116,7 +118,7 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
      * @param numberOfRows Number of rows of text each cell renderer is allocated, or -1
      */
     public open fun setFixedHeightFromFont(numberOfRows: gint): Unit =
-        gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer.reinterpret(), numberOfRows)
+        gtk_cell_renderer_text_set_fixed_height_from_font(gtkCellRendererTextPointer, numberOfRows)
 
     /**
      * This signal is emitted after @renderer has been edited.
@@ -124,20 +126,30 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
      * It is the responsibility of the application to update the model
      * and store @new_text at the position indicated by @path.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `path` the path identifying the edited cell; `newText` the new text
      */
-    public fun connectEdited(
+    public fun onEdited(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (path: String, newText: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "edited",
-        connectEditedFunc.reinterpret(),
+        onEditedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "edited" signal. See [onEdited].
+     *
+     * @param path the path identifying the edited cell
+     * @param newText the new text
+     */
+    public fun emitEdited(path: String, newText: String) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "edited", path.cstr, newText.cstr)
+    }
 
     public companion object : TypeCompanion<CellRendererText> {
         override val type: GeneratedClassKGType<CellRendererText> =
@@ -156,7 +168,7 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
     }
 }
 
-private val connectEditedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<ByteVar>) -> Unit>> =
+private val onEditedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<ByteVar>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             path: CPointer<ByteVar>?,

@@ -133,8 +133,8 @@ public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
          * @return A `GtkBox` corresponding to the
          *   “message area” in the @message_dialog
          */
-        get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer.reinterpret())!!.run {
-            Widget(reinterpret())
+        get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
+            Widget(this)
         }
 
     /**
@@ -142,8 +142,7 @@ public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
      *
      * @param str string with Pango markup
      */
-    public open fun setMarkup(str: String): Unit =
-        gtk_message_dialog_set_markup(gtkMessageDialogPointer.reinterpret(), str)
+    public open fun setMarkup(str: String): Unit = gtk_message_dialog_set_markup(gtkMessageDialogPointer, str)
 
     public companion object : TypeCompanion<MessageDialog> {
         override val type: GeneratedClassKGType<MessageDialog> =

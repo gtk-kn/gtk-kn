@@ -47,7 +47,7 @@ fun listViewStrings(): Widget {
     val factory = SignalListItemFactory()
 
     // bind signal is emitted every time a list item should be prepared for display
-    factory.connectBind { obj ->
+    factory.onBind { obj ->
         // cast the obj argument to ListItem
         val listItem = obj.asType<ListItem>()
 
@@ -89,7 +89,7 @@ fun listViewObjects(): Widget {
     val factory = SignalListItemFactory()
 
     // bind signal is emitted every time a list item should be prepared for display
-    factory.connectBind { obj ->
+    factory.onBind { obj ->
         val listItem = obj.asType<ListItem>()
 
         // get the item from our list model

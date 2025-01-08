@@ -43,13 +43,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
         child: RenderNode,
         path: Path,
         stroke: Stroke,
-    ) : this(
-        gsk_stroke_node_new(
-            child.gPointer.reinterpret(),
-            path.gPointer.reinterpret(),
-            stroke.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(gsk_stroke_node_new(child.gPointer, path.gPointer, stroke.gPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -59,7 +53,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_stroke_node_get_child(gskStrokeNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**
@@ -71,7 +65,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
      */
     @GskVersion4_14
     public open fun getPath(): Path = gsk_stroke_node_get_path(gskStrokeNodePointer.reinterpret())!!.run {
-        Path(reinterpret())
+        Path(this)
     }
 
     /**
@@ -82,7 +76,7 @@ public open class StrokeNode(pointer: CPointer<GskStrokeNode>) :
      */
     @GskVersion4_14
     public open fun getStroke(): Stroke = gsk_stroke_node_get_stroke(gskStrokeNodePointer.reinterpret())!!.run {
-        Stroke(reinterpret())
+        Stroke(this)
     }
 
     public companion object : TypeCompanion<StrokeNode> {

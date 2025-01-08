@@ -26,6 +26,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gboolean
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.jsc.JSCValue
 import org.gtkkn.native.webkit.WebKitScriptMessageReply
 import org.gtkkn.native.webkit.WebKitUserContentManager
@@ -92,10 +93,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.24
      */
     @WebKitVersion2_24
-    public fun addFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_add_filter(
-        webkitUserContentManagerPointer.reinterpret(),
-        filter.gPointer.reinterpret()
-    )
+    public fun addFilter(filter: UserContentFilter): Unit =
+        webkit_user_content_manager_add_filter(webkitUserContentManagerPointer, filter.gPointer)
 
     /**
      * Adds a #WebKitUserScript to the given #WebKitUserContentManager.
@@ -107,10 +106,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun addScript(script: UserScript): Unit = webkit_user_content_manager_add_script(
-        webkitUserContentManagerPointer.reinterpret(),
-        script.gPointer.reinterpret()
-    )
+    public fun addScript(script: UserScript): Unit =
+        webkit_user_content_manager_add_script(webkitUserContentManagerPointer, script.gPointer)
 
     /**
      * Adds a #WebKitUserStyleSheet to the given #WebKitUserContentManager.
@@ -122,10 +119,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun addStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_add_style_sheet(
-        webkitUserContentManagerPointer.reinterpret(),
-        stylesheet.gPointer.reinterpret()
-    )
+    public fun addStyleSheet(stylesheet: UserStyleSheet): Unit =
+        webkit_user_content_manager_add_style_sheet(webkitUserContentManagerPointer, stylesheet.gPointer)
 
     /**
      * Registers a new user script message handler in script world.
@@ -163,7 +158,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_40
     public fun registerScriptMessageHandler(name: String, worldName: String? = null): Boolean =
         webkit_user_content_manager_register_script_message_handler(
-            webkitUserContentManagerPointer.reinterpret(),
+            webkitUserContentManagerPointer,
             name,
             worldName
         ).asBoolean()
@@ -193,7 +188,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_40
     public fun registerScriptMessageHandlerWithReply(name: String, worldName: String? = null): Boolean =
         webkit_user_content_manager_register_script_message_handler_with_reply(
-            webkitUserContentManagerPointer.reinterpret(),
+            webkitUserContentManagerPointer,
             name,
             worldName
         ).asBoolean()
@@ -205,7 +200,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_24
     public fun removeAllFilters(): Unit =
-        webkit_user_content_manager_remove_all_filters(webkitUserContentManagerPointer.reinterpret())
+        webkit_user_content_manager_remove_all_filters(webkitUserContentManagerPointer)
 
     /**
      * Removes all user scripts from the given #WebKitUserContentManager
@@ -216,7 +211,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_6
     public fun removeAllScripts(): Unit =
-        webkit_user_content_manager_remove_all_scripts(webkitUserContentManagerPointer.reinterpret())
+        webkit_user_content_manager_remove_all_scripts(webkitUserContentManagerPointer)
 
     /**
      * Removes all user style sheets from the given #WebKitUserContentManager.
@@ -225,7 +220,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_6
     public fun removeAllStyleSheets(): Unit =
-        webkit_user_content_manager_remove_all_style_sheets(webkitUserContentManagerPointer.reinterpret())
+        webkit_user_content_manager_remove_all_style_sheets(webkitUserContentManagerPointer)
 
     /**
      * Removes a filter from the given #WebKitUserContentManager.
@@ -234,10 +229,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      *
      * @param filter A #WebKitUserContentFilter
      */
-    public fun removeFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_remove_filter(
-        webkitUserContentManagerPointer.reinterpret(),
-        filter.gPointer.reinterpret()
-    )
+    public fun removeFilter(filter: UserContentFilter): Unit =
+        webkit_user_content_manager_remove_filter(webkitUserContentManagerPointer, filter.gPointer)
 
     /**
      * Removes a filter by the given identifier.
@@ -251,7 +244,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_26
     public fun removeFilterById(filterId: String): Unit =
-        webkit_user_content_manager_remove_filter_by_id(webkitUserContentManagerPointer.reinterpret(), filterId)
+        webkit_user_content_manager_remove_filter_by_id(webkitUserContentManagerPointer, filterId)
 
     /**
      * Removes a #WebKitUserScript from the given #WebKitUserContentManager.
@@ -262,10 +255,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.32
      */
     @WebKitVersion2_32
-    public fun removeScript(script: UserScript): Unit = webkit_user_content_manager_remove_script(
-        webkitUserContentManagerPointer.reinterpret(),
-        script.gPointer.reinterpret()
-    )
+    public fun removeScript(script: UserScript): Unit =
+        webkit_user_content_manager_remove_script(webkitUserContentManagerPointer, script.gPointer)
 
     /**
      * Removes a #WebKitUserStyleSheet from the given #WebKitUserContentManager.
@@ -276,10 +267,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.32
      */
     @WebKitVersion2_32
-    public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_remove_style_sheet(
-        webkitUserContentManagerPointer.reinterpret(),
-        stylesheet.gPointer.reinterpret()
-    )
+    public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit =
+        webkit_user_content_manager_remove_style_sheet(webkitUserContentManagerPointer, stylesheet.gPointer)
 
     /**
      * Unregisters a previously registered message handler in script world with name @world_name.
@@ -298,11 +287,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_40
     public fun unregisterScriptMessageHandler(name: String, worldName: String? = null): Unit =
-        webkit_user_content_manager_unregister_script_message_handler(
-            webkitUserContentManagerPointer.reinterpret(),
-            name,
-            worldName
-        )
+        webkit_user_content_manager_unregister_script_message_handler(webkitUserContentManagerPointer, name, worldName)
 
     /**
      * This signal is emitted when JavaScript in a web view calls
@@ -310,22 +295,48 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * <code><name></code> using
      * webkit_user_content_manager_register_script_message_handler()
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param detail the signal detail
      * @param handler the Callback to connect. Params: `value` the value received from the JavaScript world.
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun connectScriptMessageReceived(
+    public fun onScriptMessageReceived(
         connectFlags: ConnectFlags = ConnectFlags(0u),
+        detail: String? = null,
         handler: (`value`: Value) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "script-message-received",
-        connectScriptMessageReceivedFunc.reinterpret(),
+        gPointer,
+        "script-message-received" + (
+            detail?.let {
+                "::$it"
+            } ?: ""
+            ),
+        onScriptMessageReceivedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "script-message-received" signal. See [onScriptMessageReceived].
+     *
+     * @param detail the signal detail
+     * @param value the value received from the JavaScript world.
+     * @since 2.8
+     */
+    @WebKitVersion2_8
+    public fun emitScriptMessageReceived(detail: String? = null, `value`: Value) {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "script-message-received" + (
+                detail?.let {
+                    "::$it"
+                } ?: ""
+                ),
+            `value`.jscValuePointer
+        )
+    }
 
     /**
      * This signal is emitted when JavaScript in a web view calls
@@ -341,19 +352,25 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * It is possible to handle the reply asynchronously, by simply calling
      * g_object_ref() on the @reply and returning true.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param detail the signal detail
      * @param handler the Callback to connect. Params: `value` the value received from the JavaScript world.; `reply` the #WebKitScriptMessageReply to send the reply to the script message.. Returns true to stop other handlers from being invoked for the event.
      *    false to propagate the event further.
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun connectScriptMessageWithReplyReceived(
+    public fun onScriptMessageWithReplyReceived(
         connectFlags: ConnectFlags = ConnectFlags(0u),
+        detail: String? = null,
         handler: (`value`: Value, reply: ScriptMessageReply) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "script-message-with-reply-received",
-        connectScriptMessageWithReplyReceivedFunc.reinterpret(),
+        gPointer,
+        "script-message-with-reply-received" + (
+            detail?.let {
+                "::$it"
+            } ?: ""
+            ),
+        onScriptMessageWithReplyReceivedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -376,7 +393,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     }
 }
 
-private val connectScriptMessageReceivedFunc: CPointer<CFunction<(CPointer<JSCValue>) -> Unit>> =
+private val onScriptMessageReceivedFunc: CPointer<CFunction<(CPointer<JSCValue>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             `value`: CPointer<JSCValue>?,
@@ -384,13 +401,13 @@ private val connectScriptMessageReceivedFunc: CPointer<CFunction<(CPointer<JSCVa
         ->
         userData.asStableRef<(`value`: Value) -> Unit>().get().invoke(
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             }
         )
     }
         .reinterpret()
 
-private val connectScriptMessageWithReplyReceivedFunc:
+private val onScriptMessageWithReplyReceivedFunc:
     CPointer<CFunction<(CPointer<JSCValue>, CPointer<WebKitScriptMessageReply>) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -400,10 +417,10 @@ private val connectScriptMessageWithReplyReceivedFunc:
         ->
         userData.asStableRef<(`value`: Value, reply: ScriptMessageReply) -> Boolean>().get().invoke(
             `value`!!.run {
-                Value(reinterpret())
+                Value(this)
             },
             reply!!.run {
-                ScriptMessageReply(reinterpret())
+                ScriptMessageReply(this)
             }
         ).asGBoolean()
     }

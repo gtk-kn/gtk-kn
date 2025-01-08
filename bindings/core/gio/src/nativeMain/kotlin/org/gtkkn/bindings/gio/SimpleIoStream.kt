@@ -51,10 +51,7 @@ public open class SimpleIoStream(pointer: CPointer<GSimpleIOStream>) :
         inputStream: InputStream,
         outputStream: OutputStream,
     ) : this(
-        g_simple_io_stream_new(
-            inputStream.gioInputStreamPointer.reinterpret(),
-            outputStream.gioOutputStreamPointer.reinterpret()
-        )!!.reinterpret()
+        g_simple_io_stream_new(inputStream.gioInputStreamPointer, outputStream.gioOutputStreamPointer)!!.reinterpret()
     )
 
     public companion object : TypeCompanion<SimpleIoStream> {

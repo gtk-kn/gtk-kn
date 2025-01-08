@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_62
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -40,12 +39,12 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun `continue`(): Unit = g_timer_continue(gPointer.reinterpret())
+    public fun `continue`(): Unit = g_timer_continue(gPointer)
 
     /**
      * Destroys a timer, freeing associated resources.
      */
-    public fun destroy(): Unit = g_timer_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_timer_destroy(gPointer)
 
     /**
      * Exposes whether the timer is currently active.
@@ -54,14 +53,14 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
      * @since 2.62
      */
     @GLibVersion2_62
-    public fun isActive(): Boolean = g_timer_is_active(gPointer.reinterpret()).asBoolean()
+    public fun isActive(): Boolean = g_timer_is_active(gPointer).asBoolean()
 
     /**
      * This function is useless; it's fine to call g_timer_start() on an
      * already-started timer to reset the start time, so g_timer_reset()
      * serves no purpose.
      */
-    public fun reset(): Unit = g_timer_reset(gPointer.reinterpret())
+    public fun reset(): Unit = g_timer_reset(gPointer)
 
     /**
      * Marks a start time, so that future calls to g_timer_elapsed() will
@@ -69,13 +68,13 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
      * automatically marks the start time, so no need to call
      * g_timer_start() immediately after creating the timer.
      */
-    public fun start(): Unit = g_timer_start(gPointer.reinterpret())
+    public fun start(): Unit = g_timer_start(gPointer)
 
     /**
      * Marks an end time, so calls to g_timer_elapsed() will return the
      * difference between this end time and the start time.
      */
-    public fun stop(): Unit = g_timer_stop(gPointer.reinterpret())
+    public fun stop(): Unit = g_timer_stop(gPointer)
 
     public companion object {
         /**
@@ -85,7 +84,7 @@ public class Timer(pointer: CPointer<GTimer>) : ProxyInstance(pointer) {
          * @return a new #GTimer.
          */
         public fun new(): Timer = g_timer_new()!!.run {
-            Timer(reinterpret())
+            Timer(this)
         }
     }
 }

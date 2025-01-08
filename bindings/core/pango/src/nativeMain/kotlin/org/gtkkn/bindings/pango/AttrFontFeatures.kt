@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_38
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -121,7 +120,7 @@ public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>, cleaner:
          */
         @PangoVersion1_38
         public fun new(features: String): Attribute = pango_attr_font_features_new(features)!!.run {
-            Attribute(reinterpret())
+            Attribute(this)
         }
     }
 }

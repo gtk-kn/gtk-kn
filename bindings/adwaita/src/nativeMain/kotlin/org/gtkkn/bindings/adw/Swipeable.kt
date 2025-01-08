@@ -41,7 +41,7 @@ public interface Swipeable :
      *
      * @return the cancel progress, unitless
      */
-    public fun getCancelProgress(): gdouble = adw_swipeable_get_cancel_progress(adwSwipeablePointer.reinterpret())
+    public fun getCancelProgress(): gdouble = adw_swipeable_get_cancel_progress(adwSwipeablePointer)
 
     /**
      * Gets the swipe distance of @self.
@@ -50,14 +50,14 @@ public interface Swipeable :
      *
      * @return the swipe distance in pixels
      */
-    public fun getDistance(): gdouble = adw_swipeable_get_distance(adwSwipeablePointer.reinterpret())
+    public fun getDistance(): gdouble = adw_swipeable_get_distance(adwSwipeablePointer)
 
     /**
      * Gets the current progress of @self.
      *
      * @return the current progress, unitless
      */
-    public fun getProgress(): gdouble = adw_swipeable_get_progress(adwSwipeablePointer.reinterpret())
+    public fun getProgress(): gdouble = adw_swipeable_get_progress(adwSwipeablePointer)
 
     /**
      * Gets the area @self can start a swipe from for the given direction and
@@ -76,10 +76,10 @@ public interface Swipeable :
      */
     public fun getSwipeArea(navigationDirection: NavigationDirection, isDrag: Boolean, rect: Rectangle): Unit =
         adw_swipeable_get_swipe_area(
-            adwSwipeablePointer.reinterpret(),
+            adwSwipeablePointer,
             navigationDirection.nativeValue,
             isDrag.asGBoolean(),
-            rect.gPointer.reinterpret()
+            rect.gPointer
         )
 
     private data class Wrapper(private val pointer: CPointer<AdwSwipeable>) : Swipeable {

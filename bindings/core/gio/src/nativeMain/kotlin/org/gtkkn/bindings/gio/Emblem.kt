@@ -49,7 +49,7 @@ public open class Emblem(pointer: CPointer<GEmblem>) :
          *          the emblem and should not be modified or freed.
          * @since 2.18
          */
-        get() = g_emblem_get_icon(gioEmblemPointer.reinterpret())!!.run {
+        get() = g_emblem_get_icon(gioEmblemPointer)!!.run {
             Icon.wrap(reinterpret())
         }
 
@@ -66,7 +66,7 @@ public open class Emblem(pointer: CPointer<GEmblem>) :
          * @return the origin of the emblem
          * @since 2.18
          */
-        get() = g_emblem_get_origin(gioEmblemPointer.reinterpret()).run {
+        get() = g_emblem_get_origin(gioEmblemPointer).run {
             EmblemOrigin.fromNativeValue(this)
         }
 

@@ -54,7 +54,7 @@ public interface Seekable :
      *
      * @return true if @seekable can be seeked. false otherwise.
      */
-    public fun canSeek(): Boolean = g_seekable_can_seek(gioSeekablePointer.reinterpret()).asBoolean()
+    public fun canSeek(): Boolean = g_seekable_can_seek(gioSeekablePointer).asBoolean()
 
     /**
      * Tests if the length of the stream can be adjusted with
@@ -62,7 +62,7 @@ public interface Seekable :
      *
      * @return true if the stream can be truncated, false otherwise.
      */
-    public fun canTruncate(): Boolean = g_seekable_can_truncate(gioSeekablePointer.reinterpret()).asBoolean()
+    public fun canTruncate(): Boolean = g_seekable_can_truncate(gioSeekablePointer).asBoolean()
 
     /**
      * Seeks in the stream by the given @offset, modified by @type.
@@ -90,10 +90,10 @@ public interface Seekable :
     public fun seek(offset: gint64, type: SeekType, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_seekable_seek(
-            gioSeekablePointer.reinterpret(),
+            gioSeekablePointer,
             offset,
             type.nativeValue,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -109,7 +109,7 @@ public interface Seekable :
      * @return the (positive or zero) offset from the beginning of the
      * buffer, zero if the target is not seekable.
      */
-    public fun tell(): gint64 = g_seekable_tell(gioSeekablePointer.reinterpret())
+    public fun tell(): gint64 = g_seekable_tell(gioSeekablePointer)
 
     /**
      * Sets the length of the stream to @offset. If the stream was previously
@@ -131,9 +131,9 @@ public interface Seekable :
     public fun truncate(offset: gint64, cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_seekable_truncate(
-            gioSeekablePointer.reinterpret(),
+            gioSeekablePointer,
             offset,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {

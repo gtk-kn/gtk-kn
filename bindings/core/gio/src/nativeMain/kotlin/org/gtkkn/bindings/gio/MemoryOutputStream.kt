@@ -67,7 +67,7 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
          * @return pointer to the stream's data, or null if the data
          *    has been stolen
          */
-        get() = g_memory_output_stream_get_data(gioMemoryOutputStreamPointer.reinterpret())
+        get() = g_memory_output_stream_get_data(gioMemoryOutputStreamPointer)
 
     /**
      * Size of data written to the buffer.
@@ -83,7 +83,7 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
          * @return the number of bytes written to the stream
          * @since 2.18
          */
-        get() = g_memory_output_stream_get_data_size(gioMemoryOutputStreamPointer.reinterpret())
+        get() = g_memory_output_stream_get_data_size(gioMemoryOutputStreamPointer)
 
     /**
      * Current size of the data buffer.
@@ -111,7 +111,7 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
          *
          * @return the number of bytes allocated for the data buffer
          */
-        get() = g_memory_output_stream_get_size(gioMemoryOutputStreamPointer.reinterpret())
+        get() = g_memory_output_stream_get_size(gioMemoryOutputStreamPointer)
 
     /**
      * Creates a new #GMemoryOutputStream, using g_realloc() and g_free()
@@ -129,10 +129,9 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
      * @since 2.34
      */
     @GioVersion2_34
-    public open fun stealAsBytes(): Bytes =
-        g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer.reinterpret())!!.run {
-            Bytes(reinterpret())
-        }
+    public open fun stealAsBytes(): Bytes = g_memory_output_stream_steal_as_bytes(gioMemoryOutputStreamPointer)!!.run {
+        Bytes(this)
+    }
 
     /**
      * Gets any loaded data from the @ostream. Ownership of the data
@@ -147,8 +146,7 @@ public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun stealData(): gpointer? =
-        g_memory_output_stream_steal_data(gioMemoryOutputStreamPointer.reinterpret())
+    public open fun stealData(): gpointer? = g_memory_output_stream_steal_data(gioMemoryOutputStreamPointer)
 
     public companion object : TypeCompanion<MemoryOutputStream> {
         override val type: GeneratedClassKGType<MemoryOutputStream> =

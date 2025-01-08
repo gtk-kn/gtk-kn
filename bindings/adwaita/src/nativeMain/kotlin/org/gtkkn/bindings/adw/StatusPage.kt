@@ -71,8 +71,8 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @return the child widget of @self
          */
-        get() = adw_status_page_get_child(adwStatusPagePointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_status_page_get_child(adwStatusPagePointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -80,9 +80,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @param child the child widget
          */
-        set(
-            child
-        ) = adw_status_page_set_child(adwStatusPagePointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = adw_status_page_set_child(adwStatusPagePointer, child?.gtkWidgetPointer)
 
     /**
      * The description markup to be displayed below the title.
@@ -93,7 +91,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @return the description
          */
-        get() = adw_status_page_get_description(adwStatusPagePointer.reinterpret())?.toKString()
+        get() = adw_status_page_get_description(adwStatusPagePointer)?.toKString()
 
         /**
          * Sets the description markup for @self.
@@ -102,7 +100,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @param description the description
          */
-        set(description) = adw_status_page_set_description(adwStatusPagePointer.reinterpret(), description)
+        set(description) = adw_status_page_set_description(adwStatusPagePointer, description)
 
     /**
      * The name of the icon to be used.
@@ -115,7 +113,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @return the icon name
          */
-        get() = adw_status_page_get_icon_name(adwStatusPagePointer.reinterpret())?.toKString()
+        get() = adw_status_page_get_icon_name(adwStatusPagePointer)?.toKString()
 
         /**
          * Sets the icon name for @self.
@@ -124,7 +122,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @param iconName the icon name
          */
-        set(iconName) = adw_status_page_set_icon_name(adwStatusPagePointer.reinterpret(), iconName)
+        set(iconName) = adw_status_page_set_icon_name(adwStatusPagePointer, iconName)
 
     /**
      * The paintable to be used.
@@ -137,7 +135,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @return the paintable
          */
-        get() = adw_status_page_get_paintable(adwStatusPagePointer.reinterpret())?.run {
+        get() = adw_status_page_get_paintable(adwStatusPagePointer)?.run {
             Paintable.wrap(reinterpret())
         }
 
@@ -148,9 +146,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @param paintable the paintable
          */
-        set(
-            paintable
-        ) = adw_status_page_set_paintable(adwStatusPagePointer.reinterpret(), paintable?.gdkPaintablePointer)
+        set(paintable) = adw_status_page_set_paintable(adwStatusPagePointer, paintable?.gdkPaintablePointer)
 
     /**
      * The title to be displayed below the icon.
@@ -163,8 +159,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @return the title
          */
-        get() = adw_status_page_get_title(adwStatusPagePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = adw_status_page_get_title(adwStatusPagePointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Sets the title for @self.
@@ -173,7 +168,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          *
          * @param title the title
          */
-        set(title) = adw_status_page_set_title(adwStatusPagePointer.reinterpret(), title)
+        set(title) = adw_status_page_set_title(adwStatusPagePointer, title)
 
     /**
      * Creates a new `AdwStatusPage`.

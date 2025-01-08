@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_16
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_18
@@ -47,47 +46,45 @@ import kotlin.Unit
 public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstance(pointer) {
     public val gPointer: CPointer<cairo_font_options_t> = pointer
 
-    public fun copy(): FontOptions = cairo_font_options_copy(gPointer.reinterpret())!!.run {
-        FontOptions(reinterpret())
+    public fun copy(): FontOptions = cairo_font_options_copy(gPointer)!!.run {
+        FontOptions(this)
     }
 
-    public fun status(): Status = cairo_font_options_status(gPointer.reinterpret()).run {
+    public fun status(): Status = cairo_font_options_status(gPointer).run {
         Status.fromNativeValue(this)
     }
 
-    public fun merge(other: FontOptions): Unit =
-        cairo_font_options_merge(gPointer.reinterpret(), other.gPointer.reinterpret())
+    public fun merge(other: FontOptions): Unit = cairo_font_options_merge(gPointer, other.gPointer)
 
-    public fun hash(): gulong = cairo_font_options_hash(gPointer.reinterpret())
+    public fun hash(): gulong = cairo_font_options_hash(gPointer)
 
-    public fun equal(other: FontOptions): Boolean =
-        cairo_font_options_equal(gPointer.reinterpret(), other.gPointer.reinterpret()).asBoolean()
+    public fun equal(other: FontOptions): Boolean = cairo_font_options_equal(gPointer, other.gPointer).asBoolean()
 
     public fun setAntialias(antialias: Antialias): Unit =
-        cairo_font_options_set_antialias(gPointer.reinterpret(), antialias.nativeValue)
+        cairo_font_options_set_antialias(gPointer, antialias.nativeValue)
 
-    public fun getAntialias(): Antialias = cairo_font_options_get_antialias(gPointer.reinterpret()).run {
+    public fun getAntialias(): Antialias = cairo_font_options_get_antialias(gPointer).run {
         Antialias.fromNativeValue(this)
     }
 
     public fun setSubpixelOrder(subpixelOrder: SubpixelOrder): Unit =
-        cairo_font_options_set_subpixel_order(gPointer.reinterpret(), subpixelOrder.nativeValue)
+        cairo_font_options_set_subpixel_order(gPointer, subpixelOrder.nativeValue)
 
-    public fun getSubpixelOrder(): SubpixelOrder = cairo_font_options_get_subpixel_order(gPointer.reinterpret()).run {
+    public fun getSubpixelOrder(): SubpixelOrder = cairo_font_options_get_subpixel_order(gPointer).run {
         SubpixelOrder.fromNativeValue(this)
     }
 
     public fun setHintStyle(hintStyle: HintStyle): Unit =
-        cairo_font_options_set_hint_style(gPointer.reinterpret(), hintStyle.nativeValue)
+        cairo_font_options_set_hint_style(gPointer, hintStyle.nativeValue)
 
-    public fun getHintStyle(): HintStyle = cairo_font_options_get_hint_style(gPointer.reinterpret()).run {
+    public fun getHintStyle(): HintStyle = cairo_font_options_get_hint_style(gPointer).run {
         HintStyle.fromNativeValue(this)
     }
 
     public fun setHintMetrics(hintMetrics: HintMetrics): Unit =
-        cairo_font_options_set_hint_metrics(gPointer.reinterpret(), hintMetrics.nativeValue)
+        cairo_font_options_set_hint_metrics(gPointer, hintMetrics.nativeValue)
 
-    public fun getHintMetrics(): HintMetrics = cairo_font_options_get_hint_metrics(gPointer.reinterpret()).run {
+    public fun getHintMetrics(): HintMetrics = cairo_font_options_get_hint_metrics(gPointer).run {
         HintMetrics.fromNativeValue(this)
     }
 
@@ -98,8 +95,7 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      * @since 1.16
      */
     @CairoVersion1_16
-    public fun setVariations(variations: String): Unit =
-        cairo_font_options_set_variations(gPointer.reinterpret(), variations)
+    public fun setVariations(variations: String): Unit = cairo_font_options_set_variations(gPointer, variations)
 
     /**
      *
@@ -108,7 +104,7 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      */
     @CairoVersion1_16
     public fun getVariations(): String =
-        cairo_font_options_get_variations(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        cairo_font_options_get_variations(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      *
@@ -118,7 +114,7 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      */
     @CairoVersion1_18
     public fun setColorMode(colorMode: ColorMode): Unit =
-        cairo_font_options_set_color_mode(gPointer.reinterpret(), colorMode.nativeValue)
+        cairo_font_options_set_color_mode(gPointer, colorMode.nativeValue)
 
     /**
      *
@@ -126,7 +122,7 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      * @since 1.18
      */
     @CairoVersion1_18
-    public fun getColorMode(): ColorMode = cairo_font_options_get_color_mode(gPointer.reinterpret()).run {
+    public fun getColorMode(): ColorMode = cairo_font_options_get_color_mode(gPointer).run {
         ColorMode.fromNativeValue(this)
     }
 
@@ -137,8 +133,7 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      * @since 1.18
      */
     @CairoVersion1_18
-    public fun setColorPalette(paletteIndex: guint): Unit =
-        cairo_font_options_set_color_palette(gPointer.reinterpret(), paletteIndex)
+    public fun setColorPalette(paletteIndex: guint): Unit = cairo_font_options_set_color_palette(gPointer, paletteIndex)
 
     /**
      *
@@ -146,7 +141,7 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      * @since 1.18
      */
     @CairoVersion1_18
-    public fun getColorPalette(): guint = cairo_font_options_get_color_palette(gPointer.reinterpret())
+    public fun getColorPalette(): guint = cairo_font_options_get_color_palette(gPointer)
 
     /**
      *
@@ -160,10 +155,10 @@ public class FontOptions(pointer: CPointer<cairo_font_options_t>) : ProxyInstanc
      */
     @CairoVersion1_18
     public fun setCustomPaletteColor(index: guint, red: gdouble, green: gdouble, blue: gdouble, alpha: gdouble): Unit =
-        cairo_font_options_set_custom_palette_color(gPointer.reinterpret(), index, red, green, blue, alpha)
+        cairo_font_options_set_custom_palette_color(gPointer, index, red, green, blue, alpha)
 
     public companion object {
-        public fun create(): FontOptions = FontOptions(cairo_font_options_create()!!.reinterpret())
+        public fun create(): FontOptions = FontOptions(cairo_font_options_create()!!)
 
         /**
          * Get the GType of FontOptions

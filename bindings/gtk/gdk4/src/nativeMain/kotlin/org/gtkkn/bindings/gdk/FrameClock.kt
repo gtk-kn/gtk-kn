@@ -29,6 +29,7 @@ import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint64
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.ULong
 import kotlin.Unit
 
@@ -86,14 +87,14 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * times and frames will be requested until gdk_frame_clock_end_updating()
      * is called the same number of times.
      */
-    public open fun beginUpdating(): Unit = gdk_frame_clock_begin_updating(gdkFrameClockPointer.reinterpret())
+    public open fun beginUpdating(): Unit = gdk_frame_clock_begin_updating(gdkFrameClockPointer)
 
     /**
      * Stops updates for an animation.
      *
      * See the documentation for [method@Gdk.FrameClock.begin_updating].
      */
-    public open fun endUpdating(): Unit = gdk_frame_clock_end_updating(gdkFrameClockPointer.reinterpret())
+    public open fun endUpdating(): Unit = gdk_frame_clock_end_updating(gdkFrameClockPointer)
 
     /**
      * Gets the frame timings for the current frame.
@@ -104,8 +105,8 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      *   processed, returns null.
      */
     public open fun getCurrentTimings(): FrameTimings? =
-        gdk_frame_clock_get_current_timings(gdkFrameClockPointer.reinterpret())?.run {
-            FrameTimings(reinterpret())
+        gdk_frame_clock_get_current_timings(gdkFrameClockPointer)?.run {
+            FrameTimings(this)
         }
 
     /**
@@ -114,7 +115,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      *
      * @return the current fps, as a `double`
      */
-    public open fun getFps(): gdouble = gdk_frame_clock_get_fps(gdkFrameClockPointer.reinterpret())
+    public open fun getFps(): gdouble = gdk_frame_clock_get_fps(gdkFrameClockPointer)
 
     /**
      * `GdkFrameClock` maintains a 64-bit counter that increments for
@@ -124,7 +125,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      *   for the current frame. Outside of frame processing, the frame
      *   counter for the last frame.
      */
-    public open fun getFrameCounter(): gint64 = gdk_frame_clock_get_frame_counter(gdkFrameClockPointer.reinterpret())
+    public open fun getFrameCounter(): gint64 = gdk_frame_clock_get_frame_counter(gdkFrameClockPointer)
 
     /**
      * Gets the time that should currently be used for animations.
@@ -138,7 +139,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * @return a timestamp in microseconds, in the timescale of
      *  of g_get_monotonic_time().
      */
-    public open fun getFrameTime(): gint64 = gdk_frame_clock_get_frame_time(gdkFrameClockPointer.reinterpret())
+    public open fun getFrameTime(): gint64 = gdk_frame_clock_get_frame_time(gdkFrameClockPointer)
 
     /**
      * Returns the frame counter for the oldest frame available in history.
@@ -154,7 +155,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      *  that is available in the internal frame history of the
      *  `GdkFrameClock`
      */
-    public open fun getHistoryStart(): gint64 = gdk_frame_clock_get_history_start(gdkFrameClockPointer.reinterpret())
+    public open fun getHistoryStart(): gint64 = gdk_frame_clock_get_history_start(gdkFrameClockPointer)
 
     /**
      * Retrieves a `GdkFrameTimings` object holding timing information
@@ -170,8 +171,8 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      *   for the specified frame, or null if it is not available
      */
     public open fun getTimings(frameCounter: gint64): FrameTimings? =
-        gdk_frame_clock_get_timings(gdkFrameClockPointer.reinterpret(), frameCounter)?.run {
-            FrameTimings(reinterpret())
+        gdk_frame_clock_get_timings(gdkFrameClockPointer, frameCounter)?.run {
+            FrameTimings(this)
         }
 
     /**
@@ -190,43 +191,57 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * @param phase the phase that is requested
      */
     public open fun requestPhase(phase: FrameClockPhase): Unit =
-        gdk_frame_clock_request_phase(gdkFrameClockPointer.reinterpret(), phase.mask)
+        gdk_frame_clock_request_phase(gdkFrameClockPointer, phase.mask)
 
     /**
      * This signal ends processing of the frame.
      *
      * Applications should generally not handle this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectAfterPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onAfterPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "after-paint",
-            connectAfterPaintFunc.reinterpret(),
+            onAfterPaintFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "after-paint" signal. See [onAfterPaint].
+     */
+    public fun emitAfterPaint() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "after-paint")
+    }
+
+    /**
      * Begins processing of the frame.
      *
      * Applications should generally not handle this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectBeforePaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onBeforePaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "before-paint",
-            connectBeforePaintFunc.reinterpret(),
+            onBeforePaintFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "before-paint" signal. See [onBeforePaint].
+     */
+    public fun emitBeforePaint() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "before-paint")
+    }
 
     /**
      * Used to flush pending motion events that are being batched up and
@@ -234,18 +249,25 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      *
      * Applications should not handle this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFlushEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onFlushEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "flush-events",
-            connectFlushEventsFunc.reinterpret(),
+            onFlushEventsFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "flush-events" signal. See [onFlushEvents].
+     */
+    public fun emitFlushEvents() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "flush-events")
+    }
 
     /**
      * Emitted as the second step of toolkit and application processing
@@ -254,18 +276,25 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Any work to update sizes and positions of application elements
      * should be performed. GTK normally handles this internally.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectLayout(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onLayout(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "layout",
-            connectLayoutFunc.reinterpret(),
+            onLayoutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "layout" signal. See [onLayout].
+     */
+    public fun emitLayout() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "layout")
+    }
 
     /**
      * Emitted as the third step of toolkit and application processing
@@ -276,18 +305,25 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * [GtkWidget::snapshot](../gtk4/signal.Widget.snapshot.html) signals
      * by GTK.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "paint",
-            connectPaintFunc.reinterpret(),
+            onPaintFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "paint" signal. See [onPaint].
+     */
+    public fun emitPaint() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "paint")
+    }
 
     /**
      * Emitted after processing of the frame is finished.
@@ -295,18 +331,25 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * This signal is handled internally by GTK to resume normal
      * event processing. Applications should not handle this signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectResumeEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onResumeEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "resume-events",
-            connectResumeEventsFunc.reinterpret(),
+            onResumeEventsFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "resume-events" signal. See [onResumeEvents].
+     */
+    public fun emitResumeEvents() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "resume-events")
+    }
 
     /**
      * Emitted as the first step of toolkit and application processing
@@ -317,18 +360,25 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * [gtk_widget_add_tick_callback()](../gtk4/method.Widget.add_tick_callback.html)
      * as a more convenient interface.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "update",
-            connectUpdateFunc.reinterpret(),
+            onUpdateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "update" signal. See [onUpdate].
+     */
+    public fun emitUpdate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "update")
+    }
 
     public companion object : TypeCompanion<FrameClock> {
         override val type: GeneratedClassKGType<FrameClock> =
@@ -347,7 +397,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
     }
 }
 
-private val connectAfterPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onAfterPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -355,7 +405,7 @@ private val connectAfterPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunc
 }
     .reinterpret()
 
-private val connectBeforePaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onBeforePaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -363,7 +413,7 @@ private val connectBeforePaintFunc: CPointer<CFunction<() -> Unit>> = staticCFun
 }
     .reinterpret()
 
-private val connectFlushEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onFlushEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -371,7 +421,7 @@ private val connectFlushEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFun
 }
     .reinterpret()
 
-private val connectLayoutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onLayoutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -379,7 +429,7 @@ private val connectLayoutFunc: CPointer<CFunction<() -> Unit>> = staticCFunction
 }
     .reinterpret()
 
-private val connectPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -387,7 +437,7 @@ private val connectPaintFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectResumeEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onResumeEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -395,7 +445,7 @@ private val connectResumeEventsFunc: CPointer<CFunction<() -> Unit>> = staticCFu
 }
     .reinterpret()
 
-private val connectUpdateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onUpdateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

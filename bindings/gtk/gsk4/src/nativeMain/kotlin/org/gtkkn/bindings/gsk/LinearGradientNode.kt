@@ -36,7 +36,7 @@ public open class LinearGradientNode(pointer: CPointer<GskLinearGradientNode>) :
      */
     public open fun getEnd(): Point =
         gsk_linear_gradient_node_get_end(gskLinearGradientNodePointer.reinterpret())!!.run {
-            Point(reinterpret())
+            Point(this)
         }
 
     /**
@@ -54,7 +54,7 @@ public open class LinearGradientNode(pointer: CPointer<GskLinearGradientNode>) :
      */
     public open fun getStart(): Point =
         gsk_linear_gradient_node_get_start(gskLinearGradientNodePointer.reinterpret())!!.run {
-            Point(reinterpret())
+            Point(this)
         }
 
     public companion object : TypeCompanion<LinearGradientNode> {

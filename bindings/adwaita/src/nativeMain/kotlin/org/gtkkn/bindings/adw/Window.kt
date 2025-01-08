@@ -141,8 +141,8 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          *
          * @return the content widget of @self
          */
-        get() = adw_window_get_content(adwWindowPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_window_get_content(adwWindowPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -152,7 +152,7 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          *
          * @param content the content widget
          */
-        set(content) = adw_window_set_content(adwWindowPointer.reinterpret(), content?.gtkWidgetPointer?.reinterpret())
+        set(content) = adw_window_set_content(adwWindowPointer, content?.gtkWidgetPointer)
 
     /**
      * The current breakpoint.
@@ -167,8 +167,8 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          * @return the current breakpoint
          * @since 1.4
          */
-        get() = adw_window_get_current_breakpoint(adwWindowPointer.reinterpret())?.run {
-            Breakpoint(reinterpret())
+        get() = adw_window_get_current_breakpoint(adwWindowPointer)?.run {
+            Breakpoint(this)
         }
 
     /**
@@ -186,7 +186,7 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          * @return a list model for the dialogs of @self
          * @since 1.5
          */
-        get() = adw_window_get_dialogs(adwWindowPointer.reinterpret())!!.run {
+        get() = adw_window_get_dialogs(adwWindowPointer)!!.run {
             ListModel.wrap(reinterpret())
         }
 
@@ -203,8 +203,8 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          * @return the visible dialog
          * @since 1.5
          */
-        get() = adw_window_get_visible_dialog(adwWindowPointer.reinterpret())?.run {
-            Dialog(reinterpret())
+        get() = adw_window_get_visible_dialog(adwWindowPointer)?.run {
+            Dialog(this)
         }
 
     /**
@@ -222,7 +222,7 @@ public open class Window(pointer: CPointer<AdwWindow>) :
      */
     @AdwVersion1_4
     public open fun addBreakpoint(breakpoint: Breakpoint): Unit =
-        adw_window_add_breakpoint(adwWindowPointer.reinterpret(), breakpoint.adwBreakpointPointer.reinterpret())
+        adw_window_add_breakpoint(adwWindowPointer, breakpoint.adwBreakpointPointer)
 
     public companion object : TypeCompanion<Window> {
         override val type: GeneratedClassKGType<Window> =

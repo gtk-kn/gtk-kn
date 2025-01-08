@@ -31,6 +31,7 @@ package org.gtkkn.gir.model
  * @property doc Documentation elements.
  * @property annotations Annotations associated with the return value.
  * @property type The type of the return value.
+ * @property gtkKnReinterpret Whether the return value requires a reinterpret().
  */
 @Suppress("DataClassShouldBeImmutable", "LateinitUsage", "LongMethod")
 data class GirReturnValue(
@@ -45,6 +46,7 @@ data class GirReturnValue(
     val doc: GirDoc? = null,
     val annotations: List<GirAnnotation> = emptyList(),
     val type: GirAnyType,
+    val gtkKnReinterpret: Boolean? = null,
 ) : GirNode {
     override lateinit var parentNode: GirNode
     override lateinit var namespace: GirNamespace

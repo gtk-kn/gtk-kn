@@ -68,8 +68,8 @@ public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
          *
          * @return the `GtkCellArea` this context was created by.
          */
-        get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer.reinterpret())!!.run {
-            CellArea(reinterpret())
+        get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer)!!.run {
+            CellArea(this)
         }
 
     /**
@@ -90,7 +90,7 @@ public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
      *   with @context, or -1
      */
     public open fun allocate(width: gint, height: gint): Unit =
-        gtk_cell_area_context_allocate(gtkCellAreaContextPointer.reinterpret(), width, height)
+        gtk_cell_area_context_allocate(gtkCellAreaContextPointer, width, height)
 
     /**
      * Causes the minimum and/or natural height to grow if the new
@@ -105,11 +105,7 @@ public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
      * @param naturalHeight the proposed new natural height for @context
      */
     public open fun pushPreferredHeight(minimumHeight: gint, naturalHeight: gint): Unit =
-        gtk_cell_area_context_push_preferred_height(
-            gtkCellAreaContextPointer.reinterpret(),
-            minimumHeight,
-            naturalHeight
-        )
+        gtk_cell_area_context_push_preferred_height(gtkCellAreaContextPointer, minimumHeight, naturalHeight)
 
     /**
      * Causes the minimum and/or natural width to grow if the new
@@ -124,7 +120,7 @@ public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
      * @param naturalWidth the proposed new natural width for @context
      */
     public open fun pushPreferredWidth(minimumWidth: gint, naturalWidth: gint): Unit =
-        gtk_cell_area_context_push_preferred_width(gtkCellAreaContextPointer.reinterpret(), minimumWidth, naturalWidth)
+        gtk_cell_area_context_push_preferred_width(gtkCellAreaContextPointer, minimumWidth, naturalWidth)
 
     /**
      * Resets any previously cached request and allocation
@@ -150,7 +146,7 @@ public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
      * of all the displayed row heights using
      * gtk_cell_area_get_preferred_height_for_width().
      */
-    public open fun reset(): Unit = gtk_cell_area_context_reset(gtkCellAreaContextPointer.reinterpret())
+    public open fun reset(): Unit = gtk_cell_area_context_reset(gtkCellAreaContextPointer)
 
     public companion object : TypeCompanion<CellAreaContext> {
         override val type: GeneratedClassKGType<CellAreaContext> =

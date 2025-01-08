@@ -80,8 +80,8 @@ public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerSe
          *   be freed with g_object_unref().
          * @since 2.30
          */
-        get() = g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer.reinterpret())?.run {
-            DBusConnection(reinterpret())
+        get() = g_dbus_object_manager_server_get_connection(gioDBusObjectManagerServerPointer)?.run {
+            DBusConnection(this)
         }
 
         /**
@@ -93,8 +93,8 @@ public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerSe
         set(
             connection
         ) = g_dbus_object_manager_server_set_connection(
-            gioDBusObjectManagerServerPointer.reinterpret(),
-            connection?.gioDBusConnectionPointer?.reinterpret()
+            gioDBusObjectManagerServerPointer,
+            connection?.gioDBusConnectionPointer
         )
 
     /**
@@ -128,10 +128,8 @@ public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerSe
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun export(`object`: DBusObjectSkeleton): Unit = g_dbus_object_manager_server_export(
-        gioDBusObjectManagerServerPointer.reinterpret(),
-        `object`.gioDBusObjectSkeletonPointer.reinterpret()
-    )
+    public open fun export(`object`: DBusObjectSkeleton): Unit =
+        g_dbus_object_manager_server_export(gioDBusObjectManagerServerPointer, `object`.gioDBusObjectSkeletonPointer)
 
     /**
      * Like g_dbus_object_manager_server_export() but appends a string of
@@ -144,8 +142,8 @@ public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerSe
      */
     @GioVersion2_30
     public open fun exportUniquely(`object`: DBusObjectSkeleton): Unit = g_dbus_object_manager_server_export_uniquely(
-        gioDBusObjectManagerServerPointer.reinterpret(),
-        `object`.gioDBusObjectSkeletonPointer.reinterpret()
+        gioDBusObjectManagerServerPointer,
+        `object`.gioDBusObjectSkeletonPointer
     )
 
     /**
@@ -157,8 +155,8 @@ public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerSe
      */
     @GioVersion2_34
     public open fun isExported(`object`: DBusObjectSkeleton): Boolean = g_dbus_object_manager_server_is_exported(
-        gioDBusObjectManagerServerPointer.reinterpret(),
-        `object`.gioDBusObjectSkeletonPointer.reinterpret()
+        gioDBusObjectManagerServerPointer,
+        `object`.gioDBusObjectSkeletonPointer
     ).asBoolean()
 
     /**
@@ -174,7 +172,7 @@ public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerSe
      */
     @GioVersion2_30
     public open fun unexport(objectPath: String): Boolean =
-        g_dbus_object_manager_server_unexport(gioDBusObjectManagerServerPointer.reinterpret(), objectPath).asBoolean()
+        g_dbus_object_manager_server_unexport(gioDBusObjectManagerServerPointer, objectPath).asBoolean()
 
     public companion object : TypeCompanion<DBusObjectManagerServer> {
         override val type: GeneratedClassKGType<DBusObjectManagerServer> =

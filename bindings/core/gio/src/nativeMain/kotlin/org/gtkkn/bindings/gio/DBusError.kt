@@ -1,7 +1,6 @@
 // This is a generated file. Do not modify.
 package org.gtkkn.bindings.gio
 
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
@@ -334,7 +333,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          */
         @GioVersion2_26
         public fun encodeGerror(error: Error): String =
-            g_dbus_error_encode_gerror(error.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+            g_dbus_error_encode_gerror(error.gPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Gets the D-Bus error name used for @error, if any.
@@ -350,8 +349,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          * @since 2.26
          */
         @GioVersion2_26
-        public fun getRemoteError(error: Error): String? =
-            g_dbus_error_get_remote_error(error.gPointer.reinterpret())?.toKString()
+        public fun getRemoteError(error: Error): String? = g_dbus_error_get_remote_error(error.gPointer)?.toKString()
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -363,8 +361,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          * @since 2.26
          */
         @GioVersion2_26
-        public fun isRemoteError(error: Error): Boolean =
-            g_dbus_error_is_remote_error(error.gPointer.reinterpret()).asBoolean()
+        public fun isRemoteError(error: Error): Boolean = g_dbus_error_is_remote_error(error.gPointer).asBoolean()
 
         /**
          * Creates a #GError based on the contents of @dbus_error_name and
@@ -402,7 +399,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
         @GioVersion2_26
         public fun newForDbusError(dbusErrorName: String, dbusErrorMessage: String): Error =
             g_dbus_error_new_for_dbus_error(dbusErrorName, dbusErrorMessage)!!.run {
-                Error(reinterpret())
+                Error(this)
             }
 
         public fun quark(): Quark = g_dbus_error_quark()
@@ -438,8 +435,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          * @since 2.26
          */
         @GioVersion2_26
-        public fun stripRemoteError(error: Error): Boolean =
-            g_dbus_error_strip_remote_error(error.gPointer.reinterpret()).asBoolean()
+        public fun stripRemoteError(error: Error): Boolean = g_dbus_error_strip_remote_error(error.gPointer).asBoolean()
 
         /**
          * Destroys an association previously set up with g_dbus_error_register_error().

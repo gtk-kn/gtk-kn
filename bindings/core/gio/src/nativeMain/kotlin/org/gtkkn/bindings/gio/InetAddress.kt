@@ -73,7 +73,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return @address's family
          * @since 2.22
          */
-        get() = g_inet_address_get_family(gioInetAddressPointer.reinterpret()).run {
+        get() = g_inet_address_get_family(gioInetAddressPointer).run {
             SocketFamily.fromNativeValue(this)
         }
 
@@ -91,7 +91,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is the "any" address for its family.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_any(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_any(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a link-local address.
@@ -109,7 +109,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a link-local address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_link_local(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_link_local(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is the loopback address for its family.
@@ -125,7 +125,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is the loopback address for its family.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_loopback(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_loopback(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a global multicast address.
@@ -141,7 +141,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a global multicast address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_mc_global(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_mc_global(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a link-local multicast address.
@@ -157,7 +157,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a link-local multicast address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_mc_link_local(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_mc_link_local(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a node-local multicast address.
@@ -173,7 +173,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a node-local multicast address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_mc_node_local(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_mc_node_local(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is an organization-local multicast address.
@@ -189,7 +189,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is an organization-local multicast address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_mc_org_local(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_mc_org_local(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a site-local multicast address.
@@ -205,7 +205,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a site-local multicast address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_mc_site_local(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_mc_site_local(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a multicast address.
@@ -221,7 +221,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a multicast address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_multicast(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_multicast(gioInetAddressPointer).asBoolean()
 
     /**
      * Whether this is a site-local address.
@@ -240,7 +240,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
          * @return true if @address is a site-local address.
          * @since 2.22
          */
-        get() = g_inet_address_get_is_site_local(gioInetAddressPointer.reinterpret()).asBoolean()
+        get() = g_inet_address_get_is_site_local(gioInetAddressPointer).asBoolean()
 
     /**
      * Creates a #GInetAddress for the "any" address (unassigned/"don't
@@ -273,10 +273,8 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
      * @since 2.30
      */
     @GioVersion2_30
-    public open fun equal(otherAddress: InetAddress): Boolean = g_inet_address_equal(
-        gioInetAddressPointer.reinterpret(),
-        otherAddress.gioInetAddressPointer.reinterpret()
-    ).asBoolean()
+    public open fun equal(otherAddress: InetAddress): Boolean =
+        g_inet_address_equal(gioInetAddressPointer, otherAddress.gioInetAddressPointer).asBoolean()
 
     /**
      * Gets the size of the native raw binary address for @address. This
@@ -286,7 +284,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getNativeSize(): gsize = g_inet_address_get_native_size(gioInetAddressPointer.reinterpret())
+    public open fun getNativeSize(): gsize = g_inet_address_get_native_size(gioInetAddressPointer)
 
     /**
      * Converts @address to string form.
@@ -298,7 +296,7 @@ public open class InetAddress(pointer: CPointer<GInetAddress>) :
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GioVersion2_22
     override fun toString(): String =
-        g_inet_address_to_string(gioInetAddressPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_inet_address_to_string(gioInetAddressPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object : TypeCompanion<InetAddress> {
         override val type: GeneratedClassKGType<InetAddress> =

@@ -67,7 +67,7 @@ public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
      */
     @GioVersion2_28
     public open fun insert(action: Action): Unit =
-        g_simple_action_group_insert(gioSimpleActionGroupPointer.reinterpret(), action.gioActionPointer)
+        g_simple_action_group_insert(gioSimpleActionGroupPointer, action.gioActionPointer)
 
     /**
      * Looks up the action with the name @action_name in the group.
@@ -80,7 +80,7 @@ public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
      */
     @GioVersion2_28
     public open fun lookup(actionName: String): Action =
-        g_simple_action_group_lookup(gioSimpleActionGroupPointer.reinterpret(), actionName)!!.run {
+        g_simple_action_group_lookup(gioSimpleActionGroupPointer, actionName)!!.run {
             Action.wrap(reinterpret())
         }
 
@@ -94,7 +94,7 @@ public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
      */
     @GioVersion2_28
     public open fun remove(actionName: String): Unit =
-        g_simple_action_group_remove(gioSimpleActionGroupPointer.reinterpret(), actionName)
+        g_simple_action_group_remove(gioSimpleActionGroupPointer, actionName)
 
     public companion object : TypeCompanion<SimpleActionGroup> {
         override val type: GeneratedClassKGType<SimpleActionGroup> =

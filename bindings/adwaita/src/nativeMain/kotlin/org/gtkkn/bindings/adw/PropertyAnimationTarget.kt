@@ -51,8 +51,8 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
          * @return the animated object
          * @since 1.2
          */
-        get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-            Object(reinterpret())
+        get() = adw_property_animation_target_get_object(adwPropertyAnimationTargetPointer)!!.run {
+            Object(this)
         }
 
     /**
@@ -68,8 +68,8 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
          * @return the animated property's `GParamSpec`
          * @since 1.2
          */
-        get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer.reinterpret())!!.run {
-            ParamSpec(reinterpret())
+        get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer)!!.run {
+            ParamSpec(this)
         }
 
     /**
@@ -84,7 +84,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
     public constructor(
         `object`: Object,
         propertyName: String,
-    ) : this(adw_property_animation_target_new(`object`.gPointer.reinterpret(), propertyName)!!.reinterpret())
+    ) : this(adw_property_animation_target_new(`object`.gPointer, propertyName)!!.reinterpret())
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
@@ -98,12 +98,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
     public constructor(
         `object`: Object,
         pspec: ParamSpec,
-    ) : this(
-        adw_property_animation_target_new_for_pspec(
-            `object`.gPointer.reinterpret(),
-            pspec.gPointer.reinterpret()
-        )!!.reinterpret()
-    )
+    ) : this(adw_property_animation_target_new_for_pspec(`object`.gPointer, pspec.gPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =

@@ -144,7 +144,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return Whether gestures and shortcuts are enabled.
          */
-        get() = adw_leaflet_get_can_navigate_back(adwLeafletPointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_get_can_navigate_back(adwLeafletPointer).asBoolean()
 
         /**
          * Sets whether gestures and shortcuts for navigating backward are enabled.
@@ -167,9 +167,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @param canNavigateBack the new value
          */
-        set(
-            canNavigateBack
-        ) = adw_leaflet_set_can_navigate_back(adwLeafletPointer.reinterpret(), canNavigateBack.asGBoolean())
+        set(canNavigateBack) = adw_leaflet_set_can_navigate_back(adwLeafletPointer, canNavigateBack.asGBoolean())
 
     /**
      * Whether gestures and shortcuts for navigating forward are enabled.
@@ -196,7 +194,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return Whether gestures and shortcuts are enabled.
          */
-        get() = adw_leaflet_get_can_navigate_forward(adwLeafletPointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_get_can_navigate_forward(adwLeafletPointer).asBoolean()
 
         /**
          * Sets whether gestures and shortcuts for navigating forward are enabled.
@@ -221,7 +219,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          */
         set(
             canNavigateForward
-        ) = adw_leaflet_set_can_navigate_forward(adwLeafletPointer.reinterpret(), canNavigateForward.asGBoolean())
+        ) = adw_leaflet_set_can_navigate_forward(adwLeafletPointer, canNavigateForward.asGBoolean())
 
     /**
      * Whether or not the leaflet can unfold.
@@ -232,14 +230,14 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return whether @self can unfold
          */
-        get() = adw_leaflet_get_can_unfold(adwLeafletPointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_get_can_unfold(adwLeafletPointer).asBoolean()
 
         /**
          * Sets whether @self can unfold.
          *
          * @param canUnfold whether @self can unfold
          */
-        set(canUnfold) = adw_leaflet_set_can_unfold(adwLeafletPointer.reinterpret(), canUnfold.asGBoolean())
+        set(canUnfold) = adw_leaflet_set_can_unfold(adwLeafletPointer, canUnfold.asGBoolean())
 
     /**
      * The child transition spring parameters.
@@ -256,8 +254,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return the child transition parameters
          */
-        get() = adw_leaflet_get_child_transition_params(adwLeafletPointer.reinterpret())!!.run {
-            SpringParams(reinterpret())
+        get() = adw_leaflet_get_child_transition_params(adwLeafletPointer)!!.run {
+            SpringParams(this)
         }
 
         /**
@@ -271,9 +269,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @param params the new parameters
          */
-        set(
-            params
-        ) = adw_leaflet_set_child_transition_params(adwLeafletPointer.reinterpret(), params.gPointer.reinterpret())
+        set(params) = adw_leaflet_set_child_transition_params(adwLeafletPointer, params.gPointer)
 
     /**
      * Whether a child transition is currently running.
@@ -284,7 +280,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return whether a transition is currently running
          */
-        get() = adw_leaflet_get_child_transition_running(adwLeafletPointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_get_child_transition_running(adwLeafletPointer).asBoolean()
 
     /**
      * Determines when the leaflet will fold.
@@ -300,7 +296,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
         /**
          * Gets the fold threshold policy for @self.
          */
-        get() = adw_leaflet_get_fold_threshold_policy(adwLeafletPointer.reinterpret()).run {
+        get() = adw_leaflet_get_fold_threshold_policy(adwLeafletPointer).run {
             FoldThresholdPolicy.fromNativeValue(this)
         }
 
@@ -316,7 +312,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @param policy the policy to use
          */
-        set(policy) = adw_leaflet_set_fold_threshold_policy(adwLeafletPointer.reinterpret(), policy.nativeValue)
+        set(policy) = adw_leaflet_set_fold_threshold_policy(adwLeafletPointer, policy.nativeValue)
 
     /**
      * Whether the leaflet is folded.
@@ -335,7 +331,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return whether @self is folded.
          */
-        get() = adw_leaflet_get_folded(adwLeafletPointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_get_folded(adwLeafletPointer).asBoolean()
 
     /**
      * Whether the leaflet allocates the same size for all children when folded.
@@ -349,7 +345,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return whether @self is homogeneous
          */
-        get() = adw_leaflet_get_homogeneous(adwLeafletPointer.reinterpret()).asBoolean()
+        get() = adw_leaflet_get_homogeneous(adwLeafletPointer).asBoolean()
 
         /**
          * Sets @self to be homogeneous or not.
@@ -359,7 +355,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @param homogeneous whether to make @self homogeneous
          */
-        set(homogeneous) = adw_leaflet_set_homogeneous(adwLeafletPointer.reinterpret(), homogeneous.asGBoolean())
+        set(homogeneous) = adw_leaflet_set_homogeneous(adwLeafletPointer, homogeneous.asGBoolean())
 
     /**
      * The mode transition animation duration, in milliseconds.
@@ -370,14 +366,14 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return the mode transition duration, in milliseconds.
          */
-        get() = adw_leaflet_get_mode_transition_duration(adwLeafletPointer.reinterpret())
+        get() = adw_leaflet_get_mode_transition_duration(adwLeafletPointer)
 
         /**
          * Sets the mode transition animation duration for @self.
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) = adw_leaflet_set_mode_transition_duration(adwLeafletPointer.reinterpret(), duration)
+        set(duration) = adw_leaflet_set_mode_transition_duration(adwLeafletPointer, duration)
 
     /**
      * A selection model with the leaflet's pages.
@@ -396,7 +392,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return a `GtkSelectionModel` for the leaflet's children
          */
-        get() = adw_leaflet_get_pages(adwLeafletPointer.reinterpret())!!.run {
+        get() = adw_leaflet_get_pages(adwLeafletPointer)!!.run {
             SelectionModel.wrap(reinterpret())
         }
 
@@ -413,7 +409,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @return the current transition type of @self
          */
-        get() = adw_leaflet_get_transition_type(adwLeafletPointer.reinterpret()).run {
+        get() = adw_leaflet_get_transition_type(adwLeafletPointer).run {
             LeafletTransitionType.fromNativeValue(this)
         }
 
@@ -426,7 +422,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @param transition the new transition type
          */
-        set(transition) = adw_leaflet_set_transition_type(adwLeafletPointer.reinterpret(), transition.nativeValue)
+        set(transition) = adw_leaflet_set_transition_type(adwLeafletPointer, transition.nativeValue)
 
     /**
      * Creates a new `AdwLeaflet`.
@@ -442,8 +438,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return the [class@LeafletPage] for @child
      */
     public fun append(child: Widget): LeafletPage =
-        adw_leaflet_append(adwLeafletPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            LeafletPage(reinterpret())
+        adw_leaflet_append(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
+            LeafletPage(this)
         }
 
     /**
@@ -460,8 +456,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return the previous or next child
      */
     public fun getAdjacentChild(direction: NavigationDirection): Widget? =
-        adw_leaflet_get_adjacent_child(adwLeafletPointer.reinterpret(), direction.nativeValue)?.run {
-            Widget(reinterpret())
+        adw_leaflet_get_adjacent_child(adwLeafletPointer, direction.nativeValue)?.run {
+            Widget(this)
         }
 
     /**
@@ -474,10 +470,9 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @param name the name of the child to find
      * @return the requested child of @self
      */
-    public fun getChildByName(name: String): Widget? =
-        adw_leaflet_get_child_by_name(adwLeafletPointer.reinterpret(), name)?.run {
-            Widget(reinterpret())
-        }
+    public fun getChildByName(name: String): Widget? = adw_leaflet_get_child_by_name(adwLeafletPointer, name)?.run {
+        Widget(this)
+    }
 
     /**
      * Returns the [class@LeafletPage] object for @child.
@@ -486,8 +481,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return the page object for @child
      */
     public fun getPage(child: Widget): LeafletPage =
-        adw_leaflet_get_page(adwLeafletPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            LeafletPage(reinterpret())
+        adw_leaflet_get_page(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
+            LeafletPage(this)
         }
 
     /**
@@ -495,8 +490,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      *
      * @return the visible child
      */
-    public fun getVisibleChild(): Widget? = adw_leaflet_get_visible_child(adwLeafletPointer.reinterpret())?.run {
-        Widget(reinterpret())
+    public fun getVisibleChild(): Widget? = adw_leaflet_get_visible_child(adwLeafletPointer)?.run {
+        Widget(this)
     }
 
     /**
@@ -504,8 +499,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      *
      * @return the name of the visible child
      */
-    public fun getVisibleChildName(): String? =
-        adw_leaflet_get_visible_child_name(adwLeafletPointer.reinterpret())?.toKString()
+    public fun getVisibleChildName(): String? = adw_leaflet_get_visible_child_name(adwLeafletPointer)?.toKString()
 
     /**
      * Inserts @child in the position after @sibling in the list of children.
@@ -516,13 +510,10 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @param sibling the sibling after which to insert @child
      * @return the [class@LeafletPage] for @child
      */
-    public fun insertChildAfter(child: Widget, sibling: Widget? = null): LeafletPage = adw_leaflet_insert_child_after(
-        adwLeafletPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        sibling?.gtkWidgetPointer?.reinterpret()
-    )!!.run {
-        LeafletPage(reinterpret())
-    }
+    public fun insertChildAfter(child: Widget, sibling: Widget? = null): LeafletPage =
+        adw_leaflet_insert_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)!!.run {
+            LeafletPage(this)
+        }
 
     /**
      * Navigates to the previous or next child.
@@ -537,7 +528,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return whether the visible child was changed
      */
     public fun navigate(direction: NavigationDirection): Boolean =
-        adw_leaflet_navigate(adwLeafletPointer.reinterpret(), direction.nativeValue).asBoolean()
+        adw_leaflet_navigate(adwLeafletPointer, direction.nativeValue).asBoolean()
 
     /**
      * Inserts @child at the first position in @self.
@@ -546,8 +537,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return the [class@LeafletPage] for @child
      */
     public fun prepend(child: Widget): LeafletPage =
-        adw_leaflet_prepend(adwLeafletPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            LeafletPage(reinterpret())
+        adw_leaflet_prepend(adwLeafletPointer, child.gtkWidgetPointer)!!.run {
+            LeafletPage(this)
         }
 
     /**
@@ -555,8 +546,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      *
      * @param child the child to remove
      */
-    public fun remove(child: Widget): Unit =
-        adw_leaflet_remove(adwLeafletPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun remove(child: Widget): Unit = adw_leaflet_remove(adwLeafletPointer, child.gtkWidgetPointer)
 
     /**
      * Moves @child to the position after @sibling in the list of children.
@@ -566,11 +556,8 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @param child the widget to move, must be a child of @self
      * @param sibling the sibling to move @child after
      */
-    public fun reorderChildAfter(child: Widget, sibling: Widget? = null): Unit = adw_leaflet_reorder_child_after(
-        adwLeafletPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        sibling?.gtkWidgetPointer?.reinterpret()
-    )
+    public fun reorderChildAfter(child: Widget, sibling: Widget? = null): Unit =
+        adw_leaflet_reorder_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     /**
      * Sets the widget currently visible when the leaflet is folded.
@@ -583,7 +570,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @param visibleChild the new child
      */
     public fun setVisibleChild(visibleChild: Widget): Unit =
-        adw_leaflet_set_visible_child(adwLeafletPointer.reinterpret(), visibleChild.gtkWidgetPointer.reinterpret())
+        adw_leaflet_set_visible_child(adwLeafletPointer, visibleChild.gtkWidgetPointer)
 
     /**
      * Makes the child with the name @name visible.
@@ -592,8 +579,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      *
      * @param name the name of a child
      */
-    public fun setVisibleChildName(name: String): Unit =
-        adw_leaflet_set_visible_child_name(adwLeafletPointer.reinterpret(), name)
+    public fun setVisibleChildName(name: String): Unit = adw_leaflet_set_visible_child_name(adwLeafletPointer, name)
 
     public companion object : TypeCompanion<Leaflet> {
         override val type: GeneratedClassKGType<Leaflet> =

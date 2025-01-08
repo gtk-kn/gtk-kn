@@ -55,8 +55,8 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @return a `GtkExpression`
          */
-        get() = gtk_string_filter_get_expression(gtkStringFilterPointer.reinterpret())?.run {
-            Expression(reinterpret())
+        get() = gtk_string_filter_get_expression(gtkStringFilterPointer)?.run {
+            Expression(this)
         }
 
         /**
@@ -67,9 +67,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(
-            expression
-        ) = gtk_string_filter_set_expression(gtkStringFilterPointer.reinterpret(), expression?.gPointer?.reinterpret())
+        set(expression) = gtk_string_filter_set_expression(gtkStringFilterPointer, expression?.gPointer)
 
     /**
      * If matching is case sensitive.
@@ -80,16 +78,14 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @return true if the filter ignores case
          */
-        get() = gtk_string_filter_get_ignore_case(gtkStringFilterPointer.reinterpret()).asBoolean()
+        get() = gtk_string_filter_get_ignore_case(gtkStringFilterPointer).asBoolean()
 
         /**
          * Sets whether the filter ignores case differences.
          *
          * @param ignoreCase true to ignore case
          */
-        set(
-            ignoreCase
-        ) = gtk_string_filter_set_ignore_case(gtkStringFilterPointer.reinterpret(), ignoreCase.asGBoolean())
+        set(ignoreCase) = gtk_string_filter_set_ignore_case(gtkStringFilterPointer, ignoreCase.asGBoolean())
 
     /**
      * If exact matches are necessary or if substrings are allowed.
@@ -100,7 +96,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @return the match mode of the filter
          */
-        get() = gtk_string_filter_get_match_mode(gtkStringFilterPointer.reinterpret()).run {
+        get() = gtk_string_filter_get_match_mode(gtkStringFilterPointer).run {
             StringFilterMatchMode.fromNativeValue(this)
         }
 
@@ -109,7 +105,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @param mode the new match mode
          */
-        set(mode) = gtk_string_filter_set_match_mode(gtkStringFilterPointer.reinterpret(), mode.nativeValue)
+        set(mode) = gtk_string_filter_set_match_mode(gtkStringFilterPointer, mode.nativeValue)
 
     /**
      * The search term.
@@ -120,7 +116,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @return The search term
          */
-        get() = gtk_string_filter_get_search(gtkStringFilterPointer.reinterpret())?.toKString()
+        get() = gtk_string_filter_get_search(gtkStringFilterPointer)?.toKString()
 
         /**
          * Sets the string to search for.
@@ -128,7 +124,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          * @param search The string to search for
          *   or null to clear the search
          */
-        set(search) = gtk_string_filter_set_search(gtkStringFilterPointer.reinterpret(), search)
+        set(search) = gtk_string_filter_set_search(gtkStringFilterPointer, search)
 
     /**
      * Creates a new string filter.
@@ -141,7 +137,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
      */
     public constructor(
         expression: Expression? = null,
-    ) : this(gtk_string_filter_new(expression?.gPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_string_filter_new(expression?.gPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<StringFilter> {
         override val type: GeneratedClassKGType<StringFilter> =

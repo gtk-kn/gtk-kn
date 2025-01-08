@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gobject.annotations.GObjectVersion2_4
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.guint
@@ -102,8 +101,8 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      *          null if the class doesn't have a property of that name
      */
     public fun findProperty(propertyName: String): ParamSpec =
-        g_object_class_find_property(gPointer.reinterpret(), propertyName)!!.run {
-            ParamSpec(reinterpret())
+        g_object_class_find_property(gPointer, propertyName)!!.run {
+            ParamSpec(this)
         }
 
     /**
@@ -122,7 +121,7 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      * @param pspec the #GParamSpec for the new property
      */
     public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit =
-        g_object_class_install_property(gPointer.reinterpret(), propertyId, pspec.gPointer.reinterpret())
+        g_object_class_install_property(gPointer, propertyId, pspec.gPointer)
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -149,5 +148,5 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      */
     @GObjectVersion2_4
     public fun overrideProperty(propertyId: guint, name: String): Unit =
-        g_object_class_override_property(gPointer.reinterpret(), propertyId, name)
+        g_object_class_override_property(gPointer, propertyId, name)
 }

@@ -30,7 +30,7 @@ public open class GrabBrokenEvent(pointer: CPointer<GdkGrabBrokenEvent>) :
      */
     public open fun getGrabSurface(): Surface =
         gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
-            Surface(reinterpret())
+            Surface(this)
         }
 
     /**

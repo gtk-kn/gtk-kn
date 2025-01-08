@@ -56,13 +56,7 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
         filename: String? = null,
         contentType: String? = null,
         body: Bytes,
-    ): Unit = soup_multipart_append_form_file(
-        gPointer.reinterpret(),
-        controlName,
-        filename,
-        contentType,
-        body.gPointer.reinterpret()
-    )
+    ): Unit = soup_multipart_append_form_file(gPointer, controlName, filename, contentType, body.gPointer)
 
     /**
      * Adds a new MIME part containing @data to @multipart.
@@ -73,7 +67,7 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
      * @param data the body data
      */
     public fun appendFormString(controlName: String, `data`: String): Unit =
-        soup_multipart_append_form_string(gPointer.reinterpret(), controlName, `data`)
+        soup_multipart_append_form_string(gPointer, controlName, `data`)
 
     /**
      * Adds a new MIME part to @multipart with the given headers and body.
@@ -86,19 +80,19 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
      * @param body the MIME part body
      */
     public fun appendPart(headers: MessageHeaders, body: Bytes): Unit =
-        soup_multipart_append_part(gPointer.reinterpret(), headers.gPointer.reinterpret(), body.gPointer.reinterpret())
+        soup_multipart_append_part(gPointer, headers.gPointer, body.gPointer)
 
     /**
      * Frees @multipart.
      */
-    public fun free(): Unit = soup_multipart_free(gPointer.reinterpret())
+    public fun free(): Unit = soup_multipart_free(gPointer)
 
     /**
      * Gets the number of body parts in @multipart.
      *
      * @return the number of body parts in @multipart
      */
-    public fun getLength(): gint = soup_multipart_get_length(gPointer.reinterpret())
+    public fun getLength(): gint = soup_multipart_get_length(gPointer)
 
     public companion object {
         /**
@@ -122,12 +116,8 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
          * @return a new #SoupMultipart (or null if the
          *   message couldn't be parsed or wasn't multipart).
          */
-        public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? = Multipart(
-            soup_multipart_new_from_message(
-                headers.gPointer.reinterpret(),
-                body.gPointer.reinterpret()
-            )!!.reinterpret()
-        )
+        public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? =
+            Multipart(soup_multipart_new_from_message(headers.gPointer, body.gPointer)!!.reinterpret())
 
         /**
          * Get the GType of Multipart

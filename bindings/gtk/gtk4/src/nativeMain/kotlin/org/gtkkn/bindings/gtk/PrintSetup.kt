@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gobject.GType
@@ -41,8 +40,8 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gPointer.reinterpret())?.run {
-        PageSetup(reinterpret())
+    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gPointer)?.run {
+        PageSetup(this)
     }
 
     /**
@@ -55,8 +54,8 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gPointer.reinterpret())?.run {
-        PrintSettings(reinterpret())
+    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gPointer)?.run {
+        PrintSettings(this)
     }
 
     /**
@@ -66,8 +65,8 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun ref(): PrintSetup = gtk_print_setup_ref(gPointer.reinterpret())!!.run {
-        PrintSetup(reinterpret())
+    public fun ref(): PrintSetup = gtk_print_setup_ref(gPointer)!!.run {
+        PrintSetup(this)
     }
 
     /**
@@ -79,7 +78,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun unref(): Unit = gtk_print_setup_unref(gPointer.reinterpret())
+    public fun unref(): Unit = gtk_print_setup_unref(gPointer)
 
     public companion object {
         /**

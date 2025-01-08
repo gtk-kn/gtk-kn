@@ -64,7 +64,7 @@ public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
      * @param sortFunc function to sort items
      */
     public open fun setSortFunc(sortFunc: CompareDataFunc?): Unit = gtk_custom_sorter_set_sort_func(
-        gtkCustomSorterPointer.reinterpret(),
+        gtkCustomSorterPointer,
         sortFunc?.let {
             CompareDataFuncFunc.reinterpret()
         },

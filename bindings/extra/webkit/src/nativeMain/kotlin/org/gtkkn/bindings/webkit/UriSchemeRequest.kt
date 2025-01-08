@@ -58,8 +58,8 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      */
     public fun finish(stream: InputStream, streamLength: gint64, contentType: String? = null): Unit =
         webkit_uri_scheme_request_finish(
-            webkitUriSchemeRequestPointer.reinterpret(),
-            stream.gioInputStreamPointer.reinterpret(),
+            webkitUriSchemeRequestPointer,
+            stream.gioInputStreamPointer,
             streamLength,
             contentType
         )
@@ -71,10 +71,8 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun finishError(error: Error): Unit = webkit_uri_scheme_request_finish_error(
-        webkitUriSchemeRequestPointer.reinterpret(),
-        error.gPointer.reinterpret()
-    )
+    public fun finishError(error: Error): Unit =
+        webkit_uri_scheme_request_finish_error(webkitUriSchemeRequestPointer, error.gPointer)
 
     /**
      * Finish a #WebKitURISchemeRequest by returning a #WebKitURISchemeResponse
@@ -84,8 +82,8 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      */
     @WebKitVersion2_36
     public fun finishWithResponse(response: UriSchemeResponse): Unit = webkit_uri_scheme_request_finish_with_response(
-        webkitUriSchemeRequestPointer.reinterpret(),
-        response.webkitUriSchemeResponsePointer.reinterpret()
+        webkitUriSchemeRequestPointer,
+        response.webkitUriSchemeResponsePointer
     )
 
     /**
@@ -96,8 +94,8 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      */
     @WebKitVersion2_40
     public fun getHttpBody(): InputStream =
-        webkit_uri_scheme_request_get_http_body(webkitUriSchemeRequestPointer.reinterpret())!!.run {
-            InputStream(reinterpret())
+        webkit_uri_scheme_request_get_http_body(webkitUriSchemeRequestPointer)!!.run {
+            InputStream(this)
         }
 
     /**
@@ -108,8 +106,8 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      */
     @WebKitVersion2_36
     public fun getHttpHeaders(): MessageHeaders =
-        webkit_uri_scheme_request_get_http_headers(webkitUriSchemeRequestPointer.reinterpret())!!.run {
-            MessageHeaders(reinterpret())
+        webkit_uri_scheme_request_get_http_headers(webkitUriSchemeRequestPointer)!!.run {
+            MessageHeaders(this)
         }
 
     /**
@@ -120,7 +118,7 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      */
     @WebKitVersion2_36
     public fun getHttpMethod(): String =
-        webkit_uri_scheme_request_get_http_method(webkitUriSchemeRequestPointer.reinterpret())?.toKString()
+        webkit_uri_scheme_request_get_http_method(webkitUriSchemeRequestPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -128,37 +126,33 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      *
      * @return the URI path of @request
      */
-    public fun getPath(): String =
-        webkit_uri_scheme_request_get_path(webkitUriSchemeRequestPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getPath(): String = webkit_uri_scheme_request_get_path(webkitUriSchemeRequestPointer)?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the URI scheme of @request.
      *
      * @return the URI scheme of @request
      */
-    public fun getScheme(): String =
-        webkit_uri_scheme_request_get_scheme(webkitUriSchemeRequestPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getScheme(): String = webkit_uri_scheme_request_get_scheme(webkitUriSchemeRequestPointer)?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the URI of @request.
      *
      * @return the full URI of @request
      */
-    public fun getUri(): String =
-        webkit_uri_scheme_request_get_uri(webkitUriSchemeRequestPointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+    public fun getUri(): String = webkit_uri_scheme_request_get_uri(webkitUriSchemeRequestPointer)?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Get the #WebKitWebView that initiated the request.
      *
      * @return the #WebKitWebView that initiated @request.
      */
-    public fun getWebView(): WebView =
-        webkit_uri_scheme_request_get_web_view(webkitUriSchemeRequestPointer.reinterpret())!!.run {
-            WebView(reinterpret())
-        }
+    public fun getWebView(): WebView = webkit_uri_scheme_request_get_web_view(webkitUriSchemeRequestPointer)!!.run {
+        WebView(this)
+    }
 
     public companion object : TypeCompanion<UriSchemeRequest> {
         override val type: GeneratedClassKGType<UriSchemeRequest> =

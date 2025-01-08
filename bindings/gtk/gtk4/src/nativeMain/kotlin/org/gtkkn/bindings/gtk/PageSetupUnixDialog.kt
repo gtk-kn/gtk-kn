@@ -72,7 +72,7 @@ public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>)
     public constructor(
         title: String? = null,
         parent: Window? = null,
-    ) : this(gtk_page_setup_unix_dialog_new(title, parent?.gtkWindowPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_page_setup_unix_dialog_new(title, parent?.gtkWindowPointer)!!.reinterpret())
 
     /**
      * Gets the currently selected page setup from the dialog.
@@ -80,8 +80,8 @@ public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>)
      * @return the current page setup
      */
     public open fun getPageSetup(): PageSetup =
-        gtk_page_setup_unix_dialog_get_page_setup(gtkPageSetupUnixDialogPointer.reinterpret())!!.run {
-            PageSetup(reinterpret())
+        gtk_page_setup_unix_dialog_get_page_setup(gtkPageSetupUnixDialogPointer)!!.run {
+            PageSetup(this)
         }
 
     /**
@@ -90,8 +90,8 @@ public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>)
      * @return the current print settings
      */
     public open fun getPrintSettings(): PrintSettings? =
-        gtk_page_setup_unix_dialog_get_print_settings(gtkPageSetupUnixDialogPointer.reinterpret())?.run {
-            PrintSettings(reinterpret())
+        gtk_page_setup_unix_dialog_get_print_settings(gtkPageSetupUnixDialogPointer)?.run {
+            PrintSettings(this)
         }
 
     /**
@@ -100,10 +100,8 @@ public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>)
      *
      * @param pageSetup a `GtkPageSetup`
      */
-    public open fun setPageSetup(pageSetup: PageSetup): Unit = gtk_page_setup_unix_dialog_set_page_setup(
-        gtkPageSetupUnixDialogPointer.reinterpret(),
-        pageSetup.gtkPageSetupPointer.reinterpret()
-    )
+    public open fun setPageSetup(pageSetup: PageSetup): Unit =
+        gtk_page_setup_unix_dialog_set_page_setup(gtkPageSetupUnixDialogPointer, pageSetup.gtkPageSetupPointer)
 
     /**
      * Sets the `GtkPrintSettings` from which the page setup dialog
@@ -113,8 +111,8 @@ public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>)
      */
     public open fun setPrintSettings(printSettings: PrintSettings? = null): Unit =
         gtk_page_setup_unix_dialog_set_print_settings(
-            gtkPageSetupUnixDialogPointer.reinterpret(),
-            printSettings?.gtkPrintSettingsPointer?.reinterpret()
+            gtkPageSetupUnixDialogPointer,
+            printSettings?.gtkPrintSettingsPointer
         )
 
     public companion object : TypeCompanion<PageSetupUnixDialog> {

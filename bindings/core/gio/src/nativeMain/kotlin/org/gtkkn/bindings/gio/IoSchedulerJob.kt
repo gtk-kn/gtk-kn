@@ -30,7 +30,7 @@ public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(
      * @return The return value of @func
      */
     public fun sendToMainloop(func: SourceFunc): Boolean = g_io_scheduler_job_send_to_mainloop(
-        gPointer.reinterpret(),
+        gPointer,
         SourceFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()
@@ -50,7 +50,7 @@ public class IoSchedulerJob(pointer: CPointer<GIOSchedulerJob>) : ProxyInstance(
      * @param func a #GSourceFunc callback that will be called in the original thread
      */
     public fun sendToMainloopAsync(func: SourceFunc): Unit = g_io_scheduler_job_send_to_mainloop_async(
-        gPointer.reinterpret(),
+        gPointer,
         SourceFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer(),
         staticStableRefDestroy.reinterpret()

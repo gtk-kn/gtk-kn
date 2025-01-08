@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -37,8 +36,7 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun compare(b: SequenceIter): gint =
-        g_sequence_iter_compare(gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun compare(b: SequenceIter): gint = g_sequence_iter_compare(gPointer, b.gPointer)
 
     /**
      * Returns the position of @iter
@@ -47,7 +45,7 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getPosition(): gint = g_sequence_iter_get_position(gPointer.reinterpret())
+    public fun getPosition(): gint = g_sequence_iter_get_position(gPointer)
 
     /**
      * Returns the #GSequence that @iter points into.
@@ -56,8 +54,8 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getSequence(): Sequence = g_sequence_iter_get_sequence(gPointer.reinterpret())!!.run {
-        Sequence(reinterpret())
+    public fun getSequence(): Sequence = g_sequence_iter_get_sequence(gPointer)!!.run {
+        Sequence(this)
     }
 
     /**
@@ -67,7 +65,7 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun isBegin(): Boolean = g_sequence_iter_is_begin(gPointer.reinterpret()).asBoolean()
+    public fun isBegin(): Boolean = g_sequence_iter_is_begin(gPointer).asBoolean()
 
     /**
      * Returns whether @iter is the end iterator
@@ -76,7 +74,7 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun isEnd(): Boolean = g_sequence_iter_is_end(gPointer.reinterpret()).asBoolean()
+    public fun isEnd(): Boolean = g_sequence_iter_is_end(gPointer).asBoolean()
 
     /**
      * Returns the #GSequenceIter which is @delta positions away from @iter.
@@ -90,8 +88,8 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun move(delta: gint): SequenceIter = g_sequence_iter_move(gPointer.reinterpret(), delta)!!.run {
-        SequenceIter(reinterpret())
+    public fun move(delta: gint): SequenceIter = g_sequence_iter_move(gPointer, delta)!!.run {
+        SequenceIter(this)
     }
 
     /**
@@ -102,8 +100,8 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun next(): SequenceIter = g_sequence_iter_next(gPointer.reinterpret())!!.run {
-        SequenceIter(reinterpret())
+    public fun next(): SequenceIter = g_sequence_iter_next(gPointer)!!.run {
+        SequenceIter(this)
     }
 
     /**
@@ -115,7 +113,7 @@ public class SequenceIter(pointer: CPointer<GSequenceIter>) : ProxyInstance(poin
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun prev(): SequenceIter = g_sequence_iter_prev(gPointer.reinterpret())!!.run {
-        SequenceIter(reinterpret())
+    public fun prev(): SequenceIter = g_sequence_iter_prev(gPointer)!!.run {
+        SequenceIter(this)
     }
 }

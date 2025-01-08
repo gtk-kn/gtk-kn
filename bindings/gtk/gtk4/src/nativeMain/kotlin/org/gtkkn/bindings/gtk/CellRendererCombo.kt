@@ -7,6 +7,7 @@ import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
@@ -17,6 +18,7 @@ import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkCellRendererCombo
 import org.gtkkn.native.gtk.GtkTreeIter
 import org.gtkkn.native.gtk.gtk_cell_renderer_combo_get_type
@@ -77,22 +79,34 @@ public open class CellRendererCombo(pointer: CPointer<GtkCellRendererCombo>) :
      * means that you most probably want to refrain from changing the model
      * until the combo cell renderer emits the edited or editing_canceled signal.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `pathString` a string of the path identifying the edited cell
      *               (relative to the tree view model); `newIter` the new iter selected in the combo box
      *            (relative to the combo box model)
      */
-    public fun connectChanged(
+    public fun onChanged(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pathString: String, newIter: TreeIter) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "changed",
-        connectChangedFunc.reinterpret(),
+        onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "changed" signal. See [onChanged].
+     *
+     * @param pathString a string of the path identifying the edited cell
+     *               (relative to the tree view model)
+     * @param newIter the new iter selected in the combo box
+     *            (relative to the combo box model)
+     */
+    public fun emitChanged(pathString: String, newIter: TreeIter) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "changed", pathString.cstr, newIter.gPointer)
+    }
 
     public companion object : TypeCompanion<CellRendererCombo> {
         override val type: GeneratedClassKGType<CellRendererCombo> =
@@ -111,8 +125,8 @@ public open class CellRendererCombo(pointer: CPointer<GtkCellRendererCombo>) :
     }
 }
 
-private val connectChangedFunc:
-    CPointer<CFunction<(CPointer<ByteVar>, CPointer<GtkTreeIter>) -> Unit>> = staticCFunction {
+private val onChangedFunc: CPointer<CFunction<(CPointer<ByteVar>, CPointer<GtkTreeIter>) -> Unit>> =
+    staticCFunction {
             _: COpaquePointer,
             pathString: CPointer<ByteVar>?,
             newIter: CPointer<GtkTreeIter>?,
@@ -121,7 +135,7 @@ private val connectChangedFunc:
         userData.asStableRef<(pathString: String, newIter: TreeIter) -> Unit>().get().invoke(
             pathString?.toKString() ?: error("Expected not null string"),
             newIter!!.run {
-                TreeIter(reinterpret())
+                TreeIter(this)
             }
         )
     }

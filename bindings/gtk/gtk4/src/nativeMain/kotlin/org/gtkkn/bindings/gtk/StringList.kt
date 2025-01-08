@@ -97,7 +97,7 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      *
      * @param string the string to insert
      */
-    public open fun append(string: String): Unit = gtk_string_list_append(gtkStringListPointer.reinterpret(), string)
+    public open fun append(string: String): Unit = gtk_string_list_append(gtkStringListPointer, string)
 
     /**
      * Gets the string that is at @position in @self.
@@ -111,7 +111,7 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      * @return the string at the given position
      */
     public open fun getString(position: guint): String? =
-        gtk_string_list_get_string(gtkStringListPointer.reinterpret(), position)?.toKString()
+        gtk_string_list_get_string(gtkStringListPointer, position)?.toKString()
 
     /**
      * Removes the string at @position from @self.
@@ -121,7 +121,7 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      *
      * @param position the position of the string that is to be removed
      */
-    public open fun remove(position: guint): Unit = gtk_string_list_remove(gtkStringListPointer.reinterpret(), position)
+    public open fun remove(position: guint): Unit = gtk_string_list_remove(gtkStringListPointer, position)
 
     /**
      * Changes @self by removing @n_removals strings and adding @additions
@@ -142,12 +142,7 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      * @param additions The strings to add
      */
     public open fun splice(position: guint, nRemovals: guint, additions: List<String>? = null): Unit = memScoped {
-        return gtk_string_list_splice(
-            gtkStringListPointer.reinterpret(),
-            position,
-            nRemovals,
-            additions?.toCStringList(this)
-        )
+        return gtk_string_list_splice(gtkStringListPointer, position, nRemovals, additions?.toCStringList(this))
     }
 
     /**
@@ -163,7 +158,7 @@ public open class StringList(pointer: CPointer<GtkStringList>) :
      *
      * @param string the string to insert
      */
-    public open fun take(string: String): Unit = gtk_string_list_take(gtkStringListPointer.reinterpret(), string.cstr)
+    public open fun take(string: String): Unit = gtk_string_list_take(gtkStringListPointer, string.cstr)
 
     public companion object : TypeCompanion<StringList> {
         override val type: GeneratedClassKGType<StringList> =

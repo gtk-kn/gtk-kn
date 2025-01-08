@@ -92,24 +92,22 @@ public open class ShortcutsSection(pointer: CPointer<GtkShortcutsSection>) :
      * @since 4.14
      */
     @GtkVersion4_14
-    public open fun addGroup(group: ShortcutsGroup): Unit = gtk_shortcuts_section_add_group(
-        gtkShortcutsSectionPointer.reinterpret(),
-        group.gtkShortcutsGroupPointer.reinterpret()
-    )
+    public open fun addGroup(group: ShortcutsGroup): Unit =
+        gtk_shortcuts_section_add_group(gtkShortcutsSectionPointer, group.gtkShortcutsGroupPointer)
 
     /**
      *
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `object`
      */
-    public fun connectChangeCurrentPage(
+    public fun onChangeCurrentPage(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: gint) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "change-current-page",
-        connectChangeCurrentPageFunc.reinterpret(),
+        onChangeCurrentPageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -132,12 +130,11 @@ public open class ShortcutsSection(pointer: CPointer<GtkShortcutsSection>) :
     }
 }
 
-private val connectChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> =
-    staticCFunction {
-            _: COpaquePointer,
-            `object`: gint,
-            userData: COpaquePointer,
-        ->
-        userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
-    }
-        .reinterpret()
+private val onChangeCurrentPageFunc: CPointer<CFunction<(gint) -> gboolean>> = staticCFunction {
+        _: COpaquePointer,
+        `object`: gint,
+        userData: COpaquePointer,
+    ->
+    userData.asStableRef<(`object`: gint) -> Boolean>().get().invoke(`object`).asGBoolean()
+}
+    .reinterpret()

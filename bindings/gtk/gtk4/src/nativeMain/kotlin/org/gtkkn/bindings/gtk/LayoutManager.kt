@@ -89,13 +89,7 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @param baseline the baseline position of the @widget, or -1
      */
     public open fun allocate(widget: Widget, width: gint, height: gint, baseline: gint): Unit =
-        gtk_layout_manager_allocate(
-            gtkLayoutManagerPointer.reinterpret(),
-            widget.gtkWidgetPointer.reinterpret(),
-            width,
-            height,
-            baseline
-        )
+        gtk_layout_manager_allocate(gtkLayoutManagerPointer, widget.gtkWidgetPointer, width, height, baseline)
 
     /**
      * Retrieves a `GtkLayoutChild` instance for the `GtkLayoutManager`,
@@ -110,12 +104,10 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @param child a `GtkWidget`
      * @return a `GtkLayoutChild`
      */
-    public open fun getLayoutChild(child: Widget): LayoutChild = gtk_layout_manager_get_layout_child(
-        gtkLayoutManagerPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret()
-    )!!.run {
-        LayoutChild(reinterpret())
-    }
+    public open fun getLayoutChild(child: Widget): LayoutChild =
+        gtk_layout_manager_get_layout_child(gtkLayoutManagerPointer, child.gtkWidgetPointer)!!.run {
+            LayoutChild(this)
+        }
 
     /**
      * Retrieves the request mode of @manager.
@@ -123,7 +115,7 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @return a `GtkSizeRequestMode`
      */
     public open fun getRequestMode(): SizeRequestMode =
-        gtk_layout_manager_get_request_mode(gtkLayoutManagerPointer.reinterpret()).run {
+        gtk_layout_manager_get_request_mode(gtkLayoutManagerPointer).run {
             SizeRequestMode.fromNativeValue(this)
         }
 
@@ -132,8 +124,8 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      *
      * @return a `GtkWidget`
      */
-    public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer.reinterpret())?.run {
-        Widget(reinterpret())
+    public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer)?.run {
+        Widget(this)
     }
 
     /**
@@ -142,7 +134,7 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * This function should be called by subclasses of `GtkLayoutManager`
      * in response to changes to their layout management policies.
      */
-    public open fun layoutChanged(): Unit = gtk_layout_manager_layout_changed(gtkLayoutManagerPointer.reinterpret())
+    public open fun layoutChanged(): Unit = gtk_layout_manager_layout_changed(gtkLayoutManagerPointer)
 
     public companion object : TypeCompanion<LayoutManager> {
         override val type: GeneratedClassKGType<LayoutManager> =

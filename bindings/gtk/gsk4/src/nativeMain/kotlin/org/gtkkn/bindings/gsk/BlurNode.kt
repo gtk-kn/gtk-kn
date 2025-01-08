@@ -33,7 +33,7 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
     public constructor(
         child: RenderNode,
         radius: gfloat,
-    ) : this(gsk_blur_node_new(child.gPointer.reinterpret(), radius)!!.reinterpret())
+    ) : this(gsk_blur_node_new(child.gPointer, radius)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` of the blur @node.
@@ -41,7 +41,7 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
      * @return the blurred child node
      */
     public open fun getChild(): RenderNode = gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**

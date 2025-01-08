@@ -19,6 +19,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkBuildable
 import org.gtkkn.native.gtk.GtkConstraintTarget
@@ -170,7 +171,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @return true if @popover is modal
          */
-        get() = gtk_popover_get_autohide(gtkPopoverPointer.reinterpret()).asBoolean()
+        get() = gtk_popover_get_autohide(gtkPopoverPointer).asBoolean()
 
         /**
          * Sets whether @popover is modal.
@@ -185,7 +186,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @param autohide true to dismiss the popover on outside clicks
          */
-        set(autohide) = gtk_popover_set_autohide(gtkPopoverPointer.reinterpret(), autohide.asGBoolean())
+        set(autohide) = gtk_popover_set_autohide(gtkPopoverPointer, autohide.asGBoolean())
 
     /**
      * Whether the popover pops down after a child popover.
@@ -198,7 +199,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @return true if @popover will close after a modal child.
          */
-        get() = gtk_popover_get_cascade_popdown(gtkPopoverPointer.reinterpret()).asBoolean()
+        get() = gtk_popover_get_cascade_popdown(gtkPopoverPointer).asBoolean()
 
         /**
          * If @cascade_popdown is true, the popover will be
@@ -208,9 +209,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @param cascadePopdown true if the popover should follow a child closing
          */
-        set(
-            cascadePopdown
-        ) = gtk_popover_set_cascade_popdown(gtkPopoverPointer.reinterpret(), cascadePopdown.asGBoolean())
+        set(cascadePopdown) = gtk_popover_set_cascade_popdown(gtkPopoverPointer, cascadePopdown.asGBoolean())
 
     /**
      * The child widget.
@@ -221,8 +220,8 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @return the child widget of @popover
          */
-        get() = gtk_popover_get_child(gtkPopoverPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_popover_get_child(gtkPopoverPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -230,7 +229,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @param child the child widget
          */
-        set(child) = gtk_popover_set_child(gtkPopoverPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_popover_set_child(gtkPopoverPointer, child?.gtkWidgetPointer)
 
     /**
      * Whether to draw an arrow.
@@ -242,7 +241,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @return whether the popover has an arrow
          */
-        get() = gtk_popover_get_has_arrow(gtkPopoverPointer.reinterpret()).asBoolean()
+        get() = gtk_popover_get_has_arrow(gtkPopoverPointer).asBoolean()
 
         /**
          * Sets whether this popover should draw an arrow
@@ -250,7 +249,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @param hasArrow true to draw an arrow
          */
-        set(hasArrow) = gtk_popover_set_has_arrow(gtkPopoverPointer.reinterpret(), hasArrow.asGBoolean())
+        set(hasArrow) = gtk_popover_set_has_arrow(gtkPopoverPointer, hasArrow.asGBoolean())
 
     /**
      * Whether mnemonics are currently visible in this popover.
@@ -262,16 +261,14 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          * @return true if mnemonics are supposed to be visible
          *   in this popover
          */
-        get() = gtk_popover_get_mnemonics_visible(gtkPopoverPointer.reinterpret()).asBoolean()
+        get() = gtk_popover_get_mnemonics_visible(gtkPopoverPointer).asBoolean()
 
         /**
          * Sets whether mnemonics should be visible.
          *
          * @param mnemonicsVisible the new value
          */
-        set(
-            mnemonicsVisible
-        ) = gtk_popover_set_mnemonics_visible(gtkPopoverPointer.reinterpret(), mnemonicsVisible.asGBoolean())
+        set(mnemonicsVisible) = gtk_popover_set_mnemonics_visible(gtkPopoverPointer, mnemonicsVisible.asGBoolean())
 
     /**
      * How to place the popover, relative to its parent.
@@ -282,7 +279,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @return The preferred position.
          */
-        get() = gtk_popover_get_position(gtkPopoverPointer.reinterpret()).run {
+        get() = gtk_popover_get_position(gtkPopoverPointer).run {
             PositionType.fromNativeValue(this)
         }
 
@@ -298,7 +295,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          *
          * @param position preferred popover position
          */
-        set(position) = gtk_popover_set_position(gtkPopoverPointer.reinterpret(), position.nativeValue)
+        set(position) = gtk_popover_set_position(gtkPopoverPointer, position.nativeValue)
 
     /**
      * Creates a new `GtkPopover`.
@@ -319,7 +316,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * @return true if a rectangle to point to was set.
      */
     public open fun getPointingTo(rect: Rectangle): Boolean =
-        gtk_popover_get_pointing_to(gtkPopoverPointer.reinterpret(), rect.gPointer.reinterpret()).asBoolean()
+        gtk_popover_get_pointing_to(gtkPopoverPointer, rect.gPointer).asBoolean()
 
     /**
      * Pops @popover down.
@@ -327,12 +324,12 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * This may have the side-effect of closing a parent popover
      * as well. See [property@Gtk.Popover:cascade-popdown].
      */
-    public open fun popdown(): Unit = gtk_popover_popdown(gtkPopoverPointer.reinterpret())
+    public open fun popdown(): Unit = gtk_popover_popdown(gtkPopoverPointer)
 
     /**
      * Pops @popover up.
      */
-    public open fun popup(): Unit = gtk_popover_popup(gtkPopoverPointer.reinterpret())
+    public open fun popup(): Unit = gtk_popover_popup(gtkPopoverPointer)
 
     /**
      * Allocate a size for the `GtkPopover`.
@@ -343,7 +340,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      *
      * To make a popover appear on screen, use [method@Gtk.Popover.popup].
      */
-    public open fun present(): Unit = gtk_popover_present(gtkPopoverPointer.reinterpret())
+    public open fun present(): Unit = gtk_popover_present(gtkPopoverPointer)
 
     /**
      * Sets the default widget of a `GtkPopover`.
@@ -356,7 +353,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      *   the default, or null to unset the default widget for the popover
      */
     public open fun setDefaultWidget(widget: Widget? = null): Unit =
-        gtk_popover_set_default_widget(gtkPopoverPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        gtk_popover_set_default_widget(gtkPopoverPointer, widget?.gtkWidgetPointer)
 
     /**
      * Sets the offset to use when calculating the position
@@ -369,7 +366,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * @param yOffset the y offset to adjust the position by
      */
     public open fun setOffset(xOffset: gint, yOffset: gint): Unit =
-        gtk_popover_set_offset(gtkPopoverPointer.reinterpret(), xOffset, yOffset)
+        gtk_popover_set_offset(gtkPopoverPointer, xOffset, yOffset)
 
     /**
      * Sets the rectangle that @popover points to.
@@ -379,41 +376,55 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * @param rect rectangle to point to
      */
     public open fun setPointingTo(rect: Rectangle? = null): Unit =
-        gtk_popover_set_pointing_to(gtkPopoverPointer.reinterpret(), rect?.gPointer?.reinterpret())
+        gtk_popover_set_pointing_to(gtkPopoverPointer, rect?.gPointer)
 
     /**
      * Emitted whend the user activates the default widget.
      *
      * This is a [keybinding signal](class.SignalAction.html).
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectActivateDefault(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onActivateDefault(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "activate-default",
-            connectActivateDefaultFunc.reinterpret(),
+            onActivateDefaultFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "activate-default" signal. See [onActivateDefault].
+     */
+    public fun emitActivateDefault() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "activate-default")
+    }
+
+    /**
      * Emitted when the popover is closed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "closed",
-            connectClosedFunc.reinterpret(),
+            onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "closed" signal. See [onClosed].
+     */
+    public fun emitClosed() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+    }
 
     public companion object : TypeCompanion<Popover> {
         override val type: GeneratedClassKGType<Popover> =
@@ -432,7 +443,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
     }
 }
 
-private val connectActivateDefaultFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onActivateDefaultFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -440,7 +451,7 @@ private val connectActivateDefaultFunc: CPointer<CFunction<() -> Unit>> = static
 }
     .reinterpret()
 
-private val connectClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onClosedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

@@ -27,6 +27,7 @@ import org.gtkkn.native.gio.GTlsCertificateFlags
 import org.gtkkn.native.glib.GError
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.webkit.WebKitURIRequest
 import org.gtkkn.native.webkit.WebKitURIResponse
 import org.gtkkn.native.webkit.WebKitWebResource
@@ -75,8 +76,8 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
          * @return the #WebKitURIResponse, or null if
          *     the response hasn't been received yet.
          */
-        get() = webkit_web_resource_get_response(webkitWebResourcePointer.reinterpret())!!.run {
-            UriResponse(reinterpret())
+        get() = webkit_web_resource_get_response(webkitWebResourcePointer)!!.run {
+            UriResponse(this)
         }
 
     /**
@@ -115,8 +116,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
          *
          * @return the current active URI of @resource
          */
-        get() = webkit_web_resource_get_uri(webkitWebResourcePointer.reinterpret())?.toKString()
-            ?: error("Expected not null string")
+        get() = webkit_web_resource_get_uri(webkitWebResourcePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Asynchronously get the raw data for @resource.
@@ -129,8 +129,8 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      */
     public fun getData(cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_web_resource_get_data(
-            webkitWebResourcePointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            webkitWebResourcePointer,
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -141,56 +141,89 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      * This signal is emitted when an error occurs during the resource
      * load operation.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `error` the #GError that was triggered
      */
-    public fun connectFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
+    public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "failed",
-            connectFailedFunc.reinterpret(),
+            onFailedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "failed" signal. See [onFailed].
+     *
+     * @param error the #GError that was triggered
+     */
+    public fun emitFailed(error: Error) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "failed", error.gPointer)
+    }
+
+    /**
      * This signal is emitted when a TLS error occurs during the resource load operation.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `certificate` a #GTlsCertificate; `errors` a #GTlsCertificateFlags with the verification status of @certificate
      * @since 2.8
      */
     @WebKitVersion2_8
-    public fun connectFailedWithTlsErrors(
+    public fun onFailedWithTlsErrors(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (certificate: TlsCertificate, errors: TlsCertificateFlags) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "failed-with-tls-errors",
-        connectFailedWithTlsErrorsFunc.reinterpret(),
+        onFailedWithTlsErrorsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "failed-with-tls-errors" signal. See [onFailedWithTlsErrors].
+     *
+     * @param certificate a #GTlsCertificate
+     * @param errors a #GTlsCertificateFlags with the verification status of @certificate
+     * @since 2.8
+     */
+    @WebKitVersion2_8
+    public fun emitFailedWithTlsErrors(certificate: TlsCertificate, errors: TlsCertificateFlags) {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "failed-with-tls-errors",
+            certificate.gioTlsCertificatePointer,
+            errors.mask
+        )
+    }
+
+    /**
      * This signal is emitted when the resource load finishes successfully
      * or due to an error. In case of errors #WebKitWebResource::failed signal
      * is emitted before this one.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "finished",
-            connectFinishedFunc.reinterpret(),
+            onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "finished" signal. See [onFinished].
+     */
+    public fun emitFinished() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+    }
 
     /**
      * This signal is emitted when @request has been sent to the
@@ -200,20 +233,35 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      * @redirected_response parameter containing the response
      * received by the server for the initial request.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `request` a #WebKitURIRequest; `redirectedResponse` a #WebKitURIResponse, or null
      */
-    public fun connectSentRequest(
+    public fun onSentRequest(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: UriRequest, redirectedResponse: UriResponse) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "sent-request",
-        connectSentRequestFunc.reinterpret(),
+        onSentRequestFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "sent-request" signal. See [onSentRequest].
+     *
+     * @param request a #WebKitURIRequest
+     * @param redirectedResponse a #WebKitURIResponse, or null
+     */
+    public fun emitSentRequest(request: UriRequest, redirectedResponse: UriResponse) {
+        g_signal_emit_by_name(
+            gPointer.reinterpret(),
+            "sent-request",
+            request.webkitUriRequestPointer,
+            redirectedResponse.webkitUriResponsePointer
+        )
+    }
 
     public companion object : TypeCompanion<WebResource> {
         override val type: GeneratedClassKGType<WebResource> =
@@ -232,20 +280,20 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
     }
 }
 
-private val connectFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
+private val onFailedFunc: CPointer<CFunction<(CPointer<GError>) -> Unit>> = staticCFunction {
         _: COpaquePointer,
         error: CPointer<GError>?,
         userData: COpaquePointer,
     ->
     userData.asStableRef<(error: Error) -> Unit>().get().invoke(
         error!!.run {
-            Error(reinterpret())
+            Error(this)
         }
     )
 }
     .reinterpret()
 
-private val connectFailedWithTlsErrorsFunc:
+private val onFailedWithTlsErrorsFunc:
     CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -260,7 +308,7 @@ private val connectFailedWithTlsErrorsFunc:
             ) -> Unit
             >().get().invoke(
             certificate!!.run {
-                TlsCertificate(reinterpret())
+                TlsCertificate(this)
             },
             errors.run {
                 TlsCertificateFlags(this)
@@ -269,7 +317,7 @@ private val connectFailedWithTlsErrorsFunc:
     }
         .reinterpret()
 
-private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -277,7 +325,7 @@ private val connectFinishedFunc: CPointer<CFunction<() -> Unit>> = staticCFuncti
 }
     .reinterpret()
 
-private val connectSentRequestFunc:
+private val onSentRequestFunc:
     CPointer<CFunction<(CPointer<WebKitURIRequest>, CPointer<WebKitURIResponse>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -287,10 +335,10 @@ private val connectSentRequestFunc:
         ->
         userData.asStableRef<(request: UriRequest, redirectedResponse: UriResponse) -> Unit>().get().invoke(
             request!!.run {
-                UriRequest(reinterpret())
+                UriRequest(this)
             },
             redirectedResponse!!.run {
-                UriResponse(reinterpret())
+                UriResponse(this)
             }
         )
     }

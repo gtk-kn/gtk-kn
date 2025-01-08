@@ -48,8 +48,7 @@ public class AuthManager(pointer: CPointer<SoupAuthManager>) :
     /**
      * Clear all credentials cached by @manager.
      */
-    public fun clearCachedCredentials(): Unit =
-        soup_auth_manager_clear_cached_credentials(soupAuthManagerPointer.reinterpret())
+    public fun clearCachedCredentials(): Unit = soup_auth_manager_clear_cached_credentials(soupAuthManagerPointer)
 
     /**
      * Records that @auth is to be used under @uri, as though a
@@ -66,11 +65,8 @@ public class AuthManager(pointer: CPointer<SoupAuthManager>) :
      * @param uri the #GUri under which @auth is to be used
      * @param auth the #SoupAuth to use
      */
-    public fun useAuth(uri: Uri, auth: Auth): Unit = soup_auth_manager_use_auth(
-        soupAuthManagerPointer.reinterpret(),
-        uri.gPointer.reinterpret(),
-        auth.soupAuthPointer.reinterpret()
-    )
+    public fun useAuth(uri: Uri, auth: Auth): Unit =
+        soup_auth_manager_use_auth(soupAuthManagerPointer, uri.gPointer, auth.soupAuthPointer)
 
     public companion object : TypeCompanion<AuthManager> {
         override val type: GeneratedClassKGType<AuthManager> =

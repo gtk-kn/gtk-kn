@@ -6,7 +6,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_2
 import org.gtkkn.bindings.graphene.annotations.GrapheneVersion1_6
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
@@ -84,8 +83,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(point: Point3d): Boolean =
-        graphene_frustum_contains_point(gPointer.reinterpret(), point.gPointer.reinterpret())
+    public fun containsPoint(point: Point3d): Boolean = graphene_frustum_contains_point(gPointer, point.gPointer)
 
     /**
      * Checks whether the two given #graphene_frustum_t are equal.
@@ -95,7 +93,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      * @since 1.6
      */
     @GrapheneVersion1_6
-    public fun equal(b: Frustum): Boolean = graphene_frustum_equal(gPointer.reinterpret(), b.gPointer.reinterpret())
+    public fun equal(b: Frustum): Boolean = graphene_frustum_equal(gPointer, b.gPointer)
 
     /**
      * Frees the resources allocated by graphene_frustum_alloc().
@@ -103,7 +101,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun free(): Unit = graphene_frustum_free(gPointer.reinterpret())
+    public fun free(): Unit = graphene_frustum_free(gPointer)
 
     /**
      * Initializes the given #graphene_frustum_t using the provided
@@ -121,15 +119,15 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
     @GrapheneVersion1_2
     public fun `init`(p0: Plane, p1: Plane, p2: Plane, p3: Plane, p4: Plane, p5: Plane): Frustum =
         graphene_frustum_init(
-            gPointer.reinterpret(),
-            p0.gPointer.reinterpret(),
-            p1.gPointer.reinterpret(),
-            p2.gPointer.reinterpret(),
-            p3.gPointer.reinterpret(),
-            p4.gPointer.reinterpret(),
-            p5.gPointer.reinterpret()
+            gPointer,
+            p0.gPointer,
+            p1.gPointer,
+            p2.gPointer,
+            p3.gPointer,
+            p4.gPointer,
+            p5.gPointer
         )!!.run {
-            Frustum(reinterpret())
+            Frustum(this)
         }
 
     /**
@@ -142,8 +140,8 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      */
     @GrapheneVersion1_2
     public fun initFromFrustum(src: Frustum): Frustum =
-        graphene_frustum_init_from_frustum(gPointer.reinterpret(), src.gPointer.reinterpret())!!.run {
-            Frustum(reinterpret())
+        graphene_frustum_init_from_frustum(gPointer, src.gPointer)!!.run {
+            Frustum(this)
         }
 
     /**
@@ -155,8 +153,8 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      */
     @GrapheneVersion1_2
     public fun initFromMatrix(matrix: Matrix): Frustum =
-        graphene_frustum_init_from_matrix(gPointer.reinterpret(), matrix.gPointer.reinterpret())!!.run {
-            Frustum(reinterpret())
+        graphene_frustum_init_from_matrix(gPointer, matrix.gPointer)!!.run {
+            Frustum(this)
         }
 
     /**
@@ -168,8 +166,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun intersectsBox(box: Box): Boolean =
-        graphene_frustum_intersects_box(gPointer.reinterpret(), box.gPointer.reinterpret())
+    public fun intersectsBox(box: Box): Boolean = graphene_frustum_intersects_box(gPointer, box.gPointer)
 
     /**
      * Checks whether the given @sphere intersects a plane of
@@ -180,8 +177,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun intersectsSphere(sphere: Sphere): Boolean =
-        graphene_frustum_intersects_sphere(gPointer.reinterpret(), sphere.gPointer.reinterpret())
+    public fun intersectsSphere(sphere: Sphere): Boolean = graphene_frustum_intersects_sphere(gPointer, sphere.gPointer)
 
     public companion object {
         /**
@@ -194,7 +190,7 @@ public class Frustum(pointer: CPointer<graphene_frustum_t>, cleaner: Cleaner? = 
          *   allocated by this function.
          * @since 1.2
          */
-        public fun alloc(): Frustum = Frustum(graphene_frustum_alloc()!!.reinterpret())
+        public fun alloc(): Frustum = Frustum(graphene_frustum_alloc()!!)
 
         /**
          * Get the GType of Frustum

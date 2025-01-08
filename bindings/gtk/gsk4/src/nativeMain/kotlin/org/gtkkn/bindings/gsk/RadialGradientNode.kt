@@ -40,7 +40,7 @@ public open class RadialGradientNode(pointer: CPointer<GskRadialGradientNode>) :
      */
     public open fun getCenter(): Point =
         gsk_radial_gradient_node_get_center(gskRadialGradientNodePointer.reinterpret())!!.run {
-            Point(reinterpret())
+            Point(this)
         }
 
     /**

@@ -6,7 +6,6 @@ import kotlinx.cinterop.allocPointerTo
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Quark
@@ -47,13 +46,13 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
      *
      * @return true on success
      */
-    public fun close(): Boolean = g_module_close(gPointer.reinterpret()).asBoolean()
+    public fun close(): Boolean = g_module_close(gPointer).asBoolean()
 
     /**
      * Ensures that a module will never be unloaded.
      * Any future g_module_close() calls on the module will be ignored.
      */
-    public fun makeResident(): Unit = g_module_make_resident(gPointer.reinterpret())
+    public fun makeResident(): Unit = g_module_make_resident(gPointer)
 
     /**
      * Returns the filename that the module was opened with.
@@ -62,7 +61,7 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
      *
      * @return the filename of the module
      */
-    public fun name(): String = g_module_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun name(): String = g_module_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -110,7 +109,7 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
          */
         public fun `open`(fileName: String? = null, flags: ModuleFlags): Module =
             g_module_open(fileName, flags.mask)!!.run {
-                Module(reinterpret())
+                Module(this)
             }
 
         /**
@@ -149,7 +148,7 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
         public fun openFull(fileName: String? = null, flags: ModuleFlags): Result<Module> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_module_open_full(fileName, flags.mask, gError.ptr)?.run {
-                Module(reinterpret())
+                Module(this)
             }
 
             return if (gError.pointed != null) {

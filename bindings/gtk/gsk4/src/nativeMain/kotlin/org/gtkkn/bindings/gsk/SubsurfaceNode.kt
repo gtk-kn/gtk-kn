@@ -42,7 +42,7 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
     public constructor(
         child: RenderNode,
         subsurface: gpointer? = null,
-    ) : this(gsk_subsurface_node_new(child.gPointer.reinterpret(), subsurface)!!.reinterpret())
+    ) : this(gsk_subsurface_node_new(child.gPointer, subsurface)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -53,7 +53,7 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
     @GskVersion4_14
     public open fun getChild(): RenderNode =
         gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
-            RenderNode(reinterpret())
+            RenderNode(this)
         }
 
     public companion object : TypeCompanion<SubsurfaceNode> {

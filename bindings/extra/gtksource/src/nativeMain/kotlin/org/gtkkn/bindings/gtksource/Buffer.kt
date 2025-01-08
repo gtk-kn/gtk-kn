@@ -25,6 +25,7 @@ import org.gtkkn.extensions.gobject.TypeCompanion
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkTextIter
 import org.gtkkn.native.gtk.GtkTextMark
 import org.gtkkn.native.gtksource.GtkSourceBracketMatchType
@@ -150,7 +151,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          * @return true if the source buffer will highlight matching
          * brackets.
          */
-        get() = gtk_source_buffer_get_highlight_matching_brackets(gtksourceBufferPointer.reinterpret()).asBoolean()
+        get() = gtk_source_buffer_get_highlight_matching_brackets(gtksourceBufferPointer).asBoolean()
 
         /**
          * Controls the bracket match highlighting function in the buffer.
@@ -163,10 +164,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          */
         set(
             highlight
-        ) = gtk_source_buffer_set_highlight_matching_brackets(
-            gtksourceBufferPointer.reinterpret(),
-            highlight.asGBoolean()
-        )
+        ) = gtk_source_buffer_set_highlight_matching_brackets(gtksourceBufferPointer, highlight.asGBoolean())
 
     /**
      * Whether to highlight syntax in the buffer.
@@ -178,7 +176,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          *
          * @return true if syntax highlighting is enabled, false otherwise.
          */
-        get() = gtk_source_buffer_get_highlight_syntax(gtksourceBufferPointer.reinterpret()).asBoolean()
+        get() = gtk_source_buffer_get_highlight_syntax(gtksourceBufferPointer).asBoolean()
 
         /**
          * Controls whether syntax is highlighted in the buffer.
@@ -192,9 +190,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          *
          * @param highlight true to enable syntax highlighting, false to disable it.
          */
-        set(
-            highlight
-        ) = gtk_source_buffer_set_highlight_syntax(gtksourceBufferPointer.reinterpret(), highlight.asGBoolean())
+        set(highlight) = gtk_source_buffer_set_highlight_syntax(gtksourceBufferPointer, highlight.asGBoolean())
 
     /**
      * Whether the buffer has an implicit trailing newline. See
@@ -206,7 +202,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          *
          * @return whether the @buffer has an implicit trailing newline.
          */
-        get() = gtk_source_buffer_get_implicit_trailing_newline(gtksourceBufferPointer.reinterpret()).asBoolean()
+        get() = gtk_source_buffer_get_implicit_trailing_newline(gtksourceBufferPointer).asBoolean()
 
         /**
          * Sets whether the @buffer has an implicit trailing newline.
@@ -230,7 +226,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
         set(
             implicitTrailingNewline
         ) = gtk_source_buffer_set_implicit_trailing_newline(
-            gtksourceBufferPointer.reinterpret(),
+            gtksourceBufferPointer,
             implicitTrailingNewline.asGBoolean()
         )
 
@@ -244,8 +240,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          * @return the [class@Language] associated
          * with the buffer, or null.
          */
-        get() = gtk_source_buffer_get_language(gtksourceBufferPointer.reinterpret())?.run {
-            Language(reinterpret())
+        get() = gtk_source_buffer_get_language(gtksourceBufferPointer)?.run {
+            Language(this)
         }
 
         /**
@@ -259,12 +255,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          *
          * @param language a #GtkSourceLanguage to set, or null.
          */
-        set(
-            language
-        ) = gtk_source_buffer_set_language(
-            gtksourceBufferPointer.reinterpret(),
-            language?.gtksourceLanguagePointer?.reinterpret()
-        )
+        set(language) = gtk_source_buffer_set_language(gtksourceBufferPointer, language?.gtksourceLanguagePointer)
 
     /**
      * The "loading" property denotes that a `GtkSourceFileLoader` is
@@ -277,7 +268,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      */
     @GtkSourceVersion5_10
     public open val loading: Boolean
-        get() = gtk_source_buffer_get_loading(gtksourceBufferPointer.reinterpret()).asBoolean()
+        get() = gtk_source_buffer_get_loading(gtksourceBufferPointer).asBoolean()
 
     /**
      * Style scheme. It contains styles for syntax highlighting, optionally
@@ -294,8 +285,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          * @return the [class@StyleScheme]
          * associated with the buffer, or null.
          */
-        get() = gtk_source_buffer_get_style_scheme(gtksourceBufferPointer.reinterpret())?.run {
-            StyleScheme(reinterpret())
+        get() = gtk_source_buffer_get_style_scheme(gtksourceBufferPointer)?.run {
+            StyleScheme(this)
         }
 
         /**
@@ -315,12 +306,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
          *
          * @param scheme a #GtkSourceStyleScheme or null.
          */
-        set(
-            scheme
-        ) = gtk_source_buffer_set_style_scheme(
-            gtksourceBufferPointer.reinterpret(),
-            scheme?.gtksourceStyleSchemePointer?.reinterpret()
-        )
+        set(scheme) = gtk_source_buffer_set_style_scheme(gtksourceBufferPointer, scheme?.gtksourceStyleSchemePointer)
 
     /**
      * Creates a new source buffer.
@@ -330,7 +316,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      */
     public constructor(
         table: TextTagTable? = null,
-    ) : this(gtk_source_buffer_new(table?.gtkTextTagTablePointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_source_buffer_new(table?.gtkTextTagTablePointer)!!.reinterpret())
 
     /**
      * Creates a new source buffer using the highlighting patterns in `language`.
@@ -344,7 +330,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      */
     public constructor(
         language: Language,
-    ) : this(gtk_source_buffer_new_with_language(language.gtksourceLanguagePointer.reinterpret())!!.reinterpret())
+    ) : this(gtk_source_buffer_new_with_language(language.gtksourceLanguagePointer)!!.reinterpret())
 
     /**
      * Changes the case of the text between the specified iterators.
@@ -357,12 +343,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @param end a #GtkTextIter.
      */
     public open fun changeCase(caseType: ChangeCaseType, start: TextIter, end: TextIter): Unit =
-        gtk_source_buffer_change_case(
-            gtksourceBufferPointer.reinterpret(),
-            caseType.nativeValue,
-            start.gPointer.reinterpret(),
-            end.gPointer.reinterpret()
-        )
+        gtk_source_buffer_change_case(gtksourceBufferPointer, caseType.nativeValue, start.gPointer, end.gPointer)
 
     /**
      * Creates a source mark in the `buffer` of category `category`.
@@ -387,13 +368,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @return a new [class@Mark], owned by the buffer.
      */
     public open fun createSourceMark(name: String? = null, category: String, `where`: TextIter): Mark =
-        gtk_source_buffer_create_source_mark(
-            gtksourceBufferPointer.reinterpret(),
-            name,
-            category,
-            `where`.gPointer.reinterpret()
-        )!!.run {
-            Mark(reinterpret())
+        gtk_source_buffer_create_source_mark(gtksourceBufferPointer, name, category, `where`.gPointer)!!.run {
+            Mark(this)
         }
 
     /**
@@ -408,11 +384,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @param start start of the area to highlight.
      * @param end end of the area to highlight.
      */
-    public open fun ensureHighlight(start: TextIter, end: TextIter): Unit = gtk_source_buffer_ensure_highlight(
-        gtksourceBufferPointer.reinterpret(),
-        start.gPointer.reinterpret(),
-        end.gPointer.reinterpret()
-    )
+    public open fun ensureHighlight(start: TextIter, end: TextIter): Unit =
+        gtk_source_buffer_ensure_highlight(gtksourceBufferPointer, start.gPointer, end.gPointer)
 
     /**
      * Get all defined context classes at @iter.
@@ -425,10 +398,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * Use g_strfreev() to free the array if it is no longer needed.
      */
     public open fun getContextClassesAtIter(iter: TextIter): List<String> =
-        gtk_source_buffer_get_context_classes_at_iter(
-            gtksourceBufferPointer.reinterpret(),
-            iter.gPointer.reinterpret()
-        )?.toKStringList()
+        gtk_source_buffer_get_context_classes_at_iter(gtksourceBufferPointer, iter.gPointer)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -441,12 +411,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @return a newly allocated #GSList.
      */
     public open fun getSourceMarksAtIter(iter: TextIter, category: String? = null): SList =
-        gtk_source_buffer_get_source_marks_at_iter(
-            gtksourceBufferPointer.reinterpret(),
-            iter.gPointer.reinterpret(),
-            category
-        )!!.run {
-            SList(reinterpret())
+        gtk_source_buffer_get_source_marks_at_iter(gtksourceBufferPointer, iter.gPointer, category)!!.run {
+            SList(this)
         }
 
     /**
@@ -459,8 +425,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @return a newly allocated #GSList.
      */
     public open fun getSourceMarksAtLine(line: gint, category: String? = null): SList =
-        gtk_source_buffer_get_source_marks_at_line(gtksourceBufferPointer.reinterpret(), line, category)!!.run {
-            SList(reinterpret())
+        gtk_source_buffer_get_source_marks_at_line(gtksourceBufferPointer, line, category)!!.run {
+            SList(this)
         }
 
     /**
@@ -473,11 +439,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @return whether @iter has the context class.
      */
     public open fun iterHasContextClass(iter: TextIter, contextClass: String): Boolean =
-        gtk_source_buffer_iter_has_context_class(
-            gtksourceBufferPointer.reinterpret(),
-            iter.gPointer.reinterpret(),
-            contextClass
-        ).asBoolean()
+        gtk_source_buffer_iter_has_context_class(gtksourceBufferPointer, iter.gPointer, contextClass).asBoolean()
 
     /**
      * Joins the lines of text between the specified iterators.
@@ -485,11 +447,8 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @param start a #GtkTextIter.
      * @param end a #GtkTextIter.
      */
-    public open fun joinLines(start: TextIter, end: TextIter): Unit = gtk_source_buffer_join_lines(
-        gtksourceBufferPointer.reinterpret(),
-        start.gPointer.reinterpret(),
-        end.gPointer.reinterpret()
-    )
+    public open fun joinLines(start: TextIter, end: TextIter): Unit =
+        gtk_source_buffer_join_lines(gtksourceBufferPointer, start.gPointer, end.gPointer)
 
     /**
      * Remove all marks of @category between @start and @end from the buffer.
@@ -501,12 +460,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @param category category to search for, or null.
      */
     public open fun removeSourceMarks(start: TextIter, end: TextIter, category: String? = null): Unit =
-        gtk_source_buffer_remove_source_marks(
-            gtksourceBufferPointer.reinterpret(),
-            start.gPointer.reinterpret(),
-            end.gPointer.reinterpret(),
-            category
-        )
+        gtk_source_buffer_remove_source_marks(gtksourceBufferPointer, start.gPointer, end.gPointer, category)
 
     /**
      * Sort the lines of text between the specified iterators.
@@ -517,13 +471,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      * @param column sort considering the text starting at the given column
      */
     public open fun sortLines(start: TextIter, end: TextIter, flags: SortFlags, column: gint): Unit =
-        gtk_source_buffer_sort_lines(
-            gtksourceBufferPointer.reinterpret(),
-            start.gPointer.reinterpret(),
-            end.gPointer.reinterpret(),
-            flags.mask,
-            column
-        )
+        gtk_source_buffer_sort_lines(gtksourceBufferPointer, start.gPointer, end.gPointer, flags.mask, column)
 
     /**
      * @iter is set to a valid iterator pointing to the matching bracket
@@ -535,75 +483,111 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
      *
      * A use-case for this signal is to show messages in a [class@Gtk.Statusbar].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `iter` if found, the location of the matching bracket.; `state` state of bracket matching.
      */
-    public fun connectBracketMatched(
+    public fun onBracketMatched(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TextIter?, state: BracketMatchType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "bracket-matched",
-        connectBracketMatchedFunc.reinterpret(),
+        onBracketMatchedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "bracket-matched" signal. See [onBracketMatched].
+     *
+     * @param iter if found, the location of the matching bracket.
+     * @param state state of bracket matching.
+     */
+    public fun emitBracketMatched(iter: TextIter?, state: BracketMatchType) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "bracket-matched", iter?.gPointer, state.nativeValue)
+    }
+
+    /**
      * The "cursor-moved" signal is emitted when then insertion mark has moved.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectCursorMoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onCursorMoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "cursor-moved",
-            connectCursorMovedFunc.reinterpret(),
+            onCursorMovedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "cursor-moved" signal. See [onCursorMoved].
+     */
+    public fun emitCursorMoved() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "cursor-moved")
+    }
+
+    /**
      * The ::highlight-updated signal is emitted when the syntax
      * highlighting and [context classes](./class.Buffer.html#context-classes) are updated in a
      * certain region of the @buffer.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `start` the start of the updated region; `end` the end of the updated region
      */
-    public fun connectHighlightUpdated(
+    public fun onHighlightUpdated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (start: TextIter, end: TextIter) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "highlight-updated",
-        connectHighlightUpdatedFunc.reinterpret(),
+        onHighlightUpdatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
+     * Emits the "highlight-updated" signal. See [onHighlightUpdated].
+     *
+     * @param start the start of the updated region
+     * @param end the end of the updated region
+     */
+    public fun emitHighlightUpdated(start: TextIter, end: TextIter) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "highlight-updated", start.gPointer, end.gPointer)
+    }
+
+    /**
      * The ::source-mark-updated signal is emitted each time
      * a mark is added to, moved or removed from the @buffer.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `mark` the [class@Mark]
      */
-    public fun connectSourceMarkUpdated(
+    public fun onSourceMarkUpdated(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mark: TextMark) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
+        gPointer,
         "source-mark-updated",
-        connectSourceMarkUpdatedFunc.reinterpret(),
+        onSourceMarkUpdatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
+
+    /**
+     * Emits the "source-mark-updated" signal. See [onSourceMarkUpdated].
+     *
+     * @param mark the [class@Mark]
+     */
+    public fun emitSourceMarkUpdated(mark: TextMark) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "source-mark-updated", mark.gtkTextMarkPointer)
+    }
 
     public companion object : TypeCompanion<Buffer> {
         override val type: GeneratedClassKGType<Buffer> =
@@ -622,7 +606,7 @@ public open class Buffer(pointer: CPointer<GtkSourceBuffer>) :
     }
 }
 
-private val connectBracketMatchedFunc:
+private val onBracketMatchedFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>?, GtkSourceBracketMatchType) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -632,7 +616,7 @@ private val connectBracketMatchedFunc:
         ->
         userData.asStableRef<(iter: TextIter?, state: BracketMatchType) -> Unit>().get().invoke(
             iter?.run {
-                TextIter(reinterpret())
+                TextIter(this)
             },
             state.run {
                 BracketMatchType.fromNativeValue(this)
@@ -641,7 +625,7 @@ private val connectBracketMatchedFunc:
     }
         .reinterpret()
 
-private val connectCursorMovedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onCursorMovedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -649,7 +633,7 @@ private val connectCursorMovedFunc: CPointer<CFunction<() -> Unit>> = staticCFun
 }
     .reinterpret()
 
-private val connectHighlightUpdatedFunc:
+private val onHighlightUpdatedFunc:
     CPointer<CFunction<(CPointer<GtkTextIter>, CPointer<GtkTextIter>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
@@ -659,16 +643,16 @@ private val connectHighlightUpdatedFunc:
         ->
         userData.asStableRef<(start: TextIter, end: TextIter) -> Unit>().get().invoke(
             start!!.run {
-                TextIter(reinterpret())
+                TextIter(this)
             },
             end!!.run {
-                TextIter(reinterpret())
+                TextIter(this)
             }
         )
     }
         .reinterpret()
 
-private val connectSourceMarkUpdatedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) -> Unit>> =
+private val onSourceMarkUpdatedFunc: CPointer<CFunction<(CPointer<GtkTextMark>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             mark: CPointer<GtkTextMark>?,
@@ -676,7 +660,7 @@ private val connectSourceMarkUpdatedFunc: CPointer<CFunction<(CPointer<GtkTextMa
         ->
         userData.asStableRef<(mark: TextMark) -> Unit>().get().invoke(
             mark!!.run {
-                TextMark(reinterpret())
+                TextMark(this)
             }
         )
     }

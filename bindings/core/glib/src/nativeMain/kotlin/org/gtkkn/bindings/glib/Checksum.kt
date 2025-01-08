@@ -59,8 +59,8 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun copy(): Checksum = g_checksum_copy(gPointer.reinterpret())!!.run {
-        Checksum(reinterpret())
+    public fun copy(): Checksum = g_checksum_copy(gPointer)!!.run {
+        Checksum(this)
     }
 
     /**
@@ -69,7 +69,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun free(): Unit = g_checksum_free(gPointer.reinterpret())
+    public fun free(): Unit = g_checksum_free(gPointer)
 
     /**
      * Gets the digest as a hexadecimal string.
@@ -85,8 +85,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getString(): String =
-        g_checksum_get_string(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getString(): String = g_checksum_get_string(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Resets the state of the @checksum back to its initial state.
@@ -94,7 +93,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun reset(): Unit = g_checksum_reset(gPointer.reinterpret())
+    public fun reset(): Unit = g_checksum_reset(gPointer)
 
     public companion object {
         /**

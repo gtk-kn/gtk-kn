@@ -40,7 +40,7 @@ public open class ConverterOutputStream(pointer: CPointer<GConverterOutputStream
          * @return the converter of the converter output stream
          * @since 2.24
          */
-        get() = g_converter_output_stream_get_converter(gioConverterOutputStreamPointer.reinterpret())!!.run {
+        get() = g_converter_output_stream_get_converter(gioConverterOutputStreamPointer)!!.run {
             Converter.wrap(reinterpret())
         }
 
@@ -55,10 +55,7 @@ public open class ConverterOutputStream(pointer: CPointer<GConverterOutputStream
         baseStream: OutputStream,
         converter: Converter,
     ) : this(
-        g_converter_output_stream_new(
-            baseStream.gioOutputStreamPointer.reinterpret(),
-            converter.gioConverterPointer
-        )!!.reinterpret()
+        g_converter_output_stream_new(baseStream.gioOutputStreamPointer, converter.gioConverterPointer)!!.reinterpret()
     )
 
     public companion object : TypeCompanion<ConverterOutputStream> {

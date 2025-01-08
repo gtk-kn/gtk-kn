@@ -44,7 +44,7 @@ public val ModuleCheckInitFunc: CPointer<CFunction<(CPointer<GModule>) -> CPoint
         ->
         userData.asStableRef<(module: Module) -> String>().get().invoke(
             module!!.run {
-                Module(reinterpret())
+                Module(this)
             }
         ).let { g_strdup(it) }
     }
@@ -56,7 +56,7 @@ public val ModuleUnloadFunc: CPointer<CFunction<(CPointer<GModule>) -> Unit>> = 
     ->
     userData.asStableRef<(module: Module) -> Unit>().get().invoke(
         module!!.run {
-            Module(reinterpret())
+            Module(this)
         }
     )
 }

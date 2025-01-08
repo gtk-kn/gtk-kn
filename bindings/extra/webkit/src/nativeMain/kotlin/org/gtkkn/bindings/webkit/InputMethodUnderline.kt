@@ -31,8 +31,8 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun copy(): InputMethodUnderline = webkit_input_method_underline_copy(gPointer.reinterpret())!!.run {
-        InputMethodUnderline(reinterpret())
+    public fun copy(): InputMethodUnderline = webkit_input_method_underline_copy(gPointer)!!.run {
+        InputMethodUnderline(this)
     }
 
     /**
@@ -41,7 +41,7 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun free(): Unit = webkit_input_method_underline_free(gPointer.reinterpret())
+    public fun free(): Unit = webkit_input_method_underline_free(gPointer)
 
     /**
      * Set the color of the underline.
@@ -53,8 +53,7 @@ public class InputMethodUnderline(pointer: CPointer<WebKitInputMethodUnderline>)
      * @since 2.28
      */
     @WebKitVersion2_28
-    public fun setColor(rgba: Rgba? = null): Unit =
-        webkit_input_method_underline_set_color(gPointer.reinterpret(), rgba?.gPointer?.reinterpret())
+    public fun setColor(rgba: Rgba? = null): Unit = webkit_input_method_underline_set_color(gPointer, rgba?.gPointer)
 
     public companion object {
         /**

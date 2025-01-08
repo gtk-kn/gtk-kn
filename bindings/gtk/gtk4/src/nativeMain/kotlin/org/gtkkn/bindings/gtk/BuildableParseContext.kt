@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.gpointer
@@ -33,7 +32,7 @@ public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) 
      *
      * @return the name of the currently open element
      */
-    public fun getElement(): String? = gtk_buildable_parse_context_get_element(gPointer.reinterpret())?.toKString()
+    public fun getElement(): String? = gtk_buildable_parse_context_get_element(gPointer)?.toKString()
 
     /**
      * Completes the process of a temporary sub-parser redirection.
@@ -52,7 +51,7 @@ public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) 
      *
      * @return the user data passed to gtk_buildable_parse_context_push()
      */
-    public fun pop(): gpointer? = gtk_buildable_parse_context_pop(gPointer.reinterpret())
+    public fun pop(): gpointer? = gtk_buildable_parse_context_pop(gPointer)
 
     /**
      * Temporarily redirects markup data to a sub-parser.
@@ -89,5 +88,5 @@ public class BuildableParseContext(pointer: CPointer<GtkBuildableParseContext>) 
      * @param userData user data to pass to `GtkBuildableParser` functions
      */
     public fun push(parser: BuildableParser, userData: gpointer? = null): Unit =
-        gtk_buildable_parse_context_push(gPointer.reinterpret(), parser.gPointer.reinterpret(), userData)
+        gtk_buildable_parse_context_push(gPointer, parser.gPointer, userData)
 }

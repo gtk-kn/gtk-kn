@@ -27,6 +27,7 @@ import org.gtkkn.native.gdk.gdk_seat_get_tools
 import org.gtkkn.native.gdk.gdk_seat_get_type
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.ULong
 import kotlin.Unit
 
@@ -50,8 +51,8 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
          * @return a `GdkDisplay`. This object
          *   is owned by GTK and must not be freed.
          */
-        get() = gdk_seat_get_display(gdkSeatPointer.reinterpret())!!.run {
-            Display(reinterpret())
+        get() = gdk_seat_get_display(gdkSeatPointer)!!.run {
+            Display(this)
         }
 
     /**
@@ -59,7 +60,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      *
      * @return the seat capabilities
      */
-    public open fun getCapabilities(): SeatCapabilities = gdk_seat_get_capabilities(gdkSeatPointer.reinterpret()).run {
+    public open fun getCapabilities(): SeatCapabilities = gdk_seat_get_capabilities(gdkSeatPointer).run {
         SeatCapabilities(this)
     }
 
@@ -72,8 +73,8 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      *   the elements are owned by GTK and must not be freed.
      */
     public open fun getDevices(capabilities: SeatCapabilities): List =
-        gdk_seat_get_devices(gdkSeatPointer.reinterpret(), capabilities.mask)!!.run {
-            List(reinterpret())
+        gdk_seat_get_devices(gdkSeatPointer, capabilities.mask)!!.run {
+            List(this)
         }
 
     /**
@@ -82,8 +83,8 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      * @return a `GdkDevice` with keyboard
      *   capabilities. This object is owned by GTK and must not be freed.
      */
-    public open fun getKeyboard(): Device? = gdk_seat_get_keyboard(gdkSeatPointer.reinterpret())?.run {
-        Device(reinterpret())
+    public open fun getKeyboard(): Device? = gdk_seat_get_keyboard(gdkSeatPointer)?.run {
+        Device(this)
     }
 
     /**
@@ -92,8 +93,8 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      * @return a `GdkDevice` with pointer
      *   capabilities. This object is owned by GTK and must not be freed.
      */
-    public open fun getPointer(): Device? = gdk_seat_get_pointer(gdkSeatPointer.reinterpret())?.run {
-        Device(reinterpret())
+    public open fun getPointer(): Device? = gdk_seat_get_pointer(gdkSeatPointer)?.run {
+        Device(this)
     }
 
     /**
@@ -101,45 +102,61 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      *
      * @return A list of tools. Free with g_list_free().
      */
-    public open fun getTools(): List = gdk_seat_get_tools(gdkSeatPointer.reinterpret())!!.run {
-        List(reinterpret())
+    public open fun getTools(): List = gdk_seat_get_tools(gdkSeatPointer)!!.run {
+        List(this)
     }
 
     /**
      * Emitted when a new input device is related to this seat.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `device` the newly added `GdkDevice`.
      */
-    public fun connectDeviceAdded(
+    public fun onDeviceAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (device: Device) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "device-added",
+            onDeviceAddedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "device-added" signal. See [onDeviceAdded].
+     *
+     * @param device the newly added `GdkDevice`.
+     */
+    public fun emitDeviceAdded(device: Device) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "device-added", device.gdkDevicePointer)
+    }
+
+    /**
+     * Emitted when an input device is removed (e.g. unplugged).
+     *
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `device` the just removed `GdkDevice`.
+     */
+    public fun onDeviceRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (device: Device) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "device-added",
-        connectDeviceAddedFunc.reinterpret(),
+        gPointer,
+        "device-removed",
+        onDeviceRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
-     * Emitted when an input device is removed (e.g. unplugged).
+     * Emits the "device-removed" signal. See [onDeviceRemoved].
      *
-     * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `device` the just removed `GdkDevice`.
+     * @param device the just removed `GdkDevice`.
      */
-    public fun connectDeviceRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (device: Device) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "device-removed",
-        connectDeviceRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun emitDeviceRemoved(device: Device) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "device-removed", device.gdkDevicePointer)
+    }
 
     /**
      * Emitted whenever a new tool is made known to the seat.
@@ -150,38 +167,54 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      *
      * A same tool may be used by several devices.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `tool` the new `GdkDeviceTool` known to the seat
      */
-    public fun connectToolAdded(
+    public fun onToolAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tool: DeviceTool) -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer,
+            "tool-added",
+            onToolAddedFunc.reinterpret(),
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy.reinterpret(),
+            connectFlags.mask
+        )
+
+    /**
+     * Emits the "tool-added" signal. See [onToolAdded].
+     *
+     * @param tool the new `GdkDeviceTool` known to the seat
+     */
+    public fun emitToolAdded(tool: DeviceTool) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "tool-added", tool.gdkDeviceToolPointer)
+    }
+
+    /**
+     * Emitted whenever a tool is no longer known to this @seat.
+     *
+     * @param connectFlags a combination of [ConnectFlags]
+     * @param handler the Callback to connect. Params: `tool` the just removed `GdkDeviceTool`
+     */
+    public fun onToolRemoved(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tool: DeviceTool) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "tool-added",
-        connectToolAddedFunc.reinterpret(),
+        gPointer,
+        "tool-removed",
+        onToolRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
     )
 
     /**
-     * Emitted whenever a tool is no longer known to this @seat.
+     * Emits the "tool-removed" signal. See [onToolRemoved].
      *
-     * @param connectFlags A combination of [ConnectFlags]
-     * @param handler the Callback to connect. Params: `tool` the just removed `GdkDeviceTool`
+     * @param tool the just removed `GdkDeviceTool`
      */
-    public fun connectToolRemoved(
-        connectFlags: ConnectFlags = ConnectFlags(0u),
-        handler: (tool: DeviceTool) -> Unit,
-    ): ULong = g_signal_connect_data(
-        gPointer.reinterpret(),
-        "tool-removed",
-        connectToolRemovedFunc.reinterpret(),
-        StableRef.create(handler).asCPointer(),
-        staticStableRefDestroy.reinterpret(),
-        connectFlags.mask
-    )
+    public fun emitToolRemoved(tool: DeviceTool) {
+        g_signal_emit_by_name(gPointer.reinterpret(), "tool-removed", tool.gdkDeviceToolPointer)
+    }
 
     public companion object : TypeCompanion<Seat> {
         override val type: GeneratedClassKGType<Seat> =
@@ -200,7 +233,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
     }
 }
 
-private val connectDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>> =
+private val onDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             device: CPointer<GdkDevice>?,
@@ -208,13 +241,13 @@ private val connectDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> 
         ->
         userData.asStableRef<(device: Device) -> Unit>().get().invoke(
             device!!.run {
-                Device(reinterpret())
+                Device(this)
             }
         )
     }
         .reinterpret()
 
-private val connectDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>> =
+private val onDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             device: CPointer<GdkDevice>?,
@@ -222,13 +255,13 @@ private val connectDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -
         ->
         userData.asStableRef<(device: Device) -> Unit>().get().invoke(
             device!!.run {
-                Device(reinterpret())
+                Device(this)
             }
         )
     }
         .reinterpret()
 
-private val connectToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
+private val onToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             tool: CPointer<GdkDeviceTool>?,
@@ -236,13 +269,13 @@ private val connectToolAddedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -
         ->
         userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(
             tool!!.run {
-                DeviceTool(reinterpret())
+                DeviceTool(this)
             }
         )
     }
         .reinterpret()
 
-private val connectToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
+private val onToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>) -> Unit>> =
     staticCFunction {
             _: COpaquePointer,
             tool: CPointer<GdkDeviceTool>?,
@@ -250,7 +283,7 @@ private val connectToolRemovedFunc: CPointer<CFunction<(CPointer<GdkDeviceTool>)
         ->
         userData.asStableRef<(tool: DeviceTool) -> Unit>().get().invoke(
             tool!!.run {
-                DeviceTool(reinterpret())
+                DeviceTool(this)
             }
         )
     }

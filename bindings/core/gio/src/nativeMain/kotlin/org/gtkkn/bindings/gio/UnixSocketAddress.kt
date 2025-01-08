@@ -73,7 +73,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
          * @return a #GUnixSocketAddressType
          * @since 2.26
          */
-        get() = g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer.reinterpret()).run {
+        get() = g_unix_socket_address_get_address_type(gioUnixSocketAddressPointer).run {
             UnixSocketAddressType.fromNativeValue(this)
         }
 
@@ -95,7 +95,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
          * @return the path for @address
          * @since 2.22
          */
-        get() = g_unix_socket_address_get_path(gioUnixSocketAddressPointer.reinterpret())?.toKString()
+        get() = g_unix_socket_address_get_path(gioUnixSocketAddressPointer)?.toKString()
             ?: error("Expected not null string")
 
     /**
@@ -118,7 +118,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
      */
     @GioVersion2_22
     public open fun getIsAbstract(): Boolean =
-        g_unix_socket_address_get_is_abstract(gioUnixSocketAddressPointer.reinterpret()).asBoolean()
+        g_unix_socket_address_get_is_abstract(gioUnixSocketAddressPointer).asBoolean()
 
     /**
      * Gets the length of @address's path.
@@ -129,7 +129,7 @@ public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
      * @since 2.22
      */
     @GioVersion2_22
-    public open fun getPathLen(): gsize = g_unix_socket_address_get_path_len(gioUnixSocketAddressPointer.reinterpret())
+    public open fun getPathLen(): gsize = g_unix_socket_address_get_path_len(gioUnixSocketAddressPointer)
 
     public companion object : TypeCompanion<UnixSocketAddress> {
         override val type: GeneratedClassKGType<UnixSocketAddress> =

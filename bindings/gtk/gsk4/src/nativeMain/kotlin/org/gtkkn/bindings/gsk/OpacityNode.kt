@@ -34,7 +34,7 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
     public constructor(
         child: RenderNode,
         opacity: gfloat,
-    ) : this(gsk_opacity_node_new(child.gPointer.reinterpret(), opacity)!!.reinterpret())
+    ) : this(gsk_opacity_node_new(child.gPointer, opacity)!!.reinterpret())
 
     /**
      * Gets the child node that is getting opacityed by the given @node.
@@ -42,7 +42,7 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
      * @return The child that is getting opacityed
      */
     public open fun getChild(): RenderNode = gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
-        RenderNode(reinterpret())
+        RenderNode(this)
     }
 
     /**

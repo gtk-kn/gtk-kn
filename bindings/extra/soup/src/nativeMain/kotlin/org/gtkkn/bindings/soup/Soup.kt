@@ -12,7 +12,6 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
-import org.gtkkn.bindings.glib.Data
 import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.HashTable
@@ -30,8 +29,6 @@ import org.gtkkn.native.glib.gint
 import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.soup.SoupAuthDomain
-import org.gtkkn.native.soup.SoupAuthDomainBasic
-import org.gtkkn.native.soup.SoupAuthDomainDigest
 import org.gtkkn.native.soup.SoupLogger
 import org.gtkkn.native.soup.SoupLoggerLogLevel
 import org.gtkkn.native.soup.SoupMessage
@@ -48,7 +45,6 @@ import org.gtkkn.native.soup.soup_cookies_to_response
 import org.gtkkn.native.soup.soup_date_time_new_from_http_string
 import org.gtkkn.native.soup.soup_date_time_to_string
 import org.gtkkn.native.soup.soup_form_decode
-import org.gtkkn.native.soup.soup_form_encode_datalist
 import org.gtkkn.native.soup.soup_form_encode_hash
 import org.gtkkn.native.soup.soup_get_major_version
 import org.gtkkn.native.soup.soup_get_micro_version
@@ -79,6 +75,7 @@ import org.gtkkn.bindings.glib.String as GlibString
  *
  * - parameter `filename`: filename: Out parameter is not supported
  * - function `form_encode`: Varargs parameter is not supported
+ * - parameter `form_data_set`: Unsupported pointer-to-pointer cType GData**
  * - parameter `args`: va_list type is not supported
  * - parameter `unacceptable`: unacceptable: Out parameter is not supported
  * - parameter `req_method`: req_method: Out parameter is not supported
@@ -227,7 +224,7 @@ public object Soup {
      *
      * @param cookies a #GSList of #SoupCookie
      */
-    public fun cookiesFree(cookies: SList): Unit = soup_cookies_free(cookies.gPointer.reinterpret())
+    public fun cookiesFree(cookies: SList): Unit = soup_cookies_free(cookies.gPointer)
 
     /**
      * Parses @msg's Cookie request header and returns a [struct@GLib.SList] of
@@ -242,10 +239,9 @@ public object Soup {
      * @return a #GSList of
      *   `SoupCookie`s, which can be freed with [method@Cookie.free].
      */
-    public fun cookiesFromRequest(msg: Message): SList =
-        soup_cookies_from_request(msg.soupMessagePointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public fun cookiesFromRequest(msg: Message): SList = soup_cookies_from_request(msg.soupMessagePointer)!!.run {
+        SList(this)
+    }
 
     /**
      * Parses @msg's Set-Cookie response headers and returns a [struct@GLib.SList]
@@ -258,10 +254,9 @@ public object Soup {
      * @return a #GSList of
      *   `SoupCookie`s, which can be freed with [method@Cookie.free].
      */
-    public fun cookiesFromResponse(msg: Message): SList =
-        soup_cookies_from_response(msg.soupMessagePointer.reinterpret())!!.run {
-            SList(reinterpret())
-        }
+    public fun cookiesFromResponse(msg: Message): SList = soup_cookies_from_response(msg.soupMessagePointer)!!.run {
+        SList(this)
+    }
 
     /**
      * Serializes a [struct@GLib.SList] of #SoupCookie into a string suitable for
@@ -271,7 +266,7 @@ public object Soup {
      * @return the serialization of @cookies
      */
     public fun cookiesToCookieHeader(cookies: SList): KotlinString =
-        soup_cookies_to_cookie_header(cookies.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        soup_cookies_to_cookie_header(cookies.gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds the name and value of each cookie in @cookies to @msg's
@@ -285,7 +280,7 @@ public object Soup {
      * @param msg a #SoupMessage
      */
     public fun cookiesToRequest(cookies: SList, msg: Message): Unit =
-        soup_cookies_to_request(cookies.gPointer.reinterpret(), msg.soupMessagePointer.reinterpret())
+        soup_cookies_to_request(cookies.gPointer, msg.soupMessagePointer)
 
     /**
      * Appends a "Set-Cookie" response header to @msg for each cookie in
@@ -298,7 +293,7 @@ public object Soup {
      * @param msg a #SoupMessage
      */
     public fun cookiesToResponse(cookies: SList, msg: Message): Unit =
-        soup_cookies_to_response(cookies.gPointer.reinterpret(), msg.soupMessagePointer.reinterpret())
+        soup_cookies_to_response(cookies.gPointer, msg.soupMessagePointer)
 
     /**
      * Parses @date_string and tries to extract a date from it.
@@ -313,7 +308,7 @@ public object Soup {
      */
     public fun dateTimeNewFromHttpString(dateString: KotlinString): DateTime? =
         soup_date_time_new_from_http_string(dateString)?.run {
-            DateTime(reinterpret())
+            DateTime(this)
         }
 
     /**
@@ -324,8 +319,7 @@ public object Soup {
      * @return @date as a string or null
      */
     public fun dateTimeToString(date: DateTime, format: DateFormat): KotlinString =
-        soup_date_time_to_string(date.gPointer.reinterpret(), format.nativeValue)?.toKString()
-            ?: error("Expected not null string")
+        soup_date_time_to_string(date.gPointer, format.nativeValue)?.toKString() ?: error("Expected not null string")
 
     /**
      * Decodes @form.
@@ -338,24 +332,8 @@ public object Soup {
      *   can free with [func@GLib.HashTable.destroy].
      */
     public fun formDecode(encodedForm: KotlinString): HashTable = soup_form_decode(encodedForm)!!.run {
-        HashTable(reinterpret())
+        HashTable(this)
     }
-
-    /**
-     * Encodes @form_data_set into a value of type
-     * "application/x-www-form-urlencoded".
-     *
-     * Encodes as defined in the HTML 4.01 spec. Unlike [func@form_encode_hash],
-     * this preserves the ordering of the form elements, which may be required in
-     * some situations.
-     *
-     * See also: [ctor@Message.new_from_encoded_form].
-     *
-     * @param formDataSet a datalist containing name/value pairs
-     * @return the encoded form
-     */
-    public fun formEncodeDatalist(formDataSet: Data): KotlinString =
-        soup_form_encode_datalist(formDataSet.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
 
     /**
      * Encodes @form_data_set into a value of type
@@ -375,7 +353,7 @@ public object Soup {
      * @return the encoded form
      */
     public fun formEncodeHash(formDataSet: HashTable): KotlinString =
-        soup_form_encode_hash(formDataSet.gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        soup_form_encode_hash(formDataSet.gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the major version number of the libsoup library.
@@ -439,7 +417,7 @@ public object Soup {
      * @param list a #GSList returned from [func@header_parse_list] or
      * [func@header_parse_quality_list]
      */
-    public fun headerFreeList(list: SList): Unit = soup_header_free_list(list.gPointer.reinterpret())
+    public fun headerFreeList(list: SList): Unit = soup_header_free_list(list.gPointer)
 
     /**
      * Frees @param_list.
@@ -447,8 +425,7 @@ public object Soup {
      * @param paramList a #GHashTable returned from
      *   [func@header_parse_param_list] or [func@header_parse_semi_param_list]
      */
-    public fun headerFreeParamList(paramList: HashTable): Unit =
-        soup_header_free_param_list(paramList.gPointer.reinterpret())
+    public fun headerFreeParamList(paramList: HashTable): Unit = soup_header_free_param_list(paramList.gPointer)
 
     /**
      * Appends something like `name=value` to @string, taking care to quote @value
@@ -467,7 +444,7 @@ public object Soup {
      * @param value a parameter value, or null
      */
     public fun headerGStringAppendParam(string: GlibString, name: KotlinString, `value`: KotlinString? = null): Unit =
-        soup_header_g_string_append_param(string.gPointer.reinterpret(), name, `value`)
+        soup_header_g_string_append_param(string.gPointer, name, `value`)
 
     /**
      * Appends something like `name="value"` to
@@ -481,7 +458,7 @@ public object Soup {
      * @param value a parameter value
      */
     public fun headerGStringAppendParamQuoted(string: GlibString, name: KotlinString, `value`: KotlinString): Unit =
-        soup_header_g_string_append_param_quoted(string.gPointer.reinterpret(), name, `value`)
+        soup_header_g_string_append_param_quoted(string.gPointer, name, `value`)
 
     /**
      * Parses a header whose content is described by RFC2616 as `#something`.
@@ -493,7 +470,7 @@ public object Soup {
      *   list elements, as allocated strings
      */
     public fun headerParseList(`header`: KotlinString): SList = soup_header_parse_list(`header`)!!.run {
-        SList(reinterpret())
+        SList(this)
     }
 
     /**
@@ -513,7 +490,7 @@ public object Soup {
      *   [func@header_free_param_list].
      */
     public fun headerParseParamList(`header`: KotlinString): HashTable = soup_header_parse_param_list(`header`)!!.run {
-        HashTable(reinterpret())
+        HashTable(this)
     }
 
     /**
@@ -533,7 +510,7 @@ public object Soup {
      */
     public fun headerParseParamListStrict(`header`: KotlinString): HashTable? =
         soup_header_parse_param_list_strict(`header`)?.run {
-            HashTable(reinterpret())
+            HashTable(this)
         }
 
     /**
@@ -554,7 +531,7 @@ public object Soup {
      */
     public fun headerParseSemiParamList(`header`: KotlinString): HashTable =
         soup_header_parse_semi_param_list(`header`)!!.run {
-            HashTable(reinterpret())
+            HashTable(this)
         }
 
     /**
@@ -574,7 +551,7 @@ public object Soup {
      */
     public fun headerParseSemiParamListStrict(`header`: KotlinString): HashTable? =
         soup_header_parse_semi_param_list_strict(`header`)?.run {
-            HashTable(reinterpret())
+            HashTable(this)
         }
 
     /**
@@ -593,7 +570,7 @@ public object Soup {
      * @return success or failure
      */
     public fun headersParse(str: KotlinString, len: gint, dest: MessageHeaders): Boolean =
-        soup_headers_parse(str, len, dest.gPointer.reinterpret()).asBoolean()
+        soup_headers_parse(str, len, dest.gPointer).asBoolean()
 
     /**
      * Looks whether the @domain passed as argument is a public domain
@@ -646,8 +623,7 @@ public object Soup {
      * @param uri2 another #GUri
      * @return true if equal otherwise false
      */
-    public fun uriEqual(uri1: Uri, uri2: Uri): Boolean =
-        soup_uri_equal(uri1.gPointer.reinterpret(), uri2.gPointer.reinterpret()).asBoolean()
+    public fun uriEqual(uri1: Uri, uri2: Uri): Boolean = soup_uri_equal(uri1.gPointer, uri2.gPointer).asBoolean()
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -672,14 +648,14 @@ public object Soup {
 public val AuthDomainBasicAuthCallbackFunc: CPointer<
     CFunction<
         (
-            CPointer<SoupAuthDomainBasic>,
+            CPointer<SoupAuthDomain>,
             CPointer<SoupServerMessage>,
             CPointer<ByteVar>,
             CPointer<ByteVar>,
         ) -> gboolean
         >
     > = staticCFunction {
-        domain: CPointer<SoupAuthDomainBasic>?,
+        domain: CPointer<SoupAuthDomain>?,
         msg: CPointer<SoupServerMessage>?,
         username: CPointer<ByteVar>?,
         password: CPointer<ByteVar>?,
@@ -697,7 +673,7 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<
             AuthDomainBasic(reinterpret())
         },
         msg!!.run {
-            ServerMessage(reinterpret())
+            ServerMessage(this)
         },
         username?.toKString() ?: error("Expected not null string"),
         password?.toKString() ?: error("Expected not null string")
@@ -708,13 +684,13 @@ public val AuthDomainBasicAuthCallbackFunc: CPointer<
 public val AuthDomainDigestAuthCallbackFunc: CPointer<
     CFunction<
         (
-            CPointer<SoupAuthDomainDigest>,
+            CPointer<SoupAuthDomain>,
             CPointer<SoupServerMessage>,
             CPointer<ByteVar>,
         ) -> CPointer<ByteVar>?
         >
     > = staticCFunction {
-        domain: CPointer<SoupAuthDomainDigest>?,
+        domain: CPointer<SoupAuthDomain>?,
         msg: CPointer<SoupServerMessage>?,
         username: CPointer<ByteVar>?,
         userData: gpointer?,
@@ -730,7 +706,7 @@ public val AuthDomainDigestAuthCallbackFunc: CPointer<
             AuthDomainDigest(reinterpret())
         },
         msg!!.run {
-            ServerMessage(reinterpret())
+            ServerMessage(this)
         },
         username?.toKString() ?: error("Expected not null string")
     )?.let { g_strdup(it) }
@@ -746,10 +722,10 @@ public val AuthDomainFilterFunc:
         ->
         userData!!.asStableRef<(domain: AuthDomain, msg: ServerMessage) -> Boolean>().get().invoke(
             domain!!.run {
-                AuthDomain(reinterpret())
+                AuthDomain(this)
             },
             msg!!.run {
-                ServerMessage(reinterpret())
+                ServerMessage(this)
             }
         ).asGBoolean()
     }
@@ -777,10 +753,10 @@ public val AuthDomainGenericAuthCallbackFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         domain!!.run {
-            AuthDomain(reinterpret())
+            AuthDomain(this)
         },
         msg!!.run {
-            ServerMessage(reinterpret())
+            ServerMessage(this)
         },
         username?.toKString() ?: error("Expected not null string")
     ).asGBoolean()
@@ -796,10 +772,10 @@ public val LoggerFilterFunc:
         ->
         userData!!.asStableRef<(logger: Logger, msg: Message) -> LoggerLogLevel>().get().invoke(
             logger!!.run {
-                Logger(reinterpret())
+                Logger(this)
             },
             msg!!.run {
-                Message(reinterpret())
+                Message(this)
             }
         ).nativeValue
     }
@@ -830,7 +806,7 @@ public val LoggerPrinterFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         logger!!.run {
-            Logger(reinterpret())
+            Logger(this)
         },
         level.run {
             LoggerLogLevel.fromNativeValue(this)
@@ -879,14 +855,14 @@ public val ServerCallbackFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         server!!.run {
-            Server(reinterpret())
+            Server(this)
         },
         msg!!.run {
-            ServerMessage(reinterpret())
+            ServerMessage(this)
         },
         path?.toKString() ?: error("Expected not null string"),
         query?.run {
-            HashTable(reinterpret())
+            HashTable(this)
         }
     )
 }
@@ -917,14 +893,14 @@ public val ServerWebsocketCallbackFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         server!!.run {
-            Server(reinterpret())
+            Server(this)
         },
         msg!!.run {
-            ServerMessage(reinterpret())
+            ServerMessage(this)
         },
         path?.toKString() ?: error("Expected not null string"),
         connection!!.run {
-            WebsocketConnection(reinterpret())
+            WebsocketConnection(this)
         }
     )
 }

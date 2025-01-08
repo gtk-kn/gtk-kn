@@ -34,7 +34,7 @@ import org.gtkkn.extensions.gtk.TemplateWidgetType
 
 fun main() {
     val app = Application("org.gtkkn.samples.widgettemplates", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         val window = ApplicationWindow(app)
 
         val exampleWidget = ExampleWidget()

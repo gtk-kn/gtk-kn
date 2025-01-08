@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.gio
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_40
@@ -129,8 +128,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      *
      * @return the ID
      */
-    public fun getId(): String =
-        g_settings_schema_get_id(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+    public fun getId(): String = g_settings_schema_get_id(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the key named @name from @schema.
@@ -143,8 +141,8 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getKey(name: String): SettingsSchemaKey = g_settings_schema_get_key(gPointer.reinterpret(), name)!!.run {
-        SettingsSchemaKey(reinterpret())
+    public fun getKey(name: String): SettingsSchemaKey = g_settings_schema_get_key(gPointer, name)!!.run {
+        SettingsSchemaKey(this)
     }
 
     /**
@@ -162,7 +160,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getPath(): String? = g_settings_schema_get_path(gPointer.reinterpret())?.toKString()
+    public fun getPath(): String? = g_settings_schema_get_path(gPointer)?.toKString()
 
     /**
      * Checks if @schema has a key named @name.
@@ -172,7 +170,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.40
      */
     @GioVersion2_40
-    public fun hasKey(name: String): Boolean = g_settings_schema_has_key(gPointer.reinterpret(), name).asBoolean()
+    public fun hasKey(name: String): Boolean = g_settings_schema_has_key(gPointer, name).asBoolean()
 
     /**
      * Gets the list of children in @schema.
@@ -185,8 +183,8 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.44
      */
     @GioVersion2_44
-    public fun listChildren(): List<String> = g_settings_schema_list_children(gPointer.reinterpret())?.toKStringList()
-        ?: error("Expected not null string array")
+    public fun listChildren(): List<String> =
+        g_settings_schema_list_children(gPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Introspects the list of keys on @schema.
@@ -201,7 +199,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      */
     @GioVersion2_46
     public fun listKeys(): List<String> =
-        g_settings_schema_list_keys(gPointer.reinterpret())?.toKStringList() ?: error("Expected not null string array")
+        g_settings_schema_list_keys(gPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Increase the reference count of @schema, returning a new reference.
@@ -210,8 +208,8 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchema = g_settings_schema_ref(gPointer.reinterpret())!!.run {
-        SettingsSchema(reinterpret())
+    public fun ref(): SettingsSchema = g_settings_schema_ref(gPointer)!!.run {
+        SettingsSchema(this)
     }
 
     /**
@@ -220,7 +218,7 @@ public class SettingsSchema(pointer: CPointer<GSettingsSchema>) : ProxyInstance(
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unref(): Unit = g_settings_schema_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_settings_schema_unref(gPointer)
 
     public companion object {
         /**

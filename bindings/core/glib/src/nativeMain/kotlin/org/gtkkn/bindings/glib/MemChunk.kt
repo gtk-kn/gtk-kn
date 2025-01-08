@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.glib.GMemChunk
 import org.gtkkn.native.glib.g_mem_chunk_alloc
@@ -23,26 +22,26 @@ import kotlin.Unit
 public class MemChunk(pointer: CPointer<GMemChunk>) : ProxyInstance(pointer) {
     public val gPointer: CPointer<GMemChunk> = pointer
 
-    public fun alloc(): gpointer? = g_mem_chunk_alloc(gPointer.reinterpret())
+    public fun alloc(): gpointer? = g_mem_chunk_alloc(gPointer)
 
-    public fun alloc0(): gpointer? = g_mem_chunk_alloc0(gPointer.reinterpret())
+    public fun alloc0(): gpointer? = g_mem_chunk_alloc0(gPointer)
 
-    public fun clean(): Unit = g_mem_chunk_clean(gPointer.reinterpret())
+    public fun clean(): Unit = g_mem_chunk_clean(gPointer)
 
-    public fun destroy(): Unit = g_mem_chunk_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = g_mem_chunk_destroy(gPointer)
 
-    public fun free(mem: gpointer? = null): Unit = g_mem_chunk_free(gPointer.reinterpret(), mem)
+    public fun free(mem: gpointer? = null): Unit = g_mem_chunk_free(gPointer, mem)
 
-    public fun print(): Unit = g_mem_chunk_print(gPointer.reinterpret())
+    public fun print(): Unit = g_mem_chunk_print(gPointer)
 
-    public fun reset(): Unit = g_mem_chunk_reset(gPointer.reinterpret())
+    public fun reset(): Unit = g_mem_chunk_reset(gPointer)
 
     public companion object {
         public fun info(): Unit = g_mem_chunk_info()
 
         public fun new(name: String, atomSize: gint, areaSize: gsize, type: gint): MemChunk =
             g_mem_chunk_new(name, atomSize, areaSize, type)!!.run {
-                MemChunk(reinterpret())
+                MemChunk(this)
             }
     }
 }

@@ -49,8 +49,8 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
          *
          * @return The URI request that is associated with this policy decision.
          */
-        get() = webkit_response_policy_decision_get_request(webkitResponsePolicyDecisionPointer.reinterpret())!!.run {
-            UriRequest(reinterpret())
+        get() = webkit_response_policy_decision_get_request(webkitResponsePolicyDecisionPointer)!!.run {
+            UriRequest(this)
         }
 
     /**
@@ -63,8 +63,8 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
          *
          * @return The URI response that is associated with this policy decision.
          */
-        get() = webkit_response_policy_decision_get_response(webkitResponsePolicyDecisionPointer.reinterpret())!!.run {
-            UriResponse(reinterpret())
+        get() = webkit_response_policy_decision_get_response(webkitResponsePolicyDecisionPointer)!!.run {
+            UriResponse(this)
         }
 
     /**
@@ -74,9 +74,8 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun isMainFrameMainResource(): Boolean = webkit_response_policy_decision_is_main_frame_main_resource(
-        webkitResponsePolicyDecisionPointer.reinterpret()
-    ).asBoolean()
+    public fun isMainFrameMainResource(): Boolean =
+        webkit_response_policy_decision_is_main_frame_main_resource(webkitResponsePolicyDecisionPointer).asBoolean()
 
     /**
      * Gets whether the MIME type of the response can be displayed in the #WebKitWebView.
@@ -88,9 +87,8 @@ public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecisi
      * @since 2.4
      */
     @WebKitVersion2_4
-    public fun isMimeTypeSupported(): Boolean = webkit_response_policy_decision_is_mime_type_supported(
-        webkitResponsePolicyDecisionPointer.reinterpret()
-    ).asBoolean()
+    public fun isMimeTypeSupported(): Boolean =
+        webkit_response_policy_decision_is_mime_type_supported(webkitResponsePolicyDecisionPointer).asBoolean()
 
     public companion object : TypeCompanion<ResponsePolicyDecision> {
         override val type: GeneratedClassKGType<ResponsePolicyDecision> =

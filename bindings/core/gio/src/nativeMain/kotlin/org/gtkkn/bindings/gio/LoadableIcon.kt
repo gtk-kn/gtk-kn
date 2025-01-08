@@ -46,9 +46,9 @@ public interface LoadableIcon :
      */
     public fun loadAsync(size: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_loadable_icon_load_async(
-            gioLoadableIconPointer.reinterpret(),
+            gioLoadableIconPointer,
             size,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },

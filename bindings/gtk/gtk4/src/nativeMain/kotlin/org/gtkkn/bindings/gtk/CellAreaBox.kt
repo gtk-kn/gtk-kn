@@ -68,14 +68,14 @@ public open class CellAreaBox(pointer: CPointer<GtkCellAreaBox>) :
          *
          * @return the space added between cell renderers in @box.
          */
-        get() = gtk_cell_area_box_get_spacing(gtkCellAreaBoxPointer.reinterpret())
+        get() = gtk_cell_area_box_get_spacing(gtkCellAreaBoxPointer)
 
         /**
          * Sets the spacing to add between cell renderers in @box.
          *
          * @param spacing the space to add between `GtkCellRenderer`s
          */
-        set(spacing) = gtk_cell_area_box_set_spacing(gtkCellAreaBoxPointer.reinterpret(), spacing)
+        set(spacing) = gtk_cell_area_box_set_spacing(gtkCellAreaBoxPointer, spacing)
 
     /**
      * Creates a new `GtkCellAreaBox`.
@@ -98,8 +98,8 @@ public open class CellAreaBox(pointer: CPointer<GtkCellAreaBox>) :
      */
     public open fun packEnd(renderer: CellRenderer, expand: Boolean, align: Boolean, fixed: Boolean): Unit =
         gtk_cell_area_box_pack_end(
-            gtkCellAreaBoxPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
+            gtkCellAreaBoxPointer,
+            renderer.gtkCellRendererPointer,
             expand.asGBoolean(),
             align.asGBoolean(),
             fixed.asGBoolean()
@@ -119,8 +119,8 @@ public open class CellAreaBox(pointer: CPointer<GtkCellAreaBox>) :
      */
     public open fun packStart(renderer: CellRenderer, expand: Boolean, align: Boolean, fixed: Boolean): Unit =
         gtk_cell_area_box_pack_start(
-            gtkCellAreaBoxPointer.reinterpret(),
-            renderer.gtkCellRendererPointer.reinterpret(),
+            gtkCellAreaBoxPointer,
+            renderer.gtkCellRendererPointer,
             expand.asGBoolean(),
             align.asGBoolean(),
             fixed.asGBoolean()

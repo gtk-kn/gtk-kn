@@ -130,7 +130,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
          *
          * @return whether @self is horizontally homogeneous
          */
-        get() = adw_view_stack_get_hhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
+        get() = adw_view_stack_get_hhomogeneous(adwViewStackPointer).asBoolean()
 
         /**
          * Sets @self to be horizontally homogeneous or not.
@@ -143,9 +143,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
          *
          * @param hhomogeneous whether to make @self horizontally homogeneous
          */
-        set(
-            hhomogeneous
-        ) = adw_view_stack_set_hhomogeneous(adwViewStackPointer.reinterpret(), hhomogeneous.asGBoolean())
+        set(hhomogeneous) = adw_view_stack_set_hhomogeneous(adwViewStackPointer, hhomogeneous.asGBoolean())
 
     /**
      * A selection model with the stack's pages.
@@ -164,7 +162,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
          *
          * @return a `GtkSelectionModel` for the stack's children
          */
-        get() = adw_view_stack_get_pages(adwViewStackPointer.reinterpret())!!.run {
+        get() = adw_view_stack_get_pages(adwViewStackPointer)!!.run {
             SelectionModel.wrap(reinterpret())
         }
 
@@ -183,7 +181,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
          *
          * @return whether @self is vertically homogeneous
          */
-        get() = adw_view_stack_get_vhomogeneous(adwViewStackPointer.reinterpret()).asBoolean()
+        get() = adw_view_stack_get_vhomogeneous(adwViewStackPointer).asBoolean()
 
         /**
          * Sets @self to be vertically homogeneous or not.
@@ -196,9 +194,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
          *
          * @param vhomogeneous whether to make @self vertically homogeneous
          */
-        set(
-            vhomogeneous
-        ) = adw_view_stack_set_vhomogeneous(adwViewStackPointer.reinterpret(), vhomogeneous.asGBoolean())
+        set(vhomogeneous) = adw_view_stack_set_vhomogeneous(adwViewStackPointer, vhomogeneous.asGBoolean())
 
     /**
      * Creates a new `AdwViewStack`.
@@ -214,8 +210,8 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @return the [class@ViewStackPage] for @child
      */
     public fun add(child: Widget): ViewStackPage =
-        adw_view_stack_add(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            ViewStackPage(reinterpret())
+        adw_view_stack_add(adwViewStackPointer, child.gtkWidgetPointer)!!.run {
+            ViewStackPage(this)
         }
 
     /**
@@ -228,8 +224,8 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @return the `AdwViewStackPage` for @child
      */
     public fun addNamed(child: Widget, name: String? = null): ViewStackPage =
-        adw_view_stack_add_named(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret(), name)!!.run {
-            ViewStackPage(reinterpret())
+        adw_view_stack_add_named(adwViewStackPointer, child.gtkWidgetPointer, name)!!.run {
+            ViewStackPage(this)
         }
 
     /**
@@ -243,14 +239,10 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @param title a human-readable title for @child
      * @return the `AdwViewStackPage` for @child
      */
-    public fun addTitled(child: Widget, name: String? = null, title: String): ViewStackPage = adw_view_stack_add_titled(
-        adwViewStackPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        name,
-        title
-    )!!.run {
-        ViewStackPage(reinterpret())
-    }
+    public fun addTitled(child: Widget, name: String? = null, title: String): ViewStackPage =
+        adw_view_stack_add_titled(adwViewStackPointer, child.gtkWidgetPointer, name, title)!!.run {
+            ViewStackPage(this)
+        }
 
     /**
      * Adds a child to @self.
@@ -267,14 +259,8 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      */
     @AdwVersion1_2
     public fun addTitledWithIcon(child: Widget, name: String? = null, title: String, iconName: String): ViewStackPage =
-        adw_view_stack_add_titled_with_icon(
-            adwViewStackPointer.reinterpret(),
-            child.gtkWidgetPointer.reinterpret(),
-            name,
-            title,
-            iconName
-        )!!.run {
-            ViewStackPage(reinterpret())
+        adw_view_stack_add_titled_with_icon(adwViewStackPointer, child.gtkWidgetPointer, name, title, iconName)!!.run {
+            ViewStackPage(this)
         }
 
     /**
@@ -284,8 +270,8 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @return the requested child
      */
     public fun getChildByName(name: String): Widget? =
-        adw_view_stack_get_child_by_name(adwViewStackPointer.reinterpret(), name)?.run {
-            Widget(reinterpret())
+        adw_view_stack_get_child_by_name(adwViewStackPointer, name)?.run {
+            Widget(this)
         }
 
     /**
@@ -295,8 +281,8 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @return the page object for @child
      */
     public fun getPage(child: Widget): ViewStackPage =
-        adw_view_stack_get_page(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())!!.run {
-            ViewStackPage(reinterpret())
+        adw_view_stack_get_page(adwViewStackPointer, child.gtkWidgetPointer)!!.run {
+            ViewStackPage(this)
         }
 
     /**
@@ -304,8 +290,8 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      *
      * @return the visible child
      */
-    public fun getVisibleChild(): Widget? = adw_view_stack_get_visible_child(adwViewStackPointer.reinterpret())?.run {
-        Widget(reinterpret())
+    public fun getVisibleChild(): Widget? = adw_view_stack_get_visible_child(adwViewStackPointer)?.run {
+        Widget(this)
     }
 
     /**
@@ -313,16 +299,14 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      *
      * @return the name of the visible child
      */
-    public fun getVisibleChildName(): String? =
-        adw_view_stack_get_visible_child_name(adwViewStackPointer.reinterpret())?.toKString()
+    public fun getVisibleChildName(): String? = adw_view_stack_get_visible_child_name(adwViewStackPointer)?.toKString()
 
     /**
      * Removes a child widget from @self.
      *
      * @param child the child to remove
      */
-    public fun remove(child: Widget): Unit =
-        adw_view_stack_remove(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public fun remove(child: Widget): Unit = adw_view_stack_remove(adwViewStackPointer, child.gtkWidgetPointer)
 
     /**
      * Makes @child the visible child of @self.
@@ -330,7 +314,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @param child a child of @self
      */
     public fun setVisibleChild(child: Widget): Unit =
-        adw_view_stack_set_visible_child(adwViewStackPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+        adw_view_stack_set_visible_child(adwViewStackPointer, child.gtkWidgetPointer)
 
     /**
      * Makes the child with @name visible.
@@ -340,7 +324,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @param name the name of the child
      */
     public fun setVisibleChildName(name: String): Unit =
-        adw_view_stack_set_visible_child_name(adwViewStackPointer.reinterpret(), name)
+        adw_view_stack_set_visible_child_name(adwViewStackPointer, name)
 
     public companion object : TypeCompanion<ViewStack> {
         override val type: GeneratedClassKGType<ViewStack> =

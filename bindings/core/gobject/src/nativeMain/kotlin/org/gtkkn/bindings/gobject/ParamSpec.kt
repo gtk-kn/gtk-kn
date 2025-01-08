@@ -59,7 +59,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      *
      * @return the short description of @pspec.
      */
-    public open fun getBlurb(): String? = g_param_spec_get_blurb(gPointer.reinterpret())?.toKString()
+    public open fun getBlurb(): String? = g_param_spec_get_blurb(gPointer)?.toKString()
 
     /**
      * Gets the default value of @pspec as a pointer to a #GValue.
@@ -70,8 +70,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.38
      */
     @GObjectVersion2_38
-    public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gPointer.reinterpret())!!.run {
-        Value(reinterpret())
+    public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gPointer)!!.run {
+        Value(this)
     }
 
     /**
@@ -83,7 +83,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @return the name of @pspec.
      */
     public open fun getName(): String =
-        g_param_spec_get_name(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_param_spec_get_name(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the GQuark for the name.
@@ -92,7 +92,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.46
      */
     @GObjectVersion2_46
-    public open fun getNameQuark(): Quark = g_param_spec_get_name_quark(gPointer.reinterpret())
+    public open fun getNameQuark(): Quark = g_param_spec_get_name_quark(gPointer)
 
     /**
      * Get the nickname of a #GParamSpec.
@@ -100,7 +100,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @return the nickname of @pspec.
      */
     public open fun getNick(): String =
-        g_param_spec_get_nick(gPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        g_param_spec_get_nick(gPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets back user data pointers stored via g_param_spec_set_qdata().
@@ -108,7 +108,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @param quark a #GQuark, naming the user data pointer
      * @return the user data pointer set, or null
      */
-    public open fun getQdata(quark: Quark): gpointer? = g_param_spec_get_qdata(gPointer.reinterpret(), quark)
+    public open fun getQdata(quark: Quark): gpointer? = g_param_spec_get_qdata(gPointer, quark)
 
     /**
      * If the paramspec redirects operations to another paramspec,
@@ -124,8 +124,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gPointer.reinterpret())?.run {
-        ParamSpec(reinterpret())
+    public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gPointer)?.run {
+        ParamSpec(this)
     }
 
     /**
@@ -133,8 +133,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      *
      * @return the #GParamSpec that was passed into this function
      */
-    public open fun ref(): ParamSpec = g_param_spec_ref(gPointer.reinterpret())!!.run {
-        ParamSpec(reinterpret())
+    public open fun ref(): ParamSpec = g_param_spec_ref(gPointer)!!.run {
+        ParamSpec(this)
     }
 
     /**
@@ -144,8 +144,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.10
      */
     @GObjectVersion2_10
-    public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gPointer.reinterpret())!!.run {
-        ParamSpec(reinterpret())
+    public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gPointer)!!.run {
+        ParamSpec(this)
     }
 
     /**
@@ -160,7 +160,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @param data an opaque user data pointer
      */
     public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit =
-        g_param_spec_set_qdata(gPointer.reinterpret(), quark, `data`)
+        g_param_spec_set_qdata(gPointer, quark, `data`)
 
     /**
      * The initial reference count of a newly created #GParamSpec is 1,
@@ -171,7 +171,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * reference count (thus ending up with a @pspec that has a reference
      * count of 1 still, but is not flagged "floating" anymore).
      */
-    public open fun sink(): Unit = g_param_spec_sink(gPointer.reinterpret())
+    public open fun sink(): Unit = g_param_spec_sink(gPointer)
 
     /**
      * Gets back user data pointers stored via g_param_spec_set_qdata()
@@ -182,12 +182,12 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @param quark a #GQuark, naming the user data pointer
      * @return the user data pointer set, or null
      */
-    public open fun stealQdata(quark: Quark): gpointer? = g_param_spec_steal_qdata(gPointer.reinterpret(), quark)
+    public open fun stealQdata(quark: Quark): gpointer? = g_param_spec_steal_qdata(gPointer, quark)
 
     /**
      * Decrements the reference count of a @pspec.
      */
-    public open fun unref(): Unit = g_param_spec_unref(gPointer.reinterpret())
+    public open fun unref(): Unit = g_param_spec_unref(gPointer)
 
     public companion object {
         /**

@@ -136,7 +136,7 @@ public interface DatagramBased :
      */
     @GioVersion2_48
     public fun conditionCheck(condition: IoCondition): IoCondition =
-        g_datagram_based_condition_check(gioDatagramBasedPointer.reinterpret(), condition.mask).run {
+        g_datagram_based_condition_check(gioDatagramBasedPointer, condition.mask).run {
             IoCondition(this)
         }
 
@@ -163,10 +163,10 @@ public interface DatagramBased :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_datagram_based_condition_wait(
-            gioDatagramBasedPointer.reinterpret(),
+            gioDatagramBasedPointer,
             condition.mask,
             timeout,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -200,11 +200,11 @@ public interface DatagramBased :
     @GioVersion2_48
     public fun createSource(condition: IoCondition, cancellable: Cancellable? = null): Source =
         g_datagram_based_create_source(
-            gioDatagramBasedPointer.reinterpret(),
+            gioDatagramBasedPointer,
             condition.mask,
-            cancellable?.gioCancellablePointer?.reinterpret()
+            cancellable?.gioCancellablePointer
         )!!.run {
-            Source(reinterpret())
+            Source(this)
         }
 
     private data class Wrapper(private val pointer: CPointer<GDatagramBased>) : DatagramBased {

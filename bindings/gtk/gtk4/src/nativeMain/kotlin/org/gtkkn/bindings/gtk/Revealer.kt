@@ -74,8 +74,8 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @return the child widget of @revealer
          */
-        get() = gtk_revealer_get_child(gtkRevealerPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_revealer_get_child(gtkRevealerPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -83,7 +83,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @param child the child widget
          */
-        set(child) = gtk_revealer_set_child(gtkRevealerPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_revealer_set_child(gtkRevealerPointer, child?.gtkWidgetPointer)
 
     /**
      * Whether the child is revealed and the animation target reached.
@@ -97,7 +97,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @return true if the child is fully revealed
          */
-        get() = gtk_revealer_get_child_revealed(gtkRevealerPointer.reinterpret()).asBoolean()
+        get() = gtk_revealer_get_child_revealed(gtkRevealerPointer).asBoolean()
 
     /**
      * Whether the revealer should reveal the child.
@@ -113,7 +113,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @return true if the child is revealed.
          */
-        get() = gtk_revealer_get_reveal_child(gtkRevealerPointer.reinterpret()).asBoolean()
+        get() = gtk_revealer_get_reveal_child(gtkRevealerPointer).asBoolean()
 
         /**
          * Tells the `GtkRevealer` to reveal or conceal its child.
@@ -123,7 +123,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @param revealChild true to reveal the child
          */
-        set(revealChild) = gtk_revealer_set_reveal_child(gtkRevealerPointer.reinterpret(), revealChild.asGBoolean())
+        set(revealChild) = gtk_revealer_set_reveal_child(gtkRevealerPointer, revealChild.asGBoolean())
 
     /**
      * The animation duration, in milliseconds.
@@ -135,14 +135,14 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @return the transition duration
          */
-        get() = gtk_revealer_get_transition_duration(gtkRevealerPointer.reinterpret())
+        get() = gtk_revealer_get_transition_duration(gtkRevealerPointer)
 
         /**
          * Sets the duration that transitions will take.
          *
          * @param duration the new duration, in milliseconds
          */
-        set(duration) = gtk_revealer_set_transition_duration(gtkRevealerPointer.reinterpret(), duration)
+        set(duration) = gtk_revealer_set_transition_duration(gtkRevealerPointer, duration)
 
     /**
      * The type of animation used to transition.
@@ -154,7 +154,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @return the current transition type of @revealer
          */
-        get() = gtk_revealer_get_transition_type(gtkRevealerPointer.reinterpret()).run {
+        get() = gtk_revealer_get_transition_type(gtkRevealerPointer).run {
             RevealerTransitionType.fromNativeValue(this)
         }
 
@@ -166,7 +166,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          *
          * @param transition the new transition type
          */
-        set(transition) = gtk_revealer_set_transition_type(gtkRevealerPointer.reinterpret(), transition.nativeValue)
+        set(transition) = gtk_revealer_set_transition_type(gtkRevealerPointer, transition.nativeValue)
 
     /**
      * Creates a new `GtkRevealer`.

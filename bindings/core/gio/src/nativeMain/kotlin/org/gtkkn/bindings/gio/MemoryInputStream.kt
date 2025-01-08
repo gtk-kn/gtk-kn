@@ -58,9 +58,7 @@ public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
      * @return new #GInputStream read from @bytes
      * @since 2.34
      */
-    public constructor(
-        bytes: Bytes,
-    ) : this(g_memory_input_stream_new_from_bytes(bytes.gPointer.reinterpret())!!.reinterpret())
+    public constructor(bytes: Bytes) : this(g_memory_input_stream_new_from_bytes(bytes.gPointer)!!.reinterpret())
 
     /**
      * Appends @bytes to data that can be read from the input stream.
@@ -70,7 +68,7 @@ public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
      */
     @GioVersion2_34
     public open fun addBytes(bytes: Bytes): Unit =
-        g_memory_input_stream_add_bytes(gioMemoryInputStreamPointer.reinterpret(), bytes.gPointer.reinterpret())
+        g_memory_input_stream_add_bytes(gioMemoryInputStreamPointer, bytes.gPointer)
 
     public companion object : TypeCompanion<MemoryInputStream> {
         override val type: GeneratedClassKGType<MemoryInputStream> =

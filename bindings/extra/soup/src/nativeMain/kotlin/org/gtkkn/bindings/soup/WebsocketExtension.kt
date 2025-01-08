@@ -54,9 +54,9 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
         memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = soup_websocket_extension_configure(
-                soupWebsocketExtensionPointer.reinterpret(),
+                soupWebsocketExtensionPointer,
                 connectionType.nativeValue,
-                params?.gPointer?.reinterpret(),
+                params?.gPointer,
                 gError.ptr
             ).asBoolean()
             return if (gError.pointed != null) {
@@ -75,7 +75,7 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
      * @return a new allocated string with the parameters
      */
     public open fun getRequestParams(): String? =
-        soup_websocket_extension_get_request_params(soupWebsocketExtensionPointer.reinterpret())?.toKString()
+        soup_websocket_extension_get_request_params(soupWebsocketExtensionPointer)?.toKString()
 
     /**
      * Get the parameters strings to be included in the response header.
@@ -86,7 +86,7 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
      * @return a new allocated string with the parameters
      */
     public open fun getResponseParams(): String? =
-        soup_websocket_extension_get_response_params(soupWebsocketExtensionPointer.reinterpret())?.toKString()
+        soup_websocket_extension_get_response_params(soupWebsocketExtensionPointer)?.toKString()
 
     public companion object : TypeCompanion<WebsocketExtension> {
         override val type: GeneratedClassKGType<WebsocketExtension> =

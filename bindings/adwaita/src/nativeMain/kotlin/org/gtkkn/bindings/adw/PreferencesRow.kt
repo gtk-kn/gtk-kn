@@ -72,7 +72,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          *
          * @return the title
          */
-        get() = adw_preferences_row_get_title(adwPreferencesRowPointer.reinterpret())?.toKString()
+        get() = adw_preferences_row_get_title(adwPreferencesRowPointer)?.toKString()
             ?: error("Expected not null string")
 
         /**
@@ -83,7 +83,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          *
          * @param title the title
          */
-        set(title) = adw_preferences_row_set_title(adwPreferencesRowPointer.reinterpret(), title)
+        set(title) = adw_preferences_row_set_title(adwPreferencesRowPointer, title)
 
     /**
      * Whether the user can copy the title from the label.
@@ -100,7 +100,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @return whether the user can copy the title from the label
          * @since 1.1
          */
-        get() = adw_preferences_row_get_title_selectable(adwPreferencesRowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_row_get_title_selectable(adwPreferencesRowPointer).asBoolean()
 
         /**
          * Sets whether the user can copy the title from the label
@@ -113,10 +113,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
         @AdwVersion1_1
         set(
             titleSelectable
-        ) = adw_preferences_row_set_title_selectable(
-            adwPreferencesRowPointer.reinterpret(),
-            titleSelectable.asGBoolean()
-        )
+        ) = adw_preferences_row_set_title_selectable(adwPreferencesRowPointer, titleSelectable.asGBoolean())
 
     /**
      * Whether to use Pango markup for the title label.
@@ -135,7 +132,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @return whether to use markup
          * @since 1.2
          */
-        get() = adw_preferences_row_get_use_markup(adwPreferencesRowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_row_get_use_markup(adwPreferencesRowPointer).asBoolean()
 
         /**
          * Sets whether to use Pango markup for the title label.
@@ -148,9 +145,7 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            useMarkup
-        ) = adw_preferences_row_set_use_markup(adwPreferencesRowPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_preferences_row_set_use_markup(adwPreferencesRowPointer, useMarkup.asGBoolean())
 
     /**
      * Whether an embedded underline in the title indicates a mnemonic.
@@ -161,16 +156,14 @@ public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
          *
          * @return whether an embedded underline in the title indicates a mnemonic
          */
-        get() = adw_preferences_row_get_use_underline(adwPreferencesRowPointer.reinterpret()).asBoolean()
+        get() = adw_preferences_row_get_use_underline(adwPreferencesRowPointer).asBoolean()
 
         /**
          * Sets whether an embedded underline in the title indicates a mnemonic.
          *
          * @param useUnderline `TRUE` if underlines in the text indicate mnemonics
          */
-        set(
-            useUnderline
-        ) = adw_preferences_row_set_use_underline(adwPreferencesRowPointer.reinterpret(), useUnderline.asGBoolean())
+        set(useUnderline) = adw_preferences_row_set_use_underline(adwPreferencesRowPointer, useUnderline.asGBoolean())
 
     /**
      * Creates a new `AdwPreferencesRow`.

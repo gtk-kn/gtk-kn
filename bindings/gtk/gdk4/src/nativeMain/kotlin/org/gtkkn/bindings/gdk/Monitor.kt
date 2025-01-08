@@ -37,6 +37,7 @@ import org.gtkkn.native.glib.gdouble
 import org.gtkkn.native.glib.gint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -75,7 +76,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the name of the connector
          */
-        get() = gdk_monitor_get_connector(gdkMonitorPointer.reinterpret())?.toKString()
+        get() = gdk_monitor_get_connector(gdkMonitorPointer)?.toKString()
 
     /**
      * A short description of the monitor, meant for display to the user.
@@ -92,7 +93,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          * @return the monitor description
          * @since 4.10
          */
-        get() = gdk_monitor_get_description(gdkMonitorPointer.reinterpret())?.toKString()
+        get() = gdk_monitor_get_description(gdkMonitorPointer)?.toKString()
 
     /**
      * The `GdkDisplay` of the monitor.
@@ -103,8 +104,8 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the display
          */
-        get() = gdk_monitor_get_display(gdkMonitorPointer.reinterpret())!!.run {
-            Display(reinterpret())
+        get() = gdk_monitor_get_display(gdkMonitorPointer)!!.run {
+            Display(this)
         }
 
     /**
@@ -116,7 +117,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the physical height of the monitor
          */
-        get() = gdk_monitor_get_height_mm(gdkMonitorPointer.reinterpret())
+        get() = gdk_monitor_get_height_mm(gdkMonitorPointer)
 
     /**
      * The manufacturer name.
@@ -133,7 +134,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the name of the manufacturer
          */
-        get() = gdk_monitor_get_manufacturer(gdkMonitorPointer.reinterpret())?.toKString()
+        get() = gdk_monitor_get_manufacturer(gdkMonitorPointer)?.toKString()
 
     /**
      * The model name.
@@ -144,7 +145,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the monitor model
          */
-        get() = gdk_monitor_get_model(gdkMonitorPointer.reinterpret())?.toKString()
+        get() = gdk_monitor_get_model(gdkMonitorPointer)?.toKString()
 
     /**
      * The refresh rate, in milli-Hertz.
@@ -158,7 +159,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the refresh rate in milli-Hertz, or 0
          */
-        get() = gdk_monitor_get_refresh_rate(gdkMonitorPointer.reinterpret())
+        get() = gdk_monitor_get_refresh_rate(gdkMonitorPointer)
 
     /**
      * The scale of the monitor.
@@ -178,7 +179,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          * @return the scale
          * @since 4.14
          */
-        get() = gdk_monitor_get_scale(gdkMonitorPointer.reinterpret())
+        get() = gdk_monitor_get_scale(gdkMonitorPointer)
 
     /**
      * The scale factor.
@@ -200,7 +201,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the scale factor
          */
-        get() = gdk_monitor_get_scale_factor(gdkMonitorPointer.reinterpret())
+        get() = gdk_monitor_get_scale_factor(gdkMonitorPointer)
 
     /**
      * The subpixel layout.
@@ -212,7 +213,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the subpixel layout
          */
-        get() = gdk_monitor_get_subpixel_layout(gdkMonitorPointer.reinterpret()).run {
+        get() = gdk_monitor_get_subpixel_layout(gdkMonitorPointer).run {
             SubpixelLayout.fromNativeValue(this)
         }
 
@@ -225,7 +226,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
          *
          * @return the physical width of the monitor
          */
-        get() = gdk_monitor_get_width_mm(gdkMonitorPointer.reinterpret())
+        get() = gdk_monitor_get_width_mm(gdkMonitorPointer)
 
     /**
      * Retrieves the size and position of the monitor within the
@@ -237,7 +238,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      * @param geometry a `GdkRectangle` to be filled with the monitor geometry
      */
     public open fun getGeometry(geometry: Rectangle): Unit =
-        gdk_monitor_get_geometry(gdkMonitorPointer.reinterpret(), geometry.gPointer.reinterpret())
+        gdk_monitor_get_geometry(gdkMonitorPointer, geometry.gPointer)
 
     /**
      * Returns true if the @monitor object corresponds to a
@@ -248,23 +249,30 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      *
      * @return true if the object corresponds to a physical monitor
      */
-    public open fun isValid(): Boolean = gdk_monitor_is_valid(gdkMonitorPointer.reinterpret()).asBoolean()
+    public open fun isValid(): Boolean = gdk_monitor_is_valid(gdkMonitorPointer).asBoolean()
 
     /**
      * Emitted when the output represented by @monitor gets disconnected.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectInvalidate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onInvalidate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "invalidate",
-            connectInvalidateFunc.reinterpret(),
+            onInvalidateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "invalidate" signal. See [onInvalidate].
+     */
+    public fun emitInvalidate() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "invalidate")
+    }
 
     public companion object : TypeCompanion<Monitor> {
         override val type: GeneratedClassKGType<Monitor> =
@@ -283,7 +291,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
     }
 }
 
-private val connectInvalidateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onInvalidateFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

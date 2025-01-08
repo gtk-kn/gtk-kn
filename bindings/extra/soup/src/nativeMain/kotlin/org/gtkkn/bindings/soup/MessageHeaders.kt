@@ -69,18 +69,17 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param name the header name to add
      * @param value the new value of @name
      */
-    public fun append(name: String, `value`: String): Unit =
-        soup_message_headers_append(gPointer.reinterpret(), name, `value`)
+    public fun append(name: String, `value`: String): Unit = soup_message_headers_append(gPointer, name, `value`)
 
     /**
      * Removes all the headers listed in the Connection header.
      */
-    public fun cleanConnectionHeaders(): Unit = soup_message_headers_clean_connection_headers(gPointer.reinterpret())
+    public fun cleanConnectionHeaders(): Unit = soup_message_headers_clean_connection_headers(gPointer)
 
     /**
      * Clears @hdrs.
      */
-    public fun clear(): Unit = soup_message_headers_clear(gPointer.reinterpret())
+    public fun clear(): Unit = soup_message_headers_clear(gPointer)
 
     /**
      * Calls @func once for each header value in @hdrs.
@@ -99,7 +98,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param func callback function to run for each header
      */
     public fun foreach(func: MessageHeadersForeachFunc): Unit = soup_message_headers_foreach(
-        gPointer.reinterpret(),
+        gPointer,
         MessageHeadersForeachFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
@@ -109,8 +108,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @param ranges an array of #SoupRange
      */
-    public fun freeRanges(ranges: Range): Unit =
-        soup_message_headers_free_ranges(gPointer.reinterpret(), ranges.gPointer.reinterpret())
+    public fun freeRanges(ranges: Range): Unit = soup_message_headers_free_ranges(gPointer, ranges.gPointer)
 
     /**
      * Gets the message body length that @hdrs declare.
@@ -120,7 +118,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @return the message body length declared by @hdrs.
      */
-    public fun getContentLength(): gint64 = soup_message_headers_get_content_length(gPointer.reinterpret())
+    public fun getContentLength(): gint64 = soup_message_headers_get_content_length(gPointer)
 
     /**
      * Gets the message body encoding that @hdrs declare.
@@ -131,7 +129,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @return the encoding declared by @hdrs.
      */
-    public fun getEncoding(): Encoding = soup_message_headers_get_encoding(gPointer.reinterpret()).run {
+    public fun getEncoding(): Encoding = soup_message_headers_get_encoding(gPointer).run {
         Encoding.fromNativeValue(this)
     }
 
@@ -143,7 +141,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @return the contents of @hdrs's "Expect" header
      */
-    public fun getExpectations(): Expectation = soup_message_headers_get_expectations(gPointer.reinterpret()).run {
+    public fun getExpectations(): Expectation = soup_message_headers_get_expectations(gPointer).run {
         Expectation(this)
     }
 
@@ -152,10 +150,9 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @return the header's type.
      */
-    public fun getHeadersType(): MessageHeadersType =
-        soup_message_headers_get_headers_type(gPointer.reinterpret()).run {
-            MessageHeadersType.fromNativeValue(this)
-        }
+    public fun getHeadersType(): MessageHeadersType = soup_message_headers_get_headers_type(gPointer).run {
+        MessageHeadersType.fromNativeValue(this)
+    }
 
     /**
      * Gets the value of header @name in @hdrs.
@@ -175,7 +172,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param name header name
      * @return the header's value or null if not found.
      */
-    public fun getList(name: String): String? = soup_message_headers_get_list(gPointer.reinterpret(), name)?.toKString()
+    public fun getList(name: String): String? = soup_message_headers_get_list(gPointer, name)?.toKString()
 
     /**
      * Gets the value of header @name in @hdrs.
@@ -192,7 +189,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param name header name
      * @return the header's value or null if not found.
      */
-    public fun getOne(name: String): String? = soup_message_headers_get_one(gPointer.reinterpret(), name)?.toKString()
+    public fun getOne(name: String): String? = soup_message_headers_get_one(gPointer, name)?.toKString()
 
     /**
      * Checks whether the list-valued header @name is present in @hdrs,
@@ -207,7 +204,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *   false otherwise.
      */
     public fun headerContains(name: String, token: String): Boolean =
-        soup_message_headers_header_contains(gPointer.reinterpret(), name, token).asBoolean()
+        soup_message_headers_header_contains(gPointer, name, token).asBoolean()
 
     /**
      * Checks whether the header @name is present in @hdrs and is
@@ -219,15 +216,15 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *   @value, false otherwise.
      */
     public fun headerEquals(name: String, `value`: String): Boolean =
-        soup_message_headers_header_equals(gPointer.reinterpret(), name, `value`).asBoolean()
+        soup_message_headers_header_equals(gPointer, name, `value`).asBoolean()
 
     /**
      * Atomically increments the reference count of @hdrs by one.
      *
      * @return the passed in #SoupMessageHeaders
      */
-    public fun ref(): MessageHeaders = soup_message_headers_ref(gPointer.reinterpret())!!.run {
-        MessageHeaders(reinterpret())
+    public fun ref(): MessageHeaders = soup_message_headers_ref(gPointer)!!.run {
+        MessageHeaders(this)
     }
 
     /**
@@ -237,7 +234,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @param name the header name to remove
      */
-    public fun remove(name: String): Unit = soup_message_headers_remove(gPointer.reinterpret(), name)
+    public fun remove(name: String): Unit = soup_message_headers_remove(gPointer, name)
 
     /**
      * Replaces the value of the header @name in @hdrs with @value.
@@ -250,8 +247,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param name the header name to replace
      * @param value the new value of @name
      */
-    public fun replace(name: String, `value`: String): Unit =
-        soup_message_headers_replace(gPointer.reinterpret(), name, `value`)
+    public fun replace(name: String, `value`: String): Unit = soup_message_headers_replace(gPointer, name, `value`)
 
     /**
      * Sets the "Content-Disposition" header in @hdrs to @disposition,
@@ -264,11 +260,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param params additional parameters
      */
     public fun setContentDisposition(disposition: String, params: HashTable? = null): Unit =
-        soup_message_headers_set_content_disposition(
-            gPointer.reinterpret(),
-            disposition,
-            params?.gPointer?.reinterpret()
-        )
+        soup_message_headers_set_content_disposition(gPointer, disposition, params?.gPointer)
 
     /**
      * Sets the message body length that @hdrs will declare, and sets
@@ -286,7 +278,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param contentLength the message body length
      */
     public fun setContentLength(contentLength: gint64): Unit =
-        soup_message_headers_set_content_length(gPointer.reinterpret(), contentLength)
+        soup_message_headers_set_content_length(gPointer, contentLength)
 
     /**
      * Sets @hdrs's Content-Range header according to the given values.
@@ -303,7 +295,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param totalLength the total length of the resource, or -1 if unknown
      */
     public fun setContentRange(start: gint64, end: gint64, totalLength: gint64): Unit =
-        soup_message_headers_set_content_range(gPointer.reinterpret(), start, end, totalLength)
+        soup_message_headers_set_content_range(gPointer, start, end, totalLength)
 
     /**
      * Sets the "Content-Type" header in @hdrs to @content_type.
@@ -314,7 +306,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param params additional parameters
      */
     public fun setContentType(contentType: String, params: HashTable? = null): Unit =
-        soup_message_headers_set_content_type(gPointer.reinterpret(), contentType, params?.gPointer?.reinterpret())
+        soup_message_headers_set_content_type(gPointer, contentType, params?.gPointer)
 
     /**
      * Sets the message body encoding that @hdrs will declare.
@@ -324,8 +316,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      *
      * @param encoding a #SoupEncoding
      */
-    public fun setEncoding(encoding: Encoding): Unit =
-        soup_message_headers_set_encoding(gPointer.reinterpret(), encoding.nativeValue)
+    public fun setEncoding(encoding: Encoding): Unit = soup_message_headers_set_encoding(gPointer, encoding.nativeValue)
 
     /**
      * Sets @hdrs's "Expect" header according to @expectations.
@@ -342,7 +333,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param expectations the expectations to set
      */
     public fun setExpectations(expectations: Expectation): Unit =
-        soup_message_headers_set_expectations(gPointer.reinterpret(), expectations.mask)
+        soup_message_headers_set_expectations(gPointer, expectations.mask)
 
     /**
      * Sets @hdrs's Range header to request the indicated range.
@@ -355,8 +346,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param start the start of the range to request
      * @param end the end of the range to request
      */
-    public fun setRange(start: gint64, end: gint64): Unit =
-        soup_message_headers_set_range(gPointer.reinterpret(), start, end)
+    public fun setRange(start: gint64, end: gint64): Unit = soup_message_headers_set_range(gPointer, start, end)
 
     /**
      * Sets @hdrs's Range header to request the indicated ranges.
@@ -368,7 +358,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * @param length the length of @range
      */
     public fun setRanges(ranges: Range, length: gint): Unit =
-        soup_message_headers_set_ranges(gPointer.reinterpret(), ranges.gPointer.reinterpret(), length)
+        soup_message_headers_set_ranges(gPointer, ranges.gPointer, length)
 
     /**
      * Atomically decrements the reference count of @hdrs by one.
@@ -376,7 +366,7 @@ public class MessageHeaders(pointer: CPointer<SoupMessageHeaders>) : ProxyInstan
      * When the reference count reaches zero, the resources allocated by
      * @hdrs are freed
      */
-    public fun unref(): Unit = soup_message_headers_unref(gPointer.reinterpret())
+    public fun unref(): Unit = soup_message_headers_unref(gPointer)
 
     public companion object {
         /**

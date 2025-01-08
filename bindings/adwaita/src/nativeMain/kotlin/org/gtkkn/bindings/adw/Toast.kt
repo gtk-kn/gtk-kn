@@ -45,6 +45,7 @@ import org.gtkkn.native.adw.adw_toast_set_use_markup
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -199,7 +200,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @return the action name
          */
-        get() = adw_toast_get_action_name(adwToastPointer.reinterpret())?.toKString()
+        get() = adw_toast_get_action_name(adwToastPointer)?.toKString()
 
         /**
          * Sets the name of the associated action.
@@ -210,7 +211,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @param actionName the action name
          */
-        set(actionName) = adw_toast_set_action_name(adwToastPointer.reinterpret(), actionName)
+        set(actionName) = adw_toast_set_action_name(adwToastPointer, actionName)
 
     /**
      * The label to show on the button.
@@ -227,7 +228,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @return the button label
          */
-        get() = adw_toast_get_button_label(adwToastPointer.reinterpret())?.toKString()
+        get() = adw_toast_get_button_label(adwToastPointer)?.toKString()
 
         /**
          * Sets the label to show on the button.
@@ -240,7 +241,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @param buttonLabel a button label
          */
-        set(buttonLabel) = adw_toast_set_button_label(adwToastPointer.reinterpret(), buttonLabel)
+        set(buttonLabel) = adw_toast_set_button_label(adwToastPointer, buttonLabel)
 
     /**
      * The custom title widget.
@@ -260,8 +261,8 @@ public class Toast(pointer: CPointer<AdwToast>) :
          * @return the custom title widget
          * @since 1.2
          */
-        get() = adw_toast_get_custom_title(adwToastPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = adw_toast_get_custom_title(adwToastPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -276,7 +277,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(widget) = adw_toast_set_custom_title(adwToastPointer.reinterpret(), widget?.gtkWidgetPointer?.reinterpret())
+        set(widget) = adw_toast_set_custom_title(adwToastPointer, widget?.gtkWidgetPointer)
 
     /**
      * The priority of the toast.
@@ -295,7 +296,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @return the priority
          */
-        get() = adw_toast_get_priority(adwToastPointer.reinterpret()).run {
+        get() = adw_toast_get_priority(adwToastPointer).run {
             ToastPriority.fromNativeValue(this)
         }
 
@@ -312,7 +313,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @param priority the priority
          */
-        set(priority) = adw_toast_set_priority(adwToastPointer.reinterpret(), priority.nativeValue)
+        set(priority) = adw_toast_set_priority(adwToastPointer, priority.nativeValue)
 
     /**
      * The timeout of the toast, in seconds.
@@ -329,7 +330,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @return the timeout
          */
-        get() = adw_toast_get_timeout(adwToastPointer.reinterpret())
+        get() = adw_toast_get_timeout(adwToastPointer)
 
         /**
          * Sets timeout for @self.
@@ -342,7 +343,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          *
          * @param timeout the timeout
          */
-        set(timeout) = adw_toast_set_timeout(adwToastPointer.reinterpret(), timeout)
+        set(timeout) = adw_toast_set_timeout(adwToastPointer, timeout)
 
     /**
      * Whether to use Pango markup for the toast title.
@@ -359,7 +360,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          * @return whether the toast uses markup
          * @since 1.4
          */
-        get() = adw_toast_get_use_markup(adwToastPointer.reinterpret()).asBoolean()
+        get() = adw_toast_get_use_markup(adwToastPointer).asBoolean()
 
         /**
          * Whether to use Pango markup for the toast title.
@@ -370,7 +371,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(useMarkup) = adw_toast_set_use_markup(adwToastPointer.reinterpret(), useMarkup.asGBoolean())
+        set(useMarkup) = adw_toast_set_use_markup(adwToastPointer, useMarkup.asGBoolean())
 
     /**
      * Creates a new `AdwToast`.
@@ -390,17 +391,16 @@ public class Toast(pointer: CPointer<AdwToast>) :
      * Does nothing if @self has already been dismissed, or hasn't been added to an
      * [class@ToastOverlay].
      */
-    public fun dismiss(): Unit = adw_toast_dismiss(adwToastPointer.reinterpret())
+    public fun dismiss(): Unit = adw_toast_dismiss(adwToastPointer)
 
     /**
      * Gets the parameter for action invocations.
      *
      * @return the action target
      */
-    public fun getActionTargetValue(): Variant? =
-        adw_toast_get_action_target_value(adwToastPointer.reinterpret())?.run {
-            Variant(reinterpret())
-        }
+    public fun getActionTargetValue(): Variant? = adw_toast_get_action_target_value(adwToastPointer)?.run {
+        Variant(this)
+    }
 
     /**
      * Gets the title that will be displayed on the toast.
@@ -410,7 +410,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      *
      * @return the title
      */
-    public fun getTitle(): String? = adw_toast_get_title(adwToastPointer.reinterpret())?.toKString()
+    public fun getTitle(): String? = adw_toast_get_title(adwToastPointer)?.toKString()
 
     /**
      * Sets the parameter for action invocations.
@@ -421,7 +421,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      * @param actionTarget the action target
      */
     public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
-        adw_toast_set_action_target_value(adwToastPointer.reinterpret(), actionTarget?.gPointer?.reinterpret())
+        adw_toast_set_action_target_value(adwToastPointer, actionTarget?.gPointer)
 
     /**
      * Sets the action name and its parameter.
@@ -432,7 +432,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      * @param detailedActionName the detailed action name
      */
     public fun setDetailedActionName(detailedActionName: String? = null): Unit =
-        adw_toast_set_detailed_action_name(adwToastPointer.reinterpret(), detailedActionName)
+        adw_toast_set_detailed_action_name(adwToastPointer, detailedActionName)
 
     /**
      * Sets the title that will be displayed on the toast.
@@ -445,43 +445,60 @@ public class Toast(pointer: CPointer<AdwToast>) :
      *
      * @param title a title
      */
-    public fun setTitle(title: String): Unit = adw_toast_set_title(adwToastPointer.reinterpret(), title)
+    public fun setTitle(title: String): Unit = adw_toast_set_title(adwToastPointer, title)
 
     /**
      * Emitted after the button has been clicked.
      *
      * It can be used as an alternative to setting an action.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun connectButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "button-clicked",
-            connectButtonClickedFunc.reinterpret(),
+            onButtonClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "button-clicked" signal. See [onButtonClicked].
+     *
+     * @since 1.2
+     */
+    @AdwVersion1_2
+    public fun emitButtonClicked() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "button-clicked")
+    }
+
+    /**
      * Emitted when the toast has been dismissed.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectDismissed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onDismissed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "dismissed",
-            connectDismissedFunc.reinterpret(),
+            onDismissedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "dismissed" signal. See [onDismissed].
+     */
+    public fun emitDismissed() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "dismissed")
+    }
 
     public companion object : TypeCompanion<Toast> {
         override val type: GeneratedClassKGType<Toast> =
@@ -500,7 +517,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
     }
 }
 
-private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -508,7 +525,7 @@ private val connectButtonClickedFunc: CPointer<CFunction<() -> Unit>> = staticCF
 }
     .reinterpret()
 
-private val connectDismissedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onDismissedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

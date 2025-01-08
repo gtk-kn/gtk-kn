@@ -43,8 +43,8 @@ public open class TreeListRowSorter(pointer: CPointer<GtkTreeListRowSorter>) :
          *
          * @return the sorter used
          */
-        get() = gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer.reinterpret())?.run {
-            Sorter(reinterpret())
+        get() = gtk_tree_list_row_sorter_get_sorter(gtkTreeListRowSorterPointer)?.run {
+            Sorter(this)
         }
 
         /**
@@ -55,12 +55,7 @@ public open class TreeListRowSorter(pointer: CPointer<GtkTreeListRowSorter>) :
          *
          * @param sorter The sorter to use
          */
-        set(
-            sorter
-        ) = gtk_tree_list_row_sorter_set_sorter(
-            gtkTreeListRowSorterPointer.reinterpret(),
-            sorter?.gtkSorterPointer?.reinterpret()
-        )
+        set(sorter) = gtk_tree_list_row_sorter_set_sorter(gtkTreeListRowSorterPointer, sorter?.gtkSorterPointer)
 
     /**
      * Create a special-purpose sorter that applies the sorting
@@ -74,7 +69,7 @@ public open class TreeListRowSorter(pointer: CPointer<GtkTreeListRowSorter>) :
      */
     public constructor(
         sorter: Sorter? = null,
-    ) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer?.reinterpret())!!.reinterpret())
+    ) : this(gtk_tree_list_row_sorter_new(sorter?.gtkSorterPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<TreeListRowSorter> {
         override val type: GeneratedClassKGType<TreeListRowSorter> =

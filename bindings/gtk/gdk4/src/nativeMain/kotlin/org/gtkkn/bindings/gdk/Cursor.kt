@@ -79,8 +79,8 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
          * @return the fallback of the cursor or null
          *   to use the default cursor as fallback
          */
-        get() = gdk_cursor_get_fallback(gdkCursorPointer.reinterpret())?.run {
-            Cursor(reinterpret())
+        get() = gdk_cursor_get_fallback(gdkCursorPointer)?.run {
+            Cursor(this)
         }
 
     /**
@@ -98,7 +98,7 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
          *
          * @return the horizontal offset of the hotspot or 0 for named cursors
          */
-        get() = gdk_cursor_get_hotspot_x(gdkCursorPointer.reinterpret())
+        get() = gdk_cursor_get_hotspot_x(gdkCursorPointer)
 
     /**
      * Y position of the cursor hotspot in the cursor image.
@@ -115,7 +115,7 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
          *
          * @return the vertical offset of the hotspot or 0 for named cursors
          */
-        get() = gdk_cursor_get_hotspot_y(gdkCursorPointer.reinterpret())
+        get() = gdk_cursor_get_hotspot_y(gdkCursorPointer)
 
     /**
      * Name of this this cursor.
@@ -131,7 +131,7 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
          * @return the name of the cursor or null
          *   if it is not a named cursor
          */
-        get() = gdk_cursor_get_name(gdkCursorPointer.reinterpret())?.toKString()
+        get() = gdk_cursor_get_name(gdkCursorPointer)?.toKString()
 
     /**
      * The texture displayed by this cursor.
@@ -147,8 +147,8 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
          * @return the texture for cursor or null
          *   if it is a named cursor
          */
-        get() = gdk_cursor_get_texture(gdkCursorPointer.reinterpret())?.run {
-            Texture(reinterpret())
+        get() = gdk_cursor_get_texture(gdkCursorPointer)?.run {
+            Texture(this)
         }
 
     /**
@@ -179,7 +179,7 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
     public constructor(
         name: String,
         fallback: Cursor? = null,
-    ) : this(gdk_cursor_new_from_name(name, fallback?.gdkCursorPointer?.reinterpret())!!.reinterpret())
+    ) : this(gdk_cursor_new_from_name(name, fallback?.gdkCursorPointer)!!.reinterpret())
 
     /**
      * Creates a new cursor from a `GdkTexture`.
@@ -198,10 +198,10 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
         fallback: Cursor? = null,
     ) : this(
         gdk_cursor_new_from_texture(
-            texture.gdkTexturePointer.reinterpret(),
+            texture.gdkTexturePointer,
             hotspotX,
             hotspotY,
-            fallback?.gdkCursorPointer?.reinterpret()
+            fallback?.gdkCursorPointer
         )!!.reinterpret()
     )
 

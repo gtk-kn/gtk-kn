@@ -2,7 +2,6 @@
 package org.gtkkn.bindings.glib
 
 import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_14
 import org.gtkkn.bindings.glib.annotations.GLibVersion2_4
@@ -55,14 +54,14 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun clear(): Unit = g_string_chunk_clear(gPointer.reinterpret())
+    public fun clear(): Unit = g_string_chunk_clear(gPointer)
 
     /**
      * Frees all memory allocated by the #GStringChunk.
      * After calling g_string_chunk_free() it is not safe to
      * access any of the strings which were contained within it.
      */
-    public fun free(): Unit = g_string_chunk_free(gPointer.reinterpret())
+    public fun free(): Unit = g_string_chunk_free(gPointer)
 
     /**
      * Adds a copy of @string to the #GStringChunk.
@@ -82,7 +81,7 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      *     the #GStringChunk
      */
     public fun insert(string: String): String =
-        g_string_chunk_insert(gPointer.reinterpret(), string)?.toKString() ?: error("Expected not null string")
+        g_string_chunk_insert(gPointer, string)?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds a copy of @string to the #GStringChunk, unless the same
@@ -104,7 +103,7 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      *     within the #GStringChunk
      */
     public fun insertConst(string: String): String =
-        g_string_chunk_insert_const(gPointer.reinterpret(), string)?.toKString() ?: error("Expected not null string")
+        g_string_chunk_insert_const(gPointer, string)?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds a copy of the first @len bytes of @string to the #GStringChunk.
@@ -125,7 +124,7 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
      */
     @GLibVersion2_4
     public fun insertLen(string: String, len: Long): String =
-        g_string_chunk_insert_len(gPointer.reinterpret(), string, len)?.toKString() ?: error("Expected not null string")
+        g_string_chunk_insert_len(gPointer, string, len)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -138,7 +137,7 @@ public class StringChunk(pointer: CPointer<GStringChunk>) : ProxyInstance(pointe
          * @return a new #GStringChunk
          */
         public fun new(size: gsize): StringChunk = g_string_chunk_new(size)!!.run {
-            StringChunk(reinterpret())
+            StringChunk(this)
         }
     }
 }

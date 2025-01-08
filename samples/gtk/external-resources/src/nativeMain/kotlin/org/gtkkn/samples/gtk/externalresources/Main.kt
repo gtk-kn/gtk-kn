@@ -39,7 +39,7 @@ fun main() {
 
     val app = Application("org.gtkkn.samples.gtk.embeddedresources", ApplicationFlags.FLAGS_NONE)
 
-    app.connectActivate {
+    app.onActivate {
         val window = ApplicationWindow(app)
         window.title = "Logo from External Resources"
         window.setDefaultSize(420, 420)

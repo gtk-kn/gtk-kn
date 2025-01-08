@@ -34,9 +34,7 @@ public open class ObjectExpression(pointer: CPointer<GtkObjectExpression>) :
      * @param object object to watch
      * @return a new `GtkExpression`
      */
-    public constructor(
-        `object`: Object,
-    ) : this(gtk_object_expression_new(`object`.gPointer.reinterpret())!!.reinterpret())
+    public constructor(`object`: Object) : this(gtk_object_expression_new(`object`.gPointer)!!.reinterpret())
 
     /**
      * Gets the object that the expression evaluates to.
@@ -45,7 +43,7 @@ public open class ObjectExpression(pointer: CPointer<GtkObjectExpression>) :
      */
     public open fun getObject(): Object? =
         gtk_object_expression_get_object(gtkObjectExpressionPointer.reinterpret())?.run {
-            Object(reinterpret())
+            Object(this)
         }
 
     public companion object : TypeCompanion<ObjectExpression> {

@@ -68,7 +68,7 @@ class SubclassPropertiesTests {
         val person = Person()
         var notifyNameCalled = false
 
-        person.connectNotify {
+        person.onNotify {
             if (it.getName() == "name") {
                 notifyNameCalled = true
             }

@@ -48,9 +48,7 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
          * The array is sorted alphabetically according to the scheme name.
          * The array is owned by the @manager and must not be modified.
          */
-        get() = gtk_source_style_scheme_manager_get_scheme_ids(
-            gtksourceStyleSchemeManagerPointer.reinterpret()
-        )?.toKStringList()
+        get() = gtk_source_style_scheme_manager_get_scheme_ids(gtksourceStyleSchemeManagerPointer)?.toKStringList()
 
     /**
      * Creates a new style manager.
@@ -71,7 +69,7 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
      * @param path a directory or a filename.
      */
     public open fun appendSearchPath(path: String): Unit =
-        gtk_source_style_scheme_manager_append_search_path(gtksourceStyleSchemeManagerPointer.reinterpret(), path)
+        gtk_source_style_scheme_manager_append_search_path(gtksourceStyleSchemeManagerPointer, path)
 
     /**
      * Mark any currently cached information about the available style schems
@@ -80,7 +78,7 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
      * All the available style schemes will be reloaded next time the @manager is accessed.
      */
     public open fun forceRescan(): Unit =
-        gtk_source_style_scheme_manager_force_rescan(gtksourceStyleSchemeManagerPointer.reinterpret())
+        gtk_source_style_scheme_manager_force_rescan(gtksourceStyleSchemeManagerPointer)
 
     /**
      * Looks up style scheme by id.
@@ -90,8 +88,8 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
      *   The returned value is owned by @manager and must not be unref'ed.
      */
     public open fun getScheme(schemeId: String): StyleScheme? =
-        gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer.reinterpret(), schemeId)?.run {
-            StyleScheme(reinterpret())
+        gtk_source_style_scheme_manager_get_scheme(gtksourceStyleSchemeManagerPointer, schemeId)?.run {
+            StyleScheme(this)
         }
 
     /**
@@ -103,10 +101,9 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
      * of string containing the search path.
      * The array is owned by the @manager and must not be modified.
      */
-    public open fun getSearchPath(): List<String> = gtk_source_style_scheme_manager_get_search_path(
-        gtksourceStyleSchemeManagerPointer.reinterpret()
-    )?.toKStringList()
-        ?: error("Expected not null string array")
+    public open fun getSearchPath(): List<String> =
+        gtk_source_style_scheme_manager_get_search_path(gtksourceStyleSchemeManagerPointer)?.toKStringList()
+            ?: error("Expected not null string array")
 
     /**
      * Prepends @path to the list of directories where the @manager looks
@@ -117,7 +114,7 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
      * @param path a directory or a filename.
      */
     public open fun prependSearchPath(path: String): Unit =
-        gtk_source_style_scheme_manager_prepend_search_path(gtksourceStyleSchemeManagerPointer.reinterpret(), path)
+        gtk_source_style_scheme_manager_prepend_search_path(gtksourceStyleSchemeManagerPointer, path)
 
     /**
      * Sets the list of directories where the @manager looks for
@@ -130,7 +127,7 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
      */
     public open fun setSearchPath(path: List<String>? = null): Unit = memScoped {
         return gtk_source_style_scheme_manager_set_search_path(
-            gtksourceStyleSchemeManagerPointer.reinterpret(),
+            gtksourceStyleSchemeManagerPointer,
             path?.toCStringList(this)
         )
     }
@@ -152,7 +149,7 @@ public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManag
          * is owned by GtkSourceView library and must not be unref'ed.
          */
         public fun getDefault(): StyleSchemeManager = gtk_source_style_scheme_manager_get_default()!!.run {
-            StyleSchemeManager(reinterpret())
+            StyleSchemeManager(this)
         }
 
         /**

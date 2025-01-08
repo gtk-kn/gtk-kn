@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -135,8 +134,8 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gPointer.reinterpret())!!.run {
-        DBusMethodInfo(reinterpret())
+    public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gPointer)!!.run {
+        DBusMethodInfo(this)
     }
 
     /**
@@ -147,7 +146,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_method_info_unref(gPointer.reinterpret())
+    public fun unref(): Unit = g_dbus_method_info_unref(gPointer)
 
     override fun toString(): String = "DBusMethodInfo(refCount=$refCount, name=$name)"
 

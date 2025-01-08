@@ -51,7 +51,7 @@ public class Class(pointer: CPointer<JSCClass>) :
          *
          * @return the name of @jsc_class
          */
-        get() = jsc_class_get_name(jscClassPointer.reinterpret())?.toKString() ?: error("Expected not null string")
+        get() = jsc_class_get_name(jscClassPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * The parent class or null in case of final classes.
@@ -62,8 +62,8 @@ public class Class(pointer: CPointer<JSCClass>) :
          *
          * @return the parent class of @jsc_class
          */
-        get() = jsc_class_get_parent(jscClassPointer.reinterpret())!!.run {
-            Class(reinterpret())
+        get() = jsc_class_get_parent(jscClassPointer)!!.run {
+            Class(this)
         }
 
     /**
@@ -85,14 +85,14 @@ public class Class(pointer: CPointer<JSCClass>) :
      */
     public fun addConstructorVariadic(name: String? = null, callback: Callback, returnType: GType): Value =
         jsc_class_add_constructor_variadic(
-            jscClassPointer.reinterpret(),
+            jscClassPointer,
             name,
             CallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             returnType
         )!!.run {
-            Value(reinterpret())
+            Value(this)
         }
 
     /**
@@ -112,7 +112,7 @@ public class Class(pointer: CPointer<JSCClass>) :
      */
     public fun addMethodVariadic(name: String, callback: Callback, returnType: GType): Unit =
         jsc_class_add_method_variadic(
-            jscClassPointer.reinterpret(),
+            jscClassPointer,
             name,
             CallbackFunc.reinterpret(),
             StableRef.create(callback).asCPointer(),

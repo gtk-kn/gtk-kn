@@ -7,7 +7,6 @@ import kotlinx.cinterop.alloc
 import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
-import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_20
 import org.gtkkn.bindings.pango.annotations.PangoVersion1_50
 import org.gtkkn.extensions.glib.annotations.UnsafeFieldSetter
@@ -55,7 +54,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      */
     public var klass: AttrClass?
         get() = gPointer.pointed.klass?.run {
-            AttrClass(reinterpret())
+            AttrClass(this)
         }
 
         @UnsafeFieldSetter
@@ -170,8 +169,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asColor(): AttrColor? = pango_attribute_as_color(gPointer.reinterpret())?.run {
-        AttrColor(reinterpret())
+    public fun asColor(): AttrColor? = pango_attribute_as_color(gPointer)?.run {
+        AttrColor(this)
     }
 
     /**
@@ -184,8 +183,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFloat(): AttrFloat? = pango_attribute_as_float(gPointer.reinterpret())?.run {
-        AttrFloat(reinterpret())
+    public fun asFloat(): AttrFloat? = pango_attribute_as_float(gPointer)?.run {
+        AttrFloat(this)
     }
 
     /**
@@ -198,8 +197,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFontDesc(): AttrFontDesc? = pango_attribute_as_font_desc(gPointer.reinterpret())?.run {
-        AttrFontDesc(reinterpret())
+    public fun asFontDesc(): AttrFontDesc? = pango_attribute_as_font_desc(gPointer)?.run {
+        AttrFontDesc(this)
     }
 
     /**
@@ -212,8 +211,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFontFeatures(): AttrFontFeatures? = pango_attribute_as_font_features(gPointer.reinterpret())?.run {
-        AttrFontFeatures(reinterpret())
+    public fun asFontFeatures(): AttrFontFeatures? = pango_attribute_as_font_features(gPointer)?.run {
+        AttrFontFeatures(this)
     }
 
     /**
@@ -226,8 +225,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asInt(): AttrInt? = pango_attribute_as_int(gPointer.reinterpret())?.run {
-        AttrInt(reinterpret())
+    public fun asInt(): AttrInt? = pango_attribute_as_int(gPointer)?.run {
+        AttrInt(this)
     }
 
     /**
@@ -240,8 +239,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asLanguage(): AttrLanguage? = pango_attribute_as_language(gPointer.reinterpret())?.run {
-        AttrLanguage(reinterpret())
+    public fun asLanguage(): AttrLanguage? = pango_attribute_as_language(gPointer)?.run {
+        AttrLanguage(this)
     }
 
     /**
@@ -254,8 +253,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asShape(): AttrShape? = pango_attribute_as_shape(gPointer.reinterpret())?.run {
-        AttrShape(reinterpret())
+    public fun asShape(): AttrShape? = pango_attribute_as_shape(gPointer)?.run {
+        AttrShape(this)
     }
 
     /**
@@ -268,8 +267,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asSize(): AttrSize? = pango_attribute_as_size(gPointer.reinterpret())?.run {
-        AttrSize(reinterpret())
+    public fun asSize(): AttrSize? = pango_attribute_as_size(gPointer)?.run {
+        AttrSize(this)
     }
 
     /**
@@ -282,8 +281,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asString(): AttrString? = pango_attribute_as_string(gPointer.reinterpret())?.run {
-        AttrString(reinterpret())
+    public fun asString(): AttrString? = pango_attribute_as_string(gPointer)?.run {
+        AttrString(this)
     }
 
     /**
@@ -293,14 +292,14 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy].
      */
-    public fun copy(): Attribute = pango_attribute_copy(gPointer.reinterpret())!!.run {
-        Attribute(reinterpret())
+    public fun copy(): Attribute = pango_attribute_copy(gPointer)!!.run {
+        Attribute(this)
     }
 
     /**
      * Destroy a `PangoAttribute` and free all associated memory.
      */
-    public fun destroy(): Unit = pango_attribute_destroy(gPointer.reinterpret())
+    public fun destroy(): Unit = pango_attribute_destroy(gPointer)
 
     /**
      * Compare two attributes for equality.
@@ -312,8 +311,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @param attr2 another `PangoAttribute`
      * @return true if the two attributes have the same value
      */
-    public fun equal(attr2: Attribute): Boolean =
-        pango_attribute_equal(gPointer.reinterpret(), attr2.gPointer.reinterpret()).asBoolean()
+    public fun equal(attr2: Attribute): Boolean = pango_attribute_equal(gPointer, attr2.gPointer).asBoolean()
 
     /**
      * Initializes @attr's klass to @klass, it's start_index to
@@ -325,8 +323,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.20
      */
     @PangoVersion1_20
-    public fun `init`(klass: AttrClass): Unit =
-        pango_attribute_init(gPointer.reinterpret(), klass.gPointer.reinterpret())
+    public fun `init`(klass: AttrClass): Unit = pango_attribute_init(gPointer, klass.gPointer)
 
     override fun toString(): String = "Attribute(klass=$klass, startIndex=$startIndex, endIndex=$endIndex)"
 

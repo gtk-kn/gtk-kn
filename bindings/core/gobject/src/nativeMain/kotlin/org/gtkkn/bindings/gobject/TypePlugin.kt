@@ -82,12 +82,7 @@ public interface TypePlugin :
      * @param info the #GInterfaceInfo to fill in
      */
     public fun completeInterfaceInfo(instanceType: GType, interfaceType: GType, info: InterfaceInfo): Unit =
-        g_type_plugin_complete_interface_info(
-            gobjectTypePluginPointer.reinterpret(),
-            instanceType,
-            interfaceType,
-            info.gPointer.reinterpret()
-        )
+        g_type_plugin_complete_interface_info(gobjectTypePluginPointer, instanceType, interfaceType, info.gPointer)
 
     /**
      * Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
@@ -99,26 +94,21 @@ public interface TypePlugin :
      * @param valueTable the #GTypeValueTable to fill in
      */
     public fun completeTypeInfo(gType: GType, info: TypeInfo, valueTable: TypeValueTable): Unit =
-        g_type_plugin_complete_type_info(
-            gobjectTypePluginPointer.reinterpret(),
-            gType,
-            info.gPointer.reinterpret(),
-            valueTable.gPointer.reinterpret()
-        )
+        g_type_plugin_complete_type_info(gobjectTypePluginPointer, gType, info.gPointer, valueTable.gPointer)
 
     /**
      * Calls the @unuse_plugin function from the #GTypePluginClass of
      * @plugin.  There should be no need to use this function outside of
      * the GObject type system itself.
      */
-    public fun unuse(): Unit = g_type_plugin_unuse(gobjectTypePluginPointer.reinterpret())
+    public fun unuse(): Unit = g_type_plugin_unuse(gobjectTypePluginPointer)
 
     /**
      * Calls the @use_plugin function from the #GTypePluginClass of
      * @plugin.  There should be no need to use this function outside of
      * the GObject type system itself.
      */
-    public fun use(): Unit = g_type_plugin_use(gobjectTypePluginPointer.reinterpret())
+    public fun use(): Unit = g_type_plugin_use(gobjectTypePluginPointer)
 
     private data class Wrapper(private val pointer: CPointer<GTypePlugin>) : TypePlugin {
         override val gobjectTypePluginPointer: CPointer<GTypePlugin> = pointer

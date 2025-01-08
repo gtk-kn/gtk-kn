@@ -101,8 +101,8 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          *
          * @return the child widget of @bar
          */
-        get() = gtk_search_bar_get_child(gtkSearchBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_search_bar_get_child(gtkSearchBarPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -110,7 +110,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          *
          * @param child the child widget
          */
-        set(child) = gtk_search_bar_set_child(gtkSearchBarPointer.reinterpret(), child?.gtkWidgetPointer?.reinterpret())
+        set(child) = gtk_search_bar_set_child(gtkSearchBarPointer, child?.gtkWidgetPointer)
 
     /**
      * The key capture widget.
@@ -121,8 +121,8 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          *
          * @return The key capture widget.
          */
-        get() = gtk_search_bar_get_key_capture_widget(gtkSearchBarPointer.reinterpret())?.run {
-            Widget(reinterpret())
+        get() = gtk_search_bar_get_key_capture_widget(gtkSearchBarPointer)?.run {
+            Widget(this)
         }
 
         /**
@@ -141,12 +141,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          *
          * @param widget a `GtkWidget`
          */
-        set(
-            widget
-        ) = gtk_search_bar_set_key_capture_widget(
-            gtkSearchBarPointer.reinterpret(),
-            widget?.gtkWidgetPointer?.reinterpret()
-        )
+        set(widget) = gtk_search_bar_set_key_capture_widget(gtkSearchBarPointer, widget?.gtkWidgetPointer)
 
     /**
      * Whether to show the close button in the search bar.
@@ -157,7 +152,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          *
          * @return whether the close button is shown
          */
-        get() = gtk_search_bar_get_show_close_button(gtkSearchBarPointer.reinterpret()).asBoolean()
+        get() = gtk_search_bar_get_show_close_button(gtkSearchBarPointer).asBoolean()
 
         /**
          * Shows or hides the close button.
@@ -168,7 +163,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          *
          * @param visible whether the close button will be shown or not
          */
-        set(visible) = gtk_search_bar_set_show_close_button(gtkSearchBarPointer.reinterpret(), visible.asGBoolean())
+        set(visible) = gtk_search_bar_set_show_close_button(gtkSearchBarPointer, visible.asGBoolean())
 
     /**
      * Creates a `GtkSearchBar`.
@@ -191,15 +186,14 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
      * @param entry a `GtkEditable`
      */
     public open fun connectEntry(entry: Editable): Unit =
-        gtk_search_bar_connect_entry(gtkSearchBarPointer.reinterpret(), entry.gtkEditablePointer)
+        gtk_search_bar_connect_entry(gtkSearchBarPointer, entry.gtkEditablePointer)
 
     /**
      * Returns whether the search mode is on or off.
      *
      * @return whether search mode is toggled on
      */
-    public open fun getSearchMode(): Boolean =
-        gtk_search_bar_get_search_mode(gtkSearchBarPointer.reinterpret()).asBoolean()
+    public open fun getSearchMode(): Boolean = gtk_search_bar_get_search_mode(gtkSearchBarPointer).asBoolean()
 
     /**
      * Switches the search mode on or off.
@@ -207,7 +201,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
      * @param searchMode the new state of the search mode
      */
     public open fun setSearchMode(searchMode: Boolean): Unit =
-        gtk_search_bar_set_search_mode(gtkSearchBarPointer.reinterpret(), searchMode.asGBoolean())
+        gtk_search_bar_set_search_mode(gtkSearchBarPointer, searchMode.asGBoolean())
 
     public companion object : TypeCompanion<SearchBar> {
         override val type: GeneratedClassKGType<SearchBar> =

@@ -127,7 +127,7 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      * @param text A string
      */
     public open fun append(id: String? = null, text: String): Unit =
-        gtk_combo_box_text_append(gtkComboBoxTextPointer.reinterpret(), id, text)
+        gtk_combo_box_text_append(gtkComboBoxTextPointer, id, text)
 
     /**
      * Appends @text to the list of strings stored in @combo_box.
@@ -137,8 +137,7 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      *
      * @param text A string
      */
-    public open fun appendText(text: String): Unit =
-        gtk_combo_box_text_append_text(gtkComboBoxTextPointer.reinterpret(), text)
+    public open fun appendText(text: String): Unit = gtk_combo_box_text_append_text(gtkComboBoxTextPointer, text)
 
     /**
      * Returns the currently active string in @combo_box.
@@ -152,8 +151,7 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      *   string containing the currently active text.
      *   Must be freed with g_free().
      */
-    public open fun getActiveText(): String? =
-        gtk_combo_box_text_get_active_text(gtkComboBoxTextPointer.reinterpret())?.toKString()
+    public open fun getActiveText(): String? = gtk_combo_box_text_get_active_text(gtkComboBoxTextPointer)?.toKString()
 
     /**
      * Inserts @text at @position in the list of strings stored in @combo_box.
@@ -168,7 +166,7 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      * @param text A string to display
      */
     public open fun insert(position: gint, id: String? = null, text: String): Unit =
-        gtk_combo_box_text_insert(gtkComboBoxTextPointer.reinterpret(), position, id, text)
+        gtk_combo_box_text_insert(gtkComboBoxTextPointer, position, id, text)
 
     /**
      * Inserts @text at @position in the list of strings stored in @combo_box.
@@ -182,7 +180,7 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      * @param text A string
      */
     public open fun insertText(position: gint, text: String): Unit =
-        gtk_combo_box_text_insert_text(gtkComboBoxTextPointer.reinterpret(), position, text)
+        gtk_combo_box_text_insert_text(gtkComboBoxTextPointer, position, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.
@@ -196,7 +194,7 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      * @param text a string
      */
     public open fun prepend(id: String? = null, text: String): Unit =
-        gtk_combo_box_text_prepend(gtkComboBoxTextPointer.reinterpret(), id, text)
+        gtk_combo_box_text_prepend(gtkComboBoxTextPointer, id, text)
 
     /**
      * Prepends @text to the list of strings stored in @combo_box.
@@ -206,21 +204,19 @@ public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
      *
      * @param text A string
      */
-    public open fun prependText(text: String): Unit =
-        gtk_combo_box_text_prepend_text(gtkComboBoxTextPointer.reinterpret(), text)
+    public open fun prependText(text: String): Unit = gtk_combo_box_text_prepend_text(gtkComboBoxTextPointer, text)
 
     /**
      * Removes the string at @position from @combo_box.
      *
      * @param position Index of the item to remove
      */
-    public open fun remove(position: gint): Unit =
-        gtk_combo_box_text_remove(gtkComboBoxTextPointer.reinterpret(), position)
+    public open fun remove(position: gint): Unit = gtk_combo_box_text_remove(gtkComboBoxTextPointer, position)
 
     /**
      * Removes all the text entries from the combo box.
      */
-    public open fun removeAll(): Unit = gtk_combo_box_text_remove_all(gtkComboBoxTextPointer.reinterpret())
+    public open fun removeAll(): Unit = gtk_combo_box_text_remove_all(gtkComboBoxTextPointer)
 
     public companion object : TypeCompanion<ComboBoxText> {
         override val type: GeneratedClassKGType<ComboBoxText> =

@@ -132,7 +132,7 @@ public interface DtlsConnection :
          * @return The name of the current DTLS ciphersuite, or null
          * @since 2.70
          */
-        get() = g_dtls_connection_get_ciphersuite_name(gioDtlsConnectionPointer.reinterpret())?.toKString()
+        get() = g_dtls_connection_get_ciphersuite_name(gioDtlsConnectionPointer)?.toKString()
 
     /**
      * The certificate database to use when verifying this TLS connection.
@@ -163,8 +163,8 @@ public interface DtlsConnection :
          * @return the certificate database that @conn uses or null
          * @since 2.48
          */
-        get() = g_dtls_connection_get_database(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsDatabase(reinterpret())
+        get() = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
+            TlsDatabase(this)
         }
 
         /**
@@ -184,12 +184,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         @GioVersion2_48
-        set(
-            database
-        ) = g_dtls_connection_set_database(
-            gioDtlsConnectionPointer.reinterpret(),
-            database?.gioTlsDatabasePointer?.reinterpret()
-        )
+        set(database) = g_dtls_connection_set_database(gioDtlsConnectionPointer, database?.gioTlsDatabasePointer)
 
     /**
      * A #GTlsInteraction object to be used when the connection or certificate
@@ -208,8 +203,8 @@ public interface DtlsConnection :
          * @return The interaction object.
          * @since 2.48
          */
-        get() = g_dtls_connection_get_interaction(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsInteraction(reinterpret())
+        get() = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
+            TlsInteraction(this)
         }
 
         /**
@@ -226,10 +221,7 @@ public interface DtlsConnection :
         @GioVersion2_48
         set(
             interaction
-        ) = g_dtls_connection_set_interaction(
-            gioDtlsConnectionPointer.reinterpret(),
-            interaction?.gioTlsInteractionPointer?.reinterpret()
-        )
+        ) = g_dtls_connection_set_interaction(gioDtlsConnectionPointer, interaction?.gioTlsInteractionPointer)
 
     /**
      * The application-layer protocol negotiated during the TLS
@@ -251,7 +243,7 @@ public interface DtlsConnection :
          * @return the negotiated protocol, or null
          * @since 2.60
          */
-        get() = g_dtls_connection_get_negotiated_protocol(gioDtlsConnectionPointer.reinterpret())?.toKString()
+        get() = g_dtls_connection_get_negotiated_protocol(gioDtlsConnectionPointer)?.toKString()
 
     /**
      * The connection's peer's certificate, after the TLS handshake has
@@ -273,8 +265,8 @@ public interface DtlsConnection :
          * @return @conn's peer's certificate, or null
          * @since 2.48
          */
-        get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
+        get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
+            TlsCertificate(this)
         }
 
     /**
@@ -305,7 +297,7 @@ public interface DtlsConnection :
          * @return @conn's peer's certificate errors
          * @since 2.48
          */
-        get() = g_dtls_connection_get_peer_certificate_errors(gioDtlsConnectionPointer.reinterpret()).run {
+        get() = g_dtls_connection_get_peer_certificate_errors(gioDtlsConnectionPointer).run {
             TlsCertificateFlags(this)
         }
 
@@ -325,7 +317,7 @@ public interface DtlsConnection :
          * @return The current DTLS protocol version
          * @since 2.70
          */
-        get() = g_dtls_connection_get_protocol_version(gioDtlsConnectionPointer.reinterpret()).run {
+        get() = g_dtls_connection_get_protocol_version(gioDtlsConnectionPointer).run {
             TlsProtocolVersion.fromNativeValue(this)
         }
 
@@ -344,7 +336,7 @@ public interface DtlsConnection :
          * @return %G_TLS_REHANDSHAKE_SAFELY
          * @since 2.48
          */
-        get() = g_dtls_connection_get_rehandshake_mode(gioDtlsConnectionPointer.reinterpret()).run {
+        get() = g_dtls_connection_get_rehandshake_mode(gioDtlsConnectionPointer).run {
             TlsRehandshakeMode.fromNativeValue(this)
         }
 
@@ -358,7 +350,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         @GioVersion2_48
-        set(mode) = g_dtls_connection_set_rehandshake_mode(gioDtlsConnectionPointer.reinterpret(), mode.nativeValue)
+        set(mode) = g_dtls_connection_set_rehandshake_mode(gioDtlsConnectionPointer, mode.nativeValue)
 
     /**
      * Whether or not proper TLS close notification is required.
@@ -376,7 +368,7 @@ public interface DtlsConnection :
          * @return true if @conn requires a proper TLS close notification.
          * @since 2.48
          */
-        get() = g_dtls_connection_get_require_close_notify(gioDtlsConnectionPointer.reinterpret()).asBoolean()
+        get() = g_dtls_connection_get_require_close_notify(gioDtlsConnectionPointer).asBoolean()
 
         /**
          * Sets whether or not @conn expects a proper TLS close notification
@@ -411,10 +403,7 @@ public interface DtlsConnection :
         @GioVersion2_48
         set(
             requireCloseNotify
-        ) = g_dtls_connection_set_require_close_notify(
-            gioDtlsConnectionPointer.reinterpret(),
-            requireCloseNotify.asGBoolean()
-        )
+        ) = g_dtls_connection_set_require_close_notify(gioDtlsConnectionPointer, requireCloseNotify.asGBoolean())
 
     /**
      * Close the DTLS connection. This is equivalent to calling
@@ -445,8 +434,8 @@ public interface DtlsConnection :
     public fun close(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dtls_connection_close(
-            gioDtlsConnectionPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioDtlsConnectionPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -468,9 +457,9 @@ public interface DtlsConnection :
     @GioVersion2_48
     public fun closeAsync(ioPriority: gint, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         g_dtls_connection_close_async(
-            gioDtlsConnectionPointer.reinterpret(),
+            gioDtlsConnectionPointer,
             ioPriority,
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -490,7 +479,7 @@ public interface DtlsConnection :
     public fun closeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dtls_connection_close_finish(
-            gioDtlsConnectionPointer.reinterpret(),
+            gioDtlsConnectionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -514,8 +503,8 @@ public interface DtlsConnection :
     @GioVersion2_48
     public fun emitAcceptCertificate(peerCert: TlsCertificate, errors: TlsCertificateFlags): Boolean =
         g_dtls_connection_emit_accept_certificate(
-            gioDtlsConnectionPointer.reinterpret(),
-            peerCert.gioTlsCertificatePointer.reinterpret(),
+            gioDtlsConnectionPointer,
+            peerCert.gioTlsCertificatePointer,
             errors.mask
         ).asBoolean()
 
@@ -527,10 +516,9 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getCertificate(): TlsCertificate? =
-        g_dtls_connection_get_certificate(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
-        }
+    public fun getCertificate(): TlsCertificate? = g_dtls_connection_get_certificate(gioDtlsConnectionPointer)?.run {
+        TlsCertificate(this)
+    }
 
     /**
      * Returns the name of the current DTLS ciphersuite, or null if the
@@ -547,7 +535,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_70
     public fun getCiphersuiteName(): String? =
-        g_dtls_connection_get_ciphersuite_name(gioDtlsConnectionPointer.reinterpret())?.toKString()
+        g_dtls_connection_get_ciphersuite_name(gioDtlsConnectionPointer)?.toKString()
 
     /**
      * Gets the certificate database that @conn uses to verify
@@ -557,10 +545,9 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getDatabase(): TlsDatabase? =
-        g_dtls_connection_get_database(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsDatabase(reinterpret())
-        }
+    public fun getDatabase(): TlsDatabase? = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
+        TlsDatabase(this)
+    }
 
     /**
      * Get the object that will be used to interact with the user. It will be used
@@ -571,10 +558,9 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun getInteraction(): TlsInteraction? =
-        g_dtls_connection_get_interaction(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsInteraction(reinterpret())
-        }
+    public fun getInteraction(): TlsInteraction? = g_dtls_connection_get_interaction(gioDtlsConnectionPointer)?.run {
+        TlsInteraction(this)
+    }
 
     /**
      * Gets the name of the application-layer protocol negotiated during
@@ -590,7 +576,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_60
     public fun getNegotiatedProtocol(): String? =
-        g_dtls_connection_get_negotiated_protocol(gioDtlsConnectionPointer.reinterpret())?.toKString()
+        g_dtls_connection_get_negotiated_protocol(gioDtlsConnectionPointer)?.toKString()
 
     /**
      * Gets @conn's peer's certificate after the handshake has completed
@@ -602,8 +588,8 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getPeerCertificate(): TlsCertificate? =
-        g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer.reinterpret())?.run {
-            TlsCertificate(reinterpret())
+        g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
+            TlsCertificate(this)
         }
 
     /**
@@ -616,7 +602,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getPeerCertificateErrors(): TlsCertificateFlags =
-        g_dtls_connection_get_peer_certificate_errors(gioDtlsConnectionPointer.reinterpret()).run {
+        g_dtls_connection_get_peer_certificate_errors(gioDtlsConnectionPointer).run {
             TlsCertificateFlags(this)
         }
 
@@ -631,7 +617,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_70
     public fun getProtocolVersion(): TlsProtocolVersion =
-        g_dtls_connection_get_protocol_version(gioDtlsConnectionPointer.reinterpret()).run {
+        g_dtls_connection_get_protocol_version(gioDtlsConnectionPointer).run {
             TlsProtocolVersion.fromNativeValue(this)
         }
 
@@ -644,7 +630,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getRehandshakeMode(): TlsRehandshakeMode =
-        g_dtls_connection_get_rehandshake_mode(gioDtlsConnectionPointer.reinterpret()).run {
+        g_dtls_connection_get_rehandshake_mode(gioDtlsConnectionPointer).run {
             TlsRehandshakeMode.fromNativeValue(this)
         }
 
@@ -658,7 +644,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getRequireCloseNotify(): Boolean =
-        g_dtls_connection_get_require_close_notify(gioDtlsConnectionPointer.reinterpret()).asBoolean()
+        g_dtls_connection_get_require_close_notify(gioDtlsConnectionPointer).asBoolean()
 
     /**
      * Attempts a TLS handshake on @conn.
@@ -696,8 +682,8 @@ public interface DtlsConnection :
     public fun handshake(cancellable: Cancellable? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dtls_connection_handshake(
-            gioDtlsConnectionPointer.reinterpret(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            gioDtlsConnectionPointer,
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -722,9 +708,9 @@ public interface DtlsConnection :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_dtls_connection_handshake_async(
-        gioDtlsConnectionPointer.reinterpret(),
+        gioDtlsConnectionPointer,
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -744,7 +730,7 @@ public interface DtlsConnection :
     public fun handshakeFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dtls_connection_handshake_finish(
-            gioDtlsConnectionPointer.reinterpret(),
+            gioDtlsConnectionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -773,10 +759,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_60
     public fun setAdvertisedProtocols(protocols: List<String>? = null): Unit = memScoped {
-        return g_dtls_connection_set_advertised_protocols(
-            gioDtlsConnectionPointer.reinterpret(),
-            protocols?.toCStringList(this)
-        )
+        return g_dtls_connection_set_advertised_protocols(gioDtlsConnectionPointer, protocols?.toCStringList(this))
     }
 
     /**
@@ -803,10 +786,8 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun setCertificate(certificate: TlsCertificate): Unit = g_dtls_connection_set_certificate(
-        gioDtlsConnectionPointer.reinterpret(),
-        certificate.gioTlsCertificatePointer.reinterpret()
-    )
+    public fun setCertificate(certificate: TlsCertificate): Unit =
+        g_dtls_connection_set_certificate(gioDtlsConnectionPointer, certificate.gioTlsCertificatePointer)
 
     /**
      * Sets the certificate database that is used to verify peer certificates.
@@ -825,10 +806,8 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun setDatabase(database: TlsDatabase? = null): Unit = g_dtls_connection_set_database(
-        gioDtlsConnectionPointer.reinterpret(),
-        database?.gioTlsDatabasePointer?.reinterpret()
-    )
+    public fun setDatabase(database: TlsDatabase? = null): Unit =
+        g_dtls_connection_set_database(gioDtlsConnectionPointer, database?.gioTlsDatabasePointer)
 
     /**
      * Set the object that will be used to interact with the user. It will be used
@@ -842,10 +821,8 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun setInteraction(interaction: TlsInteraction? = null): Unit = g_dtls_connection_set_interaction(
-        gioDtlsConnectionPointer.reinterpret(),
-        interaction?.gioTlsInteractionPointer?.reinterpret()
-    )
+    public fun setInteraction(interaction: TlsInteraction? = null): Unit =
+        g_dtls_connection_set_interaction(gioDtlsConnectionPointer, interaction?.gioTlsInteractionPointer)
 
     /**
      * Since GLib 2.64, changing the rehandshake mode is no longer supported
@@ -858,7 +835,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun setRehandshakeMode(mode: TlsRehandshakeMode): Unit =
-        g_dtls_connection_set_rehandshake_mode(gioDtlsConnectionPointer.reinterpret(), mode.nativeValue)
+        g_dtls_connection_set_rehandshake_mode(gioDtlsConnectionPointer, mode.nativeValue)
 
     /**
      * Sets whether or not @conn expects a proper TLS close notification
@@ -891,10 +868,8 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun setRequireCloseNotify(requireCloseNotify: Boolean): Unit = g_dtls_connection_set_require_close_notify(
-        gioDtlsConnectionPointer.reinterpret(),
-        requireCloseNotify.asGBoolean()
-    )
+    public fun setRequireCloseNotify(requireCloseNotify: Boolean): Unit =
+        g_dtls_connection_set_require_close_notify(gioDtlsConnectionPointer, requireCloseNotify.asGBoolean())
 
     /**
      * Shut down part or all of a DTLS connection.
@@ -928,10 +903,10 @@ public interface DtlsConnection :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dtls_connection_shutdown(
-            gioDtlsConnectionPointer.reinterpret(),
+            gioDtlsConnectionPointer,
             shutdownRead.asGBoolean(),
             shutdownWrite.asGBoolean(),
-            cancellable?.gioCancellablePointer?.reinterpret(),
+            cancellable?.gioCancellablePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -960,11 +935,11 @@ public interface DtlsConnection :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_dtls_connection_shutdown_async(
-        gioDtlsConnectionPointer.reinterpret(),
+        gioDtlsConnectionPointer,
         shutdownRead.asGBoolean(),
         shutdownWrite.asGBoolean(),
         ioPriority,
-        cancellable?.gioCancellablePointer?.reinterpret(),
+        cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -984,7 +959,7 @@ public interface DtlsConnection :
     public fun shutdownFinish(result: AsyncResult): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_dtls_connection_shutdown_finish(
-            gioDtlsConnectionPointer.reinterpret(),
+            gioDtlsConnectionPointer,
             result.gioAsyncResultPointer,
             gError.ptr
         ).asBoolean()
@@ -1039,7 +1014,7 @@ public interface DtlsConnection :
      * need to worry about this, and can simply block in the signal
      * handler until the UI thread returns an answer.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect. Params: `peerCert` the peer's #GTlsCertificate; `errors` the problems with @peer_cert.. Returns true to accept @peer_cert (which will also
      * immediately end the signal emission). false to allow the signal
      * emission to continue, which will cause the handshake to fail if
@@ -1047,13 +1022,13 @@ public interface DtlsConnection :
      * @since 2.48
      */
     @GioVersion2_48
-    public fun connectAcceptCertificate(
+    public fun onAcceptCertificate(
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gioDtlsConnectionPointer.reinterpret(),
+        gioDtlsConnectionPointer,
         "accept-certificate",
-        connectAcceptCertificateFunc.reinterpret(),
+        onAcceptCertificateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
         staticStableRefDestroy.reinterpret(),
         connectFlags.mask
@@ -1082,7 +1057,7 @@ public interface DtlsConnection :
     }
 }
 
-private val connectAcceptCertificateFunc:
+private val onAcceptCertificateFunc:
     CPointer<CFunction<(CPointer<GTlsCertificate>, GTlsCertificateFlags) -> gboolean>> =
     staticCFunction {
             _: COpaquePointer,
@@ -1097,7 +1072,7 @@ private val connectAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             peerCert!!.run {
-                TlsCertificate(reinterpret())
+                TlsCertificate(this)
             },
             errors.run {
                 TlsCertificateFlags(this)

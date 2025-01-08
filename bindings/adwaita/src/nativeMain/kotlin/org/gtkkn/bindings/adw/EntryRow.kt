@@ -46,6 +46,7 @@ import org.gtkkn.native.adw.adw_entry_row_set_show_apply_button
 import org.gtkkn.native.glib.guint
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import org.gtkkn.native.gtk.GtkAccessible
 import org.gtkkn.native.gtk.GtkActionable
 import org.gtkkn.native.gtk.GtkBuildable
@@ -128,7 +129,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return whether to activate the default widget
          * @since 1.2
          */
-        get() = adw_entry_row_get_activates_default(adwEntryRowPointer.reinterpret()).asBoolean()
+        get() = adw_entry_row_get_activates_default(adwEntryRowPointer).asBoolean()
 
         /**
          * Sets whether activating the embedded entry can activate the default widget.
@@ -137,7 +138,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(activates) = adw_entry_row_set_activates_default(adwEntryRowPointer.reinterpret(), activates.asGBoolean())
+        set(activates) = adw_entry_row_set_activates_default(adwEntryRowPointer, activates.asGBoolean())
 
     /**
      * A list of Pango attributes to apply to the text of the embedded entry.
@@ -155,8 +156,8 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return the list of attributes
          * @since 1.2
          */
-        get() = adw_entry_row_get_attributes(adwEntryRowPointer.reinterpret())?.run {
-            AttrList(reinterpret())
+        get() = adw_entry_row_get_attributes(adwEntryRowPointer)?.run {
+            AttrList(this)
         }
 
         /**
@@ -169,9 +170,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            attributes
-        ) = adw_entry_row_set_attributes(adwEntryRowPointer.reinterpret(), attributes?.gPointer?.reinterpret())
+        set(attributes) = adw_entry_row_set_attributes(adwEntryRowPointer, attributes?.gPointer)
 
     /**
      * Whether to suggest emoji replacements on the entry row.
@@ -188,7 +187,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return whether or not emoji completion is enabled
          * @since 1.2
          */
-        get() = adw_entry_row_get_enable_emoji_completion(adwEntryRowPointer.reinterpret()).asBoolean()
+        get() = adw_entry_row_get_enable_emoji_completion(adwEntryRowPointer).asBoolean()
 
         /**
          * Sets whether to suggest emoji replacements on @self.
@@ -201,10 +200,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
         @AdwVersion1_2
         set(
             enableEmojiCompletion
-        ) = adw_entry_row_set_enable_emoji_completion(
-            adwEntryRowPointer.reinterpret(),
-            enableEmojiCompletion.asGBoolean()
-        )
+        ) = adw_entry_row_set_enable_emoji_completion(adwEntryRowPointer, enableEmojiCompletion.asGBoolean())
 
     /**
      * Additional input hints for the entry row.
@@ -223,7 +219,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return The input hints
          * @since 1.2
          */
-        get() = adw_entry_row_get_input_hints(adwEntryRowPointer.reinterpret()).run {
+        get() = adw_entry_row_get_input_hints(adwEntryRowPointer).run {
             InputHints(this)
         }
 
@@ -238,7 +234,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(hints) = adw_entry_row_set_input_hints(adwEntryRowPointer.reinterpret(), hints.mask)
+        set(hints) = adw_entry_row_set_input_hints(adwEntryRowPointer, hints.mask)
 
     /**
      * The input purpose of the entry row.
@@ -255,7 +251,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return the input purpose
          * @since 1.2
          */
-        get() = adw_entry_row_get_input_purpose(adwEntryRowPointer.reinterpret()).run {
+        get() = adw_entry_row_get_input_purpose(adwEntryRowPointer).run {
             InputPurpose.fromNativeValue(this)
         }
 
@@ -268,7 +264,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(purpose) = adw_entry_row_set_input_purpose(adwEntryRowPointer.reinterpret(), purpose.nativeValue)
+        set(purpose) = adw_entry_row_set_input_purpose(adwEntryRowPointer, purpose.nativeValue)
 
     /**
      * Whether to show the apply button.
@@ -291,7 +287,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return whether to show the apply button
          * @since 1.2
          */
-        get() = adw_entry_row_get_show_apply_button(adwEntryRowPointer.reinterpret()).asBoolean()
+        get() = adw_entry_row_get_show_apply_button(adwEntryRowPointer).asBoolean()
 
         /**
          * Sets whether @self can show the apply button.
@@ -308,9 +304,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @since 1.2
          */
         @AdwVersion1_2
-        set(
-            showApplyButton
-        ) = adw_entry_row_set_show_apply_button(adwEntryRowPointer.reinterpret(), showApplyButton.asGBoolean())
+        set(showApplyButton) = adw_entry_row_set_show_apply_button(adwEntryRowPointer, showApplyButton.asGBoolean())
 
     /**
      * The length of the text in the entry row.
@@ -325,7 +319,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
          * @return The current number of characters in @self, or 0 if there are none.
          * @since 1.5
          */
-        get() = adw_entry_row_get_text_length(adwEntryRowPointer.reinterpret())
+        get() = adw_entry_row_get_text_length(adwEntryRowPointer)
 
     /**
      * Creates a new `AdwEntryRow`.
@@ -343,7 +337,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
      */
     @AdwVersion1_2
     public open fun addPrefix(widget: Widget): Unit =
-        adw_entry_row_add_prefix(adwEntryRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_entry_row_add_prefix(adwEntryRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Adds a suffix widget to @self.
@@ -353,7 +347,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
      */
     @AdwVersion1_2
     public open fun addSuffix(widget: Widget): Unit =
-        adw_entry_row_add_suffix(adwEntryRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+        adw_entry_row_add_suffix(adwEntryRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Causes @self to have keyboard focus without selecting the text.
@@ -365,7 +359,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
      */
     @AdwVersion1_3
     public open fun grabFocusWithoutSelecting(): Boolean =
-        adw_entry_row_grab_focus_without_selecting(adwEntryRowPointer.reinterpret()).asBoolean()
+        adw_entry_row_grab_focus_without_selecting(adwEntryRowPointer).asBoolean()
 
     /**
      * Removes a child from @self.
@@ -374,46 +368,65 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
      * @since 1.2
      */
     @AdwVersion1_2
-    public open fun remove(widget: Widget): Unit =
-        adw_entry_row_remove(adwEntryRowPointer.reinterpret(), widget.gtkWidgetPointer.reinterpret())
+    public open fun remove(widget: Widget): Unit = adw_entry_row_remove(adwEntryRowPointer, widget.gtkWidgetPointer)
 
     /**
      * Emitted when the apply button is pressed.
      *
      * See [property@EntryRow:show-apply-button].
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun connectApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "apply",
-            connectApplyFunc.reinterpret(),
+            onApplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
 
     /**
+     * Emits the "apply" signal. See [onApply].
+     *
+     * @since 1.2
+     */
+    @AdwVersion1_2
+    public fun emitApply() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "apply")
+    }
+
+    /**
      * Emitted when the embedded entry is activated.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      * @since 1.2
      */
     @AdwVersion1_2
-    public fun connectEntryActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onEntryActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "entry-activated",
-            connectEntryActivatedFunc.reinterpret(),
+            onEntryActivatedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "entry-activated" signal. See [onEntryActivated].
+     *
+     * @since 1.2
+     */
+    @AdwVersion1_2
+    public fun emitEntryActivated() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "entry-activated")
+    }
 
     public companion object : TypeCompanion<EntryRow> {
         override val type: GeneratedClassKGType<EntryRow> =
@@ -432,7 +445,7 @@ public open class EntryRow(pointer: CPointer<AdwEntryRow>) :
     }
 }
 
-private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->
@@ -440,7 +453,7 @@ private val connectApplyFunc: CPointer<CFunction<() -> Unit>> = staticCFunction 
 }
     .reinterpret()
 
-private val connectEntryActivatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onEntryActivatedFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

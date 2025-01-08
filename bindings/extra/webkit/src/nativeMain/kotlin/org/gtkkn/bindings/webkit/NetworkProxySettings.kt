@@ -43,7 +43,7 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      */
     @WebKitVersion2_16
     public fun addProxyForScheme(scheme: String, proxyUri: String): Unit =
-        webkit_network_proxy_settings_add_proxy_for_scheme(gPointer.reinterpret(), scheme, proxyUri)
+        webkit_network_proxy_settings_add_proxy_for_scheme(gPointer, scheme, proxyUri)
 
     /**
      * Make a copy of the #WebKitNetworkProxySettings.
@@ -52,8 +52,8 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun copy(): NetworkProxySettings = webkit_network_proxy_settings_copy(gPointer.reinterpret())!!.run {
-        NetworkProxySettings(reinterpret())
+    public fun copy(): NetworkProxySettings = webkit_network_proxy_settings_copy(gPointer)!!.run {
+        NetworkProxySettings(this)
     }
 
     /**
@@ -62,7 +62,7 @@ public class NetworkProxySettings(pointer: CPointer<WebKitNetworkProxySettings>)
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun free(): Unit = webkit_network_proxy_settings_free(gPointer.reinterpret())
+    public fun free(): Unit = webkit_network_proxy_settings_free(gPointer)
 
     public companion object {
         /**

@@ -44,7 +44,7 @@ import kotlin.time.Duration.Companion.milliseconds
  */
 fun main() {
     val app = Application("org.gtkkn.samples.cairo.clock", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         val window = buildWindow(app)
         window.present()
     }

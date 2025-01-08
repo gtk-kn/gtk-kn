@@ -45,8 +45,8 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getName(): String = g_menu_link_iter_get_name(gioMenuLinkIterPointer.reinterpret())?.toKString()
-        ?: error("Expected not null string")
+    public open fun getName(): String =
+        g_menu_link_iter_get_name(gioMenuLinkIterPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the linked #GMenuModel at the current iterator position.
@@ -57,8 +57,8 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer.reinterpret())!!.run {
-        MenuModel(reinterpret())
+    public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer)!!.run {
+        MenuModel(this)
     }
 
     /**
@@ -75,7 +75,7 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
      * @since 2.32
      */
     @GioVersion2_32
-    public open fun next(): Boolean = g_menu_link_iter_next(gioMenuLinkIterPointer.reinterpret()).asBoolean()
+    public open fun next(): Boolean = g_menu_link_iter_next(gioMenuLinkIterPointer).asBoolean()
 
     public companion object : TypeCompanion<MenuLinkIter> {
         override val type: GeneratedClassKGType<MenuLinkIter> =

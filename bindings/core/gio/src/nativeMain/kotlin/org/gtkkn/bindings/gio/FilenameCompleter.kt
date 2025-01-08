@@ -25,6 +25,7 @@ import org.gtkkn.native.gio.g_filename_completer_new
 import org.gtkkn.native.gio.g_filename_completer_set_dirs_only
 import org.gtkkn.native.gobject.GType
 import org.gtkkn.native.gobject.g_signal_connect_data
+import org.gtkkn.native.gobject.g_signal_emit_by_name
 import kotlin.Boolean
 import kotlin.String
 import kotlin.ULong
@@ -58,7 +59,7 @@ public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
      *     it when finished.
      */
     public open fun getCompletionSuffix(initialText: String): String? =
-        g_filename_completer_get_completion_suffix(gioFilenameCompleterPointer.reinterpret(), initialText)?.toKString()
+        g_filename_completer_get_completion_suffix(gioFilenameCompleterPointer, initialText)?.toKString()
 
     /**
      * Gets an array of completion strings for a given initial text.
@@ -68,7 +69,7 @@ public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
      * This array must be freed by g_strfreev() when finished.
      */
     public open fun getCompletions(initialText: String): List<String> =
-        g_filename_completer_get_completions(gioFilenameCompleterPointer.reinterpret(), initialText)?.toKStringList()
+        g_filename_completer_get_completions(gioFilenameCompleterPointer, initialText)?.toKStringList()
             ?: error("Expected not null string array")
 
     /**
@@ -78,23 +79,30 @@ public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
      * @param dirsOnly a #gboolean.
      */
     public open fun setDirsOnly(dirsOnly: Boolean): Unit =
-        g_filename_completer_set_dirs_only(gioFilenameCompleterPointer.reinterpret(), dirsOnly.asGBoolean())
+        g_filename_completer_set_dirs_only(gioFilenameCompleterPointer, dirsOnly.asGBoolean())
 
     /**
      * Emitted when the file name completion information comes available.
      *
-     * @param connectFlags A combination of [ConnectFlags]
+     * @param connectFlags a combination of [ConnectFlags]
      * @param handler the Callback to connect
      */
-    public fun connectGotCompletionData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
+    public fun onGotCompletionData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer.reinterpret(),
+            gPointer,
             "got-completion-data",
-            connectGotCompletionDataFunc.reinterpret(),
+            onGotCompletionDataFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy.reinterpret(),
             connectFlags.mask
         )
+
+    /**
+     * Emits the "got-completion-data" signal. See [onGotCompletionData].
+     */
+    public fun emitGotCompletionData() {
+        g_signal_emit_by_name(gPointer.reinterpret(), "got-completion-data")
+    }
 
     public companion object : TypeCompanion<FilenameCompleter> {
         override val type: GeneratedClassKGType<FilenameCompleter> =
@@ -113,7 +121,7 @@ public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
     }
 }
 
-private val connectGotCompletionDataFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
+private val onGotCompletionDataFunc: CPointer<CFunction<() -> Unit>> = staticCFunction {
         _: COpaquePointer,
         userData: COpaquePointer,
     ->

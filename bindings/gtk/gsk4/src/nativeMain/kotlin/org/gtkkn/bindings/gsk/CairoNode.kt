@@ -34,7 +34,7 @@ public open class CairoNode(pointer: CPointer<GskCairoNode>) :
      * @param bounds the rectangle to render to
      * @return A new `GskRenderNode`
      */
-    public constructor(bounds: Rect) : this(gsk_cairo_node_new(bounds.gPointer.reinterpret())!!.reinterpret())
+    public constructor(bounds: Rect) : this(gsk_cairo_node_new(bounds.gPointer)!!.reinterpret())
 
     /**
      * Creates a Cairo context for drawing using the surface associated
@@ -48,7 +48,7 @@ public open class CairoNode(pointer: CPointer<GskCairoNode>) :
      */
     public open fun getDrawContext(): Context =
         gsk_cairo_node_get_draw_context(gskCairoNodePointer.reinterpret())!!.run {
-            Context(reinterpret())
+            Context(this)
         }
 
     /**
@@ -57,7 +57,7 @@ public open class CairoNode(pointer: CPointer<GskCairoNode>) :
      * @return a Cairo surface
      */
     public open fun getSurface(): Surface = gsk_cairo_node_get_surface(gskCairoNodePointer.reinterpret())!!.run {
-        Surface(reinterpret())
+        Surface(this)
     }
 
     public companion object : TypeCompanion<CairoNode> {

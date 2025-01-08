@@ -102,7 +102,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
          * @return the baseline child
          * @since 4.12
          */
-        get() = gtk_box_get_baseline_child(gtkBoxPointer.reinterpret())
+        get() = gtk_box_get_baseline_child(gtkBoxPointer)
 
         /**
          * Sets the baseline child of a box.
@@ -113,7 +113,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
          * @since 4.12
          */
         @GtkVersion4_12
-        set(child) = gtk_box_set_baseline_child(gtkBoxPointer.reinterpret(), child)
+        set(child) = gtk_box_set_baseline_child(gtkBoxPointer, child)
 
     /**
      * The position of the baseline aligned widgets if extra space is available.
@@ -124,7 +124,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
          *
          * @return the baseline position
          */
-        get() = gtk_box_get_baseline_position(gtkBoxPointer.reinterpret()).run {
+        get() = gtk_box_get_baseline_position(gtkBoxPointer).run {
             BaselinePosition.fromNativeValue(this)
         }
 
@@ -139,7 +139,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
          *
          * @param position a `GtkBaselinePosition`
          */
-        set(position) = gtk_box_set_baseline_position(gtkBoxPointer.reinterpret(), position.nativeValue)
+        set(position) = gtk_box_set_baseline_position(gtkBoxPointer, position.nativeValue)
 
     /**
      * Whether the children should all be the same size.
@@ -151,7 +151,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
          *
          * @return true if the box is homogeneous.
          */
-        get() = gtk_box_get_homogeneous(gtkBoxPointer.reinterpret()).asBoolean()
+        get() = gtk_box_get_homogeneous(gtkBoxPointer).asBoolean()
 
         /**
          * Sets whether or not all children of @box are given equal space
@@ -160,7 +160,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
          * @param homogeneous a boolean value, true to create equal allotments,
          *   false for variable allotments
          */
-        set(homogeneous) = gtk_box_set_homogeneous(gtkBoxPointer.reinterpret(), homogeneous.asGBoolean())
+        set(homogeneous) = gtk_box_set_homogeneous(gtkBoxPointer, homogeneous.asGBoolean())
 
     /**
      * The amount of space between children.
@@ -171,14 +171,14 @@ public open class Box(pointer: CPointer<GtkBox>) :
          *
          * @return spacing between children
          */
-        get() = gtk_box_get_spacing(gtkBoxPointer.reinterpret())
+        get() = gtk_box_get_spacing(gtkBoxPointer)
 
         /**
          * Sets the number of pixels to place between children of @box.
          *
          * @param spacing the number of pixels to put between children
          */
-        set(spacing) = gtk_box_set_spacing(gtkBoxPointer.reinterpret(), spacing)
+        set(spacing) = gtk_box_set_spacing(gtkBoxPointer, spacing)
 
     /**
      * Creates a new `GtkBox`.
@@ -197,8 +197,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
      *
      * @param child the `GtkWidget` to append
      */
-    public open fun append(child: Widget): Unit =
-        gtk_box_append(gtkBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun append(child: Widget): Unit = gtk_box_append(gtkBoxPointer, child.gtkWidgetPointer)
 
     /**
      * Inserts @child in the position after @sibling in the list
@@ -209,19 +208,15 @@ public open class Box(pointer: CPointer<GtkBox>) :
      * @param child the `GtkWidget` to insert
      * @param sibling the sibling after which to insert @child
      */
-    public open fun insertChildAfter(child: Widget, sibling: Widget? = null): Unit = gtk_box_insert_child_after(
-        gtkBoxPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        sibling?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun insertChildAfter(child: Widget, sibling: Widget? = null): Unit =
+        gtk_box_insert_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     /**
      * Adds @child as the first child to @box.
      *
      * @param child the `GtkWidget` to prepend
      */
-    public open fun prepend(child: Widget): Unit =
-        gtk_box_prepend(gtkBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun prepend(child: Widget): Unit = gtk_box_prepend(gtkBoxPointer, child.gtkWidgetPointer)
 
     /**
      * Removes a child widget from @box.
@@ -232,8 +227,7 @@ public open class Box(pointer: CPointer<GtkBox>) :
      *
      * @param child the child to remove
      */
-    public open fun remove(child: Widget): Unit =
-        gtk_box_remove(gtkBoxPointer.reinterpret(), child.gtkWidgetPointer.reinterpret())
+    public open fun remove(child: Widget): Unit = gtk_box_remove(gtkBoxPointer, child.gtkWidgetPointer)
 
     /**
      * Moves @child to the position after @sibling in the list
@@ -244,11 +238,8 @@ public open class Box(pointer: CPointer<GtkBox>) :
      * @param child the `GtkWidget` to move, must be a child of @box
      * @param sibling the sibling to move @child after
      */
-    public open fun reorderChildAfter(child: Widget, sibling: Widget? = null): Unit = gtk_box_reorder_child_after(
-        gtkBoxPointer.reinterpret(),
-        child.gtkWidgetPointer.reinterpret(),
-        sibling?.gtkWidgetPointer?.reinterpret()
-    )
+    public open fun reorderChildAfter(child: Widget, sibling: Widget? = null): Unit =
+        gtk_box_reorder_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     public companion object : TypeCompanion<Box> {
         override val type: GeneratedClassKGType<Box> =

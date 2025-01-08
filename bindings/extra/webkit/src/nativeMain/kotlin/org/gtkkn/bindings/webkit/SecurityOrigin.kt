@@ -48,7 +48,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getHost(): String? = webkit_security_origin_get_host(gPointer.reinterpret())?.toKString()
+    public fun getHost(): String? = webkit_security_origin_get_host(gPointer)?.toKString()
 
     /**
      * Gets the port of @origin.
@@ -63,7 +63,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getPort(): guint16 = webkit_security_origin_get_port(gPointer.reinterpret())
+    public fun getPort(): guint16 = webkit_security_origin_get_port(gPointer)
 
     /**
      * Gets the protocol of @origin.
@@ -72,7 +72,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getProtocol(): String? = webkit_security_origin_get_protocol(gPointer.reinterpret())?.toKString()
+    public fun getProtocol(): String? = webkit_security_origin_get_protocol(gPointer)?.toKString()
 
     /**
      * Atomically increments the reference count of @origin by one.
@@ -83,8 +83,8 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): SecurityOrigin = webkit_security_origin_ref(gPointer.reinterpret())!!.run {
-        SecurityOrigin(reinterpret())
+    public fun ref(): SecurityOrigin = webkit_security_origin_ref(gPointer)!!.run {
+        SecurityOrigin(this)
     }
 
     /**
@@ -98,7 +98,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun toStringSecurityOrigin(): String? = webkit_security_origin_to_string(gPointer.reinterpret())?.toKString()
+    public fun toStringSecurityOrigin(): String? = webkit_security_origin_to_string(gPointer)?.toKString()
 
     /**
      * Atomically decrements the reference count of @origin by one.
@@ -110,7 +110,7 @@ public class SecurityOrigin(pointer: CPointer<WebKitSecurityOrigin>) : ProxyInst
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun unref(): Unit = webkit_security_origin_unref(gPointer.reinterpret())
+    public fun unref(): Unit = webkit_security_origin_unref(gPointer)
 
     public companion object {
         /**
