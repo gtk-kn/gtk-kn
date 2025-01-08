@@ -26,12 +26,13 @@ import org.gtkkn.bindings.adw.Application
 import org.gtkkn.bindings.adw.ApplicationWindow
 import org.gtkkn.bindings.gio.ApplicationFlags
 import org.gtkkn.extensions.gio.runApplication
-import org.gtkkn.extensions.glib.util.log
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger
+import org.gtkkn.extensions.glib.util.log.Log
+import org.gtkkn.extensions.glib.util.log.log
+import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 
 @Suppress("FunctionName")
 fun Application(builder: ApplicationWindow.() -> Unit) {
-    LogcatStyleLogger.install()
+    Log.installConsoleLogWriter()
     log("sample") { "gtk source" }
     val app = Application("org.gtkkn.samples.gtksource.sample", ApplicationFlags.DEFAULT_FLAGS)
     app.onActivate {

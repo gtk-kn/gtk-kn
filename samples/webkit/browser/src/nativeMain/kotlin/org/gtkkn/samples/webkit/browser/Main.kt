@@ -37,7 +37,7 @@ import org.gtkkn.bindings.webkit.LoadEvent.FINISHED
 import org.gtkkn.bindings.webkit.LoadEvent.REDIRECTED
 import org.gtkkn.bindings.webkit.LoadEvent.STARTED
 import org.gtkkn.bindings.webkit.WebView
-import org.gtkkn.extensions.glib.util.log
+import org.gtkkn.extensions.glib.util.log.log
 
 // --8<-- [start:doc]
 @Suppress("LongMethod")
