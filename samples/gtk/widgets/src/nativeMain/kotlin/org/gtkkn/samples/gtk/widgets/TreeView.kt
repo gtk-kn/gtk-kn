@@ -66,7 +66,7 @@ fun treeView(): Widget {
     val selection = SingleSelection(treeListModel)
     val factory = SignalListItemFactory()
 
-    factory.connectBind { obj ->
+    factory.onBind { obj ->
         // cast obj as ListItem
         val listItem = obj.asType<ListItem>()
 

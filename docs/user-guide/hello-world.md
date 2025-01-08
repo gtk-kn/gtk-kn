@@ -50,7 +50,7 @@ fun main() {
     val app = Application(APP_ID, ApplicationFlags.FLAGS_NONE)
 
     // Connect to "activate" signal of `app`
-    app.connectActivate {
+    app.onActivate {
 
         // Create a window and set the title
         val window = ApplicationWindow(app)

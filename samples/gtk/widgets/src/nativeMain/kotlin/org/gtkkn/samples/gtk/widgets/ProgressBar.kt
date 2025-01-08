@@ -44,15 +44,15 @@ fun progressBar(): Box {
     vbox.append(progressBar)
 
     val showTextButton = CheckButton(label = "Show text")
-    showTextButton.connectToggled { onShowTextToggled(showTextButton, progressBar) }
+    showTextButton.onToggled { onShowTextToggled(showTextButton, progressBar) }
     vbox.append(showTextButton)
 
     val activityModeButton = CheckButton(label = "Activity mode")
-    activityModeButton.connectToggled { onActivityModeToggled(activityModeButton, progressBar) }
+    activityModeButton.onToggled { onActivityModeToggled(activityModeButton, progressBar) }
     vbox.append(activityModeButton)
 
     val rightToLeftButton = CheckButton(label = "Right to Left")
-    rightToLeftButton.connectToggled { onRightToLeftToggled(rightToLeftButton, progressBar) }
+    rightToLeftButton.onToggled { onRightToLeftToggled(rightToLeftButton, progressBar) }
     vbox.append(rightToLeftButton)
 
     GLib.timeoutAdd(0, 50.toUInt()) {

@@ -122,7 +122,7 @@ fun main() = Application {
     // and add your widget to the layout to display it
 //    val button = Button()
 //    button.name = "ciao"
-//    button.connectClicked {
+//    button.onClicked {
 //        log { "rectangle2: x=${r.x} y=${r.y} h=${r.height} w=${r.width}" }
 //    }
     layout.append(label)

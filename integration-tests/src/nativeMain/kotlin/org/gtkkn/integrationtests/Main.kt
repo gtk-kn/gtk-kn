@@ -37,7 +37,7 @@ import org.gtkkn.native.glib.G_PRIORITY_DEFAULT
 fun main() {
     LogcatStyleLogger.install()
     val app = Application("org.gtkkn.integrationtests", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         log("App") { "App Activate" }
 
         // Main window
@@ -60,14 +60,14 @@ fun main() {
 
         // Simple button (not programmatically clicked because bindings currently don’t support it).
         val button = Button.newWithLabel("Press Me").apply {
-            connectClicked {
+            onClicked {
                 log("Button") { "Button pressed" }
             }
         }
 
         // Check button
         val checkButton = CheckButton("Check Me").apply {
-            connectToggled {
+            onToggled {
                 log("CheckButton") { "CheckButton toggled: active=$active" }
             }
         }
@@ -75,7 +75,7 @@ fun main() {
         // Text entry
         val entry = Entry().apply {
             placeholderText = "Type something…"
-            connectChanged {
+            onChanged {
                 log("Entry") { "Entry changed: text='$text'" }
             }
         }
@@ -97,7 +97,7 @@ fun main() {
             pageSize = 0.0,
         )
         val scale = Scale(Orientation.HORIZONTAL, scaleAdjustment).apply {
-            connectValueChanged {
+            onValueChanged {
                 log("Scale") { "Scale value changed: ${getValue()}" }
             }
         }
@@ -124,43 +124,43 @@ fun main() {
         // Automation: quick successive actions to verify bindings
         // --------------------------------------------------------------------
 
-        // 1) Toggle check button at ~250 ms
         GLib.timeoutAdd(G_PRIORITY_DEFAULT, 250u) {
+            log("Automation") { "Triggering button click programmatically." }
+            button.emitClicked()
+            false
+        }
+
+        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 500u) {
             log("Automation") { "Toggling check button programmatically." }
             checkButton.active = true
             false
         }
 
-        // 2) Update the entry text at ~500 ms
-        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 500u) {
+        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 750u) {
             log("Automation") { "Updating entry text programmatically." }
             entry.text = "Hello from integration tests!"
             false
         }
 
-        // 3) Update label text at ~750 ms
-        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 750u) {
+        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1000u) {
             log("Automation") { "Updating label text programmatically." }
             label.label = "Label updated!"
             false
         }
 
-        // 4) Move scale to ~75% at ~1000 ms
-        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1000u) {
+        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1250u) {
             log("Automation") { "Setting scale to ~75." }
             scale.setValue(75.0)
             false
         }
 
-        // 5) Progress bar to ~50% at ~1250 ms
-        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1250u) {
+        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1500u) {
             log("Automation") { "Updating progress bar to 50%." }
             progressBar.fraction = 0.5
             false
         }
 
-        // 6) Close the window at ~1500 ms
-        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1500u) {
+        GLib.timeoutAdd(G_PRIORITY_DEFAULT, 1750u) {
             log("Automation") { "Closing application." }
             window.close()
             false

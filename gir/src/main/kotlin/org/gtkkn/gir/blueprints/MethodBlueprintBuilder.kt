@@ -17,6 +17,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toCamelCase
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirAnyTypeOrVarargs
@@ -26,6 +27,7 @@ import org.gtkkn.gir.model.GirInterface
 import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirParameter
+import org.gtkkn.gir.model.GirReturnValue
 import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.model.GirVarArgs
 import org.gtkkn.gir.processor.BlueprintException
@@ -41,6 +43,7 @@ class MethodBlueprintBuilder(
     private val superClasses: List<GirClass> = emptyList(),
     private val superInterfaces: List<GirInterface> = emptyList(),
     private val isOpen: Boolean = false,
+    private val objectPointerTypeName: ParameterizedTypeName? = null,
 ) : CallableBlueprintBuilder<MethodBlueprint>(context, girNamespace) {
     override fun blueprintObjectType(): String = "method"
 
@@ -50,6 +53,14 @@ class MethodBlueprintBuilder(
         checkSkippedMethod()
 
         val kotlinName = girNode.callable.getName().toCamelCase()
+        val instanceParameterGirType = girNode.parameters?.instanceParameter?.type
+        val reinterpretInstanceParameter = objectPointerTypeName != null &&
+            instanceParameterGirType != null &&
+            context.resolveTypeInfo(
+                girNamespace = girNamespace,
+                type = instanceParameterGirType,
+                nullable = false,
+            ).nativeTypeName != objectPointerTypeName
 
         // parameters
         girNode.parameters?.let { addParameters(it) }
@@ -57,25 +68,7 @@ class MethodBlueprintBuilder(
         // return value
         val returnValue = girNode.returnValue ?: throw UnresolvableTypeException("Method has no return value")
 
-        val returnTypeInfo: TypeInfo = when (val type = returnValue.type) {
-            is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
-            is GirType -> {
-                try {
-                    val returnType = context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
-                    if (returnType is TypeInfo.RecordUnionPointer &&
-                        type.cType != "gpointer" &&
-                        type.cType?.endsWith("*") == false
-                    ) {
-                        throw UnresolvableTypeException(
-                            "Not-pointer record/union return type ${type.cType} is not supported",
-                        )
-                    }
-                    returnType
-                } catch (ex: BlueprintException) {
-                    throw UnresolvableTypeException("Return type ${type.name} is not supported")
-                }
-            }
-        }
+        val returnTypeInfo: TypeInfo = getReturnTypeInfo(returnValue)
 
         // check for overrides
         val superMethods = superClasses.flatMap { it.methods } + superInterfaces.flatMap { it.methods }
@@ -107,12 +100,34 @@ class MethodBlueprintBuilder(
             isOpen = isOpen,
             throws = girNode.callable.throws == true,
             exceptionResolvingFunctionMember = girNamespace.exceptionResolvingFunction(),
+            reinterpretInstanceParameter = reinterpretInstanceParameter,
+            reinterpretReturnValue = girNode.returnValue.gtkKnReinterpret == true,
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.callable.info)
                 .build()
                 .getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
             returnTypeKDoc = context.processKdoc(girNode.returnValue.doc?.doc?.text),
         )
+    }
+
+    private fun getReturnTypeInfo(returnValue: GirReturnValue) = when (val type = returnValue.type) {
+        is GirArrayType -> context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+        is GirType -> {
+            try {
+                val returnType = context.resolveTypeInfo(girNamespace, type, returnValue.isNullable())
+                if (returnType is TypeInfo.RecordUnionPointer &&
+                    type.cType != "gpointer" &&
+                    type.cType?.endsWith("*") == false
+                ) {
+                    throw UnresolvableTypeException(
+                        "Not-pointer record/union return type ${type.cType} is not supported",
+                    )
+                }
+                returnType
+            } catch (ex: BlueprintException) {
+                throw UnresolvableTypeException("Return type ${type.name} is not supported")
+            }
+        }
     }
 
     private fun checkSkippedMethod() {

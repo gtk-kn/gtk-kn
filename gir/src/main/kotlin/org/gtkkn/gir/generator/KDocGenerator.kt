@@ -69,19 +69,42 @@ interface KDocGenerator {
             null
         }
 
-    fun buildSignalKDoc(
+    fun buildSignalConnectKDoc(
         kdoc: String?,
+        detailed: Boolean,
         parameters: List<ParameterBlueprint>,
         optInVersionBlueprint: OptInVersionBlueprint?,
         returnTypeKDoc: String?,
     ): CodeBlock = CodeBlock.builder().apply {
         kdoc?.let { add("%L", it) }
-        add("\n\n@param connectFlags A combination of [ConnectFlags]")
+        add("\n\n@param connectFlags a combination of [ConnectFlags]")
+        if (detailed) {
+            add("\n@param detail the signal detail")
+        }
         add("\n@param handler the Callback to connect")
         if (parameters.isNotEmpty()) {
             add(". Params: %L", parameters.joinToString(separator = "; ") { "`${it.kotlinName}` ${it.kdoc.orEmpty()}" })
         }
         returnTypeKDoc?.let { add(". Returns %L", it) }
+        optInVersionBlueprint?.version?.let { add("\n@since %L", it) }
+    }.build()
+
+    fun buildSignalEmitKDoc(
+        kdoc: String?,
+        detailed: Boolean,
+        parameters: List<ParameterBlueprint>,
+        optInVersionBlueprint: OptInVersionBlueprint?,
+    ): CodeBlock = CodeBlock.builder().apply {
+        kdoc?.let { add("%L", it) }
+        if (detailed || parameters.isNotEmpty() || !optInVersionBlueprint?.version.isNullOrBlank()) {
+            add("\n")
+        }
+        if (detailed) {
+            add("\n@param detail the signal detail")
+        }
+        parameters.forEach { param ->
+            add("\n@param %L %L", param.kotlinName, param.kdoc.orEmpty())
+        }
         optInVersionBlueprint?.version?.let { add("\n@since %L", it) }
     }.build()
 

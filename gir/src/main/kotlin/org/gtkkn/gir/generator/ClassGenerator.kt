@@ -158,6 +158,9 @@ interface ClassGenerator :
             // signal connect methods
             clazz.signals.forEach { signal ->
                 addFunction(buildSignalConnectFunction(signal, "gPointer"))
+                if (signal.kotlinEmitName != null) {
+                    addFunction(buildSignalEmitFunction(signal, "gPointer"))
+                }
             }
 
             // companion functions

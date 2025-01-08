@@ -38,12 +38,12 @@ fun main() {
     // initialize the settings
     val settings = Settings(APP_ID)
 
-    app.connectActivate {
+    app.onActivate {
         val window = ApplicationWindow(app)
         // load the previous window state on window startup
         window.loadWindowState(settings)
 
-        window.connectCloseRequest {
+        window.onCloseRequest {
             // save window state when the window closes
             window.saveWindowState(settings)
             false

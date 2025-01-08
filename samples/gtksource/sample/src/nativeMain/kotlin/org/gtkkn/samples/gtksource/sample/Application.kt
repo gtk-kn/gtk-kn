@@ -34,7 +34,7 @@ fun Application(builder: ApplicationWindow.() -> Unit) {
     LogcatStyleLogger.install()
     log("sample") { "gtk source" }
     val app = Application("org.gtkkn.samples.gtksource.sample", ApplicationFlags.DEFAULT_FLAGS)
-    app.connectActivate {
+    app.onActivate {
         val window = ApplicationWindow(app)
         window.setDefaultSize(800, 600)
         window.builder()

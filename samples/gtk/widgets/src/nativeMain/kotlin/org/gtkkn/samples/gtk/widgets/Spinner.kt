@@ -42,7 +42,7 @@ fun spinner(): Widget {
     toggleButton.bindProperty("active", spinner, "spinning", BindingFlags.DEFAULT)
 
     // update the text when the button is spinning
-    toggleButton.connectClicked {
+    toggleButton.onClicked {
         if (toggleButton.active) {
             toggleButton.setLabel("Stop Spinning")
         } else {

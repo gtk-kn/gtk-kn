@@ -37,7 +37,7 @@ import org.gtkkn.native.gtk.GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
 
 fun main() {
     val app = Application("org.gtkkn.samples.gtk.embeddedresources", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         // setup css provider
         val cssProvider = CssProvider()
         cssProvider.loadFromResource("/css/styles.css")

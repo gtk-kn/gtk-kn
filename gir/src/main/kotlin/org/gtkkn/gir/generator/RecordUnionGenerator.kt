@@ -130,10 +130,9 @@ interface RecordUnionGenerator : FieldGenerator, MethodGenerator, FunctionGenera
                 error("Throwing no-argument constructors are not supported")
             }
             funSpecBuilder.addStatement(
-                "return %T(%M()!!.%M())",
+                "return %T(%M()!!)",
                 kotlinTypeName,
                 constructor.nativeMemberName,
-                BindingsGenerator.REINTERPRET_FUNC,
             )
         } else {
             if (constructor.throws) {

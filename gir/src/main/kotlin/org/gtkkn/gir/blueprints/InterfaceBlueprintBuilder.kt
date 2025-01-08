@@ -18,6 +18,7 @@ package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirFunction
 import org.gtkkn.gir.model.GirInterface
@@ -62,8 +63,13 @@ class InterfaceBlueprintBuilder(
         }
     }
 
-    private fun addMethod(method: GirMethod) {
-        when (val result = MethodBlueprintBuilder(context, girNamespace, method).build()) {
+    private fun addMethod(method: GirMethod, objectPointerTypeName: ParameterizedTypeName) {
+        when (val result = MethodBlueprintBuilder(
+            context = context,
+            girNamespace = girNamespace,
+            girNode = method,
+            objectPointerTypeName = objectPointerTypeName,
+        ).build()) {
             is BlueprintResult.Ok -> {
                 methodBluePrints.add(result.blueprint)
                 if (method.callable.getName().startsWith("get") && result.blueprint.parameters.isEmpty() ||
@@ -78,7 +84,13 @@ class InterfaceBlueprintBuilder(
     }
 
     private fun addSignal(signal: GirSignal) {
-        when (val result = SignalBlueprintBuilder(context, girNamespace, signal).build()) {
+        when (val result = SignalBlueprintBuilder(
+            context = context,
+            girNamespace = girNamespace,
+            girNode = signal,
+            methods = girNode.methods,
+            functions = girNode.functions,
+        ).build()) {
             is BlueprintResult.Ok -> signalBluePrints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
@@ -100,7 +112,12 @@ class InterfaceBlueprintBuilder(
 
         girNode.cType?.let { context.checkIgnoredType(it) }
 
-        girNode.methods.forEach { addMethod(it) }
+        val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
+            namespace = girNamespace,
+            cType = checkNotNull(girNode.cType),
+        )
+
+        girNode.methods.forEach { addMethod(it, objectPointerTypeName) }
         girNode.properties.forEach { addProperty(it) }
         girNode.signals.forEach { addSignal(it) }
         girNode.functions.forEach { addFunction(it) }
@@ -108,10 +125,6 @@ class InterfaceBlueprintBuilder(
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
         val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
-        val objectPointerTypeName = context.resolveInterfaceObjectPointerTypeName(
-            namespace = girNamespace,
-            cType = checkNotNull(girNode.cType),
-        )
 
         addParentInterfaces()
 

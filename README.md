@@ -20,14 +20,14 @@ fun main() {
     val app = Application(APP_ID, ApplicationFlags.FLAGS_NONE)
 
     // Connect to "activate" signal of `app`
-    app.connectActivate {
+    app.onActivate {
         // Create a button with label and margins
         val button = Button()
         button.setLabel("Click me!")
         button.setMargins(12)
 
         // Connect to "clicked" signal of `button`
-        button.connectClicked {
+        button.onClicked {
             // Set the label to "Hello World!" after the button has been clicked on
             button.setLabel("Hello World!")
         }

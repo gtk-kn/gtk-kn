@@ -34,7 +34,7 @@ fun Application(builder: ApplicationWindow.() -> Unit) {
     LogcatStyleLogger.install()
     log("browser") { "gtk browser" }
     val app = Application("org.gtkkn.samples.webkit.browser", ApplicationFlags.DEFAULT_FLAGS)
-    app.connectActivate {
+    app.onActivate {
         val window = ApplicationWindow(app)
         window.setDefaultSize(800, 600)
         window.builder()

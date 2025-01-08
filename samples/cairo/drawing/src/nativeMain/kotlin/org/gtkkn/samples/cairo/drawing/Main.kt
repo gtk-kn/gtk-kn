@@ -48,7 +48,7 @@ private var startY: Double = 0.0
  */
 fun main() {
     val app = Application("org.gtkkn.samples.cairo.drawing", ApplicationFlags.FLAGS_NONE)
-    app.connectActivate {
+    app.onActivate {
         val window = buildWindow(app)
         window.present()
     }
@@ -68,7 +68,7 @@ private fun buildWindow(app: Application) = ApplicationWindow(app).apply {
     child = frame
 
     // Clean up when the window is destroyed.
-    connectDestroy { closeWindow() }
+    onDestroy { closeWindow() }
 }
 
 /**
@@ -86,21 +86,21 @@ private fun setupDrawingArea(): DrawingArea {
         setDrawFunc { _, cr: Context, _, _ -> drawCb(cr) }
 
         // Resize callback: after resizing, recreate the surface
-        connectResize(ConnectFlags.AFTER) { _, _ -> resizeCb(this) }
+        onResize(ConnectFlags.AFTER) { _, _ -> resizeCb(this) }
     }
 
     // Add a drag gesture for left-click
     val drag = GestureDrag()
     drag.button = GDK_BUTTON_PRIMARY.toUInt()
-    drag.connectDragBegin { startX, startY -> dragBegin(startX, startY, drawingArea) }
-    drag.connectDragUpdate { offsetX, offsetY -> dragUpdate(offsetX, offsetY, drawingArea) }
-    drag.connectDragEnd { offsetX, offsetY -> dragEnd(offsetX, offsetY, drawingArea) }
+    drag.onDragBegin { startX, startY -> dragBegin(startX, startY, drawingArea) }
+    drag.onDragUpdate { offsetX, offsetY -> dragUpdate(offsetX, offsetY, drawingArea) }
+    drag.onDragEnd { offsetX, offsetY -> dragEnd(offsetX, offsetY, drawingArea) }
     drawingArea.addController(drag)
 
     // Add a click gesture for right-click to clear
     val press = GestureClick()
     press.button = GDK_BUTTON_SECONDARY.toUInt()
-    press.connectPressed { _, _, _ -> pressed(drawingArea) }
+    press.onPressed { _, _, _ -> pressed(drawingArea) }
     drawingArea.addController(press)
 
     return drawingArea

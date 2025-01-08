@@ -17,13 +17,12 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import org.gtkkn.gir.blueprints.FunctionBlueprint
 
 /**
  * Provides functionality to build a [FunSpec] representing the given [FunctionBlueprint].
  */
-interface FunctionGenerator : MethodGenerator, ConversionBlockGenerator, KDocGenerator {
+interface FunctionGenerator : MethodGenerator {
     /**
      * Builds a [FunSpec] for the given [FunctionBlueprint], including necessary conversions,
      * error handling, and memory management logic.
@@ -32,25 +31,25 @@ interface FunctionGenerator : MethodGenerator, ConversionBlockGenerator, KDocGen
      * @return A constructed [FunSpec] for the function.
      */
     fun buildFunction(func: FunctionBlueprint): FunSpec {
-        val funBuilder = FunSpec.builder(func.kotlinName)
+        val builder = FunSpec.builder(func.kotlinName)
 
-        addKDocAndAnnotations(funBuilder, func)
-        setReturnType(funBuilder, func)
-        funBuilder.appendSignatureParameters(func.parameters)
+        addKDocAndAnnotations(builder, func)
+        setReturnType(builder, func)
+        builder.appendSignatureParameters(func.parameters)
 
-        handleMemScopedStart(funBuilder, func)
+        handleMemScopedStart(builder, func)
 
         if (func.throws) {
-            prepareErrorPointerAndCall(funBuilder, func)
-            handleThrowableResultConversion(funBuilder, func)
+            prepareErrorPointerAndCall(builder, func)
+            handleThrowableResult(builder, func)
         } else {
-            directNativeCall(funBuilder, func)
-            handleNonThrowableResultConversion(funBuilder, func)
+            directNativeCall(builder, func)
+            handleNonThrowableResult(builder, func)
         }
 
-        handleMemScopedEnd(funBuilder, func)
+        handleMemScopedEnd(builder, func)
 
-        return funBuilder.build()
+        return builder.build()
     }
 
     /**
@@ -66,29 +65,6 @@ interface FunctionGenerator : MethodGenerator, ConversionBlockGenerator, KDocGen
 
         func.optInVersionBlueprint?.typeName?.let { annotationClassName ->
             builder.addAnnotation(annotationClassName)
-        }
-    }
-
-    /**
-     * Sets the return type for the function based on whether it can throw exceptions.
-     * If the function can throw, wraps the return type in a [Result].
-     */
-    private fun setReturnType(builder: FunSpec.Builder, func: FunctionBlueprint) {
-        val returnType = if (func.throws) {
-            BindingsGenerator.RESULT_TYPE.parameterizedBy(func.returnTypeInfo.kotlinTypeName)
-        } else {
-            func.returnTypeInfo.kotlinTypeName
-        }
-        builder.returns(returnType)
-    }
-
-    /**
-     * If the function requires memscoped allocation (e.g., for error pointers),
-     * begins a `memScoped` block.
-     */
-    private fun handleMemScopedStart(builder: FunSpec.Builder, func: FunctionBlueprint) {
-        if (func.needsMemscoped) {
-            builder.beginControlFlow("return·%M", BindingsGenerator.MEMSCOPED)
         }
     }
 
@@ -117,69 +93,5 @@ interface FunctionGenerator : MethodGenerator, ConversionBlockGenerator, KDocGen
         builder.addCode("return·%M(", func.nativeMemberName)
         appendNativeCallParameters(builder, func)
         builder.addCode(")")
-    }
-
-    /**
-     * Appends parameters to the native function call, handling throwing logic by adding
-     * the `gError` pointer if necessary.
-     */
-    private fun appendNativeCallParameters(builder: FunSpec.Builder, func: FunctionBlueprint) {
-        func.parameters.forEachIndexed { index, param ->
-            if (index > 0) builder.addCode(", ")
-            builder.addCode(buildParameterConversionBlock(param.typeInfo, param.kotlinName))
-        }
-
-        // If the function throws, add the error parameter at the end
-        if (func.throws) {
-            if (func.parameters.isNotEmpty()) {
-                builder.addCode(", ")
-            }
-            builder.addCode("gError.%M", BindingsGenerator.PTR_FUNC)
-        }
-    }
-
-    /**
-     * Handles the result conversion for a throwable function:
-     * - Converts the native result to Kotlin.
-     * - Checks for errors and returns a failure [Result] if present.
-     * - Otherwise, returns a success [Result].
-     */
-    private fun handleThrowableResultConversion(builder: FunSpec.Builder, func: FunctionBlueprint) {
-        builder.addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo.withNullable(true)))
-        builder.addStatement("")
-        builder.beginControlFlow("return·if·(gError.%M != null)", BindingsGenerator.POINTED_FUNC)
-        builder.addStatement(
-            "%T.failure(%M(%T(gError.%M!!.%M)))",
-            BindingsGenerator.RESULT_TYPE,
-            func.exceptionResolvingFunctionMember,
-            BindingsGenerator.GLIB_ERROR_TYPE,
-            BindingsGenerator.POINTED_FUNC,
-            BindingsGenerator.PTR_FUNC,
-        )
-        builder.endControlFlow()
-        builder.beginControlFlow("else")
-        if (!func.returnTypeInfo.kotlinTypeName.isNullable && func.returnTypeInfo.isCinteropNullable) {
-            builder.addStatement("%T.success(checkNotNull(gResult))", BindingsGenerator.RESULT_TYPE)
-        } else {
-            builder.addStatement("%T.success(gResult)", BindingsGenerator.RESULT_TYPE)
-        }
-        builder.endControlFlow()
-    }
-
-    /**
-     * Handles the result conversion for a non-throwable function:
-     * Simply converts the native result to Kotlin types and returns it.
-     */
-    private fun handleNonThrowableResultConversion(builder: FunSpec.Builder, func: FunctionBlueprint) {
-        builder.addCode(buildNativeToKotlinConversionsBlock(func.returnTypeInfo))
-    }
-
-    /**
-     * Closes the `memScoped` block if it was opened for this function.
-     */
-    private fun handleMemScopedEnd(builder: FunSpec.Builder, func: FunctionBlueprint) {
-        if (func.needsMemscoped) {
-            builder.endControlFlow()
-        }
     }
 }

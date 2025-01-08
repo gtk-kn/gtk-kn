@@ -90,7 +90,7 @@ class ParameterBlueprintBuilder(
             isUserData = girNode.closure != null,
             isDestroyData = girNode.destroy != null,
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
-            needsRawValueForEnums = girNode.gtkKnRawValue == true,
+            needsRawValueForEnums = girNode.gtkKnEnumRawValue == true,
         )
     }
 }

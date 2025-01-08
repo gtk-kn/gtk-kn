@@ -180,6 +180,7 @@ class MetadataProcessor(
         applyRef(node, metadata)
         applyRefFunction(node, metadata)
         applyRefSinkFunction(node, metadata)
+        applyReinterpret(node, tag, metadata)
         applyReplacement(node, metadata)
         applyReturnsModifiedPointer(node, metadata)
         applyScope(node, metadata)
@@ -469,6 +470,18 @@ class MetadataProcessor(
         if (metadata.hasArgument(ArgumentType.REF_SINK_FUNCTION)) {
             val refSinkFunc = metadata.getString(ArgumentType.REF_SINK_FUNCTION)
             node.setAttribute("gtk-kn-ref-sink-function", refSinkFunc)
+        }
+    }
+
+    private fun applyReinterpret(node: Node, tag: String, metadata: Metadata) {
+        if (metadata.hasArgument(ArgumentType.REINTERPRET)) {
+            val isReinterpret = metadata.getBool(ArgumentType.REINTERPRET)
+            if (tag == "parameter") {
+                setBooleanAttribute(node, "gtk-kn-reinterpret", isReinterpret)
+            } else {
+                val returnValueNode = getChildNode(node, "return-value")
+                returnValueNode?.let { setBooleanAttribute(it, "gtk-kn-reinterpret", isReinterpret) }
+            }
         }
     }
 

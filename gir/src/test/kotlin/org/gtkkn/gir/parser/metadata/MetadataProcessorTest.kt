@@ -1420,6 +1420,50 @@ class MetadataProcessorTest {
     }
 
     @Test
+    fun `test apply REINTERPRET argument to parameter node`() {
+        // Prepare the XML document
+        val xmlContent =
+            """
+                <repository>
+                  <namespace name="TestNamespace">
+                    <class name="TestClass">
+                      <method name="test_method">
+                        <parameters>
+                          <parameter name="param1" />
+                        </parameters>
+                      </method>
+                    </class>
+                  </namespace>
+                </repository>
+            """.trimIndent()
+
+        // Prepare the metadata content
+        val metadataContent =
+            """
+                TestClass.test_method.param1 reinterpret
+            """.trimIndent()
+
+        // Parse the XML document
+        document = parseXml(xmlContent)
+
+        // Parse the metadata
+        val metadata = metadataParser.parse(metadataContent)
+
+        // Create the processor
+        processor = MetadataProcessor(metadata, document)
+
+        // Apply the metadata
+        processor.apply()
+
+        // Find the parameter node
+        val paramNode = findNodeByName(document.documentElement, "parameter", "param1")
+        assertNotNull(paramNode)
+
+        val reinterpretAttr = paramNode.attributes.getNamedItem("gtk-kn-reinterpret")?.nodeValue?.toBoolean()
+        assertTrue(reinterpretAttr == true, "The 'gtk-kn-reinterpret' attribute should be true")
+    }
+
+    @Test
     fun `test apply REPLACEMENT argument to function node`() {
         // Prepare the XML document
         val xmlContent =

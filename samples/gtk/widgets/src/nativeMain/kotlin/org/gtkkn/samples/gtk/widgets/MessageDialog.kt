@@ -38,11 +38,11 @@ import org.gtkkn.extensions.gtk.setMargins
 
 fun messageDialogs(window: Window): Widget {
     val simpleDialogButton = Button("Simple Dialog").apply {
-        connectClicked { openSimpleDialog(window) }
+        onClicked { openSimpleDialog(window) }
     }
 
     val okCancelDialog = Button("OK Cancel Dialog").apply {
-        connectClicked { openOkCancelDialog(window) }
+        onClicked { openOkCancelDialog(window) }
     }
 
     val box = Box(Orientation.VERTICAL, 20).apply {
@@ -58,7 +58,7 @@ private fun openSimpleDialog(window: Window, message: String? = "This is a dialo
     val dialog = MessageDialog.new(window, DialogFlags.MODAL, MessageType.INFO, ButtonsType.OK, message)
 
     // close the dialog on response
-    dialog.connectResponse { _ -> dialog.destroy() }
+    dialog.onResponse { _ -> dialog.destroy() }
 
     dialog.show()
 }
@@ -66,7 +66,7 @@ private fun openSimpleDialog(window: Window, message: String? = "This is a dialo
 private fun openOkCancelDialog(window: Window) {
     val dialog = MessageDialog.new(window, DialogFlags.MODAL, MessageType.QUESTION, ButtonsType.OK_CANCEL, "Continue?")
 
-    dialog.connectResponse { responseId ->
+    dialog.onResponse { responseId ->
         // convert the responseId to [ResponseType] enum exhaustive when is possible
         when (ResponseType.fromIntOrNull(responseId)) {
             ResponseType.OK -> openSimpleDialog(window, "You chose OK")

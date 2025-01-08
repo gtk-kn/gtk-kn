@@ -64,11 +64,6 @@ interface FieldGenerator : ConversionBlockGenerator, KDocGenerator {
                     }
                     addCode("$objectPointerName.%M.$fieldNativeName = value", BindingsGenerator.POINTED)
                     addCode(buildKotlinToNativeTypeConversionBlock(field.typeInfo))
-                    if (field.typeInfo is TypeInfo.ObjectPointer) {
-                        val isParamNullable = field.typeInfo.kotlinTypeName.isNullable
-                        val safeCall = if (isParamNullable) "?" else ""
-                        addCode("$safeCall.%M()", BindingsGenerator.REINTERPRET_FUNC)
-                    }
                 }.build(),
             )
         } else if (field.writeable) {

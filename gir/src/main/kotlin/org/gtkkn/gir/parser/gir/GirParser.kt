@@ -82,6 +82,7 @@ import java.io.File
 import java.io.StringReader
 import javax.xml.parsers.DocumentBuilderFactory
 
+@Suppress("LargeClass")
 @Inject
 class GirParser(
     private val metadataParser: MetadataParser
@@ -563,7 +564,8 @@ class GirParser(
             doc = parseGirDocElements(node),
             annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
             type = childTypes.first(),
-            gtkKnRawValue = node.attributeBooleanValueOrNull("gtk-kn-enum-raw-value"),
+            gtkKnEnumRawValue = node.attributeBooleanValueOrNull("gtk-kn-enum-raw-value"),
+            gtkKnReinterpret = node.attributeBooleanValueOrNull("gtk-kn-reinterpret"),
         )
     }
 
@@ -596,6 +598,7 @@ class GirParser(
             doc = parseGirDocElements(node),
             annotations = node.childNodesWithName("attribute").map { parseGirAnnotation(it) },
             type = returnTypes.first(),
+            gtkKnReinterpret = node.attributeBooleanValueOrNull("gtk-kn-reinterpret"),
         )
     }
 

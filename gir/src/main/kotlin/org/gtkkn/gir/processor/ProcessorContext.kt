@@ -21,6 +21,7 @@ import com.squareup.kotlinpoet.CHAR
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.DOUBLE
 import com.squareup.kotlinpoet.LONG
+import com.squareup.kotlinpoet.ParameterizedTypeName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.SHORT
 import com.squareup.kotlinpoet.STRING
@@ -93,7 +94,7 @@ class ProcessorContext(
      * For example, for Widget, this will return kotlinx.cinterop.CPointer<native.gtk.Widget>.
      */
     @Throws(UnresolvableTypeException::class)
-    fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): TypeName {
+    fun resolveClassObjectPointerTypeName(namespace: GirNamespace, clazz: GirClass): ParameterizedTypeName {
         var ns = namespace
         var cType = clazz.cType
         if (cType == null) {
@@ -105,7 +106,7 @@ class ProcessorContext(
             ns = parent.namespace
             cType = parent.cType
         }
-        return BindingsGenerator.cpointerOf(ClassName(namespaceNativePackageName(ns), checkNotNull(cType)))
+        return BindingsGenerator.cPointerOf(ClassName(namespaceNativePackageName(ns), checkNotNull(cType)))
     }
 
     /**
@@ -120,7 +121,7 @@ class ProcessorContext(
         return if (record.pointer == true) {
             className
         } else {
-            BindingsGenerator.cpointerOf(className)
+            BindingsGenerator.cPointerOf(className)
         }
     }
 
@@ -133,14 +134,14 @@ class ProcessorContext(
             namespaceNativePackageName(namespace),
             union.cType ?: throw UnresolvableTypeException("Missing cType on union"),
         )
-        return BindingsGenerator.cpointerOf(className)
+        return BindingsGenerator.cPointerOf(className)
     }
 
     /**
      * Resolve the [TypeName] for the objectPointer we have in all interfaces.
      */
-    fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, cType: String): TypeName =
-        BindingsGenerator.cpointerOf(ClassName(namespaceNativePackageName(namespace), cType))
+    fun resolveInterfaceObjectPointerTypeName(namespace: GirNamespace, cType: String): ParameterizedTypeName =
+        BindingsGenerator.cPointerOf(ClassName(namespaceNativePackageName(namespace), cType))
 
     /**
      * Convert an objectName which can be either simple (no dots) or fully qualified (with dot separator)
@@ -201,7 +202,7 @@ class ProcessorContext(
             kotlinTypeName = registeredType.className,
         )
 
-    private fun resolveClassTypeInfo(registeredType: RegisteredType): TypeInfo.ObjectPointer {
+    private fun resolveClassTypeInfo(registeredType: RegisteredType, cType: String?): TypeInfo.ObjectPointer {
         val objectPointerName = if (registeredType.allAncestors.isNotEmpty()) {
             "${namespacePrefix(registeredType.namespace)}${registeredType.className.simpleName}Pointer"
         } else {
@@ -211,14 +212,23 @@ class ProcessorContext(
             BindingsGenerator.KP_CPOINTER.parameterizedBy(
                 buildNativeClassName(
                     registeredType.namespace,
-                    registeredType.findFirstWithCType()?.girNamedElement ?: registeredType.girNamedElement,
+                    cType?.let { typeRegistry.getByCType(cleanCType(it))?.girNamedElement }
+                        ?: registeredType.findFirstWithCType()?.girNamedElement
+                        ?: registeredType.girNamedElement,
                 ),
             )
+        val cleanCType = cType?.let { cleanCType(it) }
         return TypeInfo.ObjectPointer(
             nativeTypeName = nativeTypeName,
             kotlinTypeName = registeredType.className,
             objectPointerName = objectPointerName,
+            needsReinterpret = cleanCType == "gpointer",
         )
+    }
+
+    private fun cleanCType(input: String): String {
+        val regex = """(?:const\s+)?(\w+)(?:\s*\*+)?""".toRegex()
+        return regex.matchEntire(input)?.groups?.get(1)?.value ?: input
     }
 
     private fun resolveInterfaceTypeInfo(registeredType: RegisteredType): TypeInfo.InterfacePointer {
@@ -236,11 +246,15 @@ class ProcessorContext(
         )
     }
 
-    private fun resolveRecordUnionTypeInfo(registeredType: RegisteredType): TypeInfo.RecordUnionPointer {
+    private fun resolveRecordUnionTypeInfo(
+        registeredType: RegisteredType,
+        cType: String?
+    ): TypeInfo.RecordUnionPointer {
         if (registeredType.girNamedElement is GirRecord && registeredType.girNamedElement.foreign == true) {
             throw UnresolvableTypeException("Foreign record ${registeredType.rawName} is ignored")
         }
         val objectPointerName = "gPointer"
+        val cleanCType = cType?.let { cleanCType(it) }
         return TypeInfo.RecordUnionPointer(
             kotlinTypeName = registeredType.className,
             nativeTypeName = BindingsGenerator.KP_CPOINTER.parameterizedBy(
@@ -250,6 +264,7 @@ class ProcessorContext(
                 ),
             ),
             objectPointerName = objectPointerName,
+            needsReinterpret = cleanCType == "gpointer",
         )
     }
 
@@ -293,10 +308,10 @@ class ProcessorContext(
             return when (type.cType) {
                 "const char*",
                 "const gchar*",
-                null -> TypeInfo.KString(BindingsGenerator.cpointerOf(BindingsGenerator.KP_BYTEVAR), STRING, true)
+                null -> TypeInfo.KString(BindingsGenerator.cPointerOf(BindingsGenerator.KP_BYTEVAR), STRING, true)
 
                 "char*",
-                "gchar*" -> TypeInfo.KString(BindingsGenerator.cpointerOf(BindingsGenerator.KP_BYTEVAR), STRING, false)
+                "gchar*" -> TypeInfo.KString(BindingsGenerator.cPointerOf(BindingsGenerator.KP_BYTEVAR), STRING, false)
 
                 else -> {
                     logger.error { "Skipping string type with cType: ${type.cType}" }
@@ -305,16 +320,21 @@ class ProcessorContext(
             }.withNullable(nullable)
         }
 
+        if (type.cType?.endsWith("**") == true) {
+            logger.warn { "Unsupported pointer-to-pointer cType ${type.cType}" }
+            throw UnresolvableTypeException("Unsupported pointer-to-pointer cType ${type.cType}")
+        }
+
         val registeredType = typeRegistry.get(girNamespace, type.name)
 
         return when (registeredType.girNamedElement) {
             is GirAlias -> resolveAliasTypeInfo(registeredType).withNullable(nullable)
             is GirBitfield -> resolveBitfieldTypeInfo(registeredType).withNullable(nullable)
-            is GirClass -> resolveClassTypeInfo(registeredType).withNullable(nullable)
+            is GirClass -> resolveClassTypeInfo(registeredType, type.cType).withNullable(nullable)
             is GirEnumeration -> resolveEnumerationTypeInfo(registeredType).withNullable(nullable)
             is GirInterface -> resolveInterfaceTypeInfo(registeredType).withNullable(nullable)
             is GirRecord,
-            is GirUnion -> resolveRecordUnionTypeInfo(registeredType).withNullable(nullable)
+            is GirUnion -> resolveRecordUnionTypeInfo(registeredType, type.cType).withNullable(nullable)
 
             is GirCallback -> {
                 logger.warn { "Could not resolve type for type with name: ${type.name} and cType: ${type.cType}" }
@@ -393,20 +413,6 @@ class ProcessorContext(
     fun checkIgnoredFunction(cFunctionName: String) {
         if (ignoredFunctions.contains(cFunctionName)) {
             throw IgnoredFunctionException(cFunctionName)
-        }
-    }
-
-    /**
-     * Utility method for checking whether a C function is supported or should be skipped.
-     *
-     * This method returns successfully when the given [cFunctionName] is not present in any of the skipped lists
-     * or configuration.
-     * @throws IgnoredSignalException if the function should be ignored.
-     */
-    @Throws(IgnoredSignalException::class)
-    fun checkIgnoredSignal(signalName: String) {
-        if (ignoredSignals.contains(signalName)) {
-            throw IgnoredSignalException(signalName)
         }
     }
 
@@ -511,19 +517,6 @@ class ProcessorContext(
 
             // not resolved by cinterop
             "g_assertion_message_cmpnum",
-        )
-
-        /**
-         * A set of signals that should not be generated.
-         */
-        private val ignoredSignals = hashSetOf(
-            // problems with string conversion in signal handler
-            "format-entry-text",
-            // problems with pango/cairo region
-            "render", // Surface
-
-            "query-tooltip-markup",
-            "query-tooltip-text",
         )
 
         /**
