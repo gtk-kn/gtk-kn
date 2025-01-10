@@ -20,25 +20,16 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.glib.util.loglogger
+package org.gtkkn.extensions.glib.util.log.formatter
 
-import org.gtkkn.extensions.glib.util.LogPriority
-import kotlin.concurrent.AtomicReference
+import org.gtkkn.extensions.glib.util.log.LogLevel
 
-/**
- * A test logger implementation for logging in tests.
- */
-class TestLogLogger(private val isLoggableFn: (LogPriority) -> Boolean = { true }) : LogLogger {
-    private var _latestLog: AtomicReference<Log?> = AtomicReference(null)
-    var latestLog: Log?
-        get() = _latestLog.value
-        set(value) {
-            _latestLog.value = value
-        }
+public interface LogFormatter {
+    public fun format(level: LogLevel, tag: String, message: String): String
 
-    override fun isLoggable(priority: LogPriority): Boolean = isLoggableFn(priority)
+    public fun formatLevel(level: LogLevel): String
 
-    override fun log(priority: LogPriority, logDomain: String, message: String) {
-        latestLog = Log(priority, logDomain, message)
-    }
+    public fun formatTag(tag: String): String
+
+    public fun formatMessage(message: String): String
 }

@@ -34,8 +34,8 @@ import org.gtkkn.bindings.gtk.ScrolledWindow
 import org.gtkkn.bindings.gtksource.Buffer
 import org.gtkkn.bindings.gtksource.LanguageManager
 import org.gtkkn.bindings.gtksource.View
-import org.gtkkn.extensions.glib.util.LogPriority.WARNING
-import org.gtkkn.extensions.glib.util.log
+import org.gtkkn.extensions.glib.util.log.LogLevel.WARNING
+import org.gtkkn.extensions.glib.util.log.log
 import org.gtkkn.extensions.gtk.setText
 
 // --8<-- [start:doc]

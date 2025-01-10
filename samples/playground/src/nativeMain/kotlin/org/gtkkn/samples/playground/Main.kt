@@ -33,12 +33,12 @@ import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
 import org.gtkkn.bindings.gtk.Label
 import org.gtkkn.bindings.gtk.Orientation
-import org.gtkkn.extensions.glib.util.LogPriority.CRITICAL
-import org.gtkkn.extensions.glib.util.LogPriority.DEBUG
-import org.gtkkn.extensions.glib.util.LogPriority.INFO
-import org.gtkkn.extensions.glib.util.LogPriority.MESSAGE
-import org.gtkkn.extensions.glib.util.LogPriority.WARNING
-import org.gtkkn.extensions.glib.util.log
+import org.gtkkn.extensions.glib.util.log.LogLevel.CRITICAL
+import org.gtkkn.extensions.glib.util.log.LogLevel.DEBUG
+import org.gtkkn.extensions.glib.util.log.LogLevel.INFO
+import org.gtkkn.extensions.glib.util.log.LogLevel.MESSAGE
+import org.gtkkn.extensions.glib.util.log.LogLevel.WARNING
+import org.gtkkn.extensions.glib.util.log.log
 import org.gtkkn.native.gobject.G_TYPE_STRING
 
 fun main() = Application {

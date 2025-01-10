@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 gtk-kn
+ * Copyright (c) 2025 gtk-kn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package org.gtkkn.extensions.glib.util
+package org.gtkkn.extensions.glib.util.log
 
 import org.gtkkn.native.glib.GLogLevelFlags
 import org.gtkkn.native.glib.G_LOG_LEVEL_CRITICAL
@@ -31,7 +31,7 @@ import org.gtkkn.native.glib.G_LOG_LEVEL_MESSAGE
 import org.gtkkn.native.glib.G_LOG_LEVEL_WARNING
 
 /**
- * Log priorities adapted from GLib log levels. Higher values indicate more severe messages.
+ * Log levels adapted from GLib log levels. Higher values indicate more severe messages.
  *
  * Mapping (lowest to highest):
  * - DEBUG   -> G_LOG_LEVEL_DEBUG
@@ -41,7 +41,7 @@ import org.gtkkn.native.glib.G_LOG_LEVEL_WARNING
  * - CRITICAL-> G_LOG_LEVEL_CRITICAL
  * - ERROR   -> G_LOG_LEVEL_ERROR
  */
-public enum class LogPriority(
+public enum class LogLevel(
     internal val glibLevel: GLogLevelFlags,
     internal val severity: Int
 ) {
@@ -53,9 +53,9 @@ public enum class LogPriority(
     WARNING(G_LOG_LEVEL_WARNING, 4);
 
     /**
-     * Converts a [LogPriority] to a single-character string representation.
+     * Converts a [LogLevel] to a single-character string representation.
      *
-     * @return A single-character representation of the log priority (e.g., `D` for DEBUG, `E` for ERROR).
+     * @return A single-character representation of the log level (e.g., `D` for DEBUG, `E` for ERROR).
      */
-    public fun toShortString(): String = name[0].toString()
+    public fun toShortString(): String = name.first().toString()
 }
