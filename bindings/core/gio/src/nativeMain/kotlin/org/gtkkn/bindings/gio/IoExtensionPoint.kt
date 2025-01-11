@@ -70,9 +70,8 @@ import kotlin.Unit
  *  directories are specified GIO will load modules from the built-in
  *  directory last.
  */
-public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GIOExtensionPoint> = pointer
-
+public class IoExtensionPoint(public val gioIoExtensionPointPointer: CPointer<GIOExtensionPoint>) :
+    ProxyInstance(gioIoExtensionPointPointer) {
     /**
      * Finds a #GIOExtension for an extension point by name.
      *
@@ -81,7 +80,7 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      *    given name, or null if there is no extension with that name
      */
     public fun getExtensionByName(name: String): IoExtension =
-        g_io_extension_point_get_extension_by_name(gPointer, name)!!.run {
+        g_io_extension_point_get_extension_by_name(gioIoExtensionPointPointer, name)!!.run {
             IoExtension(this)
         }
 
@@ -93,7 +92,7 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      *     #GIOExtensions. The list is owned by GIO and should not be
      *     modified.
      */
-    public fun getExtensions(): List = g_io_extension_point_get_extensions(gPointer)!!.run {
+    public fun getExtensions(): List = g_io_extension_point_get_extensions(gioIoExtensionPointPointer)!!.run {
         List(this)
     }
 
@@ -103,7 +102,7 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      * @return the #GType that all implementations must have,
      *   or %G_TYPE_INVALID if the extension point has no required type
      */
-    public fun getRequiredType(): GType = g_io_extension_point_get_required_type(gPointer)
+    public fun getRequiredType(): GType = g_io_extension_point_get_required_type(gioIoExtensionPointPointer)
 
     /**
      * Sets the required type for @extension_point to @type.
@@ -111,7 +110,8 @@ public class IoExtensionPoint(pointer: CPointer<GIOExtensionPoint>) : ProxyInsta
      *
      * @param type the #GType to require
      */
-    public fun setRequiredType(type: GType): Unit = g_io_extension_point_set_required_type(gPointer, type)
+    public fun setRequiredType(type: GType): Unit =
+        g_io_extension_point_set_required_type(gioIoExtensionPointPointer, type)
 
     public companion object {
         /**

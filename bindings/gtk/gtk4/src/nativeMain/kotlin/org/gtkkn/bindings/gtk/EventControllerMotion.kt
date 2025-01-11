@@ -43,12 +43,10 @@ import kotlin.Unit
  * - method `contains-pointer`: Property has no getter nor setter
  * - method `is-pointer`: Property has no getter nor setter
  */
-public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMotion>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerMotion(
+    public val gtkEventControllerMotionPointer: CPointer<GtkEventControllerMotion>,
+) : EventController(gtkEventControllerMotionPointer.reinterpret()),
     KGTyped {
-    public val gtkEventControllerMotionPointer: CPointer<GtkEventControllerMotion>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new event controller that will handle motion events.
      *
@@ -82,7 +80,7 @@ public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMoti
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerMotionPointer,
         "enter",
         onEnterFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -97,7 +95,7 @@ public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMoti
      * @param y coordinates of pointer location
      */
     public fun emitEnter(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "enter", x, y)
+        g_signal_emit_by_name(gtkEventControllerMotionPointer.reinterpret(), "enter", x, y)
     }
 
     /**
@@ -108,7 +106,7 @@ public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMoti
      */
     public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerMotionPointer,
             "leave",
             onLeaveFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -120,7 +118,7 @@ public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMoti
      * Emits the "leave" signal. See [onLeave].
      */
     public fun emitLeave() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "leave")
+        g_signal_emit_by_name(gtkEventControllerMotionPointer.reinterpret(), "leave")
     }
 
     /**
@@ -133,7 +131,7 @@ public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMoti
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerMotionPointer,
         "motion",
         onMotionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -148,7 +146,7 @@ public open class EventControllerMotion(pointer: CPointer<GtkEventControllerMoti
      * @param y the y coordinate
      */
     public fun emitMotion(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "motion", x, y)
+        g_signal_emit_by_name(gtkEventControllerMotionPointer.reinterpret(), "motion", x, y)
     }
 
     public companion object : TypeCompanion<EventControllerMotion> {

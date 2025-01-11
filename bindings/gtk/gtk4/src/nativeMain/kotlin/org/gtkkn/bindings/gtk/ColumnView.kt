@@ -124,24 +124,21 @@ import kotlin.Unit
  * are using the %GTK_ACCESSIBLE_ROLE_ROW role, and individual cells are using
  * the %GTK_ACCESSIBLE_ROLE_GRID_CELL role
  */
-public open class ColumnView(pointer: CPointer<GtkColumnView>) :
-    Widget(pointer.reinterpret()),
+public open class ColumnView(public val gtkColumnViewPointer: CPointer<GtkColumnView>) :
+    Widget(gtkColumnViewPointer.reinterpret()),
     Scrollable,
     KGTyped {
-    public val gtkColumnViewPointer: CPointer<GtkColumnView>
-        get() = gPointer.reinterpret()
-
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The list of columns.
@@ -157,7 +154,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @return The list managing the columns
          */
         get() = gtk_column_view_get_columns(gtkColumnViewPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -220,7 +217,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
          * @return The model in use
          */
         get() = gtk_column_view_get_model(gtkColumnViewPointer)?.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
         /**
@@ -472,7 +469,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
         pos,
         column?.gtkColumnViewColumnPointer,
         flags.mask,
-        scroll?.gPointer
+        scroll?.gtkScrollInfoPointer
     )
 
     /**
@@ -508,7 +505,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkColumnViewPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -522,7 +519,7 @@ public open class ColumnView(pointer: CPointer<GtkColumnView>) :
      * @param position position of item to activate
      */
     public fun emitActivate(position: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate", position)
+        g_signal_emit_by_name(gtkColumnViewPointer.reinterpret(), "activate", position)
     }
 
     public companion object : TypeCompanion<ColumnView> {

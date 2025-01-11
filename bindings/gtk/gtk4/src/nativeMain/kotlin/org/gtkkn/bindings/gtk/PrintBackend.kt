@@ -5,6 +5,5 @@ import kotlinx.cinterop.CPointer
 import org.gtkkn.extensions.glib.cinterop.ProxyInstance
 import org.gtkkn.native.gtk.GtkPrintBackend
 
-public class PrintBackend(pointer: CPointer<GtkPrintBackend>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkPrintBackend> = pointer
-}
+public class PrintBackend(public val gtkPrintBackendPointer: CPointer<GtkPrintBackend>) :
+    ProxyInstance(gtkPrintBackendPointer)

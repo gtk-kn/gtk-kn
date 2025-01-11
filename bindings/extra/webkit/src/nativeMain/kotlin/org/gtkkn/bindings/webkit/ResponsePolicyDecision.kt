@@ -27,12 +27,10 @@ import kotlin.Boolean
  * whether or not to download a particular resource or to load it
  * normally.
  */
-public class ResponsePolicyDecision(pointer: CPointer<WebKitResponsePolicyDecision>) :
-    PolicyDecision(pointer.reinterpret()),
+public class ResponsePolicyDecision(
+    public val webkitResponsePolicyDecisionPointer: CPointer<WebKitResponsePolicyDecision>,
+) : PolicyDecision(webkitResponsePolicyDecisionPointer.reinterpret()),
     KGTyped {
-    public val webkitResponsePolicyDecisionPointer: CPointer<WebKitResponsePolicyDecision>
-        get() = gPointer.reinterpret()
-
     /**
      * This property contains the #WebKitURIRequest associated with this
      * policy decision.

@@ -31,12 +31,9 @@ import kotlin.collections.List
 /**
  * Entry point for using GIO functionality.
  */
-public open class Vfs(pointer: CPointer<GVfs>) :
-    Object(pointer.reinterpret()),
+public open class Vfs(public val gioVfsPointer: CPointer<GVfs>) :
+    Object(gioVfsPointer.reinterpret()),
     KGTyped {
-    public val gioVfsPointer: CPointer<GVfs>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets a #GFile for @path.
      *
@@ -45,7 +42,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      *     Free the returned object with g_object_unref().
      */
     public open fun getFileForPath(path: String): File = g_vfs_get_file_for_path(gioVfsPointer, path)!!.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -60,7 +57,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      *     Free the returned object with g_object_unref().
      */
     public open fun getFileForUri(uri: String): File = g_vfs_get_file_for_uri(gioVfsPointer, uri)!!.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -91,7 +88,7 @@ public open class Vfs(pointer: CPointer<GVfs>) :
      *     Free the returned object with g_object_unref().
      */
     public open fun parseName(parseName: String): File = g_vfs_parse_name(gioVfsPointer, parseName)!!.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**

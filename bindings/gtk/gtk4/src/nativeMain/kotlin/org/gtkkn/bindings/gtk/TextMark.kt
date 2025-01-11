@@ -59,12 +59,9 @@ import kotlin.Unit
  * Marks are typically created using the [method@Gtk.TextBuffer.create_mark]
  * function.
  */
-public open class TextMark(pointer: CPointer<GtkTextMark>) :
-    Object(pointer.reinterpret()),
+public open class TextMark(public val gtkTextMarkPointer: CPointer<GtkTextMark>) :
+    Object(gtkTextMarkPointer.reinterpret()),
     KGTyped {
-    public val gtkTextMarkPointer: CPointer<GtkTextMark>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the mark has left gravity.
      *

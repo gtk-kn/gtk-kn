@@ -66,12 +66,10 @@ import kotlin.Unit
  * [signal@Gtk.SignalListItemFactory::setup] signal and removed again during
  * [signal@Gtk.SignalListItemFactory::teardown].
  */
-public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFactory>) :
-    ListItemFactory(pointer.reinterpret()),
+public open class SignalListItemFactory(
+    public val gtkSignalListItemFactoryPointer: CPointer<GtkSignalListItemFactory>,
+) : ListItemFactory(gtkSignalListItemFactoryPointer.reinterpret()),
     KGTyped {
-    public val gtkSignalListItemFactoryPointer: CPointer<GtkSignalListItemFactory>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkSignalListItemFactory`.
      *
@@ -98,7 +96,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      */
     public fun onBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSignalListItemFactoryPointer,
             "bind",
             onBindFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -112,7 +110,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * @param object The `GObject` to bind
      */
     public fun emitBind(`object`: Object) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "bind", `object`.gPointer)
+        g_signal_emit_by_name(gtkSignalListItemFactoryPointer.reinterpret(), "bind", `object`.gobjectObjectPointer)
     }
 
     /**
@@ -128,7 +126,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      */
     public fun onSetup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSignalListItemFactoryPointer,
             "setup",
             onSetupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -142,7 +140,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * @param object The `GObject` to set up
      */
     public fun emitSetup(`object`: Object) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "setup", `object`.gPointer)
+        g_signal_emit_by_name(gtkSignalListItemFactoryPointer.reinterpret(), "setup", `object`.gobjectObjectPointer)
     }
 
     /**
@@ -158,7 +156,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      */
     public fun onTeardown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSignalListItemFactoryPointer,
             "teardown",
             onTeardownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -172,7 +170,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * @param object The `GObject` to tear down
      */
     public fun emitTeardown(`object`: Object) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "teardown", `object`.gPointer)
+        g_signal_emit_by_name(gtkSignalListItemFactoryPointer.reinterpret(), "teardown", `object`.gobjectObjectPointer)
     }
 
     /**
@@ -188,7 +186,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      */
     public fun onUnbind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (`object`: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSignalListItemFactoryPointer,
             "unbind",
             onUnbindFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -202,7 +200,7 @@ public open class SignalListItemFactory(pointer: CPointer<GtkSignalListItemFacto
      * @param object The `GObject` to unbind
      */
     public fun emitUnbind(`object`: Object) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unbind", `object`.gPointer)
+        g_signal_emit_by_name(gtkSignalListItemFactoryPointer.reinterpret(), "unbind", `object`.gobjectObjectPointer)
     }
 
     public companion object : TypeCompanion<SignalListItemFactory> {

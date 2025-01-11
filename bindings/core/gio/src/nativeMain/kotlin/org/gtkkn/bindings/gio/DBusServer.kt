@@ -77,15 +77,12 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusServer(pointer: CPointer<GDBusServer>) :
-    Object(pointer.reinterpret()),
+public open class DBusServer(public val gioDBusServerPointer: CPointer<GDBusServer>) :
+    Object(gioDBusServerPointer.reinterpret()),
     Initable,
     KGTyped {
-    public val gioDBusServerPointer: CPointer<GDBusServer>
-        get() = gPointer.reinterpret()
-
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The D-Bus address that clients can use.
@@ -256,7 +253,7 @@ public open class DBusServer(pointer: CPointer<GDBusServer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: DBusConnection) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusServerPointer,
         "new-connection",
         onNewConnectionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

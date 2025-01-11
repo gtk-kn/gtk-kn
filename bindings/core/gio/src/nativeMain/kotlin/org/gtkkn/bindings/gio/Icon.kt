@@ -13,7 +13,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_20
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.Variant
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -66,7 +67,7 @@ import kotlin.String
  * icon types.
  */
 public interface Icon :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioIconPointer: CPointer<GIcon>
 
@@ -126,19 +127,22 @@ public interface Icon :
     @GioVersion2_20
     public fun toStringIcon(): String? = g_icon_to_string(gioIconPointer)?.toKString()
 
-    private data class Wrapper(private val pointer: CPointer<GIcon>) : Icon {
-        override val gioIconPointer: CPointer<GIcon> = pointer
-    }
+    /**
+     * The IconImpl type represents a native instance of the Icon interface.
+     *
+     * @constructor Creates a new instance of Icon for the provided [CPointer].
+     */
+    public data class IconImpl(override val gioIconPointer: CPointer<GIcon>) :
+        Object(gioIconPointer.reinterpret()),
+        Icon
 
     public companion object : TypeCompanion<Icon> {
         override val type: GeneratedInterfaceKGType<Icon> =
-            GeneratedInterfaceKGType(g_icon_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_icon_get_type()) { IconImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GIcon>): Icon = Wrapper(pointer)
 
         /**
          * Deserializes a #GIcon previously serialized using g_icon_serialize().
@@ -148,8 +152,8 @@ public interface Icon :
          * @since 2.38
          */
         @GioVersion2_38
-        public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.gPointer)?.run {
-            Icon.wrap(reinterpret())
+        public fun deserialize(`value`: Variant): Icon? = g_icon_deserialize(`value`.glibVariantPointer)?.run {
+            IconImpl(reinterpret())
         }
 
         /**
@@ -169,7 +173,7 @@ public interface Icon :
         public fun newForString(str: String): Result<Icon> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_icon_new_for_string(str, gError.ptr)?.run {
-                Icon.wrap(reinterpret())
+                IconImpl(reinterpret())
             }
 
             return if (gError.pointed != null) {

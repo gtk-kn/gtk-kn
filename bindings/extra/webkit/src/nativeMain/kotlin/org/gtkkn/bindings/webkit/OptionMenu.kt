@@ -41,12 +41,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
-    Object(pointer.reinterpret()),
+public class OptionMenu(public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>) :
+    Object(webkitOptionMenuPointer.reinterpret()),
     KGTyped {
-    public val webkitOptionMenuPointer: CPointer<WebKitOptionMenu>
-        get() = gPointer.reinterpret()
-
     /**
      * Activates the #WebKitOptionMenuItem at @index in @menu.
      *
@@ -85,7 +82,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      */
     @WebKitVersion2_40
     public fun getEvent(): Event = webkit_option_menu_get_event(webkitOptionMenuPointer)!!.run {
-        Event(this)
+        Event.EventImpl(this)
     }
 
     /**
@@ -136,7 +133,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
     @WebKitVersion2_18
     public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitOptionMenuPointer,
             "close",
             onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -151,7 +148,7 @@ public class OptionMenu(pointer: CPointer<WebKitOptionMenu>) :
      */
     @WebKitVersion2_18
     public fun emitClose() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+        g_signal_emit_by_name(webkitOptionMenuPointer.reinterpret(), "close")
     }
 
     public companion object : TypeCompanion<OptionMenu> {

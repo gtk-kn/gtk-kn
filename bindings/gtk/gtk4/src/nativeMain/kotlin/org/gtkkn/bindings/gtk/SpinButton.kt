@@ -183,36 +183,33 @@ import kotlin.Unit
  * - parameter `min`: min: Out parameter is not supported
  * - signal `input`: Unsupported parameter `new_value` : new_value: Out parameter is not supported
  */
-public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
-    Widget(pointer.reinterpret()),
+public open class SpinButton(public val gtkSpinButtonPointer: CPointer<GtkSpinButton>) :
+    Widget(gtkSpinButtonPointer.reinterpret()),
     AccessibleRange,
     CellEditable,
     Editable,
     Orientable,
     KGTyped {
-    public val gtkSpinButtonPointer: CPointer<GtkSpinButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellEditablePointer: CPointer<GtkCellEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkEditablePointer: CPointer<GtkEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to activate the default widget when the spin button is activated.
@@ -528,7 +525,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
     @GtkVersion4_14
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSpinButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -543,7 +540,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      */
     @GtkVersion4_14
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkSpinButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -564,7 +561,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scroll: ScrollType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkSpinButtonPointer,
         "change-value",
         onChangeValueFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -578,7 +575,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      * @param scroll a `GtkScrollType` to specify the speed and amount of change
      */
     public fun emitChangeValue(scroll: ScrollType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "change-value", scroll.nativeValue)
+        g_signal_emit_by_name(gtkSpinButtonPointer.reinterpret(), "change-value", scroll.nativeValue)
     }
 
     /**
@@ -607,7 +604,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      */
     public fun onOutput(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSpinButtonPointer,
             "output",
             onOutputFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -625,7 +622,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      */
     public fun onValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSpinButtonPointer,
             "value-changed",
             onValueChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -637,7 +634,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      * Emits the "value-changed" signal. See [onValueChanged].
      */
     public fun emitValueChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "value-changed")
+        g_signal_emit_by_name(gtkSpinButtonPointer.reinterpret(), "value-changed")
     }
 
     /**
@@ -649,7 +646,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      */
     public fun onWrapped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSpinButtonPointer,
             "wrapped",
             onWrappedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -661,7 +658,7 @@ public open class SpinButton(pointer: CPointer<GtkSpinButton>) :
      * Emits the "wrapped" signal. See [onWrapped].
      */
     public fun emitWrapped() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrapped")
+        g_signal_emit_by_name(gtkSpinButtonPointer.reinterpret(), "wrapped")
     }
 
     public companion object : TypeCompanion<SpinButton> {

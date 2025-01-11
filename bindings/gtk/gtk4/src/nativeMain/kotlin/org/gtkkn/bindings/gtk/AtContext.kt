@@ -38,12 +38,9 @@ import kotlin.Unit
  *
  * - method `display`: Property has no getter nor setter
  */
-public open class AtContext(pointer: CPointer<GtkATContext>) :
-    Object(pointer.reinterpret()),
+public abstract class AtContext(public val gtkAtContextPointer: CPointer<GtkATContext>) :
+    Object(gtkAtContextPointer.reinterpret()),
     KGTyped {
-    public val gtkAtContextPointer: CPointer<GtkATContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The `GtkAccessible` that created the `GtkATContext` instance.
      */
@@ -54,7 +51,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
          * @return a `GtkAccessible`
          */
         get() = gtk_at_context_get_accessible(gtkAtContextPointer)!!.run {
-            Accessible.wrap(reinterpret())
+            Accessible.AccessibleImpl(reinterpret())
         }
 
     /**
@@ -106,7 +103,7 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
      */
     public fun onStateChange(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAtContextPointer,
             "state-change",
             onStateChangeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -118,12 +115,19 @@ public open class AtContext(pointer: CPointer<GtkATContext>) :
      * Emits the "state-change" signal. See [onStateChange].
      */
     public fun emitStateChange() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "state-change")
+        g_signal_emit_by_name(gtkAtContextPointer.reinterpret(), "state-change")
     }
+
+    /**
+     * The AtContextImpl type represents a native instance of the abstract AtContext class.
+     *
+     * @constructor Creates a new instance of AtContext for the provided [CPointer].
+     */
+    public class AtContextImpl(pointer: CPointer<GtkATContext>) : AtContext(pointer)
 
     public companion object : TypeCompanion<AtContext> {
         override val type: GeneratedClassKGType<AtContext> =
-            GeneratedClassKGType(gtk_at_context_get_type()) { AtContext(it.reinterpret()) }
+            GeneratedClassKGType(gtk_at_context_get_type()) { AtContextImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

@@ -52,73 +52,72 @@ import kotlin.native.ref.createCleaner
  * @since 1.6
  */
 @PangoVersion1_6
-public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoMatrix> = pointer
-
+public class Matrix(public val pangoMatrixPointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoMatrixPointer) {
     /**
      * 1st component of the transformation matrix
      */
     public var xx: gdouble
-        get() = gPointer.pointed.xx
+        get() = pangoMatrixPointer.pointed.xx
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.xx = value
+            pangoMatrixPointer.pointed.xx = value
         }
 
     /**
      * 2nd component of the transformation matrix
      */
     public var xy: gdouble
-        get() = gPointer.pointed.xy
+        get() = pangoMatrixPointer.pointed.xy
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.xy = value
+            pangoMatrixPointer.pointed.xy = value
         }
 
     /**
      * 3rd component of the transformation matrix
      */
     public var yx: gdouble
-        get() = gPointer.pointed.yx
+        get() = pangoMatrixPointer.pointed.yx
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.yx = value
+            pangoMatrixPointer.pointed.yx = value
         }
 
     /**
      * 4th component of the transformation matrix
      */
     public var yy: gdouble
-        get() = gPointer.pointed.yy
+        get() = pangoMatrixPointer.pointed.yy
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.yy = value
+            pangoMatrixPointer.pointed.yy = value
         }
 
     /**
      * x translation
      */
     public var x0: gdouble
-        get() = gPointer.pointed.x0
+        get() = pangoMatrixPointer.pointed.x0
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x0 = value
+            pangoMatrixPointer.pointed.x0 = value
         }
 
     /**
      * y translation
      */
     public var y0: gdouble
-        get() = gPointer.pointed.y0
+        get() = pangoMatrixPointer.pointed.y0
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y0 = value
+            pangoMatrixPointer.pointed.y0 = value
         }
 
     /**
@@ -139,7 +138,9 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to Matrix and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<PangoMatrix>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<PangoMatrix>, Cleaner>,
+    ) : this(pangoMatrixPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Matrix using the provided [AutofreeScope].
@@ -218,7 +219,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun concat(newMatrix: Matrix): Unit = pango_matrix_concat(gPointer, newMatrix.gPointer)
+    public fun concat(newMatrix: Matrix): Unit = pango_matrix_concat(pangoMatrixPointer, newMatrix.pangoMatrixPointer)
 
     /**
      * Copies a `PangoMatrix`.
@@ -227,7 +228,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun copy(): Matrix? = pango_matrix_copy(gPointer)?.run {
+    public fun copy(): Matrix? = pango_matrix_copy(pangoMatrixPointer)?.run {
         Matrix(this)
     }
 
@@ -237,7 +238,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun free(): Unit = pango_matrix_free(gPointer)
+    public fun free(): Unit = pango_matrix_free(pangoMatrixPointer)
 
     /**
      * Returns the scale factor of a matrix on the height of the font.
@@ -251,7 +252,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.12
      */
     @PangoVersion1_12
-    public fun getFontScaleFactor(): gdouble = pango_matrix_get_font_scale_factor(gPointer)
+    public fun getFontScaleFactor(): gdouble = pango_matrix_get_font_scale_factor(pangoMatrixPointer)
 
     /**
      * Gets the slant ratio of a matrix.
@@ -267,7 +268,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun getSlantRatio(): gdouble = pango_matrix_get_slant_ratio(gPointer)
+    public fun getSlantRatio(): gdouble = pango_matrix_get_slant_ratio(pangoMatrixPointer)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -278,7 +279,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun rotate(degrees: gdouble): Unit = pango_matrix_rotate(gPointer, degrees)
+    public fun rotate(degrees: gdouble): Unit = pango_matrix_rotate(pangoMatrixPointer, degrees)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -291,7 +292,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit = pango_matrix_scale(gPointer, scaleX, scaleY)
+    public fun scale(scaleX: gdouble, scaleY: gdouble): Unit = pango_matrix_scale(pangoMatrixPointer, scaleX, scaleY)
 
     /**
      * Changes the transformation represented by @matrix to be the
@@ -303,7 +304,7 @@ public class Matrix(pointer: CPointer<PangoMatrix>, cleaner: Cleaner? = null) : 
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun translate(tx: gdouble, ty: gdouble): Unit = pango_matrix_translate(gPointer, tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit = pango_matrix_translate(pangoMatrixPointer, tx, ty)
 
     override fun toString(): String = "Matrix(xx=$xx, xy=$xy, yx=$yx, yy=$yy, x0=$x0, y0=$y0)"
 

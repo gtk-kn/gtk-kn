@@ -27,9 +27,8 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkPrintSetup> = pointer
-
+public class PrintSetup(public val gtkPrintSetupPointer: CPointer<GtkPrintSetup>) :
+    ProxyInstance(gtkPrintSetupPointer) {
     /**
      * Returns the page setup of @setup.
      *
@@ -40,7 +39,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gPointer)?.run {
+    public fun getPageSetup(): PageSetup? = gtk_print_setup_get_page_setup(gtkPrintSetupPointer)?.run {
         PageSetup(this)
     }
 
@@ -54,7 +53,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gPointer)?.run {
+    public fun getPrintSettings(): PrintSettings? = gtk_print_setup_get_print_settings(gtkPrintSetupPointer)?.run {
         PrintSettings(this)
     }
 
@@ -65,7 +64,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun ref(): PrintSetup = gtk_print_setup_ref(gPointer)!!.run {
+    public fun ref(): PrintSetup = gtk_print_setup_ref(gtkPrintSetupPointer)!!.run {
         PrintSetup(this)
     }
 
@@ -78,7 +77,7 @@ public class PrintSetup(pointer: CPointer<GtkPrintSetup>) : ProxyInstance(pointe
      * @since 4.14
      */
     @GtkVersion4_14
-    public fun unref(): Unit = gtk_print_setup_unref(gPointer)
+    public fun unref(): Unit = gtk_print_setup_unref(gtkPrintSetupPointer)
 
     public companion object {
         /**

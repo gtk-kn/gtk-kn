@@ -61,15 +61,12 @@ import kotlin.Unit
  * - method `keyword`: Property TypeInfo of getter and setter do not match
  * - method `tooltip`: Property TypeInfo of getter and setter do not match
  */
-public class TabPage(pointer: CPointer<AdwTabPage>) :
-    Object(pointer.reinterpret()),
+public class TabPage(public val adwTabPagePointer: CPointer<AdwTabPage>) :
+    Object(adwTabPagePointer.reinterpret()),
     Accessible,
     KGTyped {
-    public val adwTabPagePointer: CPointer<AdwTabPage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child of the page.
@@ -81,7 +78,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the child of @self
          */
         get() = adw_tab_page_get_child(adwTabPagePointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -100,7 +97,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the icon of @self
          */
         get() = adw_tab_page_get_icon(adwTabPagePointer)?.run {
-            Icon.wrap(reinterpret())
+            Icon.IconImpl(reinterpret())
         }
 
         /**
@@ -170,7 +167,7 @@ public class TabPage(pointer: CPointer<AdwTabPage>) :
          * @return the indicator icon of @self
          */
         get() = adw_tab_page_get_indicator_icon(adwTabPagePointer)?.run {
-            Icon.wrap(reinterpret())
+            Icon.IconImpl(reinterpret())
         }
 
         /**

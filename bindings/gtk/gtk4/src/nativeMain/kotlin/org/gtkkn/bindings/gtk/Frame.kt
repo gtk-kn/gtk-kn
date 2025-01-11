@@ -78,20 +78,17 @@ import kotlin.Unit
  *
  * - method `label-xalign`: Property has no getter nor setter
  */
-public open class Frame(pointer: CPointer<GtkFrame>) :
-    Widget(pointer.reinterpret()),
+public open class Frame(public val gtkFramePointer: CPointer<GtkFrame>) :
+    Widget(gtkFramePointer.reinterpret()),
     KGTyped {
-    public val gtkFramePointer: CPointer<GtkFrame>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -103,7 +100,7 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
          * @return the child widget of @frame
          */
         get() = gtk_frame_get_child(gtkFramePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -147,7 +144,7 @@ public open class Frame(pointer: CPointer<GtkFrame>) :
          * @return the label widget
          */
         get() = gtk_frame_get_label_widget(gtkFramePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

@@ -32,7 +32,10 @@ data class InterfaceBlueprint(
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,
     val parentInterfaces: List<ImplementsInterfaceBlueprint>,
+    val implClassSuperclassTypeName: ClassName,
     val glibGetTypeFunc: MemberName?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
-)
+) {
+    val instanceTypeName = typeName.nestedClass("${typeName.simpleName}Impl")
+}

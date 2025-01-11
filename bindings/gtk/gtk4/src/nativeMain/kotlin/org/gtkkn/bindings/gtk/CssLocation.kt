@@ -16,47 +16,46 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class CssLocation(pointer: CPointer<GtkCssLocation>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkCssLocation> = pointer
-
+public class CssLocation(public val gtkCssLocationPointer: CPointer<GtkCssLocation>, cleaner: Cleaner? = null) :
+    ProxyInstance(gtkCssLocationPointer) {
     public var bytes: gsize
-        get() = gPointer.pointed.bytes
+        get() = gtkCssLocationPointer.pointed.bytes
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.bytes = value
+            gtkCssLocationPointer.pointed.bytes = value
         }
 
     public var chars: gsize
-        get() = gPointer.pointed.chars
+        get() = gtkCssLocationPointer.pointed.chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.chars = value
+            gtkCssLocationPointer.pointed.chars = value
         }
 
     public var lines: gsize
-        get() = gPointer.pointed.lines
+        get() = gtkCssLocationPointer.pointed.lines
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.lines = value
+            gtkCssLocationPointer.pointed.lines = value
         }
 
     public var lineBytes: gsize
-        get() = gPointer.pointed.line_bytes
+        get() = gtkCssLocationPointer.pointed.line_bytes
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.line_bytes = value
+            gtkCssLocationPointer.pointed.line_bytes = value
         }
 
     public var lineChars: gsize
-        get() = gPointer.pointed.line_chars
+        get() = gtkCssLocationPointer.pointed.line_chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.line_chars = value
+            gtkCssLocationPointer.pointed.line_chars = value
         }
 
     /**
@@ -79,7 +78,7 @@ public class CssLocation(pointer: CPointer<GtkCssLocation>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<GtkCssLocation>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gtkCssLocationPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new CssLocation using the provided [AutofreeScope].

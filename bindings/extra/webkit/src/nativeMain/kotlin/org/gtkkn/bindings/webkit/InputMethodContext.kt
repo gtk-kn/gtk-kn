@@ -63,12 +63,10 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>) :
-    Object(pointer.reinterpret()),
+public abstract class InputMethodContext(
+    public val webkitInputMethodContextPointer: CPointer<WebKitInputMethodContext>,
+) : Object(webkitInputMethodContextPointer.reinterpret()),
     KGTyped {
-    public val webkitInputMethodContextPointer: CPointer<WebKitInputMethodContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The #WebKitInputHints of the input associated with this context.
      *
@@ -134,8 +132,10 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
      * @since 2.28
      */
     @WebKitVersion2_28
-    public open fun filterKeyEvent(keyEvent: Event): Boolean =
-        webkit_input_method_context_filter_key_event(webkitInputMethodContextPointer, keyEvent.gPointer).asBoolean()
+    public open fun filterKeyEvent(keyEvent: Event): Boolean = webkit_input_method_context_filter_key_event(
+        webkitInputMethodContextPointer,
+        keyEvent.gdkEventPointer
+    ).asBoolean()
 
     /**
      * Notify @context that cursor area changed in input associated.
@@ -220,7 +220,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
     @WebKitVersion2_28
     public fun onCommitted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (text: String) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitInputMethodContextPointer,
             "committed",
             onCommittedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -236,7 +236,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
      */
     @WebKitVersion2_28
     public fun emitCommitted(text: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "committed", text.cstr)
+        g_signal_emit_by_name(webkitInputMethodContextPointer.reinterpret(), "committed", text.cstr)
     }
 
     /**
@@ -252,7 +252,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offset: gint, nChars: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitInputMethodContextPointer,
         "delete-surrounding",
         onDeleteSurroundingFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -269,7 +269,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
      */
     @WebKitVersion2_28
     public fun emitDeleteSurrounding(offset: gint, nChars: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "delete-surrounding", offset, nChars)
+        g_signal_emit_by_name(webkitInputMethodContextPointer.reinterpret(), "delete-surrounding", offset, nChars)
     }
 
     /**
@@ -284,7 +284,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
     @WebKitVersion2_28
     public fun onPreeditChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitInputMethodContextPointer,
             "preedit-changed",
             onPreeditChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -299,7 +299,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
      */
     @WebKitVersion2_28
     public fun emitPreeditChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-changed")
+        g_signal_emit_by_name(webkitInputMethodContextPointer.reinterpret(), "preedit-changed")
     }
 
     /**
@@ -312,7 +312,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
     @WebKitVersion2_28
     public fun onPreeditFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitInputMethodContextPointer,
             "preedit-finished",
             onPreeditFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -327,7 +327,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
      */
     @WebKitVersion2_28
     public fun emitPreeditFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-finished")
+        g_signal_emit_by_name(webkitInputMethodContextPointer.reinterpret(), "preedit-finished")
     }
 
     /**
@@ -340,7 +340,7 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
     @WebKitVersion2_28
     public fun onPreeditStarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitInputMethodContextPointer,
             "preedit-started",
             onPreeditStartedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -355,12 +355,21 @@ public open class InputMethodContext(pointer: CPointer<WebKitInputMethodContext>
      */
     @WebKitVersion2_28
     public fun emitPreeditStarted() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-started")
+        g_signal_emit_by_name(webkitInputMethodContextPointer.reinterpret(), "preedit-started")
     }
+
+    /**
+     * The InputMethodContextImpl type represents a native instance of the abstract InputMethodContext class.
+     *
+     * @constructor Creates a new instance of InputMethodContext for the provided [CPointer].
+     */
+    public class InputMethodContextImpl(pointer: CPointer<WebKitInputMethodContext>) : InputMethodContext(pointer)
 
     public companion object : TypeCompanion<InputMethodContext> {
         override val type: GeneratedClassKGType<InputMethodContext> =
-            GeneratedClassKGType(webkit_input_method_context_get_type()) { InputMethodContext(it.reinterpret()) }
+            GeneratedClassKGType(webkit_input_method_context_get_type()) {
+                InputMethodContextImpl(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()

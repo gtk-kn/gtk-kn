@@ -36,40 +36,39 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `alpha`: alpha: Out parameter is not supported
  */
-public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoColor> = pointer
-
+public class Color(public val pangoColorPointer: CPointer<PangoColor>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoColorPointer) {
     /**
      * value of red component
      */
     public var red: guint16
-        get() = gPointer.pointed.red
+        get() = pangoColorPointer.pointed.red
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.red = value
+            pangoColorPointer.pointed.red = value
         }
 
     /**
      * value of green component
      */
     public var green: guint16
-        get() = gPointer.pointed.green
+        get() = pangoColorPointer.pointed.green
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.green = value
+            pangoColorPointer.pointed.green = value
         }
 
     /**
      * value of blue component
      */
     public var blue: guint16
-        get() = gPointer.pointed.blue
+        get() = pangoColorPointer.pointed.blue
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.blue = value
+            pangoColorPointer.pointed.blue = value
         }
 
     /**
@@ -90,7 +89,9 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      *
      * @param pair A pair containing the pointer to Color and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<PangoColor>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<PangoColor>, Cleaner>,
+    ) : this(pangoColorPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Color using the provided [AutofreeScope].
@@ -153,14 +154,14 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      * @return the newly allocated `PangoColor`,
      *   which should be freed with [method@Pango.Color.free]
      */
-    public fun copy(): Color? = pango_color_copy(gPointer)?.run {
+    public fun copy(): Color? = pango_color_copy(pangoColorPointer)?.run {
         Color(this)
     }
 
     /**
      * Frees a color allocated by [method@Pango.Color.copy].
      */
-    public fun free(): Unit = pango_color_free(gPointer)
+    public fun free(): Unit = pango_color_free(pangoColorPointer)
 
     /**
      * Fill in the fields of a color from a string specification.
@@ -177,7 +178,7 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      * @return true if parsing of the specifier succeeded,
      *   otherwise false
      */
-    public fun parse(spec: String): Boolean = pango_color_parse(gPointer, spec).asBoolean()
+    public fun parse(spec: String): Boolean = pango_color_parse(pangoColorPointer, spec).asBoolean()
 
     /**
      * Returns a textual specification of @color.
@@ -192,7 +193,8 @@ public class Color(pointer: CPointer<PangoColor>, cleaner: Cleaner? = null) : Pr
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_16
-    override fun toString(): String = pango_color_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String =
+        pango_color_to_string(pangoColorPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

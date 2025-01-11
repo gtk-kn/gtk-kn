@@ -44,12 +44,9 @@ import kotlin.Unit
  * - method `contains-pointer`: Property has no getter nor setter
  * - method `is-pointer`: Property has no getter nor setter
  */
-public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion>) :
-    EventController(pointer.reinterpret()),
+public open class DropControllerMotion(public val gtkDropControllerMotionPointer: CPointer<GtkDropControllerMotion>) :
+    EventController(gtkDropControllerMotionPointer.reinterpret()),
     KGTyped {
-    public val gtkDropControllerMotionPointer: CPointer<GtkDropControllerMotion>
-        get() = gPointer.reinterpret()
-
     /**
      * The ongoing drop operation over the controller's widget or
      * its descendant.
@@ -72,7 +69,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
          *   happening within @self
          */
         get() = gtk_drop_controller_motion_get_drop(gtkDropControllerMotionPointer)?.run {
-            Drop(this)
+            Drop.DropImpl(this)
         }
 
     /**
@@ -112,7 +109,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkDropControllerMotionPointer,
         "enter",
         onEnterFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -127,7 +124,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
      * @param y coordinates of pointer location
      */
     public fun emitEnter(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "enter", x, y)
+        g_signal_emit_by_name(gtkDropControllerMotionPointer.reinterpret(), "enter", x, y)
     }
 
     /**
@@ -138,7 +135,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
      */
     public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkDropControllerMotionPointer,
             "leave",
             onLeaveFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -150,7 +147,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
      * Emits the "leave" signal. See [onLeave].
      */
     public fun emitLeave() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "leave")
+        g_signal_emit_by_name(gtkDropControllerMotionPointer.reinterpret(), "leave")
     }
 
     /**
@@ -163,7 +160,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkDropControllerMotionPointer,
         "motion",
         onMotionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -178,7 +175,7 @@ public open class DropControllerMotion(pointer: CPointer<GtkDropControllerMotion
      * @param y the y coordinate
      */
     public fun emitMotion(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "motion", x, y)
+        g_signal_emit_by_name(gtkDropControllerMotionPointer.reinterpret(), "motion", x, y)
     }
 
     public companion object : TypeCompanion<DropControllerMotion> {

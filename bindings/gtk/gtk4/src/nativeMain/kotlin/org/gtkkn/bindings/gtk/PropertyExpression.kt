@@ -19,12 +19,9 @@ import kotlin.String
 /**
  * A `GObject` property value in a `GtkExpression`.
  */
-public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
-    Expression(pointer.reinterpret()),
+public open class PropertyExpression(public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>) :
+    Expression(gtkPropertyExpressionPointer.reinterpret()),
     KGTyped {
-    public val gtkPropertyExpressionPointer: CPointer<GtkPropertyExpression>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates an expression that looks up a property.
      *
@@ -48,7 +45,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
         thisType: GType,
         expression: Expression? = null,
         propertyName: String,
-    ) : this(gtk_property_expression_new(thisType, expression?.gPointer, propertyName)!!.reinterpret())
+    ) : this(gtk_property_expression_new(thisType, expression?.gtkExpressionPointer, propertyName)!!.reinterpret())
 
     /**
      * Creates an expression that looks up a property.
@@ -69,7 +66,12 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
     public constructor(
         expression: Expression? = null,
         pspec: ParamSpec,
-    ) : this(gtk_property_expression_new_for_pspec(expression?.gPointer, pspec.gPointer)!!.reinterpret())
+    ) : this(
+        gtk_property_expression_new_for_pspec(
+            expression?.gtkExpressionPointer,
+            pspec.gobjectParamSpecPointer
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the expression specifying the object of
@@ -79,7 +81,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      */
     public open fun getExpression(): Expression? =
         gtk_property_expression_get_expression(gtkPropertyExpressionPointer.reinterpret())?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
     /**
@@ -90,7 +92,7 @@ public open class PropertyExpression(pointer: CPointer<GtkPropertyExpression>) :
      */
     public open fun getPspec(): ParamSpec =
         gtk_property_expression_get_pspec(gtkPropertyExpressionPointer.reinterpret())!!.run {
-            ParamSpec(this)
+            ParamSpec.ParamSpecImpl(this)
         }
 
     public companion object : TypeCompanion<PropertyExpression> {

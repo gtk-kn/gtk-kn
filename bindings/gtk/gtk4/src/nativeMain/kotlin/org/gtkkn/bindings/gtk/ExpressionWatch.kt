@@ -21,9 +21,8 @@ import kotlin.Unit
  * The contents of `GtkExpressionWatch` should only be accessed through the
  * provided API.
  */
-public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkExpressionWatch> = pointer
-
+public class ExpressionWatch(public val gtkExpressionWatchPointer: CPointer<GtkExpressionWatch>) :
+    ProxyInstance(gtkExpressionWatchPointer) {
     /**
      * Evaluates the watched expression and on success stores the result
      * in `value`.
@@ -34,14 +33,15 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInsta
      * @param value an empty `GValue` to be set
      * @return `TRUE` if the expression could be evaluated and `value` was set
      */
-    public fun evaluate(`value`: Value): Boolean = gtk_expression_watch_evaluate(gPointer, `value`.gPointer).asBoolean()
+    public fun evaluate(`value`: Value): Boolean =
+        gtk_expression_watch_evaluate(gtkExpressionWatchPointer, `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Acquires a reference on the given `GtkExpressionWatch`.
      *
      * @return the `GtkExpressionWatch` with an additional reference
      */
-    public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gPointer)!!.run {
+    public fun ref(): ExpressionWatch = gtk_expression_watch_ref(gtkExpressionWatchPointer)!!.run {
         ExpressionWatch(this)
     }
 
@@ -51,7 +51,7 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInsta
      * If the reference was the last, the resources associated to `self` are
      * freed.
      */
-    public fun unref(): Unit = gtk_expression_watch_unref(gPointer)
+    public fun unref(): Unit = gtk_expression_watch_unref(gtkExpressionWatchPointer)
 
     /**
      * Stops watching an expression.
@@ -59,7 +59,7 @@ public class ExpressionWatch(pointer: CPointer<GtkExpressionWatch>) : ProxyInsta
      * See [method@Gtk.Expression.watch] for how the watch
      * was established.
      */
-    public fun unwatch(): Unit = gtk_expression_watch_unwatch(gPointer)
+    public fun unwatch(): Unit = gtk_expression_watch_unwatch(gtkExpressionWatchPointer)
 
     public companion object {
         /**

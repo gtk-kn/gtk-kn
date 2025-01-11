@@ -87,12 +87,9 @@ import kotlin.Unit
  * @since 5.4
  */
 @GtkSourceVersion5_4
-public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
-    ImContext(pointer.reinterpret()),
+public open class VimImContext(public val gtksourceVimImContextPointer: CPointer<GtkSourceVimIMContext>) :
+    ImContext(gtksourceVimImContextPointer.reinterpret()),
     KGTyped {
-    public val gtksourceVimImContextPointer: CPointer<GtkSourceVimIMContext>
-        get() = gPointer.reinterpret()
-
     public open val commandBarText: String
         /**
          * Gets the current command-bar text as it is entered by the user.
@@ -144,7 +141,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (view: View, path: String?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceVimImContextPointer,
         "edit",
         onEditFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -161,7 +158,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      */
     @GtkSourceVersion5_4
     public fun emitEdit(view: View, path: String?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "edit", view.gtksourceViewPointer, path?.cstr)
+        g_signal_emit_by_name(gtksourceVimImContextPointer.reinterpret(), "edit", view.gtksourceViewPointer, path?.cstr)
     }
 
     /**
@@ -180,7 +177,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (command: String) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceVimImContextPointer,
         "execute-command",
         onExecuteCommandFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -201,7 +198,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (begin: TextIter, end: TextIter) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceVimImContextPointer,
         "format-text",
         onFormatTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -218,7 +215,12 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      */
     @GtkSourceVersion5_4
     public fun emitFormatText(begin: TextIter, end: TextIter) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "format-text", begin.gPointer, end.gPointer)
+        g_signal_emit_by_name(
+            gtksourceVimImContextPointer.reinterpret(),
+            "format-text",
+            begin.gtkTextIterPointer,
+            end.gtkTextIterPointer
+        )
     }
 
     /**
@@ -236,7 +238,7 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (view: View, path: String?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceVimImContextPointer,
         "write",
         onWriteFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -253,7 +255,12 @@ public open class VimImContext(pointer: CPointer<GtkSourceVimIMContext>) :
      */
     @GtkSourceVersion5_4
     public fun emitWrite(view: View, path: String?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "write", view.gtksourceViewPointer, path?.cstr)
+        g_signal_emit_by_name(
+            gtksourceVimImContextPointer.reinterpret(),
+            "write",
+            view.gtksourceViewPointer,
+            path?.cstr
+        )
     }
 
     public companion object : TypeCompanion<VimImContext> {

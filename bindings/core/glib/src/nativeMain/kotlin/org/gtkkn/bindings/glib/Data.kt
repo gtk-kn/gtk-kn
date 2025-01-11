@@ -10,6 +10,4 @@ import org.gtkkn.native.glib.GData
  *
  * See also: [Keyed data lists](datalist-and-dataset.html).
  */
-public class Data(pointer: CPointer<GData>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GData> = pointer
-}
+public class Data(public val glibDataPointer: CPointer<GData>) : ProxyInstance(glibDataPointer)

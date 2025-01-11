@@ -101,24 +101,21 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public class SplitButton(pointer: CPointer<AdwSplitButton>) :
-    Widget(pointer.reinterpret()),
+public class SplitButton(public val adwSplitButtonPointer: CPointer<AdwSplitButton>) :
+    Widget(adwSplitButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val adwSplitButtonPointer: CPointer<AdwSplitButton>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the button can be smaller than the natural size of its contents.
@@ -167,7 +164,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the child widget
          */
         get() = adw_split_button_get_child(adwSplitButtonPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -262,7 +259,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
          * @return the menu model
          */
         get() = adw_split_button_get_menu_model(adwSplitButtonPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -395,7 +392,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwSplitButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -407,7 +404,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(adwSplitButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -418,7 +415,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      */
     public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwSplitButtonPointer,
             "clicked",
             onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -430,7 +427,7 @@ public class SplitButton(pointer: CPointer<AdwSplitButton>) :
      * Emits the "clicked" signal. See [onClicked].
      */
     public fun emitClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+        g_signal_emit_by_name(adwSplitButtonPointer.reinterpret(), "clicked")
     }
 
     public companion object : TypeCompanion<SplitButton> {

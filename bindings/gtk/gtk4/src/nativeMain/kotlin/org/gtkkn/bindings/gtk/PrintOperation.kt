@@ -152,15 +152,12 @@ import kotlin.ULong
  * - method `unit`: Property has no getter
  * - method `use-full-page`: Property has no getter
  */
-public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
-    Object(pointer.reinterpret()),
+public open class PrintOperation(public val gtkPrintOperationPointer: CPointer<GtkPrintOperation>) :
+    Object(gtkPrintOperationPointer.reinterpret()),
     PrintOperationPreview,
     KGTyped {
-    public val gtkPrintOperationPointer: CPointer<GtkPrintOperation>
-        get() = gPointer.reinterpret()
-
     override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If true, page size combo box and orientation combo box
@@ -661,7 +658,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (context: PrintContext) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "begin-print",
         onBeginPrintFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -675,7 +672,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      * @param context the `GtkPrintContext` for the current operation
      */
     public fun emitBeginPrint(context: PrintContext) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "begin-print", context.gtkPrintContextPointer)
+        g_signal_emit_by_name(gtkPrintOperationPointer.reinterpret(), "begin-print", context.gtkPrintContextPointer)
     }
 
     /**
@@ -697,7 +694,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      */
     public fun onCreateCustomWidget(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Object?): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPrintOperationPointer,
             "create-custom-widget",
             onCreateCustomWidgetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -720,7 +717,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (widget: Widget) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "custom-widget-apply",
         onCustomWidgetApplyFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -734,7 +731,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      * @param widget the custom widget added in ::create-custom-widget
      */
     public fun emitCustomWidgetApply(widget: Widget) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "custom-widget-apply", widget.gtkWidgetPointer)
+        g_signal_emit_by_name(gtkPrintOperationPointer.reinterpret(), "custom-widget-apply", widget.gtkWidgetPointer)
     }
 
     /**
@@ -756,7 +753,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (result: PrintOperationResult) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "done",
         onDoneFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -770,7 +767,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      * @param result the result of the print operation
      */
     public fun emitDone(result: PrintOperationResult) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "done", result.nativeValue)
+        g_signal_emit_by_name(gtkPrintOperationPointer.reinterpret(), "done", result.nativeValue)
     }
 
     /**
@@ -833,7 +830,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (context: PrintContext, pageNr: gint) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "draw-page",
         onDrawPageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -848,7 +845,12 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      * @param pageNr the number of the currently printed page (0-based)
      */
     public fun emitDrawPage(context: PrintContext, pageNr: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "draw-page", context.gtkPrintContextPointer, pageNr)
+        g_signal_emit_by_name(
+            gtkPrintOperationPointer.reinterpret(),
+            "draw-page",
+            context.gtkPrintContextPointer,
+            pageNr
+        )
     }
 
     /**
@@ -864,7 +866,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (context: PrintContext) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "end-print",
         onEndPrintFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -878,7 +880,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      * @param context the `GtkPrintContext` for the current operation
      */
     public fun emitEndPrint(context: PrintContext) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "end-print", context.gtkPrintContextPointer)
+        g_signal_emit_by_name(gtkPrintOperationPointer.reinterpret(), "end-print", context.gtkPrintContextPointer)
     }
 
     /**
@@ -904,7 +906,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (context: PrintContext) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "paginate",
         onPaginateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -942,7 +944,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
             parent: Window?,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "preview",
         onPreviewFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -968,7 +970,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
             setup: PageSetup,
         ) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "request-page-setup",
         onRequestPageSetupFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -985,7 +987,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      */
     public fun emitRequestPageSetup(context: PrintContext, pageNr: gint, setup: PageSetup) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtkPrintOperationPointer.reinterpret(),
             "request-page-setup",
             context.gtkPrintContextPointer,
             pageNr,
@@ -1005,7 +1007,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      */
     public fun onStatusChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> kotlin.Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPrintOperationPointer,
             "status-changed",
             onStatusChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1017,7 +1019,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      * Emits the "status-changed" signal. See [onStatusChanged].
      */
     public fun emitStatusChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "status-changed")
+        g_signal_emit_by_name(gtkPrintOperationPointer.reinterpret(), "status-changed")
     }
 
     /**
@@ -1037,7 +1039,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
             settings: PrintSettings,
         ) -> kotlin.Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrintOperationPointer,
         "update-custom-widget",
         onUpdateCustomWidgetFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1054,7 +1056,7 @@ public open class PrintOperation(pointer: CPointer<GtkPrintOperation>) :
      */
     public fun emitUpdateCustomWidget(widget: Widget, setup: PageSetup, settings: PrintSettings) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtkPrintOperationPointer.reinterpret(),
             "update-custom-widget",
             widget.gtkWidgetPointer,
             setup.gtkPageSetupPointer,
@@ -1098,7 +1100,7 @@ private val onCreateCustomWidgetFunc: CPointer<CFunction<() -> CPointer<GObject>
             _: COpaquePointer,
             userData: COpaquePointer,
         ->
-        userData.asStableRef<() -> Object?>().get().invoke()?.gPointer
+        userData.asStableRef<() -> Object?>().get().invoke()?.gobjectObjectPointer
     }
         .reinterpret()
 
@@ -1110,7 +1112,7 @@ private val onCustomWidgetApplyFunc: CPointer<CFunction<(CPointer<GtkWidget>) ->
         ->
         userData.asStableRef<(widget: Widget) -> kotlin.Unit>().get().invoke(
             widget!!.run {
-                Widget(this)
+                Widget.WidgetImpl(this)
             }
         )
     }
@@ -1197,7 +1199,7 @@ private val onPreviewFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         preview!!.run {
-            PrintOperationPreview.wrap(reinterpret())
+            PrintOperationPreview.PrintOperationPreviewImpl(reinterpret())
         },
         context!!.run {
             PrintContext(this)
@@ -1273,7 +1275,7 @@ private val onUpdateCustomWidgetFunc: CPointer<
         ) -> kotlin.Unit
         >().get().invoke(
         widget!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         },
         setup!!.run {
             PageSetup(this)

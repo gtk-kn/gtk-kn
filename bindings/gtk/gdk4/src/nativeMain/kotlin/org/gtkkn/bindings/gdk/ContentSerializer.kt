@@ -50,15 +50,12 @@ import kotlin.Unit
  *
  * - parameter `notify`: GLib.DestroyNotify
  */
-public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
-    Object(pointer.reinterpret()),
+public open class ContentSerializer(public val gdkContentSerializerPointer: CPointer<GdkContentSerializer>) :
+    Object(gdkContentSerializerPointer.reinterpret()),
     AsyncResult,
     KGTyped {
-    public val gdkContentSerializerPointer: CPointer<GdkContentSerializer>
-        get() = gPointer.reinterpret()
-
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Gets the cancellable for the current operation.
@@ -97,7 +94,7 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      */
     public open fun getOutputStream(): OutputStream =
         gdk_content_serializer_get_output_stream(gdkContentSerializerPointer)!!.run {
-            OutputStream(this)
+            OutputStream.OutputStreamImpl(this)
         }
 
     /**
@@ -142,7 +139,7 @@ public open class ContentSerializer(pointer: CPointer<GdkContentSerializer>) :
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_serializer_return_error(gdkContentSerializerPointer, error.gPointer)
+        gdk_content_serializer_return_error(gdkContentSerializerPointer, error.glibErrorPointer)
 
     /**
      * Indicate that the serialization has been successfully completed.

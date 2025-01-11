@@ -19,12 +19,9 @@ import org.gtkkn.native.gobject.GType
  * @since 1.2
  */
 @CairoVersion1_2
-public open class RasterSource(pointer: CPointer<cairo_pattern_t>) :
-    Pattern(pointer.reinterpret()),
+public open class RasterSource(public val cairoRasterSourcePointer: CPointer<cairo_pattern_t>) :
+    Pattern(cairoRasterSourcePointer.reinterpret()),
     KGTyped {
-    public val cairoRasterSourcePointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<RasterSource> {
         override val type: GeneratedClassKGType<RasterSource> =
             GeneratedClassKGType(cairo_gobject_surface_get_type()) { RasterSource(it.reinterpret()) }

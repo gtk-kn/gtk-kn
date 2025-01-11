@@ -41,19 +41,16 @@ import kotlin.Throws
  * - method `from-charset`: Property has no getter nor setter
  * - method `to-charset`: Property has no getter nor setter
  */
-public open class CharsetConverter(pointer: CPointer<GCharsetConverter>) :
-    Object(pointer.reinterpret()),
+public open class CharsetConverter(public val gioCharsetConverterPointer: CPointer<GCharsetConverter>) :
+    Object(gioCharsetConverterPointer.reinterpret()),
     Converter,
     Initable,
     KGTyped {
-    public val gioCharsetConverterPointer: CPointer<GCharsetConverter>
-        get() = gPointer.reinterpret()
-
     override val gioConverterPointer: CPointer<GConverter>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Use fallback (of form `\<hexval>`) for invalid bytes.

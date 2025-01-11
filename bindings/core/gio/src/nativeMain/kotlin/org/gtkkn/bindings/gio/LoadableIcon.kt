@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -26,7 +27,7 @@ import kotlin.Unit
  * - parameter `type`: type: Out parameter is not supported
  */
 public interface LoadableIcon :
-    Interface,
+    Proxy,
     Icon,
     KGTyped {
     public val gioLoadableIconPointer: CPointer<GLoadableIcon>
@@ -55,19 +56,22 @@ public interface LoadableIcon :
             callback?.let { StableRef.create(callback).asCPointer() }
         )
 
-    private data class Wrapper(private val pointer: CPointer<GLoadableIcon>) : LoadableIcon {
-        override val gioLoadableIconPointer: CPointer<GLoadableIcon> = pointer
-    }
+    /**
+     * The LoadableIconImpl type represents a native instance of the LoadableIcon interface.
+     *
+     * @constructor Creates a new instance of LoadableIcon for the provided [CPointer].
+     */
+    public data class LoadableIconImpl(override val gioLoadableIconPointer: CPointer<GLoadableIcon>) :
+        Object(gioLoadableIconPointer.reinterpret()),
+        LoadableIcon
 
     public companion object : TypeCompanion<LoadableIcon> {
         override val type: GeneratedInterfaceKGType<LoadableIcon> =
-            GeneratedInterfaceKGType(g_loadable_icon_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_loadable_icon_get_type()) { LoadableIconImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GLoadableIcon>): LoadableIcon = Wrapper(pointer)
 
         /**
          * Get the GType of LoadableIcon

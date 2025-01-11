@@ -11,12 +11,9 @@ import org.gtkkn.native.cairo.cairo_gobject_font_face_get_type
 import org.gtkkn.native.cairo.cairo_user_font_face_create
 import org.gtkkn.native.gobject.GType
 
-public open class UserFontFace(pointer: CPointer<cairo_font_face_t>) :
-    FontFace(pointer.reinterpret()),
+public open class UserFontFace(public val cairoUserFontFacePointer: CPointer<cairo_font_face_t>) :
+    FontFace(cairoUserFontFacePointer.reinterpret()),
     KGTyped {
-    public val cairoUserFontFacePointer: CPointer<cairo_font_face_t>
-        get() = gPointer.reinterpret()
-
     public constructor() : this(cairo_user_font_face_create()!!.reinterpret())
 
     public companion object : TypeCompanion<UserFontFace> {

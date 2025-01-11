@@ -170,29 +170,26 @@ import kotlin.Unit
  * - method `use-header-bar`: Property has no getter nor setter
  * - constructor `new_with_buttons`: Varargs parameter is not supported
  */
-public open class Dialog(pointer: CPointer<GtkDialog>) :
-    Window(pointer.reinterpret()),
+public open class Dialog(public val gtkDialogPointer: CPointer<GtkDialog>) :
+    Window(gtkDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkDialogPointer: CPointer<GtkDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new dialog box.
@@ -236,7 +233,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      */
     public open fun addButton(buttonText: String, responseId: gint): Widget =
         gtk_dialog_add_button(gtkDialogPointer, buttonText, responseId)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -281,7 +278,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      */
     public open fun getWidgetForResponse(responseId: gint): Widget? =
         gtk_dialog_get_widget_for_response(gtkDialogPointer, responseId)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -327,7 +324,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      */
     public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkDialogPointer,
             "close",
             onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -339,7 +336,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * Emits the "close" signal. See [onClose].
      */
     public fun emitClose() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+        g_signal_emit_by_name(gtkDialogPointer.reinterpret(), "close")
     }
 
     /**
@@ -355,7 +352,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      */
     public fun onResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkDialogPointer,
             "response",
             onResponseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -369,7 +366,7 @@ public open class Dialog(pointer: CPointer<GtkDialog>) :
      * @param responseId the response ID
      */
     public fun emitResponse(responseId: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "response", responseId)
+        g_signal_emit_by_name(gtkDialogPointer.reinterpret(), "response", responseId)
     }
 
     public companion object : TypeCompanion<Dialog> {

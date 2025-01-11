@@ -55,15 +55,13 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectManagerServer(pointer: CPointer<GDBusObjectManagerServer>) :
-    Object(pointer.reinterpret()),
+public open class DBusObjectManagerServer(
+    public val gioDBusObjectManagerServerPointer: CPointer<GDBusObjectManagerServer>,
+) : Object(gioDBusObjectManagerServerPointer.reinterpret()),
     DBusObjectManager,
     KGTyped {
-    public val gioDBusObjectManagerServerPointer: CPointer<GDBusObjectManagerServer>
-        get() = gPointer.reinterpret()
-
     override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The #GDBusConnection to export objects on.

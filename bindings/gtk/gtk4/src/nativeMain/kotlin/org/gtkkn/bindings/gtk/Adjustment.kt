@@ -52,12 +52,9 @@ import kotlin.Unit
  * The `GtkAdjustment` object does not update the value itself. Instead
  * it is left up to the owner of the `GtkAdjustment` to control the value.
  */
-public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public open class Adjustment(public val gtkAdjustmentPointer: CPointer<GtkAdjustment>) :
+    InitiallyUnowned(gtkAdjustmentPointer.reinterpret()),
     KGTyped {
-    public val gtkAdjustmentPointer: CPointer<GtkAdjustment>
-        get() = gPointer.reinterpret()
-
     /**
      * The minimum value of the adjustment.
      */
@@ -294,7 +291,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAdjustmentPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -306,7 +303,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gtkAdjustmentPointer.reinterpret(), "changed")
     }
 
     /**
@@ -317,7 +314,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
      */
     public fun onValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAdjustmentPointer,
             "value-changed",
             onValueChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -329,7 +326,7 @@ public open class Adjustment(pointer: CPointer<GtkAdjustment>) :
      * Emits the "value-changed" signal. See [onValueChanged].
      */
     public fun emitValueChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "value-changed")
+        g_signal_emit_by_name(gtkAdjustmentPointer.reinterpret(), "value-changed")
     }
 
     public companion object : TypeCompanion<Adjustment> {

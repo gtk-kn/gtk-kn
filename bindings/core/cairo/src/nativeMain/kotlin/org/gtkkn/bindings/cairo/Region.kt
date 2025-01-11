@@ -38,70 +38,73 @@ import kotlin.Unit
  * @since 1.10
  */
 @CairoVersion1_10
-public class Region(pointer: CPointer<cairo_region_t>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_region_t> = pointer
-
-    public fun copy(): Region = cairo_region_copy(gPointer)!!.run {
+public class Region(public val cairoRegionPointer: CPointer<cairo_region_t>) : ProxyInstance(cairoRegionPointer) {
+    public fun copy(): Region = cairo_region_copy(cairoRegionPointer)!!.run {
         Region(this)
     }
 
-    public fun status(): Status = cairo_region_status(gPointer).run {
+    public fun status(): Status = cairo_region_status(cairoRegionPointer).run {
         Status.fromNativeValue(this)
     }
 
-    public fun getExtents(extents: RectangleInt): Unit = cairo_region_get_extents(gPointer, extents.gPointer)
+    public fun getExtents(extents: RectangleInt): Unit =
+        cairo_region_get_extents(cairoRegionPointer, extents.cairoRectangleIntPointer)
 
-    public fun numRectangles(): gint = cairo_region_num_rectangles(gPointer)
+    public fun numRectangles(): gint = cairo_region_num_rectangles(cairoRegionPointer)
 
     public fun getRectangle(nth: gint, rectangle: RectangleInt): Unit =
-        cairo_region_get_rectangle(gPointer, nth, rectangle.gPointer)
+        cairo_region_get_rectangle(cairoRegionPointer, nth, rectangle.cairoRectangleIntPointer)
 
-    public fun isEmpty(): Boolean = cairo_region_is_empty(gPointer).asBoolean()
+    public fun isEmpty(): Boolean = cairo_region_is_empty(cairoRegionPointer).asBoolean()
 
-    public fun containsPoint(x: gint, y: gint): Boolean = cairo_region_contains_point(gPointer, x, y).asBoolean()
+    public fun containsPoint(x: gint, y: gint): Boolean =
+        cairo_region_contains_point(cairoRegionPointer, x, y).asBoolean()
 
     public fun containsRectangle(rectangle: RectangleInt): RegionOverlap =
-        cairo_region_contains_rectangle(gPointer, rectangle.gPointer).run {
+        cairo_region_contains_rectangle(cairoRegionPointer, rectangle.cairoRectangleIntPointer).run {
             RegionOverlap.fromNativeValue(this)
         }
 
-    public fun equal(other: Region): Boolean = cairo_region_equal(gPointer, other.gPointer).asBoolean()
+    public fun equal(other: Region): Boolean =
+        cairo_region_equal(cairoRegionPointer, other.cairoRegionPointer).asBoolean()
 
-    public fun translate(dx: gint, dy: gint): Unit = cairo_region_translate(gPointer, dx, dy)
+    public fun translate(dx: gint, dy: gint): Unit = cairo_region_translate(cairoRegionPointer, dx, dy)
 
-    public fun intersect(other: Region): Status = cairo_region_intersect(gPointer, other.gPointer).run {
-        Status.fromNativeValue(this)
-    }
+    public fun intersect(other: Region): Status =
+        cairo_region_intersect(cairoRegionPointer, other.cairoRegionPointer).run {
+            Status.fromNativeValue(this)
+        }
 
     public fun intersectRectangle(rectangle: RectangleInt): Status =
-        cairo_region_intersect_rectangle(gPointer, rectangle.gPointer).run {
+        cairo_region_intersect_rectangle(cairoRegionPointer, rectangle.cairoRectangleIntPointer).run {
             Status.fromNativeValue(this)
         }
 
-    public fun subtract(other: Region): Status = cairo_region_subtract(gPointer, other.gPointer).run {
-        Status.fromNativeValue(this)
-    }
+    public fun subtract(other: Region): Status =
+        cairo_region_subtract(cairoRegionPointer, other.cairoRegionPointer).run {
+            Status.fromNativeValue(this)
+        }
 
     public fun subtractRectangle(rectangle: RectangleInt): Status =
-        cairo_region_subtract_rectangle(gPointer, rectangle.gPointer).run {
+        cairo_region_subtract_rectangle(cairoRegionPointer, rectangle.cairoRectangleIntPointer).run {
             Status.fromNativeValue(this)
         }
 
-    public fun union(other: Region): Status = cairo_region_union(gPointer, other.gPointer).run {
+    public fun union(other: Region): Status = cairo_region_union(cairoRegionPointer, other.cairoRegionPointer).run {
         Status.fromNativeValue(this)
     }
 
     public fun unionRectangle(rectangle: RectangleInt): Status =
-        cairo_region_union_rectangle(gPointer, rectangle.gPointer).run {
+        cairo_region_union_rectangle(cairoRegionPointer, rectangle.cairoRectangleIntPointer).run {
             Status.fromNativeValue(this)
         }
 
-    public fun xor(other: Region): Status = cairo_region_xor(gPointer, other.gPointer).run {
+    public fun xor(other: Region): Status = cairo_region_xor(cairoRegionPointer, other.cairoRegionPointer).run {
         Status.fromNativeValue(this)
     }
 
     public fun xorRectangle(rectangle: RectangleInt): Status =
-        cairo_region_xor_rectangle(gPointer, rectangle.gPointer).run {
+        cairo_region_xor_rectangle(cairoRegionPointer, rectangle.cairoRectangleIntPointer).run {
             Status.fromNativeValue(this)
         }
 
@@ -109,7 +112,7 @@ public class Region(pointer: CPointer<cairo_region_t>) : ProxyInstance(pointer) 
         public fun create(): Region = Region(cairo_region_create()!!)
 
         public fun createRectangle(rectangle: RectangleInt): Region =
-            Region(cairo_region_create_rectangle(rectangle.gPointer)!!.reinterpret())
+            Region(cairo_region_create_rectangle(rectangle.cairoRectangleIntPointer)!!.reinterpret())
 
         /**
          * Get the GType of Region

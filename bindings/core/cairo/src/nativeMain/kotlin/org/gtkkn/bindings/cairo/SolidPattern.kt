@@ -18,12 +18,9 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `red`: red: Out parameter is not supported
  */
-public open class SolidPattern(pointer: CPointer<cairo_pattern_t>) :
-    Pattern(pointer.reinterpret()),
+public open class SolidPattern(public val cairoSolidPatternPointer: CPointer<cairo_pattern_t>) :
+    Pattern(cairoSolidPatternPointer.reinterpret()),
     KGTyped {
-    public val cairoSolidPatternPointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
     public constructor(
         red: gdouble,
         green: gdouble,

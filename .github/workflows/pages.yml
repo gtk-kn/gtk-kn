@@ -44,7 +44,7 @@ jobs:
         run: ./gradlew gir:run
 
       - name: Run Dokka
-        run: ./gradlew dokkaHtmlMultiModule
+        run: ./gradlew :dokkaGenerate
 
       - uses: actions/cache@v4
         with:

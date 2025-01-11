@@ -13,8 +13,9 @@ import org.gtkkn.bindings.gio.AsyncReadyCallbackFunc
 import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -42,7 +43,7 @@ import kotlin.Unit
  * to avoid blocking the main loop.
  */
 public interface HoverProvider :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>
 
@@ -76,19 +77,22 @@ public interface HoverProvider :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GtkSourceHoverProvider>) : HoverProvider {
-        override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider> = pointer
-    }
+    /**
+     * The HoverProviderImpl type represents a native instance of the HoverProvider interface.
+     *
+     * @constructor Creates a new instance of HoverProvider for the provided [CPointer].
+     */
+    public data class HoverProviderImpl(override val gtksourceHoverProviderPointer: CPointer<GtkSourceHoverProvider>) :
+        Object(gtksourceHoverProviderPointer.reinterpret()),
+        HoverProvider
 
     public companion object : TypeCompanion<HoverProvider> {
         override val type: GeneratedInterfaceKGType<HoverProvider> =
-            GeneratedInterfaceKGType(gtk_source_hover_provider_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_source_hover_provider_get_type()) { HoverProviderImpl(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkSourceHoverProvider>): HoverProvider = Wrapper(pointer)
 
         /**
          * Get the GType of HoverProvider

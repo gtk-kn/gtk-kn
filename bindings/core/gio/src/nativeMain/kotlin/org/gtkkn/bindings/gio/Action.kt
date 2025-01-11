@@ -9,7 +9,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_38
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -67,7 +68,7 @@ import kotlin.Unit
  * - parameter `action_name`: action_name: Out parameter is not supported
  */
 public interface Action :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioActionPointer: CPointer<GAction>
 
@@ -200,7 +201,8 @@ public interface Action :
      * @since 2.28
      */
     @GioVersion2_28
-    public fun activate(parameter: Variant? = null): Unit = g_action_activate(gioActionPointer, parameter?.gPointer)
+    public fun activate(parameter: Variant? = null): Unit =
+        g_action_activate(gioActionPointer, parameter?.glibVariantPointer)
 
     /**
      * Request for the state of @action to be changed to @value.
@@ -218,7 +220,7 @@ public interface Action :
      * @since 2.30
      */
     @GioVersion2_30
-    public fun changeState(`value`: Variant): Unit = g_action_change_state(gioActionPointer, `value`.gPointer)
+    public fun changeState(`value`: Variant): Unit = g_action_change_state(gioActionPointer, `value`.glibVariantPointer)
 
     /**
      * Checks if @action is currently enabled.
@@ -327,19 +329,22 @@ public interface Action :
         VariantType(this)
     }
 
-    private data class Wrapper(private val pointer: CPointer<GAction>) : Action {
-        override val gioActionPointer: CPointer<GAction> = pointer
-    }
+    /**
+     * The ActionImpl type represents a native instance of the Action interface.
+     *
+     * @constructor Creates a new instance of Action for the provided [CPointer].
+     */
+    public data class ActionImpl(override val gioActionPointer: CPointer<GAction>) :
+        Object(gioActionPointer.reinterpret()),
+        Action
 
     public companion object : TypeCompanion<Action> {
         override val type: GeneratedInterfaceKGType<Action> =
-            GeneratedInterfaceKGType(g_action_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_action_get_type()) { ActionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GAction>): Action = Wrapper(pointer)
 
         /**
          * Checks if @action_name is valid.
@@ -376,7 +381,7 @@ public interface Action :
          */
         @GioVersion2_38
         public fun printDetailedName(actionName: String, targetValue: Variant? = null): String =
-            g_action_print_detailed_name(actionName, targetValue?.gPointer)?.toKString()
+            g_action_print_detailed_name(actionName, targetValue?.glibVariantPointer)?.toKString()
                 ?: error("Expected not null string")
 
         /**

@@ -79,12 +79,9 @@ import kotlin.Unit
  *
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
-    Object(pointer.reinterpret()),
+public class WebsocketConnection(public val soupWebsocketConnectionPointer: CPointer<SoupWebsocketConnection>) :
+    Object(soupWebsocketConnectionPointer.reinterpret()),
     KGTyped {
-    public val soupWebsocketConnectionPointer: CPointer<SoupWebsocketConnection>
-        get() = gPointer.reinterpret()
-
     /**
      * The type of connection (client/server).
      */
@@ -124,7 +121,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
          * @return the WebSocket's I/O stream.
          */
         get() = soup_websocket_connection_get_io_stream(soupWebsocketConnectionPointer)!!.run {
-            IoStream(this)
+            IoStream.IoStreamImpl(this)
         }
 
     /**
@@ -257,11 +254,11 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
     ) : this(
         soup_websocket_connection_new(
             stream.gioIoStreamPointer,
-            uri.gPointer,
+            uri.glibUriPointer,
             type.nativeValue,
             origin,
             protocol,
-            extensions.gPointer
+            extensions.glibListPointer
         )!!.reinterpret()
     )
 
@@ -318,8 +315,11 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * @param type the type of message contents
      * @param message the message data as #GBytes
      */
-    public fun sendMessage(type: WebsocketDataType, message: Bytes): Unit =
-        soup_websocket_connection_send_message(soupWebsocketConnectionPointer, type.nativeValue, message.gPointer)
+    public fun sendMessage(type: WebsocketDataType, message: Bytes): Unit = soup_websocket_connection_send_message(
+        soupWebsocketConnectionPointer,
+        type.nativeValue,
+        message.glibBytesPointer
+    )
 
     /**
      * Send a null-terminated text (UTF-8) message to the peer.
@@ -348,7 +348,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      */
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupWebsocketConnectionPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -360,7 +360,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * Emits the "closed" signal. See [onClosed].
      */
     public fun emitClosed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+        g_signal_emit_by_name(soupWebsocketConnectionPointer.reinterpret(), "closed")
     }
 
     /**
@@ -371,7 +371,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      */
     public fun onClosing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupWebsocketConnectionPointer,
             "closing",
             onClosingFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -383,7 +383,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * Emits the "closing" signal. See [onClosing].
      */
     public fun emitClosing() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closing")
+        g_signal_emit_by_name(soupWebsocketConnectionPointer.reinterpret(), "closing")
     }
 
     /**
@@ -397,7 +397,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      */
     public fun onError(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupWebsocketConnectionPointer,
             "error",
             onErrorFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -411,7 +411,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * @param error the error that occured
      */
     public fun emitError(error: Error) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "error", error.gPointer)
+        g_signal_emit_by_name(soupWebsocketConnectionPointer.reinterpret(), "error", error.glibErrorPointer)
     }
 
     /**
@@ -428,7 +428,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (type: gint, message: Bytes) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupWebsocketConnectionPointer,
         "message",
         onMessageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -443,7 +443,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * @param message the message data
      */
     public fun emitMessage(type: gint, message: Bytes) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "message", type, message.gPointer)
+        g_signal_emit_by_name(soupWebsocketConnectionPointer.reinterpret(), "message", type, message.glibBytesPointer)
     }
 
     /**
@@ -459,7 +459,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      */
     public fun onPong(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (message: Bytes) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupWebsocketConnectionPointer,
             "pong",
             onPongFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -473,7 +473,7 @@ public class WebsocketConnection(pointer: CPointer<SoupWebsocketConnection>) :
      * @param message the application data (if any)
      */
     public fun emitPong(message: Bytes) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "pong", message.gPointer)
+        g_signal_emit_by_name(soupWebsocketConnectionPointer.reinterpret(), "pong", message.glibBytesPointer)
     }
 
     public companion object : TypeCompanion<WebsocketConnection> {

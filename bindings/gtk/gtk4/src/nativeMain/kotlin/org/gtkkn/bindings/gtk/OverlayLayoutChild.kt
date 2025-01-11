@@ -20,12 +20,9 @@ import kotlin.Boolean
 /**
  * `GtkLayoutChild` subclass for children in a `GtkOverlayLayout`.
  */
-public open class OverlayLayoutChild(pointer: CPointer<GtkOverlayLayoutChild>) :
-    LayoutChild(pointer.reinterpret()),
+public open class OverlayLayoutChild(public val gtkOverlayLayoutChildPointer: CPointer<GtkOverlayLayoutChild>) :
+    LayoutChild(gtkOverlayLayoutChildPointer.reinterpret()),
     KGTyped {
-    public val gtkOverlayLayoutChildPointer: CPointer<GtkOverlayLayoutChild>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the child should be clipped to fit the parent's size.
      */

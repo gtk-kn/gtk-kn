@@ -40,15 +40,12 @@ import kotlin.collections.List
  * @since 2.36
  */
 @GioVersion2_36
-public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
-    Object(pointer.reinterpret()),
+public open class SimpleProxyResolver(public val gioSimpleProxyResolverPointer: CPointer<GSimpleProxyResolver>) :
+    Object(gioSimpleProxyResolverPointer.reinterpret()),
     ProxyResolver,
     KGTyped {
-    public val gioSimpleProxyResolverPointer: CPointer<GSimpleProxyResolver>
-        get() = gPointer.reinterpret()
-
     override val gioProxyResolverPointer: CPointer<GProxyResolver>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Sets the default proxy on @resolver, to be used for any URIs that
@@ -123,7 +120,7 @@ public open class SimpleProxyResolver(pointer: CPointer<GSimpleProxyResolver>) :
         @GioVersion2_36
         public fun new(defaultProxy: String? = null, ignoreHosts: List<String>? = null): ProxyResolver = memScoped {
             return g_simple_proxy_resolver_new(defaultProxy, ignoreHosts?.toCStringList(this))!!.run {
-                ProxyResolver.wrap(reinterpret())
+                ProxyResolver.ProxyResolverImpl(reinterpret())
             }
         }
 

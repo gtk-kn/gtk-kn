@@ -93,20 +93,17 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - method `lines`: Property has no getter nor setter
  */
-public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
-    Widget(pointer.reinterpret()),
+public abstract class GutterRenderer(public val gtksourceGutterRendererPointer: CPointer<GtkSourceGutterRenderer>) :
+    Widget(gtksourceGutterRendererPointer.reinterpret()),
     KGTyped {
-    public val gtksourceGutterRendererPointer: CPointer<GtkSourceGutterRenderer>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The alignment mode of the renderer.
@@ -254,8 +251,8 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
         nPresses: gint,
     ): Unit = gtk_source_gutter_renderer_activate(
         gtksourceGutterRendererPointer,
-        iter.gPointer,
-        area.gPointer,
+        iter.gtkTextIterPointer,
+        area.gdkRectanglePointer,
         button,
         state.mask,
         nPresses
@@ -282,8 +279,8 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
     public open fun queryActivatable(iter: TextIter, area: Rectangle): Boolean =
         gtk_source_gutter_renderer_query_activatable(
             gtksourceGutterRendererPointer,
-            iter.gPointer,
-            area.gPointer
+            iter.gtkTextIterPointer,
+            area.gdkRectanglePointer
         ).asBoolean()
 
     /**
@@ -302,7 +299,7 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
             nPresses: gint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceGutterRendererPointer,
         "activate",
         onActivateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -321,10 +318,10 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
      */
     public fun emitActivate(iter: TextIter, area: Rectangle, button: guint, state: ModifierType, nPresses: gint) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtksourceGutterRendererPointer.reinterpret(),
             "activate",
-            iter.gPointer,
-            area.gPointer,
+            iter.gtkTextIterPointer,
+            area.gdkRectanglePointer,
             button,
             state.mask,
             nPresses
@@ -341,7 +338,7 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TextIter, area: Rectangle) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceGutterRendererPointer,
         "query-activatable",
         onQueryActivatableFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -359,7 +356,7 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: Object, p0: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceGutterRendererPointer,
         "query-data",
         onQueryDataFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -374,12 +371,24 @@ public open class GutterRenderer(pointer: CPointer<GtkSourceGutterRenderer>) :
      * @param p0
      */
     public fun emitQueryData(`object`: Object, p0: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "query-data", `object`.gPointer, p0)
+        g_signal_emit_by_name(
+            gtksourceGutterRendererPointer.reinterpret(),
+            "query-data",
+            `object`.gobjectObjectPointer,
+            p0
+        )
     }
+
+    /**
+     * The GutterRendererImpl type represents a native instance of the abstract GutterRenderer class.
+     *
+     * @constructor Creates a new instance of GutterRenderer for the provided [CPointer].
+     */
+    public class GutterRendererImpl(pointer: CPointer<GtkSourceGutterRenderer>) : GutterRenderer(pointer)
 
     public companion object : TypeCompanion<GutterRenderer> {
         override val type: GeneratedClassKGType<GutterRenderer> =
-            GeneratedClassKGType(gtk_source_gutter_renderer_get_type()) { GutterRenderer(it.reinterpret()) }
+            GeneratedClassKGType(gtk_source_gutter_renderer_get_type()) { GutterRendererImpl(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()

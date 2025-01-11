@@ -31,55 +31,54 @@ import kotlin.native.ref.createCleaner
  * - parameter `dx`: Unsupported pointer to primitive type
  * - parameter `x`: Unsupported pointer to primitive type
  */
-public class Matrix(pointer: CPointer<cairo_matrix_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_matrix_t> = pointer
-
+public class Matrix(public val cairoMatrixPointer: CPointer<cairo_matrix_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(cairoMatrixPointer) {
     public var xx: gdouble
-        get() = gPointer.pointed.xx
+        get() = cairoMatrixPointer.pointed.xx
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.xx = value
+            cairoMatrixPointer.pointed.xx = value
         }
 
     public var yx: gdouble
-        get() = gPointer.pointed.yx
+        get() = cairoMatrixPointer.pointed.yx
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.yx = value
+            cairoMatrixPointer.pointed.yx = value
         }
 
     public var xy: gdouble
-        get() = gPointer.pointed.xy
+        get() = cairoMatrixPointer.pointed.xy
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.xy = value
+            cairoMatrixPointer.pointed.xy = value
         }
 
     public var yy: gdouble
-        get() = gPointer.pointed.yy
+        get() = cairoMatrixPointer.pointed.yy
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.yy = value
+            cairoMatrixPointer.pointed.yy = value
         }
 
     public var x0: gdouble
-        get() = gPointer.pointed.x0
+        get() = cairoMatrixPointer.pointed.x0
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x0 = value
+            cairoMatrixPointer.pointed.x0 = value
         }
 
     public var y0: gdouble
-        get() = gPointer.pointed.y0
+        get() = cairoMatrixPointer.pointed.y0
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y0 = value
+            cairoMatrixPointer.pointed.y0 = value
         }
 
     /**
@@ -102,7 +101,7 @@ public class Matrix(pointer: CPointer<cairo_matrix_t>, cleaner: Cleaner? = null)
      */
     private constructor(
         pair: Pair<CPointer<cairo_matrix_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoMatrixPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Matrix using the provided [AutofreeScope].
@@ -172,24 +171,25 @@ public class Matrix(pointer: CPointer<cairo_matrix_t>, cleaner: Cleaner? = null)
         this.y0 = y0
     }
 
-    public fun initIdentity(): Unit = cairo_matrix_init_identity(gPointer)
+    public fun initIdentity(): Unit = cairo_matrix_init_identity(cairoMatrixPointer)
 
-    public fun initTranslate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_init_translate(gPointer, tx, ty)
+    public fun initTranslate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_init_translate(cairoMatrixPointer, tx, ty)
 
-    public fun translate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_translate(gPointer, tx, ty)
+    public fun translate(tx: gdouble, ty: gdouble): Unit = cairo_matrix_translate(cairoMatrixPointer, tx, ty)
 
-    public fun scale(sx: gdouble, sy: gdouble): Unit = cairo_matrix_scale(gPointer, sx, sy)
+    public fun scale(sx: gdouble, sy: gdouble): Unit = cairo_matrix_scale(cairoMatrixPointer, sx, sy)
 
-    public fun rotate(radians: gdouble): Unit = cairo_matrix_rotate(gPointer, radians)
+    public fun rotate(radians: gdouble): Unit = cairo_matrix_rotate(cairoMatrixPointer, radians)
 
-    public fun invert(): Status = cairo_matrix_invert(gPointer).run {
+    public fun invert(): Status = cairo_matrix_invert(cairoMatrixPointer).run {
         Status.fromNativeValue(this)
     }
 
-    public fun multiply(a: Matrix, b: Matrix): Unit = cairo_matrix_multiply(gPointer, a.gPointer, b.gPointer)
+    public fun multiply(a: Matrix, b: Matrix): Unit =
+        cairo_matrix_multiply(cairoMatrixPointer, a.cairoMatrixPointer, b.cairoMatrixPointer)
 
     public fun `init`(xx: gdouble, yx: gdouble, xy: gdouble, yy: gdouble, x0: gdouble, y0: gdouble): Unit =
-        cairo_matrix_init(gPointer, xx, yx, xy, yy, x0, y0)
+        cairo_matrix_init(cairoMatrixPointer, xx, yx, xy, yy, x0, y0)
 
     override fun toString(): String = "Matrix(xx=$xx, yx=$yx, xy=$xy, yy=$yy, x0=$x0, y0=$y0)"
 }

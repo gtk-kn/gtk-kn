@@ -4,7 +4,8 @@ package org.gtkkn.bindings.adw
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Rectangle
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gtk.Widget
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -32,7 +33,7 @@ import kotlin.Unit
  * - parameter `n_snap_points`: n_snap_points: Out parameter is not supported
  */
 public interface Swipeable :
-    Interface,
+    Proxy,
     KGTyped {
     public val adwSwipeablePointer: CPointer<AdwSwipeable>
 
@@ -79,22 +80,25 @@ public interface Swipeable :
             adwSwipeablePointer,
             navigationDirection.nativeValue,
             isDrag.asGBoolean(),
-            rect.gPointer
+            rect.gdkRectanglePointer
         )
 
-    private data class Wrapper(private val pointer: CPointer<AdwSwipeable>) : Swipeable {
-        override val adwSwipeablePointer: CPointer<AdwSwipeable> = pointer
-    }
+    /**
+     * The SwipeableImpl type represents a native instance of the Swipeable interface.
+     *
+     * @constructor Creates a new instance of Swipeable for the provided [CPointer].
+     */
+    public data class SwipeableImpl(override val adwSwipeablePointer: CPointer<AdwSwipeable>) :
+        Widget(adwSwipeablePointer.reinterpret()),
+        Swipeable
 
     public companion object : TypeCompanion<Swipeable> {
         override val type: GeneratedInterfaceKGType<Swipeable> =
-            GeneratedInterfaceKGType(adw_swipeable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(adw_swipeable_get_type()) { SwipeableImpl(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<AdwSwipeable>): Swipeable = Wrapper(pointer)
 
         /**
          * Get the GType of Swipeable

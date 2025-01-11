@@ -45,12 +45,9 @@ import kotlin.Boolean
  * The source and target, as well as their attributes, of a `GtkConstraint`
  * instance are immutable after creation.
  */
-public open class Constraint(pointer: CPointer<GtkConstraint>) :
-    Object(pointer.reinterpret()),
+public open class Constraint(public val gtkConstraintPointer: CPointer<GtkConstraint>) :
+    Object(gtkConstraintPointer.reinterpret()),
     KGTyped {
-    public val gtkConstraintPointer: CPointer<GtkConstraint>
-        get() = gPointer.reinterpret()
-
     /**
      * The constant value to be added to the [property@Gtk.Constraint:source-attribute].
      */
@@ -106,7 +103,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return the source of the constraint
          */
         get() = gtk_constraint_get_source(gtkConstraintPointer)?.run {
-            ConstraintTarget.wrap(reinterpret())
+            ConstraintTarget.ConstraintTargetImpl(reinterpret())
         }
 
     /**
@@ -156,7 +153,7 @@ public open class Constraint(pointer: CPointer<GtkConstraint>) :
          * @return a `GtkConstraintTarget`
          */
         get() = gtk_constraint_get_target(gtkConstraintPointer)?.run {
-            ConstraintTarget.wrap(reinterpret())
+            ConstraintTarget.ConstraintTargetImpl(reinterpret())
         }
 
     /**

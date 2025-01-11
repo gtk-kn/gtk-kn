@@ -16,13 +16,12 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `surface`: surface: Out parameter is not supported
  */
-public open class SurfacePattern(pointer: CPointer<cairo_pattern_t>) :
-    Pattern(pointer.reinterpret()),
+public open class SurfacePattern(public val cairoSurfacePatternPointer: CPointer<cairo_pattern_t>) :
+    Pattern(cairoSurfacePatternPointer.reinterpret()),
     KGTyped {
-    public val cairoSurfacePatternPointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
-    public constructor(surface: Surface) : this(cairo_pattern_create_for_surface(surface.gPointer)!!.reinterpret())
+    public constructor(
+        surface: Surface,
+    ) : this(cairo_pattern_create_for_surface(surface.cairoSurfacePointer)!!.reinterpret())
 
     public companion object : TypeCompanion<SurfacePattern> {
         override val type: GeneratedClassKGType<SurfacePattern> =

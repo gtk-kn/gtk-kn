@@ -23,19 +23,16 @@ import kotlin.String
  * `GDBusActionGroup` can be used as a proxy for an action group
  * that is exported over D-Bus with [method@Gio.DBusConnection.export_action_group].
  */
-public open class DBusActionGroup(pointer: CPointer<GDBusActionGroup>) :
-    Object(pointer.reinterpret()),
+public open class DBusActionGroup(public val gioDBusActionGroupPointer: CPointer<GDBusActionGroup>) :
+    Object(gioDBusActionGroupPointer.reinterpret()),
     ActionGroup,
     RemoteActionGroup,
     KGTyped {
-    public val gioDBusActionGroupPointer: CPointer<GDBusActionGroup>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<DBusActionGroup> {
         override val type: GeneratedClassKGType<DBusActionGroup> =

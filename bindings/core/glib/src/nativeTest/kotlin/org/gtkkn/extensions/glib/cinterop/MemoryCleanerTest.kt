@@ -24,6 +24,7 @@ package org.gtkkn.extensions.glib.cinterop
 import kotlinx.cinterop.COpaquePointer
 import org.gtkkn.native.glib.g_free
 import org.gtkkn.native.glib.g_malloc
+import org.gtkkn.native.glib.gpointer
 import kotlin.native.internal.performGCOnCleanerWorker
 import kotlin.native.ref.WeakReference
 import kotlin.native.runtime.GC
@@ -240,6 +241,6 @@ class MemoryCleanerTest {
         /**
          * Helper method to allocate memory for testing.
          */
-        fun createTestPointer(): COpaquePointer? = g_malloc(1.toULong())
+        fun createTestPointer(): gpointer = checkNotNull(g_malloc(1.toULong()))
     }
 }

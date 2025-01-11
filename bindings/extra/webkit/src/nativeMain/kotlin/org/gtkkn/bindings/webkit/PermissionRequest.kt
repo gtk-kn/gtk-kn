@@ -3,7 +3,8 @@ package org.gtkkn.bindings.webkit
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -25,7 +26,7 @@ import kotlin.Unit
  * #WebKitPermissionRequest object attached to it.
  */
 public interface PermissionRequest :
-    Interface,
+    Proxy,
     KGTyped {
     public val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
 
@@ -39,19 +40,25 @@ public interface PermissionRequest :
      */
     public fun deny(): Unit = webkit_permission_request_deny(webkitPermissionRequestPointer)
 
-    private data class Wrapper(private val pointer: CPointer<WebKitPermissionRequest>) : PermissionRequest {
-        override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest> = pointer
-    }
+    /**
+     * The PermissionRequestImpl type represents a native instance of the PermissionRequest interface.
+     *
+     * @constructor Creates a new instance of PermissionRequest for the provided [CPointer].
+     */
+    public data class PermissionRequestImpl(
+        override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>,
+    ) : Object(webkitPermissionRequestPointer.reinterpret()),
+        PermissionRequest
 
     public companion object : TypeCompanion<PermissionRequest> {
         override val type: GeneratedInterfaceKGType<PermissionRequest> =
-            GeneratedInterfaceKGType(webkit_permission_request_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(webkit_permission_request_get_type()) {
+                PermissionRequestImpl(it.reinterpret())
+            }
 
         init {
             WebkitTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<WebKitPermissionRequest>): PermissionRequest = Wrapper(pointer)
 
         /**
          * Get the GType of PermissionRequest

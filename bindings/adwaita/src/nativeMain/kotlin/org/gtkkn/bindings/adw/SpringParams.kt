@@ -50,43 +50,42 @@ import kotlin.Unit
  *
  * As such
  */
-public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<AdwSpringParams> = pointer
-
+public class SpringParams(public val adwSpringParamsPointer: CPointer<AdwSpringParams>) :
+    ProxyInstance(adwSpringParamsPointer) {
     /**
      * Gets the damping of @self.
      *
      * @return the damping
      */
-    public fun getDamping(): gdouble = adw_spring_params_get_damping(gPointer)
+    public fun getDamping(): gdouble = adw_spring_params_get_damping(adwSpringParamsPointer)
 
     /**
      * Gets the damping ratio of @self.
      *
      * @return the damping ratio
      */
-    public fun getDampingRatio(): gdouble = adw_spring_params_get_damping_ratio(gPointer)
+    public fun getDampingRatio(): gdouble = adw_spring_params_get_damping_ratio(adwSpringParamsPointer)
 
     /**
      * Gets the mass of @self.
      *
      * @return the mass
      */
-    public fun getMass(): gdouble = adw_spring_params_get_mass(gPointer)
+    public fun getMass(): gdouble = adw_spring_params_get_mass(adwSpringParamsPointer)
 
     /**
      * Gets the stiffness of @self.
      *
      * @return the stiffness
      */
-    public fun getStiffness(): gdouble = adw_spring_params_get_stiffness(gPointer)
+    public fun getStiffness(): gdouble = adw_spring_params_get_stiffness(adwSpringParamsPointer)
 
     /**
      * Increases the reference count of @self.
      *
      * @return @self
      */
-    public fun ref(): SpringParams = adw_spring_params_ref(gPointer)!!.run {
+    public fun ref(): SpringParams = adw_spring_params_ref(adwSpringParamsPointer)!!.run {
         SpringParams(this)
     }
 
@@ -95,7 +94,7 @@ public class SpringParams(pointer: CPointer<AdwSpringParams>) : ProxyInstance(po
      *
      * If the last reference is dropped, the structure is freed.
      */
-    public fun unref(): Unit = adw_spring_params_unref(gPointer)
+    public fun unref(): Unit = adw_spring_params_unref(adwSpringParamsPointer)
 
     public companion object {
         /**

@@ -71,12 +71,9 @@ import kotlin.Throws
  * @since 2.28
  */
 @GioVersion2_28
-public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
-    Object(pointer.reinterpret()),
+public abstract class TlsCertificate(public val gioTlsCertificatePointer: CPointer<GTlsCertificate>) :
+    Object(gioTlsCertificatePointer.reinterpret()),
     KGTyped {
-    public val gioTlsCertificatePointer: CPointer<GTlsCertificate>
-        get() = gPointer.reinterpret()
-
     /**
      * A #GTlsCertificate representing the entity that issued this
      * certificate. If null, this means that the certificate is either
@@ -108,7 +105,7 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @since 2.28
          */
         get() = g_tls_certificate_get_issuer(gioTlsCertificatePointer)?.run {
-            TlsCertificate(this)
+            TlsCertificateImpl(this)
         }
 
     /**
@@ -384,9 +381,16 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
         TlsCertificateFlags(this)
     }
 
+    /**
+     * The TlsCertificateImpl type represents a native instance of the abstract TlsCertificate class.
+     *
+     * @constructor Creates a new instance of TlsCertificate for the provided [CPointer].
+     */
+    public class TlsCertificateImpl(pointer: CPointer<GTlsCertificate>) : TlsCertificate(pointer)
+
     public companion object : TypeCompanion<TlsCertificate> {
         override val type: GeneratedClassKGType<TlsCertificate> =
-            GeneratedClassKGType(g_tls_certificate_get_type()) { TlsCertificate(it.reinterpret()) }
+            GeneratedClassKGType(g_tls_certificate_get_type()) { TlsCertificateImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -415,14 +419,14 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @return the new certificate, or null on error
          * @since 2.28
          */
-        public fun newFromFiles(certFile: String, keyFile: String): Result<TlsCertificate> = memScoped {
+        public fun newFromFiles(certFile: String, keyFile: String): Result<TlsCertificateImpl> = memScoped {
             val gError = allocPointerTo<GError>()
             gError.`value` = null
             val gResult = g_tls_certificate_new_from_files(certFile, keyFile, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
-                Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
+                Result.success(TlsCertificateImpl(checkNotNull(gResult).reinterpret()))
             }
         }
 
@@ -441,14 +445,14 @@ public open class TlsCertificate(pointer: CPointer<GTlsCertificate>) :
          * @return the new certificate, or null on error
          * @since 2.72
          */
-        public fun newFromFileWithPassword(`file`: String, password: String): Result<TlsCertificate> = memScoped {
+        public fun newFromFileWithPassword(`file`: String, password: String): Result<TlsCertificateImpl> = memScoped {
             val gError = allocPointerTo<GError>()
             gError.`value` = null
             val gResult = g_tls_certificate_new_from_file_with_password(`file`, password, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
-                Result.success(TlsCertificate(checkNotNull(gResult).reinterpret()))
+                Result.success(TlsCertificateImpl(checkNotNull(gResult).reinterpret()))
             }
         }
 

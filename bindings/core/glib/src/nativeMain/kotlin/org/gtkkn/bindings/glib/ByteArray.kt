@@ -41,18 +41,17 @@ import kotlin.native.ref.createCleaner
  * - parameter `array`: GLib.ByteArray parameter of type guint8 is not supported
  * - field `data`: Unsupported pointer to primitive type
  */
-public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GByteArray> = pointer
-
+public class ByteArray(public val glibByteArrayPointer: CPointer<GByteArray>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibByteArrayPointer) {
     /**
      * the number of elements in the #GByteArray
      */
     public var len: guint
-        get() = gPointer.pointed.len
+        get() = glibByteArrayPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.len = value
+            glibByteArrayPointer.pointed.len = value
         }
 
     /**
@@ -73,7 +72,9 @@ public class ByteArray(pointer: CPointer<GByteArray>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to ByteArray and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GByteArray>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GByteArray>, Cleaner>,
+    ) : this(glibByteArrayPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ByteArray using the provided [AutofreeScope].

@@ -19,12 +19,10 @@ import org.gtkkn.native.webkit.webkit_navigation_policy_decision_get_type
  * navigations. If the value of #WebKitNavigationPolicyDecision:mouse-button is not 0, then
  * the navigation was triggered by a mouse event.
  */
-public class NavigationPolicyDecision(pointer: CPointer<WebKitNavigationPolicyDecision>) :
-    PolicyDecision(pointer.reinterpret()),
+public class NavigationPolicyDecision(
+    public val webkitNavigationPolicyDecisionPointer: CPointer<WebKitNavigationPolicyDecision>,
+) : PolicyDecision(webkitNavigationPolicyDecisionPointer.reinterpret()),
     KGTyped {
-    public val webkitNavigationPolicyDecisionPointer: CPointer<WebKitNavigationPolicyDecision>
-        get() = gPointer.reinterpret()
-
     /**
      * The #WebKitNavigationAction that triggered this policy decision.
      *

@@ -44,15 +44,12 @@ import kotlin.String
  * See [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
-public open class NetworkAddress(pointer: CPointer<GNetworkAddress>) :
-    Object(pointer.reinterpret()),
+public open class NetworkAddress(public val gioNetworkAddressPointer: CPointer<GNetworkAddress>) :
+    Object(gioNetworkAddressPointer.reinterpret()),
     SocketConnectable,
     KGTyped {
-    public val gioNetworkAddressPointer: CPointer<GNetworkAddress>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Hostname to resolve.

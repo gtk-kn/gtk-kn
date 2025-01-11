@@ -43,12 +43,9 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class LanguageManager(pointer: CPointer<GtkSourceLanguageManager>) :
-    Object(pointer.reinterpret()),
+public open class LanguageManager(public val gtksourceLanguageManagerPointer: CPointer<GtkSourceLanguageManager>) :
+    Object(gtksourceLanguageManagerPointer.reinterpret()),
     KGTyped {
-    public val gtksourceLanguageManagerPointer: CPointer<GtkSourceLanguageManager>
-        get() = gPointer.reinterpret()
-
     public open val languageIds: List<String>?
         /**
          * Returns the ids of the available languages.

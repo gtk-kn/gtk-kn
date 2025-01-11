@@ -50,12 +50,9 @@ import kotlin.Unit
  * and so they are not normally needed in GTK applications. See the
  * "Drag and Drop" section of the GTK documentation for more information.
  */
-public open class Drag(pointer: CPointer<GdkDrag>) :
-    Object(pointer.reinterpret()),
+public abstract class Drag(public val gdkDragPointer: CPointer<GdkDrag>) :
+    Object(gdkDragPointer.reinterpret()),
     KGTyped {
-    public val gdkDragPointer: CPointer<GdkDrag>
-        get() = gPointer.reinterpret()
-
     /**
      * The possible actions of this drag.
      */
@@ -92,7 +89,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
          * @return The `GdkDevice` associated to @drag.
          */
         get() = gdk_drag_get_device(gdkDragPointer)!!.run {
-            Device(this)
+            Device.DeviceImpl(this)
         }
 
     /**
@@ -144,7 +141,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
          * @return The `GdkSurface` where the drag originates
          */
         get() = gdk_drag_get_surface(gdkDragPointer)!!.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**
@@ -176,7 +173,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
      * @return the drag surface
      */
     public open fun getDragSurface(): Surface? = gdk_drag_get_drag_surface(gdkDragPointer)?.run {
-        Surface(this)
+        Surface.SurfaceImpl(this)
     }
 
     /**
@@ -200,7 +197,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reason: DragCancelReason) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkDragPointer,
         "cancel",
         onCancelFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -214,7 +211,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
      * @param reason The reason the drag was cancelled
      */
     public fun emitCancel(reason: DragCancelReason) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cancel", reason.nativeValue)
+        g_signal_emit_by_name(gdkDragPointer.reinterpret(), "cancel", reason.nativeValue)
     }
 
     /**
@@ -227,7 +224,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
      */
     public fun onDndFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDragPointer,
             "dnd-finished",
             onDndFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -239,7 +236,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
      * Emits the "dnd-finished" signal. See [onDndFinished].
      */
     public fun emitDndFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "dnd-finished")
+        g_signal_emit_by_name(gdkDragPointer.reinterpret(), "dnd-finished")
     }
 
     /**
@@ -250,7 +247,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
      */
     public fun onDropPerformed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDragPointer,
             "drop-performed",
             onDropPerformedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -262,12 +259,19 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
      * Emits the "drop-performed" signal. See [onDropPerformed].
      */
     public fun emitDropPerformed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drop-performed")
+        g_signal_emit_by_name(gdkDragPointer.reinterpret(), "drop-performed")
     }
+
+    /**
+     * The DragImpl type represents a native instance of the abstract Drag class.
+     *
+     * @constructor Creates a new instance of Drag for the provided [CPointer].
+     */
+    public class DragImpl(pointer: CPointer<GdkDrag>) : Drag(pointer)
 
     public companion object : TypeCompanion<Drag> {
         override val type: GeneratedClassKGType<Drag> =
-            GeneratedClassKGType(gdk_drag_get_type()) { Drag(it.reinterpret()) }
+            GeneratedClassKGType(gdk_drag_get_type()) { DragImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -312,7 +316,7 @@ public open class Drag(pointer: CPointer<GdkDrag>) :
             dx,
             dy
         )?.run {
-            Drag(this)
+            DragImpl(this)
         }
 
         /**

@@ -61,15 +61,13 @@ import kotlin.Unit
  * displayed using [class@CompletionCell] which allows for some level of
  * customization.
  */
-public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext>) :
-    Object(pointer.reinterpret()),
+public open class CompletionContext(
+    public val gtksourceCompletionContextPointer: CPointer<GtkSourceCompletionContext>,
+) : Object(gtksourceCompletionContextPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val gtksourceCompletionContextPointer: CPointer<GtkSourceCompletionContext>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The "busy" property is true while the completion context is
@@ -139,8 +137,8 @@ public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext
      */
     public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_completion_context_get_bounds(
         gtksourceCompletionContextPointer,
-        begin?.gPointer,
-        end?.gPointer
+        begin?.gtkTextIterPointer,
+        end?.gtkTextIterPointer
     ).asBoolean()
 
     /**
@@ -182,7 +180,7 @@ public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext
             gtksourceCompletionContextPointer,
             provider.gtksourceCompletionProviderPointer
         )?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -212,7 +210,7 @@ public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext
     @GtkSourceVersion5_6
     public open fun listProviders(): ListModel =
         gtk_source_completion_context_list_providers(gtksourceCompletionContextPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -249,7 +247,7 @@ public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider, model: ListModel?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceCompletionContextPointer,
         "provider-model-changed",
         onProviderModelChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -267,7 +265,7 @@ public open class CompletionContext(pointer: CPointer<GtkSourceCompletionContext
     @GtkSourceVersion5_6
     public fun emitProviderModelChanged(provider: CompletionProvider, model: ListModel?) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtksourceCompletionContextPointer.reinterpret(),
             "provider-model-changed",
             provider.gtksourceCompletionProviderPointer,
             model?.gioListModelPointer
@@ -301,10 +299,10 @@ private val onProviderModelChangedFunc:
         ->
         userData.asStableRef<(provider: CompletionProvider, model: ListModel?) -> Unit>().get().invoke(
             provider!!.run {
-                CompletionProvider.wrap(reinterpret())
+                CompletionProvider.CompletionProviderImpl(reinterpret())
             },
             model?.run {
-                ListModel.wrap(reinterpret())
+                ListModel.ListModelImpl(reinterpret())
             }
         )
     }

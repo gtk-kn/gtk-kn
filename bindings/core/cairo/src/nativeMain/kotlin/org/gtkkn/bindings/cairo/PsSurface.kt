@@ -31,12 +31,9 @@ import kotlin.Unit
  * @since 1.2
  */
 @CairoVersion1_2
-public open class PsSurface(pointer: CPointer<cairo_surface_t>) :
-    Surface(pointer.reinterpret()),
+public open class PsSurface(public val cairoPsSurfacePointer: CPointer<cairo_surface_t>) :
+    Surface(cairoPsSurfacePointer.reinterpret()),
     KGTyped {
-    public val cairoPsSurfacePointer: CPointer<cairo_surface_t>
-        get() = gPointer.reinterpret()
-
     /**
      *
      *

@@ -36,15 +36,12 @@ import kotlin.Boolean
  * buffered output stream's buffer, use [method@Gio.BufferedOutputStream.set_buffer_size].
  * Note that the buffer's size cannot be reduced below the size of the data within the buffer.
  */
-public open class BufferedOutputStream(pointer: CPointer<GBufferedOutputStream>) :
-    FilterOutputStream(pointer.reinterpret()),
+public open class BufferedOutputStream(public val gioBufferedOutputStreamPointer: CPointer<GBufferedOutputStream>) :
+    FilterOutputStream(gioBufferedOutputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioBufferedOutputStreamPointer: CPointer<GBufferedOutputStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the buffer should automatically grow.

@@ -22,32 +22,36 @@ import org.gtkkn.native.gtk.gtk_list_base_get_type
  *
  * - method `orientation`: Property has no getter nor setter
  */
-public open class ListBase(pointer: CPointer<GtkListBase>) :
-    Widget(pointer.reinterpret()),
+public abstract class ListBase(public val gtkListBasePointer: CPointer<GtkListBase>) :
+    Widget(gtkListBasePointer.reinterpret()),
     Orientable,
     Scrollable,
     KGTyped {
-    public val gtkListBasePointer: CPointer<GtkListBase>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
+
+    /**
+     * The ListBaseImpl type represents a native instance of the abstract ListBase class.
+     *
+     * @constructor Creates a new instance of ListBase for the provided [CPointer].
+     */
+    public class ListBaseImpl(pointer: CPointer<GtkListBase>) : ListBase(pointer)
 
     public companion object : TypeCompanion<ListBase> {
         override val type: GeneratedClassKGType<ListBase> =
-            GeneratedClassKGType(gtk_list_base_get_type()) { ListBase(it.reinterpret()) }
+            GeneratedClassKGType(gtk_list_base_get_type()) { ListBaseImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

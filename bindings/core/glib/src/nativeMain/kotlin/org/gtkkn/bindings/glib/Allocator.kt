@@ -10,10 +10,8 @@ import org.gtkkn.native.glib.guint
 import kotlin.String
 import kotlin.Unit
 
-public class Allocator(pointer: CPointer<GAllocator>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GAllocator> = pointer
-
-    public fun free(): Unit = g_allocator_free(gPointer)
+public class Allocator(public val glibAllocatorPointer: CPointer<GAllocator>) : ProxyInstance(glibAllocatorPointer) {
+    public fun free(): Unit = g_allocator_free(glibAllocatorPointer)
 
     public companion object {
         public fun new(name: String, nPreallocs: guint): Allocator = g_allocator_new(name, nPreallocs)!!.run {

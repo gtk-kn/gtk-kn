@@ -19,12 +19,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * A physical tool associated to a `GdkDevice`.
  */
-public open class DeviceTool(pointer: CPointer<GdkDeviceTool>) :
-    Object(pointer.reinterpret()),
+public open class DeviceTool(public val gdkDeviceToolPointer: CPointer<GdkDeviceTool>) :
+    Object(gdkDeviceToolPointer.reinterpret()),
     KGTyped {
-    public val gdkDeviceToolPointer: CPointer<GdkDeviceTool>
-        get() = gPointer.reinterpret()
-
     /**
      * The axes of the tool.
      */

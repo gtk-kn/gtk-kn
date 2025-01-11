@@ -20,9 +20,8 @@ import kotlin.Unit
  * @since 2.12
  */
 @WebKitVersion2_12
-public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitWebViewSessionState> = pointer
-
+public class WebViewSessionState(public val webkitWebViewSessionStatePointer: CPointer<WebKitWebViewSessionState>) :
+    ProxyInstance(webkitWebViewSessionStatePointer) {
     /**
      * Atomically increments the reference count of @state by one.
      *
@@ -33,7 +32,7 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun ref(): WebViewSessionState = webkit_web_view_session_state_ref(gPointer)!!.run {
+    public fun ref(): WebViewSessionState = webkit_web_view_session_state_ref(webkitWebViewSessionStatePointer)!!.run {
         WebViewSessionState(this)
     }
 
@@ -44,7 +43,7 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun serialize(): Bytes = webkit_web_view_session_state_serialize(gPointer)!!.run {
+    public fun serialize(): Bytes = webkit_web_view_session_state_serialize(webkitWebViewSessionStatePointer)!!.run {
         Bytes(this)
     }
 
@@ -58,7 +57,7 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
      * @since 2.12
      */
     @WebKitVersion2_12
-    public fun unref(): Unit = webkit_web_view_session_state_unref(gPointer)
+    public fun unref(): Unit = webkit_web_view_session_state_unref(webkitWebViewSessionStatePointer)
 
     public companion object {
         /**
@@ -70,7 +69,7 @@ public class WebViewSessionState(pointer: CPointer<WebKitWebViewSessionState>) :
          * @since 2.12
          */
         public fun new(`data`: Bytes): WebViewSessionState =
-            WebViewSessionState(webkit_web_view_session_state_new(`data`.gPointer)!!.reinterpret())
+            WebViewSessionState(webkit_web_view_session_state_new(`data`.glibBytesPointer)!!.reinterpret())
 
         /**
          * Get the GType of WebViewSessionState

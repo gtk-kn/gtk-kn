@@ -103,12 +103,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GObjectVersion2_26
-public open class Binding(pointer: CPointer<GBinding>) :
-    Object(pointer.reinterpret()),
+public open class Binding(public val gobjectBindingPointer: CPointer<GBinding>) :
+    Object(gobjectBindingPointer.reinterpret()),
     KGTyped {
-    public val gobjectBindingPointer: CPointer<GBinding>
-        get() = gPointer.reinterpret()
-
     /**
      * Flags to be used to control the #GBinding
      *

@@ -11,8 +11,9 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.File
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.Gtk.resolveException
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -101,7 +102,7 @@ import kotlin.collections.List
  * - method `filter`: Property TypeInfo of getter and setter do not match
  */
 public interface FileChooser :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkFileChooserPointer: CPointer<GtkFileChooser>
 
@@ -174,7 +175,7 @@ public interface FileChooser :
          *   of user-selectable filters.
          */
         get() = gtk_file_chooser_get_filters(gtkFileChooserPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -217,7 +218,7 @@ public interface FileChooser :
          * @return A list model of `GFile`s
          */
         get() = gtk_file_chooser_get_shortcut_folders(gtkFileChooserPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -316,7 +317,7 @@ public interface FileChooser :
      * @return the `GFile` for the current folder.
      */
     public fun getCurrentFolder(): File? = gtk_file_chooser_get_current_folder(gtkFileChooserPointer)?.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -347,7 +348,7 @@ public interface FileChooser :
      *   returned file; use g_object_unref() to release it.
      */
     public fun getFile(): File? = gtk_file_chooser_get_file(gtkFileChooserPointer)?.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -359,7 +360,7 @@ public interface FileChooser :
      *   list with g_object_unref().
      */
     public fun getFiles(): ListModel = gtk_file_chooser_get_files(gtkFileChooserPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -384,7 +385,7 @@ public interface FileChooser :
      *   of user-selectable filters.
      */
     public fun getFilters(): ListModel = gtk_file_chooser_get_filters(gtkFileChooserPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -404,7 +405,7 @@ public interface FileChooser :
      * @return A list model of `GFile`s
      */
     public fun getShortcutFolders(): ListModel = gtk_file_chooser_get_shortcut_folders(gtkFileChooserPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -605,19 +606,22 @@ public interface FileChooser :
     public fun setSelectMultiple(selectMultiple: Boolean): Unit =
         gtk_file_chooser_set_select_multiple(gtkFileChooserPointer, selectMultiple.asGBoolean())
 
-    private data class Wrapper(private val pointer: CPointer<GtkFileChooser>) : FileChooser {
-        override val gtkFileChooserPointer: CPointer<GtkFileChooser> = pointer
-    }
+    /**
+     * The FileChooserImpl type represents a native instance of the FileChooser interface.
+     *
+     * @constructor Creates a new instance of FileChooser for the provided [CPointer].
+     */
+    public data class FileChooserImpl(override val gtkFileChooserPointer: CPointer<GtkFileChooser>) :
+        Object(gtkFileChooserPointer.reinterpret()),
+        FileChooser
 
     public companion object : TypeCompanion<FileChooser> {
         override val type: GeneratedInterfaceKGType<FileChooser> =
-            GeneratedInterfaceKGType(gtk_file_chooser_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_file_chooser_get_type()) { FileChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkFileChooser>): FileChooser = Wrapper(pointer)
 
         /**
          * Get the GType of FileChooser

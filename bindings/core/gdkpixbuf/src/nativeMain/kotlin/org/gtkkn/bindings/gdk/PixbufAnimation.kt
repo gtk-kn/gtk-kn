@@ -62,12 +62,9 @@ import kotlin.Unit
  * representation, however; you just ask `GdkPixbuf` what should
  * be displayed at a given point in time.
  */
-public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
-    Object(pointer.reinterpret()),
+public open class PixbufAnimation(public val gdkPixbufAnimationPointer: CPointer<GdkPixbufAnimation>) :
+    Object(gdkPixbufAnimationPointer.reinterpret()),
     KGTyped {
-    public val gdkPixbufAnimationPointer: CPointer<GdkPixbufAnimation>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new animation by loading it from a file.
      *
@@ -197,7 +194,7 @@ public open class PixbufAnimation(pointer: CPointer<GdkPixbufAnimation>) :
      * @return an iterator to move over the animation
      */
     public open fun getIter(startTime: TimeVal? = null): PixbufAnimationIter =
-        gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.gPointer)!!.run {
+        gdk_pixbuf_animation_get_iter(gdkPixbufAnimationPointer, startTime?.glibTimeValPointer)!!.run {
             PixbufAnimationIter(this)
         }
 

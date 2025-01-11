@@ -88,23 +88,20 @@ import kotlin.Boolean
  *
  * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
  */
-public open class ComboRow(pointer: CPointer<AdwComboRow>) :
-    ActionRow(pointer.reinterpret()),
+public open class ComboRow(public val adwComboRowPointer: CPointer<AdwComboRow>) :
+    ActionRow(adwComboRowPointer.reinterpret()),
     KGTyped {
-    public val adwComboRowPointer: CPointer<AdwComboRow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to show a search entry in the popup.
@@ -161,7 +158,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return the expression used to obtain strings from items
          */
         get() = adw_combo_row_get_expression(adwComboRowPointer)?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
         /**
@@ -175,7 +172,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          *
          * @param expression an expression
          */
-        set(expression) = adw_combo_row_set_expression(adwComboRowPointer, expression?.gPointer)
+        set(expression) = adw_combo_row_set_expression(adwComboRowPointer, expression?.gtkExpressionPointer)
 
     /**
      * Factory for populating list items.
@@ -237,7 +234,7 @@ public open class ComboRow(pointer: CPointer<AdwComboRow>) :
          * @return The model in use
          */
         get() = adw_combo_row_get_model(adwComboRowPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

@@ -57,12 +57,9 @@ import kotlin.Unit
  * - method `geometry`: Property has no getter nor setter
  * - method `valid`: Property has no getter nor setter
  */
-public open class Monitor(pointer: CPointer<GdkMonitor>) :
-    Object(pointer.reinterpret()),
+public open class Monitor(public val gdkMonitorPointer: CPointer<GdkMonitor>) :
+    Object(gdkMonitorPointer.reinterpret()),
     KGTyped {
-    public val gdkMonitorPointer: CPointer<GdkMonitor>
-        get() = gPointer.reinterpret()
-
     /**
      * The connector name.
      */
@@ -238,7 +235,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      * @param geometry a `GdkRectangle` to be filled with the monitor geometry
      */
     public open fun getGeometry(geometry: Rectangle): Unit =
-        gdk_monitor_get_geometry(gdkMonitorPointer, geometry.gPointer)
+        gdk_monitor_get_geometry(gdkMonitorPointer, geometry.gdkRectanglePointer)
 
     /**
      * Returns true if the @monitor object corresponds to a
@@ -259,7 +256,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      */
     public fun onInvalidate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkMonitorPointer,
             "invalidate",
             onInvalidateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -271,7 +268,7 @@ public open class Monitor(pointer: CPointer<GdkMonitor>) :
      * Emits the "invalidate" signal. See [onInvalidate].
      */
     public fun emitInvalidate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "invalidate")
+        g_signal_emit_by_name(gdkMonitorPointer.reinterpret(), "invalidate")
     }
 
     public companion object : TypeCompanion<Monitor> {

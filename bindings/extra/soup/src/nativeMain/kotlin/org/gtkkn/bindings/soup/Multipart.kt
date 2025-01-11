@@ -38,9 +38,8 @@ import kotlin.Unit
  * - parameter `headers`: headers: Out parameter is not supported
  * - parameter `dest_body`: dest_body: Out parameter is not supported
  */
-public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<SoupMultipart> = pointer
-
+public class Multipart(public val soupMultipartPointer: CPointer<SoupMultipart>) :
+    ProxyInstance(soupMultipartPointer) {
     /**
      * Adds a new MIME part containing @body to @multipart
      *
@@ -56,7 +55,8 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
         filename: String? = null,
         contentType: String? = null,
         body: Bytes,
-    ): Unit = soup_multipart_append_form_file(gPointer, controlName, filename, contentType, body.gPointer)
+    ): Unit =
+        soup_multipart_append_form_file(soupMultipartPointer, controlName, filename, contentType, body.glibBytesPointer)
 
     /**
      * Adds a new MIME part containing @data to @multipart.
@@ -67,7 +67,7 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
      * @param data the body data
      */
     public fun appendFormString(controlName: String, `data`: String): Unit =
-        soup_multipart_append_form_string(gPointer, controlName, `data`)
+        soup_multipart_append_form_string(soupMultipartPointer, controlName, `data`)
 
     /**
      * Adds a new MIME part to @multipart with the given headers and body.
@@ -80,19 +80,19 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
      * @param body the MIME part body
      */
     public fun appendPart(headers: MessageHeaders, body: Bytes): Unit =
-        soup_multipart_append_part(gPointer, headers.gPointer, body.gPointer)
+        soup_multipart_append_part(soupMultipartPointer, headers.soupMessageHeadersPointer, body.glibBytesPointer)
 
     /**
      * Frees @multipart.
      */
-    public fun free(): Unit = soup_multipart_free(gPointer)
+    public fun free(): Unit = soup_multipart_free(soupMultipartPointer)
 
     /**
      * Gets the number of body parts in @multipart.
      *
      * @return the number of body parts in @multipart
      */
-    public fun getLength(): gint = soup_multipart_get_length(gPointer)
+    public fun getLength(): gint = soup_multipart_get_length(soupMultipartPointer)
 
     public companion object {
         /**
@@ -116,8 +116,12 @@ public class Multipart(pointer: CPointer<SoupMultipart>) : ProxyInstance(pointer
          * @return a new #SoupMultipart (or null if the
          *   message couldn't be parsed or wasn't multipart).
          */
-        public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? =
-            Multipart(soup_multipart_new_from_message(headers.gPointer, body.gPointer)!!.reinterpret())
+        public fun newFromMessage(headers: MessageHeaders, body: Bytes): Multipart? = Multipart(
+            soup_multipart_new_from_message(
+                headers.soupMessageHeadersPointer,
+                body.glibBytesPointer
+            )!!.reinterpret()
+        )
 
         /**
          * Get the GType of Multipart

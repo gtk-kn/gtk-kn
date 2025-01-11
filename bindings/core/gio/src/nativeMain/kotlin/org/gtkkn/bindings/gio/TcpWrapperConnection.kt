@@ -23,12 +23,9 @@ import org.gtkkn.native.gobject.GType
  * @since 2.28
  */
 @GioVersion2_28
-public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>) :
-    TcpConnection(pointer.reinterpret()),
+public open class TcpWrapperConnection(public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>) :
+    TcpConnection(gioTcpWrapperConnectionPointer.reinterpret()),
     KGTyped {
-    public val gioTcpWrapperConnectionPointer: CPointer<GTcpWrapperConnection>
-        get() = gPointer.reinterpret()
-
     /**
      * The wrapped [class@Gio.IOStream].
      *
@@ -42,7 +39,7 @@ public open class TcpWrapperConnection(pointer: CPointer<GTcpWrapperConnection>)
          * @return @conn's base #GIOStream
          */
         get() = g_tcp_wrapper_connection_get_base_io_stream(gioTcpWrapperConnectionPointer)!!.run {
-            IoStream(this)
+            IoStream.IoStreamImpl(this)
         }
 
     /**

@@ -75,20 +75,17 @@ import kotlin.String
  *
  * `GtkWindowControls` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class WindowControls(pointer: CPointer<GtkWindowControls>) :
-    Widget(pointer.reinterpret()),
+public open class WindowControls(public val gtkWindowControlsPointer: CPointer<GtkWindowControls>) :
+    Widget(gtkWindowControlsPointer.reinterpret()),
     KGTyped {
-    public val gtkWindowControlsPointer: CPointer<GtkWindowControls>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The decoration layout for window buttons.

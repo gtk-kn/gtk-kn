@@ -27,12 +27,10 @@ import kotlin.Unit
  *
  * - parameter `field_names`: field_names: Out parameter is not supported
  */
-public class FormSubmissionRequest(pointer: CPointer<WebKitFormSubmissionRequest>) :
-    Object(pointer.reinterpret()),
+public class FormSubmissionRequest(
+    public val webkitFormSubmissionRequestPointer: CPointer<WebKitFormSubmissionRequest>,
+) : Object(webkitFormSubmissionRequestPointer.reinterpret()),
     KGTyped {
-    public val webkitFormSubmissionRequestPointer: CPointer<WebKitFormSubmissionRequest>
-        get() = gPointer.reinterpret()
-
     /**
      * Continue the form submission.
      */

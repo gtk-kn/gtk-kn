@@ -103,19 +103,16 @@ import kotlin.Unit
  * - method `child-model`: Property has no getter nor setter
  * - method `virtual-root`: Property has no getter nor setter
  */
-public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
-    Object(pointer.reinterpret()),
+public open class TreeModelFilter(public val gtkTreeModelFilterPointer: CPointer<GtkTreeModelFilter>) :
+    Object(gtkTreeModelFilterPointer.reinterpret()),
     TreeDragSource,
     TreeModel,
     KGTyped {
-    public val gtkTreeModelFilterPointer: CPointer<GtkTreeModelFilter>
-        get() = gPointer.reinterpret()
-
     override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkTreeModelPointer: CPointer<GtkTreeModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * This function should almost never be called. It clears the @filter
@@ -140,8 +137,8 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
     public open fun convertChildIterToIter(filterIter: TreeIter, childIter: TreeIter): Boolean =
         gtk_tree_model_filter_convert_child_iter_to_iter(
             gtkTreeModelFilterPointer,
-            filterIter.gPointer,
-            childIter.gPointer
+            filterIter.gtkTreeIterPointer,
+            childIter.gtkTreeIterPointer
         ).asBoolean()
 
     /**
@@ -155,7 +152,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @return A newly allocated `GtkTreePath`
      */
     public open fun convertChildPathToPath(childPath: TreePath): TreePath? =
-        gtk_tree_model_filter_convert_child_path_to_path(gtkTreeModelFilterPointer, childPath.gPointer)?.run {
+        gtk_tree_model_filter_convert_child_path_to_path(gtkTreeModelFilterPointer, childPath.gtkTreePathPointer)?.run {
             TreePath(this)
         }
 
@@ -168,8 +165,8 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
     public open fun convertIterToChildIter(childIter: TreeIter, filterIter: TreeIter): Unit =
         gtk_tree_model_filter_convert_iter_to_child_iter(
             gtkTreeModelFilterPointer,
-            childIter.gPointer,
-            filterIter.gPointer
+            childIter.gtkTreeIterPointer,
+            filterIter.gtkTreeIterPointer
         )
 
     /**
@@ -182,7 +179,10 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @return A newly allocated `GtkTreePath`
      */
     public open fun convertPathToChildPath(filterPath: TreePath): TreePath? =
-        gtk_tree_model_filter_convert_path_to_child_path(gtkTreeModelFilterPointer, filterPath.gPointer)?.run {
+        gtk_tree_model_filter_convert_path_to_child_path(
+            gtkTreeModelFilterPointer,
+            filterPath.gtkTreePathPointer
+        )?.run {
             TreePath(this)
         }
 
@@ -192,7 +192,7 @@ public open class TreeModelFilter(pointer: CPointer<GtkTreeModelFilter>) :
      * @return A pointer to a `GtkTreeModel`
      */
     public open fun getModel(): TreeModel = gtk_tree_model_filter_get_model(gtkTreeModelFilterPointer)!!.run {
-        TreeModel.wrap(reinterpret())
+        TreeModel.TreeModelImpl(reinterpret())
     }
 
     /**

@@ -30,19 +30,16 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
-    InputStream(pointer.reinterpret()),
+public open class MemoryInputStream(public val gioMemoryInputStreamPointer: CPointer<GMemoryInputStream>) :
+    InputStream(gioMemoryInputStreamPointer.reinterpret()),
     PollableInputStream,
     Seekable,
     KGTyped {
-    public val gioMemoryInputStreamPointer: CPointer<GMemoryInputStream>
-        get() = gPointer.reinterpret()
-
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new empty #GMemoryInputStream.
@@ -58,7 +55,9 @@ public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
      * @return new #GInputStream read from @bytes
      * @since 2.34
      */
-    public constructor(bytes: Bytes) : this(g_memory_input_stream_new_from_bytes(bytes.gPointer)!!.reinterpret())
+    public constructor(
+        bytes: Bytes,
+    ) : this(g_memory_input_stream_new_from_bytes(bytes.glibBytesPointer)!!.reinterpret())
 
     /**
      * Appends @bytes to data that can be read from the input stream.
@@ -68,7 +67,7 @@ public open class MemoryInputStream(pointer: CPointer<GMemoryInputStream>) :
      */
     @GioVersion2_34
     public open fun addBytes(bytes: Bytes): Unit =
-        g_memory_input_stream_add_bytes(gioMemoryInputStreamPointer, bytes.gPointer)
+        g_memory_input_stream_add_bytes(gioMemoryInputStreamPointer, bytes.glibBytesPointer)
 
     public companion object : TypeCompanion<MemoryInputStream> {
         override val type: GeneratedClassKGType<MemoryInputStream> =

@@ -60,18 +60,17 @@ import kotlin.native.ref.createCleaner
  * - parameter `array`: GLib.PtrArray parameter of type gpointer is not supported
  * - field `pdata`: Unsupported pointer to primitive type
  */
-public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GPtrArray> = pointer
-
+public class PtrArray(public val glibPtrArrayPointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibPtrArrayPointer) {
     /**
      * number of pointers in the array
      */
     public var len: guint
-        get() = gPointer.pointed.len
+        get() = glibPtrArrayPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.len = value
+            glibPtrArrayPointer.pointed.len = value
         }
 
     /**
@@ -92,7 +91,9 @@ public class PtrArray(pointer: CPointer<GPtrArray>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to PtrArray and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GPtrArray>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GPtrArray>, Cleaner>,
+    ) : this(glibPtrArrayPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PtrArray using the provided [AutofreeScope].

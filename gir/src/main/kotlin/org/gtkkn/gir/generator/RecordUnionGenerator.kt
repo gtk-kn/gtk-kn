@@ -72,7 +72,7 @@ interface RecordUnionGenerator : FieldGenerator, MethodGenerator, FunctionGenera
     fun buildGValueToStringFunction(): FunSpec = FunSpec.builder("toString")
         .addModifiers(KModifier.OVERRIDE)
         .returns(String::class)
-        .addCode("return %T.strdupValueContents(this)", BindingsGenerator.G_OBJECT)
+        .addCode("return %M(this)", BindingsGenerator.G_STRDUP_VALUE_CONTENTS)
         .build()
 
     fun buildCompanionObject(

@@ -54,24 +54,21 @@ import org.gtkkn.native.gtk.GtkOrientable
  *
  * `AdwClamp` has a single CSS node with name `clamp`.
  */
-public class Clamp(pointer: CPointer<AdwClamp>) :
-    Widget(pointer.reinterpret()),
+public class Clamp(public val adwClampPointer: CPointer<AdwClamp>) :
+    Widget(adwClampPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val adwClampPointer: CPointer<AdwClamp>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget of the `AdwClamp`.
@@ -83,7 +80,7 @@ public class Clamp(pointer: CPointer<AdwClamp>) :
          * @return the child widget of @self
          */
         get() = adw_clamp_get_child(adwClampPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

@@ -41,12 +41,9 @@ import kotlin.Unit
  * - method `stream`: Property has no getter nor setter
  * - method `stream-length`: Property has no getter nor setter
  */
-public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
-    Object(pointer.reinterpret()),
+public class UriSchemeResponse(public val webkitUriSchemeResponsePointer: CPointer<WebKitURISchemeResponse>) :
+    Object(webkitUriSchemeResponsePointer.reinterpret()),
     KGTyped {
-    public val webkitUriSchemeResponsePointer: CPointer<WebKitURISchemeResponse>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a new #WebKitURISchemeResponse
      *
@@ -81,7 +78,7 @@ public class UriSchemeResponse(pointer: CPointer<WebKitURISchemeResponse>) :
      */
     @WebKitVersion2_36
     public fun setHttpHeaders(headers: MessageHeaders): Unit =
-        webkit_uri_scheme_response_set_http_headers(webkitUriSchemeResponsePointer, headers.gPointer)
+        webkit_uri_scheme_response_set_http_headers(webkitUriSchemeResponsePointer, headers.soupMessageHeadersPointer)
 
     /**
      * Sets the status code and reason phrase for the @response.

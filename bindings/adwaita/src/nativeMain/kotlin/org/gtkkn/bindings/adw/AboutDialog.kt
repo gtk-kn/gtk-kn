@@ -250,20 +250,17 @@ import kotlin.collections.List
  * @since 1.5
  */
 @AdwVersion1_5
-public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
-    Dialog(pointer.reinterpret()),
+public class AboutDialog(public val adwAboutDialogPointer: CPointer<AdwAboutDialog>) :
+    Dialog(adwAboutDialogPointer.reinterpret()),
     KGTyped {
-    public val adwAboutDialogPointer: CPointer<AdwAboutDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The name of the application icon.
@@ -1327,7 +1324,7 @@ public class AboutDialog(pointer: CPointer<AdwAboutDialog>) :
     @AdwVersion1_5
     public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwAboutDialogPointer,
             "activate-link",
             onActivateLinkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

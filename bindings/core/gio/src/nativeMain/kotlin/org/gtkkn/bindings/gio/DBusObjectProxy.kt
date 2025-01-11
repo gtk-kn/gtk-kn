@@ -30,15 +30,12 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectProxy(pointer: CPointer<GDBusObjectProxy>) :
-    Object(pointer.reinterpret()),
+public open class DBusObjectProxy(public val gioDBusObjectProxyPointer: CPointer<GDBusObjectProxy>) :
+    Object(gioDBusObjectProxyPointer.reinterpret()),
     DBusObject,
     KGTyped {
-    public val gioDBusObjectProxyPointer: CPointer<GDBusObjectProxy>
-        get() = gPointer.reinterpret()
-
     override val gioDBusObjectPointer: CPointer<GDBusObject>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #GDBusObjectProxy for the given connection and

@@ -31,19 +31,16 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class ViewStackPages(pointer: CPointer<AdwViewStackPages>) :
-    Object(pointer.reinterpret()),
+public class ViewStackPages(public val adwViewStackPagesPointer: CPointer<AdwViewStackPages>) :
+    Object(adwViewStackPagesPointer.reinterpret()),
     ListModel,
     SelectionModel,
     KGTyped {
-    public val adwViewStackPagesPointer: CPointer<AdwViewStackPages>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Gets the [class@ViewStackPage] for the visible child of a view stack

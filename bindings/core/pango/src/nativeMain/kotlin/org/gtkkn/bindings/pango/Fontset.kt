@@ -26,12 +26,9 @@ import kotlin.Unit
  * component font for a particular Unicode character, and for finding a
  * composite set of metrics for the entire fontset.
  */
-public open class Fontset(pointer: CPointer<PangoFontset>) :
-    Object(pointer.reinterpret()),
+public abstract class Fontset(public val pangoFontsetPointer: CPointer<PangoFontset>) :
+    Object(pangoFontsetPointer.reinterpret()),
     KGTyped {
-    public val pangoFontsetPointer: CPointer<PangoFontset>
-        get() = gPointer.reinterpret()
-
     /**
      * Iterates through all the fonts in a fontset, calling @func for
      * each one.
@@ -56,7 +53,7 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
      * @return a `PangoFont`
      */
     public open fun getFont(wc: guint): Font = pango_fontset_get_font(pangoFontsetPointer, wc)!!.run {
-        Font(this)
+        Font.FontImpl(this)
     }
 
     /**
@@ -68,9 +65,16 @@ public open class Fontset(pointer: CPointer<PangoFontset>) :
         FontMetrics(this)
     }
 
+    /**
+     * The FontsetImpl type represents a native instance of the abstract Fontset class.
+     *
+     * @constructor Creates a new instance of Fontset for the provided [CPointer].
+     */
+    public class FontsetImpl(pointer: CPointer<PangoFontset>) : Fontset(pointer)
+
     public companion object : TypeCompanion<Fontset> {
         override val type: GeneratedClassKGType<Fontset> =
-            GeneratedClassKGType(pango_fontset_get_type()) { Fontset(it.reinterpret()) }
+            GeneratedClassKGType(pango_fontset_get_type()) { FontsetImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

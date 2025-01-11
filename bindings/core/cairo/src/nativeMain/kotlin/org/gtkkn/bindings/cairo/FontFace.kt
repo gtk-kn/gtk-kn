@@ -3,6 +3,7 @@ package org.gtkkn.bindings.cairo
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -22,24 +23,25 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class FontFace(pointer: CPointer<cairo_font_face_t>) : KGTyped {
-    public val gPointer: CPointer<cairo_font_face_t> = pointer
+public open class FontFace(public val cairoFontFacePointer: CPointer<cairo_font_face_t>) :
+    TypeInstance(cairoFontFacePointer.reinterpret()),
+    KGTyped {
+    public open fun destroy(): Unit = cairo_font_face_destroy(cairoFontFacePointer)
 
-    public open fun destroy(): Unit = cairo_font_face_destroy(gPointer)
-
-    public open fun status(): Status = cairo_font_face_status(gPointer).run {
+    public open fun status(): Status = cairo_font_face_status(cairoFontFacePointer).run {
         Status.fromNativeValue(this)
     }
 
-    public open fun getFontType(): FontType = cairo_font_face_get_type(gPointer).run {
+    public open fun getFontType(): FontType = cairo_font_face_get_type(cairoFontFacePointer).run {
         FontType.fromNativeValue(this)
     }
 
-    public open fun reference(): FontFace = cairo_font_face_reference(gPointer)!!.run {
+    public open fun reference(): FontFace = cairo_font_face_reference(cairoFontFacePointer)!!.run {
         FontFace(reinterpret())
     }
 
-    public open fun getUserData(key: UserDataKey): gpointer = cairo_font_face_get_user_data(gPointer, key.gPointer)!!
+    public open fun getUserData(key: UserDataKey): gpointer =
+        cairo_font_face_get_user_data(cairoFontFacePointer, key.cairoUserDataKeyPointer)!!
 
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =

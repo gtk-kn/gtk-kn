@@ -50,9 +50,7 @@ import kotlin.Unit
  * suitable for storing attributes for large amounts of text. In general, you
  * should not use a single `PangoAttrList` for more than one paragraph of text.
  */
-public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrList> = pointer
-
+public class AttrList(public val pangoAttrListPointer: CPointer<PangoAttrList>) : ProxyInstance(pangoAttrListPointer) {
     /**
      * Insert the given attribute into the `PangoAttrList`.
      *
@@ -69,7 +67,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      *
      * @param attr the attribute to insert
      */
-    public fun change(attr: Attribute): Unit = pango_attr_list_change(gPointer, attr.gPointer)
+    public fun change(attr: Attribute): Unit = pango_attr_list_change(pangoAttrListPointer, attr.pangoAttributePointer)
 
     /**
      * Copy @list and return an identical new list.
@@ -79,7 +77,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      *   which should be freed with [method@Pango.AttrList.unref].
      *   Returns null if @list was null.
      */
-    public fun copy(): AttrList? = pango_attr_list_copy(gPointer)?.run {
+    public fun copy(): AttrList? = pango_attr_list_copy(pangoAttrListPointer)?.run {
         AttrList(this)
     }
 
@@ -97,7 +95,8 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      * @since 1.46
      */
     @PangoVersion1_46
-    public fun equal(otherList: AttrList): Boolean = pango_attr_list_equal(gPointer, otherList.gPointer).asBoolean()
+    public fun equal(otherList: AttrList): Boolean =
+        pango_attr_list_equal(pangoAttrListPointer, otherList.pangoAttrListPointer).asBoolean()
 
     /**
      * Given a `PangoAttrList` and callback function, removes
@@ -112,10 +111,13 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      * @since 1.2
      */
     @PangoVersion1_2
-    public fun filter(func: AttrFilterFunc): AttrList? =
-        pango_attr_list_filter(gPointer, AttrFilterFuncFunc.reinterpret(), StableRef.create(func).asCPointer())?.run {
-            AttrList(this)
-        }
+    public fun filter(func: AttrFilterFunc): AttrList? = pango_attr_list_filter(
+        pangoAttrListPointer,
+        AttrFilterFuncFunc.reinterpret(),
+        StableRef.create(func).asCPointer()
+    )?.run {
+        AttrList(this)
+    }
 
     /**
      * Gets a list of all attributes in @list.
@@ -126,7 +128,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun getAttributes(): SList = pango_attr_list_get_attributes(gPointer)!!.run {
+    public fun getAttributes(): SList = pango_attr_list_get_attributes(pangoAttrListPointer)!!.run {
         SList(this)
     }
 
@@ -139,7 +141,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      *   `PangoAttrIterator`, which should be freed with
      *   [method@Pango.AttrIterator.destroy]
      */
-    public fun getIterator(): AttrIterator = pango_attr_list_get_iterator(gPointer)!!.run {
+    public fun getIterator(): AttrIterator = pango_attr_list_get_iterator(pangoAttrListPointer)!!.run {
         AttrIterator(this)
     }
 
@@ -151,7 +153,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      *
      * @param attr the attribute to insert
      */
-    public fun insert(attr: Attribute): Unit = pango_attr_list_insert(gPointer, attr.gPointer)
+    public fun insert(attr: Attribute): Unit = pango_attr_list_insert(pangoAttrListPointer, attr.pangoAttributePointer)
 
     /**
      * Insert the given attribute into the `PangoAttrList`.
@@ -161,7 +163,8 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      *
      * @param attr the attribute to insert
      */
-    public fun insertBefore(attr: Attribute): Unit = pango_attr_list_insert_before(gPointer, attr.gPointer)
+    public fun insertBefore(attr: Attribute): Unit =
+        pango_attr_list_insert_before(pangoAttrListPointer, attr.pangoAttributePointer)
 
     /**
      * Increase the reference count of the given attribute
@@ -171,7 +174,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      * @since 1.10
      */
     @PangoVersion1_10
-    public fun ref(): AttrList = pango_attr_list_ref(gPointer)!!.run {
+    public fun ref(): AttrList = pango_attr_list_ref(pangoAttrListPointer)!!.run {
         AttrList(this)
     }
 
@@ -202,7 +205,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      *   be present at some subsection of this range)
      */
     public fun splice(other: AttrList, pos: gint, len: gint): Unit =
-        pango_attr_list_splice(gPointer, other.gPointer, pos, len)
+        pango_attr_list_splice(pangoAttrListPointer, other.pangoAttrListPointer, pos, len)
 
     /**
      * Serializes a `PangoAttrList` to a string.
@@ -246,7 +249,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @PangoVersion1_50
     override fun toString(): String =
-        pango_attr_list_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+        pango_attr_list_to_string(pangoAttrListPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Decrease the reference count of the given attribute
@@ -255,7 +258,7 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      * If the result is zero, free the attribute list
      * and the attributes it contains.
      */
-    public fun unref(): Unit = pango_attr_list_unref(gPointer)
+    public fun unref(): Unit = pango_attr_list_unref(pangoAttrListPointer)
 
     /**
      * Update indices of attributes in @list for a change in the
@@ -279,7 +282,8 @@ public class AttrList(pointer: CPointer<PangoAttrList>) : ProxyInstance(pointer)
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun update(pos: gint, remove: gint, add: gint): Unit = pango_attr_list_update(gPointer, pos, remove, add)
+    public fun update(pos: gint, remove: gint, add: gint): Unit =
+        pango_attr_list_update(pangoAttrListPointer, pos, remove, add)
 
     public companion object {
         /**

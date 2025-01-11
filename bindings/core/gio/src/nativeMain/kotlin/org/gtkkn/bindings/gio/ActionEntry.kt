@@ -35,19 +35,18 @@ import kotlin.native.ref.createCleaner
  * - field `activate`: Fields with callbacks are not supported
  * - field `change_state`: Fields with callbacks are not supported
  */
-public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GActionEntry> = pointer
-
+public class ActionEntry(public val gioActionEntryPointer: CPointer<GActionEntry>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioActionEntryPointer) {
     /**
      * the name of the action
      */
     public var name: String?
-        get() = gPointer.pointed.name?.toKString()
+        get() = gioActionEntryPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.name?.let { g_free(it) }
-            gPointer.pointed.name = value?.let { g_strdup(it) }
+            gioActionEntryPointer.pointed.name?.let { g_free(it) }
+            gioActionEntryPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -56,12 +55,12 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      *                  GVariant type string (or null for no parameter)
      */
     public var parameterType: String?
-        get() = gPointer.pointed.parameter_type?.toKString()
+        get() = gioActionEntryPointer.pointed.parameter_type?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.parameter_type?.let { g_free(it) }
-            gPointer.pointed.parameter_type = value?.let { g_strdup(it) }
+            gioActionEntryPointer.pointed.parameter_type?.let { g_free(it) }
+            gioActionEntryPointer.pointed.parameter_type = value?.let { g_strdup(it) }
         }
 
     /**
@@ -72,12 +71,12 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      *         give null here.
      */
     public var state: String?
-        get() = gPointer.pointed.state?.toKString()
+        get() = gioActionEntryPointer.pointed.state?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.state?.let { g_free(it) }
-            gPointer.pointed.state = value?.let { g_strdup(it) }
+            gioActionEntryPointer.pointed.state?.let { g_free(it) }
+            gioActionEntryPointer.pointed.state = value?.let { g_strdup(it) }
         }
 
     /**
@@ -98,7 +97,9 @@ public class ActionEntry(pointer: CPointer<GActionEntry>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to ActionEntry and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GActionEntry>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GActionEntry>, Cleaner>,
+    ) : this(gioActionEntryPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ActionEntry using the provided [AutofreeScope].

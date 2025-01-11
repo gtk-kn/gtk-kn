@@ -7,7 +7,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.gio.annotations.GioVersion2_60
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -37,7 +38,7 @@ import kotlin.Unit
  */
 @GioVersion2_28
 public interface TlsBackend :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioTlsBackendPointer: CPointer<GTlsBackend>
 
@@ -70,7 +71,7 @@ public interface TlsBackend :
      */
     @GioVersion2_30
     public fun getDefaultDatabase(): TlsDatabase = g_tls_backend_get_default_database(gioTlsBackendPointer)!!.run {
-        TlsDatabase(this)
+        TlsDatabase.TlsDatabaseImpl(this)
     }
 
     /**
@@ -151,19 +152,22 @@ public interface TlsBackend :
     @GioVersion2_28
     public fun supportsTls(): Boolean = g_tls_backend_supports_tls(gioTlsBackendPointer).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GTlsBackend>) : TlsBackend {
-        override val gioTlsBackendPointer: CPointer<GTlsBackend> = pointer
-    }
+    /**
+     * The TlsBackendImpl type represents a native instance of the TlsBackend interface.
+     *
+     * @constructor Creates a new instance of TlsBackend for the provided [CPointer].
+     */
+    public data class TlsBackendImpl(override val gioTlsBackendPointer: CPointer<GTlsBackend>) :
+        Object(gioTlsBackendPointer.reinterpret()),
+        TlsBackend
 
     public companion object : TypeCompanion<TlsBackend> {
         override val type: GeneratedInterfaceKGType<TlsBackend> =
-            GeneratedInterfaceKGType(g_tls_backend_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_tls_backend_get_type()) { TlsBackendImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GTlsBackend>): TlsBackend = Wrapper(pointer)
 
         /**
          * Gets the default #GTlsBackend for the system.
@@ -174,7 +178,7 @@ public interface TlsBackend :
          */
         @GioVersion2_28
         public fun getDefault(): TlsBackend = g_tls_backend_get_default()!!.run {
-            TlsBackend.wrap(reinterpret())
+            TlsBackendImpl(reinterpret())
         }
 
         /**

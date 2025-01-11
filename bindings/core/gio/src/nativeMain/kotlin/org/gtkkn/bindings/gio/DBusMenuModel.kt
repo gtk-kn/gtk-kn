@@ -18,12 +18,9 @@ import kotlin.String
  * used as a proxy for a menu model that is exported over D-Bus with
  * [method@Gio.DBusConnection.export_menu_model].
  */
-public open class DBusMenuModel(pointer: CPointer<GDBusMenuModel>) :
-    MenuModel(pointer.reinterpret()),
+public open class DBusMenuModel(public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>) :
+    MenuModel(gioDBusMenuModelPointer.reinterpret()),
     KGTyped {
-    public val gioDBusMenuModelPointer: CPointer<GDBusMenuModel>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<DBusMenuModel> {
         override val type: GeneratedClassKGType<DBusMenuModel> =
             GeneratedClassKGType(g_dbus_menu_model_get_type()) { DBusMenuModel(it.reinterpret()) }

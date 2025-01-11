@@ -21,19 +21,16 @@ import org.gtkkn.native.gobject.GType
  *
  * It implements [iface@Gio.LoadableIcon].
  */
-public open class FileIcon(pointer: CPointer<GFileIcon>) :
-    Object(pointer.reinterpret()),
+public open class FileIcon(public val gioFileIconPointer: CPointer<GFileIcon>) :
+    Object(gioFileIconPointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
-    public val gioFileIconPointer: CPointer<GFileIcon>
-        get() = gPointer.reinterpret()
-
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The file containing the icon.
@@ -45,7 +42,7 @@ public open class FileIcon(pointer: CPointer<GFileIcon>) :
          * @return a #GFile.
          */
         get() = g_file_icon_get_file(gioFileIconPointer)!!.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
     /**

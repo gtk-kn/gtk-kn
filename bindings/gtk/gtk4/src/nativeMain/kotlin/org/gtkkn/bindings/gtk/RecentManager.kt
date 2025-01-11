@@ -108,12 +108,9 @@ import kotlin.Unit
  * - method `filename`: Property has no getter nor setter
  * - method `size`: Property has no getter nor setter
  */
-public open class RecentManager(pointer: CPointer<GtkRecentManager>) :
-    Object(pointer.reinterpret()),
+public open class RecentManager(public val gtkRecentManagerPointer: CPointer<GtkRecentManager>) :
+    Object(gtkRecentManagerPointer.reinterpret()),
     KGTyped {
-    public val gtkRecentManagerPointer: CPointer<GtkRecentManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new recent manager object.
      *
@@ -157,7 +154,7 @@ public open class RecentManager(pointer: CPointer<GtkRecentManager>) :
      *   recently used resources list, false otherwise
      */
     public open fun addFull(uri: String, recentData: RecentData): Boolean =
-        gtk_recent_manager_add_full(gtkRecentManagerPointer, uri, recentData.gPointer).asBoolean()
+        gtk_recent_manager_add_full(gtkRecentManagerPointer, uri, recentData.gtkRecentDataPointer).asBoolean()
 
     /**
      * Adds a new resource, pointed by @uri, into the recently used
@@ -290,7 +287,7 @@ public open class RecentManager(pointer: CPointer<GtkRecentManager>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkRecentManagerPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -302,7 +299,7 @@ public open class RecentManager(pointer: CPointer<GtkRecentManager>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gtkRecentManagerPointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<RecentManager> {

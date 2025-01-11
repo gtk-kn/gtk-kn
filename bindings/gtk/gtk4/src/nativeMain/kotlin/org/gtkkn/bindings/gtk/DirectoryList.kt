@@ -62,15 +62,12 @@ import kotlin.String
  * - method `loading`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
-    Object(pointer.reinterpret()),
+public open class DirectoryList(public val gtkDirectoryListPointer: CPointer<GtkDirectoryList>) :
+    Object(gtkDirectoryListPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val gtkDirectoryListPointer: CPointer<GtkDirectoryList>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The attributes to query.
@@ -124,7 +121,7 @@ public open class DirectoryList(pointer: CPointer<GtkDirectoryList>) :
          * @return The file whose children are enumerated
          */
         get() = gtk_directory_list_get_file(gtkDirectoryListPointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**

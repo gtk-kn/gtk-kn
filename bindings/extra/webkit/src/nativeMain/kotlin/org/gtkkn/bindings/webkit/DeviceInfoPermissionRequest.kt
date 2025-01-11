@@ -25,15 +25,13 @@ import org.gtkkn.native.webkit.webkit_device_info_permission_request_get_type
  * @since 2.24
  */
 @WebKitVersion2_24
-public class DeviceInfoPermissionRequest(pointer: CPointer<WebKitDeviceInfoPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class DeviceInfoPermissionRequest(
+    public val webkitDeviceInfoPermissionRequestPointer: CPointer<WebKitDeviceInfoPermissionRequest>,
+) : Object(webkitDeviceInfoPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
-    public val webkitDeviceInfoPermissionRequestPointer: CPointer<WebKitDeviceInfoPermissionRequest>
-        get() = gPointer.reinterpret()
-
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<DeviceInfoPermissionRequest> {
         override val type: GeneratedClassKGType<DeviceInfoPermissionRequest> =

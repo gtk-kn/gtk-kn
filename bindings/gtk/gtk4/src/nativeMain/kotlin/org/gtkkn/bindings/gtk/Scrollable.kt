@@ -3,7 +3,8 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -54,7 +55,7 @@ import kotlin.Unit
  *   signal, the scrollable widget should scroll its contents.
  */
 public interface Scrollable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkScrollablePointer: CPointer<GtkScrollable>
 
@@ -160,7 +161,7 @@ public interface Scrollable :
      * @return true if @border has been set
      */
     public fun getBorder(border: Border): Boolean =
-        gtk_scrollable_get_border(gtkScrollablePointer, border.gPointer).asBoolean()
+        gtk_scrollable_get_border(gtkScrollablePointer, border.gtkBorderPointer).asBoolean()
 
     /**
      * Retrieves the `GtkAdjustment` used for horizontal scrolling.
@@ -236,19 +237,22 @@ public interface Scrollable :
     public fun setVscrollPolicy(policy: ScrollablePolicy): Unit =
         gtk_scrollable_set_vscroll_policy(gtkScrollablePointer, policy.nativeValue)
 
-    private data class Wrapper(private val pointer: CPointer<GtkScrollable>) : Scrollable {
-        override val gtkScrollablePointer: CPointer<GtkScrollable> = pointer
-    }
+    /**
+     * The ScrollableImpl type represents a native instance of the Scrollable interface.
+     *
+     * @constructor Creates a new instance of Scrollable for the provided [CPointer].
+     */
+    public data class ScrollableImpl(override val gtkScrollablePointer: CPointer<GtkScrollable>) :
+        Object(gtkScrollablePointer.reinterpret()),
+        Scrollable
 
     public companion object : TypeCompanion<Scrollable> {
         override val type: GeneratedInterfaceKGType<Scrollable> =
-            GeneratedInterfaceKGType(gtk_scrollable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_scrollable_get_type()) { ScrollableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkScrollable>): Scrollable = Wrapper(pointer)
 
         /**
          * Get the GType of Scrollable

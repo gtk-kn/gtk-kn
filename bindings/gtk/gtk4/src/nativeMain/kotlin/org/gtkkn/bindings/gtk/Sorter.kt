@@ -48,12 +48,9 @@ import kotlin.Unit
  * Of course, in particular for large lists, it is also possible to subclass
  * `GtkSorter` and provide one's own sorter.
  */
-public open class Sorter(pointer: CPointer<GtkSorter>) :
-    Object(pointer.reinterpret()),
+public open class Sorter(public val gtkSorterPointer: CPointer<GtkSorter>) :
+    Object(gtkSorterPointer.reinterpret()),
     KGTyped {
-    public val gtkSorterPointer: CPointer<GtkSorter>
-        get() = gPointer.reinterpret()
-
     /**
      * Notifies all users of the sorter that it has changed.
      *
@@ -92,10 +89,13 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
      *   %GTK_ORDERING_SMALLER if @item1 < @item2,
      *   %GTK_ORDERING_LARGER if @item1 > @item2
      */
-    public open fun compare(item1: Object, item2: Object): Ordering =
-        gtk_sorter_compare(gtkSorterPointer, item1.gPointer.reinterpret(), item2.gPointer.reinterpret()).run {
-            Ordering.fromNativeValue(this)
-        }
+    public open fun compare(item1: Object, item2: Object): Ordering = gtk_sorter_compare(
+        gtkSorterPointer,
+        item1.gobjectObjectPointer.reinterpret(),
+        item2.gobjectObjectPointer.reinterpret()
+    ).run {
+        Ordering.fromNativeValue(this)
+    }
 
     /**
      * Gets the order that @self conforms to.
@@ -130,7 +130,7 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (change: SorterChange) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkSorterPointer,
         "changed",
         onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -144,7 +144,7 @@ public open class Sorter(pointer: CPointer<GtkSorter>) :
      * @param change how the sorter changed
      */
     public fun emitChanged(change: SorterChange) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed", change.nativeValue)
+        g_signal_emit_by_name(gtkSorterPointer.reinterpret(), "changed", change.nativeValue)
     }
 
     public companion object : TypeCompanion<Sorter> {

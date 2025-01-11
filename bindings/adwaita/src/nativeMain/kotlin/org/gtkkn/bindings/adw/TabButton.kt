@@ -63,24 +63,21 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class TabButton(pointer: CPointer<AdwTabButton>) :
-    Widget(pointer.reinterpret()),
+public class TabButton(public val adwTabButtonPointer: CPointer<AdwTabButton>) :
+    Widget(adwTabButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val adwTabButtonPointer: CPointer<AdwTabButton>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The view the tab button displays.
@@ -129,7 +126,7 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
     @AdwVersion1_3
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwTabButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -144,7 +141,7 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
      */
     @AdwVersion1_3
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(adwTabButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -157,7 +154,7 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
     @AdwVersion1_3
     public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwTabButtonPointer,
             "clicked",
             onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -172,7 +169,7 @@ public class TabButton(pointer: CPointer<AdwTabButton>) :
      */
     @AdwVersion1_3
     public fun emitClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+        g_signal_emit_by_name(adwTabButtonPointer.reinterpret(), "clicked")
     }
 
     public companion object : TypeCompanion<TabButton> {

@@ -86,15 +86,12 @@ import kotlin.Unit
  *
  * - method `level`: Property has no getter nor setter
  */
-public class Logger(pointer: CPointer<SoupLogger>) :
-    Object(pointer.reinterpret()),
+public class Logger(public val soupLoggerPointer: CPointer<SoupLogger>) :
+    Object(soupLoggerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupLoggerPointer: CPointer<SoupLogger>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If [property@Logger:level] is %SOUP_LOGGER_LOG_BODY, this gives

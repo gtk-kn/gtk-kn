@@ -33,9 +33,8 @@ import kotlin.native.ref.createCleaner
  * - field `_jsc_reserved6`: Fields with callbacks are not supported
  * - field `_jsc_reserved7`: Fields with callbacks are not supported
  */
-public class ClassVTable(pointer: CPointer<JSCClassVTable>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<JSCClassVTable> = pointer
-
+public class ClassVTable(public val jscClassVTablePointer: CPointer<JSCClassVTable>, cleaner: Cleaner? = null) :
+    ProxyInstance(jscClassVTablePointer) {
     /**
      * Allocate a new ClassVTable.
      *
@@ -56,7 +55,7 @@ public class ClassVTable(pointer: CPointer<JSCClassVTable>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<JSCClassVTable>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(jscClassVTablePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ClassVTable using the provided [AutofreeScope].

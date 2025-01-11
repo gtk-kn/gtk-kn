@@ -63,19 +63,16 @@ import kotlin.collections.List
  * - method `n-items`: Property has no getter nor setter
  * - method `strings`: Property has no getter nor setter
  */
-public open class StringList(pointer: CPointer<GtkStringList>) :
-    Object(pointer.reinterpret()),
+public open class StringList(public val gtkStringListPointer: CPointer<GtkStringList>) :
+    Object(gtkStringListPointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
-    public val gtkStringListPointer: CPointer<GtkStringList>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkStringList` with the given @strings.

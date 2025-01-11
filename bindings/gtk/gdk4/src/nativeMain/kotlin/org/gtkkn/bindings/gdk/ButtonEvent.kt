@@ -15,12 +15,9 @@ import org.gtkkn.native.gobject.GType
 /**
  * An event related to a button on a pointer device.
  */
-public open class ButtonEvent(pointer: CPointer<GdkButtonEvent>) :
-    Event(pointer.reinterpret()),
+public open class ButtonEvent(public val gdkButtonEventPointer: CPointer<GdkButtonEvent>) :
+    Event(gdkButtonEventPointer.reinterpret()),
     KGTyped {
-    public val gdkButtonEventPointer: CPointer<GdkButtonEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extract the button number from a button event.
      *

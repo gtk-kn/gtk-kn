@@ -75,20 +75,17 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
-    Widget(pointer.reinterpret()),
+public open class FontDialogButton(public val gtkFontDialogButtonPointer: CPointer<GtkFontDialogButton>) :
+    Widget(gtkFontDialogButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkFontDialogButtonPointer: CPointer<GtkFontDialogButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The selected font features.
@@ -158,7 +155,7 @@ public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(language) = gtk_font_dialog_button_set_language(gtkFontDialogButtonPointer, language?.gPointer)
+        set(language) = gtk_font_dialog_button_set_language(gtkFontDialogButtonPointer, language?.pangoLanguagePointer)
 
     /**
      * The level of detail for the font chooser dialog.
@@ -293,7 +290,7 @@ public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
      */
     @GtkVersion4_10
     public open fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_dialog_button_set_font_desc(gtkFontDialogButtonPointer, fontDesc.gPointer)
+        gtk_font_dialog_button_set_font_desc(gtkFontDialogButtonPointer, fontDesc.pangoFontDescriptionPointer)
 
     /**
      * Emitted when the font dialog button is activated.
@@ -308,7 +305,7 @@ public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
     @GtkVersion4_14
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFontDialogButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -323,7 +320,7 @@ public open class FontDialogButton(pointer: CPointer<GtkFontDialogButton>) :
      */
     @GtkVersion4_14
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkFontDialogButtonPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<FontDialogButton> {

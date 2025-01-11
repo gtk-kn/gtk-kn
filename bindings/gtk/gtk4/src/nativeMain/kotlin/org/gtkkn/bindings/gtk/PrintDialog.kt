@@ -62,12 +62,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GtkVersion4_14
-public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
-    Object(pointer.reinterpret()),
+public open class PrintDialog(public val gtkPrintDialogPointer: CPointer<GtkPrintDialog>) :
+    Object(gtkPrintDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkPrintDialogPointer: CPointer<GtkPrintDialog>
-        get() = gPointer.reinterpret()
-
     /**
      * A label that may be shown on the accept button of a print dialog
      * that is presented by [method@Gtk.PrintDialog.setup].
@@ -237,7 +234,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
     ): Unit = gtk_print_dialog_print(
         gtkPrintDialogPointer,
         parent?.gtkWindowPointer,
-        setup?.gPointer,
+        setup?.gtkPrintSetupPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -271,7 +268,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
     ): Unit = gtk_print_dialog_print_file(
         gtkPrintDialogPointer,
         parent?.gtkWindowPointer,
-        setup?.gPointer,
+        setup?.gtkPrintSetupPointer,
         `file`.gioFilePointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
@@ -329,7 +326,7 @@ public open class PrintDialog(pointer: CPointer<GtkPrintDialog>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            OutputStream(this)
+            OutputStream.OutputStreamImpl(this)
         }
 
         return if (gError.pointed != null) {

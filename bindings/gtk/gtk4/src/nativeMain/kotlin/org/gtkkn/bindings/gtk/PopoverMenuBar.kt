@@ -53,20 +53,17 @@ import kotlin.String
  * the menu items use the %GTK_ACCESSIBLE_ROLE_MENU_ITEM role and
  * the menus use the %GTK_ACCESSIBLE_ROLE_MENU role.
  */
-public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
-    Widget(pointer.reinterpret()),
+public open class PopoverMenuBar(public val gtkPopoverMenuBarPointer: CPointer<GtkPopoverMenuBar>) :
+    Widget(gtkPopoverMenuBarPointer.reinterpret()),
     KGTyped {
-    public val gtkPopoverMenuBarPointer: CPointer<GtkPopoverMenuBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The `GMenuModel` from which the menu bar is created.
@@ -80,7 +77,7 @@ public open class PopoverMenuBar(pointer: CPointer<GtkPopoverMenuBar>) :
          * @return a `GMenuModel`
          */
         get() = gtk_popover_menu_bar_get_menu_model(gtkPopoverMenuBarPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**

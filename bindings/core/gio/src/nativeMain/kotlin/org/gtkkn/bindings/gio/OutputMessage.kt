@@ -33,44 +33,43 @@ import kotlin.native.ref.createCleaner
  * @since 2.44
  */
 @GioVersion2_44
-public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GOutputMessage> = pointer
-
+public class OutputMessage(public val gioOutputMessagePointer: CPointer<GOutputMessage>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioOutputMessagePointer) {
     /**
      * a #GSocketAddress, or null
      */
     public var address: SocketAddress?
-        get() = gPointer.pointed.address?.run {
-            SocketAddress(this)
+        get() = gioOutputMessagePointer.pointed.address?.run {
+            SocketAddress.SocketAddressImpl(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.address = value?.gioSocketAddressPointer
+            gioOutputMessagePointer.pointed.address = value?.gioSocketAddressPointer
         }
 
     /**
      * pointer to an array of output vectors
      */
     public var vectors: OutputVector?
-        get() = gPointer.pointed.vectors?.run {
+        get() = gioOutputMessagePointer.pointed.vectors?.run {
             OutputVector(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.vectors = value?.gPointer
+            gioOutputMessagePointer.pointed.vectors = value?.gioOutputVectorPointer
         }
 
     /**
      * the number of output vectors pointed to by @vectors.
      */
     public var numVectors: guint
-        get() = gPointer.pointed.num_vectors
+        get() = gioOutputMessagePointer.pointed.num_vectors
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.num_vectors = value
+            gioOutputMessagePointer.pointed.num_vectors = value
         }
 
     /**
@@ -78,22 +77,22 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      *     that have been sent
      */
     public var bytesSent: guint
-        get() = gPointer.pointed.bytes_sent
+        get() = gioOutputMessagePointer.pointed.bytes_sent
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.bytes_sent = value
+            gioOutputMessagePointer.pointed.bytes_sent = value
         }
 
     /**
      * number of elements in @control_messages.
      */
     public var numControlMessages: guint
-        get() = gPointer.pointed.num_control_messages
+        get() = gioOutputMessagePointer.pointed.num_control_messages
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.num_control_messages = value
+            gioOutputMessagePointer.pointed.num_control_messages = value
         }
 
     /**
@@ -116,7 +115,7 @@ public class OutputMessage(pointer: CPointer<GOutputMessage>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GOutputMessage>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioOutputMessagePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new OutputMessage using the provided [AutofreeScope].

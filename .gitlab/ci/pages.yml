@@ -7,7 +7,7 @@ pages:
   script:
     - pip install -r mkdocs-requirements.txt --break-system-packages --ignore-installed PyYAML
     - ./gradlew :gir:run
-    - ./gradlew dokkaHtmlMultiModule
+    - ./gradlew :dokkaGenerate
     - mkdocs build --strict
   artifacts:
     paths:

@@ -132,12 +132,9 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-mode-set`: Property has no getter nor setter
  */
-public open class TextTag(pointer: CPointer<GtkTextTag>) :
-    Object(pointer.reinterpret()),
+public open class TextTag(public val gtkTextTagPointer: CPointer<GtkTextTag>) :
+    Object(gtkTextTagPointer.reinterpret()),
     KGTyped {
-    public val gtkTextTagPointer: CPointer<GtkTextTag>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GtkTextTag`.
      *

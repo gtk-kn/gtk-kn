@@ -22,12 +22,9 @@ import org.gtkkn.native.gsk.gsk_outset_shadow_node_new
 /**
  * A render node for an outset shadow.
  */
-public open class OutsetShadowNode(pointer: CPointer<GskOutsetShadowNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class OutsetShadowNode(public val gskOutsetShadowNodePointer: CPointer<GskOutsetShadowNode>) :
+    RenderNode(gskOutsetShadowNodePointer.reinterpret()),
     KGTyped {
-    public val gskOutsetShadowNodePointer: CPointer<GskOutsetShadowNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will render an outset shadow
      * around the box given by @outline.
@@ -47,7 +44,16 @@ public open class OutsetShadowNode(pointer: CPointer<GskOutsetShadowNode>) :
         dy: gfloat,
         spread: gfloat,
         blurRadius: gfloat,
-    ) : this(gsk_outset_shadow_node_new(outline.gPointer, color.gPointer, dx, dy, spread, blurRadius)!!.reinterpret())
+    ) : this(
+        gsk_outset_shadow_node_new(
+            outline.gskRoundedRectPointer,
+            color.gdkRgbaPointer,
+            dx,
+            dy,
+            spread,
+            blurRadius
+        )!!.reinterpret()
+    )
 
     /**
      * Retrieves the blur radius of the shadow.

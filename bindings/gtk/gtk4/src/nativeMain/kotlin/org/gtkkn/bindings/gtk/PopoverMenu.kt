@@ -144,26 +144,23 @@ import kotlin.String
  *
  * - method `visible-submenu`: Property has no getter nor setter
  */
-public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
-    Popover(pointer.reinterpret()),
+public open class PopoverMenu(public val gtkPopoverMenuPointer: CPointer<GtkPopoverMenu>) :
+    Popover(gtkPopoverMenuPointer.reinterpret()),
     KGTyped {
-    public val gtkPopoverMenuPointer: CPointer<GtkPopoverMenu>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The flags that @popover uses to create/display a menu from its model.
@@ -207,7 +204,7 @@ public open class PopoverMenu(pointer: CPointer<GtkPopoverMenu>) :
          * @return the menu model of @popover
          */
         get() = gtk_popover_menu_get_menu_model(gtkPopoverMenuPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**

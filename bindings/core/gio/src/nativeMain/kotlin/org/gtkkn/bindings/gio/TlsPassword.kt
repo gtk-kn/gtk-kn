@@ -34,12 +34,9 @@ import kotlin.String
  * @since 2.30
  */
 @GioVersion2_30
-public open class TlsPassword(pointer: CPointer<GTlsPassword>) :
-    Object(pointer.reinterpret()),
+public open class TlsPassword(public val gioTlsPasswordPointer: CPointer<GTlsPassword>) :
+    Object(gioTlsPasswordPointer.reinterpret()),
     KGTyped {
-    public val gioTlsPasswordPointer: CPointer<GTlsPassword>
-        get() = gPointer.reinterpret()
-
     /**
      * Description of what the password is for.
      *

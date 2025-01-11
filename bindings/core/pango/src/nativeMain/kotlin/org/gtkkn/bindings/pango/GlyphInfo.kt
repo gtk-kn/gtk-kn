@@ -24,18 +24,17 @@ import kotlin.native.ref.createCleaner
  * - field `geometry`: Field with not-pointer record/union PangoGlyphGeometry is not supported
  * - field `attr`: Field with not-pointer record/union PangoGlyphVisAttr is not supported
  */
-public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoGlyphInfo> = pointer
-
+public class GlyphInfo(public val pangoGlyphInfoPointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoGlyphInfoPointer) {
     /**
      * the glyph itself.
      */
     public var glyph: Glyph
-        get() = gPointer.pointed.glyph
+        get() = pangoGlyphInfoPointer.pointed.glyph
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.glyph = value
+            pangoGlyphInfoPointer.pointed.glyph = value
         }
 
     /**
@@ -58,7 +57,7 @@ public class GlyphInfo(pointer: CPointer<PangoGlyphInfo>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoGlyphInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoGlyphInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphInfo using the provided [AutofreeScope].

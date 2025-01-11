@@ -25,15 +25,12 @@ import org.gtkkn.native.gtk.gtk_selection_filter_model_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SelectionFilterModel(pointer: CPointer<GtkSelectionFilterModel>) :
-    Object(pointer.reinterpret()),
+public open class SelectionFilterModel(public val gtkSelectionFilterModelPointer: CPointer<GtkSelectionFilterModel>) :
+    Object(gtkSelectionFilterModelPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val gtkSelectionFilterModelPointer: CPointer<GtkSelectionFilterModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The model being filtered.
@@ -45,7 +42,7 @@ public open class SelectionFilterModel(pointer: CPointer<GtkSelectionFilterModel
          * @return The model that gets filtered
          */
         get() = gtk_selection_filter_model_get_model(gtkSelectionFilterModelPointer)?.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
         /**

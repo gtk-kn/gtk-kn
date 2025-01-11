@@ -54,12 +54,9 @@ import kotlin.Unit
  * - method `generic-auth-data`: Property has no getter nor setter
  * - method `proxy`: Property has no getter nor setter
  */
-public open class AuthDomain(pointer: CPointer<SoupAuthDomain>) :
-    Object(pointer.reinterpret()),
+public abstract class AuthDomain(public val soupAuthDomainPointer: CPointer<SoupAuthDomain>) :
+    Object(soupAuthDomainPointer.reinterpret()),
     KGTyped {
-    public val soupAuthDomainPointer: CPointer<SoupAuthDomain>
-        get() = gPointer.reinterpret()
-
     /**
      * The realm of this auth domain.
      */
@@ -221,9 +218,16 @@ public open class AuthDomain(pointer: CPointer<SoupAuthDomain>) :
             staticStableRefDestroy.reinterpret()
         )
 
+    /**
+     * The AuthDomainImpl type represents a native instance of the abstract AuthDomain class.
+     *
+     * @constructor Creates a new instance of AuthDomain for the provided [CPointer].
+     */
+    public class AuthDomainImpl(pointer: CPointer<SoupAuthDomain>) : AuthDomain(pointer)
+
     public companion object : TypeCompanion<AuthDomain> {
         override val type: GeneratedClassKGType<AuthDomain> =
-            GeneratedClassKGType(soup_auth_domain_get_type()) { AuthDomain(it.reinterpret()) }
+            GeneratedClassKGType(soup_auth_domain_get_type()) { AuthDomainImpl(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

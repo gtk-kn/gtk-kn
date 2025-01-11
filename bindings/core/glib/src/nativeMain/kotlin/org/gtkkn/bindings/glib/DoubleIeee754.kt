@@ -17,47 +17,46 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class DoubleIeee754(pointer: CPointer<GDoubleIEEE754>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDoubleIEEE754> = pointer
-
+public class DoubleIeee754(public val glibDoubleIeee754Pointer: CPointer<GDoubleIEEE754>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibDoubleIeee754Pointer) {
     public var vDouble: gdouble
-        get() = gPointer.pointed.v_double
+        get() = glibDoubleIeee754Pointer.pointed.v_double
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_double = value
+            glibDoubleIeee754Pointer.pointed.v_double = value
         }
 
     public var mantissaLow: guint
-        get() = gPointer.pointed.mpn.mantissa_low
+        get() = glibDoubleIeee754Pointer.pointed.mpn.mantissa_low
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.mantissa_low = value
+            glibDoubleIeee754Pointer.pointed.mpn.mantissa_low = value
         }
 
     public var mantissaHigh: guint
-        get() = gPointer.pointed.mpn.mantissa_high
+        get() = glibDoubleIeee754Pointer.pointed.mpn.mantissa_high
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.mantissa_high = value
+            glibDoubleIeee754Pointer.pointed.mpn.mantissa_high = value
         }
 
     public var biasedExponent: guint
-        get() = gPointer.pointed.mpn.biased_exponent
+        get() = glibDoubleIeee754Pointer.pointed.mpn.biased_exponent
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.biased_exponent = value
+            glibDoubleIeee754Pointer.pointed.mpn.biased_exponent = value
         }
 
     public var sign: guint
-        get() = gPointer.pointed.mpn.sign
+        get() = glibDoubleIeee754Pointer.pointed.mpn.sign
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.sign = value
+            glibDoubleIeee754Pointer.pointed.mpn.sign = value
         }
 
     /**
@@ -80,7 +79,7 @@ public class DoubleIeee754(pointer: CPointer<GDoubleIEEE754>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GDoubleIEEE754>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibDoubleIeee754Pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DoubleIeee754 using the provided [AutofreeScope].

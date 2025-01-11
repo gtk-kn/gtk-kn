@@ -117,23 +117,20 @@ import kotlin.Unit
  *
  * - method `group`: Property has no getter
  */
-public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
-    Button(pointer.reinterpret()),
+public open class ToggleButton(public val gtkToggleButtonPointer: CPointer<GtkToggleButton>) :
+    Button(gtkToggleButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkToggleButtonPointer: CPointer<GtkToggleButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If the toggle button should be pressed in.
@@ -211,7 +208,7 @@ public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
      */
     public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkToggleButtonPointer,
             "toggled",
             onToggledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -223,7 +220,7 @@ public open class ToggleButton(pointer: CPointer<GtkToggleButton>) :
      * Emits the "toggled" signal. See [onToggled].
      */
     public fun emitToggled() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "toggled")
+        g_signal_emit_by_name(gtkToggleButtonPointer.reinterpret(), "toggled")
     }
 
     public companion object : TypeCompanion<ToggleButton> {

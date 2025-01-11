@@ -44,24 +44,21 @@ import kotlin.Unit
 /**
  * `GtkListBoxRow` is the kind of widget that can be added to a `GtkListBox`.
  */
-public open class ListBoxRow(pointer: CPointer<GtkListBoxRow>) :
-    Widget(pointer.reinterpret()),
+public open class ListBoxRow(public val gtkListBoxRowPointer: CPointer<GtkListBoxRow>) :
+    Widget(gtkListBoxRowPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val gtkListBoxRowPointer: CPointer<GtkListBoxRow>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Determines whether the ::row-activated
@@ -92,7 +89,7 @@ public open class ListBoxRow(pointer: CPointer<GtkListBoxRow>) :
          * @return the child widget of @row
          */
         get() = gtk_list_box_row_get_child(gtkListBoxRowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -160,7 +157,7 @@ public open class ListBoxRow(pointer: CPointer<GtkListBoxRow>) :
      * @return the current header
      */
     public open fun getHeader(): Widget? = gtk_list_box_row_get_header(gtkListBoxRowPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -203,7 +200,7 @@ public open class ListBoxRow(pointer: CPointer<GtkListBoxRow>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListBoxRowPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -215,7 +212,7 @@ public open class ListBoxRow(pointer: CPointer<GtkListBoxRow>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkListBoxRowPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<ListBoxRow> {

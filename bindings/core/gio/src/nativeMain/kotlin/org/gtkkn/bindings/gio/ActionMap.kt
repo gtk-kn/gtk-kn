@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -39,7 +40,7 @@ import kotlin.Unit
  */
 @GioVersion2_32
 public interface ActionMap :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioActionMapPointer: CPointer<GActionMap>
 
@@ -69,7 +70,7 @@ public interface ActionMap :
     @GioVersion2_32
     public fun lookupAction(actionName: String): Action? =
         g_action_map_lookup_action(gioActionMapPointer, actionName)?.run {
-            Action.wrap(reinterpret())
+            Action.ActionImpl(reinterpret())
         }
 
     /**
@@ -83,19 +84,22 @@ public interface ActionMap :
     @GioVersion2_32
     public fun removeAction(actionName: String): Unit = g_action_map_remove_action(gioActionMapPointer, actionName)
 
-    private data class Wrapper(private val pointer: CPointer<GActionMap>) : ActionMap {
-        override val gioActionMapPointer: CPointer<GActionMap> = pointer
-    }
+    /**
+     * The ActionMapImpl type represents a native instance of the ActionMap interface.
+     *
+     * @constructor Creates a new instance of ActionMap for the provided [CPointer].
+     */
+    public data class ActionMapImpl(override val gioActionMapPointer: CPointer<GActionMap>) :
+        Object(gioActionMapPointer.reinterpret()),
+        ActionMap
 
     public companion object : TypeCompanion<ActionMap> {
         override val type: GeneratedInterfaceKGType<ActionMap> =
-            GeneratedInterfaceKGType(g_action_map_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_action_map_get_type()) { ActionMapImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GActionMap>): ActionMap = Wrapper(pointer)
 
         /**
          * Get the GType of ActionMap

@@ -23,9 +23,10 @@ import kotlin.native.ref.createCleaner
  * - field `complete_type_info`: TypePluginCompleteTypeInfo
  * - field `complete_interface_info`: TypePluginCompleteInterfaceInfo
  */
-public class TypePluginClass(pointer: CPointer<GTypePluginClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTypePluginClass> = pointer
-
+public class TypePluginClass(
+    public val gobjectTypePluginClassPointer: CPointer<GTypePluginClass>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectTypePluginClassPointer) {
     /**
      * Allocate a new TypePluginClass.
      *
@@ -46,7 +47,7 @@ public class TypePluginClass(pointer: CPointer<GTypePluginClass>, cleaner: Clean
      */
     private constructor(
         pair: Pair<CPointer<GTypePluginClass>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectTypePluginClassPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypePluginClass using the provided [AutofreeScope].

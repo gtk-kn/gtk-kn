@@ -71,20 +71,17 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
-    Widget(pointer.reinterpret()),
+public open class NavigationPage(public val adwNavigationPagePointer: CPointer<AdwNavigationPage>) :
+    Widget(adwNavigationPagePointer.reinterpret()),
     KGTyped {
-    public val adwNavigationPagePointer: CPointer<AdwNavigationPage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the page can be popped from navigation stack.
@@ -142,7 +139,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
          * @since 1.4
          */
         get() = adw_navigation_page_get_child(adwNavigationPagePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -269,7 +266,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
     @AdwVersion1_4
     public fun onHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationPagePointer,
             "hidden",
             onHiddenFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -284,7 +281,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      */
     @AdwVersion1_4
     public fun emitHidden() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "hidden")
+        g_signal_emit_by_name(adwNavigationPagePointer.reinterpret(), "hidden")
     }
 
     /**
@@ -301,7 +298,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
     @AdwVersion1_4
     public fun onHiding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationPagePointer,
             "hiding",
             onHidingFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -316,7 +313,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      */
     @AdwVersion1_4
     public fun emitHiding() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "hiding")
+        g_signal_emit_by_name(adwNavigationPagePointer.reinterpret(), "hiding")
     }
 
     /**
@@ -333,7 +330,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
     @AdwVersion1_4
     public fun onShowing(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationPagePointer,
             "showing",
             onShowingFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -348,7 +345,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      */
     @AdwVersion1_4
     public fun emitShowing() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "showing")
+        g_signal_emit_by_name(adwNavigationPagePointer.reinterpret(), "showing")
     }
 
     /**
@@ -365,7 +362,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
     @AdwVersion1_4
     public fun onShown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationPagePointer,
             "shown",
             onShownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -380,7 +377,7 @@ public open class NavigationPage(pointer: CPointer<AdwNavigationPage>) :
      */
     @AdwVersion1_4
     public fun emitShown() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "shown")
+        g_signal_emit_by_name(adwNavigationPagePointer.reinterpret(), "shown")
     }
 
     public companion object : TypeCompanion<NavigationPage> {

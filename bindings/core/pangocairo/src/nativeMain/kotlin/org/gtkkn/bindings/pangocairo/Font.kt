@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.ScaledFont
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -24,7 +24,7 @@ import org.gtkkn.native.pangocairo.pango_cairo_font_get_type
  */
 @PangoCairoVersion1_18
 public interface Font :
-    Interface,
+    Proxy,
     KGTyped {
     public val pangocairoFontPointer: CPointer<PangoCairoFont>
 
@@ -42,19 +42,22 @@ public interface Font :
         ScaledFont(this)
     }
 
-    private data class Wrapper(private val pointer: CPointer<PangoCairoFont>) : Font {
-        override val pangocairoFontPointer: CPointer<PangoCairoFont> = pointer
-    }
+    /**
+     * The FontImpl type represents a native instance of the Font interface.
+     *
+     * @constructor Creates a new instance of Font for the provided [CPointer].
+     */
+    public data class FontImpl(override val pangocairoFontPointer: CPointer<PangoCairoFont>) :
+        org.gtkkn.bindings.pango.Font(pangocairoFontPointer.reinterpret()),
+        Font
 
     public companion object : TypeCompanion<Font> {
         override val type: GeneratedInterfaceKGType<Font> =
-            GeneratedInterfaceKGType(pango_cairo_font_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(pango_cairo_font_get_type()) { FontImpl(it.reinterpret()) }
 
         init {
             PangocairoTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<PangoCairoFont>): Font = Wrapper(pointer)
 
         /**
          * Get the GType of Font

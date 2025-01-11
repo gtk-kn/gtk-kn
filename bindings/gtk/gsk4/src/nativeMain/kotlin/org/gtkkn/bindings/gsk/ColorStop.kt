@@ -23,18 +23,17 @@ import kotlin.native.ref.createCleaner
  *
  * - field `color`: Field with not-pointer record/union GdkRGBA is not supported
  */
-public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GskColorStop> = pointer
-
+public class ColorStop(public val gskColorStopPointer: CPointer<GskColorStop>, cleaner: Cleaner? = null) :
+    ProxyInstance(gskColorStopPointer) {
     /**
      * the offset of the color stop
      */
     public var offset: gfloat
-        get() = gPointer.pointed.offset
+        get() = gskColorStopPointer.pointed.offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.offset = value
+            gskColorStopPointer.pointed.offset = value
         }
 
     /**
@@ -55,7 +54,9 @@ public class ColorStop(pointer: CPointer<GskColorStop>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to ColorStop and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GskColorStop>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GskColorStop>, Cleaner>,
+    ) : this(gskColorStopPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ColorStop using the provided [AutofreeScope].

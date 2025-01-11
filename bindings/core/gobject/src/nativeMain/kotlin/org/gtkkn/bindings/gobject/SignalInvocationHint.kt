@@ -21,30 +21,30 @@ import kotlin.native.ref.createCleaner
  * The #GSignalInvocationHint structure is used to pass on additional information
  * to callbacks during a signal emission.
  */
-public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSignalInvocationHint> = pointer
-
+public class SignalInvocationHint(
+    public val gobjectSignalInvocationHintPointer: CPointer<GSignalInvocationHint>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectSignalInvocationHintPointer) {
     /**
      * The signal id of the signal invoking the callback
      */
     public var signalId: guint
-        get() = gPointer.pointed.signal_id
+        get() = gobjectSignalInvocationHintPointer.pointed.signal_id
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.signal_id = value
+            gobjectSignalInvocationHintPointer.pointed.signal_id = value
         }
 
     /**
      * The detail passed on for this emission
      */
     public var detail: Quark
-        get() = gPointer.pointed.detail
+        get() = gobjectSignalInvocationHintPointer.pointed.detail
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.detail = value
+            gobjectSignalInvocationHintPointer.pointed.detail = value
         }
 
     /**
@@ -55,13 +55,13 @@ public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>, clea
      *  function for a signal emission.
      */
     public var runType: SignalFlags
-        get() = gPointer.pointed.run_type.run {
+        get() = gobjectSignalInvocationHintPointer.pointed.run_type.run {
             SignalFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.run_type = value.mask
+            gobjectSignalInvocationHintPointer.pointed.run_type = value.mask
         }
 
     /**
@@ -84,7 +84,7 @@ public class SignalInvocationHint(pointer: CPointer<GSignalInvocationHint>, clea
      */
     private constructor(
         pair: Pair<CPointer<GSignalInvocationHint>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectSignalInvocationHintPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new SignalInvocationHint using the provided [AutofreeScope].

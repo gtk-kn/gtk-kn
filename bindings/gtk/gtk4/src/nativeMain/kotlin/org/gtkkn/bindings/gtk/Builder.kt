@@ -400,12 +400,9 @@ import kotlin.collections.List
  *
  * - method `scope`: Property TypeInfo of getter and setter do not match
  */
-public open class Builder(pointer: CPointer<GtkBuilder>) :
-    Object(pointer.reinterpret()),
+public open class Builder(public val gtkBuilderPointer: CPointer<GtkBuilder>) :
+    Object(gtkBuilderPointer.reinterpret()),
     KGTyped {
-    public val gtkBuilderPointer: CPointer<GtkBuilder>
-        get() = gPointer.reinterpret()
-
     /**
      * The object the builder is evaluating for.
      */
@@ -432,7 +429,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
          *
          * @param currentObject the new current object
          */
-        set(currentObject) = gtk_builder_set_current_object(gtkBuilderPointer, currentObject?.gPointer)
+        set(currentObject) = gtk_builder_set_current_object(gtkBuilderPointer, currentObject?.gobjectObjectPointer)
 
     /**
      * The translation domain used when translating property values that
@@ -712,7 +709,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
             gtkBuilderPointer,
             functionName,
             flags.mask,
-            `object`?.gPointer,
+            `object`?.gobjectObjectPointer,
             gError.ptr
         )?.run {
             Closure(this)
@@ -738,7 +735,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      * @param object the object to expose
      */
     public open fun exposeObject(name: String, `object`: Object): Unit =
-        gtk_builder_expose_object(gtkBuilderPointer, name, `object`.gPointer)
+        gtk_builder_expose_object(gtkBuilderPointer, name, `object`.gobjectObjectPointer)
 
     /**
      * Main private entry point for building composite components
@@ -762,7 +759,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_extend_with_template(
             gtkBuilderPointer,
-            `object`.gPointer,
+            `object`.gobjectObjectPointer,
             templateType,
             buffer,
             length,
@@ -809,7 +806,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
      * @return the current scope
      */
     public open fun getScope(): BuilderScope = gtk_builder_get_scope(gtkBuilderPointer)!!.run {
-        BuilderScope.wrap(reinterpret())
+        BuilderScope.BuilderScopeImpl(reinterpret())
     }
 
     /**
@@ -858,9 +855,9 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
         val gError = allocPointerTo<GError>()
         val gResult = gtk_builder_value_from_string(
             gtkBuilderPointer,
-            pspec.gPointer,
+            pspec.gobjectParamSpecPointer,
             string,
-            `value`.gPointer,
+            `value`.gobjectValuePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -893,7 +890,7 @@ public open class Builder(pointer: CPointer<GtkBuilder>) :
             gtkBuilderPointer,
             type,
             string,
-            `value`.gPointer,
+            `value`.gobjectValuePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {

@@ -25,40 +25,39 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
-public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GEnumClass> = pointer
-
+public class EnumClass(public val gobjectEnumClassPointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectEnumClassPointer) {
     /**
      * the smallest possible value.
      */
     public var minimum: gint
-        get() = gPointer.pointed.minimum
+        get() = gobjectEnumClassPointer.pointed.minimum
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.minimum = value
+            gobjectEnumClassPointer.pointed.minimum = value
         }
 
     /**
      * the largest possible value.
      */
     public var maximum: gint
-        get() = gPointer.pointed.maximum
+        get() = gobjectEnumClassPointer.pointed.maximum
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.maximum = value
+            gobjectEnumClassPointer.pointed.maximum = value
         }
 
     /**
      * the number of possible values.
      */
     public var nValues: guint
-        get() = gPointer.pointed.n_values
+        get() = gobjectEnumClassPointer.pointed.n_values
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_values = value
+            gobjectEnumClassPointer.pointed.n_values = value
         }
 
     /**
@@ -66,13 +65,13 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      *  individual values.
      */
     public var values: EnumValue?
-        get() = gPointer.pointed.values?.run {
+        get() = gobjectEnumClassPointer.pointed.values?.run {
             EnumValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.values = value?.gPointer
+            gobjectEnumClassPointer.pointed.values = value?.gobjectEnumValuePointer
         }
 
     /**
@@ -93,7 +92,9 @@ public class EnumClass(pointer: CPointer<GEnumClass>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to EnumClass and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GEnumClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GEnumClass>, Cleaner>,
+    ) : this(gobjectEnumClassPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new EnumClass using the provided [AutofreeScope].

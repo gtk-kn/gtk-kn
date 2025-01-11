@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Source
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -37,7 +37,7 @@ import kotlin.Boolean
  */
 @GioVersion2_28
 public interface PollableInputStream :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
 
@@ -101,19 +101,25 @@ public interface PollableInputStream :
     @GioVersion2_28
     public fun isReadable(): Boolean = g_pollable_input_stream_is_readable(gioPollableInputStreamPointer).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GPollableInputStream>) : PollableInputStream {
-        override val gioPollableInputStreamPointer: CPointer<GPollableInputStream> = pointer
-    }
+    /**
+     * The PollableInputStreamImpl type represents a native instance of the PollableInputStream interface.
+     *
+     * @constructor Creates a new instance of PollableInputStream for the provided [CPointer].
+     */
+    public data class PollableInputStreamImpl(
+        override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>,
+    ) : InputStream(gioPollableInputStreamPointer.reinterpret()),
+        PollableInputStream
 
     public companion object : TypeCompanion<PollableInputStream> {
         override val type: GeneratedInterfaceKGType<PollableInputStream> =
-            GeneratedInterfaceKGType(g_pollable_input_stream_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_pollable_input_stream_get_type()) {
+                PollableInputStreamImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GPollableInputStream>): PollableInputStream = Wrapper(pointer)
 
         /**
          * Get the GType of PollableInputStream

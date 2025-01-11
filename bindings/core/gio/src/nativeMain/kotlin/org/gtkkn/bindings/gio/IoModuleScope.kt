@@ -20,9 +20,8 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GIOModuleScope> = pointer
-
+public class IoModuleScope(public val gioIoModuleScopePointer: CPointer<GIOModuleScope>) :
+    ProxyInstance(gioIoModuleScopePointer) {
     /**
      * Block modules with the given @basename from being loaded when
      * this scope is used with g_io_modules_scan_all_in_directory_with_scope()
@@ -32,7 +31,7 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
      * @since 2.30
      */
     @GioVersion2_30
-    public fun block(basename: String): Unit = g_io_module_scope_block(gPointer, basename)
+    public fun block(basename: String): Unit = g_io_module_scope_block(gioIoModuleScopePointer, basename)
 
     /**
      * Free a module scope.
@@ -40,7 +39,7 @@ public class IoModuleScope(pointer: CPointer<GIOModuleScope>) : ProxyInstance(po
      * @since 2.30
      */
     @GioVersion2_30
-    public fun free(): Unit = g_io_module_scope_free(gPointer)
+    public fun free(): Unit = g_io_module_scope_free(gioIoModuleScopePointer)
 
     public companion object {
         /**

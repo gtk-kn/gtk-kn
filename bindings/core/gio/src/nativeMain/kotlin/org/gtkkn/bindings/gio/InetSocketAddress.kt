@@ -29,14 +29,11 @@ import kotlin.String
  * In UNIX terms, `GInetSocketAddress` corresponds to a
  * [`struct sockaddr_in` or `struct sockaddr_in6`](man:sockaddr(3type)).
  */
-public open class InetSocketAddress(pointer: CPointer<GInetSocketAddress>) :
-    SocketAddress(pointer.reinterpret()),
+public open class InetSocketAddress(public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>) :
+    SocketAddress(gioInetSocketAddressPointer.reinterpret()),
     KGTyped {
-    public val gioInetSocketAddressPointer: CPointer<GInetSocketAddress>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The address.

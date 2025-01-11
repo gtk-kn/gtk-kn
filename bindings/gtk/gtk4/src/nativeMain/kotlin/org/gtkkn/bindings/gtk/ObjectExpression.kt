@@ -16,12 +16,9 @@ import org.gtkkn.native.gtk.gtk_object_expression_new
 /**
  * A `GObject` value in a `GtkExpression`.
  */
-public open class ObjectExpression(pointer: CPointer<GtkObjectExpression>) :
-    Expression(pointer.reinterpret()),
+public open class ObjectExpression(public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>) :
+    Expression(gtkObjectExpressionPointer.reinterpret()),
     KGTyped {
-    public val gtkObjectExpressionPointer: CPointer<GtkObjectExpression>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates an expression evaluating to the given `object` with a weak reference.
      *
@@ -34,7 +31,9 @@ public open class ObjectExpression(pointer: CPointer<GtkObjectExpression>) :
      * @param object object to watch
      * @return a new `GtkExpression`
      */
-    public constructor(`object`: Object) : this(gtk_object_expression_new(`object`.gPointer)!!.reinterpret())
+    public constructor(
+        `object`: Object,
+    ) : this(gtk_object_expression_new(`object`.gobjectObjectPointer)!!.reinterpret())
 
     /**
      * Gets the object that the expression evaluates to.

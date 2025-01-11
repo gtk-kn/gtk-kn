@@ -24,18 +24,17 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrFloat> = pointer
-
+public class AttrFloat(public val pangoAttrFloatPointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrFloatPointer) {
     /**
      * the value of the attribute
      */
     public var `value`: gdouble
-        get() = gPointer.pointed.value
+        get() = pangoAttrFloatPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value
+            pangoAttrFloatPointer.pointed.value = value
         }
 
     /**
@@ -58,7 +57,7 @@ public class AttrFloat(pointer: CPointer<PangoAttrFloat>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrFloat>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrFloatPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrFloat using the provided [AutofreeScope].

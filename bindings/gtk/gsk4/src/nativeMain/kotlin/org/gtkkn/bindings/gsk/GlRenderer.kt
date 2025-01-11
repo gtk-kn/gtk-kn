@@ -11,12 +11,9 @@ import org.gtkkn.native.gsk.GskGLRenderer
 import org.gtkkn.native.gsk.gsk_gl_renderer_get_type
 import org.gtkkn.native.gsk.gsk_gl_renderer_new
 
-public open class GlRenderer(pointer: CPointer<GskGLRenderer>) :
-    Renderer(pointer.reinterpret()),
+public open class GlRenderer(public val gskGlRendererPointer: CPointer<GskGLRenderer>) :
+    Renderer(gskGlRendererPointer.reinterpret()),
     KGTyped {
-    public val gskGlRendererPointer: CPointer<GskGLRenderer>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GskRenderer` using the new OpenGL renderer.
      *

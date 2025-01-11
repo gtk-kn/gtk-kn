@@ -24,20 +24,17 @@ import org.gtkkn.native.gobject.GType
  * @since 4.14
  */
 @GdkVersion4_14
-public open class DmabufTexture(pointer: CPointer<GdkDmabufTexture>) :
-    Texture(pointer.reinterpret()),
+public open class DmabufTexture(public val gdkDmabufTexturePointer: CPointer<GdkDmabufTexture>) :
+    Texture(gdkDmabufTexturePointer.reinterpret()),
     KGTyped {
-    public val gdkDmabufTexturePointer: CPointer<GdkDmabufTexture>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<DmabufTexture> {
         override val type: GeneratedClassKGType<DmabufTexture> =

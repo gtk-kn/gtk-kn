@@ -142,20 +142,17 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
-    Widget(pointer.reinterpret()),
+public class ToolbarView(public val adwToolbarViewPointer: CPointer<AdwToolbarView>) :
+    Widget(adwToolbarViewPointer.reinterpret()),
     KGTyped {
-    public val adwToolbarViewPointer: CPointer<AdwToolbarView>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The current bottom bar height.
@@ -268,7 +265,7 @@ public class ToolbarView(pointer: CPointer<AdwToolbarView>) :
          * @since 1.4
          */
         get() = adw_toolbar_view_get_content(adwToolbarViewPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

@@ -232,19 +232,16 @@ import kotlin.collections.List
  * @since 2.28
  */
 @GioVersion2_28
-public open class Application(pointer: CPointer<GApplication>) :
-    Object(pointer.reinterpret()),
+public open class Application(public val gioApplicationPointer: CPointer<GApplication>) :
+    Object(gioApplicationPointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
-    public val gioApplicationPointer: CPointer<GApplication>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioActionMapPointer: CPointer<GActionMap>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The unique identifier for the application.
@@ -565,7 +562,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_40
     public open fun addOptionGroup(group: OptionGroup): Unit =
-        g_application_add_option_group(gioApplicationPointer, group.gPointer)
+        g_application_add_option_group(gioApplicationPointer, group.glibOptionGroupPointer)
 
     /**
      * Marks @application as busy (see g_application_mark_busy()) while
@@ -581,7 +578,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     @GioVersion2_44
     public open fun bindBusyProperty(`object`: Object, `property`: String): Unit =
-        g_application_bind_busy_property(gioApplicationPointer, `object`.gPointer.reinterpret(), `property`)
+        g_application_bind_busy_property(gioApplicationPointer, `object`.gobjectObjectPointer.reinterpret(), `property`)
 
     /**
      * Gets the #GDBusConnection being used by the application, or null.
@@ -965,8 +962,11 @@ public open class Application(pointer: CPointer<GApplication>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun unbindBusyProperty(`object`: Object, `property`: String): Unit =
-        g_application_unbind_busy_property(gioApplicationPointer, `object`.gPointer.reinterpret(), `property`)
+    public open fun unbindBusyProperty(`object`: Object, `property`: String): Unit = g_application_unbind_busy_property(
+        gioApplicationPointer,
+        `object`.gobjectObjectPointer.reinterpret(),
+        `property`
+    )
 
     /**
      * Decreases the busy count of @application.
@@ -1013,7 +1013,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioApplicationPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1025,7 +1025,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gioApplicationPointer.reinterpret(), "activate")
     }
 
     /**
@@ -1042,7 +1042,7 @@ public open class Application(pointer: CPointer<GApplication>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (commandLine: ApplicationCommandLine) -> gint,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioApplicationPointer,
         "command-line",
         onCommandLineFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1105,7 +1105,7 @@ public open class Application(pointer: CPointer<GApplication>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (options: VariantDict) -> gint,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioApplicationPointer,
         "handle-local-options",
         onHandleLocalOptionsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1127,7 +1127,7 @@ public open class Application(pointer: CPointer<GApplication>) :
     @GioVersion2_60
     public fun onNameLost(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioApplicationPointer,
             "name-lost",
             onNameLostFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1144,7 +1144,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     public fun onShutdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioApplicationPointer,
             "shutdown",
             onShutdownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1156,7 +1156,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * Emits the "shutdown" signal. See [onShutdown].
      */
     public fun emitShutdown() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "shutdown")
+        g_signal_emit_by_name(gioApplicationPointer.reinterpret(), "shutdown")
     }
 
     /**
@@ -1168,7 +1168,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      */
     public fun onStartup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioApplicationPointer,
             "startup",
             onStartupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1180,7 +1180,7 @@ public open class Application(pointer: CPointer<GApplication>) :
      * Emits the "startup" signal. See [onStartup].
      */
     public fun emitStartup() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "startup")
+        g_signal_emit_by_name(gioApplicationPointer.reinterpret(), "startup")
     }
 
     public companion object : TypeCompanion<Application> {

@@ -24,20 +24,19 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrLanguage> = pointer
-
+public class AttrLanguage(public val pangoAttrLanguagePointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrLanguagePointer) {
     /**
      * the `PangoLanguage` which is the value of the attribute
      */
     public var `value`: Language?
-        get() = gPointer.pointed.value?.run {
+        get() = pangoAttrLanguagePointer.pointed.value?.run {
             Language(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value?.gPointer
+            pangoAttrLanguagePointer.pointed.value = value?.pangoLanguagePointer
         }
 
     /**
@@ -60,7 +59,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrLanguage>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrLanguagePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrLanguage using the provided [AutofreeScope].
@@ -106,7 +105,7 @@ public class AttrLanguage(pointer: CPointer<PangoAttrLanguage>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(language: Language): Attribute = pango_attr_language_new(language.gPointer)!!.run {
+        public fun new(language: Language): Attribute = pango_attr_language_new(language.pangoLanguagePointer)!!.run {
             Attribute(this)
         }
     }

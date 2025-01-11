@@ -23,51 +23,50 @@ import kotlin.native.ref.createCleaner
  * extents of a single glyph or section of text. (See, for instance,
  * [method@Pango.Font.get_glyph_extents].)
  */
-public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoRectangle> = pointer
-
+public class Rectangle(public val pangoRectanglePointer: CPointer<PangoRectangle>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoRectanglePointer) {
     /**
      * X coordinate of the left side of the rectangle.
      */
     public var x: gint
-        get() = gPointer.pointed.x
+        get() = pangoRectanglePointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x = value
+            pangoRectanglePointer.pointed.x = value
         }
 
     /**
      * Y coordinate of the the top side of the rectangle.
      */
     public var y: gint
-        get() = gPointer.pointed.y
+        get() = pangoRectanglePointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y = value
+            pangoRectanglePointer.pointed.y = value
         }
 
     /**
      * width of the rectangle.
      */
     public var width: gint
-        get() = gPointer.pointed.width
+        get() = pangoRectanglePointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            pangoRectanglePointer.pointed.width = value
         }
 
     /**
      * height of the rectangle.
      */
     public var height: gint
-        get() = gPointer.pointed.height
+        get() = pangoRectanglePointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            pangoRectanglePointer.pointed.height = value
         }
 
     /**
@@ -90,7 +89,7 @@ public class Rectangle(pointer: CPointer<PangoRectangle>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoRectangle>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoRectanglePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rectangle using the provided [AutofreeScope].

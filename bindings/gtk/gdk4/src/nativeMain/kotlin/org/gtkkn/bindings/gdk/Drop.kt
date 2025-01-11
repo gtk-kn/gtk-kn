@@ -61,12 +61,9 @@ import kotlin.collections.List
  *
  * - parameter `out_mime_type`: out_mime_type: Out parameter is not supported
  */
-public open class Drop(pointer: CPointer<GdkDrop>) :
-    Object(pointer.reinterpret()),
+public abstract class Drop(public val gdkDropPointer: CPointer<GdkDrop>) :
+    Object(gdkDropPointer.reinterpret()),
     KGTyped {
-    public val gdkDropPointer: CPointer<GdkDrop>
-        get() = gPointer.reinterpret()
-
     /**
      * The possible actions for this drop
      */
@@ -103,7 +100,7 @@ public open class Drop(pointer: CPointer<GdkDrop>) :
          * @return The `GdkDevice` performing the drop.
          */
         get() = gdk_drop_get_device(gdkDropPointer)!!.run {
-            Device(this)
+            Device.DeviceImpl(this)
         }
 
     /**
@@ -132,7 +129,7 @@ public open class Drop(pointer: CPointer<GdkDrop>) :
          * @return the corresponding `GdkDrag`
          */
         get() = gdk_drop_get_drag(gdkDropPointer)?.run {
-            Drag(this)
+            Drag.DragImpl(this)
         }
 
     /**
@@ -159,7 +156,7 @@ public open class Drop(pointer: CPointer<GdkDrop>) :
          * @return The `GdkSurface` performing the drop.
          */
         get() = gdk_drop_get_surface(gdkDropPointer)!!.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**
@@ -277,9 +274,16 @@ public open class Drop(pointer: CPointer<GdkDrop>) :
     public open fun status(actions: DragAction, preferred: DragAction): Unit =
         gdk_drop_status(gdkDropPointer, actions.mask, preferred.mask)
 
+    /**
+     * The DropImpl type represents a native instance of the abstract Drop class.
+     *
+     * @constructor Creates a new instance of Drop for the provided [CPointer].
+     */
+    public class DropImpl(pointer: CPointer<GdkDrop>) : Drop(pointer)
+
     public companion object : TypeCompanion<Drop> {
         override val type: GeneratedClassKGType<Drop> =
-            GeneratedClassKGType(gdk_drop_get_type()) { Drop(it.reinterpret()) }
+            GeneratedClassKGType(gdk_drop_get_type()) { DropImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

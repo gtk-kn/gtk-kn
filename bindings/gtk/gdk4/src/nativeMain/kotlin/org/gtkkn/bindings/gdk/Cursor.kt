@@ -57,12 +57,9 @@ import kotlin.String
  * easier to support cursors. If none of the provided cursors can be supported,
  * the default cursor will be the ultimate fallback.
  */
-public open class Cursor(pointer: CPointer<GdkCursor>) :
-    Object(pointer.reinterpret()),
+public open class Cursor(public val gdkCursorPointer: CPointer<GdkCursor>) :
+    Object(gdkCursorPointer.reinterpret()),
     KGTyped {
-    public val gdkCursorPointer: CPointer<GdkCursor>
-        get() = gPointer.reinterpret()
-
     /**
      * Cursor to fall back to if this cursor cannot be displayed.
      */
@@ -148,7 +145,7 @@ public open class Cursor(pointer: CPointer<GdkCursor>) :
          *   if it is a named cursor
          */
         get() = gdk_cursor_get_texture(gdkCursorPointer)?.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
     /**

@@ -3,8 +3,9 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -39,7 +40,7 @@ import org.gtkkn.native.gtk.gtk_accessible_range_get_type
  */
 @GtkVersion4_10
 public interface AccessibleRange :
-    Interface,
+    Proxy,
     Accessible,
     KGTyped {
     public val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
@@ -47,19 +48,22 @@ public interface AccessibleRange :
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
         get() = gtkAccessibleRangePointer.reinterpret()
 
-    private data class Wrapper(private val pointer: CPointer<GtkAccessibleRange>) : AccessibleRange {
-        override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange> = pointer
-    }
+    /**
+     * The AccessibleRangeImpl type represents a native instance of the AccessibleRange interface.
+     *
+     * @constructor Creates a new instance of AccessibleRange for the provided [CPointer].
+     */
+    public data class AccessibleRangeImpl(override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>) :
+        Object(gtkAccessibleRangePointer.reinterpret()),
+        AccessibleRange
 
     public companion object : TypeCompanion<AccessibleRange> {
         override val type: GeneratedInterfaceKGType<AccessibleRange> =
-            GeneratedInterfaceKGType(gtk_accessible_range_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_accessible_range_get_type()) { AccessibleRangeImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkAccessibleRange>): AccessibleRange = Wrapper(pointer)
 
         /**
          * Get the GType of AccessibleRange

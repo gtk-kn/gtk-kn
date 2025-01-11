@@ -32,12 +32,9 @@ import kotlin.String
  * there are multiple marks in the same line, the pixbufs will be drawn on top
  * of each other. The mark with the highest priority will be drawn on top.
  */
-public open class Mark(pointer: CPointer<GtkSourceMark>) :
-    TextMark(pointer.reinterpret()),
+public open class Mark(public val gtksourceMarkPointer: CPointer<GtkSourceMark>) :
+    TextMark(gtksourceMarkPointer.reinterpret()),
     KGTyped {
-    public val gtksourceMarkPointer: CPointer<GtkSourceMark>
-        get() = gPointer.reinterpret()
-
     /**
      * The category of the `GtkSourceMark`, classifies the mark and controls
      * which pixbuf is used and with which priority it is drawn.

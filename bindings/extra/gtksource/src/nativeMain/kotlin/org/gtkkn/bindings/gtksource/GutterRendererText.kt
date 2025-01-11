@@ -32,20 +32,18 @@ import kotlin.Unit
  * - method `markup`: Property has no getter nor setter
  * - method `text`: Property has no getter nor setter
  */
-public open class GutterRendererText(pointer: CPointer<GtkSourceGutterRendererText>) :
-    GutterRenderer(pointer.reinterpret()),
+public open class GutterRendererText(
+    public val gtksourceGutterRendererTextPointer: CPointer<GtkSourceGutterRendererText>,
+) : GutterRenderer(gtksourceGutterRendererTextPointer.reinterpret()),
     KGTyped {
-    public val gtksourceGutterRendererTextPointer: CPointer<GtkSourceGutterRendererText>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Create a new #GtkSourceGutterRendererText.

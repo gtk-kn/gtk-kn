@@ -111,12 +111,9 @@ import kotlin.Unit
  * @since 4.14
  */
 @GdkVersion4_14
-public open class DmabufTextureBuilder(pointer: CPointer<GdkDmabufTextureBuilder>) :
-    Object(pointer.reinterpret()),
+public open class DmabufTextureBuilder(public val gdkDmabufTextureBuilderPointer: CPointer<GdkDmabufTextureBuilder>) :
+    Object(gdkDmabufTextureBuilderPointer.reinterpret()),
     KGTyped {
-    public val gdkDmabufTextureBuilderPointer: CPointer<GdkDmabufTextureBuilder>
-        get() = gPointer.reinterpret()
-
     /**
      * The display that this texture will be used on.
      *
@@ -322,7 +319,9 @@ public open class DmabufTextureBuilder(pointer: CPointer<GdkDmabufTextureBuilder
          * @since 4.14
          */
         @GdkVersion4_14
-        set(region) = gdk_dmabuf_texture_builder_set_update_region(gdkDmabufTextureBuilderPointer, region?.gPointer)
+        set(
+            region
+        ) = gdk_dmabuf_texture_builder_set_update_region(gdkDmabufTextureBuilderPointer, region?.cairoRegionPointer)
 
     /**
      * The texture [property@Gdk.DmabufTextureBuilder:update-region] is an update for.
@@ -339,7 +338,7 @@ public open class DmabufTextureBuilder(pointer: CPointer<GdkDmabufTextureBuilder
          * @since 4.14
          */
         get() = gdk_dmabuf_texture_builder_get_update_texture(gdkDmabufTextureBuilderPointer)?.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
         /**

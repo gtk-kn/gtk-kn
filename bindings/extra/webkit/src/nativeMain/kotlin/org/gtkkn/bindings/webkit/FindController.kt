@@ -51,12 +51,9 @@ import kotlin.Unit
  *
  * - method `text`: Property has no getter nor setter
  */
-public class FindController(pointer: CPointer<WebKitFindController>) :
-    Object(pointer.reinterpret()),
+public class FindController(public val webkitFindControllerPointer: CPointer<WebKitFindController>) :
+    Object(webkitFindControllerPointer.reinterpret()),
     KGTyped {
-    public val webkitFindControllerPointer: CPointer<WebKitFindController>
-        get() = gPointer.reinterpret()
-
     /**
      * The maximum number of matches to report for a given search.
      */
@@ -204,7 +201,7 @@ public class FindController(pointer: CPointer<WebKitFindController>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (matchCount: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitFindControllerPointer,
         "counted-matches",
         onCountedMatchesFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -218,7 +215,7 @@ public class FindController(pointer: CPointer<WebKitFindController>) :
      * @param matchCount the number of matches of the search text
      */
     public fun emitCountedMatches(matchCount: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "counted-matches", matchCount)
+        g_signal_emit_by_name(webkitFindControllerPointer.reinterpret(), "counted-matches", matchCount)
     }
 
     /**
@@ -233,7 +230,7 @@ public class FindController(pointer: CPointer<WebKitFindController>) :
      */
     public fun onFailedToFindText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitFindControllerPointer,
             "failed-to-find-text",
             onFailedToFindTextFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -245,7 +242,7 @@ public class FindController(pointer: CPointer<WebKitFindController>) :
      * Emits the "failed-to-find-text" signal. See [onFailedToFindText].
      */
     public fun emitFailedToFindText() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "failed-to-find-text")
+        g_signal_emit_by_name(webkitFindControllerPointer.reinterpret(), "failed-to-find-text")
     }
 
     /**
@@ -260,7 +257,7 @@ public class FindController(pointer: CPointer<WebKitFindController>) :
      */
     public fun onFoundText(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (matchCount: guint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitFindControllerPointer,
             "found-text",
             onFoundTextFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -274,7 +271,7 @@ public class FindController(pointer: CPointer<WebKitFindController>) :
      * @param matchCount the number of matches found of the search text
      */
     public fun emitFoundText(matchCount: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "found-text", matchCount)
+        g_signal_emit_by_name(webkitFindControllerPointer.reinterpret(), "found-text", matchCount)
     }
 
     public companion object : TypeCompanion<FindController> {

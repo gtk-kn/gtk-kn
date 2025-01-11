@@ -11,7 +11,7 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -116,7 +116,7 @@ import kotlin.Result
  * as a default.
  */
 public interface AsyncResult :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioAsyncResultPointer: CPointer<GAsyncResult>
 
@@ -177,19 +177,22 @@ public interface AsyncResult :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GAsyncResult>) : AsyncResult {
-        override val gioAsyncResultPointer: CPointer<GAsyncResult> = pointer
-    }
+    /**
+     * The AsyncResultImpl type represents a native instance of the AsyncResult interface.
+     *
+     * @constructor Creates a new instance of AsyncResult for the provided [CPointer].
+     */
+    public data class AsyncResultImpl(override val gioAsyncResultPointer: CPointer<GAsyncResult>) :
+        Object(gioAsyncResultPointer.reinterpret()),
+        AsyncResult
 
     public companion object : TypeCompanion<AsyncResult> {
         override val type: GeneratedInterfaceKGType<AsyncResult> =
-            GeneratedInterfaceKGType(g_async_result_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_async_result_get_type()) { AsyncResultImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GAsyncResult>): AsyncResult = Wrapper(pointer)
 
         /**
          * Get the GType of AsyncResult

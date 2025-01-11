@@ -21,9 +21,8 @@ import kotlin.native.ref.createCleaner
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  * - field `color`: Field with not-pointer record/union PangoColor is not supported
  */
-public class AttrColor(pointer: CPointer<PangoAttrColor>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrColor> = pointer
-
+public class AttrColor(public val pangoAttrColorPointer: CPointer<PangoAttrColor>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrColorPointer) {
     /**
      * Allocate a new AttrColor.
      *
@@ -44,7 +43,7 @@ public class AttrColor(pointer: CPointer<PangoAttrColor>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrColor>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrColorPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrColor using the provided [AutofreeScope].

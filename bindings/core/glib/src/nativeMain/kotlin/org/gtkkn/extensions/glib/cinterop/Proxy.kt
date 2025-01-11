@@ -22,7 +22,7 @@
 
 package org.gtkkn.extensions.glib.cinterop
 
-import kotlinx.cinterop.COpaquePointer
+import org.gtkkn.native.glib.gpointer
 
 /**
  * Represents an instance of a proxy object with a handle to an object in
@@ -34,5 +34,5 @@ public interface Proxy {
      *
      * @return the native memory address
      */
-    public val handle: COpaquePointer?
+    public val handle: gpointer
 }

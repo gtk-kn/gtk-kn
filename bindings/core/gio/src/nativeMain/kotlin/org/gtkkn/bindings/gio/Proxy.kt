@@ -11,7 +11,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -41,7 +41,7 @@ import kotlin.Unit
  */
 @GioVersion2_26
 public interface Proxy :
-    Interface,
+    org.gtkkn.extensions.glib.cinterop.Proxy,
     KGTyped {
     public val gioProxyPointer: CPointer<GProxy>
 
@@ -73,7 +73,7 @@ public interface Proxy :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            IoStream(this)
+            IoStream.IoStreamImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -120,7 +120,7 @@ public interface Proxy :
     public fun connectFinish(result: AsyncResult): Result<IoStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_proxy_connect_finish(gioProxyPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            IoStream(this)
+            IoStream.IoStreamImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -145,19 +145,22 @@ public interface Proxy :
     @GioVersion2_26
     public fun supportsHostname(): Boolean = g_proxy_supports_hostname(gioProxyPointer).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GProxy>) : Proxy {
-        override val gioProxyPointer: CPointer<GProxy> = pointer
-    }
+    /**
+     * The ProxyImpl type represents a native instance of the Proxy interface.
+     *
+     * @constructor Creates a new instance of Proxy for the provided [CPointer].
+     */
+    public data class ProxyImpl(override val gioProxyPointer: CPointer<GProxy>) :
+        Object(gioProxyPointer.reinterpret()),
+        Proxy
 
     public companion object : TypeCompanion<Proxy> {
         override val type: GeneratedInterfaceKGType<Proxy> =
-            GeneratedInterfaceKGType(g_proxy_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_proxy_get_type()) { ProxyImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GProxy>): Proxy = Wrapper(pointer)
 
         /**
          * Find the `gio-proxy` extension point for a proxy implementation that supports
@@ -170,7 +173,7 @@ public interface Proxy :
          */
         @GioVersion2_26
         public fun getDefaultForProtocol(protocol: String): Proxy? = g_proxy_get_default_for_protocol(protocol)?.run {
-            Proxy.wrap(reinterpret())
+            ProxyImpl(reinterpret())
         }
 
         /**

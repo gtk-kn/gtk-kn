@@ -28,29 +28,28 @@ import kotlin.native.ref.createCleaner
  * that is, in Arabic text, accent glyphs follow the glyphs for the
  * base character.
  */
-public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoGlyphVisAttr> = pointer
-
+public class GlyphVisAttr(public val pangoGlyphVisAttrPointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoGlyphVisAttrPointer) {
     /**
      * set for the first logical glyph in each cluster.
      */
     public var isClusterStart: guint
-        get() = gPointer.pointed.is_cluster_start
+        get() = pangoGlyphVisAttrPointer.pointed.is_cluster_start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_cluster_start = value
+            pangoGlyphVisAttrPointer.pointed.is_cluster_start = value
         }
 
     /**
      * set if the the font will render this glyph with color. Since 1.50
      */
     public var isColor: guint
-        get() = gPointer.pointed.is_color
+        get() = pangoGlyphVisAttrPointer.pointed.is_color
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_color = value
+            pangoGlyphVisAttrPointer.pointed.is_color = value
         }
 
     /**
@@ -73,7 +72,7 @@ public class GlyphVisAttr(pointer: CPointer<PangoGlyphVisAttr>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<PangoGlyphVisAttr>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoGlyphVisAttrPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphVisAttr using the provided [AutofreeScope].

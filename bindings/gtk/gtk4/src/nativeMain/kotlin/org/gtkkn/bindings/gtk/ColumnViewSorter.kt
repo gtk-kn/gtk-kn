@@ -56,12 +56,9 @@ import org.gtkkn.native.gtk.gtk_column_view_sorter_get_type
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColumnViewSorter(pointer: CPointer<GtkColumnViewSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class ColumnViewSorter(public val gtkColumnViewSorterPointer: CPointer<GtkColumnViewSorter>) :
+    Sorter(gtkColumnViewSorterPointer.reinterpret()),
     KGTyped {
-    public val gtkColumnViewSorterPointer: CPointer<GtkColumnViewSorter>
-        get() = gPointer.reinterpret()
-
     /**
      * The primary sort column.
      *

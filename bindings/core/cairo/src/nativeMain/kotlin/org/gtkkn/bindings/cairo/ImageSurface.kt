@@ -23,12 +23,9 @@ import org.gtkkn.native.glib.gpointer
 import org.gtkkn.native.gobject.GType
 import kotlin.String
 
-public open class ImageSurface(pointer: CPointer<cairo_surface_t>) :
-    Surface(pointer.reinterpret()),
+public open class ImageSurface(public val cairoImageSurfacePointer: CPointer<cairo_surface_t>) :
+    Surface(cairoImageSurfacePointer.reinterpret()),
     KGTyped {
-    public val cairoImageSurfacePointer: CPointer<cairo_surface_t>
-        get() = gPointer.reinterpret()
-
     /**
      *
      *

@@ -122,28 +122,25 @@ import kotlin.ULong
  * - method `min-position`: Property has no getter nor setter
  * - method `position-set`: Property has no getter nor setter
  */
-public open class Paned(pointer: CPointer<GtkPaned>) :
-    Widget(pointer.reinterpret()),
+public open class Paned(public val gtkPanedPointer: CPointer<GtkPaned>) :
+    Widget(gtkPanedPointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
-    public val gtkPanedPointer: CPointer<GtkPaned>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The second child.
@@ -155,7 +152,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          * @return the end child widget
          */
         get() = gtk_paned_get_end_child(gtkPanedPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -272,7 +269,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
          * @return the start child widget
          */
         get() = gtk_paned_get_start_child(gtkPanedPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -327,7 +324,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      */
     public fun onAcceptPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPanedPointer,
             "accept-position",
             onAcceptPositionFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -351,7 +348,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      */
     public fun onCancelPosition(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPanedPointer,
             "cancel-position",
             onCancelPositionFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -373,7 +370,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reversed: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPanedPointer,
         "cycle-child-focus",
         onCycleChildFocusFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -396,7 +393,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (reversed: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPanedPointer,
         "cycle-handle-focus",
         onCycleHandleFocusFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -416,7 +413,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scrollType: ScrollType) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPanedPointer,
         "move-handle",
         onMoveHandleFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -437,7 +434,7 @@ public open class Paned(pointer: CPointer<GtkPaned>) :
      */
     public fun onToggleHandleFocus(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPanedPointer,
             "toggle-handle-focus",
             onToggleHandleFocusFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

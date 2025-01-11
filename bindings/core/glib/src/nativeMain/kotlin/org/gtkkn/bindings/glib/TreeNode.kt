@@ -16,9 +16,7 @@ import org.gtkkn.native.glib.gpointer
  * @since 2.68
  */
 @GLibVersion2_68
-public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTreeNode> = pointer
-
+public class TreeNode(public val glibTreeNodePointer: CPointer<GTreeNode>) : ProxyInstance(glibTreeNodePointer) {
     /**
      * Gets the key stored at a particular tree node.
      *
@@ -26,7 +24,7 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun key(): gpointer? = g_tree_node_key(gPointer)
+    public fun key(): gpointer? = g_tree_node_key(glibTreeNodePointer)
 
     /**
      * Returns the next in-order node of the tree, or null
@@ -36,7 +34,7 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun next(): TreeNode? = g_tree_node_next(gPointer)?.run {
+    public fun next(): TreeNode? = g_tree_node_next(glibTreeNodePointer)?.run {
         TreeNode(this)
     }
 
@@ -48,7 +46,7 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun previous(): TreeNode? = g_tree_node_previous(gPointer)?.run {
+    public fun previous(): TreeNode? = g_tree_node_previous(glibTreeNodePointer)?.run {
         TreeNode(this)
     }
 
@@ -59,5 +57,5 @@ public class TreeNode(pointer: CPointer<GTreeNode>) : ProxyInstance(pointer) {
      * @since 2.68
      */
     @GLibVersion2_68
-    public fun `value`(): gpointer? = g_tree_node_value(gPointer)
+    public fun `value`(): gpointer? = g_tree_node_value(glibTreeNodePointer)
 }

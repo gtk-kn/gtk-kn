@@ -84,26 +84,23 @@ import kotlin.Unit
  * `GtkGridView` uses the %GTK_ACCESSIBLE_ROLE_GRID role, and the items
  * use the %GTK_ACCESSIBLE_ROLE_GRID_CELL role.
  */
-public open class GridView(pointer: CPointer<GtkGridView>) :
-    ListBase(pointer.reinterpret()),
+public open class GridView(public val gtkGridViewPointer: CPointer<GtkGridView>) :
+    ListBase(gtkGridViewPointer.reinterpret()),
     KGTyped {
-    public val gtkGridViewPointer: CPointer<GtkGridView>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Allow rubberband selection.
@@ -202,7 +199,7 @@ public open class GridView(pointer: CPointer<GtkGridView>) :
          * @return The model in use
          */
         get() = gtk_grid_view_get_model(gtkGridViewPointer)?.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
         /**
@@ -297,7 +294,7 @@ public open class GridView(pointer: CPointer<GtkGridView>) :
      */
     @GtkVersion4_12
     public open fun scrollTo(pos: guint, flags: ListScrollFlags, scroll: ScrollInfo? = null): Unit =
-        gtk_grid_view_scroll_to(gtkGridViewPointer, pos, flags.mask, scroll?.gPointer)
+        gtk_grid_view_scroll_to(gtkGridViewPointer, pos, flags.mask, scroll?.gtkScrollInfoPointer)
 
     /**
      * Emitted when a cell has been activated by the user,
@@ -312,7 +309,7 @@ public open class GridView(pointer: CPointer<GtkGridView>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGridViewPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -326,7 +323,7 @@ public open class GridView(pointer: CPointer<GtkGridView>) :
      * @param position position of item to activate
      */
     public fun emitActivate(position: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate", position)
+        g_signal_emit_by_name(gtkGridViewPointer.reinterpret(), "activate", position)
     }
 
     public companion object : TypeCompanion<GridView> {

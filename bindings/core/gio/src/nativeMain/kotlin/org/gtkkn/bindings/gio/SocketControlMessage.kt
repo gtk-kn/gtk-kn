@@ -49,12 +49,10 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>) :
-    Object(pointer.reinterpret()),
+public abstract class SocketControlMessage(
+    public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>,
+) : Object(gioSocketControlMessagePointer.reinterpret()),
     KGTyped {
-    public val gioSocketControlMessagePointer: CPointer<GSocketControlMessage>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns the "level" (i.e. the originating protocol) of the control message.
      * This is often SOL_SOCKET.
@@ -100,9 +98,16 @@ public open class SocketControlMessage(pointer: CPointer<GSocketControlMessage>)
     public open fun serialize(`data`: gpointer): Unit =
         g_socket_control_message_serialize(gioSocketControlMessagePointer, `data`)
 
+    /**
+     * The SocketControlMessageImpl type represents a native instance of the abstract SocketControlMessage class.
+     *
+     * @constructor Creates a new instance of SocketControlMessage for the provided [CPointer].
+     */
+    public class SocketControlMessageImpl(pointer: CPointer<GSocketControlMessage>) : SocketControlMessage(pointer)
+
     public companion object : TypeCompanion<SocketControlMessage> {
         override val type: GeneratedClassKGType<SocketControlMessage> =
-            GeneratedClassKGType(g_socket_control_message_get_type()) { SocketControlMessage(it.reinterpret()) }
+            GeneratedClassKGType(g_socket_control_message_get_type()) { SocketControlMessageImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

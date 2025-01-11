@@ -32,23 +32,20 @@ import org.gtkkn.native.gtk.gtk_no_selection_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class NoSelection(pointer: CPointer<GtkNoSelection>) :
-    Object(pointer.reinterpret()),
+public open class NoSelection(public val gtkNoSelectionPointer: CPointer<GtkNoSelection>) :
+    Object(gtkNoSelectionPointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
     KGTyped {
-    public val gtkNoSelectionPointer: CPointer<GtkNoSelection>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The model being managed.
@@ -60,7 +57,7 @@ public open class NoSelection(pointer: CPointer<GtkNoSelection>) :
          * @return The model being wrapped
          */
         get() = gtk_no_selection_get_model(gtkNoSelectionPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

@@ -41,15 +41,12 @@ import kotlin.String
  * - method `loading`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class BookmarkList(pointer: CPointer<GtkBookmarkList>) :
-    Object(pointer.reinterpret()),
+public open class BookmarkList(public val gtkBookmarkListPointer: CPointer<GtkBookmarkList>) :
+    Object(gtkBookmarkListPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val gtkBookmarkListPointer: CPointer<GtkBookmarkList>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The attributes to query.

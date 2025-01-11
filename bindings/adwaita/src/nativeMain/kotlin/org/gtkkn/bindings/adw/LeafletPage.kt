@@ -25,12 +25,9 @@ import kotlin.String
 /**
  * An auxiliary class used by [class@Leaflet].
  */
-public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
-    Object(pointer.reinterpret()),
+public class LeafletPage(public val adwLeafletPagePointer: CPointer<AdwLeafletPage>) :
+    Object(adwLeafletPagePointer.reinterpret()),
     KGTyped {
-    public val adwLeafletPagePointer: CPointer<AdwLeafletPage>
-        get() = gPointer.reinterpret()
-
     /**
      * The leaflet child to which the page belongs.
      */
@@ -41,7 +38,7 @@ public class LeafletPage(pointer: CPointer<AdwLeafletPage>) :
          * @return the child to which @self belongs
          */
         get() = adw_leaflet_page_get_child(adwLeafletPagePointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

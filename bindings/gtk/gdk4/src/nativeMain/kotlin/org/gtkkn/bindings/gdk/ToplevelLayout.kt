@@ -37,15 +37,14 @@ import kotlin.Unit
  * - parameter `fullscreen`: fullscreen: Out parameter is not supported
  * - parameter `maximized`: maximized: Out parameter is not supported
  */
-public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkToplevelLayout> = pointer
-
+public class ToplevelLayout(public val gdkToplevelLayoutPointer: CPointer<GdkToplevelLayout>) :
+    ProxyInstance(gdkToplevelLayoutPointer) {
     /**
      * Create a new `GdkToplevelLayout` and copy the contents of @layout into it.
      *
      * @return a copy of @layout.
      */
-    public fun copy(): ToplevelLayout = gdk_toplevel_layout_copy(gPointer)!!.run {
+    public fun copy(): ToplevelLayout = gdk_toplevel_layout_copy(gdkToplevelLayoutPointer)!!.run {
         ToplevelLayout(this)
     }
 
@@ -56,7 +55,8 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstanc
      * @return true if @layout and @other have identical layout properties,
      *   otherwise false.
      */
-    public fun equal(other: ToplevelLayout): Boolean = gdk_toplevel_layout_equal(gPointer, other.gPointer).asBoolean()
+    public fun equal(other: ToplevelLayout): Boolean =
+        gdk_toplevel_layout_equal(gdkToplevelLayoutPointer, other.gdkToplevelLayoutPointer).asBoolean()
 
     /**
      * Returns the monitor that the layout is fullscreening
@@ -64,9 +64,10 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstanc
      *
      * @return the monitor on which @layout fullscreens
      */
-    public fun getFullscreenMonitor(): Monitor? = gdk_toplevel_layout_get_fullscreen_monitor(gPointer)?.run {
-        Monitor(this)
-    }
+    public fun getFullscreenMonitor(): Monitor? =
+        gdk_toplevel_layout_get_fullscreen_monitor(gdkToplevelLayoutPointer)?.run {
+            Monitor(this)
+        }
 
     /**
      * Returns whether the layout should allow the user
@@ -74,14 +75,14 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstanc
      *
      * @return true if the layout is resizable
      */
-    public fun getResizable(): Boolean = gdk_toplevel_layout_get_resizable(gPointer).asBoolean()
+    public fun getResizable(): Boolean = gdk_toplevel_layout_get_resizable(gdkToplevelLayoutPointer).asBoolean()
 
     /**
      * Increases the reference count of @layout.
      *
      * @return the same @layout
      */
-    public fun ref(): ToplevelLayout = gdk_toplevel_layout_ref(gPointer)!!.run {
+    public fun ref(): ToplevelLayout = gdk_toplevel_layout_ref(gdkToplevelLayoutPointer)!!.run {
         ToplevelLayout(this)
     }
 
@@ -92,8 +93,11 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstanc
      * @param fullscreen true to fullscreen the surface
      * @param monitor the monitor to fullscreen on
      */
-    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit =
-        gdk_toplevel_layout_set_fullscreen(gPointer, fullscreen.asGBoolean(), monitor?.gdkMonitorPointer)
+    public fun setFullscreen(fullscreen: Boolean, monitor: Monitor? = null): Unit = gdk_toplevel_layout_set_fullscreen(
+        gdkToplevelLayoutPointer,
+        fullscreen.asGBoolean(),
+        monitor?.gdkMonitorPointer
+    )
 
     /**
      * Sets whether the layout should cause the surface
@@ -102,7 +106,7 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstanc
      * @param maximized true to maximize
      */
     public fun setMaximized(maximized: Boolean): Unit =
-        gdk_toplevel_layout_set_maximized(gPointer, maximized.asGBoolean())
+        gdk_toplevel_layout_set_maximized(gdkToplevelLayoutPointer, maximized.asGBoolean())
 
     /**
      * Sets whether the layout should allow the user
@@ -111,12 +115,12 @@ public class ToplevelLayout(pointer: CPointer<GdkToplevelLayout>) : ProxyInstanc
      * @param resizable true to allow resizing
      */
     public fun setResizable(resizable: Boolean): Unit =
-        gdk_toplevel_layout_set_resizable(gPointer, resizable.asGBoolean())
+        gdk_toplevel_layout_set_resizable(gdkToplevelLayoutPointer, resizable.asGBoolean())
 
     /**
      * Decreases the reference count of @layout.
      */
-    public fun unref(): Unit = gdk_toplevel_layout_unref(gPointer)
+    public fun unref(): Unit = gdk_toplevel_layout_unref(gdkToplevelLayoutPointer)
 
     public companion object {
         /**

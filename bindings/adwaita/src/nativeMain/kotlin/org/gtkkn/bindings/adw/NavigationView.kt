@@ -220,24 +220,21 @@ import kotlin.collections.List
  * @since 1.4
  */
 @AdwVersion1_4
-public class NavigationView(pointer: CPointer<AdwNavigationView>) :
-    Widget(pointer.reinterpret()),
+public class NavigationView(public val adwNavigationViewPointer: CPointer<AdwNavigationView>) :
+    Widget(adwNavigationViewPointer.reinterpret()),
     Swipeable,
     KGTyped {
-    public val adwNavigationViewPointer: CPointer<AdwNavigationView>
-        get() = gPointer.reinterpret()
-
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to animate page transitions.
@@ -291,7 +288,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
          * @since 1.4
          */
         get() = adw_navigation_view_get_navigation_stack(adwNavigationViewPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -555,7 +552,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
     @AdwVersion1_4
     public fun onGetNextPage(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> NavigationPage?): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationViewPointer,
             "get-next-page",
             onGetNextPageFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -579,7 +576,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
     @AdwVersion1_4
     public fun onPopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: NavigationPage) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationViewPointer,
             "popped",
             onPoppedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -595,7 +592,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun emitPopped(page: NavigationPage) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "popped", page.adwNavigationPagePointer)
+        g_signal_emit_by_name(adwNavigationViewPointer.reinterpret(), "popped", page.adwNavigationPagePointer)
     }
 
     /**
@@ -610,7 +607,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
     @AdwVersion1_4
     public fun onPushed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationViewPointer,
             "pushed",
             onPushedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -625,7 +622,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun emitPushed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "pushed")
+        g_signal_emit_by_name(adwNavigationViewPointer.reinterpret(), "pushed")
     }
 
     /**
@@ -640,7 +637,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
     @AdwVersion1_4
     public fun onReplaced(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwNavigationViewPointer,
             "replaced",
             onReplacedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -655,7 +652,7 @@ public class NavigationView(pointer: CPointer<AdwNavigationView>) :
      */
     @AdwVersion1_4
     public fun emitReplaced() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "replaced")
+        g_signal_emit_by_name(adwNavigationViewPointer.reinterpret(), "replaced")
     }
 
     public companion object : TypeCompanion<NavigationView> {

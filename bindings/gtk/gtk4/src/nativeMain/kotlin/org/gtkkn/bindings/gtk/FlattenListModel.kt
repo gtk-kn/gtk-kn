@@ -30,19 +30,16 @@ import org.gtkkn.native.gtk.gtk_flatten_list_model_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
-    Object(pointer.reinterpret()),
+public open class FlattenListModel(public val gtkFlattenListModelPointer: CPointer<GtkFlattenListModel>) :
+    Object(gtkFlattenListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
-    public val gtkFlattenListModelPointer: CPointer<GtkFlattenListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The model being flattened.
@@ -54,7 +51,7 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
          * @return The model flattened by @self
          */
         get() = gtk_flatten_list_model_get_model(gtkFlattenListModelPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**
@@ -82,7 +79,7 @@ public open class FlattenListModel(pointer: CPointer<GtkFlattenListModel>) :
      */
     public open fun getModelForItem(position: guint): ListModel? =
         gtk_flatten_list_model_get_model_for_item(gtkFlattenListModelPointer, position)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     public companion object : TypeCompanion<FlattenListModel> {

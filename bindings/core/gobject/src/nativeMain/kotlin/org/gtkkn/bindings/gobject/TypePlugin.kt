@@ -3,7 +3,7 @@ package org.gtkkn.bindings.gobject
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -67,7 +67,7 @@ import kotlin.Unit
  * unloading. It even handles multiple registered types per module.
  */
 public interface TypePlugin :
-    Interface,
+    Proxy,
     KGTyped {
     public val gobjectTypePluginPointer: CPointer<GTypePlugin>
 
@@ -82,7 +82,12 @@ public interface TypePlugin :
      * @param info the #GInterfaceInfo to fill in
      */
     public fun completeInterfaceInfo(instanceType: GType, interfaceType: GType, info: InterfaceInfo): Unit =
-        g_type_plugin_complete_interface_info(gobjectTypePluginPointer, instanceType, interfaceType, info.gPointer)
+        g_type_plugin_complete_interface_info(
+            gobjectTypePluginPointer,
+            instanceType,
+            interfaceType,
+            info.gobjectInterfaceInfoPointer
+        )
 
     /**
      * Calls the @complete_type_info function from the #GTypePluginClass of @plugin.
@@ -94,7 +99,12 @@ public interface TypePlugin :
      * @param valueTable the #GTypeValueTable to fill in
      */
     public fun completeTypeInfo(gType: GType, info: TypeInfo, valueTable: TypeValueTable): Unit =
-        g_type_plugin_complete_type_info(gobjectTypePluginPointer, gType, info.gPointer, valueTable.gPointer)
+        g_type_plugin_complete_type_info(
+            gobjectTypePluginPointer,
+            gType,
+            info.gobjectTypeInfoPointer,
+            valueTable.gobjectTypeValueTablePointer
+        )
 
     /**
      * Calls the @unuse_plugin function from the #GTypePluginClass of
@@ -110,19 +120,22 @@ public interface TypePlugin :
      */
     public fun use(): Unit = g_type_plugin_use(gobjectTypePluginPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GTypePlugin>) : TypePlugin {
-        override val gobjectTypePluginPointer: CPointer<GTypePlugin> = pointer
-    }
+    /**
+     * The TypePluginImpl type represents a native instance of the TypePlugin interface.
+     *
+     * @constructor Creates a new instance of TypePlugin for the provided [CPointer].
+     */
+    public data class TypePluginImpl(override val gobjectTypePluginPointer: CPointer<GTypePlugin>) :
+        Object(gobjectTypePluginPointer.reinterpret()),
+        TypePlugin
 
     public companion object : TypeCompanion<TypePlugin> {
         override val type: GeneratedInterfaceKGType<TypePlugin> =
-            GeneratedInterfaceKGType(g_type_plugin_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_type_plugin_get_type()) { TypePluginImpl(it.reinterpret()) }
 
         init {
             GobjectTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GTypePlugin>): TypePlugin = Wrapper(pointer)
 
         /**
          * Get the GType of TypePlugin

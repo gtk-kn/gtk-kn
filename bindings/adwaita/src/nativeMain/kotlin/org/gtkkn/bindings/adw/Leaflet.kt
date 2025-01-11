@@ -96,28 +96,25 @@ import kotlin.Unit
  * - method `visible-child`: Property TypeInfo of getter and setter do not match
  * - method `visible-child-name`: Property TypeInfo of getter and setter do not match
  */
-public class Leaflet(pointer: CPointer<AdwLeaflet>) :
-    Widget(pointer.reinterpret()),
+public class Leaflet(public val adwLeafletPointer: CPointer<AdwLeaflet>) :
+    Widget(adwLeafletPointer.reinterpret()),
     Swipeable,
     Orientable,
     KGTyped {
-    public val adwLeafletPointer: CPointer<AdwLeaflet>
-        get() = gPointer.reinterpret()
-
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether gestures and shortcuts for navigating backward are enabled.
@@ -269,7 +266,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          *
          * @param params the new parameters
          */
-        set(params) = adw_leaflet_set_child_transition_params(adwLeafletPointer, params.gPointer)
+        set(params) = adw_leaflet_set_child_transition_params(adwLeafletPointer, params.adwSpringParamsPointer)
 
     /**
      * Whether a child transition is currently running.
@@ -393,7 +390,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
          * @return a `GtkSelectionModel` for the leaflet's children
          */
         get() = adw_leaflet_get_pages(adwLeafletPointer)!!.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
     /**
@@ -457,7 +454,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      */
     public fun getAdjacentChild(direction: NavigationDirection): Widget? =
         adw_leaflet_get_adjacent_child(adwLeafletPointer, direction.nativeValue)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -471,7 +468,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return the requested child of @self
      */
     public fun getChildByName(name: String): Widget? = adw_leaflet_get_child_by_name(adwLeafletPointer, name)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -491,7 +488,7 @@ public class Leaflet(pointer: CPointer<AdwLeaflet>) :
      * @return the visible child
      */
     public fun getVisibleChild(): Widget? = adw_leaflet_get_visible_child(adwLeafletPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**

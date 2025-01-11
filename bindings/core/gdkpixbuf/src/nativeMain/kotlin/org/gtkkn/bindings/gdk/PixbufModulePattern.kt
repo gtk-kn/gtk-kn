@@ -54,20 +54,20 @@ import kotlin.native.ref.createCleaner
  * @since 2.2
  */
 @GdkPixbufVersion2_2
-public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkPixbufModulePattern> = pointer
-
+public class PixbufModulePattern(
+    public val gdkPixbufModulePatternPointer: CPointer<GdkPixbufModulePattern>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gdkPixbufModulePatternPointer) {
     /**
      * the prefix for this pattern
      */
     public var prefix: String?
-        get() = gPointer.pointed.prefix?.toKString()
+        get() = gdkPixbufModulePatternPointer.pointed.prefix?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.prefix?.let { g_free(it) }
-            gPointer.pointed.prefix = value?.let { g_strdup(it) }
+            gdkPixbufModulePatternPointer.pointed.prefix?.let { g_free(it) }
+            gdkPixbufModulePatternPointer.pointed.prefix = value?.let { g_strdup(it) }
         }
 
     /**
@@ -75,23 +75,23 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      *  test data
      */
     public var mask: String?
-        get() = gPointer.pointed.mask?.toKString()
+        get() = gdkPixbufModulePatternPointer.pointed.mask?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mask?.let { g_free(it) }
-            gPointer.pointed.mask = value?.let { g_strdup(it) }
+            gdkPixbufModulePatternPointer.pointed.mask?.let { g_free(it) }
+            gdkPixbufModulePatternPointer.pointed.mask = value?.let { g_strdup(it) }
         }
 
     /**
      * relevance of this pattern
      */
     public var relevance: gint
-        get() = gPointer.pointed.relevance
+        get() = gdkPixbufModulePatternPointer.pointed.relevance
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.relevance = value
+            gdkPixbufModulePatternPointer.pointed.relevance = value
         }
 
     /**
@@ -114,7 +114,7 @@ public class PixbufModulePattern(pointer: CPointer<GdkPixbufModulePattern>, clea
      */
     private constructor(
         pair: Pair<CPointer<GdkPixbufModulePattern>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gdkPixbufModulePatternPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PixbufModulePattern using the provided [AutofreeScope].

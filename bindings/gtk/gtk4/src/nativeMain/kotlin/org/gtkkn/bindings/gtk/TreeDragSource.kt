@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ContentProvider
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -21,7 +22,7 @@ import kotlin.Boolean
  * Interface for Drag-and-Drop destinations in `GtkTreeView`.
  */
 public interface TreeDragSource :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>
 
@@ -36,7 +37,7 @@ public interface TreeDragSource :
      * @return true if the row was successfully deleted
      */
     public fun dragDataDelete(path: TreePath): Boolean =
-        gtk_tree_drag_source_drag_data_delete(gtkTreeDragSourcePointer, path.gPointer).asBoolean()
+        gtk_tree_drag_source_drag_data_delete(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
 
     /**
      * Asks the `GtkTreeDragSource` to return a `GdkContentProvider` representing
@@ -48,7 +49,7 @@ public interface TreeDragSource :
      *    given @path
      */
     public fun dragDataGet(path: TreePath): ContentProvider? =
-        gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gPointer)?.run {
+        gtk_tree_drag_source_drag_data_get(gtkTreeDragSourcePointer, path.gtkTreePathPointer)?.run {
             ContentProvider(this)
         }
 
@@ -61,21 +62,24 @@ public interface TreeDragSource :
      * @return true if the row can be dragged
      */
     public fun rowDraggable(path: TreePath): Boolean =
-        gtk_tree_drag_source_row_draggable(gtkTreeDragSourcePointer, path.gPointer).asBoolean()
+        gtk_tree_drag_source_row_draggable(gtkTreeDragSourcePointer, path.gtkTreePathPointer).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GtkTreeDragSource>) : TreeDragSource {
-        override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource> = pointer
-    }
+    /**
+     * The TreeDragSourceImpl type represents a native instance of the TreeDragSource interface.
+     *
+     * @constructor Creates a new instance of TreeDragSource for the provided [CPointer].
+     */
+    public data class TreeDragSourceImpl(override val gtkTreeDragSourcePointer: CPointer<GtkTreeDragSource>) :
+        Object(gtkTreeDragSourcePointer.reinterpret()),
+        TreeDragSource
 
     public companion object : TypeCompanion<TreeDragSource> {
         override val type: GeneratedInterfaceKGType<TreeDragSource> =
-            GeneratedInterfaceKGType(gtk_tree_drag_source_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_tree_drag_source_get_type()) { TreeDragSourceImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkTreeDragSource>): TreeDragSource = Wrapper(pointer)
 
         /**
          * Get the GType of TreeDragSource

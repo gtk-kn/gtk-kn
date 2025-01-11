@@ -4,7 +4,7 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Display
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -33,7 +33,7 @@ import kotlin.Unit
  * hierarchy, with [method@Gtk.Root.set_focus] and [method@Gtk.Root.get_focus].
  */
 public interface Root :
-    Interface,
+    Proxy,
     Native,
     KGTyped {
     public val gtkRootPointer: CPointer<GtkRoot>
@@ -61,7 +61,7 @@ public interface Root :
      * @return the currently focused widget
      */
     public fun getFocus(): Widget? = gtk_root_get_focus(gtkRootPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -79,19 +79,22 @@ public interface Root :
      */
     public fun setFocus(focus: Widget? = null): Unit = gtk_root_set_focus(gtkRootPointer, focus?.gtkWidgetPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GtkRoot>) : Root {
-        override val gtkRootPointer: CPointer<GtkRoot> = pointer
-    }
+    /**
+     * The RootImpl type represents a native instance of the Root interface.
+     *
+     * @constructor Creates a new instance of Root for the provided [CPointer].
+     */
+    public data class RootImpl(override val gtkRootPointer: CPointer<GtkRoot>) :
+        Widget(gtkRootPointer.reinterpret()),
+        Root
 
     public companion object : TypeCompanion<Root> {
         override val type: GeneratedInterfaceKGType<Root> =
-            GeneratedInterfaceKGType(gtk_root_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_root_get_type()) { RootImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkRoot>): Root = Wrapper(pointer)
 
         /**
          * Get the GType of Root

@@ -75,12 +75,9 @@ import kotlin.Unit
  * @since 2.10
  */
 @WebKitVersion2_10
-public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
-    Object(pointer.reinterpret()),
+public class WebsiteDataManager(public val webkitWebsiteDataManagerPointer: CPointer<WebKitWebsiteDataManager>) :
+    Object(webkitWebsiteDataManagerPointer.reinterpret()),
     KGTyped {
-    public val webkitWebsiteDataManagerPointer: CPointer<WebKitWebsiteDataManager>
-        get() = gPointer.reinterpret()
-
     /**
      * The base directory for caches. If null, a default location will be used.
      *
@@ -328,7 +325,7 @@ public class WebsiteDataManager(pointer: CPointer<WebKitWebsiteDataManager>) :
     ): Unit = webkit_website_data_manager_remove(
         webkitWebsiteDataManagerPointer,
         types.mask,
-        websiteData.gPointer,
+        websiteData.glibListPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

@@ -11,7 +11,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gobject.ConnectFlags
 import org.gtkkn.bindings.gobject.Object
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -95,7 +95,7 @@ import kotlin.Unit
  * ```
  */
 public interface ListModel :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioListModelPointer: CPointer<GListModel>
 
@@ -211,19 +211,22 @@ public interface ListModel :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GListModel>) : ListModel {
-        override val gioListModelPointer: CPointer<GListModel> = pointer
-    }
+    /**
+     * The ListModelImpl type represents a native instance of the ListModel interface.
+     *
+     * @constructor Creates a new instance of ListModel for the provided [CPointer].
+     */
+    public data class ListModelImpl(override val gioListModelPointer: CPointer<GListModel>) :
+        Object(gioListModelPointer.reinterpret()),
+        ListModel
 
     public companion object : TypeCompanion<ListModel> {
         override val type: GeneratedInterfaceKGType<ListModel> =
-            GeneratedInterfaceKGType(g_list_model_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_list_model_get_type()) { ListModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GListModel>): ListModel = Wrapper(pointer)
 
         /**
          * Get the GType of ListModel

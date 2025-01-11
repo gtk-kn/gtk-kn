@@ -23,15 +23,12 @@ import org.gtkkn.native.gobject.GType
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
  */
-public class EnumListModel(pointer: CPointer<AdwEnumListModel>) :
-    Object(pointer.reinterpret()),
+public class EnumListModel(public val adwEnumListModelPointer: CPointer<AdwEnumListModel>) :
+    Object(adwEnumListModelPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val adwEnumListModelPointer: CPointer<AdwEnumListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The type of the enum represented by the model.

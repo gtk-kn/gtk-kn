@@ -20,12 +20,9 @@ import kotlin.String
  * Signals that are used in this way are referred to as keybinding signals,
  * and they are expected to be defined with the %G_SIGNAL_ACTION flag.
  */
-public open class SignalAction(pointer: CPointer<GtkSignalAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class SignalAction(public val gtkSignalActionPointer: CPointer<GtkSignalAction>) :
+    ShortcutAction(gtkSignalActionPointer.reinterpret()),
     KGTyped {
-    public val gtkSignalActionPointer: CPointer<GtkSignalAction>
-        get() = gPointer.reinterpret()
-
     /**
      * The name of the signal to emit.
      */

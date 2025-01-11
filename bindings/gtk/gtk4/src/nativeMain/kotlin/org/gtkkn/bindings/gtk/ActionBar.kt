@@ -65,20 +65,17 @@ import kotlin.Unit
  *
  * Each of the boxes contains children packed for that side.
  */
-public open class ActionBar(pointer: CPointer<GtkActionBar>) :
-    Widget(pointer.reinterpret()),
+public open class ActionBar(public val gtkActionBarPointer: CPointer<GtkActionBar>) :
+    Widget(gtkActionBarPointer.reinterpret()),
     KGTyped {
-    public val gtkActionBarPointer: CPointer<GtkActionBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Controls whether the action bar shows its contents.
@@ -116,7 +113,7 @@ public open class ActionBar(pointer: CPointer<GtkActionBar>) :
      * @return the center `GtkWidget`
      */
     public open fun getCenterWidget(): Widget? = gtk_action_bar_get_center_widget(gtkActionBarPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**

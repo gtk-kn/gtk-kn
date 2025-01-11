@@ -39,12 +39,9 @@ import kotlin.String
  * It is also possible to make case-insensitive comparisons, with
  * [method@Gtk.StringFilter.set_ignore_case].
  */
-public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
-    Filter(pointer.reinterpret()),
+public open class StringFilter(public val gtkStringFilterPointer: CPointer<GtkStringFilter>) :
+    Filter(gtkStringFilterPointer.reinterpret()),
     KGTyped {
-    public val gtkStringFilterPointer: CPointer<GtkStringFilter>
-        get() = gPointer.reinterpret()
-
     /**
      * The expression to evaluate on item to get a string to compare with.
      */
@@ -56,7 +53,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          * @return a `GtkExpression`
          */
         get() = gtk_string_filter_get_expression(gtkStringFilterPointer)?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
         /**
@@ -67,7 +64,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) = gtk_string_filter_set_expression(gtkStringFilterPointer, expression?.gPointer)
+        set(expression) = gtk_string_filter_set_expression(gtkStringFilterPointer, expression?.gtkExpressionPointer)
 
     /**
      * If matching is case sensitive.
@@ -137,7 +134,7 @@ public open class StringFilter(pointer: CPointer<GtkStringFilter>) :
      */
     public constructor(
         expression: Expression? = null,
-    ) : this(gtk_string_filter_new(expression?.gPointer)!!.reinterpret())
+    ) : this(gtk_string_filter_new(expression?.gtkExpressionPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<StringFilter> {
         override val type: GeneratedClassKGType<StringFilter> =

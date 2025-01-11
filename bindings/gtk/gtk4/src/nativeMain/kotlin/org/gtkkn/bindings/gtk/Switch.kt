@@ -69,24 +69,21 @@ import kotlin.Unit
  *
  * `GtkSwitch` uses the %GTK_ACCESSIBLE_ROLE_SWITCH role.
  */
-public open class Switch(pointer: CPointer<GtkSwitch>) :
-    Widget(pointer.reinterpret()),
+public open class Switch(public val gtkSwitchPointer: CPointer<GtkSwitch>) :
+    Widget(gtkSwitchPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val gtkSwitchPointer: CPointer<GtkSwitch>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the `GtkSwitch` widget is in its on or off state.
@@ -149,7 +146,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSwitchPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -161,7 +158,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkSwitchPointer.reinterpret(), "activate")
     }
 
     /**
@@ -186,7 +183,7 @@ public open class Switch(pointer: CPointer<GtkSwitch>) :
      */
     public fun onStateSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (state: Boolean) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkSwitchPointer,
             "state-set",
             onStateSetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

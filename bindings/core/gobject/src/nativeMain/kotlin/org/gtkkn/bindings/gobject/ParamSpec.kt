@@ -51,15 +51,14 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class ParamSpec(pointer: CPointer<GParamSpec>) {
-    public val gPointer: CPointer<GParamSpec> = pointer
-
+public abstract class ParamSpec(public val gobjectParamSpecPointer: CPointer<GParamSpec>) :
+    TypeInstance(gobjectParamSpecPointer.reinterpret()) {
     /**
      * Get the short description of a #GParamSpec.
      *
      * @return the short description of @pspec.
      */
-    public open fun getBlurb(): String? = g_param_spec_get_blurb(gPointer)?.toKString()
+    public open fun getBlurb(): String? = g_param_spec_get_blurb(gobjectParamSpecPointer)?.toKString()
 
     /**
      * Gets the default value of @pspec as a pointer to a #GValue.
@@ -70,7 +69,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.38
      */
     @GObjectVersion2_38
-    public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gPointer)!!.run {
+    public open fun getDefaultValue(): Value = g_param_spec_get_default_value(gobjectParamSpecPointer)!!.run {
         Value(this)
     }
 
@@ -83,7 +82,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @return the name of @pspec.
      */
     public open fun getName(): String =
-        g_param_spec_get_name(gPointer)?.toKString() ?: error("Expected not null string")
+        g_param_spec_get_name(gobjectParamSpecPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the GQuark for the name.
@@ -92,7 +91,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.46
      */
     @GObjectVersion2_46
-    public open fun getNameQuark(): Quark = g_param_spec_get_name_quark(gPointer)
+    public open fun getNameQuark(): Quark = g_param_spec_get_name_quark(gobjectParamSpecPointer)
 
     /**
      * Get the nickname of a #GParamSpec.
@@ -100,7 +99,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @return the nickname of @pspec.
      */
     public open fun getNick(): String =
-        g_param_spec_get_nick(gPointer)?.toKString() ?: error("Expected not null string")
+        g_param_spec_get_nick(gobjectParamSpecPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets back user data pointers stored via g_param_spec_set_qdata().
@@ -108,7 +107,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @param quark a #GQuark, naming the user data pointer
      * @return the user data pointer set, or null
      */
-    public open fun getQdata(quark: Quark): gpointer? = g_param_spec_get_qdata(gPointer, quark)
+    public open fun getQdata(quark: Quark): gpointer? = g_param_spec_get_qdata(gobjectParamSpecPointer, quark)
 
     /**
      * If the paramspec redirects operations to another paramspec,
@@ -124,8 +123,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.4
      */
     @GObjectVersion2_4
-    public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gPointer)?.run {
-        ParamSpec(this)
+    public open fun getRedirectTarget(): ParamSpec? = g_param_spec_get_redirect_target(gobjectParamSpecPointer)?.run {
+        ParamSpecImpl(this)
     }
 
     /**
@@ -133,8 +132,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      *
      * @return the #GParamSpec that was passed into this function
      */
-    public open fun ref(): ParamSpec = g_param_spec_ref(gPointer)!!.run {
-        ParamSpec(this)
+    public open fun ref(): ParamSpec = g_param_spec_ref(gobjectParamSpecPointer)!!.run {
+        ParamSpecImpl(this)
     }
 
     /**
@@ -144,8 +143,8 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @since 2.10
      */
     @GObjectVersion2_10
-    public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gPointer)!!.run {
-        ParamSpec(this)
+    public open fun refSink(): ParamSpec = g_param_spec_ref_sink(gobjectParamSpecPointer)!!.run {
+        ParamSpecImpl(this)
     }
 
     /**
@@ -160,7 +159,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @param data an opaque user data pointer
      */
     public open fun setQdata(quark: Quark, `data`: gpointer? = null): Unit =
-        g_param_spec_set_qdata(gPointer, quark, `data`)
+        g_param_spec_set_qdata(gobjectParamSpecPointer, quark, `data`)
 
     /**
      * The initial reference count of a newly created #GParamSpec is 1,
@@ -171,7 +170,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * reference count (thus ending up with a @pspec that has a reference
      * count of 1 still, but is not flagged "floating" anymore).
      */
-    public open fun sink(): Unit = g_param_spec_sink(gPointer)
+    public open fun sink(): Unit = g_param_spec_sink(gobjectParamSpecPointer)
 
     /**
      * Gets back user data pointers stored via g_param_spec_set_qdata()
@@ -182,12 +181,19 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
      * @param quark a #GQuark, naming the user data pointer
      * @return the user data pointer set, or null
      */
-    public open fun stealQdata(quark: Quark): gpointer? = g_param_spec_steal_qdata(gPointer, quark)
+    public open fun stealQdata(quark: Quark): gpointer? = g_param_spec_steal_qdata(gobjectParamSpecPointer, quark)
 
     /**
      * Decrements the reference count of a @pspec.
      */
-    public open fun unref(): Unit = g_param_spec_unref(gPointer)
+    public open fun unref(): Unit = g_param_spec_unref(gobjectParamSpecPointer)
+
+    /**
+     * The ParamSpecImpl type represents a native instance of the abstract ParamSpec class.
+     *
+     * @constructor Creates a new instance of ParamSpec for the provided [CPointer].
+     */
+    public class ParamSpecImpl(pointer: CPointer<GParamSpec>) : ParamSpec(pointer)
 
     public companion object {
         /**
@@ -219,7 +225,7 @@ public open class ParamSpec(pointer: CPointer<GParamSpec>) {
             blurb: String? = null,
             flags: ParamFlags,
         ): ParamSpec = g_param_spec_internal(paramType, name, nick, blurb, flags.mask)!!.run {
-            ParamSpec(reinterpret())
+            ParamSpecImpl(reinterpret())
         }
 
         /**

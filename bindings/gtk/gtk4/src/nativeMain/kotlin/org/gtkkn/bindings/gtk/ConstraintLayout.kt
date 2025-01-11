@@ -202,15 +202,12 @@ import org.gtkkn.bindings.glib.List as GlibList
  *   [button1(button2 / 2 + 12)]
  * ```
  */
-public open class ConstraintLayout(pointer: CPointer<GtkConstraintLayout>) :
-    LayoutManager(pointer.reinterpret()),
+public open class ConstraintLayout(public val gtkConstraintLayoutPointer: CPointer<GtkConstraintLayout>) :
+    LayoutManager(gtkConstraintLayoutPointer.reinterpret()),
     Buildable,
     KGTyped {
-    public val gtkConstraintLayoutPointer: CPointer<GtkConstraintLayout>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkConstraintLayout` layout manager.
@@ -344,7 +341,7 @@ public open class ConstraintLayout(pointer: CPointer<GtkConstraintLayout>) :
             nLines,
             hspacing,
             vspacing,
-            views.gPointer,
+            views.glibHashTablePointer,
             gError.ptr
         )?.run {
             GlibList(this)
@@ -387,7 +384,7 @@ public open class ConstraintLayout(pointer: CPointer<GtkConstraintLayout>) :
      */
     public open fun observeConstraints(): ListModel =
         gtk_constraint_layout_observe_constraints(gtkConstraintLayoutPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -406,7 +403,7 @@ public open class ConstraintLayout(pointer: CPointer<GtkConstraintLayout>) :
      */
     public open fun observeGuides(): ListModel =
         gtk_constraint_layout_observe_guides(gtkConstraintLayoutPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**

@@ -48,20 +48,19 @@ import kotlin.native.ref.createCleaner
  * - parameter `array`: GLib.Array parameter of type gpointer is not supported
  * - parameter `array`: GLib.Array parameter of type gpointer is not supported
  */
-public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GArray> = pointer
-
+public class Array(public val glibArrayPointer: CPointer<GArray>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibArrayPointer) {
     /**
      * a pointer to the element data. The data may be moved as
      *     elements are added to the #GArray.
      */
     public var `data`: String?
-        get() = gPointer.pointed.data?.toKString()
+        get() = glibArrayPointer.pointed.data?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.data?.let { g_free(it) }
-            gPointer.pointed.data = value?.let { g_strdup(it) }
+            glibArrayPointer.pointed.data?.let { g_free(it) }
+            glibArrayPointer.pointed.data = value?.let { g_strdup(it) }
         }
 
     /**
@@ -69,11 +68,11 @@ public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyI
      *     possible terminating zero element.
      */
     public var len: guint
-        get() = gPointer.pointed.len
+        get() = glibArrayPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.len = value
+            glibArrayPointer.pointed.len = value
         }
 
     /**
@@ -94,7 +93,9 @@ public class Array(pointer: CPointer<GArray>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param pair A pair containing the pointer to Array and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GArray>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GArray>, Cleaner>,
+    ) : this(glibArrayPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Array using the provided [AutofreeScope].

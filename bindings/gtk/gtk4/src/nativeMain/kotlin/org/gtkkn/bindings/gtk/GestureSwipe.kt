@@ -41,12 +41,9 @@ import kotlin.Unit
  *
  * - parameter `velocity_x`: velocity_x: Out parameter is not supported
  */
-public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureSwipe(public val gtkGestureSwipePointer: CPointer<GtkGestureSwipe>) :
+    GestureSingle(gtkGestureSwipePointer.reinterpret()),
     KGTyped {
-    public val gtkGestureSwipePointer: CPointer<GtkGestureSwipe>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns a newly created `GtkGesture` that recognizes swipes.
      *
@@ -66,7 +63,7 @@ public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (velocityX: gdouble, velocityY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureSwipePointer,
         "swipe",
         onSwipeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -81,7 +78,7 @@ public open class GestureSwipe(pointer: CPointer<GtkGestureSwipe>) :
      * @param velocityY velocity in the Y axis, in pixels/sec
      */
     public fun emitSwipe(velocityX: gdouble, velocityY: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "swipe", velocityX, velocityY)
+        g_signal_emit_by_name(gtkGestureSwipePointer.reinterpret(), "swipe", velocityX, velocityY)
     }
 
     public companion object : TypeCompanion<GestureSwipe> {

@@ -18,7 +18,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_44
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -54,7 +55,7 @@ import kotlin.Unit
  */
 @GioVersion2_32
 public interface NetworkMonitor :
-    Interface,
+    Proxy,
     Initable,
     KGTyped {
     public val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>
@@ -334,19 +335,22 @@ public interface NetworkMonitor :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GNetworkMonitor>) : NetworkMonitor {
-        override val gioNetworkMonitorPointer: CPointer<GNetworkMonitor> = pointer
-    }
+    /**
+     * The NetworkMonitorImpl type represents a native instance of the NetworkMonitor interface.
+     *
+     * @constructor Creates a new instance of NetworkMonitor for the provided [CPointer].
+     */
+    public data class NetworkMonitorImpl(override val gioNetworkMonitorPointer: CPointer<GNetworkMonitor>) :
+        Object(gioNetworkMonitorPointer.reinterpret()),
+        NetworkMonitor
 
     public companion object : TypeCompanion<NetworkMonitor> {
         override val type: GeneratedInterfaceKGType<NetworkMonitor> =
-            GeneratedInterfaceKGType(g_network_monitor_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_network_monitor_get_type()) { NetworkMonitorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GNetworkMonitor>): NetworkMonitor = Wrapper(pointer)
 
         /**
          * Gets the default #GNetworkMonitor for the system.
@@ -357,7 +361,7 @@ public interface NetworkMonitor :
          */
         @GioVersion2_32
         public fun getDefault(): NetworkMonitor = g_network_monitor_get_default()!!.run {
-            NetworkMonitor.wrap(reinterpret())
+            NetworkMonitorImpl(reinterpret())
         }
 
         /**

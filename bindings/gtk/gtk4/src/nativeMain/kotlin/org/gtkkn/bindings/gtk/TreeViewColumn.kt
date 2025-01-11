@@ -100,19 +100,16 @@ import kotlin.Unit
  * - method `cell-area`: Property has no getter nor setter
  * - constructor `new_with_attributes`: Varargs parameter is not supported
  */
-public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public open class TreeViewColumn(public val gtkTreeViewColumnPointer: CPointer<GtkTreeViewColumn>) :
+    InitiallyUnowned(gtkTreeViewColumnPointer.reinterpret()),
     Buildable,
     CellLayout,
     KGTyped {
-    public val gtkTreeViewColumnPointer: CPointer<GtkTreeViewColumn>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public open var alignment: gfloat
         /**
@@ -412,7 +409,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
          * @return The `GtkWidget` in the column header
          */
         get() = gtk_tree_view_column_get_widget(gtkTreeViewColumnPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -502,7 +499,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
     ): Unit = gtk_tree_view_column_cell_set_cell_data(
         gtkTreeViewColumnPointer,
         treeModel.gtkTreeModelPointer,
-        iter.gPointer,
+        iter.gtkTreeIterPointer,
         isExpander.asGBoolean(),
         isExpanded.asGBoolean()
     )
@@ -542,7 +539,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * @return The button for the column header.
      */
     public open fun getButton(): Widget = gtk_tree_view_column_get_button(gtkTreeViewColumnPointer)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -554,7 +551,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      *   has been inserted
      */
     public open fun getTreeView(): Widget? = gtk_tree_view_column_get_tree_view(gtkTreeViewColumnPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -616,7 +613,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      */
     public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewColumnPointer,
             "clicked",
             onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -628,7 +625,7 @@ public open class TreeViewColumn(pointer: CPointer<GtkTreeViewColumn>) :
      * Emits the "clicked" signal. See [onClicked].
      */
     public fun emitClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+        g_signal_emit_by_name(gtkTreeViewColumnPointer.reinterpret(), "clicked")
     }
 
     public companion object : TypeCompanion<TreeViewColumn> {

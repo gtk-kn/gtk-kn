@@ -37,15 +37,12 @@ import kotlin.Unit
  * stream supports seeking, use [vfunc@Gio.Seekable.can_seek].
  * To position a file input stream, use [vfunc@Gio.Seekable.seek].
  */
-public open class FileInputStream(pointer: CPointer<GFileInputStream>) :
-    InputStream(pointer.reinterpret()),
+public open class FileInputStream(public val gioFileInputStreamPointer: CPointer<GFileInputStream>) :
+    InputStream(gioFileInputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioFileInputStreamPointer: CPointer<GFileInputStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Queries a file input stream the given @attributes. This function blocks

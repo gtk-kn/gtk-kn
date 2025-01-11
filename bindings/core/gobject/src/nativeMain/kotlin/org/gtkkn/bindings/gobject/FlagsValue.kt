@@ -23,42 +23,41 @@ import kotlin.native.ref.createCleaner
  * A structure which contains a single flags value, its name, and its
  * nickname.
  */
-public class FlagsValue(pointer: CPointer<GFlagsValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GFlagsValue> = pointer
-
+public class FlagsValue(public val gobjectFlagsValuePointer: CPointer<GFlagsValue>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectFlagsValuePointer) {
     /**
      * the flags value
      */
     public var `value`: guint
-        get() = gPointer.pointed.value
+        get() = gobjectFlagsValuePointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value
+            gobjectFlagsValuePointer.pointed.value = value
         }
 
     /**
      * the name of the value
      */
     public var valueName: String?
-        get() = gPointer.pointed.value_name?.toKString()
+        get() = gobjectFlagsValuePointer.pointed.value_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value_name?.let { g_free(it) }
-            gPointer.pointed.value_name = value?.let { g_strdup(it) }
+            gobjectFlagsValuePointer.pointed.value_name?.let { g_free(it) }
+            gobjectFlagsValuePointer.pointed.value_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the nickname of the value
      */
     public var valueNick: String?
-        get() = gPointer.pointed.value_nick?.toKString()
+        get() = gobjectFlagsValuePointer.pointed.value_nick?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value_nick?.let { g_free(it) }
-            gPointer.pointed.value_nick = value?.let { g_strdup(it) }
+            gobjectFlagsValuePointer.pointed.value_nick?.let { g_free(it) }
+            gobjectFlagsValuePointer.pointed.value_nick = value?.let { g_strdup(it) }
         }
 
     /**
@@ -79,7 +78,9 @@ public class FlagsValue(pointer: CPointer<GFlagsValue>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to FlagsValue and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GFlagsValue>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GFlagsValue>, Cleaner>,
+    ) : this(gobjectFlagsValuePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FlagsValue using the provided [AutofreeScope].

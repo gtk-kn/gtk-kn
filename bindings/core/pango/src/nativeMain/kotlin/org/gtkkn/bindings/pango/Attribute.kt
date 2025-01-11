@@ -46,31 +46,30 @@ import kotlin.native.ref.createCleaner
  * be initialized using [method@Pango.Attribute.init]. By default, an attribute
  * will have an all-inclusive range of [0,%G_MAXUINT].
  */
-public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttribute> = pointer
-
+public class Attribute(public val pangoAttributePointer: CPointer<PangoAttribute>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttributePointer) {
     /**
      * the class structure holding information about the type of the attribute
      */
     public var klass: AttrClass?
-        get() = gPointer.pointed.klass?.run {
+        get() = pangoAttributePointer.pointed.klass?.run {
             AttrClass(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.klass = value?.gPointer
+            pangoAttributePointer.pointed.klass = value?.pangoAttrClassPointer
         }
 
     /**
      * the start index of the range (in bytes).
      */
     public var startIndex: guint
-        get() = gPointer.pointed.start_index
+        get() = pangoAttributePointer.pointed.start_index
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start_index = value
+            pangoAttributePointer.pointed.start_index = value
         }
 
     /**
@@ -78,11 +77,11 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      *   is not included in the range.
      */
     public var endIndex: guint
-        get() = gPointer.pointed.end_index
+        get() = pangoAttributePointer.pointed.end_index
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end_index = value
+            pangoAttributePointer.pointed.end_index = value
         }
 
     /**
@@ -105,7 +104,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoAttribute>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttributePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Attribute using the provided [AutofreeScope].
@@ -169,7 +168,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asColor(): AttrColor? = pango_attribute_as_color(gPointer)?.run {
+    public fun asColor(): AttrColor? = pango_attribute_as_color(pangoAttributePointer)?.run {
         AttrColor(this)
     }
 
@@ -183,7 +182,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFloat(): AttrFloat? = pango_attribute_as_float(gPointer)?.run {
+    public fun asFloat(): AttrFloat? = pango_attribute_as_float(pangoAttributePointer)?.run {
         AttrFloat(this)
     }
 
@@ -197,7 +196,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFontDesc(): AttrFontDesc? = pango_attribute_as_font_desc(gPointer)?.run {
+    public fun asFontDesc(): AttrFontDesc? = pango_attribute_as_font_desc(pangoAttributePointer)?.run {
         AttrFontDesc(this)
     }
 
@@ -211,7 +210,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asFontFeatures(): AttrFontFeatures? = pango_attribute_as_font_features(gPointer)?.run {
+    public fun asFontFeatures(): AttrFontFeatures? = pango_attribute_as_font_features(pangoAttributePointer)?.run {
         AttrFontFeatures(this)
     }
 
@@ -225,7 +224,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asInt(): AttrInt? = pango_attribute_as_int(gPointer)?.run {
+    public fun asInt(): AttrInt? = pango_attribute_as_int(pangoAttributePointer)?.run {
         AttrInt(this)
     }
 
@@ -239,7 +238,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asLanguage(): AttrLanguage? = pango_attribute_as_language(gPointer)?.run {
+    public fun asLanguage(): AttrLanguage? = pango_attribute_as_language(pangoAttributePointer)?.run {
         AttrLanguage(this)
     }
 
@@ -253,7 +252,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asShape(): AttrShape? = pango_attribute_as_shape(gPointer)?.run {
+    public fun asShape(): AttrShape? = pango_attribute_as_shape(pangoAttributePointer)?.run {
         AttrShape(this)
     }
 
@@ -267,7 +266,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asSize(): AttrSize? = pango_attribute_as_size(gPointer)?.run {
+    public fun asSize(): AttrSize? = pango_attribute_as_size(pangoAttributePointer)?.run {
         AttrSize(this)
     }
 
@@ -281,7 +280,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.50
      */
     @PangoVersion1_50
-    public fun asString(): AttrString? = pango_attribute_as_string(gPointer)?.run {
+    public fun asString(): AttrString? = pango_attribute_as_string(pangoAttributePointer)?.run {
         AttrString(this)
     }
 
@@ -292,14 +291,14 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      *   `PangoAttribute`, which should be freed with
      *   [method@Pango.Attribute.destroy].
      */
-    public fun copy(): Attribute = pango_attribute_copy(gPointer)!!.run {
+    public fun copy(): Attribute = pango_attribute_copy(pangoAttributePointer)!!.run {
         Attribute(this)
     }
 
     /**
      * Destroy a `PangoAttribute` and free all associated memory.
      */
-    public fun destroy(): Unit = pango_attribute_destroy(gPointer)
+    public fun destroy(): Unit = pango_attribute_destroy(pangoAttributePointer)
 
     /**
      * Compare two attributes for equality.
@@ -311,7 +310,8 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @param attr2 another `PangoAttribute`
      * @return true if the two attributes have the same value
      */
-    public fun equal(attr2: Attribute): Boolean = pango_attribute_equal(gPointer, attr2.gPointer).asBoolean()
+    public fun equal(attr2: Attribute): Boolean =
+        pango_attribute_equal(pangoAttributePointer, attr2.pangoAttributePointer).asBoolean()
 
     /**
      * Initializes @attr's klass to @klass, it's start_index to
@@ -323,7 +323,7 @@ public class Attribute(pointer: CPointer<PangoAttribute>, cleaner: Cleaner? = nu
      * @since 1.20
      */
     @PangoVersion1_20
-    public fun `init`(klass: AttrClass): Unit = pango_attribute_init(gPointer, klass.gPointer)
+    public fun `init`(klass: AttrClass): Unit = pango_attribute_init(pangoAttributePointer, klass.pangoAttrClassPointer)
 
     override fun toString(): String = "Attribute(klass=$klass, startIndex=$startIndex, endIndex=$endIndex)"
 

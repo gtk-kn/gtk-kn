@@ -65,12 +65,9 @@ import kotlin.Unit
  * probably call [method@Gtk.TextBuffer.set_modified] with true after calling
  * [method@FileLoader.load_finish].
  */
-public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
-    Object(pointer.reinterpret()),
+public open class FileLoader(public val gtksourceFileLoaderPointer: CPointer<GtkSourceFileLoader>) :
+    Object(gtksourceFileLoaderPointer.reinterpret()),
     KGTyped {
-    public val gtksourceFileLoaderPointer: CPointer<GtkSourceFileLoader>
-        get() = gPointer.reinterpret()
-
     /**
      * The #GtkSourceBuffer to load the contents into. The
      * #GtkSourceFileLoader object has a weak reference to the buffer.
@@ -111,7 +108,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
          * if a #GFile is used.
          */
         get() = gtk_source_file_loader_get_input_stream(gtksourceFileLoaderPointer)?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
     /**
@@ -127,7 +124,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
          * if an input stream is used.
          */
         get() = gtk_source_file_loader_get_location(gtksourceFileLoaderPointer)?.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+            org.gtkkn.bindings.gio.File.FileImpl(reinterpret())
         }
 
     /**
@@ -275,7 +272,7 @@ public open class FileLoader(pointer: CPointer<GtkSourceFileLoader>) :
      *   #GtkSourceEncoding<!-- -->s.
      */
     public open fun setCandidateEncodings(candidateEncodings: SList): Unit =
-        gtk_source_file_loader_set_candidate_encodings(gtksourceFileLoaderPointer, candidateEncodings.gPointer)
+        gtk_source_file_loader_set_candidate_encodings(gtksourceFileLoaderPointer, candidateEncodings.glibSListPointer)
 
     public companion object : TypeCompanion<FileLoader> {
         override val type: GeneratedClassKGType<FileLoader> =

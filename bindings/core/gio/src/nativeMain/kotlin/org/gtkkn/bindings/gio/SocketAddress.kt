@@ -36,15 +36,12 @@ import kotlin.Result
  * API. This is an abstract class; use [class@Gio.InetSocketAddress] for
  * internet sockets, or [class@Gio.UnixSocketAddress] for UNIX domain sockets.
  */
-public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
-    Object(pointer.reinterpret()),
+public abstract class SocketAddress(public val gioSocketAddressPointer: CPointer<GSocketAddress>) :
+    Object(gioSocketAddressPointer.reinterpret()),
     SocketConnectable,
     KGTyped {
-    public val gioSocketAddressPointer: CPointer<GSocketAddress>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The family of the socket address.
@@ -116,9 +113,16 @@ public open class SocketAddress(pointer: CPointer<GSocketAddress>) :
         }
     }
 
+    /**
+     * The SocketAddressImpl type represents a native instance of the abstract SocketAddress class.
+     *
+     * @constructor Creates a new instance of SocketAddress for the provided [CPointer].
+     */
+    public class SocketAddressImpl(pointer: CPointer<GSocketAddress>) : SocketAddress(pointer)
+
     public companion object : TypeCompanion<SocketAddress> {
         override val type: GeneratedClassKGType<SocketAddress> =
-            GeneratedClassKGType(g_socket_address_get_type()) { SocketAddress(it.reinterpret()) }
+            GeneratedClassKGType(g_socket_address_get_type()) { SocketAddressImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

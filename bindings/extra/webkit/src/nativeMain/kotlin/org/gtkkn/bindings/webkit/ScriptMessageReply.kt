@@ -22,9 +22,8 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitScriptMessageReply> = pointer
-
+public class ScriptMessageReply(public val webkitScriptMessageReplyPointer: CPointer<WebKitScriptMessageReply>) :
+    ProxyInstance(webkitScriptMessageReplyPointer) {
     /**
      * Atomically increments the reference count of @script_message_reply by one.
      *
@@ -32,7 +31,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun ref(): ScriptMessageReply = webkit_script_message_reply_ref(gPointer)!!.run {
+    public fun ref(): ScriptMessageReply = webkit_script_message_reply_ref(webkitScriptMessageReplyPointer)!!.run {
         ScriptMessageReply(this)
     }
 
@@ -44,7 +43,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      */
     @WebKitVersion2_40
     public fun returnErrorMessage(errorMessage: String): Unit =
-        webkit_script_message_reply_return_error_message(gPointer, errorMessage)
+        webkit_script_message_reply_return_error_message(webkitScriptMessageReplyPointer, errorMessage)
 
     /**
      * Reply to a script message with a value.
@@ -56,7 +55,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      */
     @WebKitVersion2_40
     public fun returnValue(replyValue: Value): Unit =
-        webkit_script_message_reply_return_value(gPointer, replyValue.jscValuePointer)
+        webkit_script_message_reply_return_value(webkitScriptMessageReplyPointer, replyValue.jscValuePointer)
 
     /**
      * Atomically decrements the reference count of @script_message_reply by one.
@@ -68,7 +67,7 @@ public class ScriptMessageReply(pointer: CPointer<WebKitScriptMessageReply>) : P
      * @since 2.40
      */
     @WebKitVersion2_40
-    public fun unref(): Unit = webkit_script_message_reply_unref(gPointer)
+    public fun unref(): Unit = webkit_script_message_reply_unref(webkitScriptMessageReplyPointer)
 
     public companion object {
         /**

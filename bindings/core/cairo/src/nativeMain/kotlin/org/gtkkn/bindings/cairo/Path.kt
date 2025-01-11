@@ -21,25 +21,24 @@ import kotlin.native.ref.createCleaner
  *
  * - field `data`: Field with not-pointer record/union cairo_path_data_t is not supported
  */
-public class Path(pointer: CPointer<cairo_path_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_path_t> = pointer
-
+public class Path(public val cairoPathPointer: CPointer<cairo_path_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(cairoPathPointer) {
     public var status: Status
-        get() = gPointer.pointed.status.run {
+        get() = cairoPathPointer.pointed.status.run {
             Status.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.status = value.nativeValue
+            cairoPathPointer.pointed.status = value.nativeValue
         }
 
     public var numData: gint
-        get() = gPointer.pointed.num_data
+        get() = cairoPathPointer.pointed.num_data
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.num_data = value
+            cairoPathPointer.pointed.num_data = value
         }
 
     /**
@@ -60,7 +59,9 @@ public class Path(pointer: CPointer<cairo_path_t>, cleaner: Cleaner? = null) : P
      *
      * @param pair A pair containing the pointer to Path and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<cairo_path_t>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<cairo_path_t>, Cleaner>,
+    ) : this(cairoPathPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Path using the provided [AutofreeScope].

@@ -10,7 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -35,7 +36,7 @@ import kotlin.Result
  */
 @GioVersion2_48
 public interface DtlsServerConnection :
-    Interface,
+    Proxy,
     DatagramBased,
     DtlsConnection,
     KGTyped {
@@ -47,19 +48,25 @@ public interface DtlsServerConnection :
     override val gioDtlsConnectionPointer: CPointer<GDtlsConnection>
         get() = gioDtlsServerConnectionPointer.reinterpret()
 
-    private data class Wrapper(private val pointer: CPointer<GDtlsServerConnection>) : DtlsServerConnection {
-        override val gioDtlsServerConnectionPointer: CPointer<GDtlsServerConnection> = pointer
-    }
+    /**
+     * The DtlsServerConnectionImpl type represents a native instance of the DtlsServerConnection interface.
+     *
+     * @constructor Creates a new instance of DtlsServerConnection for the provided [CPointer].
+     */
+    public data class DtlsServerConnectionImpl(
+        override val gioDtlsServerConnectionPointer: CPointer<GDtlsServerConnection>,
+    ) : Object(gioDtlsServerConnectionPointer.reinterpret()),
+        DtlsServerConnection
 
     public companion object : TypeCompanion<DtlsServerConnection> {
         override val type: GeneratedInterfaceKGType<DtlsServerConnection> =
-            GeneratedInterfaceKGType(g_dtls_server_connection_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_dtls_server_connection_get_type()) {
+                DtlsServerConnectionImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDtlsServerConnection>): DtlsServerConnection = Wrapper(pointer)
 
         /**
          * Creates a new #GDtlsServerConnection wrapping @base_socket.
@@ -79,7 +86,7 @@ public interface DtlsServerConnection :
                     certificate?.gioTlsCertificatePointer,
                     gError.ptr
                 )?.run {
-                    DtlsServerConnection.wrap(reinterpret())
+                    DtlsServerConnectionImpl(reinterpret())
                 }
 
                 return if (gError.pointed != null) {

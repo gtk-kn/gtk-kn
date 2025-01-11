@@ -10,7 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -33,23 +33,29 @@ import kotlin.Result
  */
 @GioVersion2_28
 public interface TlsServerConnection :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>
 
-    private data class Wrapper(private val pointer: CPointer<GTlsServerConnection>) : TlsServerConnection {
-        override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection> = pointer
-    }
+    /**
+     * The TlsServerConnectionImpl type represents a native instance of the TlsServerConnection interface.
+     *
+     * @constructor Creates a new instance of TlsServerConnection for the provided [CPointer].
+     */
+    public data class TlsServerConnectionImpl(
+        override val gioTlsServerConnectionPointer: CPointer<GTlsServerConnection>,
+    ) : TlsConnection(gioTlsServerConnectionPointer.reinterpret()),
+        TlsServerConnection
 
     public companion object : TypeCompanion<TlsServerConnection> {
         override val type: GeneratedInterfaceKGType<TlsServerConnection> =
-            GeneratedInterfaceKGType(g_tls_server_connection_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_tls_server_connection_get_type()) {
+                TlsServerConnectionImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GTlsServerConnection>): TlsServerConnection = Wrapper(pointer)
 
         /**
          * Creates a new #GTlsServerConnection wrapping @base_io_stream (which
@@ -74,7 +80,7 @@ public interface TlsServerConnection :
                     certificate?.gioTlsCertificatePointer,
                     gError.ptr
                 )?.run {
-                    TlsServerConnection.wrap(reinterpret())
+                    TlsServerConnectionImpl(reinterpret())
                 }
 
                 return if (gError.pointed != null) {

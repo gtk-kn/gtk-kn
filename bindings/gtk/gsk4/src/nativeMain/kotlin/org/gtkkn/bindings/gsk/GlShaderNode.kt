@@ -23,12 +23,9 @@ import org.gtkkn.native.gsk.gsk_gl_shader_node_get_type
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class GlShaderNode(public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>) :
+    RenderNode(gskGlShaderNodePointer.reinterpret()),
     KGTyped {
-    public val gskGlShaderNodePointer: CPointer<GskGLShaderNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets args for the node.
      *
@@ -46,7 +43,7 @@ public open class GlShaderNode(pointer: CPointer<GskGLShaderNode>) :
      */
     public open fun getChild(idx: guint): RenderNode =
         gsk_gl_shader_node_get_child(gskGlShaderNodePointer.reinterpret(), idx)!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     /**

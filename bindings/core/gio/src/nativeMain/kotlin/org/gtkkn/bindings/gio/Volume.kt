@@ -20,7 +20,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -102,7 +103,7 @@ import kotlin.collections.List
  * `libhal_manager_find_device_string_match()`.
  */
 public interface Volume :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioVolumePointer: CPointer<GVolume>
 
@@ -253,7 +254,7 @@ public interface Volume :
      */
     @GioVersion2_18
     public fun getActivationRoot(): File? = g_volume_get_activation_root(gioVolumePointer)?.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -264,7 +265,7 @@ public interface Volume :
      *     with g_object_unref() when no longer needed.
      */
     public fun getDrive(): Drive? = g_volume_get_drive(gioVolumePointer)?.run {
-        Drive.wrap(reinterpret())
+        Drive.DriveImpl(reinterpret())
     }
 
     /**
@@ -275,7 +276,7 @@ public interface Volume :
      *     when no longer needed.
      */
     public fun getIcon(): Icon = g_volume_get_icon(gioVolumePointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -298,7 +299,7 @@ public interface Volume :
      *     when no longer needed.
      */
     public fun getMount(): Mount? = g_volume_get_mount(gioVolumePointer)?.run {
-        Mount.wrap(reinterpret())
+        Mount.MountImpl(reinterpret())
     }
 
     /**
@@ -328,7 +329,7 @@ public interface Volume :
      */
     @GioVersion2_34
     public fun getSymbolicIcon(): Icon = g_volume_get_symbolic_icon(gioVolumePointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -433,19 +434,22 @@ public interface Volume :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GVolume>) : Volume {
-        override val gioVolumePointer: CPointer<GVolume> = pointer
-    }
+    /**
+     * The VolumeImpl type represents a native instance of the Volume interface.
+     *
+     * @constructor Creates a new instance of Volume for the provided [CPointer].
+     */
+    public data class VolumeImpl(override val gioVolumePointer: CPointer<GVolume>) :
+        Object(gioVolumePointer.reinterpret()),
+        Volume
 
     public companion object : TypeCompanion<Volume> {
         override val type: GeneratedInterfaceKGType<Volume> =
-            GeneratedInterfaceKGType(g_volume_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_volume_get_type()) { VolumeImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GVolume>): Volume = Wrapper(pointer)
 
         /**
          * Get the GType of Volume

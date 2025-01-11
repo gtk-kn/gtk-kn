@@ -25,7 +25,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_74
 import org.gtkkn.bindings.gio.annotations.GioVersion2_78
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -285,7 +286,7 @@ import kotlin.collections.List
  * - parameter `iostream`: iostream: Out parameter is not supported
  */
 public interface File :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioFilePointer: CPointer<GFile>
 
@@ -897,7 +898,7 @@ public interface File :
      *   of the given #GFile.
      */
     public fun dup(): File = g_file_dup(gioFilePointer)!!.run {
-        File.wrap(reinterpret())
+        FileImpl(reinterpret())
     }
 
     /**
@@ -1163,7 +1164,7 @@ public interface File :
     public fun findEnclosingMount(cancellable: Cancellable? = null): Result<Mount> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_find_enclosing_mount(gioFilePointer, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            Mount.wrap(reinterpret())
+            Mount.MountImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -1214,7 +1215,7 @@ public interface File :
     public fun findEnclosingMountFinish(res: AsyncResult): Result<Mount> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_find_enclosing_mount_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            Mount.wrap(reinterpret())
+            Mount.MountImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -1259,7 +1260,7 @@ public interface File :
      *   Free the returned object with g_object_unref().
      */
     public fun getChild(name: String): File = g_file_get_child(gioFilePointer, name)!!.run {
-        File.wrap(reinterpret())
+        FileImpl(reinterpret())
     }
 
     /**
@@ -1280,7 +1281,7 @@ public interface File :
     public fun getChildForDisplayName(displayName: String): Result<File> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_get_child_for_display_name(gioFilePointer, displayName, gError.ptr)?.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -1302,7 +1303,7 @@ public interface File :
      *   the returned object with g_object_unref().
      */
     public fun getParent(): File? = g_file_get_parent(gioFilePointer)?.run {
-        File.wrap(reinterpret())
+        FileImpl(reinterpret())
     }
 
     /**
@@ -1769,7 +1770,7 @@ public interface File :
     public fun monitor(flags: FileMonitorFlags, cancellable: Cancellable? = null): Result<FileMonitor> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_monitor(gioFilePointer, flags.mask, cancellable?.gioCancellablePointer, gError.ptr)?.run {
-            FileMonitor(this)
+            FileMonitor.FileMonitorImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -1808,7 +1809,7 @@ public interface File :
                 cancellable?.gioCancellablePointer,
                 gError.ptr
             )?.run {
-                FileMonitor(this)
+                FileMonitor.FileMonitorImpl(this)
             }
 
             return if (gError.pointed != null) {
@@ -1849,7 +1850,7 @@ public interface File :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            FileMonitor(this)
+            FileMonitor.FileMonitorImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -1967,7 +1968,7 @@ public interface File :
     public fun mountMountableFinish(result: AsyncResult): Result<File> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_mount_mountable_finish(gioFilePointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -2284,7 +2285,7 @@ public interface File :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            AppInfo.wrap(reinterpret())
+            AppInfo.AppInfoImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -2334,7 +2335,7 @@ public interface File :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            AppInfo.wrap(reinterpret())
+            AppInfo.AppInfoImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -2917,7 +2918,7 @@ public interface File :
         callback: AsyncReadyCallback?,
     ): Unit = g_file_replace_contents_bytes_async(
         gioFilePointer,
-        contents.gPointer,
+        contents.glibBytesPointer,
         etag,
         makeBackup.asGBoolean(),
         flags.mask,
@@ -3077,7 +3078,7 @@ public interface File :
      */
     public fun resolveRelativePath(relativePath: String): File =
         g_file_resolve_relative_path(gioFilePointer, relativePath)!!.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
     /**
@@ -3458,7 +3459,7 @@ public interface File :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -3512,7 +3513,7 @@ public interface File :
     public fun setDisplayNameFinish(res: AsyncResult): Result<File> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_file_set_display_name_finish(gioFilePointer, res.gioAsyncResultPointer, gError.ptr)?.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -3841,19 +3842,22 @@ public interface File :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GFile>) : File {
-        override val gioFilePointer: CPointer<GFile> = pointer
-    }
+    /**
+     * The FileImpl type represents a native instance of the File interface.
+     *
+     * @constructor Creates a new instance of File for the provided [CPointer].
+     */
+    public data class FileImpl(override val gioFilePointer: CPointer<GFile>) :
+        Object(gioFilePointer.reinterpret()),
+        File
 
     public companion object : TypeCompanion<File> {
         override val type: GeneratedInterfaceKGType<File> =
-            GeneratedInterfaceKGType(g_file_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_file_get_type()) { FileImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GFile>): File = Wrapper(pointer)
 
         /**
          * Constructs a #GFile from a vector of elements using the correct
@@ -3870,7 +3874,7 @@ public interface File :
         @GioVersion2_78
         public fun newBuildFilenamev(args: List<String>): File = memScoped {
             return g_file_new_build_filenamev(args.toCStringList(this))!!.run {
-                File.wrap(reinterpret())
+                FileImpl(reinterpret())
             }
         }
 
@@ -3895,7 +3899,7 @@ public interface File :
          *   Free the returned object with g_object_unref().
          */
         public fun newForCommandlineArg(arg: String): File = g_file_new_for_commandline_arg(arg)!!.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         /**
@@ -3919,7 +3923,7 @@ public interface File :
         @GioVersion2_36
         public fun newForCommandlineArgAndCwd(arg: String, cwd: String): File =
             g_file_new_for_commandline_arg_and_cwd(arg, cwd)!!.run {
-                File.wrap(reinterpret())
+                FileImpl(reinterpret())
             }
 
         /**
@@ -3933,7 +3937,7 @@ public interface File :
          *   Free the returned object with g_object_unref().
          */
         public fun newForPath(path: String): File = g_file_new_for_path(path)!!.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         /**
@@ -3947,7 +3951,7 @@ public interface File :
          *   Free the returned object with g_object_unref().
          */
         public fun newForUri(uri: String): File = g_file_new_for_uri(uri)!!.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         /**
@@ -4025,7 +4029,7 @@ public interface File :
         public fun newTmpDirFinish(result: AsyncResult): Result<File> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_file_new_tmp_dir_finish(result.gioAsyncResultPointer, gError.ptr)?.run {
-                File.wrap(reinterpret())
+                FileImpl(reinterpret())
             }
 
             return if (gError.pointed != null) {
@@ -4045,7 +4049,7 @@ public interface File :
          * @return a new #GFile.
          */
         public fun parseName(parseName: String): File = g_file_parse_name(parseName)!!.run {
-            File.wrap(reinterpret())
+            FileImpl(reinterpret())
         }
 
         /**

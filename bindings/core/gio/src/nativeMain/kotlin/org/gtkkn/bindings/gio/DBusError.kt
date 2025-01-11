@@ -333,7 +333,7 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          */
         @GioVersion2_26
         public fun encodeGerror(error: Error): String =
-            g_dbus_error_encode_gerror(error.gPointer)?.toKString() ?: error("Expected not null string")
+            g_dbus_error_encode_gerror(error.glibErrorPointer)?.toKString() ?: error("Expected not null string")
 
         /**
          * Gets the D-Bus error name used for @error, if any.
@@ -349,7 +349,8 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          * @since 2.26
          */
         @GioVersion2_26
-        public fun getRemoteError(error: Error): String? = g_dbus_error_get_remote_error(error.gPointer)?.toKString()
+        public fun getRemoteError(error: Error): String? =
+            g_dbus_error_get_remote_error(error.glibErrorPointer)?.toKString()
 
         /**
          * Checks if @error represents an error received via D-Bus from a remote peer. If so,
@@ -361,7 +362,8 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          * @since 2.26
          */
         @GioVersion2_26
-        public fun isRemoteError(error: Error): Boolean = g_dbus_error_is_remote_error(error.gPointer).asBoolean()
+        public fun isRemoteError(error: Error): Boolean =
+            g_dbus_error_is_remote_error(error.glibErrorPointer).asBoolean()
 
         /**
          * Creates a #GError based on the contents of @dbus_error_name and
@@ -435,7 +437,8 @@ public enum class DBusError(public val nativeValue: GDBusError) {
          * @since 2.26
          */
         @GioVersion2_26
-        public fun stripRemoteError(error: Error): Boolean = g_dbus_error_strip_remote_error(error.gPointer).asBoolean()
+        public fun stripRemoteError(error: Error): Boolean =
+            g_dbus_error_strip_remote_error(error.glibErrorPointer).asBoolean()
 
         /**
          * Destroys an association previously set up with g_dbus_error_register_error().

@@ -80,12 +80,9 @@ import kotlin.Unit
  * This is an abstract type; subclasses of it implement different resolvers for
  * different platforms and situations.
  */
-public open class Resolver(pointer: CPointer<GResolver>) :
-    Object(pointer.reinterpret()),
+public abstract class Resolver(public val gioResolverPointer: CPointer<GResolver>) :
+    Object(gioResolverPointer.reinterpret()),
     KGTyped {
-    public val gioResolverPointer: CPointer<GResolver>
-        get() = gPointer.reinterpret()
-
     /**
      * The timeout applied to all resolver lookups, in milliseconds.
      *
@@ -673,7 +670,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
      */
     public fun onReload(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioResolverPointer,
             "reload",
             onReloadFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -685,12 +682,19 @@ public open class Resolver(pointer: CPointer<GResolver>) :
      * Emits the "reload" signal. See [onReload].
      */
     public fun emitReload() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "reload")
+        g_signal_emit_by_name(gioResolverPointer.reinterpret(), "reload")
     }
+
+    /**
+     * The ResolverImpl type represents a native instance of the abstract Resolver class.
+     *
+     * @constructor Creates a new instance of Resolver for the provided [CPointer].
+     */
+    public class ResolverImpl(pointer: CPointer<GResolver>) : Resolver(pointer)
 
     public companion object : TypeCompanion<Resolver> {
         override val type: GeneratedClassKGType<Resolver> =
-            GeneratedClassKGType(g_resolver_get_type()) { Resolver(it.reinterpret()) }
+            GeneratedClassKGType(g_resolver_get_type()) { ResolverImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -706,7 +710,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          * @since 2.22
          */
         @GioVersion2_22
-        public fun freeAddresses(addresses: List): Unit = g_resolver_free_addresses(addresses.gPointer)
+        public fun freeAddresses(addresses: List): Unit = g_resolver_free_addresses(addresses.glibListPointer)
 
         /**
          * Frees @targets (which should be the return value from
@@ -718,7 +722,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          * @since 2.22
          */
         @GioVersion2_22
-        public fun freeTargets(targets: List): Unit = g_resolver_free_targets(targets.gPointer)
+        public fun freeTargets(targets: List): Unit = g_resolver_free_targets(targets.glibListPointer)
 
         /**
          * Gets the default #GResolver. You should unref it when you are done
@@ -730,7 +734,7 @@ public open class Resolver(pointer: CPointer<GResolver>) :
          */
         @GioVersion2_22
         public fun getDefault(): Resolver = g_resolver_get_default()!!.run {
-            Resolver(this)
+            ResolverImpl(this)
         }
 
         /**

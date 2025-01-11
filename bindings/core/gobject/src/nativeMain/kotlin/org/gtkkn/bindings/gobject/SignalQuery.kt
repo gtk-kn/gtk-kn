@@ -29,77 +29,76 @@ import kotlin.native.ref.createCleaner
  *
  * - field `param_types`: Array parameter of type GType is not supported
  */
-public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSignalQuery> = pointer
-
+public class SignalQuery(public val gobjectSignalQueryPointer: CPointer<GSignalQuery>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectSignalQueryPointer) {
     /**
      * The signal id of the signal being queried, or 0 if the
      *  signal to be queried was unknown.
      */
     public var signalId: guint
-        get() = gPointer.pointed.signal_id
+        get() = gobjectSignalQueryPointer.pointed.signal_id
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.signal_id = value
+            gobjectSignalQueryPointer.pointed.signal_id = value
         }
 
     /**
      * The signal name.
      */
     public var signalName: String?
-        get() = gPointer.pointed.signal_name?.toKString()
+        get() = gobjectSignalQueryPointer.pointed.signal_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.signal_name?.let { g_free(it) }
-            gPointer.pointed.signal_name = value?.let { g_strdup(it) }
+            gobjectSignalQueryPointer.pointed.signal_name?.let { g_free(it) }
+            gobjectSignalQueryPointer.pointed.signal_name = value?.let { g_strdup(it) }
         }
 
     /**
      * The interface/instance type that this signal can be emitted for.
      */
     public var itype: GType
-        get() = gPointer.pointed.itype
+        get() = gobjectSignalQueryPointer.pointed.itype
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.itype = value
+            gobjectSignalQueryPointer.pointed.itype = value
         }
 
     /**
      * The signal flags as passed in to g_signal_new().
      */
     public var signalFlags: SignalFlags
-        get() = gPointer.pointed.signal_flags.run {
+        get() = gobjectSignalQueryPointer.pointed.signal_flags.run {
             SignalFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.signal_flags = value.mask
+            gobjectSignalQueryPointer.pointed.signal_flags = value.mask
         }
 
     /**
      * The return type for user callbacks.
      */
     public var returnType: GType
-        get() = gPointer.pointed.return_type
+        get() = gobjectSignalQueryPointer.pointed.return_type
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.return_type = value
+            gobjectSignalQueryPointer.pointed.return_type = value
         }
 
     /**
      * The number of parameters that user callbacks take.
      */
     public var nParams: guint
-        get() = gPointer.pointed.n_params
+        get() = gobjectSignalQueryPointer.pointed.n_params
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_params = value
+            gobjectSignalQueryPointer.pointed.n_params = value
         }
 
     /**
@@ -120,7 +119,9 @@ public class SignalQuery(pointer: CPointer<GSignalQuery>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to SignalQuery and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GSignalQuery>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GSignalQuery>, Cleaner>,
+    ) : this(gobjectSignalQueryPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new SignalQuery using the provided [AutofreeScope].

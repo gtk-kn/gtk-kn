@@ -49,12 +49,9 @@ import kotlin.Unit
  * In order to receive updates about volumes and mounts monitored through GVFS,
  * a main loop must be running.
  */
-public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
-    Object(pointer.reinterpret()),
+public open class VolumeMonitor(public val gioVolumeMonitorPointer: CPointer<GVolumeMonitor>) :
+    Object(gioVolumeMonitorPointer.reinterpret()),
     KGTyped {
-    public val gioVolumeMonitorPointer: CPointer<GVolumeMonitor>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets a list of drives connected to the system.
      *
@@ -76,7 +73,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public open fun getMountForUuid(uuid: String): Mount? =
         g_volume_monitor_get_mount_for_uuid(gioVolumeMonitorPointer, uuid)?.run {
-            Mount.wrap(reinterpret())
+            Mount.MountImpl(reinterpret())
         }
 
     /**
@@ -100,7 +97,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public open fun getVolumeForUuid(uuid: String): Volume? =
         g_volume_monitor_get_volume_for_uuid(gioVolumeMonitorPointer, uuid)?.run {
-            Volume.wrap(reinterpret())
+            Volume.VolumeImpl(reinterpret())
         }
 
     /**
@@ -123,7 +120,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public fun onDriveChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drive: Drive) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioVolumeMonitorPointer,
             "drive-changed",
             onDriveChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -137,7 +134,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param drive the drive that changed
      */
     public fun emitDriveChanged(drive: Drive) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drive-changed", drive.gioDrivePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "drive-changed", drive.gioDrivePointer)
     }
 
     /**
@@ -148,7 +145,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public fun onDriveConnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drive: Drive) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioVolumeMonitorPointer,
             "drive-connected",
             onDriveConnectedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -162,7 +159,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param drive a #GDrive that was connected.
      */
     public fun emitDriveConnected(drive: Drive) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drive-connected", drive.gioDrivePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "drive-connected", drive.gioDrivePointer)
     }
 
     /**
@@ -175,7 +172,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drive: Drive) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioVolumeMonitorPointer,
         "drive-disconnected",
         onDriveDisconnectedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -189,7 +186,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param drive a #GDrive that was disconnected.
      */
     public fun emitDriveDisconnected(drive: Drive) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drive-disconnected", drive.gioDrivePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "drive-disconnected", drive.gioDrivePointer)
     }
 
     /**
@@ -204,7 +201,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drive: Drive) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioVolumeMonitorPointer,
         "drive-eject-button",
         onDriveEjectButtonFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -220,7 +217,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     @GioVersion2_18
     public fun emitDriveEjectButton(drive: Drive) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drive-eject-button", drive.gioDrivePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "drive-eject-button", drive.gioDrivePointer)
     }
 
     /**
@@ -235,7 +232,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drive: Drive) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioVolumeMonitorPointer,
         "drive-stop-button",
         onDriveStopButtonFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -251,7 +248,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     @GioVersion2_22
     public fun emitDriveStopButton(drive: Drive) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drive-stop-button", drive.gioDrivePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "drive-stop-button", drive.gioDrivePointer)
     }
 
     /**
@@ -262,7 +259,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public fun onMountAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (mount: Mount) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioVolumeMonitorPointer,
             "mount-added",
             onMountAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -276,7 +273,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param mount a #GMount that was added.
      */
     public fun emitMountAdded(mount: Mount) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "mount-added", mount.gioMountPointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "mount-added", mount.gioMountPointer)
     }
 
     /**
@@ -287,7 +284,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public fun onMountChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (mount: Mount) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioVolumeMonitorPointer,
             "mount-changed",
             onMountChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -301,7 +298,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param mount a #GMount that changed.
      */
     public fun emitMountChanged(mount: Mount) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "mount-changed", mount.gioMountPointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "mount-changed", mount.gioMountPointer)
     }
 
     /**
@@ -317,7 +314,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mount: Mount) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioVolumeMonitorPointer,
         "mount-pre-unmount",
         onMountPreUnmountFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -331,7 +328,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param mount a #GMount that is being unmounted.
      */
     public fun emitMountPreUnmount(mount: Mount) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "mount-pre-unmount", mount.gioMountPointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "mount-pre-unmount", mount.gioMountPointer)
     }
 
     /**
@@ -342,7 +339,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public fun onMountRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (mount: Mount) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioVolumeMonitorPointer,
             "mount-removed",
             onMountRemovedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -356,7 +353,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param mount a #GMount that was removed.
      */
     public fun emitMountRemoved(mount: Mount) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "mount-removed", mount.gioMountPointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "mount-removed", mount.gioMountPointer)
     }
 
     /**
@@ -367,7 +364,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      */
     public fun onVolumeAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (volume: Volume) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioVolumeMonitorPointer,
             "volume-added",
             onVolumeAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -381,7 +378,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param volume a #GVolume that was added.
      */
     public fun emitVolumeAdded(volume: Volume) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "volume-added", volume.gioVolumePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "volume-added", volume.gioVolumePointer)
     }
 
     /**
@@ -394,7 +391,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (volume: Volume) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioVolumeMonitorPointer,
         "volume-changed",
         onVolumeChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -408,7 +405,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param volume a #GVolume that changed.
      */
     public fun emitVolumeChanged(volume: Volume) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "volume-changed", volume.gioVolumePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "volume-changed", volume.gioVolumePointer)
     }
 
     /**
@@ -421,7 +418,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (volume: Volume) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioVolumeMonitorPointer,
         "volume-removed",
         onVolumeRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -435,7 +432,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
      * @param volume a #GVolume that was removed.
      */
     public fun emitVolumeRemoved(volume: Volume) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "volume-removed", volume.gioVolumePointer)
+        g_signal_emit_by_name(gioVolumeMonitorPointer.reinterpret(), "volume-removed", volume.gioVolumePointer)
     }
 
     public companion object : TypeCompanion<VolumeMonitor> {
@@ -482,7 +479,7 @@ public open class VolumeMonitor(pointer: CPointer<GVolumeMonitor>) :
          */
         public fun adoptOrphanMount(mount: Mount): Volume =
             g_volume_monitor_adopt_orphan_mount(mount.gioMountPointer)!!.run {
-                Volume.wrap(reinterpret())
+                Volume.VolumeImpl(reinterpret())
             }
 
         /**
@@ -511,7 +508,7 @@ private val onDriveChangedFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit>> 
     ->
     userData.asStableRef<(drive: Drive) -> Unit>().get().invoke(
         drive!!.run {
-            Drive.wrap(reinterpret())
+            Drive.DriveImpl(reinterpret())
         }
     )
 }
@@ -525,7 +522,7 @@ private val onDriveConnectedFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit>
         ->
         userData.asStableRef<(drive: Drive) -> Unit>().get().invoke(
             drive!!.run {
-                Drive.wrap(reinterpret())
+                Drive.DriveImpl(reinterpret())
             }
         )
     }
@@ -539,7 +536,7 @@ private val onDriveDisconnectedFunc: CPointer<CFunction<(CPointer<GDrive>) -> Un
         ->
         userData.asStableRef<(drive: Drive) -> Unit>().get().invoke(
             drive!!.run {
-                Drive.wrap(reinterpret())
+                Drive.DriveImpl(reinterpret())
             }
         )
     }
@@ -553,7 +550,7 @@ private val onDriveEjectButtonFunc: CPointer<CFunction<(CPointer<GDrive>) -> Uni
         ->
         userData.asStableRef<(drive: Drive) -> Unit>().get().invoke(
             drive!!.run {
-                Drive.wrap(reinterpret())
+                Drive.DriveImpl(reinterpret())
             }
         )
     }
@@ -567,7 +564,7 @@ private val onDriveStopButtonFunc: CPointer<CFunction<(CPointer<GDrive>) -> Unit
         ->
         userData.asStableRef<(drive: Drive) -> Unit>().get().invoke(
             drive!!.run {
-                Drive.wrap(reinterpret())
+                Drive.DriveImpl(reinterpret())
             }
         )
     }
@@ -580,7 +577,7 @@ private val onMountAddedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> = 
     ->
     userData.asStableRef<(mount: Mount) -> Unit>().get().invoke(
         mount!!.run {
-            Mount.wrap(reinterpret())
+            Mount.MountImpl(reinterpret())
         }
     )
 }
@@ -593,7 +590,7 @@ private val onMountChangedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> 
     ->
     userData.asStableRef<(mount: Mount) -> Unit>().get().invoke(
         mount!!.run {
-            Mount.wrap(reinterpret())
+            Mount.MountImpl(reinterpret())
         }
     )
 }
@@ -607,7 +604,7 @@ private val onMountPreUnmountFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit
         ->
         userData.asStableRef<(mount: Mount) -> Unit>().get().invoke(
             mount!!.run {
-                Mount.wrap(reinterpret())
+                Mount.MountImpl(reinterpret())
             }
         )
     }
@@ -620,7 +617,7 @@ private val onMountRemovedFunc: CPointer<CFunction<(CPointer<GMount>) -> Unit>> 
     ->
     userData.asStableRef<(mount: Mount) -> Unit>().get().invoke(
         mount!!.run {
-            Mount.wrap(reinterpret())
+            Mount.MountImpl(reinterpret())
         }
     )
 }
@@ -633,7 +630,7 @@ private val onVolumeAddedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Unit>> 
     ->
     userData.asStableRef<(volume: Volume) -> Unit>().get().invoke(
         volume!!.run {
-            Volume.wrap(reinterpret())
+            Volume.VolumeImpl(reinterpret())
         }
     )
 }
@@ -647,7 +644,7 @@ private val onVolumeChangedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Unit>
         ->
         userData.asStableRef<(volume: Volume) -> Unit>().get().invoke(
             volume!!.run {
-                Volume.wrap(reinterpret())
+                Volume.VolumeImpl(reinterpret())
             }
         )
     }
@@ -661,7 +658,7 @@ private val onVolumeRemovedFunc: CPointer<CFunction<(CPointer<GVolume>) -> Unit>
         ->
         userData.asStableRef<(volume: Volume) -> Unit>().get().invoke(
             volume!!.run {
-                Volume.wrap(reinterpret())
+                Volume.VolumeImpl(reinterpret())
             }
         )
     }

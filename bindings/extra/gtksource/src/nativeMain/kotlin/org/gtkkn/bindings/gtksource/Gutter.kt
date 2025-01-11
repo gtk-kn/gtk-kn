@@ -45,20 +45,17 @@ import kotlin.Unit
  *
  * - method `window-type`: Property has no getter nor setter
  */
-public open class Gutter(pointer: CPointer<GtkSourceGutter>) :
-    Widget(pointer.reinterpret()),
+public open class Gutter(public val gtksourceGutterPointer: CPointer<GtkSourceGutter>) :
+    Widget(gtksourceGutterPointer.reinterpret()),
     KGTyped {
-    public val gtksourceGutterPointer: CPointer<GtkSourceGutter>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The #GtkSourceView of the gutter.

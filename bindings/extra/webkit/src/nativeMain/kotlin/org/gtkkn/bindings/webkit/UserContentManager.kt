@@ -67,12 +67,9 @@ import kotlin.Unit
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
-    Object(pointer.reinterpret()),
+public class UserContentManager(public val webkitUserContentManagerPointer: CPointer<WebKitUserContentManager>) :
+    Object(webkitUserContentManagerPointer.reinterpret()),
     KGTyped {
-    public val webkitUserContentManagerPointer: CPointer<WebKitUserContentManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new user content manager.
      *
@@ -94,7 +91,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_24
     public fun addFilter(filter: UserContentFilter): Unit =
-        webkit_user_content_manager_add_filter(webkitUserContentManagerPointer, filter.gPointer)
+        webkit_user_content_manager_add_filter(webkitUserContentManagerPointer, filter.webkitUserContentFilterPointer)
 
     /**
      * Adds a #WebKitUserScript to the given #WebKitUserContentManager.
@@ -107,7 +104,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_6
     public fun addScript(script: UserScript): Unit =
-        webkit_user_content_manager_add_script(webkitUserContentManagerPointer, script.gPointer)
+        webkit_user_content_manager_add_script(webkitUserContentManagerPointer, script.webkitUserScriptPointer)
 
     /**
      * Adds a #WebKitUserStyleSheet to the given #WebKitUserContentManager.
@@ -119,8 +116,10 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun addStyleSheet(stylesheet: UserStyleSheet): Unit =
-        webkit_user_content_manager_add_style_sheet(webkitUserContentManagerPointer, stylesheet.gPointer)
+    public fun addStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_add_style_sheet(
+        webkitUserContentManagerPointer,
+        stylesheet.webkitUserStyleSheetPointer
+    )
 
     /**
      * Registers a new user script message handler in script world.
@@ -229,8 +228,10 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      *
      * @param filter A #WebKitUserContentFilter
      */
-    public fun removeFilter(filter: UserContentFilter): Unit =
-        webkit_user_content_manager_remove_filter(webkitUserContentManagerPointer, filter.gPointer)
+    public fun removeFilter(filter: UserContentFilter): Unit = webkit_user_content_manager_remove_filter(
+        webkitUserContentManagerPointer,
+        filter.webkitUserContentFilterPointer
+    )
 
     /**
      * Removes a filter by the given identifier.
@@ -256,7 +257,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      */
     @WebKitVersion2_32
     public fun removeScript(script: UserScript): Unit =
-        webkit_user_content_manager_remove_script(webkitUserContentManagerPointer, script.gPointer)
+        webkit_user_content_manager_remove_script(webkitUserContentManagerPointer, script.webkitUserScriptPointer)
 
     /**
      * Removes a #WebKitUserStyleSheet from the given #WebKitUserContentManager.
@@ -267,8 +268,10 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
      * @since 2.32
      */
     @WebKitVersion2_32
-    public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit =
-        webkit_user_content_manager_remove_style_sheet(webkitUserContentManagerPointer, stylesheet.gPointer)
+    public fun removeStyleSheet(stylesheet: UserStyleSheet): Unit = webkit_user_content_manager_remove_style_sheet(
+        webkitUserContentManagerPointer,
+        stylesheet.webkitUserStyleSheetPointer
+    )
 
     /**
      * Unregisters a previously registered message handler in script world with name @world_name.
@@ -306,7 +309,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
         detail: String? = null,
         handler: (`value`: Value) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitUserContentManagerPointer,
         "script-message-received" + (
             detail?.let {
                 "::$it"
@@ -328,12 +331,8 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
     @WebKitVersion2_8
     public fun emitScriptMessageReceived(detail: String? = null, `value`: Value) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
-            "script-message-received" + (
-                detail?.let {
-                    "::$it"
-                } ?: ""
-                ),
+            webkitUserContentManagerPointer.reinterpret(),
+            "script-message-received" + (detail?.let { "::$it" } ?: ""),
             `value`.jscValuePointer
         )
     }
@@ -364,7 +363,7 @@ public class UserContentManager(pointer: CPointer<WebKitUserContentManager>) :
         detail: String? = null,
         handler: (`value`: Value, reply: ScriptMessageReply) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitUserContentManagerPointer,
         "script-message-with-reply-received" + (
             detail?.let {
                 "::$it"

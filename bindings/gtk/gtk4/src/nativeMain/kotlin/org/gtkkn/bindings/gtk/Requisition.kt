@@ -20,29 +20,28 @@ import kotlin.Unit
  * [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management) for
  * more information.
  */
-public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkRequisition> = pointer
-
+public class Requisition(public val gtkRequisitionPointer: CPointer<GtkRequisition>) :
+    ProxyInstance(gtkRequisitionPointer) {
     /**
      * the widget’s desired width
      */
     public var width: gint
-        get() = gPointer.pointed.width
+        get() = gtkRequisitionPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            gtkRequisitionPointer.pointed.width = value
         }
 
     /**
      * the widget’s desired height
      */
     public var height: gint
-        get() = gPointer.pointed.height
+        get() = gtkRequisitionPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            gtkRequisitionPointer.pointed.height = value
         }
 
     /**
@@ -50,14 +49,14 @@ public class Requisition(pointer: CPointer<GtkRequisition>) : ProxyInstance(poin
      *
      * @return a copy of @requisition
      */
-    public fun copy(): Requisition = gtk_requisition_copy(gPointer)!!.run {
+    public fun copy(): Requisition = gtk_requisition_copy(gtkRequisitionPointer)!!.run {
         Requisition(this)
     }
 
     /**
      * Frees a `GtkRequisition`.
      */
-    public fun free(): Unit = gtk_requisition_free(gPointer)
+    public fun free(): Unit = gtk_requisition_free(gtkRequisitionPointer)
 
     override fun toString(): String = "Requisition(width=$width, height=$height)"
 

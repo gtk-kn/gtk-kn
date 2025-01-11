@@ -182,19 +182,16 @@ import kotlin.Throws
  * @since 2.22
  */
 @GioVersion2_22
-public open class Socket(pointer: CPointer<GSocket>) :
-    Object(pointer.reinterpret()),
+public open class Socket(public val gioSocketPointer: CPointer<GSocket>) :
+    Object(gioSocketPointer.reinterpret()),
     DatagramBased,
     Initable,
     KGTyped {
-    public val gioSocketPointer: CPointer<GSocket>
-        get() = gPointer.reinterpret()
-
     override val gioDatagramBasedPointer: CPointer<GDatagramBased>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether I/O on this socket is blocking.
@@ -985,7 +982,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_local_address(gioSocketPointer, gError.ptr)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -1007,7 +1004,7 @@ public open class Socket(pointer: CPointer<GSocket>) :
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_get_remote_address(gioSocketPointer, gError.ptr)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         return if (gError.pointed != null) {

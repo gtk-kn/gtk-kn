@@ -24,29 +24,28 @@ import kotlin.native.ref.createCleaner
  *
  * - field `g_type_class`: Field with not-pointer record/union GTypeClass is not supported
  */
-public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GFlagsClass> = pointer
-
+public class FlagsClass(public val gobjectFlagsClassPointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectFlagsClassPointer) {
     /**
      * a mask covering all possible values.
      */
     public var mask: guint
-        get() = gPointer.pointed.mask
+        get() = gobjectFlagsClassPointer.pointed.mask
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mask = value
+            gobjectFlagsClassPointer.pointed.mask = value
         }
 
     /**
      * the number of possible values.
      */
     public var nValues: guint
-        get() = gPointer.pointed.n_values
+        get() = gobjectFlagsClassPointer.pointed.n_values
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_values = value
+            gobjectFlagsClassPointer.pointed.n_values = value
         }
 
     /**
@@ -54,13 +53,13 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      *  individual values.
      */
     public var values: FlagsValue?
-        get() = gPointer.pointed.values?.run {
+        get() = gobjectFlagsClassPointer.pointed.values?.run {
             FlagsValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.values = value?.gPointer
+            gobjectFlagsClassPointer.pointed.values = value?.gobjectFlagsValuePointer
         }
 
     /**
@@ -81,7 +80,9 @@ public class FlagsClass(pointer: CPointer<GFlagsClass>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to FlagsClass and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GFlagsClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GFlagsClass>, Cleaner>,
+    ) : this(gobjectFlagsClassPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FlagsClass using the provided [AutofreeScope].

@@ -32,12 +32,9 @@ import kotlin.Unit
  * @since 1.2
  */
 @CairoVersion1_2
-public open class PdfSurface(pointer: CPointer<cairo_surface_t>) :
-    Surface(pointer.reinterpret()),
+public open class PdfSurface(public val cairoPdfSurfacePointer: CPointer<cairo_surface_t>) :
+    Surface(cairoPdfSurfacePointer.reinterpret()),
     KGTyped {
-    public val cairoPdfSurfacePointer: CPointer<cairo_surface_t>
-        get() = gPointer.reinterpret()
-
     /**
      *
      *

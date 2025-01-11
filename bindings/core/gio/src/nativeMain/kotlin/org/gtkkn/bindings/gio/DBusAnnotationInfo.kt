@@ -36,43 +36,43 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDBusAnnotationInfo> = pointer
-
+public class DBusAnnotationInfo(
+    public val gioDBusAnnotationInfoPointer: CPointer<GDBusAnnotationInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gioDBusAnnotationInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gPointer.pointed.ref_count
+        get() = gioDBusAnnotationInfoPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.ref_count = value
+            gioDBusAnnotationInfoPointer.pointed.ref_count = value
         }
 
     /**
      * The name of the annotation, e.g. "org.freedesktop.DBus.Deprecated".
      */
     public var key: String?
-        get() = gPointer.pointed.key?.toKString()
+        get() = gioDBusAnnotationInfoPointer.pointed.key?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.key?.let { g_free(it) }
-            gPointer.pointed.key = value?.let { g_strdup(it) }
+            gioDBusAnnotationInfoPointer.pointed.key?.let { g_free(it) }
+            gioDBusAnnotationInfoPointer.pointed.key = value?.let { g_strdup(it) }
         }
 
     /**
      * The value of the annotation.
      */
     public var `value`: String?
-        get() = gPointer.pointed.value?.toKString()
+        get() = gioDBusAnnotationInfoPointer.pointed.value?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value?.let { g_free(it) }
-            gPointer.pointed.value = value?.let { g_strdup(it) }
+            gioDBusAnnotationInfoPointer.pointed.value?.let { g_free(it) }
+            gioDBusAnnotationInfoPointer.pointed.value = value?.let { g_strdup(it) }
         }
 
     /**
@@ -95,7 +95,7 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner:
      */
     private constructor(
         pair: Pair<CPointer<GDBusAnnotationInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioDBusAnnotationInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusAnnotationInfo using the provided [AutofreeScope].
@@ -155,7 +155,7 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner:
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusAnnotationInfo = g_dbus_annotation_info_ref(gPointer)!!.run {
+    public fun ref(): DBusAnnotationInfo = g_dbus_annotation_info_ref(gioDBusAnnotationInfoPointer)!!.run {
         DBusAnnotationInfo(this)
     }
 
@@ -167,7 +167,7 @@ public class DBusAnnotationInfo(pointer: CPointer<GDBusAnnotationInfo>, cleaner:
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_annotation_info_unref(gPointer)
+    public fun unref(): Unit = g_dbus_annotation_info_unref(gioDBusAnnotationInfoPointer)
 
     override fun toString(): String = "DBusAnnotationInfo(refCount=$refCount, key=$key, value=$value)"
 

@@ -150,19 +150,10 @@ sealed class TypeInfo {
         )
     }
 
-    /**
-     * Native type is a CPointer and kotlin type is a generated wrapper class.
-     *
-     * native to kotlin conversion: wrap the pointer
-     * kotlin to native conversion: extract the objectPointer
-     *
-     * @property nativeTypeName TypeName for the native side
-     * @property kotlinTypeName TypeName for the kotlin side
-     * @property objectPointerName name for the pointer to be used as instancePointer
-     */
     data class InterfacePointer(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
+        val kotlinTypeNameImpl: TypeName,
         val objectPointerName: String,
     ) : TypeInfo() {
         override val isCinteropNullable = true
@@ -188,6 +179,7 @@ sealed class TypeInfo {
     data class ObjectPointer(
         override val nativeTypeName: TypeName,
         override val kotlinTypeName: TypeName,
+        val kotlinTypeNameImpl: TypeName?,
         val objectPointerName: String,
         private val needsReinterpret: Boolean = false,
     ) : TypeInfo() {
@@ -195,6 +187,7 @@ sealed class TypeInfo {
         override fun withNullable(nullable: Boolean): ObjectPointer = copy(
             nativeTypeName = nativeTypeName.copy(nullable),
             kotlinTypeName = kotlinTypeName.copy(nullable),
+            kotlinTypeNameImpl = kotlinTypeNameImpl?.copy(nullable),
         )
 
         fun needsReinterpret() = !((nativeTypeName as ParameterizedTypeName).typeArguments.first() as ClassName)

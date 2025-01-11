@@ -68,15 +68,14 @@ import kotlin.Unit
  * - parameter `dx`: dx: Out parameter is not supported
  * - parameter `left`: left: Out parameter is not supported
  */
-public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkPopupLayout> = pointer
-
+public class PopupLayout(public val gdkPopupLayoutPointer: CPointer<GdkPopupLayout>) :
+    ProxyInstance(gdkPopupLayoutPointer) {
     /**
      * Makes a copy of @layout.
      *
      * @return a copy of @layout.
      */
-    public fun copy(): PopupLayout = gdk_popup_layout_copy(gPointer)!!.run {
+    public fun copy(): PopupLayout = gdk_popup_layout_copy(gdkPopupLayoutPointer)!!.run {
         PopupLayout(this)
     }
 
@@ -87,14 +86,15 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      * @return true if @layout and @other have identical layout properties,
      *   otherwise false.
      */
-    public fun equal(other: PopupLayout): Boolean = gdk_popup_layout_equal(gPointer, other.gPointer).asBoolean()
+    public fun equal(other: PopupLayout): Boolean =
+        gdk_popup_layout_equal(gdkPopupLayoutPointer, other.gdkPopupLayoutPointer).asBoolean()
 
     /**
      * Get the `GdkAnchorHints`.
      *
      * @return the `GdkAnchorHints`
      */
-    public fun getAnchorHints(): AnchorHints = gdk_popup_layout_get_anchor_hints(gPointer).run {
+    public fun getAnchorHints(): AnchorHints = gdk_popup_layout_get_anchor_hints(gdkPopupLayoutPointer).run {
         AnchorHints(this)
     }
 
@@ -103,7 +103,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      *
      * @return The anchor rectangle
      */
-    public fun getAnchorRect(): Rectangle = gdk_popup_layout_get_anchor_rect(gPointer)!!.run {
+    public fun getAnchorRect(): Rectangle = gdk_popup_layout_get_anchor_rect(gdkPopupLayoutPointer)!!.run {
         Rectangle(this)
     }
 
@@ -112,7 +112,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      *
      * @return the anchor on the anchor rectangle.
      */
-    public fun getRectAnchor(): Gravity = gdk_popup_layout_get_rect_anchor(gPointer).run {
+    public fun getRectAnchor(): Gravity = gdk_popup_layout_get_rect_anchor(gdkPopupLayoutPointer).run {
         Gravity.fromNativeValue(this)
     }
 
@@ -121,7 +121,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      *
      * @return the anchor on the popup surface.
      */
-    public fun getSurfaceAnchor(): Gravity = gdk_popup_layout_get_surface_anchor(gPointer).run {
+    public fun getSurfaceAnchor(): Gravity = gdk_popup_layout_get_surface_anchor(gdkPopupLayoutPointer).run {
         Gravity.fromNativeValue(this)
     }
 
@@ -130,7 +130,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      *
      * @return the same @layout
      */
-    public fun ref(): PopupLayout = gdk_popup_layout_ref(gPointer)!!.run {
+    public fun ref(): PopupLayout = gdk_popup_layout_ref(gdkPopupLayoutPointer)!!.run {
         PopupLayout(this)
     }
 
@@ -146,7 +146,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      * @param anchorHints the new `GdkAnchorHints`
      */
     public fun setAnchorHints(anchorHints: AnchorHints): Unit =
-        gdk_popup_layout_set_anchor_hints(gPointer, anchorHints.mask)
+        gdk_popup_layout_set_anchor_hints(gdkPopupLayoutPointer, anchorHints.mask)
 
     /**
      * Set the anchor rectangle.
@@ -154,7 +154,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      * @param anchorRect the new anchor rectangle
      */
     public fun setAnchorRect(anchorRect: Rectangle): Unit =
-        gdk_popup_layout_set_anchor_rect(gPointer, anchorRect.gPointer)
+        gdk_popup_layout_set_anchor_rect(gdkPopupLayoutPointer, anchorRect.gdkRectanglePointer)
 
     /**
      * Offset the position of the anchor rectangle with the given delta.
@@ -162,14 +162,15 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      * @param dx x delta to offset the anchor rectangle with
      * @param dy y delta to offset the anchor rectangle with
      */
-    public fun setOffset(dx: gint, dy: gint): Unit = gdk_popup_layout_set_offset(gPointer, dx, dy)
+    public fun setOffset(dx: gint, dy: gint): Unit = gdk_popup_layout_set_offset(gdkPopupLayoutPointer, dx, dy)
 
     /**
      * Set the anchor on the anchor rectangle.
      *
      * @param anchor the new rect anchor
      */
-    public fun setRectAnchor(anchor: Gravity): Unit = gdk_popup_layout_set_rect_anchor(gPointer, anchor.nativeValue)
+    public fun setRectAnchor(anchor: Gravity): Unit =
+        gdk_popup_layout_set_rect_anchor(gdkPopupLayoutPointer, anchor.nativeValue)
 
     /**
      * Sets the shadow width of the popup.
@@ -186,7 +187,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      */
     @GdkVersion4_2
     public fun setShadowWidth(left: gint, right: gint, top: gint, bottom: gint): Unit =
-        gdk_popup_layout_set_shadow_width(gPointer, left, right, top, bottom)
+        gdk_popup_layout_set_shadow_width(gdkPopupLayoutPointer, left, right, top, bottom)
 
     /**
      * Set the anchor on the popup surface.
@@ -194,12 +195,12 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
      * @param anchor the new popup surface anchor
      */
     public fun setSurfaceAnchor(anchor: Gravity): Unit =
-        gdk_popup_layout_set_surface_anchor(gPointer, anchor.nativeValue)
+        gdk_popup_layout_set_surface_anchor(gdkPopupLayoutPointer, anchor.nativeValue)
 
     /**
      * Decreases the reference count of @value.
      */
-    public fun unref(): Unit = gdk_popup_layout_unref(gPointer)
+    public fun unref(): Unit = gdk_popup_layout_unref(gdkPopupLayoutPointer)
 
     public companion object {
         /**
@@ -223,7 +224,7 @@ public class PopupLayout(pointer: CPointer<GdkPopupLayout>) : ProxyInstance(poin
          */
         public fun new(anchorRect: Rectangle, rectAnchor: Gravity, surfaceAnchor: Gravity): PopupLayout = PopupLayout(
             gdk_popup_layout_new(
-                anchorRect.gPointer,
+                anchorRect.gdkRectanglePointer,
                 rectAnchor.nativeValue,
                 surfaceAnchor.nativeValue
             )!!.reinterpret()

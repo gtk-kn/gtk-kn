@@ -37,12 +37,9 @@ import kotlin.Unit
  * `GtkEventControllerKey` is an event controller that provides access
  * to key events.
  */
-public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerKey(public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>) :
+    EventController(gtkEventControllerKeyPointer.reinterpret()),
     KGTyped {
-    public val gtkEventControllerKeyPointer: CPointer<GtkEventControllerKey>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new event controller that will handle key events.
      *
@@ -80,7 +77,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
      */
     public open fun getImContext(): ImContext? =
         gtk_event_controller_key_get_im_context(gtkEventControllerKeyPointer)?.run {
-            ImContext(this)
+            ImContext.ImContextImpl(this)
         }
 
     /**
@@ -103,7 +100,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
      */
     public fun onImUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerKeyPointer,
             "im-update",
             onImUpdateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -115,7 +112,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
      * Emits the "im-update" signal. See [onImUpdate].
      */
     public fun emitImUpdate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "im-update")
+        g_signal_emit_by_name(gtkEventControllerKeyPointer.reinterpret(), "im-update")
     }
 
     /**
@@ -132,7 +129,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
             state: ModifierType,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerKeyPointer,
         "key-pressed",
         onKeyPressedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -154,7 +151,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
             state: ModifierType,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerKeyPointer,
         "key-released",
         onKeyReleasedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -170,7 +167,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
      * @param state the bitmask, representing the state of modifier keys and pointer buttons.
      */
     public fun emitKeyReleased(keyval: guint, keycode: guint, state: ModifierType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "key-released", keyval, keycode, state.mask)
+        g_signal_emit_by_name(gtkEventControllerKeyPointer.reinterpret(), "key-released", keyval, keycode, state.mask)
     }
 
     /**
@@ -184,7 +181,7 @@ public open class EventControllerKey(pointer: CPointer<GtkEventControllerKey>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (state: ModifierType) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerKeyPointer,
         "modifiers",
         onModifiersFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

@@ -63,12 +63,10 @@ import kotlin.Unit
  * authentication asynchronously, simply increase the reference count of the
  * WebKitAuthenticationRequest object.
  */
-public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest>) :
-    Object(pointer.reinterpret()),
+public class AuthenticationRequest(
+    public val webkitAuthenticationRequestPointer: CPointer<WebKitAuthenticationRequest>,
+) : Object(webkitAuthenticationRequestPointer.reinterpret()),
     KGTyped {
-    public val webkitAuthenticationRequestPointer: CPointer<WebKitAuthenticationRequest>
-        get() = gPointer.reinterpret()
-
     /**
      * Authenticate the #WebKitAuthenticationRequest.
      *
@@ -79,8 +77,10 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
      * @since 2.2
      */
     @WebKitVersion2_2
-    public fun authenticate(credential: Credential? = null): Unit =
-        webkit_authentication_request_authenticate(webkitAuthenticationRequestPointer, credential?.gPointer)
+    public fun authenticate(credential: Credential? = null): Unit = webkit_authentication_request_authenticate(
+        webkitAuthenticationRequestPointer,
+        credential?.webkitCredentialPointer
+    )
 
     /**
      * Determine whether this #WebKitAuthenticationRequest should allow the storage of credentials.
@@ -250,7 +250,10 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
      */
     @WebKitVersion2_30
     public fun setProposedCredential(credential: Credential): Unit =
-        webkit_authentication_request_set_proposed_credential(webkitAuthenticationRequestPointer, credential.gPointer)
+        webkit_authentication_request_set_proposed_credential(
+            webkitAuthenticationRequestPointer,
+            credential.webkitCredentialPointer
+        )
 
     /**
      * This signal is emitted when the user authentication request succeeded.
@@ -266,7 +269,7 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (credential: Credential) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitAuthenticationRequestPointer,
         "authenticated",
         onAuthenticatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -282,7 +285,11 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
      */
     @WebKitVersion2_30
     public fun emitAuthenticated(credential: Credential) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "authenticated", credential.gPointer)
+        g_signal_emit_by_name(
+            webkitAuthenticationRequestPointer.reinterpret(),
+            "authenticated",
+            credential.webkitCredentialPointer
+        )
     }
 
     /**
@@ -297,7 +304,7 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
     @WebKitVersion2_2
     public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitAuthenticationRequestPointer,
             "cancelled",
             onCancelledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -312,7 +319,7 @@ public class AuthenticationRequest(pointer: CPointer<WebKitAuthenticationRequest
      */
     @WebKitVersion2_2
     public fun emitCancelled() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cancelled")
+        g_signal_emit_by_name(webkitAuthenticationRequestPointer.reinterpret(), "cancelled")
     }
 
     public companion object : TypeCompanion<AuthenticationRequest> {

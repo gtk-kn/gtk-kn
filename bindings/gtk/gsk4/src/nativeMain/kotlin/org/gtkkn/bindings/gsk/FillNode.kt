@@ -21,12 +21,9 @@ import org.gtkkn.native.gsk.gsk_fill_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class FillNode(pointer: CPointer<GskFillNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class FillNode(public val gskFillNodePointer: CPointer<GskFillNode>) :
+    RenderNode(gskFillNodePointer.reinterpret()),
     KGTyped {
-    public val gskFillNodePointer: CPointer<GskFillNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will fill the @child in the area
      * given by @path and @fill_rule.
@@ -41,7 +38,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
         child: RenderNode,
         path: Path,
         fillRule: FillRule,
-    ) : this(gsk_fill_node_new(child.gPointer, path.gPointer, fillRule.nativeValue)!!.reinterpret())
+    ) : this(gsk_fill_node_new(child.gskRenderNodePointer, path.gskPathPointer, fillRule.nativeValue)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -51,7 +48,7 @@ public open class FillNode(pointer: CPointer<GskFillNode>) :
      */
     @GskVersion4_14
     public open fun getChild(): RenderNode = gsk_fill_node_get_child(gskFillNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

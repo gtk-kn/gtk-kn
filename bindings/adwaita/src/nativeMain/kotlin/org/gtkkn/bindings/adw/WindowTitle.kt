@@ -36,20 +36,17 @@ import kotlin.String
  *
  * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
  */
-public class WindowTitle(pointer: CPointer<AdwWindowTitle>) :
-    Widget(pointer.reinterpret()),
+public class WindowTitle(public val adwWindowTitlePointer: CPointer<AdwWindowTitle>) :
+    Widget(adwWindowTitlePointer.reinterpret()),
     KGTyped {
-    public val adwWindowTitlePointer: CPointer<AdwWindowTitle>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The subtitle to display.

@@ -38,15 +38,12 @@ import org.gtkkn.native.soup.soup_content_decoder_get_type
  * Content-Encoding when sending a request body, or to pick specific
  * encoding types to support.)
  */
-public class ContentDecoder(pointer: CPointer<SoupContentDecoder>) :
-    Object(pointer.reinterpret()),
+public class ContentDecoder(public val soupContentDecoderPointer: CPointer<SoupContentDecoder>) :
+    Object(soupContentDecoderPointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupContentDecoderPointer: CPointer<SoupContentDecoder>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<ContentDecoder> {
         override val type: GeneratedClassKGType<ContentDecoder> =

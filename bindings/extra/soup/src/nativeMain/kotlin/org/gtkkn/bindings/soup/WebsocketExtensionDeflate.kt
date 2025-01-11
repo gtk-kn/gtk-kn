@@ -17,12 +17,10 @@ import org.gtkkn.native.soup.soup_websocket_extension_deflate_get_type
  * This extension is used by default in a [class@Session] when [class@WebsocketExtensionManager]
  * feature is present, and always used by [class@Server].
  */
-public class WebsocketExtensionDeflate(pointer: CPointer<SoupWebsocketExtensionDeflate>) :
-    WebsocketExtension(pointer.reinterpret()),
+public class WebsocketExtensionDeflate(
+    public val soupWebsocketExtensionDeflatePointer: CPointer<SoupWebsocketExtensionDeflate>,
+) : WebsocketExtension(soupWebsocketExtensionDeflatePointer.reinterpret()),
     KGTyped {
-    public val soupWebsocketExtensionDeflatePointer: CPointer<SoupWebsocketExtensionDeflate>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<WebsocketExtensionDeflate> {
         override val type: GeneratedClassKGType<WebsocketExtensionDeflate> =
             GeneratedClassKGType(soup_websocket_extension_deflate_get_type()) {

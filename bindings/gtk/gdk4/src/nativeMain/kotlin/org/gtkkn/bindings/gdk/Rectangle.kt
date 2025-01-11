@@ -42,51 +42,50 @@ import kotlin.native.ref.createCleaner
  * The Graphene library has a number of other data types for regions and
  * volumes in 2D and 3D.
  */
-public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkRectangle> = pointer
-
+public class Rectangle(public val gdkRectanglePointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null) :
+    ProxyInstance(gdkRectanglePointer) {
     /**
      * the x coordinate of the top left corner
      */
     public var x: gint
-        get() = gPointer.pointed.x
+        get() = gdkRectanglePointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x = value
+            gdkRectanglePointer.pointed.x = value
         }
 
     /**
      * the y coordinate of the top left corner
      */
     public var y: gint
-        get() = gPointer.pointed.y
+        get() = gdkRectanglePointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y = value
+            gdkRectanglePointer.pointed.y = value
         }
 
     /**
      * the width of the rectangle
      */
     public var width: gint
-        get() = gPointer.pointed.width
+        get() = gdkRectanglePointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            gdkRectanglePointer.pointed.width = value
         }
 
     /**
      * the height of the rectangle
      */
     public var height: gint
-        get() = gPointer.pointed.height
+        get() = gdkRectanglePointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            gdkRectanglePointer.pointed.height = value
         }
 
     /**
@@ -107,7 +106,9 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to Rectangle and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GdkRectangle>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GdkRectangle>, Cleaner>,
+    ) : this(gdkRectanglePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rectangle using the provided [AutofreeScope].
@@ -172,7 +173,8 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param y Y coordinate
      * @return true if @rect contains the point
      */
-    public fun containsPoint(x: gint, y: gint): Boolean = gdk_rectangle_contains_point(gPointer, x, y).asBoolean()
+    public fun containsPoint(x: gint, y: gint): Boolean =
+        gdk_rectangle_contains_point(gdkRectanglePointer, x, y).asBoolean()
 
     /**
      * Checks if the two given rectangles are equal.
@@ -180,7 +182,8 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param rect2 a `GdkRectangle`
      * @return true if the rectangles are equal.
      */
-    public fun equal(rect2: Rectangle): Boolean = gdk_rectangle_equal(gPointer, rect2.gPointer).asBoolean()
+    public fun equal(rect2: Rectangle): Boolean =
+        gdk_rectangle_equal(gdkRectanglePointer, rect2.gdkRectanglePointer).asBoolean()
 
     /**
      * Calculates the intersection of two rectangles.
@@ -197,7 +200,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @return true if the rectangles intersect.
      */
     public fun intersect(src2: Rectangle, dest: Rectangle?): Boolean =
-        gdk_rectangle_intersect(gPointer, src2.gPointer, dest?.gPointer).asBoolean()
+        gdk_rectangle_intersect(gdkRectanglePointer, src2.gdkRectanglePointer, dest?.gdkRectanglePointer).asBoolean()
 
     /**
      * Calculates the union of two rectangles.
@@ -213,7 +216,7 @@ public class Rectangle(pointer: CPointer<GdkRectangle>, cleaner: Cleaner? = null
      * @param dest return location for the union of @src1 and @src2
      */
     public fun union(src2: Rectangle, dest: Rectangle): Unit =
-        gdk_rectangle_union(gPointer, src2.gPointer, dest.gPointer)
+        gdk_rectangle_union(gdkRectanglePointer, src2.gdkRectanglePointer, dest.gdkRectanglePointer)
 
     override fun toString(): String = "Rectangle(x=$x, y=$y, width=$width, height=$height)"
 

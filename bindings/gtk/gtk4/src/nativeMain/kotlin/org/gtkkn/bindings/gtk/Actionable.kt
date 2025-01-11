@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.glib.Variant
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -41,7 +41,7 @@ import kotlin.Unit
  * - method `action-target`: Property has no getter nor setter
  */
 public interface Actionable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkActionablePointer: CPointer<GtkActionable>
 
@@ -131,7 +131,7 @@ public interface Actionable :
      * @param targetValue a [struct@GLib.Variant] to set as the target value
      */
     public fun setActionTargetValue(targetValue: Variant? = null): Unit =
-        gtk_actionable_set_action_target_value(gtkActionablePointer, targetValue?.gPointer)
+        gtk_actionable_set_action_target_value(gtkActionablePointer, targetValue?.glibVariantPointer)
 
     /**
      * Sets the action-name and associated string target value of an
@@ -145,19 +145,22 @@ public interface Actionable :
     public fun setDetailedActionName(detailedActionName: String): Unit =
         gtk_actionable_set_detailed_action_name(gtkActionablePointer, detailedActionName)
 
-    private data class Wrapper(private val pointer: CPointer<GtkActionable>) : Actionable {
-        override val gtkActionablePointer: CPointer<GtkActionable> = pointer
-    }
+    /**
+     * The ActionableImpl type represents a native instance of the Actionable interface.
+     *
+     * @constructor Creates a new instance of Actionable for the provided [CPointer].
+     */
+    public data class ActionableImpl(override val gtkActionablePointer: CPointer<GtkActionable>) :
+        Widget(gtkActionablePointer.reinterpret()),
+        Actionable
 
     public companion object : TypeCompanion<Actionable> {
         override val type: GeneratedInterfaceKGType<Actionable> =
-            GeneratedInterfaceKGType(gtk_actionable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_actionable_get_type()) { ActionableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkActionable>): Actionable = Wrapper(pointer)
 
         /**
          * Get the GType of Actionable

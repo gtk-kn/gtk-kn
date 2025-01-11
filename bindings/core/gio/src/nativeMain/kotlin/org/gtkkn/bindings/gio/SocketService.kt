@@ -67,12 +67,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketService(pointer: CPointer<GSocketService>) :
-    SocketListener(pointer.reinterpret()),
+public open class SocketService(public val gioSocketServicePointer: CPointer<GSocketService>) :
+    SocketListener(gioSocketServicePointer.reinterpret()),
     KGTyped {
-    public val gioSocketServicePointer: CPointer<GSocketService>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GSocketService with no sockets to listen for.
      * New listeners can be added with e.g. g_socket_listener_add_address()
@@ -154,7 +151,7 @@ public open class SocketService(pointer: CPointer<GSocketService>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioSocketServicePointer,
         "incoming",
         onIncomingFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

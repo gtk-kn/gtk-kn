@@ -136,28 +136,25 @@ import kotlin.Unit
  * - method `default-widget`: Property has no getter
  * - method `pointing-to`: Property has no getter
  */
-public open class Popover(pointer: CPointer<GtkPopover>) :
-    Widget(pointer.reinterpret()),
+public open class Popover(public val gtkPopoverPointer: CPointer<GtkPopover>) :
+    Widget(gtkPopoverPointer.reinterpret()),
     Native,
     ShortcutManager,
     KGTyped {
-    public val gtkPopoverPointer: CPointer<GtkPopover>
-        get() = gPointer.reinterpret()
-
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to dismiss the popover on outside clicks.
@@ -221,7 +218,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
          * @return the child widget of @popover
          */
         get() = gtk_popover_get_child(gtkPopoverPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -316,7 +313,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * @return true if a rectangle to point to was set.
      */
     public open fun getPointingTo(rect: Rectangle): Boolean =
-        gtk_popover_get_pointing_to(gtkPopoverPointer, rect.gPointer).asBoolean()
+        gtk_popover_get_pointing_to(gtkPopoverPointer, rect.gdkRectanglePointer).asBoolean()
 
     /**
      * Pops @popover down.
@@ -376,7 +373,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * @param rect rectangle to point to
      */
     public open fun setPointingTo(rect: Rectangle? = null): Unit =
-        gtk_popover_set_pointing_to(gtkPopoverPointer, rect?.gPointer)
+        gtk_popover_set_pointing_to(gtkPopoverPointer, rect?.gdkRectanglePointer)
 
     /**
      * Emitted whend the user activates the default widget.
@@ -388,7 +385,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      */
     public fun onActivateDefault(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPopoverPointer,
             "activate-default",
             onActivateDefaultFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -400,7 +397,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * Emits the "activate-default" signal. See [onActivateDefault].
      */
     public fun emitActivateDefault() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate-default")
+        g_signal_emit_by_name(gtkPopoverPointer.reinterpret(), "activate-default")
     }
 
     /**
@@ -411,7 +408,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      */
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPopoverPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -423,7 +420,7 @@ public open class Popover(pointer: CPointer<GtkPopover>) :
      * Emits the "closed" signal. See [onClosed].
      */
     public fun emitClosed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+        g_signal_emit_by_name(gtkPopoverPointer.reinterpret(), "closed")
     }
 
     public companion object : TypeCompanion<Popover> {

@@ -98,12 +98,9 @@ import kotlin.collections.List
  * - parameter `array`: GLib.PtrArray parameter of type Value is not supported
  * - parameter `parameter_types`: Array parameter of type GType is not supported
  */
-public class Value(pointer: CPointer<JSCValue>) :
-    Object(pointer.reinterpret()),
+public class Value(public val jscValuePointer: CPointer<JSCValue>) :
+    Object(jscValuePointer.reinterpret()),
     KGTyped {
-    public val jscValuePointer: CPointer<JSCValue>
-        get() = gPointer.reinterpret()
-
     /**
      * The #JSCContext in which the value was created.
      */
@@ -298,7 +295,7 @@ public class Value(pointer: CPointer<JSCValue>) :
     public constructor(
         context: Context,
         bytes: Bytes? = null,
-    ) : this(jsc_value_new_string_from_bytes(context.jscContextPointer, bytes?.gPointer)!!.reinterpret())
+    ) : this(jsc_value_new_string_from_bytes(context.jscContextPointer, bytes?.glibBytesPointer)!!.reinterpret())
 
     /**
      * Create a new typed array containing a given amount of elements.

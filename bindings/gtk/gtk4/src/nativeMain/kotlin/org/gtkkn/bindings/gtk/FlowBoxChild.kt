@@ -36,20 +36,17 @@ import kotlin.Unit
 /**
  * `GtkFlowBoxChild` is the kind of widget that can be added to a `GtkFlowBox`.
  */
-public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
-    Widget(pointer.reinterpret()),
+public open class FlowBoxChild(public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>) :
+    Widget(gtkFlowBoxChildPointer.reinterpret()),
     KGTyped {
-    public val gtkFlowBoxChildPointer: CPointer<GtkFlowBoxChild>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -61,7 +58,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
          * @return the child widget of @self
          */
         get() = gtk_flow_box_child_get_child(gtkFlowBoxChildPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -135,7 +132,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFlowBoxChildPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -147,7 +144,7 @@ public open class FlowBoxChild(pointer: CPointer<GtkFlowBoxChild>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkFlowBoxChildPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<FlowBoxChild> {

@@ -66,24 +66,21 @@ import kotlin.Boolean
  *
  * Starting from GTK 4.12, `GtkCenterBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
-    Widget(pointer.reinterpret()),
+public open class CenterBox(public val gtkCenterBoxPointer: CPointer<GtkCenterBox>) :
+    Widget(gtkCenterBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkCenterBoxPointer: CPointer<GtkCenterBox>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The position of the baseline aligned widget if extra space is available.
@@ -124,7 +121,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          * @return the center widget.
          */
         get() = gtk_center_box_get_center_widget(gtkCenterBoxPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -153,7 +150,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          * @return the end widget.
          */
         get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -222,7 +219,7 @@ public open class CenterBox(pointer: CPointer<GtkCenterBox>) :
          * @return the start widget.
          */
         get() = gtk_center_box_get_start_widget(gtkCenterBoxPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

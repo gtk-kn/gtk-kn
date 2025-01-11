@@ -27,12 +27,9 @@ import kotlin.Unit
  * @since 1.12
  */
 @CairoVersion1_12
-public open class Script(pointer: CPointer<cairo_device_t>) :
-    Device(pointer.reinterpret()),
+public open class Script(public val cairoScriptPointer: CPointer<cairo_device_t>) :
+    Device(cairoScriptPointer.reinterpret()),
     KGTyped {
-    public val cairoScriptPointer: CPointer<cairo_device_t>
-        get() = gPointer.reinterpret()
-
     public open fun fromRecordingSurface(recordingSurface: RecordingSurface): Status =
         cairo_script_from_recording_surface(
             cairoScriptPointer,
@@ -53,7 +50,7 @@ public open class Script(pointer: CPointer<cairo_device_t>) :
         }
 
     public open fun createScriptSurfaceForTarget(target: Surface): Surface =
-        cairo_script_surface_create_for_target(cairoScriptPointer, target.gPointer)!!.run {
+        cairo_script_surface_create_for_target(cairoScriptPointer, target.cairoSurfacePointer)!!.run {
             Surface(this)
         }
 

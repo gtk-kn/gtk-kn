@@ -79,23 +79,20 @@ import kotlin.Unit
  * - method `subtitle-lines`: Property TypeInfo of getter and setter do not match
  * - method `title-lines`: Property TypeInfo of getter and setter do not match
  */
-public open class ExpanderRow(pointer: CPointer<AdwExpanderRow>) :
-    PreferencesRow(pointer.reinterpret()),
+public open class ExpanderRow(public val adwExpanderRowPointer: CPointer<AdwExpanderRow>) :
+    PreferencesRow(adwExpanderRowPointer.reinterpret()),
     KGTyped {
-    public val adwExpanderRowPointer: CPointer<AdwExpanderRow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether expansion is enabled.

@@ -18,17 +18,14 @@ import org.gtkkn.native.gtk.gtk_every_filter_new
  *
  * To add filters to a `GtkEveryFilter`, use [method@Gtk.MultiFilter.append].
  */
-public open class EveryFilter(pointer: CPointer<GtkEveryFilter>) :
-    MultiFilter(pointer.reinterpret()),
+public open class EveryFilter(public val gtkEveryFilterPointer: CPointer<GtkEveryFilter>) :
+    MultiFilter(gtkEveryFilterPointer.reinterpret()),
     KGTyped {
-    public val gtkEveryFilterPointer: CPointer<GtkEveryFilter>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new empty "every" filter.

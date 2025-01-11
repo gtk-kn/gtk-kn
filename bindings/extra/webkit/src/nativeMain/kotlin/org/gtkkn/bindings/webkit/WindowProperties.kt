@@ -83,12 +83,9 @@ import kotlin.Unit
  *
  * - method `geometry`: Property has no getter nor setter
  */
-public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
-    Object(pointer.reinterpret()),
+public class WindowProperties(public val webkitWindowPropertiesPointer: CPointer<WebKitWindowProperties>) :
+    Object(webkitWindowPropertiesPointer.reinterpret()),
     KGTyped {
-    public val webkitWindowPropertiesPointer: CPointer<WebKitWindowProperties>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether window will be displayed fullscreen.
      */
@@ -172,7 +169,7 @@ public class WindowProperties(pointer: CPointer<WebKitWindowProperties>) :
      * @param geometry return location for the window geometry
      */
     public fun getGeometry(geometry: Rectangle): Unit =
-        webkit_window_properties_get_geometry(webkitWindowPropertiesPointer, geometry.gPointer)
+        webkit_window_properties_get_geometry(webkitWindowPropertiesPointer, geometry.gdkRectanglePointer)
 
     public companion object : TypeCompanion<WindowProperties> {
         override val type: GeneratedClassKGType<WindowProperties> =

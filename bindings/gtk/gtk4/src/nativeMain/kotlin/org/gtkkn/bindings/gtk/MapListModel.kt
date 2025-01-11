@@ -61,19 +61,16 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
-    Object(pointer.reinterpret()),
+public open class MapListModel(public val gtkMapListModelPointer: CPointer<GtkMapListModel>) :
+    Object(gtkMapListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
-    public val gtkMapListModelPointer: CPointer<GtkMapListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The model being mapped.
@@ -85,7 +82,7 @@ public open class MapListModel(pointer: CPointer<GtkMapListModel>) :
          * @return The model that gets mapped
          */
         get() = gtk_map_list_model_get_model(gtkMapListModelPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**

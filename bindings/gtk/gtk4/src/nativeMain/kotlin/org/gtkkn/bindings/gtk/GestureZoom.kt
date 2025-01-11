@@ -31,12 +31,9 @@ import kotlin.Unit
  * [signal@Gtk.GestureZoom::scale-changed] signal is emitted to report
  * the scale factor.
  */
-public open class GestureZoom(pointer: CPointer<GtkGestureZoom>) :
-    Gesture(pointer.reinterpret()),
+public open class GestureZoom(public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>) :
+    Gesture(gtkGestureZoomPointer.reinterpret()),
     KGTyped {
-    public val gtkGestureZoomPointer: CPointer<GtkGestureZoom>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns a newly created `GtkGesture` that recognizes
      * pinch/zoom gestures.
@@ -65,7 +62,7 @@ public open class GestureZoom(pointer: CPointer<GtkGestureZoom>) :
      */
     public fun onScaleChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (scale: gdouble) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGestureZoomPointer,
             "scale-changed",
             onScaleChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -79,7 +76,7 @@ public open class GestureZoom(pointer: CPointer<GtkGestureZoom>) :
      * @param scale Scale delta, taking the initial state as 1:1
      */
     public fun emitScaleChanged(scale: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "scale-changed", scale)
+        g_signal_emit_by_name(gtkGestureZoomPointer.reinterpret(), "scale-changed", scale)
     }
 
     public companion object : TypeCompanion<GestureZoom> {

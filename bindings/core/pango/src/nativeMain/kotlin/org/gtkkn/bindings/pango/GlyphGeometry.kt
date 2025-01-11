@@ -32,40 +32,41 @@ import kotlin.native.ref.createCleaner
  * 3. Advance the current point to (x + width, y)
  * 4. Render the next glyph
  */
-public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoGlyphGeometry> = pointer
-
+public class GlyphGeometry(
+    public val pangoGlyphGeometryPointer: CPointer<PangoGlyphGeometry>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pangoGlyphGeometryPointer) {
     /**
      * the logical width to use for the the character.
      */
     public var width: GlyphUnit
-        get() = gPointer.pointed.width
+        get() = pangoGlyphGeometryPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            pangoGlyphGeometryPointer.pointed.width = value
         }
 
     /**
      * horizontal offset from nominal character position.
      */
     public var xOffset: GlyphUnit
-        get() = gPointer.pointed.x_offset
+        get() = pangoGlyphGeometryPointer.pointed.x_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x_offset = value
+            pangoGlyphGeometryPointer.pointed.x_offset = value
         }
 
     /**
      * vertical offset from nominal character position.
      */
     public var yOffset: GlyphUnit
-        get() = gPointer.pointed.y_offset
+        get() = pangoGlyphGeometryPointer.pointed.y_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y_offset = value
+            pangoGlyphGeometryPointer.pointed.y_offset = value
         }
 
     /**
@@ -88,7 +89,7 @@ public class GlyphGeometry(pointer: CPointer<PangoGlyphGeometry>, cleaner: Clean
      */
     private constructor(
         pair: Pair<CPointer<PangoGlyphGeometry>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoGlyphGeometryPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphGeometry using the provided [AutofreeScope].

@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Source
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -38,7 +38,7 @@ import kotlin.Boolean
  */
 @GioVersion2_28
 public interface PollableOutputStream :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
 
@@ -104,19 +104,25 @@ public interface PollableOutputStream :
     @GioVersion2_28
     public fun isWritable(): Boolean = g_pollable_output_stream_is_writable(gioPollableOutputStreamPointer).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GPollableOutputStream>) : PollableOutputStream {
-        override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream> = pointer
-    }
+    /**
+     * The PollableOutputStreamImpl type represents a native instance of the PollableOutputStream interface.
+     *
+     * @constructor Creates a new instance of PollableOutputStream for the provided [CPointer].
+     */
+    public data class PollableOutputStreamImpl(
+        override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>,
+    ) : OutputStream(gioPollableOutputStreamPointer.reinterpret()),
+        PollableOutputStream
 
     public companion object : TypeCompanion<PollableOutputStream> {
         override val type: GeneratedInterfaceKGType<PollableOutputStream> =
-            GeneratedInterfaceKGType(g_pollable_output_stream_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_pollable_output_stream_get_type()) {
+                PollableOutputStreamImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GPollableOutputStream>): PollableOutputStream = Wrapper(pointer)
 
         /**
          * Get the GType of PollableOutputStream

@@ -30,9 +30,7 @@ import kotlin.Unit
 /**
  * An opaque structure representing an opened directory.
  */
-public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDir> = pointer
-
+public class Dir(public val glibDirPointer: CPointer<GDir>) : ProxyInstance(glibDirPointer) {
     /**
      * Closes the directory immediately and decrements the reference count.
      *
@@ -43,7 +41,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * [method@GLib.Dir.ref] and [method@GLib.Dir.unref] on a `GDir` after calling
      * [method@GLib.Dir.close] on it.
      */
-    public fun close(): Unit = g_dir_close(gPointer)
+    public fun close(): Unit = g_dir_close(glibDirPointer)
 
     /**
      * Retrieves the name of another entry in the directory, or null.
@@ -64,7 +62,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      *   more entries. The return value is owned by GLib and
      *   must not be modified or freed.
      */
-    public fun readName(): String = g_dir_read_name(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun readName(): String = g_dir_read_name(glibDirPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Increment the reference count of `dir`.
@@ -73,7 +71,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun ref(): Dir = g_dir_ref(gPointer)!!.run {
+    public fun ref(): Dir = g_dir_ref(glibDirPointer)!!.run {
         Dir(this)
     }
 
@@ -81,7 +79,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * Resets the given directory. The next call to g_dir_read_name()
      * will return the first entry again.
      */
-    public fun rewind(): Unit = g_dir_rewind(gPointer)
+    public fun rewind(): Unit = g_dir_rewind(glibDirPointer)
 
     /**
      * Decrements the reference count of `dir`.
@@ -99,7 +97,7 @@ public class Dir(pointer: CPointer<GDir>) : ProxyInstance(pointer) {
      * @since 2.80
      */
     @GLibVersion2_80
-    public fun unref(): Unit = g_dir_unref(gPointer)
+    public fun unref(): Unit = g_dir_unref(glibDirPointer)
 
     public companion object {
         /**

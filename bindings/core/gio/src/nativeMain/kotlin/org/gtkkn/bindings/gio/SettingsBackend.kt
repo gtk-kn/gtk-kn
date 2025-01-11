@@ -56,12 +56,9 @@ import kotlin.collections.List
  *
  * - parameter `path`: path: Out parameter is not supported
  */
-public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
-    Object(pointer.reinterpret()),
+public abstract class SettingsBackend(public val gioSettingsBackendPointer: CPointer<GSettingsBackend>) :
+    Object(gioSettingsBackendPointer.reinterpret()),
     KGTyped {
-    public val gioSettingsBackendPointer: CPointer<GSettingsBackend>
-        get() = gPointer.reinterpret()
-
     /**
      * Signals that a single key has possibly changed.  Backend
      * implementations should call this if a key has possibly changed its
@@ -105,7 +102,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
      */
     @GioVersion2_26
     public open fun changedTree(tree: Tree, originTag: gpointer? = null): Unit =
-        g_settings_backend_changed_tree(gioSettingsBackendPointer, tree.gPointer, originTag)
+        g_settings_backend_changed_tree(gioSettingsBackendPointer, tree.glibTreePointer, originTag)
 
     /**
      * Signals that a list of keys have possibly changed.  Backend
@@ -198,9 +195,16 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
     public open fun writableChanged(key: String): Unit =
         g_settings_backend_writable_changed(gioSettingsBackendPointer, key)
 
+    /**
+     * The SettingsBackendImpl type represents a native instance of the abstract SettingsBackend class.
+     *
+     * @constructor Creates a new instance of SettingsBackend for the provided [CPointer].
+     */
+    public class SettingsBackendImpl(pointer: CPointer<GSettingsBackend>) : SettingsBackend(pointer)
+
     public companion object : TypeCompanion<SettingsBackend> {
         override val type: GeneratedClassKGType<SettingsBackend> =
-            GeneratedClassKGType(g_settings_backend_get_type()) { SettingsBackend(it.reinterpret()) }
+            GeneratedClassKGType(g_settings_backend_get_type()) { SettingsBackendImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -220,7 +224,7 @@ public open class SettingsBackend(pointer: CPointer<GSettingsBackend>) :
          */
         @GioVersion2_28
         public fun getDefault(): SettingsBackend = g_settings_backend_get_default()!!.run {
-            SettingsBackend(this)
+            SettingsBackendImpl(this)
         }
 
         /**

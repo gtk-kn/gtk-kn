@@ -38,28 +38,25 @@ import kotlin.Unit
  *
  * Keep in mind that drag icons do not allow user input.
  */
-public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
-    Widget(pointer.reinterpret()),
+public open class DragIcon(public val gtkDragIconPointer: CPointer<GtkDragIcon>) :
+    Widget(gtkDragIconPointer.reinterpret()),
     Native,
     Root,
     KGTyped {
-    public val gtkDragIconPointer: CPointer<GtkDragIcon>
-        get() = gPointer.reinterpret()
-
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The widget to display as drag icon.
@@ -71,7 +68,7 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          * @return The drag icon
          */
         get() = gtk_drag_icon_get_child(gtkDragIconPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -106,8 +103,8 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          *   for displaying @value as a drag icon.
          */
         public fun createWidgetForValue(`value`: Value): Widget? =
-            gtk_drag_icon_create_widget_for_value(`value`.gPointer)?.run {
-                Widget(this)
+            gtk_drag_icon_create_widget_for_value(`value`.gobjectValuePointer)?.run {
+                Widget.WidgetImpl(this)
             }
 
         /**
@@ -120,7 +117,7 @@ public open class DragIcon(pointer: CPointer<GtkDragIcon>) :
          * @return the `GtkDragIcon`
          */
         public fun getForDrag(drag: Drag): Widget = gtk_drag_icon_get_for_drag(drag.gdkDragPointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

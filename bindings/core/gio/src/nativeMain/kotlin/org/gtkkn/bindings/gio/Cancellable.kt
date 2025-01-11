@@ -61,12 +61,9 @@ import kotlin.Unit
  * throughout GIO to allow for cancellation of synchronous and
  * asynchronous operations.
  */
-public open class Cancellable(pointer: CPointer<GCancellable>) :
-    Object(pointer.reinterpret()),
+public open class Cancellable(public val gioCancellablePointer: CPointer<GCancellable>) :
+    Object(gioCancellablePointer.reinterpret()),
     KGTyped {
-    public val gioCancellablePointer: CPointer<GCancellable>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GCancellable object.
      *
@@ -211,7 +208,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      */
     @GioVersion2_22
     public open fun makePollfd(pollfd: PollFd): Boolean =
-        g_cancellable_make_pollfd(gioCancellablePointer, pollfd.gPointer).asBoolean()
+        g_cancellable_make_pollfd(gioCancellablePointer, pollfd.glibPollFdPointer).asBoolean()
 
     /**
      * Pops @cancellable off the cancellable stack (verifying that @cancellable
@@ -355,7 +352,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      */
     public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioCancellablePointer,
             "cancelled",
             onCancelledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -367,7 +364,7 @@ public open class Cancellable(pointer: CPointer<GCancellable>) :
      * Emits the "cancelled" signal. See [onCancelled].
      */
     public fun emitCancelled() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cancelled")
+        g_signal_emit_by_name(gioCancellablePointer.reinterpret(), "cancelled")
     }
 
     public companion object : TypeCompanion<Cancellable> {

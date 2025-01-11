@@ -21,9 +21,8 @@ import kotlin.Unit
  * A `GdkContentFormatsBuilder` is an auxiliary struct used to create
  * new `GdkContentFormats`, and should not be kept around.
  */
-public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkContentFormatsBuilder> = pointer
-
+public class ContentFormatsBuilder(public val gdkContentFormatsBuilderPointer: CPointer<GdkContentFormatsBuilder>) :
+    ProxyInstance(gdkContentFormatsBuilderPointer) {
     /**
      * Appends all formats from @formats to @builder, skipping those that
      * already exist.
@@ -31,21 +30,23 @@ public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) 
      * @param formats the formats to add
      */
     public fun addFormats(formats: ContentFormats): Unit =
-        gdk_content_formats_builder_add_formats(gPointer, formats.gPointer)
+        gdk_content_formats_builder_add_formats(gdkContentFormatsBuilderPointer, formats.gdkContentFormatsPointer)
 
     /**
      * Appends @type to @builder if it has not already been added.
      *
      * @param type a `GType`
      */
-    public fun addGtype(type: GType): Unit = gdk_content_formats_builder_add_gtype(gPointer, type)
+    public fun addGtype(type: GType): Unit =
+        gdk_content_formats_builder_add_gtype(gdkContentFormatsBuilderPointer, type)
 
     /**
      * Appends @mime_type to @builder if it has not already been added.
      *
      * @param mimeType a mime type
      */
-    public fun addMimeType(mimeType: String): Unit = gdk_content_formats_builder_add_mime_type(gPointer, mimeType)
+    public fun addMimeType(mimeType: String): Unit =
+        gdk_content_formats_builder_add_mime_type(gdkContentFormatsBuilderPointer, mimeType)
 
     /**
      * Creates a new `GdkContentFormats` from the current state of the
@@ -54,9 +55,10 @@ public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) 
      * @return the newly created `GdkContentFormats`
      *   with all the formats added to @builder
      */
-    public fun freeToFormats(): ContentFormats = gdk_content_formats_builder_free_to_formats(gPointer)!!.run {
-        ContentFormats(this)
-    }
+    public fun freeToFormats(): ContentFormats =
+        gdk_content_formats_builder_free_to_formats(gdkContentFormatsBuilderPointer)!!.run {
+            ContentFormats(this)
+        }
 
     /**
      * Acquires a reference on the given @builder.
@@ -67,7 +69,7 @@ public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) 
      * @return the given `GdkContentFormatsBuilder`
      *   with its reference count increased
      */
-    public fun ref(): ContentFormatsBuilder = gdk_content_formats_builder_ref(gPointer)!!.run {
+    public fun ref(): ContentFormatsBuilder = gdk_content_formats_builder_ref(gdkContentFormatsBuilderPointer)!!.run {
         ContentFormatsBuilder(this)
     }
 
@@ -83,14 +85,15 @@ public class ContentFormatsBuilder(pointer: CPointer<GdkContentFormatsBuilder>) 
      * @return the newly created `GdkContentFormats`
      *   with all the formats added to @builder
      */
-    public fun toFormats(): ContentFormats = gdk_content_formats_builder_to_formats(gPointer)!!.run {
-        ContentFormats(this)
-    }
+    public fun toFormats(): ContentFormats =
+        gdk_content_formats_builder_to_formats(gdkContentFormatsBuilderPointer)!!.run {
+            ContentFormats(this)
+        }
 
     /**
      * Releases a reference on the given @builder.
      */
-    public fun unref(): Unit = gdk_content_formats_builder_unref(gPointer)
+    public fun unref(): Unit = gdk_content_formats_builder_unref(gdkContentFormatsBuilderPointer)
 
     public companion object {
         /**

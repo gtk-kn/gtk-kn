@@ -11,11 +11,12 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gobject.ConnectFlags
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.pango.FontDescription
 import org.gtkkn.bindings.pango.FontFace
 import org.gtkkn.bindings.pango.FontFamily
 import org.gtkkn.bindings.pango.FontMap
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -65,7 +66,7 @@ import kotlin.Unit
  * - method `font-desc`: Property TypeInfo of getter and setter do not match
  */
 public interface FontChooser :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkFontChooserPointer: CPointer<GtkFontChooser>
 
@@ -213,7 +214,7 @@ public interface FontChooser :
      *   selected font group details
      */
     public fun getFontFace(): FontFace? = gtk_font_chooser_get_font_face(gtkFontChooserPointer)?.run {
-        FontFace(this)
+        FontFace.FontFaceImpl(this)
     }
 
     /**
@@ -227,7 +228,7 @@ public interface FontChooser :
      *   selected font family
      */
     public fun getFontFamily(): FontFamily? = gtk_font_chooser_get_font_family(gtkFontChooserPointer)?.run {
-        FontFamily(this)
+        FontFamily.FontFamilyImpl(this)
     }
 
     /**
@@ -249,7 +250,7 @@ public interface FontChooser :
      * @return a `PangoFontMap`
      */
     public fun getFontChooserFontMap(): FontMap? = gtk_font_chooser_get_font_map(gtkFontChooserPointer)?.run {
-        FontMap(this)
+        FontMap.FontMapImpl(this)
     }
 
     /**
@@ -321,7 +322,7 @@ public interface FontChooser :
      * @param fontDesc a `PangoFontDescription`
      */
     public fun setFontDesc(fontDesc: FontDescription): Unit =
-        gtk_font_chooser_set_font_desc(gtkFontChooserPointer, fontDesc.gPointer)
+        gtk_font_chooser_set_font_desc(gtkFontChooserPointer, fontDesc.pangoFontDescriptionPointer)
 
     /**
      * Sets a custom font map to use for this font chooser widget.
@@ -408,19 +409,22 @@ public interface FontChooser :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GtkFontChooser>) : FontChooser {
-        override val gtkFontChooserPointer: CPointer<GtkFontChooser> = pointer
-    }
+    /**
+     * The FontChooserImpl type represents a native instance of the FontChooser interface.
+     *
+     * @constructor Creates a new instance of FontChooser for the provided [CPointer].
+     */
+    public data class FontChooserImpl(override val gtkFontChooserPointer: CPointer<GtkFontChooser>) :
+        Object(gtkFontChooserPointer.reinterpret()),
+        FontChooser
 
     public companion object : TypeCompanion<FontChooser> {
         override val type: GeneratedInterfaceKGType<FontChooser> =
-            GeneratedInterfaceKGType(gtk_font_chooser_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_font_chooser_get_type()) { FontChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkFontChooser>): FontChooser = Wrapper(pointer)
 
         /**
          * Get the GType of FontChooser

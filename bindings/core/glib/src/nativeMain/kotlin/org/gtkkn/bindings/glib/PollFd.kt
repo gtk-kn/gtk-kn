@@ -23,18 +23,17 @@ import kotlin.native.ref.createCleaner
  * Represents a file descriptor, which events to poll for, and which events
  * occurred.
  */
-public class PollFd(pointer: CPointer<GPollFD>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GPollFD> = pointer
-
+public class PollFd(public val glibPollFdPointer: CPointer<GPollFD>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibPollFdPointer) {
     /**
      * the file descriptor to poll (or a HANDLE on Win32)
      */
     public var fd: gint
-        get() = gPointer.pointed.fd
+        get() = glibPollFdPointer.pointed.fd
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.fd = value
+            glibPollFdPointer.pointed.fd = value
         }
 
     /**
@@ -44,11 +43,11 @@ public class PollFd(pointer: CPointer<GPollFD>, cleaner: Cleaner? = null) : Prox
      *     for writing you would use %G_IO_OUT | %G_IO_ERR.
      */
     public var events: gushort
-        get() = gPointer.pointed.events
+        get() = glibPollFdPointer.pointed.events
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.events = value
+            glibPollFdPointer.pointed.events = value
         }
 
     /**
@@ -56,11 +55,11 @@ public class PollFd(pointer: CPointer<GPollFD>, cleaner: Cleaner? = null) : Prox
      *     from the poll() function to indicate which events occurred.
      */
     public var revents: gushort
-        get() = gPointer.pointed.revents
+        get() = glibPollFdPointer.pointed.revents
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.revents = value
+            glibPollFdPointer.pointed.revents = value
         }
 
     /**
@@ -81,7 +80,9 @@ public class PollFd(pointer: CPointer<GPollFD>, cleaner: Cleaner? = null) : Prox
      *
      * @param pair A pair containing the pointer to PollFd and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GPollFD>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GPollFD>, Cleaner>,
+    ) : this(glibPollFdPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PollFd using the provided [AutofreeScope].

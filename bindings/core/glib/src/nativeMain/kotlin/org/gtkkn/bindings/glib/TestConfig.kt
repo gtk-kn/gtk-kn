@@ -18,55 +18,54 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTestConfig> = pointer
-
+public class TestConfig(public val glibTestConfigPointer: CPointer<GTestConfig>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibTestConfigPointer) {
     public var testInitialized: Boolean
-        get() = gPointer.pointed.test_initialized.asBoolean()
+        get() = glibTestConfigPointer.pointed.test_initialized.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.test_initialized = value.asGBoolean()
+            glibTestConfigPointer.pointed.test_initialized = value.asGBoolean()
         }
 
     public var testQuick: Boolean
-        get() = gPointer.pointed.test_quick.asBoolean()
+        get() = glibTestConfigPointer.pointed.test_quick.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.test_quick = value.asGBoolean()
+            glibTestConfigPointer.pointed.test_quick = value.asGBoolean()
         }
 
     public var testPerf: Boolean
-        get() = gPointer.pointed.test_perf.asBoolean()
+        get() = glibTestConfigPointer.pointed.test_perf.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.test_perf = value.asGBoolean()
+            glibTestConfigPointer.pointed.test_perf = value.asGBoolean()
         }
 
     public var testVerbose: Boolean
-        get() = gPointer.pointed.test_verbose.asBoolean()
+        get() = glibTestConfigPointer.pointed.test_verbose.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.test_verbose = value.asGBoolean()
+            glibTestConfigPointer.pointed.test_verbose = value.asGBoolean()
         }
 
     public var testQuiet: Boolean
-        get() = gPointer.pointed.test_quiet.asBoolean()
+        get() = glibTestConfigPointer.pointed.test_quiet.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.test_quiet = value.asGBoolean()
+            glibTestConfigPointer.pointed.test_quiet = value.asGBoolean()
         }
 
     public var testUndefined: Boolean
-        get() = gPointer.pointed.test_undefined.asBoolean()
+        get() = glibTestConfigPointer.pointed.test_undefined.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.test_undefined = value.asGBoolean()
+            glibTestConfigPointer.pointed.test_undefined = value.asGBoolean()
         }
 
     /**
@@ -87,7 +86,9 @@ public class TestConfig(pointer: CPointer<GTestConfig>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to TestConfig and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTestConfig>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTestConfig>, Cleaner>,
+    ) : this(glibTestConfigPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TestConfig using the provided [AutofreeScope].

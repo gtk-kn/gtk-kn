@@ -51,23 +51,20 @@ import kotlin.Boolean
  * @since 1.4
  */
 @AdwVersion1_4
-public class SwitchRow(pointer: CPointer<AdwSwitchRow>) :
-    ActionRow(pointer.reinterpret()),
+public class SwitchRow(public val adwSwitchRowPointer: CPointer<AdwSwitchRow>) :
+    ActionRow(adwSwitchRowPointer.reinterpret()),
     KGTyped {
-    public val adwSwitchRowPointer: CPointer<AdwSwitchRow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the switch row is in the "on" or "off" position.

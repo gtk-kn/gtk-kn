@@ -33,15 +33,12 @@ import kotlin.Unit
  * - method `scan-batch-size`: Property has no getter nor setter
  * - method `title`: Property has no getter nor setter
  */
-public open class CompletionWords(pointer: CPointer<GtkSourceCompletionWords>) :
-    Object(pointer.reinterpret()),
+public open class CompletionWords(public val gtksourceCompletionWordsPointer: CPointer<GtkSourceCompletionWords>) :
+    Object(gtksourceCompletionWordsPointer.reinterpret()),
     CompletionProvider,
     KGTyped {
-    public val gtksourceCompletionWordsPointer: CPointer<GtkSourceCompletionWords>
-        get() = gPointer.reinterpret()
-
     override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      *

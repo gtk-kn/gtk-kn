@@ -23,9 +23,8 @@ import kotlin.collections.List
  * @since 2.6
  */
 @WebKitVersion2_6
-public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitUserScript> = pointer
-
+public class UserScript(public val webkitUserScriptPointer: CPointer<WebKitUserScript>) :
+    ProxyInstance(webkitUserScriptPointer) {
     /**
      * Atomically increments the reference count of @user_script by one.
      *
@@ -35,7 +34,7 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun ref(): UserScript = webkit_user_script_ref(gPointer)!!.run {
+    public fun ref(): UserScript = webkit_user_script_ref(webkitUserScriptPointer)!!.run {
         UserScript(this)
     }
 
@@ -49,7 +48,7 @@ public class UserScript(pointer: CPointer<WebKitUserScript>) : ProxyInstance(poi
      * @since 2.6
      */
     @WebKitVersion2_6
-    public fun unref(): Unit = webkit_user_script_unref(gPointer)
+    public fun unref(): Unit = webkit_user_script_unref(webkitUserScriptPointer)
 
     public companion object {
         /**

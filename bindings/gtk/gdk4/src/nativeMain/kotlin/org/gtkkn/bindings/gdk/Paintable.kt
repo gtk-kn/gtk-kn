@@ -9,7 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -84,7 +85,7 @@ import kotlin.Unit
  * - parameter `concrete_width`: concrete_width: Out parameter is not supported
  */
 public interface Paintable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gdkPaintablePointer: CPointer<GdkPaintable>
 
@@ -100,7 +101,7 @@ public interface Paintable :
      *   contents of @paintable
      */
     public fun getCurrentImage(): Paintable = gdk_paintable_get_current_image(gdkPaintablePointer)!!.run {
-        Paintable.wrap(reinterpret())
+        PaintableImpl(reinterpret())
     }
 
     /**
@@ -257,19 +258,22 @@ public interface Paintable :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GdkPaintable>) : Paintable {
-        override val gdkPaintablePointer: CPointer<GdkPaintable> = pointer
-    }
+    /**
+     * The PaintableImpl type represents a native instance of the Paintable interface.
+     *
+     * @constructor Creates a new instance of Paintable for the provided [CPointer].
+     */
+    public data class PaintableImpl(override val gdkPaintablePointer: CPointer<GdkPaintable>) :
+        Object(gdkPaintablePointer.reinterpret()),
+        Paintable
 
     public companion object : TypeCompanion<Paintable> {
         override val type: GeneratedInterfaceKGType<Paintable> =
-            GeneratedInterfaceKGType(gdk_paintable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gdk_paintable_get_type()) { PaintableImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GdkPaintable>): Paintable = Wrapper(pointer)
 
         /**
          * Returns a paintable that has the given intrinsic size and draws nothing.
@@ -286,7 +290,7 @@ public interface Paintable :
          */
         public fun newEmpty(intrinsicWidth: gint, intrinsicHeight: gint): Paintable =
             gdk_paintable_new_empty(intrinsicWidth, intrinsicHeight)!!.run {
-                Paintable.wrap(reinterpret())
+                PaintableImpl(reinterpret())
             }
 
         /**

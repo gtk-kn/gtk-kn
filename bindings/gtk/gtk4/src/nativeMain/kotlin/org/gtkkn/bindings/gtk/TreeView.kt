@@ -226,24 +226,21 @@ import kotlin.Unit
  * - parameter `path`: path: Out parameter is not supported
  * - method `enable-grid-lines`: Property has no getter nor setter
  */
-public open class TreeView(pointer: CPointer<GtkTreeView>) :
-    Widget(pointer.reinterpret()),
+public open class TreeView(public val gtkTreeViewPointer: CPointer<GtkTreeView>) :
+    Widget(gtkTreeViewPointer.reinterpret()),
     Scrollable,
     KGTyped {
-    public val gtkTreeViewPointer: CPointer<GtkTreeView>
-        get() = gPointer.reinterpret()
-
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The activate-on-single-click property specifies whether the "row-activated" signal
@@ -466,7 +463,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
          * @return A `GtkTreeModel`
          */
         get() = gtk_tree_view_get_model(gtkTreeViewPointer)?.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         }
 
         /**
@@ -638,7 +635,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @return true if the row was collapsed.
      */
     public open fun collapseRow(path: TreePath): Boolean =
-        gtk_tree_view_collapse_row(gtkTreeViewPointer, path.gPointer).asBoolean()
+        gtk_tree_view_collapse_row(gtkTreeViewPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
      * Resizes all columns to their optimal width. Only works after the
@@ -654,8 +651,8 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @return a newly-allocated surface of the drag icon.
      */
     public open fun createRowDragIcon(path: TreePath): Paintable? =
-        gtk_tree_view_create_row_drag_icon(gtkTreeViewPointer, path.gPointer)?.run {
-            Paintable.wrap(reinterpret())
+        gtk_tree_view_create_row_drag_icon(gtkTreeViewPointer, path.gtkTreePathPointer)?.run {
+            Paintable.PaintableImpl(reinterpret())
         }
 
     /**
@@ -667,7 +664,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      *    widget
      */
     public open fun enableModelDragDest(formats: ContentFormats, actions: DragAction): Unit =
-        gtk_tree_view_enable_model_drag_dest(gtkTreeViewPointer, formats.gPointer, actions.mask)
+        gtk_tree_view_enable_model_drag_dest(gtkTreeViewPointer, formats.gdkContentFormatsPointer, actions.mask)
 
     /**
      * Turns @tree_view into a drag source for automatic DND. Calling this
@@ -682,8 +679,12 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         startButtonMask: ModifierType,
         formats: ContentFormats,
         actions: DragAction,
-    ): Unit =
-        gtk_tree_view_enable_model_drag_source(gtkTreeViewPointer, startButtonMask.mask, formats.gPointer, actions.mask)
+    ): Unit = gtk_tree_view_enable_model_drag_source(
+        gtkTreeViewPointer,
+        startButtonMask.mask,
+        formats.gdkContentFormatsPointer,
+        actions.mask
+    )
 
     /**
      * Recursively expands all nodes in the @tree_view.
@@ -698,7 +699,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @return true if the row existed and had children
      */
     public open fun expandRow(path: TreePath, openAll: Boolean): Boolean =
-        gtk_tree_view_expand_row(gtkTreeViewPointer, path.gPointer, openAll.asGBoolean()).asBoolean()
+        gtk_tree_view_expand_row(gtkTreeViewPointer, path.gtkTreePathPointer, openAll.asGBoolean()).asBoolean()
 
     /**
      * Expands the row at @path. This will also expand all parent rows of
@@ -706,7 +707,8 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      *
      * @param path path to a row.
      */
-    public open fun expandToPath(path: TreePath): Unit = gtk_tree_view_expand_to_path(gtkTreeViewPointer, path.gPointer)
+    public open fun expandToPath(path: TreePath): Unit =
+        gtk_tree_view_expand_to_path(gtkTreeViewPointer, path.gtkTreePathPointer)
 
     /**
      * Fills the bounding rectangle in bin_window coordinates for the cell at the
@@ -726,9 +728,9 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
     public open fun getBackgroundArea(path: TreePath? = null, column: TreeViewColumn? = null, rect: Rectangle): Unit =
         gtk_tree_view_get_background_area(
             gtkTreeViewPointer,
-            path?.gPointer,
+            path?.gtkTreePathPointer,
             column?.gtkTreeViewColumnPointer,
-            rect.gPointer
+            rect.gdkRectanglePointer
         )
 
     /**
@@ -747,7 +749,12 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param rect rectangle to fill with cell rect
      */
     public open fun getCellArea(path: TreePath? = null, column: TreeViewColumn? = null, rect: Rectangle): Unit =
-        gtk_tree_view_get_cell_area(gtkTreeViewPointer, path?.gPointer, column?.gtkTreeViewColumnPointer, rect.gPointer)
+        gtk_tree_view_get_cell_area(
+            gtkTreeViewPointer,
+            path?.gtkTreePathPointer,
+            column?.gtkTreeViewColumnPointer,
+            rect.gdkRectanglePointer
+        )
 
     /**
      * Gets the `GtkTreeViewColumn` at the given position in the #tree_view.
@@ -795,7 +802,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @return the entry currently in use as search entry.
      */
     public open fun getSearchEntry(): Editable? = gtk_tree_view_get_search_entry(gtkTreeViewPointer)?.run {
-        Editable.wrap(reinterpret())
+        Editable.EditableImpl(reinterpret())
     }
 
     /**
@@ -817,7 +824,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param visibleRect rectangle to fill
      */
     public open fun getVisibleRect(visibleRect: Rectangle): Unit =
-        gtk_tree_view_get_visible_rect(gtkTreeViewPointer, visibleRect.gPointer)
+        gtk_tree_view_get_visible_rect(gtkTreeViewPointer, visibleRect.gdkRectanglePointer)
 
     /**
      * This inserts the @column into the @tree_view at @position.  If @position is
@@ -912,7 +919,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param column The `GtkTreeViewColumn` to be activated.
      */
     public open fun rowActivated(path: TreePath, column: TreeViewColumn? = null): Unit =
-        gtk_tree_view_row_activated(gtkTreeViewPointer, path.gPointer, column?.gtkTreeViewColumnPointer)
+        gtk_tree_view_row_activated(gtkTreeViewPointer, path.gtkTreePathPointer, column?.gtkTreeViewColumnPointer)
 
     /**
      * Returns true if the node pointed to by @path is expanded in @tree_view.
@@ -921,7 +928,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @return true if #path is expanded.
      */
     public open fun rowExpanded(path: TreePath): Boolean =
-        gtk_tree_view_row_expanded(gtkTreeViewPointer, path.gPointer).asBoolean()
+        gtk_tree_view_row_expanded(gtkTreeViewPointer, path.gtkTreePathPointer).asBoolean()
 
     /**
      * Moves the alignments of @tree_view to the position specified by @column and
@@ -955,7 +962,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         colAlign: gfloat,
     ): Unit = gtk_tree_view_scroll_to_cell(
         gtkTreeViewPointer,
-        path?.gPointer,
+        path?.gtkTreePathPointer,
         column?.gtkTreeViewColumnPointer,
         useAlign.asGBoolean(),
         rowAlign,
@@ -1019,7 +1026,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
     public open fun setCursor(path: TreePath, focusColumn: TreeViewColumn? = null, startEditing: Boolean): Unit =
         gtk_tree_view_set_cursor(
             gtkTreeViewPointer,
-            path.gPointer,
+            path.gtkTreePathPointer,
             focusColumn?.gtkTreeViewColumnPointer,
             startEditing.asGBoolean()
         )
@@ -1052,7 +1059,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         startEditing: Boolean,
     ): Unit = gtk_tree_view_set_cursor_on_cell(
         gtkTreeViewPointer,
-        path.gPointer,
+        path.gtkTreePathPointer,
         focusColumn?.gtkTreeViewColumnPointer,
         focusCell?.gtkCellRendererPointer,
         startEditing.asGBoolean()
@@ -1066,7 +1073,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param pos Specifies whether to drop before, after or into the row
      */
     public open fun setDragDestRow(path: TreePath? = null, pos: TreeViewDropPosition): Unit =
-        gtk_tree_view_set_drag_dest_row(gtkTreeViewPointer, path?.gPointer, pos.nativeValue)
+        gtk_tree_view_set_drag_dest_row(gtkTreeViewPointer, path?.gtkTreePathPointer, pos.nativeValue)
 
     /**
      * Sets which grid lines to draw in @tree_view.
@@ -1146,7 +1153,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
     ): Unit = gtk_tree_view_set_tooltip_cell(
         gtkTreeViewPointer,
         tooltip.gtkTooltipPointer,
-        path?.gPointer,
+        path?.gtkTreePathPointer,
         column?.gtkTreeViewColumnPointer,
         cell?.gtkCellRendererPointer
     )
@@ -1160,7 +1167,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param path a `GtkTreePath`
      */
     public open fun setTooltipRow(tooltip: Tooltip, path: TreePath): Unit =
-        gtk_tree_view_set_tooltip_row(gtkTreeViewPointer, tooltip.gtkTooltipPointer, path.gPointer)
+        gtk_tree_view_set_tooltip_row(gtkTreeViewPointer, tooltip.gtkTooltipPointer, path.gtkTreePathPointer)
 
     /**
      * Undoes the effect of
@@ -1184,7 +1191,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onColumnsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "columns-changed",
             onColumnsChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1196,7 +1203,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * Emits the "columns-changed" signal. See [onColumnsChanged].
      */
     public fun emitColumnsChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "columns-changed")
+        g_signal_emit_by_name(gtkTreeViewPointer.reinterpret(), "columns-changed")
     }
 
     /**
@@ -1207,7 +1214,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onCursorChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "cursor-changed",
             onCursorChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1219,7 +1226,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * Emits the "cursor-changed" signal. See [onCursorChanged].
      */
     public fun emitCursorChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cursor-changed")
+        g_signal_emit_by_name(gtkTreeViewPointer.reinterpret(), "cursor-changed")
     }
 
     /**
@@ -1236,7 +1243,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
             p1: Boolean,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "expand-collapse-cursor-row",
         onExpandCollapseCursorRowFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1273,7 +1280,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
             modify: Boolean,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "move-cursor",
         onMoveCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1304,7 +1311,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (path: TreePath, column: TreeViewColumn?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "row-activated",
         onRowActivatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1319,7 +1326,12 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param column the `GtkTreeViewColumn` in which the activation occurred
      */
     public fun emitRowActivated(path: TreePath, column: TreeViewColumn?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "row-activated", path.gPointer, column?.gtkTreeViewColumnPointer)
+        g_signal_emit_by_name(
+            gtkTreeViewPointer.reinterpret(),
+            "row-activated",
+            path.gtkTreePathPointer,
+            column?.gtkTreeViewColumnPointer
+        )
     }
 
     /**
@@ -1332,7 +1344,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TreeIter, path: TreePath) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "row-collapsed",
         onRowCollapsedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1347,7 +1359,12 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param path a tree path that points to the row
      */
     public fun emitRowCollapsed(iter: TreeIter, path: TreePath) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "row-collapsed", iter.gPointer, path.gPointer)
+        g_signal_emit_by_name(
+            gtkTreeViewPointer.reinterpret(),
+            "row-collapsed",
+            iter.gtkTreeIterPointer,
+            path.gtkTreePathPointer
+        )
     }
 
     /**
@@ -1360,7 +1377,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TreeIter, path: TreePath) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "row-expanded",
         onRowExpandedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1375,7 +1392,12 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      * @param path a tree path that points to the row
      */
     public fun emitRowExpanded(iter: TreeIter, path: TreePath) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "row-expanded", iter.gPointer, path.gPointer)
+        g_signal_emit_by_name(
+            gtkTreeViewPointer.reinterpret(),
+            "row-expanded",
+            iter.gtkTreeIterPointer,
+            path.gtkTreePathPointer
+        )
     }
 
     /**
@@ -1386,7 +1408,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onSelectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "select-all",
             onSelectAllFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1402,7 +1424,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onSelectCursorParent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "select-cursor-parent",
             onSelectCursorParentFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1420,7 +1442,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "select-cursor-row",
         onSelectCursorRowFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1436,7 +1458,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onStartInteractiveSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "start-interactive-search",
             onStartInteractiveSearchFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1455,7 +1477,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TreeIter, path: TreePath) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "test-collapse-row",
         onTestCollapseRowFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1474,7 +1496,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TreeIter, path: TreePath) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTreeViewPointer,
         "test-expand-row",
         onTestExpandRowFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1490,7 +1512,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onToggleCursorRow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "toggle-cursor-row",
             onToggleCursorRowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1506,7 +1528,7 @@ public open class TreeView(pointer: CPointer<GtkTreeView>) :
      */
     public fun onUnselectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTreeViewPointer,
             "unselect-all",
             onUnselectAllFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

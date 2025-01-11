@@ -139,20 +139,17 @@ import kotlin.Unit
  *
  * `GtkExpander` uses the %GTK_ACCESSIBLE_ROLE_BUTTON role.
  */
-public open class Expander(pointer: CPointer<GtkExpander>) :
-    Widget(pointer.reinterpret()),
+public open class Expander(public val gtkExpanderPointer: CPointer<GtkExpander>) :
+    Widget(gtkExpanderPointer.reinterpret()),
     KGTyped {
-    public val gtkExpanderPointer: CPointer<GtkExpander>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -164,7 +161,7 @@ public open class Expander(pointer: CPointer<GtkExpander>) :
          * @return the child widget of @expander
          */
         get() = gtk_expander_get_child(gtkExpanderPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -234,7 +231,7 @@ public open class Expander(pointer: CPointer<GtkExpander>) :
          * @return the label widget
          */
         get() = gtk_expander_get_label_widget(gtkExpanderPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -321,7 +318,7 @@ public open class Expander(pointer: CPointer<GtkExpander>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkExpanderPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -333,7 +330,7 @@ public open class Expander(pointer: CPointer<GtkExpander>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkExpanderPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<Expander> {

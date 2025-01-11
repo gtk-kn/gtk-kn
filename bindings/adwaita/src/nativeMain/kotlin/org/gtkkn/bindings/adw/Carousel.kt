@@ -76,28 +76,25 @@ import kotlin.Unit
  *
  * `AdwCarousel` has a single CSS node with name `carousel`.
  */
-public class Carousel(pointer: CPointer<AdwCarousel>) :
-    Widget(pointer.reinterpret()),
+public class Carousel(public val adwCarouselPointer: CPointer<AdwCarousel>) :
+    Widget(adwCarouselPointer.reinterpret()),
     Swipeable,
     Orientable,
     KGTyped {
-    public val adwCarouselPointer: CPointer<AdwCarousel>
-        get() = gPointer.reinterpret()
-
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to allow swiping for more than one page at a time.
@@ -268,7 +265,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
          *
          * @param params the new parameters
          */
-        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer, params.gPointer)
+        set(params) = adw_carousel_set_scroll_params(adwCarouselPointer, params.adwSpringParamsPointer)
 
     /**
      * Spacing between pages in pixels.
@@ -309,7 +306,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * @return the page
      */
     public fun getNthPage(n: guint): Widget = adw_carousel_get_nth_page(adwCarouselPointer, n)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -375,7 +372,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      */
     public fun onPageChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (index: guint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwCarouselPointer,
             "page-changed",
             onPageChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -389,7 +386,7 @@ public class Carousel(pointer: CPointer<AdwCarousel>) :
      * @param index current page
      */
     public fun emitPageChanged(index: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "page-changed", index)
+        g_signal_emit_by_name(adwCarouselPointer.reinterpret(), "page-changed", index)
     }
 
     public companion object : TypeCompanion<Carousel> {

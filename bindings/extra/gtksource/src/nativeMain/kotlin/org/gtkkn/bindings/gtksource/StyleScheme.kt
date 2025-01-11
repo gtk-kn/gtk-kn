@@ -38,12 +38,9 @@ import kotlin.collections.List
  * The two style schemes with IDs "classic" and "tango" follow more closely the
  * GTK theme (for example for the background color).
  */
-public open class StyleScheme(pointer: CPointer<GtkSourceStyleScheme>) :
-    Object(pointer.reinterpret()),
+public open class StyleScheme(public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>) :
+    Object(gtksourceStyleSchemePointer.reinterpret()),
     KGTyped {
-    public val gtksourceStyleSchemePointer: CPointer<GtkSourceStyleScheme>
-        get() = gPointer.reinterpret()
-
     /**
      * Style scheme description, a translatable string to present to the user.
      */

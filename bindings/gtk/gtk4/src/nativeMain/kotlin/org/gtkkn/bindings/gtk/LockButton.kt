@@ -65,23 +65,20 @@ import org.gtkkn.native.gtk.gtk_lock_button_set_permission
  * - method `tooltip-not-authorized`: Property has no getter nor setter
  * - method `tooltip-unlock`: Property has no getter nor setter
  */
-public open class LockButton(pointer: CPointer<GtkLockButton>) :
-    Button(pointer.reinterpret()),
+public open class LockButton(public val gtkLockButtonPointer: CPointer<GtkLockButton>) :
+    Button(gtkLockButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkLockButtonPointer: CPointer<GtkLockButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The `GPermission object controlling this button.
@@ -93,7 +90,7 @@ public open class LockButton(pointer: CPointer<GtkLockButton>) :
          * @return the `GPermission` of @button
          */
         get() = gtk_lock_button_get_permission(gtkLockButtonPointer)?.run {
-            Permission(this)
+            Permission.PermissionImpl(this)
         }
 
         /**

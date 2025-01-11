@@ -60,20 +60,17 @@ import kotlin.Unit
  *
  * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
  */
-public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
-    Widget(pointer.reinterpret()),
+public class ToastOverlay(public val adwToastOverlayPointer: CPointer<AdwToastOverlay>) :
+    Widget(adwToastOverlayPointer.reinterpret()),
     KGTyped {
-    public val adwToastOverlayPointer: CPointer<AdwToastOverlay>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -85,7 +82,7 @@ public class ToastOverlay(pointer: CPointer<AdwToastOverlay>) :
          * @return the child widget of @self
          */
         get() = adw_toast_overlay_get_child(adwToastOverlayPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

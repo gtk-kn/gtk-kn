@@ -113,28 +113,25 @@ import kotlin.Boolean
  * `AdwFlap` has a single CSS node with name `flap`. The node will get the style
  * classes `.folded` when it is folded, and `.unfolded` when it's not.
  */
-public class Flap(pointer: CPointer<AdwFlap>) :
-    Widget(pointer.reinterpret()),
+public class Flap(public val adwFlapPointer: CPointer<AdwFlap>) :
+    Widget(adwFlapPointer.reinterpret()),
     Swipeable,
     Orientable,
     KGTyped {
-    public val adwFlapPointer: CPointer<AdwFlap>
-        get() = gPointer.reinterpret()
-
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The content widget.
@@ -148,7 +145,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the content widget for @self
          */
         get() = adw_flap_get_content(adwFlapPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -172,7 +169,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the flap widget for @self
          */
         get() = adw_flap_get_flap(adwFlapPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -395,7 +392,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          *
          * @param params the new parameters
          */
-        set(params) = adw_flap_set_reveal_params(adwFlapPointer, params.gPointer)
+        set(params) = adw_flap_set_reveal_params(adwFlapPointer, params.adwSpringParamsPointer)
 
     /**
      * The current reveal transition progress.
@@ -430,7 +427,7 @@ public class Flap(pointer: CPointer<AdwFlap>) :
          * @return the separator widget for @self
          */
         get() = adw_flap_get_separator(adwFlapPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

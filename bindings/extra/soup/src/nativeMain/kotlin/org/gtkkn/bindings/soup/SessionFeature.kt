@@ -3,7 +3,8 @@ package org.gtkkn.bindings.soup
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -23,23 +24,26 @@ import org.gtkkn.native.soup.soup_session_feature_get_type
  * See [method@Session.add_feature], etc, to add a feature to a session.
  */
 public interface SessionFeature :
-    Interface,
+    Proxy,
     KGTyped {
     public val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
 
-    private data class Wrapper(private val pointer: CPointer<SoupSessionFeature>) : SessionFeature {
-        override val soupSessionFeaturePointer: CPointer<SoupSessionFeature> = pointer
-    }
+    /**
+     * The SessionFeatureImpl type represents a native instance of the SessionFeature interface.
+     *
+     * @constructor Creates a new instance of SessionFeature for the provided [CPointer].
+     */
+    public data class SessionFeatureImpl(override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>) :
+        Object(soupSessionFeaturePointer.reinterpret()),
+        SessionFeature
 
     public companion object : TypeCompanion<SessionFeature> {
         override val type: GeneratedInterfaceKGType<SessionFeature> =
-            GeneratedInterfaceKGType(soup_session_feature_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(soup_session_feature_get_type()) { SessionFeatureImpl(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<SoupSessionFeature>): SessionFeature = Wrapper(pointer)
 
         /**
          * Get the GType of SessionFeature

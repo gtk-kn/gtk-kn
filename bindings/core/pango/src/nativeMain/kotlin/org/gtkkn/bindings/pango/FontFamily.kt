@@ -40,15 +40,12 @@ import kotlin.String
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
-    Object(pointer.reinterpret()),
+public abstract class FontFamily(public val pangoFontFamilyPointer: CPointer<PangoFontFamily>) :
+    Object(pangoFontFamilyPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val pangoFontFamilyPointer: CPointer<PangoFontFamily>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The name of the family
@@ -82,7 +79,7 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
     @PangoVersion1_46
     public open fun getFace(name: String? = null): FontFace? =
         pango_font_family_get_face(pangoFontFamilyPointer, name)?.run {
-            FontFace(this)
+            FontFace.FontFaceImpl(this)
         }
 
     /**
@@ -120,9 +117,16 @@ public open class FontFamily(pointer: CPointer<PangoFontFamily>) :
     @PangoVersion1_44
     public open fun isVariable(): Boolean = pango_font_family_is_variable(pangoFontFamilyPointer).asBoolean()
 
+    /**
+     * The FontFamilyImpl type represents a native instance of the abstract FontFamily class.
+     *
+     * @constructor Creates a new instance of FontFamily for the provided [CPointer].
+     */
+    public class FontFamilyImpl(pointer: CPointer<PangoFontFamily>) : FontFamily(pointer)
+
     public companion object : TypeCompanion<FontFamily> {
         override val type: GeneratedClassKGType<FontFamily> =
-            GeneratedClassKGType(pango_font_family_get_type()) { FontFamily(it.reinterpret()) }
+            GeneratedClassKGType(pango_font_family_get_type()) { FontFamilyImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

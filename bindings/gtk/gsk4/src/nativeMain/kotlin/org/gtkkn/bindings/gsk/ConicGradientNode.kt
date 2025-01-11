@@ -26,12 +26,9 @@ import org.gtkkn.native.gsk.gsk_conic_gradient_node_get_type
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
-public open class ConicGradientNode(pointer: CPointer<GskConicGradientNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ConicGradientNode(public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>) :
+    RenderNode(gskConicGradientNodePointer.reinterpret()),
     KGTyped {
-    public val gskConicGradientNodePointer: CPointer<GskConicGradientNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Retrieves the angle for the gradient in radians, normalized in [0, 2 * PI].
      *

@@ -33,15 +33,12 @@ import kotlin.Unit
  *
  * - method `gicon`: Property has no getter nor setter
  */
-public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
-    Object(pointer.reinterpret()),
+public open class EmblemedIcon(public val gioEmblemedIconPointer: CPointer<GEmblemedIcon>) :
+    Object(gioEmblemedIconPointer.reinterpret()),
     Icon,
     KGTyped {
-    public val gioEmblemedIconPointer: CPointer<GEmblemedIcon>
-        get() = gPointer.reinterpret()
-
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new emblemed icon for @icon with the emblem @emblem.
@@ -94,7 +91,7 @@ public open class EmblemedIcon(pointer: CPointer<GEmblemedIcon>) :
      */
     @GioVersion2_18
     public open fun getIcon(): Icon = g_emblemed_icon_get_icon(gioEmblemedIconPointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     public companion object : TypeCompanion<EmblemedIcon> {

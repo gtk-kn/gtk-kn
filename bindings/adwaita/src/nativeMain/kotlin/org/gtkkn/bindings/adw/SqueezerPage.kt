@@ -21,12 +21,9 @@ import kotlin.Boolean
 /**
  * An auxiliary class used by [class@Squeezer].
  */
-public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
-    Object(pointer.reinterpret()),
+public class SqueezerPage(public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>) :
+    Object(adwSqueezerPagePointer.reinterpret()),
     KGTyped {
-    public val adwSqueezerPagePointer: CPointer<AdwSqueezerPage>
-        get() = gPointer.reinterpret()
-
     /**
      * The the squeezer child to which the page belongs.
      */
@@ -37,7 +34,7 @@ public class SqueezerPage(pointer: CPointer<AdwSqueezerPage>) :
          * @return the child to which @self belongs
          */
         get() = adw_squeezer_page_get_child(adwSqueezerPagePointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

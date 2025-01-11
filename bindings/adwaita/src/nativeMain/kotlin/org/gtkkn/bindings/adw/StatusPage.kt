@@ -47,20 +47,17 @@ import kotlin.String
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
  */
-public class StatusPage(pointer: CPointer<AdwStatusPage>) :
-    Widget(pointer.reinterpret()),
+public class StatusPage(public val adwStatusPagePointer: CPointer<AdwStatusPage>) :
+    Widget(adwStatusPagePointer.reinterpret()),
     KGTyped {
-    public val adwStatusPagePointer: CPointer<AdwStatusPage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -72,7 +69,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          * @return the child widget of @self
          */
         get() = adw_status_page_get_child(adwStatusPagePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -136,7 +133,7 @@ public class StatusPage(pointer: CPointer<AdwStatusPage>) :
          * @return the paintable
          */
         get() = adw_status_page_get_paintable(adwStatusPagePointer)?.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
         /**

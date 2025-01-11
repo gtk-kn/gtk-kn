@@ -35,29 +35,28 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<graphene_size_t> = pointer
-
+public class Size(public val grapheneSizePointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(grapheneSizePointer) {
     /**
      * the width
      */
     public var width: gfloat
-        get() = gPointer.pointed.width
+        get() = grapheneSizePointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            grapheneSizePointer.pointed.width = value
         }
 
     /**
      * the height
      */
     public var height: gfloat
-        get() = gPointer.pointed.height
+        get() = grapheneSizePointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            grapheneSizePointer.pointed.height = value
         }
 
     /**
@@ -80,7 +79,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      */
     private constructor(
         pair: Pair<CPointer<graphene_size_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(grapheneSizePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Size using the provided [AutofreeScope].
@@ -131,7 +130,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Size): Boolean = graphene_size_equal(gPointer, b.gPointer)
+    public fun equal(b: Size): Boolean = graphene_size_equal(grapheneSizePointer, b.grapheneSizePointer)
 
     /**
      * Frees the resources allocated by graphene_size_alloc().
@@ -139,7 +138,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun free(): Unit = graphene_size_free(gPointer)
+    public fun free(): Unit = graphene_size_free(grapheneSizePointer)
 
     /**
      * Initializes a #graphene_size_t using the given @width and @height.
@@ -150,9 +149,10 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun `init`(width: gfloat, height: gfloat): Size = graphene_size_init(gPointer, width, height)!!.run {
-        Size(this)
-    }
+    public fun `init`(width: gfloat, height: gfloat): Size =
+        graphene_size_init(grapheneSizePointer, width, height)!!.run {
+            Size(this)
+        }
 
     /**
      * Initializes a #graphene_size_t using the width and height of
@@ -163,9 +163,10 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromSize(src: Size): Size = graphene_size_init_from_size(gPointer, src.gPointer)!!.run {
-        Size(this)
-    }
+    public fun initFromSize(src: Size): Size =
+        graphene_size_init_from_size(grapheneSizePointer, src.grapheneSizePointer)!!.run {
+            Size(this)
+        }
 
     /**
      * Linearly interpolates the two given #graphene_size_t using the given
@@ -178,7 +179,7 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun interpolate(b: Size, factor: gdouble, res: Size): Unit =
-        graphene_size_interpolate(gPointer, b.gPointer, factor, res.gPointer)
+        graphene_size_interpolate(grapheneSizePointer, b.grapheneSizePointer, factor, res.grapheneSizePointer)
 
     /**
      * Scales the components of a #graphene_size_t using the given @factor.
@@ -188,7 +189,8 @@ public class Size(pointer: CPointer<graphene_size_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun scale(factor: gfloat, res: Size): Unit = graphene_size_scale(gPointer, factor, res.gPointer)
+    public fun scale(factor: gfloat, res: Size): Unit =
+        graphene_size_scale(grapheneSizePointer, factor, res.grapheneSizePointer)
 
     override fun toString(): String = "Size(width=$width, height=$height)"
 

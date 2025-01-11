@@ -67,12 +67,9 @@ import kotlin.Boolean
  * If the initial and final values are equal, and the initial velocity is not 0,
  * the animation value will bounce and return to its resting position.
  */
-public class SpringAnimation(pointer: CPointer<AdwSpringAnimation>) :
-    Animation(pointer.reinterpret()),
+public class SpringAnimation(public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>) :
+    Animation(adwSpringAnimationPointer.reinterpret()),
     KGTyped {
-    public val adwSpringAnimationPointer: CPointer<AdwSpringAnimation>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the animation should be clamped.
      *
@@ -198,7 +195,9 @@ public class SpringAnimation(pointer: CPointer<AdwSpringAnimation>) :
          *
          * @param springParams the new spring parameters
          */
-        set(springParams) = adw_spring_animation_set_spring_params(adwSpringAnimationPointer, springParams.gPointer)
+        set(
+            springParams
+        ) = adw_spring_animation_set_spring_params(adwSpringAnimationPointer, springParams.adwSpringParamsPointer)
 
     /**
      * The value to animate from.
@@ -283,7 +282,7 @@ public class SpringAnimation(pointer: CPointer<AdwSpringAnimation>) :
             widget.gtkWidgetPointer,
             from,
             to,
-            springParams.gPointer,
+            springParams.adwSpringParamsPointer,
             target.adwAnimationTargetPointer
         )!!.reinterpret()
     )

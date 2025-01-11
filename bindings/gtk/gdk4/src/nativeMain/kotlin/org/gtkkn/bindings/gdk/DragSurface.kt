@@ -10,7 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_12
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -31,7 +31,7 @@ import kotlin.Unit
  * A `GdkDragSurface` is an interface for surfaces used during DND.
  */
 public interface DragSurface :
-    Interface,
+    Proxy,
     KGTyped {
     public val gdkDragSurfacePointer: CPointer<GdkDragSurface>
 
@@ -77,19 +77,22 @@ public interface DragSurface :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GdkDragSurface>) : DragSurface {
-        override val gdkDragSurfacePointer: CPointer<GdkDragSurface> = pointer
-    }
+    /**
+     * The DragSurfaceImpl type represents a native instance of the DragSurface interface.
+     *
+     * @constructor Creates a new instance of DragSurface for the provided [CPointer].
+     */
+    public data class DragSurfaceImpl(override val gdkDragSurfacePointer: CPointer<GdkDragSurface>) :
+        Surface(gdkDragSurfacePointer.reinterpret()),
+        DragSurface
 
     public companion object : TypeCompanion<DragSurface> {
         override val type: GeneratedInterfaceKGType<DragSurface> =
-            GeneratedInterfaceKGType(gdk_drag_surface_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gdk_drag_surface_get_type()) { DragSurfaceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GdkDragSurface>): DragSurface = Wrapper(pointer)
 
         /**
          * Get the GType of DragSurface

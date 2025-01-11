@@ -91,12 +91,9 @@ import kotlin.collections.List
  *
  * - signal `show-processes`: Unsupported parameter `processes` : GLib.Array parameter of type GLib.Pid is not supported
  */
-public open class MountOperation(pointer: CPointer<GMountOperation>) :
-    Object(pointer.reinterpret()),
+public open class MountOperation(public val gioMountOperationPointer: CPointer<GMountOperation>) :
+    Object(gioMountOperationPointer.reinterpret()),
     KGTyped {
-    public val gioMountOperationPointer: CPointer<GMountOperation>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether to use an anonymous user when authenticating.
      */
@@ -325,7 +322,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
     @GioVersion2_20
     public fun onAborted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioMountOperationPointer,
             "aborted",
             onAbortedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -340,7 +337,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      */
     @GioVersion2_20
     public fun emitAborted() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "aborted")
+        g_signal_emit_by_name(gioMountOperationPointer.reinterpret(), "aborted")
     }
 
     /**
@@ -362,7 +359,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
             flags: AskPasswordFlags,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioMountOperationPointer,
         "ask-password",
         onAskPasswordFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -380,7 +377,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      */
     public fun emitAskPassword(message: String, defaultUser: String, defaultDomain: String, flags: AskPasswordFlags) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gioMountOperationPointer.reinterpret(),
             "ask-password",
             message.cstr,
             defaultUser.cstr,
@@ -404,7 +401,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: String, choices: List<String>) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioMountOperationPointer,
         "ask-question",
         onAskQuestionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -419,7 +416,12 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * @param choices an array of strings for each possible choice.
      */
     public fun emitAskQuestion(message: String, choices: List<String>): Unit = memScoped {
-        g_signal_emit_by_name(gPointer.reinterpret(), "ask-question", message.cstr, choices.toCStringList(this))
+        g_signal_emit_by_name(
+            gioMountOperationPointer.reinterpret(),
+            "ask-question",
+            message.cstr,
+            choices.toCStringList(this)
+        )
     }
 
     /**
@@ -432,7 +434,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (result: MountOperationResult) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioMountOperationPointer,
         "reply",
         onReplyFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -446,7 +448,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      * @param result a #GMountOperationResult indicating how the request was handled
      */
     public fun emitReply(result: MountOperationResult) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "reply", result.nativeValue)
+        g_signal_emit_by_name(gioMountOperationPointer.reinterpret(), "reply", result.nativeValue)
     }
 
     /**
@@ -483,7 +485,7 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
             bytesLeft: gint64,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioMountOperationPointer,
         "show-unmount-progress",
         onShowUnmountProgressFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -504,7 +506,13 @@ public open class MountOperation(pointer: CPointer<GMountOperation>) :
      */
     @GioVersion2_34
     public fun emitShowUnmountProgress(message: String, timeLeft: gint64, bytesLeft: gint64) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "show-unmount-progress", message.cstr, timeLeft, bytesLeft)
+        g_signal_emit_by_name(
+            gioMountOperationPointer.reinterpret(),
+            "show-unmount-progress",
+            message.cstr,
+            timeLeft,
+            bytesLeft
+        )
     }
 
     public companion object : TypeCompanion<MountOperation> {

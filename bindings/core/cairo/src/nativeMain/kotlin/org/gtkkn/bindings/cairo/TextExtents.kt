@@ -16,55 +16,56 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class TextExtents(pointer: CPointer<cairo_text_extents_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_text_extents_t> = pointer
-
+public class TextExtents(
+    public val cairoTextExtentsPointer: CPointer<cairo_text_extents_t>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(cairoTextExtentsPointer) {
     public var xBearing: gdouble
-        get() = gPointer.pointed.x_bearing
+        get() = cairoTextExtentsPointer.pointed.x_bearing
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x_bearing = value
+            cairoTextExtentsPointer.pointed.x_bearing = value
         }
 
     public var yBearing: gdouble
-        get() = gPointer.pointed.y_bearing
+        get() = cairoTextExtentsPointer.pointed.y_bearing
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y_bearing = value
+            cairoTextExtentsPointer.pointed.y_bearing = value
         }
 
     public var width: gdouble
-        get() = gPointer.pointed.width
+        get() = cairoTextExtentsPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            cairoTextExtentsPointer.pointed.width = value
         }
 
     public var height: gdouble
-        get() = gPointer.pointed.height
+        get() = cairoTextExtentsPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            cairoTextExtentsPointer.pointed.height = value
         }
 
     public var xAdvance: gdouble
-        get() = gPointer.pointed.x_advance
+        get() = cairoTextExtentsPointer.pointed.x_advance
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x_advance = value
+            cairoTextExtentsPointer.pointed.x_advance = value
         }
 
     public var yAdvance: gdouble
-        get() = gPointer.pointed.y_advance
+        get() = cairoTextExtentsPointer.pointed.y_advance
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y_advance = value
+            cairoTextExtentsPointer.pointed.y_advance = value
         }
 
     /**
@@ -87,7 +88,7 @@ public class TextExtents(pointer: CPointer<cairo_text_extents_t>, cleaner: Clean
      */
     private constructor(
         pair: Pair<CPointer<cairo_text_extents_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoTextExtentsPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TextExtents using the provided [AutofreeScope].

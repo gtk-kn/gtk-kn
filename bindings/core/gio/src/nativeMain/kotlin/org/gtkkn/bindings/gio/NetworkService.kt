@@ -33,15 +33,12 @@ import kotlin.String
  * [iface@Gio.SocketConnectable] for an example of using the connectable
  * interface.
  */
-public open class NetworkService(pointer: CPointer<GNetworkService>) :
-    Object(pointer.reinterpret()),
+public open class NetworkService(public val gioNetworkServicePointer: CPointer<GNetworkService>) :
+    Object(gioNetworkServicePointer.reinterpret()),
     SocketConnectable,
     KGTyped {
-    public val gioNetworkServicePointer: CPointer<GNetworkService>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Network domain, for example `example.com`.

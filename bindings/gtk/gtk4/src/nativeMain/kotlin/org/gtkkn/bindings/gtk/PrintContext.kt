@@ -102,12 +102,9 @@ import org.gtkkn.bindings.pango.Context as PangoContext
  *
  * - parameter `top`: top: Out parameter is not supported
  */
-public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
-    Object(pointer.reinterpret()),
+public open class PrintContext(public val gtkPrintContextPointer: CPointer<GtkPrintContext>) :
+    Object(gtkPrintContextPointer.reinterpret()),
     KGTyped {
-    public val gtkPrintContextPointer: CPointer<GtkPrintContext>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `PangoContext` that can be used with the
      * `GtkPrintContext`.
@@ -180,7 +177,7 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      * @return the font map of @context
      */
     public open fun getPangoFontmap(): FontMap = gtk_print_context_get_pango_fontmap(gtkPrintContextPointer)!!.run {
-        FontMap(this)
+        FontMap.FontMapImpl(this)
     }
 
     /**
@@ -203,7 +200,7 @@ public open class PrintContext(pointer: CPointer<GtkPrintContext>) :
      * @param dpiY the vertical resolution to use with @cr
      */
     public open fun setCairoContext(cr: CairoContext, dpiX: gdouble, dpiY: gdouble): Unit =
-        gtk_print_context_set_cairo_context(gtkPrintContextPointer, cr.gPointer, dpiX, dpiY)
+        gtk_print_context_set_cairo_context(gtkPrintContextPointer, cr.cairoContextPointer, dpiX, dpiY)
 
     public companion object : TypeCompanion<PrintContext> {
         override val type: GeneratedClassKGType<PrintContext> =

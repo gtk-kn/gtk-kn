@@ -42,9 +42,10 @@ import kotlin.native.ref.createCleaner
  * from g_static_rec_mutex_trylock(), which does nothing but returning
  * true.
  */
-public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GStaticRecMutex> = pointer
-
+public class StaticRecMutex(
+    public val glibStaticRecMutexPointer: CPointer<GStaticRecMutex>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(glibStaticRecMutexPointer) {
     /**
      * Allocate a new StaticRecMutex.
      *
@@ -65,7 +66,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GStaticRecMutex>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibStaticRecMutexPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new StaticRecMutex using the provided [AutofreeScope].
@@ -84,14 +85,14 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * a #GStaticRecMutex as a member of a structure and the structure is
      * freed, you should also free the #GStaticRecMutex.
      */
-    public fun free(): Unit = g_static_rec_mutex_free(gPointer)
+    public fun free(): Unit = g_static_rec_mutex_free(glibStaticRecMutexPointer)
 
     /**
      * A #GStaticRecMutex must be initialized with this function before it
      * can be used. Alternatively you can initialize it with
      * %G_STATIC_REC_MUTEX_INIT.
      */
-    public fun `init`(): Unit = g_static_rec_mutex_init(gPointer)
+    public fun `init`(): Unit = g_static_rec_mutex_init(glibStaticRecMutexPointer)
 
     /**
      * Locks @mutex. If @mutex is already locked by another thread, the
@@ -99,7 +100,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * thread. If @mutex is already locked by the calling thread, this
      * functions increases the depth of @mutex and returns immediately.
      */
-    public fun lock(): Unit = g_static_rec_mutex_lock(gPointer)
+    public fun lock(): Unit = g_static_rec_mutex_lock(glibStaticRecMutexPointer)
 
     /**
      * Works like calling g_static_rec_mutex_lock() for @mutex @depth times.
@@ -107,7 +108,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * @param depth number of times this mutex has to be unlocked to be
      *         completely unlocked.
      */
-    public fun lockFull(depth: guint): Unit = g_static_rec_mutex_lock_full(gPointer, depth)
+    public fun lockFull(depth: guint): Unit = g_static_rec_mutex_lock_full(glibStaticRecMutexPointer, depth)
 
     /**
      * Tries to lock @mutex. If @mutex is already locked by another thread,
@@ -118,7 +119,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      *
      * @return true, if @mutex could be locked.
      */
-    public fun trylock(): Boolean = g_static_rec_mutex_trylock(gPointer).asBoolean()
+    public fun trylock(): Boolean = g_static_rec_mutex_trylock(glibStaticRecMutexPointer).asBoolean()
 
     /**
      * Unlocks @mutex. Another thread will be allowed to lock @mutex only
@@ -127,7 +128,7 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * blocked in a g_static_rec_mutex_lock() call for @mutex, it will be
      * woken and can lock @mutex itself.
      */
-    public fun unlock(): Unit = g_static_rec_mutex_unlock(gPointer)
+    public fun unlock(): Unit = g_static_rec_mutex_unlock(glibStaticRecMutexPointer)
 
     /**
      * Completely unlocks @mutex. If another thread is blocked in a
@@ -141,5 +142,5 @@ public class StaticRecMutex(pointer: CPointer<GStaticRecMutex>, cleaner: Cleaner
      * @return number of times @mutex has been locked by the current
      *          thread.
      */
-    public fun unlockFull(): guint = g_static_rec_mutex_unlock_full(gPointer)
+    public fun unlockFull(): guint = g_static_rec_mutex_unlock_full(glibStaticRecMutexPointer)
 }

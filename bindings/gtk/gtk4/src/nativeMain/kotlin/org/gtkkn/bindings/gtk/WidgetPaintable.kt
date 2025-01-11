@@ -38,15 +38,12 @@ import org.gtkkn.native.gtk.gtk_widget_paintable_set_widget
  * [property@Gtk.Picture:can-shrink] property is set to true or you might
  * end up with an infinitely growing widget.
  */
-public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
-    Object(pointer.reinterpret()),
+public open class WidgetPaintable(public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>) :
+    Object(gtkWidgetPaintablePointer.reinterpret()),
     Paintable,
     KGTyped {
-    public val gtkWidgetPaintablePointer: CPointer<GtkWidgetPaintable>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The observed widget or null if none.
@@ -58,7 +55,7 @@ public open class WidgetPaintable(pointer: CPointer<GtkWidgetPaintable>) :
          * @return the observed widget.
          */
         get() = gtk_widget_paintable_get_widget(gtkWidgetPaintablePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

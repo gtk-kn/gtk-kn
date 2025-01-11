@@ -50,12 +50,9 @@ import kotlin.Unit
  * useful in the case of important passwords. Or a derived class could
  * integrate with an application’s concept of undo/redo.
  */
-public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
-    Object(pointer.reinterpret()),
+public open class EntryBuffer(public val gtkEntryBufferPointer: CPointer<GtkEntryBuffer>) :
+    Object(gtkEntryBufferPointer.reinterpret()),
     KGTyped {
-    public val gtkEntryBufferPointer: CPointer<GtkEntryBuffer>
-        get() = gPointer.reinterpret()
-
     /**
      * The length (in characters) of the text in buffer.
      */
@@ -216,7 +213,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (position: guint, nChars: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEntryBufferPointer,
         "deleted-text",
         onDeletedTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -238,7 +235,7 @@ public open class EntryBuffer(pointer: CPointer<GtkEntryBuffer>) :
             nChars: guint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEntryBufferPointer,
         "inserted-text",
         onInsertedTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

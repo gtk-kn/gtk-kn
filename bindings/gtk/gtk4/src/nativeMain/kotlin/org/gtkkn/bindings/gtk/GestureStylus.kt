@@ -43,12 +43,9 @@ import kotlin.Unit
  * - parameter `value`: value: Out parameter is not supported
  * - parameter `backlog`: backlog: Out parameter is not supported
  */
-public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureStylus(public val gtkGestureStylusPointer: CPointer<GtkGestureStylus>) :
+    GestureSingle(gtkGestureStylusPointer.reinterpret()),
     KGTyped {
-    public val gtkGestureStylusPointer: CPointer<GtkGestureStylus>
-        get() = gPointer.reinterpret()
-
     /**
      * If this gesture should exclusively react to stylus input devices.
      *
@@ -108,7 +105,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
      */
     public fun onDown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGestureStylusPointer,
             "down",
             onDownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -123,7 +120,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
      * @param y the Y coordinate of the stylus event
      */
     public fun emitDown(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "down", x, y)
+        g_signal_emit_by_name(gtkGestureStylusPointer.reinterpret(), "down", x, y)
     }
 
     /**
@@ -136,7 +133,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureStylusPointer,
         "motion",
         onMotionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -151,7 +148,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
      * @param y the Y coordinate of the stylus event
      */
     public fun emitMotion(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "motion", x, y)
+        g_signal_emit_by_name(gtkGestureStylusPointer.reinterpret(), "motion", x, y)
     }
 
     /**
@@ -164,7 +161,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureStylusPointer,
         "proximity",
         onProximityFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -179,7 +176,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
      * @param y the Y coordinate of the stylus event
      */
     public fun emitProximity(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "proximity", x, y)
+        g_signal_emit_by_name(gtkGestureStylusPointer.reinterpret(), "proximity", x, y)
     }
 
     /**
@@ -190,7 +187,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
      */
     public fun onUp(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (x: gdouble, y: gdouble) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGestureStylusPointer,
             "up",
             onUpFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -205,7 +202,7 @@ public open class GestureStylus(pointer: CPointer<GtkGestureStylus>) :
      * @param y the Y coordinate of the stylus event
      */
     public fun emitUp(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "up", x, y)
+        g_signal_emit_by_name(gtkGestureStylusPointer.reinterpret(), "up", x, y)
     }
 
     public companion object : TypeCompanion<GestureStylus> {

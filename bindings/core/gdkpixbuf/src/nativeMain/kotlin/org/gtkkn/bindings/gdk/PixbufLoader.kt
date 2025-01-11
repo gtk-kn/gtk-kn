@@ -100,12 +100,9 @@ import kotlin.Unit
  *
  * - parameter `buf`: Array parameter of type guint8 is not supported
  */
-public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
-    Object(pointer.reinterpret()),
+public open class PixbufLoader(public val gdkPixbufLoaderPointer: CPointer<GdkPixbufLoader>) :
+    Object(gdkPixbufLoaderPointer.reinterpret()),
     KGTyped {
-    public val gdkPixbufLoaderPointer: CPointer<GdkPixbufLoader>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new pixbuf loader object.
      *
@@ -256,7 +253,11 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
     @GdkPixbufVersion2_30
     public open fun writeBytes(buffer: Bytes): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gdk_pixbuf_loader_write_bytes(gdkPixbufLoaderPointer, buffer.gPointer, gError.ptr).asBoolean()
+        val gResult = gdk_pixbuf_loader_write_bytes(
+            gdkPixbufLoaderPointer,
+            buffer.glibBytesPointer,
+            gError.ptr
+        ).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -277,7 +278,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
      */
     public fun onAreaPrepared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkPixbufLoaderPointer,
             "area-prepared",
             onAreaPreparedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -289,7 +290,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
      * Emits the "area-prepared" signal. See [onAreaPrepared].
      */
     public fun emitAreaPrepared() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "area-prepared")
+        g_signal_emit_by_name(gdkPixbufLoaderPointer.reinterpret(), "area-prepared")
     }
 
     /**
@@ -314,7 +315,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
             height: gint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkPixbufLoaderPointer,
         "area-updated",
         onAreaUpdatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -331,7 +332,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
      * @param height Height of updated area.
      */
     public fun emitAreaUpdated(x: gint, y: gint, width: gint, height: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "area-updated", x, y, width, height)
+        g_signal_emit_by_name(gdkPixbufLoaderPointer.reinterpret(), "area-updated", x, y, width, height)
     }
 
     /**
@@ -346,7 +347,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
      */
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkPixbufLoaderPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -358,7 +359,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
      * Emits the "closed" signal. See [onClosed].
      */
     public fun emitClosed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+        g_signal_emit_by_name(gdkPixbufLoaderPointer.reinterpret(), "closed")
     }
 
     /**
@@ -377,7 +378,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: gint, height: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkPixbufLoaderPointer,
         "size-prepared",
         onSizePreparedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -392,7 +393,7 @@ public open class PixbufLoader(pointer: CPointer<GdkPixbufLoader>) :
      * @param height the original height of the image
      */
     public fun emitSizePrepared(width: gint, height: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "size-prepared", width, height)
+        g_signal_emit_by_name(gdkPixbufLoaderPointer.reinterpret(), "size-prepared", width, height)
     }
 
     public companion object : TypeCompanion<PixbufLoader> {

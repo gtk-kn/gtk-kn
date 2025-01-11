@@ -64,12 +64,9 @@ import kotlin.Unit
  * webkit_web_inspector_show (WEBKIT_WEB_INSPECTOR(inspector));
  * ```
  */
-public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
-    Object(pointer.reinterpret()),
+public class WebInspector(public val webkitWebInspectorPointer: CPointer<WebKitWebInspector>) :
+    Object(webkitWebInspectorPointer.reinterpret()),
     KGTyped {
-    public val webkitWebInspectorPointer: CPointer<WebKitWebInspector>
-        get() = gPointer.reinterpret()
-
     /**
      * The height that the inspector view should have when it is attached.
      */
@@ -183,7 +180,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      */
     public fun onAttach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebInspectorPointer,
             "attach",
             onAttachFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -210,7 +207,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      */
     public fun onBringToFront(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebInspectorPointer,
             "bring-to-front",
             onBringToFrontFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -228,7 +225,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      */
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebInspectorPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -240,7 +237,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      * Emits the "closed" signal. See [onClosed].
      */
     public fun emitClosed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+        g_signal_emit_by_name(webkitWebInspectorPointer.reinterpret(), "closed")
     }
 
     /**
@@ -260,7 +257,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      */
     public fun onDetach(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebInspectorPointer,
             "detach",
             onDetachFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -285,7 +282,7 @@ public class WebInspector(pointer: CPointer<WebKitWebInspector>) :
      */
     public fun onOpenWindow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebInspectorPointer,
             "open-window",
             onOpenWindowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

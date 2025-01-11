@@ -15,7 +15,7 @@ import org.gtkkn.bindings.gobject.ObjectClass
 import org.gtkkn.bindings.gobject.ParamSpec
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -199,7 +199,7 @@ import kotlin.Unit
  * - signal `insert-text`: Unsupported parameter `position` : position: In/Out parameter is not supported
  */
 public interface Editable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkEditablePointer: CPointer<GtkEditable>
 
@@ -407,7 +407,7 @@ public interface Editable :
      * @return the delegate `GtkEditable`
      */
     public fun getDelegate(): Editable? = gtk_editable_get_delegate(gtkEditablePointer)?.run {
-        Editable.wrap(reinterpret())
+        EditableImpl(reinterpret())
     }
 
     /**
@@ -609,19 +609,22 @@ public interface Editable :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GtkEditable>) : Editable {
-        override val gtkEditablePointer: CPointer<GtkEditable> = pointer
-    }
+    /**
+     * The EditableImpl type represents a native instance of the Editable interface.
+     *
+     * @constructor Creates a new instance of Editable for the provided [CPointer].
+     */
+    public data class EditableImpl(override val gtkEditablePointer: CPointer<GtkEditable>) :
+        Widget(gtkEditablePointer.reinterpret()),
+        Editable
 
     public companion object : TypeCompanion<Editable> {
         override val type: GeneratedInterfaceKGType<Editable> =
-            GeneratedInterfaceKGType(gtk_editable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_editable_get_type()) { EditableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkEditable>): Editable = Wrapper(pointer)
 
         /**
          * Gets a property of the `GtkEditable` delegate for @object.
@@ -637,7 +640,12 @@ public interface Editable :
          * @return true if the property was found
          */
         public fun delegateGetProperty(`object`: Object, propId: guint, `value`: Value, pspec: ParamSpec): Boolean =
-            gtk_editable_delegate_get_property(`object`.gPointer, propId, `value`.gPointer, pspec.gPointer).asBoolean()
+            gtk_editable_delegate_get_property(
+                `object`.gobjectObjectPointer,
+                propId,
+                `value`.gobjectValuePointer,
+                pspec.gobjectParamSpecPointer
+            ).asBoolean()
 
         /**
          * Sets a property on the `GtkEditable` delegate for @object.
@@ -653,7 +661,12 @@ public interface Editable :
          * @return true if the property was found
          */
         public fun delegateSetProperty(`object`: Object, propId: guint, `value`: Value, pspec: ParamSpec): Boolean =
-            gtk_editable_delegate_set_property(`object`.gPointer, propId, `value`.gPointer, pspec.gPointer).asBoolean()
+            gtk_editable_delegate_set_property(
+                `object`.gobjectObjectPointer,
+                propId,
+                `value`.gobjectValuePointer,
+                pspec.gobjectParamSpecPointer
+            ).asBoolean()
 
         /**
          * Overrides the `GtkEditable` properties for @class.
@@ -677,7 +690,7 @@ public interface Editable :
          * @return the number of properties that were installed
          */
         public fun installProperties(objectClass: ObjectClass, firstProp: guint): guint =
-            gtk_editable_install_properties(objectClass.gPointer, firstProp)
+            gtk_editable_install_properties(objectClass.gobjectObjectClassPointer, firstProp)
 
         /**
          * Get the GType of Editable

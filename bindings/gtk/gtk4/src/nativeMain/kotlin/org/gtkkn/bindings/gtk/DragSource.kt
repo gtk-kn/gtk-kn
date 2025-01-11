@@ -121,12 +121,9 @@ import kotlin.Unit
  * [signal@Gtk.DragSource::drag-end] signal and delete the
  * data after it has been transferred.
  */
-public open class DragSource(pointer: CPointer<GtkDragSource>) :
-    GestureSingle(pointer.reinterpret()),
+public open class DragSource(public val gtkDragSourcePointer: CPointer<GtkDragSource>) :
+    GestureSingle(gtkDragSourcePointer.reinterpret()),
     KGTyped {
-    public val gtkDragSourcePointer: CPointer<GtkDragSource>
-        get() = gPointer.reinterpret()
-
     /**
      * The actions that are supported by drag operations from the source.
      *
@@ -206,7 +203,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      *   drag operation
      */
     public open fun getDrag(): Drag? = gtk_drag_source_get_drag(gtkDragSourcePointer)?.run {
-        Drag(this)
+        Drag.DragImpl(this)
     }
 
     /**
@@ -239,7 +236,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      */
     public fun onDragBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (drag: Drag) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkDragSourcePointer,
             "drag-begin",
             onDragBeginFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -253,7 +250,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      * @param drag the `GdkDrag` object
      */
     public fun emitDragBegin(drag: Drag) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drag-begin", drag.gdkDragPointer)
+        g_signal_emit_by_name(gtkDragSourcePointer.reinterpret(), "drag-begin", drag.gdkDragPointer)
     }
 
     /**
@@ -270,7 +267,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drag: Drag, reason: DragCancelReason) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkDragSourcePointer,
         "drag-cancel",
         onDragCancelFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -293,7 +290,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (drag: Drag, deleteData: Boolean) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkDragSourcePointer,
         "drag-end",
         onDragEndFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -309,7 +306,12 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
      *    and the data should be deleted
      */
     public fun emitDragEnd(drag: Drag, deleteData: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drag-end", drag.gdkDragPointer, deleteData.asGBoolean())
+        g_signal_emit_by_name(
+            gtkDragSourcePointer.reinterpret(),
+            "drag-end",
+            drag.gdkDragPointer,
+            deleteData.asGBoolean()
+        )
     }
 
     /**
@@ -327,7 +329,7 @@ public open class DragSource(pointer: CPointer<GtkDragSource>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> ContentProvider?,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkDragSourcePointer,
         "prepare",
         onPrepareFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -359,7 +361,7 @@ private val onDragBeginFunc: CPointer<CFunction<(CPointer<GdkDrag>) -> Unit>> = 
     ->
     userData.asStableRef<(drag: Drag) -> Unit>().get().invoke(
         drag!!.run {
-            Drag(this)
+            Drag.DragImpl(this)
         }
     )
 }
@@ -375,7 +377,7 @@ private val onDragCancelFunc:
         ->
         userData.asStableRef<(drag: Drag, reason: DragCancelReason) -> Boolean>().get().invoke(
             drag!!.run {
-                Drag(this)
+                Drag.DragImpl(this)
             },
             reason.run {
                 DragCancelReason.fromNativeValue(this)
@@ -393,7 +395,7 @@ private val onDragEndFunc: CPointer<CFunction<(CPointer<GdkDrag>, gboolean) -> U
         ->
         userData.asStableRef<(drag: Drag, deleteData: Boolean) -> Unit>().get().invoke(
             drag!!.run {
-                Drag(this)
+                Drag.DragImpl(this)
             },
             deleteData.asBoolean()
         )

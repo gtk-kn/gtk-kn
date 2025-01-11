@@ -44,17 +44,14 @@ import kotlin.String
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
  */
-public open class Application(pointer: CPointer<AdwApplication>) :
-    org.gtkkn.bindings.gtk.Application(pointer.reinterpret()),
+public open class Application(public val adwApplicationPointer: CPointer<AdwApplication>) :
+    org.gtkkn.bindings.gtk.Application(adwApplicationPointer.reinterpret()),
     KGTyped {
-    public val adwApplicationPointer: CPointer<AdwApplication>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioActionMapPointer: CPointer<GActionMap>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The style manager for this application.

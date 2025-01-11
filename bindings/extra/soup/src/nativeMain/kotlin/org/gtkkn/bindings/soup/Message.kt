@@ -131,12 +131,9 @@ import kotlin.Unit
  * - method `site-for-cookies`: Property TypeInfo of getter and setter do not match
  * - method `status-code`: Property has no getter nor setter
  */
-public class Message(pointer: CPointer<SoupMessage>) :
-    Object(pointer.reinterpret()),
+public class Message(public val soupMessagePointer: CPointer<SoupMessage>) :
+    Object(soupMessagePointer.reinterpret()),
     KGTyped {
-    public val soupMessagePointer: CPointer<SoupMessage>
-        get() = gPointer.reinterpret()
-
     /**
      * The [struct@GLib.Uri] loaded in the application when the message was
      * queued.
@@ -159,7 +156,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          *
          * @param firstParty the #GUri for the @msg's first party
          */
-        set(firstParty) = soup_message_set_first_party(soupMessagePointer, firstParty.gPointer)
+        set(firstParty) = soup_message_set_first_party(soupMessagePointer, firstParty.glibUriPointer)
 
     /**
      * Various message options.
@@ -330,7 +327,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          *     hasn't been established
          */
         get() = soup_message_get_remote_address(soupMessagePointer)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
     /**
@@ -386,7 +383,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          *   or null if @msg's connection is not SSL.
          */
         get() = soup_message_get_tls_peer_certificate(soupMessagePointer)?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
     /**
@@ -438,7 +435,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
          *
          * @param uri the new #GUri
          */
-        set(uri) = soup_message_set_uri(soupMessagePointer, uri.gPointer)
+        set(uri) = soup_message_set_uri(soupMessagePointer, uri.glibUriPointer)
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -484,7 +481,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
     public constructor(
         uriString: String,
         multipart: Multipart,
-    ) : this(soup_message_new_from_multipart(uriString, multipart.gPointer)!!.reinterpret())
+    ) : this(soup_message_new_from_multipart(uriString, multipart.soupMultipartPointer)!!.reinterpret())
 
     /**
      * Creates a new empty #SoupMessage, which will connect to @uri.
@@ -493,7 +490,10 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param uri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(method: String, uri: Uri) : this(soup_message_new_from_uri(method, uri.gPointer)!!.reinterpret())
+    public constructor(
+        method: String,
+        uri: Uri,
+    ) : this(soup_message_new_from_uri(method, uri.glibUriPointer)!!.reinterpret())
 
     /**
      * Creates a new #SoupMessage to send `OPTIONS *` to a server. The path of
@@ -502,7 +502,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param baseUri the destination endpoint
      * @return the new #SoupMessage
      */
-    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.gPointer)!!.reinterpret())
+    public constructor(baseUri: Uri) : this(soup_message_new_options_ping(baseUri.glibUriPointer)!!.reinterpret())
 
     /**
      * Adds @flags to the set of @msg's flags.
@@ -699,7 +699,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param bytes a #GBytes with the request body data
      */
     public fun setRequestBodyFromBytes(contentType: String? = null, bytes: Bytes? = null): Unit =
-        soup_message_set_request_body_from_bytes(soupMessagePointer, contentType, bytes?.gPointer)
+        soup_message_set_request_body_from_bytes(soupMessagePointer, contentType, bytes?.glibBytesPointer)
 
     /**
      * Sets @site_for_cookies as the policy URL for same-site cookies for @msg.
@@ -715,7 +715,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param siteForCookies the #GUri for the @msg's site for cookies
      */
     public fun setSiteForCookies(siteForCookies: Uri? = null): Unit =
-        soup_message_set_site_for_cookies(soupMessagePointer, siteForCookies?.gPointer)
+        soup_message_set_site_for_cookies(soupMessagePointer, siteForCookies?.glibUriPointer)
 
     /**
      * Sets the @certificate to be used by @msg's connection when a
@@ -758,7 +758,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tlsPeerCertificate: TlsCertificate, tlsPeerErrors: TlsCertificateFlags) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "accept-certificate",
         onAcceptCertificateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -790,7 +790,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (auth: Auth, retrying: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "authenticate",
         onAuthenticateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -814,7 +814,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (type: String, params: HashTable) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "content-sniffed",
         onContentSniffedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -829,7 +829,12 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param params a #GHashTable with the parameters
      */
     public fun emitContentSniffed(type: String, params: HashTable) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "content-sniffed", type.cstr, params.gPointer)
+        g_signal_emit_by_name(
+            soupMessagePointer.reinterpret(),
+            "content-sniffed",
+            type.cstr,
+            params.glibHashTablePointer
+        )
     }
 
     /**
@@ -842,7 +847,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "finished",
             onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -854,7 +859,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "finished" signal. See [onFinished].
      */
     public fun emitFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "finished")
     }
 
     /**
@@ -865,7 +870,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onGotBody(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "got-body",
             onGotBodyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -877,7 +882,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "got-body" signal. See [onGotBody].
      */
     public fun emitGotBody() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-body")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "got-body")
     }
 
     /**
@@ -893,7 +898,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (chunkSize: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "got-body-data",
         onGotBodyDataFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -909,7 +914,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     @SoupVersion3_4
     public fun emitGotBodyData(chunkSize: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-body-data", chunkSize)
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "got-body-data", chunkSize)
     }
 
     /**
@@ -933,7 +938,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onGotHeaders(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "got-headers",
             onGotHeadersFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -945,7 +950,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "got-headers" signal. See [onGotHeaders].
      */
     public fun emitGotHeaders() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-headers")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "got-headers")
     }
 
     /**
@@ -965,7 +970,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onGotInformational(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "got-informational",
             onGotInformationalFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -977,7 +982,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "got-informational" signal. See [onGotInformational].
      */
     public fun emitGotInformational() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-informational")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "got-informational")
     }
 
     /**
@@ -990,7 +995,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onHstsEnforced(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "hsts-enforced",
             onHstsEnforcedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1002,7 +1007,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "hsts-enforced" signal. See [onHstsEnforced].
      */
     public fun emitHstsEnforced() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "hsts-enforced")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "hsts-enforced")
     }
 
     /**
@@ -1026,7 +1031,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (event: SocketClientEvent, connection: IoStream) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "network-event",
         onNetworkEventFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1041,7 +1046,12 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param connection the current state of the network connection
      */
     public fun emitNetworkEvent(event: SocketClientEvent, connection: IoStream) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "network-event", event.nativeValue, connection.gioIoStreamPointer)
+        g_signal_emit_by_name(
+            soupMessagePointer.reinterpret(),
+            "network-event",
+            event.nativeValue,
+            connection.gioIoStreamPointer
+        )
     }
 
     /**
@@ -1065,7 +1075,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tlsConnection: TlsClientConnection) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "request-certificate",
         onRequestCertificateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1095,7 +1105,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tlsPassword: TlsPassword) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "request-certificate-password",
         onRequestCertificatePasswordFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1116,7 +1126,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onRestarted(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "restarted",
             onRestartedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1128,7 +1138,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "restarted" signal. See [onRestarted].
      */
     public fun emitRestarted() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "restarted")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "restarted")
     }
 
     /**
@@ -1139,7 +1149,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onStarting(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "starting",
             onStartingFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1151,7 +1161,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "starting" signal. See [onStarting].
      */
     public fun emitStarting() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "starting")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "starting")
     }
 
     /**
@@ -1163,7 +1173,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onWroteBody(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "wrote-body",
             onWroteBodyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1175,7 +1185,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "wrote-body" signal. See [onWroteBody].
      */
     public fun emitWroteBody() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-body")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "wrote-body")
     }
 
     /**
@@ -1189,7 +1199,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (chunkSize: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupMessagePointer,
         "wrote-body-data",
         onWroteBodyDataFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1203,7 +1213,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * @param chunkSize the number of bytes written
      */
     public fun emitWroteBodyData(chunkSize: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-body-data", chunkSize)
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "wrote-body-data", chunkSize)
     }
 
     /**
@@ -1215,7 +1225,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      */
     public fun onWroteHeaders(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupMessagePointer,
             "wrote-headers",
             onWroteHeadersFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1227,7 +1237,7 @@ public class Message(pointer: CPointer<SoupMessage>) :
      * Emits the "wrote-headers" signal. See [onWroteHeaders].
      */
     public fun emitWroteHeaders() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-headers")
+        g_signal_emit_by_name(soupMessagePointer.reinterpret(), "wrote-headers")
     }
 
     public companion object : TypeCompanion<Message> {
@@ -1262,7 +1272,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             tlsPeerCertificate!!.run {
-                TlsCertificate(this)
+                TlsCertificate.TlsCertificateImpl(this)
             },
             tlsPeerErrors.run {
                 TlsCertificateFlags(this)
@@ -1280,7 +1290,7 @@ private val onAuthenticateFunc: CPointer<CFunction<(CPointer<SoupAuth>, gboolean
         ->
         userData.asStableRef<(auth: Auth, retrying: Boolean) -> Boolean>().get().invoke(
             auth!!.run {
-                Auth(this)
+                Auth.AuthImpl(this)
             },
             retrying.asBoolean()
         ).asGBoolean()
@@ -1364,7 +1374,7 @@ private val onNetworkEventFunc:
                 SocketClientEvent.fromNativeValue(this)
             },
             connection!!.run {
-                IoStream(this)
+                IoStream.IoStreamImpl(this)
             }
         )
     }
@@ -1378,7 +1388,7 @@ private val onRequestCertificateFunc:
         ->
         userData.asStableRef<(tlsConnection: TlsClientConnection) -> Boolean>().get().invoke(
             tlsConnection!!.run {
-                TlsClientConnection.wrap(reinterpret())
+                TlsClientConnection.TlsClientConnectionImpl(reinterpret())
             }
         ).asGBoolean()
     }

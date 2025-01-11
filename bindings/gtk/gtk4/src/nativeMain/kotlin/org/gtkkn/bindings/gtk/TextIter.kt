@@ -125,9 +125,8 @@ import kotlin.native.ref.createCleaner
  * which gives an overview of all the objects and data types
  * related to the text widget and how they work together.
  */
-public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkTextIter> = pointer
-
+public class TextIter(public val gtkTextIterPointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) :
+    ProxyInstance(gtkTextIterPointer) {
     /**
      * Allocate a new TextIter.
      *
@@ -146,7 +145,9 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to TextIter and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GtkTextIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GtkTextIter>, Cleaner>,
+    ) : this(gtkTextIterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TextIter using the provided [AutofreeScope].
@@ -167,7 +168,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param other another `GtkTextIter`
      */
-    public fun assign(other: TextIter): Unit = gtk_text_iter_assign(gPointer, other.gPointer)
+    public fun assign(other: TextIter): Unit = gtk_text_iter_assign(gtkTextIterPointer, other.gtkTextIterPointer)
 
     /**
      * Moves backward by one character offset.
@@ -178,7 +179,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether movement was possible
      */
-    public fun backwardChar(): Boolean = gtk_text_iter_backward_char(gPointer).asBoolean()
+    public fun backwardChar(): Boolean = gtk_text_iter_backward_char(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @count characters backward, if possible.
@@ -194,14 +195,15 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param count number of characters to move
      * @return whether @iter moved and is dereferenceable
      */
-    public fun backwardChars(count: gint): Boolean = gtk_text_iter_backward_chars(gPointer, count).asBoolean()
+    public fun backwardChars(count: gint): Boolean = gtk_text_iter_backward_chars(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Like [method@Gtk.TextIter.forward_cursor_position], but moves backward.
      *
      * @return true if we moved
      */
-    public fun backwardCursorPosition(): Boolean = gtk_text_iter_backward_cursor_position(gPointer).asBoolean()
+    public fun backwardCursorPosition(): Boolean =
+        gtk_text_iter_backward_cursor_position(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves up to @count cursor positions.
@@ -212,7 +214,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if we moved and the new position is dereferenceable
      */
     public fun backwardCursorPositions(count: gint): Boolean =
-        gtk_text_iter_backward_cursor_positions(gPointer, count).asBoolean()
+        gtk_text_iter_backward_cursor_positions(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Same as [method@Gtk.TextIter.forward_find_char],
@@ -224,10 +226,10 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      */
     public fun backwardFindChar(pred: TextCharPredicate, limit: TextIter? = null): Boolean =
         gtk_text_iter_backward_find_char(
-            gPointer,
+            gtkTextIterPointer,
             TextCharPredicateFunc.reinterpret(),
             StableRef.create(pred).asCPointer(),
-            limit?.gPointer
+            limit?.gtkTextIterPointer
         ).asBoolean()
 
     /**
@@ -243,7 +245,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter moved
      */
-    public fun backwardLine(): Boolean = gtk_text_iter_backward_line(gPointer).asBoolean()
+    public fun backwardLine(): Boolean = gtk_text_iter_backward_line(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @count lines backward, if possible.
@@ -260,7 +262,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param count number of lines to move backward
      * @return whether @iter moved and is dereferenceable
      */
-    public fun backwardLines(count: gint): Boolean = gtk_text_iter_backward_lines(gPointer, count).asBoolean()
+    public fun backwardLines(count: gint): Boolean = gtk_text_iter_backward_lines(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Same as [method@Gtk.TextIter.forward_search], but moves backward.
@@ -282,12 +284,12 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
         matchEnd: TextIter?,
         limit: TextIter? = null,
     ): Boolean = gtk_text_iter_backward_search(
-        gPointer,
+        gtkTextIterPointer,
         str,
         flags.mask,
-        matchStart?.gPointer,
-        matchEnd?.gPointer,
-        limit?.gPointer
+        matchStart?.gtkTextIterPointer,
+        matchEnd?.gtkTextIterPointer,
+        limit?.gtkTextIterPointer
     ).asBoolean()
 
     /**
@@ -301,7 +303,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter moved and is not the end iterator
      */
-    public fun backwardSentenceStart(): Boolean = gtk_text_iter_backward_sentence_start(gPointer).asBoolean()
+    public fun backwardSentenceStart(): Boolean = gtk_text_iter_backward_sentence_start(gtkTextIterPointer).asBoolean()
 
     /**
      * Calls [method@Gtk.TextIter.backward_sentence_start] up to @count times.
@@ -312,7 +314,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if @iter moved and is not the end iterator
      */
     public fun backwardSentenceStarts(count: gint): Boolean =
-        gtk_text_iter_backward_sentence_starts(gPointer, count).asBoolean()
+        gtk_text_iter_backward_sentence_starts(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves backward to the next toggle (on or off) of the
@@ -329,7 +331,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether we found a tag toggle before @iter
      */
     public fun backwardToTagToggle(tag: TextTag? = null): Boolean =
-        gtk_text_iter_backward_to_tag_toggle(gPointer, tag?.gtkTextTagPointer).asBoolean()
+        gtk_text_iter_backward_to_tag_toggle(gtkTextIterPointer, tag?.gtkTextTagPointer).asBoolean()
 
     /**
      * Moves @iter backward to the previous visible cursor position.
@@ -339,7 +341,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if we moved and the new position is dereferenceable
      */
     public fun backwardVisibleCursorPosition(): Boolean =
-        gtk_text_iter_backward_visible_cursor_position(gPointer).asBoolean()
+        gtk_text_iter_backward_visible_cursor_position(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves up to @count visible cursor positions.
@@ -350,7 +352,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if we moved and the new position is dereferenceable
      */
     public fun backwardVisibleCursorPositions(count: gint): Boolean =
-        gtk_text_iter_backward_visible_cursor_positions(gPointer, count).asBoolean()
+        gtk_text_iter_backward_visible_cursor_positions(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves @iter to the start of the previous visible line.
@@ -365,7 +367,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter moved
      */
-    public fun backwardVisibleLine(): Boolean = gtk_text_iter_backward_visible_line(gPointer).asBoolean()
+    public fun backwardVisibleLine(): Boolean = gtk_text_iter_backward_visible_line(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @count visible lines backward, if possible.
@@ -383,7 +385,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether @iter moved and is dereferenceable
      */
     public fun backwardVisibleLines(count: gint): Boolean =
-        gtk_text_iter_backward_visible_lines(gPointer, count).asBoolean()
+        gtk_text_iter_backward_visible_lines(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves backward to the previous visible word start.
@@ -396,7 +398,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter moved and is not the end iterator
      */
-    public fun backwardVisibleWordStart(): Boolean = gtk_text_iter_backward_visible_word_start(gPointer).asBoolean()
+    public fun backwardVisibleWordStart(): Boolean =
+        gtk_text_iter_backward_visible_word_start(gtkTextIterPointer).asBoolean()
 
     /**
      * Calls [method@Gtk.TextIter.backward_visible_word_start] up to @count times.
@@ -405,7 +408,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if @iter moved and is not the end iterator
      */
     public fun backwardVisibleWordStarts(count: gint): Boolean =
-        gtk_text_iter_backward_visible_word_starts(gPointer, count).asBoolean()
+        gtk_text_iter_backward_visible_word_starts(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves backward to the previous word start.
@@ -418,7 +421,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter moved and is not the end iterator
      */
-    public fun backwardWordStart(): Boolean = gtk_text_iter_backward_word_start(gPointer).asBoolean()
+    public fun backwardWordStart(): Boolean = gtk_text_iter_backward_word_start(gtkTextIterPointer).asBoolean()
 
     /**
      * Calls [method@Gtk.TextIter.backward_word_start] up to @count times.
@@ -427,7 +430,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if @iter moved and is not the end iterator
      */
     public fun backwardWordStarts(count: gint): Boolean =
-        gtk_text_iter_backward_word_starts(gPointer, count).asBoolean()
+        gtk_text_iter_backward_word_starts(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Considering the default editability of the buffer, and tags that
@@ -443,7 +446,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether text inserted at @iter would be editable
      */
     public fun canInsert(defaultEditability: Boolean): Boolean =
-        gtk_text_iter_can_insert(gPointer, defaultEditability.asGBoolean()).asBoolean()
+        gtk_text_iter_can_insert(gtkTextIterPointer, defaultEditability.asGBoolean()).asBoolean()
 
     /**
      * A qsort()-style function that returns negative if @lhs is less than
@@ -455,7 +458,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param rhs another `GtkTextIter`
      * @return -1 if @lhs is less than @rhs, 1 if @lhs is greater, 0 if they are equal
      */
-    public fun compare(rhs: TextIter): gint = gtk_text_iter_compare(gPointer, rhs.gPointer)
+    public fun compare(rhs: TextIter): gint = gtk_text_iter_compare(gtkTextIterPointer, rhs.gtkTextIterPointer)
 
     /**
      * Creates a dynamically-allocated copy of an iterator.
@@ -468,7 +471,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return a copy of the @iter, free with [method@Gtk.TextIter.free]
      */
-    public fun copy(): TextIter = gtk_text_iter_copy(gPointer)!!.run {
+    public fun copy(): TextIter = gtk_text_iter_copy(gtkTextIterPointer)!!.run {
         TextIter(this)
     }
 
@@ -491,7 +494,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether @iter is inside an editable range
      */
     public fun editable(defaultSetting: Boolean): Boolean =
-        gtk_text_iter_editable(gPointer, defaultSetting.asGBoolean()).asBoolean()
+        gtk_text_iter_editable(gtkTextIterPointer, defaultSetting.asGBoolean()).asBoolean()
 
     /**
      * Returns true if @iter points to the start of the paragraph
@@ -508,7 +511,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter is at the end of a line
      */
-    public fun endsLine(): Boolean = gtk_text_iter_ends_line(gPointer).asBoolean()
+    public fun endsLine(): Boolean = gtk_text_iter_ends_line(gtkTextIterPointer).asBoolean()
 
     /**
      * Determines whether @iter ends a sentence.
@@ -518,7 +521,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter is at the end of a sentence.
      */
-    public fun endsSentence(): Boolean = gtk_text_iter_ends_sentence(gPointer).asBoolean()
+    public fun endsSentence(): Boolean = gtk_text_iter_ends_sentence(gtkTextIterPointer).asBoolean()
 
     /**
      * Returns true if @tag is toggled off at exactly this point.
@@ -536,7 +539,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether @iter is the end of a range tagged with @tag
      */
     public fun endsTag(tag: TextTag? = null): Boolean =
-        gtk_text_iter_ends_tag(gPointer, tag?.gtkTextTagPointer).asBoolean()
+        gtk_text_iter_ends_tag(gtkTextIterPointer, tag?.gtkTextTagPointer).asBoolean()
 
     /**
      * Determines whether @iter ends a natural-language word.
@@ -546,7 +549,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter is at the end of a word
      */
-    public fun endsWord(): Boolean = gtk_text_iter_ends_word(gPointer).asBoolean()
+    public fun endsWord(): Boolean = gtk_text_iter_ends_word(gtkTextIterPointer).asBoolean()
 
     /**
      * Tests whether two iterators are equal, using the fastest possible
@@ -560,7 +563,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param rhs another `GtkTextIter`
      * @return true if the iterators point to the same place in the buffer
      */
-    public fun equal(rhs: TextIter): Boolean = gtk_text_iter_equal(gPointer, rhs.gPointer).asBoolean()
+    public fun equal(rhs: TextIter): Boolean =
+        gtk_text_iter_equal(gtkTextIterPointer, rhs.gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @iter forward by one character offset.
@@ -573,7 +577,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter moved and is dereferenceable
      */
-    public fun forwardChar(): Boolean = gtk_text_iter_forward_char(gPointer).asBoolean()
+    public fun forwardChar(): Boolean = gtk_text_iter_forward_char(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @count characters if possible.
@@ -589,7 +593,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param count number of characters to move, may be negative
      * @return whether @iter moved and is dereferenceable
      */
-    public fun forwardChars(count: gint): Boolean = gtk_text_iter_forward_chars(gPointer, count).asBoolean()
+    public fun forwardChars(count: gint): Boolean = gtk_text_iter_forward_chars(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves @iter forward by a single cursor position.
@@ -610,7 +614,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if we moved and the new position is dereferenceable
      */
-    public fun forwardCursorPosition(): Boolean = gtk_text_iter_forward_cursor_position(gPointer).asBoolean()
+    public fun forwardCursorPosition(): Boolean = gtk_text_iter_forward_cursor_position(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves up to @count cursor positions.
@@ -621,7 +625,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if we moved and the new position is dereferenceable
      */
     public fun forwardCursorPositions(count: gint): Boolean =
-        gtk_text_iter_forward_cursor_positions(gPointer, count).asBoolean()
+        gtk_text_iter_forward_cursor_positions(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Advances @iter, calling @pred on each character.
@@ -636,10 +640,10 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      */
     public fun forwardFindChar(pred: TextCharPredicate, limit: TextIter? = null): Boolean =
         gtk_text_iter_forward_find_char(
-            gPointer,
+            gtkTextIterPointer,
             TextCharPredicateFunc.reinterpret(),
             StableRef.create(pred).asCPointer(),
-            limit?.gPointer
+            limit?.gtkTextIterPointer
         ).asBoolean()
 
     /**
@@ -652,7 +656,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter can be dereferenced
      */
-    public fun forwardLine(): Boolean = gtk_text_iter_forward_line(gPointer).asBoolean()
+    public fun forwardLine(): Boolean = gtk_text_iter_forward_line(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @count lines forward, if possible.
@@ -669,7 +673,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param count number of lines to move forward
      * @return whether @iter moved and is dereferenceable
      */
-    public fun forwardLines(count: gint): Boolean = gtk_text_iter_forward_lines(gPointer, count).asBoolean()
+    public fun forwardLines(count: gint): Boolean = gtk_text_iter_forward_lines(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Searches forward for @str.
@@ -697,12 +701,12 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
         matchEnd: TextIter?,
         limit: TextIter? = null,
     ): Boolean = gtk_text_iter_forward_search(
-        gPointer,
+        gtkTextIterPointer,
         str,
         flags.mask,
-        matchStart?.gPointer,
-        matchEnd?.gPointer,
-        limit?.gPointer
+        matchStart?.gtkTextIterPointer,
+        matchEnd?.gtkTextIterPointer,
+        limit?.gtkTextIterPointer
     ).asBoolean()
 
     /**
@@ -716,7 +720,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter moved and is not the end iterator
      */
-    public fun forwardSentenceEnd(): Boolean = gtk_text_iter_forward_sentence_end(gPointer).asBoolean()
+    public fun forwardSentenceEnd(): Boolean = gtk_text_iter_forward_sentence_end(gtkTextIterPointer).asBoolean()
 
     /**
      * Calls [method@Gtk.TextIter.forward_sentence_end] @count times.
@@ -727,7 +731,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if @iter moved and is not the end iterator
      */
     public fun forwardSentenceEnds(count: gint): Boolean =
-        gtk_text_iter_forward_sentence_ends(gPointer, count).asBoolean()
+        gtk_text_iter_forward_sentence_ends(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves @iter forward to the “end iterator”, which points
@@ -736,7 +740,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * [method@Gtk.TextIter.get_char] called on the end iterator
      * returns 0, which is convenient for writing loops.
      */
-    public fun forwardToEnd(): Unit = gtk_text_iter_forward_to_end(gPointer)
+    public fun forwardToEnd(): Unit = gtk_text_iter_forward_to_end(gtkTextIterPointer)
 
     /**
      * Moves the iterator to point to the paragraph delimiter characters.
@@ -753,7 +757,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if we moved and the new location is not the end iterator
      */
-    public fun forwardToLineEnd(): Boolean = gtk_text_iter_forward_to_line_end(gPointer).asBoolean()
+    public fun forwardToLineEnd(): Boolean = gtk_text_iter_forward_to_line_end(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves forward to the next toggle (on or off) of the
@@ -770,7 +774,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether we found a tag toggle after @iter
      */
     public fun forwardToTagToggle(tag: TextTag? = null): Boolean =
-        gtk_text_iter_forward_to_tag_toggle(gPointer, tag?.gtkTextTagPointer).asBoolean()
+        gtk_text_iter_forward_to_tag_toggle(gtkTextIterPointer, tag?.gtkTextTagPointer).asBoolean()
 
     /**
      * Moves @iter forward to the next visible cursor position.
@@ -780,7 +784,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if we moved and the new position is dereferenceable
      */
     public fun forwardVisibleCursorPosition(): Boolean =
-        gtk_text_iter_forward_visible_cursor_position(gPointer).asBoolean()
+        gtk_text_iter_forward_visible_cursor_position(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves up to @count visible cursor positions.
@@ -791,7 +795,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if we moved and the new position is dereferenceable
      */
     public fun forwardVisibleCursorPositions(count: gint): Boolean =
-        gtk_text_iter_forward_visible_cursor_positions(gPointer, count).asBoolean()
+        gtk_text_iter_forward_visible_cursor_positions(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves @iter to the start of the next visible line.
@@ -803,7 +807,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter can be dereferenced
      */
-    public fun forwardVisibleLine(): Boolean = gtk_text_iter_forward_visible_line(gPointer).asBoolean()
+    public fun forwardVisibleLine(): Boolean = gtk_text_iter_forward_visible_line(gtkTextIterPointer).asBoolean()
 
     /**
      * Moves @count visible lines forward, if possible.
@@ -821,7 +825,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether @iter moved and is dereferenceable
      */
     public fun forwardVisibleLines(count: gint): Boolean =
-        gtk_text_iter_forward_visible_lines(gPointer, count).asBoolean()
+        gtk_text_iter_forward_visible_lines(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves forward to the next visible word end.
@@ -834,7 +838,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter moved and is not the end iterator
      */
-    public fun forwardVisibleWordEnd(): Boolean = gtk_text_iter_forward_visible_word_end(gPointer).asBoolean()
+    public fun forwardVisibleWordEnd(): Boolean = gtk_text_iter_forward_visible_word_end(gtkTextIterPointer).asBoolean()
 
     /**
      * Calls [method@Gtk.TextIter.forward_visible_word_end] up to @count times.
@@ -843,7 +847,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if @iter moved and is not the end iterator
      */
     public fun forwardVisibleWordEnds(count: gint): Boolean =
-        gtk_text_iter_forward_visible_word_ends(gPointer, count).asBoolean()
+        gtk_text_iter_forward_visible_word_ends(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Moves forward to the next word end.
@@ -856,7 +860,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter moved and is not the end iterator
      */
-    public fun forwardWordEnd(): Boolean = gtk_text_iter_forward_word_end(gPointer).asBoolean()
+    public fun forwardWordEnd(): Boolean = gtk_text_iter_forward_word_end(gtkTextIterPointer).asBoolean()
 
     /**
      * Calls [method@Gtk.TextIter.forward_word_end] up to @count times.
@@ -864,7 +868,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param count number of times to move
      * @return true if @iter moved and is not the end iterator
      */
-    public fun forwardWordEnds(count: gint): Boolean = gtk_text_iter_forward_word_ends(gPointer, count).asBoolean()
+    public fun forwardWordEnds(count: gint): Boolean =
+        gtk_text_iter_forward_word_ends(gtkTextIterPointer, count).asBoolean()
 
     /**
      * Free an iterator allocated on the heap.
@@ -873,14 +878,14 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * and is not especially useful for applications, because
      * iterators can simply be allocated on the stack.
      */
-    public fun free(): Unit = gtk_text_iter_free(gPointer)
+    public fun free(): Unit = gtk_text_iter_free(gtkTextIterPointer)
 
     /**
      * Returns the `GtkTextBuffer` this iterator is associated with.
      *
      * @return the buffer
      */
-    public fun getBuffer(): TextBuffer = gtk_text_iter_get_buffer(gPointer)!!.run {
+    public fun getBuffer(): TextBuffer = gtk_text_iter_get_buffer(gtkTextIterPointer)!!.run {
         TextBuffer(this)
     }
 
@@ -890,7 +895,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return number of bytes in the line
      */
-    public fun getBytesInLine(): gint = gtk_text_iter_get_bytes_in_line(gPointer)
+    public fun getBytesInLine(): gint = gtk_text_iter_get_bytes_in_line(gtkTextIterPointer)
 
     /**
      * The Unicode character at this iterator is returned.
@@ -905,7 +910,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return a Unicode character, or 0 if @iter is not dereferenceable
      */
-    public fun getChar(): gunichar = gtk_text_iter_get_char(gPointer)
+    public fun getChar(): gunichar = gtk_text_iter_get_char(gtkTextIterPointer)
 
     /**
      * Returns the number of characters in the line containing @iter,
@@ -913,7 +918,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return number of characters in the line
      */
-    public fun getCharsInLine(): gint = gtk_text_iter_get_chars_in_line(gPointer)
+    public fun getCharsInLine(): gint = gtk_text_iter_get_chars_in_line(gtkTextIterPointer)
 
     /**
      * If the location at @iter contains a child anchor, the
@@ -923,7 +928,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return the anchor at @iter
      */
-    public fun getChildAnchor(): TextChildAnchor? = gtk_text_iter_get_child_anchor(gPointer)?.run {
+    public fun getChildAnchor(): TextChildAnchor? = gtk_text_iter_get_child_anchor(gtkTextIterPointer)?.run {
         TextChildAnchor(this)
     }
 
@@ -935,7 +940,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return language in effect at @iter
      */
-    public fun getLanguage(): Language = gtk_text_iter_get_language(gPointer)!!.run {
+    public fun getLanguage(): Language = gtk_text_iter_get_language(gtkTextIterPointer)!!.run {
         Language(this)
     }
 
@@ -947,7 +952,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return a line number
      */
-    public fun getLine(): gint = gtk_text_iter_get_line(gPointer)
+    public fun getLine(): gint = gtk_text_iter_get_line(gtkTextIterPointer)
 
     /**
      * Returns the byte index of the iterator, counting
@@ -959,7 +964,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return distance from start of line, in bytes
      */
-    public fun getLineIndex(): gint = gtk_text_iter_get_line_index(gPointer)
+    public fun getLineIndex(): gint = gtk_text_iter_get_line_index(gtkTextIterPointer)
 
     /**
      * Returns the character offset of the iterator,
@@ -969,7 +974,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return offset from start of line
      */
-    public fun getLineOffset(): gint = gtk_text_iter_get_line_offset(gPointer)
+    public fun getLineOffset(): gint = gtk_text_iter_get_line_offset(gtkTextIterPointer)
 
     /**
      * Returns a list of all `GtkTextMark` at this location.
@@ -982,7 +987,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return list of `GtkTextMark`
      */
-    public fun getMarks(): SList = gtk_text_iter_get_marks(gPointer)!!.run {
+    public fun getMarks(): SList = gtk_text_iter_get_marks(gtkTextIterPointer)!!.run {
         SList(this)
     }
 
@@ -996,7 +1001,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return a character offset
      */
-    public fun getOffset(): gint = gtk_text_iter_get_offset(gPointer)
+    public fun getOffset(): gint = gtk_text_iter_get_offset(gtkTextIterPointer)
 
     /**
      * If the element at @iter is a paintable, the paintable is returned.
@@ -1005,8 +1010,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return the paintable at @iter
      */
-    public fun getPaintable(): Paintable? = gtk_text_iter_get_paintable(gPointer)?.run {
-        Paintable.wrap(reinterpret())
+    public fun getPaintable(): Paintable? = gtk_text_iter_get_paintable(gtkTextIterPointer)?.run {
+        Paintable.PaintableImpl(reinterpret())
     }
 
     /**
@@ -1025,7 +1030,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return slice of text from the buffer
      */
     public fun getSlice(end: TextIter): String =
-        gtk_text_iter_get_slice(gPointer, end.gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_text_iter_get_slice(gtkTextIterPointer, end.gtkTextIterPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns a list of tags that apply to @iter, in ascending order of
@@ -1039,7 +1045,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return list of
      *   `GtkTextTag`
      */
-    public fun getTags(): SList = gtk_text_iter_get_tags(gPointer)!!.run {
+    public fun getTags(): SList = gtk_text_iter_get_tags(gtkTextIterPointer)!!.run {
         SList(this)
     }
 
@@ -1056,7 +1062,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return array of characters from the buffer
      */
     public fun getText(end: TextIter): String =
-        gtk_text_iter_get_text(gPointer, end.gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_text_iter_get_text(gtkTextIterPointer, end.gtkTextIterPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns a list of `GtkTextTag` that are toggled on or off at this
@@ -1073,7 +1080,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *   toggled at this point
      */
     public fun getToggledTags(toggledOn: Boolean): SList =
-        gtk_text_iter_get_toggled_tags(gPointer, toggledOn.asGBoolean())!!.run {
+        gtk_text_iter_get_toggled_tags(gtkTextIterPointer, toggledOn.asGBoolean())!!.run {
             SList(this)
         }
 
@@ -1085,7 +1092,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return byte index of @iter with respect to the start of the line
      */
-    public fun getVisibleLineIndex(): gint = gtk_text_iter_get_visible_line_index(gPointer)
+    public fun getVisibleLineIndex(): gint = gtk_text_iter_get_visible_line_index(gtkTextIterPointer)
 
     /**
      * Returns the offset in characters from the start of the
@@ -1095,7 +1102,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return offset in visible characters from the start of the line
      */
-    public fun getVisibleLineOffset(): gint = gtk_text_iter_get_visible_line_offset(gPointer)
+    public fun getVisibleLineOffset(): gint = gtk_text_iter_get_visible_line_offset(gtkTextIterPointer)
 
     /**
      * Returns visible text in the given range.
@@ -1109,7 +1116,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return slice of text from the buffer
      */
     public fun getVisibleSlice(end: TextIter): String =
-        gtk_text_iter_get_visible_slice(gPointer, end.gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_text_iter_get_visible_slice(gtkTextIterPointer, end.gtkTextIterPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns visible text in the given range.
@@ -1124,7 +1132,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * range
      */
     public fun getVisibleText(end: TextIter): String =
-        gtk_text_iter_get_visible_text(gPointer, end.gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_text_iter_get_visible_text(gtkTextIterPointer, end.gtkTextIterPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Returns true if @iter points to a character that is part
@@ -1136,7 +1145,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param tag a `GtkTextTag`
      * @return whether @iter is tagged with @tag
      */
-    public fun hasTag(tag: TextTag): Boolean = gtk_text_iter_has_tag(gPointer, tag.gtkTextTagPointer).asBoolean()
+    public fun hasTag(tag: TextTag): Boolean =
+        gtk_text_iter_has_tag(gtkTextIterPointer, tag.gtkTextTagPointer).asBoolean()
 
     /**
      * Checks whether @iter falls in the range [@start, @end).
@@ -1148,7 +1158,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return true if @iter is in the range
      */
     public fun inRange(start: TextIter, end: TextIter): Boolean =
-        gtk_text_iter_in_range(gPointer, start.gPointer, end.gPointer).asBoolean()
+        gtk_text_iter_in_range(gtkTextIterPointer, start.gtkTextIterPointer, end.gtkTextIterPointer).asBoolean()
 
     /**
      * Determines whether @iter is inside a sentence (as opposed to in
@@ -1160,7 +1170,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter is inside a sentence.
      */
-    public fun insideSentence(): Boolean = gtk_text_iter_inside_sentence(gPointer).asBoolean()
+    public fun insideSentence(): Boolean = gtk_text_iter_inside_sentence(gtkTextIterPointer).asBoolean()
 
     /**
      * Determines whether the character pointed by @iter is part of a
@@ -1175,7 +1185,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter is inside a word
      */
-    public fun insideWord(): Boolean = gtk_text_iter_inside_word(gPointer).asBoolean()
+    public fun insideWord(): Boolean = gtk_text_iter_inside_word(gtkTextIterPointer).asBoolean()
 
     /**
      * Determine if @iter is at a cursor position.
@@ -1186,7 +1196,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if the cursor can be placed at @iter
      */
-    public fun isCursorPosition(): Boolean = gtk_text_iter_is_cursor_position(gPointer).asBoolean()
+    public fun isCursorPosition(): Boolean = gtk_text_iter_is_cursor_position(gtkTextIterPointer).asBoolean()
 
     /**
      * Returns true if @iter is the end iterator.
@@ -1197,14 +1207,14 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter is the end iterator
      */
-    public fun isEnd(): Boolean = gtk_text_iter_is_end(gPointer).asBoolean()
+    public fun isEnd(): Boolean = gtk_text_iter_is_end(gtkTextIterPointer).asBoolean()
 
     /**
      * Returns true if @iter is the first iterator in the buffer.
      *
      * @return whether @iter is the first in the buffer
      */
-    public fun isStart(): Boolean = gtk_text_iter_is_start(gPointer).asBoolean()
+    public fun isStart(): Boolean = gtk_text_iter_is_start(gtkTextIterPointer).asBoolean()
 
     /**
      * Swaps the value of @first and @second if @second comes before
@@ -1219,7 +1229,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param second another `GtkTextIter`
      */
-    public fun order(second: TextIter): Unit = gtk_text_iter_order(gPointer, second.gPointer)
+    public fun order(second: TextIter): Unit = gtk_text_iter_order(gtkTextIterPointer, second.gtkTextIterPointer)
 
     /**
      * Moves iterator @iter to the start of the line @line_number.
@@ -1229,7 +1239,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param lineNumber line number (counted from 0)
      */
-    public fun setLine(lineNumber: gint): Unit = gtk_text_iter_set_line(gPointer, lineNumber)
+    public fun setLine(lineNumber: gint): Unit = gtk_text_iter_set_line(gtkTextIterPointer, lineNumber)
 
     /**
      * Same as [method@Gtk.TextIter.set_line_offset], but works with a
@@ -1239,7 +1249,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param byteOnLine a byte index relative to the start of @iter’s current line
      */
-    public fun setLineIndex(byteOnLine: gint): Unit = gtk_text_iter_set_line_index(gPointer, byteOnLine)
+    public fun setLineIndex(byteOnLine: gint): Unit = gtk_text_iter_set_line_index(gtkTextIterPointer, byteOnLine)
 
     /**
      * Moves @iter within a line, to a new character (not byte) offset.
@@ -1251,7 +1261,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param charOnLine a character offset relative to the start of @iter’s current line
      */
-    public fun setLineOffset(charOnLine: gint): Unit = gtk_text_iter_set_line_offset(gPointer, charOnLine)
+    public fun setLineOffset(charOnLine: gint): Unit = gtk_text_iter_set_line_offset(gtkTextIterPointer, charOnLine)
 
     /**
      * Sets @iter to point to @char_offset.
@@ -1261,7 +1271,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param charOffset a character number
      */
-    public fun setOffset(charOffset: gint): Unit = gtk_text_iter_set_offset(gPointer, charOffset)
+    public fun setOffset(charOffset: gint): Unit = gtk_text_iter_set_offset(gtkTextIterPointer, charOffset)
 
     /**
      * Like [method@Gtk.TextIter.set_line_index], but the index is in visible
@@ -1270,7 +1280,8 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @param byteOnLine a byte index
      */
-    public fun setVisibleLineIndex(byteOnLine: gint): Unit = gtk_text_iter_set_visible_line_index(gPointer, byteOnLine)
+    public fun setVisibleLineIndex(byteOnLine: gint): Unit =
+        gtk_text_iter_set_visible_line_index(gtkTextIterPointer, byteOnLine)
 
     /**
      * Like [method@Gtk.TextIter.set_line_offset], but the offset is in visible
@@ -1280,7 +1291,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @param charOnLine a character offset
      */
     public fun setVisibleLineOffset(charOnLine: gint): Unit =
-        gtk_text_iter_set_visible_line_offset(gPointer, charOnLine)
+        gtk_text_iter_set_visible_line_offset(gtkTextIterPointer, charOnLine)
 
     /**
      * Returns true if @iter begins a paragraph.
@@ -1293,7 +1304,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return whether @iter begins a line
      */
-    public fun startsLine(): Boolean = gtk_text_iter_starts_line(gPointer).asBoolean()
+    public fun startsLine(): Boolean = gtk_text_iter_starts_line(gtkTextIterPointer).asBoolean()
 
     /**
      * Determines whether @iter begins a sentence.
@@ -1303,7 +1314,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter is at the start of a sentence.
      */
-    public fun startsSentence(): Boolean = gtk_text_iter_starts_sentence(gPointer).asBoolean()
+    public fun startsSentence(): Boolean = gtk_text_iter_starts_sentence(gtkTextIterPointer).asBoolean()
 
     /**
      * Returns true if @tag is toggled on at exactly this point.
@@ -1321,7 +1332,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether @iter is the start of a range tagged with @tag
      */
     public fun startsTag(tag: TextTag? = null): Boolean =
-        gtk_text_iter_starts_tag(gPointer, tag?.gtkTextTagPointer).asBoolean()
+        gtk_text_iter_starts_tag(gtkTextIterPointer, tag?.gtkTextTagPointer).asBoolean()
 
     /**
      * Determines whether @iter begins a natural-language word.
@@ -1331,7 +1342,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      *
      * @return true if @iter is at the start of a word
      */
-    public fun startsWord(): Boolean = gtk_text_iter_starts_word(gPointer).asBoolean()
+    public fun startsWord(): Boolean = gtk_text_iter_starts_word(gtkTextIterPointer).asBoolean()
 
     /**
      * Gets whether a range with @tag applied to it begins
@@ -1344,7 +1355,7 @@ public class TextIter(pointer: CPointer<GtkTextIter>, cleaner: Cleaner? = null) 
      * @return whether @tag is toggled on or off at @iter
      */
     public fun togglesTag(tag: TextTag? = null): Boolean =
-        gtk_text_iter_toggles_tag(gPointer, tag?.gtkTextTagPointer).asBoolean()
+        gtk_text_iter_toggles_tag(gtkTextIterPointer, tag?.gtkTextTagPointer).asBoolean()
 
     public companion object {
         /**

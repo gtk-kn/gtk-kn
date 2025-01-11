@@ -17,41 +17,40 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class PathData(pointer: CPointer<cairo_path_data_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_path_data_t> = pointer
-
+public class PathData(public val cairoPathDataPointer: CPointer<cairo_path_data_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(cairoPathDataPointer) {
     public var x: gdouble
-        get() = gPointer.pointed.point.x
+        get() = cairoPathDataPointer.pointed.point.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.point.x = value
+            cairoPathDataPointer.pointed.point.x = value
         }
 
     public var y: gdouble
-        get() = gPointer.pointed.point.y
+        get() = cairoPathDataPointer.pointed.point.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.point.y = value
+            cairoPathDataPointer.pointed.point.y = value
         }
 
     public var type: PathDataType
-        get() = gPointer.pointed.header.type.run {
+        get() = cairoPathDataPointer.pointed.header.type.run {
             PathDataType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.header.type = value.nativeValue
+            cairoPathDataPointer.pointed.header.type = value.nativeValue
         }
 
     public var length: gint
-        get() = gPointer.pointed.header.length
+        get() = cairoPathDataPointer.pointed.header.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.header.length = value
+            cairoPathDataPointer.pointed.header.length = value
         }
 
     /**
@@ -74,7 +73,7 @@ public class PathData(pointer: CPointer<cairo_path_data_t>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<cairo_path_data_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoPathDataPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PathData using the provided [AutofreeScope].

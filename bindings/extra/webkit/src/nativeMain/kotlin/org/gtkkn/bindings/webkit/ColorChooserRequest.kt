@@ -51,12 +51,9 @@ import kotlin.Unit
  *
  * - method `rgba`: Property has no getter
  */
-public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
-    Object(pointer.reinterpret()),
+public class ColorChooserRequest(public val webkitColorChooserRequestPointer: CPointer<WebKitColorChooserRequest>) :
+    Object(webkitColorChooserRequestPointer.reinterpret()),
     KGTyped {
-    public val webkitColorChooserRequestPointer: CPointer<WebKitColorChooserRequest>
-        get() = gPointer.reinterpret()
-
     /**
      * Cancels @request and the input element changes to use the initial color.
      *
@@ -92,7 +89,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
      */
     @WebKitVersion2_8
     public fun getElementRectangle(rect: Rectangle): Unit =
-        webkit_color_chooser_request_get_element_rectangle(webkitColorChooserRequestPointer, rect.gPointer)
+        webkit_color_chooser_request_get_element_rectangle(webkitColorChooserRequestPointer, rect.gdkRectanglePointer)
 
     /**
      * Gets the current #GdkRGBA color of @request
@@ -102,7 +99,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
      */
     @WebKitVersion2_8
     public fun getRgba(rgba: Rgba): Unit =
-        webkit_color_chooser_request_get_rgba(webkitColorChooserRequestPointer, rgba.gPointer)
+        webkit_color_chooser_request_get_rgba(webkitColorChooserRequestPointer, rgba.gdkRgbaPointer)
 
     /**
      * Sets the current #GdkRGBA color of @request
@@ -112,7 +109,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
      */
     @WebKitVersion2_8
     public fun setRgba(rgba: Rgba): Unit =
-        webkit_color_chooser_request_set_rgba(webkitColorChooserRequestPointer, rgba.gPointer)
+        webkit_color_chooser_request_set_rgba(webkitColorChooserRequestPointer, rgba.gdkRgbaPointer)
 
     /**
      * Emitted when the @request finishes. This signal can be emitted because the
@@ -127,7 +124,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
     @WebKitVersion2_8
     public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitColorChooserRequestPointer,
             "finished",
             onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -142,7 +139,7 @@ public class ColorChooserRequest(pointer: CPointer<WebKitColorChooserRequest>) :
      */
     @WebKitVersion2_8
     public fun emitFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+        g_signal_emit_by_name(webkitColorChooserRequestPointer.reinterpret(), "finished")
     }
 
     public companion object : TypeCompanion<ColorChooserRequest> {

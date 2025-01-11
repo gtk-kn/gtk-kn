@@ -103,11 +103,7 @@ class ClassBlueprintBuilder(
 
         val kotlinClassName = context.typeRegistry.get(girNode).className
 
-        val objectPointerName = if (girNode.parent != null) {
-            "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
-        } else {
-            "gPointer"
-        }
+        val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
 
         val glibGetTypeMember = if (girNode.glibGetType != "intern") {
             MemberName(namespaceNativePackageName(girNamespace), girNode.glibGetType)
@@ -129,6 +125,7 @@ class ClassBlueprintBuilder(
             parentClassName = parentClassName,
             objectPointerName = objectPointerName,
             objectPointerTypeName = objectPointerTypeName,
+            isAbstract = girNode.abstract == true,
             isFinal = girNode.final == true,
             interfacePointerOverrides = interfacePointerOverrides,
             glibGetTypeFunc = glibGetTypeMember,

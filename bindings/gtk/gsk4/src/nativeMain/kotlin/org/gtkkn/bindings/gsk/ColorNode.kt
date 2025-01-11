@@ -17,12 +17,9 @@ import org.gtkkn.native.gsk.gsk_color_node_new
 /**
  * A render node for a solid color.
  */
-public open class ColorNode(pointer: CPointer<GskColorNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ColorNode(public val gskColorNodePointer: CPointer<GskColorNode>) :
+    RenderNode(gskColorNodePointer.reinterpret()),
     KGTyped {
-    public val gskColorNodePointer: CPointer<GskColorNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will render the color specified by @rgba into
      * the area given by @bounds.
@@ -34,7 +31,7 @@ public open class ColorNode(pointer: CPointer<GskColorNode>) :
     public constructor(
         rgba: Rgba,
         bounds: Rect,
-    ) : this(gsk_color_node_new(rgba.gPointer, bounds.gPointer)!!.reinterpret())
+    ) : this(gsk_color_node_new(rgba.gdkRgbaPointer, bounds.grapheneRectPointer)!!.reinterpret())
 
     /**
      * Retrieves the color of the given @node.

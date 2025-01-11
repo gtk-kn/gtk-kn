@@ -76,9 +76,8 @@ import kotlin.native.ref.createCleaner
  * @since 1.0
  */
 @GrapheneVersion1_0
-public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<graphene_rect_t> = pointer
-
+public class Rect(public val grapheneRectPointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(grapheneRectPointer) {
     /**
      * Allocate a new Rect.
      *
@@ -99,7 +98,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      */
     private constructor(
         pair: Pair<CPointer<graphene_rect_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(grapheneRectPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rect using the provided [AutofreeScope].
@@ -118,7 +117,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun containsPoint(p: Point): Boolean = graphene_rect_contains_point(gPointer, p.gPointer)
+    public fun containsPoint(p: Point): Boolean =
+        graphene_rect_contains_point(grapheneRectPointer, p.graphenePointPointer)
 
     /**
      * Checks whether a #graphene_rect_t fully contains the given
@@ -129,7 +129,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun containsRect(b: Rect): Boolean = graphene_rect_contains_rect(gPointer, b.gPointer)
+    public fun containsRect(b: Rect): Boolean = graphene_rect_contains_rect(grapheneRectPointer, b.grapheneRectPointer)
 
     /**
      * Checks whether the two given rectangle are equal.
@@ -139,7 +139,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun equal(b: Rect): Boolean = graphene_rect_equal(gPointer, b.gPointer)
+    public fun equal(b: Rect): Boolean = graphene_rect_equal(grapheneRectPointer, b.grapheneRectPointer)
 
     /**
      * Expands a #graphene_rect_t to contain the given #graphene_point_t.
@@ -149,7 +149,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun expand(p: Point, res: Rect): Unit = graphene_rect_expand(gPointer, p.gPointer, res.gPointer)
+    public fun expand(p: Point, res: Rect): Unit =
+        graphene_rect_expand(grapheneRectPointer, p.graphenePointPointer, res.grapheneRectPointer)
 
     /**
      * Frees the resources allocated by graphene_rect_alloc().
@@ -157,7 +158,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun free(): Unit = graphene_rect_free(gPointer)
+    public fun free(): Unit = graphene_rect_free(grapheneRectPointer)
 
     /**
      * Compute the area of given normalized rectangle.
@@ -166,7 +167,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun getArea(): gfloat = graphene_rect_get_area(gPointer)
+    public fun getArea(): gfloat = graphene_rect_get_area(grapheneRectPointer)
 
     /**
      * Retrieves the coordinates of the bottom-left corner of the given rectangle.
@@ -175,7 +176,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getBottomLeft(p: Point): Unit = graphene_rect_get_bottom_left(gPointer, p.gPointer)
+    public fun getBottomLeft(p: Point): Unit =
+        graphene_rect_get_bottom_left(grapheneRectPointer, p.graphenePointPointer)
 
     /**
      * Retrieves the coordinates of the bottom-right corner of the given rectangle.
@@ -184,7 +186,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getBottomRight(p: Point): Unit = graphene_rect_get_bottom_right(gPointer, p.gPointer)
+    public fun getBottomRight(p: Point): Unit =
+        graphene_rect_get_bottom_right(grapheneRectPointer, p.graphenePointPointer)
 
     /**
      * Retrieves the coordinates of the center of the given rectangle.
@@ -193,7 +196,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getCenter(p: Point): Unit = graphene_rect_get_center(gPointer, p.gPointer)
+    public fun getCenter(p: Point): Unit = graphene_rect_get_center(grapheneRectPointer, p.graphenePointPointer)
 
     /**
      * Retrieves the normalized height of the given rectangle.
@@ -202,7 +205,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getHeight(): gfloat = graphene_rect_get_height(gPointer)
+    public fun getHeight(): gfloat = graphene_rect_get_height(grapheneRectPointer)
 
     /**
      * Retrieves the coordinates of the top-left corner of the given rectangle.
@@ -211,7 +214,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getTopLeft(p: Point): Unit = graphene_rect_get_top_left(gPointer, p.gPointer)
+    public fun getTopLeft(p: Point): Unit = graphene_rect_get_top_left(grapheneRectPointer, p.graphenePointPointer)
 
     /**
      * Retrieves the coordinates of the top-right corner of the given rectangle.
@@ -220,7 +223,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getTopRight(p: Point): Unit = graphene_rect_get_top_right(gPointer, p.gPointer)
+    public fun getTopRight(p: Point): Unit = graphene_rect_get_top_right(grapheneRectPointer, p.graphenePointPointer)
 
     /**
      * Retrieves the normalized width of the given rectangle.
@@ -229,7 +232,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getWidth(): gfloat = graphene_rect_get_width(gPointer)
+    public fun getWidth(): gfloat = graphene_rect_get_width(grapheneRectPointer)
 
     /**
      * Retrieves the normalized X coordinate of the origin of the given
@@ -239,7 +242,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getX(): gfloat = graphene_rect_get_x(gPointer)
+    public fun getX(): gfloat = graphene_rect_get_x(grapheneRectPointer)
 
     /**
      * Retrieves the normalized Y coordinate of the origin of the given
@@ -249,7 +252,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun getY(): gfloat = graphene_rect_get_y(gPointer)
+    public fun getY(): gfloat = graphene_rect_get_y(grapheneRectPointer)
 
     /**
      * Initializes the given #graphene_rect_t with the given values.
@@ -266,7 +269,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun `init`(x: gfloat, y: gfloat, width: gfloat, height: gfloat): Rect =
-        graphene_rect_init(gPointer, x, y, width, height)!!.run {
+        graphene_rect_init(grapheneRectPointer, x, y, width, height)!!.run {
             Rect(this)
         }
 
@@ -281,9 +284,10 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun initFromRect(src: Rect): Rect = graphene_rect_init_from_rect(gPointer, src.gPointer)!!.run {
-        Rect(this)
-    }
+    public fun initFromRect(src: Rect): Rect =
+        graphene_rect_init_from_rect(grapheneRectPointer, src.grapheneRectPointer)!!.run {
+            Rect(this)
+        }
 
     /**
      * Changes the given rectangle to be smaller, or larger depending on the
@@ -307,7 +311,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun inset(dX: gfloat, dY: gfloat): Rect = graphene_rect_inset(gPointer, dX, dY)!!.run {
+    public fun inset(dX: gfloat, dY: gfloat): Rect = graphene_rect_inset(grapheneRectPointer, dX, dY)!!.run {
         Rect(this)
     }
 
@@ -333,7 +337,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun insetR(dX: gfloat, dY: gfloat, res: Rect): Unit = graphene_rect_inset_r(gPointer, dX, dY, res.gPointer)
+    public fun insetR(dX: gfloat, dY: gfloat, res: Rect): Unit =
+        graphene_rect_inset_r(grapheneRectPointer, dX, dY, res.grapheneRectPointer)
 
     /**
      * Linearly interpolates the origin and size of the two given
@@ -347,7 +352,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun interpolate(b: Rect, factor: gdouble, res: Rect): Unit =
-        graphene_rect_interpolate(gPointer, b.gPointer, factor, res.gPointer)
+        graphene_rect_interpolate(grapheneRectPointer, b.grapheneRectPointer, factor, res.grapheneRectPointer)
 
     /**
      * Computes the intersection of the two given rectangles.
@@ -367,7 +372,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      */
     @GrapheneVersion1_0
     public fun intersection(b: Rect, res: Rect?): Boolean =
-        graphene_rect_intersection(gPointer, b.gPointer, res?.gPointer)
+        graphene_rect_intersection(grapheneRectPointer, b.grapheneRectPointer, res?.grapheneRectPointer)
 
     /**
      * Normalizes the passed rectangle.
@@ -380,7 +385,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun normalize(): Rect = graphene_rect_normalize(gPointer)!!.run {
+    public fun normalize(): Rect = graphene_rect_normalize(grapheneRectPointer)!!.run {
         Rect(this)
     }
 
@@ -396,7 +401,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun normalizeR(res: Rect): Unit = graphene_rect_normalize_r(gPointer, res.gPointer)
+    public fun normalizeR(res: Rect): Unit = graphene_rect_normalize_r(grapheneRectPointer, res.grapheneRectPointer)
 
     /**
      * Offsets the origin by @d_x and @d_y.
@@ -409,7 +414,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun offset(dX: gfloat, dY: gfloat): Rect = graphene_rect_offset(gPointer, dX, dY)!!.run {
+    public fun offset(dX: gfloat, dY: gfloat): Rect = graphene_rect_offset(grapheneRectPointer, dX, dY)!!.run {
         Rect(this)
     }
 
@@ -425,7 +430,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun offsetR(dX: gfloat, dY: gfloat, res: Rect): Unit = graphene_rect_offset_r(gPointer, dX, dY, res.gPointer)
+    public fun offsetR(dX: gfloat, dY: gfloat, res: Rect): Unit =
+        graphene_rect_offset_r(grapheneRectPointer, dX, dY, res.grapheneRectPointer)
 
     /**
      * Rounds the origin and size of the given rectangle to
@@ -443,7 +449,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.4
      */
     @GrapheneVersion1_4
-    public fun round(res: Rect): Unit = graphene_rect_round(gPointer, res.gPointer)
+    public fun round(res: Rect): Unit = graphene_rect_round(grapheneRectPointer, res.grapheneRectPointer)
 
     /**
      * Rounds the origin of the given rectangle to its nearest
@@ -473,7 +479,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun roundExtents(res: Rect): Unit = graphene_rect_round_extents(gPointer, res.gPointer)
+    public fun roundExtents(res: Rect): Unit = graphene_rect_round_extents(grapheneRectPointer, res.grapheneRectPointer)
 
     /**
      * Rounds the origin and the size of the given rectangle to
@@ -484,7 +490,7 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun roundToPixel(): Rect = graphene_rect_round_to_pixel(gPointer)!!.run {
+    public fun roundToPixel(): Rect = graphene_rect_round_to_pixel(grapheneRectPointer)!!.run {
         Rect(this)
     }
 
@@ -499,7 +505,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.10
      */
     @GrapheneVersion1_10
-    public fun scale(sH: gfloat, sV: gfloat, res: Rect): Unit = graphene_rect_scale(gPointer, sH, sV, res.gPointer)
+    public fun scale(sH: gfloat, sV: gfloat, res: Rect): Unit =
+        graphene_rect_scale(grapheneRectPointer, sH, sV, res.grapheneRectPointer)
 
     /**
      * Computes the union of the two given rectangles.
@@ -513,7 +520,8 @@ public class Rect(pointer: CPointer<graphene_rect_t>, cleaner: Cleaner? = null) 
      * @since 1.0
      */
     @GrapheneVersion1_0
-    public fun union(b: Rect, res: Rect): Unit = graphene_rect_union(gPointer, b.gPointer, res.gPointer)
+    public fun union(b: Rect, res: Rect): Unit =
+        graphene_rect_union(grapheneRectPointer, b.grapheneRectPointer, res.grapheneRectPointer)
 
     public companion object {
         /**

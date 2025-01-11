@@ -28,19 +28,18 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrSize> = pointer
-
+public class AttrSize(public val pangoAttrSizePointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrSizePointer) {
     /**
      * size of font, in units of 1/%PANGO_SCALE of a point (for
      *   %PANGO_ATTR_SIZE) or of a device unit (for %PANGO_ATTR_ABSOLUTE_SIZE)
      */
     public var size: gint
-        get() = gPointer.pointed.size
+        get() = pangoAttrSizePointer.pointed.size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.size = value
+            pangoAttrSizePointer.pointed.size = value
         }
 
     /**
@@ -50,11 +49,11 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      *   be false for %PANGO_ATTR_SIZE and true for %PANGO_ATTR_ABSOLUTE_SIZE.
      */
     public var absolute: guint
-        get() = gPointer.pointed.absolute
+        get() = pangoAttrSizePointer.pointed.absolute
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.absolute = value
+            pangoAttrSizePointer.pointed.absolute = value
         }
 
     /**
@@ -77,7 +76,7 @@ public class AttrSize(pointer: CPointer<PangoAttrSize>, cleaner: Cleaner? = null
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrSize>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrSizePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrSize using the provided [AutofreeScope].

@@ -51,12 +51,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  *    gtk_widget_activate_action()
  *  - [class@Gtk.NothingAction]: a shortcut action that does nothing
  */
-public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
-    Object(pointer.reinterpret()),
+public abstract class ShortcutAction(public val gtkShortcutActionPointer: CPointer<GtkShortcutAction>) :
+    Object(gtkShortcutActionPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutActionPointer: CPointer<GtkShortcutAction>
-        get() = gPointer.reinterpret()
-
     /**
      * Tries to parse the given string into an action.
      *
@@ -95,7 +92,7 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
             gtkShortcutActionPointer,
             flags.mask,
             widget.gtkWidgetPointer,
-            args?.gPointer
+            args?.glibVariantPointer
         ).asBoolean()
 
     /**
@@ -109,7 +106,7 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_action_print(gtkShortcutActionPointer, string.gPointer)
+        gtk_shortcut_action_print(gtkShortcutActionPointer, string.glibStringPointer)
 
     /**
      * Prints the given action into a human-readable string.
@@ -122,9 +119,16 @@ public open class ShortcutAction(pointer: CPointer<GtkShortcutAction>) :
     override fun toString(): KotlinString =
         gtk_shortcut_action_to_string(gtkShortcutActionPointer)?.toKString() ?: error("Expected not null string")
 
+    /**
+     * The ShortcutActionImpl type represents a native instance of the abstract ShortcutAction class.
+     *
+     * @constructor Creates a new instance of ShortcutAction for the provided [CPointer].
+     */
+    public class ShortcutActionImpl(pointer: CPointer<GtkShortcutAction>) : ShortcutAction(pointer)
+
     public companion object : TypeCompanion<ShortcutAction> {
         override val type: GeneratedClassKGType<ShortcutAction> =
-            GeneratedClassKGType(gtk_shortcut_action_get_type()) { ShortcutAction(it.reinterpret()) }
+            GeneratedClassKGType(gtk_shortcut_action_get_type()) { ShortcutActionImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

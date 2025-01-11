@@ -70,24 +70,21 @@ import kotlin.Unit
  *
  * `AdwSqueezer` has a single CSS node with name `squeezer`.
  */
-public class Squeezer(pointer: CPointer<AdwSqueezer>) :
-    Widget(pointer.reinterpret()),
+public class Squeezer(public val adwSqueezerPointer: CPointer<AdwSqueezer>) :
+    Widget(adwSqueezerPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val adwSqueezerPointer: CPointer<AdwSqueezer>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to allow squeezing beyond the last child's minimum size.
@@ -185,7 +182,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          * @return a `GtkSelectionModel` for the squeezer's children
          */
         get() = adw_squeezer_get_pages(adwSqueezerPointer)!!.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
     /**
@@ -291,7 +288,7 @@ public class Squeezer(pointer: CPointer<AdwSqueezer>) :
          * @return the visible child
          */
         get() = adw_squeezer_get_visible_child(adwSqueezerPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

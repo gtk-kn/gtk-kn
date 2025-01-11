@@ -31,12 +31,9 @@ import kotlin.Boolean
  * To obtain the strings to compare, this sorter evaluates a
  * [class@Gtk.Expression].
  */
-public open class StringSorter(pointer: CPointer<GtkStringSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class StringSorter(public val gtkStringSorterPointer: CPointer<GtkStringSorter>) :
+    Sorter(gtkStringSorterPointer.reinterpret()),
     KGTyped {
-    public val gtkStringSorterPointer: CPointer<GtkStringSorter>
-        get() = gPointer.reinterpret()
-
     /**
      * The collation method to use for sorting.
      *
@@ -79,7 +76,7 @@ public open class StringSorter(pointer: CPointer<GtkStringSorter>) :
          * @return a `GtkExpression`
          */
         get() = gtk_string_sorter_get_expression(gtkStringSorterPointer)?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
         /**
@@ -89,7 +86,7 @@ public open class StringSorter(pointer: CPointer<GtkStringSorter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) = gtk_string_sorter_set_expression(gtkStringSorterPointer, expression?.gPointer)
+        set(expression) = gtk_string_sorter_set_expression(gtkStringSorterPointer, expression?.gtkExpressionPointer)
 
     /**
      * If sorting is case sensitive.
@@ -121,7 +118,7 @@ public open class StringSorter(pointer: CPointer<GtkStringSorter>) :
      */
     public constructor(
         expression: Expression? = null,
-    ) : this(gtk_string_sorter_new(expression?.gPointer)!!.reinterpret())
+    ) : this(gtk_string_sorter_new(expression?.gtkExpressionPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<StringSorter> {
         override val type: GeneratedClassKGType<StringSorter> =

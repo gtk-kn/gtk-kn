@@ -36,12 +36,9 @@ import kotlin.Boolean
  *
  * - method `yaru-accent`: Property has no getter nor setter
  */
-public class StyleManager(pointer: CPointer<AdwStyleManager>) :
-    Object(pointer.reinterpret()),
+public class StyleManager(public val adwStyleManagerPointer: CPointer<AdwStyleManager>) :
+    Object(adwStyleManagerPointer.reinterpret()),
     KGTyped {
-    public val adwStyleManagerPointer: CPointer<AdwStyleManager>
-        get() = gPointer.reinterpret()
-
     /**
      * The requested application color scheme.
      *

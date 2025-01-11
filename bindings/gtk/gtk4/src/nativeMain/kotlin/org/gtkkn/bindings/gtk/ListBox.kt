@@ -126,20 +126,17 @@ import kotlin.Unit
  *
  * - method `accept-unpaired-release`: Property has no getter nor setter
  */
-public open class ListBox(pointer: CPointer<GtkListBox>) :
-    Widget(pointer.reinterpret()),
+public open class ListBox(public val gtkListBoxPointer: CPointer<GtkListBox>) :
+    Widget(gtkListBoxPointer.reinterpret()),
     KGTyped {
-    public val gtkListBoxPointer: CPointer<GtkListBox>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Determines whether children can be activated with a single
@@ -570,7 +567,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      */
     public fun onActivateCursorRow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListBoxPointer,
             "activate-cursor-row",
             onActivateCursorRowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -582,7 +579,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * Emits the "activate-cursor-row" signal. See [onActivateCursorRow].
      */
     public fun emitActivateCursorRow() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate-cursor-row")
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "activate-cursor-row")
     }
 
     /**
@@ -600,7 +597,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
             p2: Boolean,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkListBoxPointer,
         "move-cursor",
         onMoveCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -618,7 +615,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      */
     public fun emitMoveCursor(`object`: MovementStep, p0: gint, p1: Boolean, p2: Boolean) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtkListBoxPointer.reinterpret(),
             "move-cursor",
             `object`.nativeValue,
             p0,
@@ -637,7 +634,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (row: ListBoxRow) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkListBoxPointer,
         "row-activated",
         onRowActivatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -651,7 +648,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * @param row the activated row
      */
     public fun emitRowActivated(row: ListBoxRow) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "row-activated", row.gtkListBoxRowPointer)
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "row-activated", row.gtkListBoxRowPointer)
     }
 
     /**
@@ -669,7 +666,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (row: ListBoxRow?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkListBoxPointer,
         "row-selected",
         onRowSelectedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -683,7 +680,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * @param row the selected row
      */
     public fun emitRowSelected(row: ListBoxRow?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "row-selected", row?.gtkListBoxRowPointer)
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "row-selected", row?.gtkListBoxRowPointer)
     }
 
     /**
@@ -699,7 +696,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      */
     public fun onSelectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListBoxPointer,
             "select-all",
             onSelectAllFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -711,7 +708,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * Emits the "select-all" signal. See [onSelectAll].
      */
     public fun emitSelectAll() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "select-all")
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "select-all")
     }
 
     /**
@@ -722,7 +719,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      */
     public fun onSelectedRowsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListBoxPointer,
             "selected-rows-changed",
             onSelectedRowsChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -734,7 +731,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * Emits the "selected-rows-changed" signal. See [onSelectedRowsChanged].
      */
     public fun emitSelectedRowsChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "selected-rows-changed")
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "selected-rows-changed")
     }
 
     /**
@@ -745,7 +742,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      */
     public fun onToggleCursorRow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListBoxPointer,
             "toggle-cursor-row",
             onToggleCursorRowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -757,7 +754,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * Emits the "toggle-cursor-row" signal. See [onToggleCursorRow].
      */
     public fun emitToggleCursorRow() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "toggle-cursor-row")
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "toggle-cursor-row")
     }
 
     /**
@@ -774,7 +771,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      */
     public fun onUnselectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListBoxPointer,
             "unselect-all",
             onUnselectAllFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -786,7 +783,7 @@ public open class ListBox(pointer: CPointer<GtkListBox>) :
      * Emits the "unselect-all" signal. See [onUnselectAll].
      */
     public fun emitUnselectAll() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unselect-all")
+        g_signal_emit_by_name(gtkListBoxPointer.reinterpret(), "unselect-all")
     }
 
     public companion object : TypeCompanion<ListBox> {

@@ -43,23 +43,20 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
-    Object(pointer.reinterpret()),
+public open class SingleSelection(public val gtkSingleSelectionPointer: CPointer<GtkSingleSelection>) :
+    Object(gtkSingleSelectionPointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
     KGTyped {
-    public val gtkSingleSelectionPointer: CPointer<GtkSingleSelection>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If the selection will always select an item.
@@ -118,7 +115,7 @@ public open class SingleSelection(pointer: CPointer<GtkSingleSelection>) :
          * @return The model being wrapped
          */
         get() = gtk_single_selection_get_model(gtkSingleSelectionPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

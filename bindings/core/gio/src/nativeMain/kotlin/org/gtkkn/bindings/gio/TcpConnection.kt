@@ -22,12 +22,9 @@ import kotlin.Boolean
  * @since 2.22
  */
 @GioVersion2_22
-public open class TcpConnection(pointer: CPointer<GTcpConnection>) :
-    SocketConnection(pointer.reinterpret()),
+public open class TcpConnection(public val gioTcpConnectionPointer: CPointer<GTcpConnection>) :
+    SocketConnection(gioTcpConnectionPointer.reinterpret()),
     KGTyped {
-    public val gioTcpConnectionPointer: CPointer<GTcpConnection>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether [method@Gio.IOStream.close] does a graceful disconnect.
      *

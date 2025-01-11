@@ -142,20 +142,17 @@ import kotlin.Unit
  * - method `vscrollbar-policy`: Property has no getter nor setter
  * - method `window-placement`: Property has no getter nor setter
  */
-public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
-    Widget(pointer.reinterpret()),
+public open class ScrolledWindow(public val gtkScrolledWindowPointer: CPointer<GtkScrolledWindow>) :
+    Widget(gtkScrolledWindowPointer.reinterpret()),
     KGTyped {
-    public val gtkScrolledWindowPointer: CPointer<GtkScrolledWindow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -175,7 +172,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
          * @return the child widget of @scrolled_window
          */
         get() = gtk_scrolled_window_get_child(gtkScrolledWindowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -432,7 +429,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
      * @return the horizontal scrollbar of the scrolled window.
      */
     public open fun getHscrollbar(): Widget = gtk_scrolled_window_get_hscrollbar(gtkScrolledWindowPointer)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -462,7 +459,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
      * @return the vertical scrollbar of the scrolled window.
      */
     public open fun getVscrollbar(): Widget = gtk_scrolled_window_get_vscrollbar(gtkScrolledWindowPointer)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -544,7 +541,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pos: PositionType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkScrolledWindowPointer,
         "edge-overshot",
         onEdgeOvershotFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -558,7 +555,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
      * @param pos edge side that was hit
      */
     public fun emitEdgeOvershot(pos: PositionType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "edge-overshot", pos.nativeValue)
+        g_signal_emit_by_name(gtkScrolledWindowPointer.reinterpret(), "edge-overshot", pos.nativeValue)
     }
 
     /**
@@ -579,7 +576,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pos: PositionType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkScrolledWindowPointer,
         "edge-reached",
         onEdgeReachedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -593,7 +590,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
      * @param pos edge side that was reached
      */
     public fun emitEdgeReached(pos: PositionType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "edge-reached", pos.nativeValue)
+        g_signal_emit_by_name(gtkScrolledWindowPointer.reinterpret(), "edge-reached", pos.nativeValue)
     }
 
     /**
@@ -614,7 +611,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (directionType: DirectionType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkScrolledWindowPointer,
         "move-focus-out",
         onMoveFocusOutFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -629,7 +626,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
      *   %GTK_DIR_TAB_BACKWARD
      */
     public fun emitMoveFocusOut(directionType: DirectionType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-focus-out", directionType.nativeValue)
+        g_signal_emit_by_name(gtkScrolledWindowPointer.reinterpret(), "move-focus-out", directionType.nativeValue)
     }
 
     /**
@@ -648,7 +645,7 @@ public open class ScrolledWindow(pointer: CPointer<GtkScrolledWindow>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scroll: ScrollType, horizontal: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkScrolledWindowPointer,
         "scroll-child",
         onScrollChildFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

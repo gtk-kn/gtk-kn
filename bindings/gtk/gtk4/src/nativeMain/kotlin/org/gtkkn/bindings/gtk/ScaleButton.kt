@@ -70,28 +70,25 @@ import kotlin.collections.List
  *
  * - method `icons`: Property has no getter
  */
-public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
-    Widget(pointer.reinterpret()),
+public open class ScaleButton(public val gtkScaleButtonPointer: CPointer<GtkScaleButton>) :
+    Widget(gtkScaleButtonPointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
-    public val gtkScaleButtonPointer: CPointer<GtkScaleButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If the scale button should be pressed in.
@@ -236,7 +233,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
      * @return the popup of the `GtkScaleButton`
      */
     public open fun getPopup(): Widget = gtk_scale_button_get_popup(gtkScaleButtonPointer)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -260,7 +257,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
      */
     public fun onPopdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkScaleButtonPointer,
             "popdown",
             onPopdownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -272,7 +269,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
      * Emits the "popdown" signal. See [onPopdown].
      */
     public fun emitPopdown() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "popdown")
+        g_signal_emit_by_name(gtkScaleButtonPointer.reinterpret(), "popdown")
     }
 
     /**
@@ -288,7 +285,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
      */
     public fun onPopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkScaleButtonPointer,
             "popup",
             onPopupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -300,7 +297,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
      * Emits the "popup" signal. See [onPopup].
      */
     public fun emitPopup() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "popup")
+        g_signal_emit_by_name(gtkScaleButtonPointer.reinterpret(), "popup")
     }
 
     /**
@@ -313,7 +310,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`value`: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkScaleButtonPointer,
         "value-changed",
         onValueChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -327,7 +324,7 @@ public open class ScaleButton(pointer: CPointer<GtkScaleButton>) :
      * @param value the new value
      */
     public fun emitValueChanged(`value`: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "value-changed", `value`)
+        g_signal_emit_by_name(gtkScaleButtonPointer.reinterpret(), "value-changed", `value`)
     }
 
     public companion object : TypeCompanion<ScaleButton> {

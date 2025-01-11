@@ -8,7 +8,7 @@ import org.gtkkn.bindings.pango.Context
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_10
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_18
 import org.gtkkn.bindings.pangocairo.annotations.PangoCairoVersion1_22
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -36,7 +36,7 @@ import kotlin.Unit
  */
 @PangoCairoVersion1_10
 public interface FontMap :
-    Interface,
+    Proxy,
     KGTyped {
     public val pangocairoFontMapPointer: CPointer<PangoCairoFontMap>
 
@@ -47,9 +47,10 @@ public interface FontMap :
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun createContext(): Context = pango_cairo_font_map_create_context(pangocairoFontMapPointer)!!.run {
-        Context(this)
-    }
+    public fun createPangoCairoContext(): Context =
+        pango_cairo_font_map_create_context(pangocairoFontMapPointer)!!.run {
+            Context(this)
+        }
 
     /**
      * Gets the type of Cairo font backend that @fontmap uses.
@@ -110,19 +111,22 @@ public interface FontMap :
     @PangoCairoVersion1_10
     public fun setResolution(dpi: gdouble): Unit = pango_cairo_font_map_set_resolution(pangocairoFontMapPointer, dpi)
 
-    private data class Wrapper(private val pointer: CPointer<PangoCairoFontMap>) : FontMap {
-        override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap> = pointer
-    }
+    /**
+     * The FontMapImpl type represents a native instance of the FontMap interface.
+     *
+     * @constructor Creates a new instance of FontMap for the provided [CPointer].
+     */
+    public data class FontMapImpl(override val pangocairoFontMapPointer: CPointer<PangoCairoFontMap>) :
+        org.gtkkn.bindings.pango.FontMap(pangocairoFontMapPointer.reinterpret()),
+        FontMap
 
     public companion object : TypeCompanion<FontMap> {
         override val type: GeneratedInterfaceKGType<FontMap> =
-            GeneratedInterfaceKGType(pango_cairo_font_map_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(pango_cairo_font_map_get_type()) { FontMapImpl(it.reinterpret()) }
 
         init {
             PangocairoTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<PangoCairoFontMap>): FontMap = Wrapper(pointer)
 
         /**
          * Gets a default `PangoCairoFontMap` to use with Cairo.
@@ -148,7 +152,7 @@ public interface FontMap :
          */
         @PangoCairoVersion1_10
         public fun getDefault(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_get_default()!!.run {
-            org.gtkkn.bindings.pango.FontMap(this)
+            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)
         }
 
         /**
@@ -177,7 +181,7 @@ public interface FontMap :
          */
         @PangoCairoVersion1_10
         public fun new(): org.gtkkn.bindings.pango.FontMap = pango_cairo_font_map_new()!!.run {
-            org.gtkkn.bindings.pango.FontMap(this)
+            org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)
         }
 
         /**
@@ -197,7 +201,7 @@ public interface FontMap :
         @PangoCairoVersion1_18
         public fun newForFontType(fonttype: FontType): org.gtkkn.bindings.pango.FontMap? =
             pango_cairo_font_map_new_for_font_type(fonttype.nativeValue)?.run {
-                org.gtkkn.bindings.pango.FontMap(this)
+                org.gtkkn.bindings.pango.FontMap.FontMapImpl(this)
             }
 
         /**

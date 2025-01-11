@@ -91,20 +91,17 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
  */
-public class ViewSwitcher(pointer: CPointer<AdwViewSwitcher>) :
-    Widget(pointer.reinterpret()),
+public class ViewSwitcher(public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>) :
+    Widget(adwViewSwitcherPointer.reinterpret()),
     KGTyped {
-    public val adwViewSwitcherPointer: CPointer<AdwViewSwitcher>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The policy to determine which mode to use.

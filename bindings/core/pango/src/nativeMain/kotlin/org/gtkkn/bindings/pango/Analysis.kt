@@ -21,90 +21,89 @@ import kotlin.native.ref.createCleaner
  * The `PangoAnalysis` structure stores information about
  * the properties of a segment of text.
  */
-public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAnalysis> = pointer
-
+public class Analysis(public val pangoAnalysisPointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAnalysisPointer) {
     /**
      * the font for this segment.
      */
     public var font: Font?
-        get() = gPointer.pointed.font?.run {
-            Font(this)
+        get() = pangoAnalysisPointer.pointed.font?.run {
+            Font.FontImpl(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.font = value?.pangoFontPointer
+            pangoAnalysisPointer.pointed.font = value?.pangoFontPointer
         }
 
     /**
      * the bidirectional level for this segment.
      */
     public var level: guint8
-        get() = gPointer.pointed.level
+        get() = pangoAnalysisPointer.pointed.level
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.level = value
+            pangoAnalysisPointer.pointed.level = value
         }
 
     /**
      * the glyph orientation for this segment (A `PangoGravity`).
      */
     public var gravity: guint8
-        get() = gPointer.pointed.gravity
+        get() = pangoAnalysisPointer.pointed.gravity
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.gravity = value
+            pangoAnalysisPointer.pointed.gravity = value
         }
 
     /**
      * boolean flags for this segment (Since: 1.16).
      */
     public var flags: guint8
-        get() = gPointer.pointed.flags
+        get() = pangoAnalysisPointer.pointed.flags
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.flags = value
+            pangoAnalysisPointer.pointed.flags = value
         }
 
     /**
      * the detected script for this segment (A `PangoScript`) (Since: 1.18).
      */
     public var script: guint8
-        get() = gPointer.pointed.script
+        get() = pangoAnalysisPointer.pointed.script
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.script = value
+            pangoAnalysisPointer.pointed.script = value
         }
 
     /**
      * the detected language for this segment.
      */
     public var language: Language?
-        get() = gPointer.pointed.language?.run {
+        get() = pangoAnalysisPointer.pointed.language?.run {
             Language(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.language = value?.gPointer
+            pangoAnalysisPointer.pointed.language = value?.pangoLanguagePointer
         }
 
     /**
      * extra attributes for this segment.
      */
     public var extraAttrs: SList?
-        get() = gPointer.pointed.extra_attrs?.run {
+        get() = pangoAnalysisPointer.pointed.extra_attrs?.run {
             SList(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.extra_attrs = value?.gPointer
+            pangoAnalysisPointer.pointed.extra_attrs = value?.glibSListPointer
         }
 
     /**
@@ -127,7 +126,7 @@ public class Analysis(pointer: CPointer<PangoAnalysis>, cleaner: Cleaner? = null
      */
     private constructor(
         pair: Pair<CPointer<PangoAnalysis>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAnalysisPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Analysis using the provided [AutofreeScope].

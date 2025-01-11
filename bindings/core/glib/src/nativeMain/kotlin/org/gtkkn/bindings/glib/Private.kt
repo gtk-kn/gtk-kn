@@ -41,9 +41,8 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `notify`: DestroyNotify
  */
-public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GPrivate> = pointer
-
+public class Private(public val glibPrivatePointer: CPointer<GPrivate>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibPrivatePointer) {
     /**
      * Allocate a new Private.
      *
@@ -62,7 +61,9 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      *
      * @param pair A pair containing the pointer to Private and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GPrivate>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GPrivate>, Cleaner>,
+    ) : this(glibPrivatePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Private using the provided [AutofreeScope].
@@ -82,7 +83,7 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      *
      * @return the thread-local value
      */
-    public fun `get`(): gpointer? = g_private_get(gPointer)
+    public fun `get`(): gpointer? = g_private_get(glibPrivatePointer)
 
     /**
      * Sets the thread local variable @key to have the value @value in the
@@ -96,7 +97,7 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun replace(`value`: gpointer? = null): Unit = g_private_replace(gPointer, `value`)
+    public fun replace(`value`: gpointer? = null): Unit = g_private_replace(glibPrivatePointer, `value`)
 
     /**
      * Sets the thread local variable @key to have the value @value in the
@@ -107,5 +108,5 @@ public class Private(pointer: CPointer<GPrivate>, cleaner: Cleaner? = null) : Pr
      *
      * @param value the new value
      */
-    public fun `set`(`value`: gpointer? = null): Unit = g_private_set(gPointer, `value`)
+    public fun `set`(`value`: gpointer? = null): Unit = g_private_set(glibPrivatePointer, `value`)
 }

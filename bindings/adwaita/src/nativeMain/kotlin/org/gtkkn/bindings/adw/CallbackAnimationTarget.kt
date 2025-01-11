@@ -17,12 +17,10 @@ import org.gtkkn.native.gobject.GType
  * An [class@AnimationTarget] that calls a given callback during the
  * animation.
  */
-public class CallbackAnimationTarget(pointer: CPointer<AdwCallbackAnimationTarget>) :
-    AnimationTarget(pointer.reinterpret()),
+public class CallbackAnimationTarget(
+    public val adwCallbackAnimationTargetPointer: CPointer<AdwCallbackAnimationTarget>,
+) : AnimationTarget(adwCallbackAnimationTargetPointer.reinterpret()),
     KGTyped {
-    public val adwCallbackAnimationTargetPointer: CPointer<AdwCallbackAnimationTarget>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `AdwAnimationTarget` that calls the given @callback during
      * the animation.

@@ -98,12 +98,9 @@ import kotlin.Unit
  * - method `rgba`: Property has no getter nor setter
  * - method `shadow-width`: Property has no getter nor setter
  */
-public open class Display(pointer: CPointer<GdkDisplay>) :
-    Object(pointer.reinterpret()),
+public open class Display(public val gdkDisplayPointer: CPointer<GdkDisplay>) :
+    Object(gdkDisplayPointer.reinterpret()),
     KGTyped {
-    public val gdkDisplayPointer: CPointer<GdkDisplay>
-        get() = gPointer.reinterpret()
-
     /**
      * The dma-buf formats that are supported on this display
      *
@@ -159,7 +156,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_display_create_gl_context(gdkDisplayPointer, gError.ptr)?.run {
-            GlContext(this)
+            GlContext.GlContextImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -221,7 +218,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return the default seat.
      */
     public open fun getDefaultSeat(): Seat? = gdk_display_get_default_seat(gdkDisplayPointer)?.run {
-        Seat(this)
+        Seat.SeatImpl(this)
     }
 
     /**
@@ -249,7 +246,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @return a `GListModel` of `GdkMonitor`
      */
     public open fun getMonitors(): ListModel = gdk_display_get_monitors(gdkDisplayPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -283,7 +280,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *   in @value, false otherwise
      */
     public open fun getSetting(name: String, `value`: Value): Boolean =
-        gdk_display_get_setting(gdkDisplayPointer, name, `value`.gPointer).asBoolean()
+        gdk_display_get_setting(gdkDisplayPointer, name, `value`.gobjectValuePointer).asBoolean()
 
     /**
      * Gets the startup notification ID for a Wayland display, or null
@@ -397,7 +394,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      *
      * @param event a `GdkEvent`
      */
-    public open fun putEvent(event: Event): Unit = gdk_display_put_event(gdkDisplayPointer, event.gPointer)
+    public open fun putEvent(event: Event): Unit = gdk_display_put_event(gdkDisplayPointer, event.gdkEventPointer)
 
     /**
      * Returns true if the display supports input shapes.
@@ -446,7 +443,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      */
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (isError: Boolean) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDisplayPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -460,7 +457,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param isError true if the display was closed due to an error
      */
     public fun emitClosed(isError: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed", isError.asGBoolean())
+        g_signal_emit_by_name(gdkDisplayPointer.reinterpret(), "closed", isError.asGBoolean())
     }
 
     /**
@@ -471,7 +468,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      */
     public fun onOpened(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDisplayPointer,
             "opened",
             onOpenedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -483,7 +480,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * Emits the "opened" signal. See [onOpened].
      */
     public fun emitOpened() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "opened")
+        g_signal_emit_by_name(gdkDisplayPointer.reinterpret(), "opened")
     }
 
     /**
@@ -494,7 +491,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      */
     public fun onSeatAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (seat: Seat) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDisplayPointer,
             "seat-added",
             onSeatAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -508,7 +505,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param seat the seat that was just added
      */
     public fun emitSeatAdded(seat: Seat) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "seat-added", seat.gdkSeatPointer)
+        g_signal_emit_by_name(gdkDisplayPointer.reinterpret(), "seat-added", seat.gdkSeatPointer)
     }
 
     /**
@@ -519,7 +516,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      */
     public fun onSeatRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (seat: Seat) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDisplayPointer,
             "seat-removed",
             onSeatRemovedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -533,7 +530,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param seat the seat that was just removed
      */
     public fun emitSeatRemoved(seat: Seat) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "seat-removed", seat.gdkSeatPointer)
+        g_signal_emit_by_name(gdkDisplayPointer.reinterpret(), "seat-removed", seat.gdkSeatPointer)
     }
 
     /**
@@ -546,7 +543,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (setting: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkDisplayPointer,
         "setting-changed",
         onSettingChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -560,7 +557,7 @@ public open class Display(pointer: CPointer<GdkDisplay>) :
      * @param setting the name of the setting that changed
      */
     public fun emitSettingChanged(setting: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "setting-changed", setting.cstr)
+        g_signal_emit_by_name(gdkDisplayPointer.reinterpret(), "setting-changed", setting.cstr)
     }
 
     public companion object : TypeCompanion<Display> {
@@ -630,7 +627,7 @@ private val onSeatAddedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> = 
     ->
     userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(
         seat!!.run {
-            Seat(this)
+            Seat.SeatImpl(this)
         }
     )
 }
@@ -643,7 +640,7 @@ private val onSeatRemovedFunc: CPointer<CFunction<(CPointer<GdkSeat>) -> Unit>> 
     ->
     userData.asStableRef<(seat: Seat) -> Unit>().get().invoke(
         seat!!.run {
-            Seat(this)
+            Seat.SeatImpl(this)
         }
     )
 }

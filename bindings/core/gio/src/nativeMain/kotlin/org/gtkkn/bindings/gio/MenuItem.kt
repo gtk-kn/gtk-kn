@@ -46,12 +46,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuItem(pointer: CPointer<GMenuItem>) :
-    Object(pointer.reinterpret()),
+public open class MenuItem(public val gioMenuItemPointer: CPointer<GMenuItem>) :
+    Object(gioMenuItemPointer.reinterpret()),
     KGTyped {
-    public val gioMenuItemPointer: CPointer<GMenuItem>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GMenuItem.
      *
@@ -175,7 +172,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_34
     public open fun getAttributeValue(attribute: String, expectedType: VariantType? = null): Variant? =
-        g_menu_item_get_attribute_value(gioMenuItemPointer, attribute, expectedType?.gPointer)?.run {
+        g_menu_item_get_attribute_value(gioMenuItemPointer, attribute, expectedType?.glibVariantTypePointer)?.run {
             Variant(this)
         }
 
@@ -188,7 +185,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_34
     public open fun getLink(link: String): MenuModel? = g_menu_item_get_link(gioMenuItemPointer, link)?.run {
-        MenuModel(this)
+        MenuModel.MenuModelImpl(this)
     }
 
     /**
@@ -235,7 +232,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setActionAndTargetValue(action: String? = null, targetValue: Variant? = null): Unit =
-        g_menu_item_set_action_and_target_value(gioMenuItemPointer, action, targetValue?.gPointer)
+        g_menu_item_set_action_and_target_value(gioMenuItemPointer, action, targetValue?.glibVariantPointer)
 
     /**
      * Sets or unsets an attribute on @menu_item.
@@ -264,7 +261,7 @@ public open class MenuItem(pointer: CPointer<GMenuItem>) :
      */
     @GioVersion2_32
     public open fun setAttributeValue(attribute: String, `value`: Variant? = null): Unit =
-        g_menu_item_set_attribute_value(gioMenuItemPointer, attribute, `value`?.gPointer)
+        g_menu_item_set_attribute_value(gioMenuItemPointer, attribute, `value`?.glibVariantPointer)
 
     /**
      * Sets the "action" and possibly the "target" attribute of @menu_item.

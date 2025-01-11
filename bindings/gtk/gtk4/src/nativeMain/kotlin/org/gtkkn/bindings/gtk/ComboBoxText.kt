@@ -87,26 +87,23 @@ import kotlin.Unit
  * the style class .combo to the main CSS nodes of its entry and button
  * children, and the .linked class to the node of its internal box.
  */
-public open class ComboBoxText(pointer: CPointer<GtkComboBoxText>) :
-    ComboBox(pointer.reinterpret()),
+public open class ComboBoxText(public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>) :
+    ComboBox(gtkComboBoxTextPointer.reinterpret()),
     KGTyped {
-    public val gtkComboBoxTextPointer: CPointer<GtkComboBoxText>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellEditablePointer: CPointer<GtkCellEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkComboBoxText`.

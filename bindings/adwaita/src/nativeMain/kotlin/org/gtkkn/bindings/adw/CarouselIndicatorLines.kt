@@ -38,24 +38,21 @@ import org.gtkkn.native.gtk.GtkOrientable
  * `AdwCarouselIndicatorLines` has a single CSS node with name
  * `carouselindicatorlines`.
  */
-public class CarouselIndicatorLines(pointer: CPointer<AdwCarouselIndicatorLines>) :
-    Widget(pointer.reinterpret()),
+public class CarouselIndicatorLines(public val adwCarouselIndicatorLinesPointer: CPointer<AdwCarouselIndicatorLines>) :
+    Widget(adwCarouselIndicatorLinesPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val adwCarouselIndicatorLinesPointer: CPointer<AdwCarouselIndicatorLines>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The displayed carousel.

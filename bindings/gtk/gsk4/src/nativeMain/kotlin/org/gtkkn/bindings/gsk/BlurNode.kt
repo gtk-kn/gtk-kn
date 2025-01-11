@@ -17,12 +17,9 @@ import org.gtkkn.native.gsk.gsk_blur_node_new
 /**
  * A render node applying a blur effect to its single child.
  */
-public open class BlurNode(pointer: CPointer<GskBlurNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class BlurNode(public val gskBlurNodePointer: CPointer<GskBlurNode>) :
+    RenderNode(gskBlurNodePointer.reinterpret()),
     KGTyped {
-    public val gskBlurNodePointer: CPointer<GskBlurNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a render node that blurs the child.
      *
@@ -33,7 +30,7 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
     public constructor(
         child: RenderNode,
         radius: gfloat,
-    ) : this(gsk_blur_node_new(child.gPointer, radius)!!.reinterpret())
+    ) : this(gsk_blur_node_new(child.gskRenderNodePointer, radius)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` of the blur @node.
@@ -41,7 +38,7 @@ public open class BlurNode(pointer: CPointer<GskBlurNode>) :
      * @return the blurred child node
      */
     public open fun getChild(): RenderNode = gsk_blur_node_get_child(gskBlurNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

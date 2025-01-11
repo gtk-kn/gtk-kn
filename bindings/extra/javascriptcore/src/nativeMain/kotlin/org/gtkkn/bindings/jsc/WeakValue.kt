@@ -33,12 +33,9 @@ import kotlin.Unit
  *
  * - method `value`: Property has no getter nor setter
  */
-public class WeakValue(pointer: CPointer<JSCWeakValue>) :
-    Object(pointer.reinterpret()),
+public class WeakValue(public val jscWeakValuePointer: CPointer<JSCWeakValue>) :
+    Object(jscWeakValuePointer.reinterpret()),
     KGTyped {
-    public val jscWeakValuePointer: CPointer<JSCWeakValue>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a new #JSCWeakValue for the JavaScript value referenced by @value.
      *
@@ -64,7 +61,7 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
      */
     public fun onCleared(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            jscWeakValuePointer,
             "cleared",
             onClearedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -76,7 +73,7 @@ public class WeakValue(pointer: CPointer<JSCWeakValue>) :
      * Emits the "cleared" signal. See [onCleared].
      */
     public fun emitCleared() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cleared")
+        g_signal_emit_by_name(jscWeakValuePointer.reinterpret(), "cleared")
     }
 
     public companion object : TypeCompanion<WeakValue> {

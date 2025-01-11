@@ -23,20 +23,17 @@ import org.gtkkn.native.gtk.gtk_media_controls_set_media_stream
  *
  * Usually, `GtkMediaControls` is used as part of [class@Gtk.Video].
  */
-public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
-    Widget(pointer.reinterpret()),
+public open class MediaControls(public val gtkMediaControlsPointer: CPointer<GtkMediaControls>) :
+    Widget(gtkMediaControlsPointer.reinterpret()),
     KGTyped {
-    public val gtkMediaControlsPointer: CPointer<GtkMediaControls>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The media-stream managed by this object or null if none.
@@ -48,7 +45,7 @@ public open class MediaControls(pointer: CPointer<GtkMediaControls>) :
          * @return The media stream managed by @controls
          */
         get() = gtk_media_controls_get_media_stream(gtkMediaControlsPointer)?.run {
-            MediaStream(this)
+            MediaStream.MediaStreamImpl(this)
         }
 
         /**

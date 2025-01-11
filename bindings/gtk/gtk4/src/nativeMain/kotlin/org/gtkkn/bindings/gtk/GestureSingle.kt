@@ -39,12 +39,9 @@ import kotlin.Boolean
  * button being currently pressed can be known through
  * [method@Gtk.GestureSingle.get_current_button].
  */
-public open class GestureSingle(pointer: CPointer<GtkGestureSingle>) :
-    Gesture(pointer.reinterpret()),
+public open class GestureSingle(public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>) :
+    Gesture(gtkGestureSinglePointer.reinterpret()),
     KGTyped {
-    public val gtkGestureSinglePointer: CPointer<GtkGestureSingle>
-        get() = gPointer.reinterpret()
-
     /**
      * Mouse button number to listen to, or 0 to listen for any button.
      */

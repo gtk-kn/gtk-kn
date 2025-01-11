@@ -27,15 +27,12 @@ import org.gtkkn.native.soup.soup_content_sniffer_new
  *
  * - parameter `params`: params: Out parameter is not supported
  */
-public class ContentSniffer(pointer: CPointer<SoupContentSniffer>) :
-    Object(pointer.reinterpret()),
+public class ContentSniffer(public val soupContentSnifferPointer: CPointer<SoupContentSniffer>) :
+    Object(soupContentSnifferPointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupContentSnifferPointer: CPointer<SoupContentSniffer>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #SoupContentSniffer.

@@ -94,12 +94,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class IoStream(pointer: CPointer<GIOStream>) :
-    Object(pointer.reinterpret()),
+public abstract class IoStream(public val gioIoStreamPointer: CPointer<GIOStream>) :
+    Object(gioIoStreamPointer.reinterpret()),
     KGTyped {
-    public val gioIoStreamPointer: CPointer<GIOStream>
-        get() = gPointer.reinterpret()
-
     /**
      * The [class@Gio.InputStream] to read from.
      *
@@ -116,7 +113,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
          * @since 2.22
          */
         get() = g_io_stream_get_input_stream(gioIoStreamPointer)!!.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
     /**
@@ -135,7 +132,7 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
          * @since 2.22
          */
         get() = g_io_stream_get_output_stream(gioIoStreamPointer)!!.run {
-            OutputStream(this)
+            OutputStream.OutputStreamImpl(this)
         }
 
     /**
@@ -320,9 +317,16 @@ public open class IoStream(pointer: CPointer<GIOStream>) :
         callback?.let { StableRef.create(callback).asCPointer() }
     )
 
+    /**
+     * The IoStreamImpl type represents a native instance of the abstract IoStream class.
+     *
+     * @constructor Creates a new instance of IoStream for the provided [CPointer].
+     */
+    public class IoStreamImpl(pointer: CPointer<GIOStream>) : IoStream(pointer)
+
     public companion object : TypeCompanion<IoStream> {
         override val type: GeneratedClassKGType<IoStream> =
-            GeneratedClassKGType(g_io_stream_get_type()) { IoStream(it.reinterpret()) }
+            GeneratedClassKGType(g_io_stream_get_type()) { IoStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

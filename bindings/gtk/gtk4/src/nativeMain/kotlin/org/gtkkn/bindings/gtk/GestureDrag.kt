@@ -39,12 +39,9 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `x`: x: Out parameter is not supported
  */
-public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureDrag(public val gtkGestureDragPointer: CPointer<GtkGestureDrag>) :
+    GestureSingle(gtkGestureDragPointer.reinterpret()),
     KGTyped {
-    public val gtkGestureDragPointer: CPointer<GtkGestureDrag>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns a newly created `GtkGesture` that recognizes drags.
      *
@@ -62,7 +59,7 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startX: gdouble, startY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureDragPointer,
         "drag-begin",
         onDragBeginFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -77,7 +74,7 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
      * @param startY Y coordinate, relative to the widget allocation
      */
     public fun emitDragBegin(startX: gdouble, startY: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drag-begin", startX, startY)
+        g_signal_emit_by_name(gtkGestureDragPointer.reinterpret(), "drag-begin", startX, startY)
     }
 
     /**
@@ -90,7 +87,7 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureDragPointer,
         "drag-end",
         onDragEndFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -105,7 +102,7 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
      * @param offsetY Y offset, relative to the start point
      */
     public fun emitDragEnd(offsetX: gdouble, offsetY: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drag-end", offsetX, offsetY)
+        g_signal_emit_by_name(gtkGestureDragPointer.reinterpret(), "drag-end", offsetX, offsetY)
     }
 
     /**
@@ -118,7 +115,7 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offsetX: gdouble, offsetY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureDragPointer,
         "drag-update",
         onDragUpdateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -133,7 +130,7 @@ public open class GestureDrag(pointer: CPointer<GtkGestureDrag>) :
      * @param offsetY Y offset, relative to the start point
      */
     public fun emitDragUpdate(offsetX: gdouble, offsetY: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "drag-update", offsetX, offsetY)
+        g_signal_emit_by_name(gtkGestureDragPointer.reinterpret(), "drag-update", offsetX, offsetY)
     }
 
     public companion object : TypeCompanion<GestureDrag> {

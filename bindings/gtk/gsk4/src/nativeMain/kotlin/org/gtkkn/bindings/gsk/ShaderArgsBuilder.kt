@@ -33,9 +33,8 @@ import kotlin.Unit
 /**
  * An object to build the uniforms data for a `GskGLShader`.
  */
-public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GskShaderArgsBuilder> = pointer
-
+public class ShaderArgsBuilder(public val gskShaderArgsBuilderPointer: CPointer<GskShaderArgsBuilder>) :
+    ProxyInstance(gskShaderArgsBuilderPointer) {
     /**
      * Creates a new `GBytes` args from the current state of the
      * given @builder, and frees the @builder instance.
@@ -46,7 +45,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @return the newly allocated buffer with
      *   all the args added to @builder
      */
-    public fun freeToArgs(): Bytes = gsk_shader_args_builder_free_to_args(gPointer)!!.run {
+    public fun freeToArgs(): Bytes = gsk_shader_args_builder_free_to_args(gskShaderArgsBuilderPointer)!!.run {
         Bytes(this)
     }
 
@@ -55,7 +54,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      *
      * @return the passed in `GskShaderArgsBuilder`
      */
-    public fun ref(): ShaderArgsBuilder = gsk_shader_args_builder_ref(gPointer)!!.run {
+    public fun ref(): ShaderArgsBuilder = gsk_shader_args_builder_ref(gskShaderArgsBuilderPointer)!!.run {
         ShaderArgsBuilder(this)
     }
 
@@ -68,7 +67,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param value value to set the uniform to
      */
     public fun setBool(idx: gint, `value`: Boolean): Unit =
-        gsk_shader_args_builder_set_bool(gPointer, idx, `value`.asGBoolean())
+        gsk_shader_args_builder_set_bool(gskShaderArgsBuilderPointer, idx, `value`.asGBoolean())
 
     /**
      * Sets the value of the uniform @idx.
@@ -78,7 +77,8 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setFloat(idx: gint, `value`: gfloat): Unit = gsk_shader_args_builder_set_float(gPointer, idx, `value`)
+    public fun setFloat(idx: gint, `value`: gfloat): Unit =
+        gsk_shader_args_builder_set_float(gskShaderArgsBuilderPointer, idx, `value`)
 
     /**
      * Sets the value of the uniform @idx.
@@ -88,7 +88,8 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setInt(idx: gint, `value`: gint): Unit = gsk_shader_args_builder_set_int(gPointer, idx, `value`)
+    public fun setInt(idx: gint, `value`: gint): Unit =
+        gsk_shader_args_builder_set_int(gskShaderArgsBuilderPointer, idx, `value`)
 
     /**
      * Sets the value of the uniform @idx.
@@ -98,7 +99,8 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param idx index of the uniform
      * @param value value to set the uniform to
      */
-    public fun setUint(idx: gint, `value`: guint): Unit = gsk_shader_args_builder_set_uint(gPointer, idx, `value`)
+    public fun setUint(idx: gint, `value`: guint): Unit =
+        gsk_shader_args_builder_set_uint(gskShaderArgsBuilderPointer, idx, `value`)
 
     /**
      * Sets the value of the uniform @idx.
@@ -109,7 +111,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param value value to set the uniform too
      */
     public fun setVec2(idx: gint, `value`: Vec2): Unit =
-        gsk_shader_args_builder_set_vec2(gPointer, idx, `value`.gPointer)
+        gsk_shader_args_builder_set_vec2(gskShaderArgsBuilderPointer, idx, `value`.grapheneVec2Pointer)
 
     /**
      * Sets the value of the uniform @idx.
@@ -120,7 +122,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param value value to set the uniform too
      */
     public fun setVec3(idx: gint, `value`: Vec3): Unit =
-        gsk_shader_args_builder_set_vec3(gPointer, idx, `value`.gPointer)
+        gsk_shader_args_builder_set_vec3(gskShaderArgsBuilderPointer, idx, `value`.grapheneVec3Pointer)
 
     /**
      * Sets the value of the uniform @idx.
@@ -131,7 +133,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @param value value to set the uniform too
      */
     public fun setVec4(idx: gint, `value`: Vec4): Unit =
-        gsk_shader_args_builder_set_vec4(gPointer, idx, `value`.gPointer)
+        gsk_shader_args_builder_set_vec4(gskShaderArgsBuilderPointer, idx, `value`.grapheneVec4Pointer)
 
     /**
      * Creates a new `GBytes` args from the current state of the
@@ -149,7 +151,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      * @return the newly allocated buffer with
      *   all the args added to @builder
      */
-    public fun toArgs(): Bytes = gsk_shader_args_builder_to_args(gPointer)!!.run {
+    public fun toArgs(): Bytes = gsk_shader_args_builder_to_args(gskShaderArgsBuilderPointer)!!.run {
         Bytes(this)
     }
 
@@ -158,7 +160,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
      *
      * If the resulting reference count is zero, frees the builder.
      */
-    public fun unref(): Unit = gsk_shader_args_builder_unref(gPointer)
+    public fun unref(): Unit = gsk_shader_args_builder_unref(gskShaderArgsBuilderPointer)
 
     public companion object {
         /**
@@ -171,7 +173,7 @@ public class ShaderArgsBuilder(pointer: CPointer<GskShaderArgsBuilder>) : ProxyI
          *     [method@Gsk.ShaderArgsBuilder.unref]
          */
         public fun new(shader: GlShader, initialValues: Bytes? = null): ShaderArgsBuilder = ShaderArgsBuilder(
-            gsk_shader_args_builder_new(shader.gskGlShaderPointer, initialValues?.gPointer)!!.reinterpret()
+            gsk_shader_args_builder_new(shader.gskGlShaderPointer, initialValues?.glibBytesPointer)!!.reinterpret()
         )
 
         /**

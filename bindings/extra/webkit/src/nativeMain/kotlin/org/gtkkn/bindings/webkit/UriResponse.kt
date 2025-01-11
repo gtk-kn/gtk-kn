@@ -30,12 +30,9 @@ import kotlin.String
  * status code, the content length, the mime type, the HTTP status or
  * the suggested filename.
  */
-public class UriResponse(pointer: CPointer<WebKitURIResponse>) :
-    Object(pointer.reinterpret()),
+public class UriResponse(public val webkitUriResponsePointer: CPointer<WebKitURIResponse>) :
+    Object(webkitUriResponsePointer.reinterpret()),
     KGTyped {
-    public val webkitUriResponsePointer: CPointer<WebKitURIResponse>
-        get() = gPointer.reinterpret()
-
     /**
      * The expected content length of the response.
      */

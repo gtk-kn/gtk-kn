@@ -49,12 +49,9 @@ import kotlin.Unit
  * @since 1.8
  */
 @PangoVersion1_8
-public open class Renderer(pointer: CPointer<PangoRenderer>) :
-    Object(pointer.reinterpret()),
+public abstract class Renderer(public val pangoRendererPointer: CPointer<PangoRenderer>) :
+    Object(pangoRendererPointer.reinterpret()),
     KGTyped {
-    public val pangoRendererPointer: CPointer<PangoRenderer>
-        get() = gPointer.reinterpret()
-
     /**
      * Does initial setup before rendering operations on @renderer.
      *
@@ -145,7 +142,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_22
     public open fun drawGlyphItem(text: String? = null, glyphItem: GlyphItem, x: gint, y: gint): Unit =
-        pango_renderer_draw_glyph_item(pangoRendererPointer, text, glyphItem.gPointer, x, y)
+        pango_renderer_draw_glyph_item(pangoRendererPointer, text, glyphItem.pangoGlyphItemPointer, x, y)
 
     /**
      * Draws the glyphs in @glyphs with the specified `PangoRenderer`.
@@ -160,7 +157,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawGlyphs(font: Font, glyphs: GlyphString, x: gint, y: gint): Unit =
-        pango_renderer_draw_glyphs(pangoRendererPointer, font.pangoFontPointer, glyphs.gPointer, x, y)
+        pango_renderer_draw_glyphs(pangoRendererPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer, x, y)
 
     /**
      * Draws @layout with the specified `PangoRenderer`.
@@ -195,7 +192,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun drawLayoutLine(line: LayoutLine, x: gint, y: gint): Unit =
-        pango_renderer_draw_layout_line(pangoRendererPointer, line.gPointer, x, y)
+        pango_renderer_draw_layout_line(pangoRendererPointer, line.pangoLayoutLinePointer, x, y)
 
     /**
      * Draws an axis-aligned rectangle in user space coordinates with the
@@ -370,7 +367,7 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun setColor(part: RenderPart, color: Color? = null): Unit =
-        pango_renderer_set_color(pangoRendererPointer, part.nativeValue, color?.gPointer)
+        pango_renderer_set_color(pangoRendererPointer, part.nativeValue, color?.pangoColorPointer)
 
     /**
      * Sets the transformation matrix that will be applied when rendering.
@@ -381,11 +378,18 @@ public open class Renderer(pointer: CPointer<PangoRenderer>) :
      */
     @PangoVersion1_8
     public open fun setMatrix(matrix: Matrix? = null): Unit =
-        pango_renderer_set_matrix(pangoRendererPointer, matrix?.gPointer)
+        pango_renderer_set_matrix(pangoRendererPointer, matrix?.pangoMatrixPointer)
+
+    /**
+     * The RendererImpl type represents a native instance of the abstract Renderer class.
+     *
+     * @constructor Creates a new instance of Renderer for the provided [CPointer].
+     */
+    public class RendererImpl(pointer: CPointer<PangoRenderer>) : Renderer(pointer)
 
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-            GeneratedClassKGType(pango_renderer_get_type()) { Renderer(it.reinterpret()) }
+            GeneratedClassKGType(pango_renderer_get_type()) { RendererImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

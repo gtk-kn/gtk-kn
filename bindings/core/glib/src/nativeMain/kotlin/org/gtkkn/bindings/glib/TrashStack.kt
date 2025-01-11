@@ -37,22 +37,21 @@ import kotlin.native.ref.createCleaner
  * - parameter `stack_p`: Unsupported pointer-to-pointer cType GTrashStack**
  * - parameter `stack_p`: Unsupported pointer-to-pointer cType GTrashStack**
  */
-public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTrashStack> = pointer
-
+public class TrashStack(public val glibTrashStackPointer: CPointer<GTrashStack>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibTrashStackPointer) {
     /**
      * pointer to the previous element of the stack,
      *     gets stored in the first `sizeof (gpointer)`
      *     bytes of the element
      */
     public var next: TrashStack?
-        get() = gPointer.pointed.next?.run {
+        get() = glibTrashStackPointer.pointed.next?.run {
             TrashStack(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.next = value?.gPointer
+            glibTrashStackPointer.pointed.next = value?.glibTrashStackPointer
         }
 
     /**
@@ -73,7 +72,9 @@ public class TrashStack(pointer: CPointer<GTrashStack>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to TrashStack and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTrashStack>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTrashStack>, Cleaner>,
+    ) : this(glibTrashStackPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TrashStack using the provided [AutofreeScope].

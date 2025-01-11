@@ -47,12 +47,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  * handle for instance startup notification and launching the new application
  * on the same screen as the launching window.
  */
-public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
-    Object(pointer.reinterpret()),
+public open class AppLaunchContext(public val gioAppLaunchContextPointer: CPointer<GAppLaunchContext>) :
+    Object(gioAppLaunchContextPointer.reinterpret()),
     KGTyped {
-    public val gioAppLaunchContextPointer: CPointer<GAppLaunchContext>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new application launch context. This is not normally used,
      * instead you instantiate a subclass of this, such as #GdkAppLaunchContext.
@@ -73,7 +70,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
     public open fun getDisplay(info: AppInfo, files: GlibList): String? = g_app_launch_context_get_display(
         gioAppLaunchContextPointer,
         info.gioAppInfoPointer,
-        files.gPointer
+        files.glibListPointer
     )?.toKString()
 
     /**
@@ -114,7 +111,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
         g_app_launch_context_get_startup_notify_id(
             gioAppLaunchContextPointer,
             info.gioAppInfoPointer,
-            files.gPointer
+            files.glibListPointer
         )?.toKString()
 
     /**
@@ -167,7 +164,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (startupNotifyId: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioAppLaunchContextPointer,
         "launch-failed",
         onLaunchFailedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -183,7 +180,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     @GioVersion2_36
     public fun emitLaunchFailed(startupNotifyId: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "launch-failed", startupNotifyId.cstr)
+        g_signal_emit_by_name(gioAppLaunchContextPointer.reinterpret(), "launch-failed", startupNotifyId.cstr)
     }
 
     /**
@@ -215,7 +212,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (info: AppInfo, platformData: Variant?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioAppLaunchContextPointer,
         "launch-started",
         onLaunchStartedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -232,7 +229,12 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     @GioVersion2_72
     public fun emitLaunchStarted(info: AppInfo, platformData: Variant?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "launch-started", info.gioAppInfoPointer, platformData?.gPointer)
+        g_signal_emit_by_name(
+            gioAppLaunchContextPointer.reinterpret(),
+            "launch-started",
+            info.gioAppInfoPointer,
+            platformData?.glibVariantPointer
+        )
     }
 
     /**
@@ -266,7 +268,7 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (info: AppInfo, platformData: Variant) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioAppLaunchContextPointer,
         "launched",
         onLaunchedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -283,7 +285,12 @@ public open class AppLaunchContext(pointer: CPointer<GAppLaunchContext>) :
      */
     @GioVersion2_36
     public fun emitLaunched(info: AppInfo, platformData: Variant) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "launched", info.gioAppInfoPointer, platformData.gPointer)
+        g_signal_emit_by_name(
+            gioAppLaunchContextPointer.reinterpret(),
+            "launched",
+            info.gioAppInfoPointer,
+            platformData.glibVariantPointer
+        )
     }
 
     public companion object : TypeCompanion<AppLaunchContext> {
@@ -323,7 +330,7 @@ private val onLaunchStartedFunc:
         ->
         userData.asStableRef<(info: AppInfo, platformData: Variant?) -> Unit>().get().invoke(
             info!!.run {
-                AppInfo.wrap(reinterpret())
+                AppInfo.AppInfoImpl(reinterpret())
             },
             platformData?.run {
                 Variant(this)
@@ -341,7 +348,7 @@ private val onLaunchedFunc: CPointer<CFunction<(CPointer<GAppInfo>, CPointer<GVa
         ->
         userData.asStableRef<(info: AppInfo, platformData: Variant) -> Unit>().get().invoke(
             info!!.run {
-                AppInfo.wrap(reinterpret())
+                AppInfo.AppInfoImpl(reinterpret())
             },
             platformData!!.run {
                 Variant(this)

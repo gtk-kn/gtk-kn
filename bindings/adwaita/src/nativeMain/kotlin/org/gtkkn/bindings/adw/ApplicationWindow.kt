@@ -64,35 +64,32 @@ import kotlin.Unit
  * Using [property@Gtk.Application:menubar] is not supported and may result in
  * visual glitches.
  */
-public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
-    org.gtkkn.bindings.gtk.ApplicationWindow(pointer.reinterpret()),
+public open class ApplicationWindow(public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>) :
+    org.gtkkn.bindings.gtk.ApplicationWindow(adwApplicationWindowPointer.reinterpret()),
     KGTyped {
-    public val adwApplicationWindowPointer: CPointer<AdwApplicationWindow>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioActionMapPointer: CPointer<GActionMap>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The content widget.
@@ -108,7 +105,7 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          * @return the content widget of @self
          */
         get() = adw_application_window_get_content(adwApplicationWindowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -153,7 +150,7 @@ public open class ApplicationWindow(pointer: CPointer<AdwApplicationWindow>) :
          * @since 1.5
          */
         get() = adw_application_window_get_dialogs(adwApplicationWindowPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**

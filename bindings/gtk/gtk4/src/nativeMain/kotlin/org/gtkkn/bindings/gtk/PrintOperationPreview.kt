@@ -9,7 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -38,7 +39,7 @@ import kotlin.Unit
  * [class@Gtk.PrintOperation].
  */
 public interface PrintOperationPreview :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>
 
@@ -118,19 +119,25 @@ public interface PrintOperationPreview :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GtkPrintOperationPreview>) : PrintOperationPreview {
-        override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview> = pointer
-    }
+    /**
+     * The PrintOperationPreviewImpl type represents a native instance of the PrintOperationPreview interface.
+     *
+     * @constructor Creates a new instance of PrintOperationPreview for the provided [CPointer].
+     */
+    public data class PrintOperationPreviewImpl(
+        override val gtkPrintOperationPreviewPointer: CPointer<GtkPrintOperationPreview>,
+    ) : Object(gtkPrintOperationPreviewPointer.reinterpret()),
+        PrintOperationPreview
 
     public companion object : TypeCompanion<PrintOperationPreview> {
         override val type: GeneratedInterfaceKGType<PrintOperationPreview> =
-            GeneratedInterfaceKGType(gtk_print_operation_preview_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_print_operation_preview_get_type()) {
+                PrintOperationPreviewImpl(it.reinterpret())
+            }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkPrintOperationPreview>): PrintOperationPreview = Wrapper(pointer)
 
         /**
          * Get the GType of PrintOperationPreview

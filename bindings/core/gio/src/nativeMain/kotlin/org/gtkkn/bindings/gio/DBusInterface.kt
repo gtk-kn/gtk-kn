@@ -5,7 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -27,7 +28,7 @@ import kotlin.Unit
  */
 @GioVersion2_30
 public interface DBusInterface :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioDBusInterfacePointer: CPointer<GDBusInterface>
 
@@ -40,7 +41,7 @@ public interface DBusInterface :
      */
     @GioVersion2_32
     public fun getObject(): DBusObject? = g_dbus_interface_dup_object(gioDBusInterfacePointer)?.run {
-        DBusObject.wrap(reinterpret())
+        DBusObject.DBusObjectImpl(reinterpret())
     }
 
     /**
@@ -67,19 +68,22 @@ public interface DBusInterface :
     public fun setObject(`object`: DBusObject? = null): Unit =
         g_dbus_interface_set_object(gioDBusInterfacePointer, `object`?.gioDBusObjectPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GDBusInterface>) : DBusInterface {
-        override val gioDBusInterfacePointer: CPointer<GDBusInterface> = pointer
-    }
+    /**
+     * The DBusInterfaceImpl type represents a native instance of the DBusInterface interface.
+     *
+     * @constructor Creates a new instance of DBusInterface for the provided [CPointer].
+     */
+    public data class DBusInterfaceImpl(override val gioDBusInterfacePointer: CPointer<GDBusInterface>) :
+        Object(gioDBusInterfacePointer.reinterpret()),
+        DBusInterface
 
     public companion object : TypeCompanion<DBusInterface> {
         override val type: GeneratedInterfaceKGType<DBusInterface> =
-            GeneratedInterfaceKGType(g_dbus_interface_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_dbus_interface_get_type()) { DBusInterfaceImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDBusInterface>): DBusInterface = Wrapper(pointer)
 
         /**
          * Get the GType of DBusInterface

@@ -14,20 +14,17 @@ import org.gtkkn.native.gtk.GtkConstraintTarget
 import org.gtkkn.native.webkit.WebKitWebViewBase
 import org.gtkkn.native.webkit.webkit_web_view_base_get_type
 
-public open class WebViewBase(pointer: CPointer<WebKitWebViewBase>) :
-    Widget(pointer.reinterpret()),
+public open class WebViewBase(public val webkitWebViewBasePointer: CPointer<WebKitWebViewBase>) :
+    Widget(webkitWebViewBasePointer.reinterpret()),
     KGTyped {
-    public val webkitWebViewBasePointer: CPointer<WebKitWebViewBase>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<WebViewBase> {
         override val type: GeneratedClassKGType<WebViewBase> =

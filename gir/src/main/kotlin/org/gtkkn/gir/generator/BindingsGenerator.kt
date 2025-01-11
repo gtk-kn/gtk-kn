@@ -352,6 +352,7 @@ class BindingsGenerator(
         internal val GOBJECT_KG_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGType")
         internal val GOBJECT_TYPE_COMPANION = ClassName("org.gtkkn.extensions.gobject", "TypeCompanion")
         internal val KG_TYPED_INTERFACE_TYPE = ClassName("org.gtkkn.extensions.gobject", "KGTyped")
+        internal val PROXY_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "Proxy")
         internal val PROXY_INSTANCE_TYPE = ClassName("org.gtkkn.extensions.glib.cinterop", "ProxyInstance")
         internal val STATIC_STABLEREF_DESTROY = MemberName("org.gtkkn.extensions.glib", "staticStableRefDestroy")
         internal val TO_C_STRING_LIST = MemberName("org.gtkkn.extensions.glib.ext", "toCStringList")
@@ -363,7 +364,6 @@ class BindingsGenerator(
 
         // gtk-kn marker interfaces
         internal val GLIB_BITFIELD_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Bitfield")
-        internal val GLIB_INTERFACE_MARKER_TYPE = ClassName("org.gtkkn.extensions.glib", "Interface")
 
         // cinterop helper function members
         internal val ALLOC_POINTER_TO = MemberName("kotlinx.cinterop", "allocPointerTo")
@@ -407,9 +407,11 @@ class BindingsGenerator(
         internal val THROWS_TYPE = ClassName("kotlin", "Throws")
 
         // gobject
-        internal val G_OBJECT = ClassName("org.gtkkn.bindings.gobject", "GObject")
+        internal val G_OBJECT = ClassName("org.gtkkn.bindings.gobject", "Object")
         internal val G_SIGNAL_CONNECT_DATA = MemberName("org.gtkkn.native.gobject", "g_signal_connect_data")
         internal val G_SIGNAL_EMIT_BY_NAME = MemberName("org.gtkkn.native.gobject", "g_signal_emit_by_name")
+        internal val G_STRDUP_VALUE_CONTENTS = MemberName("org.gtkkn.bindings.gobject", "GObject.strdupValueContents")
+        internal val G_TYPE_INSTANCE = ClassName("org.gtkkn.bindings.gobject", "TypeInstance")
 
         // glib
         internal val G_ERROR_MEMBER = MemberName("org.gtkkn.native.glib", "GError")

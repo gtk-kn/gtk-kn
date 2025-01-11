@@ -57,9 +57,7 @@ import kotlin.Unit
  * The structure is opaque -- none of its fields may be directly
  * accessed.
  */
-public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GThread> = pointer
-
+public class Thread(public val glibThreadPointer: CPointer<GThread>) : ProxyInstance(glibThreadPointer) {
     /**
      * Waits until @thread finishes, i.e. the function @func, as
      * given to g_thread_new(), returns or g_thread_exit() is called.
@@ -80,7 +78,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      *
      * @return the return value of the thread
      */
-    public fun join(): gpointer? = g_thread_join(gPointer)
+    public fun join(): gpointer? = g_thread_join(glibThreadPointer)
 
     /**
      * Increase the reference count on @thread.
@@ -89,7 +87,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun ref(): Thread = g_thread_ref(gPointer)!!.run {
+    public fun ref(): Thread = g_thread_ref(glibThreadPointer)!!.run {
         Thread(this)
     }
 
@@ -98,7 +96,8 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      *
      * @param priority ignored
      */
-    public fun setPriority(priority: ThreadPriority): Unit = g_thread_set_priority(gPointer, priority.nativeValue)
+    public fun setPriority(priority: ThreadPriority): Unit =
+        g_thread_set_priority(glibThreadPointer, priority.nativeValue)
 
     /**
      * Decrease the reference count on @thread, possibly freeing all
@@ -111,7 +110,7 @@ public class Thread(pointer: CPointer<GThread>) : ProxyInstance(pointer) {
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unref(): Unit = g_thread_unref(gPointer)
+    public fun unref(): Unit = g_thread_unref(glibThreadPointer)
 
     public companion object {
         /**

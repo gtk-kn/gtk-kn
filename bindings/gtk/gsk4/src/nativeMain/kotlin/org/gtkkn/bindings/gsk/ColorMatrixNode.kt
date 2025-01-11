@@ -19,12 +19,9 @@ import org.gtkkn.native.gsk.gsk_color_matrix_node_new
 /**
  * A render node controlling the color matrix of its single child node.
  */
-public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ColorMatrixNode(public val gskColorMatrixNodePointer: CPointer<GskColorMatrixNode>) :
+    RenderNode(gskColorMatrixNodePointer.reinterpret()),
     KGTyped {
-    public val gskColorMatrixNodePointer: CPointer<GskColorMatrixNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will drawn the @child with
      * @color_matrix.
@@ -45,7 +42,13 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
         child: RenderNode,
         colorMatrix: Matrix,
         colorOffset: Vec4,
-    ) : this(gsk_color_matrix_node_new(child.gPointer, colorMatrix.gPointer, colorOffset.gPointer)!!.reinterpret())
+    ) : this(
+        gsk_color_matrix_node_new(
+            child.gskRenderNodePointer,
+            colorMatrix.grapheneMatrixPointer,
+            colorOffset.grapheneVec4Pointer
+        )!!.reinterpret()
+    )
 
     /**
      * Gets the child node that is getting its colors modified by the given @node.
@@ -54,7 +57,7 @@ public open class ColorMatrixNode(pointer: CPointer<GskColorMatrixNode>) :
      */
     public open fun getChild(): RenderNode =
         gsk_color_matrix_node_get_child(gskColorMatrixNodePointer.reinterpret())!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     /**

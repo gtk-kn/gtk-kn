@@ -23,30 +23,29 @@ import kotlin.native.ref.createCleaner
  * Associates a string with a bit flag.
  * Used in g_parse_debug_string().
  */
-public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDebugKey> = pointer
-
+public class DebugKey(public val glibDebugKeyPointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibDebugKeyPointer) {
     /**
      * the string
      */
     public var key: String?
-        get() = gPointer.pointed.key?.toKString()
+        get() = glibDebugKeyPointer.pointed.key?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.key?.let { g_free(it) }
-            gPointer.pointed.key = value?.let { g_strdup(it) }
+            glibDebugKeyPointer.pointed.key?.let { g_free(it) }
+            glibDebugKeyPointer.pointed.key = value?.let { g_strdup(it) }
         }
 
     /**
      * the flag
      */
     public var `value`: guint
-        get() = gPointer.pointed.value
+        get() = glibDebugKeyPointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value
+            glibDebugKeyPointer.pointed.value = value
         }
 
     /**
@@ -67,7 +66,9 @@ public class DebugKey(pointer: CPointer<GDebugKey>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to DebugKey and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GDebugKey>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GDebugKey>, Cleaner>,
+    ) : this(glibDebugKeyPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DebugKey using the provided [AutofreeScope].

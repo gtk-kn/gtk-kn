@@ -44,15 +44,12 @@ import kotlin.Unit
  * truncating, use [method@Gio.Seekable.can_truncate]. To truncate a file output
  * stream, use [method@Gio.Seekable.truncate].
  */
-public open class FileOutputStream(pointer: CPointer<GFileOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class FileOutputStream(public val gioFileOutputStreamPointer: CPointer<GFileOutputStream>) :
+    OutputStream(gioFileOutputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioFileOutputStreamPointer: CPointer<GFileOutputStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Gets the entity tag for the file when it has been written.

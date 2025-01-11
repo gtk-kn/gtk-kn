@@ -20,12 +20,9 @@ import kotlin.String
 /**
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
  */
-public class EnumListItem(pointer: CPointer<AdwEnumListItem>) :
-    Object(pointer.reinterpret()),
+public class EnumListItem(public val adwEnumListItemPointer: CPointer<AdwEnumListItem>) :
+    Object(adwEnumListItemPointer.reinterpret()),
     KGTyped {
-    public val adwEnumListItemPointer: CPointer<AdwEnumListItem>
-        get() = gPointer.reinterpret()
-
     /**
      * The enum value name.
      */

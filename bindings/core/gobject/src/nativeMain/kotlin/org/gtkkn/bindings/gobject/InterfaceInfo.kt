@@ -25,18 +25,19 @@ import kotlin.native.ref.createCleaner
  * - field `interface_init`: InterfaceInitFunc
  * - field `interface_finalize`: InterfaceFinalizeFunc
  */
-public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GInterfaceInfo> = pointer
-
+public class InterfaceInfo(
+    public val gobjectInterfaceInfoPointer: CPointer<GInterfaceInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectInterfaceInfoPointer) {
     /**
      * user-supplied data passed to the interface init/finalize functions
      */
     public var interfaceData: gpointer
-        get() = gPointer.pointed.interface_data!!
+        get() = gobjectInterfaceInfoPointer.pointed.interface_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.interface_data = value
+            gobjectInterfaceInfoPointer.pointed.interface_data = value
         }
 
     /**
@@ -59,7 +60,7 @@ public class InterfaceInfo(pointer: CPointer<GInterfaceInfo>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GInterfaceInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectInterfaceInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new InterfaceInfo using the provided [AutofreeScope].

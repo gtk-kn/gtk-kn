@@ -33,9 +33,10 @@ import kotlin.native.ref.createCleaner
  * - field `collect_value`: TypeValueCollectFunc
  * - field `lcopy_value`: TypeValueLCopyFunc
  */
-public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTypeValueTable> = pointer
-
+public class TypeValueTable(
+    public val gobjectTypeValueTablePointer: CPointer<GTypeValueTable>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectTypeValueTablePointer) {
     /**
      * A string format describing how to collect the contents of
      *   this value bit-by-bit. Each character in the format represents
@@ -51,12 +52,12 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      *   needs to be used, and for collection of floats `'d'`.
      */
     public var collectFormat: String?
-        get() = gPointer.pointed.collect_format?.toKString()
+        get() = gobjectTypeValueTablePointer.pointed.collect_format?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.collect_format?.let { g_free(it) }
-            gPointer.pointed.collect_format = value?.let { g_strdup(it) }
+            gobjectTypeValueTablePointer.pointed.collect_format?.let { g_free(it) }
+            gobjectTypeValueTablePointer.pointed.collect_format = value?.let { g_strdup(it) }
         }
 
     /**
@@ -65,12 +66,12 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      *   only of `'p'`s to provide lcopy_value() with pointers to storage locations.
      */
     public var lcopyFormat: String?
-        get() = gPointer.pointed.lcopy_format?.toKString()
+        get() = gobjectTypeValueTablePointer.pointed.lcopy_format?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.lcopy_format?.let { g_free(it) }
-            gPointer.pointed.lcopy_format = value?.let { g_strdup(it) }
+            gobjectTypeValueTablePointer.pointed.lcopy_format?.let { g_free(it) }
+            gobjectTypeValueTablePointer.pointed.lcopy_format = value?.let { g_strdup(it) }
         }
 
     /**
@@ -93,7 +94,7 @@ public class TypeValueTable(pointer: CPointer<GTypeValueTable>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GTypeValueTable>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectTypeValueTablePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeValueTable using the provided [AutofreeScope].

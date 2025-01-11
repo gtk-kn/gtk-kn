@@ -21,12 +21,9 @@ import org.gtkkn.native.gsk.gsk_border_node_get_type
  * - method `get_widths`: Array parameter of type gfloat is not supported
  * - parameter `border_width`: Array parameter of type gfloat is not supported
  */
-public open class BorderNode(pointer: CPointer<GskBorderNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class BorderNode(public val gskBorderNodePointer: CPointer<GskBorderNode>) :
+    RenderNode(gskBorderNodePointer.reinterpret()),
     KGTyped {
-    public val gskBorderNodePointer: CPointer<GskBorderNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Retrieves the colors of the border.
      *

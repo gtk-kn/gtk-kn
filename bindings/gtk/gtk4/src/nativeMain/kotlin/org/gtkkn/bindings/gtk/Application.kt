@@ -123,17 +123,14 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - method `register-session`: Property has no getter nor setter
  * - method `screensaver-active`: Property has no getter nor setter
  */
-public open class Application(pointer: CPointer<GtkApplication>) :
-    org.gtkkn.bindings.gio.Application(pointer.reinterpret()),
+public open class Application(public val gtkApplicationPointer: CPointer<GtkApplication>) :
+    org.gtkkn.bindings.gio.Application(gtkApplicationPointer.reinterpret()),
     KGTyped {
-    public val gtkApplicationPointer: CPointer<GtkApplication>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioActionMapPointer: CPointer<GActionMap>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The currently focused window of the application.
@@ -164,7 +161,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
          * @return the menubar for windows of `application`
          */
         get() = gtk_application_get_menubar(gtkApplicationPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -439,7 +436,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
      */
     public fun onQueryEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkApplicationPointer,
             "query-end",
             onQueryEndFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -451,7 +448,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
      * Emits the "query-end" signal. See [onQueryEnd].
      */
     public fun emitQueryEnd() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "query-end")
+        g_signal_emit_by_name(gtkApplicationPointer.reinterpret(), "query-end")
     }
 
     /**
@@ -463,7 +460,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
      */
     public fun onWindowAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (window: Window) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkApplicationPointer,
             "window-added",
             onWindowAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -477,7 +474,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
      * @param window the newly-added [class@Gtk.Window]
      */
     public fun emitWindowAdded(window: Window) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "window-added", window.gtkWindowPointer)
+        g_signal_emit_by_name(gtkApplicationPointer.reinterpret(), "window-added", window.gtkWindowPointer)
     }
 
     /**
@@ -493,7 +490,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (window: Window) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkApplicationPointer,
         "window-removed",
         onWindowRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -507,7 +504,7 @@ public open class Application(pointer: CPointer<GtkApplication>) :
      * @param window the [class@Gtk.Window] that is being removed
      */
     public fun emitWindowRemoved(window: Window) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "window-removed", window.gtkWindowPointer)
+        g_signal_emit_by_name(gtkApplicationPointer.reinterpret(), "window-removed", window.gtkWindowPointer)
     }
 
     public companion object : TypeCompanion<Application> {

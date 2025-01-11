@@ -17,12 +17,9 @@ import org.gtkkn.native.gsk.gsk_repeat_node_new
 /**
  * A render node repeating its single child node.
  */
-public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class RepeatNode(public val gskRepeatNodePointer: CPointer<GskRepeatNode>) :
+    RenderNode(gskRepeatNodePointer.reinterpret()),
     KGTyped {
-    public val gskRepeatNodePointer: CPointer<GskRepeatNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will repeat the drawing of @child across
      * the given @bounds.
@@ -37,7 +34,13 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
         bounds: Rect,
         child: RenderNode,
         childBounds: Rect? = null,
-    ) : this(gsk_repeat_node_new(bounds.gPointer, child.gPointer, childBounds?.gPointer)!!.reinterpret())
+    ) : this(
+        gsk_repeat_node_new(
+            bounds.grapheneRectPointer,
+            child.gskRenderNodePointer,
+            childBounds?.grapheneRectPointer
+        )!!.reinterpret()
+    )
 
     /**
      * Retrieves the child of @node.
@@ -45,7 +48,7 @@ public open class RepeatNode(pointer: CPointer<GskRepeatNode>) :
      * @return a `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_repeat_node_get_child(gskRepeatNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

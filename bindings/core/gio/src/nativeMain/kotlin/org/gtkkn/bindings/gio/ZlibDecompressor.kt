@@ -23,15 +23,12 @@ import org.gtkkn.native.gobject.GType
  *
  * - method `format`: Property has no getter nor setter
  */
-public open class ZlibDecompressor(pointer: CPointer<GZlibDecompressor>) :
-    Object(pointer.reinterpret()),
+public open class ZlibDecompressor(public val gioZlibDecompressorPointer: CPointer<GZlibDecompressor>) :
+    Object(gioZlibDecompressorPointer.reinterpret()),
     Converter,
     KGTyped {
-    public val gioZlibDecompressorPointer: CPointer<GZlibDecompressor>
-        get() = gPointer.reinterpret()
-
     override val gioConverterPointer: CPointer<GConverter>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A #GFileInfo containing the information found in the GZIP header

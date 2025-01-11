@@ -38,20 +38,17 @@ import kotlin.Unit
  *
  * - method `stack`: Property TypeInfo of getter and setter do not match
  */
-public open class StackSidebar(pointer: CPointer<GtkStackSidebar>) :
-    Widget(pointer.reinterpret()),
+public open class StackSidebar(public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>) :
+    Widget(gtkStackSidebarPointer.reinterpret()),
     KGTyped {
-    public val gtkStackSidebarPointer: CPointer<GtkStackSidebar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkStackSidebar`.

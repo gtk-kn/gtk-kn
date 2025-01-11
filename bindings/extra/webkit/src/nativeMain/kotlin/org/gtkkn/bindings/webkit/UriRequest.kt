@@ -27,12 +27,9 @@ import kotlin.String
  * webkit_uri_request_new() method, and you can get the URI of an
  * existing request with the webkit_uri_request_get_uri() one.
  */
-public class UriRequest(pointer: CPointer<WebKitURIRequest>) :
-    Object(pointer.reinterpret()),
+public class UriRequest(public val webkitUriRequestPointer: CPointer<WebKitURIRequest>) :
+    Object(webkitUriRequestPointer.reinterpret()),
     KGTyped {
-    public val webkitUriRequestPointer: CPointer<WebKitURIRequest>
-        get() = gPointer.reinterpret()
-
     /**
      * The URI to which the request will be made.
      */

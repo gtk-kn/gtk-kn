@@ -39,20 +39,17 @@ import kotlin.Unit
  * When the animation is active, the :checked pseudoclass is
  * added to this node.
  */
-public open class Spinner(pointer: CPointer<GtkSpinner>) :
-    Widget(pointer.reinterpret()),
+public open class Spinner(public val gtkSpinnerPointer: CPointer<GtkSpinner>) :
+    Widget(gtkSpinnerPointer.reinterpret()),
     KGTyped {
-    public val gtkSpinnerPointer: CPointer<GtkSpinner>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the spinner is spinning

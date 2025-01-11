@@ -17,12 +17,10 @@ import org.gtkkn.native.gsk.gsk_repeating_linear_gradient_node_get_type
  *
  * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
-public open class RepeatingLinearGradientNode(pointer: CPointer<GskRepeatingLinearGradientNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class RepeatingLinearGradientNode(
+    public val gskRepeatingLinearGradientNodePointer: CPointer<GskRepeatingLinearGradientNode>,
+) : RenderNode(gskRepeatingLinearGradientNodePointer.reinterpret()),
     KGTyped {
-    public val gskRepeatingLinearGradientNodePointer: CPointer<GskRepeatingLinearGradientNode>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<RepeatingLinearGradientNode> {
         override val type: GeneratedClassKGType<RepeatingLinearGradientNode> =
             GeneratedClassKGType(gsk_repeating_linear_gradient_node_get_type()) {

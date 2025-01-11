@@ -102,29 +102,26 @@ import kotlin.Unit
  *
  * - method `print-settings`: Property has no getter nor setter
  */
-public open class PrintUnixDialog(pointer: CPointer<GtkPrintUnixDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class PrintUnixDialog(public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>) :
+    Dialog(gtkPrintUnixDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkPrintUnixDialogPointer: CPointer<GtkPrintUnixDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The current page in the document.

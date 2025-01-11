@@ -14,12 +14,9 @@ import org.gtkkn.native.gtk.gtk_never_trigger_get_type
 /**
  * A `GtkShortcutTrigger` that never triggers.
  */
-public open class NeverTrigger(pointer: CPointer<GtkNeverTrigger>) :
-    ShortcutTrigger(pointer.reinterpret()),
+public open class NeverTrigger(public val gtkNeverTriggerPointer: CPointer<GtkNeverTrigger>) :
+    ShortcutTrigger(gtkNeverTriggerPointer.reinterpret()),
     KGTyped {
-    public val gtkNeverTriggerPointer: CPointer<GtkNeverTrigger>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<NeverTrigger> {
         override val type: GeneratedClassKGType<NeverTrigger> =
             GeneratedClassKGType(gtk_never_trigger_get_type()) { NeverTrigger(it.reinterpret()) }

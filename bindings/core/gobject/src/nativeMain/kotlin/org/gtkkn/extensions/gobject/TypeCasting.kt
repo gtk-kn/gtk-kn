@@ -45,7 +45,7 @@ internal object TypeCasting {
         val kgType = userDefinedTypeMap[targetClass] ?: resolveTypeFromProviders(targetClass)
 
         @Suppress("UNCHECKED_CAST")
-        return kgType?.convertPointerFunc?.invoke(obj.gPointer.reinterpret()) as? T
+        return kgType?.convertPointerFunc?.invoke(obj.gobjectObjectPointer.reinterpret()) as? T
             ?: error("Cannot cast to ${targetClass.simpleName}")
     }
 

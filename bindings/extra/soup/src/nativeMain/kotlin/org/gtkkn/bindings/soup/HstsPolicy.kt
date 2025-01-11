@@ -48,15 +48,14 @@ import kotlin.Unit
  * If @include_subdomains is true, the Strict Transport Security policy
  * must also be enforced on subdomains of @domain.
  */
-public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<SoupHSTSPolicy> = pointer
-
+public class HstsPolicy(public val soupHstsPolicyPointer: CPointer<SoupHSTSPolicy>) :
+    ProxyInstance(soupHstsPolicyPointer) {
     /**
      * Copies @policy.
      *
      * @return a copy of @policy
      */
-    public fun copy(): HstsPolicy = soup_hsts_policy_copy(gPointer)!!.run {
+    public fun copy(): HstsPolicy = soup_hsts_policy_copy(soupHstsPolicyPointer)!!.run {
         HstsPolicy(this)
     }
 
@@ -66,12 +65,13 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      * @param policy2 a #SoupHSTSPolicy
      * @return whether the policies are equal.
      */
-    public fun equal(policy2: HstsPolicy): Boolean = soup_hsts_policy_equal(gPointer, policy2.gPointer).asBoolean()
+    public fun equal(policy2: HstsPolicy): Boolean =
+        soup_hsts_policy_equal(soupHstsPolicyPointer, policy2.soupHstsPolicyPointer).asBoolean()
 
     /**
      * Frees @policy.
      */
-    public fun free(): Unit = soup_hsts_policy_free(gPointer)
+    public fun free(): Unit = soup_hsts_policy_free(soupHstsPolicyPointer)
 
     /**
      * Gets @policy's domain.
@@ -79,14 +79,14 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      * @return @policy's domain.
      */
     public fun getDomain(): String =
-        soup_hsts_policy_get_domain(gPointer)?.toKString() ?: error("Expected not null string")
+        soup_hsts_policy_get_domain(soupHstsPolicyPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the expiration date for @policy.
      *
      * @return A #GDateTime or null if unset
      */
-    public fun getExpires(): DateTime = soup_hsts_policy_get_expires(gPointer)!!.run {
+    public fun getExpires(): DateTime = soup_hsts_policy_get_expires(soupHstsPolicyPointer)!!.run {
         DateTime(this)
     }
 
@@ -95,14 +95,14 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return Max age in seconds
      */
-    public fun getMaxAge(): gulong = soup_hsts_policy_get_max_age(gPointer)
+    public fun getMaxAge(): gulong = soup_hsts_policy_get_max_age(soupHstsPolicyPointer)
 
     /**
      * Gets whether @policy include its subdomains.
      *
      * @return true if @policy includes subdomains, false otherwise.
      */
-    public fun includesSubdomains(): Boolean = soup_hsts_policy_includes_subdomains(gPointer).asBoolean()
+    public fun includesSubdomains(): Boolean = soup_hsts_policy_includes_subdomains(soupHstsPolicyPointer).asBoolean()
 
     /**
      * Gets whether @policy is expired.
@@ -111,7 +111,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return true if @policy is expired, false otherwise.
      */
-    public fun isExpired(): Boolean = soup_hsts_policy_is_expired(gPointer).asBoolean()
+    public fun isExpired(): Boolean = soup_hsts_policy_is_expired(soupHstsPolicyPointer).asBoolean()
 
     /**
      * Gets whether @policy is a non-permanent, non-expirable session policy.
@@ -120,7 +120,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
      *
      * @return true if @policy is permanent, false otherwise
      */
-    public fun isSessionPolicy(): Boolean = soup_hsts_policy_is_session_policy(gPointer).asBoolean()
+    public fun isSessionPolicy(): Boolean = soup_hsts_policy_is_session_policy(soupHstsPolicyPointer).asBoolean()
 
     public companion object {
         /**
@@ -172,7 +172,7 @@ public class HstsPolicy(pointer: CPointer<SoupHSTSPolicy>) : ProxyInstance(point
                 soup_hsts_policy_new_full(
                     domain,
                     maxAge,
-                    expires.gPointer,
+                    expires.glibDateTimePointer,
                     includeSubdomains.asGBoolean()
                 )!!.reinterpret()
             )

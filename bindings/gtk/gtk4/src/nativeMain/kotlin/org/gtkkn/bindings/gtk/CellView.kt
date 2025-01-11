@@ -60,28 +60,25 @@ import kotlin.Unit
  * - method `cell-area`: Property has no getter nor setter
  * - method `cell-area-context`: Property has no getter nor setter
  */
-public open class CellView(pointer: CPointer<GtkCellView>) :
-    Widget(pointer.reinterpret()),
+public open class CellView(public val gtkCellViewPointer: CPointer<GtkCellView>) :
+    Widget(gtkCellViewPointer.reinterpret()),
     CellLayout,
     Orientable,
     KGTyped {
-    public val gtkCellViewPointer: CPointer<GtkCellView>
-        get() = gPointer.reinterpret()
-
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether all cells should be draw as sensitive for this view regardless
@@ -152,7 +149,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
          * @return a `GtkTreeModel` used
          */
         get() = gtk_cell_view_get_model(gtkCellViewPointer)?.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         }
 
         /**
@@ -231,7 +228,7 @@ public open class CellView(pointer: CPointer<GtkCellView>) :
      * @param path a `GtkTreePath` or null to unset.
      */
     public open fun setDisplayedRow(path: TreePath? = null): Unit =
-        gtk_cell_view_set_displayed_row(gtkCellViewPointer, path?.gPointer)
+        gtk_cell_view_set_displayed_row(gtkCellViewPointer, path?.gtkTreePathPointer)
 
     public companion object : TypeCompanion<CellView> {
         override val type: GeneratedClassKGType<CellView> =

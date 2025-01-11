@@ -35,10 +35,12 @@ data class ClassBlueprint(
     val objectPointerName: String,
     val objectPointerTypeName: TypeName,
     val interfacePointerOverrides: List<ImplementsInterfaceBlueprint>,
+    val isAbstract: Boolean,
     val isFinal: Boolean,
     val glibGetTypeFunc: MemberName?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val kdoc: String?,
 ) {
     val hasParent: Boolean get() = parentClassName != null
+    val instanceTypeName = if (isAbstract) typeName.nestedClass("${typeName.simpleName}Impl") else typeName
 }

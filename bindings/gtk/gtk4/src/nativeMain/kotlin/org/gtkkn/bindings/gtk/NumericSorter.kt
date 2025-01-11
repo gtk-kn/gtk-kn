@@ -21,12 +21,9 @@ import org.gtkkn.native.gtk.gtk_numeric_sorter_set_sort_order
  * To obtain the numbers to compare, this sorter evaluates a
  * [class@Gtk.Expression].
  */
-public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class NumericSorter(public val gtkNumericSorterPointer: CPointer<GtkNumericSorter>) :
+    Sorter(gtkNumericSorterPointer.reinterpret()),
     KGTyped {
-    public val gtkNumericSorterPointer: CPointer<GtkNumericSorter>
-        get() = gPointer.reinterpret()
-
     /**
      * The expression to evaluate on items to get a number to compare with.
      */
@@ -37,7 +34,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
          * @return a `GtkExpression`
          */
         get() = gtk_numeric_sorter_get_expression(gtkNumericSorterPointer)?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
         /**
@@ -51,7 +48,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) = gtk_numeric_sorter_set_expression(gtkNumericSorterPointer, expression?.gPointer)
+        set(expression) = gtk_numeric_sorter_set_expression(gtkNumericSorterPointer, expression?.gtkExpressionPointer)
 
     /**
      * Whether the sorter will sort smaller numbers first.
@@ -84,7 +81,7 @@ public open class NumericSorter(pointer: CPointer<GtkNumericSorter>) :
      */
     public constructor(
         expression: Expression? = null,
-    ) : this(gtk_numeric_sorter_new(expression?.gPointer)!!.reinterpret())
+    ) : this(gtk_numeric_sorter_new(expression?.gtkExpressionPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<NumericSorter> {
         override val type: GeneratedClassKGType<NumericSorter> =

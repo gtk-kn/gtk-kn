@@ -42,15 +42,12 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class ListStore(pointer: CPointer<GListStore>) :
-    Object(pointer.reinterpret()),
+public open class ListStore(public val gioListStorePointer: CPointer<GListStore>) :
+    Object(gioListStorePointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val gioListStorePointer: CPointer<GListStore>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #GListStore with items of type @item_type. @item_type
@@ -74,7 +71,8 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      * @since 2.44
      */
     @GioVersion2_44
-    public open fun append(item: Object): Unit = g_list_store_append(gioListStorePointer, item.gPointer.reinterpret())
+    public open fun append(item: Object): Unit =
+        g_list_store_append(gioListStorePointer, item.gobjectObjectPointer.reinterpret())
 
     /**
      * Inserts @item into @store at @position. @item must be of type
@@ -92,7 +90,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
      */
     @GioVersion2_44
     public open fun insert(position: guint, item: Object): Unit =
-        g_list_store_insert(gioListStorePointer, position, item.gPointer.reinterpret())
+        g_list_store_insert(gioListStorePointer, position, item.gobjectObjectPointer.reinterpret())
 
     /**
      * Inserts @item into @store at a position to be determined by the
@@ -112,7 +110,7 @@ public open class ListStore(pointer: CPointer<GListStore>) :
     @GioVersion2_44
     public open fun insertSorted(item: Object, compareFunc: CompareDataFunc): guint = g_list_store_insert_sorted(
         gioListStorePointer,
-        item.gPointer.reinterpret(),
+        item.gobjectObjectPointer.reinterpret(),
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(compareFunc).asCPointer()
     )

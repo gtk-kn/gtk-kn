@@ -10,7 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -59,7 +60,7 @@ import kotlin.Result
  */
 @GioVersion2_22
 public interface Initable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioInitablePointer: CPointer<GInitable>
 
@@ -119,19 +120,22 @@ public interface Initable :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GInitable>) : Initable {
-        override val gioInitablePointer: CPointer<GInitable> = pointer
-    }
+    /**
+     * The InitableImpl type represents a native instance of the Initable interface.
+     *
+     * @constructor Creates a new instance of Initable for the provided [CPointer].
+     */
+    public data class InitableImpl(override val gioInitablePointer: CPointer<GInitable>) :
+        Object(gioInitablePointer.reinterpret()),
+        Initable
 
     public companion object : TypeCompanion<Initable> {
         override val type: GeneratedInterfaceKGType<Initable> =
-            GeneratedInterfaceKGType(g_initable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_initable_get_type()) { InitableImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GInitable>): Initable = Wrapper(pointer)
 
         /**
          * Get the GType of Initable

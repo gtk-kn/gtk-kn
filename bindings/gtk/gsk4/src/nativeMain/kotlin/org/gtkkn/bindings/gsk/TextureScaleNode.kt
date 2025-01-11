@@ -21,12 +21,9 @@ import org.gtkkn.native.gsk.gsk_texture_scale_node_new
  * @since 4.10
  */
 @GskVersion4_10
-public open class TextureScaleNode(pointer: CPointer<GskTextureScaleNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class TextureScaleNode(public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>) :
+    RenderNode(gskTextureScaleNodePointer.reinterpret()),
     KGTyped {
-    public val gskTextureScaleNodePointer: CPointer<GskTextureScaleNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a node that scales the texture to the size given by the
      * bounds using the filter and then places it at the bounds' position.
@@ -51,7 +48,13 @@ public open class TextureScaleNode(pointer: CPointer<GskTextureScaleNode>) :
         texture: Texture,
         bounds: Rect,
         filter: ScalingFilter,
-    ) : this(gsk_texture_scale_node_new(texture.gdkTexturePointer, bounds.gPointer, filter.nativeValue)!!.reinterpret())
+    ) : this(
+        gsk_texture_scale_node_new(
+            texture.gdkTexturePointer,
+            bounds.grapheneRectPointer,
+            filter.nativeValue
+        )!!.reinterpret()
+    )
 
     /**
      * Retrieves the `GskScalingFilter` used when creating this `GskRenderNode`.
@@ -74,7 +77,7 @@ public open class TextureScaleNode(pointer: CPointer<GskTextureScaleNode>) :
     @GskVersion4_10
     public open fun getTexture(): Texture =
         gsk_texture_scale_node_get_texture(gskTextureScaleNodePointer.reinterpret())!!.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
     public companion object : TypeCompanion<TextureScaleNode> {

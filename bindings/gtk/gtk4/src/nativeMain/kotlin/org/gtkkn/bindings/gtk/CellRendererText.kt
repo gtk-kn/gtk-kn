@@ -87,12 +87,9 @@ import kotlin.Unit
  * - method `wrap-mode`: Property has no getter nor setter
  * - method `wrap-width`: Property has no getter nor setter
  */
-public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
-    CellRenderer(pointer.reinterpret()),
+public open class CellRendererText(public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>) :
+    CellRenderer(gtkCellRendererTextPointer.reinterpret()),
     KGTyped {
-    public val gtkCellRendererTextPointer: CPointer<GtkCellRendererText>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkCellRendererText`. Adjust how text is drawn using
      * object properties. Object properties can be
@@ -133,7 +130,7 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (path: String, newText: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkCellRendererTextPointer,
         "edited",
         onEditedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -148,7 +145,7 @@ public open class CellRendererText(pointer: CPointer<GtkCellRendererText>) :
      * @param newText the new text
      */
     public fun emitEdited(path: String, newText: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "edited", path.cstr, newText.cstr)
+        g_signal_emit_by_name(gtkCellRendererTextPointer.reinterpret(), "edited", path.cstr, newText.cstr)
     }
 
     public companion object : TypeCompanion<CellRendererText> {

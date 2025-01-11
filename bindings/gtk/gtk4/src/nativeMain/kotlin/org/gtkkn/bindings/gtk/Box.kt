@@ -70,24 +70,21 @@ import kotlin.Unit
  *
  * Starting from GTK 4.12, `GtkBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class Box(pointer: CPointer<GtkBox>) :
-    Widget(pointer.reinterpret()),
+public open class Box(public val gtkBoxPointer: CPointer<GtkBox>) :
+    Widget(gtkBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkBoxPointer: CPointer<GtkBox>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child that determines the baseline, in vertical orientation.

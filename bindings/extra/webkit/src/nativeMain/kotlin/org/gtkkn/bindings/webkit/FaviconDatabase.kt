@@ -56,12 +56,9 @@ import kotlin.Unit
  * be deleted from it. Nevertheless, WebKit will still store them in
  * the in-memory cache during the current execution.
  */
-public class FaviconDatabase(pointer: CPointer<WebKitFaviconDatabase>) :
-    Object(pointer.reinterpret()),
+public class FaviconDatabase(public val webkitFaviconDatabasePointer: CPointer<WebKitFaviconDatabase>) :
+    Object(webkitFaviconDatabasePointer.reinterpret()),
     KGTyped {
-    public val webkitFaviconDatabasePointer: CPointer<WebKitFaviconDatabase>
-        get() = gPointer.reinterpret()
-
     /**
      * Clears all icons from the database.
      */
@@ -107,7 +104,7 @@ public class FaviconDatabase(pointer: CPointer<WebKitFaviconDatabase>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -143,7 +140,7 @@ public class FaviconDatabase(pointer: CPointer<WebKitFaviconDatabase>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pageUri: String, faviconUri: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitFaviconDatabasePointer,
         "favicon-changed",
         onFaviconChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -158,7 +155,12 @@ public class FaviconDatabase(pointer: CPointer<WebKitFaviconDatabase>) :
      * @param faviconUri the URI of the favicon
      */
     public fun emitFaviconChanged(pageUri: String, faviconUri: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "favicon-changed", pageUri.cstr, faviconUri.cstr)
+        g_signal_emit_by_name(
+            webkitFaviconDatabasePointer.reinterpret(),
+            "favicon-changed",
+            pageUri.cstr,
+            faviconUri.cstr
+        )
     }
 
     public companion object : TypeCompanion<FaviconDatabase> {

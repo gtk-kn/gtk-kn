@@ -83,12 +83,9 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - method `translate_coordinates`: In/Out parameter is not supported
  */
-public open class Surface(pointer: CPointer<GdkSurface>) :
-    Object(pointer.reinterpret()),
+public abstract class Surface(public val gdkSurfacePointer: CPointer<GdkSurface>) :
+    Object(gdkSurfacePointer.reinterpret()),
     KGTyped {
-    public val gdkSurfacePointer: CPointer<GdkSurface>
-        get() = gPointer.reinterpret()
-
     /**
      * The mouse pointer for the `GdkSurface`.
      */
@@ -148,7 +145,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
          * @return the frame clock
          */
         get() = gdk_surface_get_frame_clock(gdkSurfacePointer)!!.run {
-            FrameClock(this)
+            FrameClock.FrameClockImpl(this)
         }
 
     /**
@@ -279,7 +276,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      * @return the newly created `GdkCairoContext`
      */
     public open fun createCairoContext(): CairoContext = gdk_surface_create_cairo_context(gdkSurfacePointer)!!.run {
-        CairoContext(this)
+        CairoContext.CairoContextImpl(this)
     }
 
     /**
@@ -295,7 +292,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
     public open fun createGlContext(): Result<GlContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_gl_context(gdkSurfacePointer, gError.ptr)?.run {
-            GlContext(this)
+            GlContext.GlContextImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -346,7 +343,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
     public open fun createVulkanContext(): Result<VulkanContext> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gdk_surface_create_vulkan_context(gdkSurfacePointer, gError.ptr)?.run {
-            VulkanContext(this)
+            VulkanContext.VulkanContextImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -453,7 +450,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      * @param region region of surface to be reactive
      */
     public open fun setInputRegion(region: Region): Unit =
-        gdk_surface_set_input_region(gdkSurfacePointer, region.gPointer)
+        gdk_surface_set_input_region(gdkSurfacePointer, region.cairoRegionPointer)
 
     /**
      * Marks a region of the `GdkSurface` as opaque.
@@ -476,7 +473,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      *   surface opaque
      */
     public open fun setOpaqueRegion(region: Region? = null): Unit =
-        gdk_surface_set_opaque_region(gdkSurfacePointer, region?.gPointer)
+        gdk_surface_set_opaque_region(gdkSurfacePointer, region?.cairoRegionPointer)
 
     /**
      * Emitted when @surface starts being present on the monitor.
@@ -488,7 +485,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (monitor: Monitor) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkSurfacePointer,
         "enter-monitor",
         onEnterMonitorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -502,7 +499,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      * @param monitor the monitor
      */
     public fun emitEnterMonitor(monitor: Monitor) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "enter-monitor", monitor.gdkMonitorPointer)
+        g_signal_emit_by_name(gdkSurfacePointer.reinterpret(), "enter-monitor", monitor.gdkMonitorPointer)
     }
 
     /**
@@ -513,7 +510,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      */
     public fun onEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkSurfacePointer,
             "event",
             onEventFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -535,7 +532,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: gint, height: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkSurfacePointer,
         "layout",
         onLayoutFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -550,7 +547,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      * @param height the current height
      */
     public fun emitLayout(width: gint, height: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "layout", width, height)
+        g_signal_emit_by_name(gdkSurfacePointer.reinterpret(), "layout", width, height)
     }
 
     /**
@@ -563,7 +560,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (monitor: Monitor) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkSurfacePointer,
         "leave-monitor",
         onLeaveMonitorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -577,7 +574,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      * @param monitor the monitor
      */
     public fun emitLeaveMonitor(monitor: Monitor) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "leave-monitor", monitor.gdkMonitorPointer)
+        g_signal_emit_by_name(gdkSurfacePointer.reinterpret(), "leave-monitor", monitor.gdkMonitorPointer)
     }
 
     /**
@@ -588,7 +585,7 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
      */
     public fun onRender(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (region: Region) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkSurfacePointer,
             "render",
             onRenderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -596,9 +593,16 @@ public open class Surface(pointer: CPointer<GdkSurface>) :
             connectFlags.mask
         )
 
+    /**
+     * The SurfaceImpl type represents a native instance of the abstract Surface class.
+     *
+     * @constructor Creates a new instance of Surface for the provided [CPointer].
+     */
+    public class SurfaceImpl(pointer: CPointer<GdkSurface>) : Surface(pointer)
+
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
-            GeneratedClassKGType(gdk_surface_get_type()) { Surface(it.reinterpret()) }
+            GeneratedClassKGType(gdk_surface_get_type()) { SurfaceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -634,7 +638,7 @@ private val onEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
     ->
     userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
         event!!.run {
-            Event(reinterpret())
+            Event.EventImpl(reinterpret())
         }
     ).asGBoolean()
 }

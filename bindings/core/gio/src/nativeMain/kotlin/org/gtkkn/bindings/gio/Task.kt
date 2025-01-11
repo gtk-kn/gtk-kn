@@ -604,15 +604,12 @@ import kotlin.Unit
  * - parameter `task_data_destroy`: GLib.DestroyNotify
  * - function `report_new_error`: Varargs parameter is not supported
  */
-public open class Task(pointer: CPointer<GTask>) :
-    Object(pointer.reinterpret()),
+public open class Task(public val gioTaskPointer: CPointer<GTask>) :
+    Object(gioTaskPointer.reinterpret()),
     AsyncResult,
     KGTyped {
-    public val gioTaskPointer: CPointer<GTask>
-        get() = gPointer.reinterpret()
-
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the task has completed, meaning its callback (if set) has been
@@ -679,7 +676,7 @@ public open class Task(pointer: CPointer<GTask>) :
         callback: AsyncReadyCallback?,
     ) : this(
         g_task_new(
-            sourceObject?.gPointer?.reinterpret(),
+            sourceObject?.gobjectObjectPointer?.reinterpret(),
             cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
@@ -880,7 +877,7 @@ public open class Task(pointer: CPointer<GTask>) :
     @GioVersion2_64
     public open fun propagateValue(`value`: Value): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_task_propagate_value(gioTaskPointer, `value`.gPointer, gError.ptr).asBoolean()
+        val gResult = g_task_propagate_value(gioTaskPointer, `value`.gobjectValuePointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -917,7 +914,7 @@ public open class Task(pointer: CPointer<GTask>) :
      * @since 2.36
      */
     @GioVersion2_36
-    public open fun returnError(error: Error): Unit = g_task_return_error(gioTaskPointer, error.gPointer)
+    public open fun returnError(error: Error): Unit = g_task_return_error(gioTaskPointer, error.glibErrorPointer)
 
     /**
      * Checks if @task's #GCancellable has been cancelled, and if so, sets
@@ -975,7 +972,8 @@ public open class Task(pointer: CPointer<GTask>) :
      * @since 2.64
      */
     @GioVersion2_64
-    public open fun returnValue(result: Value? = null): Unit = g_task_return_value(gioTaskPointer, result?.gPointer)
+    public open fun returnValue(result: Value? = null): Unit =
+        g_task_return_value(gioTaskPointer, result?.gobjectValuePointer)
 
     /**
      * Sets or clears @task's check-cancellable flag. If this is true
@@ -1128,7 +1126,7 @@ public open class Task(pointer: CPointer<GTask>) :
          */
         @GioVersion2_36
         public fun isValid(result: AsyncResult, sourceObject: Object? = null): Boolean =
-            g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gPointer?.reinterpret()).asBoolean()
+            g_task_is_valid(result.gioAsyncResultPointer, sourceObject?.gobjectObjectPointer?.reinterpret()).asBoolean()
 
         /**
          * Creates a #GTask and then immediately calls g_task_return_error()
@@ -1154,13 +1152,13 @@ public open class Task(pointer: CPointer<GTask>) :
             sourceTag: gpointer? = null,
             error: Error,
         ): Unit = g_task_report_error(
-            sourceObject?.gPointer?.reinterpret(),
+            sourceObject?.gobjectObjectPointer?.reinterpret(),
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
             callback?.let { StableRef.create(callback).asCPointer() },
             sourceTag,
-            error.gPointer
+            error.glibErrorPointer
         )
 
         /**

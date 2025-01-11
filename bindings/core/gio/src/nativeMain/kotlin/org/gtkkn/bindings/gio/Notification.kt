@@ -78,12 +78,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @GioVersion2_40
-public open class Notification(pointer: CPointer<GNotification>) :
-    Object(pointer.reinterpret()),
+public open class Notification(public val gioNotificationPointer: CPointer<GNotification>) :
+    Object(gioNotificationPointer.reinterpret()),
     KGTyped {
-    public val gioNotificationPointer: CPointer<GNotification>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GNotification with @title as its title.
      *
@@ -130,7 +127,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      */
     @GioVersion2_40
     public open fun addButtonWithTarget(label: String, action: String, target: Variant? = null): Unit =
-        g_notification_add_button_with_target_value(gioNotificationPointer, label, action, target?.gPointer)
+        g_notification_add_button_with_target_value(gioNotificationPointer, label, action, target?.glibVariantPointer)
 
     /**
      * Sets the body of @notification to @body.
@@ -193,7 +190,7 @@ public open class Notification(pointer: CPointer<GNotification>) :
      */
     @GioVersion2_40
     public open fun setDefaultActionAndTarget(action: String, target: Variant? = null): Unit =
-        g_notification_set_default_action_and_target_value(gioNotificationPointer, action, target?.gPointer)
+        g_notification_set_default_action_and_target_value(gioNotificationPointer, action, target?.glibVariantPointer)
 
     /**
      * Sets the icon of @notification to @icon.

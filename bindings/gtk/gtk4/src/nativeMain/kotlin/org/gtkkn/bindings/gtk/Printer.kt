@@ -73,12 +73,9 @@ import kotlin.Unit
  * - method `is-virtual`: Property has no getter nor setter
  * - method `paused`: Property has no getter nor setter
  */
-public open class Printer(pointer: CPointer<GtkPrinter>) :
-    Object(pointer.reinterpret()),
+public open class Printer(public val gtkPrinterPointer: CPointer<GtkPrinter>) :
+    Object(gtkPrinterPointer.reinterpret()),
     KGTyped {
-    public val gtkPrinterPointer: CPointer<GtkPrinter>
-        get() = gPointer.reinterpret()
-
     /**
      * Icon name to use for the printer.
      */
@@ -147,7 +144,7 @@ public open class Printer(pointer: CPointer<GtkPrinter>) :
         name: String,
         backend: PrintBackend,
         virtual: Boolean,
-    ) : this(gtk_printer_new(name, backend.gPointer, virtual.asGBoolean())!!.reinterpret())
+    ) : this(gtk_printer_new(name, backend.gtkPrintBackendPointer, virtual.asGBoolean())!!.reinterpret())
 
     /**
      * Returns whether the printer accepts input in
@@ -303,7 +300,7 @@ public open class Printer(pointer: CPointer<GtkPrinter>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (success: Boolean) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkPrinterPointer,
         "details-acquired",
         onDetailsAcquiredFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -317,7 +314,7 @@ public open class Printer(pointer: CPointer<GtkPrinter>) :
      * @param success true if the details were successfully acquired
      */
     public fun emitDetailsAcquired(success: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "details-acquired", success.asGBoolean())
+        g_signal_emit_by_name(gtkPrinterPointer.reinterpret(), "details-acquired", success.asGBoolean())
     }
 
     public companion object : TypeCompanion<Printer> {

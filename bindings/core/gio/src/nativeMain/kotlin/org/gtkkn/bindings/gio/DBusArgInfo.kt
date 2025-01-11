@@ -35,42 +35,41 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDBusArgInfo> = pointer
-
+public class DBusArgInfo(public val gioDBusArgInfoPointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioDBusArgInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gPointer.pointed.ref_count
+        get() = gioDBusArgInfoPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.ref_count = value
+            gioDBusArgInfoPointer.pointed.ref_count = value
         }
 
     /**
      * Name of the argument, e.g. @unix_user_id.
      */
     public var name: String?
-        get() = gPointer.pointed.name?.toKString()
+        get() = gioDBusArgInfoPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.name?.let { g_free(it) }
-            gPointer.pointed.name = value?.let { g_strdup(it) }
+            gioDBusArgInfoPointer.pointed.name?.let { g_free(it) }
+            gioDBusArgInfoPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
      * D-Bus signature of the argument (a single complete type).
      */
     public var signature: String?
-        get() = gPointer.pointed.signature?.toKString()
+        get() = gioDBusArgInfoPointer.pointed.signature?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.signature?.let { g_free(it) }
-            gPointer.pointed.signature = value?.let { g_strdup(it) }
+            gioDBusArgInfoPointer.pointed.signature?.let { g_free(it) }
+            gioDBusArgInfoPointer.pointed.signature = value?.let { g_strdup(it) }
         }
 
     /**
@@ -91,7 +90,9 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to DBusArgInfo and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GDBusArgInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GDBusArgInfo>, Cleaner>,
+    ) : this(gioDBusArgInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusArgInfo using the provided [AutofreeScope].
@@ -151,7 +152,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gPointer)!!.run {
+    public fun ref(): DBusArgInfo = g_dbus_arg_info_ref(gioDBusArgInfoPointer)!!.run {
         DBusArgInfo(this)
     }
 
@@ -163,7 +164,7 @@ public class DBusArgInfo(pointer: CPointer<GDBusArgInfo>, cleaner: Cleaner? = nu
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_arg_info_unref(gPointer)
+    public fun unref(): Unit = g_dbus_arg_info_unref(gioDBusArgInfoPointer)
 
     override fun toString(): String = "DBusArgInfo(refCount=$refCount, name=$name, signature=$signature)"
 

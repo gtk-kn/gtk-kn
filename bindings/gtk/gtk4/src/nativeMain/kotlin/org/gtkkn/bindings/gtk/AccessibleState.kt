@@ -88,7 +88,7 @@ public enum class AccessibleState(public val nativeValue: GtkAccessibleState) {
         }
 
         public fun initValue(state: AccessibleState, `value`: Value): Unit =
-            gtk_accessible_state_init_value(state.nativeValue, `value`.gPointer)
+            gtk_accessible_state_init_value(state.nativeValue, `value`.gobjectValuePointer)
 
         /**
          * Get the GType of AccessibleState

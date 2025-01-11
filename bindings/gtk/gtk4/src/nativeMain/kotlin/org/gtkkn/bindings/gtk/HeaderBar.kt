@@ -102,20 +102,17 @@ import kotlin.Unit
  *
  * `GtkHeaderBar` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  */
-public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
-    Widget(pointer.reinterpret()),
+public open class HeaderBar(public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>) :
+    Widget(gtkHeaderBarPointer.reinterpret()),
     KGTyped {
-    public val gtkHeaderBarPointer: CPointer<GtkHeaderBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The decoration layout for buttons.
@@ -188,7 +185,7 @@ public open class HeaderBar(pointer: CPointer<GtkHeaderBar>) :
          * @return the title widget of the header
          */
         get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

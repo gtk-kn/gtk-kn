@@ -23,14 +23,11 @@ import org.gtkkn.native.gobject.GType
  * @since 2.46
  */
 @GioVersion2_46
-public open class NativeSocketAddress(pointer: CPointer<GNativeSocketAddress>) :
-    SocketAddress(pointer.reinterpret()),
+public open class NativeSocketAddress(public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>) :
+    SocketAddress(gioNativeSocketAddressPointer.reinterpret()),
     KGTyped {
-    public val gioNativeSocketAddressPointer: CPointer<GNativeSocketAddress>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #GNativeSocketAddress for @native and @len.

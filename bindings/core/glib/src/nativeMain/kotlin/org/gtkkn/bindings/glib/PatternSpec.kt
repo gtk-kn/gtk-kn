@@ -38,9 +38,8 @@ import kotlin.Unit
  * instead of [func@GLib.pattern_match_simple]. This avoids the overhead of repeated
  * pattern compilation.
  */
-public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GPatternSpec> = pointer
-
+public class PatternSpec(public val glibPatternSpecPointer: CPointer<GPatternSpec>) :
+    ProxyInstance(glibPatternSpecPointer) {
     /**
      * Copies @pspec in a new #GPatternSpec.
      *
@@ -48,7 +47,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun copy(): PatternSpec = g_pattern_spec_copy(gPointer)!!.run {
+    public fun copy(): PatternSpec = g_pattern_spec_copy(glibPatternSpecPointer)!!.run {
         PatternSpec(this)
     }
 
@@ -59,12 +58,13 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @param pspec2 another #GPatternSpec
      * @return Whether the compiled patterns are equal
      */
-    public fun equal(pspec2: PatternSpec): Boolean = g_pattern_spec_equal(gPointer, pspec2.gPointer).asBoolean()
+    public fun equal(pspec2: PatternSpec): Boolean =
+        g_pattern_spec_equal(glibPatternSpecPointer, pspec2.glibPatternSpecPointer).asBoolean()
 
     /**
      * Frees the memory allocated for the #GPatternSpec.
      */
-    public fun free(): Unit = g_pattern_spec_free(gPointer)
+    public fun free(): Unit = g_pattern_spec_free(glibPatternSpecPointer)
 
     /**
      * Matches a string against a compiled pattern. Passing the correct
@@ -94,7 +94,7 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      */
     @GLibVersion2_70
     public fun match(stringLength: gsize, string: String, stringReversed: String? = null): Boolean =
-        g_pattern_spec_match(gPointer, stringLength, string, stringReversed).asBoolean()
+        g_pattern_spec_match(glibPatternSpecPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a compiled pattern. If the string is to be
@@ -106,7 +106,8 @@ public class PatternSpec(pointer: CPointer<GPatternSpec>) : ProxyInstance(pointe
      * @since 2.70
      */
     @GLibVersion2_70
-    public fun matchString(string: String): Boolean = g_pattern_spec_match_string(gPointer, string).asBoolean()
+    public fun matchString(string: String): Boolean =
+        g_pattern_spec_match_string(glibPatternSpecPointer, string).asBoolean()
 
     public companion object {
         /**

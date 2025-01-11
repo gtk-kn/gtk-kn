@@ -33,24 +33,21 @@ import org.gtkkn.native.gtk.gtk_separator_new
  *
  * `GtkSeparator` uses the %GTK_ACCESSIBLE_ROLE_SEPARATOR role.
  */
-public open class Separator(pointer: CPointer<GtkSeparator>) :
-    Widget(pointer.reinterpret()),
+public open class Separator(public val gtkSeparatorPointer: CPointer<GtkSeparator>) :
+    Widget(gtkSeparatorPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkSeparatorPointer: CPointer<GtkSeparator>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkSeparator` with the given orientation.

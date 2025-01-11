@@ -18,39 +18,38 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_rectangle_t> = pointer
-
+public class Rectangle(public val cairoRectanglePointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(cairoRectanglePointer) {
     public var x: gdouble
-        get() = gPointer.pointed.x
+        get() = cairoRectanglePointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x = value
+            cairoRectanglePointer.pointed.x = value
         }
 
     public var y: gdouble
-        get() = gPointer.pointed.y
+        get() = cairoRectanglePointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y = value
+            cairoRectanglePointer.pointed.y = value
         }
 
     public var width: gdouble
-        get() = gPointer.pointed.width
+        get() = cairoRectanglePointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            cairoRectanglePointer.pointed.width = value
         }
 
     public var height: gdouble
-        get() = gPointer.pointed.height
+        get() = cairoRectanglePointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            cairoRectanglePointer.pointed.height = value
         }
 
     /**
@@ -73,7 +72,7 @@ public class Rectangle(pointer: CPointer<cairo_rectangle_t>, cleaner: Cleaner? =
      */
     private constructor(
         pair: Pair<CPointer<cairo_rectangle_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoRectanglePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rectangle using the provided [AutofreeScope].

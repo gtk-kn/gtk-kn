@@ -43,12 +43,10 @@ import kotlin.String
  *   </interface>
  * ```
  */
-public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFactory>) :
-    ListItemFactory(pointer.reinterpret()),
+public open class BuilderListItemFactory(
+    public val gtkBuilderListItemFactoryPointer: CPointer<GtkBuilderListItemFactory>,
+) : ListItemFactory(gtkBuilderListItemFactoryPointer.reinterpret()),
     KGTyped {
-    public val gtkBuilderListItemFactoryPointer: CPointer<GtkBuilderListItemFactory>
-        get() = gPointer.reinterpret()
-
     /**
      * `GBytes` containing the UI definition.
      */
@@ -84,7 +82,7 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
          * @return The scope used when constructing listitems
          */
         get() = gtk_builder_list_item_factory_get_scope(gtkBuilderListItemFactoryPointer)?.run {
-            BuilderScope.wrap(reinterpret())
+            BuilderScope.BuilderScopeImpl(reinterpret())
         }
 
     /**
@@ -99,7 +97,10 @@ public open class BuilderListItemFactory(pointer: CPointer<GtkBuilderListItemFac
         scope: BuilderScope? = null,
         bytes: Bytes,
     ) : this(
-        gtk_builder_list_item_factory_new_from_bytes(scope?.gtkBuilderScopePointer, bytes.gPointer)!!.reinterpret()
+        gtk_builder_list_item_factory_new_from_bytes(
+            scope?.gtkBuilderScopePointer,
+            bytes.glibBytesPointer
+        )!!.reinterpret()
     )
 
     /**

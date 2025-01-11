@@ -64,12 +64,10 @@ import kotlin.collections.List
  * @since 2.24
  */
 @WebKitVersion2_24
-public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterStore>) :
-    Object(pointer.reinterpret()),
+public class UserContentFilterStore(
+    public val webkitUserContentFilterStorePointer: CPointer<WebKitUserContentFilterStore>,
+) : Object(webkitUserContentFilterStorePointer.reinterpret()),
     KGTyped {
-    public val webkitUserContentFilterStorePointer: CPointer<WebKitUserContentFilterStore>
-        get() = gPointer.reinterpret()
-
     /**
      * The directory used for filter storage. This path is used as the base
      * directory where user content filters are stored on disk.
@@ -266,7 +264,7 @@ public class UserContentFilterStore(pointer: CPointer<WebKitUserContentFilterSto
     ): Unit = webkit_user_content_filter_store_save(
         webkitUserContentFilterStorePointer,
         identifier,
-        source.gPointer,
+        source.glibBytesPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

@@ -34,10 +34,3 @@ kotlin {
         }
     }
 }
-
-tasks {
-    withType<AbstractDokkaTask> {
-        mustRunAfter(":gir:run")
-        notCompatibleWithConfigurationCache("https://github.com/Kotlin/dokka/issues/2231")
-    }
-}

@@ -50,18 +50,17 @@ import kotlin.native.ref.createCleaner
  * @since 2.48
  */
 @GioVersion2_48
-public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GInputMessage> = pointer
-
+public class InputMessage(public val gioInputMessagePointer: CPointer<GInputMessage>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioInputMessagePointer) {
     /**
      * the number of input vectors pointed to by @vectors
      */
     public var numVectors: guint
-        get() = gPointer.pointed.num_vectors
+        get() = gioInputMessagePointer.pointed.num_vectors
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.num_vectors = value
+            gioInputMessagePointer.pointed.num_vectors = value
         }
 
     /**
@@ -69,11 +68,11 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *   received
      */
     public var bytesReceived: gsize
-        get() = gPointer.pointed.bytes_received
+        get() = gioInputMessagePointer.pointed.bytes_received
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.bytes_received = value
+            gioInputMessagePointer.pointed.bytes_received = value
         }
 
     /**
@@ -81,11 +80,11 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      *   outputted by the call
      */
     public var flags: gint
-        get() = gPointer.pointed.flags
+        get() = gioInputMessagePointer.pointed.flags
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.flags = value
+            gioInputMessagePointer.pointed.flags = value
         }
 
     /**
@@ -108,7 +107,7 @@ public class InputMessage(pointer: CPointer<GInputMessage>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<GInputMessage>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioInputMessagePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new InputMessage using the provided [AutofreeScope].

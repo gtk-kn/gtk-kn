@@ -42,12 +42,9 @@ import kotlin.Unit
  * It can be modified by the [property@Gtk.GestureLongPress:delay-factor]
  * property.
  */
-public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureLongPress(public val gtkGestureLongPressPointer: CPointer<GtkGestureLongPress>) :
+    GestureSingle(gtkGestureLongPressPointer.reinterpret()),
     KGTyped {
-    public val gtkGestureLongPressPointer: CPointer<GtkGestureLongPress>
-        get() = gPointer.reinterpret()
-
     /**
      * Factor by which to modify the default timeout.
      */
@@ -85,7 +82,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
      */
     public fun onCancelled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGestureLongPressPointer,
             "cancelled",
             onCancelledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -97,7 +94,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
      * Emits the "cancelled" signal. See [onCancelled].
      */
     public fun emitCancelled() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cancelled")
+        g_signal_emit_by_name(gtkGestureLongPressPointer.reinterpret(), "cancelled")
     }
 
     /**
@@ -111,7 +108,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (x: gdouble, y: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureLongPressPointer,
         "pressed",
         onPressedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -126,7 +123,7 @@ public open class GestureLongPress(pointer: CPointer<GtkGestureLongPress>) :
      * @param y the Y coordinate where the press happened, relative to the widget allocation
      */
     public fun emitPressed(x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "pressed", x, y)
+        g_signal_emit_by_name(gtkGestureLongPressPointer.reinterpret(), "pressed", x, y)
     }
 
     public companion object : TypeCompanion<GestureLongPress> {

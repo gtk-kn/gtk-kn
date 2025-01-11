@@ -19,7 +19,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_60
 import org.gtkkn.bindings.gio.annotations.GioVersion2_70
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toCStringList
@@ -104,7 +105,7 @@ import kotlin.collections.List
  */
 @GioVersion2_48
 public interface DtlsConnection :
-    Interface,
+    Proxy,
     DatagramBased,
     KGTyped {
     public val gioDtlsConnectionPointer: CPointer<GDtlsConnection>
@@ -164,7 +165,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         get() = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-            TlsDatabase(this)
+            TlsDatabase.TlsDatabaseImpl(this)
         }
 
         /**
@@ -266,7 +267,7 @@ public interface DtlsConnection :
          * @since 2.48
          */
         get() = g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
     /**
@@ -517,7 +518,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getCertificate(): TlsCertificate? = g_dtls_connection_get_certificate(gioDtlsConnectionPointer)?.run {
-        TlsCertificate(this)
+        TlsCertificate.TlsCertificateImpl(this)
     }
 
     /**
@@ -546,7 +547,7 @@ public interface DtlsConnection :
      */
     @GioVersion2_48
     public fun getDatabase(): TlsDatabase? = g_dtls_connection_get_database(gioDtlsConnectionPointer)?.run {
-        TlsDatabase(this)
+        TlsDatabase.TlsDatabaseImpl(this)
     }
 
     /**
@@ -589,7 +590,7 @@ public interface DtlsConnection :
     @GioVersion2_48
     public fun getPeerCertificate(): TlsCertificate? =
         g_dtls_connection_get_peer_certificate(gioDtlsConnectionPointer)?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
     /**
@@ -1034,19 +1035,22 @@ public interface DtlsConnection :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GDtlsConnection>) : DtlsConnection {
-        override val gioDtlsConnectionPointer: CPointer<GDtlsConnection> = pointer
-    }
+    /**
+     * The DtlsConnectionImpl type represents a native instance of the DtlsConnection interface.
+     *
+     * @constructor Creates a new instance of DtlsConnection for the provided [CPointer].
+     */
+    public data class DtlsConnectionImpl(override val gioDtlsConnectionPointer: CPointer<GDtlsConnection>) :
+        Object(gioDtlsConnectionPointer.reinterpret()),
+        DtlsConnection
 
     public companion object : TypeCompanion<DtlsConnection> {
         override val type: GeneratedInterfaceKGType<DtlsConnection> =
-            GeneratedInterfaceKGType(g_dtls_connection_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_dtls_connection_get_type()) { DtlsConnectionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDtlsConnection>): DtlsConnection = Wrapper(pointer)
 
         /**
          * Get the GType of DtlsConnection
@@ -1072,7 +1076,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             peerCert!!.run {
-                TlsCertificate(this)
+                TlsCertificate.TlsCertificateImpl(this)
             },
             errors.run {
                 TlsCertificateFlags(this)

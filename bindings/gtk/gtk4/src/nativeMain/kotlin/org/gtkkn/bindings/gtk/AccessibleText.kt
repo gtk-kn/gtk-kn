@@ -3,8 +3,9 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -31,7 +32,7 @@ import kotlin.Unit
  */
 @GtkVersion4_14
 public interface AccessibleText :
-    Interface,
+    Proxy,
     Accessible,
     KGTyped {
     public val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
@@ -83,19 +84,22 @@ public interface AccessibleText :
     @GtkVersion4_14
     public fun updateSelectionBound(): Unit = gtk_accessible_text_update_selection_bound(gtkAccessibleTextPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GtkAccessibleText>) : AccessibleText {
-        override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText> = pointer
-    }
+    /**
+     * The AccessibleTextImpl type represents a native instance of the AccessibleText interface.
+     *
+     * @constructor Creates a new instance of AccessibleText for the provided [CPointer].
+     */
+    public data class AccessibleTextImpl(override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>) :
+        Object(gtkAccessibleTextPointer.reinterpret()),
+        AccessibleText
 
     public companion object : TypeCompanion<AccessibleText> {
         override val type: GeneratedInterfaceKGType<AccessibleText> =
-            GeneratedInterfaceKGType(gtk_accessible_text_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_accessible_text_get_type()) { AccessibleTextImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkAccessibleText>): AccessibleText = Wrapper(pointer)
 
         /**
          * Get the GType of AccessibleText

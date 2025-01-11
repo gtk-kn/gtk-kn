@@ -111,20 +111,17 @@ import kotlin.Unit
  * If you need more complex control over your widget, you should consider
  * creating your own `GtkWidget` subclass.
  */
-public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
-    Widget(pointer.reinterpret()),
+public open class DrawingArea(public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>) :
+    Widget(gtkDrawingAreaPointer.reinterpret()),
     KGTyped {
-    public val gtkDrawingAreaPointer: CPointer<GtkDrawingArea>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The content height.
@@ -227,7 +224,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: gint, height: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkDrawingAreaPointer,
         "resize",
         onResizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -242,7 +239,7 @@ public open class DrawingArea(pointer: CPointer<GtkDrawingArea>) :
      * @param height the height of the viewport
      */
     public fun emitResize(width: gint, height: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "resize", width, height)
+        g_signal_emit_by_name(gtkDrawingAreaPointer.reinterpret(), "resize", width, height)
     }
 
     public companion object : TypeCompanion<DrawingArea> {

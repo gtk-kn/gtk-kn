@@ -67,12 +67,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @GioVersion2_40
-public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
-    Object(pointer.reinterpret()),
+public open class AppInfoMonitor(public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>) :
+    Object(gioAppInfoMonitorPointer.reinterpret()),
     KGTyped {
-    public val gioAppInfoMonitorPointer: CPointer<GAppInfoMonitor>
-        get() = gPointer.reinterpret()
-
     /**
      * Signal emitted when the app info database changes, when applications are
      * installed or removed.
@@ -84,7 +81,7 @@ public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
     @GioVersion2_40
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioAppInfoMonitorPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -99,7 +96,7 @@ public open class AppInfoMonitor(pointer: CPointer<GAppInfoMonitor>) :
      */
     @GioVersion2_40
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gioAppInfoMonitorPointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<AppInfoMonitor> {

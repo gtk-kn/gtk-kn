@@ -100,12 +100,9 @@ import kotlin.Unit
  * - parameter `major`: major: Out parameter is not supported
  * - parameter `major`: major: Out parameter is not supported
  */
-public open class GlContext(pointer: CPointer<GdkGLContext>) :
-    DrawContext(pointer.reinterpret()),
+public abstract class GlContext(public val gdkGlContextPointer: CPointer<GdkGLContext>) :
+    DrawContext(gdkGlContextPointer.reinterpret()),
     KGTyped {
-    public val gdkGlContextPointer: CPointer<GdkGLContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The allowed APIs.
      *
@@ -173,7 +170,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          * @return null
          */
         get() = gdk_gl_context_get_shared_context(gdkGlContextPointer)?.run {
-            GlContext(this)
+            GlContextImpl(this)
         }
 
     /**
@@ -199,7 +196,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          * @return a `GdkSurface`
          */
         get() = gdk_gl_context_get_surface(gdkGlContextPointer)?.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**
@@ -363,9 +360,16 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
      */
     public open fun setUseEs(useEs: gint): Unit = gdk_gl_context_set_use_es(gdkGlContextPointer, useEs)
 
+    /**
+     * The GlContextImpl type represents a native instance of the abstract GlContext class.
+     *
+     * @constructor Creates a new instance of GlContext for the provided [CPointer].
+     */
+    public class GlContextImpl(pointer: CPointer<GdkGLContext>) : GlContext(pointer)
+
     public companion object : TypeCompanion<GlContext> {
         override val type: GeneratedClassKGType<GlContext> =
-            GeneratedClassKGType(gdk_gl_context_get_type()) { GlContext(it.reinterpret()) }
+            GeneratedClassKGType(gdk_gl_context_get_type()) { GlContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -385,7 +389,7 @@ public open class GlContext(pointer: CPointer<GdkGLContext>) :
          * @return the current `GdkGLContext`
          */
         public fun getCurrent(): GlContext? = gdk_gl_context_get_current()?.run {
-            GlContext(this)
+            GlContextImpl(this)
         }
 
         /**

@@ -25,15 +25,12 @@ import org.gtkkn.native.gobject.GType
  * Currently, only metainformation about the emblem's origin is
  * supported. More may be added in the future.
  */
-public open class Emblem(pointer: CPointer<GEmblem>) :
-    Object(pointer.reinterpret()),
+public open class Emblem(public val gioEmblemPointer: CPointer<GEmblem>) :
+    Object(gioEmblemPointer.reinterpret()),
     Icon,
     KGTyped {
-    public val gioEmblemPointer: CPointer<GEmblem>
-        get() = gPointer.reinterpret()
-
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The actual icon of the emblem.
@@ -50,7 +47,7 @@ public open class Emblem(pointer: CPointer<GEmblem>) :
          * @since 2.18
          */
         get() = g_emblem_get_icon(gioEmblemPointer)!!.run {
-            Icon.wrap(reinterpret())
+            Icon.IconImpl(reinterpret())
         }
 
     /**

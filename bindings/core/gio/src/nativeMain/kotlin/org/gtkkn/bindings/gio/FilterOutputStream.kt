@@ -23,12 +23,9 @@ import kotlin.Unit
  * of filtering operations are character set conversion, compression
  * and byte order flipping.
  */
-public open class FilterOutputStream(pointer: CPointer<GFilterOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public abstract class FilterOutputStream(public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>) :
+    OutputStream(gioFilterOutputStreamPointer.reinterpret()),
     KGTyped {
-    public val gioFilterOutputStreamPointer: CPointer<GFilterOutputStream>
-        get() = gPointer.reinterpret()
-
     public open val baseStream: OutputStream
         /**
          * Gets the base stream for the filter stream.
@@ -36,7 +33,7 @@ public open class FilterOutputStream(pointer: CPointer<GFilterOutputStream>) :
          * @return a #GOutputStream.
          */
         get() = g_filter_output_stream_get_base_stream(gioFilterOutputStreamPointer)!!.run {
-            OutputStream(this)
+            OutputStream.OutputStreamImpl(this)
         }
 
     /**
@@ -59,9 +56,16 @@ public open class FilterOutputStream(pointer: CPointer<GFilterOutputStream>) :
     public open fun setCloseBaseStream(closeBase: Boolean): Unit =
         g_filter_output_stream_set_close_base_stream(gioFilterOutputStreamPointer, closeBase.asGBoolean())
 
+    /**
+     * The FilterOutputStreamImpl type represents a native instance of the abstract FilterOutputStream class.
+     *
+     * @constructor Creates a new instance of FilterOutputStream for the provided [CPointer].
+     */
+    public class FilterOutputStreamImpl(pointer: CPointer<GFilterOutputStream>) : FilterOutputStream(pointer)
+
     public companion object : TypeCompanion<FilterOutputStream> {
         override val type: GeneratedClassKGType<FilterOutputStream> =
-            GeneratedClassKGType(g_filter_output_stream_get_type()) { FilterOutputStream(it.reinterpret()) }
+            GeneratedClassKGType(g_filter_output_stream_get_type()) { FilterOutputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

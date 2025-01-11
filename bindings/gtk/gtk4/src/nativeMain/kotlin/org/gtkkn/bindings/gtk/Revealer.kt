@@ -50,20 +50,17 @@ import kotlin.Boolean
  * The child of `GtkRevealer`, if set, is always available in the accessibility
  * tree, regardless of the state of the revealer widget.
  */
-public open class Revealer(pointer: CPointer<GtkRevealer>) :
-    Widget(pointer.reinterpret()),
+public open class Revealer(public val gtkRevealerPointer: CPointer<GtkRevealer>) :
+    Widget(gtkRevealerPointer.reinterpret()),
     KGTyped {
-    public val gtkRevealerPointer: CPointer<GtkRevealer>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -75,7 +72,7 @@ public open class Revealer(pointer: CPointer<GtkRevealer>) :
          * @return the child widget of @revealer
          */
         get() = gtk_revealer_get_child(gtkRevealerPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

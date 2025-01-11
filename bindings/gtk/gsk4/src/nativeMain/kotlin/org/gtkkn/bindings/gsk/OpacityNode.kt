@@ -17,12 +17,9 @@ import org.gtkkn.native.gsk.gsk_opacity_node_new
 /**
  * A render node controlling the opacity of its single child node.
  */
-public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class OpacityNode(public val gskOpacityNodePointer: CPointer<GskOpacityNode>) :
+    RenderNode(gskOpacityNodePointer.reinterpret()),
     KGTyped {
-    public val gskOpacityNodePointer: CPointer<GskOpacityNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will drawn the @child with reduced
      * @opacity.
@@ -34,7 +31,7 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
     public constructor(
         child: RenderNode,
         opacity: gfloat,
-    ) : this(gsk_opacity_node_new(child.gPointer, opacity)!!.reinterpret())
+    ) : this(gsk_opacity_node_new(child.gskRenderNodePointer, opacity)!!.reinterpret())
 
     /**
      * Gets the child node that is getting opacityed by the given @node.
@@ -42,7 +39,7 @@ public open class OpacityNode(pointer: CPointer<GskOpacityNode>) :
      * @return The child that is getting opacityed
      */
     public open fun getChild(): RenderNode = gsk_opacity_node_get_child(gskOpacityNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

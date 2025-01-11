@@ -64,15 +64,13 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton>) :
-    Object(pointer.reinterpret()),
+public abstract class DBusInterfaceSkeleton(
+    public val gioDBusInterfaceSkeletonPointer: CPointer<GDBusInterfaceSkeleton>,
+) : Object(gioDBusInterfaceSkeletonPointer.reinterpret()),
     DBusInterface,
     KGTyped {
-    public val gioDBusInterfaceSkeletonPointer: CPointer<GDBusInterfaceSkeleton>
-        get() = gPointer.reinterpret()
-
     override val gioDBusInterfacePointer: CPointer<GDBusInterface>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Exports @interface_ at @object_path on @connection.
@@ -307,7 +305,7 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusInterfaceSkeletonPointer,
         "g-authorize-method",
         onGAuthorizeMethodFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -315,9 +313,18 @@ public open class DBusInterfaceSkeleton(pointer: CPointer<GDBusInterfaceSkeleton
         connectFlags.mask
     )
 
+    /**
+     * The DBusInterfaceSkeletonImpl type represents a native instance of the abstract DBusInterfaceSkeleton class.
+     *
+     * @constructor Creates a new instance of DBusInterfaceSkeleton for the provided [CPointer].
+     */
+    public class DBusInterfaceSkeletonImpl(pointer: CPointer<GDBusInterfaceSkeleton>) : DBusInterfaceSkeleton(pointer)
+
     public companion object : TypeCompanion<DBusInterfaceSkeleton> {
         override val type: GeneratedClassKGType<DBusInterfaceSkeleton> =
-            GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) { DBusInterfaceSkeleton(it.reinterpret()) }
+            GeneratedClassKGType(g_dbus_interface_skeleton_get_type()) {
+                DBusInterfaceSkeletonImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()

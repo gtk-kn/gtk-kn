@@ -22,12 +22,9 @@ import kotlin.String
  * a [property@Gtk.StringObject:string] property that can be used
  * for property bindings and expressions.
  */
-public open class StringObject(pointer: CPointer<GtkStringObject>) :
-    Object(pointer.reinterpret()),
+public open class StringObject(public val gtkStringObjectPointer: CPointer<GtkStringObject>) :
+    Object(gtkStringObjectPointer.reinterpret()),
     KGTyped {
-    public val gtkStringObjectPointer: CPointer<GtkStringObject>
-        get() = gPointer.reinterpret()
-
     /**
      * The string.
      */

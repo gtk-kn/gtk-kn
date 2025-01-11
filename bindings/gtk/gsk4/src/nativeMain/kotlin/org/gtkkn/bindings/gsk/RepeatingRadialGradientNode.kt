@@ -17,12 +17,10 @@ import org.gtkkn.native.gsk.gsk_repeating_radial_gradient_node_get_type
  *
  * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
-public open class RepeatingRadialGradientNode(pointer: CPointer<GskRepeatingRadialGradientNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class RepeatingRadialGradientNode(
+    public val gskRepeatingRadialGradientNodePointer: CPointer<GskRepeatingRadialGradientNode>,
+) : RenderNode(gskRepeatingRadialGradientNodePointer.reinterpret()),
     KGTyped {
-    public val gskRepeatingRadialGradientNodePointer: CPointer<GskRepeatingRadialGradientNode>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<RepeatingRadialGradientNode> {
         override val type: GeneratedClassKGType<RepeatingRadialGradientNode> =
             GeneratedClassKGType(gsk_repeating_radial_gradient_node_get_type()) {

@@ -22,15 +22,13 @@ import org.gtkkn.native.soup.soup_websocket_extension_manager_get_type
  * session with [method@Session.remove_feature_by_type] or disable it on
  * individual requests with [method@Message.disable_feature].
  */
-public class WebsocketExtensionManager(pointer: CPointer<SoupWebsocketExtensionManager>) :
-    Object(pointer.reinterpret()),
+public class WebsocketExtensionManager(
+    public val soupWebsocketExtensionManagerPointer: CPointer<SoupWebsocketExtensionManager>,
+) : Object(soupWebsocketExtensionManagerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupWebsocketExtensionManagerPointer: CPointer<SoupWebsocketExtensionManager>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<WebsocketExtensionManager> {
         override val type: GeneratedClassKGType<WebsocketExtensionManager> =

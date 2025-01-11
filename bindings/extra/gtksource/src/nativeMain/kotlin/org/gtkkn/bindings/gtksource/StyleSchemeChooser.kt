@@ -3,7 +3,8 @@ package org.gtkkn.bindings.gtksource
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -24,7 +25,7 @@ import kotlin.Unit
  * [class@StyleSchemeChooserWidget] and [class@StyleSchemeChooserButton].
  */
 public interface StyleSchemeChooser :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>
 
@@ -75,20 +76,25 @@ public interface StyleSchemeChooser :
         scheme.gtksourceStyleSchemePointer
     )
 
-    private data class Wrapper(private val pointer: CPointer<GtkSourceStyleSchemeChooser>) : StyleSchemeChooser {
-        override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser> =
-            pointer
-    }
+    /**
+     * The StyleSchemeChooserImpl type represents a native instance of the StyleSchemeChooser interface.
+     *
+     * @constructor Creates a new instance of StyleSchemeChooser for the provided [CPointer].
+     */
+    public data class StyleSchemeChooserImpl(
+        override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>,
+    ) : Object(gtksourceStyleSchemeChooserPointer.reinterpret()),
+        StyleSchemeChooser
 
     public companion object : TypeCompanion<StyleSchemeChooser> {
         override val type: GeneratedInterfaceKGType<StyleSchemeChooser> =
-            GeneratedInterfaceKGType(gtk_source_style_scheme_chooser_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_source_style_scheme_chooser_get_type()) {
+                StyleSchemeChooserImpl(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkSourceStyleSchemeChooser>): StyleSchemeChooser = Wrapper(pointer)
 
         /**
          * Get the GType of StyleSchemeChooser

@@ -22,31 +22,30 @@ import kotlin.Unit
  * Acts as a lightweight registry for possible valid file attributes.
  * The registry stores Key-Value pair formats as #GFileAttributeInfos.
  */
-public class FileAttributeInfoList(pointer: CPointer<GFileAttributeInfoList>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GFileAttributeInfoList> = pointer
-
+public class FileAttributeInfoList(public val gioFileAttributeInfoListPointer: CPointer<GFileAttributeInfoList>) :
+    ProxyInstance(gioFileAttributeInfoListPointer) {
     /**
      * an array of #GFileAttributeInfos.
      */
     public var infos: FileAttributeInfo?
-        get() = gPointer.pointed.infos?.run {
+        get() = gioFileAttributeInfoListPointer.pointed.infos?.run {
             FileAttributeInfo(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.infos = value?.gPointer
+            gioFileAttributeInfoListPointer.pointed.infos = value?.gioFileAttributeInfoPointer
         }
 
     /**
      * the number of values in the array.
      */
     public var nInfos: gint
-        get() = gPointer.pointed.n_infos
+        get() = gioFileAttributeInfoListPointer.pointed.n_infos
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_infos = value
+            gioFileAttributeInfoListPointer.pointed.n_infos = value
         }
 
     /**
@@ -58,14 +57,14 @@ public class FileAttributeInfoList(pointer: CPointer<GFileAttributeInfoList>) : 
      * @param flags #GFileAttributeInfoFlags for the attribute.
      */
     public fun add(name: String, type: FileAttributeType, flags: FileAttributeInfoFlags): Unit =
-        g_file_attribute_info_list_add(gPointer, name, type.nativeValue, flags.mask)
+        g_file_attribute_info_list_add(gioFileAttributeInfoListPointer, name, type.nativeValue, flags.mask)
 
     /**
      * Makes a duplicate of a file attribute info list.
      *
      * @return a copy of the given @list.
      */
-    public fun dup(): FileAttributeInfoList = g_file_attribute_info_list_dup(gPointer)!!.run {
+    public fun dup(): FileAttributeInfoList = g_file_attribute_info_list_dup(gioFileAttributeInfoListPointer)!!.run {
         FileAttributeInfoList(this)
     }
 
@@ -76,16 +75,17 @@ public class FileAttributeInfoList(pointer: CPointer<GFileAttributeInfoList>) : 
      * @return a #GFileAttributeInfo for the @name, or null if an
      * attribute isn't found.
      */
-    public fun lookup(name: String): FileAttributeInfo = g_file_attribute_info_list_lookup(gPointer, name)!!.run {
-        FileAttributeInfo(this)
-    }
+    public fun lookup(name: String): FileAttributeInfo =
+        g_file_attribute_info_list_lookup(gioFileAttributeInfoListPointer, name)!!.run {
+            FileAttributeInfo(this)
+        }
 
     /**
      * References a file attribute info list.
      *
      * @return #GFileAttributeInfoList or null on error.
      */
-    public fun ref(): FileAttributeInfoList = g_file_attribute_info_list_ref(gPointer)!!.run {
+    public fun ref(): FileAttributeInfoList = g_file_attribute_info_list_ref(gioFileAttributeInfoListPointer)!!.run {
         FileAttributeInfoList(this)
     }
 
@@ -93,7 +93,7 @@ public class FileAttributeInfoList(pointer: CPointer<GFileAttributeInfoList>) : 
      * Removes a reference from the given @list. If the reference count
      * falls to zero, the @list is deleted.
      */
-    public fun unref(): Unit = g_file_attribute_info_list_unref(gPointer)
+    public fun unref(): Unit = g_file_attribute_info_list_unref(gioFileAttributeInfoListPointer)
 
     override fun toString(): String = "FileAttributeInfoList(infos=$infos, nInfos=$nInfos)"
 

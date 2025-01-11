@@ -33,20 +33,17 @@ import org.gtkkn.native.gtk.gtk_shortcuts_shortcut_get_type
  * - method `title`: Property has no getter nor setter
  * - method `title-size-group`: Property has no getter nor setter
  */
-public open class ShortcutsShortcut(pointer: CPointer<GtkShortcutsShortcut>) :
-    Widget(pointer.reinterpret()),
+public open class ShortcutsShortcut(public val gtkShortcutsShortcutPointer: CPointer<GtkShortcutsShortcut>) :
+    Widget(gtkShortcutsShortcutPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutsShortcutPointer: CPointer<GtkShortcutsShortcut>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<ShortcutsShortcut> {
         override val type: GeneratedClassKGType<ShortcutsShortcut> =

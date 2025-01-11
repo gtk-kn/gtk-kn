@@ -16,12 +16,9 @@ import org.gtkkn.native.cairo.cairo_toy_font_face_get_weight
 import org.gtkkn.native.gobject.GType
 import kotlin.String
 
-public open class ToyFontFace(pointer: CPointer<cairo_font_face_t>) :
-    FontFace(pointer.reinterpret()),
+public open class ToyFontFace(public val cairoToyFontFacePointer: CPointer<cairo_font_face_t>) :
+    FontFace(cairoToyFontFacePointer.reinterpret()),
     KGTyped {
-    public val cairoToyFontFacePointer: CPointer<cairo_font_face_t>
-        get() = gPointer.reinterpret()
-
     public constructor(
         family: String,
         slant: FontSlant,

@@ -76,18 +76,17 @@ import kotlin.native.ref.createCleaner
  * - parameter `destroy_data`: ClosureNotify
  * - field `closure`: Field with not-pointer record/union GClosure is not supported
  */
-public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GCClosure> = pointer
-
+public class CClosure(public val gobjectCClosurePointer: CPointer<GCClosure>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectCClosurePointer) {
     /**
      * the callback function
      */
     public var callback: gpointer
-        get() = gPointer.pointed.callback!!
+        get() = gobjectCClosurePointer.pointed.callback!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.callback = value
+            gobjectCClosurePointer.pointed.callback = value
         }
 
     /**
@@ -108,7 +107,9 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to CClosure and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GCClosure>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GCClosure>, Cleaner>,
+    ) : this(gobjectCClosurePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new CClosure using the provided [AutofreeScope].
@@ -172,10 +173,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_BOOLEAN__BOXED_BOXED(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -206,10 +207,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_BOOLEAN__FLAGS(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -239,10 +240,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_STRING__OBJECT_POINTER(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -271,10 +272,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__BOOLEAN(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -303,10 +304,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__BOXED(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -335,10 +336,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__CHAR(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -367,10 +368,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__DOUBLE(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -399,10 +400,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__ENUM(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -431,10 +432,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__FLAGS(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -463,10 +464,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__FLOAT(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -495,10 +496,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__INT(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -527,10 +528,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__LONG(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -559,10 +560,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__OBJECT(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -591,10 +592,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__PARAM(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -627,10 +628,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__POINTER(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -659,10 +660,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__STRING(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -691,10 +692,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__UCHAR(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -723,10 +724,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__UINT(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -755,10 +756,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__UINT_POINTER(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -787,10 +788,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__ULONG(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -819,10 +820,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__VARIANT(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -850,10 +851,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_VOID__VOID(
-            closure.gPointer,
-            returnValue.gPointer,
+            closure.gobjectClosurePointer,
+            returnValue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )
@@ -887,10 +888,10 @@ public class CClosure(pointer: CPointer<GCClosure>, cleaner: Cleaner? = null) : 
             invocationHint: gpointer? = null,
             marshalData: gpointer? = null,
         ): Unit = g_cclosure_marshal_generic(
-            closure.gPointer,
-            returnGvalue.gPointer,
+            closure.gobjectClosurePointer,
+            returnGvalue.gobjectValuePointer,
             nParamValues,
-            paramValues.gPointer,
+            paramValues.gobjectValuePointer,
             invocationHint,
             marshalData
         )

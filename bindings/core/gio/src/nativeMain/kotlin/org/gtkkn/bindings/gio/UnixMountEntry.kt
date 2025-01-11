@@ -11,9 +11,8 @@ import org.gtkkn.native.gobject.GType
  * Defines a Unix mount entry (e.g. <filename>/media/cdrom</filename>).
  * This corresponds roughly to a mtab entry.
  */
-public class UnixMountEntry(pointer: CPointer<GUnixMountEntry>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GUnixMountEntry> = pointer
-
+public class UnixMountEntry(public val gioUnixMountEntryPointer: CPointer<GUnixMountEntry>) :
+    ProxyInstance(gioUnixMountEntryPointer) {
     public companion object {
         /**
          * Get the GType of UnixMountEntry

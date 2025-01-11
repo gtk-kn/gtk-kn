@@ -29,12 +29,9 @@ import org.gtkkn.native.gtk.gtk_list_header_set_child
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ListHeader(pointer: CPointer<GtkListHeader>) :
-    Object(pointer.reinterpret()),
+public open class ListHeader(public val gtkListHeaderPointer: CPointer<GtkListHeader>) :
+    Object(gtkListHeaderPointer.reinterpret()),
     KGTyped {
-    public val gtkListHeaderPointer: CPointer<GtkListHeader>
-        get() = gPointer.reinterpret()
-
     /**
      * Widget used for display.
      *
@@ -50,7 +47,7 @@ public open class ListHeader(pointer: CPointer<GtkListHeader>) :
          * @since 4.12
          */
         get() = gtk_list_header_get_child(gtkListHeaderPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

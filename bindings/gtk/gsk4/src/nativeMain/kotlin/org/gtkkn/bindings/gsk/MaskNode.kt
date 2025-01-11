@@ -20,12 +20,9 @@ import org.gtkkn.native.gsk.gsk_mask_node_new
  * @since 4.10
  */
 @GskVersion4_10
-public open class MaskNode(pointer: CPointer<GskMaskNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class MaskNode(public val gskMaskNodePointer: CPointer<GskMaskNode>) :
+    RenderNode(gskMaskNodePointer.reinterpret()),
     KGTyped {
-    public val gskMaskNodePointer: CPointer<GskMaskNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will mask a given node by another.
      *
@@ -43,7 +40,9 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
         source: RenderNode,
         mask: RenderNode,
         maskMode: MaskMode,
-    ) : this(gsk_mask_node_new(source.gPointer, mask.gPointer, maskMode.nativeValue)!!.reinterpret())
+    ) : this(
+        gsk_mask_node_new(source.gskRenderNodePointer, mask.gskRenderNodePointer, maskMode.nativeValue)!!.reinterpret()
+    )
 
     /**
      * Retrieves the mask `GskRenderNode` child of the @node.
@@ -53,7 +52,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getMask(): RenderNode = gsk_mask_node_get_mask(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**
@@ -75,7 +74,7 @@ public open class MaskNode(pointer: CPointer<GskMaskNode>) :
      */
     @GskVersion4_10
     public open fun getSource(): RenderNode = gsk_mask_node_get_source(gskMaskNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     public companion object : TypeCompanion<MaskNode> {

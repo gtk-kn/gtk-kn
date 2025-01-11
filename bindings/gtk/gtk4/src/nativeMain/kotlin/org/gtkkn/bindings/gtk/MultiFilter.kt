@@ -25,19 +25,16 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
-    Filter(pointer.reinterpret()),
+public abstract class MultiFilter(public val gtkMultiFilterPointer: CPointer<GtkMultiFilter>) :
+    Filter(gtkMultiFilterPointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
-    public val gtkMultiFilterPointer: CPointer<GtkMultiFilter>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Adds a @filter to @self to use for matching.
@@ -58,9 +55,16 @@ public open class MultiFilter(pointer: CPointer<GtkMultiFilter>) :
      */
     public open fun remove(position: guint): Unit = gtk_multi_filter_remove(gtkMultiFilterPointer, position)
 
+    /**
+     * The MultiFilterImpl type represents a native instance of the abstract MultiFilter class.
+     *
+     * @constructor Creates a new instance of MultiFilter for the provided [CPointer].
+     */
+    public class MultiFilterImpl(pointer: CPointer<GtkMultiFilter>) : MultiFilter(pointer)
+
     public companion object : TypeCompanion<MultiFilter> {
         override val type: GeneratedClassKGType<MultiFilter> =
-            GeneratedClassKGType(gtk_multi_filter_get_type()) { MultiFilter(it.reinterpret()) }
+            GeneratedClassKGType(gtk_multi_filter_get_type()) { MultiFilterImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

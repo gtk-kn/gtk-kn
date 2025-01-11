@@ -34,15 +34,12 @@ import kotlin.Unit
  * Support for `GdkVulkanContext` is platform-specific and context creation
  * can fail, returning null context.
  */
-public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
-    DrawContext(pointer.reinterpret()),
+public abstract class VulkanContext(public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>) :
+    DrawContext(gdkVulkanContextPointer.reinterpret()),
     Initable,
     KGTyped {
-    public val gdkVulkanContextPointer: CPointer<GdkVulkanContext>
-        get() = gPointer.reinterpret()
-
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Emitted when the images managed by this context have changed.
@@ -55,7 +52,7 @@ public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
      */
     public fun onImagesUpdated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkVulkanContextPointer,
             "images-updated",
             onImagesUpdatedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -67,12 +64,19 @@ public open class VulkanContext(pointer: CPointer<GdkVulkanContext>) :
      * Emits the "images-updated" signal. See [onImagesUpdated].
      */
     public fun emitImagesUpdated() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "images-updated")
+        g_signal_emit_by_name(gdkVulkanContextPointer.reinterpret(), "images-updated")
     }
+
+    /**
+     * The VulkanContextImpl type represents a native instance of the abstract VulkanContext class.
+     *
+     * @constructor Creates a new instance of VulkanContext for the provided [CPointer].
+     */
+    public class VulkanContextImpl(pointer: CPointer<GdkVulkanContext>) : VulkanContext(pointer)
 
     public companion object : TypeCompanion<VulkanContext> {
         override val type: GeneratedClassKGType<VulkanContext> =
-            GeneratedClassKGType(gdk_vulkan_context_get_type()) { VulkanContext(it.reinterpret()) }
+            GeneratedClassKGType(gdk_vulkan_context_get_type()) { VulkanContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

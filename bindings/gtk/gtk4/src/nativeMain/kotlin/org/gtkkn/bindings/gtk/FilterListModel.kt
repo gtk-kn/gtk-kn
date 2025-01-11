@@ -44,19 +44,16 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
-    Object(pointer.reinterpret()),
+public open class FilterListModel(public val gtkFilterListModelPointer: CPointer<GtkFilterListModel>) :
+    Object(gtkFilterListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
-    public val gtkFilterListModelPointer: CPointer<GtkFilterListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The filter for this model.
@@ -123,7 +120,7 @@ public open class FilterListModel(pointer: CPointer<GtkFilterListModel>) :
          * @return The model that gets filtered
          */
         get() = gtk_filter_list_model_get_model(gtkFilterListModelPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

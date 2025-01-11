@@ -53,12 +53,9 @@ import kotlin.Unit
  *
  * - method `realized`: Property has no getter nor setter
  */
-public open class Renderer(pointer: CPointer<GskRenderer>) :
-    Object(pointer.reinterpret()),
+public abstract class Renderer(public val gskRendererPointer: CPointer<GskRenderer>) :
+    Object(gskRendererPointer.reinterpret()),
     KGTyped {
-    public val gskRendererPointer: CPointer<GskRenderer>
-        get() = gPointer.reinterpret()
-
     /**
      * The surface associated with renderer.
      */
@@ -71,7 +68,7 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
          * @return a `GdkSurface`
          */
         get() = gsk_renderer_get_surface(gskRendererPointer)?.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**
@@ -165,7 +162,7 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
      *   for the whole window
      */
     public open fun render(root: RenderNode, region: Region? = null): Unit =
-        gsk_renderer_render(gskRendererPointer, root.gPointer, region?.gPointer)
+        gsk_renderer_render(gskRendererPointer, root.gskRenderNodePointer, region?.cairoRegionPointer)
 
     /**
      * Renders the scene graph, described by a tree of `GskRenderNode` instances,
@@ -181,19 +178,29 @@ public open class Renderer(pointer: CPointer<GskRenderer>) :
      * @param viewport the section to draw or null to use @root's bounds
      * @return a `GdkTexture` with the rendered contents of @root.
      */
-    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture =
-        gsk_renderer_render_texture(gskRendererPointer, root.gPointer, viewport?.gPointer)!!.run {
-            Texture(this)
-        }
+    public open fun renderTexture(root: RenderNode, viewport: Rect? = null): Texture = gsk_renderer_render_texture(
+        gskRendererPointer,
+        root.gskRenderNodePointer,
+        viewport?.grapheneRectPointer
+    )!!.run {
+        Texture.TextureImpl(this)
+    }
 
     /**
      * Releases all the resources created by gsk_renderer_realize().
      */
     public open fun unrealize(): Unit = gsk_renderer_unrealize(gskRendererPointer)
 
+    /**
+     * The RendererImpl type represents a native instance of the abstract Renderer class.
+     *
+     * @constructor Creates a new instance of Renderer for the provided [CPointer].
+     */
+    public class RendererImpl(pointer: CPointer<GskRenderer>) : Renderer(pointer)
+
     public companion object : TypeCompanion<Renderer> {
         override val type: GeneratedClassKGType<Renderer> =
-            GeneratedClassKGType(gsk_renderer_get_type()) { Renderer(it.reinterpret()) }
+            GeneratedClassKGType(gsk_renderer_get_type()) { RendererImpl(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()

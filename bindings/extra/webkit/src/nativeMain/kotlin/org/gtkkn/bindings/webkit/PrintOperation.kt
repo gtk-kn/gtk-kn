@@ -46,12 +46,9 @@ import kotlin.Unit
  *
  * - method `web-view`: Property has no getter nor setter
  */
-public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
-    Object(pointer.reinterpret()),
+public class PrintOperation(public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>) :
+    Object(webkitPrintOperationPointer.reinterpret()),
     KGTyped {
-    public val webkitPrintOperationPointer: CPointer<WebKitPrintOperation>
-        get() = gPointer.reinterpret()
-
     /**
      * The initial #GtkPageSetup for the print operation.
      */
@@ -176,7 +173,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      */
     public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitPrintOperationPointer,
             "failed",
             onFailedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -190,7 +187,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * @param error the #GError that was triggered
      */
     public fun emitFailed(error: Error) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "failed", error.gPointer)
+        g_signal_emit_by_name(webkitPrintOperationPointer.reinterpret(), "failed", error.glibErrorPointer)
     }
 
     /**
@@ -202,7 +199,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      */
     public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitPrintOperationPointer,
             "finished",
             onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -214,7 +211,7 @@ public class PrintOperation(pointer: CPointer<WebKitPrintOperation>) :
      * Emits the "finished" signal. See [onFinished].
      */
     public fun emitFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+        g_signal_emit_by_name(webkitPrintOperationPointer.reinterpret(), "finished")
     }
 
     public companion object : TypeCompanion<PrintOperation> {

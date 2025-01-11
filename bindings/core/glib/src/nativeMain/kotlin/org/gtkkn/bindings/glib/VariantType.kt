@@ -206,9 +206,8 @@ import kotlin.Unit
  * @since 2.24
  */
 @GLibVersion2_24
-public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GVariantType> = pointer
-
+public class VariantType(public val glibVariantTypePointer: CPointer<GVariantType>) :
+    ProxyInstance(glibVariantTypePointer) {
     /**
      * Makes a copy of a #GVariantType.  It is appropriate to call
      * g_variant_type_free() on the return value.  @type may not be null.
@@ -217,7 +216,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun copy(): VariantType = g_variant_type_copy(gPointer)!!.run {
+    public fun copy(): VariantType = g_variant_type_copy(glibVariantTypePointer)!!.run {
         VariantType(this)
     }
 
@@ -231,7 +230,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      * Since 2.24
      */
     public fun dupString(): String =
-        g_variant_type_dup_string(gPointer)?.toKString() ?: error("Expected not null string")
+        g_variant_type_dup_string(glibVariantTypePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the element type of an array or maybe type.
@@ -242,7 +241,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun element(): VariantType = g_variant_type_element(gPointer)!!.run {
+    public fun element(): VariantType = g_variant_type_element(glibVariantTypePointer)!!.run {
         VariantType(this)
     }
 
@@ -263,7 +262,8 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun equal(type2: VariantType): Boolean = g_variant_type_equal(gPointer, type2.gPointer).asBoolean()
+    public fun equal(type2: VariantType): Boolean =
+        g_variant_type_equal(glibVariantTypePointer, type2.glibVariantTypePointer).asBoolean()
 
     /**
      * Determines the first item type of a tuple or dictionary entry
@@ -285,7 +285,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun first(): VariantType = g_variant_type_first(gPointer)!!.run {
+    public fun first(): VariantType = g_variant_type_first(glibVariantTypePointer)!!.run {
         VariantType(this)
     }
 
@@ -298,7 +298,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun free(): Unit = g_variant_type_free(gPointer)
+    public fun free(): Unit = g_variant_type_free(glibVariantTypePointer)
 
     /**
      * Returns the length of the type string corresponding to the given
@@ -309,7 +309,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun getStringLength(): gsize = g_variant_type_get_string_length(gPointer)
+    public fun getStringLength(): gsize = g_variant_type_get_string_length(glibVariantTypePointer)
 
     /**
      * Hashes @type.
@@ -322,7 +322,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun hash(): guint = g_variant_type_hash(gPointer)
+    public fun hash(): guint = g_variant_type_hash(glibVariantTypePointer)
 
     /**
      * Determines if the given @type is an array type.  This is true if the
@@ -336,7 +336,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isArray(): Boolean = g_variant_type_is_array(gPointer).asBoolean()
+    public fun isArray(): Boolean = g_variant_type_is_array(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is a basic type.
@@ -353,7 +353,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isBasic(): Boolean = g_variant_type_is_basic(gPointer).asBoolean()
+    public fun isBasic(): Boolean = g_variant_type_is_basic(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is a container type.
@@ -369,7 +369,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isContainer(): Boolean = g_variant_type_is_container(gPointer).asBoolean()
+    public fun isContainer(): Boolean = g_variant_type_is_container(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is definite (ie: not indefinite).
@@ -387,7 +387,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isDefinite(): Boolean = g_variant_type_is_definite(gPointer).asBoolean()
+    public fun isDefinite(): Boolean = g_variant_type_is_definite(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is a dictionary entry type.  This is
@@ -401,7 +401,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isDictEntry(): Boolean = g_variant_type_is_dict_entry(gPointer).asBoolean()
+    public fun isDictEntry(): Boolean = g_variant_type_is_dict_entry(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is a maybe type.  This is true if the
@@ -415,7 +415,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isMaybe(): Boolean = g_variant_type_is_maybe(gPointer).asBoolean()
+    public fun isMaybe(): Boolean = g_variant_type_is_maybe(glibVariantTypePointer).asBoolean()
 
     /**
      * Checks if @type is a subtype of @supertype.
@@ -430,7 +430,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      * Since 2.24
      */
     public fun isSubtypeOf(supertype: VariantType): Boolean =
-        g_variant_type_is_subtype_of(gPointer, supertype.gPointer).asBoolean()
+        g_variant_type_is_subtype_of(glibVariantTypePointer, supertype.glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is a tuple type.  This is true if the
@@ -445,7 +445,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isTuple(): Boolean = g_variant_type_is_tuple(gPointer).asBoolean()
+    public fun isTuple(): Boolean = g_variant_type_is_tuple(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines if the given @type is the variant type.
@@ -454,7 +454,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun isVariant(): Boolean = g_variant_type_is_variant(gPointer).asBoolean()
+    public fun isVariant(): Boolean = g_variant_type_is_variant(glibVariantTypePointer).asBoolean()
 
     /**
      * Determines the key type of a dictionary entry type.
@@ -467,7 +467,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun key(): VariantType = g_variant_type_key(gPointer)!!.run {
+    public fun key(): VariantType = g_variant_type_key(glibVariantTypePointer)!!.run {
         VariantType(this)
     }
 
@@ -486,7 +486,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun nItems(): gsize = g_variant_type_n_items(gPointer)
+    public fun nItems(): gsize = g_variant_type_n_items(glibVariantTypePointer)
 
     /**
      * Determines the next item type of a tuple or dictionary entry
@@ -505,7 +505,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun next(): VariantType = g_variant_type_next(gPointer)!!.run {
+    public fun next(): VariantType = g_variant_type_next(glibVariantTypePointer)!!.run {
         VariantType(this)
     }
 
@@ -521,7 +521,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      * Since 2.24
      */
     public fun peekString(): String =
-        g_variant_type_peek_string(gPointer)?.toKString() ?: error("Expected not null string")
+        g_variant_type_peek_string(glibVariantTypePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the value type of a dictionary entry type.
@@ -532,7 +532,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
      *
      * Since 2.24
      */
-    public fun `value`(): VariantType = g_variant_type_value(gPointer)!!.run {
+    public fun `value`(): VariantType = g_variant_type_value(glibVariantTypePointer)!!.run {
         VariantType(this)
     }
 
@@ -563,7 +563,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
          * Since 2.24
          */
         public fun newArray(element: VariantType): VariantType =
-            VariantType(g_variant_type_new_array(element.gPointer)!!.reinterpret())
+            VariantType(g_variant_type_new_array(element.glibVariantTypePointer)!!.reinterpret())
 
         /**
          * Constructs the type corresponding to a dictionary entry with a key
@@ -577,8 +577,12 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
          *
          * Since 2.24
          */
-        public fun newDictEntry(key: VariantType, `value`: VariantType): VariantType =
-            VariantType(g_variant_type_new_dict_entry(key.gPointer, `value`.gPointer)!!.reinterpret())
+        public fun newDictEntry(key: VariantType, `value`: VariantType): VariantType = VariantType(
+            g_variant_type_new_dict_entry(
+                key.glibVariantTypePointer,
+                `value`.glibVariantTypePointer
+            )!!.reinterpret()
+        )
 
         /**
          * Constructs the type corresponding to a maybe instance containing
@@ -592,7 +596,7 @@ public class VariantType(pointer: CPointer<GVariantType>) : ProxyInstance(pointe
          * Since 2.24
          */
         public fun newMaybe(element: VariantType): VariantType =
-            VariantType(g_variant_type_new_maybe(element.gPointer)!!.reinterpret())
+            VariantType(g_variant_type_new_maybe(element.glibVariantTypePointer)!!.reinterpret())
 
         public fun checked(typeString: String): VariantType = g_variant_type_checked_(typeString)!!.run {
             VariantType(this)

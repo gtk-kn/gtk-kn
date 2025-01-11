@@ -87,12 +87,9 @@ import kotlin.Unit
  * finished, the previous animation should be stopped first, or the existing
  * `AdwAnimation` object can be reused.
  */
-public open class Animation(pointer: CPointer<AdwAnimation>) :
-    Object(pointer.reinterpret()),
+public abstract class Animation(public val adwAnimationPointer: CPointer<AdwAnimation>) :
+    Object(adwAnimationPointer.reinterpret()),
     KGTyped {
-    public val adwAnimationPointer: CPointer<AdwAnimation>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether to skip the animation when animations are globally disabled.
      *
@@ -162,7 +159,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @return the animation target
          */
         get() = adw_animation_get_target(adwAnimationPointer)!!.run {
-            AnimationTarget(this)
+            AnimationTarget.AnimationTargetImpl(this)
         }
 
         /**
@@ -207,7 +204,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
          * @return the animation widget
          */
         get() = adw_animation_get_widget(adwAnimationPointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -275,7 +272,7 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      */
     public fun onDone(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwAnimationPointer,
             "done",
             onDoneFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -287,12 +284,19 @@ public open class Animation(pointer: CPointer<AdwAnimation>) :
      * Emits the "done" signal. See [onDone].
      */
     public fun emitDone() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "done")
+        g_signal_emit_by_name(adwAnimationPointer.reinterpret(), "done")
     }
+
+    /**
+     * The AnimationImpl type represents a native instance of the abstract Animation class.
+     *
+     * @constructor Creates a new instance of Animation for the provided [CPointer].
+     */
+    public class AnimationImpl(pointer: CPointer<AdwAnimation>) : Animation(pointer)
 
     public companion object : TypeCompanion<Animation> {
         override val type: GeneratedClassKGType<Animation> =
-            GeneratedClassKGType(adw_animation_get_type()) { Animation(it.reinterpret()) }
+            GeneratedClassKGType(adw_animation_get_type()) { AnimationImpl(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

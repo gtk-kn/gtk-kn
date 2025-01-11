@@ -32,41 +32,40 @@ import kotlin.native.ref.createCleaner
  * @since 2.50
  */
 @GLibVersion2_50
-public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GLogField> = pointer
-
+public class LogField(public val glibLogFieldPointer: CPointer<GLogField>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibLogFieldPointer) {
     /**
      * field name (UTF-8 string)
      */
     public var key: String?
-        get() = gPointer.pointed.key?.toKString()
+        get() = glibLogFieldPointer.pointed.key?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.key?.let { g_free(it) }
-            gPointer.pointed.key = value?.let { g_strdup(it) }
+            glibLogFieldPointer.pointed.key?.let { g_free(it) }
+            glibLogFieldPointer.pointed.key = value?.let { g_strdup(it) }
         }
 
     /**
      * field value (arbitrary bytes)
      */
     public var `value`: gpointer
-        get() = gPointer.pointed.value!!
+        get() = glibLogFieldPointer.pointed.value!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value
+            glibLogFieldPointer.pointed.value = value
         }
 
     /**
      * length of @value, in bytes, or -1 if it is nul-terminated
      */
     public var length: Long
-        get() = gPointer.pointed.length
+        get() = glibLogFieldPointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.length = value
+            glibLogFieldPointer.pointed.length = value
         }
 
     /**
@@ -87,7 +86,9 @@ public class LogField(pointer: CPointer<GLogField>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to LogField and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GLogField>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GLogField>, Cleaner>,
+    ) : this(glibLogFieldPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new LogField using the provided [AutofreeScope].

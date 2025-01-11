@@ -35,15 +35,12 @@ import kotlin.Unit
  * always existed in the background, and you can use `g_type_from_name
  * ("SoupAuthManager")` to get its [alias@GLib.Type] in earlier releases.)
  */
-public class AuthManager(pointer: CPointer<SoupAuthManager>) :
-    Object(pointer.reinterpret()),
+public class AuthManager(public val soupAuthManagerPointer: CPointer<SoupAuthManager>) :
+    Object(soupAuthManagerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupAuthManagerPointer: CPointer<SoupAuthManager>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Clear all credentials cached by @manager.
@@ -66,7 +63,7 @@ public class AuthManager(pointer: CPointer<SoupAuthManager>) :
      * @param auth the #SoupAuth to use
      */
     public fun useAuth(uri: Uri, auth: Auth): Unit =
-        soup_auth_manager_use_auth(soupAuthManagerPointer, uri.gPointer, auth.soupAuthPointer)
+        soup_auth_manager_use_auth(soupAuthManagerPointer, uri.glibUriPointer, auth.soupAuthPointer)
 
     public companion object : TypeCompanion<AuthManager> {
         override val type: GeneratedClassKGType<AuthManager> =

@@ -34,12 +34,9 @@ import kotlin.String
  * - constructor `new_with_name_printf`: Varargs parameter is not supported
  * - parameter `args`: va_list type is not supported
  */
-public class Exception(pointer: CPointer<JSCException>) :
-    Object(pointer.reinterpret()),
+public class Exception(public val jscExceptionPointer: CPointer<JSCException>) :
+    Object(jscExceptionPointer.reinterpret()),
     KGTyped {
-    public val jscExceptionPointer: CPointer<JSCException>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a new #JSCException in @context with @message.
      *

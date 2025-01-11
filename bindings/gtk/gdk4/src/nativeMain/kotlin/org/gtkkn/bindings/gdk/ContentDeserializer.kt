@@ -49,15 +49,12 @@ import kotlin.Unit
  *
  * - parameter `notify`: GLib.DestroyNotify
  */
-public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>) :
-    Object(pointer.reinterpret()),
+public open class ContentDeserializer(public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>) :
+    Object(gdkContentDeserializerPointer.reinterpret()),
     AsyncResult,
     KGTyped {
-    public val gdkContentDeserializerPointer: CPointer<GdkContentDeserializer>
-        get() = gPointer.reinterpret()
-
     override val gioAsyncResultPointer: CPointer<GAsyncResult>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Gets the cancellable for the current operation.
@@ -87,7 +84,7 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      */
     public open fun getInputStream(): InputStream =
         gdk_content_deserializer_get_input_stream(gdkContentDeserializerPointer)!!.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
     /**
@@ -141,7 +138,7 @@ public open class ContentDeserializer(pointer: CPointer<GdkContentDeserializer>)
      * @param error a `GError`
      */
     public open fun returnError(error: Error): Unit =
-        gdk_content_deserializer_return_error(gdkContentDeserializerPointer, error.gPointer)
+        gdk_content_deserializer_return_error(gdkContentDeserializerPointer, error.glibErrorPointer)
 
     /**
      * Indicate that the deserialization has been successfully completed.

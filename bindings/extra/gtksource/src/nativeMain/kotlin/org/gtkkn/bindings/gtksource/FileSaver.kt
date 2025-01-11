@@ -60,12 +60,9 @@ import kotlin.Unit
  *
  * - method `encoding`: Property TypeInfo of getter and setter do not match
  */
-public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
-    Object(pointer.reinterpret()),
+public open class FileSaver(public val gtksourceFileSaverPointer: CPointer<GtkSourceFileSaver>) :
+    Object(gtksourceFileSaverPointer.reinterpret()),
     KGTyped {
-    public val gtksourceFileSaverPointer: CPointer<GtkSourceFileSaver>
-        get() = gPointer.reinterpret()
-
     /**
      * The #GtkSourceBuffer to save. The #GtkSourceFileSaver object has a
      * weak reference to the buffer.
@@ -148,7 +145,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
          * @return the #GFile where to save the buffer to.
          */
         get() = gtk_source_file_saver_get_location(gtksourceFileSaverPointer)!!.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+            org.gtkkn.bindings.gio.File.FileImpl(reinterpret())
         }
 
     /**
@@ -296,7 +293,7 @@ public open class FileSaver(pointer: CPointer<GtkSourceFileSaver>) :
      * @param encoding the new encoding, or null for UTF-8.
      */
     public open fun setEncoding(encoding: Encoding? = null): Unit =
-        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer, encoding?.gPointer)
+        gtk_source_file_saver_set_encoding(gtksourceFileSaverPointer, encoding?.gtksourceEncodingPointer)
 
     public companion object : TypeCompanion<FileSaver> {
         override val type: GeneratedClassKGType<FileSaver> =

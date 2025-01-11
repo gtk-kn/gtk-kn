@@ -44,15 +44,12 @@ import kotlin.Throws
  * @since 2.32
  */
 @GioVersion2_32
-public open class InetAddressMask(pointer: CPointer<GInetAddressMask>) :
-    Object(pointer.reinterpret()),
+public open class InetAddressMask(public val gioInetAddressMaskPointer: CPointer<GInetAddressMask>) :
+    Object(gioInetAddressMaskPointer.reinterpret()),
     Initable,
     KGTyped {
-    public val gioInetAddressMaskPointer: CPointer<GInetAddressMask>
-        get() = gPointer.reinterpret()
-
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The base address.

@@ -29,9 +29,8 @@ import kotlin.native.ref.createCleaner
  * - method `loop`: Varargs parameter is not supported
  * - method `next`: Varargs parameter is not supported
  */
-public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GVariantIter> = pointer
-
+public class VariantIter(public val glibVariantIterPointer: CPointer<GVariantIter>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibVariantIterPointer) {
     /**
      * Allocate a new VariantIter.
      *
@@ -50,7 +49,9 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to VariantIter and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GVariantIter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GVariantIter>, Cleaner>,
+    ) : this(glibVariantIterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new VariantIter using the provided [AutofreeScope].
@@ -77,7 +78,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun copy(): VariantIter = g_variant_iter_copy(gPointer)!!.run {
+    public fun copy(): VariantIter = g_variant_iter_copy(glibVariantIterPointer)!!.run {
         VariantIter(this)
     }
 
@@ -89,7 +90,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun free(): Unit = g_variant_iter_free(gPointer)
+    public fun free(): Unit = g_variant_iter_free(glibVariantIterPointer)
 
     /**
      * Initialises (without allocating) a #GVariantIter.  @iter may be
@@ -104,7 +105,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun `init`(`value`: Variant): gsize = g_variant_iter_init(gPointer, `value`.gPointer)
+    public fun `init`(`value`: Variant): gsize = g_variant_iter_init(glibVariantIterPointer, `value`.glibVariantPointer)
 
     /**
      * Queries the number of child items in the container that we are
@@ -117,7 +118,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun nChildren(): gsize = g_variant_iter_n_children(gPointer)
+    public fun nChildren(): gsize = g_variant_iter_n_children(glibVariantIterPointer)
 
     /**
      * Gets the next item in the container.  If no more items remain then
@@ -152,7 +153,7 @@ public class VariantIter(pointer: CPointer<GVariantIter>, cleaner: Cleaner? = nu
      * @since 2.24
      */
     @GLibVersion2_24
-    public fun nextValue(): Variant? = g_variant_iter_next_value(gPointer)?.run {
+    public fun nextValue(): Variant? = g_variant_iter_next_value(glibVariantIterPointer)?.run {
         Variant(this)
     }
 }

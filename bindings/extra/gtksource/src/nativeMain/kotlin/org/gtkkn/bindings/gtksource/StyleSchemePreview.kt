@@ -45,24 +45,22 @@ import kotlin.Unit
  * @since 5.4
  */
 @GtkSourceVersion5_4
-public open class StyleSchemePreview(pointer: CPointer<GtkSourceStyleSchemePreview>) :
-    Widget(pointer.reinterpret()),
+public open class StyleSchemePreview(
+    public val gtksourceStyleSchemePreviewPointer: CPointer<GtkSourceStyleSchemePreview>,
+) : Widget(gtksourceStyleSchemePreviewPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val gtksourceStyleSchemePreviewPointer: CPointer<GtkSourceStyleSchemePreview>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public open val scheme: StyleScheme
         /**
@@ -101,7 +99,7 @@ public open class StyleSchemePreview(pointer: CPointer<GtkSourceStyleSchemePrevi
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceStyleSchemePreviewPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -113,7 +111,7 @@ public open class StyleSchemePreview(pointer: CPointer<GtkSourceStyleSchemePrevi
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtksourceStyleSchemePreviewPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<StyleSchemePreview> {

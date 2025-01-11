@@ -28,31 +28,30 @@ import kotlin.native.ref.createCleaner
  *
  * - field `axes`: Array parameter of type gdouble is not supported
  */
-public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkTimeCoord> = pointer
-
+public class TimeCoord(public val gdkTimeCoordPointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null) :
+    ProxyInstance(gdkTimeCoordPointer) {
     /**
      * The timestamp for this event
      */
     public var time: guint
-        get() = gPointer.pointed.time
+        get() = gdkTimeCoordPointer.pointed.time
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.time = value
+            gdkTimeCoordPointer.pointed.time = value
         }
 
     /**
      * Flags indicating what axes are present, see [flags@Gdk.AxisFlags]
      */
     public var flags: AxisFlags
-        get() = gPointer.pointed.flags.run {
+        get() = gdkTimeCoordPointer.pointed.flags.run {
             AxisFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.flags = value.mask
+            gdkTimeCoordPointer.pointed.flags = value.mask
         }
 
     /**
@@ -73,7 +72,9 @@ public class TimeCoord(pointer: CPointer<GdkTimeCoord>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to TimeCoord and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GdkTimeCoord>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GdkTimeCoord>, Cleaner>,
+    ) : this(gdkTimeCoordPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TimeCoord using the provided [AutofreeScope].

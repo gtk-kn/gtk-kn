@@ -31,12 +31,9 @@ import kotlin.Boolean
  * requested. [method@HoverContext.get_iter] will get you the location
  * of the pointer when the request was made.
  */
-public open class HoverContext(pointer: CPointer<GtkSourceHoverContext>) :
-    Object(pointer.reinterpret()),
+public open class HoverContext(public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>) :
+    Object(gtksourceHoverContextPointer.reinterpret()),
     KGTyped {
-    public val gtksourceHoverContextPointer: CPointer<GtkSourceHoverContext>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets the current word bounds of the hover.
      *
@@ -50,8 +47,11 @@ public open class HoverContext(pointer: CPointer<GtkSourceHoverContext>) :
      * @param end a #GtkTextIter
      * @return true if the marks are still valid and @begin or @end was set.
      */
-    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean =
-        gtk_source_hover_context_get_bounds(gtksourceHoverContextPointer, begin?.gPointer, end?.gPointer).asBoolean()
+    public open fun getBounds(begin: TextIter?, end: TextIter?): Boolean = gtk_source_hover_context_get_bounds(
+        gtksourceHoverContextPointer,
+        begin?.gtkTextIterPointer,
+        end?.gtkTextIterPointer
+    ).asBoolean()
 
     /**
      * A convenience function to get the buffer.
@@ -63,7 +63,7 @@ public open class HoverContext(pointer: CPointer<GtkSourceHoverContext>) :
     }
 
     public open fun getIter(iter: TextIter): Boolean =
-        gtk_source_hover_context_get_iter(gtksourceHoverContextPointer, iter.gPointer).asBoolean()
+        gtk_source_hover_context_get_iter(gtksourceHoverContextPointer, iter.gtkTextIterPointer).asBoolean()
 
     /**
      *

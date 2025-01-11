@@ -59,20 +59,17 @@ import kotlin.String
  *
  * `AdwAvatar` has a single CSS node with name `avatar`.
  */
-public class Avatar(pointer: CPointer<AdwAvatar>) :
-    Widget(pointer.reinterpret()),
+public class Avatar(public val adwAvatarPointer: CPointer<AdwAvatar>) :
+    Widget(adwAvatarPointer.reinterpret()),
     KGTyped {
-    public val adwAvatarPointer: CPointer<AdwAvatar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A custom image paintable.
@@ -86,7 +83,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
          * @return the custom image
          */
         get() = adw_avatar_get_custom_image(adwAvatarPointer)?.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
         /**
@@ -209,7 +206,7 @@ public class Avatar(pointer: CPointer<AdwAvatar>) :
      */
     public fun drawToTexture(scaleFactor: gint): Texture =
         adw_avatar_draw_to_texture(adwAvatarPointer, scaleFactor)!!.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
     public companion object : TypeCompanion<Avatar> {

@@ -38,7 +38,7 @@ class SubclassingTests {
         val object1 = TestObject1()
 
         // Verify type name from GObject system
-        val typeName = g_type_name_from_instance(object1.gPointer.reinterpret())?.toKString()
+        val typeName = g_type_name_from_instance(object1.gobjectObjectPointer.reinterpret())?.toKString()
         assertEquals("TestObject1", typeName, "Type name should match TestObject1.")
 
         // Verify GType from name matches the registered GType
@@ -54,7 +54,7 @@ class SubclassingTests {
         val object2 = TestObject2()
 
         // Verify type name from GObject system
-        val typeName = g_type_name_from_instance(object2.gPointer.reinterpret())?.toKString()
+        val typeName = g_type_name_from_instance(object2.gobjectObjectPointer.reinterpret())?.toKString()
         assertEquals("TestObject2", typeName, "Type name should match TestObject2.")
 
         // Verify GType from name matches the registered GType

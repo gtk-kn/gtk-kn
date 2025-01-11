@@ -55,12 +55,9 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
-    Object(pointer.reinterpret()),
+public abstract class TlsDatabase(public val gioTlsDatabasePointer: CPointer<GTlsDatabase>) :
+    Object(gioTlsDatabasePointer.reinterpret()),
     KGTyped {
-    public val gioTlsDatabasePointer: CPointer<GTlsDatabase>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a handle string for the certificate. The database will only be able
      * to create a handle for certificates that originate from the database. In
@@ -121,7 +118,7 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -181,7 +178,7 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -237,7 +234,7 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -294,7 +291,7 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -500,9 +497,16 @@ public open class TlsDatabase(pointer: CPointer<GTlsDatabase>) :
         }
     }
 
+    /**
+     * The TlsDatabaseImpl type represents a native instance of the abstract TlsDatabase class.
+     *
+     * @constructor Creates a new instance of TlsDatabase for the provided [CPointer].
+     */
+    public class TlsDatabaseImpl(pointer: CPointer<GTlsDatabase>) : TlsDatabase(pointer)
+
     public companion object : TypeCompanion<TlsDatabase> {
         override val type: GeneratedClassKGType<TlsDatabase> =
-            GeneratedClassKGType(g_tls_database_get_type()) { TlsDatabase(it.reinterpret()) }
+            GeneratedClassKGType(g_tls_database_get_type()) { TlsDatabaseImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

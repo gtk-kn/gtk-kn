@@ -123,20 +123,17 @@ import kotlin.ULong
  * @since 1.3
  */
 @AdwVersion1_3
-public class TabOverview(pointer: CPointer<AdwTabOverview>) :
-    Widget(pointer.reinterpret()),
+public class TabOverview(public val adwTabOverviewPointer: CPointer<AdwTabOverview>) :
+    Widget(adwTabOverviewPointer.reinterpret()),
     KGTyped {
-    public val adwTabOverviewPointer: CPointer<AdwTabOverview>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -152,7 +149,7 @@ public class TabOverview(pointer: CPointer<AdwTabOverview>) :
          * @since 1.3
          */
         get() = adw_tab_overview_get_child(adwTabOverviewPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -373,7 +370,7 @@ public class TabOverview(pointer: CPointer<AdwTabOverview>) :
          * @since 1.3
          */
         get() = adw_tab_overview_get_secondary_menu(adwTabOverviewPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -503,7 +500,7 @@ public class TabOverview(pointer: CPointer<AdwTabOverview>) :
     @AdwVersion1_3
     public fun onCreateTab(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> TabPage): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwTabOverviewPointer,
             "create-tab",
             onCreateTabFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -528,7 +525,7 @@ public class TabOverview(pointer: CPointer<AdwTabOverview>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwTabOverviewPointer,
         "extra-drag-drop",
         onExtraDragDropFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -556,7 +553,7 @@ public class TabOverview(pointer: CPointer<AdwTabOverview>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> DragAction,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwTabOverviewPointer,
         "extra-drag-value",
         onExtraDragValueFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

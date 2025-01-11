@@ -93,9 +93,8 @@ import kotlin.native.ref.createCleaner
  *
  * A #GCond should only be accessed via the g_cond_ functions.
  */
-public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GCond> = pointer
-
+public class Cond(public val glibCondPointer: CPointer<GCond>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibCondPointer) {
     /**
      * Allocate a new Cond.
      *
@@ -114,7 +113,9 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      *
      * @param pair A pair containing the pointer to Cond and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GCond>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GCond>, Cleaner>,
+    ) : this(glibCondPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Cond using the provided [AutofreeScope].
@@ -131,7 +132,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * It is good practice to lock the same mutex as the waiting threads
      * while calling this function, though not required.
      */
-    public fun broadcast(): Unit = g_cond_broadcast(gPointer)
+    public fun broadcast(): Unit = g_cond_broadcast(glibCondPointer)
 
     /**
      * Frees the resources allocated to a #GCond with g_cond_init().
@@ -145,7 +146,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_cond_clear(gPointer)
+    public fun clear(): Unit = g_cond_clear(glibCondPointer)
 
     /**
      * Destroys a #GCond that has been created with g_cond_new().
@@ -153,7 +154,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * Calling g_cond_free() for a #GCond on which threads are
      * blocking leads to undefined behaviour.
      */
-    public fun free(): Unit = g_cond_free(gPointer)
+    public fun free(): Unit = g_cond_free(glibCondPointer)
 
     /**
      * Initialises a #GCond so that it can be used.
@@ -171,7 +172,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_cond_init(gPointer)
+    public fun `init`(): Unit = g_cond_init(glibCondPointer)
 
     /**
      * If threads are waiting for @cond, at least one of them is unblocked.
@@ -179,7 +180,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * It is good practice to hold the same lock as the waiting thread
      * while calling this function, though not required.
      */
-    public fun signal(): Unit = g_cond_signal(gPointer)
+    public fun signal(): Unit = g_cond_signal(glibCondPointer)
 
     /**
      * Waits until this thread is woken up on @cond, but not longer than
@@ -199,7 +200,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      * @return true if @cond was signalled, or false on timeout
      */
     public fun timedWait(mutex: Mutex, absTime: TimeVal): Boolean =
-        g_cond_timed_wait(gPointer, mutex.gPointer, absTime.gPointer).asBoolean()
+        g_cond_timed_wait(glibCondPointer, mutex.glibMutexPointer, absTime.glibTimeValPointer).asBoolean()
 
     /**
      * Atomically releases @mutex and waits until @cond is signalled.
@@ -219,7 +220,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      *
      * @param mutex a #GMutex that is currently locked
      */
-    public fun wait(mutex: Mutex): Unit = g_cond_wait(gPointer, mutex.gPointer)
+    public fun wait(mutex: Mutex): Unit = g_cond_wait(glibCondPointer, mutex.glibMutexPointer)
 
     /**
      * Waits until either @cond is signalled or @end_time has passed.
@@ -278,7 +279,7 @@ public class Cond(pointer: CPointer<GCond>, cleaner: Cleaner? = null) : ProxyIns
      */
     @GLibVersion2_32
     public fun waitUntil(mutex: Mutex, endTime: gint64): Boolean =
-        g_cond_wait_until(gPointer, mutex.gPointer, endTime).asBoolean()
+        g_cond_wait_until(glibCondPointer, mutex.glibMutexPointer, endTime).asBoolean()
 
     public companion object {
         /**

@@ -108,12 +108,9 @@ import kotlin.Unit
  * - parameter `has_wrapped_around`: has_wrapped_around: Out parameter is not supported
  * - method `match-style`: Property TypeInfo of getter and setter do not match
  */
-public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
-    Object(pointer.reinterpret()),
+public open class SearchContext(public val gtksourceSearchContextPointer: CPointer<GtkSourceSearchContext>) :
+    Object(gtksourceSearchContextPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSearchContextPointer: CPointer<GtkSourceSearchContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The [class@Buffer] associated to the search context.
      */
@@ -240,7 +237,7 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_search_context_backward_async(
         gtksourceSearchContextPointer,
-        iter.gPointer,
+        iter.gtkTextIterPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -267,7 +264,7 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
         callback: AsyncReadyCallback?,
     ): Unit = gtk_source_search_context_forward_async(
         gtksourceSearchContextPointer,
-        iter.gPointer,
+        iter.gtkTextIterPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -301,8 +298,8 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
     public open fun getOccurrencePosition(matchStart: TextIter, matchEnd: TextIter): gint =
         gtk_source_search_context_get_occurrence_position(
             gtksourceSearchContextPointer,
-            matchStart.gPointer,
-            matchEnd.gPointer
+            matchStart.gtkTextIterPointer,
+            matchEnd.gtkTextIterPointer
         )
 
     /**
@@ -331,8 +328,8 @@ public open class SearchContext(pointer: CPointer<GtkSourceSearchContext>) :
         val gError = allocPointerTo<GError>()
         val gResult = gtk_source_search_context_replace(
             gtksourceSearchContextPointer,
-            matchStart.gPointer,
-            matchEnd.gPointer,
+            matchStart.gtkTextIterPointer,
+            matchEnd.gtkTextIterPointer,
             replace,
             replaceLength,
             gError.ptr

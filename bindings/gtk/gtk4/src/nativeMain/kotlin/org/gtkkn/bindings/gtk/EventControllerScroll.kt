@@ -67,12 +67,10 @@ import kotlin.Unit
  * of scrolling with two X/Y velocity arguments that are consistent with the
  * motion that was received.
  */
-public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScroll>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerScroll(
+    public val gtkEventControllerScrollPointer: CPointer<GtkEventControllerScroll>,
+) : EventController(gtkEventControllerScrollPointer.reinterpret()),
     KGTyped {
-    public val gtkEventControllerScrollPointer: CPointer<GtkEventControllerScroll>
-        get() = gPointer.reinterpret()
-
     /**
      * The flags affecting event controller behavior.
      */
@@ -133,7 +131,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (velX: gdouble, velY: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerScrollPointer,
         "decelerate",
         onDecelerateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -148,7 +146,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
      * @param velY Y velocity
      */
     public fun emitDecelerate(velX: gdouble, velY: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "decelerate", velX, velY)
+        g_signal_emit_by_name(gtkEventControllerScrollPointer.reinterpret(), "decelerate", velX, velY)
     }
 
     /**
@@ -166,7 +164,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (dx: gdouble, dy: gdouble) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEventControllerScrollPointer,
         "scroll",
         onScrollFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -184,7 +182,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
      */
     public fun onScrollBegin(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerScrollPointer,
             "scroll-begin",
             onScrollBeginFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -196,7 +194,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
      * Emits the "scroll-begin" signal. See [onScrollBegin].
      */
     public fun emitScrollBegin() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "scroll-begin")
+        g_signal_emit_by_name(gtkEventControllerScrollPointer.reinterpret(), "scroll-begin")
     }
 
     /**
@@ -209,7 +207,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
      */
     public fun onScrollEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerScrollPointer,
             "scroll-end",
             onScrollEndFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -221,7 +219,7 @@ public open class EventControllerScroll(pointer: CPointer<GtkEventControllerScro
      * Emits the "scroll-end" signal. See [onScrollEnd].
      */
     public fun emitScrollEnd() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "scroll-end")
+        g_signal_emit_by_name(gtkEventControllerScrollPointer.reinterpret(), "scroll-end")
     }
 
     public companion object : TypeCompanion<EventControllerScroll> {

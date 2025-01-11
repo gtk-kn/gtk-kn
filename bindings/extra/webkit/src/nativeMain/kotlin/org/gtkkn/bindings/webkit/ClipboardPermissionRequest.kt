@@ -25,15 +25,13 @@ import org.gtkkn.native.webkit.webkit_clipboard_permission_request_get_type
  * @since 2.42
  */
 @WebKitVersion2_42
-public class ClipboardPermissionRequest(pointer: CPointer<WebKitClipboardPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class ClipboardPermissionRequest(
+    public val webkitClipboardPermissionRequestPointer: CPointer<WebKitClipboardPermissionRequest>,
+) : Object(webkitClipboardPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
-    public val webkitClipboardPermissionRequestPointer: CPointer<WebKitClipboardPermissionRequest>
-        get() = gPointer.reinterpret()
-
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<ClipboardPermissionRequest> {
         override val type: GeneratedClassKGType<ClipboardPermissionRequest> =

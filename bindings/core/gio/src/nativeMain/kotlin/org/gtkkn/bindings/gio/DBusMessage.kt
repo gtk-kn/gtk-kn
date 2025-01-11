@@ -88,12 +88,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
-    Object(pointer.reinterpret()),
+public open class DBusMessage(public val gioDBusMessagePointer: CPointer<GDBusMessage>) :
+    Object(gioDBusMessagePointer.reinterpret()),
     KGTyped {
-    public val gioDBusMessagePointer: CPointer<GDBusMessage>
-        get() = gPointer.reinterpret()
-
     public open val locked: Boolean
         /**
          * Checks whether @message is locked. To monitor changes to this
@@ -455,7 +452,8 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
      * @since 2.26
      */
     @GioVersion2_26
-    public open fun setBody(body: Variant): Unit = g_dbus_message_set_body(gioDBusMessagePointer, body.gPointer)
+    public open fun setBody(body: Variant): Unit =
+        g_dbus_message_set_body(gioDBusMessagePointer, body.glibVariantPointer)
 
     /**
      * Sets the byte order of @message.
@@ -506,7 +504,7 @@ public open class DBusMessage(pointer: CPointer<GDBusMessage>) :
      */
     @GioVersion2_26
     public open fun setHeader(headerField: DBusMessageHeaderField, `value`: Variant? = null): Unit =
-        g_dbus_message_set_header(gioDBusMessagePointer, headerField.nativeValue, `value`?.gPointer)
+        g_dbus_message_set_header(gioDBusMessagePointer, headerField.nativeValue, `value`?.glibVariantPointer)
 
     /**
      * Convenience setter for the %G_DBUS_MESSAGE_HEADER_FIELD_INTERFACE header field.

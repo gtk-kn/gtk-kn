@@ -47,12 +47,9 @@ import kotlin.Result
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `fds`: Array parameter of type gint is not supported
  */
-public open class UnixFdList(pointer: CPointer<GUnixFDList>) :
-    Object(pointer.reinterpret()),
+public open class UnixFdList(public val gioUnixFdListPointer: CPointer<GUnixFDList>) :
+    Object(gioUnixFdListPointer.reinterpret()),
     KGTyped {
-    public val gioUnixFdListPointer: CPointer<GUnixFDList>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GUnixFDList containing no file descriptors.
      *

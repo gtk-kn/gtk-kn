@@ -22,20 +22,17 @@ import kotlin.Unit
  *
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class GlTexture(pointer: CPointer<GdkGLTexture>) :
-    Texture(pointer.reinterpret()),
+public open class GlTexture(public val gdkGlTexturePointer: CPointer<GdkGLTexture>) :
+    Texture(gdkGlTexturePointer.reinterpret()),
     KGTyped {
-    public val gdkGlTexturePointer: CPointer<GdkGLTexture>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Releases the GL resources held by a `GdkGLTexture`.

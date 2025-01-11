@@ -70,28 +70,25 @@ import kotlin.Unit
  *
  * - parameter `slider_start`: slider_start: Out parameter is not supported
  */
-public open class Range(pointer: CPointer<GtkRange>) :
-    Widget(pointer.reinterpret()),
+public open class Range(public val gtkRangePointer: CPointer<GtkRange>) :
+    Widget(gtkRangePointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
-    public val gtkRangePointer: CPointer<GtkRange>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The adjustment that is controlled by the range.
@@ -271,7 +268,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param rangeRect return location for the range rectangle
      */
     public open fun getRangeRect(rangeRect: Rectangle): Unit =
-        gtk_range_get_range_rect(gtkRangePointer, rangeRect.gPointer)
+        gtk_range_get_range_rect(gtkRangePointer, rangeRect.gdkRectanglePointer)
 
     /**
      * This function is useful mainly for `GtkRange` subclasses.
@@ -360,7 +357,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`value`: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkRangePointer,
         "adjust-bounds",
         onAdjustBoundsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -374,7 +371,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param value the value before we clamp
      */
     public fun emitAdjustBounds(`value`: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "adjust-bounds", `value`)
+        g_signal_emit_by_name(gtkRangePointer.reinterpret(), "adjust-bounds", `value`)
     }
 
     /**
@@ -399,7 +396,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scroll: ScrollType, `value`: gdouble) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkRangePointer,
         "change-value",
         onChangeValueFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -417,7 +414,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      */
     public fun onMoveSlider(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (step: ScrollType) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkRangePointer,
             "move-slider",
             onMoveSliderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -431,7 +428,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * @param step how to move the slider
      */
     public fun emitMoveSlider(step: ScrollType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-slider", step.nativeValue)
+        g_signal_emit_by_name(gtkRangePointer.reinterpret(), "move-slider", step.nativeValue)
     }
 
     /**
@@ -442,7 +439,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      */
     public fun onValueChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkRangePointer,
             "value-changed",
             onValueChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -454,7 +451,7 @@ public open class Range(pointer: CPointer<GtkRange>) :
      * Emits the "value-changed" signal. See [onValueChanged].
      */
     public fun emitValueChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "value-changed")
+        g_signal_emit_by_name(gtkRangePointer.reinterpret(), "value-changed")
     }
 
     public companion object : TypeCompanion<Range> {

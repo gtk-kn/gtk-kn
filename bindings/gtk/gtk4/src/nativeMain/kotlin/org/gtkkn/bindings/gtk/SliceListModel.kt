@@ -36,19 +36,16 @@ import org.gtkkn.native.gtk.gtk_slice_list_model_set_size
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
-    Object(pointer.reinterpret()),
+public open class SliceListModel(public val gtkSliceListModelPointer: CPointer<GtkSliceListModel>) :
+    Object(gtkSliceListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
-    public val gtkSliceListModelPointer: CPointer<GtkSliceListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Child model to take slice from.
@@ -60,7 +57,7 @@ public open class SliceListModel(pointer: CPointer<GtkSliceListModel>) :
          * @return The model in use
          */
         get() = gtk_slice_list_model_get_model(gtkSliceListModelPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

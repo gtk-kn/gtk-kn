@@ -28,12 +28,9 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `dx`: dx: Out parameter is not supported
  */
-public open class TouchpadEvent(pointer: CPointer<GdkTouchpadEvent>) :
-    Event(pointer.reinterpret()),
+public open class TouchpadEvent(public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>) :
+    Event(gdkTouchpadEventPointer.reinterpret()),
     KGTyped {
-    public val gdkTouchpadEventPointer: CPointer<GdkTouchpadEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extracts the touchpad gesture phase from a touchpad event.
      *

@@ -115,20 +115,17 @@ import kotlin.collections.List
  *
  * `GtkDropDown` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
  */
-public open class DropDown(pointer: CPointer<GtkDropDown>) :
-    Widget(pointer.reinterpret()),
+public open class DropDown(public val gtkDropDownPointer: CPointer<GtkDropDown>) :
+    Widget(gtkDropDownPointer.reinterpret()),
     KGTyped {
-    public val gtkDropDownPointer: CPointer<GtkDropDown>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to show a search entry in the popup.
@@ -172,7 +169,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return a `GtkExpression`
          */
         get() = gtk_drop_down_get_expression(gtkDropDownPointer)?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
         /**
@@ -183,7 +180,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) = gtk_drop_down_set_expression(gtkDropDownPointer, expression?.gPointer)
+        set(expression) = gtk_drop_down_set_expression(gtkDropDownPointer, expression?.gtkExpressionPointer)
 
     /**
      * Factory for populating list items.
@@ -267,7 +264,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
          * @return The model in use
          */
         get() = gtk_drop_down_get_model(gtkDropDownPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**
@@ -375,7 +372,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
     public constructor(
         model: ListModel? = null,
         expression: Expression? = null,
-    ) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gPointer)!!.reinterpret())
+    ) : this(gtk_drop_down_new(model?.gioListModelPointer, expression?.gtkExpressionPointer)!!.reinterpret())
 
     /**
      * Creates a new `GtkDropDown` that is populated with
@@ -403,7 +400,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
     @GtkVersion4_6
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkDropDownPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -418,7 +415,7 @@ public open class DropDown(pointer: CPointer<GtkDropDown>) :
      */
     @GtkVersion4_6
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkDropDownPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<DropDown> {

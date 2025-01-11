@@ -124,24 +124,21 @@ import kotlin.Unit
  *
  * - method `accept-unpaired-release`: Property has no getter nor setter
  */
-public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
-    Widget(pointer.reinterpret()),
+public open class FlowBox(public val gtkFlowBoxPointer: CPointer<GtkFlowBox>) :
+    Widget(gtkFlowBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkFlowBoxPointer: CPointer<GtkFlowBox>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Determines whether children can be activated with a single
@@ -590,7 +587,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      */
     public fun onActivateCursorChild(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFlowBoxPointer,
             "activate-cursor-child",
             onActivateCursorChildFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -602,7 +599,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * Emits the "activate-cursor-child" signal. See [onActivateCursorChild].
      */
     public fun emitActivateCursorChild() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate-cursor-child")
+        g_signal_emit_by_name(gtkFlowBoxPointer.reinterpret(), "activate-cursor-child")
     }
 
     /**
@@ -615,7 +612,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (child: FlowBoxChild) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkFlowBoxPointer,
         "child-activated",
         onChildActivatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -629,7 +626,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * @param child the child that is activated
      */
     public fun emitChildActivated(child: FlowBoxChild) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "child-activated", child.gtkFlowBoxChildPointer)
+        g_signal_emit_by_name(gtkFlowBoxPointer.reinterpret(), "child-activated", child.gtkFlowBoxChildPointer)
     }
 
     /**
@@ -663,7 +660,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
             modify: Boolean,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkFlowBoxPointer,
         "move-cursor",
         onMoveCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -684,7 +681,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      */
     public fun onSelectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFlowBoxPointer,
             "select-all",
             onSelectAllFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -696,7 +693,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * Emits the "select-all" signal. See [onSelectAll].
      */
     public fun emitSelectAll() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "select-all")
+        g_signal_emit_by_name(gtkFlowBoxPointer.reinterpret(), "select-all")
     }
 
     /**
@@ -711,7 +708,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      */
     public fun onSelectedChildrenChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFlowBoxPointer,
             "selected-children-changed",
             onSelectedChildrenChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -723,7 +720,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * Emits the "selected-children-changed" signal. See [onSelectedChildrenChanged].
      */
     public fun emitSelectedChildrenChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "selected-children-changed")
+        g_signal_emit_by_name(gtkFlowBoxPointer.reinterpret(), "selected-children-changed")
     }
 
     /**
@@ -738,7 +735,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      */
     public fun onToggleCursorChild(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFlowBoxPointer,
             "toggle-cursor-child",
             onToggleCursorChildFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -750,7 +747,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * Emits the "toggle-cursor-child" signal. See [onToggleCursorChild].
      */
     public fun emitToggleCursorChild() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "toggle-cursor-child")
+        g_signal_emit_by_name(gtkFlowBoxPointer.reinterpret(), "toggle-cursor-child")
     }
 
     /**
@@ -766,7 +763,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      */
     public fun onUnselectAll(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFlowBoxPointer,
             "unselect-all",
             onUnselectAllFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -778,7 +775,7 @@ public open class FlowBox(pointer: CPointer<GtkFlowBox>) :
      * Emits the "unselect-all" signal. See [onUnselectAll].
      */
     public fun emitUnselectAll() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unselect-all")
+        g_signal_emit_by_name(gtkFlowBoxPointer.reinterpret(), "unselect-all")
     }
 
     public companion object : TypeCompanion<FlowBox> {

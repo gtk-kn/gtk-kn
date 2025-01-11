@@ -68,23 +68,20 @@ import kotlin.Throws
  *
  * - parameter `data`: Array parameter of type guint8 is not supported
  */
-public open class Texture(pointer: CPointer<GdkTexture>) :
-    Object(pointer.reinterpret()),
+public abstract class Texture(public val gdkTexturePointer: CPointer<GdkTexture>) :
+    Object(gdkTexturePointer.reinterpret()),
     Paintable,
     Icon,
     LoadableIcon,
     KGTyped {
-    public val gdkTexturePointer: CPointer<GdkTexture>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The height of the texture, in pixels.
@@ -140,7 +137,7 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
     public constructor(bytes: Bytes) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gdk_texture_new_from_bytes(bytes.gPointer, gError.ptr)
+            val gResult = gdk_texture_new_from_bytes(bytes.glibBytesPointer, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -296,9 +293,16 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
         Bytes(this)
     }
 
+    /**
+     * The TextureImpl type represents a native instance of the abstract Texture class.
+     *
+     * @constructor Creates a new instance of Texture for the provided [CPointer].
+     */
+    public class TextureImpl(pointer: CPointer<GdkTexture>) : Texture(pointer)
+
     public companion object : TypeCompanion<Texture> {
         override val type: GeneratedClassKGType<Texture> =
-            GeneratedClassKGType(gdk_texture_get_type()) { Texture(it.reinterpret()) }
+            GeneratedClassKGType(gdk_texture_get_type()) { TextureImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -320,14 +324,14 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
          * @return A newly-created `GdkTexture`
          * @since 4.6
          */
-        public fun newFromFilename(path: String): Result<Texture> = memScoped {
+        public fun newFromFilename(path: String): Result<TextureImpl> = memScoped {
             val gError = allocPointerTo<GError>()
             gError.`value` = null
             val gResult = gdk_texture_new_from_filename(path, gError.ptr)
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
-                Result.success(Texture(checkNotNull(gResult).reinterpret()))
+                Result.success(TextureImpl(checkNotNull(gResult).reinterpret()))
             }
         }
 
@@ -349,8 +353,8 @@ public open class Texture(pointer: CPointer<GdkTexture>) :
          * @param resourcePath the path of the resource file
          * @return A newly-created `GdkTexture`
          */
-        public fun newFromResource(resourcePath: String): Texture =
-            Texture(gdk_texture_new_from_resource(resourcePath)!!.reinterpret())
+        public fun newFromResource(resourcePath: String): TextureImpl =
+            TextureImpl(gdk_texture_new_from_resource(resourcePath)!!.reinterpret())
 
         /**
          * Get the GType of Texture

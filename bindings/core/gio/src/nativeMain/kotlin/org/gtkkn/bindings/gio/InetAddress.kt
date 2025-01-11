@@ -54,12 +54,9 @@ import kotlin.Suppress
  * - method `bytes`: Property has no getter nor setter
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
-public open class InetAddress(pointer: CPointer<GInetAddress>) :
-    Object(pointer.reinterpret()),
+public open class InetAddress(public val gioInetAddressPointer: CPointer<GInetAddress>) :
+    Object(gioInetAddressPointer.reinterpret()),
     KGTyped {
-    public val gioInetAddressPointer: CPointer<GInetAddress>
-        get() = gPointer.reinterpret()
-
     /**
      * The address family (IPv4 or IPv6).
      *

@@ -37,12 +37,9 @@ import kotlin.collections.List
  * looking in the file system for clues. Can return a list of possible
  * completion strings for widget implementations.
  */
-public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
-    Object(pointer.reinterpret()),
+public open class FilenameCompleter(public val gioFilenameCompleterPointer: CPointer<GFilenameCompleter>) :
+    Object(gioFilenameCompleterPointer.reinterpret()),
     KGTyped {
-    public val gioFilenameCompleterPointer: CPointer<GFilenameCompleter>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new filename completer.
      *
@@ -89,7 +86,7 @@ public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
      */
     public fun onGotCompletionData(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioFilenameCompleterPointer,
             "got-completion-data",
             onGotCompletionDataFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -101,7 +98,7 @@ public open class FilenameCompleter(pointer: CPointer<GFilenameCompleter>) :
      * Emits the "got-completion-data" signal. See [onGotCompletionData].
      */
     public fun emitGotCompletionData() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-completion-data")
+        g_signal_emit_by_name(gioFilenameCompleterPointer.reinterpret(), "got-completion-data")
     }
 
     public companion object : TypeCompanion<FilenameCompleter> {

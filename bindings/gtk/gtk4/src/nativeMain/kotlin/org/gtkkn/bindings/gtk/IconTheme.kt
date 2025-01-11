@@ -89,12 +89,9 @@ import kotlin.collections.List
  * - method `get_icon_sizes`: Array parameter of type gint is not supported
  * - method `theme-name`: Property TypeInfo of getter and setter do not match
  */
-public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
-    Object(pointer.reinterpret()),
+public open class IconTheme(public val gtkIconThemePointer: CPointer<GtkIconTheme>) :
+    Object(gtkIconThemePointer.reinterpret()),
     KGTyped {
-    public val gtkIconThemePointer: CPointer<GtkIconTheme>
-        get() = gPointer.reinterpret()
-
     /**
      * The display that this icon theme object is attached to.
      */
@@ -375,7 +372,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkIconThemePointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -387,7 +384,7 @@ public open class IconTheme(pointer: CPointer<GtkIconTheme>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gtkIconThemePointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<IconTheme> {

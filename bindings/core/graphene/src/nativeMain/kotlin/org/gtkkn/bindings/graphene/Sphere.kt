@@ -40,9 +40,8 @@ import kotlin.native.ref.createCleaner
  * @since 1.2
  */
 @GrapheneVersion1_2
-public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<graphene_sphere_t> = pointer
-
+public class Sphere(public val grapheneSpherePointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(grapheneSpherePointer) {
     /**
      * Allocate a new Sphere.
      *
@@ -63,7 +62,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<graphene_sphere_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(grapheneSpherePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Sphere using the provided [AutofreeScope].
@@ -83,7 +82,8 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun containsPoint(point: Point3d): Boolean = graphene_sphere_contains_point(gPointer, point.gPointer)
+    public fun containsPoint(point: Point3d): Boolean =
+        graphene_sphere_contains_point(grapheneSpherePointer, point.graphenePoint3dPointer)
 
     /**
      * Computes the distance of the given @point from the surface of
@@ -94,7 +94,8 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun distance(point: Point3d): gfloat = graphene_sphere_distance(gPointer, point.gPointer)
+    public fun distance(point: Point3d): gfloat =
+        graphene_sphere_distance(grapheneSpherePointer, point.graphenePoint3dPointer)
 
     /**
      * Checks whether two #graphene_sphere_t are equal.
@@ -104,7 +105,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun equal(b: Sphere): Boolean = graphene_sphere_equal(gPointer, b.gPointer)
+    public fun equal(b: Sphere): Boolean = graphene_sphere_equal(grapheneSpherePointer, b.grapheneSpherePointer)
 
     /**
      * Frees the resources allocated by graphene_sphere_alloc().
@@ -112,7 +113,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun free(): Unit = graphene_sphere_free(gPointer)
+    public fun free(): Unit = graphene_sphere_free(grapheneSpherePointer)
 
     /**
      * Computes the bounding box capable of containing the
@@ -122,7 +123,8 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getBoundingBox(box: Box): Unit = graphene_sphere_get_bounding_box(gPointer, box.gPointer)
+    public fun getBoundingBox(box: Box): Unit =
+        graphene_sphere_get_bounding_box(grapheneSpherePointer, box.grapheneBoxPointer)
 
     /**
      * Retrieves the coordinates of the center of a #graphene_sphere_t.
@@ -132,7 +134,8 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getCenter(center: Point3d): Unit = graphene_sphere_get_center(gPointer, center.gPointer)
+    public fun getCenter(center: Point3d): Unit =
+        graphene_sphere_get_center(grapheneSpherePointer, center.graphenePoint3dPointer)
 
     /**
      * Retrieves the radius of a #graphene_sphere_t.
@@ -140,7 +143,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun getRadius(): gfloat = graphene_sphere_get_radius(gPointer)
+    public fun getRadius(): gfloat = graphene_sphere_get_radius(grapheneSpherePointer)
 
     /**
      * Initializes the given #graphene_sphere_t with the given @center and @radius.
@@ -153,7 +156,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      */
     @GrapheneVersion1_2
     public fun `init`(center: Point3d? = null, radius: gfloat): Sphere =
-        graphene_sphere_init(gPointer, center?.gPointer, radius)!!.run {
+        graphene_sphere_init(grapheneSpherePointer, center?.graphenePoint3dPointer, radius)!!.run {
             Sphere(this)
         }
 
@@ -164,7 +167,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      * @since 1.2
      */
     @GrapheneVersion1_2
-    public fun isEmpty(): Boolean = graphene_sphere_is_empty(gPointer)
+    public fun isEmpty(): Boolean = graphene_sphere_is_empty(grapheneSpherePointer)
 
     /**
      * Translates the center of the given #graphene_sphere_t using the @point
@@ -176,7 +179,7 @@ public class Sphere(pointer: CPointer<graphene_sphere_t>, cleaner: Cleaner? = nu
      */
     @GrapheneVersion1_2
     public fun translate(point: Point3d, res: Sphere): Unit =
-        graphene_sphere_translate(gPointer, point.gPointer, res.gPointer)
+        graphene_sphere_translate(grapheneSpherePointer, point.graphenePoint3dPointer, res.grapheneSpherePointer)
 
     public companion object {
         /**

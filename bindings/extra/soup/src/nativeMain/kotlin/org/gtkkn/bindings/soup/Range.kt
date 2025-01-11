@@ -32,29 +32,28 @@ import kotlin.native.ref.createCleaner
  * range", referring to the last -@start bytes of the resource body.
  * (Eg, the last 500 bytes would be @start = -500 and @end = -1.)
  */
-public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<SoupRange> = pointer
-
+public class Range(public val soupRangePointer: CPointer<SoupRange>, cleaner: Cleaner? = null) :
+    ProxyInstance(soupRangePointer) {
     /**
      * the start of the range
      */
     public var start: gint64
-        get() = gPointer.pointed.start
+        get() = soupRangePointer.pointed.start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start = value
+            soupRangePointer.pointed.start = value
         }
 
     /**
      * the end of the range
      */
     public var end: gint64
-        get() = gPointer.pointed.end
+        get() = soupRangePointer.pointed.end
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end = value
+            soupRangePointer.pointed.end = value
         }
 
     /**
@@ -75,7 +74,9 @@ public class Range(pointer: CPointer<SoupRange>, cleaner: Cleaner? = null) : Pro
      *
      * @param pair A pair containing the pointer to Range and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<SoupRange>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<SoupRange>, Cleaner>,
+    ) : this(soupRangePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Range using the provided [AutofreeScope].

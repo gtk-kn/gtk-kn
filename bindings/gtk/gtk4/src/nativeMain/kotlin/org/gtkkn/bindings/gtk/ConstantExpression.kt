@@ -20,19 +20,18 @@ import org.gtkkn.native.gtk.gtk_constant_expression_new_for_value
  *
  * - constructor `new`: Varargs parameter is not supported
  */
-public open class ConstantExpression(pointer: CPointer<GtkConstantExpression>) :
-    Expression(pointer.reinterpret()),
+public open class ConstantExpression(public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>) :
+    Expression(gtkConstantExpressionPointer.reinterpret()),
     KGTyped {
-    public val gtkConstantExpressionPointer: CPointer<GtkConstantExpression>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates an expression that always evaluates to the given `value`.
      *
      * @param value a `GValue`
      * @return a new `GtkExpression`
      */
-    public constructor(`value`: Value) : this(gtk_constant_expression_new_for_value(`value`.gPointer)!!.reinterpret())
+    public constructor(
+        `value`: Value,
+    ) : this(gtk_constant_expression_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
 
     /**
      * Gets the value that a constant expression evaluates to.

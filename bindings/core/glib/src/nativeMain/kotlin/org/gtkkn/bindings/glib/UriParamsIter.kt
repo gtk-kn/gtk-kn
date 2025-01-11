@@ -35,9 +35,8 @@ import kotlin.native.ref.createCleaner
  * @since 2.66
  */
 @GLibVersion2_66
-public class UriParamsIter(pointer: CPointer<GUriParamsIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GUriParamsIter> = pointer
-
+public class UriParamsIter(public val glibUriParamsIterPointer: CPointer<GUriParamsIter>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibUriParamsIterPointer) {
     /**
      * Allocate a new UriParamsIter.
      *
@@ -58,7 +57,7 @@ public class UriParamsIter(pointer: CPointer<GUriParamsIter>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GUriParamsIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibUriParamsIterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new UriParamsIter using the provided [AutofreeScope].
@@ -117,5 +116,5 @@ public class UriParamsIter(pointer: CPointer<GUriParamsIter>, cleaner: Cleaner? 
      */
     @GLibVersion2_66
     public fun `init`(params: String, length: Long, separators: String, flags: UriParamsFlags): Unit =
-        g_uri_params_iter_init(gPointer, params, length, separators, flags.mask)
+        g_uri_params_iter_init(glibUriParamsIterPointer, params, length, separators, flags.mask)
 }

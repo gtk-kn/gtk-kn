@@ -23,12 +23,9 @@ import kotlin.Boolean
  *
  * - parameter `delta_x`: delta_x: Out parameter is not supported
  */
-public open class ScrollEvent(pointer: CPointer<GdkScrollEvent>) :
-    Event(pointer.reinterpret()),
+public open class ScrollEvent(public val gdkScrollEventPointer: CPointer<GdkScrollEvent>) :
+    Event(gdkScrollEventPointer.reinterpret()),
     KGTyped {
-    public val gdkScrollEventPointer: CPointer<GdkScrollEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extracts the direction of a scroll event.
      *

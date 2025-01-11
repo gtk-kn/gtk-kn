@@ -207,20 +207,17 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class AlertDialog(public val adwAlertDialogPointer: CPointer<AdwAlertDialog>) :
+    Dialog(adwAlertDialogPointer.reinterpret()),
     KGTyped {
-    public val adwAlertDialogPointer: CPointer<AdwAlertDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The body text of the dialog.
@@ -363,7 +360,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
          * @since 1.5
          */
         get() = adw_alert_dialog_get_extra_child(adwAlertDialogPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -667,7 +664,7 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
         detail: String? = null,
         handler: (response: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwAlertDialogPointer,
         "response" + (
             detail?.let {
                 "::$it"
@@ -688,7 +685,15 @@ public open class AlertDialog(pointer: CPointer<AdwAlertDialog>) :
      */
     @AdwVersion1_5
     public fun emitResponse(detail: String? = null, response: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "response" + (detail?.let { "::$it" } ?: ""), response.cstr)
+        g_signal_emit_by_name(
+            adwAlertDialogPointer.reinterpret(),
+            "response" + (
+                detail?.let {
+                    "::$it"
+                } ?: ""
+                ),
+            response.cstr
+        )
     }
 
     public companion object : TypeCompanion<AlertDialog> {

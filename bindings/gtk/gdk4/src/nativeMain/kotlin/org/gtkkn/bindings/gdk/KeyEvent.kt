@@ -27,12 +27,9 @@ import kotlin.Boolean
  *
  * - parameter `keyval`: keyval: Out parameter is not supported
  */
-public open class KeyEvent(pointer: CPointer<GdkKeyEvent>) :
-    Event(pointer.reinterpret()),
+public open class KeyEvent(public val gdkKeyEventPointer: CPointer<GdkKeyEvent>) :
+    Event(gdkKeyEventPointer.reinterpret()),
     KGTyped {
-    public val gdkKeyEventPointer: CPointer<GdkKeyEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extracts the consumed modifiers from a key event.
      *

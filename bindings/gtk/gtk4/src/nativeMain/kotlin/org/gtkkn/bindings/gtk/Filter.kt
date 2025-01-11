@@ -48,12 +48,9 @@ import kotlin.Unit
  * However, in particular for large lists or complex search methods, it is
  * also possible to subclass `GtkFilter` and provide one's own filter.
  */
-public open class Filter(pointer: CPointer<GtkFilter>) :
-    Object(pointer.reinterpret()),
+public open class Filter(public val gtkFilterPointer: CPointer<GtkFilter>) :
+    Object(gtkFilterPointer.reinterpret()),
     KGTyped {
-    public val gtkFilterPointer: CPointer<GtkFilter>
-        get() = gPointer.reinterpret()
-
     /**
      * Notifies all users of the filter that it has changed.
      *
@@ -97,7 +94,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      *   keep it, false if not.
      */
     public open fun match(item: Object): Boolean =
-        gtk_filter_match(gtkFilterPointer, item.gPointer.reinterpret()).asBoolean()
+        gtk_filter_match(gtkFilterPointer, item.gobjectObjectPointer.reinterpret()).asBoolean()
 
     /**
      * Emitted whenever the filter changed.
@@ -118,7 +115,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (change: FilterChange) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkFilterPointer,
         "changed",
         onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -132,7 +129,7 @@ public open class Filter(pointer: CPointer<GtkFilter>) :
      * @param change how the filter changed
      */
     public fun emitChanged(change: FilterChange) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed", change.nativeValue)
+        g_signal_emit_by_name(gtkFilterPointer.reinterpret(), "changed", change.nativeValue)
     }
 
     public companion object : TypeCompanion<Filter> {

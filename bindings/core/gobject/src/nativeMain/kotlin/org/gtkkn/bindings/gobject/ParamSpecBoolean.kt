@@ -8,7 +8,5 @@ import org.gtkkn.native.gobject.GParamSpecBoolean
 /**
  * A #GParamSpec derived structure that contains the meta data for boolean properties.
  */
-public open class ParamSpecBoolean(pointer: CPointer<GParamSpecBoolean>) : ParamSpec(pointer.reinterpret()) {
-    public val gobjectParamSpecBooleanPointer: CPointer<GParamSpecBoolean>
-        get() = gPointer.reinterpret()
-}
+public open class ParamSpecBoolean(public val gobjectParamSpecBooleanPointer: CPointer<GParamSpecBoolean>) :
+    ParamSpec(gobjectParamSpecBooleanPointer.reinterpret())

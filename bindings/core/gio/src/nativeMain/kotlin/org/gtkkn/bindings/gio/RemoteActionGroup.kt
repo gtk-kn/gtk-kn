@@ -5,7 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.glib.Variant
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -44,7 +45,7 @@ import kotlin.Unit
  */
 @GioVersion2_32
 public interface RemoteActionGroup :
-    Interface,
+    Proxy,
     ActionGroup,
     KGTyped {
     public val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>
@@ -73,8 +74,8 @@ public interface RemoteActionGroup :
         g_remote_action_group_activate_action_full(
             gioRemoteActionGroupPointer,
             actionName,
-            parameter?.gPointer,
-            platformData.gPointer
+            parameter?.glibVariantPointer,
+            platformData.glibVariantPointer
         )
 
     /**
@@ -98,23 +99,26 @@ public interface RemoteActionGroup :
         g_remote_action_group_change_action_state_full(
             gioRemoteActionGroupPointer,
             actionName,
-            `value`.gPointer,
-            platformData.gPointer
+            `value`.glibVariantPointer,
+            platformData.glibVariantPointer
         )
 
-    private data class Wrapper(private val pointer: CPointer<GRemoteActionGroup>) : RemoteActionGroup {
-        override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup> = pointer
-    }
+    /**
+     * The RemoteActionGroupImpl type represents a native instance of the RemoteActionGroup interface.
+     *
+     * @constructor Creates a new instance of RemoteActionGroup for the provided [CPointer].
+     */
+    public data class RemoteActionGroupImpl(override val gioRemoteActionGroupPointer: CPointer<GRemoteActionGroup>) :
+        Object(gioRemoteActionGroupPointer.reinterpret()),
+        RemoteActionGroup
 
     public companion object : TypeCompanion<RemoteActionGroup> {
         override val type: GeneratedInterfaceKGType<RemoteActionGroup> =
-            GeneratedInterfaceKGType(g_remote_action_group_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_remote_action_group_get_type()) { RemoteActionGroupImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GRemoteActionGroup>): RemoteActionGroup = Wrapper(pointer)
 
         /**
          * Get the GType of RemoteActionGroup

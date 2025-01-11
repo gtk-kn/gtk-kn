@@ -118,20 +118,17 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class Dialog(pointer: CPointer<AdwDialog>) :
-    Widget(pointer.reinterpret()),
+public open class Dialog(public val adwDialogPointer: CPointer<AdwDialog>) :
+    Widget(adwDialogPointer.reinterpret()),
     KGTyped {
-    public val adwDialogPointer: CPointer<AdwDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the dialog can be closed.
@@ -181,7 +178,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         get() = adw_dialog_get_child(adwDialogPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -290,7 +287,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
          * @since 1.5
          */
         get() = adw_dialog_get_default_widget(adwDialogPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -461,7 +458,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      */
     @AdwVersion1_5
     public open fun getFocus(): Widget? = adw_dialog_get_focus(adwDialogPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -508,7 +505,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
     @AdwVersion1_5
     public fun onCloseAttempt(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwDialogPointer,
             "close-attempt",
             onCloseAttemptFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -523,7 +520,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      */
     @AdwVersion1_5
     public fun emitCloseAttempt() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "close-attempt")
+        g_signal_emit_by_name(adwDialogPointer.reinterpret(), "close-attempt")
     }
 
     /**
@@ -536,7 +533,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
     @AdwVersion1_5
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwDialogPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -551,7 +548,7 @@ public open class Dialog(pointer: CPointer<AdwDialog>) :
      */
     @AdwVersion1_5
     public fun emitClosed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+        g_signal_emit_by_name(adwDialogPointer.reinterpret(), "closed")
     }
 
     public companion object : TypeCompanion<Dialog> {

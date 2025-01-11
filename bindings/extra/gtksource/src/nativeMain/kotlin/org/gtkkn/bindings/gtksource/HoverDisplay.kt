@@ -29,20 +29,17 @@ import kotlin.Unit
  * Implement the [iface@HoverProvider] interface to be notified of when
  * to populate a `GtkSourceHoverDisplay` on behalf of the user.
  */
-public open class HoverDisplay(pointer: CPointer<GtkSourceHoverDisplay>) :
-    Widget(pointer.reinterpret()),
+public open class HoverDisplay(public val gtksourceHoverDisplayPointer: CPointer<GtkSourceHoverDisplay>) :
+    Widget(gtksourceHoverDisplayPointer.reinterpret()),
     KGTyped {
-    public val gtksourceHoverDisplayPointer: CPointer<GtkSourceHoverDisplay>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public open fun append(child: Widget): Unit =
         gtk_source_hover_display_append(gtksourceHoverDisplayPointer, child.gtkWidgetPointer)

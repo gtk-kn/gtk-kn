@@ -85,20 +85,17 @@ import kotlin.Boolean
  *
  * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
  */
-public class ViewSwitcherBar(pointer: CPointer<AdwViewSwitcherBar>) :
-    Widget(pointer.reinterpret()),
+public class ViewSwitcherBar(public val adwViewSwitcherBarPointer: CPointer<AdwViewSwitcherBar>) :
+    Widget(adwViewSwitcherBarPointer.reinterpret()),
     KGTyped {
-    public val adwViewSwitcherBarPointer: CPointer<AdwViewSwitcherBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the bar should be revealed or hidden.

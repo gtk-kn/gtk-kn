@@ -106,12 +106,9 @@ import kotlin.Unit
  * @since 2.34
  */
 @GioVersion2_34
-public open class TestDBus(pointer: CPointer<GTestDBus>) :
-    Object(pointer.reinterpret()),
+public open class TestDBus(public val gioTestDBusPointer: CPointer<GTestDBus>) :
+    Object(gioTestDBusPointer.reinterpret()),
     KGTyped {
-    public val gioTestDBusPointer: CPointer<GTestDBus>
-        get() = gPointer.reinterpret()
-
     /**
      * #GTestDBusFlags specifying the behaviour of the D-Bus session.
      *

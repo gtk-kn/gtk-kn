@@ -43,12 +43,9 @@ import kotlin.Unit
  * - method `accel-mods`: Property has no getter nor setter
  * - method `keycode`: Property has no getter nor setter
  */
-public open class CellRendererAccel(pointer: CPointer<GtkCellRendererAccel>) :
-    CellRendererText(pointer.reinterpret()),
+public open class CellRendererAccel(public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>) :
+    CellRendererText(gtkCellRendererAccelPointer.reinterpret()),
     KGTyped {
-    public val gtkCellRendererAccelPointer: CPointer<GtkCellRendererAccel>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkCellRendererAccel`.
      *
@@ -66,7 +63,7 @@ public open class CellRendererAccel(pointer: CPointer<GtkCellRendererAccel>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pathString: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkCellRendererAccelPointer,
         "accel-cleared",
         onAccelClearedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -80,7 +77,7 @@ public open class CellRendererAccel(pointer: CPointer<GtkCellRendererAccel>) :
      * @param pathString the path identifying the row of the edited cell
      */
     public fun emitAccelCleared(pathString: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "accel-cleared", pathString.cstr)
+        g_signal_emit_by_name(gtkCellRendererAccelPointer.reinterpret(), "accel-cleared", pathString.cstr)
     }
 
     /**
@@ -98,7 +95,7 @@ public open class CellRendererAccel(pointer: CPointer<GtkCellRendererAccel>) :
             hardwareKeycode: guint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkCellRendererAccelPointer,
         "accel-edited",
         onAccelEditedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -116,7 +113,7 @@ public open class CellRendererAccel(pointer: CPointer<GtkCellRendererAccel>) :
      */
     public fun emitAccelEdited(pathString: String, accelKey: guint, accelMods: ModifierType, hardwareKeycode: guint) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtkCellRendererAccelPointer.reinterpret(),
             "accel-edited",
             pathString.cstr,
             accelKey,

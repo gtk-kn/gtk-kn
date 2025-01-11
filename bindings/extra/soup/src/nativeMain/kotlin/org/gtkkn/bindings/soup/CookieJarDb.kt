@@ -29,14 +29,11 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class CookieJarDb(pointer: CPointer<SoupCookieJarDB>) :
-    CookieJar(pointer.reinterpret()),
+public class CookieJarDb(public val soupCookieJarDbPointer: CPointer<SoupCookieJarDB>) :
+    CookieJar(soupCookieJarDbPointer.reinterpret()),
     KGTyped {
-    public val soupCookieJarDbPointer: CPointer<SoupCookieJarDB>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a #SoupCookieJarDB.

@@ -31,7 +31,7 @@ import org.gtkkn.native.cairo.cairo_set_dash
 public fun Context.setDash(dashes: DoubleArray, offset: Double) {
     dashes.usePinned { pinned ->
         cairo_set_dash(
-            gPointer.reinterpret(),
+            cairoContextPointer.reinterpret(),
             if (dashes.isEmpty()) null else pinned.addressOf(0),
             dashes.size,
             offset,
