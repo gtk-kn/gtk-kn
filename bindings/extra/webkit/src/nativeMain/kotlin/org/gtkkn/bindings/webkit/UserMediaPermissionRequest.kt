@@ -31,15 +31,13 @@ import org.gtkkn.native.webkit.webkit_user_media_permission_request_get_type
  * @since 2.8
  */
 @WebKitVersion2_8
-public class UserMediaPermissionRequest(pointer: CPointer<WebKitUserMediaPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class UserMediaPermissionRequest(
+    public val webkitUserMediaPermissionRequestPointer: CPointer<WebKitUserMediaPermissionRequest>,
+) : Object(webkitUserMediaPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
-    public val webkitUserMediaPermissionRequestPointer: CPointer<WebKitUserMediaPermissionRequest>
-        get() = gPointer.reinterpret()
-
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<UserMediaPermissionRequest> {
         override val type: GeneratedClassKGType<UserMediaPermissionRequest> =

@@ -48,18 +48,17 @@ import kotlin.Unit
  * - parameter `data`: Array parameter of type guint8 is not supported
  * - field `data`: Array parameter of type guint8 is not supported
  */
-public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<SoupMessageBody> = pointer
-
+public class MessageBody(public val soupMessageBodyPointer: CPointer<SoupMessageBody>) :
+    ProxyInstance(soupMessageBodyPointer) {
     /**
      * length of @data
      */
     public var length: gint64
-        get() = gPointer.pointed.length
+        get() = soupMessageBodyPointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.length = value
+            soupMessageBodyPointer.pointed.length = value
         }
 
     /**
@@ -67,14 +66,15 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param buffer a #GBytes
      */
-    public fun appendBytes(buffer: Bytes): Unit = soup_message_body_append_bytes(gPointer, buffer.gPointer)
+    public fun appendBytes(buffer: Bytes): Unit =
+        soup_message_body_append_bytes(soupMessageBodyPointer, buffer.glibBytesPointer)
 
     /**
      * Tags @body as being complete.
      *
      * Call this when using chunked encoding after you have appended the last chunk.
      */
-    public fun complete(): Unit = soup_message_body_complete(gPointer)
+    public fun complete(): Unit = soup_message_body_complete(soupMessageBodyPointer)
 
     /**
      * Fills in @body's data field with a buffer containing all of the
@@ -86,7 +86,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @return a #GBytes containing the same data as @body.
      *   (You must [method@GLib.Bytes.unref] this if you do not want it.)
      */
-    public fun flatten(): Bytes = soup_message_body_flatten(gPointer)!!.run {
+    public fun flatten(): Bytes = soup_message_body_flatten(soupMessageBodyPointer)!!.run {
         Bytes(this)
     }
 
@@ -97,7 +97,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @return the accumulate flag for @body.
      */
-    public fun getAccumulate(): Boolean = soup_message_body_get_accumulate(gPointer).asBoolean()
+    public fun getAccumulate(): Boolean = soup_message_body_get_accumulate(soupMessageBodyPointer).asBoolean()
 
     /**
      * Gets a [struct@GLib.Bytes] containing data from @body starting at @offset.
@@ -120,7 +120,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param offset an offset
      * @return a #GBytes
      */
-    public fun getChunk(offset: gint64): Bytes? = soup_message_body_get_chunk(gPointer, offset)?.run {
+    public fun getChunk(offset: gint64): Bytes? = soup_message_body_get_chunk(soupMessageBodyPointer, offset)?.run {
         Bytes(this)
     }
 
@@ -137,14 +137,15 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param chunk a #GBytes received from the network
      */
-    public fun gotChunk(chunk: Bytes): Unit = soup_message_body_got_chunk(gPointer, chunk.gPointer)
+    public fun gotChunk(chunk: Bytes): Unit =
+        soup_message_body_got_chunk(soupMessageBodyPointer, chunk.glibBytesPointer)
 
     /**
      * Atomically increments the reference count of @body by one.
      *
      * @return the passed in #SoupMessageBody
      */
-    public fun ref(): MessageBody = soup_message_body_ref(gPointer)!!.run {
+    public fun ref(): MessageBody = soup_message_body_ref(soupMessageBodyPointer)!!.run {
         MessageBody(this)
     }
 
@@ -166,12 +167,12 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * @param accumulate whether or not to accumulate body chunks in @body
      */
     public fun setAccumulate(accumulate: Boolean): Unit =
-        soup_message_body_set_accumulate(gPointer, accumulate.asGBoolean())
+        soup_message_body_set_accumulate(soupMessageBodyPointer, accumulate.asGBoolean())
 
     /**
      * Deletes all of the data in @body.
      */
-    public fun truncate(): Unit = soup_message_body_truncate(gPointer)
+    public fun truncate(): Unit = soup_message_body_truncate(soupMessageBodyPointer)
 
     /**
      * Atomically decrements the reference count of @body by one.
@@ -179,7 +180,7 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      * When the reference count reaches zero, the resources allocated by
      * @body are freed
      */
-    public fun unref(): Unit = soup_message_body_unref(gPointer)
+    public fun unref(): Unit = soup_message_body_unref(soupMessageBodyPointer)
 
     /**
      * Handles the #SoupMessageBody part of writing a chunk of data to the
@@ -194,7 +195,8 @@ public class MessageBody(pointer: CPointer<SoupMessageBody>) : ProxyInstance(poi
      *
      * @param chunk a #GBytes returned from [method@MessageBody.get_chunk]
      */
-    public fun wroteChunk(chunk: Bytes): Unit = soup_message_body_wrote_chunk(gPointer, chunk.gPointer)
+    public fun wroteChunk(chunk: Bytes): Unit =
+        soup_message_body_wrote_chunk(soupMessageBodyPointer, chunk.glibBytesPointer)
 
     override fun toString(): String = "MessageBody(length=$length)"
 

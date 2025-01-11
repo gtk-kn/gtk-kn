@@ -74,12 +74,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
-    Object(pointer.reinterpret()),
+public open class FileDialog(public val gtkFileDialogPointer: CPointer<GtkFileDialog>) :
+    Object(gtkFileDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkFileDialogPointer: CPointer<GtkFileDialog>
-        get() = gPointer.reinterpret()
-
     /**
      * Label for the file chooser's accept button.
      *
@@ -165,7 +162,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
          * @since 4.10
          */
         get() = gtk_file_dialog_get_filters(gtkFileDialogPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**
@@ -197,7 +194,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
          * @since 4.10
          */
         get() = gtk_file_dialog_get_initial_file(gtkFileDialogPointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**
@@ -231,7 +228,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
          * @since 4.10
          */
         get() = gtk_file_dialog_get_initial_folder(gtkFileDialogPointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**
@@ -376,7 +373,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun openFinish(result: AsyncResult): Result<File?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_file_dialog_open_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -435,7 +432,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -486,7 +483,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
     public open fun saveFinish(result: AsyncResult): Result<File?> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = gtk_file_dialog_save_finish(gtkFileDialogPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -545,7 +542,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -604,7 +601,7 @@ public open class FileDialog(pointer: CPointer<GtkFileDialog>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {

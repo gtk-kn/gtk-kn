@@ -17,12 +17,9 @@ import org.gtkkn.native.soup.soup_auth_basic_get_type
  * support for it, call [method@Session.remove_feature_by_type],
  * passing %SOUP_TYPE_AUTH_BASIC.
  */
-public class AuthBasic(pointer: CPointer<SoupAuth>) :
-    Auth(pointer.reinterpret()),
+public class AuthBasic(public val soupAuthBasicPointer: CPointer<SoupAuth>) :
+    Auth(soupAuthBasicPointer.reinterpret()),
     KGTyped {
-    public val soupAuthBasicPointer: CPointer<SoupAuth>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<AuthBasic> {
         override val type: GeneratedClassKGType<AuthBasic> =
             GeneratedClassKGType(soup_auth_basic_get_type()) { AuthBasic(it.reinterpret()) }

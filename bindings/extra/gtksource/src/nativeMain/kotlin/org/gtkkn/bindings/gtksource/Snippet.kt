@@ -60,12 +60,9 @@ import kotlin.Unit
  * - method `buffer`: Property has no getter nor setter
  * - method `trigger`: Property TypeInfo of getter and setter do not match
  */
-public open class Snippet(pointer: CPointer<GtkSourceSnippet>) :
-    Object(pointer.reinterpret()),
+public open class Snippet(public val gtksourceSnippetPointer: CPointer<GtkSourceSnippet>) :
+    Object(gtksourceSnippetPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSnippetPointer: CPointer<GtkSourceSnippet>
-        get() = gPointer.reinterpret()
-
     public open var description: String
         /**
          * Gets the description for the snippet.

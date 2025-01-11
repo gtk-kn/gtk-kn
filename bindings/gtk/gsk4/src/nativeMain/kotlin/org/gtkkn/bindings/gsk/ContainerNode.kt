@@ -20,12 +20,9 @@ import org.gtkkn.native.gsk.gsk_container_node_get_type
  *
  * - parameter `children`: Array parameter of type RenderNode is not supported
  */
-public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ContainerNode(public val gskContainerNodePointer: CPointer<GskContainerNode>) :
+    RenderNode(gskContainerNodePointer.reinterpret()),
     KGTyped {
-    public val gskContainerNodePointer: CPointer<GskContainerNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets one of the children of @container.
      *
@@ -34,7 +31,7 @@ public open class ContainerNode(pointer: CPointer<GskContainerNode>) :
      */
     public open fun getChild(idx: guint): RenderNode =
         gsk_container_node_get_child(gskContainerNodePointer.reinterpret(), idx)!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     /**

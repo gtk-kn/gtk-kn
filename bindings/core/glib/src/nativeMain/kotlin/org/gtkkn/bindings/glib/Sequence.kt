@@ -52,9 +52,7 @@ import kotlin.Unit
  *
  * - parameter `data_destroy`: DestroyNotify
  */
-public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSequence> = pointer
-
+public class Sequence(public val glibSequencePointer: CPointer<GSequence>) : ProxyInstance(glibSequencePointer) {
     /**
      * Adds a new item to the end of @seq.
      *
@@ -63,7 +61,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun append(`data`: gpointer? = null): SequenceIter = g_sequence_append(gPointer, `data`)!!.run {
+    public fun append(`data`: gpointer? = null): SequenceIter = g_sequence_append(glibSequencePointer, `data`)!!.run {
         SequenceIter(this)
     }
 
@@ -76,7 +74,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun foreach(func: Func): Unit =
-        g_sequence_foreach(gPointer, FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
+        g_sequence_foreach(glibSequencePointer, FuncFunc.reinterpret(), StableRef.create(func).asCPointer())
 
     /**
      * Frees the memory allocated for @seq. If @seq has a data destroy
@@ -86,7 +84,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun free(): Unit = g_sequence_free(gPointer)
+    public fun free(): Unit = g_sequence_free(glibSequencePointer)
 
     /**
      * Returns the begin iterator for @seq.
@@ -95,7 +93,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getBeginIter(): SequenceIter = g_sequence_get_begin_iter(gPointer)!!.run {
+    public fun getBeginIter(): SequenceIter = g_sequence_get_begin_iter(glibSequencePointer)!!.run {
         SequenceIter(this)
     }
 
@@ -106,7 +104,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getEndIter(): SequenceIter = g_sequence_get_end_iter(gPointer)!!.run {
+    public fun getEndIter(): SequenceIter = g_sequence_get_end_iter(glibSequencePointer)!!.run {
         SequenceIter(this)
     }
 
@@ -119,7 +117,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getIterAtPos(pos: gint): SequenceIter = g_sequence_get_iter_at_pos(gPointer, pos)!!.run {
+    public fun getIterAtPos(pos: gint): SequenceIter = g_sequence_get_iter_at_pos(glibSequencePointer, pos)!!.run {
         SequenceIter(this)
     }
 
@@ -132,7 +130,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getLength(): gint = g_sequence_get_length(gPointer)
+    public fun getLength(): gint = g_sequence_get_length(glibSequencePointer)
 
     /**
      * Inserts @data into @seq using @cmp_func to determine the new
@@ -156,7 +154,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
     @GLibVersion2_14
     public fun insertSorted(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter =
         g_sequence_insert_sorted(
-            gPointer,
+            glibSequencePointer,
             `data`,
             CompareDataFuncFunc.reinterpret(),
             StableRef.create(cmpFunc).asCPointer()
@@ -186,7 +184,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
     @GLibVersion2_14
     public fun insertSortedIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter =
         g_sequence_insert_sorted_iter(
-            gPointer,
+            glibSequencePointer,
             `data`,
             SequenceIterCompareFuncFunc.reinterpret(),
             StableRef.create(iterCmp).asCPointer()
@@ -205,7 +203,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.48
      */
     @GLibVersion2_48
-    public fun isEmpty(): Boolean = g_sequence_is_empty(gPointer).asBoolean()
+    public fun isEmpty(): Boolean = g_sequence_is_empty(glibSequencePointer).asBoolean()
 
     /**
      * Returns an iterator pointing to the position of the first item found
@@ -231,7 +229,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_28
     public fun lookup(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter? = g_sequence_lookup(
-        gPointer,
+        glibSequencePointer,
         `data`,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(cmpFunc).asCPointer()
@@ -261,7 +259,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
     @GLibVersion2_28
     public fun lookupIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter? =
         g_sequence_lookup_iter(
-            gPointer,
+            glibSequencePointer,
             `data`,
             SequenceIterCompareFuncFunc.reinterpret(),
             StableRef.create(iterCmp).asCPointer()
@@ -277,7 +275,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun prepend(`data`: gpointer? = null): SequenceIter = g_sequence_prepend(gPointer, `data`)!!.run {
+    public fun prepend(`data`: gpointer? = null): SequenceIter = g_sequence_prepend(glibSequencePointer, `data`)!!.run {
         SequenceIter(this)
     }
 
@@ -304,7 +302,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun search(`data`: gpointer? = null, cmpFunc: CompareDataFunc): SequenceIter = g_sequence_search(
-        gPointer,
+        glibSequencePointer,
         `data`,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(cmpFunc).asCPointer()
@@ -337,7 +335,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
     @GLibVersion2_14
     public fun searchIter(`data`: gpointer? = null, iterCmp: SequenceIterCompareFunc): SequenceIter =
         g_sequence_search_iter(
-            gPointer,
+            glibSequencePointer,
             `data`,
             SequenceIterCompareFuncFunc.reinterpret(),
             StableRef.create(iterCmp).asCPointer()
@@ -358,7 +356,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun sort(cmpFunc: CompareDataFunc): Unit =
-        g_sequence_sort(gPointer, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
+        g_sequence_sort(glibSequencePointer, CompareDataFuncFunc.reinterpret(), StableRef.create(cmpFunc).asCPointer())
 
     /**
      * Like g_sequence_sort(), but uses a #GSequenceIterCompareFunc instead
@@ -374,7 +372,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun sortIter(cmpFunc: SequenceIterCompareFunc): Unit = g_sequence_sort_iter(
-        gPointer,
+        glibSequencePointer,
         SequenceIterCompareFuncFunc.reinterpret(),
         StableRef.create(cmpFunc).asCPointer()
     )
@@ -392,8 +390,8 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_14
         public fun foreachRange(begin: SequenceIter, end: SequenceIter, func: Func): Unit = g_sequence_foreach_range(
-            begin.gPointer,
-            end.gPointer,
+            begin.glibSequenceIterPointer,
+            end.glibSequenceIterPointer,
             FuncFunc.reinterpret(),
             StableRef.create(func).asCPointer()
         )
@@ -406,7 +404,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun `get`(iter: SequenceIter): gpointer? = g_sequence_get(iter.gPointer)
+        public fun `get`(iter: SequenceIter): gpointer? = g_sequence_get(iter.glibSequenceIterPointer)
 
         /**
          * Inserts a new item just before the item pointed to by @iter.
@@ -418,7 +416,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_14
         public fun insertBefore(iter: SequenceIter, `data`: gpointer? = null): SequenceIter =
-            g_sequence_insert_before(iter.gPointer, `data`)!!.run {
+            g_sequence_insert_before(iter.glibSequenceIterPointer, `data`)!!.run {
                 SequenceIter(this)
             }
 
@@ -434,7 +432,8 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun move(src: SequenceIter, dest: SequenceIter): Unit = g_sequence_move(src.gPointer, dest.gPointer)
+        public fun move(src: SequenceIter, dest: SequenceIter): Unit =
+            g_sequence_move(src.glibSequenceIterPointer, dest.glibSequenceIterPointer)
 
         /**
          * Inserts the (@begin, @end) range at the destination pointed to by @dest.
@@ -452,8 +451,11 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun moveRange(dest: SequenceIter, begin: SequenceIter, end: SequenceIter): Unit =
-            g_sequence_move_range(dest.gPointer, begin.gPointer, end.gPointer)
+        public fun moveRange(dest: SequenceIter, begin: SequenceIter, end: SequenceIter): Unit = g_sequence_move_range(
+            dest.glibSequenceIterPointer,
+            begin.glibSequenceIterPointer,
+            end.glibSequenceIterPointer
+        )
 
         /**
          * Finds an iterator somewhere in the range (@begin, @end). This
@@ -471,7 +473,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_14
         public fun rangeGetMidpoint(begin: SequenceIter, end: SequenceIter): SequenceIter =
-            g_sequence_range_get_midpoint(begin.gPointer, end.gPointer)!!.run {
+            g_sequence_range_get_midpoint(begin.glibSequenceIterPointer, end.glibSequenceIterPointer)!!.run {
                 SequenceIter(this)
             }
 
@@ -486,7 +488,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun remove(iter: SequenceIter): Unit = g_sequence_remove(iter.gPointer)
+        public fun remove(iter: SequenceIter): Unit = g_sequence_remove(iter.glibSequenceIterPointer)
 
         /**
          * Removes all items in the (@begin, @end) range.
@@ -500,7 +502,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_14
         public fun removeRange(begin: SequenceIter, end: SequenceIter): Unit =
-            g_sequence_remove_range(begin.gPointer, end.gPointer)
+            g_sequence_remove_range(begin.glibSequenceIterPointer, end.glibSequenceIterPointer)
 
         /**
          * Changes the data for the item pointed to by @iter to be @data. If
@@ -512,7 +514,8 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun `set`(iter: SequenceIter, `data`: gpointer? = null): Unit = g_sequence_set(iter.gPointer, `data`)
+        public fun `set`(iter: SequenceIter, `data`: gpointer? = null): Unit =
+            g_sequence_set(iter.glibSequenceIterPointer, `data`)
 
         /**
          * Moves the data pointed to by @iter to a new position as indicated by
@@ -532,7 +535,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          */
         @GLibVersion2_14
         public fun sortChanged(iter: SequenceIter, cmpFunc: CompareDataFunc): Unit = g_sequence_sort_changed(
-            iter.gPointer,
+            iter.glibSequenceIterPointer,
             CompareDataFuncFunc.reinterpret(),
             StableRef.create(cmpFunc).asCPointer()
         )
@@ -555,7 +558,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
         @GLibVersion2_14
         public fun sortChangedIter(iter: SequenceIter, iterCmp: SequenceIterCompareFunc): Unit =
             g_sequence_sort_changed_iter(
-                iter.gPointer,
+                iter.glibSequenceIterPointer,
                 SequenceIterCompareFuncFunc.reinterpret(),
                 StableRef.create(iterCmp).asCPointer()
             )
@@ -569,6 +572,7 @@ public class Sequence(pointer: CPointer<GSequence>) : ProxyInstance(pointer) {
          * @since 2.14
          */
         @GLibVersion2_14
-        public fun swap(a: SequenceIter, b: SequenceIter): Unit = g_sequence_swap(a.gPointer, b.gPointer)
+        public fun swap(a: SequenceIter, b: SequenceIter): Unit =
+            g_sequence_swap(a.glibSequenceIterPointer, b.glibSequenceIterPointer)
     }
 }

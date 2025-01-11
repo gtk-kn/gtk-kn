@@ -3,7 +3,8 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -26,23 +27,26 @@ import org.gtkkn.native.gtk.gtk_shortcut_manager_get_type
  * %GTK_SHORTCUT_SCOPE_MANAGED.
  */
 public interface ShortcutManager :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
 
-    private data class Wrapper(private val pointer: CPointer<GtkShortcutManager>) : ShortcutManager {
-        override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager> = pointer
-    }
+    /**
+     * The ShortcutManagerImpl type represents a native instance of the ShortcutManager interface.
+     *
+     * @constructor Creates a new instance of ShortcutManager for the provided [CPointer].
+     */
+    public data class ShortcutManagerImpl(override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>) :
+        Object(gtkShortcutManagerPointer.reinterpret()),
+        ShortcutManager
 
     public companion object : TypeCompanion<ShortcutManager> {
         override val type: GeneratedInterfaceKGType<ShortcutManager> =
-            GeneratedInterfaceKGType(gtk_shortcut_manager_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_shortcut_manager_get_type()) { ShortcutManagerImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkShortcutManager>): ShortcutManager = Wrapper(pointer)
 
         /**
          * Get the GType of ShortcutManager

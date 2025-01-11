@@ -37,30 +37,29 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDBusMethodInfo> = pointer
-
+public class DBusMethodInfo(public val gioDBusMethodInfoPointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioDBusMethodInfoPointer) {
     /**
      * The reference count or -1 if statically allocated.
      */
     public var refCount: gint
-        get() = gPointer.pointed.ref_count
+        get() = gioDBusMethodInfoPointer.pointed.ref_count
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.ref_count = value
+            gioDBusMethodInfoPointer.pointed.ref_count = value
         }
 
     /**
      * The name of the D-Bus method, e.g. @RequestName.
      */
     public var name: String?
-        get() = gPointer.pointed.name?.toKString()
+        get() = gioDBusMethodInfoPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.name?.let { g_free(it) }
-            gPointer.pointed.name = value?.let { g_strdup(it) }
+            gioDBusMethodInfoPointer.pointed.name?.let { g_free(it) }
+            gioDBusMethodInfoPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -83,7 +82,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GDBusMethodInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioDBusMethodInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusMethodInfo using the provided [AutofreeScope].
@@ -134,7 +133,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      * @since 2.26
      */
     @GioVersion2_26
-    public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gPointer)!!.run {
+    public fun ref(): DBusMethodInfo = g_dbus_method_info_ref(gioDBusMethodInfoPointer)!!.run {
         DBusMethodInfo(this)
     }
 
@@ -146,7 +145,7 @@ public class DBusMethodInfo(pointer: CPointer<GDBusMethodInfo>, cleaner: Cleaner
      * @since 2.26
      */
     @GioVersion2_26
-    public fun unref(): Unit = g_dbus_method_info_unref(gPointer)
+    public fun unref(): Unit = g_dbus_method_info_unref(gioDBusMethodInfoPointer)
 
     override fun toString(): String = "DBusMethodInfo(refCount=$refCount, name=$name)"
 

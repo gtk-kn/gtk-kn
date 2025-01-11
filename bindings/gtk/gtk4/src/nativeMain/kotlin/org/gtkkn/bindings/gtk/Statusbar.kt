@@ -73,20 +73,17 @@ import kotlin.Unit
  *
  * `GtkStatusbar` has a single CSS node with name `statusbar`.
  */
-public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
-    Widget(pointer.reinterpret()),
+public open class Statusbar(public val gtkStatusbarPointer: CPointer<GtkStatusbar>) :
+    Widget(gtkStatusbarPointer.reinterpret()),
     KGTyped {
-    public val gtkStatusbarPointer: CPointer<GtkStatusbar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkStatusbar` ready for messages.
@@ -160,7 +157,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (contextId: guint, text: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkStatusbarPointer,
         "text-popped",
         onTextPoppedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -175,7 +172,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      * @param text the message that was just popped
      */
     public fun emitTextPopped(contextId: guint, text: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "text-popped", contextId, text.cstr)
+        g_signal_emit_by_name(gtkStatusbarPointer.reinterpret(), "text-popped", contextId, text.cstr)
     }
 
     /**
@@ -188,7 +185,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (contextId: guint, text: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkStatusbarPointer,
         "text-pushed",
         onTextPushedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -203,7 +200,7 @@ public open class Statusbar(pointer: CPointer<GtkStatusbar>) :
      * @param text the message that was pushed
      */
     public fun emitTextPushed(contextId: guint, text: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "text-pushed", contextId, text.cstr)
+        g_signal_emit_by_name(gtkStatusbarPointer.reinterpret(), "text-pushed", contextId, text.cstr)
     }
 
     public companion object : TypeCompanion<Statusbar> {

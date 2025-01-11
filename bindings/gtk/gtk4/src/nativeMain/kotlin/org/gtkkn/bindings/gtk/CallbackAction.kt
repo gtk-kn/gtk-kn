@@ -16,12 +16,9 @@ import org.gtkkn.native.gtk.gtk_callback_action_new
 /**
  * A `GtkShortcutAction` that invokes a callback.
  */
-public open class CallbackAction(pointer: CPointer<GtkCallbackAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class CallbackAction(public val gtkCallbackActionPointer: CPointer<GtkCallbackAction>) :
+    ShortcutAction(gtkCallbackActionPointer.reinterpret()),
     KGTyped {
-    public val gtkCallbackActionPointer: CPointer<GtkCallbackAction>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a custom action that calls the given @callback when
      * activated.

@@ -82,58 +82,57 @@ import kotlin.native.ref.createCleaner
  * - field `_reserved3`: Fields with callbacks are not supported
  * - field `_reserved4`: Fields with callbacks are not supported
  */
-public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkPixbufModule> = pointer
-
+public class PixbufModule(public val gdkPixbufModulePointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? = null) :
+    ProxyInstance(gdkPixbufModulePointer) {
     /**
      * the name of the module, usually the same as the
      *  usual file extension for images of this type, eg. "xpm", "jpeg" or "png".
      */
     public var moduleName: String?
-        get() = gPointer.pointed.module_name?.toKString()
+        get() = gdkPixbufModulePointer.pointed.module_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.module_name?.let { g_free(it) }
-            gPointer.pointed.module_name = value?.let { g_strdup(it) }
+            gdkPixbufModulePointer.pointed.module_name?.let { g_free(it) }
+            gdkPixbufModulePointer.pointed.module_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the path from which the module is loaded.
      */
     public var modulePath: String?
-        get() = gPointer.pointed.module_path?.toKString()
+        get() = gdkPixbufModulePointer.pointed.module_path?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.module_path?.let { g_free(it) }
-            gPointer.pointed.module_path = value?.let { g_strdup(it) }
+            gdkPixbufModulePointer.pointed.module_path?.let { g_free(it) }
+            gdkPixbufModulePointer.pointed.module_path = value?.let { g_strdup(it) }
         }
 
     /**
      * the loaded `GModule`.
      */
     public var module: Module?
-        get() = gPointer.pointed.module?.run {
+        get() = gdkPixbufModulePointer.pointed.module?.run {
             Module(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.module = value?.gPointer
+            gdkPixbufModulePointer.pointed.module = value?.gmoduleModulePointer
         }
 
     /**
      * a `GdkPixbufFormat` holding information about the module.
      */
     public var info: PixbufFormat?
-        get() = gPointer.pointed.info?.run {
+        get() = gdkPixbufModulePointer.pointed.info?.run {
             PixbufFormat(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.info = value?.gPointer
+            gdkPixbufModulePointer.pointed.info = value?.gdkPixbufFormatPointer
         }
 
     /**
@@ -156,7 +155,7 @@ public class PixbufModule(pointer: CPointer<GdkPixbufModule>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GdkPixbufModule>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gdkPixbufModulePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PixbufModule using the provided [AutofreeScope].

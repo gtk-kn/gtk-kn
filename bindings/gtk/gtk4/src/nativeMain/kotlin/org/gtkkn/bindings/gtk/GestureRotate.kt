@@ -30,12 +30,9 @@ import kotlin.Unit
  * Whenever the angle between both handled sequences changes, the
  * [signal@Gtk.GestureRotate::angle-changed] signal is emitted.
  */
-public open class GestureRotate(pointer: CPointer<GtkGestureRotate>) :
-    Gesture(pointer.reinterpret()),
+public open class GestureRotate(public val gtkGestureRotatePointer: CPointer<GtkGestureRotate>) :
+    Gesture(gtkGestureRotatePointer.reinterpret()),
     KGTyped {
-    public val gtkGestureRotatePointer: CPointer<GtkGestureRotate>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns a newly created `GtkGesture` that recognizes 2-touch
      * rotation gestures.
@@ -65,7 +62,7 @@ public open class GestureRotate(pointer: CPointer<GtkGestureRotate>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (angle: gdouble, angleDelta: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureRotatePointer,
         "angle-changed",
         onAngleChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -80,7 +77,7 @@ public open class GestureRotate(pointer: CPointer<GtkGestureRotate>) :
      * @param angleDelta Difference with the starting angle, in radians
      */
     public fun emitAngleChanged(angle: gdouble, angleDelta: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "angle-changed", angle, angleDelta)
+        g_signal_emit_by_name(gtkGestureRotatePointer.reinterpret(), "angle-changed", angle, angleDelta)
     }
 
     public companion object : TypeCompanion<GestureRotate> {

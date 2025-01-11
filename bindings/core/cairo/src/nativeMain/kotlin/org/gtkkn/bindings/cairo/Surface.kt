@@ -10,6 +10,7 @@ import org.gtkkn.bindings.cairo.annotations.CairoVersion1_2
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_4
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_6
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_8
+import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -56,18 +57,18 @@ import kotlin.Unit
  * - parameter `destroy`: GLib.DestroyNotify
  * - parameter `destroy`: GLib.DestroyNotify
  */
-public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
-    public val gPointer: CPointer<cairo_surface_t> = pointer
+public open class Surface(public val cairoSurfacePointer: CPointer<cairo_surface_t>) :
+    TypeInstance(cairoSurfacePointer.reinterpret()),
+    KGTyped {
+    public open fun destroy(): Unit = cairo_surface_destroy(cairoSurfacePointer)
 
-    public open fun destroy(): Unit = cairo_surface_destroy(gPointer)
-
-    public open fun status(): Status = cairo_surface_status(gPointer).run {
+    public open fun status(): Status = cairo_surface_status(cairoSurfacePointer).run {
         Status.fromNativeValue(this)
     }
 
-    public open fun finish(): Unit = cairo_surface_finish(gPointer)
+    public open fun finish(): Unit = cairo_surface_finish(cairoSurfacePointer)
 
-    public open fun flush(): Unit = cairo_surface_flush(gPointer)
+    public open fun flush(): Unit = cairo_surface_flush(cairoSurfacePointer)
 
     /**
      *
@@ -75,12 +76,12 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.10
      */
     @CairoVersion1_10
-    public open fun getDevice(): Device = cairo_surface_get_device(gPointer)!!.run {
-        Device(this)
+    public open fun getDevice(): Device = cairo_surface_get_device(cairoSurfacePointer)!!.run {
+        Device.DeviceImpl(this)
     }
 
     public open fun getFontOptions(options: FontOptions): Unit =
-        cairo_surface_get_font_options(gPointer, options.gPointer)
+        cairo_surface_get_font_options(cairoSurfacePointer, options.cairoFontOptionsPointer)
 
     /**
      *
@@ -88,17 +89,17 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.2
      */
     @CairoVersion1_2
-    public open fun getContent(): Content = cairo_surface_get_content(gPointer).run {
+    public open fun getContent(): Content = cairo_surface_get_content(cairoSurfacePointer).run {
         Content.fromNativeValue(this)
     }
 
-    public open fun markDirty(): Unit = cairo_surface_mark_dirty(gPointer)
+    public open fun markDirty(): Unit = cairo_surface_mark_dirty(cairoSurfacePointer)
 
     public open fun markDirtyRectangle(x: gint, y: gint, width: gint, height: gint): Unit =
-        cairo_surface_mark_dirty_rectangle(gPointer, x, y, width, height)
+        cairo_surface_mark_dirty_rectangle(cairoSurfacePointer, x, y, width, height)
 
     public open fun setDeviceOffset(xOffset: gdouble, yOffset: gdouble): Unit =
-        cairo_surface_set_device_offset(gPointer, xOffset, yOffset)
+        cairo_surface_set_device_offset(cairoSurfacePointer, xOffset, yOffset)
 
     /**
      *
@@ -109,7 +110,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      */
     @CairoVersion1_14
     public open fun setDeviceScale(xScale: gdouble, yScale: gdouble): Unit =
-        cairo_surface_set_device_scale(gPointer, xScale, yScale)
+        cairo_surface_set_device_scale(cairoSurfacePointer, xScale, yScale)
 
     /**
      *
@@ -120,7 +121,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      */
     @CairoVersion1_2
     public open fun setFallbackResolution(xPpi: gdouble, yPpi: gdouble): Unit =
-        cairo_surface_set_fallback_resolution(gPointer, xPpi, yPpi)
+        cairo_surface_set_fallback_resolution(cairoSurfacePointer, xPpi, yPpi)
 
     /**
      *
@@ -128,7 +129,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.2
      */
     @CairoVersion1_2
-    public open fun getSurfaceType(): SurfaceType = cairo_surface_get_type(gPointer).run {
+    public open fun getSurfaceType(): SurfaceType = cairo_surface_get_type(cairoSurfacePointer).run {
         SurfaceType.fromNativeValue(this)
     }
 
@@ -138,7 +139,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.6
      */
     @CairoVersion1_6
-    public open fun copyPage(): Unit = cairo_surface_copy_page(gPointer)
+    public open fun copyPage(): Unit = cairo_surface_copy_page(cairoSurfacePointer)
 
     /**
      *
@@ -146,7 +147,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.6
      */
     @CairoVersion1_6
-    public open fun showPage(): Unit = cairo_surface_show_page(gPointer)
+    public open fun showPage(): Unit = cairo_surface_show_page(cairoSurfacePointer)
 
     /**
      *
@@ -154,7 +155,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.8
      */
     @CairoVersion1_8
-    public open fun hasShowTextGlyphs(): Boolean = cairo_surface_has_show_text_glyphs(gPointer).asBoolean()
+    public open fun hasShowTextGlyphs(): Boolean = cairo_surface_has_show_text_glyphs(cairoSurfacePointer).asBoolean()
 
     /**
      *
@@ -164,7 +165,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      */
     @CairoVersion1_12
     public open fun supportsMimeType(mimeType: String): Boolean =
-        cairo_surface_supports_mime_type(gPointer, mimeType).asBoolean()
+        cairo_surface_supports_mime_type(cairoSurfacePointer, mimeType).asBoolean()
 
     /**
      *
@@ -174,7 +175,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      */
     @CairoVersion1_12
     public open fun mapToImage(extents: RectangleInt): ImageSurface =
-        cairo_surface_map_to_image(gPointer, extents.gPointer)!!.run {
+        cairo_surface_map_to_image(cairoSurfacePointer, extents.cairoRectangleIntPointer)!!.run {
             ImageSurface(reinterpret())
         }
 
@@ -185,7 +186,8 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun unmapImage(imageSurface: Surface): Unit = cairo_surface_unmap_image(gPointer, imageSurface.gPointer)
+    public open fun unmapImage(imageSurface: Surface): Unit =
+        cairo_surface_unmap_image(cairoSurfacePointer, imageSurface.cairoSurfacePointer)
 
     /**
      *
@@ -194,7 +196,8 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
      * @since 1.4
      */
     @CairoVersion1_4
-    public open fun getUserData(key: UserDataKey): gpointer = cairo_surface_get_user_data(gPointer, key.gPointer)!!
+    public open fun getUserData(key: UserDataKey): gpointer =
+        cairo_surface_get_user_data(cairoSurfacePointer, key.cairoUserDataKeyPointer)!!
 
     public companion object : TypeCompanion<Surface> {
         override val type: GeneratedClassKGType<Surface> =
@@ -205,7 +208,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
         }
 
         public fun createSimilar(other: Surface, content: Content, width: gint, height: gint): Surface =
-            cairo_surface_create_similar(other.gPointer, content.nativeValue, width, height)!!.run {
+            cairo_surface_create_similar(other.cairoSurfacePointer, content.nativeValue, width, height)!!.run {
                 Surface(this)
             }
 
@@ -220,7 +223,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
          */
         @CairoVersion1_12
         public fun createSimilarImage(other: Surface, format: Format, width: gint, height: gint): ImageSurface =
-            cairo_surface_create_similar_image(other.gPointer, format.nativeValue, width, height)!!.run {
+            cairo_surface_create_similar_image(other.cairoSurfacePointer, format.nativeValue, width, height)!!.run {
                 ImageSurface(reinterpret())
             }
 
@@ -241,7 +244,7 @@ public open class Surface(pointer: CPointer<cairo_surface_t>) : KGTyped {
             y: gdouble,
             width: gdouble,
             height: gdouble,
-        ): Surface = cairo_surface_create_for_rectangle(target.gPointer, x, y, width, height)!!.run {
+        ): Surface = cairo_surface_create_for_rectangle(target.cairoSurfacePointer, x, y, width, height)!!.run {
             Surface(this)
         }
 

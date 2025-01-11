@@ -25,16 +25,15 @@ import kotlin.Unit
  *
  * - parameter `start`: start: Out parameter is not supported
  */
-public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoScriptIter> = pointer
-
+public class ScriptIter(public val pangoScriptIterPointer: CPointer<PangoScriptIter>) :
+    ProxyInstance(pangoScriptIterPointer) {
     /**
      * Frees a `PangoScriptIter`.
      *
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun free(): Unit = pango_script_iter_free(gPointer)
+    public fun free(): Unit = pango_script_iter_free(pangoScriptIterPointer)
 
     /**
      * Advances a `PangoScriptIter` to the next range.
@@ -46,7 +45,7 @@ public class ScriptIter(pointer: CPointer<PangoScriptIter>) : ProxyInstance(poin
      * @since 1.4
      */
     @PangoVersion1_4
-    public fun next(): Boolean = pango_script_iter_next(gPointer).asBoolean()
+    public fun next(): Boolean = pango_script_iter_next(pangoScriptIterPointer).asBoolean()
 
     public companion object {
         /**

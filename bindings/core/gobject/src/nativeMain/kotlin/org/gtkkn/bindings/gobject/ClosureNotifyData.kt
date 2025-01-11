@@ -21,16 +21,16 @@ import kotlin.native.ref.createCleaner
  *
  * - field `notify`: ClosureNotify
  */
-public class ClosureNotifyData(pointer: CPointer<GClosureNotifyData>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GClosureNotifyData> = pointer
-
+public class ClosureNotifyData(
+    public val gobjectClosureNotifyDataPointer: CPointer<GClosureNotifyData>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectClosureNotifyDataPointer) {
     public var `data`: gpointer
-        get() = gPointer.pointed.data!!
+        get() = gobjectClosureNotifyDataPointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.data = value
+            gobjectClosureNotifyDataPointer.pointed.data = value
         }
 
     /**
@@ -53,7 +53,7 @@ public class ClosureNotifyData(pointer: CPointer<GClosureNotifyData>, cleaner: C
      */
     private constructor(
         pair: Pair<CPointer<GClosureNotifyData>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectClosureNotifyDataPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ClosureNotifyData using the provided [AutofreeScope].

@@ -28,22 +28,21 @@ import kotlin.Unit
  * for example by #GtkSourceFile. Note that the text in GTK widgets is always
  * encoded in UTF-8.
  */
-public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkSourceEncoding> = pointer
-
+public class Encoding(public val gtksourceEncodingPointer: CPointer<GtkSourceEncoding>) :
+    ProxyInstance(gtksourceEncodingPointer) {
     /**
      * Used by language bindings.
      *
      * @return a copy of @enc.
      */
-    public fun copy(): Encoding = gtk_source_encoding_copy(gPointer)!!.run {
+    public fun copy(): Encoding = gtk_source_encoding_copy(gtksourceEncodingPointer)!!.run {
         Encoding(this)
     }
 
     /**
      * Used by language bindings.
      */
-    public fun free(): Unit = gtk_source_encoding_free(gPointer)
+    public fun free(): Unit = gtk_source_encoding_free(gtksourceEncodingPointer)
 
     /**
      * Gets the character set of the #GtkSourceEncoding, such as "UTF-8" or
@@ -52,7 +51,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return the character set of the #GtkSourceEncoding.
      */
     public fun getCharset(): String =
-        gtk_source_encoding_get_charset(gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_source_encoding_get_charset(gtksourceEncodingPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the name of the #GtkSourceEncoding such as "Unicode" or "Western".
@@ -60,7 +59,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return the name of the #GtkSourceEncoding.
      */
     public fun getName(): String =
-        gtk_source_encoding_get_name(gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_source_encoding_get_name(gtksourceEncodingPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      *
@@ -68,7 +67,7 @@ public class Encoding(pointer: CPointer<GtkSourceEncoding>) : ProxyInstance(poin
      * @return a string representation. Free with g_free() when no longer needed.
      */
     override fun toString(): String =
-        gtk_source_encoding_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_source_encoding_to_string(gtksourceEncodingPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

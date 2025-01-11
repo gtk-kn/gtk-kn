@@ -20,19 +20,18 @@ import kotlin.native.ref.createCleaner
 /**
  * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
  */
-public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkKeymapKey> = pointer
-
+public class KeymapKey(public val gdkKeymapKeyPointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null) :
+    ProxyInstance(gdkKeymapKeyPointer) {
     /**
      * the hardware keycode. This is an identifying number for a
      *   physical key.
      */
     public var keycode: guint
-        get() = gPointer.pointed.keycode
+        get() = gdkKeymapKeyPointer.pointed.keycode
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.keycode = value
+            gdkKeymapKeyPointer.pointed.keycode = value
         }
 
     /**
@@ -42,11 +41,11 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      *   characters will be printed on the key next to the English characters.
      */
     public var group: gint
-        get() = gPointer.pointed.group
+        get() = gdkKeymapKeyPointer.pointed.group
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.group = value
+            gdkKeymapKeyPointer.pointed.group = value
         }
 
     /**
@@ -58,11 +57,11 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      *   uppercase letter is printed.
      */
     public var level: gint
-        get() = gPointer.pointed.level
+        get() = gdkKeymapKeyPointer.pointed.level
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.level = value
+            gdkKeymapKeyPointer.pointed.level = value
         }
 
     /**
@@ -83,7 +82,9 @@ public class KeymapKey(pointer: CPointer<GdkKeymapKey>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to KeymapKey and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GdkKeymapKey>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GdkKeymapKey>, Cleaner>,
+    ) : this(gdkKeymapKeyPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new KeymapKey using the provided [AutofreeScope].

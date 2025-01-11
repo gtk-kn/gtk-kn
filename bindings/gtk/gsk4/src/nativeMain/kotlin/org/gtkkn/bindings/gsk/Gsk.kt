@@ -47,9 +47,10 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueDupRenderNode(`value`: Value): RenderNode? = gsk_value_dup_render_node(`value`.gPointer)?.run {
-        RenderNode(this)
-    }
+    public fun valueDupRenderNode(`value`: Value): RenderNode? =
+        gsk_value_dup_render_node(`value`.gobjectValuePointer)?.run {
+            RenderNode.RenderNodeImpl(this)
+        }
 
     /**
      * Retrieves the `GskRenderNode` stored inside the given `value`.
@@ -59,9 +60,10 @@ public object Gsk {
      * @since 4.6
      */
     @GskVersion4_6
-    public fun valueGetRenderNode(`value`: Value): RenderNode? = gsk_value_get_render_node(`value`.gPointer)?.run {
-        RenderNode(this)
-    }
+    public fun valueGetRenderNode(`value`: Value): RenderNode? =
+        gsk_value_get_render_node(`value`.gobjectValuePointer)?.run {
+            RenderNode.RenderNodeImpl(this)
+        }
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -74,7 +76,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueSetRenderNode(`value`: Value, node: RenderNode): Unit =
-        gsk_value_set_render_node(`value`.gPointer, node.gPointer)
+        gsk_value_set_render_node(`value`.gobjectValuePointer, node.gskRenderNodePointer)
 
     /**
      * Stores the given `GskRenderNode` inside `value`.
@@ -87,7 +89,7 @@ public object Gsk {
      */
     @GskVersion4_6
     public fun valueTakeRenderNode(`value`: Value, node: RenderNode? = null): Unit =
-        gsk_value_take_render_node(`value`.gPointer, node?.gPointer)
+        gsk_value_take_render_node(`value`.gobjectValuePointer, node?.gskRenderNodePointer)
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {

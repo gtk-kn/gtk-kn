@@ -48,24 +48,21 @@ import kotlin.Unit
  * - method `show-time`: Property has no getter nor setter
  * - method `subtitle`: Property has no getter nor setter
  */
-public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
-    Widget(pointer.reinterpret()),
+public open class FileChooserWidget(public val gtkFileChooserWidgetPointer: CPointer<GtkFileChooserWidget>) :
+    Widget(gtkFileChooserWidgetPointer.reinterpret()),
     FileChooser,
     KGTyped {
-    public val gtkFileChooserWidgetPointer: CPointer<GtkFileChooserWidget>
-        get() = gPointer.reinterpret()
-
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkFileChooserWidget`.
@@ -96,7 +93,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onDesktopFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "desktop-folder",
             onDesktopFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -108,7 +105,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "desktop-folder" signal. See [onDesktopFolder].
      */
     public fun emitDesktopFolder() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "desktop-folder")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "desktop-folder")
     }
 
     /**
@@ -130,7 +127,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onDownFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "down-folder",
             onDownFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -142,7 +139,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "down-folder" signal. See [onDownFolder].
      */
     public fun emitDownFolder() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "down-folder")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "down-folder")
     }
 
     /**
@@ -160,7 +157,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onHomeFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "home-folder",
             onHomeFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -172,7 +169,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "home-folder" signal. See [onHomeFolder].
      */
     public fun emitHomeFolder() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "home-folder")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "home-folder")
     }
 
     /**
@@ -195,7 +192,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onLocationPopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "location-popup",
             onLocationPopupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -209,7 +206,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * @param path a string that gets put in the text entry for the file name
      */
     public fun emitLocationPopup(path: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "location-popup", path.cstr)
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "location-popup", path.cstr)
     }
 
     /**
@@ -227,7 +224,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onLocationPopupOnPaste(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "location-popup-on-paste",
             onLocationPopupOnPasteFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -239,7 +236,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "location-popup-on-paste" signal. See [onLocationPopupOnPaste].
      */
     public fun emitLocationPopupOnPaste() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "location-popup-on-paste")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "location-popup-on-paste")
     }
 
     /**
@@ -258,7 +255,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onLocationTogglePopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "location-toggle-popup",
             onLocationTogglePopupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -270,7 +267,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "location-toggle-popup" signal. See [onLocationTogglePopup].
      */
     public fun emitLocationTogglePopup() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "location-toggle-popup")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "location-toggle-popup")
     }
 
     /**
@@ -287,7 +284,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onPlacesShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "places-shortcut",
             onPlacesShortcutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -299,7 +296,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "places-shortcut" signal. See [onPlacesShortcut].
      */
     public fun emitPlacesShortcut() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "places-shortcut")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "places-shortcut")
     }
 
     /**
@@ -325,7 +322,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (bookmarkIndex: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkFileChooserWidgetPointer,
         "quick-bookmark",
         onQuickBookmarkFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -339,7 +336,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * @param bookmarkIndex the number of the bookmark to switch to
      */
     public fun emitQuickBookmark(bookmarkIndex: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "quick-bookmark", bookmarkIndex)
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "quick-bookmark", bookmarkIndex)
     }
 
     /**
@@ -356,7 +353,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onRecentShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "recent-shortcut",
             onRecentShortcutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -368,7 +365,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "recent-shortcut" signal. See [onRecentShortcut].
      */
     public fun emitRecentShortcut() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "recent-shortcut")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "recent-shortcut")
     }
 
     /**
@@ -385,7 +382,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onSearchShortcut(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "search-shortcut",
             onSearchShortcutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -397,7 +394,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "search-shortcut" signal. See [onSearchShortcut].
      */
     public fun emitSearchShortcut() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "search-shortcut")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "search-shortcut")
     }
 
     /**
@@ -414,7 +411,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onShowHidden(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "show-hidden",
             onShowHiddenFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -426,7 +423,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "show-hidden" signal. See [onShowHidden].
      */
     public fun emitShowHidden() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "show-hidden")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "show-hidden")
     }
 
     /**
@@ -444,7 +441,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      */
     public fun onUpFolder(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFileChooserWidgetPointer,
             "up-folder",
             onUpFolderFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -456,7 +453,7 @@ public open class FileChooserWidget(pointer: CPointer<GtkFileChooserWidget>) :
      * Emits the "up-folder" signal. See [onUpFolder].
      */
     public fun emitUpFolder() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "up-folder")
+        g_signal_emit_by_name(gtkFileChooserWidgetPointer.reinterpret(), "up-folder")
     }
 
     public companion object : TypeCompanion<FileChooserWidget> {

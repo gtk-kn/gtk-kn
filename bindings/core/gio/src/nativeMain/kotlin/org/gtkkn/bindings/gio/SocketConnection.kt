@@ -54,12 +54,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
-    IoStream(pointer.reinterpret()),
+public open class SocketConnection(public val gioSocketConnectionPointer: CPointer<GSocketConnection>) :
+    IoStream(gioSocketConnectionPointer.reinterpret()),
     KGTyped {
-    public val gioSocketConnectionPointer: CPointer<GSocketConnection>
-        get() = gPointer.reinterpret()
-
     /**
      * The underlying [class@Gio.Socket].
      *
@@ -168,7 +165,7 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     public open fun getLocalAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_local_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -196,7 +193,7 @@ public open class SocketConnection(pointer: CPointer<GSocketConnection>) :
     public open fun getRemoteAddress(): Result<SocketAddress> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_socket_connection_get_remote_address(gioSocketConnectionPointer, gError.ptr)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         return if (gError.pointed != null) {

@@ -73,12 +73,9 @@ import kotlin.Unit
  * @since 2.40
  */
 @WebKitVersion2_40
-public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
-    Object(pointer.reinterpret()),
+public class NetworkSession(public val webkitNetworkSessionPointer: CPointer<WebKitNetworkSession>) :
+    Object(webkitNetworkSessionPointer.reinterpret()),
     KGTyped {
-    public val webkitNetworkSessionPointer: CPointer<WebKitNetworkSession>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #WebKitNetworkSession with an ephemeral #WebKitWebsiteDataManager.
      *
@@ -327,7 +324,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
         webkit_network_session_set_proxy_settings(
             webkitNetworkSessionPointer,
             proxyMode.nativeValue,
-            proxySettings?.gPointer
+            proxySettings?.webkitNetworkProxySettingsPointer
         )
 
     /**
@@ -352,7 +349,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (download: Download) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitNetworkSessionPointer,
         "download-started",
         onDownloadStartedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -368,7 +365,11 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
      */
     @WebKitVersion2_40
     public fun emitDownloadStarted(download: Download) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "download-started", download.webkitDownloadPointer)
+        g_signal_emit_by_name(
+            webkitNetworkSessionPointer.reinterpret(),
+            "download-started",
+            download.webkitDownloadPointer
+        )
     }
 
     public companion object : TypeCompanion<NetworkSession> {
@@ -411,7 +412,7 @@ public class NetworkSession(pointer: CPointer<WebKitNetworkSession>) :
          */
         @WebKitVersion2_40
         public fun setMemoryPressureSettings(settings: MemoryPressureSettings): Unit =
-            webkit_network_session_set_memory_pressure_settings(settings.gPointer)
+            webkit_network_session_set_memory_pressure_settings(settings.webkitMemoryPressureSettingsPointer)
 
         /**
          * Get the GType of NetworkSession

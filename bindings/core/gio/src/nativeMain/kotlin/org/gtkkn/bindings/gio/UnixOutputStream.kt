@@ -32,19 +32,16 @@ import kotlin.Boolean
  * interfaces, thus you have to use the `gio-unix-2.0.pc` pkg-config file
  * file or the `GioUnix-2.0` GIR namespace when using it.
  */
-public open class UnixOutputStream(pointer: CPointer<GUnixOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class UnixOutputStream(public val gioUnixOutputStreamPointer: CPointer<GUnixOutputStream>) :
+    OutputStream(gioUnixOutputStreamPointer.reinterpret()),
     FileDescriptorBased,
     PollableOutputStream,
     KGTyped {
-    public val gioUnixOutputStreamPointer: CPointer<GUnixOutputStream>
-        get() = gPointer.reinterpret()
-
     override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to close the file descriptor when the stream is closed.

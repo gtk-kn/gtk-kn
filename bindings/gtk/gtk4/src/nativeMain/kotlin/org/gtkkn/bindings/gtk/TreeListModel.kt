@@ -34,15 +34,12 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class TreeListModel(pointer: CPointer<GtkTreeListModel>) :
-    Object(pointer.reinterpret()),
+public open class TreeListModel(public val gtkTreeListModelPointer: CPointer<GtkTreeListModel>) :
+    Object(gtkTreeListModelPointer.reinterpret()),
     ListModel,
     KGTyped {
-    public val gtkTreeListModelPointer: CPointer<GtkTreeListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If all rows should be expanded by default.
@@ -80,7 +77,7 @@ public open class TreeListModel(pointer: CPointer<GtkTreeListModel>) :
          * @return the root model
          */
         get() = gtk_tree_list_model_get_model(gtkTreeListModelPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**

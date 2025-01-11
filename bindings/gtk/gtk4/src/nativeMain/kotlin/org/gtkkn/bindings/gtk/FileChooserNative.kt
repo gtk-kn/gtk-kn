@@ -166,15 +166,12 @@ import kotlin.String
  *
  * * Shortcut folders.
  */
-public open class FileChooserNative(pointer: CPointer<GtkFileChooserNative>) :
-    NativeDialog(pointer.reinterpret()),
+public open class FileChooserNative(public val gtkFileChooserNativePointer: CPointer<GtkFileChooserNative>) :
+    NativeDialog(gtkFileChooserNativePointer.reinterpret()),
     FileChooser,
     KGTyped {
-    public val gtkFileChooserNativePointer: CPointer<GtkFileChooserNative>
-        get() = gPointer.reinterpret()
-
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The text used for the label on the accept button in the dialog, or

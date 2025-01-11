@@ -23,14 +23,11 @@ import kotlin.String
  *
  * - method `filename`: Property has no getter nor setter
  */
-public class HstsEnforcerDb(pointer: CPointer<SoupHSTSEnforcerDB>) :
-    HstsEnforcer(pointer.reinterpret()),
+public class HstsEnforcerDb(public val soupHstsEnforcerDbPointer: CPointer<SoupHSTSEnforcerDB>) :
+    HstsEnforcer(soupHstsEnforcerDbPointer.reinterpret()),
     KGTyped {
-    public val soupHstsEnforcerDbPointer: CPointer<SoupHSTSEnforcerDB>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a #SoupHSTSEnforcerDB.

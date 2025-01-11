@@ -89,20 +89,17 @@ import kotlin.Unit
  * - method `resource`: Property has no getter nor setter
  * - method `use-fallback`: Property has no getter nor setter
  */
-public open class Image(pointer: CPointer<GtkImage>) :
-    Widget(pointer.reinterpret()),
+public open class Image(public val gtkImagePointer: CPointer<GtkImage>) :
+    Widget(gtkImagePointer.reinterpret()),
     KGTyped {
-    public val gtkImagePointer: CPointer<GtkImage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The `GIcon` displayed in the GtkImage.
@@ -122,7 +119,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          * @return a `GIcon`
          */
         get() = gtk_image_get_gicon(gtkImagePointer)?.run {
-            Icon.wrap(reinterpret())
+            Icon.IconImpl(reinterpret())
         }
 
     /**
@@ -178,7 +175,7 @@ public open class Image(pointer: CPointer<GtkImage>) :
          * @return the displayed paintable
          */
         get() = gtk_image_get_paintable(gtkImagePointer)?.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
     /**

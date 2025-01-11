@@ -33,41 +33,39 @@ import kotlin.Unit
  * - parameter `error_type_init`: ErrorInitFunc
  * - parameter `error_type_init`: ErrorInitFunc
  */
-public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GError> = pointer
-
+public class Error(public val glibErrorPointer: CPointer<GError>) : ProxyInstance(glibErrorPointer) {
     /**
      * error domain, e.g. %G_FILE_ERROR
      */
     public var domain: Quark
-        get() = gPointer.pointed.domain
+        get() = glibErrorPointer.pointed.domain
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.domain = value
+            glibErrorPointer.pointed.domain = value
         }
 
     /**
      * error code, e.g. %G_FILE_ERROR_NOENT
      */
     public var code: gint
-        get() = gPointer.pointed.code
+        get() = glibErrorPointer.pointed.code
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.code = value
+            glibErrorPointer.pointed.code = value
         }
 
     /**
      * human-readable informative error message
      */
     public var message: String?
-        get() = gPointer.pointed.message?.toKString()
+        get() = glibErrorPointer.pointed.message?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.message?.let { g_free(it) }
-            gPointer.pointed.message = value?.let { g_strdup(it) }
+            glibErrorPointer.pointed.message?.let { g_free(it) }
+            glibErrorPointer.pointed.message = value?.let { g_strdup(it) }
         }
 
     /**
@@ -75,14 +73,14 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      *
      * @return a new #GError
      */
-    public fun copy(): Error = g_error_copy(gPointer)!!.run {
+    public fun copy(): Error = g_error_copy(glibErrorPointer)!!.run {
         Error(this)
     }
 
     /**
      * Frees a #GError and associated resources.
      */
-    public fun free(): Unit = g_error_free(gPointer)
+    public fun free(): Unit = g_error_free(glibErrorPointer)
 
     /**
      * Returns true if @error matches @domain and @code, false
@@ -100,7 +98,7 @@ public class Error(pointer: CPointer<GError>) : ProxyInstance(pointer) {
      * @param code an error code
      * @return whether @error has @domain and @code
      */
-    public fun matches(domain: Quark, code: gint): Boolean = g_error_matches(gPointer, domain, code).asBoolean()
+    public fun matches(domain: Quark, code: gint): Boolean = g_error_matches(glibErrorPointer, domain, code).asBoolean()
 
     override fun toString(): String = "Error(domain=$domain, code=$code, message=$message)"
 

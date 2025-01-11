@@ -45,12 +45,9 @@ import kotlin.Result
  *
  * - parameter `length`: length: Out parameter is not supported
  */
-public open class UnixFdMessage(pointer: CPointer<GUnixFDMessage>) :
-    SocketControlMessage(pointer.reinterpret()),
+public open class UnixFdMessage(public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>) :
+    SocketControlMessage(gioUnixFdMessagePointer.reinterpret()),
     KGTyped {
-    public val gioUnixFdMessagePointer: CPointer<GUnixFDMessage>
-        get() = gPointer.reinterpret()
-
     /**
      * The [class@Gio.UnixFDList] object to send with the message.
      *

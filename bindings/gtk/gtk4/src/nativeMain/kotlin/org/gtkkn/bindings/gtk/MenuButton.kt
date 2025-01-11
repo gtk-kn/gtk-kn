@@ -132,20 +132,17 @@ import kotlin.Unit
  * - method `label`: Property TypeInfo of getter and setter do not match
  * - method `popover`: Property TypeInfo of getter and setter do not match
  */
-public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
-    Widget(pointer.reinterpret()),
+public open class MenuButton(public val gtkMenuButtonPointer: CPointer<GtkMenuButton>) :
+    Widget(gtkMenuButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkMenuButtonPointer: CPointer<GtkMenuButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the menu button is active.
@@ -244,7 +241,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @since 4.6
          */
         get() = gtk_menu_button_get_child(gtkMenuButtonPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -324,7 +321,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
          * @return a `GMenuModel`
          */
         get() = gtk_menu_button_get_menu_model(gtkMenuButtonPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -519,7 +516,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
     @GtkVersion4_4
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkMenuButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -534,7 +531,7 @@ public open class MenuButton(pointer: CPointer<GtkMenuButton>) :
      */
     @GtkVersion4_4
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkMenuButtonPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<MenuButton> {

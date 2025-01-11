@@ -23,12 +23,9 @@ import org.gtkkn.native.gsk.gsk_linear_gradient_node_get_type
  * - parameter `n_stops`: n_stops: Out parameter is not supported
  * - parameter `color_stops`: Array parameter of type ColorStop is not supported
  */
-public open class LinearGradientNode(pointer: CPointer<GskLinearGradientNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class LinearGradientNode(public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>) :
+    RenderNode(gskLinearGradientNodePointer.reinterpret()),
     KGTyped {
-    public val gskLinearGradientNodePointer: CPointer<GskLinearGradientNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Retrieves the final point of the linear gradient.
      *

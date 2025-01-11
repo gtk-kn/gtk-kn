@@ -22,10 +22,10 @@ import kotlin.native.ref.createCleaner
  * - field `text`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class BuildableParser(pointer: CPointer<GtkBuildableParser>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkBuildableParser> = pointer
-
+public class BuildableParser(
+    public val gtkBuildableParserPointer: CPointer<GtkBuildableParser>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gtkBuildableParserPointer) {
     /**
      * Allocate a new BuildableParser.
      *
@@ -46,7 +46,7 @@ public class BuildableParser(pointer: CPointer<GtkBuildableParser>, cleaner: Cle
      */
     private constructor(
         pair: Pair<CPointer<GtkBuildableParser>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gtkBuildableParserPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new BuildableParser using the provided [AutofreeScope].

@@ -28,9 +28,8 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<AdwBreakpointCondition> = pointer
-
+public class BreakpointCondition(public val adwBreakpointConditionPointer: CPointer<AdwBreakpointCondition>) :
+    ProxyInstance(adwBreakpointConditionPointer) {
     /**
      * Copies @self.
      *
@@ -38,7 +37,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun copy(): BreakpointCondition = adw_breakpoint_condition_copy(gPointer)!!.run {
+    public fun copy(): BreakpointCondition = adw_breakpoint_condition_copy(adwBreakpointConditionPointer)!!.run {
         BreakpointCondition(this)
     }
 
@@ -48,7 +47,7 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun free(): Unit = adw_breakpoint_condition_free(gPointer)
+    public fun free(): Unit = adw_breakpoint_condition_free(adwBreakpointConditionPointer)
 
     /**
      * Returns a textual representation of @self.
@@ -60,8 +59,8 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @AdwVersion1_4
-    override fun toString(): String =
-        adw_breakpoint_condition_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = adw_breakpoint_condition_to_string(adwBreakpointConditionPointer)?.toKString()
+        ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -75,7 +74,10 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
          */
         public fun newAnd(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
             BreakpointCondition(
-                adw_breakpoint_condition_new_and(condition1.gPointer, condition2.gPointer)!!.reinterpret()
+                adw_breakpoint_condition_new_and(
+                    condition1.adwBreakpointConditionPointer,
+                    condition2.adwBreakpointConditionPointer
+                )!!.reinterpret()
             )
 
         /**
@@ -106,7 +108,10 @@ public class BreakpointCondition(pointer: CPointer<AdwBreakpointCondition>) : Pr
          */
         public fun newOr(condition1: BreakpointCondition, condition2: BreakpointCondition): BreakpointCondition =
             BreakpointCondition(
-                adw_breakpoint_condition_new_or(condition1.gPointer, condition2.gPointer)!!.reinterpret()
+                adw_breakpoint_condition_new_or(
+                    condition1.adwBreakpointConditionPointer,
+                    condition2.adwBreakpointConditionPointer
+                )!!.reinterpret()
             )
 
         /**

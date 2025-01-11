@@ -84,15 +84,12 @@ import kotlin.Unit
  * - method `seekable`: Property has no getter nor setter
  * - method `seeking`: Property has no getter nor setter
  */
-public open class MediaStream(pointer: CPointer<GtkMediaStream>) :
-    Object(pointer.reinterpret()),
+public abstract class MediaStream(public val gtkMediaStreamPointer: CPointer<GtkMediaStream>) :
+    Object(gtkMediaStreamPointer.reinterpret()),
     Paintable,
     KGTyped {
-    public val gtkMediaStreamPointer: CPointer<GtkMediaStream>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The stream's duration in microseconds or 0 if unknown.
@@ -274,7 +271,7 @@ public open class MediaStream(pointer: CPointer<GtkMediaStream>) :
      *
      * @param error the `GError` to set
      */
-    public open fun gerror(error: Error): Unit = gtk_media_stream_gerror(gtkMediaStreamPointer, error.gPointer)
+    public open fun gerror(error: Error): Unit = gtk_media_stream_gerror(gtkMediaStreamPointer, error.glibErrorPointer)
 
     /**
      * Returns whether the streams playback is finished.
@@ -503,9 +500,16 @@ public open class MediaStream(pointer: CPointer<GtkMediaStream>) :
      */
     public open fun update(timestamp: gint64): Unit = gtk_media_stream_update(gtkMediaStreamPointer, timestamp)
 
+    /**
+     * The MediaStreamImpl type represents a native instance of the abstract MediaStream class.
+     *
+     * @constructor Creates a new instance of MediaStream for the provided [CPointer].
+     */
+    public class MediaStreamImpl(pointer: CPointer<GtkMediaStream>) : MediaStream(pointer)
+
     public companion object : TypeCompanion<MediaStream> {
         override val type: GeneratedClassKGType<MediaStream> =
-            GeneratedClassKGType(gtk_media_stream_get_type()) { MediaStream(it.reinterpret()) }
+            GeneratedClassKGType(gtk_media_stream_get_type()) { MediaStreamImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

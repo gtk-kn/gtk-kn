@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -27,7 +28,7 @@ import org.gtkkn.native.gobject.GType
  */
 @GioVersion2_24
 public interface FileDescriptorBased :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>
 
@@ -40,19 +41,25 @@ public interface FileDescriptorBased :
     @GioVersion2_24
     public fun getFd(): gint = g_file_descriptor_based_get_fd(gioFileDescriptorBasedPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GFileDescriptorBased>) : FileDescriptorBased {
-        override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased> = pointer
-    }
+    /**
+     * The FileDescriptorBasedImpl type represents a native instance of the FileDescriptorBased interface.
+     *
+     * @constructor Creates a new instance of FileDescriptorBased for the provided [CPointer].
+     */
+    public data class FileDescriptorBasedImpl(
+        override val gioFileDescriptorBasedPointer: CPointer<GFileDescriptorBased>,
+    ) : Object(gioFileDescriptorBasedPointer.reinterpret()),
+        FileDescriptorBased
 
     public companion object : TypeCompanion<FileDescriptorBased> {
         override val type: GeneratedInterfaceKGType<FileDescriptorBased> =
-            GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_file_descriptor_based_get_type()) {
+                FileDescriptorBasedImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GFileDescriptorBased>): FileDescriptorBased = Wrapper(pointer)
 
         /**
          * Get the GType of FileDescriptorBased

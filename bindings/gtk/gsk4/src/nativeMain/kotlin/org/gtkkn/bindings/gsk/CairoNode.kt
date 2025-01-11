@@ -19,12 +19,9 @@ import org.gtkkn.native.gsk.gsk_cairo_node_new
 /**
  * A render node for a Cairo surface.
  */
-public open class CairoNode(pointer: CPointer<GskCairoNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class CairoNode(public val gskCairoNodePointer: CPointer<GskCairoNode>) :
+    RenderNode(gskCairoNodePointer.reinterpret()),
     KGTyped {
-    public val gskCairoNodePointer: CPointer<GskCairoNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will render a cairo surface
      * into the area given by @bounds.
@@ -34,7 +31,7 @@ public open class CairoNode(pointer: CPointer<GskCairoNode>) :
      * @param bounds the rectangle to render to
      * @return A new `GskRenderNode`
      */
-    public constructor(bounds: Rect) : this(gsk_cairo_node_new(bounds.gPointer)!!.reinterpret())
+    public constructor(bounds: Rect) : this(gsk_cairo_node_new(bounds.grapheneRectPointer)!!.reinterpret())
 
     /**
      * Creates a Cairo context for drawing using the surface associated

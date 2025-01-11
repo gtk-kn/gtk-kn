@@ -23,42 +23,41 @@ import kotlin.native.ref.createCleaner
  * A structure which contains a single enum value, its name, and its
  * nickname.
  */
-public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GEnumValue> = pointer
-
+public class EnumValue(public val gobjectEnumValuePointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectEnumValuePointer) {
     /**
      * the enum value
      */
     public var `value`: gint
-        get() = gPointer.pointed.value
+        get() = gobjectEnumValuePointer.pointed.value
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value
+            gobjectEnumValuePointer.pointed.value = value
         }
 
     /**
      * the name of the value
      */
     public var valueName: String?
-        get() = gPointer.pointed.value_name?.toKString()
+        get() = gobjectEnumValuePointer.pointed.value_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value_name?.let { g_free(it) }
-            gPointer.pointed.value_name = value?.let { g_strdup(it) }
+            gobjectEnumValuePointer.pointed.value_name?.let { g_free(it) }
+            gobjectEnumValuePointer.pointed.value_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the nickname of the value
      */
     public var valueNick: String?
-        get() = gPointer.pointed.value_nick?.toKString()
+        get() = gobjectEnumValuePointer.pointed.value_nick?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value_nick?.let { g_free(it) }
-            gPointer.pointed.value_nick = value?.let { g_strdup(it) }
+            gobjectEnumValuePointer.pointed.value_nick?.let { g_free(it) }
+            gobjectEnumValuePointer.pointed.value_nick = value?.let { g_strdup(it) }
         }
 
     /**
@@ -79,7 +78,9 @@ public class EnumValue(pointer: CPointer<GEnumValue>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to EnumValue and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GEnumValue>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GEnumValue>, Cleaner>,
+    ) : this(gobjectEnumValuePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new EnumValue using the provided [AutofreeScope].

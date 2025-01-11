@@ -25,16 +25,13 @@ import org.gtkkn.native.webkit.webkit_pointer_lock_permission_request_get_type
  * @since 2.28
  */
 @WebKitVersion2_28
-public class PointerLockPermissionRequest(pointer: CPointer<WebKitPointerLockPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class PointerLockPermissionRequest(
+    public val webkitPointerLockPermissionRequestPointer: CPointer<WebKitPointerLockPermissionRequest>,
+) : Object(webkitPointerLockPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
-    public val webkitPointerLockPermissionRequestPointer:
-        CPointer<WebKitPointerLockPermissionRequest>
-        get() = gPointer.reinterpret()
-
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<PointerLockPermissionRequest> {
         override val type: GeneratedClassKGType<PointerLockPermissionRequest> =

@@ -75,12 +75,9 @@ import kotlin.Unit
  * - method `show-icons`: Property has no getter nor setter
  * - parameter `priority`: priority: Out parameter is not supported
  */
-public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
-    Object(pointer.reinterpret()),
+public open class Completion(public val gtksourceCompletionPointer: CPointer<GtkSourceCompletion>) :
+    Object(gtksourceCompletionPointer.reinterpret()),
     KGTyped {
-    public val gtksourceCompletionPointer: CPointer<GtkSourceCompletion>
-        get() = gPointer.reinterpret()
-
     /**
      * The #GtkTextBuffer for the #GtkSourceCompletion:view.
      * This is a convenience property for providers.
@@ -163,7 +160,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      */
     public fun onHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceCompletionPointer,
             "hide",
             onHideFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -175,7 +172,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      * Emits the "hide" signal. See [onHide].
      */
     public fun emitHide() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "hide")
+        g_signal_emit_by_name(gtksourceCompletionPointer.reinterpret(), "hide")
     }
 
     /**
@@ -189,7 +186,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceCompletionPointer,
         "provider-added",
         onProviderAddedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -203,7 +200,11 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      * @param provider a #GtkSourceCompletionProvider
      */
     public fun emitProviderAdded(provider: CompletionProvider) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "provider-added", provider.gtksourceCompletionProviderPointer)
+        g_signal_emit_by_name(
+            gtksourceCompletionPointer.reinterpret(),
+            "provider-added",
+            provider.gtksourceCompletionProviderPointer
+        )
     }
 
     /**
@@ -217,7 +218,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (provider: CompletionProvider) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceCompletionPointer,
         "provider-removed",
         onProviderRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -231,7 +232,11 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      * @param provider a #GtkSourceCompletionProvider
      */
     public fun emitProviderRemoved(provider: CompletionProvider) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "provider-removed", provider.gtksourceCompletionProviderPointer)
+        g_signal_emit_by_name(
+            gtksourceCompletionPointer.reinterpret(),
+            "provider-removed",
+            provider.gtksourceCompletionProviderPointer
+        )
     }
 
     /**
@@ -243,7 +248,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      */
     public fun onShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceCompletionPointer,
             "show",
             onShowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -255,7 +260,7 @@ public open class Completion(pointer: CPointer<GtkSourceCompletion>) :
      * Emits the "show" signal. See [onShow].
      */
     public fun emitShow() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "show")
+        g_signal_emit_by_name(gtksourceCompletionPointer.reinterpret(), "show")
     }
 
     public companion object : TypeCompanion<Completion> {
@@ -304,7 +309,7 @@ private val onProviderAddedFunc:
         ->
         userData.asStableRef<(provider: CompletionProvider) -> Unit>().get().invoke(
             provider!!.run {
-                CompletionProvider.wrap(reinterpret())
+                CompletionProvider.CompletionProviderImpl(reinterpret())
             }
         )
     }
@@ -318,7 +323,7 @@ private val onProviderRemovedFunc:
         ->
         userData.asStableRef<(provider: CompletionProvider) -> Unit>().get().invoke(
             provider!!.run {
-                CompletionProvider.wrap(reinterpret())
+                CompletionProvider.CompletionProviderImpl(reinterpret())
             }
         )
     }

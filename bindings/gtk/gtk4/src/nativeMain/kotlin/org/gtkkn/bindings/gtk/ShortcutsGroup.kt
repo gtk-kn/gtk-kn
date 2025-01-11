@@ -43,23 +43,20 @@ import kotlin.Unit
  * - method `title-size-group`: Property has no getter nor setter
  * - method `view`: Property has no getter nor setter
  */
-public open class ShortcutsGroup(pointer: CPointer<GtkShortcutsGroup>) :
-    Box(pointer.reinterpret()),
+public open class ShortcutsGroup(public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>) :
+    Box(gtkShortcutsGroupPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutsGroupPointer: CPointer<GtkShortcutsGroup>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Adds a shortcut to the shortcuts group.

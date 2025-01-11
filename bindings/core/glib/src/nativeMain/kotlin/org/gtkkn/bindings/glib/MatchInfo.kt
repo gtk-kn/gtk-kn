@@ -46,9 +46,7 @@ import kotlin.collections.List
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  * - parameter `start_pos`: start_pos: Out parameter is not supported
  */
-public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GMatchInfo> = pointer
-
+public class MatchInfo(public val glibMatchInfoPointer: CPointer<GMatchInfo>) : ProxyInstance(glibMatchInfoPointer) {
     /**
      * Returns a new string containing the text in @string_to_expand with
      * references and escape sequences expanded. References refer to the last
@@ -75,7 +73,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
     @GLibVersion2_14
     public fun expandReferences(stringToExpand: String): Result<String?> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_match_info_expand_references(gPointer, stringToExpand, gError.ptr)?.toKString()
+        val gResult = g_match_info_expand_references(glibMatchInfoPointer, stringToExpand, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -107,7 +105,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetch(matchNum: gint): String? = g_match_info_fetch(gPointer, matchNum)?.toKString()
+    public fun fetch(matchNum: gint): String? = g_match_info_fetch(glibMatchInfoPointer, matchNum)?.toKString()
 
     /**
      * Bundles up pointers to each of the matching substrings from a match
@@ -134,7 +132,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_14
     public fun fetchAll(): List<String> =
-        g_match_info_fetch_all(gPointer)?.toKStringList() ?: error("Expected not null string array")
+        g_match_info_fetch_all(glibMatchInfoPointer)?.toKStringList() ?: error("Expected not null string array")
 
     /**
      * Retrieves the text matching the capturing parentheses named @name.
@@ -152,7 +150,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun fetchNamed(name: String): String? = g_match_info_fetch_named(gPointer, name)?.toKString()
+    public fun fetchNamed(name: String): String? = g_match_info_fetch_named(glibMatchInfoPointer, name)?.toKString()
 
     /**
      * If @match_info is not null, calls g_match_info_unref(); otherwise does
@@ -161,7 +159,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun free(): Unit = g_match_info_free(gPointer)
+    public fun free(): Unit = g_match_info_free(glibMatchInfoPointer)
 
     /**
      * Retrieves the number of matched substrings (including substring 0,
@@ -177,7 +175,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getMatchCount(): gint = g_match_info_get_match_count(gPointer)
+    public fun getMatchCount(): gint = g_match_info_get_match_count(glibMatchInfoPointer)
 
     /**
      * Returns #GRegex object used in @match_info. It belongs to Glib
@@ -188,7 +186,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getRegex(): Regex = g_match_info_get_regex(gPointer)!!.run {
+    public fun getRegex(): Regex = g_match_info_get_regex(glibMatchInfoPointer)!!.run {
         Regex(this)
     }
 
@@ -201,7 +199,8 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getString(): String = g_match_info_get_string(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getString(): String =
+        g_match_info_get_string(glibMatchInfoPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Usually if the string passed to g_regex_match*() matches as far as
@@ -242,7 +241,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun isPartialMatch(): Boolean = g_match_info_is_partial_match(gPointer).asBoolean()
+    public fun isPartialMatch(): Boolean = g_match_info_is_partial_match(glibMatchInfoPointer).asBoolean()
 
     /**
      * Returns whether the previous match operation succeeded.
@@ -252,7 +251,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun matches(): Boolean = g_match_info_matches(gPointer).asBoolean()
+    public fun matches(): Boolean = g_match_info_matches(glibMatchInfoPointer).asBoolean()
 
     /**
      * Scans for the next match using the same parameters of the previous
@@ -268,7 +267,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
     @GLibVersion2_14
     public fun next(): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_match_info_next(gPointer, gError.ptr).asBoolean()
+        val gResult = g_match_info_next(glibMatchInfoPointer, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -283,7 +282,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun ref(): MatchInfo = g_match_info_ref(gPointer)!!.run {
+    public fun ref(): MatchInfo = g_match_info_ref(glibMatchInfoPointer)!!.run {
         MatchInfo(this)
     }
 
@@ -294,7 +293,7 @@ public class MatchInfo(pointer: CPointer<GMatchInfo>) : ProxyInstance(pointer) {
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun unref(): Unit = g_match_info_unref(gPointer)
+    public fun unref(): Unit = g_match_info_unref(glibMatchInfoPointer)
 
     public companion object {
         /**

@@ -27,23 +27,20 @@ import org.gtkkn.native.gtk.gtk_multi_selection_set_model
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiSelection(pointer: CPointer<GtkMultiSelection>) :
-    Object(pointer.reinterpret()),
+public open class MultiSelection(public val gtkMultiSelectionPointer: CPointer<GtkMultiSelection>) :
+    Object(gtkMultiSelectionPointer.reinterpret()),
     ListModel,
     SectionModel,
     SelectionModel,
     KGTyped {
-    public val gtkMultiSelectionPointer: CPointer<GtkMultiSelection>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The list managed by this selection.
@@ -55,7 +52,7 @@ public open class MultiSelection(pointer: CPointer<GtkMultiSelection>) :
          * @return the underlying model
          */
         get() = gtk_multi_selection_get_model(gtkMultiSelectionPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

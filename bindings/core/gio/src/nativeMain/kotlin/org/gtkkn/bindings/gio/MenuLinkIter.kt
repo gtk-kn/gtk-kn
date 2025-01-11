@@ -30,12 +30,9 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
-    Object(pointer.reinterpret()),
+public abstract class MenuLinkIter(public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>) :
+    Object(gioMenuLinkIterPointer.reinterpret()),
     KGTyped {
-    public val gioMenuLinkIterPointer: CPointer<GMenuLinkIter>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets the name of the link at the current iterator position.
      *
@@ -58,7 +55,7 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
      */
     @GioVersion2_32
     public open fun getValue(): MenuModel = g_menu_link_iter_get_value(gioMenuLinkIterPointer)!!.run {
-        MenuModel(this)
+        MenuModel.MenuModelImpl(this)
     }
 
     /**
@@ -77,9 +74,16 @@ public open class MenuLinkIter(pointer: CPointer<GMenuLinkIter>) :
     @GioVersion2_32
     public open fun next(): Boolean = g_menu_link_iter_next(gioMenuLinkIterPointer).asBoolean()
 
+    /**
+     * The MenuLinkIterImpl type represents a native instance of the abstract MenuLinkIter class.
+     *
+     * @constructor Creates a new instance of MenuLinkIter for the provided [CPointer].
+     */
+    public class MenuLinkIterImpl(pointer: CPointer<GMenuLinkIter>) : MenuLinkIter(pointer)
+
     public companion object : TypeCompanion<MenuLinkIter> {
         override val type: GeneratedClassKGType<MenuLinkIter> =
-            GeneratedClassKGType(g_menu_link_iter_get_type()) { MenuLinkIter(it.reinterpret()) }
+            GeneratedClassKGType(g_menu_link_iter_get_type()) { MenuLinkIterImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

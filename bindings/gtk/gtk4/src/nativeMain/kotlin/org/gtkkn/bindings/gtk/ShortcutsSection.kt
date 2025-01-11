@@ -61,23 +61,20 @@ import kotlin.Unit
  * - method `title`: Property has no getter nor setter
  * - method `view-name`: Property has no getter nor setter
  */
-public open class ShortcutsSection(pointer: CPointer<GtkShortcutsSection>) :
-    Box(pointer.reinterpret()),
+public open class ShortcutsSection(public val gtkShortcutsSectionPointer: CPointer<GtkShortcutsSection>) :
+    Box(gtkShortcutsSectionPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutsSectionPointer: CPointer<GtkShortcutsSection>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Adds a group to the shortcuts section.
@@ -105,7 +102,7 @@ public open class ShortcutsSection(pointer: CPointer<GtkShortcutsSection>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`object`: gint) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkShortcutsSectionPointer,
         "change-current-page",
         onChangeCurrentPageFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

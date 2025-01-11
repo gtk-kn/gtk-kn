@@ -44,12 +44,9 @@ import kotlin.Unit
  * - method `weight`: Property has no getter nor setter
  * - method `weight-set`: Property has no getter nor setter
  */
-public open class Style(pointer: CPointer<GtkSourceStyle>) :
-    Object(pointer.reinterpret()),
+public open class Style(public val gtksourceStylePointer: CPointer<GtkSourceStyle>) :
+    Object(gtksourceStylePointer.reinterpret()),
     KGTyped {
-    public val gtksourceStylePointer: CPointer<GtkSourceStyle>
-        get() = gPointer.reinterpret()
-
     /**
      * This function modifies the [class@Gtk.TextTag] properties that are related to the
      * #GtkSourceStyle properties. Other [class@Gtk.TextTag] properties are left untouched.

@@ -37,64 +37,63 @@ import kotlin.native.ref.createCleaner
  * - field `finalize_hook`: HookFinalizeFunc
  * - field `dummy`: Array parameter of type gpointer is not supported
  */
-public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GHookList> = pointer
-
+public class HookList(public val glibHookListPointer: CPointer<GHookList>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibHookListPointer) {
     /**
      * the next free #GHook id
      */
     public var seqId: gulong
-        get() = gPointer.pointed.seq_id
+        get() = glibHookListPointer.pointed.seq_id
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.seq_id = value
+            glibHookListPointer.pointed.seq_id = value
         }
 
     /**
      * the size of the #GHookList elements, in bytes
      */
     public var hookSize: guint
-        get() = gPointer.pointed.hook_size
+        get() = glibHookListPointer.pointed.hook_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.hook_size = value
+            glibHookListPointer.pointed.hook_size = value
         }
 
     /**
      * 1 if the #GHookList has been initialized
      */
     public var isSetup: guint
-        get() = gPointer.pointed.is_setup
+        get() = glibHookListPointer.pointed.is_setup
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_setup = value
+            glibHookListPointer.pointed.is_setup = value
         }
 
     /**
      * the first #GHook element in the list
      */
     public var hooks: Hook?
-        get() = gPointer.pointed.hooks?.run {
+        get() = glibHookListPointer.pointed.hooks?.run {
             Hook(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.hooks = value?.gPointer
+            glibHookListPointer.pointed.hooks = value?.glibHookPointer
         }
 
     /**
      * unused
      */
     public var dummy3: gpointer
-        get() = gPointer.pointed.dummy3!!
+        get() = glibHookListPointer.pointed.dummy3!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.dummy3 = value
+            glibHookListPointer.pointed.dummy3 = value
         }
 
     /**
@@ -115,7 +114,9 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to HookList and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GHookList>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GHookList>, Cleaner>,
+    ) : this(glibHookListPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new HookList using the provided [AutofreeScope].
@@ -182,7 +183,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
     /**
      * Removes all the #GHook elements from a #GHookList.
      */
-    public fun clear(): Unit = g_hook_list_clear(gPointer)
+    public fun clear(): Unit = g_hook_list_clear(glibHookListPointer)
 
     /**
      * Initializes a #GHookList.
@@ -191,7 +192,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param hookSize the size of each element in the #GHookList,
      *     typically `sizeof (GHook)`.
      */
-    public fun `init`(hookSize: guint): Unit = g_hook_list_init(gPointer, hookSize)
+    public fun `init`(hookSize: guint): Unit = g_hook_list_init(glibHookListPointer, hookSize)
 
     /**
      * Calls all of the #GHook functions in a #GHookList.
@@ -200,7 +201,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invoke(mayRecurse: Boolean): Unit = g_hook_list_invoke(gPointer, mayRecurse.asGBoolean())
+    public fun invoke(mayRecurse: Boolean): Unit = g_hook_list_invoke(glibHookListPointer, mayRecurse.asGBoolean())
 
     /**
      * Calls all of the #GHook functions in a #GHookList.
@@ -210,7 +211,8 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      *     (e.g. in another thread) can be called. If set to false,
      *     these are skipped
      */
-    public fun invokeCheck(mayRecurse: Boolean): Unit = g_hook_list_invoke_check(gPointer, mayRecurse.asGBoolean())
+    public fun invokeCheck(mayRecurse: Boolean): Unit =
+        g_hook_list_invoke_check(glibHookListPointer, mayRecurse.asGBoolean())
 
     /**
      * Calls a function on each valid #GHook.
@@ -221,7 +223,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param marshaller the function to call for each #GHook
      */
     public fun marshal(mayRecurse: Boolean, marshaller: HookMarshaller): Unit = g_hook_list_marshal(
-        gPointer,
+        glibHookListPointer,
         mayRecurse.asGBoolean(),
         HookMarshallerFunc.reinterpret(),
         StableRef.create(marshaller).asCPointer()
@@ -237,7 +239,7 @@ public class HookList(pointer: CPointer<GHookList>, cleaner: Cleaner? = null) : 
      * @param marshaller the function to call for each #GHook
      */
     public fun marshalCheck(mayRecurse: Boolean, marshaller: HookCheckMarshaller): Unit = g_hook_list_marshal_check(
-        gPointer,
+        glibHookListPointer,
         mayRecurse.asGBoolean(),
         HookCheckMarshallerFunc.reinterpret(),
         StableRef.create(marshaller).asCPointer()

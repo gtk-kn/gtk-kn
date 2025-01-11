@@ -18,12 +18,9 @@ import kotlin.Unit
 /**
  * `GtkCustomFilter` determines whether to include items with a callback.
  */
-public open class CustomFilter(pointer: CPointer<GtkCustomFilter>) :
-    Filter(pointer.reinterpret()),
+public open class CustomFilter(public val gtkCustomFilterPointer: CPointer<GtkCustomFilter>) :
+    Filter(gtkCustomFilterPointer.reinterpret()),
     KGTyped {
-    public val gtkCustomFilterPointer: CPointer<GtkCustomFilter>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new filter using the given @match_func to filter
      * items.

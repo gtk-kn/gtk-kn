@@ -628,23 +628,20 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - method `height-request`: Property has no getter nor setter
  * - method `width-request`: Property has no getter nor setter
  */
-public open class Widget(pointer: CPointer<GtkWidget>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public abstract class Widget(public val gtkWidgetPointer: CPointer<GtkWidget>) :
+    InitiallyUnowned(gtkWidgetPointer.reinterpret()),
     Accessible,
     Buildable,
     ConstraintTarget,
     KGTyped {
-    public val gtkWidgetPointer: CPointer<GtkWidget>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the widget or any of its descendents can accept
@@ -993,7 +990,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
          * @return a `GtkLayoutManager`
          */
         get() = gtk_widget_get_layout_manager(gtkWidgetPointer)?.run {
-            LayoutManager(this)
+            LayoutManager.LayoutManagerImpl(this)
         }
 
         /**
@@ -1211,7 +1208,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
          * @return the parent widget of @widget
          */
         get() = gtk_widget_get_parent(gtkWidgetPointer)?.run {
-            Widget(this)
+            WidgetImpl(this)
         }
 
     /**
@@ -1256,7 +1253,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
          * @return the root widget of @widget
          */
         get() = gtk_widget_get_root(gtkWidgetPointer)?.run {
-            Root.wrap(reinterpret())
+            Root.RootImpl(reinterpret())
         }
 
     /**
@@ -1534,7 +1531,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      *   action does not exist.
      */
     public open fun activateActionIfExists(name: String, args: Variant? = null): Boolean =
-        gtk_widget_activate_action_variant(gtkWidgetPointer, name, args?.gPointer).asBoolean()
+        gtk_widget_activate_action_variant(gtkWidgetPointer, name, args?.glibVariantPointer).asBoolean()
 
     /**
      * Activates the `default.activate` action from @widget.
@@ -1634,7 +1631,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param transform Transformation to be applied to @widget
      */
     public open fun allocate(width: gint, height: gint, baseline: gint, transform: Transform? = null): Unit =
-        gtk_widget_allocate(gtkWidgetPointer, width, height, baseline, transform?.gPointer)
+        gtk_widget_allocate(gtkWidgetPointer, width, height, baseline, transform?.gskTransformPointer)
 
     /**
      * Called by widgets as the user moves around the window using
@@ -1683,7 +1680,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return true if the bounds could be computed
      */
     public open fun computeBounds(target: Widget, outBounds: Rect): Boolean =
-        gtk_widget_compute_bounds(gtkWidgetPointer, target.gtkWidgetPointer, outBounds.gPointer).asBoolean()
+        gtk_widget_compute_bounds(gtkWidgetPointer, target.gtkWidgetPointer, outBounds.grapheneRectPointer).asBoolean()
 
     /**
      * Computes whether a container should give this widget
@@ -1723,8 +1720,8 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
     public open fun computePoint(target: Widget, point: Point, outPoint: Point): Boolean = gtk_widget_compute_point(
         gtkWidgetPointer,
         target.gtkWidgetPointer,
-        point.gPointer,
-        outPoint.gPointer
+        point.graphenePointPointer,
+        outPoint.graphenePointPointer
     ).asBoolean()
 
     /**
@@ -1743,8 +1740,11 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      *   store the final transformation
      * @return true if the transform could be computed, false otherwise
      */
-    public open fun computeTransform(target: Widget, outTransform: Matrix): Boolean =
-        gtk_widget_compute_transform(gtkWidgetPointer, target.gtkWidgetPointer, outTransform.gPointer).asBoolean()
+    public open fun computeTransform(target: Widget, outTransform: Matrix): Boolean = gtk_widget_compute_transform(
+        gtkWidgetPointer,
+        target.gtkWidgetPointer,
+        outTransform.grapheneMatrixPointer
+    ).asBoolean()
 
     /**
      * Tests if the point at (@x, @y) is contained in @widget.
@@ -1897,7 +1897,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param allocation a pointer to a `GtkAllocation` to copy to
      */
     public open fun getAllocation(allocation: Allocation): Unit =
-        gtk_widget_get_allocation(gtkWidgetPointer, allocation.gPointer)
+        gtk_widget_get_allocation(gtkWidgetPointer, allocation.gdkRectanglePointer)
 
     /**
      * Gets the first ancestor of @widget with type @widget_type.
@@ -1915,7 +1915,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public open fun getAncestor(widgetType: GType): Widget? =
         gtk_widget_get_ancestor(gtkWidgetPointer, widgetType)?.run {
-            Widget(this)
+            WidgetImpl(this)
         }
 
     /**
@@ -1971,7 +1971,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @since 4.10
      */
     @GtkVersion4_10
-    public open fun getColor(color: Rgba): Unit = gtk_widget_get_color(gtkWidgetPointer, color.gPointer)
+    public open fun getColor(color: Rgba): Unit = gtk_widget_get_color(gtkWidgetPointer, color.gdkRgbaPointer)
 
     /**
      * Gets the reading direction for a particular widget.
@@ -2010,7 +2010,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return The widget's first child
      */
     public open fun getFirstChild(): Widget? = gtk_widget_get_first_child(gtkWidgetPointer)?.run {
-        Widget(this)
+        WidgetImpl(this)
     }
 
     /**
@@ -2020,7 +2020,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      *   child of @widget
      */
     public open fun getFocusChild(): Widget? = gtk_widget_get_focus_child(gtkWidgetPointer)?.run {
-        Widget(this)
+        WidgetImpl(this)
     }
 
     /**
@@ -2031,7 +2031,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return A `PangoFontMap`
      */
     public open fun getFontMap(): FontMap? = gtk_widget_get_font_map(gtkWidgetPointer)?.run {
-        FontMap(this)
+        FontMap.FontMapImpl(this)
     }
 
     /**
@@ -2073,7 +2073,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return a `GdkFrameClock`
      */
     public open fun getFrameClock(): FrameClock? = gtk_widget_get_frame_clock(gtkWidgetPointer)?.run {
-        FrameClock(this)
+        FrameClock.FrameClockImpl(this)
     }
 
     /**
@@ -2100,7 +2100,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return The widget's last child
      */
     public open fun getLastChild(): Widget? = gtk_widget_get_last_child(gtkWidgetPointer)?.run {
-        Widget(this)
+        WidgetImpl(this)
     }
 
     /**
@@ -2121,7 +2121,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return the `GtkNative` ancestor of @widget
      */
     public open fun getNative(): Native? = gtk_widget_get_native(gtkWidgetPointer)?.run {
-        Native.wrap(reinterpret())
+        Native.NativeImpl(reinterpret())
     }
 
     /**
@@ -2132,7 +2132,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return The widget's next sibling
      */
     public open fun getNextSibling(): Widget? = gtk_widget_get_next_sibling(gtkWidgetPointer)?.run {
-        Widget(this)
+        WidgetImpl(this)
     }
 
     /**
@@ -2172,7 +2172,11 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param naturalSize location for storing the natural size
      */
     public open fun getPreferredSize(minimumSize: Requisition?, naturalSize: Requisition?): Unit =
-        gtk_widget_get_preferred_size(gtkWidgetPointer, minimumSize?.gPointer, naturalSize?.gPointer)
+        gtk_widget_get_preferred_size(
+            gtkWidgetPointer,
+            minimumSize?.gtkRequisitionPointer,
+            naturalSize?.gtkRequisitionPointer
+        )
 
     /**
      * Returns the widget’s previous sibling.
@@ -2182,7 +2186,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return The widget's previous sibling
      */
     public open fun getPrevSibling(): Widget? = gtk_widget_get_prev_sibling(gtkWidgetPointer)?.run {
-        Widget(this)
+        WidgetImpl(this)
     }
 
     /**
@@ -2635,7 +2639,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return a `GListModel` tracking @widget's children
      */
     public open fun observeChildren(): ListModel = gtk_widget_observe_children(gtkWidgetPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -2652,7 +2656,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @return a `GListModel` tracking @widget's controllers
      */
     public open fun observeControllers(): ListModel = gtk_widget_observe_controllers(gtkWidgetPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -2679,7 +2683,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public open fun pick(x: gdouble, y: gdouble, flags: PickFlags): Widget? =
         gtk_widget_pick(gtkWidgetPointer, x, y, flags.mask)?.run {
-            Widget(this)
+            WidgetImpl(this)
         }
 
     /**
@@ -2888,7 +2892,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      *   to unset any previously set default font options
      */
     public open fun setFontOptions(options: FontOptions? = null): Unit =
-        gtk_widget_set_font_options(gtkWidgetPointer, options?.gPointer)
+        gtk_widget_set_font_options(gtkWidgetPointer, options?.cairoFontOptionsPointer)
 
     /**
      * Sets @parent as the parent widget of @widget.
@@ -3000,7 +3004,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param baseline The baseline of the child, or -1
      */
     public open fun sizeAllocate(allocation: Allocation, baseline: gint): Unit =
-        gtk_widget_size_allocate(gtkWidgetPointer, allocation.gPointer, baseline)
+        gtk_widget_size_allocate(gtkWidgetPointer, allocation.gdkRectanglePointer, baseline)
 
     /**
      * Snapshot the a child of @widget.
@@ -3080,7 +3084,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public fun onDestroy(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWidgetPointer,
             "destroy",
             onDestroyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -3092,7 +3096,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "destroy" signal. See [onDestroy].
      */
     public fun emitDestroy() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "destroy")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "destroy")
     }
 
     /**
@@ -3105,7 +3109,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (previousDirection: TextDirection) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "direction-changed",
         onDirectionChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3119,7 +3123,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param previousDirection the previous text direction of @widget
      */
     public fun emitDirectionChanged(previousDirection: TextDirection) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "direction-changed", previousDirection.nativeValue)
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "direction-changed", previousDirection.nativeValue)
     }
 
     /**
@@ -3130,7 +3134,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public fun onHide(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWidgetPointer,
             "hide",
             onHideFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -3142,7 +3146,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "hide" signal. See [onHide].
      */
     public fun emitHide() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "hide")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "hide")
     }
 
     /**
@@ -3159,7 +3163,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (direction: DirectionType) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "keynav-failed",
         onKeynavFailedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3182,7 +3186,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param handler the Callback to connect
      */
     public fun onMap(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "map",
         onMapFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3194,7 +3198,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "map" signal. See [onMap].
      */
     public fun emitMap() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "map")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "map")
     }
 
     /**
@@ -3211,7 +3215,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (groupCycling: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "mnemonic-activate",
         onMnemonicActivateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3234,7 +3238,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (direction: DirectionType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "move-focus",
         onMoveFocusFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3248,7 +3252,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param direction the direction of the focus move
      */
     public fun emitMoveFocus(direction: DirectionType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-focus", direction.nativeValue)
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "move-focus", direction.nativeValue)
     }
 
     /**
@@ -3281,7 +3285,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
             tooltip: Tooltip,
         ) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "query-tooltip",
         onQueryTooltipFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3300,7 +3304,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public fun onRealize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWidgetPointer,
             "realize",
             onRealizeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -3312,7 +3316,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "realize" signal. See [onRealize].
      */
     public fun emitRealize() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "realize")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "realize")
     }
 
     /**
@@ -3323,7 +3327,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public fun onShow(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWidgetPointer,
             "show",
             onShowFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -3335,7 +3339,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "show" signal. See [onShow].
      */
     public fun emitShow() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "show")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "show")
     }
 
     /**
@@ -3350,7 +3354,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (flags: StateFlags) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWidgetPointer,
         "state-flags-changed",
         onStateFlagsChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -3364,7 +3368,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * @param flags The previous state flags.
      */
     public fun emitStateFlagsChanged(flags: StateFlags) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "state-flags-changed", flags.mask)
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "state-flags-changed", flags.mask)
     }
 
     /**
@@ -3381,7 +3385,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public fun onUnmap(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWidgetPointer,
             "unmap",
             onUnmapFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -3393,7 +3397,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "unmap" signal. See [onUnmap].
      */
     public fun emitUnmap() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unmap")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "unmap")
     }
 
     /**
@@ -3407,7 +3411,7 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      */
     public fun onUnrealize(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWidgetPointer,
             "unrealize",
             onUnrealizeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -3419,12 +3423,19 @@ public open class Widget(pointer: CPointer<GtkWidget>) :
      * Emits the "unrealize" signal. See [onUnrealize].
      */
     public fun emitUnrealize() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unrealize")
+        g_signal_emit_by_name(gtkWidgetPointer.reinterpret(), "unrealize")
     }
+
+    /**
+     * The WidgetImpl type represents a native instance of the abstract Widget class.
+     *
+     * @constructor Creates a new instance of Widget for the provided [CPointer].
+     */
+    public class WidgetImpl(pointer: CPointer<GtkWidget>) : Widget(pointer)
 
     public companion object : TypeCompanion<Widget> {
         override val type: GeneratedClassKGType<Widget> =
-            GeneratedClassKGType(gtk_widget_get_type()) { Widget(it.reinterpret()) }
+            GeneratedClassKGType(gtk_widget_get_type()) { WidgetImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

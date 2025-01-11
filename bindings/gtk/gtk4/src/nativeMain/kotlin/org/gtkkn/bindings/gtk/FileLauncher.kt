@@ -59,12 +59,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
-    Object(pointer.reinterpret()),
+public open class FileLauncher(public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>) :
+    Object(gtkFileLauncherPointer.reinterpret()),
     KGTyped {
-    public val gtkFileLauncherPointer: CPointer<GtkFileLauncher>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether to ask the user to choose an app for opening the file. If `FALSE`,
      * the file might be opened with a default app or the previous choice.
@@ -105,7 +102,7 @@ public open class FileLauncher(pointer: CPointer<GtkFileLauncher>) :
          * @since 4.10
          */
         get() = gtk_file_launcher_get_file(gtkFileLauncherPointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**

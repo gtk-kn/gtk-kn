@@ -69,12 +69,9 @@ import kotlin.collections.List
  * @since 4.10
  */
 @GtkVersion4_10
-public open class AlertDialog(pointer: CPointer<GtkAlertDialog>) :
-    Object(pointer.reinterpret()),
+public open class AlertDialog(public val gtkAlertDialogPointer: CPointer<GtkAlertDialog>) :
+    Object(gtkAlertDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkAlertDialogPointer: CPointer<GtkAlertDialog>
-        get() = gPointer.reinterpret()
-
     /**
      * This property determines what happens when the Escape key is
      * pressed while the alert is shown.

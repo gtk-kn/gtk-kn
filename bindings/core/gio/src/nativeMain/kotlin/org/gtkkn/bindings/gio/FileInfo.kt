@@ -146,12 +146,9 @@ import kotlin.collections.List
  *
  * - parameter `type`: type: Out parameter is not supported
  */
-public open class FileInfo(pointer: CPointer<GFileInfo>) :
-    Object(pointer.reinterpret()),
+public open class FileInfo(public val gioFileInfoPointer: CPointer<GFileInfo>) :
+    Object(gioFileInfoPointer.reinterpret()),
     KGTyped {
-    public val gioFileInfoPointer: CPointer<GFileInfo>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new file info structure.
      *
@@ -457,7 +454,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @return #GIcon for the given @info.
      */
     public open fun getIcon(): Icon? = g_file_info_get_icon(gioFileInfoPointer)?.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -522,7 +519,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @param result a #GTimeVal.
      */
     public open fun getModificationTime(result: TimeVal): Unit =
-        g_file_info_get_modification_time(gioFileInfoPointer, result.gPointer)
+        g_file_info_get_modification_time(gioFileInfoPointer, result.glibTimeValPointer)
 
     /**
      * Gets the name for a file. This is guaranteed to always be set.
@@ -569,7 +566,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_34
     public open fun getSymbolicIcon(): Icon? = g_file_info_get_symbolic_icon(gioFileInfoPointer)?.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -637,7 +634,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_70
     public open fun setAccessDateTime(atime: DateTime): Unit =
-        g_file_info_set_access_date_time(gioFileInfoPointer, atime.gPointer)
+        g_file_info_set_access_date_time(gioFileInfoPointer, atime.glibDateTimePointer)
 
     /**
      * Sets the @attribute to contain the given value, if possible. To unset the
@@ -711,7 +708,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @param mask a #GFileAttributeMatcher.
      */
     public open fun setAttributeMask(mask: FileAttributeMatcher): Unit =
-        g_file_info_set_attribute_mask(gioFileInfoPointer, mask.gPointer)
+        g_file_info_set_attribute_mask(gioFileInfoPointer, mask.gioFileAttributeMatcherPointer)
 
     /**
      * Sets the @attribute to contain the given @attr_value,
@@ -721,7 +718,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @param attrValue a #GObject.
      */
     public open fun setAttributeObject(attribute: String, attrValue: Object): Unit =
-        g_file_info_set_attribute_object(gioFileInfoPointer, attribute, attrValue.gPointer)
+        g_file_info_set_attribute_object(gioFileInfoPointer, attribute, attrValue.gobjectObjectPointer)
 
     /**
      * Sets the attribute status for an attribute key. This is only
@@ -805,7 +802,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_70
     public open fun setCreationDateTime(creationTime: DateTime): Unit =
-        g_file_info_set_creation_date_time(gioFileInfoPointer, creationTime.gPointer)
+        g_file_info_set_creation_date_time(gioFileInfoPointer, creationTime.glibDateTimePointer)
 
     /**
      * Sets the display name for the current #GFileInfo.
@@ -870,7 +867,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      */
     @GioVersion2_62
     public open fun setModificationDateTime(mtime: DateTime): Unit =
-        g_file_info_set_modification_date_time(gioFileInfoPointer, mtime.gPointer)
+        g_file_info_set_modification_date_time(gioFileInfoPointer, mtime.glibDateTimePointer)
 
     /**
      * Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
@@ -882,7 +879,7 @@ public open class FileInfo(pointer: CPointer<GFileInfo>) :
      * @param mtime a #GTimeVal.
      */
     public open fun setModificationTime(mtime: TimeVal): Unit =
-        g_file_info_set_modification_time(gioFileInfoPointer, mtime.gPointer)
+        g_file_info_set_modification_time(gioFileInfoPointer, mtime.glibTimeValPointer)
 
     /**
      * Sets the name attribute for the current #GFileInfo.

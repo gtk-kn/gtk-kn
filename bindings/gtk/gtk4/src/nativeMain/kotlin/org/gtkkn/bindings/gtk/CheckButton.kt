@@ -109,24 +109,21 @@ import kotlin.Unit
  *
  * - method `group`: Property has no getter
  */
-public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
-    Widget(pointer.reinterpret()),
+public open class CheckButton(public val gtkCheckButtonPointer: CPointer<GtkCheckButton>) :
+    Widget(gtkCheckButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val gtkCheckButtonPointer: CPointer<GtkCheckButton>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If the check button is active.
@@ -163,7 +160,7 @@ public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
          * @since 4.8
          */
         get() = gtk_check_button_get_child(gtkCheckButtonPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -311,7 +308,7 @@ public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
     @GtkVersion4_2
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkCheckButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -326,7 +323,7 @@ public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
      */
     @GtkVersion4_2
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkCheckButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -338,7 +335,7 @@ public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
      */
     public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkCheckButtonPointer,
             "toggled",
             onToggledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -350,7 +347,7 @@ public open class CheckButton(pointer: CPointer<GtkCheckButton>) :
      * Emits the "toggled" signal. See [onToggled].
      */
     public fun emitToggled() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "toggled")
+        g_signal_emit_by_name(gtkCheckButtonPointer.reinterpret(), "toggled")
     }
 
     public companion object : TypeCompanion<CheckButton> {

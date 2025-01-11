@@ -50,12 +50,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class UnixConnection(pointer: CPointer<GUnixConnection>) :
-    SocketConnection(pointer.reinterpret()),
+public open class UnixConnection(public val gioUnixConnectionPointer: CPointer<GUnixConnection>) :
+    SocketConnection(gioUnixConnectionPointer.reinterpret()),
     KGTyped {
-    public val gioUnixConnectionPointer: CPointer<GUnixConnection>
-        get() = gPointer.reinterpret()
-
     /**
      * Receives credentials from the sending end of the connection.  The
      * sending end has to call g_unix_connection_send_credentials() (or

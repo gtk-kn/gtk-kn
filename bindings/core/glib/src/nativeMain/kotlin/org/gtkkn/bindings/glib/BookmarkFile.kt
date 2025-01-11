@@ -122,9 +122,8 @@ import kotlin.collections.List
  * @since 2.12
  */
 @GLibVersion2_12
-public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GBookmarkFile> = pointer
-
+public class BookmarkFile(public val glibBookmarkFilePointer: CPointer<GBookmarkFile>) :
+    ProxyInstance(glibBookmarkFilePointer) {
     /**
      * Adds the application with @name and @exec to the list of
      * applications that have registered a bookmark for @uri into
@@ -157,7 +156,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_12
     public fun addApplication(uri: String, name: String? = null, exec: String? = null): Unit =
-        g_bookmark_file_add_application(gPointer, uri, name, exec)
+        g_bookmark_file_add_application(glibBookmarkFilePointer, uri, name, exec)
 
     /**
      * Adds @group to the list of groups to which the bookmark for @uri
@@ -170,7 +169,8 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun addGroup(uri: String, group: String): Unit = g_bookmark_file_add_group(gPointer, uri, group)
+    public fun addGroup(uri: String, group: String): Unit =
+        g_bookmark_file_add_group(glibBookmarkFilePointer, uri, group)
 
     /**
      * Deeply copies a @bookmark #GBookmarkFile object to a new one.
@@ -180,7 +180,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.76
      */
     @GLibVersion2_76
-    public fun copy(): BookmarkFile = g_bookmark_file_copy(gPointer)!!.run {
+    public fun copy(): BookmarkFile = g_bookmark_file_copy(glibBookmarkFilePointer)!!.run {
         BookmarkFile(this)
     }
 
@@ -190,7 +190,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun free(): Unit = g_bookmark_file_free(gPointer)
+    public fun free(): Unit = g_bookmark_file_free(glibBookmarkFilePointer)
 
     /**
      * Gets the time the bookmark for @uri was added to @bookmark
@@ -205,7 +205,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getAdded(uri: String): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_added(gPointer, uri, gError.ptr)
+        val gResult = g_bookmark_file_get_added(glibBookmarkFilePointer, uri, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -226,7 +226,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_66
     public fun getAddedDateTime(uri: String): Result<DateTime> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_added_date_time(gPointer, uri, gError.ptr)?.run {
+        val gResult = g_bookmark_file_get_added_date_time(glibBookmarkFilePointer, uri, gError.ptr)?.run {
             DateTime(this)
         }
 
@@ -251,7 +251,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getDescription(uri: String): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_description(gPointer, uri, gError.ptr)?.toKString()
+        val gResult = g_bookmark_file_get_description(glibBookmarkFilePointer, uri, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -274,7 +274,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getIsPrivate(uri: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_is_private(gPointer, uri, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_get_is_private(glibBookmarkFilePointer, uri, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -298,7 +298,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getMimeType(uri: String): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_mime_type(gPointer, uri, gError.ptr)?.toKString()
+        val gResult = g_bookmark_file_get_mime_type(glibBookmarkFilePointer, uri, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -319,7 +319,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getModified(uri: String): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_modified(gPointer, uri, gError.ptr)
+        val gResult = g_bookmark_file_get_modified(glibBookmarkFilePointer, uri, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -340,7 +340,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_66
     public fun getModifiedDateTime(uri: String): Result<DateTime> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_modified_date_time(gPointer, uri, gError.ptr)?.run {
+        val gResult = g_bookmark_file_get_modified_date_time(glibBookmarkFilePointer, uri, gError.ptr)?.run {
             DateTime(this)
         }
 
@@ -358,7 +358,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun getSize(): gint = g_bookmark_file_get_size(gPointer)
+    public fun getSize(): gint = g_bookmark_file_get_size(glibBookmarkFilePointer)
 
     /**
      * Returns the title of the bookmark for @uri.
@@ -376,7 +376,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getTitle(uri: String? = null): Result<String> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_title(gPointer, uri, gError.ptr)?.toKString()
+        val gResult = g_bookmark_file_get_title(glibBookmarkFilePointer, uri, gError.ptr)?.toKString()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -397,7 +397,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun getVisited(uri: String): Result<Long> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_visited(gPointer, uri, gError.ptr)
+        val gResult = g_bookmark_file_get_visited(glibBookmarkFilePointer, uri, gError.ptr)
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -418,7 +418,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_66
     public fun getVisitedDateTime(uri: String): Result<DateTime> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_get_visited_date_time(gPointer, uri, gError.ptr)?.run {
+        val gResult = g_bookmark_file_get_visited_date_time(glibBookmarkFilePointer, uri, gError.ptr)?.run {
             DateTime(this)
         }
 
@@ -444,7 +444,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun hasApplication(uri: String, name: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_has_application(gPointer, uri, name, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_has_application(glibBookmarkFilePointer, uri, name, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -467,7 +467,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun hasGroup(uri: String, group: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_has_group(gPointer, uri, group, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_has_group(glibBookmarkFilePointer, uri, group, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -483,7 +483,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun hasItem(uri: String): Boolean = g_bookmark_file_has_item(gPointer, uri).asBoolean()
+    public fun hasItem(uri: String): Boolean = g_bookmark_file_has_item(glibBookmarkFilePointer, uri).asBoolean()
 
     /**
      * Loads a desktop bookmark file into an empty #GBookmarkFile structure.
@@ -498,7 +498,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun loadFromFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_load_from_file(gPointer, filename, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_load_from_file(glibBookmarkFilePointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -522,7 +522,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun moveItem(oldUri: String, newUri: String? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_move_item(gPointer, oldUri, newUri, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_move_item(glibBookmarkFilePointer, oldUri, newUri, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -548,7 +548,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun removeApplication(uri: String, name: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_remove_application(gPointer, uri, name, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_remove_application(glibBookmarkFilePointer, uri, name, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -573,7 +573,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun removeGroup(uri: String, group: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_remove_group(gPointer, uri, group, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_remove_group(glibBookmarkFilePointer, uri, group, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -591,7 +591,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun removeItem(uri: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_remove_item(gPointer, uri, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_remove_item(glibBookmarkFilePointer, uri, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -609,7 +609,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setAdded(uri: String, added: Long): Unit = g_bookmark_file_set_added(gPointer, uri, added)
+    public fun setAdded(uri: String, added: Long): Unit = g_bookmark_file_set_added(glibBookmarkFilePointer, uri, added)
 
     /**
      * Sets the time the bookmark for @uri was added into @bookmark.
@@ -622,7 +622,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_66
     public fun setAddedDateTime(uri: String, added: DateTime): Unit =
-        g_bookmark_file_set_added_date_time(gPointer, uri, added.gPointer)
+        g_bookmark_file_set_added_date_time(glibBookmarkFilePointer, uri, added.glibDateTimePointer)
 
     /**
      * Sets the meta-data of application @name inside the list of
@@ -667,7 +667,15 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     public fun setAppInfo(uri: String, name: String, exec: String, count: gint, stamp: Long): Result<Boolean> =
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = g_bookmark_file_set_app_info(gPointer, uri, name, exec, count, stamp, gError.ptr).asBoolean()
+            val gResult = g_bookmark_file_set_app_info(
+                glibBookmarkFilePointer,
+                uri,
+                name,
+                exec,
+                count,
+                stamp,
+                gError.ptr
+            ).asBoolean()
             return if (gError.pointed != null) {
                 Result.failure(resolveException(Error(gError.pointed!!.ptr)))
             } else {
@@ -724,12 +732,12 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_bookmark_file_set_application_info(
-            gPointer,
+            glibBookmarkFilePointer,
             uri,
             name,
             exec,
             count,
-            stamp?.gPointer,
+            stamp?.glibDateTimePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -752,7 +760,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_12
     public fun setDescription(uri: String? = null, description: String): Unit =
-        g_bookmark_file_set_description(gPointer, uri, description)
+        g_bookmark_file_set_description(glibBookmarkFilePointer, uri, description)
 
     /**
      * Sets a list of group names for the item with URI @uri.  Each previously
@@ -768,7 +776,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_12
     public fun setGroups(uri: String, groups: List<String>? = null, length: gsize): Unit = memScoped {
-        return g_bookmark_file_set_groups(gPointer, uri, groups?.toCStringList(this), length)
+        return g_bookmark_file_set_groups(glibBookmarkFilePointer, uri, groups?.toCStringList(this), length)
     }
 
     /**
@@ -785,7 +793,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_12
     public fun setIcon(uri: String, href: String? = null, mimeType: String): Unit =
-        g_bookmark_file_set_icon(gPointer, uri, href, mimeType)
+        g_bookmark_file_set_icon(glibBookmarkFilePointer, uri, href, mimeType)
 
     /**
      * Sets the private flag of the bookmark for @uri.
@@ -798,7 +806,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_12
     public fun setIsPrivate(uri: String, isPrivate: Boolean): Unit =
-        g_bookmark_file_set_is_private(gPointer, uri, isPrivate.asGBoolean())
+        g_bookmark_file_set_is_private(glibBookmarkFilePointer, uri, isPrivate.asGBoolean())
 
     /**
      * Sets @mime_type as the MIME type of the bookmark for @uri.
@@ -810,7 +818,8 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setMimeType(uri: String, mimeType: String): Unit = g_bookmark_file_set_mime_type(gPointer, uri, mimeType)
+    public fun setMimeType(uri: String, mimeType: String): Unit =
+        g_bookmark_file_set_mime_type(glibBookmarkFilePointer, uri, mimeType)
 
     /**
      * Sets the last time the bookmark for @uri was last modified.
@@ -827,7 +836,8 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setModified(uri: String, modified: Long): Unit = g_bookmark_file_set_modified(gPointer, uri, modified)
+    public fun setModified(uri: String, modified: Long): Unit =
+        g_bookmark_file_set_modified(glibBookmarkFilePointer, uri, modified)
 
     /**
      * Sets the last time the bookmark for @uri was last modified.
@@ -845,7 +855,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_66
     public fun setModifiedDateTime(uri: String, modified: DateTime): Unit =
-        g_bookmark_file_set_modified_date_time(gPointer, uri, modified.gPointer)
+        g_bookmark_file_set_modified_date_time(glibBookmarkFilePointer, uri, modified.glibDateTimePointer)
 
     /**
      * Sets @title as the title of the bookmark for @uri inside the
@@ -860,7 +870,8 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setTitle(uri: String? = null, title: String): Unit = g_bookmark_file_set_title(gPointer, uri, title)
+    public fun setTitle(uri: String? = null, title: String): Unit =
+        g_bookmark_file_set_title(glibBookmarkFilePointer, uri, title)
 
     /**
      * Sets the time the bookmark for @uri was last visited.
@@ -878,7 +889,8 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setVisited(uri: String, visited: Long): Unit = g_bookmark_file_set_visited(gPointer, uri, visited)
+    public fun setVisited(uri: String, visited: Long): Unit =
+        g_bookmark_file_set_visited(glibBookmarkFilePointer, uri, visited)
 
     /**
      * Sets the time the bookmark for @uri was last visited.
@@ -897,7 +909,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
      */
     @GLibVersion2_66
     public fun setVisitedDateTime(uri: String, visited: DateTime): Unit =
-        g_bookmark_file_set_visited_date_time(gPointer, uri, visited.gPointer)
+        g_bookmark_file_set_visited_date_time(glibBookmarkFilePointer, uri, visited.glibDateTimePointer)
 
     /**
      * This function outputs @bookmark into a file.  The write process is
@@ -910,7 +922,7 @@ public class BookmarkFile(pointer: CPointer<GBookmarkFile>) : ProxyInstance(poin
     @GLibVersion2_12
     public fun toFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_bookmark_file_to_file(gPointer, filename, gError.ptr).asBoolean()
+        val gResult = g_bookmark_file_to_file(glibBookmarkFilePointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {

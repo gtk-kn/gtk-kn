@@ -59,20 +59,17 @@ import org.gtkkn.native.gtk.gtk_graphics_offload_set_enabled
  * @since 4.14
  */
 @GtkVersion4_14
-public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
-    Widget(pointer.reinterpret()),
+public open class GraphicsOffload(public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>) :
+    Widget(gtkGraphicsOffloadPointer.reinterpret()),
     KGTyped {
-    public val gtkGraphicsOffloadPointer: CPointer<GtkGraphicsOffload>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -88,7 +85,7 @@ public open class GraphicsOffload(pointer: CPointer<GtkGraphicsOffload>) :
          * @since 4.14
          */
         get() = gtk_graphics_offload_get_child(gtkGraphicsOffloadPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

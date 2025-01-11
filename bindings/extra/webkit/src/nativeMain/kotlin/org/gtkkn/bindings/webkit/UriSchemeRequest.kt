@@ -43,12 +43,9 @@ import kotlin.Unit
  * request, and also finish the request with
  * webkit_uri_scheme_request_finish().
  */
-public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
-    Object(pointer.reinterpret()),
+public class UriSchemeRequest(public val webkitUriSchemeRequestPointer: CPointer<WebKitURISchemeRequest>) :
+    Object(webkitUriSchemeRequestPointer.reinterpret()),
     KGTyped {
-    public val webkitUriSchemeRequestPointer: CPointer<WebKitURISchemeRequest>
-        get() = gPointer.reinterpret()
-
     /**
      * Finish a #WebKitURISchemeRequest by setting the contents of the request and its mime type.
      *
@@ -72,7 +69,7 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
      */
     @WebKitVersion2_2
     public fun finishError(error: Error): Unit =
-        webkit_uri_scheme_request_finish_error(webkitUriSchemeRequestPointer, error.gPointer)
+        webkit_uri_scheme_request_finish_error(webkitUriSchemeRequestPointer, error.glibErrorPointer)
 
     /**
      * Finish a #WebKitURISchemeRequest by returning a #WebKitURISchemeResponse
@@ -95,7 +92,7 @@ public class UriSchemeRequest(pointer: CPointer<WebKitURISchemeRequest>) :
     @WebKitVersion2_40
     public fun getHttpBody(): InputStream =
         webkit_uri_scheme_request_get_http_body(webkitUriSchemeRequestPointer)!!.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
     /**

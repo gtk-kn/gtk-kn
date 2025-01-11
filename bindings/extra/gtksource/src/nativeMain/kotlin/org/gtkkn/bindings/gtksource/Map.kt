@@ -48,23 +48,20 @@ import kotlin.Unit
  * - method `font-desc`: Property has no getter nor setter
  * - method `view`: Property TypeInfo of getter and setter do not match
  */
-public open class Map(pointer: CPointer<GtkSourceMap>) :
-    View(pointer.reinterpret()),
+public open class Map(public val gtksourceMapPointer: CPointer<GtkSourceMap>) :
+    View(gtksourceMapPointer.reinterpret()),
     KGTyped {
-    public val gtksourceMapPointer: CPointer<GtkSourceMap>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkSourceMap`.

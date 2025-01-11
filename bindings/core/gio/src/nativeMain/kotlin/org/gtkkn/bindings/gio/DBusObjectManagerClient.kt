@@ -151,23 +151,21 @@ import kotlin.collections.List
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerClient>) :
-    Object(pointer.reinterpret()),
+public open class DBusObjectManagerClient(
+    public val gioDBusObjectManagerClientPointer: CPointer<GDBusObjectManagerClient>,
+) : Object(gioDBusObjectManagerClientPointer.reinterpret()),
     AsyncInitable,
     DBusObjectManager,
     Initable,
     KGTyped {
-    public val gioDBusObjectManagerClientPointer: CPointer<GDBusObjectManagerClient>
-        get() = gPointer.reinterpret()
-
     override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The #GDBusConnection to use.
@@ -394,7 +392,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             invalidatedProperties: List<String>,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusObjectManagerClientPointer,
         "interface-proxy-properties-changed",
         onInterfaceProxyPropertiesChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -420,11 +418,11 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
         invalidatedProperties: List<String>,
     ): Unit = memScoped {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gioDBusObjectManagerClientPointer.reinterpret(),
             "interface-proxy-properties-changed",
             objectProxy.gioDBusObjectProxyPointer,
             interfaceProxy.gioDBusProxyPointer,
-            changedProperties.gPointer,
+            changedProperties.glibVariantPointer,
             invalidatedProperties.toCStringList(this)
         )
     }
@@ -454,7 +452,7 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
             parameters: Variant,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusObjectManagerClientPointer,
         "interface-proxy-signal",
         onInterfaceProxySignalFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -481,13 +479,13 @@ public open class DBusObjectManagerClient(pointer: CPointer<GDBusObjectManagerCl
         parameters: Variant,
     ) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gioDBusObjectManagerClientPointer.reinterpret(),
             "interface-proxy-signal",
             objectProxy.gioDBusObjectProxyPointer,
             interfaceProxy.gioDBusProxyPointer,
             senderName.cstr,
             signalName.cstr,
-            parameters.gPointer
+            parameters.glibVariantPointer
         )
     }
 

@@ -55,20 +55,17 @@ import kotlin.Unit
  *
  * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesPage(pointer: CPointer<AdwPreferencesPage>) :
-    Widget(pointer.reinterpret()),
+public open class PreferencesPage(public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>) :
+    Widget(adwPreferencesPagePointer.reinterpret()),
     KGTyped {
-    public val adwPreferencesPagePointer: CPointer<AdwPreferencesPage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The description to be displayed at the top of the page.

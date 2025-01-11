@@ -28,9 +28,10 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `n_prerequisites`: n_prerequisites: Out parameter is not supported
  */
-public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTypeInterface> = pointer
-
+public class TypeInterface(
+    public val gobjectTypeInterfacePointer: CPointer<GTypeInterface>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectTypeInterfacePointer) {
     /**
      * Allocate a new TypeInterface.
      *
@@ -51,7 +52,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GTypeInterface>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectTypeInterfacePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeInterface using the provided [AutofreeScope].
@@ -73,7 +74,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
      *     instance type to which @g_iface belongs, or null if the parent
      *     type doesn't conform to the interface
      */
-    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gPointer)!!.run {
+    public fun peekParent(): TypeInterface = g_type_interface_peek_parent(gobjectTypeInterfacePointer)!!.run {
         TypeInterface(reinterpret())
     }
 
@@ -104,7 +105,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          */
         public fun getPlugin(instanceType: GType, interfaceType: GType): TypePlugin =
             g_type_interface_get_plugin(instanceType, interfaceType)!!.run {
-                TypePlugin.wrap(reinterpret())
+                TypePlugin.TypePluginImpl(reinterpret())
             }
 
         /**
@@ -134,7 +135,7 @@ public class TypeInterface(pointer: CPointer<GTypeInterface>, cleaner: Cleaner? 
          *     otherwise
          */
         public fun peek(instanceClass: TypeClass, ifaceType: GType): TypeInterface =
-            g_type_interface_peek(instanceClass.gPointer, ifaceType)!!.run {
+            g_type_interface_peek(instanceClass.gobjectTypeClassPointer, ifaceType)!!.run {
                 TypeInterface(reinterpret())
             }
     }

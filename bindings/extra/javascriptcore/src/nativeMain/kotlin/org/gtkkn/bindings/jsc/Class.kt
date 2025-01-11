@@ -36,12 +36,9 @@ import kotlin.Unit
  * - parameter `getter`: GObject.Callback
  * - method `context`: Property has no getter nor setter
  */
-public class Class(pointer: CPointer<JSCClass>) :
-    Object(pointer.reinterpret()),
+public class Class(public val jscClassPointer: CPointer<JSCClass>) :
+    Object(jscClassPointer.reinterpret()),
     KGTyped {
-    public val jscClassPointer: CPointer<JSCClass>
-        get() = gPointer.reinterpret()
-
     /**
      * The name of the class.
      */

@@ -30,19 +30,16 @@ import kotlin.Unit
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class MultiSorter(pointer: CPointer<GtkMultiSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class MultiSorter(public val gtkMultiSorterPointer: CPointer<GtkMultiSorter>) :
+    Sorter(gtkMultiSorterPointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
-    public val gtkMultiSorterPointer: CPointer<GtkMultiSorter>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new multi sorter.

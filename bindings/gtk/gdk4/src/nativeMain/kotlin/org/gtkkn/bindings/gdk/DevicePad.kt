@@ -3,7 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -36,7 +36,7 @@ import org.gtkkn.native.gobject.GType
  * for a given group will be notified through events of type `GDK_PAD_GROUP_MODE`.
  */
 public interface DevicePad :
-    Interface,
+    Proxy,
     KGTyped {
     public val gdkDevicePadPointer: CPointer<GdkDevicePad>
 
@@ -80,19 +80,22 @@ public interface DevicePad :
      */
     public fun getNGroups(): gint = gdk_device_pad_get_n_groups(gdkDevicePadPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GdkDevicePad>) : DevicePad {
-        override val gdkDevicePadPointer: CPointer<GdkDevicePad> = pointer
-    }
+    /**
+     * The DevicePadImpl type represents a native instance of the DevicePad interface.
+     *
+     * @constructor Creates a new instance of DevicePad for the provided [CPointer].
+     */
+    public data class DevicePadImpl(override val gdkDevicePadPointer: CPointer<GdkDevicePad>) :
+        Device(gdkDevicePadPointer.reinterpret()),
+        DevicePad
 
     public companion object : TypeCompanion<DevicePad> {
         override val type: GeneratedInterfaceKGType<DevicePad> =
-            GeneratedInterfaceKGType(gdk_device_pad_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gdk_device_pad_get_type()) { DevicePadImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GdkDevicePad>): DevicePad = Wrapper(pointer)
 
         /**
          * Get the GType of DevicePad

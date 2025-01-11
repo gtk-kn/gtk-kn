@@ -90,23 +90,20 @@ import kotlin.Unit
  *
  * - method `subtitle`: Property TypeInfo of getter and setter do not match
  */
-public open class ActionRow(pointer: CPointer<AdwActionRow>) :
-    PreferencesRow(pointer.reinterpret()),
+public open class ActionRow(public val adwActionRowPointer: CPointer<AdwActionRow>) :
+    PreferencesRow(adwActionRowPointer.reinterpret()),
     KGTyped {
-    public val adwActionRowPointer: CPointer<AdwActionRow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The widget to activate when the row is activated.
@@ -126,7 +123,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
          * @return the activatable widget for @self
          */
         get() = adw_action_row_get_activatable_widget(adwActionRowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -302,7 +299,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
      */
     public fun onActivated(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwActionRowPointer,
             "activated",
             onActivatedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -314,7 +311,7 @@ public open class ActionRow(pointer: CPointer<AdwActionRow>) :
      * Emits the "activated" signal. See [onActivated].
      */
     public fun emitActivated() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activated")
+        g_signal_emit_by_name(adwActionRowPointer.reinterpret(), "activated")
     }
 
     public companion object : TypeCompanion<ActionRow> {

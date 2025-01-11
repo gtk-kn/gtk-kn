@@ -87,15 +87,12 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
-    Object(pointer.reinterpret()),
+public class Breakpoint(public val adwBreakpointPointer: CPointer<AdwBreakpoint>) :
+    Object(adwBreakpointPointer.reinterpret()),
     Buildable,
     KGTyped {
-    public val adwBreakpointPointer: CPointer<AdwBreakpoint>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The breakpoint's condition.
@@ -121,7 +118,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
          * @since 1.4
          */
         @AdwVersion1_4
-        set(condition) = adw_breakpoint_set_condition(adwBreakpointPointer, condition?.gPointer)
+        set(condition) = adw_breakpoint_set_condition(adwBreakpointPointer, condition?.adwBreakpointConditionPointer)
 
     /**
      * Creates a new `AdwBreakpoint` with @condition.
@@ -130,7 +127,9 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @return the newly created `AdwBreakpoint`
      * @since 1.4
      */
-    public constructor(condition: BreakpointCondition) : this(adw_breakpoint_new(condition.gPointer)!!.reinterpret())
+    public constructor(
+        condition: BreakpointCondition,
+    ) : this(adw_breakpoint_new(condition.adwBreakpointConditionPointer)!!.reinterpret())
 
     /**
      * Adds a setter to @self.
@@ -176,8 +175,12 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      * @since 1.4
      */
     @AdwVersion1_4
-    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit =
-        adw_breakpoint_add_setter(adwBreakpointPointer, `object`.gPointer, `property`, `value`.gPointer)
+    public fun addSetter(`object`: Object, `property`: String, `value`: Value): Unit = adw_breakpoint_add_setter(
+        adwBreakpointPointer,
+        `object`.gobjectObjectPointer,
+        `property`,
+        `value`.gobjectValuePointer
+    )
 
     /**
      * Emitted when the breakpoint is applied.
@@ -191,7 +194,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
     @AdwVersion1_4
     public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwBreakpointPointer,
             "apply",
             onApplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -206,7 +209,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      */
     @AdwVersion1_4
     public fun emitApply() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "apply")
+        g_signal_emit_by_name(adwBreakpointPointer.reinterpret(), "apply")
     }
 
     /**
@@ -221,7 +224,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
     @AdwVersion1_4
     public fun onUnapply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwBreakpointPointer,
             "unapply",
             onUnapplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -236,7 +239,7 @@ public class Breakpoint(pointer: CPointer<AdwBreakpoint>) :
      */
     @AdwVersion1_4
     public fun emitUnapply() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unapply")
+        g_signal_emit_by_name(adwBreakpointPointer.reinterpret(), "unapply")
     }
 
     public companion object : TypeCompanion<Breakpoint> {

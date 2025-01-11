@@ -90,12 +90,9 @@ import kotlin.Unit
  * - method `input-hints`: Property has no getter nor setter
  * - method `input-purpose`: Property has no getter nor setter
  */
-public open class ImContext(pointer: CPointer<GtkIMContext>) :
-    Object(pointer.reinterpret()),
+public abstract class ImContext(public val gtkImContextPointer: CPointer<GtkIMContext>) :
+    Object(gtkImContextPointer.reinterpret()),
     KGTyped {
-    public val gtkImContextPointer: CPointer<GtkIMContext>
-        get() = gPointer.reinterpret()
-
     /**
      * Requests the platform to show an on-screen keyboard for user input.
      *
@@ -109,7 +106,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     @GtkVersion4_14
     public open fun activateOsk(event: Event? = null): Boolean =
-        gtk_im_context_activate_osk(gtkImContextPointer, event?.gPointer).asBoolean()
+        gtk_im_context_activate_osk(gtkImContextPointer, event?.gdkEventPointer).asBoolean()
 
     /**
      * Asks the widget that the input context is attached to delete
@@ -182,7 +179,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @return true if the input method handled the key event.
      */
     public open fun filterKeypress(event: Event): Boolean =
-        gtk_im_context_filter_keypress(gtkImContextPointer, event.gPointer).asBoolean()
+        gtk_im_context_filter_keypress(gtkImContextPointer, event.gdkEventPointer).asBoolean()
 
     /**
      * Notify the input method that the widget to which this
@@ -232,7 +229,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @param area new location
      */
     public open fun setCursorLocation(area: Rectangle): Unit =
-        gtk_im_context_set_cursor_location(gtkImContextPointer, area.gPointer)
+        gtk_im_context_set_cursor_location(gtkImContextPointer, area.gdkRectanglePointer)
 
     /**
      * Sets surrounding context around the insertion point and preedit
@@ -295,7 +292,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     public fun onCommit(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (str: String) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkImContextPointer,
             "commit",
             onCommitFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -309,7 +306,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * @param str the completed character(s) entered by the user
      */
     public fun emitCommit(str: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "commit", str.cstr)
+        g_signal_emit_by_name(gtkImContextPointer.reinterpret(), "commit", str.cstr)
     }
 
     /**
@@ -325,7 +322,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (offset: gint, nChars: gint) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkImContextPointer,
         "delete-surrounding",
         onDeleteSurroundingFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -345,7 +342,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     public fun onPreeditChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkImContextPointer,
             "preedit-changed",
             onPreeditChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -357,7 +354,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * Emits the "preedit-changed" signal. See [onPreeditChanged].
      */
     public fun emitPreeditChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-changed")
+        g_signal_emit_by_name(gtkImContextPointer.reinterpret(), "preedit-changed")
     }
 
     /**
@@ -369,7 +366,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     public fun onPreeditEnd(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkImContextPointer,
             "preedit-end",
             onPreeditEndFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -381,7 +378,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * Emits the "preedit-end" signal. See [onPreeditEnd].
      */
     public fun emitPreeditEnd() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-end")
+        g_signal_emit_by_name(gtkImContextPointer.reinterpret(), "preedit-end")
     }
 
     /**
@@ -393,7 +390,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     public fun onPreeditStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkImContextPointer,
             "preedit-start",
             onPreeditStartFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -405,7 +402,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      * Emits the "preedit-start" signal. See [onPreeditStart].
      */
     public fun emitPreeditStart() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-start")
+        g_signal_emit_by_name(gtkImContextPointer.reinterpret(), "preedit-start")
     }
 
     /**
@@ -420,7 +417,7 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
      */
     public fun onRetrieveSurrounding(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkImContextPointer,
             "retrieve-surrounding",
             onRetrieveSurroundingFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -428,9 +425,16 @@ public open class ImContext(pointer: CPointer<GtkIMContext>) :
             connectFlags.mask
         )
 
+    /**
+     * The ImContextImpl type represents a native instance of the abstract ImContext class.
+     *
+     * @constructor Creates a new instance of ImContext for the provided [CPointer].
+     */
+    public class ImContextImpl(pointer: CPointer<GtkIMContext>) : ImContext(pointer)
+
     public companion object : TypeCompanion<ImContext> {
         override val type: GeneratedClassKGType<ImContext> =
-            GeneratedClassKGType(gtk_im_context_get_type()) { ImContext(it.reinterpret()) }
+            GeneratedClassKGType(gtk_im_context_get_type()) { ImContextImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

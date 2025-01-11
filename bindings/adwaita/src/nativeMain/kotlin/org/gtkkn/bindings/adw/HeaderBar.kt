@@ -128,20 +128,17 @@ import kotlin.Unit
  *
  * `AdwHeaderBar` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
-    Widget(pointer.reinterpret()),
+public class HeaderBar(public val adwHeaderBarPointer: CPointer<AdwHeaderBar>) :
+    Widget(adwHeaderBarPointer.reinterpret()),
     KGTyped {
-    public val adwHeaderBarPointer: CPointer<AdwHeaderBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The policy for aligning the center widget.
@@ -344,7 +341,7 @@ public class HeaderBar(pointer: CPointer<AdwHeaderBar>) :
          * @return the title widget
          */
         get() = adw_header_bar_get_title_widget(adwHeaderBarPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

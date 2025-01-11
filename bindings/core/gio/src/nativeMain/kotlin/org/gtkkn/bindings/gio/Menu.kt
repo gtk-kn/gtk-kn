@@ -43,12 +43,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public open class Menu(pointer: CPointer<GMenu>) :
-    MenuModel(pointer.reinterpret()),
+public open class Menu(public val gioMenuPointer: CPointer<GMenu>) :
+    MenuModel(gioMenuPointer.reinterpret()),
     KGTyped {
-    public val gioMenuPointer: CPointer<GMenu>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GMenu.
      *

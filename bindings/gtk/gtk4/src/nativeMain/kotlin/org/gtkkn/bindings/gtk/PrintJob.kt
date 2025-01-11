@@ -86,12 +86,9 @@ import kotlin.Unit
  * - parameter `ranges`: Array parameter of type PageRange is not supported
  * - method `page-setup`: Property has no getter nor setter
  */
-public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
-    Object(pointer.reinterpret()),
+public open class PrintJob(public val gtkPrintJobPointer: CPointer<GtkPrintJob>) :
+    Object(gtkPrintJobPointer.reinterpret()),
     KGTyped {
-    public val gtkPrintJobPointer: CPointer<GtkPrintJob>
-        get() = gPointer.reinterpret()
-
     /**
      * The printer to send the job to.
      */
@@ -417,7 +414,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      */
     public fun onStatusChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPrintJobPointer,
             "status-changed",
             onStatusChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -429,7 +426,7 @@ public open class PrintJob(pointer: CPointer<GtkPrintJob>) :
      * Emits the "status-changed" signal. See [onStatusChanged].
      */
     public fun emitStatusChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "status-changed")
+        g_signal_emit_by_name(gtkPrintJobPointer.reinterpret(), "status-changed")
     }
 
     public companion object : TypeCompanion<PrintJob> {

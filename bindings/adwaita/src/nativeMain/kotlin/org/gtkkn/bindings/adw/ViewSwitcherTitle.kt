@@ -90,20 +90,17 @@ import kotlin.String
  *
  * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
  */
-public class ViewSwitcherTitle(pointer: CPointer<AdwViewSwitcherTitle>) :
-    Widget(pointer.reinterpret()),
+public class ViewSwitcherTitle(public val adwViewSwitcherTitlePointer: CPointer<AdwViewSwitcherTitle>) :
+    Widget(adwViewSwitcherTitlePointer.reinterpret()),
     KGTyped {
-    public val adwViewSwitcherTitlePointer: CPointer<AdwViewSwitcherTitle>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The stack the view switcher controls.

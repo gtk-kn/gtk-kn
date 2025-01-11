@@ -72,12 +72,9 @@ import kotlin.Unit
  * - method `action-group`: Property has no getter nor setter
  * - method `pad`: Property has no getter nor setter
  */
-public open class PadController(pointer: CPointer<GtkPadController>) :
-    EventController(pointer.reinterpret()),
+public open class PadController(public val gtkPadControllerPointer: CPointer<GtkPadController>) :
+    EventController(gtkPadControllerPointer.reinterpret()),
     KGTyped {
-    public val gtkPadControllerPointer: CPointer<GtkPadController>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkPadController` that will associate events from @pad to
      * actions.

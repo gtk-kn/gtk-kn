@@ -38,21 +38,19 @@ import kotlin.Unit
  *
  * - parameter `symbol`: symbol: Out parameter is not supported
  */
-public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GModule> = pointer
-
+public class Module(public val gmoduleModulePointer: CPointer<GModule>) : ProxyInstance(gmoduleModulePointer) {
     /**
      * Closes a module.
      *
      * @return true on success
      */
-    public fun close(): Boolean = g_module_close(gPointer).asBoolean()
+    public fun close(): Boolean = g_module_close(gmoduleModulePointer).asBoolean()
 
     /**
      * Ensures that a module will never be unloaded.
      * Any future g_module_close() calls on the module will be ignored.
      */
-    public fun makeResident(): Unit = g_module_make_resident(gPointer)
+    public fun makeResident(): Unit = g_module_make_resident(gmoduleModulePointer)
 
     /**
      * Returns the filename that the module was opened with.
@@ -61,7 +59,7 @@ public class Module(pointer: CPointer<GModule>) : ProxyInstance(pointer) {
      *
      * @return the filename of the module
      */
-    public fun name(): String = g_module_name(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun name(): String = g_module_name(gmoduleModulePointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

@@ -134,28 +134,25 @@ import kotlin.Unit
  * - method `has-frame`: Property has no getter nor setter
  * - method `popup-shown`: Property has no getter nor setter
  */
-public open class ComboBox(pointer: CPointer<GtkComboBox>) :
-    Widget(pointer.reinterpret()),
+public open class ComboBox(public val gtkComboBoxPointer: CPointer<GtkComboBox>) :
+    Widget(gtkComboBoxPointer.reinterpret()),
     CellEditable,
     CellLayout,
     KGTyped {
-    public val gtkComboBoxPointer: CPointer<GtkComboBox>
-        get() = gPointer.reinterpret()
-
     override val gtkCellEditablePointer: CPointer<GtkCellEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The item which is currently active.
@@ -224,7 +221,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
          * @return the child widget of @combo_box
          */
         get() = gtk_combo_box_get_child(gtkComboBoxPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -313,7 +310,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
          *   during construction.
          */
         get() = gtk_combo_box_get_model(gtkComboBoxPointer)?.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         }
 
         /**
@@ -395,7 +392,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * @return true if @iter was set, false otherwise
      */
     public open fun getActiveIter(iter: TreeIter): Boolean =
-        gtk_combo_box_get_active_iter(gtkComboBoxPointer, iter.gPointer).asBoolean()
+        gtk_combo_box_get_active_iter(gtkComboBoxPointer, iter.gtkTreeIterPointer).asBoolean()
 
     /**
      * Hides the menu or dropdown list of @combo_box.
@@ -455,7 +452,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * @param iter The `GtkTreeIter`
      */
     public open fun setActiveIter(iter: TreeIter? = null): Unit =
-        gtk_combo_box_set_active_iter(gtkComboBoxPointer, iter?.gPointer)
+        gtk_combo_box_set_active_iter(gtkComboBoxPointer, iter?.gtkTreeIterPointer)
 
     /**
      * Sets the row separator function, which is used to determine
@@ -488,7 +485,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
     @GtkVersion4_6
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkComboBoxPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -503,7 +500,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      */
     @GtkVersion4_6
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkComboBoxPointer.reinterpret(), "activate")
     }
 
     /**
@@ -518,7 +515,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkComboBoxPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -530,7 +527,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gtkComboBoxPointer.reinterpret(), "changed")
     }
 
     /**
@@ -575,7 +572,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (path: String) -> String,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkComboBoxPointer,
         "format-entry-text",
         onFormatEntryTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -595,7 +592,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (scrollType: ScrollType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkComboBoxPointer,
         "move-active",
         onMoveActiveFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -609,7 +606,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * @param scrollType a `GtkScrollType`
      */
     public fun emitMoveActive(scrollType: ScrollType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-active", scrollType.nativeValue)
+        g_signal_emit_by_name(gtkComboBoxPointer.reinterpret(), "move-active", scrollType.nativeValue)
     }
 
     /**
@@ -624,7 +621,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      */
     public fun onPopdown(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkComboBoxPointer,
             "popdown",
             onPopdownFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -644,7 +641,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      */
     public fun onPopup(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkComboBoxPointer,
             "popup",
             onPopupFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -656,7 +653,7 @@ public open class ComboBox(pointer: CPointer<GtkComboBox>) :
      * Emits the "popup" signal. See [onPopup].
      */
     public fun emitPopup() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "popup")
+        g_signal_emit_by_name(gtkComboBoxPointer.reinterpret(), "popup")
     }
 
     public companion object : TypeCompanion<ComboBox> {

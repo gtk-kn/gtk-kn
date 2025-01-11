@@ -69,9 +69,7 @@ import kotlin.Unit
  * code (eg, javascript), so as to minimize the danger posed by
  * cross-site scripting attacks.
  */
-public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<SoupCookie> = pointer
-
+public class Cookie(public val soupCookiePointer: CPointer<SoupCookie>) : ProxyInstance(soupCookiePointer) {
     /**
      * Tests if @cookie should be sent to @uri.
      *
@@ -82,14 +80,15 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @param uri a #GUri
      * @return true if @cookie should be sent to @uri, false if not
      */
-    public fun appliesToUri(uri: Uri): Boolean = soup_cookie_applies_to_uri(gPointer, uri.gPointer).asBoolean()
+    public fun appliesToUri(uri: Uri): Boolean =
+        soup_cookie_applies_to_uri(soupCookiePointer, uri.glibUriPointer).asBoolean()
 
     /**
      * Copies @cookie.
      *
      * @return a copy of @cookie
      */
-    public fun copy(): Cookie = soup_cookie_copy(gPointer)!!.run {
+    public fun copy(): Cookie = soup_cookie_copy(soupCookiePointer)!!.run {
         Cookie(this)
     }
 
@@ -102,7 +101,7 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @param host a URI
      * @return true if the domains match, false otherwise
      */
-    public fun domainMatches(host: String): Boolean = soup_cookie_domain_matches(gPointer, host).asBoolean()
+    public fun domainMatches(host: String): Boolean = soup_cookie_domain_matches(soupCookiePointer, host).asBoolean()
 
     /**
      * Tests if @cookie1 and @cookie2 are equal.
@@ -113,19 +112,21 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @param cookie2 a #SoupCookie
      * @return whether the cookies are equal.
      */
-    public fun equal(cookie2: Cookie): Boolean = soup_cookie_equal(gPointer, cookie2.gPointer).asBoolean()
+    public fun equal(cookie2: Cookie): Boolean =
+        soup_cookie_equal(soupCookiePointer, cookie2.soupCookiePointer).asBoolean()
 
     /**
      * Frees @cookie.
      */
-    public fun free(): Unit = soup_cookie_free(gPointer)
+    public fun free(): Unit = soup_cookie_free(soupCookiePointer)
 
     /**
      * Gets @cookie's domain.
      *
      * @return @cookie's domain
      */
-    public fun getDomain(): String = soup_cookie_get_domain(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getDomain(): String =
+        soup_cookie_get_domain(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @cookie's expiration time.
@@ -133,7 +134,7 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @return @cookie's expiration time, which is
      *   owned by @cookie and should not be modified or freed.
      */
-    public fun getExpires(): DateTime? = soup_cookie_get_expires(gPointer)?.run {
+    public fun getExpires(): DateTime? = soup_cookie_get_expires(soupCookiePointer)?.run {
         DateTime(this)
     }
 
@@ -142,28 +143,30 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      *
      * @return @cookie's HttpOnly attribute
      */
-    public fun getHttpOnly(): Boolean = soup_cookie_get_http_only(gPointer).asBoolean()
+    public fun getHttpOnly(): Boolean = soup_cookie_get_http_only(soupCookiePointer).asBoolean()
 
     /**
      * Gets @cookie's name.
      *
      * @return @cookie's name
      */
-    public fun getName(): String = soup_cookie_get_name(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String =
+        soup_cookie_get_name(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @cookie's path.
      *
      * @return @cookie's path
      */
-    public fun getPath(): String = soup_cookie_get_path(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getPath(): String =
+        soup_cookie_get_path(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the same-site policy for this cookie.
      *
      * @return a #SoupSameSitePolicy
      */
-    public fun getSameSitePolicy(): SameSitePolicy = soup_cookie_get_same_site_policy(gPointer).run {
+    public fun getSameSitePolicy(): SameSitePolicy = soup_cookie_get_same_site_policy(soupCookiePointer).run {
         SameSitePolicy.fromNativeValue(this)
     }
 
@@ -172,21 +175,22 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      *
      * @return @cookie's secure attribute
      */
-    public fun getSecure(): Boolean = soup_cookie_get_secure(gPointer).asBoolean()
+    public fun getSecure(): Boolean = soup_cookie_get_secure(soupCookiePointer).asBoolean()
 
     /**
      * Gets @cookie's value.
      *
      * @return @cookie's value
      */
-    public fun getValue(): String = soup_cookie_get_value(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getValue(): String =
+        soup_cookie_get_value(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Sets @cookie's domain to @domain.
      *
      * @param domain the new domain
      */
-    public fun setDomain(domain: String): Unit = soup_cookie_set_domain(gPointer, domain)
+    public fun setDomain(domain: String): Unit = soup_cookie_set_domain(soupCookiePointer, domain)
 
     /**
      * Sets @cookie's expiration time to @expires.
@@ -198,7 +202,8 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      *
      * @param expires the new expiration time, or null
      */
-    public fun setExpires(expires: DateTime): Unit = soup_cookie_set_expires(gPointer, expires.gPointer)
+    public fun setExpires(expires: DateTime): Unit =
+        soup_cookie_set_expires(soupCookiePointer, expires.glibDateTimePointer)
 
     /**
      * Sets @cookie's HttpOnly attribute to @http_only.
@@ -208,7 +213,8 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      *
      * @param httpOnly the new value for the HttpOnly attribute
      */
-    public fun setHttpOnly(httpOnly: Boolean): Unit = soup_cookie_set_http_only(gPointer, httpOnly.asGBoolean())
+    public fun setHttpOnly(httpOnly: Boolean): Unit =
+        soup_cookie_set_http_only(soupCookiePointer, httpOnly.asGBoolean())
 
     /**
      * Sets @cookie's max age to @max_age.
@@ -225,21 +231,21 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      *
      * @param maxAge the new max age
      */
-    public fun setMaxAge(maxAge: gint): Unit = soup_cookie_set_max_age(gPointer, maxAge)
+    public fun setMaxAge(maxAge: gint): Unit = soup_cookie_set_max_age(soupCookiePointer, maxAge)
 
     /**
      * Sets @cookie's name to @name.
      *
      * @param name the new name
      */
-    public fun setName(name: String): Unit = soup_cookie_set_name(gPointer, name)
+    public fun setName(name: String): Unit = soup_cookie_set_name(soupCookiePointer, name)
 
     /**
      * Sets @cookie's path to @path.
      *
      * @param path the new path
      */
-    public fun setPath(path: String): Unit = soup_cookie_set_path(gPointer, path)
+    public fun setPath(path: String): Unit = soup_cookie_set_path(soupCookiePointer, path)
 
     /**
      * When used in conjunction with
@@ -249,7 +255,7 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @param policy a #SoupSameSitePolicy
      */
     public fun setSameSitePolicy(policy: SameSitePolicy): Unit =
-        soup_cookie_set_same_site_policy(gPointer, policy.nativeValue)
+        soup_cookie_set_same_site_policy(soupCookiePointer, policy.nativeValue)
 
     /**
      * Sets @cookie's secure attribute to @secure.
@@ -259,14 +265,14 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      *
      * @param secure the new value for the secure attribute
      */
-    public fun setSecure(secure: Boolean): Unit = soup_cookie_set_secure(gPointer, secure.asGBoolean())
+    public fun setSecure(secure: Boolean): Unit = soup_cookie_set_secure(soupCookiePointer, secure.asGBoolean())
 
     /**
      * Sets @cookie's value to @value.
      *
      * @param value the new value
      */
-    public fun setValue(`value`: String): Unit = soup_cookie_set_value(gPointer, `value`)
+    public fun setValue(`value`: String): Unit = soup_cookie_set_value(soupCookiePointer, `value`)
 
     /**
      * Serializes @cookie in the format used by the Cookie header (ie, for
@@ -275,7 +281,7 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @return the header
      */
     public fun toCookieHeader(): String =
-        soup_cookie_to_cookie_header(gPointer)?.toKString() ?: error("Expected not null string")
+        soup_cookie_to_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Serializes @cookie in the format used by the Set-Cookie header.
@@ -285,7 +291,7 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
      * @return the header
      */
     public fun toSetCookieHeader(): String =
-        soup_cookie_to_set_cookie_header(gPointer)?.toKString() ?: error("Expected not null string")
+        soup_cookie_to_set_cookie_header(soupCookiePointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**
@@ -343,7 +349,7 @@ public class Cookie(pointer: CPointer<SoupCookie>) : ProxyInstance(pointer) {
          *   cookie originating from @origin.
          */
         public fun parse(`header`: String, origin: Uri? = null): Cookie? =
-            soup_cookie_parse(`header`, origin?.gPointer)?.run {
+            soup_cookie_parse(`header`, origin?.glibUriPointer)?.run {
                 Cookie(this)
             }
 

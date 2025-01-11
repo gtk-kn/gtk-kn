@@ -64,9 +64,7 @@ import kotlin.Unit
  * @since 2.26
  */
 @GLibVersion2_26
-public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTimeZone> = pointer
-
+public class TimeZone(public val glibTimeZonePointer: CPointer<GTimeZone>) : ProxyInstance(glibTimeZonePointer) {
     /**
      * Finds an interval within @tz that corresponds to the given @time_.
      * The meaning of @time_ depends on @type.
@@ -94,7 +92,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun findInterval(type: TimeType, time: gint64): gint =
-        g_time_zone_find_interval(gPointer, type.nativeValue, time)
+        g_time_zone_find_interval(glibTimeZonePointer, type.nativeValue, time)
 
     /**
      * Determines the time zone abbreviation to be used during a particular
@@ -110,7 +108,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_26
     public fun getAbbreviation(interval: gint): String =
-        g_time_zone_get_abbreviation(gPointer, interval)?.toKString() ?: error("Expected not null string")
+        g_time_zone_get_abbreviation(glibTimeZonePointer, interval)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the identifier of this #GTimeZone, as passed to g_time_zone_new().
@@ -127,7 +125,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_58
     public fun getIdentifier(): String =
-        g_time_zone_get_identifier(gPointer)?.toKString() ?: error("Expected not null string")
+        g_time_zone_get_identifier(glibTimeZonePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Determines the offset to UTC in effect during a particular @interval
@@ -143,7 +141,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun getOffset(interval: gint): gint = g_time_zone_get_offset(gPointer, interval)
+    public fun getOffset(interval: gint): gint = g_time_zone_get_offset(glibTimeZonePointer, interval)
 
     /**
      * Determines if daylight savings time is in effect during a particular
@@ -154,7 +152,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun isDst(interval: gint): Boolean = g_time_zone_is_dst(gPointer, interval).asBoolean()
+    public fun isDst(interval: gint): Boolean = g_time_zone_is_dst(glibTimeZonePointer, interval).asBoolean()
 
     /**
      * Increases the reference count on @tz.
@@ -163,7 +161,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun ref(): TimeZone = g_time_zone_ref(gPointer)!!.run {
+    public fun ref(): TimeZone = g_time_zone_ref(glibTimeZonePointer)!!.run {
         TimeZone(this)
     }
 
@@ -173,7 +171,7 @@ public class TimeZone(pointer: CPointer<GTimeZone>) : ProxyInstance(pointer) {
      * @since 2.26
      */
     @GLibVersion2_26
-    public fun unref(): Unit = g_time_zone_unref(gPointer)
+    public fun unref(): Unit = g_time_zone_unref(glibTimeZonePointer)
 
     public companion object {
         /**

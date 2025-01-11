@@ -10,15 +10,19 @@ import org.gtkkn.native.gio.GNativeVolumeMonitor
 import org.gtkkn.native.gio.g_native_volume_monitor_get_type
 import org.gtkkn.native.gobject.GType
 
-public open class NativeVolumeMonitor(pointer: CPointer<GNativeVolumeMonitor>) :
-    VolumeMonitor(pointer.reinterpret()),
+public abstract class NativeVolumeMonitor(public val gioNativeVolumeMonitorPointer: CPointer<GNativeVolumeMonitor>) :
+    VolumeMonitor(gioNativeVolumeMonitorPointer.reinterpret()),
     KGTyped {
-    public val gioNativeVolumeMonitorPointer: CPointer<GNativeVolumeMonitor>
-        get() = gPointer.reinterpret()
+    /**
+     * The NativeVolumeMonitorImpl type represents a native instance of the abstract NativeVolumeMonitor class.
+     *
+     * @constructor Creates a new instance of NativeVolumeMonitor for the provided [CPointer].
+     */
+    public class NativeVolumeMonitorImpl(pointer: CPointer<GNativeVolumeMonitor>) : NativeVolumeMonitor(pointer)
 
     public companion object : TypeCompanion<NativeVolumeMonitor> {
         override val type: GeneratedClassKGType<NativeVolumeMonitor> =
-            GeneratedClassKGType(g_native_volume_monitor_get_type()) { NativeVolumeMonitor(it.reinterpret()) }
+            GeneratedClassKGType(g_native_volume_monitor_get_type()) { NativeVolumeMonitorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

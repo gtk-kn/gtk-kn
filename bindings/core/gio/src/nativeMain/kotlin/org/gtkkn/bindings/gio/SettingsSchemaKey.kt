@@ -30,9 +30,8 @@ import kotlin.Unit
  * #GSettingsSchemaKey is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSettingsSchemaKey> = pointer
-
+public class SettingsSchemaKey(public val gioSettingsSchemaKeyPointer: CPointer<GSettingsSchemaKey>) :
+    ProxyInstance(gioSettingsSchemaKeyPointer) {
     /**
      * Gets the default value for @key.
      *
@@ -43,7 +42,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getDefaultValue(): Variant = g_settings_schema_key_get_default_value(gPointer)!!.run {
+    public fun getDefaultValue(): Variant = g_settings_schema_key_get_default_value(gioSettingsSchemaKeyPointer)!!.run {
         Variant(this)
     }
 
@@ -67,7 +66,8 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getDescription(): String? = g_settings_schema_key_get_description(gPointer)?.toKString()
+    public fun getDescription(): String? =
+        g_settings_schema_key_get_description(gioSettingsSchemaKeyPointer)?.toKString()
 
     /**
      * Gets the name of @key.
@@ -77,7 +77,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      */
     @GioVersion2_44
     public fun getName(): String =
-        g_settings_schema_key_get_name(gPointer)?.toKString() ?: error("Expected not null string")
+        g_settings_schema_key_get_name(gioSettingsSchemaKeyPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Queries the range of a key.
@@ -121,7 +121,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getRange(): Variant = g_settings_schema_key_get_range(gPointer)!!.run {
+    public fun getRange(): Variant = g_settings_schema_key_get_range(gioSettingsSchemaKeyPointer)!!.run {
         Variant(this)
     }
 
@@ -144,7 +144,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.34
      */
     @GioVersion2_34
-    public fun getSummary(): String? = g_settings_schema_key_get_summary(gPointer)?.toKString()
+    public fun getSummary(): String? = g_settings_schema_key_get_summary(gioSettingsSchemaKeyPointer)?.toKString()
 
     /**
      * Gets the #GVariantType of @key.
@@ -153,7 +153,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun getValueType(): VariantType = g_settings_schema_key_get_value_type(gPointer)!!.run {
+    public fun getValueType(): VariantType = g_settings_schema_key_get_value_type(gioSettingsSchemaKeyPointer)!!.run {
         VariantType(this)
     }
 
@@ -170,7 +170,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      */
     @GioVersion2_40
     public fun rangeCheck(`value`: Variant): Boolean =
-        g_settings_schema_key_range_check(gPointer, `value`.gPointer).asBoolean()
+        g_settings_schema_key_range_check(gioSettingsSchemaKeyPointer, `value`.glibVariantPointer).asBoolean()
 
     /**
      * Increase the reference count of @key, returning a new reference.
@@ -179,7 +179,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gPointer)!!.run {
+    public fun ref(): SettingsSchemaKey = g_settings_schema_key_ref(gioSettingsSchemaKeyPointer)!!.run {
         SettingsSchemaKey(this)
     }
 
@@ -189,7 +189,7 @@ public class SettingsSchemaKey(pointer: CPointer<GSettingsSchemaKey>) : ProxyIns
      * @since 2.40
      */
     @GioVersion2_40
-    public fun unref(): Unit = g_settings_schema_key_unref(gPointer)
+    public fun unref(): Unit = g_settings_schema_key_unref(gioSettingsSchemaKeyPointer)
 
     public companion object {
         /**

@@ -20,51 +20,50 @@ import kotlin.native.ref.createCleaner
  * The `PangoLogAttr` structure stores information about the attributes of a
  * single character.
  */
-public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoLogAttr> = pointer
-
+public class LogAttr(public val pangoLogAttrPointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoLogAttrPointer) {
     /**
      * if set, can break line in front of character
      */
     public var isLineBreak: guint
-        get() = gPointer.pointed.is_line_break
+        get() = pangoLogAttrPointer.pointed.is_line_break
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_line_break = value
+            pangoLogAttrPointer.pointed.is_line_break = value
         }
 
     /**
      * if set, must break line in front of character
      */
     public var isMandatoryBreak: guint
-        get() = gPointer.pointed.is_mandatory_break
+        get() = pangoLogAttrPointer.pointed.is_mandatory_break
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_mandatory_break = value
+            pangoLogAttrPointer.pointed.is_mandatory_break = value
         }
 
     /**
      * if set, can break here when doing character wrapping
      */
     public var isCharBreak: guint
-        get() = gPointer.pointed.is_char_break
+        get() = pangoLogAttrPointer.pointed.is_char_break
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_char_break = value
+            pangoLogAttrPointer.pointed.is_char_break = value
         }
 
     /**
      * is whitespace character
      */
     public var isWhite: guint
-        get() = gPointer.pointed.is_white
+        get() = pangoLogAttrPointer.pointed.is_white
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_white = value
+            pangoLogAttrPointer.pointed.is_white = value
         }
 
     /**
@@ -75,22 +74,22 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   semantics.
      */
     public var isCursorPosition: guint
-        get() = gPointer.pointed.is_cursor_position
+        get() = pangoLogAttrPointer.pointed.is_cursor_position
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_cursor_position = value
+            pangoLogAttrPointer.pointed.is_cursor_position = value
         }
 
     /**
      * is first character in a word
      */
     public var isWordStart: guint
-        get() = gPointer.pointed.is_word_start
+        get() = pangoLogAttrPointer.pointed.is_word_start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_word_start = value
+            pangoLogAttrPointer.pointed.is_word_start = value
         }
 
     /**
@@ -99,11 +98,11 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   and @is_word_end set for some character.
      */
     public var isWordEnd: guint
-        get() = gPointer.pointed.is_word_end
+        get() = pangoLogAttrPointer.pointed.is_word_end
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_word_end = value
+            pangoLogAttrPointer.pointed.is_word_end = value
         }
 
     /**
@@ -116,22 +115,22 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   @is_sentence_start/@is_sentence_end mark the boundaries of those sentences.
      */
     public var isSentenceBoundary: guint
-        get() = gPointer.pointed.is_sentence_boundary
+        get() = pangoLogAttrPointer.pointed.is_sentence_boundary
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_sentence_boundary = value
+            pangoLogAttrPointer.pointed.is_sentence_boundary = value
         }
 
     /**
      * is first character in a sentence
      */
     public var isSentenceStart: guint
-        get() = gPointer.pointed.is_sentence_start
+        get() = pangoLogAttrPointer.pointed.is_sentence_start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_sentence_start = value
+            pangoLogAttrPointer.pointed.is_sentence_start = value
         }
 
     /**
@@ -141,11 +140,11 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   period, so the next sentence starts right away)
      */
     public var isSentenceEnd: guint
-        get() = gPointer.pointed.is_sentence_end
+        get() = pangoLogAttrPointer.pointed.is_sentence_end
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_sentence_end = value
+            pangoLogAttrPointer.pointed.is_sentence_end = value
         }
 
     /**
@@ -158,11 +157,11 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   except those following Latin, Cyrillic or Greek base characters.
      */
     public var backspaceDeletesCharacter: guint
-        get() = gPointer.pointed.backspace_deletes_character
+        get() = pangoLogAttrPointer.pointed.backspace_deletes_character
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.backspace_deletes_character = value
+            pangoLogAttrPointer.pointed.backspace_deletes_character = value
         }
 
     /**
@@ -170,11 +169,11 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   expanded for justification purposes. (Since: 1.18)
      */
     public var isExpandableSpace: guint
-        get() = gPointer.pointed.is_expandable_space
+        get() = pangoLogAttrPointer.pointed.is_expandable_space
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_expandable_space = value
+            pangoLogAttrPointer.pointed.is_expandable_space = value
         }
 
     /**
@@ -186,11 +185,11 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   semantics. (Since: 1.22)
      */
     public var isWordBoundary: guint
-        get() = gPointer.pointed.is_word_boundary
+        get() = pangoLogAttrPointer.pointed.is_word_boundary
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_word_boundary = value
+            pangoLogAttrPointer.pointed.is_word_boundary = value
         }
 
     /**
@@ -198,11 +197,11 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   Since: 1.50
      */
     public var breakInsertsHyphen: guint
-        get() = gPointer.pointed.break_inserts_hyphen
+        get() = pangoLogAttrPointer.pointed.break_inserts_hyphen
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.break_inserts_hyphen = value
+            pangoLogAttrPointer.pointed.break_inserts_hyphen = value
         }
 
     /**
@@ -210,19 +209,19 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *   preceding char. Since 1.50
      */
     public var breakRemovesPreceding: guint
-        get() = gPointer.pointed.break_removes_preceding
+        get() = pangoLogAttrPointer.pointed.break_removes_preceding
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.break_removes_preceding = value
+            pangoLogAttrPointer.pointed.break_removes_preceding = value
         }
 
     public var reserved: guint
-        get() = gPointer.pointed.reserved
+        get() = pangoLogAttrPointer.pointed.reserved
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.reserved = value
+            pangoLogAttrPointer.pointed.reserved = value
         }
 
     /**
@@ -243,7 +242,9 @@ public class LogAttr(pointer: CPointer<PangoLogAttr>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to LogAttr and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<PangoLogAttr>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<PangoLogAttr>, Cleaner>,
+    ) : this(pangoLogAttrPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new LogAttr using the provided [AutofreeScope].

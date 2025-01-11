@@ -140,12 +140,9 @@ import kotlin.collections.List
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
  * - constructor `new_with_options`: Varargs parameter is not supported
  */
-public open class Session(pointer: CPointer<SoupSession>) :
-    Object(pointer.reinterpret()),
+public open class Session(public val soupSessionPointer: CPointer<SoupSession>) :
+    Object(soupSessionPointer.reinterpret()),
     KGTyped {
-    public val soupSessionPointer: CPointer<SoupSession>
-        get() = gPointer.reinterpret()
-
     /**
      * If true, #SoupSession will automatically set the string
      * for the "Accept-Language" header on every [class@Message]
@@ -265,7 +262,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          *   are disabled in @session
          */
         get() = soup_session_get_proxy_resolver(soupSessionPointer)?.run {
-            ProxyResolver.wrap(reinterpret())
+            ProxyResolver.ProxyResolverImpl(reinterpret())
         }
 
         /**
@@ -294,7 +291,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          * @return the #GSocketConnectable
          */
         get() = soup_session_get_remote_connectable(soupSessionPointer)?.run {
-            SocketConnectable.wrap(reinterpret())
+            SocketConnectable.SocketConnectableImpl(reinterpret())
         }
 
     /**
@@ -345,7 +342,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
          * @return a #GTlsDatabase
          */
         get() = soup_session_get_tls_database(soupSessionPointer)?.run {
-            TlsDatabase(this)
+            TlsDatabase.TlsDatabaseImpl(this)
         }
 
         /**
@@ -463,7 +460,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      */
     public open fun getFeature(featureType: GType): SessionFeature? =
         soup_session_get_feature(soupSessionPointer, featureType)?.run {
-            SessionFeature.wrap(reinterpret())
+            SessionFeature.SessionFeatureImpl(reinterpret())
         }
 
     /**
@@ -477,7 +474,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      */
     public open fun getFeatureForMessage(featureType: GType, msg: Message): SessionFeature? =
         soup_session_get_feature_for_message(soupSessionPointer, featureType, msg.soupMessagePointer)?.run {
-            SessionFeature.wrap(reinterpret())
+            SessionFeature.SessionFeatureImpl(reinterpret())
         }
 
     /**
@@ -602,7 +599,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -834,7 +831,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
     public open fun sendFinish(result: AsyncResult): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = soup_session_send_finish(soupSessionPointer, result.gioAsyncResultPointer, gError.ptr)?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -981,7 +978,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      */
     public fun onRequestQueued(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (msg: Message) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupSessionPointer,
             "request-queued",
             onRequestQueuedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -995,7 +992,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param msg the request that was queued
      */
     public fun emitRequestQueued(msg: Message) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "request-queued", msg.soupMessagePointer)
+        g_signal_emit_by_name(soupSessionPointer.reinterpret(), "request-queued", msg.soupMessagePointer)
     }
 
     /**
@@ -1012,7 +1009,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (msg: Message) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupSessionPointer,
         "request-unqueued",
         onRequestUnqueuedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1026,7 +1023,7 @@ public open class Session(pointer: CPointer<SoupSession>) :
      * @param msg the request that was unqueued
      */
     public fun emitRequestUnqueued(msg: Message) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "request-unqueued", msg.soupMessagePointer)
+        g_signal_emit_by_name(soupSessionPointer.reinterpret(), "request-unqueued", msg.soupMessagePointer)
     }
 
     public companion object : TypeCompanion<Session> {

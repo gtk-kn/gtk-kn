@@ -13,7 +13,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gobject.Parameter
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -144,7 +144,7 @@ import kotlin.Unit
  */
 @GioVersion2_22
 public interface AsyncInitable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioAsyncInitablePointer: CPointer<GAsyncInitable>
 
@@ -250,19 +250,22 @@ public interface AsyncInitable :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GAsyncInitable>) : AsyncInitable {
-        override val gioAsyncInitablePointer: CPointer<GAsyncInitable> = pointer
-    }
+    /**
+     * The AsyncInitableImpl type represents a native instance of the AsyncInitable interface.
+     *
+     * @constructor Creates a new instance of AsyncInitable for the provided [CPointer].
+     */
+    public data class AsyncInitableImpl(override val gioAsyncInitablePointer: CPointer<GAsyncInitable>) :
+        Object(gioAsyncInitablePointer.reinterpret()),
+        AsyncInitable
 
     public companion object : TypeCompanion<AsyncInitable> {
         override val type: GeneratedInterfaceKGType<AsyncInitable> =
-            GeneratedInterfaceKGType(g_async_initable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_async_initable_get_type()) { AsyncInitableImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GAsyncInitable>): AsyncInitable = Wrapper(pointer)
 
         /**
          * Helper function for constructing #GAsyncInitable object. This is
@@ -292,7 +295,7 @@ public interface AsyncInitable :
         ): Unit = g_async_initable_newv_async(
             objectType,
             nParameters,
-            parameters.gPointer,
+            parameters.gobjectParameterPointer,
             ioPriority,
             cancellable?.gioCancellablePointer,
             callback?.let {

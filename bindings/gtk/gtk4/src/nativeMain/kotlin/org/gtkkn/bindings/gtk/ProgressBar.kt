@@ -85,28 +85,25 @@ import kotlin.Unit
  *
  * `GtkProgressBar` uses the %GTK_ACCESSIBLE_ROLE_PROGRESS_BAR role.
  */
-public open class ProgressBar(pointer: CPointer<GtkProgressBar>) :
-    Widget(pointer.reinterpret()),
+public open class ProgressBar(public val gtkProgressBarPointer: CPointer<GtkProgressBar>) :
+    Widget(gtkProgressBarPointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
-    public val gtkProgressBarPointer: CPointer<GtkProgressBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The preferred place to ellipsize the string.

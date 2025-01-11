@@ -25,30 +25,29 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDBusErrorEntry> = pointer
-
+public class DBusErrorEntry(public val gioDBusErrorEntryPointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioDBusErrorEntryPointer) {
     /**
      * An error code.
      */
     public var errorCode: gint
-        get() = gPointer.pointed.error_code
+        get() = gioDBusErrorEntryPointer.pointed.error_code
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.error_code = value
+            gioDBusErrorEntryPointer.pointed.error_code = value
         }
 
     /**
      * The D-Bus error name to associate with @error_code.
      */
     public var dbusErrorName: String?
-        get() = gPointer.pointed.dbus_error_name?.toKString()
+        get() = gioDBusErrorEntryPointer.pointed.dbus_error_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.dbus_error_name?.let { g_free(it) }
-            gPointer.pointed.dbus_error_name = value?.let { g_strdup(it) }
+            gioDBusErrorEntryPointer.pointed.dbus_error_name?.let { g_free(it) }
+            gioDBusErrorEntryPointer.pointed.dbus_error_name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -71,7 +70,7 @@ public class DBusErrorEntry(pointer: CPointer<GDBusErrorEntry>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GDBusErrorEntry>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioDBusErrorEntryPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusErrorEntry using the provided [AutofreeScope].

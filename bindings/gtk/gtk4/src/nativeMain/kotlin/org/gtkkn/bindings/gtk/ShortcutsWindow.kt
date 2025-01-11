@@ -87,29 +87,26 @@ import kotlin.Unit
  * - method `section-name`: Property has no getter nor setter
  * - method `view-name`: Property has no getter nor setter
  */
-public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
-    Window(pointer.reinterpret()),
+public open class ShortcutsWindow(public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>) :
+    Window(gtkShortcutsWindowPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutsWindowPointer: CPointer<GtkShortcutsWindow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Adds a section to the shortcuts window.
@@ -139,7 +136,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      */
     public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkShortcutsWindowPointer,
             "close",
             onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -151,7 +148,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      * Emits the "close" signal. See [onClose].
      */
     public fun emitClose() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+        g_signal_emit_by_name(gtkShortcutsWindowPointer.reinterpret(), "close")
     }
 
     /**
@@ -166,7 +163,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      */
     public fun onSearch(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkShortcutsWindowPointer,
             "search",
             onSearchFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -178,7 +175,7 @@ public open class ShortcutsWindow(pointer: CPointer<GtkShortcutsWindow>) :
      * Emits the "search" signal. See [onSearch].
      */
     public fun emitSearch() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "search")
+        g_signal_emit_by_name(gtkShortcutsWindowPointer.reinterpret(), "search")
     }
 
     public companion object : TypeCompanion<ShortcutsWindow> {

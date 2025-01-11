@@ -52,12 +52,9 @@ import kotlin.Unit
  * - Return true from your ::query-tooltip handler. This causes the tooltip
  *   to be show. If you return false, it will not be shown.
  */
-public open class Tooltip(pointer: CPointer<GtkTooltip>) :
-    Object(pointer.reinterpret()),
+public open class Tooltip(public val gtkTooltipPointer: CPointer<GtkTooltip>) :
+    Object(gtkTooltipPointer.reinterpret()),
     KGTyped {
-    public val gtkTooltipPointer: CPointer<GtkTooltip>
-        get() = gPointer.reinterpret()
-
     /**
      * Replaces the widget packed into the tooltip with
      * @custom_widget. @custom_widget does not get destroyed when the tooltip goes
@@ -132,7 +129,8 @@ public open class Tooltip(pointer: CPointer<GtkTooltip>) :
      *
      * @param rect a `GdkRectangle`
      */
-    public open fun setTipArea(rect: Rectangle): Unit = gtk_tooltip_set_tip_area(gtkTooltipPointer, rect.gPointer)
+    public open fun setTipArea(rect: Rectangle): Unit =
+        gtk_tooltip_set_tip_area(gtkTooltipPointer, rect.gdkRectanglePointer)
 
     public companion object : TypeCompanion<Tooltip> {
         override val type: GeneratedClassKGType<Tooltip> =

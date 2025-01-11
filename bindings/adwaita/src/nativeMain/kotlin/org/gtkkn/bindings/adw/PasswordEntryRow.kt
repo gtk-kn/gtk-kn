@@ -40,26 +40,23 @@ import org.gtkkn.native.gtk.GtkEditable
  * @since 1.2
  */
 @AdwVersion1_2
-public class PasswordEntryRow(pointer: CPointer<AdwPasswordEntryRow>) :
-    EntryRow(pointer.reinterpret()),
+public class PasswordEntryRow(public val adwPasswordEntryRowPointer: CPointer<AdwPasswordEntryRow>) :
+    EntryRow(adwPasswordEntryRowPointer.reinterpret()),
     KGTyped {
-    public val adwPasswordEntryRowPointer: CPointer<AdwPasswordEntryRow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkEditablePointer: CPointer<GtkEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `AdwPasswordEntryRow`.

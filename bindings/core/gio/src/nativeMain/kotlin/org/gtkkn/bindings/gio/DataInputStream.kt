@@ -62,14 +62,11 @@ import kotlin.Unit
  * - parameter `length`: length: Out parameter is not supported
  * - parameter `length`: length: Out parameter is not supported
  */
-public open class DataInputStream(pointer: CPointer<GDataInputStream>) :
-    BufferedInputStream(pointer.reinterpret()),
+public open class DataInputStream(public val gioDataInputStreamPointer: CPointer<GDataInputStream>) :
+    BufferedInputStream(gioDataInputStreamPointer.reinterpret()),
     KGTyped {
-    public val gioDataInputStreamPointer: CPointer<GDataInputStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The :byte-order property determines the byte ordering that

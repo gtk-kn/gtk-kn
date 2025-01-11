@@ -4,8 +4,9 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.Paintable
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_6
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -36,7 +37,7 @@ import org.gtkkn.native.gtk.gtk_symbolic_paintable_get_type
  */
 @GtkVersion4_6
 public interface SymbolicPaintable :
-    Interface,
+    Proxy,
     Paintable,
     KGTyped {
     public val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>
@@ -44,19 +45,22 @@ public interface SymbolicPaintable :
     override val gdkPaintablePointer: CPointer<GdkPaintable>
         get() = gtkSymbolicPaintablePointer.reinterpret()
 
-    private data class Wrapper(private val pointer: CPointer<GtkSymbolicPaintable>) : SymbolicPaintable {
-        override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable> = pointer
-    }
+    /**
+     * The SymbolicPaintableImpl type represents a native instance of the SymbolicPaintable interface.
+     *
+     * @constructor Creates a new instance of SymbolicPaintable for the provided [CPointer].
+     */
+    public data class SymbolicPaintableImpl(override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>) :
+        Object(gtkSymbolicPaintablePointer.reinterpret()),
+        SymbolicPaintable
 
     public companion object : TypeCompanion<SymbolicPaintable> {
         override val type: GeneratedInterfaceKGType<SymbolicPaintable> =
-            GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_symbolic_paintable_get_type()) { SymbolicPaintableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkSymbolicPaintable>): SymbolicPaintable = Wrapper(pointer)
 
         /**
          * Get the GType of SymbolicPaintable

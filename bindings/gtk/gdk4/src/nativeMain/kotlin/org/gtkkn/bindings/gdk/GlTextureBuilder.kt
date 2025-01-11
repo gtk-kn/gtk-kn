@@ -58,12 +58,9 @@ import kotlin.Boolean
  * @since 4.12
  */
 @GdkVersion4_12
-public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
-    Object(pointer.reinterpret()),
+public open class GlTextureBuilder(public val gdkGlTextureBuilderPointer: CPointer<GdkGLTextureBuilder>) :
+    Object(gdkGlTextureBuilderPointer.reinterpret()),
     KGTyped {
-    public val gdkGlTextureBuilderPointer: CPointer<GdkGLTextureBuilder>
-        get() = gPointer.reinterpret()
-
     /**
      * The context owning the texture.
      *
@@ -79,7 +76,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_context(gdkGlTextureBuilderPointer)?.run {
-            GlContext(this)
+            GlContext.GlContextImpl(this)
         }
 
         /**
@@ -285,7 +282,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         @GdkVersion4_12
-        set(region) = gdk_gl_texture_builder_set_update_region(gdkGlTextureBuilderPointer, region?.gPointer)
+        set(region) = gdk_gl_texture_builder_set_update_region(gdkGlTextureBuilderPointer, region?.cairoRegionPointer)
 
     /**
      * The texture [property@Gdk.GLTextureBuilder:update-region] is an update for.
@@ -302,7 +299,7 @@ public open class GlTextureBuilder(pointer: CPointer<GdkGLTextureBuilder>) :
          * @since 4.12
          */
         get() = gdk_gl_texture_builder_get_update_texture(gdkGlTextureBuilderPointer)?.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
         /**

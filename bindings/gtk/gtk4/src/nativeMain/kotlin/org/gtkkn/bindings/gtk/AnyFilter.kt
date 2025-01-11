@@ -18,17 +18,14 @@ import org.gtkkn.native.gtk.gtk_any_filter_new
  *
  * To add filters to a `GtkAnyFilter`, use [method@Gtk.MultiFilter.append].
  */
-public open class AnyFilter(pointer: CPointer<GtkAnyFilter>) :
-    MultiFilter(pointer.reinterpret()),
+public open class AnyFilter(public val gtkAnyFilterPointer: CPointer<GtkAnyFilter>) :
+    MultiFilter(gtkAnyFilterPointer.reinterpret()),
     KGTyped {
-    public val gtkAnyFilterPointer: CPointer<GtkAnyFilter>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new empty "any" filter.

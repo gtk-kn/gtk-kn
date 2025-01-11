@@ -14,15 +14,19 @@ import org.gtkkn.native.gobject.GType
 /**
  * Represents a value [class@Animation] can animate.
  */
-public open class AnimationTarget(pointer: CPointer<AdwAnimationTarget>) :
-    Object(pointer.reinterpret()),
+public abstract class AnimationTarget(public val adwAnimationTargetPointer: CPointer<AdwAnimationTarget>) :
+    Object(adwAnimationTargetPointer.reinterpret()),
     KGTyped {
-    public val adwAnimationTargetPointer: CPointer<AdwAnimationTarget>
-        get() = gPointer.reinterpret()
+    /**
+     * The AnimationTargetImpl type represents a native instance of the abstract AnimationTarget class.
+     *
+     * @constructor Creates a new instance of AnimationTarget for the provided [CPointer].
+     */
+    public class AnimationTargetImpl(pointer: CPointer<AdwAnimationTarget>) : AnimationTarget(pointer)
 
     public companion object : TypeCompanion<AnimationTarget> {
         override val type: GeneratedClassKGType<AnimationTarget> =
-            GeneratedClassKGType(adw_animation_target_get_type()) { AnimationTarget(it.reinterpret()) }
+            GeneratedClassKGType(adw_animation_target_get_type()) { AnimationTargetImpl(it.reinterpret()) }
 
         init {
             AdwTypeProvider.register()

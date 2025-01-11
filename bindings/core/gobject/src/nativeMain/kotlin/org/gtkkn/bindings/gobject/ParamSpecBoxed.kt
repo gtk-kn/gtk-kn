@@ -8,7 +8,5 @@ import org.gtkkn.native.gobject.GParamSpecBoxed
 /**
  * A #GParamSpec derived structure that contains the meta data for boxed properties.
  */
-public open class ParamSpecBoxed(pointer: CPointer<GParamSpecBoxed>) : ParamSpec(pointer.reinterpret()) {
-    public val gobjectParamSpecBoxedPointer: CPointer<GParamSpecBoxed>
-        get() = gPointer.reinterpret()
-}
+public open class ParamSpecBoxed(public val gobjectParamSpecBoxedPointer: CPointer<GParamSpecBoxed>) :
+    ParamSpec(gobjectParamSpecBoxedPointer.reinterpret())

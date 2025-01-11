@@ -52,20 +52,17 @@ import kotlin.Unit
  * - method `text`: Property has no getter
  * - method `widget`: Property TypeInfo of getter and setter do not match
  */
-public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
-    Widget(pointer.reinterpret()),
+public open class CompletionCell(public val gtksourceCompletionCellPointer: CPointer<GtkSourceCompletionCell>) :
+    Widget(gtksourceCompletionCellPointer.reinterpret()),
     KGTyped {
-    public val gtksourceCompletionCellPointer: CPointer<GtkSourceCompletionCell>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public open val column: CompletionColumn
         get() = gtk_source_completion_cell_get_column(gtksourceCompletionCellPointer).run {
@@ -78,7 +75,7 @@ public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
      * @return a #GtkWidget or null
      */
     public open fun getWidget(): Widget? = gtk_source_completion_cell_get_widget(gtksourceCompletionCellPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     public open fun setGicon(gicon: Icon): Unit =
@@ -102,7 +99,11 @@ public open class CompletionCell(pointer: CPointer<GtkSourceCompletionCell>) :
         gtk_source_completion_cell_set_text(gtksourceCompletionCellPointer, text)
 
     public open fun setTextWithAttributes(text: String, attrs: AttrList): Unit =
-        gtk_source_completion_cell_set_text_with_attributes(gtksourceCompletionCellPointer, text, attrs.gPointer)
+        gtk_source_completion_cell_set_text_with_attributes(
+            gtksourceCompletionCellPointer,
+            text,
+            attrs.pangoAttrListPointer
+        )
 
     public open fun setWidget(child: Widget): Unit =
         gtk_source_completion_cell_set_widget(gtksourceCompletionCellPointer, child.gtkWidgetPointer)

@@ -734,7 +734,7 @@ public object Pango {
         analysis: Analysis? = null,
         attrs: LogAttr,
         attrsLen: gint,
-    ): Unit = pango_default_break(text, length, analysis?.gPointer, attrs.gPointer, attrsLen)
+    ): Unit = pango_default_break(text, length, analysis?.pangoAnalysisPointer, attrs.pangoLogAttrPointer, attrsLen)
 
     /**
      * Converts extents from Pango units to device units.
@@ -761,7 +761,7 @@ public object Pango {
      */
     @PangoVersion1_16
     public fun extentsToPixels(inclusive: Rectangle? = null, nearest: Rectangle? = null): Unit =
-        pango_extents_to_pixels(inclusive?.gPointer, nearest?.gPointer)
+        pango_extents_to_pixels(inclusive?.pangoRectanglePointer, nearest?.pangoRectanglePointer)
 
     /**
      * Searches a string the first character that has a strong
@@ -831,8 +831,8 @@ public object Pango {
         text,
         startIndex,
         length,
-        attrs.gPointer,
-        cachedIter?.gPointer
+        attrs.pangoAttrListPointer,
+        cachedIter?.pangoAttrIteratorPointer
     )!!.run {
         GlibList(this)
     }
@@ -873,8 +873,8 @@ public object Pango {
         text,
         startIndex,
         length,
-        attrs.gPointer,
-        cachedIter?.gPointer
+        attrs.pangoAttrListPointer,
+        cachedIter?.pangoAttrIteratorPointer
     )!!.run {
         GlibList(this)
     }
@@ -928,7 +928,7 @@ public object Pango {
      * @return a `GList`
      *   of `PangoItem` structures in visual order.
      */
-    public fun reorderItems(items: GlibList): GlibList = pango_reorder_items(items.gPointer)!!.run {
+    public fun reorderItems(items: GlibList): GlibList = pango_reorder_items(items.glibListPointer)!!.run {
         GlibList(this)
     }
 
@@ -958,7 +958,7 @@ public object Pango {
      * @param glyphs glyph string in which to store results
      */
     public fun shape(text: String, length: gint, analysis: Analysis, glyphs: GlyphString): Unit =
-        pango_shape(text, length, analysis.gPointer, glyphs.gPointer)
+        pango_shape(text, length, analysis.pangoAnalysisPointer, glyphs.pangoGlyphStringPointer)
 
     /**
      * Convert the characters in @text into glyphs.
@@ -999,7 +999,14 @@ public object Pango {
         paragraphLength: gint,
         analysis: Analysis,
         glyphs: GlyphString,
-    ): Unit = pango_shape_full(itemText, itemLength, paragraphText, paragraphLength, analysis.gPointer, glyphs.gPointer)
+    ): Unit = pango_shape_full(
+        itemText,
+        itemLength,
+        paragraphText,
+        paragraphLength,
+        analysis.pangoAnalysisPointer,
+        glyphs.pangoGlyphStringPointer
+    )
 
     /**
      * Convert the characters in @item into glyphs.
@@ -1033,8 +1040,14 @@ public object Pango {
         logAttrs: LogAttr? = null,
         glyphs: GlyphString,
         flags: ShapeFlags,
-    ): Unit =
-        pango_shape_item(item.gPointer, paragraphText, paragraphLength, logAttrs?.gPointer, glyphs.gPointer, flags.mask)
+    ): Unit = pango_shape_item(
+        item.pangoItemPointer,
+        paragraphText,
+        paragraphLength,
+        logAttrs?.pangoLogAttrPointer,
+        glyphs.pangoGlyphStringPointer,
+        flags.mask
+    )
 
     /**
      * Convert the characters in @text into glyphs.
@@ -1081,8 +1094,8 @@ public object Pango {
         itemLength,
         paragraphText,
         paragraphLength,
-        analysis.gPointer,
-        glyphs.gPointer,
+        analysis.pangoAnalysisPointer,
+        glyphs.pangoGlyphStringPointer,
         flags.mask
     )
 
@@ -1247,10 +1260,10 @@ public val FontsetForeachFuncFunc:
         ->
         userData!!.asStableRef<(fontset: Fontset, font: Font) -> Boolean>().get().invoke(
             fontset!!.run {
-                Fontset(this)
+                Fontset.FontsetImpl(this)
             },
             font!!.run {
-                Font(this)
+                Font.FontImpl(this)
             }
         ).asGBoolean()
     }

@@ -62,19 +62,16 @@ import kotlin.Boolean
  * - method `item-type`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
-    Object(pointer.reinterpret()),
+public open class SortListModel(public val gtkSortListModelPointer: CPointer<GtkSortListModel>) :
+    Object(gtkSortListModelPointer.reinterpret()),
     ListModel,
     SectionModel,
     KGTyped {
-    public val gtkSortListModelPointer: CPointer<GtkSortListModel>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSectionModelPointer: CPointer<GtkSectionModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If the model should sort items incrementally.
@@ -121,7 +118,7 @@ public open class SortListModel(pointer: CPointer<GtkSortListModel>) :
          * @return The model that gets sorted
          */
         get() = gtk_sort_list_model_get_model(gtkSortListModelPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

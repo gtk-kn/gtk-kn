@@ -5,7 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.AppInfo
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -40,7 +40,7 @@ import kotlin.Unit
  * use [method@Gtk.AppChooser.get_app_info].
  */
 public interface AppChooser :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkAppChooserPointer: CPointer<GtkAppChooser>
 
@@ -65,7 +65,7 @@ public interface AppChooser :
      *   currently selected application
      */
     public fun getAppInfo(): AppInfo? = gtk_app_chooser_get_app_info(gtkAppChooserPointer)?.run {
-        AppInfo.wrap(reinterpret())
+        AppInfo.AppInfoImpl(reinterpret())
     }
 
     /**
@@ -82,19 +82,22 @@ public interface AppChooser :
      */
     public fun refresh(): Unit = gtk_app_chooser_refresh(gtkAppChooserPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GtkAppChooser>) : AppChooser {
-        override val gtkAppChooserPointer: CPointer<GtkAppChooser> = pointer
-    }
+    /**
+     * The AppChooserImpl type represents a native instance of the AppChooser interface.
+     *
+     * @constructor Creates a new instance of AppChooser for the provided [CPointer].
+     */
+    public data class AppChooserImpl(override val gtkAppChooserPointer: CPointer<GtkAppChooser>) :
+        Widget(gtkAppChooserPointer.reinterpret()),
+        AppChooser
 
     public companion object : TypeCompanion<AppChooser> {
         override val type: GeneratedInterfaceKGType<AppChooser> =
-            GeneratedInterfaceKGType(gtk_app_chooser_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_app_chooser_get_type()) { AppChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkAppChooser>): AppChooser = Wrapper(pointer)
 
         /**
          * Get the GType of AppChooser

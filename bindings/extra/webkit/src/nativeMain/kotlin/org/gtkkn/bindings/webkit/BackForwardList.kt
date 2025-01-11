@@ -53,12 +53,9 @@ import kotlin.Unit
  * do not change the value of the current item, they just return the requested
  * item or items.
  */
-public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
-    Object(pointer.reinterpret()),
+public class BackForwardList(public val webkitBackForwardListPointer: CPointer<WebKitBackForwardList>) :
+    Object(webkitBackForwardListPointer.reinterpret()),
     KGTyped {
-    public val webkitBackForwardListPointer: CPointer<WebKitBackForwardList>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns the item that precedes the current item.
      *
@@ -169,7 +166,7 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (itemAdded: BackForwardListItem?, itemsRemoved: gpointer?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitBackForwardListPointer,
         "changed",
         onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -185,7 +182,7 @@ public class BackForwardList(pointer: CPointer<WebKitBackForwardList>) :
      */
     public fun emitChanged(itemAdded: BackForwardListItem?, itemsRemoved: gpointer?) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            webkitBackForwardListPointer.reinterpret(),
             "changed",
             itemAdded?.webkitBackForwardListItemPointer,
             itemsRemoved

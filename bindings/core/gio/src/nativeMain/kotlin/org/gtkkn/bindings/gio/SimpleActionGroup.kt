@@ -32,19 +32,16 @@ import kotlin.Unit
  * @since 2.28
  */
 @GioVersion2_28
-public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
-    Object(pointer.reinterpret()),
+public open class SimpleActionGroup(public val gioSimpleActionGroupPointer: CPointer<GSimpleActionGroup>) :
+    Object(gioSimpleActionGroupPointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
-    public val gioSimpleActionGroupPointer: CPointer<GSimpleActionGroup>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioActionMapPointer: CPointer<GActionMap>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new, empty, #GSimpleActionGroup.
@@ -81,7 +78,7 @@ public open class SimpleActionGroup(pointer: CPointer<GSimpleActionGroup>) :
     @GioVersion2_28
     public open fun lookup(actionName: String): Action =
         g_simple_action_group_lookup(gioSimpleActionGroupPointer, actionName)!!.run {
-            Action.wrap(reinterpret())
+            Action.ActionImpl(reinterpret())
         }
 
     /**

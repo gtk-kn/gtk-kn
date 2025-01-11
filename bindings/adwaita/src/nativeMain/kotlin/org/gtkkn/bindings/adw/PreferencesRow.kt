@@ -42,23 +42,20 @@ import kotlin.String
  * rows as they take care of presenting the preference's title while letting you
  * compose the inputs of the preference around it.
  */
-public open class PreferencesRow(pointer: CPointer<AdwPreferencesRow>) :
-    ListBoxRow(pointer.reinterpret()),
+public open class PreferencesRow(public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>) :
+    ListBoxRow(adwPreferencesRowPointer.reinterpret()),
     KGTyped {
-    public val adwPreferencesRowPointer: CPointer<AdwPreferencesRow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The title of the preference represented by this row.

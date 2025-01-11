@@ -97,27 +97,24 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public class SpinRow(pointer: CPointer<AdwSpinRow>) :
-    ActionRow(pointer.reinterpret()),
+public class SpinRow(public val adwSpinRowPointer: CPointer<AdwSpinRow>) :
+    ActionRow(adwSpinRowPointer.reinterpret()),
     Editable,
     KGTyped {
-    public val adwSpinRowPointer: CPointer<AdwSpinRow>
-        get() = gPointer.reinterpret()
-
     override val gtkEditablePointer: CPointer<GtkEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The acceleration rate when you hold down a button or key.
@@ -402,7 +399,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
     @AdwVersion1_4
     public fun onOutput(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwSpinRowPointer,
             "output",
             onOutputFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -422,7 +419,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
     @AdwVersion1_4
     public fun onWrapped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwSpinRowPointer,
             "wrapped",
             onWrappedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -437,7 +434,7 @@ public class SpinRow(pointer: CPointer<AdwSpinRow>) :
      */
     @AdwVersion1_4
     public fun emitWrapped() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrapped")
+        g_signal_emit_by_name(adwSpinRowPointer.reinterpret(), "wrapped")
     }
 
     public companion object : TypeCompanion<SpinRow> {

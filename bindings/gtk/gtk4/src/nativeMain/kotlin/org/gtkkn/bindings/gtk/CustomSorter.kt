@@ -21,12 +21,9 @@ import kotlin.Unit
  * `GtkCustomSorter` is a `GtkSorter` implementation that sorts via a callback
  * function.
  */
-public open class CustomSorter(pointer: CPointer<GtkCustomSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class CustomSorter(public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>) :
+    Sorter(gtkCustomSorterPointer.reinterpret()),
     KGTyped {
-    public val gtkCustomSorterPointer: CPointer<GtkCustomSorter>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkSorter` that works by calling
      * @sort_func to compare items.

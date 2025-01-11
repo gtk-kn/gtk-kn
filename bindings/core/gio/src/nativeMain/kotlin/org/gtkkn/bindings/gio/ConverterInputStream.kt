@@ -20,15 +20,12 @@ import org.gtkkn.native.gobject.GType
  * As of GLib 2.34, `GConverterInputStream` implements
  * [iface@Gio.PollableInputStream].
  */
-public open class ConverterInputStream(pointer: CPointer<GConverterInputStream>) :
-    FilterInputStream(pointer.reinterpret()),
+public open class ConverterInputStream(public val gioConverterInputStreamPointer: CPointer<GConverterInputStream>) :
+    FilterInputStream(gioConverterInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
-    public val gioConverterInputStreamPointer: CPointer<GConverterInputStream>
-        get() = gPointer.reinterpret()
-
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The converter object.
@@ -41,7 +38,7 @@ public open class ConverterInputStream(pointer: CPointer<GConverterInputStream>)
          * @since 2.24
          */
         get() = g_converter_input_stream_get_converter(gioConverterInputStreamPointer)!!.run {
-            Converter.wrap(reinterpret())
+            Converter.ConverterImpl(reinterpret())
         }
 
     /**

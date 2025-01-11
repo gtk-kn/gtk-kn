@@ -233,9 +233,7 @@ import kotlin.collections.List
  * @since 2.66
  */
 @GLibVersion2_66
-public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GUri> = pointer
-
+public class Uri(public val glibUriPointer: CPointer<GUri>) : ProxyInstance(glibUriPointer) {
     /**
      * Gets @uri's authentication parameters, which may contain
      * `%`-encoding, depending on the flags with which @uri was created.
@@ -249,7 +247,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getAuthParams(): String? = g_uri_get_auth_params(gPointer)?.toKString()
+    public fun getAuthParams(): String? = g_uri_get_auth_params(glibUriPointer)?.toKString()
 
     /**
      * Gets @uri's flags set upon construction.
@@ -258,7 +256,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getFlags(): UriFlags = g_uri_get_flags(gPointer).run {
+    public fun getFlags(): UriFlags = g_uri_get_flags(glibUriPointer).run {
         UriFlags(this)
     }
 
@@ -270,7 +268,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getFragment(): String? = g_uri_get_fragment(gPointer)?.toKString()
+    public fun getFragment(): String? = g_uri_get_fragment(glibUriPointer)?.toKString()
 
     /**
      * Gets @uri's host. This will never have `%`-encoded characters,
@@ -287,7 +285,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getHost(): String? = g_uri_get_host(gPointer)?.toKString()
+    public fun getHost(): String? = g_uri_get_host(glibUriPointer)?.toKString()
 
     /**
      * Gets @uri's password, which may contain `%`-encoding, depending on
@@ -298,7 +296,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getPassword(): String? = g_uri_get_password(gPointer)?.toKString()
+    public fun getPassword(): String? = g_uri_get_password(glibUriPointer)?.toKString()
 
     /**
      * Gets @uri's path, which may contain `%`-encoding, depending on the
@@ -308,7 +306,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getPath(): String = g_uri_get_path(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getPath(): String = g_uri_get_path(glibUriPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets @uri's port.
@@ -317,7 +315,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getPort(): gint = g_uri_get_port(gPointer)
+    public fun getPort(): gint = g_uri_get_port(glibUriPointer)
 
     /**
      * Gets @uri's query, which may contain `%`-encoding, depending on the
@@ -330,7 +328,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getQuery(): String? = g_uri_get_query(gPointer)?.toKString()
+    public fun getQuery(): String? = g_uri_get_query(glibUriPointer)?.toKString()
 
     /**
      * Gets @uri's scheme. Note that this will always be all-lowercase,
@@ -340,7 +338,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getScheme(): String = g_uri_get_scheme(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getScheme(): String = g_uri_get_scheme(glibUriPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the ‘username’ component of @uri's userinfo, which may contain
@@ -352,7 +350,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getUser(): String? = g_uri_get_user(gPointer)?.toKString()
+    public fun getUser(): String? = g_uri_get_user(glibUriPointer)?.toKString()
 
     /**
      * Gets @uri's userinfo, which may contain `%`-encoding, depending on
@@ -362,7 +360,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun getUserinfo(): String? = g_uri_get_userinfo(gPointer)?.toKString()
+    public fun getUserinfo(): String? = g_uri_get_userinfo(glibUriPointer)?.toKString()
 
     /**
      * Parses @uri_ref according to @flags and, if it is a
@@ -378,7 +376,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
     @GLibVersion2_66
     public fun parseRelative(uriRef: String, flags: UriFlags): Result<Uri> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_uri_parse_relative(gPointer, uriRef, flags.mask, gError.ptr)?.run {
+        val gResult = g_uri_parse_relative(glibUriPointer, uriRef, flags.mask, gError.ptr)?.run {
             Uri(this)
         }
 
@@ -396,7 +394,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun ref(): Uri = g_uri_ref(gPointer)!!.run {
+    public fun ref(): Uri = g_uri_ref(glibUriPointer)!!.run {
         Uri(this)
     }
 
@@ -420,7 +418,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      */
     @Suppress("POTENTIALLY_NON_REPORTED_ANNOTATION")
     @GLibVersion2_66
-    override fun toString(): String = g_uri_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String = g_uri_to_string(glibUriPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a string representing @uri, subject to the options in
@@ -433,7 +431,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      */
     @GLibVersion2_66
     public fun toStringPartial(flags: UriHideFlags): String =
-        g_uri_to_string_partial(gPointer, flags.mask)?.toKString() ?: error("Expected not null string")
+        g_uri_to_string_partial(glibUriPointer, flags.mask)?.toKString() ?: error("Expected not null string")
 
     /**
      * Atomically decrements the reference count of @uri by one.
@@ -444,7 +442,7 @@ public class Uri(pointer: CPointer<GUri>) : ProxyInstance(pointer) {
      * @since 2.66
      */
     @GLibVersion2_66
-    public fun unref(): Unit = g_uri_unref(gPointer)
+    public fun unref(): Unit = g_uri_unref(glibUriPointer)
 
     public companion object {
         /**

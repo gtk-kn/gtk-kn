@@ -38,15 +38,12 @@ import kotlin.String
 /**
  * An auxiliary class used by [class@ViewStack].
  */
-public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
-    Object(pointer.reinterpret()),
+public class ViewStackPage(public val adwViewStackPagePointer: CPointer<AdwViewStackPage>) :
+    Object(adwViewStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
-    public val adwViewStackPagePointer: CPointer<AdwViewStackPage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The badge number for this page.
@@ -86,7 +83,7 @@ public class ViewStackPage(pointer: CPointer<AdwViewStackPage>) :
          * @return the child to which @self belongs
          */
         get() = adw_view_stack_page_get_child(adwViewStackPagePointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

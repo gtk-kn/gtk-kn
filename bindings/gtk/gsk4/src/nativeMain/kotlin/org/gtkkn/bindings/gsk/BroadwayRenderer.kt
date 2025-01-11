@@ -11,12 +11,9 @@ import org.gtkkn.native.gsk.GskBroadwayRenderer
 import org.gtkkn.native.gsk.gsk_broadway_renderer_get_type
 import org.gtkkn.native.gsk.gsk_broadway_renderer_new
 
-public open class BroadwayRenderer(pointer: CPointer<GskBroadwayRenderer>) :
-    Renderer(pointer.reinterpret()),
+public open class BroadwayRenderer(public val gskBroadwayRendererPointer: CPointer<GskBroadwayRenderer>) :
+    Renderer(gskBroadwayRendererPointer.reinterpret()),
     KGTyped {
-    public val gskBroadwayRendererPointer: CPointer<GskBroadwayRenderer>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new Broadway renderer.
      *

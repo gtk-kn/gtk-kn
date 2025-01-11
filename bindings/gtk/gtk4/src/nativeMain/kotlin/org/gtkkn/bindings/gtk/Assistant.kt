@@ -101,29 +101,26 @@ import kotlin.Unit
  *
  * - method `use-header-bar`: Property has no getter nor setter
  */
-public open class Assistant(pointer: CPointer<GtkAssistant>) :
-    Window(pointer.reinterpret()),
+public open class Assistant(public val gtkAssistantPointer: CPointer<GtkAssistant>) :
+    Window(gtkAssistantPointer.reinterpret()),
     KGTyped {
-    public val gtkAssistantPointer: CPointer<GtkAssistant>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * `GListModel` containing the pages.
@@ -135,7 +132,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
          * @return A list model of the pages.
          */
         get() = gtk_assistant_get_pages(gtkAssistantPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**
@@ -201,7 +198,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      *   if @page_num is out of bounds
      */
     public open fun getNthPage(pageNum: gint): Widget? = gtk_assistant_get_nth_page(gtkAssistantPointer, pageNum)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -406,7 +403,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      */
     public fun onApply(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAssistantPointer,
             "apply",
             onApplyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -418,7 +415,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * Emits the "apply" signal. See [onApply].
      */
     public fun emitApply() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "apply")
+        g_signal_emit_by_name(gtkAssistantPointer.reinterpret(), "apply")
     }
 
     /**
@@ -429,7 +426,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      */
     public fun onCancel(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAssistantPointer,
             "cancel",
             onCancelFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -441,7 +438,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * Emits the "cancel" signal. See [onCancel].
      */
     public fun emitCancel() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cancel")
+        g_signal_emit_by_name(gtkAssistantPointer.reinterpret(), "cancel")
     }
 
     /**
@@ -454,7 +451,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      */
     public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAssistantPointer,
             "close",
             onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -466,7 +463,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * Emits the "close" signal. See [onClose].
      */
     public fun emitClose() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+        g_signal_emit_by_name(gtkAssistantPointer.reinterpret(), "close")
     }
 
     /**
@@ -477,7 +474,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      */
     public fun onEscape(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAssistantPointer,
             "escape",
             onEscapeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -489,7 +486,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * Emits the "escape" signal. See [onEscape].
      */
     public fun emitEscape() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "escape")
+        g_signal_emit_by_name(gtkAssistantPointer.reinterpret(), "escape")
     }
 
     /**
@@ -504,7 +501,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      */
     public fun onPrepare(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (page: Widget) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAssistantPointer,
             "prepare",
             onPrepareFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -518,7 +515,7 @@ public open class Assistant(pointer: CPointer<GtkAssistant>) :
      * @param page the current page
      */
     public fun emitPrepare(page: Widget) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "prepare", page.gtkWidgetPointer)
+        g_signal_emit_by_name(gtkAssistantPointer.reinterpret(), "prepare", page.gtkWidgetPointer)
     }
 
     public companion object : TypeCompanion<Assistant> {
@@ -577,7 +574,7 @@ private val onPrepareFunc: CPointer<CFunction<(CPointer<GtkWidget>) -> Unit>> = 
     ->
     userData.asStableRef<(page: Widget) -> Unit>().get().invoke(
         page!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
     )
 }

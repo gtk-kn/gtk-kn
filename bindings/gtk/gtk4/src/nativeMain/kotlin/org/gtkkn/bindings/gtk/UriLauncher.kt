@@ -51,12 +51,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class UriLauncher(pointer: CPointer<GtkUriLauncher>) :
-    Object(pointer.reinterpret()),
+public open class UriLauncher(public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>) :
+    Object(gtkUriLauncherPointer.reinterpret()),
     KGTyped {
-    public val gtkUriLauncherPointer: CPointer<GtkUriLauncher>
-        get() = gPointer.reinterpret()
-
     /**
      * The uri to launch.
      *

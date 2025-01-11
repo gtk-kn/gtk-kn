@@ -91,29 +91,26 @@ import kotlin.Unit
  * - constructor `new`: Varargs parameter is not supported
  * - constructor `new_with_markup`: Varargs parameter is not supported
  */
-public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class MessageDialog(public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>) :
+    Dialog(gtkMessageDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkMessageDialogPointer: CPointer<GtkMessageDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The `GtkBox` that corresponds to the message area of this dialog.
@@ -134,7 +131,7 @@ public open class MessageDialog(pointer: CPointer<GtkMessageDialog>) :
          *   “message area” in the @message_dialog
          */
         get() = gtk_message_dialog_get_message_area(gtkMessageDialogPointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

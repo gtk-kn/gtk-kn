@@ -60,24 +60,21 @@ import kotlin.Unit
  * `GtkFontButton` has a single CSS node with name fontbutton which
  * contains a button node with the .font style class.
  */
-public open class FontButton(pointer: CPointer<GtkFontButton>) :
-    Widget(pointer.reinterpret()),
+public open class FontButton(public val gtkFontButtonPointer: CPointer<GtkFontButton>) :
+    Widget(gtkFontButtonPointer.reinterpret()),
     FontChooser,
     KGTyped {
-    public val gtkFontButtonPointer: CPointer<GtkFontButton>
-        get() = gPointer.reinterpret()
-
     override val gtkFontChooserPointer: CPointer<GtkFontChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the font chooser dialog should be modal.
@@ -183,7 +180,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
     @GtkVersion4_4
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFontButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -198,7 +195,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
      */
     @GtkVersion4_4
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkFontButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -216,7 +213,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
      */
     public fun onFontSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkFontButtonPointer,
             "font-set",
             onFontSetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -228,7 +225,7 @@ public open class FontButton(pointer: CPointer<GtkFontButton>) :
      * Emits the "font-set" signal. See [onFontSet].
      */
     public fun emitFontSet() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "font-set")
+        g_signal_emit_by_name(gtkFontButtonPointer.reinterpret(), "font-set")
     }
 
     public companion object : TypeCompanion<FontButton> {

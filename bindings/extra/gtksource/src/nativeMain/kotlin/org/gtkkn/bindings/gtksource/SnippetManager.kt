@@ -42,12 +42,9 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
-    Object(pointer.reinterpret()),
+public open class SnippetManager(public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>) :
+    Object(gtksourceSnippetManagerPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSnippetManagerPointer: CPointer<GtkSourceSnippetManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets the list directories where @self looks for snippet files.
      *
@@ -87,7 +84,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
      */
     @GtkSourceVersion5_6
     public open fun listAll(): ListModel = gtk_source_snippet_manager_list_all(gtksourceSnippetManagerPointer)!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**
@@ -128,7 +125,7 @@ public open class SnippetManager(pointer: CPointer<GtkSourceSnippetManager>) :
         languageId,
         triggerPrefix
     )!!.run {
-        ListModel.wrap(reinterpret())
+        ListModel.ListModelImpl(reinterpret())
     }
 
     /**

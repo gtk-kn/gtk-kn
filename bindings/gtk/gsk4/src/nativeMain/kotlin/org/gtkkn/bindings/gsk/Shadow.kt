@@ -23,40 +23,39 @@ import kotlin.native.ref.createCleaner
  *
  * - field `color`: Field with not-pointer record/union GdkRGBA is not supported
  */
-public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GskShadow> = pointer
-
+public class Shadow(public val gskShadowPointer: CPointer<GskShadow>, cleaner: Cleaner? = null) :
+    ProxyInstance(gskShadowPointer) {
     /**
      * the horizontal offset of the shadow
      */
     public var dx: gfloat
-        get() = gPointer.pointed.dx
+        get() = gskShadowPointer.pointed.dx
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.dx = value
+            gskShadowPointer.pointed.dx = value
         }
 
     /**
      * the vertical offset of the shadow
      */
     public var dy: gfloat
-        get() = gPointer.pointed.dy
+        get() = gskShadowPointer.pointed.dy
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.dy = value
+            gskShadowPointer.pointed.dy = value
         }
 
     /**
      * the radius of the shadow
      */
     public var radius: gfloat
-        get() = gPointer.pointed.radius
+        get() = gskShadowPointer.pointed.radius
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.radius = value
+            gskShadowPointer.pointed.radius = value
         }
 
     /**
@@ -77,7 +76,9 @@ public class Shadow(pointer: CPointer<GskShadow>, cleaner: Cleaner? = null) : Pr
      *
      * @param pair A pair containing the pointer to Shadow and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GskShadow>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GskShadow>, Cleaner>,
+    ) : this(gskShadowPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Shadow using the provided [AutofreeScope].

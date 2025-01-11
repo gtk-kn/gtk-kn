@@ -49,15 +49,12 @@ import kotlin.Unit
  * @since 2.30
  */
 @GioVersion2_30
-public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
-    Object(pointer.reinterpret()),
+public open class DBusObjectSkeleton(public val gioDBusObjectSkeletonPointer: CPointer<GDBusObjectSkeleton>) :
+    Object(gioDBusObjectSkeletonPointer.reinterpret()),
     DBusObject,
     KGTyped {
-    public val gioDBusObjectSkeletonPointer: CPointer<GDBusObjectSkeleton>
-        get() = gPointer.reinterpret()
-
     override val gioDBusObjectPointer: CPointer<GDBusObject>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #GDBusObjectSkeleton.
@@ -148,7 +145,7 @@ public open class DBusObjectSkeleton(pointer: CPointer<GDBusObjectSkeleton>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (`interface`: DBusInterfaceSkeleton, invocation: DBusMethodInvocation) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusObjectSkeletonPointer,
         "authorize-method",
         onAuthorizeMethodFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -188,7 +185,7 @@ private val onAuthorizeMethodFunc:
             ) -> Boolean
             >().get().invoke(
             `interface`!!.run {
-                DBusInterfaceSkeleton(this)
+                DBusInterfaceSkeleton.DBusInterfaceSkeletonImpl(this)
             },
             invocation!!.run {
                 DBusMethodInvocation(this)

@@ -125,15 +125,12 @@ import kotlin.collections.List
  * @since 2.40
  */
 @GioVersion2_40
-public open class Subprocess(pointer: CPointer<GSubprocess>) :
-    Object(pointer.reinterpret()),
+public open class Subprocess(public val gioSubprocessPointer: CPointer<GSubprocess>) :
+    Object(gioSubprocessPointer.reinterpret()),
     Initable,
     KGTyped {
-    public val gioSubprocessPointer: CPointer<GSubprocess>
-        get() = gPointer.reinterpret()
-
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Create a new process with the given flags and argument list.
@@ -172,7 +169,7 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
         callback: AsyncReadyCallback?,
     ): Unit = g_subprocess_communicate_async(
         gioSubprocessPointer,
-        stdinBuf?.gPointer,
+        stdinBuf?.glibBytesPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
@@ -304,7 +301,7 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
      */
     @GioVersion2_40
     public open fun getStderrPipe(): InputStream? = g_subprocess_get_stderr_pipe(gioSubprocessPointer)?.run {
-        InputStream(this)
+        InputStream.InputStreamImpl(this)
     }
 
     /**
@@ -319,7 +316,7 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
      */
     @GioVersion2_40
     public open fun getStdinPipe(): OutputStream? = g_subprocess_get_stdin_pipe(gioSubprocessPointer)?.run {
-        OutputStream(this)
+        OutputStream.OutputStreamImpl(this)
     }
 
     /**
@@ -334,7 +331,7 @@ public open class Subprocess(pointer: CPointer<GSubprocess>) :
      */
     @GioVersion2_40
     public open fun getStdoutPipe(): InputStream? = g_subprocess_get_stdout_pipe(gioSubprocessPointer)?.run {
-        InputStream(this)
+        InputStream.InputStreamImpl(this)
     }
 
     /**

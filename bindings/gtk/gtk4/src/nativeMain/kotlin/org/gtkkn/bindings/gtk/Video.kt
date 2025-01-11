@@ -53,20 +53,17 @@ import kotlin.Unit
  * you may want to use the [iface@Gdk.Paintable] API and a media framework
  * such as Gstreamer directly.
  */
-public open class Video(pointer: CPointer<GtkVideo>) :
-    Widget(pointer.reinterpret()),
+public open class Video(public val gtkVideoPointer: CPointer<GtkVideo>) :
+    Widget(gtkVideoPointer.reinterpret()),
     KGTyped {
-    public val gtkVideoPointer: CPointer<GtkVideo>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If the video should automatically begin playing.
@@ -98,7 +95,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          * @return The file played by @self
          */
         get() = gtk_video_get_file(gtkVideoPointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**
@@ -166,7 +163,7 @@ public open class Video(pointer: CPointer<GtkVideo>) :
          * @return The media stream managed by @self
          */
         get() = gtk_video_get_media_stream(gtkVideoPointer)?.run {
-            MediaStream(this)
+            MediaStream.MediaStreamImpl(this)
         }
 
         /**

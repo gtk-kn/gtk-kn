@@ -83,15 +83,12 @@ import kotlin.String
  * @since 2.38
  */
 @GioVersion2_38
-public open class PropertyAction(pointer: CPointer<GPropertyAction>) :
-    Object(pointer.reinterpret()),
+public open class PropertyAction(public val gioPropertyActionPointer: CPointer<GPropertyAction>) :
+    Object(gioPropertyActionPointer.reinterpret()),
     Action,
     KGTyped {
-    public val gioPropertyActionPointer: CPointer<GPropertyAction>
-        get() = gPointer.reinterpret()
-
     override val gioActionPointer: CPointer<GAction>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a #GAction corresponding to the value of property
@@ -114,7 +111,7 @@ public open class PropertyAction(pointer: CPointer<GPropertyAction>) :
         name: String,
         `object`: Object,
         propertyName: String,
-    ) : this(g_property_action_new(name, `object`.gPointer.reinterpret(), propertyName)!!.reinterpret())
+    ) : this(g_property_action_new(name, `object`.gobjectObjectPointer.reinterpret(), propertyName)!!.reinterpret())
 
     public companion object : TypeCompanion<PropertyAction> {
         override val type: GeneratedClassKGType<PropertyAction> =

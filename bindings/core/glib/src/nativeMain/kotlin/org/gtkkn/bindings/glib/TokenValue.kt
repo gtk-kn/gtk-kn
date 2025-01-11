@@ -27,142 +27,141 @@ import kotlin.native.ref.createCleaner
 /**
  * A union holding the value of the token.
  */
-public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTokenValue> = pointer
-
+public class TokenValue(public val glibTokenValuePointer: CPointer<GTokenValue>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibTokenValuePointer) {
     /**
      * token symbol value
      */
     public var vSymbol: gpointer
-        get() = gPointer.pointed.v_symbol!!
+        get() = glibTokenValuePointer.pointed.v_symbol!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_symbol = value
+            glibTokenValuePointer.pointed.v_symbol = value
         }
 
     /**
      * token identifier value
      */
     public var vIdentifier: String?
-        get() = gPointer.pointed.v_identifier?.toKString()
+        get() = glibTokenValuePointer.pointed.v_identifier?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_identifier?.let { g_free(it) }
-            gPointer.pointed.v_identifier = value?.let { g_strdup(it) }
+            glibTokenValuePointer.pointed.v_identifier?.let { g_free(it) }
+            glibTokenValuePointer.pointed.v_identifier = value?.let { g_strdup(it) }
         }
 
     /**
      * token binary integer value
      */
     public var vBinary: gulong
-        get() = gPointer.pointed.v_binary
+        get() = glibTokenValuePointer.pointed.v_binary
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_binary = value
+            glibTokenValuePointer.pointed.v_binary = value
         }
 
     /**
      * octal integer value
      */
     public var vOctal: gulong
-        get() = gPointer.pointed.v_octal
+        get() = glibTokenValuePointer.pointed.v_octal
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_octal = value
+            glibTokenValuePointer.pointed.v_octal = value
         }
 
     /**
      * integer value
      */
     public var vInt: gulong
-        get() = gPointer.pointed.v_int
+        get() = glibTokenValuePointer.pointed.v_int
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_int = value
+            glibTokenValuePointer.pointed.v_int = value
         }
 
     /**
      * 64-bit integer value
      */
     public var vInt64: guint64
-        get() = gPointer.pointed.v_int64
+        get() = glibTokenValuePointer.pointed.v_int64
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_int64 = value
+            glibTokenValuePointer.pointed.v_int64 = value
         }
 
     /**
      * floating point value
      */
     public var vFloat: gdouble
-        get() = gPointer.pointed.v_float
+        get() = glibTokenValuePointer.pointed.v_float
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_float = value
+            glibTokenValuePointer.pointed.v_float = value
         }
 
     /**
      * hex integer value
      */
     public var vHex: gulong
-        get() = gPointer.pointed.v_hex
+        get() = glibTokenValuePointer.pointed.v_hex
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_hex = value
+            glibTokenValuePointer.pointed.v_hex = value
         }
 
     /**
      * string value
      */
     public var vString: String?
-        get() = gPointer.pointed.v_string?.toKString()
+        get() = glibTokenValuePointer.pointed.v_string?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_string?.let { g_free(it) }
-            gPointer.pointed.v_string = value?.let { g_strdup(it) }
+            glibTokenValuePointer.pointed.v_string?.let { g_free(it) }
+            glibTokenValuePointer.pointed.v_string = value?.let { g_strdup(it) }
         }
 
     /**
      * comment value
      */
     public var vComment: String?
-        get() = gPointer.pointed.v_comment?.toKString()
+        get() = glibTokenValuePointer.pointed.v_comment?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_comment?.let { g_free(it) }
-            gPointer.pointed.v_comment = value?.let { g_strdup(it) }
+            glibTokenValuePointer.pointed.v_comment?.let { g_free(it) }
+            glibTokenValuePointer.pointed.v_comment = value?.let { g_strdup(it) }
         }
 
     /**
      * character value
      */
     public var vChar: guint8
-        get() = gPointer.pointed.v_char
+        get() = glibTokenValuePointer.pointed.v_char
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_char = value
+            glibTokenValuePointer.pointed.v_char = value
         }
 
     /**
      * error value
      */
     public var vError: guint
-        get() = gPointer.pointed.v_error
+        get() = glibTokenValuePointer.pointed.v_error
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_error = value
+            glibTokenValuePointer.pointed.v_error = value
         }
 
     /**
@@ -183,7 +182,9 @@ public class TokenValue(pointer: CPointer<GTokenValue>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to TokenValue and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTokenValue>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTokenValue>, Cleaner>,
+    ) : this(glibTokenValuePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TokenValue using the provided [AutofreeScope].

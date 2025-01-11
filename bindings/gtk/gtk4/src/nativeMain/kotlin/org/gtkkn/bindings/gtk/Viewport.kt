@@ -45,24 +45,21 @@ import kotlin.Unit
  *
  * Starting from GTK 4.12, `GtkViewport` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class Viewport(pointer: CPointer<GtkViewport>) :
-    Widget(pointer.reinterpret()),
+public open class Viewport(public val gtkViewportPointer: CPointer<GtkViewport>) :
+    Widget(gtkViewportPointer.reinterpret()),
     Scrollable,
     KGTyped {
-    public val gtkViewportPointer: CPointer<GtkViewport>
-        get() = gPointer.reinterpret()
-
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -74,7 +71,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
          * @return the child widget of @viewport
          */
         get() = gtk_viewport_get_child(gtkViewportPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -136,7 +133,7 @@ public open class Viewport(pointer: CPointer<GtkViewport>) :
      */
     @GtkVersion4_12
     public open fun scrollTo(descendant: Widget, scroll: ScrollInfo? = null): Unit =
-        gtk_viewport_scroll_to(gtkViewportPointer, descendant.gtkWidgetPointer, scroll?.gPointer)
+        gtk_viewport_scroll_to(gtkViewportPointer, descendant.gtkWidgetPointer, scroll?.gtkScrollInfoPointer)
 
     public companion object : TypeCompanion<Viewport> {
         override val type: GeneratedClassKGType<Viewport> =

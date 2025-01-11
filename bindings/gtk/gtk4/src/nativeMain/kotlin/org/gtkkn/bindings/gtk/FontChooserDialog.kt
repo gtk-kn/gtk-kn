@@ -40,33 +40,30 @@ import kotlin.String
  * `GtkFontChooserDialog` has a single CSS node with the name `window` and style
  * class `.fontchooser`.
  */
-public open class FontChooserDialog(pointer: CPointer<GtkFontChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class FontChooserDialog(public val gtkFontChooserDialogPointer: CPointer<GtkFontChooserDialog>) :
+    Dialog(gtkFontChooserDialogPointer.reinterpret()),
     FontChooser,
     KGTyped {
-    public val gtkFontChooserDialogPointer: CPointer<GtkFontChooserDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkFontChooserPointer: CPointer<GtkFontChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkFontChooserDialog`.

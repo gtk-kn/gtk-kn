@@ -80,12 +80,9 @@ import kotlin.Unit
  * - parameter `vectors`: Array parameter of type OutputVector is not supported
  * - parameter `bytes_written`: bytes_written: Out parameter is not supported
  */
-public open class OutputStream(pointer: CPointer<GOutputStream>) :
-    Object(pointer.reinterpret()),
+public abstract class OutputStream(public val gioOutputStreamPointer: CPointer<GOutputStream>) :
+    Object(gioOutputStreamPointer.reinterpret()),
     KGTyped {
-    public val gioOutputStreamPointer: CPointer<GOutputStream>
-        get() = gPointer.reinterpret()
-
     /**
      * Clears the pending flag on @stream.
      */
@@ -417,7 +414,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         val gResult =
             g_output_stream_write_bytes(
                 gioOutputStreamPointer,
-                bytes.gPointer,
+                bytes.glibBytesPointer,
                 cancellable?.gioCancellablePointer,
                 gError.ptr
             )
@@ -456,7 +453,7 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         callback: AsyncReadyCallback?,
     ): Unit = g_output_stream_write_bytes_async(
         gioOutputStreamPointer,
-        bytes.gPointer,
+        bytes.glibBytesPointer,
         ioPriority,
         cancellable?.gioCancellablePointer,
         callback?.let {
@@ -498,9 +495,16 @@ public open class OutputStream(pointer: CPointer<GOutputStream>) :
         }
     }
 
+    /**
+     * The OutputStreamImpl type represents a native instance of the abstract OutputStream class.
+     *
+     * @constructor Creates a new instance of OutputStream for the provided [CPointer].
+     */
+    public class OutputStreamImpl(pointer: CPointer<GOutputStream>) : OutputStream(pointer)
+
     public companion object : TypeCompanion<OutputStream> {
         override val type: GeneratedClassKGType<OutputStream> =
-            GeneratedClassKGType(g_output_stream_get_type()) { OutputStream(it.reinterpret()) }
+            GeneratedClassKGType(g_output_stream_get_type()) { OutputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

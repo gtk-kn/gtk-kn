@@ -40,12 +40,9 @@ import org.gtkkn.native.gtk.gtk_shortcut_set_trigger
  *
  * - constructor `new_with_arguments`: Varargs parameter is not supported
  */
-public open class Shortcut(pointer: CPointer<GtkShortcut>) :
-    Object(pointer.reinterpret()),
+public open class Shortcut(public val gtkShortcutPointer: CPointer<GtkShortcut>) :
+    Object(gtkShortcutPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutPointer: CPointer<GtkShortcut>
-        get() = gPointer.reinterpret()
-
     /**
      * The action that gets activated by this shortcut.
      */
@@ -56,7 +53,7 @@ public open class Shortcut(pointer: CPointer<GtkShortcut>) :
          * @return the action
          */
         get() = gtk_shortcut_get_action(gtkShortcutPointer)?.run {
-            ShortcutAction(this)
+            ShortcutAction.ShortcutActionImpl(this)
         }
 
         /**
@@ -85,7 +82,7 @@ public open class Shortcut(pointer: CPointer<GtkShortcut>) :
          *
          * @param args arguments to pass when activating @self
          */
-        set(args) = gtk_shortcut_set_arguments(gtkShortcutPointer, args?.gPointer)
+        set(args) = gtk_shortcut_set_arguments(gtkShortcutPointer, args?.glibVariantPointer)
 
     /**
      * The trigger that triggers this shortcut.
@@ -97,7 +94,7 @@ public open class Shortcut(pointer: CPointer<GtkShortcut>) :
          * @return the trigger used
          */
         get() = gtk_shortcut_get_trigger(gtkShortcutPointer)?.run {
-            ShortcutTrigger(this)
+            ShortcutTrigger.ShortcutTriggerImpl(this)
         }
 
         /**

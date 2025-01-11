@@ -67,12 +67,9 @@ import kotlin.Unit
  * - constructor `new_typed`: Varargs parameter is not supported
  * - parameter `providers`: Array parameter of type ContentProvider is not supported
  */
-public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
-    Object(pointer.reinterpret()),
+public open class ContentProvider(public val gdkContentProviderPointer: CPointer<GdkContentProvider>) :
+    Object(gdkContentProviderPointer.reinterpret()),
     KGTyped {
-    public val gdkContentProviderPointer: CPointer<GdkContentProvider>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a content provider that provides the given @bytes as data for
      * the given @mime_type.
@@ -84,7 +81,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
     public constructor(
         mimeType: String,
         bytes: Bytes,
-    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.gPointer)!!.reinterpret())
+    ) : this(gdk_content_provider_new_for_bytes(mimeType, bytes.glibBytesPointer)!!.reinterpret())
 
     /**
      * Create a content provider that provides the given @value.
@@ -92,7 +89,9 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      * @param value a `GValue`
      * @return a new `GdkContentProvider`
      */
-    public constructor(`value`: Value) : this(gdk_content_provider_new_for_value(`value`.gPointer)!!.reinterpret())
+    public constructor(
+        `value`: Value,
+    ) : this(gdk_content_provider_new_for_value(`value`.gobjectValuePointer)!!.reinterpret())
 
     /**
      * Emits the ::content-changed signal.
@@ -116,7 +115,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
         val gError = allocPointerTo<GError>()
         val gResult = gdk_content_provider_get_value(
             gdkContentProviderPointer,
-            `value`.gPointer,
+            `value`.gobjectValuePointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -219,7 +218,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      */
     public fun onContentChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkContentProviderPointer,
             "content-changed",
             onContentChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -231,7 +230,7 @@ public open class ContentProvider(pointer: CPointer<GdkContentProvider>) :
      * Emits the "content-changed" signal. See [onContentChanged].
      */
     public fun emitContentChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "content-changed")
+        g_signal_emit_by_name(gdkContentProviderPointer.reinterpret(), "content-changed")
     }
 
     public companion object : TypeCompanion<ContentProvider> {

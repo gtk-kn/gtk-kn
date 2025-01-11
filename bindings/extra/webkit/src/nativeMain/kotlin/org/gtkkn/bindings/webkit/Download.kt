@@ -55,12 +55,9 @@ import kotlin.Unit
  * download process, or to simply figure out what is to be downloaded,
  * and handle the download process itself.
  */
-public class Download(pointer: CPointer<WebKitDownload>) :
-    Object(pointer.reinterpret()),
+public class Download(public val webkitDownloadPointer: CPointer<WebKitDownload>) :
+    Object(webkitDownloadPointer.reinterpret()),
     KGTyped {
-    public val webkitDownloadPointer: CPointer<WebKitDownload>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether or not the download is allowed to overwrite an existing file on
      * disk. If this property is false and the destination already exists,
@@ -232,7 +229,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (destination: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitDownloadPointer,
         "created-destination",
         onCreatedDestinationFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -246,7 +243,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      * @param destination the destination
      */
     public fun emitCreatedDestination(destination: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "created-destination", destination.cstr)
+        g_signal_emit_by_name(webkitDownloadPointer.reinterpret(), "created-destination", destination.cstr)
     }
 
     /**
@@ -270,7 +267,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (suggestedFilename: String) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitDownloadPointer,
         "decide-destination",
         onDecideDestinationFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -291,7 +288,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      */
     public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitDownloadPointer,
             "failed",
             onFailedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -305,7 +302,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      * @param error the #GError that was triggered
      */
     public fun emitFailed(error: Error) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "failed", error.gPointer)
+        g_signal_emit_by_name(webkitDownloadPointer.reinterpret(), "failed", error.glibErrorPointer)
     }
 
     /**
@@ -317,7 +314,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      */
     public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitDownloadPointer,
             "finished",
             onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -329,7 +326,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      * Emits the "finished" signal. See [onFinished].
      */
     public fun emitFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+        g_signal_emit_by_name(webkitDownloadPointer.reinterpret(), "finished")
     }
 
     /**
@@ -344,7 +341,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (dataLength: guint64) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitDownloadPointer,
         "received-data",
         onReceivedDataFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -358,7 +355,7 @@ public class Download(pointer: CPointer<WebKitDownload>) :
      * @param dataLength the length of data received in bytes
      */
     public fun emitReceivedData(dataLength: guint64) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "received-data", dataLength)
+        g_signal_emit_by_name(webkitDownloadPointer.reinterpret(), "received-data", dataLength)
     }
 
     public companion object : TypeCompanion<Download> {

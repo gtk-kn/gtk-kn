@@ -75,74 +75,75 @@ import kotlin.native.ref.createCleaner
  * @since 1.22
  */
 @PangoVersion1_22
-public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoGlyphItemIter> = pointer
-
+public class GlyphItemIter(
+    public val pangoGlyphItemIterPointer: CPointer<PangoGlyphItemIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pangoGlyphItemIterPointer) {
     public var glyphItem: GlyphItem?
-        get() = gPointer.pointed.glyph_item?.run {
+        get() = pangoGlyphItemIterPointer.pointed.glyph_item?.run {
             GlyphItem(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.glyph_item = value?.gPointer
+            pangoGlyphItemIterPointer.pointed.glyph_item = value?.pangoGlyphItemPointer
         }
 
     public var text: String?
-        get() = gPointer.pointed.text?.toKString()
+        get() = pangoGlyphItemIterPointer.pointed.text?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.text?.let { g_free(it) }
-            gPointer.pointed.text = value?.let { g_strdup(it) }
+            pangoGlyphItemIterPointer.pointed.text?.let { g_free(it) }
+            pangoGlyphItemIterPointer.pointed.text = value?.let { g_strdup(it) }
         }
 
     public var startGlyph: gint
-        get() = gPointer.pointed.start_glyph
+        get() = pangoGlyphItemIterPointer.pointed.start_glyph
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start_glyph = value
+            pangoGlyphItemIterPointer.pointed.start_glyph = value
         }
 
     public var startIndex: gint
-        get() = gPointer.pointed.start_index
+        get() = pangoGlyphItemIterPointer.pointed.start_index
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start_index = value
+            pangoGlyphItemIterPointer.pointed.start_index = value
         }
 
     public var startChar: gint
-        get() = gPointer.pointed.start_char
+        get() = pangoGlyphItemIterPointer.pointed.start_char
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start_char = value
+            pangoGlyphItemIterPointer.pointed.start_char = value
         }
 
     public var endGlyph: gint
-        get() = gPointer.pointed.end_glyph
+        get() = pangoGlyphItemIterPointer.pointed.end_glyph
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end_glyph = value
+            pangoGlyphItemIterPointer.pointed.end_glyph = value
         }
 
     public var endIndex: gint
-        get() = gPointer.pointed.end_index
+        get() = pangoGlyphItemIterPointer.pointed.end_index
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end_index = value
+            pangoGlyphItemIterPointer.pointed.end_index = value
         }
 
     public var endChar: gint
-        get() = gPointer.pointed.end_char
+        get() = pangoGlyphItemIterPointer.pointed.end_char
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end_char = value
+            pangoGlyphItemIterPointer.pointed.end_char = value
         }
 
     /**
@@ -165,7 +166,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      */
     private constructor(
         pair: Pair<CPointer<PangoGlyphItemIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoGlyphItemIterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphItemIter using the provided [AutofreeScope].
@@ -254,7 +255,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun copy(): GlyphItemIter? = pango_glyph_item_iter_copy(gPointer)?.run {
+    public fun copy(): GlyphItemIter? = pango_glyph_item_iter_copy(pangoGlyphItemIterPointer)?.run {
         GlyphItemIter(this)
     }
 
@@ -264,7 +265,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun free(): Unit = pango_glyph_item_iter_free(gPointer)
+    public fun free(): Unit = pango_glyph_item_iter_free(pangoGlyphItemIterPointer)
 
     /**
      * Initializes a `PangoGlyphItemIter` structure to point to the
@@ -279,7 +280,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      */
     @PangoVersion1_22
     public fun initEnd(glyphItem: GlyphItem, text: String): Boolean =
-        pango_glyph_item_iter_init_end(gPointer, glyphItem.gPointer, text).asBoolean()
+        pango_glyph_item_iter_init_end(pangoGlyphItemIterPointer, glyphItem.pangoGlyphItemPointer, text).asBoolean()
 
     /**
      * Initializes a `PangoGlyphItemIter` structure to point to the
@@ -294,7 +295,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      */
     @PangoVersion1_22
     public fun initStart(glyphItem: GlyphItem, text: String): Boolean =
-        pango_glyph_item_iter_init_start(gPointer, glyphItem.gPointer, text).asBoolean()
+        pango_glyph_item_iter_init_start(pangoGlyphItemIterPointer, glyphItem.pangoGlyphItemPointer, text).asBoolean()
 
     /**
      * Advances the iterator to the next cluster in the glyph item.
@@ -306,7 +307,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun nextCluster(): Boolean = pango_glyph_item_iter_next_cluster(gPointer).asBoolean()
+    public fun nextCluster(): Boolean = pango_glyph_item_iter_next_cluster(pangoGlyphItemIterPointer).asBoolean()
 
     /**
      * Moves the iterator to the preceding cluster in the glyph item.
@@ -317,7 +318,7 @@ public class GlyphItemIter(pointer: CPointer<PangoGlyphItemIter>, cleaner: Clean
      * @since 1.22
      */
     @PangoVersion1_22
-    public fun prevCluster(): Boolean = pango_glyph_item_iter_prev_cluster(gPointer).asBoolean()
+    public fun prevCluster(): Boolean = pango_glyph_item_iter_prev_cluster(pangoGlyphItemIterPointer).asBoolean()
 
     override fun toString(): String =
         "GlyphItemIter(glyphItem=$glyphItem, text=$text, startGlyph=$startGlyph, startIndex=$startIndex, startChar=$startChar, endGlyph=$endGlyph, endIndex=$endIndex, endChar=$endChar)"

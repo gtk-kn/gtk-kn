@@ -21,19 +21,16 @@ import org.gtkkn.native.gsk.gsk_shadow_node_get_type
  *
  * - parameter `shadows`: Array parameter of type Shadow is not supported
  */
-public open class ShadowNode(pointer: CPointer<GskShadowNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ShadowNode(public val gskShadowNodePointer: CPointer<GskShadowNode>) :
+    RenderNode(gskShadowNodePointer.reinterpret()),
     KGTyped {
-    public val gskShadowNodePointer: CPointer<GskShadowNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Retrieves the child `GskRenderNode` of the shadow @node.
      *
      * @return the child render node
      */
     public open fun getChild(): RenderNode = gsk_shadow_node_get_child(gskShadowNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

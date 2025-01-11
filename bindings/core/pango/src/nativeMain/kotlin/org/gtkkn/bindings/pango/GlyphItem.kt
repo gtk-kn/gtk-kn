@@ -40,33 +40,32 @@ import kotlin.native.ref.createCleaner
  * - parameter `logical_widths`: Array parameter of type gint is not supported
  * - parameter `log_attrs`: Array parameter of type LogAttr is not supported
  */
-public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoGlyphItem> = pointer
-
+public class GlyphItem(public val pangoGlyphItemPointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoGlyphItemPointer) {
     /**
      * corresponding `PangoItem`
      */
     public var item: Item?
-        get() = gPointer.pointed.item?.run {
+        get() = pangoGlyphItemPointer.pointed.item?.run {
             Item(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.item = value?.gPointer
+            pangoGlyphItemPointer.pointed.item = value?.pangoItemPointer
         }
 
     /**
      * corresponding `PangoGlyphString`
      */
     public var glyphs: GlyphString?
-        get() = gPointer.pointed.glyphs?.run {
+        get() = pangoGlyphItemPointer.pointed.glyphs?.run {
             GlyphString(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.glyphs = value?.gPointer
+            pangoGlyphItemPointer.pointed.glyphs = value?.pangoGlyphStringPointer
         }
 
     /**
@@ -74,11 +73,11 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      *   of the containing line. Positive values shift upwards
      */
     public var yOffset: gint
-        get() = gPointer.pointed.y_offset
+        get() = pangoGlyphItemPointer.pointed.y_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y_offset = value
+            pangoGlyphItemPointer.pointed.y_offset = value
         }
 
     /**
@@ -86,11 +85,11 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      *   glyph item. Positive values shift right
      */
     public var startXOffset: gint
-        get() = gPointer.pointed.start_x_offset
+        get() = pangoGlyphItemPointer.pointed.start_x_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start_x_offset = value
+            pangoGlyphItemPointer.pointed.start_x_offset = value
         }
 
     /**
@@ -98,11 +97,11 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      *   glyph item. Positive values shift right
      */
     public var endXOffset: gint
-        get() = gPointer.pointed.end_x_offset
+        get() = pangoGlyphItemPointer.pointed.end_x_offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end_x_offset = value
+            pangoGlyphItemPointer.pointed.end_x_offset = value
         }
 
     /**
@@ -125,7 +124,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoGlyphItem>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoGlyphItemPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new GlyphItem using the provided [AutofreeScope].
@@ -224,7 +223,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     @PangoVersion1_2
     public fun applyAttrs(text: String, list: AttrList): SList =
-        pango_glyph_item_apply_attrs(gPointer, text, list.gPointer)!!.run {
+        pango_glyph_item_apply_attrs(pangoGlyphItemPointer, text, list.pangoAttrListPointer)!!.run {
             SList(this)
         }
 
@@ -235,7 +234,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.20
      */
     @PangoVersion1_20
-    public fun copy(): GlyphItem? = pango_glyph_item_copy(gPointer)?.run {
+    public fun copy(): GlyphItem? = pango_glyph_item_copy(pangoGlyphItemPointer)?.run {
         GlyphItem(this)
     }
 
@@ -245,7 +244,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      * @since 1.6
      */
     @PangoVersion1_6
-    public fun free(): Unit = pango_glyph_item_free(gPointer)
+    public fun free(): Unit = pango_glyph_item_free(pangoGlyphItemPointer)
 
     /**
      * Modifies @orig to cover only the text after @split_index, and
@@ -270,7 +269,7 @@ public class GlyphItem(pointer: CPointer<PangoGlyphItem>, cleaner: Cleaner? = nu
      */
     @PangoVersion1_2
     public fun split(text: String, splitIndex: gint): GlyphItem? =
-        pango_glyph_item_split(gPointer, text, splitIndex)?.run {
+        pango_glyph_item_split(pangoGlyphItemPointer, text, splitIndex)?.run {
             GlyphItem(this)
         }
 

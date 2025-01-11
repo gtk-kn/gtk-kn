@@ -34,12 +34,9 @@ import kotlin.Unit
  * @since 1.12
  */
 @CairoVersion1_12
-public open class Mesh(pointer: CPointer<cairo_pattern_t>) :
-    Pattern(pointer.reinterpret()),
+public open class Mesh(public val cairoMeshPointer: CPointer<cairo_pattern_t>) :
+    Pattern(cairoMeshPointer.reinterpret()),
     KGTyped {
-    public val cairoMeshPointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
     public constructor() : this(cairo_pattern_create_mesh()!!.reinterpret())
 
     public open fun beginPatch(): Unit = cairo_mesh_pattern_begin_patch(cairoMeshPointer)

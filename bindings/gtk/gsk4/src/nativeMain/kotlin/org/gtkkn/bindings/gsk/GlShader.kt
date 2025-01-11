@@ -171,12 +171,9 @@ import kotlin.Unit
  * - method `format_args`: Varargs parameter is not supported
  * - parameter `uniforms`: va_list type is not supported
  */
-public open class GlShader(pointer: CPointer<GskGLShader>) :
-    Object(pointer.reinterpret()),
+public open class GlShader(public val gskGlShaderPointer: CPointer<GskGLShader>) :
+    Object(gskGlShaderPointer.reinterpret()),
     KGTyped {
-    public val gskGlShaderPointer: CPointer<GskGLShader>
-        get() = gPointer.reinterpret()
-
     /**
      * Resource containing the source code for the shader.
      *
@@ -208,7 +205,9 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @param sourcecode GLSL sourcecode for the shader, as a `GBytes`
      * @return A new `GskGLShader`
      */
-    public constructor(sourcecode: Bytes) : this(gsk_gl_shader_new_from_bytes(sourcecode.gPointer)!!.reinterpret())
+    public constructor(
+        sourcecode: Bytes,
+    ) : this(gsk_gl_shader_new_from_bytes(sourcecode.glibBytesPointer)!!.reinterpret())
 
     /**
      * Creates a `GskGLShader` that will render pixels using the specified code.
@@ -265,7 +264,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @return The value
      */
     public open fun getArgBool(args: Bytes, idx: gint): Boolean =
-        gsk_gl_shader_get_arg_bool(gskGlShaderPointer, args.gPointer, idx).asBoolean()
+        gsk_gl_shader_get_arg_bool(gskGlShaderPointer, args.glibBytesPointer, idx).asBoolean()
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -277,7 +276,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @return The value
      */
     public open fun getArgFloat(args: Bytes, idx: gint): gfloat =
-        gsk_gl_shader_get_arg_float(gskGlShaderPointer, args.gPointer, idx)
+        gsk_gl_shader_get_arg_float(gskGlShaderPointer, args.glibBytesPointer, idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -289,7 +288,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @return The value
      */
     public open fun getArgInt(args: Bytes, idx: gint): gint =
-        gsk_gl_shader_get_arg_int(gskGlShaderPointer, args.gPointer, idx)
+        gsk_gl_shader_get_arg_int(gskGlShaderPointer, args.glibBytesPointer, idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -301,7 +300,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @return The value
      */
     public open fun getArgUint(args: Bytes, idx: gint): guint =
-        gsk_gl_shader_get_arg_uint(gskGlShaderPointer, args.gPointer, idx)
+        gsk_gl_shader_get_arg_uint(gskGlShaderPointer, args.glibBytesPointer, idx)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -313,7 +312,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @param outValue location to store the uniform value in
      */
     public open fun getArgVec2(args: Bytes, idx: gint, outValue: Vec2): Unit =
-        gsk_gl_shader_get_arg_vec2(gskGlShaderPointer, args.gPointer, idx, outValue.gPointer)
+        gsk_gl_shader_get_arg_vec2(gskGlShaderPointer, args.glibBytesPointer, idx, outValue.grapheneVec2Pointer)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -325,7 +324,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @param outValue location to store the uniform value in
      */
     public open fun getArgVec3(args: Bytes, idx: gint, outValue: Vec3): Unit =
-        gsk_gl_shader_get_arg_vec3(gskGlShaderPointer, args.gPointer, idx, outValue.gPointer)
+        gsk_gl_shader_get_arg_vec3(gskGlShaderPointer, args.glibBytesPointer, idx, outValue.grapheneVec3Pointer)
 
     /**
      * Gets the value of the uniform @idx in the @args block.
@@ -337,7 +336,7 @@ public open class GlShader(pointer: CPointer<GskGLShader>) :
      * @param outValue location to store set the uniform value in
      */
     public open fun getArgVec4(args: Bytes, idx: gint, outValue: Vec4): Unit =
-        gsk_gl_shader_get_arg_vec4(gskGlShaderPointer, args.gPointer, idx, outValue.gPointer)
+        gsk_gl_shader_get_arg_vec4(gskGlShaderPointer, args.glibBytesPointer, idx, outValue.grapheneVec4Pointer)
 
     /**
      * Get the size of the data block used to specify arguments for this shader.

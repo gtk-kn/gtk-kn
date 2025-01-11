@@ -23,9 +23,10 @@ import kotlin.native.ref.createCleaner
  *
  * Ignore all its fields and initialize the iter with [method@Region.get_start_region_iter].
  */
-public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkSourceRegionIter> = pointer
-
+public class RegionIter(
+    public val gtksourceRegionIterPointer: CPointer<GtkSourceRegionIter>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gtksourceRegionIterPointer) {
     /**
      * Allocate a new RegionIter.
      *
@@ -46,7 +47,7 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GtkSourceRegionIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gtksourceRegionIterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RegionIter using the provided [AutofreeScope].
@@ -65,15 +66,18 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * @return true if @start and @end have been set successfully (if non-null),
      *   or false if @iter is the end iterator or if the region is empty.
      */
-    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean =
-        gtk_source_region_iter_get_subregion(gPointer, start?.gPointer, end?.gPointer).asBoolean()
+    public fun getSubregion(start: TextIter?, end: TextIter?): Boolean = gtk_source_region_iter_get_subregion(
+        gtksourceRegionIterPointer,
+        start?.gtkTextIterPointer,
+        end?.gtkTextIterPointer
+    ).asBoolean()
 
     /**
      *
      *
      * @return whether @iter is the end iterator.
      */
-    public fun isEnd(): Boolean = gtk_source_region_iter_is_end(gPointer).asBoolean()
+    public fun isEnd(): Boolean = gtk_source_region_iter_is_end(gtksourceRegionIterPointer).asBoolean()
 
     /**
      * Moves @iter to the next subregion.
@@ -81,5 +85,5 @@ public class RegionIter(pointer: CPointer<GtkSourceRegionIter>, cleaner: Cleaner
      * @return true if @iter moved and is dereferenceable, or false if @iter has
      *   been set to the end iterator.
      */
-    public fun next(): Boolean = gtk_source_region_iter_next(gPointer).asBoolean()
+    public fun next(): Boolean = gtk_source_region_iter_next(gtksourceRegionIterPointer).asBoolean()
 }

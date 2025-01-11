@@ -26,19 +26,18 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrString(pointer: CPointer<PangoAttrString>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrString> = pointer
-
+public class AttrString(public val pangoAttrStringPointer: CPointer<PangoAttrString>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrStringPointer) {
     /**
      * the string which is the value of the attribute
      */
     public var `value`: String?
-        get() = gPointer.pointed.value?.toKString()
+        get() = pangoAttrStringPointer.pointed.value?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value?.let { g_free(it) }
-            gPointer.pointed.value = value?.let { g_strdup(it) }
+            pangoAttrStringPointer.pointed.value?.let { g_free(it) }
+            pangoAttrStringPointer.pointed.value = value?.let { g_strdup(it) }
         }
 
     /**
@@ -61,7 +60,7 @@ public class AttrString(pointer: CPointer<PangoAttrString>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrString>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrStringPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrString using the provided [AutofreeScope].

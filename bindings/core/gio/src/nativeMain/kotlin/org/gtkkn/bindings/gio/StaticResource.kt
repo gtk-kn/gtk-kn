@@ -21,9 +21,8 @@ import kotlin.native.ref.createCleaner
  * #GStaticResource is an opaque data structure and can only be accessed
  * using the following functions.
  */
-public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GStaticResource> = pointer
-
+public class StaticResource(public val gioStaticResourcePointer: CPointer<GStaticResource>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioStaticResourcePointer) {
     /**
      * Allocate a new StaticResource.
      *
@@ -44,7 +43,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GStaticResource>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioStaticResourcePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new StaticResource using the provided [AutofreeScope].
@@ -65,7 +64,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun fini(): Unit = g_static_resource_fini(gPointer)
+    public fun fini(): Unit = g_static_resource_fini(gioStaticResourcePointer)
 
     /**
      * Gets the GResource that was registered by a call to g_static_resource_init().
@@ -78,7 +77,7 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun getResource(): Resource = g_static_resource_get_resource(gPointer)!!.run {
+    public fun getResource(): Resource = g_static_resource_get_resource(gioStaticResourcePointer)!!.run {
         Resource(this)
     }
 
@@ -93,5 +92,5 @@ public class StaticResource(pointer: CPointer<GStaticResource>, cleaner: Cleaner
      * @since 2.32
      */
     @GioVersion2_32
-    public fun `init`(): Unit = g_static_resource_init(gPointer)
+    public fun `init`(): Unit = g_static_resource_init(gioStaticResourcePointer)
 }

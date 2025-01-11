@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_72
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -40,7 +41,7 @@ import kotlin.Unit
  */
 @GioVersion2_72
 public interface DebugController :
-    Interface,
+    Proxy,
     Initable,
     KGTyped {
     public val gioDebugControllerPointer: CPointer<GDebugController>
@@ -92,19 +93,22 @@ public interface DebugController :
     public fun setDebugEnabled(debugEnabled: Boolean): Unit =
         g_debug_controller_set_debug_enabled(gioDebugControllerPointer, debugEnabled.asGBoolean())
 
-    private data class Wrapper(private val pointer: CPointer<GDebugController>) : DebugController {
-        override val gioDebugControllerPointer: CPointer<GDebugController> = pointer
-    }
+    /**
+     * The DebugControllerImpl type represents a native instance of the DebugController interface.
+     *
+     * @constructor Creates a new instance of DebugController for the provided [CPointer].
+     */
+    public data class DebugControllerImpl(override val gioDebugControllerPointer: CPointer<GDebugController>) :
+        Object(gioDebugControllerPointer.reinterpret()),
+        DebugController
 
     public companion object : TypeCompanion<DebugController> {
         override val type: GeneratedInterfaceKGType<DebugController> =
-            GeneratedInterfaceKGType(g_debug_controller_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_debug_controller_get_type()) { DebugControllerImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDebugController>): DebugController = Wrapper(pointer)
 
         /**
          * Get the GType of DebugController

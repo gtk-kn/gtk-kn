@@ -99,12 +99,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketClient(pointer: CPointer<GSocketClient>) :
-    Object(pointer.reinterpret()),
+public open class SocketClient(public val gioSocketClientPointer: CPointer<GSocketClient>) :
+    Object(gioSocketClientPointer.reinterpret()),
     KGTyped {
-    public val gioSocketClientPointer: CPointer<GSocketClient>
-        get() = gPointer.reinterpret()
-
     /**
      * Enable proxy support.
      *
@@ -185,7 +182,7 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
          * @since 2.22
          */
         get() = g_socket_client_get_local_address(gioSocketClientPointer)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         /**
@@ -833,7 +830,7 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
     @GioVersion2_36
     public open fun getProxyResolver(): ProxyResolver =
         g_socket_client_get_proxy_resolver(gioSocketClientPointer)!!.run {
-            ProxyResolver.wrap(reinterpret())
+            ProxyResolver.ProxyResolverImpl(reinterpret())
         }
 
     /**
@@ -945,7 +942,7 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
             connection: IoStream?,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioSocketClientPointer,
         "event",
         onEventFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -964,7 +961,7 @@ public open class SocketClient(pointer: CPointer<GSocketClient>) :
     @GioVersion2_32
     public fun emitEvent(event: SocketClientEvent, connectable: SocketConnectable, connection: IoStream?) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gioSocketClientPointer.reinterpret(),
             "event",
             event.nativeValue,
             connectable.gioSocketConnectablePointer,
@@ -1015,10 +1012,10 @@ private val onEventFunc: CPointer<
             SocketClientEvent.fromNativeValue(this)
         },
         connectable!!.run {
-            SocketConnectable.wrap(reinterpret())
+            SocketConnectable.SocketConnectableImpl(reinterpret())
         },
         connection?.run {
-            IoStream(this)
+            IoStream.IoStreamImpl(this)
         }
     )
 }

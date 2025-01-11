@@ -72,15 +72,12 @@ import kotlin.Unit
  * To track errors while loading CSS, connect to the
  * [signal@Gtk.CssProvider::parsing-error] signal.
  */
-public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
-    Object(pointer.reinterpret()),
+public open class CssProvider(public val gtkCssProviderPointer: CPointer<GtkCssProvider>) :
+    Object(gtkCssProviderPointer.reinterpret()),
     StyleProvider,
     KGTyped {
-    public val gtkCssProviderPointer: CPointer<GtkCssProvider>
-        get() = gPointer.reinterpret()
-
     override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Returns a newly created `GtkCssProvider`.
@@ -99,7 +96,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      */
     @GtkVersion4_12
     public open fun loadFromBytes(`data`: Bytes): Unit =
-        gtk_css_provider_load_from_bytes(gtkCssProviderPointer, `data`.gPointer)
+        gtk_css_provider_load_from_bytes(gtkCssProviderPointer, `data`.glibBytesPointer)
 
     /**
      * Loads @data into @css_provider.
@@ -204,7 +201,7 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (section: CssSection, error: Error) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkCssProviderPointer,
         "parsing-error",
         onParsingErrorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -219,7 +216,12 @@ public open class CssProvider(pointer: CPointer<GtkCssProvider>) :
      * @param error The parsing error
      */
     public fun emitParsingError(section: CssSection, error: Error) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "parsing-error", section.gPointer, error.gPointer)
+        g_signal_emit_by_name(
+            gtkCssProviderPointer.reinterpret(),
+            "parsing-error",
+            section.gtkCssSectionPointer,
+            error.glibErrorPointer
+        )
     }
 
     public companion object : TypeCompanion<CssProvider> {

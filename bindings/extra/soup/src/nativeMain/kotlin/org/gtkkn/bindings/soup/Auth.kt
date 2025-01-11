@@ -50,12 +50,9 @@ import kotlin.Unit
  * - method `is-cancelled`: Property has no getter nor setter
  * - method `is-for-proxy`: Property has no getter nor setter
  */
-public open class Auth(pointer: CPointer<SoupAuth>) :
-    Object(pointer.reinterpret()),
+public abstract class Auth(public val soupAuthPointer: CPointer<SoupAuth>) :
+    Object(soupAuthPointer.reinterpret()),
     KGTyped {
-    public val soupAuthPointer: CPointer<SoupAuth>
-        get() = gPointer.reinterpret()
-
     /**
      * The authority (host:port) being authenticated to.
      */
@@ -148,7 +145,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      * @param space the return value from [method@Auth.get_protection_space]
      */
     public open fun freeProtectionSpace(space: SList): Unit =
-        soup_auth_free_protection_space(soupAuthPointer, space.gPointer)
+        soup_auth_free_protection_space(soupAuthPointer, space.glibSListPointer)
 
     /**
      * Generates an appropriate "Authorization" header for @msg.
@@ -189,7 +186,7 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
      *   paths, which can be freed with [method@Auth.free_protection_space].
      */
     public open fun getProtectionSpace(sourceUri: Uri): SList =
-        soup_auth_get_protection_space(soupAuthPointer, sourceUri.gPointer)!!.run {
+        soup_auth_get_protection_space(soupAuthPointer, sourceUri.glibUriPointer)!!.run {
             SList(this)
         }
 
@@ -243,9 +240,16 @@ public open class Auth(pointer: CPointer<SoupAuth>) :
     public open fun update(msg: Message, authHeader: String): Boolean =
         soup_auth_update(soupAuthPointer, msg.soupMessagePointer, authHeader).asBoolean()
 
+    /**
+     * The AuthImpl type represents a native instance of the abstract Auth class.
+     *
+     * @constructor Creates a new instance of Auth for the provided [CPointer].
+     */
+    public class AuthImpl(pointer: CPointer<SoupAuth>) : Auth(pointer)
+
     public companion object : TypeCompanion<Auth> {
         override val type: GeneratedClassKGType<Auth> =
-            GeneratedClassKGType(soup_auth_get_type()) { Auth(it.reinterpret()) }
+            GeneratedClassKGType(soup_auth_get_type()) { AuthImpl(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

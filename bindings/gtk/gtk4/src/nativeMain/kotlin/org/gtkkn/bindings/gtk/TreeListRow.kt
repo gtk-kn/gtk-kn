@@ -42,12 +42,9 @@ import kotlin.Boolean
  *
  * - method `expandable`: Property has no getter nor setter
  */
-public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
-    Object(pointer.reinterpret()),
+public open class TreeListRow(public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>) :
+    Object(gtkTreeListRowPointer.reinterpret()),
     KGTyped {
-    public val gtkTreeListRowPointer: CPointer<GtkTreeListRow>
-        get() = gPointer.reinterpret()
-
     /**
      * The model holding the row's children.
      */
@@ -63,7 +60,7 @@ public open class TreeListRow(pointer: CPointer<GtkTreeListRow>) :
          * @return The model containing the children
          */
         get() = gtk_tree_list_row_get_children(gtkTreeListRowPointer)?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**

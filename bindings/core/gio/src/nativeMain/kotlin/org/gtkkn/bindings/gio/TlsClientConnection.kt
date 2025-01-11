@@ -12,7 +12,7 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.gio.annotations.GioVersion2_46
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -47,7 +47,7 @@ import kotlin.Unit
  */
 @GioVersion2_28
 public interface TlsClientConnection :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection>
 
@@ -235,7 +235,7 @@ public interface TlsClientConnection :
     @GioVersion2_28
     public fun getServerIdentity(): SocketConnectable? =
         g_tls_client_connection_get_server_identity(gioTlsClientConnectionPointer)?.run {
-            SocketConnectable.wrap(reinterpret())
+            SocketConnectable.SocketConnectableImpl(reinterpret())
         }
 
     /**
@@ -312,19 +312,25 @@ public interface TlsClientConnection :
     public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
         g_tls_client_connection_set_validation_flags(gioTlsClientConnectionPointer, flags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GTlsClientConnection>) : TlsClientConnection {
-        override val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection> = pointer
-    }
+    /**
+     * The TlsClientConnectionImpl type represents a native instance of the TlsClientConnection interface.
+     *
+     * @constructor Creates a new instance of TlsClientConnection for the provided [CPointer].
+     */
+    public data class TlsClientConnectionImpl(
+        override val gioTlsClientConnectionPointer: CPointer<GTlsClientConnection>,
+    ) : TlsConnection(gioTlsClientConnectionPointer.reinterpret()),
+        TlsClientConnection
 
     public companion object : TypeCompanion<TlsClientConnection> {
         override val type: GeneratedInterfaceKGType<TlsClientConnection> =
-            GeneratedInterfaceKGType(g_tls_client_connection_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_tls_client_connection_get_type()) {
+                TlsClientConnectionImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GTlsClientConnection>): TlsClientConnection = Wrapper(pointer)
 
         /**
          * Creates a new #GTlsClientConnection wrapping @base_io_stream (which
@@ -350,7 +356,7 @@ public interface TlsClientConnection :
                     serverIdentity?.gioSocketConnectablePointer,
                     gError.ptr
                 )?.run {
-                    TlsClientConnection.wrap(reinterpret())
+                    TlsClientConnectionImpl(reinterpret())
                 }
 
                 return if (gError.pointed != null) {

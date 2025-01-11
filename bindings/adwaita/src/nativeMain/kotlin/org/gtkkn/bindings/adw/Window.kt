@@ -104,29 +104,26 @@ import kotlin.Unit
  * minimum size, and [property@Gtk.Widget:width-request] and
  * [property@Gtk.Widget:height-request] properties must be set manually.
  */
-public open class Window(pointer: CPointer<AdwWindow>) :
-    org.gtkkn.bindings.gtk.Window(pointer.reinterpret()),
+public open class Window(public val adwWindowPointer: CPointer<AdwWindow>) :
+    org.gtkkn.bindings.gtk.Window(adwWindowPointer.reinterpret()),
     KGTyped {
-    public val adwWindowPointer: CPointer<AdwWindow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The content widget.
@@ -142,7 +139,7 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          * @return the content widget of @self
          */
         get() = adw_window_get_content(adwWindowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -187,7 +184,7 @@ public open class Window(pointer: CPointer<AdwWindow>) :
          * @since 1.5
          */
         get() = adw_window_get_dialogs(adwWindowPointer)!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
     /**

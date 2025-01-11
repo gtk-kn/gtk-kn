@@ -3,9 +3,10 @@ package org.gtkkn.bindings.gtk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_10
 import org.gtkkn.bindings.gtk.annotations.GtkVersion4_14
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -68,7 +69,7 @@ import kotlin.Unit
  * - parameter `states`: Array parameter of type AccessibleState is not supported
  */
 public interface Accessible :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkAccessiblePointer: CPointer<GtkAccessible>
 
@@ -116,7 +117,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getAccessibleParent(): Accessible? = gtk_accessible_get_accessible_parent(gtkAccessiblePointer)?.run {
-        Accessible.wrap(reinterpret())
+        AccessibleImpl(reinterpret())
     }
 
     /**
@@ -136,7 +137,7 @@ public interface Accessible :
      */
     @GtkVersion4_10
     public fun getAtContext(): AtContext = gtk_accessible_get_at_context(gtkAccessiblePointer)!!.run {
-        AtContext(this)
+        AtContext.AtContextImpl(this)
     }
 
     /**
@@ -148,7 +149,7 @@ public interface Accessible :
     @GtkVersion4_10
     public fun getFirstAccessibleChild(): Accessible? =
         gtk_accessible_get_first_accessible_child(gtkAccessiblePointer)?.run {
-            Accessible.wrap(reinterpret())
+            AccessibleImpl(reinterpret())
         }
 
     /**
@@ -160,7 +161,7 @@ public interface Accessible :
     @GtkVersion4_10
     public fun getNextAccessibleSibling(): Accessible? =
         gtk_accessible_get_next_accessible_sibling(gtkAccessiblePointer)?.run {
-            Accessible.wrap(reinterpret())
+            AccessibleImpl(reinterpret())
         }
 
     /**
@@ -240,19 +241,22 @@ public interface Accessible :
     public fun updateNextAccessibleSibling(newSibling: Accessible? = null): Unit =
         gtk_accessible_update_next_accessible_sibling(gtkAccessiblePointer, newSibling?.gtkAccessiblePointer)
 
-    private data class Wrapper(private val pointer: CPointer<GtkAccessible>) : Accessible {
-        override val gtkAccessiblePointer: CPointer<GtkAccessible> = pointer
-    }
+    /**
+     * The AccessibleImpl type represents a native instance of the Accessible interface.
+     *
+     * @constructor Creates a new instance of Accessible for the provided [CPointer].
+     */
+    public data class AccessibleImpl(override val gtkAccessiblePointer: CPointer<GtkAccessible>) :
+        Object(gtkAccessiblePointer.reinterpret()),
+        Accessible
 
     public companion object : TypeCompanion<Accessible> {
         override val type: GeneratedInterfaceKGType<Accessible> =
-            GeneratedInterfaceKGType(gtk_accessible_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_accessible_get_type()) { AccessibleImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkAccessible>): Accessible = Wrapper(pointer)
 
         /**
          * Get the GType of Accessible

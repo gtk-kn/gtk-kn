@@ -68,12 +68,9 @@ import kotlin.collections.List
  * @since 2.40
  */
 @GioVersion2_40
-public open class SubprocessLauncher(pointer: CPointer<GSubprocessLauncher>) :
-    Object(pointer.reinterpret()),
+public open class SubprocessLauncher(public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>) :
+    Object(gioSubprocessLauncherPointer.reinterpret()),
     KGTyped {
-    public val gioSubprocessLauncherPointer: CPointer<GSubprocessLauncher>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GSubprocessLauncher.
      *

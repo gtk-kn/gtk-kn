@@ -38,12 +38,9 @@ import kotlin.Boolean
  *
  * - method `is-showing`: Property has no getter nor setter
  */
-public open class MountOperation(pointer: CPointer<GtkMountOperation>) :
-    org.gtkkn.bindings.gio.MountOperation(pointer.reinterpret()),
+public open class MountOperation(public val gtkMountOperationPointer: CPointer<GtkMountOperation>) :
+    org.gtkkn.bindings.gio.MountOperation(gtkMountOperationPointer.reinterpret()),
     KGTyped {
-    public val gtkMountOperationPointer: CPointer<GtkMountOperation>
-        get() = gPointer.reinterpret()
-
     /**
      * The display where dialogs will be shown.
      */

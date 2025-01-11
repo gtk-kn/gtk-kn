@@ -78,12 +78,9 @@ import kotlin.Unit
  *
  * - method `default-display`: Property TypeInfo of getter and setter do not match
  */
-public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
-    Object(pointer.reinterpret()),
+public open class DisplayManager(public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>) :
+    Object(gdkDisplayManagerPointer.reinterpret()),
     KGTyped {
-    public val gdkDisplayManagerPointer: CPointer<GdkDisplayManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets the default `GdkDisplay`.
      *
@@ -134,7 +131,7 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (display: Display) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkDisplayManagerPointer,
         "display-opened",
         onDisplayOpenedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -148,7 +145,7 @@ public open class DisplayManager(pointer: CPointer<GdkDisplayManager>) :
      * @param display the opened display
      */
     public fun emitDisplayOpened(display: Display) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "display-opened", display.gdkDisplayPointer)
+        g_signal_emit_by_name(gdkDisplayManagerPointer.reinterpret(), "display-opened", display.gdkDisplayPointer)
     }
 
     public companion object : TypeCompanion<DisplayManager> {

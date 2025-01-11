@@ -78,20 +78,17 @@ import kotlin.String
  *
  * `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public class ButtonContent(pointer: CPointer<AdwButtonContent>) :
-    Widget(pointer.reinterpret()),
+public class ButtonContent(public val adwButtonContentPointer: CPointer<AdwButtonContent>) :
+    Widget(adwButtonContentPointer.reinterpret()),
     KGTyped {
-    public val adwButtonContentPointer: CPointer<AdwButtonContent>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the button can be smaller than the natural size of its contents.

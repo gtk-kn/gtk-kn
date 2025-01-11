@@ -42,22 +42,21 @@ import kotlin.Unit
  * being loaded. You can connect to different [class@Message] signals to get the
  * final result of every value.
  */
-public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<SoupMessageMetrics> = pointer
-
+public class MessageMetrics(public val soupMessageMetricsPointer: CPointer<SoupMessageMetrics>) :
+    ProxyInstance(soupMessageMetricsPointer) {
     /**
      * Copies @metrics.
      *
      * @return a copy of @metrics
      */
-    public fun copy(): MessageMetrics = soup_message_metrics_copy(gPointer)!!.run {
+    public fun copy(): MessageMetrics = soup_message_metrics_copy(soupMessageMetricsPointer)!!.run {
         MessageMetrics(this)
     }
 
     /**
      * Frees @metrics.
      */
-    public fun free(): Unit = soup_message_metrics_free(gPointer)
+    public fun free(): Unit = soup_message_metrics_free(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately after the [class@Message] completed the
@@ -70,7 +69,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the connection end time
      */
-    public fun getConnectEnd(): guint64 = soup_message_metrics_get_connect_end(gPointer)
+    public fun getConnectEnd(): guint64 = soup_message_metrics_get_connect_end(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately before the [class@Message] started to
@@ -82,7 +81,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the connection start time
      */
-    public fun getConnectStart(): guint64 = soup_message_metrics_get_connect_start(gPointer)
+    public fun getConnectStart(): guint64 = soup_message_metrics_get_connect_start(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately after the [class@Message] completed the
@@ -94,7 +93,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the domain lookup end time
      */
-    public fun getDnsEnd(): guint64 = soup_message_metrics_get_dns_end(gPointer)
+    public fun getDnsEnd(): guint64 = soup_message_metrics_get_dns_end(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately before the [class@Message] started the
@@ -106,7 +105,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the domain lookup start time
      */
-    public fun getDnsStart(): guint64 = soup_message_metrics_get_dns_start(gPointer)
+    public fun getDnsStart(): guint64 = soup_message_metrics_get_dns_start(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately before the [class@Message] started to
@@ -114,7 +113,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the fetch start time
      */
-    public fun getFetchStart(): guint64 = soup_message_metrics_get_fetch_start(gPointer)
+    public fun getFetchStart(): guint64 = soup_message_metrics_get_fetch_start(soupMessageMetricsPointer)
 
     /**
      * Get the number of bytes sent to the network for the request body.
@@ -127,7 +126,8 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the request body bytes sent
      */
-    public fun getRequestBodyBytesSent(): guint64 = soup_message_metrics_get_request_body_bytes_sent(gPointer)
+    public fun getRequestBodyBytesSent(): guint64 =
+        soup_message_metrics_get_request_body_bytes_sent(soupMessageMetricsPointer)
 
     /**
      * Get the request body size in bytes. This is the size of the original body
@@ -138,7 +138,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the request body size
      */
-    public fun getRequestBodySize(): guint64 = soup_message_metrics_get_request_body_size(gPointer)
+    public fun getRequestBodySize(): guint64 = soup_message_metrics_get_request_body_size(soupMessageMetricsPointer)
 
     /**
      * Get the number of bytes sent to the network for the request headers.
@@ -148,7 +148,8 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the request headers bytes sent
      */
-    public fun getRequestHeaderBytesSent(): guint64 = soup_message_metrics_get_request_header_bytes_sent(gPointer)
+    public fun getRequestHeaderBytesSent(): guint64 =
+        soup_message_metrics_get_request_header_bytes_sent(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately before the [class@Message] started the
@@ -156,7 +157,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the request start time
      */
-    public fun getRequestStart(): guint64 = soup_message_metrics_get_request_start(gPointer)
+    public fun getRequestStart(): guint64 = soup_message_metrics_get_request_start(soupMessageMetricsPointer)
 
     /**
      * Get the number of bytes received from the network for the response body.
@@ -167,7 +168,8 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the response body bytes received
      */
-    public fun getResponseBodyBytesReceived(): guint64 = soup_message_metrics_get_response_body_bytes_received(gPointer)
+    public fun getResponseBodyBytesReceived(): guint64 =
+        soup_message_metrics_get_response_body_bytes_received(soupMessageMetricsPointer)
 
     /**
      * Get the response body size in bytes.
@@ -180,7 +182,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the response body size
      */
-    public fun getResponseBodySize(): guint64 = soup_message_metrics_get_response_body_size(gPointer)
+    public fun getResponseBodySize(): guint64 = soup_message_metrics_get_response_body_size(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately after the [class@Message] received the last
@@ -191,7 +193,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the response end time
      */
-    public fun getResponseEnd(): guint64 = soup_message_metrics_get_response_end(gPointer)
+    public fun getResponseEnd(): guint64 = soup_message_metrics_get_response_end(soupMessageMetricsPointer)
 
     /**
      * Get the number of bytes received from the network for the response headers.
@@ -203,7 +205,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      * @return the response headers bytes received
      */
     public fun getResponseHeaderBytesReceived(): guint64 =
-        soup_message_metrics_get_response_header_bytes_received(gPointer)
+        soup_message_metrics_get_response_header_bytes_received(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately after the [class@Message] received the first
@@ -211,7 +213,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the response start time
      */
-    public fun getResponseStart(): guint64 = soup_message_metrics_get_response_start(gPointer)
+    public fun getResponseStart(): guint64 = soup_message_metrics_get_response_start(soupMessageMetricsPointer)
 
     /**
      * Get the time immediately before the [class@Message] started the
@@ -223,7 +225,7 @@ public class MessageMetrics(pointer: CPointer<SoupMessageMetrics>) : ProxyInstan
      *
      * @return the tls start time
      */
-    public fun getTlsStart(): guint64 = soup_message_metrics_get_tls_start(gPointer)
+    public fun getTlsStart(): guint64 = soup_message_metrics_get_tls_start(soupMessageMetricsPointer)
 
     public companion object {
         /**

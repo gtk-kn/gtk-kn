@@ -26,19 +26,18 @@ import kotlin.native.ref.createCleaner
  *
  * - field `value`: Field with not-pointer record/union GValue is not supported
  */
-public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GParameter> = pointer
-
+public class Parameter(public val gobjectParameterPointer: CPointer<GParameter>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectParameterPointer) {
     /**
      * the parameter name
      */
     public var name: String?
-        get() = gPointer.pointed.name?.toKString()
+        get() = gobjectParameterPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.name?.let { g_free(it) }
-            gPointer.pointed.name = value?.let { g_strdup(it) }
+            gobjectParameterPointer.pointed.name?.let { g_free(it) }
+            gobjectParameterPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -59,7 +58,9 @@ public class Parameter(pointer: CPointer<GParameter>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to Parameter and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GParameter>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GParameter>, Cleaner>,
+    ) : this(gobjectParameterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Parameter using the provided [AutofreeScope].

@@ -158,19 +158,16 @@ import kotlin.Unit
  * @since 2.72
  */
 @GioVersion2_72
-public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
-    Object(pointer.reinterpret()),
+public open class DebugControllerDBus(public val gioDebugControllerDBusPointer: CPointer<GDebugControllerDBus>) :
+    Object(gioDebugControllerDBusPointer.reinterpret()),
     DebugController,
     Initable,
     KGTyped {
-    public val gioDebugControllerDBusPointer: CPointer<GDebugControllerDBus>
-        get() = gPointer.reinterpret()
-
     override val gioDebugControllerPointer: CPointer<GDebugController>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Create a new #GDebugControllerDBus and synchronously initialize it.
@@ -255,7 +252,7 @@ public open class DebugControllerDBus(pointer: CPointer<GDebugControllerDBus>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (invocation: DBusMethodInvocation) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDebugControllerDBusPointer,
         "authorize",
         onAuthorizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

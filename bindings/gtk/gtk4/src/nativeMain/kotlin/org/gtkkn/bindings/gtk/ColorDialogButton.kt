@@ -59,20 +59,17 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
-    Widget(pointer.reinterpret()),
+public open class ColorDialogButton(public val gtkColorDialogButtonPointer: CPointer<GtkColorDialogButton>) :
+    Widget(gtkColorDialogButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkColorDialogButtonPointer: CPointer<GtkColorDialogButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The selected color.
@@ -109,7 +106,7 @@ public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
          * @since 4.10
          */
         @GtkVersion4_10
-        set(color) = gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer, color.gPointer)
+        set(color) = gtk_color_dialog_button_set_rgba(gtkColorDialogButtonPointer, color.gdkRgbaPointer)
 
     /**
      * Creates a new `GtkColorDialogButton` with the
@@ -162,7 +159,7 @@ public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
     @GtkVersion4_14
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkColorDialogButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -177,7 +174,7 @@ public open class ColorDialogButton(pointer: CPointer<GtkColorDialogButton>) :
      */
     @GtkVersion4_14
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkColorDialogButtonPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<ColorDialogButton> {

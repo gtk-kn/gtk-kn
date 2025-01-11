@@ -4,8 +4,9 @@ package org.gtkkn.bindings.gtksource
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gdk.ModifierType
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -52,7 +53,7 @@ import kotlin.Boolean
  * - method `indent`: In/Out parameter is not supported
  */
 public interface Indenter :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>
 
@@ -77,24 +78,27 @@ public interface Indenter :
         gtk_source_indenter_is_trigger(
             gtksourceIndenterPointer,
             view.gtksourceViewPointer,
-            location.gPointer,
+            location.gtkTextIterPointer,
             state.mask,
             keyval
         ).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GtkSourceIndenter>) : Indenter {
-        override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter> = pointer
-    }
+    /**
+     * The IndenterImpl type represents a native instance of the Indenter interface.
+     *
+     * @constructor Creates a new instance of Indenter for the provided [CPointer].
+     */
+    public data class IndenterImpl(override val gtksourceIndenterPointer: CPointer<GtkSourceIndenter>) :
+        Object(gtksourceIndenterPointer.reinterpret()),
+        Indenter
 
     public companion object : TypeCompanion<Indenter> {
         override val type: GeneratedInterfaceKGType<Indenter> =
-            GeneratedInterfaceKGType(gtk_source_indenter_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_source_indenter_get_type()) { IndenterImpl(it.reinterpret()) }
 
         init {
             GtksourceTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkSourceIndenter>): Indenter = Wrapper(pointer)
 
         /**
          * Get the GType of Indenter

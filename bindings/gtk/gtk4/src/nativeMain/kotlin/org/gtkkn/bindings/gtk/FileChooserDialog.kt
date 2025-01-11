@@ -195,33 +195,30 @@ import org.gtkkn.native.gtk.gtk_file_chooser_dialog_get_type
  *
  * - constructor `new`: Varargs parameter is not supported
  */
-public open class FileChooserDialog(pointer: CPointer<GtkFileChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class FileChooserDialog(public val gtkFileChooserDialogPointer: CPointer<GtkFileChooserDialog>) :
+    Dialog(gtkFileChooserDialogPointer.reinterpret()),
     FileChooser,
     KGTyped {
-    public val gtkFileChooserDialogPointer: CPointer<GtkFileChooserDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkFileChooserPointer: CPointer<GtkFileChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public companion object : TypeCompanion<FileChooserDialog> {
         override val type: GeneratedClassKGType<FileChooserDialog> =

@@ -44,12 +44,9 @@ import kotlin.Unit
  * - method `location`: Property TypeInfo of getter and setter do not match
  * - method `read-only`: Property has no getter nor setter
  */
-public open class File(pointer: CPointer<GtkSourceFile>) :
-    Object(pointer.reinterpret()),
+public open class File(public val gtksourceFilePointer: CPointer<GtkSourceFile>) :
+    Object(gtksourceFilePointer.reinterpret()),
     KGTyped {
-    public val gtksourceFilePointer: CPointer<GtkSourceFile>
-        get() = gPointer.reinterpret()
-
     /**
      * The compression type.
      */
@@ -118,7 +115,7 @@ public open class File(pointer: CPointer<GtkSourceFile>) :
      */
     public open fun getLocation(): org.gtkkn.bindings.gio.File =
         gtk_source_file_get_location(gtksourceFilePointer)!!.run {
-            org.gtkkn.bindings.gio.File.wrap(reinterpret())
+            org.gtkkn.bindings.gio.File.FileImpl(reinterpret())
         }
 
     /**

@@ -80,12 +80,9 @@ import kotlin.Unit
  *
  * - parameter `resp_body`: Array parameter of type guint8 is not supported
  */
-public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
-    Object(pointer.reinterpret()),
+public class ServerMessage(public val soupServerMessagePointer: CPointer<SoupServerMessage>) :
+    Object(soupServerMessagePointer.reinterpret()),
     KGTyped {
-    public val soupServerMessagePointer: CPointer<SoupServerMessage>
-        get() = gPointer.reinterpret()
-
     /**
      * The peer's #GTlsCertificate associated with the message
      *
@@ -103,7 +100,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
          * @since 3.2
          */
         get() = soup_server_message_get_tls_peer_certificate(soupServerMessagePointer)?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
     /**
@@ -144,7 +141,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun getLocalAddress(): SocketAddress? =
         soup_server_message_get_local_address(soupServerMessagePointer)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
     /**
@@ -172,7 +169,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun getRemoteAddress(): SocketAddress? =
         soup_server_message_get_remote_address(soupServerMessagePointer)?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
     /**
@@ -329,7 +326,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      *   is returned.
      */
     public fun stealConnection(): IoStream = soup_server_message_steal_connection(soupServerMessagePointer)!!.run {
-        IoStream(this)
+        IoStream.IoStreamImpl(this)
     }
 
     /**
@@ -359,7 +356,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tlsPeerCertificate: TlsCertificate, tlsPeerErrors: TlsCertificateFlags) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupServerMessagePointer,
         "accept-certificate",
         onAcceptCertificateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -375,7 +372,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onConnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "connected",
             onConnectedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -387,7 +384,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "connected" signal. See [onConnected].
      */
     public fun emitConnected() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "connected")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "connected")
     }
 
     /**
@@ -398,7 +395,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onDisconnected(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "disconnected",
             onDisconnectedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -410,7 +407,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "disconnected" signal. See [onDisconnected].
      */
     public fun emitDisconnected() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "disconnected")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "disconnected")
     }
 
     /**
@@ -422,7 +419,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "finished",
             onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -434,7 +431,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "finished" signal. See [onFinished].
      */
     public fun emitFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "finished")
     }
 
     /**
@@ -445,7 +442,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onGotBody(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "got-body",
             onGotBodyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -457,7 +454,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "got-body" signal. See [onGotBody].
      */
     public fun emitGotBody() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-body")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "got-body")
     }
 
     /**
@@ -471,7 +468,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onGotChunk(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (chunk: Bytes) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "got-chunk",
             onGotChunkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -485,7 +482,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * @param chunk the just-read chunk
      */
     public fun emitGotChunk(chunk: Bytes) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-chunk", chunk.gPointer)
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "got-chunk", chunk.glibBytesPointer)
     }
 
     /**
@@ -496,7 +493,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onGotHeaders(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "got-headers",
             onGotHeadersFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -508,7 +505,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "got-headers" signal. See [onGotHeaders].
      */
     public fun emitGotHeaders() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "got-headers")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "got-headers")
     }
 
     /**
@@ -520,7 +517,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onWroteBody(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "wrote-body",
             onWroteBodyFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -532,7 +529,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "wrote-body" signal. See [onWroteBody].
      */
     public fun emitWroteBody() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-body")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "wrote-body")
     }
 
     /**
@@ -546,7 +543,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (chunkSize: guint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupServerMessagePointer,
         "wrote-body-data",
         onWroteBodyDataFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -560,7 +557,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * @param chunkSize the number of bytes written
      */
     public fun emitWroteBodyData(chunkSize: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-body-data", chunkSize)
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "wrote-body-data", chunkSize)
     }
 
     /**
@@ -578,7 +575,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onWroteChunk(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "wrote-chunk",
             onWroteChunkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -590,7 +587,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "wrote-chunk" signal. See [onWroteChunk].
      */
     public fun emitWroteChunk() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-chunk")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "wrote-chunk")
     }
 
     /**
@@ -602,7 +599,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onWroteHeaders(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "wrote-headers",
             onWroteHeadersFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -614,7 +611,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "wrote-headers" signal. See [onWroteHeaders].
      */
     public fun emitWroteHeaders() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-headers")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "wrote-headers")
     }
 
     /**
@@ -625,7 +622,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      */
     public fun onWroteInformational(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            soupServerMessagePointer,
             "wrote-informational",
             onWroteInformationalFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -637,7 +634,7 @@ public class ServerMessage(pointer: CPointer<SoupServerMessage>) :
      * Emits the "wrote-informational" signal. See [onWroteInformational].
      */
     public fun emitWroteInformational() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "wrote-informational")
+        g_signal_emit_by_name(soupServerMessagePointer.reinterpret(), "wrote-informational")
     }
 
     public companion object : TypeCompanion<ServerMessage> {
@@ -672,7 +669,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             tlsPeerCertificate!!.run {
-                TlsCertificate(this)
+                TlsCertificate.TlsCertificateImpl(this)
             },
             tlsPeerErrors.run {
                 TlsCertificateFlags(this)

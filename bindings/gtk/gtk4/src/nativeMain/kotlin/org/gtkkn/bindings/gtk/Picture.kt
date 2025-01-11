@@ -92,20 +92,17 @@ import kotlin.Unit
  *
  * `GtkPicture` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
  */
-public open class Picture(pointer: CPointer<GtkPicture>) :
-    Widget(pointer.reinterpret()),
+public open class Picture(public val gtkPicturePointer: CPointer<GtkPicture>) :
+    Widget(gtkPicturePointer.reinterpret()),
     KGTyped {
-    public val gtkPicturePointer: CPointer<GtkPicture>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The alternative textual description for the picture.
@@ -203,7 +200,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return The `GFile` displayed by @self.
          */
         get() = gtk_picture_get_file(gtkPicturePointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**
@@ -251,7 +248,7 @@ public open class Picture(pointer: CPointer<GtkPicture>) :
          * @return the displayed paintable
          */
         get() = gtk_picture_get_paintable(gtkPicturePointer)?.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
         /**

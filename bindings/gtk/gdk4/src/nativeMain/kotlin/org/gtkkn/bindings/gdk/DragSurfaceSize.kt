@@ -15,9 +15,8 @@ import kotlin.Unit
  * @since 4.12
  */
 @GdkVersion4_12
-public class DragSurfaceSize(pointer: CPointer<GdkDragSurfaceSize>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkDragSurfaceSize> = pointer
-
+public class DragSurfaceSize(public val gdkDragSurfaceSizePointer: CPointer<GdkDragSurfaceSize>) :
+    ProxyInstance(gdkDragSurfaceSizePointer) {
     /**
      * Sets the size the drag surface prefers to be resized to.
      *
@@ -26,5 +25,6 @@ public class DragSurfaceSize(pointer: CPointer<GdkDragSurfaceSize>) : ProxyInsta
      * @since 4.12
      */
     @GdkVersion4_12
-    public fun setSize(width: gint, height: gint): Unit = gdk_drag_surface_size_set_size(gPointer, width, height)
+    public fun setSize(width: gint, height: gint): Unit =
+        gdk_drag_surface_size_set_size(gdkDragSurfaceSizePointer, width, height)
 }

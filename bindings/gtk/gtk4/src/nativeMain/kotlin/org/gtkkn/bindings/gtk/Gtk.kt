@@ -1277,7 +1277,7 @@ public object Gtk {
      */
     public fun paramSpecExpression(name: String, nick: String, blurb: String, flags: ParamFlags): ParamSpec =
         gtk_param_spec_expression(name, nick, blurb, flags.mask)!!.run {
-            ParamSpec(this)
+            ParamSpec.ParamSpecImpl(this)
         }
 
     /**
@@ -1352,7 +1352,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_activity(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_activity(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders an arrow pointing to @angle.
@@ -1375,7 +1375,7 @@ public object Gtk {
         x: gdouble,
         y: gdouble,
         size: gdouble,
-    ): Unit = gtk_render_arrow(context.gtkStyleContextPointer, cr.gPointer, angle, x, y, size)
+    ): Unit = gtk_render_arrow(context.gtkStyleContextPointer, cr.cairoContextPointer, angle, x, y, size)
 
     /**
      * Renders the background of an element.
@@ -1399,7 +1399,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_background(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_background(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders a checkmark (as in a `GtkCheckButton`).
@@ -1426,7 +1426,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_check(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_check(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders an expander (as used in `GtkTreeView` and `GtkExpander`) in the area
@@ -1451,7 +1451,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_expander(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_expander(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders a focus indicator on the rectangle determined by @x, @y, @width, @height.
@@ -1474,7 +1474,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_focus(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_focus(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders a frame around the rectangle defined by @x, @y, @width, @height.
@@ -1498,7 +1498,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_frame(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_frame(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders a handle (as in `GtkPaned` and `GtkWindow`’s resize grip),
@@ -1522,7 +1522,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_handle(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_handle(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Renders the icon in @texture at the specified @x and @y coordinates.
@@ -1538,7 +1538,7 @@ public object Gtk {
      * @param y Y position for the @texture
      */
     public fun renderIcon(context: StyleContext, cr: Context, texture: Texture, x: gdouble, y: gdouble): Unit =
-        gtk_render_icon(context.gtkStyleContextPointer, cr.gPointer, texture.gdkTexturePointer, x, y)
+        gtk_render_icon(context.gtkStyleContextPointer, cr.cairoContextPointer, texture.gdkTexturePointer, x, y)
 
     /**
      * Renders @layout on the coordinates @x, @y
@@ -1550,7 +1550,7 @@ public object Gtk {
      * @param layout the `PangoLayout` to render
      */
     public fun renderLayout(context: StyleContext, cr: Context, x: gdouble, y: gdouble, layout: Layout): Unit =
-        gtk_render_layout(context.gtkStyleContextPointer, cr.gPointer, x, y, layout.pangoLayoutPointer)
+        gtk_render_layout(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, layout.pangoLayoutPointer)
 
     /**
      * Renders a line from (x0, y0) to (x1, y1).
@@ -1569,7 +1569,7 @@ public object Gtk {
         y0: gdouble,
         x1: gdouble,
         y1: gdouble,
-    ): Unit = gtk_render_line(context.gtkStyleContextPointer, cr.gPointer, x0, y0, x1, y1)
+    ): Unit = gtk_render_line(context.gtkStyleContextPointer, cr.cairoContextPointer, x0, y0, x1, y1)
 
     /**
      * Renders an option mark (as in a radio button), the %GTK_STATE_FLAG_CHECKED
@@ -1594,7 +1594,7 @@ public object Gtk {
         y: gdouble,
         width: gdouble,
         height: gdouble,
-    ): Unit = gtk_render_option(context.gtkStyleContextPointer, cr.gPointer, x, y, width, height)
+    ): Unit = gtk_render_option(context.gtkStyleContextPointer, cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Sets the GTK debug flags.
@@ -1761,7 +1761,7 @@ public object Gtk {
      * @return a new `GdkContentProvider`
      */
     public fun treeCreateRowDragContent(treeModel: TreeModel, path: TreePath): ContentProvider =
-        gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gPointer)!!.run {
+        gtk_tree_create_row_drag_content(treeModel.gtkTreeModelPointer, path.gtkTreePathPointer)!!.run {
             ContentProvider(this)
         }
 
@@ -1772,9 +1772,10 @@ public object Gtk {
      * @param value a `GValue` initialized with type `GTK_TYPE_EXPRESSION`
      * @return a `GtkExpression`
      */
-    public fun valueDupExpression(`value`: Value): Expression? = gtk_value_dup_expression(`value`.gPointer)?.run {
-        Expression(this)
-    }
+    public fun valueDupExpression(`value`: Value): Expression? =
+        gtk_value_dup_expression(`value`.gobjectValuePointer)?.run {
+            Expression.ExpressionImpl(this)
+        }
 
     /**
      * Retrieves the `GtkExpression` stored inside the given `value`.
@@ -1782,9 +1783,10 @@ public object Gtk {
      * @param value a `GValue` initialized with type `GTK_TYPE_EXPRESSION`
      * @return a `GtkExpression`
      */
-    public fun valueGetExpression(`value`: Value): Expression? = gtk_value_get_expression(`value`.gPointer)?.run {
-        Expression(this)
-    }
+    public fun valueGetExpression(`value`: Value): Expression? =
+        gtk_value_get_expression(`value`.gobjectValuePointer)?.run {
+            Expression.ExpressionImpl(this)
+        }
 
     /**
      * Stores the given `GtkExpression` inside `value`.
@@ -1795,7 +1797,7 @@ public object Gtk {
      * @param expression a `GtkExpression`
      */
     public fun valueSetExpression(`value`: Value, expression: Expression): Unit =
-        gtk_value_set_expression(`value`.gPointer, expression.gPointer)
+        gtk_value_set_expression(`value`.gobjectValuePointer, expression.gtkExpressionPointer)
 
     /**
      * Stores the given `GtkExpression` inside `value`.
@@ -1806,7 +1808,7 @@ public object Gtk {
      * @param expression a `GtkExpression`
      */
     public fun valueTakeExpression(`value`: Value, expression: Expression? = null): Unit =
-        gtk_value_take_expression(`value`.gPointer, expression?.gPointer)
+        gtk_value_take_expression(`value`.gobjectValuePointer, expression?.gtkExpressionPointer)
 
     public fun resolveException(error: Error): GLibException {
         val ex = when (error.domain) {
@@ -1878,7 +1880,7 @@ public val CellAllocCallbackFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         renderer!!.run {
-            CellRenderer(this)
+            CellRenderer.CellRendererImpl(this)
         },
         cellArea!!.run {
             Rectangle(this)
@@ -1897,7 +1899,7 @@ public val CellCallbackFunc: CPointer<CFunction<(CPointer<GtkCellRenderer>) -> g
         ->
         data!!.asStableRef<(renderer: CellRenderer) -> Boolean>().get().invoke(
             renderer!!.run {
-                CellRenderer(this)
+                CellRenderer.CellRendererImpl(this)
             }
         ).asGBoolean()
     }
@@ -1928,13 +1930,13 @@ public val CellLayoutDataFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         cellLayout!!.run {
-            CellLayout.wrap(reinterpret())
+            CellLayout.CellLayoutImpl(reinterpret())
         },
         cell!!.run {
-            CellRenderer(this)
+            CellRenderer.CellRendererImpl(this)
         },
         treeModel!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         iter!!.run {
             TreeIter(this)
@@ -2100,10 +2102,10 @@ public val FontFilterFuncFunc:
         ->
         data!!.asStableRef<(family: FontFamily, face: FontFace) -> Boolean>().get().invoke(
             family!!.run {
-                FontFamily(this)
+                FontFamily.FontFamilyImpl(this)
             },
             face!!.run {
-                FontFace(this)
+                FontFace.FontFaceImpl(this)
             }
         ).asGBoolean()
     }
@@ -2216,7 +2218,7 @@ public val MapListModelMapFuncFunc: CPointer<CFunction<(CPointer<GObject>) -> CP
             item!!.run {
                 Object(reinterpret())
             }
-        ).gPointer
+        ).gobjectObjectPointer
     }
         .reinterpret()
 
@@ -2314,7 +2316,7 @@ public val ShortcutFuncFunc:
         ->
         userData!!.asStableRef<(widget: Widget, args: Variant?) -> Boolean>().get().invoke(
             widget!!.run {
-                Widget(this)
+                Widget.WidgetImpl(this)
             },
             args?.run {
                 Variant(this)
@@ -2353,10 +2355,10 @@ public val TickCallbackFunc:
         ->
         userData!!.asStableRef<(widget: Widget, frameClock: FrameClock) -> Boolean>().get().invoke(
             widget!!.run {
-                Widget(this)
+                Widget.WidgetImpl(this)
             },
             frameClock!!.run {
-                FrameClock(this)
+                FrameClock.FrameClockImpl(this)
             }
         ).asGBoolean()
     }
@@ -2390,10 +2392,10 @@ public val TreeCellDataFuncFunc: CPointer<
             TreeViewColumn(this)
         },
         cell!!.run {
-            CellRenderer(this)
+            CellRenderer.CellRendererImpl(this)
         },
         treeModel!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         iter!!.run {
             TreeIter(this)
@@ -2424,7 +2426,7 @@ public val TreeIterCompareFuncFunc: CPointer<
         ) -> gint
         >().get().invoke(
         model!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         a!!.run {
             TreeIter(this)
@@ -2474,7 +2476,7 @@ public val TreeModelFilterModifyFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         model!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         iter!!.run {
             TreeIter(this)
@@ -2496,7 +2498,7 @@ public val TreeModelFilterVisibleFuncFunc:
         ->
         data!!.asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>().get().invoke(
             model!!.run {
-                TreeModel.wrap(reinterpret())
+                TreeModel.TreeModelImpl(reinterpret())
             },
             iter!!.run {
                 TreeIter(this)
@@ -2527,7 +2529,7 @@ public val TreeModelForeachFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         model!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         path!!.run {
             TreePath(this)
@@ -2561,7 +2563,7 @@ public val TreeSelectionForeachFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         model!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         path!!.run {
             TreePath(this)
@@ -2601,7 +2603,7 @@ public val TreeSelectionFuncFunc: CPointer<
             TreeSelection(this)
         },
         model!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         path!!.run {
             TreePath(this)
@@ -2678,7 +2680,7 @@ public val TreeViewRowSeparatorFuncFunc:
         ->
         data!!.asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>().get().invoke(
             model!!.run {
-                TreeModel.wrap(reinterpret())
+                TreeModel.TreeModelImpl(reinterpret())
             },
             iter!!.run {
                 TreeIter(this)
@@ -2712,7 +2714,7 @@ public val TreeViewSearchEqualFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         model!!.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         },
         column,
         key?.toKString() ?: error("Expected not null string"),
@@ -2745,7 +2747,7 @@ public val WidgetActionActivateFuncFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         widget!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         },
         actionName?.toKString() ?: error("Expected not null string"),
         parameter?.run {

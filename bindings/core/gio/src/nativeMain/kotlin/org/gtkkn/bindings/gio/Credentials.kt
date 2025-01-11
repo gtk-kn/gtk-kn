@@ -77,12 +77,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class Credentials(pointer: CPointer<GCredentials>) :
-    Object(pointer.reinterpret()),
+public open class Credentials(public val gioCredentialsPointer: CPointer<GCredentials>) :
+    Object(gioCredentialsPointer.reinterpret()),
     KGTyped {
-    public val gioCredentialsPointer: CPointer<GCredentials>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GCredentials object with credentials matching the
      * the current process.

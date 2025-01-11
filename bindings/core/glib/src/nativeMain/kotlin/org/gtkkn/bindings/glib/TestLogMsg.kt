@@ -24,33 +24,32 @@ import kotlin.native.ref.createCleaner
  * - field `strings`: Unsupported string with cType gchar**
  * - field `nums`: Unsupported pointer to primitive type
  */
-public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTestLogMsg> = pointer
-
+public class TestLogMsg(public val glibTestLogMsgPointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibTestLogMsgPointer) {
     public var logType: TestLogType
-        get() = gPointer.pointed.log_type.run {
+        get() = glibTestLogMsgPointer.pointed.log_type.run {
             TestLogType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.log_type = value.nativeValue
+            glibTestLogMsgPointer.pointed.log_type = value.nativeValue
         }
 
     public var nStrings: guint
-        get() = gPointer.pointed.n_strings
+        get() = glibTestLogMsgPointer.pointed.n_strings
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_strings = value
+            glibTestLogMsgPointer.pointed.n_strings = value
         }
 
     public var nNums: guint
-        get() = gPointer.pointed.n_nums
+        get() = glibTestLogMsgPointer.pointed.n_nums
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_nums = value
+            glibTestLogMsgPointer.pointed.n_nums = value
         }
 
     /**
@@ -71,7 +70,9 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to TestLogMsg and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTestLogMsg>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTestLogMsg>, Cleaner>,
+    ) : this(glibTestLogMsgPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TestLogMsg using the provided [AutofreeScope].
@@ -126,7 +127,7 @@ public class TestLogMsg(pointer: CPointer<GTestLogMsg>, cleaner: Cleaner? = null
     /**
      * Internal function for gtester to free test log messages, no ABI guarantees provided.
      */
-    public fun free(): Unit = g_test_log_msg_free(gPointer)
+    public fun free(): Unit = g_test_log_msg_free(glibTestLogMsgPointer)
 
     override fun toString(): String = "TestLogMsg(logType=$logType, nStrings=$nStrings, nNums=$nNums)"
 }

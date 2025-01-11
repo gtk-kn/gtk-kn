@@ -31,12 +31,9 @@ import kotlin.String
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
-    Object(pointer.reinterpret()),
+public abstract class MenuAttributeIter(public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>) :
+    Object(gioMenuAttributeIterPointer.reinterpret()),
     KGTyped {
-    public val gioMenuAttributeIterPointer: CPointer<GMenuAttributeIter>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets the name of the attribute at the current iterator position, as
      * a string.
@@ -80,9 +77,16 @@ public open class MenuAttributeIter(pointer: CPointer<GMenuAttributeIter>) :
     @GioVersion2_32
     public open fun next(): Boolean = g_menu_attribute_iter_next(gioMenuAttributeIterPointer).asBoolean()
 
+    /**
+     * The MenuAttributeIterImpl type represents a native instance of the abstract MenuAttributeIter class.
+     *
+     * @constructor Creates a new instance of MenuAttributeIter for the provided [CPointer].
+     */
+    public class MenuAttributeIterImpl(pointer: CPointer<GMenuAttributeIter>) : MenuAttributeIter(pointer)
+
     public companion object : TypeCompanion<MenuAttributeIter> {
         override val type: GeneratedClassKGType<MenuAttributeIter> =
-            GeneratedClassKGType(g_menu_attribute_iter_get_type()) { MenuAttributeIter(it.reinterpret()) }
+            GeneratedClassKGType(g_menu_attribute_iter_get_type()) { MenuAttributeIterImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

@@ -138,23 +138,20 @@ import kotlin.collections.List
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
-    Object(pointer.reinterpret()),
+public open class DBusProxy(public val gioDBusProxyPointer: CPointer<GDBusProxy>) :
+    Object(gioDBusProxyPointer.reinterpret()),
     AsyncInitable,
     DBusInterface,
     Initable,
     KGTyped {
-    public val gioDBusProxyPointer: CPointer<GDBusProxy>
-        get() = gPointer.reinterpret()
-
     override val gioAsyncInitablePointer: CPointer<GAsyncInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioDBusInterfacePointer: CPointer<GDBusInterface>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioInitablePointer: CPointer<GInitable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Finishes creating a #GDBusProxy.
@@ -209,7 +206,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
                 g_dbus_proxy_new_for_bus_sync(
                     busType.nativeValue,
                     flags.mask,
-                    info?.gPointer,
+                    info?.gioDBusInterfaceInfoPointer,
                     name,
                     objectPath,
                     interfaceName,
@@ -274,7 +271,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
                 g_dbus_proxy_new_sync(
                     connection.gioDBusConnectionPointer,
                     flags.mask,
-                    info?.gPointer,
+                    info?.gioDBusInterfaceInfoPointer,
                     name,
                     objectPath,
                     interfaceName,
@@ -353,7 +350,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
     ): Unit = g_dbus_proxy_call(
         gioDBusProxyPointer,
         methodName,
-        parameters?.gPointer,
+        parameters?.glibVariantPointer,
         flags.mask,
         timeoutMsec,
         cancellable?.gioCancellablePointer,
@@ -444,7 +441,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
         val gResult = g_dbus_proxy_call_sync(
             gioDBusProxyPointer,
             methodName,
-            parameters?.gPointer,
+            parameters?.glibVariantPointer,
             flags.mask,
             timeoutMsec,
             cancellable?.gioCancellablePointer,
@@ -486,7 +483,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
         cancellable: Cancellable? = null,
         callback: AsyncReadyCallback?,
     ): Unit = g_dbus_proxy_call_with_unix_fd_list(
-        gioDBusProxyPointer, methodName, parameters?.gPointer, flags.mask, timeoutMsec, fdList?.gioUnixFdListPointer, cancellable?.gioCancellablePointer,
+        gioDBusProxyPointer, methodName, parameters?.glibVariantPointer, flags.mask, timeoutMsec, fdList?.gioUnixFdListPointer, cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
@@ -662,7 +659,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
      */
     @GioVersion2_26
     public open fun setCachedProperty(propertyName: String, `value`: Variant? = null): Unit =
-        g_dbus_proxy_set_cached_property(gioDBusProxyPointer, propertyName, `value`?.gPointer)
+        g_dbus_proxy_set_cached_property(gioDBusProxyPointer, propertyName, `value`?.glibVariantPointer)
 
     /**
      * Sets the timeout to use if -1 (specifying default timeout) is
@@ -689,7 +686,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
      */
     @GioVersion2_26
     public open fun setInterfaceInfo(info: DBusInterfaceInfo? = null): Unit =
-        g_dbus_proxy_set_interface_info(gioDBusProxyPointer, info?.gPointer)
+        g_dbus_proxy_set_interface_info(gioDBusProxyPointer, info?.gioDBusInterfaceInfoPointer)
 
     /**
      * Emitted when one or more D-Bus properties on @proxy changes. The
@@ -714,7 +711,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (changedProperties: Variant, invalidatedProperties: List<String>) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusProxyPointer,
         "g-properties-changed",
         onGPropertiesChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -733,9 +730,9 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
     public fun emitGPropertiesChanged(changedProperties: Variant, invalidatedProperties: List<String>): Unit =
         memScoped {
             g_signal_emit_by_name(
-                gPointer.reinterpret(),
+                gioDBusProxyPointer.reinterpret(),
                 "g-properties-changed",
-                changedProperties.gPointer,
+                changedProperties.glibVariantPointer,
                 invalidatedProperties.toCStringList(this)
             )
         }
@@ -762,7 +759,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
             parameters: Variant,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusProxyPointer,
         "g-signal" + (
             detail?.let {
                 "::$it"
@@ -786,7 +783,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
     @GioVersion2_26
     public fun emitGSignal(detail: String? = null, senderName: String?, signalName: String, parameters: Variant) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gioDBusProxyPointer.reinterpret(),
             "g-signal" + (
                 detail?.let {
                     "::$it"
@@ -794,7 +791,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
                 ),
             senderName?.cstr,
             signalName.cstr,
-            parameters.gPointer
+            parameters.glibVariantPointer
         )
     }
 
@@ -894,7 +891,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
         ): Unit = g_dbus_proxy_new(
-            connection.gioDBusConnectionPointer, flags.mask, info?.gPointer, name, objectPath, interfaceName, cancellable?.gioCancellablePointer,
+            connection.gioDBusConnectionPointer, flags.mask, info?.gioDBusInterfaceInfoPointer, name, objectPath, interfaceName, cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },
@@ -927,7 +924,7 @@ public open class DBusProxy(pointer: CPointer<GDBusProxy>) :
             cancellable: Cancellable? = null,
             callback: AsyncReadyCallback?,
         ): Unit = g_dbus_proxy_new_for_bus(
-            busType.nativeValue, flags.mask, info?.gPointer, name, objectPath, interfaceName, cancellable?.gioCancellablePointer,
+            busType.nativeValue, flags.mask, info?.gioDBusInterfaceInfoPointer, name, objectPath, interfaceName, cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
             },

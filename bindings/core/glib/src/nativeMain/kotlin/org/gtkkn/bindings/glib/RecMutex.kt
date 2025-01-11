@@ -37,9 +37,8 @@ import kotlin.native.ref.createCleaner
  * @since 2.32
  */
 @GLibVersion2_32
-public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GRecMutex> = pointer
-
+public class RecMutex(public val glibRecMutexPointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibRecMutexPointer) {
     /**
      * Allocate a new RecMutex.
      *
@@ -58,7 +57,9 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to RecMutex and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GRecMutex>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GRecMutex>, Cleaner>,
+    ) : this(glibRecMutexPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RecMutex using the provided [AutofreeScope].
@@ -82,7 +83,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun clear(): Unit = g_rec_mutex_clear(gPointer)
+    public fun clear(): Unit = g_rec_mutex_clear(glibRecMutexPointer)
 
     /**
      * Initializes a #GRecMutex so that it can be used.
@@ -115,7 +116,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun `init`(): Unit = g_rec_mutex_init(gPointer)
+    public fun `init`(): Unit = g_rec_mutex_init(glibRecMutexPointer)
 
     /**
      * Locks @rec_mutex. If @rec_mutex is already locked by another
@@ -128,7 +129,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun lock(): Unit = g_rec_mutex_lock(gPointer)
+    public fun lock(): Unit = g_rec_mutex_lock(glibRecMutexPointer)
 
     /**
      * Tries to lock @rec_mutex. If @rec_mutex is already locked
@@ -139,7 +140,7 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun trylock(): Boolean = g_rec_mutex_trylock(gPointer).asBoolean()
+    public fun trylock(): Boolean = g_rec_mutex_trylock(glibRecMutexPointer).asBoolean()
 
     /**
      * Unlocks @rec_mutex. If another thread is blocked in a
@@ -152,5 +153,5 @@ public class RecMutex(pointer: CPointer<GRecMutex>, cleaner: Cleaner? = null) : 
      * @since 2.32
      */
     @GLibVersion2_32
-    public fun unlock(): Unit = g_rec_mutex_unlock(gPointer)
+    public fun unlock(): Unit = g_rec_mutex_unlock(glibRecMutexPointer)
 }

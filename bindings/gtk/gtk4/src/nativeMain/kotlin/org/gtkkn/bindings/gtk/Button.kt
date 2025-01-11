@@ -84,24 +84,21 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `label`: Property TypeInfo of getter and setter do not match
  */
-public open class Button(pointer: CPointer<GtkButton>) :
-    Widget(pointer.reinterpret()),
+public open class Button(public val gtkButtonPointer: CPointer<GtkButton>) :
+    Widget(gtkButtonPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val gtkButtonPointer: CPointer<GtkButton>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the size of the button can be made smaller than the natural
@@ -149,7 +146,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
          * @return the child widget of @button
          */
         get() = gtk_button_get_child(gtkButtonPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -283,7 +280,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -295,7 +292,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -306,7 +303,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
      */
     public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkButtonPointer,
             "clicked",
             onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -318,7 +315,7 @@ public open class Button(pointer: CPointer<GtkButton>) :
      * Emits the "clicked" signal. See [onClicked].
      */
     public fun emitClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+        g_signal_emit_by_name(gtkButtonPointer.reinterpret(), "clicked")
     }
 
     public companion object : TypeCompanion<Button> {

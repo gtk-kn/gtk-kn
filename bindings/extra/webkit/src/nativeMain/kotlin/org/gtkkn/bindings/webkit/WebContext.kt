@@ -95,12 +95,9 @@ import org.gtkkn.bindings.glib.List as GlibList
  *
  * - method `memory-pressure-settings`: Property has no getter nor setter
  */
-public class WebContext(pointer: CPointer<WebKitWebContext>) :
-    Object(pointer.reinterpret()),
+public class WebContext(public val webkitWebContextPointer: CPointer<WebKitWebContext>) :
+    Object(webkitWebContextPointer.reinterpret()),
     KGTyped {
-    public val webkitWebContextPointer: CPointer<WebKitWebContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The timezone override for this web context. Setting this property provides a better
      * alternative to configure the timezone information for all webviews managed by the WebContext.
@@ -249,8 +246,8 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
     public fun initializeNotificationPermissions(allowedOrigins: GlibList, disallowedOrigins: GlibList): Unit =
         webkit_web_context_initialize_notification_permissions(
             webkitWebContextPointer,
-            allowedOrigins.gPointer,
-            disallowedOrigins.gPointer
+            allowedOrigins.glibListPointer,
+            disallowedOrigins.glibListPointer
         )
 
     /**
@@ -449,7 +446,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
     public fun setWebProcessExtensionsInitializationUserData(userData: Variant): Unit =
         webkit_web_context_set_web_process_extensions_initialization_user_data(
             webkitWebContextPointer,
-            userData.gPointer
+            userData.glibVariantPointer
         )
 
     /**
@@ -466,7 +463,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (session: AutomationSession) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitWebContextPointer,
         "automation-started",
         onAutomationStartedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -482,7 +479,11 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
      */
     @WebKitVersion2_18
     public fun emitAutomationStarted(session: AutomationSession) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "automation-started", session.webkitAutomationSessionPointer)
+        g_signal_emit_by_name(
+            webkitWebContextPointer.reinterpret(),
+            "automation-started",
+            session.webkitAutomationSessionPointer
+        )
     }
 
     /**
@@ -504,7 +505,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitWebContextPointer,
         "initialize-notification-permissions",
         onInitializeNotificationPermissionsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -519,7 +520,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
      */
     @WebKitVersion2_16
     public fun emitInitializeNotificationPermissions() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "initialize-notification-permissions")
+        g_signal_emit_by_name(webkitWebContextPointer.reinterpret(), "initialize-notification-permissions")
     }
 
     /**
@@ -537,7 +538,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: () -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitWebContextPointer,
         "initialize-web-process-extensions",
         onInitializeWebProcessExtensionsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -552,7 +553,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
      */
     @WebKitVersion2_4
     public fun emitInitializeWebProcessExtensions() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "initialize-web-process-extensions")
+        g_signal_emit_by_name(webkitWebContextPointer.reinterpret(), "initialize-web-process-extensions")
     }
 
     /**
@@ -572,7 +573,7 @@ public class WebContext(pointer: CPointer<WebKitWebContext>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: UserMessage) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitWebContextPointer,
         "user-message-received",
         onUserMessageReceivedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

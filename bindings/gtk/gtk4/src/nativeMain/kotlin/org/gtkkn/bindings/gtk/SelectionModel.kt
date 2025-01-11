@@ -10,7 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -78,7 +79,7 @@ import kotlin.Unit
  * when an item was selected is to listen to the signals that indicate selection.
  */
 public interface SelectionModel :
-    Interface,
+    Proxy,
     ListModel,
     KGTyped {
     public val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
@@ -219,8 +220,11 @@ public interface SelectionModel :
      *   tried. This does not mean that all items were updated according
      *   to the inputs.
      */
-    public fun setSelection(selected: Bitset, mask: Bitset): Boolean =
-        gtk_selection_model_set_selection(gtkSelectionModelPointer, selected.gPointer, mask.gPointer).asBoolean()
+    public fun setSelection(selected: Bitset, mask: Bitset): Boolean = gtk_selection_model_set_selection(
+        gtkSelectionModelPointer,
+        selected.gtkBitsetPointer,
+        mask.gtkBitsetPointer
+    ).asBoolean()
 
     /**
      * Requests to unselect all items in the model.
@@ -274,19 +278,22 @@ public interface SelectionModel :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GtkSelectionModel>) : SelectionModel {
-        override val gtkSelectionModelPointer: CPointer<GtkSelectionModel> = pointer
-    }
+    /**
+     * The SelectionModelImpl type represents a native instance of the SelectionModel interface.
+     *
+     * @constructor Creates a new instance of SelectionModel for the provided [CPointer].
+     */
+    public data class SelectionModelImpl(override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>) :
+        Object(gtkSelectionModelPointer.reinterpret()),
+        SelectionModel
 
     public companion object : TypeCompanion<SelectionModel> {
         override val type: GeneratedInterfaceKGType<SelectionModel> =
-            GeneratedInterfaceKGType(gtk_selection_model_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_selection_model_get_type()) { SelectionModelImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkSelectionModel>): SelectionModel = Wrapper(pointer)
 
         /**
          * Get the GType of SelectionModel

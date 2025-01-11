@@ -87,20 +87,17 @@ import kotlin.Boolean
  * Since GTK 4.12, `GtkTreeExpander` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
  * Toggling it will change the `GTK_ACCESSIBLE_STATE_EXPANDED` state.
  */
-public open class TreeExpander(pointer: CPointer<GtkTreeExpander>) :
-    Widget(pointer.reinterpret()),
+public open class TreeExpander(public val gtkTreeExpanderPointer: CPointer<GtkTreeExpander>) :
+    Widget(gtkTreeExpanderPointer.reinterpret()),
     KGTyped {
-    public val gtkTreeExpanderPointer: CPointer<GtkTreeExpander>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget with the actual contents.
@@ -112,7 +109,7 @@ public open class TreeExpander(pointer: CPointer<GtkTreeExpander>) :
          * @return The child displayed by @self
          */
         get() = gtk_tree_expander_get_child(gtkTreeExpanderPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

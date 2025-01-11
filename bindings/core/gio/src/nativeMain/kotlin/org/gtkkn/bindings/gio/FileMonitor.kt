@@ -51,12 +51,9 @@ import kotlin.Unit
  * - method `cancelled`: Property has no getter nor setter
  * - method `rate-limit`: Property has no getter
  */
-public open class FileMonitor(pointer: CPointer<GFileMonitor>) :
-    Object(pointer.reinterpret()),
+public abstract class FileMonitor(public val gioFileMonitorPointer: CPointer<GFileMonitor>) :
+    Object(gioFileMonitorPointer.reinterpret()),
     KGTyped {
-    public val gioFileMonitorPointer: CPointer<GFileMonitor>
-        get() = gPointer.reinterpret()
-
     /**
      * Cancels a file monitor.
      *
@@ -143,7 +140,7 @@ public open class FileMonitor(pointer: CPointer<GFileMonitor>) :
             eventType: FileMonitorEvent,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioFileMonitorPointer,
         "changed",
         onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -160,7 +157,7 @@ public open class FileMonitor(pointer: CPointer<GFileMonitor>) :
      */
     public fun emitChanged(`file`: File, otherFile: File?, eventType: FileMonitorEvent) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gioFileMonitorPointer.reinterpret(),
             "changed",
             `file`.gioFilePointer,
             otherFile?.gioFilePointer,
@@ -168,9 +165,16 @@ public open class FileMonitor(pointer: CPointer<GFileMonitor>) :
         )
     }
 
+    /**
+     * The FileMonitorImpl type represents a native instance of the abstract FileMonitor class.
+     *
+     * @constructor Creates a new instance of FileMonitor for the provided [CPointer].
+     */
+    public class FileMonitorImpl(pointer: CPointer<GFileMonitor>) : FileMonitor(pointer)
+
     public companion object : TypeCompanion<FileMonitor> {
         override val type: GeneratedClassKGType<FileMonitor> =
-            GeneratedClassKGType(g_file_monitor_get_type()) { FileMonitor(it.reinterpret()) }
+            GeneratedClassKGType(g_file_monitor_get_type()) { FileMonitorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -208,10 +212,10 @@ private val onChangedFunc: CPointer<
         ) -> Unit
         >().get().invoke(
         `file`!!.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         },
         otherFile?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         },
         eventType.run {
             FileMonitorEvent.fromNativeValue(this)

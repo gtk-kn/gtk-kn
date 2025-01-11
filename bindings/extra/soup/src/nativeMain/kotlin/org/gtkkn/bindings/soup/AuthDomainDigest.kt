@@ -29,12 +29,9 @@ import kotlin.Unit
  * - method `auth-data`: Property has no getter nor setter
  * - constructor `new`: Varargs parameter is not supported
  */
-public class AuthDomainDigest(pointer: CPointer<SoupAuthDomainDigest>) :
-    AuthDomain(pointer.reinterpret()),
+public class AuthDomainDigest(public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>) :
+    AuthDomain(soupAuthDomainDigestPointer.reinterpret()),
     KGTyped {
-    public val soupAuthDomainDigestPointer: CPointer<SoupAuthDomainDigest>
-        get() = gPointer.reinterpret()
-
     /**
      * Sets the callback that @domain will use to authenticate incoming
      * requests.

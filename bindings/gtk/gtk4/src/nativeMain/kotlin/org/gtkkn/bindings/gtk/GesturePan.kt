@@ -42,12 +42,9 @@ import kotlin.Unit
  * the [signal@Gtk.GesturePan::pan] signal will be emitted as input
  * events are received, containing the offset in the given axis.
  */
-public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
-    GestureDrag(pointer.reinterpret()),
+public open class GesturePan(public val gtkGesturePanPointer: CPointer<GtkGesturePan>) :
+    GestureDrag(gtkGesturePanPointer.reinterpret()),
     KGTyped {
-    public val gtkGesturePanPointer: CPointer<GtkGesturePan>
-        get() = gPointer.reinterpret()
-
     /**
      * The expected orientation of pan gestures.
      */
@@ -86,7 +83,7 @@ public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (direction: PanDirection, offset: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGesturePanPointer,
         "pan",
         onPanFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -101,7 +98,7 @@ public open class GesturePan(pointer: CPointer<GtkGesturePan>) :
      * @param offset Offset along the gesture orientation
      */
     public fun emitPan(direction: PanDirection, offset: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "pan", direction.nativeValue, offset)
+        g_signal_emit_by_name(gtkGesturePanPointer.reinterpret(), "pan", direction.nativeValue, offset)
     }
 
     public companion object : TypeCompanion<GesturePan> {

@@ -11,6 +11,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.Context
 import org.gtkkn.bindings.glib.Bytes
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.bindings.graphene.Rect
 import org.gtkkn.bindings.gsk.Gsk.resolveException
 import org.gtkkn.extensions.glib.ext.asBoolean
@@ -49,9 +50,9 @@ import kotlin.Unit
  * them. All [class@Gsk.RenderNode]s are immutable, you can only specify their
  * properties during construction.
  */
-public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
-    public val gPointer: CPointer<GskRenderNode> = pointer
-
+public abstract class RenderNode(public val gskRenderNodePointer: CPointer<GskRenderNode>) :
+    TypeInstance(gskRenderNodePointer.reinterpret()),
+    KGTyped {
     /**
      * Draw the contents of @node to the given cairo context.
      *
@@ -64,7 +65,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @param cr cairo context to draw to
      */
-    public open fun draw(cr: Context): Unit = gsk_render_node_draw(gPointer, cr.gPointer)
+    public open fun draw(cr: Context): Unit = gsk_render_node_draw(gskRenderNodePointer, cr.cairoContextPointer)
 
     /**
      * Retrieves the boundaries of the @node.
@@ -73,14 +74,15 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @param bounds return location for the boundaries
      */
-    public open fun getBounds(bounds: Rect): Unit = gsk_render_node_get_bounds(gPointer, bounds.gPointer)
+    public open fun getBounds(bounds: Rect): Unit =
+        gsk_render_node_get_bounds(gskRenderNodePointer, bounds.grapheneRectPointer)
 
     /**
      * Returns the type of the @node.
      *
      * @return the type of the `GskRenderNode`
      */
-    public open fun getNodeType(): RenderNodeType = gsk_render_node_get_node_type(gPointer).run {
+    public open fun getNodeType(): RenderNodeType = gsk_render_node_get_node_type(gskRenderNodePointer).run {
         RenderNodeType.fromNativeValue(this)
     }
 
@@ -89,8 +91,8 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @return the `GskRenderNode` with an additional reference
      */
-    public open fun ref(): RenderNode = gsk_render_node_ref(gPointer)!!.run {
-        RenderNode(this)
+    public open fun ref(): RenderNode = gsk_render_node_ref(gskRenderNodePointer)!!.run {
+        RenderNodeImpl(this)
     }
 
     /**
@@ -106,7 +108,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      *
      * @return a `GBytes` representing the node.
      */
-    public open fun serialize(): Bytes = gsk_render_node_serialize(gPointer)!!.run {
+    public open fun serialize(): Bytes = gsk_render_node_serialize(gskRenderNodePointer)!!.run {
         Bytes(this)
     }
 
@@ -116,7 +118,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      * If the reference was the last, the resources associated to the @node are
      * freed.
      */
-    public open fun unref(): Unit = gsk_render_node_unref(gPointer)
+    public open fun unref(): Unit = gsk_render_node_unref(gskRenderNodePointer)
 
     /**
      * This function is equivalent to calling [method@Gsk.RenderNode.serialize]
@@ -132,7 +134,7 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
      */
     public open fun writeToFile(filename: String): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = gsk_render_node_write_to_file(gPointer, filename, gError.ptr).asBoolean()
+        val gResult = gsk_render_node_write_to_file(gskRenderNodePointer, filename, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -140,9 +142,16 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
         }
     }
 
+    /**
+     * The RenderNodeImpl type represents a native instance of the abstract RenderNode class.
+     *
+     * @constructor Creates a new instance of RenderNode for the provided [CPointer].
+     */
+    public class RenderNodeImpl(pointer: CPointer<GskRenderNode>) : RenderNode(pointer)
+
     public companion object : TypeCompanion<RenderNode> {
         override val type: GeneratedClassKGType<RenderNode> =
-            GeneratedClassKGType(gsk_render_node_get_type()) { RenderNode(it.reinterpret()) }
+            GeneratedClassKGType(gsk_render_node_get_type()) { RenderNodeImpl(it.reinterpret()) }
 
         init {
             GskTypeProvider.register()
@@ -158,13 +167,13 @@ public open class RenderNode(pointer: CPointer<GskRenderNode>) : KGTyped {
          * @return a new `GskRenderNode`
          */
         public fun deserialize(bytes: Bytes, errorFunc: ParseErrorFunc?): RenderNode? = gsk_render_node_deserialize(
-            bytes.gPointer,
+            bytes.glibBytesPointer,
             errorFunc?.let {
                 ParseErrorFuncFunc.reinterpret()
             },
             errorFunc?.let { StableRef.create(errorFunc).asCPointer() }
         )?.run {
-            RenderNode(this)
+            RenderNodeImpl(this)
         }
 
         /**

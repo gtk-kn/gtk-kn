@@ -52,12 +52,9 @@ import kotlin.Unit
  * unlock” button in a dialog and to provide the mechanism to invoke
  * when that button is clicked.
  */
-public open class Permission(pointer: CPointer<GPermission>) :
-    Object(pointer.reinterpret()),
+public abstract class Permission(public val gioPermissionPointer: CPointer<GPermission>) :
+    Object(gioPermissionPointer.reinterpret()),
     KGTyped {
-    public val gioPermissionPointer: CPointer<GPermission>
-        get() = gPointer.reinterpret()
-
     /**
      * true if the caller currently has permission to perform the action that
      * @permission represents the permission to perform.
@@ -290,9 +287,16 @@ public open class Permission(pointer: CPointer<GPermission>) :
         }
     }
 
+    /**
+     * The PermissionImpl type represents a native instance of the abstract Permission class.
+     *
+     * @constructor Creates a new instance of Permission for the provided [CPointer].
+     */
+    public class PermissionImpl(pointer: CPointer<GPermission>) : Permission(pointer)
+
     public companion object : TypeCompanion<Permission> {
         override val type: GeneratedClassKGType<Permission> =
-            GeneratedClassKGType(g_permission_get_type()) { Permission(it.reinterpret()) }
+            GeneratedClassKGType(g_permission_get_type()) { PermissionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

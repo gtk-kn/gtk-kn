@@ -151,28 +151,25 @@ import kotlin.Unit
  * - method `invisible-char-set`: Property has no getter nor setter
  * - method `scroll-offset`: Property has no getter nor setter
  */
-public open class Text(pointer: CPointer<GtkText>) :
-    Widget(pointer.reinterpret()),
+public open class Text(public val gtkTextPointer: CPointer<GtkText>) :
+    Widget(gtkTextPointer.reinterpret()),
     AccessibleText,
     Editable,
     KGTyped {
-    public val gtkTextPointer: CPointer<GtkText>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkEditablePointer: CPointer<GtkEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to activate the default widget when Enter is pressed.
@@ -225,7 +222,7 @@ public open class Text(pointer: CPointer<GtkText>) :
          *
          * @param attrs a `PangoAttrList`
          */
-        set(attrs) = gtk_text_set_attributes(gtkTextPointer, attrs?.gPointer)
+        set(attrs) = gtk_text_set_attributes(gtkTextPointer, attrs?.pangoAttrListPointer)
 
     /**
      * The `GtkEntryBuffer` object which stores the text.
@@ -287,7 +284,7 @@ public open class Text(pointer: CPointer<GtkText>) :
          * @return the menu model
          */
         get() = gtk_text_get_extra_menu(gtkTextPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -494,7 +491,7 @@ public open class Text(pointer: CPointer<GtkText>) :
          *
          * @param tabs a `PangoTabArray`
          */
-        set(tabs) = gtk_text_set_tabs(gtkTextPointer, tabs?.gPointer)
+        set(tabs) = gtk_text_set_tabs(gtkTextPointer, tabs?.pangoTabArrayPointer)
 
     /**
      * When true, pasted multi-line text is truncated to the first line.
@@ -584,7 +581,12 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     @GtkVersion4_4
     public open fun computeCursorExtents(position: gsize, strong: Rect?, weak: Rect?): Unit =
-        gtk_text_compute_cursor_extents(gtkTextPointer, position, strong?.gPointer, weak?.gPointer)
+        gtk_text_compute_cursor_extents(
+            gtkTextPointer,
+            position,
+            strong?.grapheneRectPointer,
+            weak?.grapheneRectPointer
+        )
 
     /**
      * Retrieves the current length of the text in @self.
@@ -630,7 +632,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -642,7 +644,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "activate")
     }
 
     /**
@@ -658,7 +660,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onBackspace(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "backspace",
             onBackspaceFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -670,7 +672,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "backspace" signal. See [onBackspace].
      */
     public fun emitBackspace() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "backspace")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "backspace")
     }
 
     /**
@@ -687,7 +689,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onCopyClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "copy-clipboard",
             onCopyClipboardFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -699,7 +701,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "copy-clipboard" signal. See [onCopyClipboard].
      */
     public fun emitCopyClipboard() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "copy-clipboard")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "copy-clipboard")
     }
 
     /**
@@ -716,7 +718,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onCutClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "cut-clipboard",
             onCutClipboardFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -728,7 +730,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "cut-clipboard" signal. See [onCutClipboard].
      */
     public fun emitCutClipboard() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cut-clipboard")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "cut-clipboard")
     }
 
     /**
@@ -751,7 +753,7 @@ public open class Text(pointer: CPointer<GtkText>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (type: DeleteType, count: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTextPointer,
         "delete-from-cursor",
         onDeleteFromCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -766,7 +768,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * @param count the number of @type units to delete
      */
     public fun emitDeleteFromCursor(type: DeleteType, count: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "delete-from-cursor", type.nativeValue, count)
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "delete-from-cursor", type.nativeValue, count)
     }
 
     /**
@@ -784,7 +786,7 @@ public open class Text(pointer: CPointer<GtkText>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (string: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTextPointer,
         "insert-at-cursor",
         onInsertAtCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -798,7 +800,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * @param string the string to insert
      */
     public fun emitInsertAtCursor(string: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "insert-at-cursor", string.cstr)
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "insert-at-cursor", string.cstr)
     }
 
     /**
@@ -815,7 +817,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onInsertEmoji(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "insert-emoji",
             onInsertEmojiFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -827,7 +829,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "insert-emoji" signal. See [onInsertEmoji].
      */
     public fun emitInsertEmoji() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "insert-emoji")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "insert-emoji")
     }
 
     /**
@@ -863,7 +865,7 @@ public open class Text(pointer: CPointer<GtkText>) :
             extend: Boolean,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTextPointer,
         "move-cursor",
         onMoveCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -879,7 +881,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * @param extend true if the move should extend the selection
      */
     public fun emitMoveCursor(step: MovementStep, count: gint, extend: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-cursor", step.nativeValue, count, extend.asGBoolean())
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "move-cursor", step.nativeValue, count, extend.asGBoolean())
     }
 
     /**
@@ -895,7 +897,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onPasteClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "paste-clipboard",
             onPasteClipboardFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -907,7 +909,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "paste-clipboard" signal. See [onPasteClipboard].
      */
     public fun emitPasteClipboard() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "paste-clipboard")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "paste-clipboard")
     }
 
     /**
@@ -924,7 +926,7 @@ public open class Text(pointer: CPointer<GtkText>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (preedit: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTextPointer,
         "preedit-changed",
         onPreeditChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -938,7 +940,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * @param preedit the current preedit string
      */
     public fun emitPreeditChanged(preedit: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "preedit-changed", preedit.cstr)
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "preedit-changed", preedit.cstr)
     }
 
     /**
@@ -953,7 +955,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      */
     public fun onToggleOverwrite(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextPointer,
             "toggle-overwrite",
             onToggleOverwriteFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -965,7 +967,7 @@ public open class Text(pointer: CPointer<GtkText>) :
      * Emits the "toggle-overwrite" signal. See [onToggleOverwrite].
      */
     public fun emitToggleOverwrite() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "toggle-overwrite")
+        g_signal_emit_by_name(gtkTextPointer.reinterpret(), "toggle-overwrite")
     }
 
     public companion object : TypeCompanion<Text> {

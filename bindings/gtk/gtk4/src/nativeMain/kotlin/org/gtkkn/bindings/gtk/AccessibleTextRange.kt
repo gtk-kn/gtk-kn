@@ -22,30 +22,30 @@ import kotlin.native.ref.createCleaner
  * @since 4.14
  */
 @GtkVersion4_14
-public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkAccessibleTextRange> = pointer
-
+public class AccessibleTextRange(
+    public val gtkAccessibleTextRangePointer: CPointer<GtkAccessibleTextRange>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gtkAccessibleTextRangePointer) {
     /**
      * the start of the range, in characters
      */
     public var start: gsize
-        get() = gPointer.pointed.start
+        get() = gtkAccessibleTextRangePointer.pointed.start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start = value
+            gtkAccessibleTextRangePointer.pointed.start = value
         }
 
     /**
      * the length of the range, in characters
      */
     public var length: gsize
-        get() = gPointer.pointed.length
+        get() = gtkAccessibleTextRangePointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.length = value
+            gtkAccessibleTextRangePointer.pointed.length = value
         }
 
     /**
@@ -68,7 +68,7 @@ public class AccessibleTextRange(pointer: CPointer<GtkAccessibleTextRange>, clea
      */
     private constructor(
         pair: Pair<CPointer<GtkAccessibleTextRange>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gtkAccessibleTextRangePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AccessibleTextRange using the provided [AutofreeScope].

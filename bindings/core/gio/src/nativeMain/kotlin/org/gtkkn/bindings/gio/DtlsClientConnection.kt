@@ -11,7 +11,8 @@ import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.List
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -37,7 +38,7 @@ import kotlin.Unit
  */
 @GioVersion2_48
 public interface DtlsClientConnection :
-    Interface,
+    Proxy,
     DatagramBased,
     DtlsConnection,
     KGTyped {
@@ -109,7 +110,7 @@ public interface DtlsClientConnection :
          * @since 2.48
          */
         get() = g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer)!!.run {
-            SocketConnectable.wrap(reinterpret())
+            SocketConnectable.SocketConnectableImpl(reinterpret())
         }
 
         /**
@@ -211,7 +212,7 @@ public interface DtlsClientConnection :
     @GioVersion2_48
     public fun getServerIdentity(): SocketConnectable =
         g_dtls_client_connection_get_server_identity(gioDtlsClientConnectionPointer)!!.run {
-            SocketConnectable.wrap(reinterpret())
+            SocketConnectable.SocketConnectableImpl(reinterpret())
         }
 
     /**
@@ -261,19 +262,25 @@ public interface DtlsClientConnection :
     public fun setValidationFlags(flags: TlsCertificateFlags): Unit =
         g_dtls_client_connection_set_validation_flags(gioDtlsClientConnectionPointer, flags.mask)
 
-    private data class Wrapper(private val pointer: CPointer<GDtlsClientConnection>) : DtlsClientConnection {
-        override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection> = pointer
-    }
+    /**
+     * The DtlsClientConnectionImpl type represents a native instance of the DtlsClientConnection interface.
+     *
+     * @constructor Creates a new instance of DtlsClientConnection for the provided [CPointer].
+     */
+    public data class DtlsClientConnectionImpl(
+        override val gioDtlsClientConnectionPointer: CPointer<GDtlsClientConnection>,
+    ) : Object(gioDtlsClientConnectionPointer.reinterpret()),
+        DtlsClientConnection
 
     public companion object : TypeCompanion<DtlsClientConnection> {
         override val type: GeneratedInterfaceKGType<DtlsClientConnection> =
-            GeneratedInterfaceKGType(g_dtls_client_connection_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_dtls_client_connection_get_type()) {
+                DtlsClientConnectionImpl(it.reinterpret())
+            }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDtlsClientConnection>): DtlsClientConnection = Wrapper(pointer)
 
         /**
          * Creates a new #GDtlsClientConnection wrapping @base_socket which is
@@ -296,7 +303,7 @@ public interface DtlsClientConnection :
                 serverIdentity?.gioSocketConnectablePointer,
                 gError.ptr
             )?.run {
-                DtlsClientConnection.wrap(reinterpret())
+                DtlsClientConnectionImpl(reinterpret())
             }
 
             return if (gError.pointed != null) {

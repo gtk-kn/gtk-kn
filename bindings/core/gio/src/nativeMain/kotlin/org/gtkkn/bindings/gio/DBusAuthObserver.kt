@@ -101,12 +101,9 @@ import kotlin.ULong
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
-    Object(pointer.reinterpret()),
+public open class DBusAuthObserver(public val gioDBusAuthObserverPointer: CPointer<GDBusAuthObserver>) :
+    Object(gioDBusAuthObserverPointer.reinterpret()),
     KGTyped {
-    public val gioDBusAuthObserverPointer: CPointer<GDBusAuthObserver>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GDBusAuthObserver object.
      *
@@ -154,7 +151,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mechanism: String) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusAuthObserverPointer,
         "allow-mechanism",
         onAllowMechanismFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -175,7 +172,7 @@ public open class DBusAuthObserver(pointer: CPointer<GDBusAuthObserver>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (stream: IoStream, credentials: Credentials?) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioDBusAuthObserverPointer,
         "authorize-authenticated-peer",
         onAuthorizeAuthenticatedPeerFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -222,7 +219,7 @@ private val onAuthorizeAuthenticatedPeerFunc:
         ->
         userData.asStableRef<(stream: IoStream, credentials: Credentials?) -> Boolean>().get().invoke(
             stream!!.run {
-                IoStream(this)
+                IoStream.IoStreamImpl(this)
             },
             credentials?.run {
                 Credentials(this)

@@ -26,26 +26,23 @@ import org.gtkkn.native.gtk.gtk_volume_button_new
  *
  * - method `use-symbolic`: Property has no getter nor setter
  */
-public open class VolumeButton(pointer: CPointer<GtkVolumeButton>) :
-    ScaleButton(pointer.reinterpret()),
+public open class VolumeButton(public val gtkVolumeButtonPointer: CPointer<GtkVolumeButton>) :
+    ScaleButton(gtkVolumeButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkVolumeButtonPointer: CPointer<GtkVolumeButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a `GtkVolumeButton`.

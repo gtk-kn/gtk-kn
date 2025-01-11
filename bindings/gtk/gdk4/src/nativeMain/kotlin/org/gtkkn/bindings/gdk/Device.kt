@@ -60,12 +60,9 @@ import kotlin.Unit
  * - method `n-axes`: Property has no getter nor setter
  * - method `tool`: Property has no getter nor setter
  */
-public open class Device(pointer: CPointer<GdkDevice>) :
-    Object(pointer.reinterpret()),
+public abstract class Device(public val gdkDevicePointer: CPointer<GdkDevice>) :
+    Object(gdkDevicePointer.reinterpret()),
     KGTyped {
-    public val gdkDevicePointer: CPointer<GdkDevice>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether Caps Lock is on.
      *
@@ -228,7 +225,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
          * @return a `GdkSeat`
          */
         get() = gdk_device_get_seat(gdkDevicePointer)!!.run {
-            Seat(this)
+            Seat.SeatImpl(this)
         }
 
     /**
@@ -330,7 +327,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkDevicePointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -342,7 +339,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gdkDevicePointer.reinterpret(), "changed")
     }
 
     /**
@@ -355,7 +352,7 @@ public open class Device(pointer: CPointer<GdkDevice>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tool: DeviceTool) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkDevicePointer,
         "tool-changed",
         onToolChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -369,12 +366,19 @@ public open class Device(pointer: CPointer<GdkDevice>) :
      * @param tool The new current tool
      */
     public fun emitToolChanged(tool: DeviceTool) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "tool-changed", tool.gdkDeviceToolPointer)
+        g_signal_emit_by_name(gdkDevicePointer.reinterpret(), "tool-changed", tool.gdkDeviceToolPointer)
     }
+
+    /**
+     * The DeviceImpl type represents a native instance of the abstract Device class.
+     *
+     * @constructor Creates a new instance of Device for the provided [CPointer].
+     */
+    public class DeviceImpl(pointer: CPointer<GdkDevice>) : Device(pointer)
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-            GeneratedClassKGType(gdk_device_get_type()) { Device(it.reinterpret()) }
+            GeneratedClassKGType(gdk_device_get_type()) { DeviceImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

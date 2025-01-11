@@ -10,7 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Rgba
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -46,7 +47,7 @@ import kotlin.Unit
  * - method `rgba`: Property has no getter
  */
 public interface ColorChooser :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkColorChooserPointer: CPointer<GtkColorChooser>
 
@@ -81,7 +82,7 @@ public interface ColorChooser :
      *
      * @param color a `GdkRGBA` to fill in with the current color
      */
-    public fun getRgba(color: Rgba): Unit = gtk_color_chooser_get_rgba(gtkColorChooserPointer, color.gPointer)
+    public fun getRgba(color: Rgba): Unit = gtk_color_chooser_get_rgba(gtkColorChooserPointer, color.gdkRgbaPointer)
 
     /**
      * Returns whether the color chooser shows the alpha channel.
@@ -96,7 +97,7 @@ public interface ColorChooser :
      *
      * @param color the new color
      */
-    public fun setRgba(color: Rgba): Unit = gtk_color_chooser_set_rgba(gtkColorChooserPointer, color.gPointer)
+    public fun setRgba(color: Rgba): Unit = gtk_color_chooser_set_rgba(gtkColorChooserPointer, color.gdkRgbaPointer)
 
     /**
      * Sets whether or not the color chooser should use the alpha channel.
@@ -126,19 +127,22 @@ public interface ColorChooser :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GtkColorChooser>) : ColorChooser {
-        override val gtkColorChooserPointer: CPointer<GtkColorChooser> = pointer
-    }
+    /**
+     * The ColorChooserImpl type represents a native instance of the ColorChooser interface.
+     *
+     * @constructor Creates a new instance of ColorChooser for the provided [CPointer].
+     */
+    public data class ColorChooserImpl(override val gtkColorChooserPointer: CPointer<GtkColorChooser>) :
+        Object(gtkColorChooserPointer.reinterpret()),
+        ColorChooser
 
     public companion object : TypeCompanion<ColorChooser> {
         override val type: GeneratedInterfaceKGType<ColorChooser> =
-            GeneratedInterfaceKGType(gtk_color_chooser_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_color_chooser_get_type()) { ColorChooserImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkColorChooser>): ColorChooser = Wrapper(pointer)
 
         /**
          * Get the GType of ColorChooser

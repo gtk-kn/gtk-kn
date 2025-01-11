@@ -19,34 +19,34 @@ import kotlin.native.ref.createCleaner
  * The GObjectConstructParam struct is an auxiliary structure used to hand
  * #GParamSpec/#GValue pairs to the @constructor of a #GObjectClass.
  */
-public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GObjectConstructParam> = pointer
-
+public class ObjectConstructParam(
+    public val gobjectObjectConstructParamPointer: CPointer<GObjectConstructParam>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectObjectConstructParamPointer) {
     /**
      * the #GParamSpec of the construct parameter
      */
     public var pspec: ParamSpec?
-        get() = gPointer.pointed.pspec?.run {
-            ParamSpec(this)
+        get() = gobjectObjectConstructParamPointer.pointed.pspec?.run {
+            ParamSpec.ParamSpecImpl(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.pspec = value?.gPointer
+            gobjectObjectConstructParamPointer.pointed.pspec = value?.gobjectParamSpecPointer
         }
 
     /**
      * the value to set the parameter to
      */
     public var `value`: Value?
-        get() = gPointer.pointed.value?.run {
+        get() = gobjectObjectConstructParamPointer.pointed.value?.run {
             Value(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value = value?.gPointer
+            gobjectObjectConstructParamPointer.pointed.value = value?.gobjectValuePointer
         }
 
     /**
@@ -69,7 +69,7 @@ public class ObjectConstructParam(pointer: CPointer<GObjectConstructParam>, clea
      */
     private constructor(
         pair: Pair<CPointer<GObjectConstructParam>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectObjectConstructParamPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ObjectConstructParam using the provided [AutofreeScope].

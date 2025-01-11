@@ -98,20 +98,17 @@ import kotlin.Unit
  * - method `visible-child`: Property TypeInfo of getter and setter do not match
  * - method `visible-child-name`: Property TypeInfo of getter and setter do not match
  */
-public open class Stack(pointer: CPointer<GtkStack>) :
-    Widget(pointer.reinterpret()),
+public open class Stack(public val gtkStackPointer: CPointer<GtkStack>) :
+    Widget(gtkStackPointer.reinterpret()),
     KGTyped {
-    public val gtkStackPointer: CPointer<GtkStack>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * true if the stack allocates the same width for all children.
@@ -174,7 +171,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
          * @return a `GtkSelectionModel` for the stack's children
          */
         get() = gtk_stack_get_pages(gtkStackPointer)!!.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
     /**
@@ -318,7 +315,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      *   of the `GtkStack`
      */
     public open fun getChildByName(name: String): Widget? = gtk_stack_get_child_by_name(gtkStackPointer, name)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -340,7 +337,7 @@ public open class Stack(pointer: CPointer<GtkStack>) :
      * @return the visible child of the `GtkStack`
      */
     public open fun getVisibleChild(): Widget? = gtk_stack_get_visible_child(gtkStackPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**

@@ -150,12 +150,9 @@ import kotlin.Unit
  * - parameter `accel_char`: accel_char: Out parameter is not supported
  * - parameter `index`: index: Out parameter is not supported
  */
-public open class Layout(pointer: CPointer<PangoLayout>) :
-    Object(pointer.reinterpret()),
+public open class Layout(public val pangoLayoutPointer: CPointer<PangoLayout>) :
+    Object(pangoLayoutPointer.reinterpret()),
     KGTyped {
-    public val pangoLayoutPointer: CPointer<PangoLayout>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a new `PangoLayout` object with attributes initialized to
      * default values for a particular `PangoContext`.
@@ -247,7 +244,12 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      */
     @PangoVersion1_50
     public open fun getCaretPos(index: gint, strongPos: Rectangle?, weakPos: Rectangle?): Unit =
-        pango_layout_get_caret_pos(pangoLayoutPointer, index, strongPos?.gPointer, weakPos?.gPointer)
+        pango_layout_get_caret_pos(
+            pangoLayoutPointer,
+            index,
+            strongPos?.pangoRectanglePointer,
+            weakPos?.pangoRectanglePointer
+        )
 
     /**
      * Returns the number of Unicode characters in the
@@ -303,7 +305,12 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      * @param weakPos location to store the weak cursor position
      */
     public open fun getCursorPos(index: gint, strongPos: Rectangle?, weakPos: Rectangle?): Unit =
-        pango_layout_get_cursor_pos(pangoLayoutPointer, index, strongPos?.gPointer, weakPos?.gPointer)
+        pango_layout_get_cursor_pos(
+            pangoLayoutPointer,
+            index,
+            strongPos?.pangoRectanglePointer,
+            weakPos?.pangoRectanglePointer
+        )
 
     /**
      * Gets the text direction at the given character position in @layout.
@@ -351,7 +358,7 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      *   extents of the layout
      */
     public open fun getExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_get_extents(pangoLayoutPointer, inkRect?.gPointer, logicalRect?.gPointer)
+        pango_layout_get_extents(pangoLayoutPointer, inkRect?.pangoRectanglePointer, logicalRect?.pangoRectanglePointer)
 
     /**
      * Gets the font description for the layout, if any.
@@ -518,7 +525,11 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      *   extents of the layout
      */
     public open fun getPixelExtents(inkRect: Rectangle?, logicalRect: Rectangle?): Unit =
-        pango_layout_get_pixel_extents(pangoLayoutPointer, inkRect?.gPointer, logicalRect?.gPointer)
+        pango_layout_get_pixel_extents(
+            pangoLayoutPointer,
+            inkRect?.pangoRectanglePointer,
+            logicalRect?.pangoRectanglePointer
+        )
 
     /**
      * Returns the current serial number of @layout.
@@ -628,7 +639,7 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      * @param pos rectangle in which to store the position of the grapheme
      */
     public open fun indexToPos(index: gint, pos: Rectangle): Unit =
-        pango_layout_index_to_pos(pangoLayoutPointer, index, pos.gPointer)
+        pango_layout_index_to_pos(pangoLayoutPointer, index, pos.pangoRectanglePointer)
 
     /**
      * Queries whether the layout had to ellipsize any paragraphs.
@@ -699,7 +710,7 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      * @param attrs a `PangoAttrList`
      */
     public open fun setAttributes(attrs: AttrList? = null): Unit =
-        pango_layout_set_attributes(pangoLayoutPointer, attrs?.gPointer)
+        pango_layout_set_attributes(pangoLayoutPointer, attrs?.pangoAttrListPointer)
 
     /**
      * Sets whether to calculate the base direction
@@ -761,7 +772,7 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      *   to unset the current font description
      */
     public open fun setFontDescription(desc: FontDescription? = null): Unit =
-        pango_layout_set_font_description(pangoLayoutPointer, desc?.gPointer)
+        pango_layout_set_font_description(pangoLayoutPointer, desc?.pangoFontDescriptionPointer)
 
     /**
      * Sets the height to which the `PangoLayout` should be ellipsized at.
@@ -948,7 +959,8 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
      *
      * @param tabs a `PangoTabArray`
      */
-    public open fun setTabs(tabs: TabArray? = null): Unit = pango_layout_set_tabs(pangoLayoutPointer, tabs?.gPointer)
+    public open fun setTabs(tabs: TabArray? = null): Unit =
+        pango_layout_set_tabs(pangoLayoutPointer, tabs?.pangoTabArrayPointer)
 
     /**
      * Sets the text of the layout.
@@ -1050,7 +1062,7 @@ public open class Layout(pointer: CPointer<PangoLayout>) :
                 val gError = allocPointerTo<GError>()
                 val gResult = pango_layout_deserialize(
                     context.pangoContextPointer,
-                    bytes.gPointer,
+                    bytes.glibBytesPointer,
                     flags.mask,
                     gError.ptr
                 )?.run {

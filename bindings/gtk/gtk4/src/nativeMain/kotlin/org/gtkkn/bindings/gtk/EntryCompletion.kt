@@ -102,19 +102,16 @@ import kotlin.Unit
  *
  * - method `cell-area`: Property has no getter nor setter
  */
-public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
-    Object(pointer.reinterpret()),
+public open class EntryCompletion(public val gtkEntryCompletionPointer: CPointer<GtkEntryCompletion>) :
+    Object(gtkEntryCompletionPointer.reinterpret()),
     Buildable,
     CellLayout,
     KGTyped {
-    public val gtkEntryCompletionPointer: CPointer<GtkEntryCompletion>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Determines whether the common prefix of the possible completions
@@ -193,7 +190,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
          * @return A `GtkTreeModel`
          */
         get() = gtk_entry_completion_get_model(gtkEntryCompletionPointer)?.run {
-            TreeModel.wrap(reinterpret())
+            TreeModel.TreeModelImpl(reinterpret())
         }
 
         /**
@@ -371,7 +368,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
      * @return The entry @completion has been attached to
      */
     public open fun getEntry(): Widget = gtk_entry_completion_get_entry(gtkEntryCompletionPointer)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -411,7 +408,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (model: TreeModel, iter: TreeIter) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEntryCompletionPointer,
         "cursor-on-match",
         onCursorOnMatchFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -437,7 +434,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (prefix: String) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEntryCompletionPointer,
         "insert-prefix",
         onInsertPrefixFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -462,7 +459,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (model: TreeModel, iter: TreeIter) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkEntryCompletionPointer,
         "match-selected",
         onMatchSelectedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -481,7 +478,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
      */
     public fun onNoMatches(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEntryCompletionPointer,
             "no-matches",
             onNoMatchesFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -493,7 +490,7 @@ public open class EntryCompletion(pointer: CPointer<GtkEntryCompletion>) :
      * Emits the "no-matches" signal. See [onNoMatches].
      */
     public fun emitNoMatches() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "no-matches")
+        g_signal_emit_by_name(gtkEntryCompletionPointer.reinterpret(), "no-matches")
     }
 
     public companion object : TypeCompanion<EntryCompletion> {
@@ -523,7 +520,7 @@ private val onCursorOnMatchFunc:
         ->
         userData.asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>().get().invoke(
             model!!.run {
-                TreeModel.wrap(reinterpret())
+                TreeModel.TreeModelImpl(reinterpret())
             },
             iter!!.run {
                 TreeIter(this)
@@ -554,7 +551,7 @@ private val onMatchSelectedFunc:
         ->
         userData.asStableRef<(model: TreeModel, iter: TreeIter) -> Boolean>().get().invoke(
             model!!.run {
-                TreeModel.wrap(reinterpret())
+                TreeModel.TreeModelImpl(reinterpret())
             },
             iter!!.run {
                 TreeIter(this)

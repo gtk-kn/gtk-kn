@@ -35,12 +35,9 @@ import kotlin.Unit
  * The `GdkSeat` object represents a collection of input devices
  * that belong to a user.
  */
-public open class Seat(pointer: CPointer<GdkSeat>) :
-    Object(pointer.reinterpret()),
+public abstract class Seat(public val gdkSeatPointer: CPointer<GdkSeat>) :
+    Object(gdkSeatPointer.reinterpret()),
     KGTyped {
-    public val gdkSeatPointer: CPointer<GdkSeat>
-        get() = gPointer.reinterpret()
-
     /**
      * `GdkDisplay` of this seat.
      */
@@ -84,7 +81,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getKeyboard(): Device? = gdk_seat_get_keyboard(gdkSeatPointer)?.run {
-        Device(this)
+        Device.DeviceImpl(this)
     }
 
     /**
@@ -94,7 +91,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      *   capabilities. This object is owned by GTK and must not be freed.
      */
     public open fun getPointer(): Device? = gdk_seat_get_pointer(gdkSeatPointer)?.run {
-        Device(this)
+        Device.DeviceImpl(this)
     }
 
     /**
@@ -114,7 +111,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      */
     public fun onDeviceAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (device: Device) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkSeatPointer,
             "device-added",
             onDeviceAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -128,7 +125,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      * @param device the newly added `GdkDevice`.
      */
     public fun emitDeviceAdded(device: Device) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "device-added", device.gdkDevicePointer)
+        g_signal_emit_by_name(gdkSeatPointer.reinterpret(), "device-added", device.gdkDevicePointer)
     }
 
     /**
@@ -141,7 +138,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (device: Device) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkSeatPointer,
         "device-removed",
         onDeviceRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -155,7 +152,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      * @param device the just removed `GdkDevice`.
      */
     public fun emitDeviceRemoved(device: Device) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "device-removed", device.gdkDevicePointer)
+        g_signal_emit_by_name(gdkSeatPointer.reinterpret(), "device-removed", device.gdkDevicePointer)
     }
 
     /**
@@ -172,7 +169,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      */
     public fun onToolAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tool: DeviceTool) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkSeatPointer,
             "tool-added",
             onToolAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -186,7 +183,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      * @param tool the new `GdkDeviceTool` known to the seat
      */
     public fun emitToolAdded(tool: DeviceTool) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "tool-added", tool.gdkDeviceToolPointer)
+        g_signal_emit_by_name(gdkSeatPointer.reinterpret(), "tool-added", tool.gdkDeviceToolPointer)
     }
 
     /**
@@ -199,7 +196,7 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tool: DeviceTool) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gdkSeatPointer,
         "tool-removed",
         onToolRemovedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -213,12 +210,19 @@ public open class Seat(pointer: CPointer<GdkSeat>) :
      * @param tool the just removed `GdkDeviceTool`
      */
     public fun emitToolRemoved(tool: DeviceTool) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "tool-removed", tool.gdkDeviceToolPointer)
+        g_signal_emit_by_name(gdkSeatPointer.reinterpret(), "tool-removed", tool.gdkDeviceToolPointer)
     }
+
+    /**
+     * The SeatImpl type represents a native instance of the abstract Seat class.
+     *
+     * @constructor Creates a new instance of Seat for the provided [CPointer].
+     */
+    public class SeatImpl(pointer: CPointer<GdkSeat>) : Seat(pointer)
 
     public companion object : TypeCompanion<Seat> {
         override val type: GeneratedClassKGType<Seat> =
-            GeneratedClassKGType(gdk_seat_get_type()) { Seat(it.reinterpret()) }
+            GeneratedClassKGType(gdk_seat_get_type()) { SeatImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
@@ -241,7 +245,7 @@ private val onDeviceAddedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Unit>
         ->
         userData.asStableRef<(device: Device) -> Unit>().get().invoke(
             device!!.run {
-                Device(this)
+                Device.DeviceImpl(this)
             }
         )
     }
@@ -255,7 +259,7 @@ private val onDeviceRemovedFunc: CPointer<CFunction<(CPointer<GdkDevice>) -> Uni
         ->
         userData.asStableRef<(device: Device) -> Unit>().get().invoke(
             device!!.run {
-                Device(this)
+                Device.DeviceImpl(this)
             }
         )
     }

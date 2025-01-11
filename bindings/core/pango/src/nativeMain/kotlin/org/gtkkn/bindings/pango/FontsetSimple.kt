@@ -22,19 +22,18 @@ import kotlin.Unit
  * When creating a `PangoFontsetSimple`, you have to provide
  * the array of fonts that make up the fontset.
  */
-public open class FontsetSimple(pointer: CPointer<PangoFontsetSimple>) :
-    Fontset(pointer.reinterpret()),
+public open class FontsetSimple(public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>) :
+    Fontset(pangoFontsetSimplePointer.reinterpret()),
     KGTyped {
-    public val pangoFontsetSimplePointer: CPointer<PangoFontsetSimple>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `PangoFontsetSimple` for the given language.
      *
      * @param language a `PangoLanguage` tag
      * @return the newly allocated `PangoFontsetSimple`
      */
-    public constructor(language: Language) : this(pango_fontset_simple_new(language.gPointer)!!.reinterpret())
+    public constructor(
+        language: Language,
+    ) : this(pango_fontset_simple_new(language.pangoLanguagePointer)!!.reinterpret())
 
     /**
      * Adds a font to the fontset.

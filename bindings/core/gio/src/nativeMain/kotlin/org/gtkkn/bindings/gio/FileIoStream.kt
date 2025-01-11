@@ -52,15 +52,12 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class FileIoStream(pointer: CPointer<GFileIOStream>) :
-    IoStream(pointer.reinterpret()),
+public open class FileIoStream(public val gioFileIoStreamPointer: CPointer<GFileIOStream>) :
+    IoStream(gioFileIoStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioFileIoStreamPointer: CPointer<GFileIOStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Gets the entity tag for the file when it has been written.

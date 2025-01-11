@@ -37,12 +37,9 @@ import kotlin.String
  * search settings can be associated with one or several
  * [class@SearchContext]s.
  */
-public open class SearchSettings(pointer: CPointer<GtkSourceSearchSettings>) :
-    Object(pointer.reinterpret()),
+public open class SearchSettings(public val gtksourceSearchSettingsPointer: CPointer<GtkSourceSearchSettings>) :
+    Object(gtksourceSearchSettingsPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSearchSettingsPointer: CPointer<GtkSourceSearchSettings>
-        get() = gPointer.reinterpret()
-
     /**
      * If true, a search match must start and end a word. The match can
      * span multiple words.

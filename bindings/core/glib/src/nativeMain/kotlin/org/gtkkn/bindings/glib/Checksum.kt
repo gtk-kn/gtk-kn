@@ -46,9 +46,7 @@ import kotlin.Unit
  * @since 2.16
  */
 @GLibVersion2_16
-public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GChecksum> = pointer
-
+public class Checksum(public val glibChecksumPointer: CPointer<GChecksum>) : ProxyInstance(glibChecksumPointer) {
     /**
      * Copies a #GChecksum. If @checksum has been closed, by calling
      * g_checksum_get_string() or g_checksum_get_digest(), the copied
@@ -59,7 +57,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun copy(): Checksum = g_checksum_copy(gPointer)!!.run {
+    public fun copy(): Checksum = g_checksum_copy(glibChecksumPointer)!!.run {
         Checksum(this)
     }
 
@@ -69,7 +67,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun free(): Unit = g_checksum_free(gPointer)
+    public fun free(): Unit = g_checksum_free(glibChecksumPointer)
 
     /**
      * Gets the digest as a hexadecimal string.
@@ -85,7 +83,8 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getString(): String = g_checksum_get_string(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getString(): String =
+        g_checksum_get_string(glibChecksumPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Resets the state of the @checksum back to its initial state.
@@ -93,7 +92,7 @@ public class Checksum(pointer: CPointer<GChecksum>) : ProxyInstance(pointer) {
      * @since 2.18
      */
     @GLibVersion2_18
-    public fun reset(): Unit = g_checksum_reset(gPointer)
+    public fun reset(): Unit = g_checksum_reset(glibChecksumPointer)
 
     public companion object {
         /**

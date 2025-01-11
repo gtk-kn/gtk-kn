@@ -72,12 +72,9 @@ import kotlin.Unit
  *
  * - parameter `refresh_interval_return`: refresh_interval_return: Out parameter is not supported
  */
-public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
-    Object(pointer.reinterpret()),
+public abstract class FrameClock(public val gdkFrameClockPointer: CPointer<GdkFrameClock>) :
+    Object(gdkFrameClockPointer.reinterpret()),
     KGTyped {
-    public val gdkFrameClockPointer: CPointer<GdkFrameClock>
-        get() = gPointer.reinterpret()
-
     /**
      * Starts updates for an animation.
      *
@@ -203,7 +200,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onAfterPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "after-paint",
             onAfterPaintFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -215,7 +212,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "after-paint" signal. See [onAfterPaint].
      */
     public fun emitAfterPaint() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "after-paint")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "after-paint")
     }
 
     /**
@@ -228,7 +225,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onBeforePaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "before-paint",
             onBeforePaintFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -240,7 +237,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "before-paint" signal. See [onBeforePaint].
      */
     public fun emitBeforePaint() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "before-paint")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "before-paint")
     }
 
     /**
@@ -254,7 +251,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onFlushEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "flush-events",
             onFlushEventsFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -266,7 +263,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "flush-events" signal. See [onFlushEvents].
      */
     public fun emitFlushEvents() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "flush-events")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "flush-events")
     }
 
     /**
@@ -281,7 +278,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onLayout(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "layout",
             onLayoutFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -293,7 +290,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "layout" signal. See [onLayout].
      */
     public fun emitLayout() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "layout")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "layout")
     }
 
     /**
@@ -310,7 +307,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onPaint(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "paint",
             onPaintFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -322,7 +319,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "paint" signal. See [onPaint].
      */
     public fun emitPaint() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "paint")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "paint")
     }
 
     /**
@@ -336,7 +333,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onResumeEvents(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "resume-events",
             onResumeEventsFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -348,7 +345,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "resume-events" signal. See [onResumeEvents].
      */
     public fun emitResumeEvents() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "resume-events")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "resume-events")
     }
 
     /**
@@ -365,7 +362,7 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      */
     public fun onUpdate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkFrameClockPointer,
             "update",
             onUpdateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -377,12 +374,19 @@ public open class FrameClock(pointer: CPointer<GdkFrameClock>) :
      * Emits the "update" signal. See [onUpdate].
      */
     public fun emitUpdate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "update")
+        g_signal_emit_by_name(gdkFrameClockPointer.reinterpret(), "update")
     }
+
+    /**
+     * The FrameClockImpl type represents a native instance of the abstract FrameClock class.
+     *
+     * @constructor Creates a new instance of FrameClock for the provided [CPointer].
+     */
+    public class FrameClockImpl(pointer: CPointer<GdkFrameClock>) : FrameClock(pointer)
 
     public companion object : TypeCompanion<FrameClock> {
         override val type: GeneratedClassKGType<FrameClock> =
-            GeneratedClassKGType(gdk_frame_clock_get_type()) { FrameClock(it.reinterpret()) }
+            GeneratedClassKGType(gdk_frame_clock_get_type()) { FrameClockImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

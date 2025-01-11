@@ -74,24 +74,21 @@ import kotlin.Unit
  *
  * - method `default-text`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserWidget(pointer: CPointer<GtkAppChooserWidget>) :
-    Widget(pointer.reinterpret()),
+public open class AppChooserWidget(public val gtkAppChooserWidgetPointer: CPointer<GtkAppChooserWidget>) :
+    Widget(gtkAppChooserWidgetPointer.reinterpret()),
     AppChooser,
     KGTyped {
-    public val gtkAppChooserWidgetPointer: CPointer<GtkAppChooserWidget>
-        get() = gPointer.reinterpret()
-
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If true, the app chooser presents all applications
@@ -249,7 +246,7 @@ public open class AppChooserWidget(pointer: CPointer<GtkAppChooserWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (application: AppInfo) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkAppChooserWidgetPointer,
         "application-activated",
         onApplicationActivatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -263,7 +260,11 @@ public open class AppChooserWidget(pointer: CPointer<GtkAppChooserWidget>) :
      * @param application the activated `GAppInfo`
      */
     public fun emitApplicationActivated(application: AppInfo) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "application-activated", application.gioAppInfoPointer)
+        g_signal_emit_by_name(
+            gtkAppChooserWidgetPointer.reinterpret(),
+            "application-activated",
+            application.gioAppInfoPointer
+        )
     }
 
     /**
@@ -276,7 +277,7 @@ public open class AppChooserWidget(pointer: CPointer<GtkAppChooserWidget>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (application: AppInfo) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkAppChooserWidgetPointer,
         "application-selected",
         onApplicationSelectedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -290,7 +291,11 @@ public open class AppChooserWidget(pointer: CPointer<GtkAppChooserWidget>) :
      * @param application the selected `GAppInfo`
      */
     public fun emitApplicationSelected(application: AppInfo) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "application-selected", application.gioAppInfoPointer)
+        g_signal_emit_by_name(
+            gtkAppChooserWidgetPointer.reinterpret(),
+            "application-selected",
+            application.gioAppInfoPointer
+        )
     }
 
     public companion object : TypeCompanion<AppChooserWidget> {
@@ -318,7 +323,7 @@ private val onApplicationActivatedFunc: CPointer<CFunction<(CPointer<GAppInfo>) 
         ->
         userData.asStableRef<(application: AppInfo) -> Unit>().get().invoke(
             application!!.run {
-                AppInfo.wrap(reinterpret())
+                AppInfo.AppInfoImpl(reinterpret())
             }
         )
     }
@@ -332,7 +337,7 @@ private val onApplicationSelectedFunc: CPointer<CFunction<(CPointer<GAppInfo>) -
         ->
         userData.asStableRef<(application: AppInfo) -> Unit>().get().invoke(
             application!!.run {
-                AppInfo.wrap(reinterpret())
+                AppInfo.AppInfoImpl(reinterpret())
             }
         )
     }

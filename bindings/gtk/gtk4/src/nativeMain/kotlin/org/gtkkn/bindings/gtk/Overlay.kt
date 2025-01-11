@@ -73,20 +73,17 @@ import kotlin.Unit
  * whose alignments cause them to be positioned at an edge get the style classes
  * “.left”, “.right”, “.top”, and/or “.bottom” according to their position.
  */
-public open class Overlay(pointer: CPointer<GtkOverlay>) :
-    Widget(pointer.reinterpret()),
+public open class Overlay(public val gtkOverlayPointer: CPointer<GtkOverlay>) :
+    Widget(gtkOverlayPointer.reinterpret()),
     KGTyped {
-    public val gtkOverlayPointer: CPointer<GtkOverlay>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The main child widget.
@@ -98,7 +95,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
          * @return the child widget of @overlay
          */
         get() = gtk_overlay_get_child(gtkOverlayPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -203,7 +200,7 @@ public open class Overlay(pointer: CPointer<GtkOverlay>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (widget: Widget, allocation: Rectangle) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkOverlayPointer,
         "get-child-position",
         onGetChildPositionFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -238,7 +235,7 @@ private val onGetChildPositionFunc:
         ->
         userData.asStableRef<(widget: Widget, allocation: Rectangle) -> Boolean>().get().invoke(
             widget!!.run {
-                Widget(this)
+                Widget.WidgetImpl(this)
             },
             allocation!!.run {
                 Rectangle(this)

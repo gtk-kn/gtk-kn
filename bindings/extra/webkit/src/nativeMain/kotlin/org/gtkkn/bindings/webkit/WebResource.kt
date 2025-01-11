@@ -56,12 +56,9 @@ import kotlin.Unit
  *
  * - parameter `length`: length: Out parameter is not supported
  */
-public class WebResource(pointer: CPointer<WebKitWebResource>) :
-    Object(pointer.reinterpret()),
+public class WebResource(public val webkitWebResourcePointer: CPointer<WebKitWebResource>) :
+    Object(webkitWebResourcePointer.reinterpret()),
     KGTyped {
-    public val webkitWebResourcePointer: CPointer<WebKitWebResource>
-        get() = gPointer.reinterpret()
-
     /**
      * The #WebKitURIResponse associated with this resource.
      */
@@ -146,7 +143,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      */
     public fun onFailed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (error: Error) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebResourcePointer,
             "failed",
             onFailedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -160,7 +157,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      * @param error the #GError that was triggered
      */
     public fun emitFailed(error: Error) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "failed", error.gPointer)
+        g_signal_emit_by_name(webkitWebResourcePointer.reinterpret(), "failed", error.glibErrorPointer)
     }
 
     /**
@@ -175,7 +172,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (certificate: TlsCertificate, errors: TlsCertificateFlags) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitWebResourcePointer,
         "failed-with-tls-errors",
         onFailedWithTlsErrorsFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -193,7 +190,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
     @WebKitVersion2_8
     public fun emitFailedWithTlsErrors(certificate: TlsCertificate, errors: TlsCertificateFlags) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            webkitWebResourcePointer.reinterpret(),
             "failed-with-tls-errors",
             certificate.gioTlsCertificatePointer,
             errors.mask
@@ -210,7 +207,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      */
     public fun onFinished(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitWebResourcePointer,
             "finished",
             onFinishedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -222,7 +219,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      * Emits the "finished" signal. See [onFinished].
      */
     public fun emitFinished() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "finished")
+        g_signal_emit_by_name(webkitWebResourcePointer.reinterpret(), "finished")
     }
 
     /**
@@ -240,7 +237,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (request: UriRequest, redirectedResponse: UriResponse) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitWebResourcePointer,
         "sent-request",
         onSentRequestFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -256,7 +253,7 @@ public class WebResource(pointer: CPointer<WebKitWebResource>) :
      */
     public fun emitSentRequest(request: UriRequest, redirectedResponse: UriResponse) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            webkitWebResourcePointer.reinterpret(),
             "sent-request",
             request.webkitUriRequestPointer,
             redirectedResponse.webkitUriResponsePointer
@@ -308,7 +305,7 @@ private val onFailedWithTlsErrorsFunc:
             ) -> Unit
             >().get().invoke(
             certificate!!.run {
-                TlsCertificate(this)
+                TlsCertificate.TlsCertificateImpl(this)
             },
             errors.run {
                 TlsCertificateFlags(this)

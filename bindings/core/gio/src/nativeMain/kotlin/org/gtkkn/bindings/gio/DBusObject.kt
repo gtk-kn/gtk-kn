@@ -12,7 +12,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -36,7 +37,7 @@ import kotlin.Unit
  * interfaces.
  */
 public interface DBusObject :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioDBusObjectPointer: CPointer<GDBusObject>
 
@@ -52,7 +53,7 @@ public interface DBusObject :
     @GioVersion2_30
     public fun getInterface(interfaceName: String): DBusInterface? =
         g_dbus_object_get_interface(gioDBusObjectPointer, interfaceName)?.run {
-            DBusInterface.wrap(reinterpret())
+            DBusInterface.DBusInterfaceImpl(reinterpret())
         }
 
     /**
@@ -118,19 +119,22 @@ public interface DBusObject :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GDBusObject>) : DBusObject {
-        override val gioDBusObjectPointer: CPointer<GDBusObject> = pointer
-    }
+    /**
+     * The DBusObjectImpl type represents a native instance of the DBusObject interface.
+     *
+     * @constructor Creates a new instance of DBusObject for the provided [CPointer].
+     */
+    public data class DBusObjectImpl(override val gioDBusObjectPointer: CPointer<GDBusObject>) :
+        Object(gioDBusObjectPointer.reinterpret()),
+        DBusObject
 
     public companion object : TypeCompanion<DBusObject> {
         override val type: GeneratedInterfaceKGType<DBusObject> =
-            GeneratedInterfaceKGType(g_dbus_object_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_dbus_object_get_type()) { DBusObjectImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDBusObject>): DBusObject = Wrapper(pointer)
 
         /**
          * Get the GType of DBusObject
@@ -149,7 +153,7 @@ private val onInterfaceAddedFunc: CPointer<CFunction<(CPointer<GDBusInterface>) 
         ->
         userData.asStableRef<(`interface`: DBusInterface) -> Unit>().get().invoke(
             `interface`!!.run {
-                DBusInterface.wrap(reinterpret())
+                DBusInterface.DBusInterfaceImpl(reinterpret())
             }
         )
     }
@@ -163,7 +167,7 @@ private val onInterfaceRemovedFunc: CPointer<CFunction<(CPointer<GDBusInterface>
         ->
         userData.asStableRef<(`interface`: DBusInterface) -> Unit>().get().invoke(
             `interface`!!.run {
-                DBusInterface.wrap(reinterpret())
+                DBusInterface.DBusInterfaceImpl(reinterpret())
             }
         )
     }

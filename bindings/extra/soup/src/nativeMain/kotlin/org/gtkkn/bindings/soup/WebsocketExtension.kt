@@ -37,12 +37,9 @@ import kotlin.String
  * - method `process_incoming_message`: In/Out parameter is not supported
  * - method `process_outgoing_message`: In/Out parameter is not supported
  */
-public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) :
-    Object(pointer.reinterpret()),
+public abstract class WebsocketExtension(public val soupWebsocketExtensionPointer: CPointer<SoupWebsocketExtension>) :
+    Object(soupWebsocketExtensionPointer.reinterpret()),
     KGTyped {
-    public val soupWebsocketExtensionPointer: CPointer<SoupWebsocketExtension>
-        get() = gPointer.reinterpret()
-
     /**
      * Configures @extension with the given @params.
      *
@@ -56,7 +53,7 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
             val gResult = soup_websocket_extension_configure(
                 soupWebsocketExtensionPointer,
                 connectionType.nativeValue,
-                params?.gPointer,
+                params?.glibHashTablePointer,
                 gError.ptr
             ).asBoolean()
             return if (gError.pointed != null) {
@@ -88,9 +85,16 @@ public open class WebsocketExtension(pointer: CPointer<SoupWebsocketExtension>) 
     public open fun getResponseParams(): String? =
         soup_websocket_extension_get_response_params(soupWebsocketExtensionPointer)?.toKString()
 
+    /**
+     * The WebsocketExtensionImpl type represents a native instance of the abstract WebsocketExtension class.
+     *
+     * @constructor Creates a new instance of WebsocketExtension for the provided [CPointer].
+     */
+    public class WebsocketExtensionImpl(pointer: CPointer<SoupWebsocketExtension>) : WebsocketExtension(pointer)
+
     public companion object : TypeCompanion<WebsocketExtension> {
         override val type: GeneratedClassKGType<WebsocketExtension> =
-            GeneratedClassKGType(soup_websocket_extension_get_type()) { WebsocketExtension(it.reinterpret()) }
+            GeneratedClassKGType(soup_websocket_extension_get_type()) { WebsocketExtensionImpl(it.reinterpret()) }
 
         init {
             SoupTypeProvider.register()

@@ -57,12 +57,9 @@ import kotlin.Unit
  *
  * - parameter `families`: families: Out parameter is not supported
  */
-public open class Context(pointer: CPointer<PangoContext>) :
-    Object(pointer.reinterpret()),
+public open class Context(public val pangoContextPointer: CPointer<PangoContext>) :
+    Object(pangoContextPointer.reinterpret()),
     KGTyped {
-    public val pangoContextPointer: CPointer<PangoContext>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `PangoContext` initialized to default values.
      *
@@ -140,7 +137,7 @@ public open class Context(pointer: CPointer<PangoContext>) :
      */
     @PangoVersion1_6
     public open fun getFontMap(): FontMap? = pango_context_get_font_map(pangoContextPointer)?.run {
-        FontMap(this)
+        FontMap.FontMapImpl(this)
     }
 
     /**
@@ -222,7 +219,11 @@ public open class Context(pointer: CPointer<PangoContext>) :
      *   [method@Pango.FontMetrics.unref] when finished using the object.
      */
     public open fun getMetrics(desc: FontDescription? = null, language: Language? = null): FontMetrics =
-        pango_context_get_metrics(pangoContextPointer, desc?.gPointer, language?.gPointer)!!.run {
+        pango_context_get_metrics(
+            pangoContextPointer,
+            desc?.pangoFontDescriptionPointer,
+            language?.pangoLanguagePointer
+        )!!.run {
             FontMetrics(this)
         }
 
@@ -265,8 +266,8 @@ public open class Context(pointer: CPointer<PangoContext>) :
      *   that was loaded, or null if no font matched.
      */
     public open fun loadFont(desc: FontDescription): Font? =
-        pango_context_load_font(pangoContextPointer, desc.gPointer)?.run {
-            Font(this)
+        pango_context_load_font(pangoContextPointer, desc.pangoFontDescriptionPointer)?.run {
+            Font.FontImpl(this)
         }
 
     /**
@@ -278,10 +279,13 @@ public open class Context(pointer: CPointer<PangoContext>) :
      * @return the newly allocated
      *   `PangoFontset` loaded, or null if no font matched.
      */
-    public open fun loadFontset(desc: FontDescription, language: Language): Fontset? =
-        pango_context_load_fontset(pangoContextPointer, desc.gPointer, language.gPointer)?.run {
-            Fontset(this)
-        }
+    public open fun loadFontset(desc: FontDescription, language: Language): Fontset? = pango_context_load_fontset(
+        pangoContextPointer,
+        desc.pangoFontDescriptionPointer,
+        language.pangoLanguagePointer
+    )?.run {
+        Fontset.FontsetImpl(this)
+    }
 
     /**
      * Sets the base direction for the context.
@@ -316,7 +320,7 @@ public open class Context(pointer: CPointer<PangoContext>) :
      * @param desc the new pango font description
      */
     public open fun setFontDescription(desc: FontDescription? = null): Unit =
-        pango_context_set_font_description(pangoContextPointer, desc?.gPointer)
+        pango_context_set_font_description(pangoContextPointer, desc?.pangoFontDescriptionPointer)
 
     /**
      * Sets the font map to be searched when fonts are looked-up
@@ -355,7 +359,7 @@ public open class Context(pointer: CPointer<PangoContext>) :
      * @param language the new language tag.
      */
     public open fun setLanguage(language: Language? = null): Unit =
-        pango_context_set_language(pangoContextPointer, language?.gPointer)
+        pango_context_set_language(pangoContextPointer, language?.pangoLanguagePointer)
 
     /**
      * Sets the transformation matrix that will be applied when rendering
@@ -373,7 +377,7 @@ public open class Context(pointer: CPointer<PangoContext>) :
      */
     @PangoVersion1_6
     public open fun setMatrix(matrix: Matrix? = null): Unit =
-        pango_context_set_matrix(pangoContextPointer, matrix?.gPointer)
+        pango_context_set_matrix(pangoContextPointer, matrix?.pangoMatrixPointer)
 
     /**
      * Sets whether font rendering with this context should

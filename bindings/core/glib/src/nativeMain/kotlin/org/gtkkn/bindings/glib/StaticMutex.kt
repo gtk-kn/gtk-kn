@@ -67,17 +67,16 @@ import kotlin.native.ref.createCleaner
  * taking their addresses, you can however use them as if they were
  * functions.
  */
-public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GStaticMutex> = pointer
-
+public class StaticMutex(public val glibStaticMutexPointer: CPointer<GStaticMutex>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibStaticMutexPointer) {
     public var mutex: Mutex?
-        get() = gPointer.pointed.mutex?.run {
+        get() = glibStaticMutexPointer.pointed.mutex?.run {
             Mutex(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mutex = value?.gPointer
+            glibStaticMutexPointer.pointed.mutex = value?.glibMutexPointer
         }
 
     /**
@@ -98,7 +97,9 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to StaticMutex and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GStaticMutex>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GStaticMutex>, Cleaner>,
+    ) : this(glibStaticMutexPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new StaticMutex using the provided [AutofreeScope].
@@ -144,9 +145,9 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      * Calling g_static_mutex_free() on a locked mutex may result in
      * undefined behaviour.
      */
-    public fun free(): Unit = g_static_mutex_free(gPointer)
+    public fun free(): Unit = g_static_mutex_free(glibStaticMutexPointer)
 
-    public fun getMutexImpl(): Mutex = g_static_mutex_get_mutex_impl(gPointer)!!.run {
+    public fun getMutexImpl(): Mutex = g_static_mutex_get_mutex_impl(glibStaticMutexPointer)!!.run {
         Mutex(this)
     }
 
@@ -154,7 +155,7 @@ public class StaticMutex(pointer: CPointer<GStaticMutex>, cleaner: Cleaner? = nu
      * Initializes @mutex.
      * Alternatively you can initialize it with %G_STATIC_MUTEX_INIT.
      */
-    public fun `init`(): Unit = g_static_mutex_init(gPointer)
+    public fun `init`(): Unit = g_static_mutex_init(glibStaticMutexPointer)
 
     override fun toString(): String = "StaticMutex(mutex=$mutex)"
 }

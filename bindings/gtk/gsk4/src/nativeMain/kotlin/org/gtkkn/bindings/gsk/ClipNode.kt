@@ -17,12 +17,9 @@ import org.gtkkn.native.gsk.gsk_clip_node_new
 /**
  * A render node applying a rectangular clip to its single child node.
  */
-public open class ClipNode(pointer: CPointer<GskClipNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class ClipNode(public val gskClipNodePointer: CPointer<GskClipNode>) :
+    RenderNode(gskClipNodePointer.reinterpret()),
     KGTyped {
-    public val gskClipNodePointer: CPointer<GskClipNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will clip the @child to the area
      * given by @clip.
@@ -34,7 +31,7 @@ public open class ClipNode(pointer: CPointer<GskClipNode>) :
     public constructor(
         child: RenderNode,
         clip: Rect,
-    ) : this(gsk_clip_node_new(child.gPointer, clip.gPointer)!!.reinterpret())
+    ) : this(gsk_clip_node_new(child.gskRenderNodePointer, clip.grapheneRectPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting clipped by the given @node.
@@ -42,7 +39,7 @@ public open class ClipNode(pointer: CPointer<GskClipNode>) :
      * @return The child that is getting clipped
      */
     public open fun getChild(): RenderNode = gsk_clip_node_get_child(gskClipNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

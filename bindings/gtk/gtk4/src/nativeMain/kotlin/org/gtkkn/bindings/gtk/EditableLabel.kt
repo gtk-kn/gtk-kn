@@ -53,24 +53,21 @@ import kotlin.Unit
  * For all the subnodes added to the text node in various situations,
  * see [class@Gtk.Text].
  */
-public open class EditableLabel(pointer: CPointer<GtkEditableLabel>) :
-    Widget(pointer.reinterpret()),
+public open class EditableLabel(public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>) :
+    Widget(gtkEditableLabelPointer.reinterpret()),
     Editable,
     KGTyped {
-    public val gtkEditableLabelPointer: CPointer<GtkEditableLabel>
-        get() = gPointer.reinterpret()
-
     override val gtkEditablePointer: CPointer<GtkEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * This property is true while the widget is in edit mode.

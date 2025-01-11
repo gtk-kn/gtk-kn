@@ -22,12 +22,9 @@ import kotlin.Boolean
  * `GtkBoolFilter` evaluates a boolean `GtkExpression`
  * to determine whether to include items.
  */
-public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
-    Filter(pointer.reinterpret()),
+public open class BoolFilter(public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>) :
+    Filter(gtkBoolFilterPointer.reinterpret()),
     KGTyped {
-    public val gtkBoolFilterPointer: CPointer<GtkBoolFilter>
-        get() = gPointer.reinterpret()
-
     /**
      * The boolean expression to evaluate on item.
      */
@@ -39,7 +36,7 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          * @return a `GtkExpression`
          */
         get() = gtk_bool_filter_get_expression(gtkBoolFilterPointer)?.run {
-            Expression(this)
+            Expression.ExpressionImpl(this)
         }
 
         /**
@@ -50,7 +47,7 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
          *
          * @param expression a `GtkExpression`
          */
-        set(expression) = gtk_bool_filter_set_expression(gtkBoolFilterPointer, expression?.gPointer)
+        set(expression) = gtk_bool_filter_set_expression(gtkBoolFilterPointer, expression?.gtkExpressionPointer)
 
     /**
      * If the expression result should be inverted.
@@ -76,7 +73,9 @@ public open class BoolFilter(pointer: CPointer<GtkBoolFilter>) :
      * @param expression The expression to evaluate
      * @return a new `GtkBoolFilter`
      */
-    public constructor(expression: Expression? = null) : this(gtk_bool_filter_new(expression?.gPointer)!!.reinterpret())
+    public constructor(
+        expression: Expression? = null,
+    ) : this(gtk_bool_filter_new(expression?.gtkExpressionPointer)!!.reinterpret())
 
     public companion object : TypeCompanion<BoolFilter> {
         override val type: GeneratedClassKGType<BoolFilter> =

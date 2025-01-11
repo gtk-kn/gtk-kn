@@ -50,12 +50,9 @@ import kotlin.String
  * 2. The bound stage where the listitem references an item from the list.
  *    The [property@Gtk.ListItem:item] property is not null.
  */
-public open class ListItem(pointer: CPointer<GtkListItem>) :
-    Object(pointer.reinterpret()),
+public open class ListItem(public val gtkListItemPointer: CPointer<GtkListItem>) :
+    Object(gtkListItemPointer.reinterpret()),
     KGTyped {
-    public val gtkListItemPointer: CPointer<GtkListItem>
-        get() = gPointer.reinterpret()
-
     /**
      * The accessible description to set on the list item.
      *
@@ -145,7 +142,7 @@ public open class ListItem(pointer: CPointer<GtkListItem>) :
          * @return The child
          */
         get() = gtk_list_item_get_child(gtkListItemPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

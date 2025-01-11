@@ -46,12 +46,9 @@ import kotlin.Unit
  * an overview of the basic concepts, such as the capture and bubble
  * phases of event propagation.
  */
-public open class EventController(pointer: CPointer<GtkEventController>) :
-    Object(pointer.reinterpret()),
+public abstract class EventController(public val gtkEventControllerPointer: CPointer<GtkEventController>) :
+    Object(gtkEventControllerPointer.reinterpret()),
     KGTyped {
-    public val gtkEventControllerPointer: CPointer<GtkEventController>
-        get() = gPointer.reinterpret()
-
     /**
      * The name for this controller, typically used for debugging purposes.
      */
@@ -127,7 +124,7 @@ public open class EventController(pointer: CPointer<GtkEventController>) :
          * @return a `GtkWidget`
          */
         get() = gtk_event_controller_get_widget(gtkEventControllerPointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -139,7 +136,7 @@ public open class EventController(pointer: CPointer<GtkEventController>) :
      *   handled by @controller
      */
     public open fun getCurrentEvent(): Event? = gtk_event_controller_get_current_event(gtkEventControllerPointer)?.run {
-        Event(this)
+        Event.EventImpl(this)
     }
 
     /**
@@ -153,7 +150,7 @@ public open class EventController(pointer: CPointer<GtkEventController>) :
      */
     public open fun getCurrentEventDevice(): Device? =
         gtk_event_controller_get_current_event_device(gtkEventControllerPointer)?.run {
-            Device(this)
+            Device.DeviceImpl(this)
         }
 
     /**
@@ -195,9 +192,16 @@ public open class EventController(pointer: CPointer<GtkEventController>) :
     public open fun setStaticName(name: String? = null): Unit =
         gtk_event_controller_set_static_name(gtkEventControllerPointer, name)
 
+    /**
+     * The EventControllerImpl type represents a native instance of the abstract EventController class.
+     *
+     * @constructor Creates a new instance of EventController for the provided [CPointer].
+     */
+    public class EventControllerImpl(pointer: CPointer<GtkEventController>) : EventController(pointer)
+
     public companion object : TypeCompanion<EventController> {
         override val type: GeneratedClassKGType<EventController> =
-            GeneratedClassKGType(gtk_event_controller_get_type()) { EventController(it.reinterpret()) }
+            GeneratedClassKGType(gtk_event_controller_get_type()) { EventControllerImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

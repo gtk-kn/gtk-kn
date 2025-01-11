@@ -36,51 +36,50 @@ import kotlin.native.ref.createCleaner
  * - field `class_finalize`: ClassFinalizeFunc
  * - field `instance_init`: InstanceInitFunc
  */
-public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTypeInfo> = pointer
-
+public class TypeInfo(public val gobjectTypeInfoPointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectTypeInfoPointer) {
     /**
      * Size of the class structure (required for interface, classed and instantiatable types)
      */
     public var classSize: guint16
-        get() = gPointer.pointed.class_size
+        get() = gobjectTypeInfoPointer.pointed.class_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.class_size = value
+            gobjectTypeInfoPointer.pointed.class_size = value
         }
 
     /**
      * User-supplied data passed to the class init/finalize functions
      */
     public var classData: gpointer
-        get() = gPointer.pointed.class_data!!
+        get() = gobjectTypeInfoPointer.pointed.class_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.class_data = value
+            gobjectTypeInfoPointer.pointed.class_data = value
         }
 
     /**
      * Size of the instance (object) structure (required for instantiatable types only)
      */
     public var instanceSize: guint16
-        get() = gPointer.pointed.instance_size
+        get() = gobjectTypeInfoPointer.pointed.instance_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.instance_size = value
+            gobjectTypeInfoPointer.pointed.instance_size = value
         }
 
     /**
      * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10 this field is ignored.
      */
     public var nPreallocs: guint16
-        get() = gPointer.pointed.n_preallocs
+        get() = gobjectTypeInfoPointer.pointed.n_preallocs
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_preallocs = value
+            gobjectTypeInfoPointer.pointed.n_preallocs = value
         }
 
     /**
@@ -88,13 +87,13 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      *  of this type (usually only useful for fundamental types)
      */
     public var valueTable: TypeValueTable?
-        get() = gPointer.pointed.value_table?.run {
+        get() = gobjectTypeInfoPointer.pointed.value_table?.run {
             TypeValueTable(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value_table = value?.gPointer
+            gobjectTypeInfoPointer.pointed.value_table = value?.gobjectTypeValueTablePointer
         }
 
     /**
@@ -115,7 +114,9 @@ public class TypeInfo(pointer: CPointer<GTypeInfo>, cleaner: Cleaner? = null) : 
      *
      * @param pair A pair containing the pointer to TypeInfo and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTypeInfo>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTypeInfo>, Cleaner>,
+    ) : this(gobjectTypeInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeInfo using the provided [AutofreeScope].

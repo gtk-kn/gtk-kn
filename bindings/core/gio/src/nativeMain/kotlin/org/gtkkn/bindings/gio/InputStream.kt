@@ -65,12 +65,9 @@ import kotlin.Unit
  * - parameter `bytes_read`: bytes_read: Out parameter is not supported
  * - parameter `buffer`: buffer: Out parameter is not supported
  */
-public open class InputStream(pointer: CPointer<GInputStream>) :
-    Object(pointer.reinterpret()),
+public abstract class InputStream(public val gioInputStreamPointer: CPointer<GInputStream>) :
+    Object(gioInputStreamPointer.reinterpret()),
     KGTyped {
-    public val gioInputStreamPointer: CPointer<GInputStream>
-        get() = gPointer.reinterpret()
-
     /**
      * Clears the pending flag on @stream.
      */
@@ -430,9 +427,16 @@ public open class InputStream(pointer: CPointer<GInputStream>) :
         }
     }
 
+    /**
+     * The InputStreamImpl type represents a native instance of the abstract InputStream class.
+     *
+     * @constructor Creates a new instance of InputStream for the provided [CPointer].
+     */
+    public class InputStreamImpl(pointer: CPointer<GInputStream>) : InputStream(pointer)
+
     public companion object : TypeCompanion<InputStream> {
         override val type: GeneratedClassKGType<InputStream> =
-            GeneratedClassKGType(g_input_stream_get_type()) { InputStream(it.reinterpret()) }
+            GeneratedClassKGType(g_input_stream_get_type()) { InputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

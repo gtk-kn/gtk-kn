@@ -21,46 +21,46 @@ import kotlin.native.ref.createCleaner
 /**
  * Information about a specific attribute.
  */
-public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GFileAttributeInfo> = pointer
-
+public class FileAttributeInfo(
+    public val gioFileAttributeInfoPointer: CPointer<GFileAttributeInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gioFileAttributeInfoPointer) {
     /**
      * the name of the attribute.
      */
     public var name: String?
-        get() = gPointer.pointed.name?.toKString()
+        get() = gioFileAttributeInfoPointer.pointed.name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.name?.let { g_free(it) }
-            gPointer.pointed.name = value?.let { g_strdup(it) }
+            gioFileAttributeInfoPointer.pointed.name?.let { g_free(it) }
+            gioFileAttributeInfoPointer.pointed.name = value?.let { g_strdup(it) }
         }
 
     /**
      * the #GFileAttributeType type of the attribute.
      */
     public var type: FileAttributeType
-        get() = gPointer.pointed.type.run {
+        get() = gioFileAttributeInfoPointer.pointed.type.run {
             FileAttributeType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.type = value.nativeValue
+            gioFileAttributeInfoPointer.pointed.type = value.nativeValue
         }
 
     /**
      * a set of #GFileAttributeInfoFlags.
      */
     public var flags: FileAttributeInfoFlags
-        get() = gPointer.pointed.flags.run {
+        get() = gioFileAttributeInfoPointer.pointed.flags.run {
             FileAttributeInfoFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.flags = value.mask
+            gioFileAttributeInfoPointer.pointed.flags = value.mask
         }
 
     /**
@@ -83,7 +83,7 @@ public class FileAttributeInfo(pointer: CPointer<GFileAttributeInfo>, cleaner: C
      */
     private constructor(
         pair: Pair<CPointer<GFileAttributeInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioFileAttributeInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FileAttributeInfo using the provided [AutofreeScope].

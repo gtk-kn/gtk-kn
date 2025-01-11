@@ -37,12 +37,9 @@ import kotlin.Unit
  * label. These #WebKitContextMenuAction<!-- -->s denote stock actions
  * for the items. You can also create separators and submenus.
  */
-public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public class ContextMenuItem(public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>) :
+    InitiallyUnowned(webkitContextMenuItemPointer.reinterpret()),
     KGTyped {
-    public val webkitContextMenuItemPointer: CPointer<WebKitContextMenuItem>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #WebKitContextMenuItem representing a separator.
      *
@@ -67,7 +64,11 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
         label: String,
         target: Variant? = null,
     ) : this(
-        webkit_context_menu_item_new_from_gaction(action.gioActionPointer, label, target?.gPointer)!!.reinterpret()
+        webkit_context_menu_item_new_from_gaction(
+            action.gioActionPointer,
+            label,
+            target?.glibVariantPointer
+        )!!.reinterpret()
     )
 
     /**
@@ -125,7 +126,7 @@ public class ContextMenuItem(pointer: CPointer<WebKitContextMenuItem>) :
      */
     @WebKitVersion2_18
     public fun getGaction(): Action = webkit_context_menu_item_get_gaction(webkitContextMenuItemPointer)!!.run {
-        Action.wrap(reinterpret())
+        Action.ActionImpl(reinterpret())
     }
 
     /**

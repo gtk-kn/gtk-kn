@@ -10,7 +10,8 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gio.annotations.GioVersion2_64
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -78,7 +79,7 @@ import kotlin.Unit
  */
 @GioVersion2_64
 public interface MemoryMonitor :
-    Interface,
+    Proxy,
     Initable,
     KGTyped {
     public val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>
@@ -109,19 +110,22 @@ public interface MemoryMonitor :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GMemoryMonitor>) : MemoryMonitor {
-        override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor> = pointer
-    }
+    /**
+     * The MemoryMonitorImpl type represents a native instance of the MemoryMonitor interface.
+     *
+     * @constructor Creates a new instance of MemoryMonitor for the provided [CPointer].
+     */
+    public data class MemoryMonitorImpl(override val gioMemoryMonitorPointer: CPointer<GMemoryMonitor>) :
+        Object(gioMemoryMonitorPointer.reinterpret()),
+        MemoryMonitor
 
     public companion object : TypeCompanion<MemoryMonitor> {
         override val type: GeneratedInterfaceKGType<MemoryMonitor> =
-            GeneratedInterfaceKGType(g_memory_monitor_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_memory_monitor_get_type()) { MemoryMonitorImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GMemoryMonitor>): MemoryMonitor = Wrapper(pointer)
 
         /**
          * Gets a reference to the default #GMemoryMonitor for the system.
@@ -131,7 +135,7 @@ public interface MemoryMonitor :
          */
         @GioVersion2_64
         public fun dupDefault(): MemoryMonitor = g_memory_monitor_dup_default()!!.run {
-            MemoryMonitor.wrap(reinterpret())
+            MemoryMonitorImpl(reinterpret())
         }
 
         /**

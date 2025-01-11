@@ -52,24 +52,21 @@ import org.gtkkn.native.gtk.gtk_stack_switcher_set_stack
  * the stack switcher to be made vertical with
  * `gtk_orientable_set_orientation()`.
  */
-public open class StackSwitcher(pointer: CPointer<GtkStackSwitcher>) :
-    Widget(pointer.reinterpret()),
+public open class StackSwitcher(public val gtkStackSwitcherPointer: CPointer<GtkStackSwitcher>) :
+    Widget(gtkStackSwitcherPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkStackSwitcherPointer: CPointer<GtkStackSwitcher>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The stack.

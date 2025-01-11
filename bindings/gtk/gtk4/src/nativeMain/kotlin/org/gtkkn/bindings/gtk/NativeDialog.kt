@@ -61,12 +61,9 @@ import kotlin.Unit
  *
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public open class NativeDialog(pointer: CPointer<GtkNativeDialog>) :
-    Object(pointer.reinterpret()),
+public abstract class NativeDialog(public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>) :
+    Object(gtkNativeDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkNativeDialogPointer: CPointer<GtkNativeDialog>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the window should be modal with respect to its transient parent.
      */
@@ -195,7 +192,7 @@ public open class NativeDialog(pointer: CPointer<GtkNativeDialog>) :
      */
     public fun onResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkNativeDialogPointer,
             "response",
             onResponseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -209,12 +206,19 @@ public open class NativeDialog(pointer: CPointer<GtkNativeDialog>) :
      * @param responseId the response ID
      */
     public fun emitResponse(responseId: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "response", responseId)
+        g_signal_emit_by_name(gtkNativeDialogPointer.reinterpret(), "response", responseId)
     }
+
+    /**
+     * The NativeDialogImpl type represents a native instance of the abstract NativeDialog class.
+     *
+     * @constructor Creates a new instance of NativeDialog for the provided [CPointer].
+     */
+    public class NativeDialogImpl(pointer: CPointer<GtkNativeDialog>) : NativeDialog(pointer)
 
     public companion object : TypeCompanion<NativeDialog> {
         override val type: GeneratedClassKGType<NativeDialog> =
-            GeneratedClassKGType(gtk_native_dialog_get_type()) { NativeDialog(it.reinterpret()) }
+            GeneratedClassKGType(gtk_native_dialog_get_type()) { NativeDialogImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

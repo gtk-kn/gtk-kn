@@ -36,12 +36,9 @@ import kotlin.Unit
  * URI scheme with a certain security level, or to check if it already
  * has it.
  */
-public class SecurityManager(pointer: CPointer<WebKitSecurityManager>) :
-    Object(pointer.reinterpret()),
+public class SecurityManager(public val webkitSecurityManagerPointer: CPointer<WebKitSecurityManager>) :
+    Object(webkitSecurityManagerPointer.reinterpret()),
     KGTyped {
-    public val webkitSecurityManagerPointer: CPointer<WebKitSecurityManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Register @scheme as a CORS (Cross-origin resource sharing) enabled scheme.
      *

@@ -9,7 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -33,7 +34,7 @@ import kotlin.Unit
  * [class@Gtk.CssProvider].
  */
 public interface StyleProvider :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
 
@@ -53,19 +54,22 @@ public interface StyleProvider :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GtkStyleProvider>) : StyleProvider {
-        override val gtkStyleProviderPointer: CPointer<GtkStyleProvider> = pointer
-    }
+    /**
+     * The StyleProviderImpl type represents a native instance of the StyleProvider interface.
+     *
+     * @constructor Creates a new instance of StyleProvider for the provided [CPointer].
+     */
+    public data class StyleProviderImpl(override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>) :
+        Object(gtkStyleProviderPointer.reinterpret()),
+        StyleProvider
 
     public companion object : TypeCompanion<StyleProvider> {
         override val type: GeneratedInterfaceKGType<StyleProvider> =
-            GeneratedInterfaceKGType(gtk_style_provider_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_style_provider_get_type()) { StyleProviderImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkStyleProvider>): StyleProvider = Wrapper(pointer)
 
         /**
          * Get the GType of StyleProvider

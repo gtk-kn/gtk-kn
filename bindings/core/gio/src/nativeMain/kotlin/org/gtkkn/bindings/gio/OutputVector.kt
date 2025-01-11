@@ -26,29 +26,28 @@ import kotlin.native.ref.createCleaner
  * @since 2.22
  */
 @GioVersion2_22
-public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GOutputVector> = pointer
-
+public class OutputVector(public val gioOutputVectorPointer: CPointer<GOutputVector>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioOutputVectorPointer) {
     /**
      * Pointer to a buffer of data to read.
      */
     public var buffer: gpointer
-        get() = gPointer.pointed.buffer!!
+        get() = gioOutputVectorPointer.pointed.buffer!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.buffer = value
+            gioOutputVectorPointer.pointed.buffer = value
         }
 
     /**
      * the size of @buffer.
      */
     public var size: gsize
-        get() = gPointer.pointed.size
+        get() = gioOutputVectorPointer.pointed.size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.size = value
+            gioOutputVectorPointer.pointed.size = value
         }
 
     /**
@@ -71,7 +70,7 @@ public class OutputVector(pointer: CPointer<GOutputVector>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<GOutputVector>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioOutputVectorPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new OutputVector using the provided [AutofreeScope].

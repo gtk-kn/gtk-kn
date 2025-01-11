@@ -44,15 +44,12 @@ import kotlin.String
  * Data output stream implements [class@Gio.OutputStream] and includes functions
  * for writing data directly to an output stream.
  */
-public open class DataOutputStream(pointer: CPointer<GDataOutputStream>) :
-    FilterOutputStream(pointer.reinterpret()),
+public open class DataOutputStream(public val gioDataOutputStreamPointer: CPointer<GDataOutputStream>) :
+    FilterOutputStream(gioDataOutputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioDataOutputStreamPointer: CPointer<GDataOutputStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Determines the byte ordering that is used when writing

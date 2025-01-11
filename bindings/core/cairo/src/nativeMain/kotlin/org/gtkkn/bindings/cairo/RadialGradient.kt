@@ -17,12 +17,9 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `cx0`: cx0: Out parameter is not supported
  */
-public open class RadialGradient(pointer: CPointer<cairo_pattern_t>) :
-    Gradient(pointer.reinterpret()),
+public open class RadialGradient(public val cairoRadialGradientPointer: CPointer<cairo_pattern_t>) :
+    Gradient(cairoRadialGradientPointer.reinterpret()),
     KGTyped {
-    public val cairoRadialGradientPointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
     public constructor(
         cx0: gdouble,
         cy0: gdouble,

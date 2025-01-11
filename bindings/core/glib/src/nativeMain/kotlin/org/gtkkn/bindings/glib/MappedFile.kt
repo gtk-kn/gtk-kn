@@ -37,9 +37,8 @@ import kotlin.Unit
  * g_mapped_file_new(). It has only private members and should
  * not be accessed directly.
  */
-public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GMappedFile> = pointer
-
+public class MappedFile(public val glibMappedFilePointer: CPointer<GMappedFile>) :
+    ProxyInstance(glibMappedFilePointer) {
     /**
      * This call existed before #GMappedFile had refcounting and is currently
      * exactly the same as g_mapped_file_unref().
@@ -47,7 +46,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun free(): Unit = g_mapped_file_free(gPointer)
+    public fun free(): Unit = g_mapped_file_free(glibMappedFilePointer)
 
     /**
      * Creates a new #GBytes which references the data mapped from @file.
@@ -59,7 +58,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.34
      */
     @GLibVersion2_34
-    public fun getBytes(): Bytes = g_mapped_file_get_bytes(gPointer)!!.run {
+    public fun getBytes(): Bytes = g_mapped_file_get_bytes(glibMappedFilePointer)!!.run {
         Bytes(this)
     }
 
@@ -76,7 +75,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      */
     @GLibVersion2_8
     public fun getContents(): String =
-        g_mapped_file_get_contents(gPointer)?.toKString() ?: error("Expected not null string")
+        g_mapped_file_get_contents(glibMappedFilePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns the length of the contents of a #GMappedFile.
@@ -85,7 +84,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.8
      */
     @GLibVersion2_8
-    public fun getLength(): gsize = g_mapped_file_get_length(gPointer)
+    public fun getLength(): gsize = g_mapped_file_get_length(glibMappedFilePointer)
 
     /**
      * Increments the reference count of @file by one.  It is safe to call
@@ -95,7 +94,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      * @since 2.22
      */
     @GLibVersion2_22
-    public fun ref(): MappedFile = g_mapped_file_ref(gPointer)!!.run {
+    public fun ref(): MappedFile = g_mapped_file_ref(glibMappedFilePointer)!!.run {
         MappedFile(this)
     }
 
@@ -107,7 +106,7 @@ public class MappedFile(pointer: CPointer<GMappedFile>) : ProxyInstance(pointer)
      *
      * Since 2.22
      */
-    public fun unref(): Unit = g_mapped_file_unref(gPointer)
+    public fun unref(): Unit = g_mapped_file_unref(glibMappedFilePointer)
 
     public companion object {
         /**

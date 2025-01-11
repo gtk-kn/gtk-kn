@@ -73,24 +73,21 @@ import kotlin.Unit
  * - method `activates-default`: Property has no getter nor setter
  * - method `placeholder-text`: Property has no getter nor setter
  */
-public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
-    Widget(pointer.reinterpret()),
+public open class PasswordEntry(public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>) :
+    Widget(gtkPasswordEntryPointer.reinterpret()),
     Editable,
     KGTyped {
-    public val gtkPasswordEntryPointer: CPointer<GtkPasswordEntry>
-        get() = gPointer.reinterpret()
-
     override val gtkEditablePointer: CPointer<GtkEditable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A menu model whose contents will be appended to
@@ -103,7 +100,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
          * @return the menu model
          */
         get() = gtk_password_entry_get_extra_menu(gtkPasswordEntryPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -153,7 +150,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkPasswordEntryPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -165,7 +162,7 @@ public open class PasswordEntry(pointer: CPointer<GtkPasswordEntry>) :
      * Emits the "activate" signal. See [onActivate].
      */
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkPasswordEntryPointer.reinterpret(), "activate")
     }
 
     public companion object : TypeCompanion<PasswordEntry> {

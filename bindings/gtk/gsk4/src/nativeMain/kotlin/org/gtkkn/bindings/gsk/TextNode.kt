@@ -31,12 +31,9 @@ import kotlin.Boolean
  *
  * - parameter `n_glyphs`: n_glyphs: Out parameter is not supported
  */
-public open class TextNode(pointer: CPointer<GskTextNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class TextNode(public val gskTextNodePointer: CPointer<GskTextNode>) :
+    RenderNode(gskTextNodePointer.reinterpret()),
     KGTyped {
-    public val gskTextNodePointer: CPointer<GskTextNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a render node that renders the given glyphs.
      *
@@ -54,7 +51,14 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
         glyphs: GlyphString,
         color: Rgba,
         offset: Point,
-    ) : this(gsk_text_node_new(font.pangoFontPointer, glyphs.gPointer, color.gPointer, offset.gPointer)!!.reinterpret())
+    ) : this(
+        gsk_text_node_new(
+            font.pangoFontPointer,
+            glyphs.pangoGlyphStringPointer,
+            color.gdkRgbaPointer,
+            offset.graphenePointPointer
+        )!!.reinterpret()
+    )
 
     /**
      * Retrieves the color used by the text @node.
@@ -71,7 +75,7 @@ public open class TextNode(pointer: CPointer<GskTextNode>) :
      * @return the font
      */
     public open fun getFont(): Font = gsk_text_node_get_font(gskTextNodePointer.reinterpret())!!.run {
-        Font(this)
+        Font.FontImpl(this)
     }
 
     /**

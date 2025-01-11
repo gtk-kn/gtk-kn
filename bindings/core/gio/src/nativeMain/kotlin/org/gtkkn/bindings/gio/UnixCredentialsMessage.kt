@@ -40,12 +40,10 @@ import kotlin.Boolean
  * @since 2.26
  */
 @GioVersion2_26
-public open class UnixCredentialsMessage(pointer: CPointer<GUnixCredentialsMessage>) :
-    SocketControlMessage(pointer.reinterpret()),
+public open class UnixCredentialsMessage(
+    public val gioUnixCredentialsMessagePointer: CPointer<GUnixCredentialsMessage>,
+) : SocketControlMessage(gioUnixCredentialsMessagePointer.reinterpret()),
     KGTyped {
-    public val gioUnixCredentialsMessagePointer: CPointer<GUnixCredentialsMessage>
-        get() = gPointer.reinterpret()
-
     /**
      * The credentials stored in the message.
      *

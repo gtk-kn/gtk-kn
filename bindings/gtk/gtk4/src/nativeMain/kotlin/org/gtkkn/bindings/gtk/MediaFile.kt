@@ -37,14 +37,11 @@ import kotlin.Unit
  *
  * GTK itself includes an implementation using GStreamer.
  */
-public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
-    MediaStream(pointer.reinterpret()),
+public abstract class MediaFile(public val gtkMediaFilePointer: CPointer<GtkMediaFile>) :
+    MediaStream(gtkMediaFilePointer.reinterpret()),
     KGTyped {
-    public val gtkMediaFilePointer: CPointer<GtkMediaFile>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The file being played back or null if not playing a file.
@@ -59,7 +56,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @return The currently playing file
          */
         get() = gtk_media_file_get_file(gtkMediaFilePointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
         /**
@@ -86,7 +83,7 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @return The currently playing stream
          */
         get() = gtk_media_file_get_input_stream(gtkMediaFilePointer)?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
         /**
@@ -167,9 +164,16 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
     public open fun setResource(resourcePath: String? = null): Unit =
         gtk_media_file_set_resource(gtkMediaFilePointer, resourcePath)
 
+    /**
+     * The MediaFileImpl type represents a native instance of the abstract MediaFile class.
+     *
+     * @constructor Creates a new instance of MediaFile for the provided [CPointer].
+     */
+    public class MediaFileImpl(pointer: CPointer<GtkMediaFile>) : MediaFile(pointer)
+
     public companion object : TypeCompanion<MediaFile> {
         override val type: GeneratedClassKGType<MediaFile> =
-            GeneratedClassKGType(gtk_media_file_get_type()) { MediaFile(it.reinterpret()) }
+            GeneratedClassKGType(gtk_media_file_get_type()) { MediaFileImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
@@ -184,8 +188,8 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @param filename filename to open
          * @return a new `GtkMediaFile` playing @filename
          */
-        public fun newForFilename(filename: String): MediaFile =
-            MediaFile(gtk_media_file_new_for_filename(filename)!!.reinterpret())
+        public fun newForFilename(filename: String): MediaFileImpl =
+            MediaFileImpl(gtk_media_file_new_for_filename(filename)!!.reinterpret())
 
         /**
          * Creates a new new media file for the given resource.
@@ -196,8 +200,8 @@ public open class MediaFile(pointer: CPointer<GtkMediaFile>) :
          * @param resourcePath resource path to open
          * @return a new `GtkMediaFile` playing @resource_path
          */
-        public fun newForResource(resourcePath: String): MediaFile =
-            MediaFile(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
+        public fun newForResource(resourcePath: String): MediaFileImpl =
+            MediaFileImpl(gtk_media_file_new_for_resource(resourcePath)!!.reinterpret())
 
         /**
          * Get the GType of MediaFile

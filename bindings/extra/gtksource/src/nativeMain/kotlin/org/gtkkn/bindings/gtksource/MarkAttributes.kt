@@ -83,12 +83,9 @@ import kotlin.Unit
  *
  * - method `background`: Property has no getter
  */
-public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
-    Object(pointer.reinterpret()),
+public open class MarkAttributes(public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>) :
+    Object(gtksourceMarkAttributesPointer.reinterpret()),
     KGTyped {
-    public val gtksourceMarkAttributesPointer: CPointer<GtkSourceMarkAttributes>
-        get() = gPointer.reinterpret()
-
     /**
      * A #GIcon that may be a base of a rendered icon.
      */
@@ -102,7 +99,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
          * not be unreffed.
          */
         get() = gtk_source_mark_attributes_get_gicon(gtksourceMarkAttributesPointer)!!.run {
-            Icon.wrap(reinterpret())
+            Icon.IconImpl(reinterpret())
         }
 
         /**
@@ -171,7 +168,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      * @return whether background color for @attributes was set.
      */
     public open fun getBackground(background: Rgba): Boolean =
-        gtk_source_mark_attributes_get_background(gtksourceMarkAttributesPointer, background.gPointer).asBoolean()
+        gtk_source_mark_attributes_get_background(gtksourceMarkAttributesPointer, background.gdkRgbaPointer).asBoolean()
 
     /**
      * Queries for a tooltip by emitting a [signal@MarkAttributes::query-tooltip-markup] signal.
@@ -221,7 +218,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      */
     public open fun renderIcon(widget: Widget, size: gint): Paintable =
         gtk_source_mark_attributes_render_icon(gtksourceMarkAttributesPointer, widget.gtkWidgetPointer, size)!!.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
     /**
@@ -230,7 +227,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
      * @param background a #GdkRGBA.
      */
     public open fun setBackground(background: Rgba): Unit =
-        gtk_source_mark_attributes_set_background(gtksourceMarkAttributesPointer, background.gPointer)
+        gtk_source_mark_attributes_set_background(gtksourceMarkAttributesPointer, background.gdkRgbaPointer)
 
     /**
      * The code should connect to this signal to provide a tooltip for given
@@ -244,7 +241,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mark: Mark) -> String,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceMarkAttributesPointer,
         "query-tooltip-markup",
         onQueryTooltipMarkupFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -264,7 +261,7 @@ public open class MarkAttributes(pointer: CPointer<GtkSourceMarkAttributes>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (mark: Mark) -> String,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceMarkAttributesPointer,
         "query-tooltip-text",
         onQueryTooltipTextFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

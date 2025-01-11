@@ -31,20 +31,17 @@ import kotlin.Unit
  * - method `accelerator`: Property TypeInfo of getter and setter do not match
  * - method `disabled-text`: Property TypeInfo of getter and setter do not match
  */
-public open class ShortcutLabel(pointer: CPointer<GtkShortcutLabel>) :
-    Widget(pointer.reinterpret()),
+public open class ShortcutLabel(public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>) :
+    Widget(gtkShortcutLabelPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutLabelPointer: CPointer<GtkShortcutLabel>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkShortcutLabel` with @accelerator set.

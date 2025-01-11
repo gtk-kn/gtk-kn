@@ -36,12 +36,9 @@ import kotlin.Unit
  * defaults, [signal@Gtk.GestureClick::stopped] is emitted, and the
  * click counter is reset.
  */
-public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
-    GestureSingle(pointer.reinterpret()),
+public open class GestureClick(public val gtkGestureClickPointer: CPointer<GtkGestureClick>) :
+    GestureSingle(gtkGestureClickPointer.reinterpret()),
     KGTyped {
-    public val gtkGestureClickPointer: CPointer<GtkGestureClick>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns a newly created `GtkGesture` that recognizes
      * single and multiple presses.
@@ -64,7 +61,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
             y: gdouble,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureClickPointer,
         "pressed",
         onPressedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -80,7 +77,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param y The Y coordinate, in widget allocation coordinates
      */
     public fun emitPressed(nPress: gint, x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "pressed", nPress, x, y)
+        g_signal_emit_by_name(gtkGestureClickPointer.reinterpret(), "pressed", nPress, x, y)
     }
 
     /**
@@ -102,7 +99,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
             y: gdouble,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureClickPointer,
         "released",
         onReleasedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -118,7 +115,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param y The Y coordinate, in widget allocation coordinates
      */
     public fun emitReleased(nPress: gint, x: gdouble, y: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "released", nPress, x, y)
+        g_signal_emit_by_name(gtkGestureClickPointer.reinterpret(), "released", nPress, x, y)
     }
 
     /**
@@ -129,7 +126,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      */
     public fun onStopped(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGestureClickPointer,
             "stopped",
             onStoppedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -141,7 +138,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * Emits the "stopped" signal. See [onStopped].
      */
     public fun emitStopped() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "stopped")
+        g_signal_emit_by_name(gtkGestureClickPointer.reinterpret(), "stopped")
     }
 
     /**
@@ -164,7 +161,7 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
             sequence: EventSequence?,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGestureClickPointer,
         "unpaired-release",
         onUnpairedReleaseFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -181,7 +178,14 @@ public open class GestureClick(pointer: CPointer<GtkGestureClick>) :
      * @param sequence Sequence being released
      */
     public fun emitUnpairedRelease(x: gdouble, y: gdouble, button: guint, sequence: EventSequence?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unpaired-release", x, y, button, sequence?.gPointer)
+        g_signal_emit_by_name(
+            gtkGestureClickPointer.reinterpret(),
+            "unpaired-release",
+            x,
+            y,
+            button,
+            sequence?.gdkEventSequencePointer
+        )
     }
 
     public companion object : TypeCompanion<GestureClick> {

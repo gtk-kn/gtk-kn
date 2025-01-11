@@ -61,9 +61,8 @@ import kotlin.native.ref.createCleaner
  * - field `notify`: Fields with callbacks are not supported
  * - field `constructed`: Fields with callbacks are not supported
  */
-public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GObjectClass> = pointer
-
+public class ObjectClass(public val gobjectObjectClassPointer: CPointer<GObjectClass>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectObjectClassPointer) {
     /**
      * Allocate a new ObjectClass.
      *
@@ -82,7 +81,9 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to ObjectClass and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GObjectClass>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GObjectClass>, Cleaner>,
+    ) : this(gobjectObjectClassPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ObjectClass using the provided [AutofreeScope].
@@ -101,8 +102,8 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      *          null if the class doesn't have a property of that name
      */
     public fun findProperty(propertyName: String): ParamSpec =
-        g_object_class_find_property(gPointer, propertyName)!!.run {
-            ParamSpec(this)
+        g_object_class_find_property(gobjectObjectClassPointer, propertyName)!!.run {
+            ParamSpec.ParamSpecImpl(this)
         }
 
     /**
@@ -121,7 +122,7 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      * @param pspec the #GParamSpec for the new property
      */
     public fun installProperty(propertyId: guint, pspec: ParamSpec): Unit =
-        g_object_class_install_property(gPointer, propertyId, pspec.gPointer)
+        g_object_class_install_property(gobjectObjectClassPointer, propertyId, pspec.gobjectParamSpecPointer)
 
     /**
      * Registers @property_id as referring to a property with the name
@@ -148,5 +149,5 @@ public class ObjectClass(pointer: CPointer<GObjectClass>, cleaner: Cleaner? = nu
      */
     @GObjectVersion2_4
     public fun overrideProperty(propertyId: guint, name: String): Unit =
-        g_object_class_override_property(gPointer, propertyId, name)
+        g_object_class_override_property(gobjectObjectClassPointer, propertyId, name)
 }

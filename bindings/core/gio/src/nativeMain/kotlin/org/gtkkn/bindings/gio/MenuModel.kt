@@ -159,12 +159,9 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public open class MenuModel(pointer: CPointer<GMenuModel>) :
-    Object(pointer.reinterpret()),
+public abstract class MenuModel(public val gioMenuModelPointer: CPointer<GMenuModel>) :
+    Object(gioMenuModelPointer.reinterpret()),
     KGTyped {
-    public val gioMenuModelPointer: CPointer<GMenuModel>
-        get() = gPointer.reinterpret()
-
     /**
      * Queries the item at position @item_index in @model for the attribute
      * specified by @attribute.
@@ -190,10 +187,14 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
         itemIndex: gint,
         attribute: String,
         expectedType: VariantType? = null,
-    ): Variant? =
-        g_menu_model_get_item_attribute_value(gioMenuModelPointer, itemIndex, attribute, expectedType?.gPointer)?.run {
-            Variant(this)
-        }
+    ): Variant? = g_menu_model_get_item_attribute_value(
+        gioMenuModelPointer,
+        itemIndex,
+        attribute,
+        expectedType?.glibVariantTypePointer
+    )?.run {
+        Variant(this)
+    }
 
     /**
      * Queries the item at position @item_index in @model for the link
@@ -210,7 +211,7 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
     @GioVersion2_32
     public open fun getItemLink(itemIndex: gint, link: String): MenuModel? =
         g_menu_model_get_item_link(gioMenuModelPointer, itemIndex, link)?.run {
-            MenuModel(this)
+            MenuModelImpl(this)
         }
 
     /**
@@ -274,7 +275,7 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
     @GioVersion2_32
     public open fun iterateItemAttributes(itemIndex: gint): MenuAttributeIter =
         g_menu_model_iterate_item_attributes(gioMenuModelPointer, itemIndex)!!.run {
-            MenuAttributeIter(this)
+            MenuAttributeIter.MenuAttributeIterImpl(this)
         }
 
     /**
@@ -290,7 +291,7 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
     @GioVersion2_32
     public open fun iterateItemLinks(itemIndex: gint): MenuLinkIter =
         g_menu_model_iterate_item_links(gioMenuModelPointer, itemIndex)!!.run {
-            MenuLinkIter(this)
+            MenuLinkIter.MenuLinkIterImpl(this)
         }
 
     /**
@@ -326,7 +327,7 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
             added: gint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioMenuModelPointer,
         "items-changed",
         onItemsChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -342,12 +343,19 @@ public open class MenuModel(pointer: CPointer<GMenuModel>) :
      * @param added the number of items added
      */
     public fun emitItemsChanged(position: gint, removed: gint, added: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "items-changed", position, removed, added)
+        g_signal_emit_by_name(gioMenuModelPointer.reinterpret(), "items-changed", position, removed, added)
     }
+
+    /**
+     * The MenuModelImpl type represents a native instance of the abstract MenuModel class.
+     *
+     * @constructor Creates a new instance of MenuModel for the provided [CPointer].
+     */
+    public class MenuModelImpl(pointer: CPointer<GMenuModel>) : MenuModel(pointer)
 
     public companion object : TypeCompanion<MenuModel> {
         override val type: GeneratedClassKGType<MenuModel> =
-            GeneratedClassKGType(g_menu_model_get_type()) { MenuModel(it.reinterpret()) }
+            GeneratedClassKGType(g_menu_model_get_type()) { MenuModelImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

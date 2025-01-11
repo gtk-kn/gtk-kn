@@ -9,7 +9,8 @@ import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -42,7 +43,7 @@ import kotlin.Unit
  * - parameter `sort_column_id`: sort_column_id: Out parameter is not supported
  */
 public interface TreeSortable :
-    Interface,
+    Proxy,
     TreeModel,
     KGTyped {
     public val gtkTreeSortablePointer: CPointer<GtkTreeSortable>
@@ -136,19 +137,22 @@ public interface TreeSortable :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GtkTreeSortable>) : TreeSortable {
-        override val gtkTreeSortablePointer: CPointer<GtkTreeSortable> = pointer
-    }
+    /**
+     * The TreeSortableImpl type represents a native instance of the TreeSortable interface.
+     *
+     * @constructor Creates a new instance of TreeSortable for the provided [CPointer].
+     */
+    public data class TreeSortableImpl(override val gtkTreeSortablePointer: CPointer<GtkTreeSortable>) :
+        Object(gtkTreeSortablePointer.reinterpret()),
+        TreeSortable
 
     public companion object : TypeCompanion<TreeSortable> {
         override val type: GeneratedInterfaceKGType<TreeSortable> =
-            GeneratedInterfaceKGType(gtk_tree_sortable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_tree_sortable_get_type()) { TreeSortableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkTreeSortable>): TreeSortable = Wrapper(pointer)
 
         /**
          * Get the GType of TreeSortable

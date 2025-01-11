@@ -47,12 +47,9 @@ import kotlin.Unit
  * The [class@Snippet] will build the context and then expand each of the
  * chunks during the insertion/edit phase.
  */
-public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
-    Object(pointer.reinterpret()),
+public open class SnippetContext(public val gtksourceSnippetContextPointer: CPointer<GtkSourceSnippetContext>) :
+    Object(gtksourceSnippetContextPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSnippetContextPointer: CPointer<GtkSourceSnippetContext>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GtkSourceSnippetContext.
      *
@@ -127,7 +124,7 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceSnippetContextPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -139,7 +136,7 @@ public open class SnippetContext(pointer: CPointer<GtkSourceSnippetContext>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gtksourceSnippetContextPointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<SnippetContext> {

@@ -19,22 +19,20 @@ import org.gtkkn.native.glib.gsize
 import kotlin.String
 import kotlin.Unit
 
-public class MemChunk(pointer: CPointer<GMemChunk>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GMemChunk> = pointer
+public class MemChunk(public val glibMemChunkPointer: CPointer<GMemChunk>) : ProxyInstance(glibMemChunkPointer) {
+    public fun alloc(): gpointer? = g_mem_chunk_alloc(glibMemChunkPointer)
 
-    public fun alloc(): gpointer? = g_mem_chunk_alloc(gPointer)
+    public fun alloc0(): gpointer? = g_mem_chunk_alloc0(glibMemChunkPointer)
 
-    public fun alloc0(): gpointer? = g_mem_chunk_alloc0(gPointer)
+    public fun clean(): Unit = g_mem_chunk_clean(glibMemChunkPointer)
 
-    public fun clean(): Unit = g_mem_chunk_clean(gPointer)
+    public fun destroy(): Unit = g_mem_chunk_destroy(glibMemChunkPointer)
 
-    public fun destroy(): Unit = g_mem_chunk_destroy(gPointer)
+    public fun free(mem: gpointer? = null): Unit = g_mem_chunk_free(glibMemChunkPointer, mem)
 
-    public fun free(mem: gpointer? = null): Unit = g_mem_chunk_free(gPointer, mem)
+    public fun print(): Unit = g_mem_chunk_print(glibMemChunkPointer)
 
-    public fun print(): Unit = g_mem_chunk_print(gPointer)
-
-    public fun reset(): Unit = g_mem_chunk_reset(gPointer)
+    public fun reset(): Unit = g_mem_chunk_reset(glibMemChunkPointer)
 
     public companion object {
         public fun info(): Unit = g_mem_chunk_info()

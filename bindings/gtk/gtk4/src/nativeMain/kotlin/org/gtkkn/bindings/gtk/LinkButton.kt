@@ -63,23 +63,20 @@ import kotlin.ULong
  *
  * `GtkLinkButton` uses the %GTK_ACCESSIBLE_ROLE_LINK role.
  */
-public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
-    Button(pointer.reinterpret()),
+public open class LinkButton(public val gtkLinkButtonPointer: CPointer<GtkLinkButton>) :
+    Button(gtkLinkButtonPointer.reinterpret()),
     KGTyped {
-    public val gtkLinkButtonPointer: CPointer<GtkLinkButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The URI bound to this button.
@@ -164,7 +161,7 @@ public open class LinkButton(pointer: CPointer<GtkLinkButton>) :
      */
     public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkLinkButtonPointer,
             "activate-link",
             onActivateLinkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

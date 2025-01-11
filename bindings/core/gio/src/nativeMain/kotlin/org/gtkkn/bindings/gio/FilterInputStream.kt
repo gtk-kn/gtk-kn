@@ -22,12 +22,9 @@ import kotlin.Boolean
  * of filtering operations are character set conversion, compression
  * and byte order flipping.
  */
-public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
-    InputStream(pointer.reinterpret()),
+public abstract class FilterInputStream(public val gioFilterInputStreamPointer: CPointer<GFilterInputStream>) :
+    InputStream(gioFilterInputStreamPointer.reinterpret()),
     KGTyped {
-    public val gioFilterInputStreamPointer: CPointer<GFilterInputStream>
-        get() = gPointer.reinterpret()
-
     /**
      * The underlying base stream on which the I/O ops will be done.
      */
@@ -38,7 +35,7 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
          * @return a #GInputStream.
          */
         get() = g_filter_input_stream_get_base_stream(gioFilterInputStreamPointer)!!.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
     /**
@@ -62,9 +59,16 @@ public open class FilterInputStream(pointer: CPointer<GFilterInputStream>) :
             closeBase
         ) = g_filter_input_stream_set_close_base_stream(gioFilterInputStreamPointer, closeBase.asGBoolean())
 
+    /**
+     * The FilterInputStreamImpl type represents a native instance of the abstract FilterInputStream class.
+     *
+     * @constructor Creates a new instance of FilterInputStream for the provided [CPointer].
+     */
+    public class FilterInputStreamImpl(pointer: CPointer<GFilterInputStream>) : FilterInputStream(pointer)
+
     public companion object : TypeCompanion<FilterInputStream> {
         override val type: GeneratedClassKGType<FilterInputStream> =
-            GeneratedClassKGType(g_filter_input_stream_get_type()) { FilterInputStream(it.reinterpret()) }
+            GeneratedClassKGType(g_filter_input_stream_get_type()) { FilterInputStreamImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()

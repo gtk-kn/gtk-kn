@@ -7,7 +7,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_22
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.gio.annotations.GioVersion2_48
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -79,7 +80,7 @@ import kotlin.String
  * ```
  */
 public interface SocketConnectable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioSocketConnectablePointer: CPointer<GSocketConnectable>
 
@@ -92,7 +93,7 @@ public interface SocketConnectable :
     @GioVersion2_22
     public fun enumerate(): SocketAddressEnumerator =
         g_socket_connectable_enumerate(gioSocketConnectablePointer)!!.run {
-            SocketAddressEnumerator(this)
+            SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)
         }
 
     /**
@@ -110,7 +111,7 @@ public interface SocketConnectable :
     @GioVersion2_26
     public fun proxyEnumerate(): SocketAddressEnumerator =
         g_socket_connectable_proxy_enumerate(gioSocketConnectablePointer)!!.run {
-            SocketAddressEnumerator(this)
+            SocketAddressEnumerator.SocketAddressEnumeratorImpl(this)
         }
 
     /**
@@ -129,19 +130,22 @@ public interface SocketConnectable :
     public fun toStringSocketConnectable(): String =
         g_socket_connectable_to_string(gioSocketConnectablePointer)?.toKString() ?: error("Expected not null string")
 
-    private data class Wrapper(private val pointer: CPointer<GSocketConnectable>) : SocketConnectable {
-        override val gioSocketConnectablePointer: CPointer<GSocketConnectable> = pointer
-    }
+    /**
+     * The SocketConnectableImpl type represents a native instance of the SocketConnectable interface.
+     *
+     * @constructor Creates a new instance of SocketConnectable for the provided [CPointer].
+     */
+    public data class SocketConnectableImpl(override val gioSocketConnectablePointer: CPointer<GSocketConnectable>) :
+        Object(gioSocketConnectablePointer.reinterpret()),
+        SocketConnectable
 
     public companion object : TypeCompanion<SocketConnectable> {
         override val type: GeneratedInterfaceKGType<SocketConnectable> =
-            GeneratedInterfaceKGType(g_socket_connectable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_socket_connectable_get_type()) { SocketConnectableImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GSocketConnectable>): SocketConnectable = Wrapper(pointer)
 
         /**
          * Get the GType of SocketConnectable

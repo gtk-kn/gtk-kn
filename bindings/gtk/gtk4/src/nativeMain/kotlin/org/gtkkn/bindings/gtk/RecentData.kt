@@ -27,20 +27,19 @@ import kotlin.native.ref.createCleaner
  * Meta-data to be passed to gtk_recent_manager_add_full() when
  * registering a recently used resource.
  */
-public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkRecentData> = pointer
-
+public class RecentData(public val gtkRecentDataPointer: CPointer<GtkRecentData>, cleaner: Cleaner? = null) :
+    ProxyInstance(gtkRecentDataPointer) {
     /**
      * a UTF-8 encoded string, containing the name of the recently
      *   used resource to be displayed, or null;
      */
     public var displayName: String?
-        get() = gPointer.pointed.display_name?.toKString()
+        get() = gtkRecentDataPointer.pointed.display_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.display_name?.let { g_free(it) }
-            gPointer.pointed.display_name = value?.let { g_strdup(it) }
+            gtkRecentDataPointer.pointed.display_name?.let { g_free(it) }
+            gtkRecentDataPointer.pointed.display_name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -48,24 +47,24 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
      *   the resource, or null;
      */
     public var description: String?
-        get() = gPointer.pointed.description?.toKString()
+        get() = gtkRecentDataPointer.pointed.description?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.description?.let { g_free(it) }
-            gPointer.pointed.description = value?.let { g_strdup(it) }
+            gtkRecentDataPointer.pointed.description?.let { g_free(it) }
+            gtkRecentDataPointer.pointed.description = value?.let { g_strdup(it) }
         }
 
     /**
      * the MIME type of the resource;
      */
     public var mimeType: String?
-        get() = gPointer.pointed.mime_type?.toKString()
+        get() = gtkRecentDataPointer.pointed.mime_type?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mime_type?.let { g_free(it) }
-            gPointer.pointed.mime_type = value?.let { g_strdup(it) }
+            gtkRecentDataPointer.pointed.mime_type?.let { g_free(it) }
+            gtkRecentDataPointer.pointed.mime_type = value?.let { g_strdup(it) }
         }
 
     /**
@@ -73,12 +72,12 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
      *   used resource;
      */
     public var appName: String?
-        get() = gPointer.pointed.app_name?.toKString()
+        get() = gtkRecentDataPointer.pointed.app_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.app_name?.let { g_free(it) }
-            gPointer.pointed.app_name = value?.let { g_strdup(it) }
+            gtkRecentDataPointer.pointed.app_name?.let { g_free(it) }
+            gtkRecentDataPointer.pointed.app_name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -88,12 +87,12 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
      *   is retrieved;
      */
     public var appExec: String?
-        get() = gPointer.pointed.app_exec?.toKString()
+        get() = gtkRecentDataPointer.pointed.app_exec?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.app_exec?.let { g_free(it) }
-            gPointer.pointed.app_exec = value?.let { g_strdup(it) }
+            gtkRecentDataPointer.pointed.app_exec?.let { g_free(it) }
+            gtkRecentDataPointer.pointed.app_exec = value?.let { g_strdup(it) }
         }
 
     /**
@@ -103,18 +102,18 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
      * Note: this property is writeable but the setter binding is not supported yet.
      */
     public val groups: List<String>?
-        get() = gPointer.pointed.groups?.toKStringList()
+        get() = gtkRecentDataPointer.pointed.groups?.toKStringList()
 
     /**
      * whether this resource should be displayed only by the
      *   applications that have registered it or not.
      */
     public var isPrivate: Boolean
-        get() = gPointer.pointed.is_private.asBoolean()
+        get() = gtkRecentDataPointer.pointed.is_private.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_private = value.asGBoolean()
+            gtkRecentDataPointer.pointed.is_private = value.asGBoolean()
         }
 
     /**
@@ -137,7 +136,7 @@ public class RecentData(pointer: CPointer<GtkRecentData>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<GtkRecentData>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gtkRecentDataPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RecentData using the provided [AutofreeScope].

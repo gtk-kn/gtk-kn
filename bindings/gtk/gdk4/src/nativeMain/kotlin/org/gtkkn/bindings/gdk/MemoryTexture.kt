@@ -20,20 +20,17 @@ import org.gtkkn.native.gobject.GType
 /**
  * A `GdkTexture` representing image data in memory.
  */
-public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
-    Texture(pointer.reinterpret()),
+public open class MemoryTexture(public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>) :
+    Texture(gdkMemoryTexturePointer.reinterpret()),
     KGTyped {
-    public val gdkMemoryTexturePointer: CPointer<GdkMemoryTexture>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new texture for a blob of image data.
@@ -54,7 +51,7 @@ public open class MemoryTexture(pointer: CPointer<GdkMemoryTexture>) :
         format: MemoryFormat,
         bytes: Bytes,
         stride: gsize,
-    ) : this(gdk_memory_texture_new(width, height, format.nativeValue, bytes.gPointer, stride)!!.reinterpret())
+    ) : this(gdk_memory_texture_new(width, height, format.nativeValue, bytes.glibBytesPointer, stride)!!.reinterpret())
 
     public companion object : TypeCompanion<MemoryTexture> {
         override val type: GeneratedClassKGType<MemoryTexture> =

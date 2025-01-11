@@ -37,19 +37,16 @@ import org.gtkkn.native.gobject.GType
  * - method `realloc-function`: Property has no getter nor setter
  * - parameter `realloc_function`: ReallocFunc
  */
-public open class MemoryOutputStream(pointer: CPointer<GMemoryOutputStream>) :
-    OutputStream(pointer.reinterpret()),
+public open class MemoryOutputStream(public val gioMemoryOutputStreamPointer: CPointer<GMemoryOutputStream>) :
+    OutputStream(gioMemoryOutputStreamPointer.reinterpret()),
     PollableOutputStream,
     Seekable,
     KGTyped {
-    public val gioMemoryOutputStreamPointer: CPointer<GMemoryOutputStream>
-        get() = gPointer.reinterpret()
-
     override val gioPollableOutputStreamPointer: CPointer<GPollableOutputStream>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Pointer to buffer where data will be written.

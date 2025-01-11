@@ -53,12 +53,9 @@ import kotlin.ULong
  * @since 2.22
  */
 @GioVersion2_22
-public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService>) :
-    SocketService(pointer.reinterpret()),
+public open class ThreadedSocketService(public val gioThreadedSocketServicePointer: CPointer<GThreadedSocketService>) :
+    SocketService(gioThreadedSocketServicePointer.reinterpret()),
     KGTyped {
-    public val gioThreadedSocketServicePointer: CPointer<GThreadedSocketService>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GThreadedSocketService with no listeners. Listeners
      * must be added with one of the #GSocketListener "add" methods.
@@ -83,7 +80,7 @@ public open class ThreadedSocketService(pointer: CPointer<GThreadedSocketService
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (connection: SocketConnection, sourceObject: Object?) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioThreadedSocketServicePointer,
         "run",
         onRunFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

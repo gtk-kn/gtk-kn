@@ -77,20 +77,17 @@ import kotlin.Unit
  *
  * - method `search-mode-enabled`: Property has no getter nor setter
  */
-public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
-    Widget(pointer.reinterpret()),
+public open class SearchBar(public val gtkSearchBarPointer: CPointer<GtkSearchBar>) :
+    Widget(gtkSearchBarPointer.reinterpret()),
     KGTyped {
-    public val gtkSearchBarPointer: CPointer<GtkSearchBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -102,7 +99,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          * @return the child widget of @bar
          */
         get() = gtk_search_bar_get_child(gtkSearchBarPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -122,7 +119,7 @@ public open class SearchBar(pointer: CPointer<GtkSearchBar>) :
          * @return The key capture widget.
          */
         get() = gtk_search_bar_get_key_capture_widget(gtkSearchBarPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

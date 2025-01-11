@@ -42,12 +42,9 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
-    Object(pointer.reinterpret()),
+public class AutomationSession(public val webkitAutomationSessionPointer: CPointer<WebKitAutomationSession>) :
+    Object(webkitAutomationSessionPointer.reinterpret()),
     KGTyped {
-    public val webkitAutomationSessionPointer: CPointer<WebKitAutomationSession>
-        get() = gPointer.reinterpret()
-
     /**
      * The session unique identifier.
      *
@@ -92,8 +89,10 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun setApplicationInfo(info: ApplicationInfo): Unit =
-        webkit_automation_session_set_application_info(webkitAutomationSessionPointer, info.gPointer)
+    public fun setApplicationInfo(info: ApplicationInfo): Unit = webkit_automation_session_set_application_info(
+        webkitAutomationSessionPointer,
+        info.webkitApplicationInfoPointer
+    )
 
     /**
      * This signal is emitted when the automation client requests a new
@@ -120,7 +119,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
         detail: String? = null,
         handler: () -> WebView,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        webkitAutomationSessionPointer,
         "create-web-view" + (
             detail?.let {
                 "::$it"
@@ -143,7 +142,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
     @WebKitVersion2_46
     public fun onWillClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitAutomationSessionPointer,
             "will-close",
             onWillCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -158,7 +157,7 @@ public class AutomationSession(pointer: CPointer<WebKitAutomationSession>) :
      */
     @WebKitVersion2_46
     public fun emitWillClose() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "will-close")
+        g_signal_emit_by_name(webkitAutomationSessionPointer.reinterpret(), "will-close")
     }
 
     public companion object : TypeCompanion<AutomationSession> {

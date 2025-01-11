@@ -50,31 +50,30 @@ import kotlin.Unit
  *   g_array_set_clear_func (array, (GDestroyNotify) g_value_unset);
  * ```
  */
-public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GValueArray> = pointer
-
+public class ValueArray(public val gobjectValueArrayPointer: CPointer<GValueArray>) :
+    ProxyInstance(gobjectValueArrayPointer) {
     /**
      * number of values contained in the array
      */
     public var nValues: guint
-        get() = gPointer.pointed.n_values
+        get() = gobjectValueArrayPointer.pointed.n_values
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_values = value
+            gobjectValueArrayPointer.pointed.n_values = value
         }
 
     /**
      * array of values
      */
     public var values: Value?
-        get() = gPointer.pointed.values?.run {
+        get() = gobjectValueArrayPointer.pointed.values?.run {
             Value(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.values = value?.gPointer
+            gobjectValueArrayPointer.pointed.values = value?.gobjectValuePointer
         }
 
     /**
@@ -84,9 +83,10 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      * @param value #GValue to copy into #GValueArray, or null
      * @return the #GValueArray passed in as @value_array
      */
-    public fun append(`value`: Value? = null): ValueArray = g_value_array_append(gPointer, `value`?.gPointer)!!.run {
-        ValueArray(this)
-    }
+    public fun append(`value`: Value? = null): ValueArray =
+        g_value_array_append(gobjectValueArrayPointer, `value`?.gobjectValuePointer)!!.run {
+            ValueArray(this)
+        }
 
     /**
      * Construct an exact copy of a #GValueArray by duplicating all its
@@ -94,14 +94,14 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      *
      * @return Newly allocated copy of #GValueArray
      */
-    public fun copy(): ValueArray = g_value_array_copy(gPointer)!!.run {
+    public fun copy(): ValueArray = g_value_array_copy(gobjectValueArrayPointer)!!.run {
         ValueArray(this)
     }
 
     /**
      * Free a #GValueArray including its contents.
      */
-    public fun free(): Unit = g_value_array_free(gPointer)
+    public fun free(): Unit = g_value_array_free(gobjectValueArrayPointer)
 
     /**
      * Return a pointer to the value at @index_ containd in @value_array.
@@ -109,7 +109,7 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      * @param index index of the value of interest
      * @return pointer to a value at @index_ in @value_array
      */
-    public fun getNth(index: guint): Value = g_value_array_get_nth(gPointer, index)!!.run {
+    public fun getNth(index: guint): Value = g_value_array_get_nth(gobjectValueArrayPointer, index)!!.run {
         Value(this)
     }
 
@@ -122,7 +122,7 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      * @return the #GValueArray passed in as @value_array
      */
     public fun insert(index: guint, `value`: Value? = null): ValueArray =
-        g_value_array_insert(gPointer, index, `value`?.gPointer)!!.run {
+        g_value_array_insert(gobjectValueArrayPointer, index, `value`?.gobjectValuePointer)!!.run {
             ValueArray(this)
         }
 
@@ -133,9 +133,10 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      * @param value #GValue to copy into #GValueArray, or null
      * @return the #GValueArray passed in as @value_array
      */
-    public fun prepend(`value`: Value? = null): ValueArray = g_value_array_prepend(gPointer, `value`?.gPointer)!!.run {
-        ValueArray(this)
-    }
+    public fun prepend(`value`: Value? = null): ValueArray =
+        g_value_array_prepend(gobjectValueArrayPointer, `value`?.gobjectValuePointer)!!.run {
+            ValueArray(this)
+        }
 
     /**
      * Remove the value at position @index_ from @value_array.
@@ -144,7 +145,7 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      *     @value_array->n_values
      * @return the #GValueArray passed in as @value_array
      */
-    public fun remove(index: guint): ValueArray = g_value_array_remove(gPointer, index)!!.run {
+    public fun remove(index: guint): ValueArray = g_value_array_remove(gobjectValueArrayPointer, index)!!.run {
         ValueArray(this)
     }
 
@@ -159,7 +160,7 @@ public class ValueArray(pointer: CPointer<GValueArray>) : ProxyInstance(pointer)
      * @return the #GValueArray passed in as @value_array
      */
     public fun sort(compareFunc: CompareDataFunc): ValueArray = g_value_array_sort_with_data(
-        gPointer,
+        gobjectValueArrayPointer,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(compareFunc).asCPointer()
     )!!.run {

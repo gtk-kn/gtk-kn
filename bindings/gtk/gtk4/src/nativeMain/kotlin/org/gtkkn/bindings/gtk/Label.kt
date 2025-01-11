@@ -281,24 +281,21 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - parameter `start`: start: Out parameter is not supported
  */
-public open class Label(pointer: CPointer<GtkLabel>) :
-    Widget(pointer.reinterpret()),
+public open class Label(public val gtkLabelPointer: CPointer<GtkLabel>) :
+    Widget(gtkLabelPointer.reinterpret()),
     AccessibleText,
     KGTyped {
-    public val gtkLabelPointer: CPointer<GtkLabel>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A list of style attributes to apply to the text of the label.
@@ -332,7 +329,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
          *
          * @param attrs a [struct@Pango.AttrList]
          */
-        set(attrs) = gtk_label_set_attributes(gtkLabelPointer, attrs?.gPointer)
+        set(attrs) = gtk_label_set_attributes(gtkLabelPointer, attrs?.pangoAttrListPointer)
 
     /**
      * The preferred place to ellipsize the string, if the label does
@@ -380,7 +377,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
          * @return the menu model
          */
         get() = gtk_label_get_extra_menu(gtkLabelPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**
@@ -544,7 +541,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
          *   or null if none has been set and the default algorithm will be used.
          */
         get() = gtk_label_get_mnemonic_widget(gtkLabelPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -680,7 +677,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
          * @since 4.8
          */
         @GtkVersion4_8
-        set(tabs) = gtk_label_set_tabs(gtkLabelPointer, tabs?.gPointer)
+        set(tabs) = gtk_label_set_tabs(gtkLabelPointer, tabs?.pangoTabArrayPointer)
 
     /**
      * true if the text of the label includes Pango markup.
@@ -1028,7 +1025,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
      */
     public fun onActivateCurrentLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkLabelPointer,
             "activate-current-link",
             onActivateCurrentLinkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1040,7 +1037,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
      * Emits the "activate-current-link" signal. See [onActivateCurrentLink].
      */
     public fun emitActivateCurrentLink() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate-current-link")
+        g_signal_emit_by_name(gtkLabelPointer.reinterpret(), "activate-current-link")
     }
 
     /**
@@ -1054,7 +1051,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
      */
     public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkLabelPointer,
             "activate-link",
             onActivateLinkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1074,7 +1071,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
      */
     public fun onCopyClipboard(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkLabelPointer,
             "copy-clipboard",
             onCopyClipboardFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1086,7 +1083,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
      * Emits the "copy-clipboard" signal. See [onCopyClipboard].
      */
     public fun emitCopyClipboard() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "copy-clipboard")
+        g_signal_emit_by_name(gtkLabelPointer.reinterpret(), "copy-clipboard")
     }
 
     /**
@@ -1121,7 +1118,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
             extendSelection: Boolean,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkLabelPointer,
         "move-cursor",
         onMoveCursorFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1138,7 +1135,7 @@ public open class Label(pointer: CPointer<GtkLabel>) :
      */
     public fun emitMoveCursor(step: MovementStep, count: gint, extendSelection: Boolean) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtkLabelPointer.reinterpret(),
             "move-cursor",
             step.nativeValue,
             count,

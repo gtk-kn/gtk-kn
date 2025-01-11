@@ -21,9 +21,8 @@ import kotlin.Unit
  * @since 2.30
  */
 @WebKitVersion2_30
-public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitITPThirdParty> = pointer
-
+public class ItpThirdParty(public val webkitItpThirdPartyPointer: CPointer<WebKitITPThirdParty>) :
+    ProxyInstance(webkitItpThirdPartyPointer) {
     /**
      * Get the domain name of @itp_third_party.
      *
@@ -32,7 +31,7 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      */
     @WebKitVersion2_30
     public fun getDomain(): String =
-        webkit_itp_third_party_get_domain(gPointer)?.toKString() ?: error("Expected not null string")
+        webkit_itp_third_party_get_domain(webkitItpThirdPartyPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the list of #WebKitITPFirstParty under which @itp_third_party has been seen.
@@ -41,7 +40,7 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun getFirstParties(): List = webkit_itp_third_party_get_first_parties(gPointer)!!.run {
+    public fun getFirstParties(): List = webkit_itp_third_party_get_first_parties(webkitItpThirdPartyPointer)!!.run {
         List(this)
     }
 
@@ -54,7 +53,7 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun ref(): ItpThirdParty = webkit_itp_third_party_ref(gPointer)!!.run {
+    public fun ref(): ItpThirdParty = webkit_itp_third_party_ref(webkitItpThirdPartyPointer)!!.run {
         ItpThirdParty(this)
     }
 
@@ -68,7 +67,7 @@ public class ItpThirdParty(pointer: CPointer<WebKitITPThirdParty>) : ProxyInstan
      * @since 2.30
      */
     @WebKitVersion2_30
-    public fun unref(): Unit = webkit_itp_third_party_unref(gPointer)
+    public fun unref(): Unit = webkit_itp_third_party_unref(webkitItpThirdPartyPointer)
 
     public companion object {
         /**

@@ -72,19 +72,16 @@ import kotlin.Unit
  * - method `model`: Property has no getter nor setter
  * - method `n-items`: Property has no getter nor setter
  */
-public open class ShortcutController(pointer: CPointer<GtkShortcutController>) :
-    EventController(pointer.reinterpret()),
+public open class ShortcutController(public val gtkShortcutControllerPointer: CPointer<GtkShortcutController>) :
+    EventController(gtkShortcutControllerPointer.reinterpret()),
     ListModel,
     Buildable,
     KGTyped {
-    public val gtkShortcutControllerPointer: CPointer<GtkShortcutController>
-        get() = gPointer.reinterpret()
-
     override val gioListModelPointer: CPointer<GListModel>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * What scope the shortcuts will be handled in.

@@ -31,9 +31,8 @@ import kotlin.Unit
  * @since 2.18
  */
 @WebKitVersion2_18
-public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitOptionMenuItem> = pointer
-
+public class OptionMenuItem(public val webkitOptionMenuItemPointer: CPointer<WebKitOptionMenuItem>) :
+    ProxyInstance(webkitOptionMenuItemPointer) {
     /**
      * Make a copy of the #WebKitOptionMenuItem.
      *
@@ -41,7 +40,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun copy(): OptionMenuItem = webkit_option_menu_item_copy(gPointer)!!.run {
+    public fun copy(): OptionMenuItem = webkit_option_menu_item_copy(webkitOptionMenuItemPointer)!!.run {
         OptionMenuItem(this)
     }
 
@@ -51,7 +50,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun free(): Unit = webkit_option_menu_item_free(gPointer)
+    public fun free(): Unit = webkit_option_menu_item_free(webkitOptionMenuItemPointer)
 
     /**
      * Get the label of a #WebKitOptionMenuItem.
@@ -61,7 +60,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      */
     @WebKitVersion2_18
     public fun getLabel(): String =
-        webkit_option_menu_item_get_label(gPointer)?.toKString() ?: error("Expected not null string")
+        webkit_option_menu_item_get_label(webkitOptionMenuItemPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Get the tooltip of a #WebKitOptionMenuItem.
@@ -70,8 +69,8 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun getTooltip(): String =
-        webkit_option_menu_item_get_tooltip(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getTooltip(): String = webkit_option_menu_item_get_tooltip(webkitOptionMenuItemPointer)?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Whether a #WebKitOptionMenuItem is enabled.
@@ -80,7 +79,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isEnabled(): Boolean = webkit_option_menu_item_is_enabled(gPointer).asBoolean()
+    public fun isEnabled(): Boolean = webkit_option_menu_item_is_enabled(webkitOptionMenuItemPointer).asBoolean()
 
     /**
      * Whether a #WebKitOptionMenuItem is a group child.
@@ -89,7 +88,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isGroupChild(): Boolean = webkit_option_menu_item_is_group_child(gPointer).asBoolean()
+    public fun isGroupChild(): Boolean = webkit_option_menu_item_is_group_child(webkitOptionMenuItemPointer).asBoolean()
 
     /**
      * Whether a #WebKitOptionMenuItem is a group label.
@@ -98,7 +97,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isGroupLabel(): Boolean = webkit_option_menu_item_is_group_label(gPointer).asBoolean()
+    public fun isGroupLabel(): Boolean = webkit_option_menu_item_is_group_label(webkitOptionMenuItemPointer).asBoolean()
 
     /**
      * Whether a #WebKitOptionMenuItem is the currently selected one.
@@ -107,7 +106,7 @@ public class OptionMenuItem(pointer: CPointer<WebKitOptionMenuItem>) : ProxyInst
      * @since 2.18
      */
     @WebKitVersion2_18
-    public fun isSelected(): Boolean = webkit_option_menu_item_is_selected(gPointer).asBoolean()
+    public fun isSelected(): Boolean = webkit_option_menu_item_is_selected(webkitOptionMenuItemPointer).asBoolean()
 
     public companion object {
         /**

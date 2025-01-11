@@ -31,12 +31,9 @@ import kotlin.Unit
 /**
  * Watches #GUnixMounts for changes.
  */
-public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
-    Object(pointer.reinterpret()),
+public open class UnixMountMonitor(public val gioUnixMountMonitorPointer: CPointer<GUnixMountMonitor>) :
+    Object(gioUnixMountMonitorPointer.reinterpret()),
     KGTyped {
-    public val gioUnixMountMonitorPointer: CPointer<GUnixMountMonitor>
-        get() = gPointer.reinterpret()
-
     /**
      * Deprecated alias for g_unix_mount_monitor_get().
      *
@@ -72,7 +69,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      */
     public fun onMountpointsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioUnixMountMonitorPointer,
             "mountpoints-changed",
             onMountpointsChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -84,7 +81,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      * Emits the "mountpoints-changed" signal. See [onMountpointsChanged].
      */
     public fun emitMountpointsChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "mountpoints-changed")
+        g_signal_emit_by_name(gioUnixMountMonitorPointer.reinterpret(), "mountpoints-changed")
     }
 
     /**
@@ -95,7 +92,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      */
     public fun onMountsChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gioUnixMountMonitorPointer,
             "mounts-changed",
             onMountsChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -107,7 +104,7 @@ public open class UnixMountMonitor(pointer: CPointer<GUnixMountMonitor>) :
      * Emits the "mounts-changed" signal. See [onMountsChanged].
      */
     public fun emitMountsChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "mounts-changed")
+        g_signal_emit_by_name(gioUnixMountMonitorPointer.reinterpret(), "mounts-changed")
     }
 
     public companion object : TypeCompanion<UnixMountMonitor> {

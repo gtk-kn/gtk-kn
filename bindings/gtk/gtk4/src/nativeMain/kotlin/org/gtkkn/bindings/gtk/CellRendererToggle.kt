@@ -47,12 +47,9 @@ import kotlin.Unit
  *
  * - method `inconsistent`: Property has no getter nor setter
  */
-public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
-    CellRenderer(pointer.reinterpret()),
+public open class CellRendererToggle(public val gtkCellRendererTogglePointer: CPointer<GtkCellRendererToggle>) :
+    CellRenderer(gtkCellRendererTogglePointer.reinterpret()),
     KGTyped {
-    public val gtkCellRendererTogglePointer: CPointer<GtkCellRendererToggle>
-        get() = gPointer.reinterpret()
-
     public open var activatable: Boolean
         /**
          * Returns whether the cell renderer is activatable. See
@@ -132,7 +129,7 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
      */
     public fun onToggled(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (path: String) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkCellRendererTogglePointer,
             "toggled",
             onToggledFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -147,7 +144,7 @@ public open class CellRendererToggle(pointer: CPointer<GtkCellRendererToggle>) :
      *        event location
      */
     public fun emitToggled(path: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "toggled", path.cstr)
+        g_signal_emit_by_name(gtkCellRendererTogglePointer.reinterpret(), "toggled", path.cstr)
     }
 
     public companion object : TypeCompanion<CellRendererToggle> {

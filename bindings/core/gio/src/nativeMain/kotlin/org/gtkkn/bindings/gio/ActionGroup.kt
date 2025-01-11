@@ -14,7 +14,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_28
 import org.gtkkn.bindings.glib.Variant
 import org.gtkkn.bindings.glib.VariantType
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -98,7 +99,7 @@ import kotlin.collections.List
  * - parameter `enabled`: enabled: Out parameter is not supported
  */
 public interface ActionGroup :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioActionGroupPointer: CPointer<GActionGroup>
 
@@ -149,7 +150,7 @@ public interface ActionGroup :
      */
     @GioVersion2_28
     public fun actionStateChanged(actionName: String, state: Variant): Unit =
-        g_action_group_action_state_changed(gioActionGroupPointer, actionName, state.gPointer)
+        g_action_group_action_state_changed(gioActionGroupPointer, actionName, state.glibVariantPointer)
 
     /**
      * Activate the named action within @action_group.
@@ -192,7 +193,7 @@ public interface ActionGroup :
      */
     @GioVersion2_28
     public fun activateAction(actionName: String, parameter: Variant? = null): Unit =
-        g_action_group_activate_action(gioActionGroupPointer, actionName, parameter?.gPointer)
+        g_action_group_activate_action(gioActionGroupPointer, actionName, parameter?.glibVariantPointer)
 
     /**
      * Request for the state of the named action within @action_group to be
@@ -213,7 +214,7 @@ public interface ActionGroup :
      */
     @GioVersion2_28
     public fun changeActionState(actionName: String, `value`: Variant): Unit =
-        g_action_group_change_action_state(gioActionGroupPointer, actionName, `value`.gPointer)
+        g_action_group_change_action_state(gioActionGroupPointer, actionName, `value`.glibVariantPointer)
 
     /**
      * Checks if the named action within @action_group is currently enabled.
@@ -465,19 +466,22 @@ public interface ActionGroup :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GActionGroup>) : ActionGroup {
-        override val gioActionGroupPointer: CPointer<GActionGroup> = pointer
-    }
+    /**
+     * The ActionGroupImpl type represents a native instance of the ActionGroup interface.
+     *
+     * @constructor Creates a new instance of ActionGroup for the provided [CPointer].
+     */
+    public data class ActionGroupImpl(override val gioActionGroupPointer: CPointer<GActionGroup>) :
+        Object(gioActionGroupPointer.reinterpret()),
+        ActionGroup
 
     public companion object : TypeCompanion<ActionGroup> {
         override val type: GeneratedInterfaceKGType<ActionGroup> =
-            GeneratedInterfaceKGType(g_action_group_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_action_group_get_type()) { ActionGroupImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GActionGroup>): ActionGroup = Wrapper(pointer)
 
         /**
          * Get the GType of ActionGroup

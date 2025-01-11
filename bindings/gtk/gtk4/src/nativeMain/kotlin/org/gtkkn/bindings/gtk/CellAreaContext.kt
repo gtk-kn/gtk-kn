@@ -44,12 +44,9 @@ import kotlin.Unit
  * - method `natural-height`: Property has no getter nor setter
  * - method `natural-width`: Property has no getter nor setter
  */
-public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
-    Object(pointer.reinterpret()),
+public open class CellAreaContext(public val gtkCellAreaContextPointer: CPointer<GtkCellAreaContext>) :
+    Object(gtkCellAreaContextPointer.reinterpret()),
     KGTyped {
-    public val gtkCellAreaContextPointer: CPointer<GtkCellAreaContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The `GtkCellArea` this context was created by
      */
@@ -69,7 +66,7 @@ public open class CellAreaContext(pointer: CPointer<GtkCellAreaContext>) :
          * @return the `GtkCellArea` this context was created by.
          */
         get() = gtk_cell_area_context_get_area(gtkCellAreaContextPointer)!!.run {
-            CellArea(this)
+            CellArea.CellAreaImpl(this)
         }
 
     /**

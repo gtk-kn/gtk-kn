@@ -399,12 +399,9 @@ import kotlin.collections.List
  * - method `settings-schema`: Property has no getter nor setter
  * - signal `change-event`: Unsupported parameter `keys` : Array parameter of type GLib.Quark is not supported
  */
-public open class Settings(pointer: CPointer<GSettings>) :
-    Object(pointer.reinterpret()),
+public open class Settings(public val gioSettingsPointer: CPointer<GSettings>) :
+    Object(gioSettingsPointer.reinterpret()),
     KGTyped {
-    public val gioSettingsPointer: CPointer<GSettings>
-        get() = gPointer.reinterpret()
-
     /**
      * If this property is true, the #GSettings object has outstanding
      * changes that will be applied when g_settings_apply() is called.
@@ -475,7 +472,9 @@ public open class Settings(pointer: CPointer<GSettings>) :
         schema: SettingsSchema,
         backend: SettingsBackend? = null,
         path: String? = null,
-    ) : this(g_settings_new_full(schema.gPointer, backend?.gioSettingsBackendPointer, path)!!.reinterpret())
+    ) : this(
+        g_settings_new_full(schema.gioSettingsSchemaPointer, backend?.gioSettingsBackendPointer, path)!!.reinterpret()
+    )
 
     /**
      * Creates a new #GSettings object with the schema specified by
@@ -576,7 +575,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
      */
     @GioVersion2_26
     public open fun bind(key: String, `object`: Object, `property`: String, flags: SettingsBindFlags): Unit =
-        g_settings_bind(gioSettingsPointer, key, `object`.gPointer.reinterpret(), `property`, flags.mask)
+        g_settings_bind(gioSettingsPointer, key, `object`.gobjectObjectPointer.reinterpret(), `property`, flags.mask)
 
     /**
      * Create a binding between the writability of @key in the
@@ -608,7 +607,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
         g_settings_bind_writable(
             gioSettingsPointer,
             key,
-            `object`.gPointer.reinterpret(),
+            `object`.gobjectObjectPointer.reinterpret(),
             `property`,
             inverted.asGBoolean()
         )
@@ -635,7 +634,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
      */
     @GioVersion2_32
     public open fun createAction(key: String): Action = g_settings_create_action(gioSettingsPointer, key)!!.run {
-        Action.wrap(reinterpret())
+        Action.ActionImpl(reinterpret())
     }
 
     /**
@@ -1019,7 +1018,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
      */
     @GioVersion2_28
     public open fun rangeCheck(key: String, `value`: Variant): Boolean =
-        g_settings_range_check(gioSettingsPointer, key, `value`.gPointer).asBoolean()
+        g_settings_range_check(gioSettingsPointer, key, `value`.glibVariantPointer).asBoolean()
 
     /**
      * Resets @key to its default value.
@@ -1246,7 +1245,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
      */
     @GioVersion2_26
     public open fun setValue(key: String, `value`: Variant): Boolean =
-        g_settings_set_value(gioSettingsPointer, key, `value`.gPointer).asBoolean()
+        g_settings_set_value(gioSettingsPointer, key, `value`.glibVariantPointer).asBoolean()
 
     /**
      * The "changed" signal is emitted when a key has potentially changed.
@@ -1269,7 +1268,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
         detail: String? = null,
         handler: (key: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioSettingsPointer,
         "changed" + (
             detail?.let {
                 "::$it"
@@ -1288,7 +1287,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
      * @param key the name of the key that changed
      */
     public fun emitChanged(detail: String? = null, key: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed" + (detail?.let { "::$it" } ?: ""), key.cstr)
+        g_signal_emit_by_name(gioSettingsPointer.reinterpret(), "changed" + (detail?.let { "::$it" } ?: ""), key.cstr)
     }
 
     /**
@@ -1319,7 +1318,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (key: guint) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioSettingsPointer,
         "writable-change-event",
         onWritableChangeEventFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1345,7 +1344,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
         detail: String? = null,
         handler: (key: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioSettingsPointer,
         "writable-changed" + (
             detail?.let {
                 "::$it"
@@ -1364,7 +1363,15 @@ public open class Settings(pointer: CPointer<GSettings>) :
      * @param key the key
      */
     public fun emitWritableChanged(detail: String? = null, key: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "writable-changed" + (detail?.let { "::$it" } ?: ""), key.cstr)
+        g_signal_emit_by_name(
+            gioSettingsPointer.reinterpret(),
+            "writable-changed" + (
+                detail?.let {
+                    "::$it"
+                } ?: ""
+                ),
+            key.cstr
+        )
     }
 
     public companion object : TypeCompanion<Settings> {
@@ -1426,7 +1433,7 @@ public open class Settings(pointer: CPointer<GSettings>) :
          */
         @GioVersion2_26
         public fun unbind(`object`: Object, `property`: String): Unit =
-            g_settings_unbind(`object`.gPointer.reinterpret(), `property`)
+            g_settings_unbind(`object`.gobjectObjectPointer.reinterpret(), `property`)
 
         /**
          * Get the GType of Settings

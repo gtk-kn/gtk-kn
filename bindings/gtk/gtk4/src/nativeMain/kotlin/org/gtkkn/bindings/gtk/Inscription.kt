@@ -65,24 +65,21 @@ import kotlin.Unit
  * @since 4.8
  */
 @GtkVersion4_8
-public open class Inscription(pointer: CPointer<GtkInscription>) :
-    Widget(pointer.reinterpret()),
+public open class Inscription(public val gtkInscriptionPointer: CPointer<GtkInscription>) :
+    Widget(gtkInscriptionPointer.reinterpret()),
     AccessibleText,
     KGTyped {
-    public val gtkInscriptionPointer: CPointer<GtkInscription>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleTextPointer: CPointer<GtkAccessibleText>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A list of style attributes to apply to the text of the inscription.
@@ -110,7 +107,7 @@ public open class Inscription(pointer: CPointer<GtkInscription>) :
          * @since 4.8
          */
         @GtkVersion4_8
-        set(attrs) = gtk_inscription_set_attributes(gtkInscriptionPointer, attrs?.gPointer)
+        set(attrs) = gtk_inscription_set_attributes(gtkInscriptionPointer, attrs?.pangoAttrListPointer)
 
     /**
      * The number of characters that should fit into the inscription at minimum.

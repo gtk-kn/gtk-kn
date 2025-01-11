@@ -42,15 +42,12 @@ import kotlin.Boolean
  * If you want to specify the amount of space placed between each child,
  * you can use the [property@Gtk.BoxLayout:spacing] property.
  */
-public open class BoxLayout(pointer: CPointer<GtkBoxLayout>) :
-    LayoutManager(pointer.reinterpret()),
+public open class BoxLayout(public val gtkBoxLayoutPointer: CPointer<GtkBoxLayout>) :
+    LayoutManager(gtkBoxLayoutPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkBoxLayoutPointer: CPointer<GtkBoxLayout>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child that determines the baseline of the box

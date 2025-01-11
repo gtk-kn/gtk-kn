@@ -62,24 +62,21 @@ import kotlin.Unit
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorButton(pointer: CPointer<GtkColorButton>) :
-    Widget(pointer.reinterpret()),
+public open class ColorButton(public val gtkColorButtonPointer: CPointer<GtkColorButton>) :
+    Widget(gtkColorButtonPointer.reinterpret()),
     ColorChooser,
     KGTyped {
-    public val gtkColorButtonPointer: CPointer<GtkColorButton>
-        get() = gPointer.reinterpret()
-
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the color chooser dialog should be modal.
@@ -136,7 +133,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * @param rgba A `GdkRGBA` to set the current color with
      * @return a new color button
      */
-    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gPointer)!!.reinterpret())
+    public constructor(rgba: Rgba) : this(gtk_color_button_new_with_rgba(rgba.gdkRgbaPointer)!!.reinterpret())
 
     /**
      * Emitted to when the color button is activated.
@@ -151,7 +148,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
     @GtkVersion4_4
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkColorButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -166,7 +163,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      */
     @GtkVersion4_4
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkColorButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -184,7 +181,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      */
     public fun onColorSet(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkColorButtonPointer,
             "color-set",
             onColorSetFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -196,7 +193,7 @@ public open class ColorButton(pointer: CPointer<GtkColorButton>) :
      * Emits the "color-set" signal. See [onColorSet].
      */
     public fun emitColorSet() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "color-set")
+        g_signal_emit_by_name(gtkColorButtonPointer.reinterpret(), "color-set")
     }
 
     public companion object : TypeCompanion<ColorButton> {

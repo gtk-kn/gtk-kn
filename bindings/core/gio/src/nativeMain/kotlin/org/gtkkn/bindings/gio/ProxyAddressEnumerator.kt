@@ -29,12 +29,10 @@ import org.gtkkn.native.gobject.GType
  * - method `proxy-resolver`: Property has no getter nor setter
  * - method `uri`: Property has no getter nor setter
  */
-public open class ProxyAddressEnumerator(pointer: CPointer<GProxyAddressEnumerator>) :
-    SocketAddressEnumerator(pointer.reinterpret()),
+public open class ProxyAddressEnumerator(
+    public val gioProxyAddressEnumeratorPointer: CPointer<GProxyAddressEnumerator>,
+) : SocketAddressEnumerator(gioProxyAddressEnumeratorPointer.reinterpret()),
     KGTyped {
-    public val gioProxyAddressEnumeratorPointer: CPointer<GProxyAddressEnumerator>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<ProxyAddressEnumerator> {
         override val type: GeneratedClassKGType<ProxyAddressEnumerator> =
             GeneratedClassKGType(g_proxy_address_enumerator_get_type()) { ProxyAddressEnumerator(it.reinterpret()) }

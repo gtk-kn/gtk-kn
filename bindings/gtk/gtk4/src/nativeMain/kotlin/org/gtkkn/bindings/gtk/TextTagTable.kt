@@ -59,15 +59,12 @@ import kotlin.Unit
  * </object>
  * ```
  */
-public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
-    Object(pointer.reinterpret()),
+public open class TextTagTable(public val gtkTextTagTablePointer: CPointer<GtkTextTagTable>) :
+    Object(gtkTextTagTablePointer.reinterpret()),
     Buildable,
     KGTyped {
-    public val gtkTextTagTablePointer: CPointer<GtkTextTagTable>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkTextTagTable`.
@@ -144,7 +141,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      */
     public fun onTagAdded(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tag: TextTag) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextTagTablePointer,
             "tag-added",
             onTagAddedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -158,7 +155,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param tag the added tag.
      */
     public fun emitTagAdded(tag: TextTag) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "tag-added", tag.gtkTextTagPointer)
+        g_signal_emit_by_name(gtkTextTagTablePointer.reinterpret(), "tag-added", tag.gtkTextTagPointer)
     }
 
     /**
@@ -171,7 +168,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (tag: TextTag, sizeChanged: Boolean) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkTextTagTablePointer,
         "tag-changed",
         onTagChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -186,7 +183,12 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param sizeChanged whether the change affects the `GtkTextView` layout.
      */
     public fun emitTagChanged(tag: TextTag, sizeChanged: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "tag-changed", tag.gtkTextTagPointer, sizeChanged.asGBoolean())
+        g_signal_emit_by_name(
+            gtkTextTagTablePointer.reinterpret(),
+            "tag-changed",
+            tag.gtkTextTagPointer,
+            sizeChanged.asGBoolean()
+        )
     }
 
     /**
@@ -200,7 +202,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      */
     public fun onTagRemoved(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (tag: TextTag) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkTextTagTablePointer,
             "tag-removed",
             onTagRemovedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -214,7 +216,7 @@ public open class TextTagTable(pointer: CPointer<GtkTextTagTable>) :
      * @param tag the removed tag.
      */
     public fun emitTagRemoved(tag: TextTag) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "tag-removed", tag.gtkTextTagPointer)
+        g_signal_emit_by_name(gtkTextTagTablePointer.reinterpret(), "tag-removed", tag.gtkTextTagPointer)
     }
 
     public companion object : TypeCompanion<TextTagTable> {

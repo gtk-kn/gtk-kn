@@ -29,14 +29,11 @@ import kotlin.String
  * @since 2.26
  */
 @GioVersion2_26
-public open class ProxyAddress(pointer: CPointer<GProxyAddress>) :
-    InetSocketAddress(pointer.reinterpret()),
+public open class ProxyAddress(public val gioProxyAddressPointer: CPointer<GProxyAddress>) :
+    InetSocketAddress(gioProxyAddressPointer.reinterpret()),
     KGTyped {
-    public val gioProxyAddressPointer: CPointer<GProxyAddress>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The proxy destination hostname.

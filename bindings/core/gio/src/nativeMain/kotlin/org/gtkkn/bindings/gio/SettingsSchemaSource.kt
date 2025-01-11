@@ -35,9 +35,8 @@ import kotlin.Unit
  * @since 2.32
  */
 @GioVersion2_32
-public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSettingsSchemaSource> = pointer
-
+public class SettingsSchemaSource(public val gioSettingsSchemaSourcePointer: CPointer<GSettingsSchemaSource>) :
+    ProxyInstance(gioSettingsSchemaSourcePointer) {
     /**
      * Looks up a schema with the identifier @schema_id in @source.
      *
@@ -57,7 +56,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      */
     @GioVersion2_32
     public fun lookup(schemaId: String, recursive: Boolean): SettingsSchema? =
-        g_settings_schema_source_lookup(gPointer, schemaId, recursive.asGBoolean())?.run {
+        g_settings_schema_source_lookup(gioSettingsSchemaSourcePointer, schemaId, recursive.asGBoolean())?.run {
             SettingsSchema(this)
         }
 
@@ -68,7 +67,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun ref(): SettingsSchemaSource = g_settings_schema_source_ref(gPointer)!!.run {
+    public fun ref(): SettingsSchemaSource = g_settings_schema_source_ref(gioSettingsSchemaSourcePointer)!!.run {
         SettingsSchemaSource(this)
     }
 
@@ -78,7 +77,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
      * @since 2.32
      */
     @GioVersion2_32
-    public fun unref(): Unit = g_settings_schema_source_unref(gPointer)
+    public fun unref(): Unit = g_settings_schema_source_unref(gioSettingsSchemaSourcePointer)
 
     public companion object {
         /**
@@ -129,7 +128,7 @@ public class SettingsSchemaSource(pointer: CPointer<GSettingsSchemaSource>) : Pr
                 val gResult =
                     g_settings_schema_source_new_from_directory(
                         directory,
-                        parent?.gPointer,
+                        parent?.gioSettingsSchemaSourcePointer,
                         trusted.asGBoolean(),
                         gError.ptr
                     )

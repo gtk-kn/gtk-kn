@@ -50,12 +50,9 @@ import kotlin.Unit
  * webkit_context_menu_insert(), maybe after having removed the
  * existing ones with webkit_context_menu_remove_all().
  */
-public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
-    Object(pointer.reinterpret()),
+public class ContextMenu(public val webkitContextMenuPointer: CPointer<WebKitContextMenu>) :
+    Object(webkitContextMenuPointer.reinterpret()),
     KGTyped {
-    public val webkitContextMenuPointer: CPointer<WebKitContextMenu>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #WebKitContextMenu object.
      *
@@ -81,7 +78,7 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      * @param items a #GList of #WebKitContextMenuItem
      * @return The newly created #WebKitContextMenu object
      */
-    public constructor(items: List) : this(webkit_context_menu_new_with_items(items.gPointer)!!.reinterpret())
+    public constructor(items: List) : this(webkit_context_menu_new_with_items(items.glibListPointer)!!.reinterpret())
 
     /**
      * Adds @item at the end of the @menu.
@@ -124,7 +121,7 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      */
     @WebKitVersion2_40
     public fun getEvent(): Event = webkit_context_menu_get_event(webkitContextMenuPointer)!!.run {
-        Event(this)
+        Event.EventImpl(this)
     }
 
     /**
@@ -242,7 +239,7 @@ public class ContextMenu(pointer: CPointer<WebKitContextMenu>) :
      */
     @WebKitVersion2_8
     public fun setUserData(userData: Variant): Unit =
-        webkit_context_menu_set_user_data(webkitContextMenuPointer, userData.gPointer)
+        webkit_context_menu_set_user_data(webkitContextMenuPointer, userData.glibVariantPointer)
 
     public companion object : TypeCompanion<ContextMenu> {
         override val type: GeneratedClassKGType<ContextMenu> =

@@ -17,12 +17,9 @@ import kotlin.String
 /**
  * A `GtkShortcutAction` that activates an action by name.
  */
-public open class NamedAction(pointer: CPointer<GtkNamedAction>) :
-    ShortcutAction(pointer.reinterpret()),
+public open class NamedAction(public val gtkNamedActionPointer: CPointer<GtkNamedAction>) :
+    ShortcutAction(gtkNamedActionPointer.reinterpret()),
     KGTyped {
-    public val gtkNamedActionPointer: CPointer<GtkNamedAction>
-        get() = gPointer.reinterpret()
-
     /**
      * The name of the action to activate.
      */

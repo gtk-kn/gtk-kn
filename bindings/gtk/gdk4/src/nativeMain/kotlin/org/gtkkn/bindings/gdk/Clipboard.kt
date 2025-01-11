@@ -84,12 +84,9 @@ import kotlin.collections.List
  * - parameter `args`: va_list type is not supported
  * - method `local`: Property has no getter nor setter
  */
-public open class Clipboard(pointer: CPointer<GdkClipboard>) :
-    Object(pointer.reinterpret()),
+public open class Clipboard(public val gdkClipboardPointer: CPointer<GdkClipboard>) :
+    Object(gdkClipboardPointer.reinterpret()),
     KGTyped {
-    public val gdkClipboardPointer: CPointer<GdkClipboard>
-        get() = gPointer.reinterpret()
-
     /**
      * The `GdkContentProvider` or null if the clipboard is empty or contents are
      * provided otherwise.
@@ -263,7 +260,7 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            Texture(this)
+            Texture.TextureImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -371,7 +368,8 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
      *
      * @param value a `GValue` to set
      */
-    public open fun `set`(`value`: Value): Unit = gdk_clipboard_set_value(gdkClipboardPointer, `value`.gPointer)
+    public open fun `set`(`value`: Value): Unit =
+        gdk_clipboard_set_value(gdkClipboardPointer, `value`.gobjectValuePointer)
 
     /**
      * Asynchronously instructs the @clipboard to store its contents remotely.
@@ -437,7 +435,7 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gdkClipboardPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -449,7 +447,7 @@ public open class Clipboard(pointer: CPointer<GdkClipboard>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gdkClipboardPointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<Clipboard> {

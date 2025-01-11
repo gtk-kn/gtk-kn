@@ -26,29 +26,28 @@ import kotlin.native.ref.createCleaner
  * @since 2.22
  */
 @GioVersion2_22
-public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GInputVector> = pointer
-
+public class InputVector(public val gioInputVectorPointer: CPointer<GInputVector>, cleaner: Cleaner? = null) :
+    ProxyInstance(gioInputVectorPointer) {
     /**
      * Pointer to a buffer where data will be written.
      */
     public var buffer: gpointer
-        get() = gPointer.pointed.buffer!!
+        get() = gioInputVectorPointer.pointed.buffer!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.buffer = value
+            gioInputVectorPointer.pointed.buffer = value
         }
 
     /**
      * the available size in @buffer.
      */
     public var size: gsize
-        get() = gPointer.pointed.size
+        get() = gioInputVectorPointer.pointed.size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.size = value
+            gioInputVectorPointer.pointed.size = value
         }
 
     /**
@@ -69,7 +68,9 @@ public class InputVector(pointer: CPointer<GInputVector>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to InputVector and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GInputVector>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GInputVector>, Cleaner>,
+    ) : this(gioInputVectorPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new InputVector using the provided [AutofreeScope].

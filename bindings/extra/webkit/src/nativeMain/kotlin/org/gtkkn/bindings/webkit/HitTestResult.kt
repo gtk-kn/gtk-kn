@@ -51,12 +51,9 @@ import kotlin.String
  * for the mouse coordinates and #WebKitWebView::mouse-target-changed
  * signal is emitted with a #WebKitHitTestResult.
  */
-public class HitTestResult(pointer: CPointer<WebKitHitTestResult>) :
-    Object(pointer.reinterpret()),
+public class HitTestResult(public val webkitHitTestResultPointer: CPointer<WebKitHitTestResult>) :
+    Object(webkitHitTestResultPointer.reinterpret()),
     KGTyped {
-    public val webkitHitTestResultPointer: CPointer<WebKitHitTestResult>
-        get() = gPointer.reinterpret()
-
     /**
      * Bitmask of #WebKitHitTestResultContext flags representing
      * the context of the #WebKitHitTestResult.

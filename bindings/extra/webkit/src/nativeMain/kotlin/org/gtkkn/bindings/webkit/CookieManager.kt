@@ -64,12 +64,9 @@ import kotlin.Unit
  * store cookies with webkit_cookie_manager_set_persistent_storage(),
  * or to set the acceptance policy, with webkit_cookie_manager_get_accept_policy().
  */
-public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
-    Object(pointer.reinterpret()),
+public class CookieManager(public val webkitCookieManagerPointer: CPointer<WebKitCookieManager>) :
+    Object(webkitCookieManagerPointer.reinterpret()),
     KGTyped {
-    public val webkitCookieManagerPointer: CPointer<WebKitCookieManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Asynchronously add a #SoupCookie to the underlying storage.
      *
@@ -85,7 +82,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     public fun addCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_add_cookie(
             webkitCookieManagerPointer,
-            cookie.gPointer,
+            cookie.soupCookiePointer,
             cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
@@ -130,7 +127,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     public fun deleteCookie(cookie: Cookie, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_delete_cookie(
             webkitCookieManagerPointer,
-            cookie.gPointer,
+            cookie.soupCookiePointer,
             cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
@@ -324,7 +321,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
     public fun replaceCookies(cookies: List, cancellable: Cancellable? = null, callback: AsyncReadyCallback?): Unit =
         webkit_cookie_manager_replace_cookies(
             webkitCookieManagerPointer,
-            cookies.gPointer,
+            cookies.glibListPointer,
             cancellable?.gioCancellablePointer,
             callback?.let {
                 AsyncReadyCallbackFunc.reinterpret()
@@ -394,7 +391,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitCookieManagerPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -406,7 +403,7 @@ public class CookieManager(pointer: CPointer<WebKitCookieManager>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(webkitCookieManagerPointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<CookieManager> {

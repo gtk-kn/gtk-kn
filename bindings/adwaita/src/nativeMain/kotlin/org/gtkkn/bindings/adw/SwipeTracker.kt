@@ -61,15 +61,12 @@ import kotlin.Unit
  * [property@SwipeTracker:reversed] can be used for supporting RTL text
  * direction.
  */
-public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
-    Object(pointer.reinterpret()),
+public class SwipeTracker(public val adwSwipeTrackerPointer: CPointer<AdwSwipeTracker>) :
+    Object(adwSwipeTrackerPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val adwSwipeTrackerPointer: CPointer<AdwSwipeTracker>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether to allow swiping for more than one snap point at a time.
@@ -229,7 +226,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
          * @return the swipeable widget
          */
         get() = adw_swipe_tracker_get_swipeable(adwSwipeTrackerPointer)!!.run {
-            Swipeable.wrap(reinterpret())
+            Swipeable.SwipeableImpl(reinterpret())
         }
 
     /**
@@ -285,7 +282,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      */
     public fun onBeginSwipe(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwSwipeTrackerPointer,
             "begin-swipe",
             onBeginSwipeFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -297,7 +294,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * Emits the "begin-swipe" signal. See [onBeginSwipe].
      */
     public fun emitBeginSwipe() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "begin-swipe")
+        g_signal_emit_by_name(adwSwipeTrackerPointer.reinterpret(), "begin-swipe")
     }
 
     /**
@@ -315,7 +312,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (velocity: gdouble, to: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwSwipeTrackerPointer,
         "end-swipe",
         onEndSwipeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -330,7 +327,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param to the progress value to animate to
      */
     public fun emitEndSwipe(velocity: gdouble, to: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "end-swipe", velocity, to)
+        g_signal_emit_by_name(adwSwipeTrackerPointer.reinterpret(), "end-swipe", velocity, to)
     }
 
     /**
@@ -346,7 +343,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (direction: NavigationDirection) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwSwipeTrackerPointer,
         "prepare",
         onPrepareFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -360,7 +357,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param direction the direction of the swipe
      */
     public fun emitPrepare(direction: NavigationDirection) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "prepare", direction.nativeValue)
+        g_signal_emit_by_name(adwSwipeTrackerPointer.reinterpret(), "prepare", direction.nativeValue)
     }
 
     /**
@@ -373,7 +370,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (progress: gdouble) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwSwipeTrackerPointer,
         "update-swipe",
         onUpdateSwipeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -387,7 +384,7 @@ public class SwipeTracker(pointer: CPointer<AdwSwipeTracker>) :
      * @param progress the current animation progress value
      */
     public fun emitUpdateSwipe(progress: gdouble) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "update-swipe", progress)
+        g_signal_emit_by_name(adwSwipeTrackerPointer.reinterpret(), "update-swipe", progress)
     }
 
     public companion object : TypeCompanion<SwipeTracker> {

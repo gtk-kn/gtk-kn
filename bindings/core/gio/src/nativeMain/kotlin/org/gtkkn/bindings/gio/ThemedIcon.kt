@@ -42,15 +42,12 @@ import kotlin.collections.List
  * - method `name`: Property has no getter nor setter
  * - method `use-default-fallbacks`: Property has no getter nor setter
  */
-public open class ThemedIcon(pointer: CPointer<GThemedIcon>) :
-    Object(pointer.reinterpret()),
+public open class ThemedIcon(public val gioThemedIconPointer: CPointer<GThemedIcon>) :
+    Object(gioThemedIconPointer.reinterpret()),
     Icon,
     KGTyped {
-    public val gioThemedIconPointer: CPointer<GThemedIcon>
-        get() = gPointer.reinterpret()
-
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A null-terminated array of icon names.

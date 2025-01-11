@@ -38,29 +38,26 @@ import kotlin.Unit
  * `GtkPageSetupUnixDialog` has a single CSS node with the name `window` and
  * style class `.pagesetup`.
  */
-public open class PageSetupUnixDialog(pointer: CPointer<GtkPageSetupUnixDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class PageSetupUnixDialog(public val gtkPageSetupUnixDialogPointer: CPointer<GtkPageSetupUnixDialog>) :
+    Dialog(gtkPageSetupUnixDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkPageSetupUnixDialogPointer: CPointer<GtkPageSetupUnixDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new page setup dialog.

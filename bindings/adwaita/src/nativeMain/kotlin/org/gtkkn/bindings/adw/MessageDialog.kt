@@ -213,29 +213,26 @@ import kotlin.Unit
  * @since 1.2
  */
 @AdwVersion1_2
-public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
-    Window(pointer.reinterpret()),
+public open class MessageDialog(public val adwMessageDialogPointer: CPointer<AdwMessageDialog>) :
+    Window(adwMessageDialogPointer.reinterpret()),
     KGTyped {
-    public val adwMessageDialogPointer: CPointer<AdwMessageDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The body text of the dialog.
@@ -378,7 +375,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
          * @since 1.2
          */
         get() = adw_message_dialog_get_extra_child(adwMessageDialogPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -687,7 +684,7 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
         detail: String? = null,
         handler: (response: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwMessageDialogPointer,
         "response" + (
             detail?.let {
                 "::$it"
@@ -708,7 +705,15 @@ public open class MessageDialog(pointer: CPointer<AdwMessageDialog>) :
      */
     @AdwVersion1_2
     public fun emitResponse(detail: String? = null, response: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "response" + (detail?.let { "::$it" } ?: ""), response.cstr)
+        g_signal_emit_by_name(
+            adwMessageDialogPointer.reinterpret(),
+            "response" + (
+                detail?.let {
+                    "::$it"
+                } ?: ""
+                ),
+            response.cstr
+        )
     }
 
     public companion object : TypeCompanion<MessageDialog> {

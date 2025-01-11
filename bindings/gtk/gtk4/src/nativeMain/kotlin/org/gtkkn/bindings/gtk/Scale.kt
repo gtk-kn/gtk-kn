@@ -125,26 +125,23 @@ import kotlin.Unit
  *
  * - parameter `x`: x: Out parameter is not supported
  */
-public open class Scale(pointer: CPointer<GtkScale>) :
-    Range(pointer.reinterpret()),
+public open class Scale(public val gtkScalePointer: CPointer<GtkScale>) :
+    Range(gtkScalePointer.reinterpret()),
     KGTyped {
-    public val gtkScalePointer: CPointer<GtkScale>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The number of decimal places that are displayed in the value.

@@ -36,29 +36,28 @@ import kotlin.native.ref.createCleaner
  * `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
  * problem.
  */
-public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTimeVal> = pointer
-
+public class TimeVal(public val glibTimeValPointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibTimeValPointer) {
     /**
      * seconds
      */
     public var tvSec: glong
-        get() = gPointer.pointed.tv_sec
+        get() = glibTimeValPointer.pointed.tv_sec
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.tv_sec = value
+            glibTimeValPointer.pointed.tv_sec = value
         }
 
     /**
      * microseconds
      */
     public var tvUsec: glong
-        get() = gPointer.pointed.tv_usec
+        get() = glibTimeValPointer.pointed.tv_usec
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.tv_usec = value
+            glibTimeValPointer.pointed.tv_usec = value
         }
 
     /**
@@ -79,7 +78,9 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      *
      * @param pair A pair containing the pointer to TimeVal and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTimeVal>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTimeVal>, Cleaner>,
+    ) : this(glibTimeValPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TimeVal using the provided [AutofreeScope].
@@ -128,7 +129,7 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      *
      * @param microseconds number of microseconds to add to @time
      */
-    public fun add(microseconds: glong): Unit = g_time_val_add(gPointer, microseconds)
+    public fun add(microseconds: glong): Unit = g_time_val_add(glibTimeValPointer, microseconds)
 
     /**
      * Converts @time_ into an RFC 3339 encoded string, relative to the
@@ -171,7 +172,7 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun toIso8601(): String? = g_time_val_to_iso8601(gPointer)?.toKString()
+    public fun toIso8601(): String? = g_time_val_to_iso8601(glibTimeValPointer)?.toKString()
 
     override fun toString(): String = "TimeVal(tvSec=$tvSec, tvUsec=$tvUsec)"
 
@@ -202,6 +203,6 @@ public class TimeVal(pointer: CPointer<GTimeVal>, cleaner: Cleaner? = null) : Pr
          */
         @GLibVersion2_12
         public fun fromIso8601(isoDate: String, time: TimeVal): Boolean =
-            g_time_val_from_iso8601(isoDate, time.gPointer).asBoolean()
+            g_time_val_from_iso8601(isoDate, time.glibTimeValPointer).asBoolean()
     }
 }

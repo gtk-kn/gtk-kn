@@ -125,29 +125,26 @@ import kotlin.collections.List
  *
  * - method `website-label`: Property TypeInfo of getter and setter do not match
  */
-public open class AboutDialog(pointer: CPointer<GtkAboutDialog>) :
-    Window(pointer.reinterpret()),
+public open class AboutDialog(public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>) :
+    Window(gtkAboutDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkAboutDialogPointer: CPointer<GtkAboutDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The people who contributed artwork to the program, as a `NULL`-terminated
@@ -364,7 +361,7 @@ public open class AboutDialog(pointer: CPointer<GtkAboutDialog>) :
          *   [method@Gtk.AboutDialog.set_logo_icon_name]
          */
         get() = gtk_about_dialog_get_logo(gtkAboutDialogPointer)?.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
         /**
@@ -593,7 +590,7 @@ public open class AboutDialog(pointer: CPointer<GtkAboutDialog>) :
      */
     public fun onActivateLink(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (uri: String) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAboutDialogPointer,
             "activate-link",
             onActivateLinkFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),

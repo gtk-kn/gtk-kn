@@ -39,12 +39,9 @@ import kotlin.Unit
  * @since 2.8
  */
 @WebKitVersion2_8
-public class Notification(pointer: CPointer<WebKitNotification>) :
-    Object(pointer.reinterpret()),
+public class Notification(public val webkitNotificationPointer: CPointer<WebKitNotification>) :
+    Object(webkitNotificationPointer.reinterpret()),
     KGTyped {
-    public val webkitNotificationPointer: CPointer<WebKitNotification>
-        get() = gPointer.reinterpret()
-
     /**
      * The body for the notification.
      *
@@ -136,7 +133,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
     @WebKitVersion2_12
     public fun onClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitNotificationPointer,
             "clicked",
             onClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -151,7 +148,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
      */
     @WebKitVersion2_12
     public fun emitClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "clicked")
+        g_signal_emit_by_name(webkitNotificationPointer.reinterpret(), "clicked")
     }
 
     /**
@@ -167,7 +164,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
     @WebKitVersion2_8
     public fun onClosed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitNotificationPointer,
             "closed",
             onClosedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -182,7 +179,7 @@ public class Notification(pointer: CPointer<WebKitNotification>) :
      */
     @WebKitVersion2_8
     public fun emitClosed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "closed")
+        g_signal_emit_by_name(webkitNotificationPointer.reinterpret(), "closed")
     }
 
     public companion object : TypeCompanion<Notification> {

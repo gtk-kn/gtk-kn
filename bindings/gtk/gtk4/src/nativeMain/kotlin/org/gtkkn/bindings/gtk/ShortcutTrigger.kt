@@ -45,12 +45,9 @@ import org.gtkkn.bindings.glib.String as GlibString
  * properties during construction. If you want to change a trigger, you
  * have to replace it with a new one.
  */
-public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
-    Object(pointer.reinterpret()),
+public abstract class ShortcutTrigger(public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>) :
+    Object(gtkShortcutTriggerPointer.reinterpret()),
     KGTyped {
-    public val gtkShortcutTriggerPointer: CPointer<GtkShortcutTrigger>
-        get() = gPointer.reinterpret()
-
     /**
      * Tries to parse the given string into a trigger.
      *
@@ -125,7 +122,7 @@ public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
      * @param string a `GString` to print into
      */
     public open fun print(string: GlibString): Unit =
-        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer, string.gPointer)
+        gtk_shortcut_trigger_print(gtkShortcutTriggerPointer, string.glibStringPointer)
 
     /**
      * Prints the given trigger into a string.
@@ -149,7 +146,7 @@ public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
     public open fun printLabel(display: Display, string: GlibString): Boolean = gtk_shortcut_trigger_print_label(
         gtkShortcutTriggerPointer,
         display.gdkDisplayPointer,
-        string.gPointer
+        string.glibStringPointer
     ).asBoolean()
 
     /**
@@ -193,14 +190,24 @@ public open class ShortcutTrigger(pointer: CPointer<GtkShortcutTrigger>) :
      *   in @event is a Key event and has the right modifiers set.
      * @return Whether the event triggered the shortcut
      */
-    public open fun trigger(event: Event, enableMnemonics: Boolean): KeyMatch =
-        gtk_shortcut_trigger_trigger(gtkShortcutTriggerPointer, event.gPointer, enableMnemonics.asGBoolean()).run {
-            KeyMatch.fromNativeValue(this)
-        }
+    public open fun trigger(event: Event, enableMnemonics: Boolean): KeyMatch = gtk_shortcut_trigger_trigger(
+        gtkShortcutTriggerPointer,
+        event.gdkEventPointer,
+        enableMnemonics.asGBoolean()
+    ).run {
+        KeyMatch.fromNativeValue(this)
+    }
+
+    /**
+     * The ShortcutTriggerImpl type represents a native instance of the abstract ShortcutTrigger class.
+     *
+     * @constructor Creates a new instance of ShortcutTrigger for the provided [CPointer].
+     */
+    public class ShortcutTriggerImpl(pointer: CPointer<GtkShortcutTrigger>) : ShortcutTrigger(pointer)
 
     public companion object : TypeCompanion<ShortcutTrigger> {
         override val type: GeneratedClassKGType<ShortcutTrigger> =
-            GeneratedClassKGType(gtk_shortcut_trigger_get_type()) { ShortcutTrigger(it.reinterpret()) }
+            GeneratedClassKGType(gtk_shortcut_trigger_get_type()) { ShortcutTriggerImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

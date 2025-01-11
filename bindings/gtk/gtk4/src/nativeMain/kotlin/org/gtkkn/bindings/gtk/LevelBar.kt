@@ -151,28 +151,25 @@ import kotlin.Unit
  *
  * - parameter `value`: value: Out parameter is not supported
  */
-public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
-    Widget(pointer.reinterpret()),
+public open class LevelBar(public val gtkLevelBarPointer: CPointer<GtkLevelBar>) :
+    Widget(gtkLevelBarPointer.reinterpret()),
     AccessibleRange,
     Orientable,
     KGTyped {
-    public val gtkLevelBarPointer: CPointer<GtkLevelBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessibleRangePointer: CPointer<GtkAccessibleRange>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the `GtkLeveBar` is inverted.
@@ -352,7 +349,7 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
         detail: String? = null,
         handler: (name: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkLevelBarPointer,
         "offset-changed" + (
             detail?.let {
                 "::$it"
@@ -371,7 +368,15 @@ public open class LevelBar(pointer: CPointer<GtkLevelBar>) :
      * @param name the name of the offset that changed value
      */
     public fun emitOffsetChanged(detail: String? = null, name: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "offset-changed" + (detail?.let { "::$it" } ?: ""), name.cstr)
+        g_signal_emit_by_name(
+            gtkLevelBarPointer.reinterpret(),
+            "offset-changed" + (
+                detail?.let {
+                    "::$it"
+                } ?: ""
+                ),
+            name.cstr
+        )
     }
 
     public companion object : TypeCompanion<LevelBar> {

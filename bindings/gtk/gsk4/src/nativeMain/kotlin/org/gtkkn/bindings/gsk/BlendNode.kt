@@ -17,12 +17,9 @@ import org.gtkkn.native.gsk.gsk_blend_node_new
 /**
  * A render node applying a blending function between its two child nodes.
  */
-public open class BlendNode(pointer: CPointer<GskBlendNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class BlendNode(public val gskBlendNodePointer: CPointer<GskBlendNode>) :
+    RenderNode(gskBlendNodePointer.reinterpret()),
     KGTyped {
-    public val gskBlendNodePointer: CPointer<GskBlendNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will use @blend_mode to blend the @top
      * node onto the @bottom node.
@@ -36,7 +33,9 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
         bottom: RenderNode,
         top: RenderNode,
         blendMode: BlendMode,
-    ) : this(gsk_blend_node_new(bottom.gPointer, top.gPointer, blendMode.nativeValue)!!.reinterpret())
+    ) : this(
+        gsk_blend_node_new(bottom.gskRenderNodePointer, top.gskRenderNodePointer, blendMode.nativeValue)!!.reinterpret()
+    )
 
     /**
      * Retrieves the blend mode used by @node.
@@ -54,7 +53,7 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
      */
     public open fun getBottomChild(): RenderNode =
         gsk_blend_node_get_bottom_child(gskBlendNodePointer.reinterpret())!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     /**
@@ -63,7 +62,7 @@ public open class BlendNode(pointer: CPointer<GskBlendNode>) :
      * @return the top child node
      */
     public open fun getTopChild(): RenderNode = gsk_blend_node_get_top_child(gskBlendNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     public companion object : TypeCompanion<BlendNode> {

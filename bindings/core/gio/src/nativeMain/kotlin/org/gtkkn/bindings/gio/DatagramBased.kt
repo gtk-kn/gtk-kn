@@ -12,7 +12,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_48
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.IoCondition
 import org.gtkkn.bindings.glib.Source
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -88,7 +89,7 @@ import kotlin.Result
  */
 @GioVersion2_48
 public interface DatagramBased :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioDatagramBasedPointer: CPointer<GDatagramBased>
 
@@ -207,19 +208,22 @@ public interface DatagramBased :
             Source(this)
         }
 
-    private data class Wrapper(private val pointer: CPointer<GDatagramBased>) : DatagramBased {
-        override val gioDatagramBasedPointer: CPointer<GDatagramBased> = pointer
-    }
+    /**
+     * The DatagramBasedImpl type represents a native instance of the DatagramBased interface.
+     *
+     * @constructor Creates a new instance of DatagramBased for the provided [CPointer].
+     */
+    public data class DatagramBasedImpl(override val gioDatagramBasedPointer: CPointer<GDatagramBased>) :
+        Object(gioDatagramBasedPointer.reinterpret()),
+        DatagramBased
 
     public companion object : TypeCompanion<DatagramBased> {
         override val type: GeneratedInterfaceKGType<DatagramBased> =
-            GeneratedInterfaceKGType(g_datagram_based_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_datagram_based_get_type()) { DatagramBasedImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDatagramBased>): DatagramBased = Wrapper(pointer)
 
         /**
          * Get the GType of DatagramBased

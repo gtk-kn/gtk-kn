@@ -23,14 +23,11 @@ import kotlin.collections.List
  * modules. This is used internally to make GIO extensible, but can also
  * be used by others to implement module loading.
  */
-public open class IoModule(pointer: CPointer<GIOModule>) :
-    TypeModule(pointer.reinterpret()),
+public open class IoModule(public val gioIoModulePointer: CPointer<GIOModule>) :
+    TypeModule(gioIoModulePointer.reinterpret()),
     KGTyped {
-    public val gioIoModulePointer: CPointer<GIOModule>
-        get() = gPointer.reinterpret()
-
     override val gobjectTypePluginPointer: CPointer<GTypePlugin>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new GIOModule that will load the specific

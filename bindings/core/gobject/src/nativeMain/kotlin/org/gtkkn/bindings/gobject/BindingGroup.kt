@@ -34,12 +34,9 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
-    Object(pointer.reinterpret()),
+public open class BindingGroup(public val gobjectBindingGroupPointer: CPointer<GBindingGroup>) :
+    Object(gobjectBindingGroupPointer.reinterpret()),
     KGTyped {
-    public val gobjectBindingGroupPointer: CPointer<GBindingGroup>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GBindingGroup.
      *
@@ -67,7 +64,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
         g_binding_group_bind(
             gobjectBindingGroupPointer,
             sourceProperty,
-            target.gPointer.reinterpret(),
+            target.gobjectObjectPointer.reinterpret(),
             targetProperty,
             flags.mask
         )
@@ -107,11 +104,11 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
     ): Unit = g_binding_group_bind_with_closures(
         gobjectBindingGroupPointer,
         sourceProperty,
-        target.gPointer.reinterpret(),
+        target.gobjectObjectPointer.reinterpret(),
         targetProperty,
         flags.mask,
-        transformTo?.gPointer,
-        transformFrom?.gPointer
+        transformTo?.gobjectClosurePointer,
+        transformFrom?.gobjectClosurePointer
     )
 
     /**
@@ -138,7 +135,7 @@ public open class BindingGroup(pointer: CPointer<GBindingGroup>) :
      */
     @GObjectVersion2_72
     public open fun setSource(source: Object? = null): Unit =
-        g_binding_group_set_source(gobjectBindingGroupPointer, source?.gPointer?.reinterpret())
+        g_binding_group_set_source(gobjectBindingGroupPointer, source?.gobjectObjectPointer?.reinterpret())
 
     public companion object : TypeCompanion<BindingGroup> {
         override val type: GeneratedClassKGType<BindingGroup> =

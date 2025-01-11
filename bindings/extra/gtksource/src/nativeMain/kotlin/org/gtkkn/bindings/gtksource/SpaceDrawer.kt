@@ -78,12 +78,9 @@ import kotlin.Unit
  *
  * - method `matrix`: Property TypeInfo of getter and setter do not match
  */
-public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
-    Object(pointer.reinterpret()),
+public open class SpaceDrawer(public val gtksourceSpaceDrawerPointer: CPointer<GtkSourceSpaceDrawer>) :
+    Object(gtksourceSpaceDrawerPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSpaceDrawerPointer: CPointer<GtkSourceSpaceDrawer>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the [property@SpaceDrawer:matrix] property is enabled.
      */
@@ -183,7 +180,7 @@ public open class SpaceDrawer(pointer: CPointer<GtkSourceSpaceDrawer>) :
      * @param matrix the new matrix value, or null.
      */
     public open fun setMatrix(matrix: Variant? = null): Unit =
-        gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer, matrix?.gPointer)
+        gtk_source_space_drawer_set_matrix(gtksourceSpaceDrawerPointer, matrix?.glibVariantPointer)
 
     /**
      * Modifies the [property@SpaceDrawer:matrix] property at the specified

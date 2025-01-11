@@ -28,24 +28,22 @@ import org.gtkkn.native.gtksource.gtk_source_style_scheme_chooser_widget_new
  * To get the selected style scheme
  * use [method@StyleSchemeChooser.get_style_scheme].
  */
-public open class StyleSchemeChooserWidget(pointer: CPointer<GtkSourceStyleSchemeChooserWidget>) :
-    Widget(pointer.reinterpret()),
+public open class StyleSchemeChooserWidget(
+    public val gtksourceStyleSchemeChooserWidgetPointer: CPointer<GtkSourceStyleSchemeChooserWidget>,
+) : Widget(gtksourceStyleSchemeChooserWidgetPointer.reinterpret()),
     StyleSchemeChooser,
     KGTyped {
-    public val gtksourceStyleSchemeChooserWidgetPointer: CPointer<GtkSourceStyleSchemeChooserWidget>
-        get() = gPointer.reinterpret()
-
     override val gtksourceStyleSchemeChooserPointer: CPointer<GtkSourceStyleSchemeChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #GtkSourceStyleSchemeChooserWidget.

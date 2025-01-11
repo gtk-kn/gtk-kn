@@ -68,24 +68,21 @@ import kotlin.Unit
  * @since 1.3
  */
 @AdwVersion1_3
-public class Banner(pointer: CPointer<AdwBanner>) :
-    Widget(pointer.reinterpret()),
+public class Banner(public val adwBannerPointer: CPointer<AdwBanner>) :
+    Widget(adwBannerPointer.reinterpret()),
     Actionable,
     KGTyped {
-    public val adwBannerPointer: CPointer<AdwBanner>
-        get() = gPointer.reinterpret()
-
     override val gtkActionablePointer: CPointer<GtkActionable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The label to show on the button.
@@ -222,7 +219,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
     @AdwVersion1_3
     public fun onButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwBannerPointer,
             "button-clicked",
             onButtonClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -237,7 +234,7 @@ public class Banner(pointer: CPointer<AdwBanner>) :
      */
     @AdwVersion1_3
     public fun emitButtonClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "button-clicked")
+        g_signal_emit_by_name(adwBannerPointer.reinterpret(), "button-clicked")
     }
 
     public companion object : TypeCompanion<Banner> {

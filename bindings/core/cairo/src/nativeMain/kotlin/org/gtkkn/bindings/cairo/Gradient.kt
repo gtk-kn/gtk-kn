@@ -20,12 +20,9 @@ import kotlin.Unit
  * - parameter `count`: count: Out parameter is not supported
  * - parameter `offset`: offset: Out parameter is not supported
  */
-public open class Gradient(pointer: CPointer<cairo_pattern_t>) :
-    Pattern(pointer.reinterpret()),
+public abstract class Gradient(public val cairoGradientPointer: CPointer<cairo_pattern_t>) :
+    Pattern(cairoGradientPointer.reinterpret()),
     KGTyped {
-    public val cairoGradientPointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
     public open fun addColorStopRgb(offset: gdouble, red: gdouble, green: gdouble, blue: gdouble): Unit =
         cairo_pattern_add_color_stop_rgb(cairoGradientPointer, offset, red, green, blue)
 
@@ -37,9 +34,16 @@ public open class Gradient(pointer: CPointer<cairo_pattern_t>) :
         alpha: gdouble,
     ): Unit = cairo_pattern_add_color_stop_rgba(cairoGradientPointer, offset, red, green, blue, alpha)
 
+    /**
+     * The GradientImpl type represents a native instance of the abstract Gradient class.
+     *
+     * @constructor Creates a new instance of Gradient for the provided [CPointer].
+     */
+    public class GradientImpl(pointer: CPointer<cairo_pattern_t>) : Gradient(pointer)
+
     public companion object : TypeCompanion<Gradient> {
         override val type: GeneratedClassKGType<Gradient> =
-            GeneratedClassKGType(cairo_gobject_pattern_get_type()) { Gradient(it.reinterpret()) }
+            GeneratedClassKGType(cairo_gobject_pattern_get_type()) { GradientImpl(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

@@ -50,12 +50,9 @@ import kotlin.Unit
  * - method `throw_printf`: Varargs parameter is not supported
  * - method `throw_with_name_printf`: Varargs parameter is not supported
  */
-public class Context(pointer: CPointer<JSCContext>) :
-    Object(pointer.reinterpret()),
+public class Context(public val jscContextPointer: CPointer<JSCContext>) :
+    Object(jscContextPointer.reinterpret()),
     KGTyped {
-    public val jscContextPointer: CPointer<JSCContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The #JSCVirtualMachine in which the context was created.
      */

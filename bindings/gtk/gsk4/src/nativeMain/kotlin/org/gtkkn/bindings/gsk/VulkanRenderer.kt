@@ -16,12 +16,9 @@ import org.gtkkn.native.gsk.gsk_vulkan_renderer_new
  *
  * This renderer will fail to realize if Vulkan is not supported.
  */
-public open class VulkanRenderer(pointer: CPointer<GskVulkanRenderer>) :
-    Renderer(pointer.reinterpret()),
+public open class VulkanRenderer(public val gskVulkanRendererPointer: CPointer<GskVulkanRenderer>) :
+    Renderer(gskVulkanRendererPointer.reinterpret()),
     KGTyped {
-    public val gskVulkanRendererPointer: CPointer<GskVulkanRenderer>
-        get() = gPointer.reinterpret()
-
     public constructor() : this(gsk_vulkan_renderer_new()!!.reinterpret())
 
     public companion object : TypeCompanion<VulkanRenderer> {

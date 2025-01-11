@@ -51,12 +51,9 @@ import kotlin.Unit
  *
  * - parameter `y`: y: Out parameter is not supported
  */
-public open class GutterLines(pointer: CPointer<GtkSourceGutterLines>) :
-    Object(pointer.reinterpret()),
+public open class GutterLines(public val gtksourceGutterLinesPointer: CPointer<GtkSourceGutterLines>) :
+    Object(gtksourceGutterLinesPointer.reinterpret()),
     KGTyped {
-    public val gtksourceGutterLinesPointer: CPointer<GtkSourceGutterLines>
-        get() = gPointer.reinterpret()
-
     /**
      * Adds the class @name to @line.
      *
@@ -110,7 +107,7 @@ public open class GutterLines(pointer: CPointer<GtkSourceGutterLines>) :
      * @param line the line number
      */
     public open fun getIterAtLine(iter: TextIter, line: guint): Unit =
-        gtk_source_gutter_lines_get_iter_at_line(gtksourceGutterLinesPointer, iter.gPointer, line)
+        gtk_source_gutter_lines_get_iter_at_line(gtksourceGutterLinesPointer, iter.gtkTextIterPointer, line)
 
     /**
      * Gets the line number (starting from 0) for the last line that is

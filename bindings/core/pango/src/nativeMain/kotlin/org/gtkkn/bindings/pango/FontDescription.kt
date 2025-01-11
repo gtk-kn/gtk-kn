@@ -61,9 +61,8 @@ import kotlin.Unit
  * available on the system and also for specifying the characteristics of
  * a font to load.
  */
-public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoFontDescription> = pointer
-
+public class FontDescription(public val pangoFontDescriptionPointer: CPointer<PangoFontDescription>) :
+    ProxyInstance(pangoFontDescriptionPointer) {
     /**
      * Determines if the style attributes of @new_match are a closer match
      * for @desc than those of @old_match are, or if @old_match is null,
@@ -82,7 +81,11 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @return true if @new_match is a better match
      */
     public fun betterMatch(oldMatch: FontDescription? = null, newMatch: FontDescription): Boolean =
-        pango_font_description_better_match(gPointer, oldMatch?.gPointer, newMatch.gPointer).asBoolean()
+        pango_font_description_better_match(
+            pangoFontDescriptionPointer,
+            oldMatch?.pangoFontDescriptionPointer,
+            newMatch.pangoFontDescriptionPointer
+        ).asBoolean()
 
     /**
      * Make a copy of a `PangoFontDescription`.
@@ -91,7 +94,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   which should be freed with [method@Pango.FontDescription.free],
      *   or null if @desc was null.
      */
-    public fun copy(): FontDescription? = pango_font_description_copy(gPointer)?.run {
+    public fun copy(): FontDescription? = pango_font_description_copy(pangoFontDescriptionPointer)?.run {
         FontDescription(this)
     }
 
@@ -108,7 +111,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   which should be freed with [method@Pango.FontDescription.free],
      *   or null if @desc was null.
      */
-    public fun copyStatic(): FontDescription? = pango_font_description_copy_static(gPointer)?.run {
+    public fun copyStatic(): FontDescription? = pango_font_description_copy_static(pangoFontDescriptionPointer)?.run {
         FontDescription(this)
     }
 
@@ -125,12 +128,12 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   false otherwise.
      */
     public fun equal(desc2: FontDescription): Boolean =
-        pango_font_description_equal(gPointer, desc2.gPointer).asBoolean()
+        pango_font_description_equal(pangoFontDescriptionPointer, desc2.pangoFontDescriptionPointer).asBoolean()
 
     /**
      * Frees a font description.
      */
-    public fun free(): Unit = pango_font_description_free(gPointer)
+    public fun free(): Unit = pango_font_description_free(pangoFontDescriptionPointer)
 
     /**
      * Gets the family name field of a font description.
@@ -141,7 +144,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   font description, or null if not previously set. This has the same
      *   life-time as the font description itself and should not be freed.
      */
-    public fun getFamily(): String? = pango_font_description_get_family(gPointer)?.toKString()
+    public fun getFamily(): String? = pango_font_description_get_family(pangoFontDescriptionPointer)?.toKString()
 
     /**
      * Gets the gravity field of a font description.
@@ -154,7 +157,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun getGravity(): Gravity = pango_font_description_get_gravity(gPointer).run {
+    public fun getGravity(): Gravity = pango_font_description_get_gravity(pangoFontDescriptionPointer).run {
         Gravity.fromNativeValue(this)
     }
 
@@ -164,7 +167,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @return a bitmask with bits set corresponding to the
      *   fields in @desc that have been set.
      */
-    public fun getSetFields(): FontMask = pango_font_description_get_set_fields(gPointer).run {
+    public fun getSetFields(): FontMask = pango_font_description_get_set_fields(pangoFontDescriptionPointer).run {
         FontMask(this)
     }
 
@@ -181,7 +184,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   Use [method@Pango.FontDescription.get_set_fields] to find out
      *   if the field was explicitly set or not.
      */
-    public fun getSize(): gint = pango_font_description_get_size(gPointer)
+    public fun getSize(): gint = pango_font_description_get_size(pangoFontDescriptionPointer)
 
     /**
      * Determines whether the size of the font is in points (not absolute)
@@ -197,7 +200,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun getSizeIsAbsolute(): Boolean = pango_font_description_get_size_is_absolute(gPointer).asBoolean()
+    public fun getSizeIsAbsolute(): Boolean =
+        pango_font_description_get_size_is_absolute(pangoFontDescriptionPointer).asBoolean()
 
     /**
      * Gets the stretch field of a font description.
@@ -208,7 +212,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   Use [method@Pango.FontDescription.get_set_fields] to find
      *   out if the field was explicitly set or not.
      */
-    public fun getStretch(): Stretch = pango_font_description_get_stretch(gPointer).run {
+    public fun getStretch(): Stretch = pango_font_description_get_stretch(pangoFontDescriptionPointer).run {
         Stretch.fromNativeValue(this)
     }
 
@@ -221,7 +225,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   Use [method@Pango.FontDescription.get_set_fields] to
      *   find out if the field was explicitly set or not.
      */
-    public fun getStyle(): Style = pango_font_description_get_style(gPointer).run {
+    public fun getStyle(): Style = pango_font_description_get_style(pangoFontDescriptionPointer).run {
         Style.fromNativeValue(this)
     }
 
@@ -234,7 +238,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   Use [method@Pango.FontDescription.get_set_fields] to find
      *   out if the field was explicitly set or not.
      */
-    public fun getVariant(): Variant = pango_font_description_get_variant(gPointer).run {
+    public fun getVariant(): Variant = pango_font_description_get_variant(pangoFontDescriptionPointer).run {
         Variant.fromNativeValue(this)
     }
 
@@ -249,7 +253,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @since 1.42
      */
     @PangoVersion1_42
-    public fun getVariations(): String? = pango_font_description_get_variations(gPointer)?.toKString()
+    public fun getVariations(): String? =
+        pango_font_description_get_variations(pangoFontDescriptionPointer)?.toKString()
 
     /**
      * Gets the weight field of a font description.
@@ -260,7 +265,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   Use [method@Pango.FontDescription.get_set_fields] to find
      *   out if the field was explicitly set or not.
      */
-    public fun getWeight(): Weight = pango_font_description_get_weight(gPointer).run {
+    public fun getWeight(): Weight = pango_font_description_get_weight(pangoFontDescriptionPointer).run {
         Weight.fromNativeValue(this)
     }
 
@@ -272,7 +277,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @return the hash value.
      */
-    public fun hash(): guint = pango_font_description_hash(gPointer)
+    public fun hash(): guint = pango_font_description_hash(pangoFontDescriptionPointer)
 
     /**
      * Merges the fields that are set in @desc_to_merge into the fields in
@@ -291,7 +296,11 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   are already exist.
      */
     public fun merge(descToMerge: FontDescription? = null, replaceExisting: Boolean): Unit =
-        pango_font_description_merge(gPointer, descToMerge?.gPointer, replaceExisting.asGBoolean())
+        pango_font_description_merge(
+            pangoFontDescriptionPointer,
+            descToMerge?.pangoFontDescriptionPointer,
+            replaceExisting.asGBoolean()
+        )
 
     /**
      * Merges the fields that are set in @desc_to_merge into the fields in
@@ -308,7 +317,11 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   are already exist.
      */
     public fun mergeStatic(descToMerge: FontDescription, replaceExisting: Boolean): Unit =
-        pango_font_description_merge_static(gPointer, descToMerge.gPointer, replaceExisting.asGBoolean())
+        pango_font_description_merge_static(
+            pangoFontDescriptionPointer,
+            descToMerge.pangoFontDescriptionPointer,
+            replaceExisting.asGBoolean()
+        )
 
     /**
      * Sets the size field of a font description, in device units.
@@ -322,7 +335,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @since 1.8
      */
     @PangoVersion1_8
-    public fun setAbsoluteSize(size: gdouble): Unit = pango_font_description_set_absolute_size(gPointer, size)
+    public fun setAbsoluteSize(size: gdouble): Unit =
+        pango_font_description_set_absolute_size(pangoFontDescriptionPointer, size)
 
     /**
      * Sets the family name field of a font description.
@@ -335,7 +349,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param family a string representing the family name.
      */
-    public fun setFamily(family: String): Unit = pango_font_description_set_family(gPointer, family)
+    public fun setFamily(family: String): Unit = pango_font_description_set_family(pangoFontDescriptionPointer, family)
 
     /**
      * Sets the family name field of a font description, without copying the string.
@@ -348,7 +362,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param family a string representing the family name
      */
-    public fun setFamilyStatic(family: String): Unit = pango_font_description_set_family_static(gPointer, family)
+    public fun setFamilyStatic(family: String): Unit =
+        pango_font_description_set_family_static(pangoFontDescriptionPointer, family)
 
     /**
      * Sets the gravity field of a font description.
@@ -365,7 +380,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @since 1.16
      */
     @PangoVersion1_16
-    public fun setGravity(gravity: Gravity): Unit = pango_font_description_set_gravity(gPointer, gravity.nativeValue)
+    public fun setGravity(gravity: Gravity): Unit =
+        pango_font_description_set_gravity(pangoFontDescriptionPointer, gravity.nativeValue)
 
     /**
      * Sets the size field of a font description in fractional points.
@@ -382,7 +398,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *   Use [method@Pango.FontDescription.set_absolute_size] if you need
      *   a particular size in device units.
      */
-    public fun setSize(size: gint): Unit = pango_font_description_set_size(gPointer, size)
+    public fun setSize(size: gint): Unit = pango_font_description_set_size(pangoFontDescriptionPointer, size)
 
     /**
      * Sets the stretch field of a font description.
@@ -392,7 +408,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param stretch the stretch for the font description
      */
-    public fun setStretch(stretch: Stretch): Unit = pango_font_description_set_stretch(gPointer, stretch.nativeValue)
+    public fun setStretch(stretch: Stretch): Unit =
+        pango_font_description_set_stretch(pangoFontDescriptionPointer, stretch.nativeValue)
 
     /**
      * Sets the style field of a `PangoFontDescription`.
@@ -408,7 +425,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param style the style for the font description
      */
-    public fun setStyle(style: Style): Unit = pango_font_description_set_style(gPointer, style.nativeValue)
+    public fun setStyle(style: Style): Unit =
+        pango_font_description_set_style(pangoFontDescriptionPointer, style.nativeValue)
 
     /**
      * Sets the variant field of a font description.
@@ -418,7 +436,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param variant the variant type for the font description.
      */
-    public fun setVariant(variant: Variant): Unit = pango_font_description_set_variant(gPointer, variant.nativeValue)
+    public fun setVariant(variant: Variant): Unit =
+        pango_font_description_set_variant(pangoFontDescriptionPointer, variant.nativeValue)
 
     /**
      * Sets the variations field of a font description.
@@ -443,7 +462,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      */
     @PangoVersion1_42
     public fun setVariations(variations: String? = null): Unit =
-        pango_font_description_set_variations(gPointer, variations)
+        pango_font_description_set_variations(pangoFontDescriptionPointer, variations)
 
     /**
      * Sets the variations field of a font description.
@@ -460,7 +479,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      */
     @PangoVersion1_42
     public fun setVariationsStatic(variations: String): Unit =
-        pango_font_description_set_variations_static(gPointer, variations)
+        pango_font_description_set_variations_static(pangoFontDescriptionPointer, variations)
 
     /**
      * Sets the weight field of a font description.
@@ -472,7 +491,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param weight the weight for the font description.
      */
-    public fun setWeight(weight: Weight): Unit = pango_font_description_set_weight(gPointer, weight.nativeValue)
+    public fun setWeight(weight: Weight): Unit =
+        pango_font_description_set_weight(pangoFontDescriptionPointer, weight.nativeValue)
 
     /**
      * Creates a filename representation of a font description.
@@ -484,7 +504,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @return a new string that must be freed with g_free().
      */
-    public fun toFilename(): String? = pango_font_description_to_filename(gPointer)?.toKString()
+    public fun toFilename(): String? = pango_font_description_to_filename(pangoFontDescriptionPointer)?.toKString()
 
     /**
      * Creates a string representation of a font description.
@@ -497,7 +517,7 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      * @return a new string that must be freed with g_free().
      */
     override fun toString(): String =
-        pango_font_description_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+        pango_font_description_to_string(pangoFontDescriptionPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Unsets some of the fields in a `PangoFontDescription`.
@@ -506,7 +526,8 @@ public class FontDescription(pointer: CPointer<PangoFontDescription>) : ProxyIns
      *
      * @param toUnset bitmask of fields in the @desc to unset.
      */
-    public fun unsetFields(toUnset: FontMask): Unit = pango_font_description_unset_fields(gPointer, toUnset.mask)
+    public fun unsetFields(toUnset: FontMask): Unit =
+        pango_font_description_unset_fields(pangoFontDescriptionPointer, toUnset.mask)
 
     public companion object {
         /**

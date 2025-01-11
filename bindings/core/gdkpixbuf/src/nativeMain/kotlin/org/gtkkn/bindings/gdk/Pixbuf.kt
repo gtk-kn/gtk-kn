@@ -266,19 +266,16 @@ import kotlin.collections.List
  * - parameter `width`: width: Out parameter is not supported
  * - parameter `width`: width: Out parameter is not supported
  */
-public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
-    Object(pointer.reinterpret()),
+public open class Pixbuf(public val gdkPixbufPointer: CPointer<GdkPixbuf>) :
+    Object(gdkPixbufPointer.reinterpret()),
     Icon,
     LoadableIcon,
     KGTyped {
-    public val gdkPixbufPointer: CPointer<GdkPixbuf>
-        get() = gPointer.reinterpret()
-
     override val gioIconPointer: CPointer<GIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioLoadableIconPointer: CPointer<GLoadableIcon>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The number of bits per sample.
@@ -423,7 +420,7 @@ public open class Pixbuf(pointer: CPointer<GdkPixbuf>) :
         rowstride: gint,
     ) : this(
         gdk_pixbuf_new_from_bytes(
-            `data`.gPointer,
+            `data`.glibBytesPointer,
             colorspace.nativeValue,
             hasAlpha.asGBoolean(),
             bitsPerSample,

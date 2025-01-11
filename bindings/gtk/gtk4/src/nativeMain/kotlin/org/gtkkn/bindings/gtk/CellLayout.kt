@@ -5,7 +5,8 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.glib.List
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -143,7 +144,7 @@ import kotlin.Unit
  * - method `set_attributes`: Varargs parameter is not supported
  */
 public interface CellLayout :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkCellLayoutPointer: CPointer<GtkCellLayout>
 
@@ -186,7 +187,7 @@ public interface CellLayout :
      * @return the cell area used by @cell_layout
      */
     public fun getArea(): CellArea? = gtk_cell_layout_get_area(gtkCellLayoutPointer)?.run {
-        CellArea(this)
+        CellArea.CellAreaImpl(this)
     }
 
     /**
@@ -261,19 +262,22 @@ public interface CellLayout :
             func?.let { staticStableRefDestroy.reinterpret() }
         )
 
-    private data class Wrapper(private val pointer: CPointer<GtkCellLayout>) : CellLayout {
-        override val gtkCellLayoutPointer: CPointer<GtkCellLayout> = pointer
-    }
+    /**
+     * The CellLayoutImpl type represents a native instance of the CellLayout interface.
+     *
+     * @constructor Creates a new instance of CellLayout for the provided [CPointer].
+     */
+    public data class CellLayoutImpl(override val gtkCellLayoutPointer: CPointer<GtkCellLayout>) :
+        Object(gtkCellLayoutPointer.reinterpret()),
+        CellLayout
 
     public companion object : TypeCompanion<CellLayout> {
         override val type: GeneratedInterfaceKGType<CellLayout> =
-            GeneratedInterfaceKGType(gtk_cell_layout_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_cell_layout_get_type()) { CellLayoutImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkCellLayout>): CellLayout = Wrapper(pointer)
 
         /**
          * Get the GType of CellLayout

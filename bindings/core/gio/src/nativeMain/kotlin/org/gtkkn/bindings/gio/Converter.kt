@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gio
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.annotations.GioVersion2_24
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -33,7 +34,7 @@ import kotlin.Unit
  */
 @GioVersion2_24
 public interface Converter :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioConverterPointer: CPointer<GConverter>
 
@@ -47,19 +48,22 @@ public interface Converter :
     @GioVersion2_24
     public fun reset(): Unit = g_converter_reset(gioConverterPointer)
 
-    private data class Wrapper(private val pointer: CPointer<GConverter>) : Converter {
-        override val gioConverterPointer: CPointer<GConverter> = pointer
-    }
+    /**
+     * The ConverterImpl type represents a native instance of the Converter interface.
+     *
+     * @constructor Creates a new instance of Converter for the provided [CPointer].
+     */
+    public data class ConverterImpl(override val gioConverterPointer: CPointer<GConverter>) :
+        Object(gioConverterPointer.reinterpret()),
+        Converter
 
     public companion object : TypeCompanion<Converter> {
         override val type: GeneratedInterfaceKGType<Converter> =
-            GeneratedInterfaceKGType(g_converter_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_converter_get_type()) { ConverterImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GConverter>): Converter = Wrapper(pointer)
 
         /**
          * Get the GType of Converter

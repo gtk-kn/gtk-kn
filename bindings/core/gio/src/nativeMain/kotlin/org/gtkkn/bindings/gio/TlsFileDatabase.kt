@@ -10,7 +10,7 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -35,23 +35,26 @@ import kotlin.String
  */
 @GioVersion2_30
 public interface TlsFileDatabase :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>
 
-    private data class Wrapper(private val pointer: CPointer<GTlsFileDatabase>) : TlsFileDatabase {
-        override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase> = pointer
-    }
+    /**
+     * The TlsFileDatabaseImpl type represents a native instance of the TlsFileDatabase interface.
+     *
+     * @constructor Creates a new instance of TlsFileDatabase for the provided [CPointer].
+     */
+    public data class TlsFileDatabaseImpl(override val gioTlsFileDatabasePointer: CPointer<GTlsFileDatabase>) :
+        TlsDatabase(gioTlsFileDatabasePointer.reinterpret()),
+        TlsFileDatabase
 
     public companion object : TypeCompanion<TlsFileDatabase> {
         override val type: GeneratedInterfaceKGType<TlsFileDatabase> =
-            GeneratedInterfaceKGType(g_tls_file_database_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_tls_file_database_get_type()) { TlsFileDatabaseImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GTlsFileDatabase>): TlsFileDatabase = Wrapper(pointer)
 
         /**
          * Creates a new #GTlsFileDatabase which uses anchor certificate authorities
@@ -68,7 +71,7 @@ public interface TlsFileDatabase :
         public fun new(anchors: String): Result<TlsFileDatabase> = memScoped {
             val gError = allocPointerTo<GError>()
             val gResult = g_tls_file_database_new(anchors, gError.ptr)?.run {
-                TlsFileDatabase.wrap(reinterpret())
+                TlsFileDatabaseImpl(reinterpret())
             }
 
             return if (gError.pointed != null) {

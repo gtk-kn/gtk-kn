@@ -16,9 +16,7 @@ import kotlin.String
  *
  * - method `iconv`: In/Out parameter is not supported
  */
-public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
-    public val gPointer: GIConv = pointer
-
+public class IConv(public val glibIConvPointer: GIConv) : ProxyInstance(glibIConvPointer) {
     /**
      * Same as the standard UNIX routine iconv_close(), but
      * may be implemented via libiconv on UNIX flavors that lack
@@ -31,7 +29,7 @@ public class IConv(pointer: GIConv) : ProxyInstance(pointer) {
      *
      * @return -1 on error, 0 on success
      */
-    public fun close(): gint = g_iconv_close(gPointer)
+    public fun close(): gint = g_iconv_close(glibIConvPointer)
 
     public companion object {
         /**

@@ -16,47 +16,48 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class FontExtents(pointer: CPointer<cairo_font_extents_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_font_extents_t> = pointer
-
+public class FontExtents(
+    public val cairoFontExtentsPointer: CPointer<cairo_font_extents_t>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(cairoFontExtentsPointer) {
     public var ascent: gdouble
-        get() = gPointer.pointed.ascent
+        get() = cairoFontExtentsPointer.pointed.ascent
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.ascent = value
+            cairoFontExtentsPointer.pointed.ascent = value
         }
 
     public var descent: gdouble
-        get() = gPointer.pointed.descent
+        get() = cairoFontExtentsPointer.pointed.descent
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.descent = value
+            cairoFontExtentsPointer.pointed.descent = value
         }
 
     public var height: gdouble
-        get() = gPointer.pointed.height
+        get() = cairoFontExtentsPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            cairoFontExtentsPointer.pointed.height = value
         }
 
     public var maxXAdvance: gdouble
-        get() = gPointer.pointed.max_x_advance
+        get() = cairoFontExtentsPointer.pointed.max_x_advance
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.max_x_advance = value
+            cairoFontExtentsPointer.pointed.max_x_advance = value
         }
 
     public var maxYAdvance: gdouble
-        get() = gPointer.pointed.max_y_advance
+        get() = cairoFontExtentsPointer.pointed.max_y_advance
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.max_y_advance = value
+            cairoFontExtentsPointer.pointed.max_y_advance = value
         }
 
     /**
@@ -79,7 +80,7 @@ public class FontExtents(pointer: CPointer<cairo_font_extents_t>, cleaner: Clean
      */
     private constructor(
         pair: Pair<CPointer<cairo_font_extents_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoFontExtentsPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FontExtents using the provided [AutofreeScope].

@@ -11,12 +11,9 @@ import org.gtkkn.native.gsk.GskRenderer
 import org.gtkkn.native.gsk.gsk_ngl_renderer_get_type
 import org.gtkkn.native.gsk.gsk_ngl_renderer_new
 
-public open class NglRenderer(pointer: CPointer<GskRenderer>) :
-    Renderer(pointer.reinterpret()),
+public open class NglRenderer(public val gskNglRendererPointer: CPointer<GskRenderer>) :
+    Renderer(gskNglRendererPointer.reinterpret()),
     KGTyped {
-    public val gskNglRendererPointer: CPointer<GskRenderer>
-        get() = gPointer.reinterpret()
-
     public constructor() : this(gsk_ngl_renderer_new()!!.reinterpret())
 
     public companion object : TypeCompanion<NglRenderer> {

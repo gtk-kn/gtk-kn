@@ -43,12 +43,9 @@ import kotlin.Unit
  * @since 2.10
  */
 @WebKitVersion2_10
-public class EditorState(pointer: CPointer<WebKitEditorState>) :
-    Object(pointer.reinterpret()),
+public class EditorState(public val webkitEditorStatePointer: CPointer<WebKitEditorState>) :
+    Object(webkitEditorStatePointer.reinterpret()),
     KGTyped {
-    public val webkitEditorStatePointer: CPointer<WebKitEditorState>
-        get() = gPointer.reinterpret()
-
     /**
      * Bitmask of #WebKitEditorTypingAttributes flags.
      * See webkit_editor_state_get_typing_attributes() for more information.
@@ -126,7 +123,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
     @WebKitVersion2_44
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitEditorStatePointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -141,7 +138,7 @@ public class EditorState(pointer: CPointer<WebKitEditorState>) :
      */
     @WebKitVersion2_44
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(webkitEditorStatePointer.reinterpret(), "changed")
     }
 
     public companion object : TypeCompanion<EditorState> {

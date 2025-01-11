@@ -25,10 +25,10 @@ import kotlin.native.ref.createCleaner
  * @since 2.26
  */
 @GioVersion2_26
-public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GDBusSubtreeVTable> = pointer
-
+public class DBusSubtreeVTable(
+    public val gioDBusSubtreeVTablePointer: CPointer<GDBusSubtreeVTable>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gioDBusSubtreeVTablePointer) {
     /**
      * Allocate a new DBusSubtreeVTable.
      *
@@ -49,7 +49,7 @@ public class DBusSubtreeVTable(pointer: CPointer<GDBusSubtreeVTable>, cleaner: C
      */
     private constructor(
         pair: Pair<CPointer<GDBusSubtreeVTable>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gioDBusSubtreeVTablePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new DBusSubtreeVTable using the provided [AutofreeScope].

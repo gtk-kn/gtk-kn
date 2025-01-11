@@ -85,12 +85,9 @@ import org.gtkkn.bindings.gtk.Unit as GtkUnit
  * - method `header-font-name`: Property TypeInfo of getter and setter do not match
  * - method `line-numbers-font-name`: Property TypeInfo of getter and setter do not match
  */
-public open class PrintCompositor(pointer: CPointer<GtkSourcePrintCompositor>) :
-    Object(pointer.reinterpret()),
+public open class PrintCompositor(public val gtksourcePrintCompositorPointer: CPointer<GtkSourcePrintCompositor>) :
+    Object(gtksourcePrintCompositorPointer.reinterpret()),
     KGTyped {
-    public val gtksourcePrintCompositorPointer: CPointer<GtkSourcePrintCompositor>
-        get() = gPointer.reinterpret()
-
     /**
      * Name of the font used for the text body.
      *

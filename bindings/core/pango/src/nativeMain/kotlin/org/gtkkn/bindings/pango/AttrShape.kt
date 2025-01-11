@@ -30,18 +30,17 @@ import kotlin.native.ref.createCleaner
  * - field `copy_func`: AttrDataCopyFunc
  * - field `destroy_func`: GLib.DestroyNotify
  */
-public class AttrShape(pointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrShape> = pointer
-
+public class AttrShape(public val pangoAttrShapePointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrShapePointer) {
     /**
      * user data set (see [func@Pango.AttrShape.new_with_data])
      */
     public var `data`: gpointer
-        get() = gPointer.pointed.data!!
+        get() = pangoAttrShapePointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.data = value
+            pangoAttrShapePointer.pointed.data = value
         }
 
     /**
@@ -64,7 +63,7 @@ public class AttrShape(pointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrShape>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrShapePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrShape using the provided [AutofreeScope].
@@ -117,7 +116,7 @@ public class AttrShape(pointer: CPointer<PangoAttrShape>, cleaner: Cleaner? = nu
          *   [method@Pango.Attribute.destroy]
          */
         public fun new(inkRect: Rectangle, logicalRect: Rectangle): Attribute =
-            pango_attr_shape_new(inkRect.gPointer, logicalRect.gPointer)!!.run {
+            pango_attr_shape_new(inkRect.pangoRectanglePointer, logicalRect.pangoRectanglePointer)!!.run {
                 Attribute(this)
             }
     }

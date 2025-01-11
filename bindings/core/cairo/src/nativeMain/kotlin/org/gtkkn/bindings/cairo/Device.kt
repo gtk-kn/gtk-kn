@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_10
 import org.gtkkn.bindings.cairo.annotations.CairoVersion1_12
+import org.gtkkn.bindings.gobject.TypeInstance
 import org.gtkkn.extensions.gobject.GeneratedClassKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -33,32 +34,32 @@ import kotlin.Unit
  * - parameter `user_data`: Unsupported pointer to primitive type
  * - method `get_user_data`: Return type gpointer is not supported
  */
-public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
-    public val gPointer: CPointer<cairo_device_t> = pointer
-
+public abstract class Device(public val cairoDevicePointer: CPointer<cairo_device_t>) :
+    TypeInstance(cairoDevicePointer.reinterpret()),
+    KGTyped {
     /**
      *
      *
      * @since 1.10
      */
     @CairoVersion1_10
-    public open fun status(): Status = cairo_device_status(gPointer).run {
+    public open fun status(): Status = cairo_device_status(cairoDevicePointer).run {
         Status.fromNativeValue(this)
     }
 
-    public open fun finish(): Unit = cairo_device_finish(gPointer)
+    public open fun finish(): Unit = cairo_device_finish(cairoDevicePointer)
 
-    public open fun flush(): Unit = cairo_device_flush(gPointer)
+    public open fun flush(): Unit = cairo_device_flush(cairoDevicePointer)
 
-    public open fun getDeviceType(): DeviceType = cairo_device_get_type(gPointer).run {
+    public open fun getDeviceType(): DeviceType = cairo_device_get_type(cairoDevicePointer).run {
         DeviceType.fromNativeValue(this)
     }
 
-    public open fun acquire(): Status = cairo_device_acquire(gPointer).run {
+    public open fun acquire(): Status = cairo_device_acquire(cairoDevicePointer).run {
         Status.fromNativeValue(this)
     }
 
-    public open fun release(): Unit = cairo_device_release(gPointer)
+    public open fun release(): Unit = cairo_device_release(cairoDevicePointer)
 
     /**
      *
@@ -66,7 +67,7 @@ public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun observerElapsed(): gdouble = cairo_device_observer_elapsed(gPointer)
+    public open fun observerElapsed(): gdouble = cairo_device_observer_elapsed(cairoDevicePointer)
 
     /**
      *
@@ -74,7 +75,7 @@ public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun observerFillElapsed(): gdouble = cairo_device_observer_fill_elapsed(gPointer)
+    public open fun observerFillElapsed(): gdouble = cairo_device_observer_fill_elapsed(cairoDevicePointer)
 
     /**
      *
@@ -82,7 +83,7 @@ public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun observerGlyphsElapsed(): gdouble = cairo_device_observer_glyphs_elapsed(gPointer)
+    public open fun observerGlyphsElapsed(): gdouble = cairo_device_observer_glyphs_elapsed(cairoDevicePointer)
 
     /**
      *
@@ -90,7 +91,7 @@ public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun observerMaskElapsed(): gdouble = cairo_device_observer_mask_elapsed(gPointer)
+    public open fun observerMaskElapsed(): gdouble = cairo_device_observer_mask_elapsed(cairoDevicePointer)
 
     /**
      *
@@ -98,7 +99,7 @@ public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun observerPaintElapsed(): gdouble = cairo_device_observer_paint_elapsed(gPointer)
+    public open fun observerPaintElapsed(): gdouble = cairo_device_observer_paint_elapsed(cairoDevicePointer)
 
     /**
      *
@@ -106,11 +107,18 @@ public open class Device(pointer: CPointer<cairo_device_t>) : KGTyped {
      * @since 1.12
      */
     @CairoVersion1_12
-    public open fun observerStrokeElapsed(): gdouble = cairo_device_observer_stroke_elapsed(gPointer)
+    public open fun observerStrokeElapsed(): gdouble = cairo_device_observer_stroke_elapsed(cairoDevicePointer)
+
+    /**
+     * The DeviceImpl type represents a native instance of the abstract Device class.
+     *
+     * @constructor Creates a new instance of Device for the provided [CPointer].
+     */
+    public class DeviceImpl(pointer: CPointer<cairo_device_t>) : Device(pointer)
 
     public companion object : TypeCompanion<Device> {
         override val type: GeneratedClassKGType<Device> =
-            GeneratedClassKGType(cairo_gobject_device_get_type()) { Device(it.reinterpret()) }
+            GeneratedClassKGType(cairo_gobject_device_get_type()) { DeviceImpl(it.reinterpret()) }
 
         init {
             CairoTypeProvider.register()

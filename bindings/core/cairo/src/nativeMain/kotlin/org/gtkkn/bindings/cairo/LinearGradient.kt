@@ -17,12 +17,9 @@ import org.gtkkn.native.gobject.GType
  *
  * - parameter `x0`: x0: Out parameter is not supported
  */
-public open class LinearGradient(pointer: CPointer<cairo_pattern_t>) :
-    Gradient(pointer.reinterpret()),
+public open class LinearGradient(public val cairoLinearGradientPointer: CPointer<cairo_pattern_t>) :
+    Gradient(cairoLinearGradientPointer.reinterpret()),
     KGTyped {
-    public val cairoLinearGradientPointer: CPointer<cairo_pattern_t>
-        get() = gPointer.reinterpret()
-
     public constructor(
         x0: gdouble,
         y0: gdouble,

@@ -72,12 +72,9 @@ import kotlin.Unit
  *
  * - parameter `minimum`: minimum: Out parameter is not supported
  */
-public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
-    Object(pointer.reinterpret()),
+public abstract class LayoutManager(public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>) :
+    Object(gtkLayoutManagerPointer.reinterpret()),
     KGTyped {
-    public val gtkLayoutManagerPointer: CPointer<GtkLayoutManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Assigns the given @width, @height, and @baseline to
      * a @widget, and computes the position and sizes of the children of
@@ -106,7 +103,7 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      */
     public open fun getLayoutChild(child: Widget): LayoutChild =
         gtk_layout_manager_get_layout_child(gtkLayoutManagerPointer, child.gtkWidgetPointer)!!.run {
-            LayoutChild(this)
+            LayoutChild.LayoutChildImpl(this)
         }
 
     /**
@@ -125,7 +122,7 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      * @return a `GtkWidget`
      */
     public open fun getWidget(): Widget? = gtk_layout_manager_get_widget(gtkLayoutManagerPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -136,9 +133,16 @@ public open class LayoutManager(pointer: CPointer<GtkLayoutManager>) :
      */
     public open fun layoutChanged(): Unit = gtk_layout_manager_layout_changed(gtkLayoutManagerPointer)
 
+    /**
+     * The LayoutManagerImpl type represents a native instance of the abstract LayoutManager class.
+     *
+     * @constructor Creates a new instance of LayoutManager for the provided [CPointer].
+     */
+    public class LayoutManagerImpl(pointer: CPointer<GtkLayoutManager>) : LayoutManager(pointer)
+
     public companion object : TypeCompanion<LayoutManager> {
         override val type: GeneratedClassKGType<LayoutManager> =
-            GeneratedClassKGType(gtk_layout_manager_get_type()) { LayoutManager(it.reinterpret()) }
+            GeneratedClassKGType(gtk_layout_manager_get_type()) { LayoutManagerImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

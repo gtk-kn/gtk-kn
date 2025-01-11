@@ -58,12 +58,9 @@ import kotlin.Unit
  *
  * - parameter `data`: Array parameter of type guint16 is not supported
  */
-public open class ImContextSimple(pointer: CPointer<GtkIMContextSimple>) :
-    ImContext(pointer.reinterpret()),
+public open class ImContextSimple(public val gtkImContextSimplePointer: CPointer<GtkIMContextSimple>) :
+    ImContext(gtkImContextSimplePointer.reinterpret()),
     KGTyped {
-    public val gtkImContextSimplePointer: CPointer<GtkIMContextSimple>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkIMContextSimple`.
      *

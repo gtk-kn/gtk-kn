@@ -25,52 +25,51 @@ import kotlin.native.ref.createCleaner
  *
  * See also: g_type_query()
  */
-public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTypeQuery> = pointer
-
+public class TypeQuery(public val gobjectTypeQueryPointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectTypeQueryPointer) {
     /**
      * the #GType value of the type
      */
     public var type: GType
-        get() = gPointer.pointed.type
+        get() = gobjectTypeQueryPointer.pointed.type
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.type = value
+            gobjectTypeQueryPointer.pointed.type = value
         }
 
     /**
      * the name of the type
      */
     public var typeName: String?
-        get() = gPointer.pointed.type_name?.toKString()
+        get() = gobjectTypeQueryPointer.pointed.type_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.type_name?.let { g_free(it) }
-            gPointer.pointed.type_name = value?.let { g_strdup(it) }
+            gobjectTypeQueryPointer.pointed.type_name?.let { g_free(it) }
+            gobjectTypeQueryPointer.pointed.type_name = value?.let { g_strdup(it) }
         }
 
     /**
      * the size of the class structure
      */
     public var classSize: guint
-        get() = gPointer.pointed.class_size
+        get() = gobjectTypeQueryPointer.pointed.class_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.class_size = value
+            gobjectTypeQueryPointer.pointed.class_size = value
         }
 
     /**
      * the size of the instance structure
      */
     public var instanceSize: guint
-        get() = gPointer.pointed.instance_size
+        get() = gobjectTypeQueryPointer.pointed.instance_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.instance_size = value
+            gobjectTypeQueryPointer.pointed.instance_size = value
         }
 
     /**
@@ -91,7 +90,9 @@ public class TypeQuery(pointer: CPointer<GTypeQuery>, cleaner: Cleaner? = null) 
      *
      * @param pair A pair containing the pointer to TypeQuery and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTypeQuery>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTypeQuery>, Cleaner>,
+    ) : this(gobjectTypeQueryPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeQuery using the provided [AutofreeScope].

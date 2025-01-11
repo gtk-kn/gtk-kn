@@ -61,29 +61,26 @@ import kotlin.Unit
  * - method `visible-page`: Property TypeInfo of getter and setter do not match
  * - method `visible-page-name`: Property TypeInfo of getter and setter do not match
  */
-public open class PreferencesWindow(pointer: CPointer<AdwPreferencesWindow>) :
-    Window(pointer.reinterpret()),
+public open class PreferencesWindow(public val adwPreferencesWindowPointer: CPointer<AdwPreferencesWindow>) :
+    Window(adwPreferencesWindowPointer.reinterpret()),
     KGTyped {
-    public val adwPreferencesWindowPointer: CPointer<AdwPreferencesWindow>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether gestures and shortcuts for closing subpages are enabled.

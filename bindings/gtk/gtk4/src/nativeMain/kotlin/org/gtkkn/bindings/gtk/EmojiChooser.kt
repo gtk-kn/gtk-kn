@@ -61,26 +61,23 @@ import kotlin.Unit
  * consists of buttons with the .emoji-section style class and gets the
  * .emoji-toolbar style class itself.
  */
-public open class EmojiChooser(pointer: CPointer<GtkEmojiChooser>) :
-    Popover(pointer.reinterpret()),
+public open class EmojiChooser(public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>) :
+    Popover(gtkEmojiChooserPointer.reinterpret()),
     KGTyped {
-    public val gtkEmojiChooserPointer: CPointer<GtkEmojiChooser>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkEmojiChooser`.
@@ -97,7 +94,7 @@ public open class EmojiChooser(pointer: CPointer<GtkEmojiChooser>) :
      */
     public fun onEmojiPicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (text: String) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEmojiChooserPointer,
             "emoji-picked",
             onEmojiPickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -111,7 +108,7 @@ public open class EmojiChooser(pointer: CPointer<GtkEmojiChooser>) :
      * @param text the Unicode sequence for the picked Emoji, in UTF-8
      */
     public fun emitEmojiPicked(text: String) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "emoji-picked", text.cstr)
+        g_signal_emit_by_name(gtkEmojiChooserPointer.reinterpret(), "emoji-picked", text.cstr)
     }
 
     public companion object : TypeCompanion<EmojiChooser> {

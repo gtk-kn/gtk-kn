@@ -43,21 +43,18 @@ import kotlin.Unit
  * with gtk_cell_area_cell_set_property() or by specifying the "align"
  * argument to gtk_cell_area_box_pack_start() and gtk_cell_area_box_pack_end().
  */
-public open class CellAreaBox(pointer: CPointer<GtkCellAreaBox>) :
-    CellArea(pointer.reinterpret()),
+public open class CellAreaBox(public val gtkCellAreaBoxPointer: CPointer<GtkCellAreaBox>) :
+    CellArea(gtkCellAreaBoxPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkCellAreaBoxPointer: CPointer<GtkCellAreaBox>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkCellLayoutPointer: CPointer<GtkCellLayout>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The amount of space to reserve between cells.

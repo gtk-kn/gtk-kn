@@ -25,12 +25,9 @@ import kotlin.Unit
  * @since 1.2
  */
 @CairoVersion1_2
-public open class SvgSurface(pointer: CPointer<cairo_surface_t>) :
-    Surface(pointer.reinterpret()),
+public open class SvgSurface(public val cairoSvgSurfacePointer: CPointer<cairo_surface_t>) :
+    Surface(cairoSvgSurfacePointer.reinterpret()),
     KGTyped {
-    public val cairoSvgSurfacePointer: CPointer<cairo_surface_t>
-        get() = gPointer.reinterpret()
-
     /**
      *
      *

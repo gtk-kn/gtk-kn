@@ -33,19 +33,16 @@ import kotlin.String
  *
  * - method `is-symbolic`: Property has no getter nor setter
  */
-public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
-    Object(pointer.reinterpret()),
+public open class IconPaintable(public val gtkIconPaintablePointer: CPointer<GtkIconPaintable>) :
+    Object(gtkIconPaintablePointer.reinterpret()),
     Paintable,
     SymbolicPaintable,
     KGTyped {
-    public val gtkIconPaintablePointer: CPointer<GtkIconPaintable>
-        get() = gPointer.reinterpret()
-
     override val gdkPaintablePointer: CPointer<GdkPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkSymbolicPaintablePointer: CPointer<GtkSymbolicPaintable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The file representing the icon, if any.
@@ -59,7 +56,7 @@ public open class IconPaintable(pointer: CPointer<GtkIconPaintable>) :
          * @return the `GFile` for the icon
          */
         get() = gtk_icon_paintable_get_file(gtkIconPaintablePointer)?.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
     /**

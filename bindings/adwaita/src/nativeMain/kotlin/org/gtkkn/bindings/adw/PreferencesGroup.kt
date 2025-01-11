@@ -60,20 +60,17 @@ import kotlin.Unit
  *
  * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  */
-public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
-    Widget(pointer.reinterpret()),
+public open class PreferencesGroup(public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>) :
+    Widget(adwPreferencesGroupPointer.reinterpret()),
     KGTyped {
-    public val adwPreferencesGroupPointer: CPointer<AdwPreferencesGroup>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The description for this group of preferences.
@@ -112,7 +109,7 @@ public open class PreferencesGroup(pointer: CPointer<AdwPreferencesGroup>) :
          * @since 1.1
          */
         get() = adw_preferences_group_get_header_suffix(adwPreferencesGroupPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

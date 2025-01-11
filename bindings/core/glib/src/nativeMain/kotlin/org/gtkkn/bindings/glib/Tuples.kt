@@ -27,18 +27,17 @@ import kotlin.native.ref.createCleaner
  * member - the number of records that matched. To access the matched
  * records, you must use g_tuples_index().
  */
-public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTuples> = pointer
-
+public class Tuples(public val glibTuplesPointer: CPointer<GTuples>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibTuplesPointer) {
     /**
      * the number of records that matched.
      */
     public var len: guint
-        get() = gPointer.pointed.len
+        get() = glibTuplesPointer.pointed.len
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.len = value
+            glibTuplesPointer.pointed.len = value
         }
 
     /**
@@ -59,7 +58,9 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      *
      * @param pair A pair containing the pointer to Tuples and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GTuples>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GTuples>, Cleaner>,
+    ) : this(glibTuplesPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Tuples using the provided [AutofreeScope].
@@ -100,7 +101,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * finished with the records. The records are not removed from the
      * #GRelation.
      */
-    public fun destroy(): Unit = g_tuples_destroy(gPointer)
+    public fun destroy(): Unit = g_tuples_destroy(glibTuplesPointer)
 
     /**
      * Gets a field from the records returned by g_relation_select(). It
@@ -111,7 +112,7 @@ public class Tuples(pointer: CPointer<GTuples>, cleaner: Cleaner? = null) : Prox
      * @param field the field to return.
      * @return the field of the record.
      */
-    public fun index(index: gint, `field`: gint): gpointer? = g_tuples_index(gPointer, index, `field`)
+    public fun index(index: gint, `field`: gint): gpointer? = g_tuples_index(glibTuplesPointer, index, `field`)
 
     override fun toString(): String = "Tuples(len=$len)"
 }

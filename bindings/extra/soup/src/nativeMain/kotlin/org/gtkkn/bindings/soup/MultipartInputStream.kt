@@ -51,15 +51,12 @@ import kotlin.Unit
  *
  * - method `message`: Property has no getter nor setter
  */
-public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
-    FilterInputStream(pointer.reinterpret()),
+public class MultipartInputStream(public val soupMultipartInputStreamPointer: CPointer<SoupMultipartInputStream>) :
+    FilterInputStream(soupMultipartInputStreamPointer.reinterpret()),
     PollableInputStream,
     KGTyped {
-    public val soupMultipartInputStreamPointer: CPointer<SoupMultipartInputStream>
-        get() = gPointer.reinterpret()
-
     override val gioPollableInputStreamPointer: CPointer<GPollableInputStream>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #SoupMultipartInputStream that wraps the
@@ -122,7 +119,7 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -167,7 +164,7 @@ public class MultipartInputStream(pointer: CPointer<SoupMultipartInputStream>) :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
         return if (gError.pointed != null) {

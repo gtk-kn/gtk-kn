@@ -21,29 +21,28 @@ import kotlin.native.ref.createCleaner
  *
  * See also [method@Gtk.PrintSettings.set_page_ranges].
  */
-public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkPageRange> = pointer
-
+public class PageRange(public val gtkPageRangePointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null) :
+    ProxyInstance(gtkPageRangePointer) {
     /**
      * start of page range.
      */
     public var start: gint
-        get() = gPointer.pointed.start
+        get() = gtkPageRangePointer.pointed.start
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.start = value
+            gtkPageRangePointer.pointed.start = value
         }
 
     /**
      * end of page range.
      */
     public var end: gint
-        get() = gPointer.pointed.end
+        get() = gtkPageRangePointer.pointed.end
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.end = value
+            gtkPageRangePointer.pointed.end = value
         }
 
     /**
@@ -64,7 +63,9 @@ public class PageRange(pointer: CPointer<GtkPageRange>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to PageRange and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GtkPageRange>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GtkPageRange>, Cleaner>,
+    ) : this(gtkPageRangePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new PageRange using the provided [AutofreeScope].

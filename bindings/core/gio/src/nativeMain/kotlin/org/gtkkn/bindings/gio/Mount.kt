@@ -21,7 +21,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_32
 import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
@@ -92,7 +93,7 @@ import kotlin.collections.List
  * filled with any error information.
  */
 public interface Mount :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioMountPointer: CPointer<GMount>
 
@@ -209,7 +210,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getDefaultLocation(): File = g_mount_get_default_location(gioMountPointer)!!.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -224,7 +225,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getDrive(): Drive? = g_mount_get_drive(gioMountPointer)?.run {
-        Drive.wrap(reinterpret())
+        Drive.DriveImpl(reinterpret())
     }
 
     /**
@@ -235,7 +236,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getIcon(): Icon = g_mount_get_icon(gioMountPointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -255,7 +256,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getRoot(): File = g_mount_get_root(gioMountPointer)!!.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**
@@ -277,7 +278,7 @@ public interface Mount :
      */
     @GioVersion2_34
     public fun getSymbolicIcon(): Icon = g_mount_get_symbolic_icon(gioMountPointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -302,7 +303,7 @@ public interface Mount :
      *      g_object_unref() when no longer needed.
      */
     public fun getVolume(): Volume? = g_mount_get_volume(gioMountPointer)?.run {
-        Volume.wrap(reinterpret())
+        Volume.VolumeImpl(reinterpret())
     }
 
     /**
@@ -653,19 +654,22 @@ public interface Mount :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GMount>) : Mount {
-        override val gioMountPointer: CPointer<GMount> = pointer
-    }
+    /**
+     * The MountImpl type represents a native instance of the Mount interface.
+     *
+     * @constructor Creates a new instance of Mount for the provided [CPointer].
+     */
+    public data class MountImpl(override val gioMountPointer: CPointer<GMount>) :
+        Object(gioMountPointer.reinterpret()),
+        Mount
 
     public companion object : TypeCompanion<Mount> {
         override val type: GeneratedInterfaceKGType<Mount> =
-            GeneratedInterfaceKGType(g_mount_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_mount_get_type()) { MountImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GMount>): Mount = Wrapper(pointer)
 
         /**
          * Get the GType of Mount

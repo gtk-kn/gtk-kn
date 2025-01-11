@@ -81,29 +81,28 @@ import kotlin.native.ref.createCleaner
  *
  * - field `func`: Func
  */
-public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GThreadPool> = pointer
-
+public class ThreadPool(public val glibThreadPoolPointer: CPointer<GThreadPool>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibThreadPoolPointer) {
     /**
      * the user data for the threads of this pool
      */
     public var userData: gpointer
-        get() = gPointer.pointed.user_data!!
+        get() = glibThreadPoolPointer.pointed.user_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.user_data = value
+            glibThreadPoolPointer.pointed.user_data = value
         }
 
     /**
      * are all threads exclusive to this pool
      */
     public var exclusive: Boolean
-        get() = gPointer.pointed.exclusive.asBoolean()
+        get() = glibThreadPoolPointer.pointed.exclusive.asBoolean()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.exclusive = value.asGBoolean()
+            glibThreadPoolPointer.pointed.exclusive = value.asGBoolean()
         }
 
     /**
@@ -124,7 +123,9 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      *
      * @param pair A pair containing the pointer to ThreadPool and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GThreadPool>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GThreadPool>, Cleaner>,
+    ) : this(glibThreadPoolPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ThreadPool using the provided [AutofreeScope].
@@ -187,21 +188,21 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      * @param wait should the function wait for all tasks to be finished?
      */
     public fun free(immediate: Boolean, wait: Boolean): Unit =
-        g_thread_pool_free(gPointer, immediate.asGBoolean(), wait.asGBoolean())
+        g_thread_pool_free(glibThreadPoolPointer, immediate.asGBoolean(), wait.asGBoolean())
 
     /**
      * Returns the maximal number of threads for @pool.
      *
      * @return the maximal number of threads
      */
-    public fun getMaxThreads(): gint = g_thread_pool_get_max_threads(gPointer)
+    public fun getMaxThreads(): gint = g_thread_pool_get_max_threads(glibThreadPoolPointer)
 
     /**
      * Returns the number of threads currently running in @pool.
      *
      * @return the number of threads currently running
      */
-    public fun getNumThreads(): guint = g_thread_pool_get_num_threads(gPointer)
+    public fun getNumThreads(): guint = g_thread_pool_get_num_threads(glibThreadPoolPointer)
 
     /**
      * Moves the item to the front of the queue of unprocessed
@@ -213,7 +214,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     @GLibVersion2_46
     public fun moveToFront(`data`: gpointer? = null): Boolean =
-        g_thread_pool_move_to_front(gPointer, `data`).asBoolean()
+        g_thread_pool_move_to_front(glibThreadPoolPointer, `data`).asBoolean()
 
     /**
      * Inserts @data into the list of tasks to be executed by @pool.
@@ -236,7 +237,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public fun push(`data`: gpointer? = null): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_thread_pool_push(gPointer, `data`, gError.ptr).asBoolean()
+        val gResult = g_thread_pool_push(glibThreadPoolPointer, `data`, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -272,7 +273,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     public fun setMaxThreads(maxThreads: gint): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_thread_pool_set_max_threads(gPointer, maxThreads, gError.ptr).asBoolean()
+        val gResult = g_thread_pool_set_max_threads(glibThreadPoolPointer, maxThreads, gError.ptr).asBoolean()
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -301,7 +302,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      */
     @GLibVersion2_10
     public fun setSortFunction(func: CompareDataFunc): Unit = g_thread_pool_set_sort_function(
-        gPointer,
+        glibThreadPoolPointer,
         CompareDataFuncFunc.reinterpret(),
         StableRef.create(func).asCPointer()
     )
@@ -311,7 +312,7 @@ public class ThreadPool(pointer: CPointer<GThreadPool>, cleaner: Cleaner? = null
      *
      * @return the number of unprocessed tasks
      */
-    public fun unprocessed(): guint = g_thread_pool_unprocessed(gPointer)
+    public fun unprocessed(): guint = g_thread_pool_unprocessed(glibThreadPoolPointer)
 
     override fun toString(): String = "ThreadPool(userData=$userData, exclusive=$exclusive)"
 

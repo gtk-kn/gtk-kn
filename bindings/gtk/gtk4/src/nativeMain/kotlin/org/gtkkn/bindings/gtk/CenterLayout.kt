@@ -37,12 +37,9 @@ import kotlin.Unit
  *
  * The center widget is centered regarding the full width of the layout's.
  */
-public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
-    LayoutManager(pointer.reinterpret()),
+public open class CenterLayout(public val gtkCenterLayoutPointer: CPointer<GtkCenterLayout>) :
+    LayoutManager(gtkCenterLayoutPointer.reinterpret()),
     KGTyped {
-    public val gtkCenterLayoutPointer: CPointer<GtkCenterLayout>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether to shrink the center widget after other children.
      *
@@ -106,7 +103,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @return the current center widget of @self
      */
     public open fun getCenterWidget(): Widget? = gtk_center_layout_get_center_widget(gtkCenterLayoutPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -115,7 +112,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @return the current end widget of @self
      */
     public open fun getEndWidget(): Widget? = gtk_center_layout_get_end_widget(gtkCenterLayoutPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -133,7 +130,7 @@ public open class CenterLayout(pointer: CPointer<GtkCenterLayout>) :
      * @return The current start widget of @self
      */
     public open fun getStartWidget(): Widget? = gtk_center_layout_get_start_widget(gtkCenterLayoutPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**

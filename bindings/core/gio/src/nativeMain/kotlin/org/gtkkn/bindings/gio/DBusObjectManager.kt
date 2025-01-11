@@ -12,7 +12,8 @@ import kotlinx.cinterop.toKString
 import org.gtkkn.bindings.gio.annotations.GioVersion2_30
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -41,7 +42,7 @@ import kotlin.Unit
  * and [class@Gio.DBusObjectManagerServer] for the service-side implementation.
  */
 public interface DBusObjectManager :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>
 
@@ -58,7 +59,7 @@ public interface DBusObjectManager :
     @GioVersion2_30
     public fun getInterface(objectPath: String, interfaceName: String): DBusInterface? =
         g_dbus_object_manager_get_interface(gioDBusObjectManagerPointer, objectPath, interfaceName)?.run {
-            DBusInterface.wrap(reinterpret())
+            DBusInterface.DBusInterfaceImpl(reinterpret())
         }
 
     /**
@@ -72,7 +73,7 @@ public interface DBusObjectManager :
     @GioVersion2_30
     public fun getObject(objectPath: String): DBusObject? =
         g_dbus_object_manager_get_object(gioDBusObjectManagerPointer, objectPath)?.run {
-            DBusObject.wrap(reinterpret())
+            DBusObject.DBusObjectImpl(reinterpret())
         }
 
     /**
@@ -185,19 +186,22 @@ public interface DBusObjectManager :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GDBusObjectManager>) : DBusObjectManager {
-        override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager> = pointer
-    }
+    /**
+     * The DBusObjectManagerImpl type represents a native instance of the DBusObjectManager interface.
+     *
+     * @constructor Creates a new instance of DBusObjectManager for the provided [CPointer].
+     */
+    public data class DBusObjectManagerImpl(override val gioDBusObjectManagerPointer: CPointer<GDBusObjectManager>) :
+        Object(gioDBusObjectManagerPointer.reinterpret()),
+        DBusObjectManager
 
     public companion object : TypeCompanion<DBusObjectManager> {
         override val type: GeneratedInterfaceKGType<DBusObjectManager> =
-            GeneratedInterfaceKGType(g_dbus_object_manager_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_dbus_object_manager_get_type()) { DBusObjectManagerImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDBusObjectManager>): DBusObjectManager = Wrapper(pointer)
 
         /**
          * Get the GType of DBusObjectManager
@@ -218,10 +222,10 @@ private val onInterfaceAddedFunc:
         ->
         userData.asStableRef<(`object`: DBusObject, `interface`: DBusInterface) -> Unit>().get().invoke(
             `object`!!.run {
-                DBusObject.wrap(reinterpret())
+                DBusObject.DBusObjectImpl(reinterpret())
             },
             `interface`!!.run {
-                DBusInterface.wrap(reinterpret())
+                DBusInterface.DBusInterfaceImpl(reinterpret())
             }
         )
     }
@@ -237,10 +241,10 @@ private val onInterfaceRemovedFunc:
         ->
         userData.asStableRef<(`object`: DBusObject, `interface`: DBusInterface) -> Unit>().get().invoke(
             `object`!!.run {
-                DBusObject.wrap(reinterpret())
+                DBusObject.DBusObjectImpl(reinterpret())
             },
             `interface`!!.run {
-                DBusInterface.wrap(reinterpret())
+                DBusInterface.DBusInterfaceImpl(reinterpret())
             }
         )
     }
@@ -254,7 +258,7 @@ private val onObjectAddedFunc: CPointer<CFunction<(CPointer<GDBusObject>) -> Uni
         ->
         userData.asStableRef<(`object`: DBusObject) -> Unit>().get().invoke(
             `object`!!.run {
-                DBusObject.wrap(reinterpret())
+                DBusObject.DBusObjectImpl(reinterpret())
             }
         )
     }
@@ -268,7 +272,7 @@ private val onObjectRemovedFunc: CPointer<CFunction<(CPointer<GDBusObject>) -> U
         ->
         userData.asStableRef<(`object`: DBusObject) -> Unit>().get().invoke(
             `object`!!.run {
-                DBusObject.wrap(reinterpret())
+                DBusObject.DBusObjectImpl(reinterpret())
             }
         )
     }

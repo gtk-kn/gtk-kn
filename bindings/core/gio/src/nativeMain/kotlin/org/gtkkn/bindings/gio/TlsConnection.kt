@@ -84,12 +84,9 @@ import kotlin.collections.List
  * @since 2.28
  */
 @GioVersion2_28
-public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
-    IoStream(pointer.reinterpret()),
+public abstract class TlsConnection(public val gioTlsConnectionPointer: CPointer<GTlsConnection>) :
+    IoStream(gioTlsConnectionPointer.reinterpret()),
     KGTyped {
-    public val gioTlsConnectionPointer: CPointer<GTlsConnection>
-        get() = gPointer.reinterpret()
-
     /**
      * The name of the TLS ciphersuite in use. See g_tls_connection_get_ciphersuite_name().
      *
@@ -142,7 +139,7 @@ public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
          * @since 2.30
          */
         get() = g_tls_connection_get_database(gioTlsConnectionPointer)?.run {
-            TlsDatabase(this)
+            TlsDatabase.TlsDatabaseImpl(this)
         }
 
         /**
@@ -244,7 +241,7 @@ public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
          * @since 2.28
          */
         get() = g_tls_connection_get_peer_certificate(gioTlsConnectionPointer)?.run {
-            TlsCertificate(this)
+            TlsCertificate.TlsCertificateImpl(this)
         }
 
     /**
@@ -444,7 +441,7 @@ public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
      */
     @GioVersion2_28
     public open fun getCertificate(): TlsCertificate? = g_tls_connection_get_certificate(gioTlsConnectionPointer)?.run {
-        TlsCertificate(this)
+        TlsCertificate.TlsCertificateImpl(this)
     }
 
     /**
@@ -651,7 +648,7 @@ public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (peerCert: TlsCertificate, errors: TlsCertificateFlags) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioTlsConnectionPointer,
         "accept-certificate",
         onAcceptCertificateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -659,9 +656,16 @@ public open class TlsConnection(pointer: CPointer<GTlsConnection>) :
         connectFlags.mask
     )
 
+    /**
+     * The TlsConnectionImpl type represents a native instance of the abstract TlsConnection class.
+     *
+     * @constructor Creates a new instance of TlsConnection for the provided [CPointer].
+     */
+    public class TlsConnectionImpl(pointer: CPointer<GTlsConnection>) : TlsConnection(pointer)
+
     public companion object : TypeCompanion<TlsConnection> {
         override val type: GeneratedClassKGType<TlsConnection> =
-            GeneratedClassKGType(g_tls_connection_get_type()) { TlsConnection(it.reinterpret()) }
+            GeneratedClassKGType(g_tls_connection_get_type()) { TlsConnectionImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
@@ -691,7 +695,7 @@ private val onAcceptCertificateFunc:
             ) -> Boolean
             >().get().invoke(
             peerCert!!.run {
-                TlsCertificate(this)
+                TlsCertificate.TlsCertificateImpl(this)
             },
             errors.run {
                 TlsCertificateFlags(this)

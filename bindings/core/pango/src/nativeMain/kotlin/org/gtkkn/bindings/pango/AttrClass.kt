@@ -28,20 +28,19 @@ import kotlin.native.ref.createCleaner
  * - field `destroy`: Fields with callbacks are not supported
  * - field `equal`: Fields with callbacks are not supported
  */
-public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrClass> = pointer
-
+public class AttrClass(public val pangoAttrClassPointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrClassPointer) {
     /**
      * the type ID for this attribute
      */
     public var type: AttrType
-        get() = gPointer.pointed.type.run {
+        get() = pangoAttrClassPointer.pointed.type.run {
             AttrType.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.type = value.nativeValue
+            pangoAttrClassPointer.pointed.type = value.nativeValue
         }
 
     /**
@@ -64,7 +63,7 @@ public class AttrClass(pointer: CPointer<PangoAttrClass>, cleaner: Cleaner? = nu
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrClass>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrClassPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrClass using the provided [AutofreeScope].

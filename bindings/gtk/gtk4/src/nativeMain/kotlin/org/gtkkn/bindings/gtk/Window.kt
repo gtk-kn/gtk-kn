@@ -175,32 +175,29 @@ import kotlin.Unit
  * - method `startup-id`: Property has no getter
  * - method `suspended`: Property has no getter nor setter
  */
-public open class Window(pointer: CPointer<GtkWindow>) :
-    Widget(pointer.reinterpret()),
+public open class Window(public val gtkWindowPointer: CPointer<GtkWindow>) :
+    Widget(gtkWindowPointer.reinterpret()),
     Native,
     Root,
     ShortcutManager,
     KGTyped {
-    public val gtkWindowPointer: CPointer<GtkWindow>
-        get() = gPointer.reinterpret()
-
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The `GtkApplication` associated with the window.
@@ -252,7 +249,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
          * @return the child widget of @window
          */
         get() = gtk_window_get_child(gtkWindowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -302,7 +299,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
          * @return the default widget
          */
         get() = gtk_window_get_default_widget(gtkWindowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -575,7 +572,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
          * @return the custom titlebar
          */
         get() = gtk_window_get_titlebar(gtkWindowPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -700,7 +697,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      * @return the currently focused widget
      */
     override fun getFocus(): Widget? = gtk_window_get_focus(gtkWindowPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**
@@ -980,7 +977,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      */
     public fun onActivateDefault(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWindowPointer,
             "activate-default",
             onActivateDefaultFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -992,7 +989,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      * Emits the "activate-default" signal. See [onActivateDefault].
      */
     public fun emitActivateDefault() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate-default")
+        g_signal_emit_by_name(gtkWindowPointer.reinterpret(), "activate-default")
     }
 
     /**
@@ -1006,7 +1003,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      */
     public fun onActivateFocus(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWindowPointer,
             "activate-focus",
             onActivateFocusFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1018,7 +1015,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      * Emits the "activate-focus" signal. See [onActivateFocus].
      */
     public fun emitActivateFocus() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate-focus")
+        g_signal_emit_by_name(gtkWindowPointer.reinterpret(), "activate-focus")
     }
 
     /**
@@ -1029,7 +1026,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      */
     public fun onCloseRequest(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWindowPointer,
             "close-request",
             onCloseRequestFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1056,7 +1053,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (toggle: Boolean) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkWindowPointer,
         "enable-debugging",
         onEnableDebuggingFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -1073,7 +1070,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      */
     public fun onKeysChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkWindowPointer,
             "keys-changed",
             onKeysChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -1085,7 +1082,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
      * Emits the "keys-changed" signal. See [onKeysChanged].
      */
     public fun emitKeysChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "keys-changed")
+        g_signal_emit_by_name(gtkWindowPointer.reinterpret(), "keys-changed")
     }
 
     public companion object : TypeCompanion<Window> {
@@ -1118,7 +1115,7 @@ public open class Window(pointer: CPointer<GtkWindow>) :
          *   of toplevel widgets
          */
         public fun getToplevels(): ListModel = gtk_window_get_toplevels()!!.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         /**

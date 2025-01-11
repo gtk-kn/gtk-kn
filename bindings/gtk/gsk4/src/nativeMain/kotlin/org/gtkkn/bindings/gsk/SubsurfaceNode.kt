@@ -20,12 +20,9 @@ import org.gtkkn.native.gsk.gsk_subsurface_node_new
  * @since 4.14
  */
 @GskVersion4_14
-public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class SubsurfaceNode(public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>) :
+    RenderNode(gskSubsurfaceNodePointer.reinterpret()),
     KGTyped {
-    public val gskSubsurfaceNodePointer: CPointer<GskSubsurfaceNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will possibly divert the child
      * node to a subsurface.
@@ -42,7 +39,7 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
     public constructor(
         child: RenderNode,
         subsurface: gpointer? = null,
-    ) : this(gsk_subsurface_node_new(child.gPointer, subsurface)!!.reinterpret())
+    ) : this(gsk_subsurface_node_new(child.gskRenderNodePointer, subsurface)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -53,7 +50,7 @@ public open class SubsurfaceNode(pointer: CPointer<GskSubsurfaceNode>) :
     @GskVersion4_14
     public open fun getChild(): RenderNode =
         gsk_subsurface_node_get_child(gskSubsurfaceNodePointer.reinterpret())!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     public companion object : TypeCompanion<SubsurfaceNode> {

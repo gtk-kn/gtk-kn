@@ -86,15 +86,12 @@ import kotlin.Unit
  * </object>
  * ```
  */
-public open class SizeGroup(pointer: CPointer<GtkSizeGroup>) :
-    Object(pointer.reinterpret()),
+public open class SizeGroup(public val gtkSizeGroupPointer: CPointer<GtkSizeGroup>) :
+    Object(gtkSizeGroupPointer.reinterpret()),
     Buildable,
     KGTyped {
-    public val gtkSizeGroupPointer: CPointer<GtkSizeGroup>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The direction in which the size group affects requested sizes.

@@ -41,9 +41,8 @@ import kotlin.native.ref.createCleaner
  * - field `dispatch`: Fields with callbacks are not supported
  * - field `finalize`: Fields with callbacks are not supported
  */
-public class SourceFuncs(pointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSourceFuncs> = pointer
-
+public class SourceFuncs(public val glibSourceFuncsPointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibSourceFuncsPointer) {
     /**
      * Allocate a new SourceFuncs.
      *
@@ -62,7 +61,9 @@ public class SourceFuncs(pointer: CPointer<GSourceFuncs>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to SourceFuncs and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GSourceFuncs>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GSourceFuncs>, Cleaner>,
+    ) : this(glibSourceFuncsPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new SourceFuncs using the provided [AutofreeScope].

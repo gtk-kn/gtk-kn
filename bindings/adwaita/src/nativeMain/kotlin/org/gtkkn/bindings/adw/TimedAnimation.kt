@@ -49,12 +49,9 @@ import kotlin.Boolean
  * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
  * direction every other iteration.
  */
-public class TimedAnimation(pointer: CPointer<AdwTimedAnimation>) :
-    Animation(pointer.reinterpret()),
+public class TimedAnimation(public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>) :
+    Animation(adwTimedAnimationPointer.reinterpret()),
     KGTyped {
-    public val adwTimedAnimationPointer: CPointer<AdwTimedAnimation>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the animation changes direction on every iteration.
      */

@@ -11,7 +11,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.gio.annotations.GioVersion2_26
 import org.gtkkn.bindings.glib.Error
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
@@ -45,7 +46,7 @@ import kotlin.collections.List
  */
 @GioVersion2_26
 public interface ProxyResolver :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioProxyResolverPointer: CPointer<GProxyResolver>
 
@@ -147,19 +148,22 @@ public interface ProxyResolver :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GProxyResolver>) : ProxyResolver {
-        override val gioProxyResolverPointer: CPointer<GProxyResolver> = pointer
-    }
+    /**
+     * The ProxyResolverImpl type represents a native instance of the ProxyResolver interface.
+     *
+     * @constructor Creates a new instance of ProxyResolver for the provided [CPointer].
+     */
+    public data class ProxyResolverImpl(override val gioProxyResolverPointer: CPointer<GProxyResolver>) :
+        Object(gioProxyResolverPointer.reinterpret()),
+        ProxyResolver
 
     public companion object : TypeCompanion<ProxyResolver> {
         override val type: GeneratedInterfaceKGType<ProxyResolver> =
-            GeneratedInterfaceKGType(g_proxy_resolver_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_proxy_resolver_get_type()) { ProxyResolverImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GProxyResolver>): ProxyResolver = Wrapper(pointer)
 
         /**
          * Gets the default #GProxyResolver for the system.
@@ -170,7 +174,7 @@ public interface ProxyResolver :
          */
         @GioVersion2_26
         public fun getDefault(): ProxyResolver = g_proxy_resolver_get_default()!!.run {
-            ProxyResolver.wrap(reinterpret())
+            ProxyResolverImpl(reinterpret())
         }
 
         /**

@@ -51,14 +51,11 @@ import kotlin.String
  * - parameter `path`: Array parameter of type gchar is not supported
  * - parameter `path`: Array parameter of type gchar is not supported
  */
-public open class UnixSocketAddress(pointer: CPointer<GUnixSocketAddress>) :
-    SocketAddress(pointer.reinterpret()),
+public open class UnixSocketAddress(public val gioUnixSocketAddressPointer: CPointer<GUnixSocketAddress>) :
+    SocketAddress(gioUnixSocketAddressPointer.reinterpret()),
     KGTyped {
-    public val gioUnixSocketAddressPointer: CPointer<GUnixSocketAddress>
-        get() = gPointer.reinterpret()
-
     override val gioSocketConnectablePointer: CPointer<GSocketConnectable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The type of Unix socket address.

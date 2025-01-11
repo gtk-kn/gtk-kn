@@ -163,12 +163,9 @@ import kotlin.collections.List
  * - method `tls-database`: Property TypeInfo of getter and setter do not match
  * - constructor `new`: Varargs parameter is not supported
  */
-public open class Server(pointer: CPointer<SoupServer>) :
-    Object(pointer.reinterpret()),
+public open class Server(public val soupServerPointer: CPointer<SoupServer>) :
+    Object(soupServerPointer.reinterpret()),
     KGTyped {
-    public val soupServerPointer: CPointer<SoupServer>
-        get() = gPointer.reinterpret()
-
     /**
      * A [enum@Gio.TlsAuthenticationMode] for SSL/TLS client authentication.
      */
@@ -417,7 +414,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @return a #GTlsCertificate or null
      */
     public open fun getTlsCertificate(): TlsCertificate? = soup_server_get_tls_certificate(soupServerPointer)?.run {
-        TlsCertificate(this)
+        TlsCertificate.TlsCertificateImpl(this)
     }
 
     /**
@@ -426,7 +423,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @return a #GTlsDatabase
      */
     public open fun getTlsDatabase(): TlsDatabase? = soup_server_get_tls_database(soupServerPointer)?.run {
-        TlsDatabase(this)
+        TlsDatabase.TlsDatabaseImpl(this)
     }
 
     /**
@@ -679,7 +676,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: ServerMessage) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupServerPointer,
         "request-aborted",
         onRequestAbortedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -693,7 +690,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param message the message
      */
     public fun emitRequestAborted(message: ServerMessage) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "request-aborted", message.soupServerMessagePointer)
+        g_signal_emit_by_name(soupServerPointer.reinterpret(), "request-aborted", message.soupServerMessagePointer)
     }
 
     /**
@@ -707,7 +704,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: ServerMessage) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupServerPointer,
         "request-finished",
         onRequestFinishedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -721,7 +718,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param message the message
      */
     public fun emitRequestFinished(message: ServerMessage) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "request-finished", message.soupServerMessagePointer)
+        g_signal_emit_by_name(soupServerPointer.reinterpret(), "request-finished", message.soupServerMessagePointer)
     }
 
     /**
@@ -741,7 +738,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: ServerMessage) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupServerPointer,
         "request-read",
         onRequestReadFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -755,7 +752,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param message the message
      */
     public fun emitRequestRead(message: ServerMessage) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "request-read", message.soupServerMessagePointer)
+        g_signal_emit_by_name(soupServerPointer.reinterpret(), "request-read", message.soupServerMessagePointer)
     }
 
     /**
@@ -779,7 +776,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (message: ServerMessage) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupServerPointer,
         "request-started",
         onRequestStartedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -793,7 +790,7 @@ public open class Server(pointer: CPointer<SoupServer>) :
      * @param message the new message
      */
     public fun emitRequestStarted(message: ServerMessage) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "request-started", message.soupServerMessagePointer)
+        g_signal_emit_by_name(soupServerPointer.reinterpret(), "request-started", message.soupServerMessagePointer)
     }
 
     public companion object : TypeCompanion<Server> {

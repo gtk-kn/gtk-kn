@@ -23,15 +23,13 @@ import kotlin.Unit
  * The `GMainLoop` struct is an opaque data type
  * representing the main event loop of a GLib or GTK application.
  */
-public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GMainLoop> = pointer
-
+public class MainLoop(public val glibMainLoopPointer: CPointer<GMainLoop>) : ProxyInstance(glibMainLoopPointer) {
     /**
      * Returns the #GMainContext of @loop.
      *
      * @return the #GMainContext of @loop
      */
-    public fun getContext(): MainContext = g_main_loop_get_context(gPointer)!!.run {
+    public fun getContext(): MainContext = g_main_loop_get_context(glibMainLoopPointer)!!.run {
         MainContext(this)
     }
 
@@ -40,7 +38,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      *
      * @return true if the mainloop is currently being run.
      */
-    public fun isRunning(): Boolean = g_main_loop_is_running(gPointer).asBoolean()
+    public fun isRunning(): Boolean = g_main_loop_is_running(glibMainLoopPointer).asBoolean()
 
     /**
      * Stops a #GMainLoop from running. Any calls to g_main_loop_run()
@@ -49,14 +47,14 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      * Note that sources that have already been dispatched when
      * g_main_loop_quit() is called will still be executed.
      */
-    public fun quit(): Unit = g_main_loop_quit(gPointer)
+    public fun quit(): Unit = g_main_loop_quit(glibMainLoopPointer)
 
     /**
      * Increases the reference count on a #GMainLoop object by one.
      *
      * @return @loop
      */
-    public fun ref(): MainLoop = g_main_loop_ref(gPointer)!!.run {
+    public fun ref(): MainLoop = g_main_loop_ref(glibMainLoopPointer)!!.run {
         MainLoop(this)
     }
 
@@ -66,13 +64,13 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
      * it will process events from the loop, otherwise it will
      * simply wait.
      */
-    public fun run(): Unit = g_main_loop_run(gPointer)
+    public fun run(): Unit = g_main_loop_run(glibMainLoopPointer)
 
     /**
      * Decreases the reference count on a #GMainLoop object by one. If
      * the result is zero, free the loop and free all associated memory.
      */
-    public fun unref(): Unit = g_main_loop_unref(gPointer)
+    public fun unref(): Unit = g_main_loop_unref(glibMainLoopPointer)
 
     public companion object {
         /**
@@ -86,7 +84,7 @@ public class MainLoop(pointer: CPointer<GMainLoop>) : ProxyInstance(pointer) {
          * @return a new #GMainLoop.
          */
         public fun new(context: MainContext? = null, isRunning: Boolean): MainLoop =
-            MainLoop(g_main_loop_new(context?.gPointer, isRunning.asGBoolean())!!.reinterpret())
+            MainLoop(g_main_loop_new(context?.glibMainContextPointer, isRunning.asGBoolean())!!.reinterpret())
 
         /**
          * Get the GType of MainLoop

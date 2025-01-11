@@ -16,15 +16,16 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class UserDataKey(pointer: CPointer<cairo_user_data_key_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_user_data_key_t> = pointer
-
+public class UserDataKey(
+    public val cairoUserDataKeyPointer: CPointer<cairo_user_data_key_t>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(cairoUserDataKeyPointer) {
     public var unused: gint
-        get() = gPointer.pointed.unused
+        get() = cairoUserDataKeyPointer.pointed.unused
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.unused = value
+            cairoUserDataKeyPointer.pointed.unused = value
         }
 
     /**
@@ -47,7 +48,7 @@ public class UserDataKey(pointer: CPointer<cairo_user_data_key_t>, cleaner: Clea
      */
     private constructor(
         pair: Pair<CPointer<cairo_user_data_key_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoUserDataKeyPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new UserDataKey using the provided [AutofreeScope].

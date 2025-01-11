@@ -4,7 +4,8 @@ package org.gtkkn.bindings.gtk
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
 import org.gtkkn.extensions.gobject.TypeCompanion
@@ -30,7 +31,7 @@ import kotlin.String
  * `GtkBuilder` XML format or run any extra routines at deserialization time.
  */
 public interface Buildable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkBuildablePointer: CPointer<GtkBuildable>
 
@@ -44,19 +45,22 @@ public interface Buildable :
      */
     public fun getBuildableId(): String? = gtk_buildable_get_buildable_id(gtkBuildablePointer)?.toKString()
 
-    private data class Wrapper(private val pointer: CPointer<GtkBuildable>) : Buildable {
-        override val gtkBuildablePointer: CPointer<GtkBuildable> = pointer
-    }
+    /**
+     * The BuildableImpl type represents a native instance of the Buildable interface.
+     *
+     * @constructor Creates a new instance of Buildable for the provided [CPointer].
+     */
+    public data class BuildableImpl(override val gtkBuildablePointer: CPointer<GtkBuildable>) :
+        Object(gtkBuildablePointer.reinterpret()),
+        Buildable
 
     public companion object : TypeCompanion<Buildable> {
         override val type: GeneratedInterfaceKGType<Buildable> =
-            GeneratedInterfaceKGType(gtk_buildable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_buildable_get_type()) { BuildableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkBuildable>): Buildable = Wrapper(pointer)
 
         /**
          * Get the GType of Buildable

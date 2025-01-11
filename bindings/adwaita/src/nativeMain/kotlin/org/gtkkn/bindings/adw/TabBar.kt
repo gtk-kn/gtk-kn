@@ -78,20 +78,17 @@ import kotlin.ULong
  *
  * - parameter `types`: Array parameter of type GType is not supported
  */
-public class TabBar(pointer: CPointer<AdwTabBar>) :
-    Widget(pointer.reinterpret()),
+public class TabBar(public val adwTabBarPointer: CPointer<AdwTabBar>) :
+    Widget(adwTabBarPointer.reinterpret()),
     KGTyped {
-    public val adwTabBarPointer: CPointer<AdwTabBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the tabs automatically hide.
@@ -131,7 +128,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return the widget shown after the tabs
          */
         get() = adw_tab_bar_get_end_action_widget(adwTabBarPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -264,7 +261,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
          * @return the widget shown before the tabs
          */
         get() = adw_tab_bar_get_start_action_widget(adwTabBarPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -331,7 +328,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwTabBarPointer,
         "extra-drag-drop",
         onExtraDragDropFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -359,7 +356,7 @@ public class TabBar(pointer: CPointer<AdwTabBar>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (page: TabPage, `value`: Value) -> DragAction,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        adwTabBarPointer,
         "extra-drag-value",
         onExtraDragValueFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),

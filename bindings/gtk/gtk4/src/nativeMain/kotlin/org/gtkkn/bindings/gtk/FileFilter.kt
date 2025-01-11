@@ -82,15 +82,12 @@ import kotlin.collections.List
  * - method `patterns`: Property has no getter nor setter
  * - method `suffixes`: Property has no getter nor setter
  */
-public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
-    Filter(pointer.reinterpret()),
+public open class FileFilter(public val gtkFileFilterPointer: CPointer<GtkFileFilter>) :
+    Filter(gtkFileFilterPointer.reinterpret()),
     Buildable,
     KGTyped {
-    public val gtkFileFilterPointer: CPointer<GtkFileFilter>
-        get() = gPointer.reinterpret()
-
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The human-readable name of the filter.
@@ -148,7 +145,9 @@ public open class FileFilter(pointer: CPointer<GtkFileFilter>) :
      * @param variant an `a{sv}` `GVariant`
      * @return a new `GtkFileFilter` object
      */
-    public constructor(variant: Variant) : this(gtk_file_filter_new_from_gvariant(variant.gPointer)!!.reinterpret())
+    public constructor(
+        variant: Variant,
+    ) : this(gtk_file_filter_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
 
     /**
      * Adds a rule allowing a given mime type to @filter.

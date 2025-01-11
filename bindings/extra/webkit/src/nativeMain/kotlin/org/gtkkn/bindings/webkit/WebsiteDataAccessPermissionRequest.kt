@@ -28,16 +28,13 @@ import kotlin.String
  * @since 2.30
  */
 @WebKitVersion2_30
-public class WebsiteDataAccessPermissionRequest(pointer: CPointer<WebKitWebsiteDataAccessPermissionRequest>) :
-    Object(pointer.reinterpret()),
+public class WebsiteDataAccessPermissionRequest(
+    public val webkitWebsiteDataAccessPermissionRequestPointer: CPointer<WebKitWebsiteDataAccessPermissionRequest>,
+) : Object(webkitWebsiteDataAccessPermissionRequestPointer.reinterpret()),
     PermissionRequest,
     KGTyped {
-    public val webkitWebsiteDataAccessPermissionRequestPointer:
-        CPointer<WebKitWebsiteDataAccessPermissionRequest>
-        get() = gPointer.reinterpret()
-
     override val webkitPermissionRequestPointer: CPointer<WebKitPermissionRequest>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Get the current domain being browsed.

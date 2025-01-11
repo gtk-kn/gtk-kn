@@ -102,15 +102,12 @@ import kotlin.Unit
  * - method `gtk-xft-hintstyle`: Property has no getter nor setter
  * - method `gtk-xft-rgba`: Property has no getter nor setter
  */
-public open class Settings(pointer: CPointer<GtkSettings>) :
-    Object(pointer.reinterpret()),
+public open class Settings(public val gtkSettingsPointer: CPointer<GtkSettings>) :
+    Object(gtkSettingsPointer.reinterpret()),
     StyleProvider,
     KGTyped {
-    public val gtkSettingsPointer: CPointer<GtkSettings>
-        get() = gPointer.reinterpret()
-
     override val gtkStyleProviderPointer: CPointer<GtkStyleProvider>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Undoes the effect of calling g_object_set() to install an

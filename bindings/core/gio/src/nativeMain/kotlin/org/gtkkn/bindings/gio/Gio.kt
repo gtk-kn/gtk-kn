@@ -1725,8 +1725,8 @@ public object Gio {
         connection.gioDBusConnectionPointer,
         name,
         flags.mask,
-        nameAcquiredClosure?.gPointer,
-        nameLostClosure?.gPointer
+        nameAcquiredClosure?.gobjectClosurePointer,
+        nameLostClosure?.gobjectClosurePointer
     )
 
     /**
@@ -1758,9 +1758,9 @@ public object Gio {
         busType.nativeValue,
         name,
         flags.mask,
-        busAcquiredClosure?.gPointer,
-        nameAcquiredClosure?.gPointer,
-        nameLostClosure?.gPointer
+        busAcquiredClosure?.gobjectClosurePointer,
+        nameAcquiredClosure?.gobjectClosurePointer,
+        nameLostClosure?.gobjectClosurePointer
     )
 
     /**
@@ -1821,8 +1821,8 @@ public object Gio {
         connection.gioDBusConnectionPointer,
         name,
         flags.mask,
-        nameAppearedClosure?.gPointer,
-        nameVanishedClosure?.gPointer
+        nameAppearedClosure?.gobjectClosurePointer,
+        nameVanishedClosure?.gobjectClosurePointer
     )
 
     /**
@@ -1851,8 +1851,8 @@ public object Gio {
         busType.nativeValue,
         name,
         flags.mask,
-        nameAppearedClosure?.gPointer,
-        nameVanishedClosure?.gPointer
+        nameAppearedClosure?.gobjectClosurePointer,
+        nameVanishedClosure?.gobjectClosurePointer
     )
 
     /**
@@ -1921,7 +1921,7 @@ public object Gio {
      *     object with g_object_unref()
      */
     public fun contentTypeGetIcon(type: String): Icon = g_content_type_get_icon(type)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -1956,7 +1956,7 @@ public object Gio {
      */
     @GioVersion2_34
     public fun contentTypeGetSymbolicIcon(type: String): Icon = g_content_type_get_symbolic_icon(type)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -2215,7 +2215,7 @@ public object Gio {
      */
     @GioVersion2_30
     public fun dbusGvalueToGvariant(gvalue: Value, type: VariantType): Variant =
-        g_dbus_gvalue_to_gvariant(gvalue.gPointer, type.gPointer)!!.run {
+        g_dbus_gvalue_to_gvariant(gvalue.gobjectValuePointer, type.glibVariantTypePointer)!!.run {
             Variant(this)
         }
 
@@ -2238,7 +2238,7 @@ public object Gio {
      */
     @GioVersion2_30
     public fun dbusGvariantToGvalue(`value`: Variant, outGvalue: Value): Unit =
-        g_dbus_gvariant_to_gvalue(`value`.gPointer, outGvalue.gPointer)
+        g_dbus_gvariant_to_gvalue(`value`.glibVariantPointer, outGvalue.gobjectValuePointer)
 
     /**
      * Checks if @string is a
@@ -2433,7 +2433,7 @@ public object Gio {
      */
     @GioVersion2_30
     public fun ioModulesLoadAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): GlibList =
-        g_io_modules_load_all_in_directory_with_scope(dirname, scope.gPointer)!!.run {
+        g_io_modules_load_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)!!.run {
             GlibList(this)
         }
 
@@ -2477,7 +2477,7 @@ public object Gio {
      */
     @GioVersion2_30
     public fun ioModulesScanAllInDirectoryWithScope(dirname: String, scope: IoModuleScope): Unit =
-        g_io_modules_scan_all_in_directory_with_scope(dirname, scope.gPointer)
+        g_io_modules_scan_all_in_directory_with_scope(dirname, scope.gioIoModuleScopePointer)
 
     /**
      * Cancels all cancellable I/O jobs.
@@ -2576,7 +2576,7 @@ public object Gio {
         rootPath: String,
         rootGroup: String? = null,
     ): SettingsBackend = g_keyfile_settings_backend_new(filename, rootPath, rootGroup)!!.run {
-        SettingsBackend(this)
+        SettingsBackend.SettingsBackendImpl(this)
     }
 
     /**
@@ -2591,7 +2591,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun memorySettingsBackendNew(): SettingsBackend = g_memory_settings_backend_new()!!.run {
-        SettingsBackend(this)
+        SettingsBackend.SettingsBackendImpl(this)
     }
 
     /**
@@ -2616,7 +2616,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun nullSettingsBackendNew(): SettingsBackend = g_null_settings_backend_new()!!.run {
-        SettingsBackend(this)
+        SettingsBackend.SettingsBackendImpl(this)
     }
 
     /**
@@ -2632,7 +2632,7 @@ public object Gio {
      */
     @GioVersion2_28
     public fun pollableSourceNew(pollableStream: Object): Source =
-        g_pollable_source_new(pollableStream.gPointer)!!.run {
+        g_pollable_source_new(pollableStream.gobjectObjectPointer)!!.run {
             Source(this)
         }
 
@@ -2655,8 +2655,8 @@ public object Gio {
         childSource: Source? = null,
         cancellable: Cancellable? = null,
     ): Source = g_pollable_source_new_full(
-        pollableStream.gPointer.reinterpret(),
-        childSource?.gPointer,
+        pollableStream.gobjectObjectPointer.reinterpret(),
+        childSource?.glibSourcePointer,
         cancellable?.gioCancellablePointer
     )!!.run {
         Source(this)
@@ -2742,7 +2742,7 @@ public object Gio {
     public fun resourcesOpenStream(path: String, lookupFlags: ResourceLookupFlags): Result<InputStream> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_resources_open_stream(path, lookupFlags.mask, gError.ptr)?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -2761,7 +2761,7 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesRegister(resource: Resource): Unit = g_resources_register(resource.gPointer)
+    public fun resourcesRegister(resource: Resource): Unit = g_resources_register(resource.gioResourcePointer)
 
     /**
      * Unregisters the resource from the process-global set of resources.
@@ -2770,7 +2770,7 @@ public object Gio {
      * @since 2.32
      */
     @GioVersion2_32
-    public fun resourcesUnregister(resource: Resource): Unit = g_resources_unregister(resource.gPointer)
+    public fun resourcesUnregister(resource: Resource): Unit = g_resources_unregister(resource.gioResourcePointer)
 
     /**
      * Reports an error in an idle function. Similar to
@@ -2786,12 +2786,12 @@ public object Gio {
         callback: AsyncReadyCallback?,
         error: Error,
     ): Unit = g_simple_async_report_gerror_in_idle(
-        `object`?.gPointer,
+        `object`?.gobjectObjectPointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
         callback?.let { StableRef.create(callback).asCPointer() },
-        error.gPointer
+        error.glibErrorPointer
     )
 
     /**
@@ -2810,12 +2810,12 @@ public object Gio {
         callback: AsyncReadyCallback?,
         error: Error,
     ): Unit = g_simple_async_report_take_gerror_in_idle(
-        `object`?.gPointer,
+        `object`?.gobjectObjectPointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()
         },
         callback?.let { StableRef.create(callback).asCPointer() },
-        error.gPointer
+        error.glibErrorPointer
     )
 
     /**
@@ -2874,7 +2874,7 @@ public object Gio {
      * or less than @mount2, respectively.
      */
     public fun unixMountCompare(mount1: UnixMountEntry, mount2: UnixMountEntry): gint =
-        g_unix_mount_compare(mount1.gPointer, mount2.gPointer)
+        g_unix_mount_compare(mount1.gioUnixMountEntryPointer, mount2.gioUnixMountEntryPointer)
 
     /**
      * Makes a copy of @mount_entry.
@@ -2885,7 +2885,7 @@ public object Gio {
      */
     @GioVersion2_54
     public fun unixMountCopy(mountEntry: UnixMountEntry): UnixMountEntry =
-        g_unix_mount_copy(mountEntry.gPointer)!!.run {
+        g_unix_mount_copy(mountEntry.gioUnixMountEntryPointer)!!.run {
             UnixMountEntry(this)
         }
 
@@ -2894,7 +2894,7 @@ public object Gio {
      *
      * @param mountEntry a #GUnixMountEntry.
      */
-    public fun unixMountFree(mountEntry: UnixMountEntry): Unit = g_unix_mount_free(mountEntry.gPointer)
+    public fun unixMountFree(mountEntry: UnixMountEntry): Unit = g_unix_mount_free(mountEntry.gioUnixMountEntryPointer)
 
     /**
      * Gets the device path for a unix mount.
@@ -2903,7 +2903,8 @@ public object Gio {
      * @return a string containing the device path.
      */
     public fun unixMountGetDevicePath(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_device_path(mountEntry.gPointer)?.toKString() ?: error("Expected not null string")
+        g_unix_mount_get_device_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets the filesystem type for the unix mount.
@@ -2912,7 +2913,7 @@ public object Gio {
      * @return a string containing the file system type.
      */
     public fun unixMountGetFsType(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_fs_type(mountEntry.gPointer)?.toKString() ?: error("Expected not null string")
+        g_unix_mount_get_fs_type(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the mount path for a unix mount.
@@ -2921,7 +2922,8 @@ public object Gio {
      * @return the mount path for @mount_entry.
      */
     public fun unixMountGetMountPath(mountEntry: UnixMountEntry): String =
-        g_unix_mount_get_mount_path(mountEntry.gPointer)?.toKString() ?: error("Expected not null string")
+        g_unix_mount_get_mount_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
+            ?: error("Expected not null string")
 
     /**
      * Gets a comma-separated list of mount options for the unix mount. For example,
@@ -2937,7 +2939,7 @@ public object Gio {
      */
     @GioVersion2_58
     public fun unixMountGetOptions(mountEntry: UnixMountEntry): String? =
-        g_unix_mount_get_options(mountEntry.gPointer)?.toKString()
+        g_unix_mount_get_options(mountEntry.gioUnixMountEntryPointer)?.toKString()
 
     /**
      * Gets the root of the mount within the filesystem. This is useful e.g. for
@@ -2953,7 +2955,7 @@ public object Gio {
      */
     @GioVersion2_60
     public fun unixMountGetRootPath(mountEntry: UnixMountEntry): String? =
-        g_unix_mount_get_root_path(mountEntry.gPointer)?.toKString()
+        g_unix_mount_get_root_path(mountEntry.gioUnixMountEntryPointer)?.toKString()
 
     /**
      * Guesses whether a Unix mount can be ejected.
@@ -2962,7 +2964,7 @@ public object Gio {
      * @return true if @mount_entry is deemed to be ejectable.
      */
     public fun unixMountGuessCanEject(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_guess_can_eject(mountEntry.gPointer).asBoolean()
+        g_unix_mount_guess_can_eject(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Guesses the icon of a Unix mount.
@@ -2971,8 +2973,8 @@ public object Gio {
      * @return a #GIcon
      */
     public fun unixMountGuessIcon(mountEntry: UnixMountEntry): Icon =
-        g_unix_mount_guess_icon(mountEntry.gPointer)!!.run {
-            Icon.wrap(reinterpret())
+        g_unix_mount_guess_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
+            Icon.IconImpl(reinterpret())
         }
 
     /**
@@ -2984,7 +2986,7 @@ public object Gio {
      *     be freed with g_free()
      */
     public fun unixMountGuessName(mountEntry: UnixMountEntry): String =
-        g_unix_mount_guess_name(mountEntry.gPointer)?.toKString() ?: error("Expected not null string")
+        g_unix_mount_guess_name(mountEntry.gioUnixMountEntryPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Guesses whether a Unix mount should be displayed in the UI.
@@ -2993,7 +2995,7 @@ public object Gio {
      * @return true if @mount_entry is deemed to be displayable.
      */
     public fun unixMountGuessShouldDisplay(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_guess_should_display(mountEntry.gPointer).asBoolean()
+        g_unix_mount_guess_should_display(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Guesses the symbolic icon of a Unix mount.
@@ -3004,8 +3006,8 @@ public object Gio {
      */
     @GioVersion2_34
     public fun unixMountGuessSymbolicIcon(mountEntry: UnixMountEntry): Icon =
-        g_unix_mount_guess_symbolic_icon(mountEntry.gPointer)!!.run {
-            Icon.wrap(reinterpret())
+        g_unix_mount_guess_symbolic_icon(mountEntry.gioUnixMountEntryPointer)!!.run {
+            Icon.IconImpl(reinterpret())
         }
 
     /**
@@ -3015,7 +3017,7 @@ public object Gio {
      * @return true if @mount_entry is read only.
      */
     public fun unixMountIsReadonly(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_is_readonly(mountEntry.gPointer).asBoolean()
+        g_unix_mount_is_readonly(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Checks if a Unix mount is a system mount. This is the Boolean OR of
@@ -3029,7 +3031,7 @@ public object Gio {
      * @return true if the unix mount is for a system path.
      */
     public fun unixMountIsSystemInternal(mountEntry: UnixMountEntry): Boolean =
-        g_unix_mount_is_system_internal(mountEntry.gPointer).asBoolean()
+        g_unix_mount_is_system_internal(mountEntry.gioUnixMountEntryPointer).asBoolean()
 
     /**
      * Checks if the unix mount points have changed since a given unix time.
@@ -3104,7 +3106,7 @@ public val AsyncReadyCallbackFunc: CPointer<
             Object(this)
         },
         res!!.run {
-            AsyncResult.wrap(reinterpret())
+            AsyncResult.AsyncResultImpl(reinterpret())
         },
         `data`
     )
@@ -3254,7 +3256,7 @@ public val DBusInterfaceGetPropertyFuncFunc: CPointer<
         objectPath?.toKString() ?: error("Expected not null string"),
         interfaceName?.toKString() ?: error("Expected not null string"),
         propertyName?.toKString() ?: error("Expected not null string")
-    ).gPointer
+    ).glibVariantPointer
 }
     .reinterpret()
 
@@ -3496,7 +3498,7 @@ public val DBusSubtreeDispatchFuncFunc: CPointer<
         objectPath?.toKString() ?: error("Expected not null string"),
         interfaceName?.toKString() ?: error("Expected not null string"),
         node?.toKString() ?: error("Expected not null string")
-    )?.gPointer
+    )?.gioDBusInterfaceVTablePointer
 }
     .reinterpret()
 
@@ -3554,7 +3556,7 @@ public val DatagramBasedSourceFuncFunc: CPointer<
         ) -> Boolean
         >().get().invoke(
         datagramBased!!.run {
-            DatagramBased.wrap(reinterpret())
+            DatagramBased.DatagramBasedImpl(reinterpret())
         },
         condition.run {
             IoCondition(this)
@@ -3748,7 +3750,7 @@ public val SettingsBindSetMappingFunc:
             expectedType!!.run {
                 VariantType(this)
             }
-        ).gPointer
+        ).glibVariantPointer
     }
         .reinterpret()
 

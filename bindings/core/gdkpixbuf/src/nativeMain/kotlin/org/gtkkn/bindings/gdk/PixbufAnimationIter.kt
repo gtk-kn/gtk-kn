@@ -23,12 +23,9 @@ import kotlin.Boolean
  * An opaque object representing an iterator which points to a
  * certain position in an animation.
  */
-public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>) :
-    Object(pointer.reinterpret()),
+public open class PixbufAnimationIter(public val gdkPixbufAnimationIterPointer: CPointer<GdkPixbufAnimationIter>) :
+    Object(gdkPixbufAnimationIterPointer.reinterpret()),
     KGTyped {
-    public val gdkPixbufAnimationIterPointer: CPointer<GdkPixbufAnimationIter>
-        get() = gPointer.reinterpret()
-
     /**
      * Possibly advances an animation to a new frame.
      *
@@ -56,7 +53,7 @@ public open class PixbufAnimationIter(pointer: CPointer<GdkPixbufAnimationIter>)
      * @return `TRUE` if the image may need updating
      */
     public open fun advance(currentTime: TimeVal? = null): Boolean =
-        gdk_pixbuf_animation_iter_advance(gdkPixbufAnimationIterPointer, currentTime?.gPointer).asBoolean()
+        gdk_pixbuf_animation_iter_advance(gdkPixbufAnimationIterPointer, currentTime?.glibTimeValPointer).asBoolean()
 
     /**
      * Gets the number of milliseconds the current pixbuf should be displayed,

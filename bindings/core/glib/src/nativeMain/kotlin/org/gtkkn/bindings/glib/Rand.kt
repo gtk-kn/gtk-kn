@@ -31,9 +31,7 @@ import kotlin.Unit
  * - parameter `seed`: Unsupported pointer to primitive type
  * - parameter `seed`: Unsupported pointer to primitive type
  */
-public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GRand> = pointer
-
+public class Rand(public val glibRandPointer: CPointer<GRand>) : ProxyInstance(glibRandPointer) {
     /**
      * Copies a #GRand into a new one with the same exact state as before.
      * This way you can take a snapshot of the random number generator for
@@ -43,7 +41,7 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      * @since 2.4
      */
     @GLibVersion2_4
-    public fun copy(): Rand = g_rand_copy(gPointer)!!.run {
+    public fun copy(): Rand = g_rand_copy(glibRandPointer)!!.run {
         Rand(this)
     }
 
@@ -53,7 +51,7 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      *
      * @return a random number
      */
-    public fun double(): gdouble = g_rand_double(gPointer)
+    public fun double(): gdouble = g_rand_double(glibRandPointer)
 
     /**
      * Returns the next random #gdouble from @rand_ equally distributed over
@@ -63,12 +61,12 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun doubleRange(begin: gdouble, end: gdouble): gdouble = g_rand_double_range(gPointer, begin, end)
+    public fun doubleRange(begin: gdouble, end: gdouble): gdouble = g_rand_double_range(glibRandPointer, begin, end)
 
     /**
      * Frees the memory allocated for the #GRand.
      */
-    public fun free(): Unit = g_rand_free(gPointer)
+    public fun free(): Unit = g_rand_free(glibRandPointer)
 
     /**
      * Returns the next random #guint32 from @rand_ equally distributed over
@@ -76,7 +74,7 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      *
      * @return a random number
      */
-    public fun int(): guint = g_rand_int(gPointer)
+    public fun int(): guint = g_rand_int(glibRandPointer)
 
     /**
      * Returns the next random #gint32 from @rand_ equally distributed over
@@ -86,14 +84,14 @@ public class Rand(pointer: CPointer<GRand>) : ProxyInstance(pointer) {
      * @param end upper open bound of the interval
      * @return a random number
      */
-    public fun intRange(begin: gint, end: gint): gint = g_rand_int_range(gPointer, begin, end)
+    public fun intRange(begin: gint, end: gint): gint = g_rand_int_range(glibRandPointer, begin, end)
 
     /**
      * Sets the seed for the random number generator #GRand to @seed.
      *
      * @param seed a value to reinitialize the random number generator
      */
-    public fun setSeed(seed: guint): Unit = g_rand_set_seed(gPointer, seed)
+    public fun setSeed(seed: guint): Unit = g_rand_set_seed(glibRandPointer, seed)
 
     public companion object {
         /**

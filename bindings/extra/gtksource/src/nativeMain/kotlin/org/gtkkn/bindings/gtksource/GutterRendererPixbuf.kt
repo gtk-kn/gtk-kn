@@ -41,20 +41,18 @@ import kotlin.Unit
  * - method `icon-name`: Property TypeInfo of getter and setter do not match
  * - method `pixbuf`: Property TypeInfo of getter and setter do not match
  */
-public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRendererPixbuf>) :
-    GutterRenderer(pointer.reinterpret()),
+public open class GutterRendererPixbuf(
+    public val gtksourceGutterRendererPixbufPointer: CPointer<GtkSourceGutterRendererPixbuf>,
+) : GutterRenderer(gtksourceGutterRendererPixbufPointer.reinterpret()),
     KGTyped {
-    public val gtksourceGutterRendererPixbufPointer: CPointer<GtkSourceGutterRendererPixbuf>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public open var paintable: Paintable?
         /**
@@ -64,7 +62,7 @@ public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRenderer
          * @return a #GdkPaintable or null
          */
         get() = gtk_source_gutter_renderer_pixbuf_get_paintable(gtksourceGutterRendererPixbufPointer)?.run {
-            Paintable.wrap(reinterpret())
+            Paintable.PaintableImpl(reinterpret())
         }
 
         /**
@@ -93,7 +91,7 @@ public open class GutterRendererPixbuf(pointer: CPointer<GtkSourceGutterRenderer
      */
     public open fun getGicon(): Icon =
         gtk_source_gutter_renderer_pixbuf_get_gicon(gtksourceGutterRendererPixbufPointer)!!.run {
-            Icon.wrap(reinterpret())
+            Icon.IconImpl(reinterpret())
         }
 
     public open fun getIconName(): String =

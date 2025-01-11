@@ -28,9 +28,8 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitGeolocationPosition> = pointer
-
+public class GeolocationPosition(public val webkitGeolocationPositionPointer: CPointer<WebKitGeolocationPosition>) :
+    ProxyInstance(webkitGeolocationPositionPointer) {
     /**
      * Make a copy of the #WebKitGeolocationPosition.
      *
@@ -38,7 +37,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun copy(): GeolocationPosition = webkit_geolocation_position_copy(gPointer)!!.run {
+    public fun copy(): GeolocationPosition = webkit_geolocation_position_copy(webkitGeolocationPositionPointer)!!.run {
         GeolocationPosition(this)
     }
 
@@ -48,7 +47,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun free(): Unit = webkit_geolocation_position_free(gPointer)
+    public fun free(): Unit = webkit_geolocation_position_free(webkitGeolocationPositionPointer)
 
     /**
      * Set the @position altitude.
@@ -57,7 +56,8 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setAltitude(altitude: gdouble): Unit = webkit_geolocation_position_set_altitude(gPointer, altitude)
+    public fun setAltitude(altitude: gdouble): Unit =
+        webkit_geolocation_position_set_altitude(webkitGeolocationPositionPointer, altitude)
 
     /**
      * Set the accuracy of @position altitude.
@@ -67,7 +67,7 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      */
     @WebKitVersion2_26
     public fun setAltitudeAccuracy(altitudeAccuracy: gdouble): Unit =
-        webkit_geolocation_position_set_altitude_accuracy(gPointer, altitudeAccuracy)
+        webkit_geolocation_position_set_altitude_accuracy(webkitGeolocationPositionPointer, altitudeAccuracy)
 
     /**
      * Set the @position heading.
@@ -79,7 +79,8 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setHeading(heading: gdouble): Unit = webkit_geolocation_position_set_heading(gPointer, heading)
+    public fun setHeading(heading: gdouble): Unit =
+        webkit_geolocation_position_set_heading(webkitGeolocationPositionPointer, heading)
 
     /**
      * Set the @position speed.
@@ -88,7 +89,8 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setSpeed(speed: gdouble): Unit = webkit_geolocation_position_set_speed(gPointer, speed)
+    public fun setSpeed(speed: gdouble): Unit =
+        webkit_geolocation_position_set_speed(webkitGeolocationPositionPointer, speed)
 
     /**
      * Set the @position timestamp.
@@ -99,7 +101,8 @@ public class GeolocationPosition(pointer: CPointer<WebKitGeolocationPosition>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun setTimestamp(timestamp: guint64): Unit = webkit_geolocation_position_set_timestamp(gPointer, timestamp)
+    public fun setTimestamp(timestamp: guint64): Unit =
+        webkit_geolocation_position_set_timestamp(webkitGeolocationPositionPointer, timestamp)
 
     public companion object {
         /**

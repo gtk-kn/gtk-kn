@@ -35,12 +35,9 @@ import kotlin.Unit
  * - parameter `bytes`: bytes: Out parameter is not supported
  * - parameter `bytes`: Array parameter of type guint8 is not supported
  */
-public open class Coverage(pointer: CPointer<PangoCoverage>) :
-    Object(pointer.reinterpret()),
+public open class Coverage(public val pangoCoveragePointer: CPointer<PangoCoverage>) :
+    Object(pangoCoveragePointer.reinterpret()),
     KGTyped {
-    public val pangoCoveragePointer: CPointer<PangoCoverage>
-        get() = gPointer.reinterpret()
-
     /**
      * Create a new `PangoCoverage`
      *

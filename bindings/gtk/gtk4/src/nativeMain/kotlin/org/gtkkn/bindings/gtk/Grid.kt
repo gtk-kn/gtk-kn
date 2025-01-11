@@ -132,24 +132,21 @@ import kotlin.Unit
  *
  * - parameter `column`: column: Out parameter is not supported
  */
-public open class Grid(pointer: CPointer<GtkGrid>) :
-    Widget(pointer.reinterpret()),
+public open class Grid(public val gtkGridPointer: CPointer<GtkGrid>) :
+    Widget(gtkGridPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkGridPointer: CPointer<GtkGrid>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The row to align to the baseline when valign is using baseline alignment.
@@ -311,7 +308,7 @@ public open class Grid(pointer: CPointer<GtkGrid>) :
      */
     public open fun getChildAt(column: gint, row: gint): Widget? =
         gtk_grid_get_child_at(gtkGridPointer, column, row)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

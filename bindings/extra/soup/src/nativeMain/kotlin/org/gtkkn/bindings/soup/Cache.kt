@@ -30,15 +30,12 @@ import kotlin.Unit
  * - method `cache-dir`: Property has no getter nor setter
  * - method `cache-type`: Property has no getter nor setter
  */
-public open class Cache(pointer: CPointer<SoupCache>) :
-    Object(pointer.reinterpret()),
+public open class Cache(public val soupCachePointer: CPointer<SoupCache>) :
+    Object(soupCachePointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupCachePointer: CPointer<SoupCache>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #SoupCache.

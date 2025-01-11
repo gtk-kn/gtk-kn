@@ -56,20 +56,17 @@ import kotlin.Unit
  * @since 1.5
  */
 @AdwVersion1_5
-public open class PreferencesDialog(pointer: CPointer<AdwPreferencesDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class PreferencesDialog(public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>) :
+    Dialog(adwPreferencesDialogPointer.reinterpret()),
     KGTyped {
-    public val adwPreferencesDialogPointer: CPointer<AdwPreferencesDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether search is enabled.

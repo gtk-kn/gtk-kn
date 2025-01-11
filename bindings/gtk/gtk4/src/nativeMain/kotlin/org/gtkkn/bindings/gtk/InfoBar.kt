@@ -124,20 +124,17 @@ import kotlin.Unit
  * - method `add_buttons`: Varargs parameter is not supported
  * - constructor `new_with_buttons`: Varargs parameter is not supported
  */
-public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
-    Widget(pointer.reinterpret()),
+public open class InfoBar(public val gtkInfoBarPointer: CPointer<GtkInfoBar>) :
+    Widget(gtkInfoBarPointer.reinterpret()),
     KGTyped {
-    public val gtkInfoBarPointer: CPointer<GtkInfoBar>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The type of the message.
@@ -319,7 +316,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      */
     public fun onClose(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkInfoBarPointer,
             "close",
             onCloseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -331,7 +328,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * Emits the "close" signal. See [onClose].
      */
     public fun emitClose() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "close")
+        g_signal_emit_by_name(gtkInfoBarPointer.reinterpret(), "close")
     }
 
     /**
@@ -346,7 +343,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      */
     public fun onResponse(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (responseId: gint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkInfoBarPointer,
             "response",
             onResponseFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -360,7 +357,7 @@ public open class InfoBar(pointer: CPointer<GtkInfoBar>) :
      * @param responseId the response ID
      */
     public fun emitResponse(responseId: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "response", responseId)
+        g_signal_emit_by_name(gtkInfoBarPointer.reinterpret(), "response", responseId)
     }
 
     public companion object : TypeCompanion<InfoBar> {

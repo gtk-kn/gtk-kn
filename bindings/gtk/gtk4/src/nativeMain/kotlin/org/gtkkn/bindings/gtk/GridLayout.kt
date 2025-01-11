@@ -45,12 +45,9 @@ import kotlin.Unit
  * attached to the same row or column; however, if you only ever need a
  * single row or column, you should consider using `GtkBoxLayout`.
  */
-public open class GridLayout(pointer: CPointer<GtkGridLayout>) :
-    LayoutManager(pointer.reinterpret()),
+public open class GridLayout(public val gtkGridLayoutPointer: CPointer<GtkGridLayout>) :
+    LayoutManager(gtkGridLayoutPointer.reinterpret()),
     KGTyped {
-    public val gtkGridLayoutPointer: CPointer<GtkGridLayout>
-        get() = gPointer.reinterpret()
-
     /**
      * The row to align to the baseline, when `GtkWidget:valign` is set
      * to %GTK_ALIGN_BASELINE.

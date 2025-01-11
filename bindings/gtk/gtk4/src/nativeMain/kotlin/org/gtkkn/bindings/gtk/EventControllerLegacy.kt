@@ -32,12 +32,10 @@ import kotlin.ULong
  * It should only be used as a last resort if none of the other event
  * controllers or gestures do the job.
  */
-public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLegacy>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerLegacy(
+    public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>,
+) : EventController(gtkEventControllerLegacyPointer.reinterpret()),
     KGTyped {
-    public val gtkEventControllerLegacyPointer: CPointer<GtkEventControllerLegacy>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new legacy event controller.
      *
@@ -54,7 +52,7 @@ public open class EventControllerLegacy(pointer: CPointer<GtkEventControllerLega
      */
     public fun onEvent(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (event: Event) -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerLegacyPointer,
             "event",
             onEventFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -86,7 +84,7 @@ private val onEventFunc: CPointer<CFunction<(CPointer<GdkEvent>) -> gboolean>> =
     ->
     userData.asStableRef<(event: Event) -> Boolean>().get().invoke(
         event!!.run {
-            Event(this)
+            Event.EventImpl(this)
         }
     ).asGBoolean()
 }

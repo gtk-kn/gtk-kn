@@ -36,12 +36,9 @@ import kotlin.collections.List
  * Use [class@LanguageManager] to obtain a `GtkSourceLanguage` instance, and
  * [method@Buffer.set_language] to apply it to a [class@Buffer].
  */
-public open class Language(pointer: CPointer<GtkSourceLanguage>) :
-    Object(pointer.reinterpret()),
+public open class Language(public val gtksourceLanguagePointer: CPointer<GtkSourceLanguage>) :
+    Object(gtksourceLanguagePointer.reinterpret()),
     KGTyped {
-    public val gtksourceLanguagePointer: CPointer<GtkSourceLanguage>
-        get() = gPointer.reinterpret()
-
     public open val hidden: Boolean
         /**
          * Returns whether the language should be hidden from the user.

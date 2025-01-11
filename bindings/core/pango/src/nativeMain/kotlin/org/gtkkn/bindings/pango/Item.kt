@@ -28,40 +28,38 @@ import kotlin.Unit
  *
  * - field `analysis`: Field with not-pointer record/union PangoAnalysis is not supported
  */
-public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoItem> = pointer
-
+public class Item(public val pangoItemPointer: CPointer<PangoItem>) : ProxyInstance(pangoItemPointer) {
     /**
      * byte offset of the start of this item in text.
      */
     public var offset: gint
-        get() = gPointer.pointed.offset
+        get() = pangoItemPointer.pointed.offset
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.offset = value
+            pangoItemPointer.pointed.offset = value
         }
 
     /**
      * length of this item in bytes.
      */
     public var length: gint
-        get() = gPointer.pointed.length
+        get() = pangoItemPointer.pointed.length
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.length = value
+            pangoItemPointer.pointed.length = value
         }
 
     /**
      * number of Unicode characters in the item.
      */
     public var numChars: gint
-        get() = gPointer.pointed.num_chars
+        get() = pangoItemPointer.pointed.num_chars
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.num_chars = value
+            pangoItemPointer.pointed.num_chars = value
         }
 
     /**
@@ -81,21 +79,22 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
      * @since 1.44
      */
     @PangoVersion1_44
-    public fun applyAttrs(iter: AttrIterator): Unit = pango_item_apply_attrs(gPointer, iter.gPointer)
+    public fun applyAttrs(iter: AttrIterator): Unit =
+        pango_item_apply_attrs(pangoItemPointer, iter.pangoAttrIteratorPointer)
 
     /**
      * Copy an existing `PangoItem` structure.
      *
      * @return the newly allocated `PangoItem`
      */
-    public fun copy(): Item? = pango_item_copy(gPointer)?.run {
+    public fun copy(): Item? = pango_item_copy(pangoItemPointer)?.run {
         Item(this)
     }
 
     /**
      * Free a `PangoItem` and all associated memory.
      */
-    public fun free(): Unit = pango_item_free(gPointer)
+    public fun free(): Unit = pango_item_free(pangoItemPointer)
 
     /**
      * Modifies @orig to cover only the text after @split_index, and
@@ -118,7 +117,7 @@ public class Item(pointer: CPointer<PangoItem>) : ProxyInstance(pointer) {
      *   should be freed with [method@Pango.Item.free].
      */
     public fun split(splitIndex: gint, splitOffset: gint): Item =
-        pango_item_split(gPointer, splitIndex, splitOffset)!!.run {
+        pango_item_split(pangoItemPointer, splitIndex, splitOffset)!!.run {
             Item(this)
         }
 

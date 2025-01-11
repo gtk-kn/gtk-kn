@@ -38,28 +38,25 @@ import org.gtkkn.native.gtk.GtkScrollable
  * The primary use case for `AdwClampScrollable` is clamping
  * [class@Gtk.ListView].
  */
-public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
-    Widget(pointer.reinterpret()),
+public class ClampScrollable(public val adwClampScrollablePointer: CPointer<AdwClampScrollable>) :
+    Widget(adwClampScrollablePointer.reinterpret()),
     Orientable,
     Scrollable,
     KGTyped {
-    public val adwClampScrollablePointer: CPointer<AdwClampScrollable>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget of the `AdwClampScrollable`.
@@ -71,7 +68,7 @@ public class ClampScrollable(pointer: CPointer<AdwClampScrollable>) :
          * @return the child widget of @self
          */
         get() = adw_clamp_scrollable_get_child(adwClampScrollablePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

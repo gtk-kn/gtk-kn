@@ -181,12 +181,9 @@ import kotlin.Unit
  * - method `title`: Property TypeInfo of getter and setter do not match
  * - constructor `new_format`: Varargs parameter is not supported
  */
-public class Toast(pointer: CPointer<AdwToast>) :
-    Object(pointer.reinterpret()),
+public class Toast(public val adwToastPointer: CPointer<AdwToast>) :
+    Object(adwToastPointer.reinterpret()),
     KGTyped {
-    public val adwToastPointer: CPointer<AdwToast>
-        get() = gPointer.reinterpret()
-
     /**
      * The name of the associated action.
      *
@@ -262,7 +259,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
          * @since 1.2
          */
         get() = adw_toast_get_custom_title(adwToastPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -421,7 +418,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      * @param actionTarget the action target
      */
     public fun setActionTargetValue(actionTarget: Variant? = null): Unit =
-        adw_toast_set_action_target_value(adwToastPointer, actionTarget?.gPointer)
+        adw_toast_set_action_target_value(adwToastPointer, actionTarget?.glibVariantPointer)
 
     /**
      * Sets the action name and its parameter.
@@ -459,7 +456,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
     @AdwVersion1_2
     public fun onButtonClicked(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwToastPointer,
             "button-clicked",
             onButtonClickedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -474,7 +471,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      */
     @AdwVersion1_2
     public fun emitButtonClicked() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "button-clicked")
+        g_signal_emit_by_name(adwToastPointer.reinterpret(), "button-clicked")
     }
 
     /**
@@ -485,7 +482,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      */
     public fun onDismissed(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            adwToastPointer,
             "dismissed",
             onDismissedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -497,7 +494,7 @@ public class Toast(pointer: CPointer<AdwToast>) :
      * Emits the "dismissed" signal. See [onDismissed].
      */
     public fun emitDismissed() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "dismissed")
+        g_signal_emit_by_name(adwToastPointer.reinterpret(), "dismissed")
     }
 
     public companion object : TypeCompanion<Toast> {

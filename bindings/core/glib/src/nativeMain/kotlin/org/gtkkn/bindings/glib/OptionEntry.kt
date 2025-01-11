@@ -26,9 +26,8 @@ import kotlin.native.ref.createCleaner
  * must be added to a #GOptionGroup with g_option_context_add_main_entries()
  * or g_option_group_add_entries().
  */
-public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GOptionEntry> = pointer
-
+public class OptionEntry(public val glibOptionEntryPointer: CPointer<GOptionEntry>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibOptionEntryPointer) {
     /**
      * The long name of an option can be used to specify it
      *     in a commandline as `--long_name`. Every option must have a
@@ -37,12 +36,12 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     `--groupname-long_name`.
      */
     public var longName: String?
-        get() = gPointer.pointed.long_name?.toKString()
+        get() = glibOptionEntryPointer.pointed.long_name?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.long_name?.let { g_free(it) }
-            gPointer.pointed.long_name = value?.let { g_strdup(it) }
+            glibOptionEntryPointer.pointed.long_name?.let { g_free(it) }
+            glibOptionEntryPointer.pointed.long_name = value?.let { g_strdup(it) }
         }
 
     /**
@@ -52,35 +51,35 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     short name.
      */
     public var shortName: Char
-        get() = gPointer.pointed.short_name.toInt().toChar()
+        get() = glibOptionEntryPointer.pointed.short_name.toInt().toChar()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.short_name = value.code.toByte()
+            glibOptionEntryPointer.pointed.short_name = value.code.toByte()
         }
 
     /**
      * Flags from #GOptionFlags
      */
     public var flags: gint
-        get() = gPointer.pointed.flags
+        get() = glibOptionEntryPointer.pointed.flags
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.flags = value
+            glibOptionEntryPointer.pointed.flags = value
         }
 
     /**
      * The type of the option, as a #GOptionArg
      */
     public var arg: OptionArg
-        get() = gPointer.pointed.arg.run {
+        get() = glibOptionEntryPointer.pointed.arg.run {
             OptionArg.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.arg = value.nativeValue
+            glibOptionEntryPointer.pointed.arg = value.nativeValue
         }
 
     /**
@@ -103,11 +102,11 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
      */
     public var argData: gpointer
-        get() = gPointer.pointed.arg_data!!
+        get() = glibOptionEntryPointer.pointed.arg_data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.arg_data = value
+            glibOptionEntryPointer.pointed.arg_data = value
         }
 
     /**
@@ -116,12 +115,12 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     of the group, see g_option_group_set_translation_domain().
      */
     public var description: String?
-        get() = gPointer.pointed.description?.toKString()
+        get() = glibOptionEntryPointer.pointed.description?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.description?.let { g_free(it) }
-            gPointer.pointed.description = value?.let { g_strdup(it) }
+            glibOptionEntryPointer.pointed.description?.let { g_free(it) }
+            glibOptionEntryPointer.pointed.description = value?.let { g_strdup(it) }
         }
 
     /**
@@ -131,12 +130,12 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *     g_option_group_set_translation_domain().
      */
     public var argDescription: String?
-        get() = gPointer.pointed.arg_description?.toKString()
+        get() = glibOptionEntryPointer.pointed.arg_description?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.arg_description?.let { g_free(it) }
-            gPointer.pointed.arg_description = value?.let { g_strdup(it) }
+            glibOptionEntryPointer.pointed.arg_description?.let { g_free(it) }
+            glibOptionEntryPointer.pointed.arg_description = value?.let { g_strdup(it) }
         }
 
     /**
@@ -157,7 +156,9 @@ public class OptionEntry(pointer: CPointer<GOptionEntry>, cleaner: Cleaner? = nu
      *
      * @param pair A pair containing the pointer to OptionEntry and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GOptionEntry>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GOptionEntry>, Cleaner>,
+    ) : this(glibOptionEntryPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new OptionEntry using the provided [AutofreeScope].

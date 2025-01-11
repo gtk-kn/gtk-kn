@@ -42,40 +42,39 @@ import kotlin.native.ref.createCleaner
  * (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will
  * be clamped to this range when drawing.
  */
-public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GdkRGBA> = pointer
-
+public class Rgba(public val gdkRgbaPointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) :
+    ProxyInstance(gdkRgbaPointer) {
     /**
      * The intensity of the red channel from 0.0 to 1.0 inclusive
      */
     public var red: gfloat
-        get() = gPointer.pointed.red
+        get() = gdkRgbaPointer.pointed.red
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.red = value
+            gdkRgbaPointer.pointed.red = value
         }
 
     /**
      * The intensity of the green channel from 0.0 to 1.0 inclusive
      */
     public var green: gfloat
-        get() = gPointer.pointed.green
+        get() = gdkRgbaPointer.pointed.green
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.green = value
+            gdkRgbaPointer.pointed.green = value
         }
 
     /**
      * The intensity of the blue channel from 0.0 to 1.0 inclusive
      */
     public var blue: gfloat
-        get() = gPointer.pointed.blue
+        get() = gdkRgbaPointer.pointed.blue
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.blue = value
+            gdkRgbaPointer.pointed.blue = value
         }
 
     /**
@@ -83,11 +82,11 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *   1.0 for opaque
      */
     public var alpha: gfloat
-        get() = gPointer.pointed.alpha
+        get() = gdkRgbaPointer.pointed.alpha
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.alpha = value
+            gdkRgbaPointer.pointed.alpha = value
         }
 
     /**
@@ -108,7 +107,9 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @param pair A pair containing the pointer to Rgba and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GdkRGBA>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GdkRGBA>, Cleaner>,
+    ) : this(gdkRgbaPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Rgba using the provided [AutofreeScope].
@@ -175,7 +176,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return A newly allocated `GdkRGBA`, with the same contents as @rgba
      */
-    public fun copy(): Rgba = gdk_rgba_copy(gPointer)!!.run {
+    public fun copy(): Rgba = gdk_rgba_copy(gdkRgbaPointer)!!.run {
         Rgba(this)
     }
 
@@ -185,12 +186,12 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      * @param p2 another `GdkRGBA`
      * @return true if the two colors compare equal
      */
-    public fun equal(p2: Rgba): Boolean = gdk_rgba_equal(gPointer, p2.gPointer).asBoolean()
+    public fun equal(p2: Rgba): Boolean = gdk_rgba_equal(gdkRgbaPointer, p2.gdkRgbaPointer).asBoolean()
 
     /**
      * Frees a `GdkRGBA`.
      */
-    public fun free(): Unit = gdk_rgba_free(gPointer)
+    public fun free(): Unit = gdk_rgba_free(gdkRgbaPointer)
 
     /**
      * A hash function suitable for using for a hash
@@ -198,7 +199,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return The hash value for @p
      */
-    public fun hash(): guint = gdk_rgba_hash(gPointer)
+    public fun hash(): guint = gdk_rgba_hash(gdkRgbaPointer)
 
     /**
      * Checks if an @rgba value is transparent.
@@ -207,7 +208,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return true if the @rgba is clear
      */
-    public fun isClear(): Boolean = gdk_rgba_is_clear(gPointer).asBoolean()
+    public fun isClear(): Boolean = gdk_rgba_is_clear(gdkRgbaPointer).asBoolean()
 
     /**
      * Checks if an @rgba value is opaque.
@@ -217,7 +218,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return true if the @rgba is opaque
      */
-    public fun isOpaque(): Boolean = gdk_rgba_is_opaque(gPointer).asBoolean()
+    public fun isOpaque(): Boolean = gdk_rgba_is_opaque(gdkRgbaPointer).asBoolean()
 
     /**
      * Parses a textual representation of a color.
@@ -244,7 +245,7 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      * @param spec the string specifying the color
      * @return true if the parsing succeeded
      */
-    public fun parse(spec: String): Boolean = gdk_rgba_parse(gPointer, spec).asBoolean()
+    public fun parse(spec: String): Boolean = gdk_rgba_parse(gdkRgbaPointer, spec).asBoolean()
 
     /**
      * Returns a textual specification of @rgba in the form
@@ -263,7 +264,8 @@ public class Rgba(pointer: CPointer<GdkRGBA>, cleaner: Cleaner? = null) : ProxyI
      *
      * @return A newly allocated text string
      */
-    override fun toString(): String = gdk_rgba_to_string(gPointer)?.toKString() ?: error("Expected not null string")
+    override fun toString(): String =
+        gdk_rgba_to_string(gdkRgbaPointer)?.toKString() ?: error("Expected not null string")
 
     public companion object {
         /**

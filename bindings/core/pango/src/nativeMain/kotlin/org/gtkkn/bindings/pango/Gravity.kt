@@ -78,9 +78,10 @@ public enum class Gravity(public val nativeValue: PangoGravity) {
          * @since 1.16
          */
         @PangoVersion1_16
-        public fun getForMatrix(matrix: Matrix? = null): Gravity = pango_gravity_get_for_matrix(matrix?.gPointer).run {
-            Gravity.fromNativeValue(this)
-        }
+        public fun getForMatrix(matrix: Matrix? = null): Gravity =
+            pango_gravity_get_for_matrix(matrix?.pangoMatrixPointer).run {
+                Gravity.fromNativeValue(this)
+            }
 
         /**
          * Returns the gravity to use in laying out a `PangoItem`.

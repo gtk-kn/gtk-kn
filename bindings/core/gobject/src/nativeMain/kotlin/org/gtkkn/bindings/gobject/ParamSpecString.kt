@@ -9,7 +9,5 @@ import org.gtkkn.native.gobject.GParamSpecString
  * A #GParamSpec derived structure that contains the meta data for string
  * properties.
  */
-public open class ParamSpecString(pointer: CPointer<GParamSpecString>) : ParamSpec(pointer.reinterpret()) {
-    public val gobjectParamSpecStringPointer: CPointer<GParamSpecString>
-        get() = gPointer.reinterpret()
-}
+public open class ParamSpecString(public val gobjectParamSpecStringPointer: CPointer<GParamSpecString>) :
+    ParamSpec(gobjectParamSpecStringPointer.reinterpret())

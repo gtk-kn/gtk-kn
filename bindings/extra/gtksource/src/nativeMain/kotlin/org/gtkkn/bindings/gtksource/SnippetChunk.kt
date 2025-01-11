@@ -44,12 +44,9 @@ import kotlin.Unit
  *
  * - method `spec`: Property TypeInfo of getter and setter do not match
  */
-public open class SnippetChunk(pointer: CPointer<GtkSourceSnippetChunk>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public open class SnippetChunk(public val gtksourceSnippetChunkPointer: CPointer<GtkSourceSnippetChunk>) :
+    InitiallyUnowned(gtksourceSnippetChunkPointer.reinterpret()),
     KGTyped {
-    public val gtksourceSnippetChunkPointer: CPointer<GtkSourceSnippetChunk>
-        get() = gPointer.reinterpret()
-
     public open var context: SnippetContext
         /**
          * Gets the context for the snippet insertion.

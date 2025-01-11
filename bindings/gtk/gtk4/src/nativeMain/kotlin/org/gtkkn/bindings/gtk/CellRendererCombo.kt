@@ -47,12 +47,9 @@ import kotlin.Unit
  * - method `model`: Property has no getter nor setter
  * - method `text-column`: Property has no getter nor setter
  */
-public open class CellRendererCombo(pointer: CPointer<GtkCellRendererCombo>) :
-    CellRendererText(pointer.reinterpret()),
+public open class CellRendererCombo(public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>) :
+    CellRendererText(gtkCellRendererComboPointer.reinterpret()),
     KGTyped {
-    public val gtkCellRendererComboPointer: CPointer<GtkCellRendererCombo>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkCellRendererCombo`.
      * Adjust how text is drawn using object properties.
@@ -88,7 +85,7 @@ public open class CellRendererCombo(pointer: CPointer<GtkCellRendererCombo>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (pathString: String, newIter: TreeIter) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkCellRendererComboPointer,
         "changed",
         onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -105,7 +102,12 @@ public open class CellRendererCombo(pointer: CPointer<GtkCellRendererCombo>) :
      *            (relative to the combo box model)
      */
     public fun emitChanged(pathString: String, newIter: TreeIter) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed", pathString.cstr, newIter.gPointer)
+        g_signal_emit_by_name(
+            gtkCellRendererComboPointer.reinterpret(),
+            "changed",
+            pathString.cstr,
+            newIter.gtkTreeIterPointer
+        )
     }
 
     public companion object : TypeCompanion<CellRendererCombo> {

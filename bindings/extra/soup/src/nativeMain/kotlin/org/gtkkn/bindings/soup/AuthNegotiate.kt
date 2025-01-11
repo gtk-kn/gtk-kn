@@ -25,12 +25,9 @@ import kotlin.Boolean
  * support; you can check [func@AuthNegotiate.supported] to see if it
  * was.
  */
-public class AuthNegotiate(pointer: CPointer<SoupAuth>) :
-    Auth(pointer.reinterpret()),
+public class AuthNegotiate(public val soupAuthNegotiatePointer: CPointer<SoupAuth>) :
+    Auth(soupAuthNegotiatePointer.reinterpret()),
     KGTyped {
-    public val soupAuthNegotiatePointer: CPointer<SoupAuth>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<AuthNegotiate> {
         override val type: GeneratedClassKGType<AuthNegotiate> =
             GeneratedClassKGType(soup_auth_negotiate_get_type()) { AuthNegotiate(it.reinterpret()) }

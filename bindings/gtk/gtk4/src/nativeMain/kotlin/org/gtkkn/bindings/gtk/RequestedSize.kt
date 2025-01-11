@@ -22,40 +22,39 @@ import kotlin.native.ref.createCleaner
  * are primarily used in container implementations when allocating a natural
  * size for children calling. See [func@distribute_natural_allocation].
  */
-public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkRequestedSize> = pointer
-
+public class RequestedSize(public val gtkRequestedSizePointer: CPointer<GtkRequestedSize>, cleaner: Cleaner? = null) :
+    ProxyInstance(gtkRequestedSizePointer) {
     /**
      * A client pointer
      */
     public var `data`: gpointer
-        get() = gPointer.pointed.data!!
+        get() = gtkRequestedSizePointer.pointed.data!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.data = value
+            gtkRequestedSizePointer.pointed.data = value
         }
 
     /**
      * The minimum size needed for allocation in a given orientation
      */
     public var minimumSize: gint
-        get() = gPointer.pointed.minimum_size
+        get() = gtkRequestedSizePointer.pointed.minimum_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.minimum_size = value
+            gtkRequestedSizePointer.pointed.minimum_size = value
         }
 
     /**
      * The natural size for allocation in a given orientation
      */
     public var naturalSize: gint
-        get() = gPointer.pointed.natural_size
+        get() = gtkRequestedSizePointer.pointed.natural_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.natural_size = value
+            gtkRequestedSizePointer.pointed.natural_size = value
         }
 
     /**
@@ -78,7 +77,7 @@ public class RequestedSize(pointer: CPointer<GtkRequestedSize>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<GtkRequestedSize>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gtkRequestedSizePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RequestedSize using the provided [AutofreeScope].

@@ -184,12 +184,9 @@ import kotlin.Unit
  * - method `user-agent`: Property TypeInfo of getter and setter do not match
  * - constructor `new_with_settings`: Varargs parameter is not supported
  */
-public class Settings(pointer: CPointer<WebKitSettings>) :
-    Object(pointer.reinterpret()),
+public class Settings(public val webkitSettingsPointer: CPointer<WebKitSettings>) :
+    Object(webkitSettingsPointer.reinterpret()),
     KGTyped {
-    public val webkitSettingsPointer: CPointer<WebKitSettings>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether file access is allowed from file URLs. By default, when
      * something is loaded in a #WebKitWebView using a file URI, cross
@@ -1451,7 +1448,7 @@ public class Settings(pointer: CPointer<WebKitSettings>) :
         val gError = allocPointerTo<GError>()
         val gResult = webkit_settings_apply_from_key_file(
             webkitSettingsPointer,
-            keyFile.gPointer,
+            keyFile.glibKeyFilePointer,
             groupName,
             gError.ptr
         ).asBoolean()
@@ -1471,7 +1468,7 @@ public class Settings(pointer: CPointer<WebKitSettings>) :
      */
     @WebKitVersion2_42
     public fun getFeatureEnabled(feature: Feature): Boolean =
-        webkit_settings_get_feature_enabled(webkitSettingsPointer, feature.gPointer).asBoolean()
+        webkit_settings_get_feature_enabled(webkitSettingsPointer, feature.webkitFeaturePointer).asBoolean()
 
     /**
      * Gets the #WebKitSettings:media-content-types-requiring-hardware-support property.
@@ -1506,7 +1503,7 @@ public class Settings(pointer: CPointer<WebKitSettings>) :
      */
     @WebKitVersion2_42
     public fun setFeatureEnabled(feature: Feature, enabled: Boolean): Unit =
-        webkit_settings_set_feature_enabled(webkitSettingsPointer, feature.gPointer, enabled.asGBoolean())
+        webkit_settings_set_feature_enabled(webkitSettingsPointer, feature.webkitFeaturePointer, enabled.asGBoolean())
 
     /**
      * Set the #WebKitSettings:media-content-types-requiring-hardware-support property.

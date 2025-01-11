@@ -66,12 +66,9 @@ import kotlin.Unit
  * @since 2.72
  */
 @GObjectVersion2_72
-public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
-    Object(pointer.reinterpret()),
+public open class SignalGroup(public val gobjectSignalGroupPointer: CPointer<GSignalGroup>) :
+    Object(gobjectSignalGroupPointer.reinterpret()),
     KGTyped {
-    public val gobjectSignalGroupPointer: CPointer<GSignalGroup>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GSignalGroup for target instances of @target_type.
      *
@@ -144,7 +141,12 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      */
     @GObjectVersion2_74
     public open fun connectClosure(detailedSignal: String, closure: Closure, after: Boolean): Unit =
-        g_signal_group_connect_closure(gobjectSignalGroupPointer, detailedSignal, closure.gPointer, after.asGBoolean())
+        g_signal_group_connect_closure(
+            gobjectSignalGroupPointer,
+            detailedSignal,
+            closure.gobjectClosurePointer,
+            after.asGBoolean()
+        )
 
     /**
      * Connects @c_handler to the signal @detailed_signal
@@ -214,7 +216,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      */
     @GObjectVersion2_72
     public open fun setTarget(target: Object? = null): Unit =
-        g_signal_group_set_target(gobjectSignalGroupPointer, target?.gPointer?.reinterpret())
+        g_signal_group_set_target(gobjectSignalGroupPointer, target?.gobjectObjectPointer?.reinterpret())
 
     /**
      * Unblocks all signal handlers managed by @self so they will be
@@ -240,7 +242,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
     @GObjectVersion2_72
     public fun onBind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (instance: Object) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gobjectSignalGroupPointer,
             "bind",
             onBindFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -256,7 +258,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      */
     @GObjectVersion2_72
     public fun emitBind(instance: Object) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "bind", instance.gPointer)
+        g_signal_emit_by_name(gobjectSignalGroupPointer.reinterpret(), "bind", instance.gobjectObjectPointer)
     }
 
     /**
@@ -273,7 +275,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
     @GObjectVersion2_72
     public fun onUnbind(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gobjectSignalGroupPointer,
             "unbind",
             onUnbindFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -288,7 +290,7 @@ public open class SignalGroup(pointer: CPointer<GSignalGroup>) :
      */
     @GObjectVersion2_72
     public fun emitUnbind() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "unbind")
+        g_signal_emit_by_name(gobjectSignalGroupPointer.reinterpret(), "unbind")
     }
 
     public companion object : TypeCompanion<SignalGroup> {

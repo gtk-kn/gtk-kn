@@ -24,20 +24,19 @@ import kotlin.native.ref.createCleaner
  *
  * - field `attr`: Field with not-pointer record/union PangoAttribute is not supported
  */
-public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrFontDesc> = pointer
-
+public class AttrFontDesc(public val pangoAttrFontDescPointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner? = null) :
+    ProxyInstance(pangoAttrFontDescPointer) {
     /**
      * the font description which is the value of this attribute
      */
     public var desc: FontDescription?
-        get() = gPointer.pointed.desc?.run {
+        get() = pangoAttrFontDescPointer.pointed.desc?.run {
             FontDescription(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.desc = value?.gPointer
+            pangoAttrFontDescPointer.pointed.desc = value?.pangoFontDescriptionPointer
         }
 
     /**
@@ -60,7 +59,7 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrFontDesc>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrFontDescPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrFontDesc using the provided [AutofreeScope].
@@ -109,8 +108,9 @@ public class AttrFontDesc(pointer: CPointer<PangoAttrFontDesc>, cleaner: Cleaner
          *   `PangoAttribute`, which should be freed with
          *   [method@Pango.Attribute.destroy]
          */
-        public fun new(desc: FontDescription): Attribute = pango_attr_font_desc_new(desc.gPointer)!!.run {
-            Attribute(this)
-        }
+        public fun new(desc: FontDescription): Attribute =
+            pango_attr_font_desc_new(desc.pangoFontDescriptionPointer)!!.run {
+                Attribute(this)
+            }
     }
 }

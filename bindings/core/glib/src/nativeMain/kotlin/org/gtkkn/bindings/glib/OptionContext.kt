@@ -47,9 +47,8 @@ import kotlin.Unit
  * - method `parse`: In/Out parameter is not supported
  * - method `parse_strv`: In/Out parameter is not supported
  */
-public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GOptionContext> = pointer
-
+public class OptionContext(public val glibOptionContextPointer: CPointer<GOptionContext>) :
+    ProxyInstance(glibOptionContextPointer) {
     /**
      * Adds a #GOptionGroup to the @context, so that parsing with @context
      * will recognize the options in the group. Note that this will take
@@ -59,7 +58,8 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun addGroup(group: OptionGroup): Unit = g_option_context_add_group(gPointer, group.gPointer)
+    public fun addGroup(group: OptionGroup): Unit =
+        g_option_context_add_group(glibOptionContextPointer, group.glibOptionGroupPointer)
 
     /**
      * Frees context and all the groups which have been
@@ -71,7 +71,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun free(): Unit = g_option_context_free(gPointer)
+    public fun free(): Unit = g_option_context_free(glibOptionContextPointer)
 
     /**
      * Returns the description. See g_option_context_set_description().
@@ -81,7 +81,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_12
     public fun getDescription(): String =
-        g_option_context_get_description(gPointer)?.toKString() ?: error("Expected not null string")
+        g_option_context_get_description(glibOptionContextPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Returns a formatted, translated help text for the given context.
@@ -98,9 +98,12 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.14
      */
     @GLibVersion2_14
-    public fun getHelp(mainHelp: Boolean, group: OptionGroup? = null): String =
-        g_option_context_get_help(gPointer, mainHelp.asGBoolean(), group?.gPointer)?.toKString()
-            ?: error("Expected not null string")
+    public fun getHelp(mainHelp: Boolean, group: OptionGroup? = null): String = g_option_context_get_help(
+        glibOptionContextPointer,
+        mainHelp.asGBoolean(),
+        group?.glibOptionGroupPointer
+    )?.toKString()
+        ?: error("Expected not null string")
 
     /**
      * Returns whether automatic `--help` generation
@@ -110,7 +113,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getHelpEnabled(): Boolean = g_option_context_get_help_enabled(gPointer).asBoolean()
+    public fun getHelpEnabled(): Boolean = g_option_context_get_help_enabled(glibOptionContextPointer).asBoolean()
 
     /**
      * Returns whether unknown options are ignored or not. See
@@ -120,7 +123,8 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getIgnoreUnknownOptions(): Boolean = g_option_context_get_ignore_unknown_options(gPointer).asBoolean()
+    public fun getIgnoreUnknownOptions(): Boolean =
+        g_option_context_get_ignore_unknown_options(glibOptionContextPointer).asBoolean()
 
     /**
      * Returns a pointer to the main group of @context.
@@ -131,7 +135,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun getMainGroup(): OptionGroup = g_option_context_get_main_group(gPointer)!!.run {
+    public fun getMainGroup(): OptionGroup = g_option_context_get_main_group(glibOptionContextPointer)!!.run {
         OptionGroup(this)
     }
 
@@ -144,7 +148,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.44
      */
     @GLibVersion2_44
-    public fun getStrictPosix(): Boolean = g_option_context_get_strict_posix(gPointer).asBoolean()
+    public fun getStrictPosix(): Boolean = g_option_context_get_strict_posix(glibOptionContextPointer).asBoolean()
 
     /**
      * Returns the summary. See g_option_context_set_summary().
@@ -154,7 +158,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_12
     public fun getSummary(): String =
-        g_option_context_get_summary(gPointer)?.toKString() ?: error("Expected not null string")
+        g_option_context_get_summary(glibOptionContextPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Adds a string to be displayed in `--help` output after the list
@@ -169,7 +173,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_12
     public fun setDescription(description: String? = null): Unit =
-        g_option_context_set_description(gPointer, description)
+        g_option_context_set_description(glibOptionContextPointer, description)
 
     /**
      * Enables or disables automatic generation of `--help` output.
@@ -182,7 +186,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_6
     public fun setHelpEnabled(helpEnabled: Boolean): Unit =
-        g_option_context_set_help_enabled(gPointer, helpEnabled.asGBoolean())
+        g_option_context_set_help_enabled(glibOptionContextPointer, helpEnabled.asGBoolean())
 
     /**
      * Sets whether to ignore unknown options or not. If an argument is
@@ -199,7 +203,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_6
     public fun setIgnoreUnknownOptions(ignoreUnknown: Boolean): Unit =
-        g_option_context_set_ignore_unknown_options(gPointer, ignoreUnknown.asGBoolean())
+        g_option_context_set_ignore_unknown_options(glibOptionContextPointer, ignoreUnknown.asGBoolean())
 
     /**
      * Sets a #GOptionGroup as main group of the @context.
@@ -211,7 +215,8 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.6
      */
     @GLibVersion2_6
-    public fun setMainGroup(group: OptionGroup): Unit = g_option_context_set_main_group(gPointer, group.gPointer)
+    public fun setMainGroup(group: OptionGroup): Unit =
+        g_option_context_set_main_group(glibOptionContextPointer, group.glibOptionGroupPointer)
 
     /**
      * Sets strict POSIX mode.
@@ -244,7 +249,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_44
     public fun setStrictPosix(strictPosix: Boolean): Unit =
-        g_option_context_set_strict_posix(gPointer, strictPosix.asGBoolean())
+        g_option_context_set_strict_posix(glibOptionContextPointer, strictPosix.asGBoolean())
 
     /**
      * Adds a string to be displayed in `--help` output before the list
@@ -259,7 +264,8 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setSummary(summary: String? = null): Unit = g_option_context_set_summary(gPointer, summary)
+    public fun setSummary(summary: String? = null): Unit =
+        g_option_context_set_summary(glibOptionContextPointer, summary)
 
     /**
      * Sets the function which is used to translate the contexts
@@ -279,7 +285,7 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      */
     @GLibVersion2_12
     public fun setTranslateFunc(func: TranslateFunc?): Unit = g_option_context_set_translate_func(
-        gPointer,
+        glibOptionContextPointer,
         func?.let {
             TranslateFuncFunc.reinterpret()
         },
@@ -295,7 +301,8 @@ public class OptionContext(pointer: CPointer<GOptionContext>) : ProxyInstance(po
      * @since 2.12
      */
     @GLibVersion2_12
-    public fun setTranslationDomain(domain: String): Unit = g_option_context_set_translation_domain(gPointer, domain)
+    public fun setTranslationDomain(domain: String): Unit =
+        g_option_context_set_translation_domain(glibOptionContextPointer, domain)
 
     public companion object {
         /**

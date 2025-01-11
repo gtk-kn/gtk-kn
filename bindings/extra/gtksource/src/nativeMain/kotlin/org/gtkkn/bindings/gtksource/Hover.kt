@@ -33,12 +33,9 @@ import kotlin.Unit
  *
  * - method `hover-delay`: Property has no getter nor setter
  */
-public open class Hover(pointer: CPointer<GtkSourceHover>) :
-    Object(pointer.reinterpret()),
+public open class Hover(public val gtksourceHoverPointer: CPointer<GtkSourceHover>) :
+    Object(gtksourceHoverPointer.reinterpret()),
     KGTyped {
-    public val gtksourceHoverPointer: CPointer<GtkSourceHover>
-        get() = gPointer.reinterpret()
-
     public open fun addProvider(provider: HoverProvider): Unit =
         gtk_source_hover_add_provider(gtksourceHoverPointer, provider.gtksourceHoverProviderPointer)
 

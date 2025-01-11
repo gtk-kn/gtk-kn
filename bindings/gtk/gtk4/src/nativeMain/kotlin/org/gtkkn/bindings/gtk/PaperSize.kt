@@ -63,22 +63,20 @@ import kotlin.String
  * and height) of a paper size and its name, it also provides
  * default print margins.
  */
-public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GtkPaperSize> = pointer
-
+public class PaperSize(public val gtkPaperSizePointer: CPointer<GtkPaperSize>) : ProxyInstance(gtkPaperSizePointer) {
     /**
      * Copies an existing `GtkPaperSize`.
      *
      * @return a copy of @other
      */
-    public fun copy(): PaperSize = gtk_paper_size_copy(gPointer)!!.run {
+    public fun copy(): PaperSize = gtk_paper_size_copy(gtkPaperSizePointer)!!.run {
         PaperSize(this)
     }
 
     /**
      * Free the given `GtkPaperSize` object.
      */
-    public fun free(): kotlin.Unit = gtk_paper_size_free(gPointer)
+    public fun free(): kotlin.Unit = gtk_paper_size_free(gtkPaperSizePointer)
 
     /**
      * Gets the default bottom margin for the `GtkPaperSize`.
@@ -87,7 +85,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return the default bottom margin
      */
     public fun getDefaultBottomMargin(unit: Unit): gdouble =
-        gtk_paper_size_get_default_bottom_margin(gPointer, unit.nativeValue)
+        gtk_paper_size_get_default_bottom_margin(gtkPaperSizePointer, unit.nativeValue)
 
     /**
      * Gets the default left margin for the `GtkPaperSize`.
@@ -96,7 +94,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return the default left margin
      */
     public fun getDefaultLeftMargin(unit: Unit): gdouble =
-        gtk_paper_size_get_default_left_margin(gPointer, unit.nativeValue)
+        gtk_paper_size_get_default_left_margin(gtkPaperSizePointer, unit.nativeValue)
 
     /**
      * Gets the default right margin for the `GtkPaperSize`.
@@ -105,7 +103,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return the default right margin
      */
     public fun getDefaultRightMargin(unit: Unit): gdouble =
-        gtk_paper_size_get_default_right_margin(gPointer, unit.nativeValue)
+        gtk_paper_size_get_default_right_margin(gtkPaperSizePointer, unit.nativeValue)
 
     /**
      * Gets the default top margin for the `GtkPaperSize`.
@@ -114,7 +112,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return the default top margin
      */
     public fun getDefaultTopMargin(unit: Unit): gdouble =
-        gtk_paper_size_get_default_top_margin(gPointer, unit.nativeValue)
+        gtk_paper_size_get_default_top_margin(gtkPaperSizePointer, unit.nativeValue)
 
     /**
      * Gets the human-readable name of the `GtkPaperSize`.
@@ -122,7 +120,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return the human-readable name of @size
      */
     public fun getDisplayName(): String =
-        gtk_paper_size_get_display_name(gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_paper_size_get_display_name(gtkPaperSizePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the paper height of the `GtkPaperSize`, in
@@ -131,14 +129,15 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the paper height
      */
-    public fun getHeight(unit: Unit): gdouble = gtk_paper_size_get_height(gPointer, unit.nativeValue)
+    public fun getHeight(unit: Unit): gdouble = gtk_paper_size_get_height(gtkPaperSizePointer, unit.nativeValue)
 
     /**
      * Gets the name of the `GtkPaperSize`.
      *
      * @return the name of @size
      */
-    public fun getName(): String = gtk_paper_size_get_name(gPointer)?.toKString() ?: error("Expected not null string")
+    public fun getName(): String =
+        gtk_paper_size_get_name(gtkPaperSizePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the PPD name of the `GtkPaperSize`, which
@@ -147,7 +146,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return the PPD name of @size
      */
     public fun getPpdName(): String =
-        gtk_paper_size_get_ppd_name(gPointer)?.toKString() ?: error("Expected not null string")
+        gtk_paper_size_get_ppd_name(gtkPaperSizePointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the paper width of the `GtkPaperSize`, in
@@ -156,14 +155,14 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @param unit the unit for the return value, not %GTK_UNIT_NONE
      * @return the paper width
      */
-    public fun getWidth(unit: Unit): gdouble = gtk_paper_size_get_width(gPointer, unit.nativeValue)
+    public fun getWidth(unit: Unit): gdouble = gtk_paper_size_get_width(gtkPaperSizePointer, unit.nativeValue)
 
     /**
      * Returns true if @size is not a standard paper size.
      *
      * @return whether @size is a custom paper size.
      */
-    public fun isCustom(): Boolean = gtk_paper_size_is_custom(gPointer).asBoolean()
+    public fun isCustom(): Boolean = gtk_paper_size_is_custom(gtkPaperSizePointer).asBoolean()
 
     /**
      * Compares two `GtkPaperSize` objects.
@@ -172,14 +171,15 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @return true, if @size1 and @size2
      * represent the same paper size
      */
-    public fun isEqual(size2: PaperSize): Boolean = gtk_paper_size_is_equal(gPointer, size2.gPointer).asBoolean()
+    public fun isEqual(size2: PaperSize): Boolean =
+        gtk_paper_size_is_equal(gtkPaperSizePointer, size2.gtkPaperSizePointer).asBoolean()
 
     /**
      * Returns true if @size is an IPP standard paper size.
      *
      * @return whether @size is not an IPP custom paper size.
      */
-    public fun isIpp(): Boolean = gtk_paper_size_is_ipp(gPointer).asBoolean()
+    public fun isIpp(): Boolean = gtk_paper_size_is_ipp(gtkPaperSizePointer).asBoolean()
 
     /**
      * Changes the dimensions of a @size to @width x @height.
@@ -189,14 +189,14 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @param unit the unit for @width and @height
      */
     public fun setSize(width: gdouble, height: gdouble, unit: Unit): kotlin.Unit =
-        gtk_paper_size_set_size(gPointer, width, height, unit.nativeValue)
+        gtk_paper_size_set_size(gtkPaperSizePointer, width, height, unit.nativeValue)
 
     /**
      * Serialize a paper size to an `a{sv}` variant.
      *
      * @return a new, floating, `GVariant`
      */
-    public fun toGvariant(): Variant = gtk_paper_size_to_gvariant(gPointer)!!.run {
+    public fun toGvariant(): Variant = gtk_paper_size_to_gvariant(gtkPaperSizePointer)!!.run {
         Variant(this)
     }
 
@@ -207,7 +207,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
      * @param groupName the group to add the settings to in @key_file
      */
     public fun toKeyFile(keyFile: KeyFile, groupName: String): kotlin.Unit =
-        gtk_paper_size_to_key_file(gPointer, keyFile.gPointer, groupName)
+        gtk_paper_size_to_key_file(gtkPaperSizePointer, keyFile.glibKeyFilePointer, groupName)
 
     public companion object {
         /**
@@ -255,7 +255,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
          * @return a new `GtkPaperSize` object
          */
         public fun newFromGvariant(variant: Variant): PaperSize =
-            PaperSize(gtk_paper_size_new_from_gvariant(variant.gPointer)!!.reinterpret())
+            PaperSize(gtk_paper_size_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
 
         /**
          * Creates a new `GtkPaperSize` object by using
@@ -286,7 +286,7 @@ public class PaperSize(pointer: CPointer<GtkPaperSize>) : ProxyInstance(pointer)
         public fun newFromKeyFile(keyFile: KeyFile, groupName: String? = null): Result<PaperSize> {
             memScoped {
                 val gError = allocPointerTo<GError>()
-                val gResult = gtk_paper_size_new_from_key_file(keyFile.gPointer, groupName, gError.ptr)
+                val gResult = gtk_paper_size_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
                 return if (gError.pointed != null) {
                     Result.failure(resolveException(Error(gError.pointed!!.ptr)))
                 } else {

@@ -42,12 +42,9 @@ import kotlin.Unit
  * - method `contains-focus`: Property has no getter nor setter
  * - method `is-focus`: Property has no getter nor setter
  */
-public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus>) :
-    EventController(pointer.reinterpret()),
+public open class EventControllerFocus(public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>) :
+    EventController(gtkEventControllerFocusPointer.reinterpret()),
     KGTyped {
-    public val gtkEventControllerFocusPointer: CPointer<GtkEventControllerFocus>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new event controller that will handle focus events.
      *
@@ -87,7 +84,7 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      */
     public fun onEnter(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerFocusPointer,
             "enter",
             onEnterFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -99,7 +96,7 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * Emits the "enter" signal. See [onEnter].
      */
     public fun emitEnter() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "enter")
+        g_signal_emit_by_name(gtkEventControllerFocusPointer.reinterpret(), "enter")
     }
 
     /**
@@ -118,7 +115,7 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      */
     public fun onLeave(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkEventControllerFocusPointer,
             "leave",
             onLeaveFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -130,7 +127,7 @@ public open class EventControllerFocus(pointer: CPointer<GtkEventControllerFocus
      * Emits the "leave" signal. See [onLeave].
      */
     public fun emitLeave() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "leave")
+        g_signal_emit_by_name(gtkEventControllerFocusPointer.reinterpret(), "leave")
     }
 
     public companion object : TypeCompanion<EventControllerFocus> {

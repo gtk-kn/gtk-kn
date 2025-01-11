@@ -174,20 +174,17 @@ import kotlin.Boolean
  * @since 1.4
  */
 @AdwVersion1_4
-public class NavigationSplitView(pointer: CPointer<AdwNavigationSplitView>) :
-    Widget(pointer.reinterpret()),
+public class NavigationSplitView(public val adwNavigationSplitViewPointer: CPointer<AdwNavigationSplitView>) :
+    Widget(adwNavigationSplitViewPointer.reinterpret()),
     KGTyped {
-    public val adwNavigationSplitViewPointer: CPointer<AdwNavigationSplitView>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the split view is collapsed.

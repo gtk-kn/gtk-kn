@@ -142,12 +142,9 @@ import kotlin.Unit
  * - parameter `x`: x: Out parameter is not supported
  * - method `n-points`: Property has no getter nor setter
  */
-public open class Gesture(pointer: CPointer<GtkGesture>) :
-    EventController(pointer.reinterpret()),
+public abstract class Gesture(public val gtkGesturePointer: CPointer<GtkGesture>) :
+    EventController(gtkGesturePointer.reinterpret()),
     KGTyped {
-    public val gtkGesturePointer: CPointer<GtkGesture>
-        get() = gPointer.reinterpret()
-
     /**
      * If there are touch sequences being currently handled by @gesture,
      * returns true and fills in @rect with the bounding box containing
@@ -165,7 +162,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @return true if there are active touches, false otherwise
      */
     public open fun getBoundingBox(rect: Rectangle): Boolean =
-        gtk_gesture_get_bounding_box(gtkGesturePointer, rect.gPointer).asBoolean()
+        gtk_gesture_get_bounding_box(gtkGesturePointer, rect.gdkRectanglePointer).asBoolean()
 
     /**
      * Returns the logical `GdkDevice` that is currently operating
@@ -176,7 +173,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @return a `GdkDevice`
      */
     public open fun getDevice(): Device? = gtk_gesture_get_device(gtkGesturePointer)?.run {
-        Device(this)
+        Device.DeviceImpl(this)
     }
 
     /**
@@ -200,8 +197,8 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @return The last event from @sequence
      */
     public open fun getLastEvent(sequence: EventSequence? = null): Event? =
-        gtk_gesture_get_last_event(gtkGesturePointer, sequence?.gPointer)?.run {
-            Event(this)
+        gtk_gesture_get_last_event(gtkGesturePointer, sequence?.gdkEventSequencePointer)?.run {
+            Event.EventImpl(this)
         }
 
     /**
@@ -221,7 +218,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @return The sequence state in @gesture
      */
     public open fun getSequenceState(sequence: EventSequence): EventSequenceState =
-        gtk_gesture_get_sequence_state(gtkGesturePointer, sequence.gPointer).run {
+        gtk_gesture_get_sequence_state(gtkGesturePointer, sequence.gdkEventSequencePointer).run {
             EventSequenceState.fromNativeValue(this)
         }
 
@@ -269,7 +266,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @return true if @gesture is handling @sequence, false otherwise
      */
     public open fun handlesSequence(sequence: EventSequence? = null): Boolean =
-        gtk_gesture_handles_sequence(gtkGesturePointer, sequence?.gPointer).asBoolean()
+        gtk_gesture_handles_sequence(gtkGesturePointer, sequence?.gdkEventSequencePointer).asBoolean()
 
     /**
      * Returns true if the gesture is currently active.
@@ -350,7 +347,11 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      *   and the state is changed successfully
      */
     public open fun setSequenceState(sequence: EventSequence, state: EventSequenceState): Boolean =
-        gtk_gesture_set_sequence_state(gtkGesturePointer, sequence.gPointer, state.nativeValue).asBoolean()
+        gtk_gesture_set_sequence_state(
+            gtkGesturePointer,
+            sequence.gdkEventSequencePointer,
+            state.nativeValue
+        ).asBoolean()
 
     /**
      * Sets the state of all sequences that @gesture is currently
@@ -428,7 +429,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (sequence: EventSequence?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGesturePointer,
         "begin",
         onBeginFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -443,7 +444,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      *   to be recognized
      */
     public fun emitBegin(sequence: EventSequence?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "begin", sequence?.gPointer)
+        g_signal_emit_by_name(gtkGesturePointer.reinterpret(), "begin", sequence?.gdkEventSequencePointer)
     }
 
     /**
@@ -465,7 +466,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (sequence: EventSequence?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGesturePointer,
         "cancel",
         onCancelFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -479,7 +480,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param sequence the `GdkEventSequence` that was cancelled
      */
     public fun emitCancel(sequence: EventSequence?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "cancel", sequence?.gPointer)
+        g_signal_emit_by_name(gtkGesturePointer.reinterpret(), "cancel", sequence?.gdkEventSequencePointer)
     }
 
     /**
@@ -501,7 +502,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (sequence: EventSequence?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGesturePointer,
         "end",
         onEndFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -516,7 +517,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      *   recognition to finish
      */
     public fun emitEnd(sequence: EventSequence?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "end", sequence?.gPointer)
+        g_signal_emit_by_name(gtkGesturePointer.reinterpret(), "end", sequence?.gdkEventSequencePointer)
     }
 
     /**
@@ -532,7 +533,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (sequence: EventSequence?, state: EventSequenceState) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGesturePointer,
         "sequence-state-changed",
         onSequenceStateChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -547,7 +548,12 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param state the new sequence state
      */
     public fun emitSequenceStateChanged(sequence: EventSequence?, state: EventSequenceState) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "sequence-state-changed", sequence?.gPointer, state.nativeValue)
+        g_signal_emit_by_name(
+            gtkGesturePointer.reinterpret(),
+            "sequence-state-changed",
+            sequence?.gdkEventSequencePointer,
+            state.nativeValue
+        )
     }
 
     /**
@@ -562,7 +568,7 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (sequence: EventSequence?) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGesturePointer,
         "update",
         onUpdateFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -576,12 +582,19 @@ public open class Gesture(pointer: CPointer<GtkGesture>) :
      * @param sequence the `GdkEventSequence` that was updated
      */
     public fun emitUpdate(sequence: EventSequence?) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "update", sequence?.gPointer)
+        g_signal_emit_by_name(gtkGesturePointer.reinterpret(), "update", sequence?.gdkEventSequencePointer)
     }
+
+    /**
+     * The GestureImpl type represents a native instance of the abstract Gesture class.
+     *
+     * @constructor Creates a new instance of Gesture for the provided [CPointer].
+     */
+    public class GestureImpl(pointer: CPointer<GtkGesture>) : Gesture(pointer)
 
     public companion object : TypeCompanion<Gesture> {
         override val type: GeneratedClassKGType<Gesture> =
-            GeneratedClassKGType(gtk_gesture_get_type()) { Gesture(it.reinterpret()) }
+            GeneratedClassKGType(gtk_gesture_get_type()) { GestureImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

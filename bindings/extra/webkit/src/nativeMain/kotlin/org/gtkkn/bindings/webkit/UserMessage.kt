@@ -35,12 +35,9 @@ import kotlin.Unit
  * @since 2.28
  */
 @WebKitVersion2_28
-public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
-    InitiallyUnowned(pointer.reinterpret()),
+public class UserMessage(public val webkitUserMessagePointer: CPointer<WebKitUserMessage>) :
+    InitiallyUnowned(webkitUserMessagePointer.reinterpret()),
     KGTyped {
-    public val webkitUserMessagePointer: CPointer<WebKitUserMessage>
-        get() = gPointer.reinterpret()
-
     /**
      * The UNIX file descriptors of the user message.
      *
@@ -103,7 +100,7 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
     public constructor(
         name: String,
         parameters: Variant? = null,
-    ) : this(webkit_user_message_new(name, parameters?.gPointer)!!.reinterpret())
+    ) : this(webkit_user_message_new(name, parameters?.glibVariantPointer)!!.reinterpret())
 
     /**
      * Create a new #WebKitUserMessage including also a list of UNIX file descriptors to be sent.
@@ -119,7 +116,11 @@ public class UserMessage(pointer: CPointer<WebKitUserMessage>) :
         parameters: Variant? = null,
         fdList: UnixFdList? = null,
     ) : this(
-        webkit_user_message_new_with_fd_list(name, parameters?.gPointer, fdList?.gioUnixFdListPointer)!!.reinterpret()
+        webkit_user_message_new_with_fd_list(
+            name,
+            parameters?.glibVariantPointer,
+            fdList?.gioUnixFdListPointer
+        )!!.reinterpret()
     )
 
     /**

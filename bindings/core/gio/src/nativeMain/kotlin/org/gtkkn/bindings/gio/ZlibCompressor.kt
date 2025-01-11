@@ -26,15 +26,12 @@ import org.gtkkn.native.gobject.GType
  * - method `format`: Property has no getter nor setter
  * - method `level`: Property has no getter nor setter
  */
-public open class ZlibCompressor(pointer: CPointer<GZlibCompressor>) :
-    Object(pointer.reinterpret()),
+public open class ZlibCompressor(public val gioZlibCompressorPointer: CPointer<GZlibCompressor>) :
+    Object(gioZlibCompressorPointer.reinterpret()),
     Converter,
     KGTyped {
-    public val gioZlibCompressorPointer: CPointer<GZlibCompressor>
-        get() = gPointer.reinterpret()
-
     override val gioConverterPointer: CPointer<GConverter>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If set to a non-null #GFileInfo object, and #GZlibCompressor:format is

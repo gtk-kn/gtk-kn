@@ -10,7 +10,7 @@ import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.Event
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.staticStableRefDestroy
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -37,7 +37,7 @@ import kotlin.Unit
  * - method `editing-canceled`: Property has no getter nor setter
  */
 public interface CellEditable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtkCellEditablePointer: CPointer<GtkCellEditable>
 
@@ -67,7 +67,7 @@ public interface CellEditable :
      *   null if editing was initiated programmatically
      */
     public fun startEditing(event: Event? = null): Unit =
-        gtk_cell_editable_start_editing(gtkCellEditablePointer, event?.gPointer)
+        gtk_cell_editable_start_editing(gtkCellEditablePointer, event?.gdkEventPointer)
 
     /**
      * This signal is a sign for the cell renderer to update its
@@ -122,19 +122,22 @@ public interface CellEditable :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GtkCellEditable>) : CellEditable {
-        override val gtkCellEditablePointer: CPointer<GtkCellEditable> = pointer
-    }
+    /**
+     * The CellEditableImpl type represents a native instance of the CellEditable interface.
+     *
+     * @constructor Creates a new instance of CellEditable for the provided [CPointer].
+     */
+    public data class CellEditableImpl(override val gtkCellEditablePointer: CPointer<GtkCellEditable>) :
+        Widget(gtkCellEditablePointer.reinterpret()),
+        CellEditable
 
     public companion object : TypeCompanion<CellEditable> {
         override val type: GeneratedInterfaceKGType<CellEditable> =
-            GeneratedInterfaceKGType(gtk_cell_editable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_cell_editable_get_type()) { CellEditableImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkCellEditable>): CellEditable = Wrapper(pointer)
 
         /**
          * Get the GType of CellEditable

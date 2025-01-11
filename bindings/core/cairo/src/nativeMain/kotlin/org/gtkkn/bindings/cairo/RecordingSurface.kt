@@ -21,12 +21,9 @@ import kotlin.Boolean
  *
  * - parameter `x0`: x0: Out parameter is not supported
  */
-public open class RecordingSurface(pointer: CPointer<cairo_surface_t>) :
-    Surface(pointer.reinterpret()),
+public open class RecordingSurface(public val cairoRecordingSurfacePointer: CPointer<cairo_surface_t>) :
+    Surface(cairoRecordingSurfacePointer.reinterpret()),
     KGTyped {
-    public val cairoRecordingSurfacePointer: CPointer<cairo_surface_t>
-        get() = gPointer.reinterpret()
-
     /**
      *
      *
@@ -35,7 +32,7 @@ public open class RecordingSurface(pointer: CPointer<cairo_surface_t>) :
      */
     @CairoVersion1_12
     public open fun getExtents(extents: Rectangle): Boolean =
-        cairo_recording_surface_get_extents(cairoRecordingSurfacePointer, extents.gPointer).asBoolean()
+        cairo_recording_surface_get_extents(cairoRecordingSurfacePointer, extents.cairoRectanglePointer).asBoolean()
 
     public companion object : TypeCompanion<RecordingSurface> {
         override val type: GeneratedClassKGType<RecordingSurface> =
@@ -54,7 +51,7 @@ public open class RecordingSurface(pointer: CPointer<cairo_surface_t>) :
          */
         @CairoVersion1_10
         public fun create(content: Content, extents: Rectangle): RecordingSurface =
-            cairo_recording_surface_create(content.nativeValue, extents.gPointer)!!.run {
+            cairo_recording_surface_create(content.nativeValue, extents.cairoRectanglePointer)!!.run {
                 RecordingSurface(reinterpret())
             }
 

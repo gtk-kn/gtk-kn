@@ -50,12 +50,9 @@ import kotlin.collections.List
  *
  * - method `filter`: Property has no getter nor setter
  */
-public class FileChooserRequest(pointer: CPointer<WebKitFileChooserRequest>) :
-    Object(pointer.reinterpret()),
+public class FileChooserRequest(public val webkitFileChooserRequestPointer: CPointer<WebKitFileChooserRequest>) :
+    Object(webkitFileChooserRequestPointer.reinterpret()),
     KGTyped {
-    public val webkitFileChooserRequestPointer: CPointer<WebKitFileChooserRequest>
-        get() = gPointer.reinterpret()
-
     /**
      * A null-terminated array of strings containing the list of MIME
      * types the file chooser dialog should handle. See

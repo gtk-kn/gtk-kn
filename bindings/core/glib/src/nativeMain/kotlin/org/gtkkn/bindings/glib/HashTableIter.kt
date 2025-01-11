@@ -34,9 +34,8 @@ import kotlin.native.ref.createCleaner
  *
  * - parameter `key`: key: Out parameter is not supported
  */
-public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GHashTableIter> = pointer
-
+public class HashTableIter(public val glibHashTableIterPointer: CPointer<GHashTableIter>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibHashTableIterPointer) {
     /**
      * Allocate a new HashTableIter.
      *
@@ -57,7 +56,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<GHashTableIter>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibHashTableIterPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new HashTableIter using the provided [AutofreeScope].
@@ -75,7 +74,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun getHashTable(): HashTable = g_hash_table_iter_get_hash_table(gPointer)!!.run {
+    public fun getHashTable(): HashTable = g_hash_table_iter_get_hash_table(glibHashTableIterPointer)!!.run {
         HashTable(this)
     }
 
@@ -102,7 +101,8 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun `init`(hashTable: HashTable): Unit = g_hash_table_iter_init(gPointer, hashTable.gPointer)
+    public fun `init`(hashTable: HashTable): Unit =
+        g_hash_table_iter_init(glibHashTableIterPointer, hashTable.glibHashTablePointer)
 
     /**
      * Removes the key/value pair currently pointed to by the iterator
@@ -127,7 +127,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun remove(): Unit = g_hash_table_iter_remove(gPointer)
+    public fun remove(): Unit = g_hash_table_iter_remove(glibHashTableIterPointer)
 
     /**
      * Replaces the value currently pointed to by the iterator
@@ -141,7 +141,7 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.30
      */
     @GLibVersion2_30
-    public fun replace(`value`: gpointer? = null): Unit = g_hash_table_iter_replace(gPointer, `value`)
+    public fun replace(`value`: gpointer? = null): Unit = g_hash_table_iter_replace(glibHashTableIterPointer, `value`)
 
     /**
      * Removes the key/value pair currently pointed to by the
@@ -153,5 +153,5 @@ public class HashTableIter(pointer: CPointer<GHashTableIter>, cleaner: Cleaner? 
      * @since 2.16
      */
     @GLibVersion2_16
-    public fun steal(): Unit = g_hash_table_iter_steal(gPointer)
+    public fun steal(): Unit = g_hash_table_iter_steal(glibHashTableIterPointer)
 }

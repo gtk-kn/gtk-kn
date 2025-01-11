@@ -36,9 +36,8 @@ import kotlin.Unit
  * @since 2.16
  */
 @WebKitVersion2_16
-public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitWebsiteData> = pointer
-
+public class WebsiteData(public val webkitWebsiteDataPointer: CPointer<WebKitWebsiteData>) :
+    ProxyInstance(webkitWebsiteDataPointer) {
     /**
      * Gets the name of #WebKitWebsiteData.
      *
@@ -51,7 +50,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      */
     @WebKitVersion2_16
     public fun getName(): String =
-        webkit_website_data_get_name(gPointer)?.toKString() ?: error("Expected not null string")
+        webkit_website_data_get_name(webkitWebsiteDataPointer)?.toKString() ?: error("Expected not null string")
 
     /**
      * Gets the size of the data of types @types in a #WebKitWebsiteData.
@@ -64,7 +63,8 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getSize(types: WebsiteDataTypes): guint64 = webkit_website_data_get_size(gPointer, types.mask)
+    public fun getSize(types: WebsiteDataTypes): guint64 =
+        webkit_website_data_get_size(webkitWebsiteDataPointer, types.mask)
 
     /**
      * Gets the types of data stored in the client for a #WebKitWebsiteData.
@@ -76,7 +76,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun getTypes(): WebsiteDataTypes = webkit_website_data_get_types(gPointer).run {
+    public fun getTypes(): WebsiteDataTypes = webkit_website_data_get_types(webkitWebsiteDataPointer).run {
         WebsiteDataTypes(this)
     }
 
@@ -89,7 +89,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun ref(): WebsiteData = webkit_website_data_ref(gPointer)!!.run {
+    public fun ref(): WebsiteData = webkit_website_data_ref(webkitWebsiteDataPointer)!!.run {
         WebsiteData(this)
     }
 
@@ -103,7 +103,7 @@ public class WebsiteData(pointer: CPointer<WebKitWebsiteData>) : ProxyInstance(p
      * @since 2.16
      */
     @WebKitVersion2_16
-    public fun unref(): Unit = webkit_website_data_unref(gPointer)
+    public fun unref(): Unit = webkit_website_data_unref(webkitWebsiteDataPointer)
 
     public companion object {
         /**

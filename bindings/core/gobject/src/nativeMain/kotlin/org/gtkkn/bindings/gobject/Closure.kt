@@ -85,19 +85,18 @@ import kotlin.native.ref.createCleaner
  * - method `set_meta_marshal`: Callback gpointer not found
  * - field `marshal`: Fields with callbacks are not supported
  */
-public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GClosure> = pointer
-
+public class Closure(public val gobjectClosurePointer: CPointer<GClosure>, cleaner: Cleaner? = null) :
+    ProxyInstance(gobjectClosurePointer) {
     /**
      * Indicates whether the closure is currently being invoked with
      *   g_closure_invoke()
      */
     public var inMarshal: guint
-        get() = gPointer.pointed.in_marshal
+        get() = gobjectClosurePointer.pointed.in_marshal
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.in_marshal = value
+            gobjectClosurePointer.pointed.in_marshal = value
         }
 
     /**
@@ -105,11 +104,11 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      *   g_closure_invalidate()
      */
     public var isInvalid: guint
-        get() = gPointer.pointed.is_invalid
+        get() = gobjectClosurePointer.pointed.is_invalid
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.is_invalid = value
+            gobjectClosurePointer.pointed.is_invalid = value
         }
 
     /**
@@ -130,7 +129,9 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      *
      * @param pair A pair containing the pointer to Closure and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GClosure>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GClosure>, Cleaner>,
+    ) : this(gobjectClosurePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Closure using the provided [AutofreeScope].
@@ -194,7 +195,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * reference count of a closure drops to zero (unless it has already
      * been invalidated before).
      */
-    public fun invalidate(): Unit = g_closure_invalidate(gPointer)
+    public fun invalidate(): Unit = g_closure_invalidate(gobjectClosurePointer)
 
     /**
      * Increments the reference count on a closure to force it staying
@@ -202,7 +203,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      *
      * @return The @closure passed in, for convenience
      */
-    public fun ref(): Closure = g_closure_ref(gPointer)!!.run {
+    public fun ref(): Closure = g_closure_ref(gobjectClosurePointer)!!.run {
         Closure(this)
     }
 
@@ -255,7 +256,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * (if it hasn't been called on @closure yet) just like g_closure_unref(),
      * g_closure_ref() should be called prior to this function.
      */
-    public fun sink(): Unit = g_closure_sink(gPointer)
+    public fun sink(): Unit = g_closure_sink(gobjectClosurePointer)
 
     /**
      * Decrements the reference count of a closure after it was previously
@@ -264,7 +265,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
      * If no other callers are using the closure, then the closure will be
      * destroyed and freed.
      */
-    public fun unref(): Unit = g_closure_unref(gPointer)
+    public fun unref(): Unit = g_closure_unref(gobjectClosurePointer)
 
     override fun toString(): String = "Closure(inMarshal=$inMarshal, isInvalid=$isInvalid)"
 
@@ -282,7 +283,7 @@ public class Closure(pointer: CPointer<GClosure>, cleaner: Cleaner? = null) : Pr
          * @return a newly allocated #GClosure
          */
         public fun newObject(sizeofClosure: guint, `object`: Object): Closure =
-            Closure(g_closure_new_object(sizeofClosure, `object`.gPointer)!!.reinterpret())
+            Closure(g_closure_new_object(sizeofClosure, `object`.gobjectObjectPointer)!!.reinterpret())
 
         /**
          * Allocates a struct of the given size and initializes the initial

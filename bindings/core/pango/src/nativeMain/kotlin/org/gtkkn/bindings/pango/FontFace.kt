@@ -29,12 +29,9 @@ import kotlin.String
  *
  * - parameter `sizes`: sizes: Out parameter is not supported
  */
-public open class FontFace(pointer: CPointer<PangoFontFace>) :
-    Object(pointer.reinterpret()),
+public abstract class FontFace(public val pangoFontFacePointer: CPointer<PangoFontFace>) :
+    Object(pangoFontFacePointer.reinterpret()),
     KGTyped {
-    public val pangoFontFacePointer: CPointer<PangoFontFace>
-        get() = gPointer.reinterpret()
-
     /**
      * Returns a font description that matches the face.
      *
@@ -71,7 +68,7 @@ public open class FontFace(pointer: CPointer<PangoFontFace>) :
      */
     @PangoVersion1_46
     public open fun getFamily(): FontFamily = pango_font_face_get_family(pangoFontFacePointer)!!.run {
-        FontFamily(this)
+        FontFamily.FontFamilyImpl(this)
     }
 
     /**
@@ -87,9 +84,16 @@ public open class FontFace(pointer: CPointer<PangoFontFace>) :
     @PangoVersion1_18
     public open fun isSynthesized(): Boolean = pango_font_face_is_synthesized(pangoFontFacePointer).asBoolean()
 
+    /**
+     * The FontFaceImpl type represents a native instance of the abstract FontFace class.
+     *
+     * @constructor Creates a new instance of FontFace for the provided [CPointer].
+     */
+    public class FontFaceImpl(pointer: CPointer<PangoFontFace>) : FontFace(pointer)
+
     public companion object : TypeCompanion<FontFace> {
         override val type: GeneratedClassKGType<FontFace> =
-            GeneratedClassKGType(pango_font_face_get_type()) { FontFace(it.reinterpret()) }
+            GeneratedClassKGType(pango_font_face_get_type()) { FontFaceImpl(it.reinterpret()) }
 
         init {
             PangoTypeProvider.register()

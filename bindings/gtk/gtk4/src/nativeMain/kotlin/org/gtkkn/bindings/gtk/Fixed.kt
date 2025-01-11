@@ -65,20 +65,17 @@ import kotlin.Unit
  *
  * - parameter `x`: x: Out parameter is not supported
  */
-public open class Fixed(pointer: CPointer<GtkFixed>) :
-    Widget(pointer.reinterpret()),
+public open class Fixed(public val gtkFixedPointer: CPointer<GtkFixed>) :
+    Widget(gtkFixedPointer.reinterpret()),
     KGTyped {
-    public val gtkFixedPointer: CPointer<GtkFixed>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkFixed`.
@@ -139,7 +136,7 @@ public open class Fixed(pointer: CPointer<GtkFixed>) :
      *   to reset @widget's transform
      */
     public open fun setChildTransform(widget: Widget, transform: Transform? = null): Unit =
-        gtk_fixed_set_child_transform(gtkFixedPointer, widget.gtkWidgetPointer, transform?.gPointer)
+        gtk_fixed_set_child_transform(gtkFixedPointer, widget.gtkWidgetPointer, transform?.gskTransformPointer)
 
     public companion object : TypeCompanion<Fixed> {
         override val type: GeneratedClassKGType<Fixed> =

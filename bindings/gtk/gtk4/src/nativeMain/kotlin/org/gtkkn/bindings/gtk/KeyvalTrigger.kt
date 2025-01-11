@@ -18,12 +18,9 @@ import org.gtkkn.native.gtk.gtk_keyval_trigger_new
 /**
  * A `GtkShortcutTrigger` that triggers when a specific keyval and modifiers are pressed.
  */
-public open class KeyvalTrigger(pointer: CPointer<GtkKeyvalTrigger>) :
-    ShortcutTrigger(pointer.reinterpret()),
+public open class KeyvalTrigger(public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>) :
+    ShortcutTrigger(gtkKeyvalTriggerPointer.reinterpret()),
     KGTyped {
-    public val gtkKeyvalTriggerPointer: CPointer<GtkKeyvalTrigger>
-        get() = gPointer.reinterpret()
-
     /**
      * The key value for the trigger.
      */

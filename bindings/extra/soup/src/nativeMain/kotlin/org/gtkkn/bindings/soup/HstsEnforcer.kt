@@ -60,15 +60,12 @@ import kotlin.Unit
  * HSTS policy persistence. See [class@HSTSEnforcerDB] for a persistent
  * enforcer.
  */
-public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
-    Object(pointer.reinterpret()),
+public open class HstsEnforcer(public val soupHstsEnforcerPointer: CPointer<SoupHSTSEnforcer>) :
+    Object(soupHstsEnforcerPointer.reinterpret()),
     SessionFeature,
     KGTyped {
-    public val soupHstsEnforcerPointer: CPointer<SoupHSTSEnforcer>
-        get() = gPointer.reinterpret()
-
     override val soupSessionFeaturePointer: CPointer<SoupSessionFeature>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new #SoupHSTSEnforcer.
@@ -136,7 +133,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @param policy the policy of the HSTS host
      */
     public open fun setPolicy(policy: HstsPolicy): Unit =
-        soup_hsts_enforcer_set_policy(soupHstsEnforcerPointer, policy.gPointer)
+        soup_hsts_enforcer_set_policy(soupHstsEnforcerPointer, policy.soupHstsPolicyPointer)
 
     /**
      * Sets a session policy for @domain.
@@ -171,7 +168,7 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (oldPolicy: HstsPolicy, newPolicy: HstsPolicy) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        soupHstsEnforcerPointer,
         "changed",
         onChangedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -186,7 +183,12 @@ public open class HstsEnforcer(pointer: CPointer<SoupHSTSEnforcer>) :
      * @param newPolicy the new #SoupHSTSPolicy value
      */
     public fun emitChanged(oldPolicy: HstsPolicy, newPolicy: HstsPolicy) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed", oldPolicy.gPointer, newPolicy.gPointer)
+        g_signal_emit_by_name(
+            soupHstsEnforcerPointer.reinterpret(),
+            "changed",
+            oldPolicy.soupHstsPolicyPointer,
+            newPolicy.soupHstsPolicyPointer
+        )
     }
 
     public companion object : TypeCompanion<HstsEnforcer> {

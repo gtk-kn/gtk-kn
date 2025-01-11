@@ -56,12 +56,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @GioVersion2_26
-public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>) :
-    Object(pointer.reinterpret()),
+public open class DBusMethodInvocation(public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>) :
+    Object(gioDBusMethodInvocationPointer.reinterpret()),
     KGTyped {
-    public val gioDBusMethodInvocationPointer: CPointer<GDBusMethodInvocation>
-        get() = gPointer.reinterpret()
-
     /**
      * Gets the #GDBusConnection the method was invoked on.
      *
@@ -247,7 +244,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      */
     @GioVersion2_26
     public open fun returnGerror(error: Error): Unit =
-        g_dbus_method_invocation_return_gerror(gioDBusMethodInvocationPointer, error.gPointer)
+        g_dbus_method_invocation_return_gerror(gioDBusMethodInvocationPointer, error.glibErrorPointer)
 
     /**
      * Finishes handling a D-Bus method call by returning @parameters.
@@ -288,7 +285,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      */
     @GioVersion2_26
     public open fun returnValue(parameters: Variant? = null): Unit =
-        g_dbus_method_invocation_return_value(gioDBusMethodInvocationPointer, parameters?.gPointer)
+        g_dbus_method_invocation_return_value(gioDBusMethodInvocationPointer, parameters?.glibVariantPointer)
 
     /**
      * Like g_dbus_method_invocation_return_value() but also takes a #GUnixFDList.
@@ -307,7 +304,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
     public open fun returnValueWithUnixFdList(parameters: Variant? = null, fdList: UnixFdList? = null): Unit =
         g_dbus_method_invocation_return_value_with_unix_fd_list(
             gioDBusMethodInvocationPointer,
-            parameters?.gPointer,
+            parameters?.glibVariantPointer,
             fdList?.gioUnixFdListPointer
         )
 
@@ -324,7 +321,7 @@ public open class DBusMethodInvocation(pointer: CPointer<GDBusMethodInvocation>)
      */
     @GioVersion2_30
     public open fun takeError(error: Error): Unit =
-        g_dbus_method_invocation_take_error(gioDBusMethodInvocationPointer, error.gPointer)
+        g_dbus_method_invocation_take_error(gioDBusMethodInvocationPointer, error.glibErrorPointer)
 
     public companion object : TypeCompanion<DBusMethodInvocation> {
         override val type: GeneratedClassKGType<DBusMethodInvocation> =

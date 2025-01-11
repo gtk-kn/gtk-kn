@@ -18,12 +18,9 @@ import kotlin.Boolean
 /**
  * An event caused by a pointing device moving between surfaces.
  */
-public open class CrossingEvent(pointer: CPointer<GdkCrossingEvent>) :
-    Event(pointer.reinterpret()),
+public open class CrossingEvent(public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>) :
+    Event(gdkCrossingEventPointer.reinterpret()),
     KGTyped {
-    public val gdkCrossingEventPointer: CPointer<GdkCrossingEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extracts the notify detail from a crossing event.
      *

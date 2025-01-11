@@ -138,20 +138,17 @@ import kotlin.Unit
  * @since 1.4
  */
 @AdwVersion1_4
-public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
-    Widget(pointer.reinterpret()),
+public open class BreakpointBin(public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>) :
+    Widget(adwBreakpointBinPointer.reinterpret()),
     KGTyped {
-    public val adwBreakpointBinPointer: CPointer<AdwBreakpointBin>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -167,7 +164,7 @@ public open class BreakpointBin(pointer: CPointer<AdwBreakpointBin>) :
          * @since 1.4
          */
         get() = adw_breakpoint_bin_get_child(adwBreakpointBinPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

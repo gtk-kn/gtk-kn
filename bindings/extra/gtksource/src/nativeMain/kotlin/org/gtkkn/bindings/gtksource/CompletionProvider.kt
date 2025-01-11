@@ -16,9 +16,10 @@ import org.gtkkn.bindings.gio.AsyncResult
 import org.gtkkn.bindings.gio.Cancellable
 import org.gtkkn.bindings.gio.ListModel
 import org.gtkkn.bindings.glib.Error
+import org.gtkkn.bindings.gobject.Object
 import org.gtkkn.bindings.gtk.TextIter
 import org.gtkkn.bindings.gtksource.GtkSource.resolveException
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -58,7 +59,7 @@ import kotlin.Unit
  * - method `list_alternates`: GLib.PtrArray parameter of type CompletionProposal is not supported
  */
 public interface CompletionProvider :
-    Interface,
+    Proxy,
     KGTyped {
     public val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>
 
@@ -145,8 +146,11 @@ public interface CompletionProvider :
      * @param iter a #GtkTextIter
      * @param ch a #gunichar of the character inserted
      */
-    public fun isTrigger(iter: TextIter, ch: gunichar): Boolean =
-        gtk_source_completion_provider_is_trigger(gtksourceCompletionProviderPointer, iter.gPointer, ch).asBoolean()
+    public fun isTrigger(iter: TextIter, ch: gunichar): Boolean = gtk_source_completion_provider_is_trigger(
+        gtksourceCompletionProviderPointer,
+        iter.gtkTextIterPointer,
+        ch
+    ).asBoolean()
 
     /**
      * This function is used to determine if a key typed by the user should
@@ -214,7 +218,7 @@ public interface CompletionProvider :
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            ListModel.wrap(reinterpret())
+            ListModel.ListModelImpl(reinterpret())
         }
 
         return if (gError.pointed != null) {
@@ -241,20 +245,25 @@ public interface CompletionProvider :
         model.gioListModelPointer
     )
 
-    private data class Wrapper(private val pointer: CPointer<GtkSourceCompletionProvider>) : CompletionProvider {
-        override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider> =
-            pointer
-    }
+    /**
+     * The CompletionProviderImpl type represents a native instance of the CompletionProvider interface.
+     *
+     * @constructor Creates a new instance of CompletionProvider for the provided [CPointer].
+     */
+    public data class CompletionProviderImpl(
+        override val gtksourceCompletionProviderPointer: CPointer<GtkSourceCompletionProvider>,
+    ) : Object(gtksourceCompletionProviderPointer.reinterpret()),
+        CompletionProvider
 
     public companion object : TypeCompanion<CompletionProvider> {
         override val type: GeneratedInterfaceKGType<CompletionProvider> =
-            GeneratedInterfaceKGType(gtk_source_completion_provider_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gtk_source_completion_provider_get_type()) {
+                CompletionProviderImpl(it.reinterpret())
+            }
 
         init {
             GtksourceTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GtkSourceCompletionProvider>): CompletionProvider = Wrapper(pointer)
 
         /**
          * Get the GType of CompletionProvider

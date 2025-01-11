@@ -145,23 +145,20 @@ import kotlin.Unit
  * - parameter `priority`: Unsupported pointer to primitive type
  * - signal `push-snippet`: Unsupported parameter `location` : location: In/Out parameter is not supported
  */
-public open class View(pointer: CPointer<GtkSourceView>) :
-    TextView(pointer.reinterpret()),
+public open class View(public val gtksourceViewPointer: CPointer<GtkSourceView>) :
+    TextView(gtksourceViewPointer.reinterpret()),
     KGTyped {
-    public val gtksourceViewPointer: CPointer<GtkSourceView>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     public open var autoIndent: Boolean
         /**
@@ -344,7 +341,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
          * @return a #GtkSourceIndenter or null
          */
         get() = gtk_source_view_get_indenter(gtksourceViewPointer)?.run {
-            Indenter.wrap(reinterpret())
+            Indenter.IndenterImpl(reinterpret())
         }
 
         /**
@@ -588,7 +585,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @return the visual column at @iter.
      */
     public open fun getVisualColumn(iter: TextIter): guint =
-        gtk_source_view_get_visual_column(gtksourceViewPointer, iter.gPointer)
+        gtk_source_view_get_visual_column(gtksourceViewPointer, iter.gtkTextIterPointer)
 
     /**
      * Inserts one indentation level at the beginning of the specified lines. The
@@ -598,7 +595,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param end #GtkTextIter of the last line to indent
      */
     public open fun indentLines(start: TextIter, end: TextIter): Unit =
-        gtk_source_view_indent_lines(gtksourceViewPointer, start.gPointer, end.gPointer)
+        gtk_source_view_indent_lines(gtksourceViewPointer, start.gtkTextIterPointer, end.gtkTextIterPointer)
 
     /**
      * Inserts a new snippet at @location
@@ -610,8 +607,11 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param snippet a #GtkSourceSnippet
      * @param location a #GtkTextIter or null for the cursor position
      */
-    public open fun pushSnippet(snippet: Snippet, location: TextIter? = null): Unit =
-        gtk_source_view_push_snippet(gtksourceViewPointer, snippet.gtksourceSnippetPointer, location?.gPointer)
+    public open fun pushSnippet(snippet: Snippet, location: TextIter? = null): Unit = gtk_source_view_push_snippet(
+        gtksourceViewPointer,
+        snippet.gtksourceSnippetPointer,
+        location?.gtkTextIterPointer
+    )
 
     /**
      * Sets attributes and priority for the @category.
@@ -636,7 +636,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param end #GtkTextIter of the last line to indent
      */
     public open fun unindentLines(start: TextIter, end: TextIter): Unit =
-        gtk_source_view_unindent_lines(gtksourceViewPointer, start.gPointer, end.gPointer)
+        gtk_source_view_unindent_lines(gtksourceViewPointer, start.gtkTextIterPointer, end.gtkTextIterPointer)
 
     /**
      * Keybinding signal to change case of the text at the current cursor position.
@@ -648,7 +648,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (caseType: ChangeCaseType) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceViewPointer,
         "change-case",
         onChangeCaseFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -662,7 +662,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param caseType the case to use
      */
     public fun emitChangeCase(caseType: ChangeCaseType) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "change-case", caseType.nativeValue)
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "change-case", caseType.nativeValue)
     }
 
     /**
@@ -673,7 +673,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public fun onChangeNumber(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: gint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceViewPointer,
             "change-number",
             onChangeNumberFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -687,7 +687,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param count the number to add to the number at the current position
      */
     public fun emitChangeNumber(count: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "change-number", count)
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "change-number", count)
     }
 
     /**
@@ -698,7 +698,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public fun onJoinLines(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceViewPointer,
             "join-lines",
             onJoinLinesFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -710,7 +710,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * Emits the "join-lines" signal. See [onJoinLines].
      */
     public fun emitJoinLines() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "join-lines")
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "join-lines")
     }
 
     /**
@@ -731,7 +731,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
             nPresses: gint,
         ) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceViewPointer,
         "line-mark-activated",
         onLineMarkActivatedFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -749,9 +749,9 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public fun emitLineMarkActivated(iter: TextIter, button: guint, state: ModifierType, nPresses: gint) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
+            gtksourceViewPointer.reinterpret(),
             "line-mark-activated",
-            iter.gPointer,
+            iter.gtkTextIterPointer,
             button,
             state.mask,
             nPresses
@@ -769,7 +769,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public fun onMoveLines(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (down: Boolean) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceViewPointer,
             "move-lines",
             onMoveLinesFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -783,7 +783,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param down true to move down, false to move up.
      */
     public fun emitMoveLines(down: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-lines", down.asGBoolean())
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "move-lines", down.asGBoolean())
     }
 
     /**
@@ -796,7 +796,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (extendSelection: Boolean) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceViewPointer,
         "move-to-matching-bracket",
         onMoveToMatchingBracketFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -810,7 +810,11 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param extendSelection true if the move should extend the selection
      */
     public fun emitMoveToMatchingBracket(extendSelection: Boolean) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-to-matching-bracket", extendSelection.asGBoolean())
+        g_signal_emit_by_name(
+            gtksourceViewPointer.reinterpret(),
+            "move-to-matching-bracket",
+            extendSelection.asGBoolean()
+        )
     }
 
     /**
@@ -824,7 +828,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public fun onMoveWords(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (count: gint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceViewPointer,
             "move-words",
             onMoveWordsFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -838,7 +842,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param count the number of words to move over
      */
     public fun emitMoveWords(count: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "move-words", count)
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "move-words", count)
     }
 
     /**
@@ -858,7 +862,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      */
     public fun onShowCompletion(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtksourceViewPointer,
             "show-completion",
             onShowCompletionFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -870,7 +874,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * Emits the "show-completion" signal. See [onShowCompletion].
      */
     public fun emitShowCompletion() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "show-completion")
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "show-completion")
     }
 
     /**
@@ -888,7 +892,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (iter: TextIter, count: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtksourceViewPointer,
         "smart-home-end",
         onSmartHomeEndFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -903,7 +907,7 @@ public open class View(pointer: CPointer<GtkSourceView>) :
      * @param count the count
      */
     public fun emitSmartHomeEnd(iter: TextIter, count: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "smart-home-end", iter.gPointer, count)
+        g_signal_emit_by_name(gtksourceViewPointer.reinterpret(), "smart-home-end", iter.gtkTextIterPointer, count)
     }
 
     public companion object : TypeCompanion<View> {

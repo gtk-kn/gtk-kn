@@ -34,20 +34,19 @@ import kotlin.native.ref.createCleaner
  * @since 2.4
  */
 @GLibVersion2_4
-public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GOnce> = pointer
-
+public class Once(public val glibOncePointer: CPointer<GOnce>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibOncePointer) {
     /**
      * the status of the #GOnce
      */
     public var status: OnceStatus
-        get() = gPointer.pointed.status.run {
+        get() = glibOncePointer.pointed.status.run {
             OnceStatus.fromNativeValue(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.status = value.nativeValue
+            glibOncePointer.pointed.status = value.nativeValue
         }
 
     /**
@@ -55,11 +54,11 @@ public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyIns
      *          is %G_ONCE_STATUS_READY
      */
     public var retval: gpointer
-        get() = gPointer.pointed.retval!!
+        get() = glibOncePointer.pointed.retval!!
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.retval = value
+            glibOncePointer.pointed.retval = value
         }
 
     /**
@@ -80,7 +79,9 @@ public class Once(pointer: CPointer<GOnce>, cleaner: Cleaner? = null) : ProxyIns
      *
      * @param pair A pair containing the pointer to Once and a [Cleaner] instance.
      */
-    private constructor(pair: Pair<CPointer<GOnce>, Cleaner>) : this(pointer = pair.first, cleaner = pair.second)
+    private constructor(
+        pair: Pair<CPointer<GOnce>, Cleaner>,
+    ) : this(glibOncePointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Once using the provided [AutofreeScope].

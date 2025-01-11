@@ -72,12 +72,9 @@ import kotlin.Unit
  * - parameter `out_info`: out_info: Out parameter is not supported
  * - method `container`: Property has no getter nor setter
  */
-public open class FileEnumerator(pointer: CPointer<GFileEnumerator>) :
-    Object(pointer.reinterpret()),
+public open class FileEnumerator(public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>) :
+    Object(gioFileEnumeratorPointer.reinterpret()),
     KGTyped {
-    public val gioFileEnumeratorPointer: CPointer<GFileEnumerator>
-        get() = gPointer.reinterpret()
-
     /**
      * Releases all resources used by this enumerator, making the
      * enumerator return %G_IO_ERROR_CLOSED on all calls.
@@ -182,7 +179,7 @@ public open class FileEnumerator(pointer: CPointer<GFileEnumerator>) :
     @GioVersion2_36
     public open fun getChild(info: FileInfo): File =
         g_file_enumerator_get_child(gioFileEnumeratorPointer, info.gioFileInfoPointer)!!.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
     /**
@@ -193,7 +190,7 @@ public open class FileEnumerator(pointer: CPointer<GFileEnumerator>) :
      */
     @GioVersion2_18
     public open fun getContainer(): File = g_file_enumerator_get_container(gioFileEnumeratorPointer)!!.run {
-        File.wrap(reinterpret())
+        File.FileImpl(reinterpret())
     }
 
     /**

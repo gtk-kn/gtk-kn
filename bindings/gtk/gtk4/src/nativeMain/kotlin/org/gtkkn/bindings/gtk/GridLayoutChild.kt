@@ -22,12 +22,9 @@ import org.gtkkn.native.gtk.gtk_grid_layout_child_set_row_span
 /**
  * `GtkLayoutChild` subclass for children in a `GtkGridLayout`.
  */
-public open class GridLayoutChild(pointer: CPointer<GtkGridLayoutChild>) :
-    LayoutChild(pointer.reinterpret()),
+public open class GridLayoutChild(public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>) :
+    LayoutChild(gtkGridLayoutChildPointer.reinterpret()),
     KGTyped {
-    public val gtkGridLayoutChildPointer: CPointer<GtkGridLayoutChild>
-        get() = gPointer.reinterpret()
-
     /**
      * The column to place the child in.
      */

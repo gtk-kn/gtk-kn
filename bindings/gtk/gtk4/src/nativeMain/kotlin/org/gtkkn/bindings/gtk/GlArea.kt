@@ -165,20 +165,17 @@ import kotlin.Unit
  *
  * - parameter `major`: major: Out parameter is not supported
  */
-public open class GlArea(pointer: CPointer<GtkGLArea>) :
-    Widget(pointer.reinterpret()),
+public open class GlArea(public val gtkGlAreaPointer: CPointer<GtkGLArea>) :
+    Widget(gtkGlAreaPointer.reinterpret()),
     KGTyped {
-    public val gtkGlAreaPointer: CPointer<GtkGLArea>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The allowed APIs.
@@ -283,7 +280,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
          * @return the `GdkGLContext`
          */
         get() = gtk_gl_area_get_context(gtkGlAreaPointer)?.run {
-            GlContext(this)
+            GlContext.GlContextImpl(this)
         }
 
     /**
@@ -422,7 +419,8 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      *
      * @param error a new `GError`, or null to unset the error
      */
-    public open fun setError(error: Error? = null): Unit = gtk_gl_area_set_error(gtkGlAreaPointer, error?.gPointer)
+    public open fun setError(error: Error? = null): Unit =
+        gtk_gl_area_set_error(gtkGlAreaPointer, error?.glibErrorPointer)
 
     /**
      * Sets the required version of OpenGL to be used when creating
@@ -453,7 +451,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      */
     public fun onCreateContext(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> GlContext): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkGlAreaPointer,
             "create-context",
             onCreateContextFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -475,7 +473,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (context: GlContext) -> Boolean,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGlAreaPointer,
         "render",
         onRenderFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -503,7 +501,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (width: gint, height: gint) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkGlAreaPointer,
         "resize",
         onResizeFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -518,7 +516,7 @@ public open class GlArea(pointer: CPointer<GtkGLArea>) :
      * @param height the height of the viewport
      */
     public fun emitResize(width: gint, height: gint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "resize", width, height)
+        g_signal_emit_by_name(gtkGlAreaPointer.reinterpret(), "resize", width, height)
     }
 
     public companion object : TypeCompanion<GlArea> {
@@ -555,7 +553,7 @@ private val onRenderFunc: CPointer<CFunction<(CPointer<GdkGLContext>) -> gboolea
         ->
         userData.asStableRef<(context: GlContext) -> Boolean>().get().invoke(
             context!!.run {
-                GlContext(this)
+                GlContext.GlContextImpl(this)
             }
         ).asGBoolean()
     }

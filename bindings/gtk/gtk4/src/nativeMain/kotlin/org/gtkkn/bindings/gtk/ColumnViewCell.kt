@@ -42,12 +42,9 @@ import kotlin.Boolean
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
-    ListItem(pointer.reinterpret()),
+public open class ColumnViewCell(public val gtkColumnViewCellPointer: CPointer<GtkColumnViewCell>) :
+    ListItem(gtkColumnViewCellPointer.reinterpret()),
     KGTyped {
-    public val gtkColumnViewCellPointer: CPointer<GtkColumnViewCell>
-        get() = gPointer.reinterpret()
-
     /**
      * Widget used for display.
      *
@@ -63,7 +60,7 @@ public open class ColumnViewCell(pointer: CPointer<GtkColumnViewCell>) :
          * @since 4.12
          */
         get() = gtk_column_view_cell_get_child(gtkColumnViewCellPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

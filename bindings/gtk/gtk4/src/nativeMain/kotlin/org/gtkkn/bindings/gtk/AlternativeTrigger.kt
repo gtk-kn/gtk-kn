@@ -20,12 +20,9 @@ import org.gtkkn.native.gtk.gtk_alternative_trigger_new
  *
  * This can be cascaded to combine more than two triggers.
  */
-public open class AlternativeTrigger(pointer: CPointer<GtkAlternativeTrigger>) :
-    ShortcutTrigger(pointer.reinterpret()),
+public open class AlternativeTrigger(public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>) :
+    ShortcutTrigger(gtkAlternativeTriggerPointer.reinterpret()),
     KGTyped {
-    public val gtkAlternativeTriggerPointer: CPointer<GtkAlternativeTrigger>
-        get() = gPointer.reinterpret()
-
     /**
      * The first `GtkShortcutTrigger` to check.
      */
@@ -40,7 +37,7 @@ public open class AlternativeTrigger(pointer: CPointer<GtkAlternativeTrigger>) :
          * @return the first alternative trigger
          */
         get() = gtk_alternative_trigger_get_first(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger(this)
+            ShortcutTrigger.ShortcutTriggerImpl(this)
         }
 
     /**
@@ -57,7 +54,7 @@ public open class AlternativeTrigger(pointer: CPointer<GtkAlternativeTrigger>) :
          * @return the second alternative trigger
          */
         get() = gtk_alternative_trigger_get_second(gtkAlternativeTriggerPointer)!!.run {
-            ShortcutTrigger(this)
+            ShortcutTrigger.ShortcutTriggerImpl(this)
         }
 
     /**

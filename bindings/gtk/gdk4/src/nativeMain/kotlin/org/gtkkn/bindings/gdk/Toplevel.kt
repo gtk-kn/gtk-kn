@@ -11,7 +11,7 @@ import kotlinx.cinterop.staticCFunction
 import org.gtkkn.bindings.gdk.annotations.GdkVersion4_4
 import org.gtkkn.bindings.glib.List
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.asGBoolean
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -70,7 +70,7 @@ import kotlin.Unit
  * - method `transient-for`: Property has no getter
  */
 public interface Toplevel :
-    Interface,
+    Proxy,
     KGTyped {
     public val gdkToplevelPointer: CPointer<GdkToplevel>
 
@@ -181,7 +181,7 @@ public interface Toplevel :
      *   request, or null if none is available
      */
     public fun inhibitSystemShortcuts(event: Event? = null): Unit =
-        gdk_toplevel_inhibit_system_shortcuts(gdkToplevelPointer, event?.gPointer)
+        gdk_toplevel_inhibit_system_shortcuts(gdkToplevelPointer, event?.gdkEventPointer)
 
     /**
      * Asks to lower the @toplevel below other windows.
@@ -216,7 +216,8 @@ public interface Toplevel :
      *
      * @param layout the `GdkToplevelLayout` object used to layout
      */
-    public fun present(layout: ToplevelLayout): Unit = gdk_toplevel_present(gdkToplevelPointer, layout.gPointer)
+    public fun present(layout: ToplevelLayout): Unit =
+        gdk_toplevel_present(gdkToplevelPointer, layout.gdkToplevelLayoutPointer)
 
     /**
      * Restore default system keyboard shortcuts which were previously
@@ -262,7 +263,8 @@ public interface Toplevel :
      *
      * @param surfaces A list of textures to use as icon, of different sizes
      */
-    public fun setIconList(surfaces: List): Unit = gdk_toplevel_set_icon_list(gdkToplevelPointer, surfaces.gPointer)
+    public fun setIconList(surfaces: List): Unit =
+        gdk_toplevel_set_icon_list(gdkToplevelPointer, surfaces.glibListPointer)
 
     /**
      * Sets the toplevel to be modal.
@@ -328,7 +330,7 @@ public interface Toplevel :
      * @return true if the window menu was shown and false otherwise.
      */
     public fun showWindowMenu(event: Event): Boolean =
-        gdk_toplevel_show_window_menu(gdkToplevelPointer, event.gPointer).asBoolean()
+        gdk_toplevel_show_window_menu(gdkToplevelPointer, event.gdkEventPointer).asBoolean()
 
     /**
      * Returns whether the desktop environment supports
@@ -379,19 +381,22 @@ public interface Toplevel :
         connectFlags.mask
     )
 
-    private data class Wrapper(private val pointer: CPointer<GdkToplevel>) : Toplevel {
-        override val gdkToplevelPointer: CPointer<GdkToplevel> = pointer
-    }
+    /**
+     * The ToplevelImpl type represents a native instance of the Toplevel interface.
+     *
+     * @constructor Creates a new instance of Toplevel for the provided [CPointer].
+     */
+    public data class ToplevelImpl(override val gdkToplevelPointer: CPointer<GdkToplevel>) :
+        Surface(gdkToplevelPointer.reinterpret()),
+        Toplevel
 
     public companion object : TypeCompanion<Toplevel> {
         override val type: GeneratedInterfaceKGType<Toplevel> =
-            GeneratedInterfaceKGType(gdk_toplevel_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gdk_toplevel_get_type()) { ToplevelImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GdkToplevel>): Toplevel = Wrapper(pointer)
 
         /**
          * Get the GType of Toplevel

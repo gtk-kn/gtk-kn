@@ -17,39 +17,38 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class FloatIeee754(pointer: CPointer<GFloatIEEE754>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GFloatIEEE754> = pointer
-
+public class FloatIeee754(public val glibFloatIeee754Pointer: CPointer<GFloatIEEE754>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibFloatIeee754Pointer) {
     public var vFloat: gfloat
-        get() = gPointer.pointed.v_float
+        get() = glibFloatIeee754Pointer.pointed.v_float
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.v_float = value
+            glibFloatIeee754Pointer.pointed.v_float = value
         }
 
     public var mantissa: guint
-        get() = gPointer.pointed.mpn.mantissa
+        get() = glibFloatIeee754Pointer.pointed.mpn.mantissa
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.mantissa = value
+            glibFloatIeee754Pointer.pointed.mpn.mantissa = value
         }
 
     public var biasedExponent: guint
-        get() = gPointer.pointed.mpn.biased_exponent
+        get() = glibFloatIeee754Pointer.pointed.mpn.biased_exponent
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.biased_exponent = value
+            glibFloatIeee754Pointer.pointed.mpn.biased_exponent = value
         }
 
     public var sign: guint
-        get() = gPointer.pointed.mpn.sign
+        get() = glibFloatIeee754Pointer.pointed.mpn.sign
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.mpn.sign = value
+            glibFloatIeee754Pointer.pointed.mpn.sign = value
         }
 
     /**
@@ -72,7 +71,7 @@ public class FloatIeee754(pointer: CPointer<GFloatIEEE754>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<GFloatIEEE754>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibFloatIeee754Pointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new FloatIeee754 using the provided [AutofreeScope].

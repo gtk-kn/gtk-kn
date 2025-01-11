@@ -41,12 +41,10 @@ import kotlin.Unit
  * enumeration with that `GSocketAddressEnumerator` is not possible, and it can
  * be unreffed.
  */
-public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumerator>) :
-    Object(pointer.reinterpret()),
+public abstract class SocketAddressEnumerator(
+    public val gioSocketAddressEnumeratorPointer: CPointer<GSocketAddressEnumerator>,
+) : Object(gioSocketAddressEnumeratorPointer.reinterpret()),
     KGTyped {
-    public val gioSocketAddressEnumeratorPointer: CPointer<GSocketAddressEnumerator>
-        get() = gPointer.reinterpret()
-
     /**
      * Retrieves the next #GSocketAddress from @enumerator. Note that this
      * may block for some amount of time. (Eg, a #GNetworkAddress may need
@@ -74,7 +72,7 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
             cancellable?.gioCancellablePointer,
             gError.ptr
         )?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -123,7 +121,7 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
             result.gioAsyncResultPointer,
             gError.ptr
         )?.run {
-            SocketAddress(this)
+            SocketAddress.SocketAddressImpl(this)
         }
 
         return if (gError.pointed != null) {
@@ -133,10 +131,18 @@ public open class SocketAddressEnumerator(pointer: CPointer<GSocketAddressEnumer
         }
     }
 
+    /**
+     * The SocketAddressEnumeratorImpl type represents a native instance of the abstract SocketAddressEnumerator class.
+     *
+     * @constructor Creates a new instance of SocketAddressEnumerator for the provided [CPointer].
+     */
+    public class SocketAddressEnumeratorImpl(pointer: CPointer<GSocketAddressEnumerator>) :
+        SocketAddressEnumerator(pointer)
+
     public companion object : TypeCompanion<SocketAddressEnumerator> {
         override val type: GeneratedClassKGType<SocketAddressEnumerator> =
             GeneratedClassKGType(g_socket_address_enumerator_get_type()) {
-                SocketAddressEnumerator(it.reinterpret())
+                SocketAddressEnumeratorImpl(it.reinterpret())
             }
 
         init {

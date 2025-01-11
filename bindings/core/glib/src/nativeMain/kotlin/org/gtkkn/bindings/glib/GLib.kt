@@ -1695,7 +1695,8 @@ public object GLib {
         error: Error,
         errorDomain: Quark,
         errorCode: gint,
-    ): Unit = g_assertion_message_error(domain, `file`, line, func, expr, error.gPointer, errorDomain, errorCode)
+    ): Unit =
+        g_assertion_message_error(domain, `file`, line, func, expr, error.glibErrorPointer, errorDomain, errorCode)
 
     /**
      * Internal function used to print messages from the public g_assert() and
@@ -2143,7 +2144,7 @@ public object GLib {
      */
     @GLibVersion2_34
     public fun computeChecksumForBytes(checksumType: ChecksumType, `data`: Bytes): kotlin.String? =
-        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.gPointer)?.toKString()
+        g_compute_checksum_for_bytes(checksumType.nativeValue, `data`.glibBytesPointer)?.toKString()
 
     /**
      * Computes the checksum of a string.
@@ -2178,7 +2179,7 @@ public object GLib {
      */
     @GLibVersion2_50
     public fun computeHmacForBytes(digestType: ChecksumType, key: Bytes, `data`: Bytes): kotlin.String =
-        g_compute_hmac_for_bytes(digestType.nativeValue, key.gPointer, `data`.gPointer)?.toKString()
+        g_compute_hmac_for_bytes(digestType.nativeValue, key.glibBytesPointer, `data`.glibBytesPointer)?.toKString()
             ?: error("Expected not null string")
 
     public fun convertErrorQuark(): Quark = g_convert_error_quark()
@@ -2893,7 +2894,7 @@ public object GLib {
      *
      * @param result #GTimeVal structure in which to store current time.
      */
-    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.gPointer)
+    public fun getCurrentTime(result: TimeVal): Unit = g_get_current_time(result.glibTimeValPointer)
 
     /**
      * Gets the list of environment variables for the current process.
@@ -3654,7 +3655,7 @@ public object GLib {
      */
     public fun ioAddWatch(channel: IoChannel, priority: gint, condition: IoCondition, func: IoFunc): guint =
         g_io_add_watch_full(
-            channel.gPointer,
+            channel.glibIoChannelPointer,
             priority,
             condition.mask,
             IoFuncFunc.reinterpret(),
@@ -3683,7 +3684,7 @@ public object GLib {
      * @return a new #GSource
      */
     public fun ioCreateWatch(channel: IoChannel, condition: IoCondition): Source =
-        g_io_create_watch(channel.gPointer, condition.mask)!!.run {
+        g_io_create_watch(channel.glibIoChannelPointer, condition.mask)!!.run {
             Source(this)
         }
 
@@ -3921,7 +3922,7 @@ public object GLib {
      */
     @GLibVersion2_50
     public fun logVariant(logDomain: kotlin.String? = null, logLevel: LogLevelFlags, fields: Variant): Unit =
-        g_log_variant(logDomain, logLevel.mask, fields.gPointer)
+        g_log_variant(logDomain, logLevel.mask, fields.glibVariantPointer)
 
     /**
      * Configure whether the built-in log functions will output all log messages to
@@ -4241,7 +4242,7 @@ public object GLib {
      *
      * @param vtable table of memory allocation routines.
      */
-    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.gPointer)
+    public fun memSetVtable(vtable: MemVTable): Unit = g_mem_set_vtable(vtable.glibMemVTablePointer)
 
     /**
      * Allocates @byte_size bytes of memory, and copies @byte_size bytes into it
@@ -4563,7 +4564,7 @@ public object GLib {
         stringLength: guint,
         string: kotlin.String,
         stringReversed: kotlin.String? = null,
-    ): Boolean = g_pattern_match(pspec.gPointer, stringLength, string, stringReversed).asBoolean()
+    ): Boolean = g_pattern_match(pspec.glibPatternSpecPointer, stringLength, string, stringReversed).asBoolean()
 
     /**
      * Matches a string against a pattern given as a string. If this
@@ -4588,7 +4589,7 @@ public object GLib {
      * @return true if @string matches @pspec
      */
     public fun patternMatchString(pspec: PatternSpec, string: kotlin.String): Boolean =
-        g_pattern_match_string(pspec.gPointer, string).asBoolean()
+        g_pattern_match_string(pspec.glibPatternSpecPointer, string).asBoolean()
 
     /**
      * This mangles @ptr as g_pointer_bit_lock() and g_pointer_bit_unlock()
@@ -4646,7 +4647,7 @@ public object GLib {
      * @since 2.20
      */
     @GLibVersion2_20
-    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint = g_poll(fds.gPointer, nfds, timeout)
+    public fun poll(fds: PollFd, nfds: guint, timeout: gint): gint = g_poll(fds.glibPollFdPointer, nfds, timeout)
 
     /**
      * This is just like the standard C qsort() function, but

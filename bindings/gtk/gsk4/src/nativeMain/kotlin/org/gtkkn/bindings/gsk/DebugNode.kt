@@ -20,12 +20,9 @@ import kotlin.String
  * A render node that emits a debugging message when drawing its
  * child node.
  */
-public open class DebugNode(pointer: CPointer<GskDebugNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class DebugNode(public val gskDebugNodePointer: CPointer<GskDebugNode>) :
+    RenderNode(gskDebugNodePointer.reinterpret()),
     KGTyped {
-    public val gskDebugNodePointer: CPointer<GskDebugNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will add debug information about
      * the given @child.
@@ -39,7 +36,7 @@ public open class DebugNode(pointer: CPointer<GskDebugNode>) :
     public constructor(
         child: RenderNode,
         message: String,
-    ) : this(gsk_debug_node_new(child.gPointer, message.cstr)!!.reinterpret())
+    ) : this(gsk_debug_node_new(child.gskRenderNodePointer, message.cstr)!!.reinterpret())
 
     /**
      * Gets the child node that is getting drawn by the given @node.
@@ -47,7 +44,7 @@ public open class DebugNode(pointer: CPointer<GskDebugNode>) :
      * @return the child `GskRenderNode`
      */
     public open fun getChild(): RenderNode = gsk_debug_node_get_child(gskDebugNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

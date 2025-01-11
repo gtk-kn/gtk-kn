@@ -50,15 +50,12 @@ import kotlin.Unit
  * - method `nat-height`: Property has no getter nor setter
  * - method `nat-width`: Property has no getter nor setter
  */
-public open class ConstraintGuide(pointer: CPointer<GtkConstraintGuide>) :
-    Object(pointer.reinterpret()),
+public open class ConstraintGuide(public val gtkConstraintGuidePointer: CPointer<GtkConstraintGuide>) :
+    Object(gtkConstraintGuidePointer.reinterpret()),
     ConstraintTarget,
     KGTyped {
-    public val gtkConstraintGuidePointer: CPointer<GtkConstraintGuide>
-        get() = gPointer.reinterpret()
-
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * A name that identifies the `GtkConstraintGuide`, for debugging.

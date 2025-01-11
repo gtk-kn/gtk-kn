@@ -53,15 +53,12 @@ import kotlin.Unit
  * - parameter `buffer`: Array parameter of type guint8 is not supported
  * - parameter `count`: count: Out parameter is not supported
  */
-public open class BufferedInputStream(pointer: CPointer<GBufferedInputStream>) :
-    FilterInputStream(pointer.reinterpret()),
+public open class BufferedInputStream(public val gioBufferedInputStreamPointer: CPointer<GBufferedInputStream>) :
+    FilterInputStream(gioBufferedInputStreamPointer.reinterpret()),
     Seekable,
     KGTyped {
-    public val gioBufferedInputStreamPointer: CPointer<GBufferedInputStream>
-        get() = gPointer.reinterpret()
-
     override val gioSeekablePointer: CPointer<GSeekable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The size of the backend buffer, in bytes.

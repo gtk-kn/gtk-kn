@@ -100,20 +100,17 @@ import kotlin.Unit
  * - method `visible-child`: Property TypeInfo of getter and setter do not match
  * - method `visible-child-name`: Property TypeInfo of getter and setter do not match
  */
-public class ViewStack(pointer: CPointer<AdwViewStack>) :
-    Widget(pointer.reinterpret()),
+public class ViewStack(public val adwViewStackPointer: CPointer<AdwViewStack>) :
+    Widget(adwViewStackPointer.reinterpret()),
     KGTyped {
-    public val adwViewStackPointer: CPointer<AdwViewStack>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the stack is horizontally homogeneous.
@@ -163,7 +160,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
          * @return a `GtkSelectionModel` for the stack's children
          */
         get() = adw_view_stack_get_pages(adwViewStackPointer)!!.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
     /**
@@ -271,7 +268,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      */
     public fun getChildByName(name: String): Widget? =
         adw_view_stack_get_child_by_name(adwViewStackPointer, name)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -291,7 +288,7 @@ public class ViewStack(pointer: CPointer<AdwViewStack>) :
      * @return the visible child
      */
     public fun getVisibleChild(): Widget? = adw_view_stack_get_visible_child(adwViewStackPointer)?.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**

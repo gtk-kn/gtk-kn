@@ -18,40 +18,40 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class RectangleInt(pointer: CPointer<cairo_rectangle_int_t>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_rectangle_int_t> = pointer
-
+public class RectangleInt(
+    public val cairoRectangleIntPointer: CPointer<cairo_rectangle_int_t>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(cairoRectangleIntPointer) {
     public var x: gint
-        get() = gPointer.pointed.x
+        get() = cairoRectangleIntPointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x = value
+            cairoRectangleIntPointer.pointed.x = value
         }
 
     public var y: gint
-        get() = gPointer.pointed.y
+        get() = cairoRectangleIntPointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y = value
+            cairoRectangleIntPointer.pointed.y = value
         }
 
     public var width: gint
-        get() = gPointer.pointed.width
+        get() = cairoRectangleIntPointer.pointed.width
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.width = value
+            cairoRectangleIntPointer.pointed.width = value
         }
 
     public var height: gint
-        get() = gPointer.pointed.height
+        get() = cairoRectangleIntPointer.pointed.height
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.height = value
+            cairoRectangleIntPointer.pointed.height = value
         }
 
     /**
@@ -74,7 +74,7 @@ public class RectangleInt(pointer: CPointer<cairo_rectangle_int_t>, cleaner: Cle
      */
     private constructor(
         pair: Pair<CPointer<cairo_rectangle_int_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoRectangleIntPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new RectangleInt using the provided [AutofreeScope].

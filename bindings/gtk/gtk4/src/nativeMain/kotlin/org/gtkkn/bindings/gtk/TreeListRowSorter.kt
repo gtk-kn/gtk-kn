@@ -28,12 +28,9 @@ import org.gtkkn.native.gtk.gtk_tree_list_row_sorter_set_sorter
  * gtk_column_view_set_model (view, G_LIST_MODEL (selection));
  * ```
  */
-public open class TreeListRowSorter(pointer: CPointer<GtkTreeListRowSorter>) :
-    Sorter(pointer.reinterpret()),
+public open class TreeListRowSorter(public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>) :
+    Sorter(gtkTreeListRowSorterPointer.reinterpret()),
     KGTyped {
-    public val gtkTreeListRowSorterPointer: CPointer<GtkTreeListRowSorter>
-        get() = gPointer.reinterpret()
-
     /**
      * The underlying sorter
      */

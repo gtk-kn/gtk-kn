@@ -22,10 +22,10 @@ import kotlin.native.ref.createCleaner
  * - field `unref`: Fields with callbacks are not supported
  * - field `get`: Fields with callbacks are not supported
  */
-public class SourceCallbackFuncs(pointer: CPointer<GSourceCallbackFuncs>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GSourceCallbackFuncs> = pointer
-
+public class SourceCallbackFuncs(
+    public val glibSourceCallbackFuncsPointer: CPointer<GSourceCallbackFuncs>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(glibSourceCallbackFuncsPointer) {
     /**
      * Allocate a new SourceCallbackFuncs.
      *
@@ -46,7 +46,7 @@ public class SourceCallbackFuncs(pointer: CPointer<GSourceCallbackFuncs>, cleane
      */
     private constructor(
         pair: Pair<CPointer<GSourceCallbackFuncs>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibSourceCallbackFuncsPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new SourceCallbackFuncs using the provided [AutofreeScope].

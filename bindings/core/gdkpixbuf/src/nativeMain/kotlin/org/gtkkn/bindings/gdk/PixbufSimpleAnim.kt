@@ -25,12 +25,9 @@ import kotlin.Unit
 /**
  * An opaque struct representing a simple animation.
  */
-public open class PixbufSimpleAnim(pointer: CPointer<GdkPixbufSimpleAnim>) :
-    PixbufAnimation(pointer.reinterpret()),
+public open class PixbufSimpleAnim(public val gdkPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>) :
+    PixbufAnimation(gdkPixbufSimpleAnimPointer.reinterpret()),
     KGTyped {
-    public val gdkPixbufSimpleAnimPointer: CPointer<GdkPixbufSimpleAnim>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the animation should loop when it reaches the end.
      *

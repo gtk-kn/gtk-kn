@@ -3,7 +3,7 @@ package org.gtkkn.bindings.gdk
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -31,7 +31,7 @@ import kotlin.Boolean
  * property.
  */
 public interface Popup :
-    Interface,
+    Proxy,
     KGTyped {
     public val gdkPopupPointer: CPointer<GdkPopup>
 
@@ -56,7 +56,7 @@ public interface Popup :
          * @return the parent surface
          */
         get() = gdk_popup_get_parent(gdkPopupPointer)?.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**
@@ -72,7 +72,7 @@ public interface Popup :
      * @return the parent surface
      */
     public fun getParent(): Surface? = gdk_popup_get_parent(gdkPopupPointer)?.run {
-        Surface(this)
+        Surface.SurfaceImpl(this)
     }
 
     /**
@@ -136,21 +136,24 @@ public interface Popup :
      * @return false if it failed to be presented, otherwise true.
      */
     public fun present(width: gint, height: gint, layout: PopupLayout): Boolean =
-        gdk_popup_present(gdkPopupPointer, width, height, layout.gPointer).asBoolean()
+        gdk_popup_present(gdkPopupPointer, width, height, layout.gdkPopupLayoutPointer).asBoolean()
 
-    private data class Wrapper(private val pointer: CPointer<GdkPopup>) : Popup {
-        override val gdkPopupPointer: CPointer<GdkPopup> = pointer
-    }
+    /**
+     * The PopupImpl type represents a native instance of the Popup interface.
+     *
+     * @constructor Creates a new instance of Popup for the provided [CPointer].
+     */
+    public data class PopupImpl(override val gdkPopupPointer: CPointer<GdkPopup>) :
+        Surface(gdkPopupPointer.reinterpret()),
+        Popup
 
     public companion object : TypeCompanion<Popup> {
         override val type: GeneratedInterfaceKGType<Popup> =
-            GeneratedInterfaceKGType(gdk_popup_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(gdk_popup_get_type()) { PopupImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GdkPopup>): Popup = Wrapper(pointer)
 
         /**
          * Get the GType of Popup

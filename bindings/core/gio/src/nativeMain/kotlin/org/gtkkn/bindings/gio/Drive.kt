@@ -20,7 +20,8 @@ import org.gtkkn.bindings.gio.annotations.GioVersion2_34
 import org.gtkkn.bindings.gio.annotations.GioVersion2_50
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.gobject.ConnectFlags
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.glib.ext.toKStringList
 import org.gtkkn.extensions.glib.staticStableRefDestroy
@@ -97,7 +98,7 @@ import org.gtkkn.bindings.glib.List as GlibList
  * equivalent of `GDrive` in that API.
  */
 public interface Drive :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioDrivePointer: CPointer<GDrive>
 
@@ -253,7 +254,7 @@ public interface Drive :
      *    Free the returned object with g_object_unref().
      */
     public fun getIcon(): Icon = g_drive_get_icon(gioDrivePointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -305,7 +306,7 @@ public interface Drive :
      */
     @GioVersion2_34
     public fun getSymbolicIcon(): Icon = g_drive_get_symbolic_icon(gioDrivePointer)!!.run {
-        Icon.wrap(reinterpret())
+        Icon.IconImpl(reinterpret())
     }
 
     /**
@@ -573,19 +574,22 @@ public interface Drive :
             connectFlags.mask
         )
 
-    private data class Wrapper(private val pointer: CPointer<GDrive>) : Drive {
-        override val gioDrivePointer: CPointer<GDrive> = pointer
-    }
+    /**
+     * The DriveImpl type represents a native instance of the Drive interface.
+     *
+     * @constructor Creates a new instance of Drive for the provided [CPointer].
+     */
+    public data class DriveImpl(override val gioDrivePointer: CPointer<GDrive>) :
+        Object(gioDrivePointer.reinterpret()),
+        Drive
 
     public companion object : TypeCompanion<Drive> {
         override val type: GeneratedInterfaceKGType<Drive> =
-            GeneratedInterfaceKGType(g_drive_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_drive_get_type()) { DriveImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GDrive>): Drive = Wrapper(pointer)
 
         /**
          * Get the GType of Drive

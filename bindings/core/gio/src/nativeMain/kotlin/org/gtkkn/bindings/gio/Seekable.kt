@@ -10,7 +10,8 @@ import kotlinx.cinterop.reinterpret
 import org.gtkkn.bindings.gio.Gio.resolveException
 import org.gtkkn.bindings.glib.Error
 import org.gtkkn.bindings.glib.SeekType
-import org.gtkkn.extensions.glib.Interface
+import org.gtkkn.bindings.gobject.Object
+import org.gtkkn.extensions.glib.cinterop.Proxy
 import org.gtkkn.extensions.glib.ext.asBoolean
 import org.gtkkn.extensions.gobject.GeneratedInterfaceKGType
 import org.gtkkn.extensions.gobject.KGTyped
@@ -45,7 +46,7 @@ import kotlin.Result
  * data will usually cause the stream to resize by introducing zero bytes.
  */
 public interface Seekable :
-    Interface,
+    Proxy,
     KGTyped {
     public val gioSeekablePointer: CPointer<GSeekable>
 
@@ -143,19 +144,22 @@ public interface Seekable :
         }
     }
 
-    private data class Wrapper(private val pointer: CPointer<GSeekable>) : Seekable {
-        override val gioSeekablePointer: CPointer<GSeekable> = pointer
-    }
+    /**
+     * The SeekableImpl type represents a native instance of the Seekable interface.
+     *
+     * @constructor Creates a new instance of Seekable for the provided [CPointer].
+     */
+    public data class SeekableImpl(override val gioSeekablePointer: CPointer<GSeekable>) :
+        Object(gioSeekablePointer.reinterpret()),
+        Seekable
 
     public companion object : TypeCompanion<Seekable> {
         override val type: GeneratedInterfaceKGType<Seekable> =
-            GeneratedInterfaceKGType(g_seekable_get_type()) { Wrapper(it.reinterpret()) }
+            GeneratedInterfaceKGType(g_seekable_get_type()) { SeekableImpl(it.reinterpret()) }
 
         init {
             GioTypeProvider.register()
         }
-
-        public fun wrap(pointer: CPointer<GSeekable>): Seekable = Wrapper(pointer)
 
         /**
          * Get the GType of Seekable

@@ -66,24 +66,21 @@ import kotlin.Unit
  *
  * - method `adjustment`: Property TypeInfo of getter and setter do not match
  */
-public open class Scrollbar(pointer: CPointer<GtkScrollbar>) :
-    Widget(pointer.reinterpret()),
+public open class Scrollbar(public val gtkScrollbarPointer: CPointer<GtkScrollbar>) :
+    Widget(gtkScrollbarPointer.reinterpret()),
     Orientable,
     KGTyped {
-    public val gtkScrollbarPointer: CPointer<GtkScrollbar>
-        get() = gPointer.reinterpret()
-
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new scrollbar with the given orientation.

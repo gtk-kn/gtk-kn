@@ -79,24 +79,21 @@ import kotlin.Unit
  *
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
-    Widget(pointer.reinterpret()),
+public open class AppChooserButton(public val gtkAppChooserButtonPointer: CPointer<GtkAppChooserButton>) :
+    Widget(gtkAppChooserButtonPointer.reinterpret()),
     AppChooser,
     KGTyped {
-    public val gtkAppChooserButtonPointer: CPointer<GtkAppChooserButton>
-        get() = gPointer.reinterpret()
-
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the app chooser dialog should be modal.
@@ -235,7 +232,7 @@ public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
     @GtkVersion4_4
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAppChooserButtonPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -250,7 +247,7 @@ public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
      */
     @GtkVersion4_4
     public fun emitActivate() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate")
+        g_signal_emit_by_name(gtkAppChooserButtonPointer.reinterpret(), "activate")
     }
 
     /**
@@ -261,7 +258,7 @@ public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
      */
     public fun onChanged(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkAppChooserButtonPointer,
             "changed",
             onChangedFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -273,7 +270,7 @@ public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
      * Emits the "changed" signal. See [onChanged].
      */
     public fun emitChanged() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "changed")
+        g_signal_emit_by_name(gtkAppChooserButtonPointer.reinterpret(), "changed")
     }
 
     /**
@@ -291,7 +288,7 @@ public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
         detail: String? = null,
         handler: (itemName: String) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gtkAppChooserButtonPointer,
         "custom-item-activated" + (
             detail?.let {
                 "::$it"
@@ -311,12 +308,8 @@ public open class AppChooserButton(pointer: CPointer<GtkAppChooserButton>) :
      */
     public fun emitCustomItemActivated(detail: String? = null, itemName: String) {
         g_signal_emit_by_name(
-            gPointer.reinterpret(),
-            "custom-item-activated" + (
-                detail?.let {
-                    "::$it"
-                } ?: ""
-                ),
+            gtkAppChooserButtonPointer.reinterpret(),
+            "custom-item-activated" + (detail?.let { "::$it" } ?: ""),
             itemName.cstr
         )
     }

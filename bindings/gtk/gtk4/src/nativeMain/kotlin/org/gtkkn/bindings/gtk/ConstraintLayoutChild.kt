@@ -13,12 +13,10 @@ import org.gtkkn.native.gtk.gtk_constraint_layout_child_get_type
 /**
  * `GtkLayoutChild` subclass for children in a `GtkConstraintLayout`.
  */
-public open class ConstraintLayoutChild(pointer: CPointer<GtkConstraintLayoutChild>) :
-    LayoutChild(pointer.reinterpret()),
+public open class ConstraintLayoutChild(
+    public val gtkConstraintLayoutChildPointer: CPointer<GtkConstraintLayoutChild>,
+) : LayoutChild(gtkConstraintLayoutChildPointer.reinterpret()),
     KGTyped {
-    public val gtkConstraintLayoutChildPointer: CPointer<GtkConstraintLayoutChild>
-        get() = gPointer.reinterpret()
-
     public companion object : TypeCompanion<ConstraintLayoutChild> {
         override val type: GeneratedClassKGType<ConstraintLayoutChild> =
             GeneratedClassKGType(gtk_constraint_layout_child_get_type()) { ConstraintLayoutChild(it.reinterpret()) }

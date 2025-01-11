@@ -101,7 +101,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun contextSetFontOptions(context: PangoContext, options: FontOptions? = null): Unit =
-        pango_cairo_context_set_font_options(context.pangoContextPointer, options?.gPointer)
+        pango_cairo_context_set_font_options(context.pangoContextPointer, options?.cairoFontOptionsPointer)
 
     /**
      * Sets the resolution for the context.
@@ -159,9 +159,10 @@ public object PangoCairo {
      * @since 1.22
      */
     @PangoCairoVersion1_22
-    public fun createContext(cr: CairoContext): PangoContext = pango_cairo_create_context(cr.gPointer)!!.run {
-        PangoContext(this)
-    }
+    public fun createContext(cr: CairoContext): PangoContext =
+        pango_cairo_create_context(cr.cairoContextPointer)!!.run {
+            PangoContext(this)
+        }
 
     /**
      * Creates a layout object set up to match the current transformation
@@ -182,7 +183,7 @@ public object PangoCairo {
      * @since 1.10
      */
     @PangoCairoVersion1_10
-    public fun createLayout(cr: CairoContext): Layout = pango_cairo_create_layout(cr.gPointer)!!.run {
+    public fun createLayout(cr: CairoContext): Layout = pango_cairo_create_layout(cr.cairoContextPointer)!!.run {
         Layout(this)
     }
 
@@ -203,7 +204,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_14
     public fun errorUnderlinePath(cr: CairoContext, x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        pango_cairo_error_underline_path(cr.gPointer, x, y, width, height)
+        pango_cairo_error_underline_path(cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Adds the glyphs in @glyphs to the current path in the specified
@@ -219,7 +220,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun glyphStringPath(cr: CairoContext, font: Font, glyphs: GlyphString): Unit =
-        pango_cairo_glyph_string_path(cr.gPointer, font.pangoFontPointer, glyphs.gPointer)
+        pango_cairo_glyph_string_path(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
 
     /**
      * Adds the text in `PangoLayoutLine` to the current path in the
@@ -234,7 +235,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun layoutLinePath(cr: CairoContext, line: LayoutLine): Unit =
-        pango_cairo_layout_line_path(cr.gPointer, line.gPointer)
+        pango_cairo_layout_line_path(cr.cairoContextPointer, line.pangoLayoutLinePointer)
 
     /**
      * Adds the text in a `PangoLayout` to the current path in the
@@ -249,7 +250,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun layoutPath(cr: CairoContext, layout: Layout): Unit =
-        pango_cairo_layout_path(cr.gPointer, layout.pangoLayoutPointer)
+        pango_cairo_layout_path(cr.cairoContextPointer, layout.pangoLayoutPointer)
 
     /**
      * Draw a squiggly line in the specified cairo context that approximately
@@ -269,7 +270,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_14
     public fun showErrorUnderline(cr: CairoContext, x: gdouble, y: gdouble, width: gdouble, height: gdouble): Unit =
-        pango_cairo_show_error_underline(cr.gPointer, x, y, width, height)
+        pango_cairo_show_error_underline(cr.cairoContextPointer, x, y, width, height)
 
     /**
      * Draws the glyphs in @glyph_item in the specified cairo context,
@@ -291,7 +292,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_22
     public fun showGlyphItem(cr: CairoContext, text: String, glyphItem: GlyphItem): Unit =
-        pango_cairo_show_glyph_item(cr.gPointer, text, glyphItem.gPointer)
+        pango_cairo_show_glyph_item(cr.cairoContextPointer, text, glyphItem.pangoGlyphItemPointer)
 
     /**
      * Draws the glyphs in @glyphs in the specified cairo context.
@@ -306,7 +307,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun showGlyphString(cr: CairoContext, font: Font, glyphs: GlyphString): Unit =
-        pango_cairo_show_glyph_string(cr.gPointer, font.pangoFontPointer, glyphs.gPointer)
+        pango_cairo_show_glyph_string(cr.cairoContextPointer, font.pangoFontPointer, glyphs.pangoGlyphStringPointer)
 
     /**
      * Draws a `PangoLayout` in the specified cairo context.
@@ -320,7 +321,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun showLayout(cr: CairoContext, layout: Layout): Unit =
-        pango_cairo_show_layout(cr.gPointer, layout.pangoLayoutPointer)
+        pango_cairo_show_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
 
     /**
      * Draws a `PangoLayoutLine` in the specified cairo context.
@@ -334,7 +335,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun showLayoutLine(cr: CairoContext, line: LayoutLine): Unit =
-        pango_cairo_show_layout_line(cr.gPointer, line.gPointer)
+        pango_cairo_show_layout_line(cr.cairoContextPointer, line.pangoLayoutLinePointer)
 
     /**
      * Updates a `PangoContext` previously created for use with Cairo to
@@ -350,7 +351,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun updateContext(cr: CairoContext, context: PangoContext): Unit =
-        pango_cairo_update_context(cr.gPointer, context.pangoContextPointer)
+        pango_cairo_update_context(cr.cairoContextPointer, context.pangoContextPointer)
 
     /**
      * Updates the private `PangoContext` of a `PangoLayout` created with
@@ -363,7 +364,7 @@ public object PangoCairo {
      */
     @PangoCairoVersion1_10
     public fun updateLayout(cr: CairoContext, layout: Layout): Unit =
-        pango_cairo_update_layout(cr.gPointer, layout.pangoLayoutPointer)
+        pango_cairo_update_layout(cr.cairoContextPointer, layout.pangoLayoutPointer)
 }
 
 public val ShapeRendererFuncFunc: CPointer<

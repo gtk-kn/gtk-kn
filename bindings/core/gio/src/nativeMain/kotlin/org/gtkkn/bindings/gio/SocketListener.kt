@@ -76,12 +76,9 @@ import kotlin.Unit
  * @since 2.22
  */
 @GioVersion2_22
-public open class SocketListener(pointer: CPointer<GSocketListener>) :
-    Object(pointer.reinterpret()),
+public open class SocketListener(public val gioSocketListenerPointer: CPointer<GSocketListener>) :
+    Object(gioSocketListenerPointer.reinterpret()),
     KGTyped {
-    public val gioSocketListenerPointer: CPointer<GSocketListener>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new #GSocketListener with no sockets to listen for.
      * New listeners can be added with e.g. g_socket_listener_add_address()
@@ -155,7 +152,12 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
     @GioVersion2_24
     public open fun addAnyInetPort(sourceObject: Object? = null): Result<guint16> = memScoped {
         val gError = allocPointerTo<GError>()
-        val gResult = g_socket_listener_add_any_inet_port(gioSocketListenerPointer, sourceObject?.gPointer, gError.ptr)
+        val gResult =
+            g_socket_listener_add_any_inet_port(
+                gioSocketListenerPointer,
+                sourceObject?.gobjectObjectPointer,
+                gError.ptr
+            )
         return if (gError.pointed != null) {
             Result.failure(resolveException(Error(gError.pointed!!.ptr)))
         } else {
@@ -188,7 +190,7 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
         val gResult = g_socket_listener_add_inet_port(
             gioSocketListenerPointer,
             port,
-            sourceObject?.gPointer,
+            sourceObject?.gobjectObjectPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -224,7 +226,7 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
         val gResult = g_socket_listener_add_socket(
             gioSocketListenerPointer,
             socket.gioSocketPointer,
-            sourceObject?.gPointer,
+            sourceObject?.gobjectObjectPointer,
             gError.ptr
         ).asBoolean()
         return if (gError.pointed != null) {
@@ -271,7 +273,7 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
         connectFlags: ConnectFlags = ConnectFlags(0u),
         handler: (event: SocketListenerEvent, socket: Socket) -> Unit,
     ): ULong = g_signal_connect_data(
-        gPointer,
+        gioSocketListenerPointer,
         "event",
         onEventFunc.reinterpret(),
         StableRef.create(handler).asCPointer(),
@@ -288,7 +290,12 @@ public open class SocketListener(pointer: CPointer<GSocketListener>) :
      */
     @GioVersion2_46
     public fun emitEvent(event: SocketListenerEvent, socket: Socket) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "event", event.nativeValue, socket.gioSocketPointer)
+        g_signal_emit_by_name(
+            gioSocketListenerPointer.reinterpret(),
+            "event",
+            event.nativeValue,
+            socket.gioSocketPointer
+        )
     }
 
     public companion object : TypeCompanion<SocketListener> {

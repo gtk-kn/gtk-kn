@@ -43,12 +43,9 @@ import kotlin.Unit
  * @since 2.26
  */
 @WebKitVersion2_26
-public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
-    Object(pointer.reinterpret()),
+public class GeolocationManager(public val webkitGeolocationManagerPointer: CPointer<WebKitGeolocationManager>) :
+    Object(webkitGeolocationManagerPointer.reinterpret()),
     KGTyped {
-    public val webkitGeolocationManagerPointer: CPointer<WebKitGeolocationManager>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether high accuracy is enabled. This is a read-only property that will be
      * set to true when a #WebKitGeolocationManager needs to get accurate position updates.
@@ -83,8 +80,10 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
      * @since 2.26
      */
     @WebKitVersion2_26
-    public fun updatePosition(position: GeolocationPosition): Unit =
-        webkit_geolocation_manager_update_position(webkitGeolocationManagerPointer, position.gPointer)
+    public fun updatePosition(position: GeolocationPosition): Unit = webkit_geolocation_manager_update_position(
+        webkitGeolocationManagerPointer,
+        position.webkitGeolocationPositionPointer
+    )
 
     /**
      * The signal is emitted to notify that @manager needs to start receiving
@@ -104,7 +103,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
     @WebKitVersion2_26
     public fun onStart(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Boolean): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitGeolocationManagerPointer,
             "start",
             onStartFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -123,7 +122,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
     @WebKitVersion2_26
     public fun onStop(connectFlags: ConnectFlags = ConnectFlags(0u), handler: () -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            webkitGeolocationManagerPointer,
             "stop",
             onStopFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -138,7 +137,7 @@ public class GeolocationManager(pointer: CPointer<WebKitGeolocationManager>) :
      */
     @WebKitVersion2_26
     public fun emitStop() {
-        g_signal_emit_by_name(gPointer.reinterpret(), "stop")
+        g_signal_emit_by_name(webkitGeolocationManagerPointer.reinterpret(), "stop")
     }
 
     public companion object : TypeCompanion<GeolocationManager> {

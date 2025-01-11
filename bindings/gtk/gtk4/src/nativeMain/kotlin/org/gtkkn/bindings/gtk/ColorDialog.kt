@@ -57,12 +57,9 @@ import kotlin.Unit
  * @since 4.10
  */
 @GtkVersion4_10
-public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
-    Object(pointer.reinterpret()),
+public open class ColorDialog(public val gtkColorDialogPointer: CPointer<GtkColorDialog>) :
+    Object(gtkColorDialogPointer.reinterpret()),
     KGTyped {
-    public val gtkColorDialogPointer: CPointer<GtkColorDialog>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether the color chooser dialog is modal.
      *
@@ -176,7 +173,7 @@ public open class ColorDialog(pointer: CPointer<GtkColorDialog>) :
     ): Unit = gtk_color_dialog_choose_rgba(
         gtkColorDialogPointer,
         parent?.gtkWindowPointer,
-        initialColor?.gPointer,
+        initialColor?.gdkRgbaPointer,
         cancellable?.gioCancellablePointer,
         callback?.let {
             AsyncReadyCallbackFunc.reinterpret()

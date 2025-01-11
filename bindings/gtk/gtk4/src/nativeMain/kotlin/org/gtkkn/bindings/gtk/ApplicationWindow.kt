@@ -104,37 +104,34 @@ import kotlin.Unit
  * GtkWidget *window = gtk_application_window_new (app);
  * ```
  */
-public open class ApplicationWindow(pointer: CPointer<GtkApplicationWindow>) :
-    Window(pointer.reinterpret()),
+public open class ApplicationWindow(public val gtkApplicationWindowPointer: CPointer<GtkApplicationWindow>) :
+    Window(gtkApplicationWindowPointer.reinterpret()),
     ActionGroup,
     ActionMap,
     KGTyped {
-    public val gtkApplicationWindowPointer: CPointer<GtkApplicationWindow>
-        get() = gPointer.reinterpret()
-
     override val gioActionGroupPointer: CPointer<GActionGroup>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gioActionMapPointer: CPointer<GActionMap>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * If this property is true, the window will display a menubar

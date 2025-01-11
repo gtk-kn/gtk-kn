@@ -183,24 +183,21 @@ import kotlin.Boolean
  * @since 1.4
  */
 @AdwVersion1_4
-public class OverlaySplitView(pointer: CPointer<AdwOverlaySplitView>) :
-    Widget(pointer.reinterpret()),
+public class OverlaySplitView(public val adwOverlaySplitViewPointer: CPointer<AdwOverlaySplitView>) :
+    Widget(adwOverlaySplitViewPointer.reinterpret()),
     Swipeable,
     KGTyped {
-    public val adwOverlaySplitViewPointer: CPointer<AdwOverlaySplitView>
-        get() = gPointer.reinterpret()
-
     override val adwSwipeablePointer: CPointer<AdwSwipeable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Whether the split view is collapsed.
@@ -246,7 +243,7 @@ public class OverlaySplitView(pointer: CPointer<AdwOverlaySplitView>) :
          * @since 1.4
          */
         get() = adw_overlay_split_view_get_content(adwOverlaySplitViewPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**
@@ -458,7 +455,7 @@ public class OverlaySplitView(pointer: CPointer<AdwOverlaySplitView>) :
          * @since 1.4
          */
         get() = adw_overlay_split_view_get_sidebar(adwOverlaySplitViewPointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

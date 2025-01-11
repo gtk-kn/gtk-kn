@@ -17,31 +17,30 @@ import kotlin.String
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class Glyph(pointer: CPointer<cairo_glyph_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<cairo_glyph_t> = pointer
-
+public class Glyph(public val cairoGlyphPointer: CPointer<cairo_glyph_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(cairoGlyphPointer) {
     public var index: gulong
-        get() = gPointer.pointed.index
+        get() = cairoGlyphPointer.pointed.index
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.index = value
+            cairoGlyphPointer.pointed.index = value
         }
 
     public var x: gdouble
-        get() = gPointer.pointed.x
+        get() = cairoGlyphPointer.pointed.x
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.x = value
+            cairoGlyphPointer.pointed.x = value
         }
 
     public var y: gdouble
-        get() = gPointer.pointed.y
+        get() = cairoGlyphPointer.pointed.y
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.y = value
+            cairoGlyphPointer.pointed.y = value
         }
 
     /**
@@ -64,7 +63,7 @@ public class Glyph(pointer: CPointer<cairo_glyph_t>, cleaner: Cleaner? = null) :
      */
     private constructor(
         pair: Pair<CPointer<cairo_glyph_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(cairoGlyphPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Glyph using the provided [AutofreeScope].

@@ -16,12 +16,9 @@ import kotlin.Boolean
 /**
  * An event related to a keyboard focus change.
  */
-public open class FocusEvent(pointer: CPointer<GdkFocusEvent>) :
-    Event(pointer.reinterpret()),
+public open class FocusEvent(public val gdkFocusEventPointer: CPointer<GdkFocusEvent>) :
+    Event(gdkFocusEventPointer.reinterpret()),
     KGTyped {
-    public val gdkFocusEventPointer: CPointer<GdkFocusEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extracts whether this event is about focus entering or
      * leaving the surface.

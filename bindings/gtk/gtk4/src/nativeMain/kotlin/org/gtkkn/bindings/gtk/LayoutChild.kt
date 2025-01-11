@@ -24,12 +24,9 @@ import org.gtkkn.native.gtk.gtk_layout_child_get_type
  * A `GtkLayoutChild` instance is only ever valid while a widget is part
  * of a layout.
  */
-public open class LayoutChild(pointer: CPointer<GtkLayoutChild>) :
-    Object(pointer.reinterpret()),
+public abstract class LayoutChild(public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>) :
+    Object(gtkLayoutChildPointer.reinterpret()),
     KGTyped {
-    public val gtkLayoutChildPointer: CPointer<GtkLayoutChild>
-        get() = gPointer.reinterpret()
-
     /**
      * The widget that is associated to the `GtkLayoutChild` instance.
      */
@@ -40,7 +37,7 @@ public open class LayoutChild(pointer: CPointer<GtkLayoutChild>) :
          * @return a `GtkWidget`
          */
         get() = gtk_layout_child_get_child_widget(gtkLayoutChildPointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**
@@ -54,12 +51,19 @@ public open class LayoutChild(pointer: CPointer<GtkLayoutChild>) :
          * @return a `GtkLayoutManager`
          */
         get() = gtk_layout_child_get_layout_manager(gtkLayoutChildPointer)!!.run {
-            LayoutManager(this)
+            LayoutManager.LayoutManagerImpl(this)
         }
+
+    /**
+     * The LayoutChildImpl type represents a native instance of the abstract LayoutChild class.
+     *
+     * @constructor Creates a new instance of LayoutChild for the provided [CPointer].
+     */
+    public class LayoutChildImpl(pointer: CPointer<GtkLayoutChild>) : LayoutChild(pointer)
 
     public companion object : TypeCompanion<LayoutChild> {
         override val type: GeneratedClassKGType<LayoutChild> =
-            GeneratedClassKGType(gtk_layout_child_get_type()) { LayoutChild(it.reinterpret()) }
+            GeneratedClassKGType(gtk_layout_child_get_type()) { LayoutChildImpl(it.reinterpret()) }
 
         init {
             GtkTypeProvider.register()

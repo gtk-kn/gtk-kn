@@ -44,20 +44,17 @@ import kotlin.Boolean
  *
  * Starting from GTK 4.12, `GtkAspectFrame` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  */
-public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
-    Widget(pointer.reinterpret()),
+public open class AspectFrame(public val gtkAspectFramePointer: CPointer<GtkAspectFrame>) :
+    Widget(gtkAspectFramePointer.reinterpret()),
     KGTyped {
-    public val gtkAspectFramePointer: CPointer<GtkAspectFrame>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child widget.
@@ -69,7 +66,7 @@ public open class AspectFrame(pointer: CPointer<GtkAspectFrame>) :
          * @return the child widget of @self
          */
         get() = gtk_aspect_frame_get_child(gtkAspectFramePointer)?.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
         /**

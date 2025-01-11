@@ -12,9 +12,8 @@ import kotlin.Pair
 import kotlin.native.ref.Cleaner
 import kotlin.native.ref.createCleaner
 
-public class Simd4x4f(pointer: CPointer<graphene_simd4x4f_t>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<graphene_simd4x4f_t> = pointer
-
+public class Simd4x4f(public val grapheneSimd4x4fPointer: CPointer<graphene_simd4x4f_t>, cleaner: Cleaner? = null) :
+    ProxyInstance(grapheneSimd4x4fPointer) {
     /**
      * Allocate a new Simd4x4f.
      *
@@ -35,7 +34,7 @@ public class Simd4x4f(pointer: CPointer<graphene_simd4x4f_t>, cleaner: Cleaner? 
      */
     private constructor(
         pair: Pair<CPointer<graphene_simd4x4f_t>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(grapheneSimd4x4fPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new Simd4x4f using the provided [AutofreeScope].

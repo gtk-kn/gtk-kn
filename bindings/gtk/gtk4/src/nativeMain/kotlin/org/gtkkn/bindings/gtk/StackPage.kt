@@ -40,15 +40,12 @@ import kotlin.Unit
  * - method `name`: Property TypeInfo of getter and setter do not match
  * - method `title`: Property TypeInfo of getter and setter do not match
  */
-public open class StackPage(pointer: CPointer<GtkStackPage>) :
-    Object(pointer.reinterpret()),
+public open class StackPage(public val gtkStackPagePointer: CPointer<GtkStackPage>) :
+    Object(gtkStackPagePointer.reinterpret()),
     Accessible,
     KGTyped {
-    public val gtkStackPagePointer: CPointer<GtkStackPage>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The child that this page is for.
@@ -60,7 +57,7 @@ public open class StackPage(pointer: CPointer<GtkStackPage>) :
          * @return the child to which @self belongs
          */
         get() = gtk_stack_page_get_child(gtkStackPagePointer)!!.run {
-            Widget(this)
+            Widget.WidgetImpl(this)
         }
 
     /**

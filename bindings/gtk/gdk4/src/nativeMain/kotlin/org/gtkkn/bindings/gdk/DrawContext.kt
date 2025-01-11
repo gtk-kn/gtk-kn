@@ -32,12 +32,9 @@ import kotlin.Unit
  *
  * A `GdkDrawContext` is always associated with a single toplevel surface.
  */
-public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
-    Object(pointer.reinterpret()),
+public abstract class DrawContext(public val gdkDrawContextPointer: CPointer<GdkDrawContext>) :
+    Object(gdkDrawContextPointer.reinterpret()),
     KGTyped {
-    public val gdkDrawContextPointer: CPointer<GdkDrawContext>
-        get() = gPointer.reinterpret()
-
     /**
      * The `GdkDisplay` used to create the `GdkDrawContext`.
      */
@@ -61,7 +58,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
          * @return a `GdkSurface`
          */
         get() = gdk_draw_context_get_surface(gdkDrawContextPointer)?.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**
@@ -93,7 +90,7 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
      * @param region minimum region that should be drawn
      */
     public open fun beginFrame(region: Region): Unit =
-        gdk_draw_context_begin_frame(gdkDrawContextPointer, region.gPointer)
+        gdk_draw_context_begin_frame(gdkDrawContextPointer, region.cairoRegionPointer)
 
     /**
      * Ends a drawing operation started with gdk_draw_context_begin_frame().
@@ -135,9 +132,16 @@ public open class DrawContext(pointer: CPointer<GdkDrawContext>) :
      */
     public open fun isInFrame(): Boolean = gdk_draw_context_is_in_frame(gdkDrawContextPointer).asBoolean()
 
+    /**
+     * The DrawContextImpl type represents a native instance of the abstract DrawContext class.
+     *
+     * @constructor Creates a new instance of DrawContext for the provided [CPointer].
+     */
+    public class DrawContextImpl(pointer: CPointer<GdkDrawContext>) : DrawContext(pointer)
+
     public companion object : TypeCompanion<DrawContext> {
         override val type: GeneratedClassKGType<DrawContext> =
-            GeneratedClassKGType(gdk_draw_context_get_type()) { DrawContext(it.reinterpret()) }
+            GeneratedClassKGType(gdk_draw_context_get_type()) { DrawContextImpl(it.reinterpret()) }
 
         init {
             GdkTypeProvider.register()

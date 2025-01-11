@@ -35,41 +35,41 @@ import kotlin.native.ref.createCleaner
  * - field `value_validate`: Fields with callbacks are not supported
  * - field `values_cmp`: Fields with callbacks are not supported
  */
-public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GParamSpecTypeInfo> = pointer
-
+public class ParamSpecTypeInfo(
+    public val gobjectParamSpecTypeInfoPointer: CPointer<GParamSpecTypeInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectParamSpecTypeInfoPointer) {
     /**
      * Size of the instance (object) structure.
      */
     public var instanceSize: guint16
-        get() = gPointer.pointed.instance_size
+        get() = gobjectParamSpecTypeInfoPointer.pointed.instance_size
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.instance_size = value
+            gobjectParamSpecTypeInfoPointer.pointed.instance_size = value
         }
 
     /**
      * Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
      */
     public var nPreallocs: guint16
-        get() = gPointer.pointed.n_preallocs
+        get() = gobjectParamSpecTypeInfoPointer.pointed.n_preallocs
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.n_preallocs = value
+            gobjectParamSpecTypeInfoPointer.pointed.n_preallocs = value
         }
 
     /**
      * The #GType of values conforming to this #GParamSpec
      */
     public var valueType: GType
-        get() = gPointer.pointed.value_type
+        get() = gobjectParamSpecTypeInfoPointer.pointed.value_type
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.value_type = value
+            gobjectParamSpecTypeInfoPointer.pointed.value_type = value
         }
 
     /**
@@ -92,7 +92,7 @@ public class ParamSpecTypeInfo(pointer: CPointer<GParamSpecTypeInfo>, cleaner: C
      */
     private constructor(
         pair: Pair<CPointer<GParamSpecTypeInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectParamSpecTypeInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new ParamSpecTypeInfo using the provided [AutofreeScope].

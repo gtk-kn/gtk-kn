@@ -40,12 +40,9 @@ import kotlin.String
  * @since 4.12
  */
 @GtkVersion4_12
-public open class ColumnViewRow(pointer: CPointer<GtkColumnViewRow>) :
-    Object(pointer.reinterpret()),
+public open class ColumnViewRow(public val gtkColumnViewRowPointer: CPointer<GtkColumnViewRow>) :
+    Object(gtkColumnViewRowPointer.reinterpret()),
     KGTyped {
-    public val gtkColumnViewRowPointer: CPointer<GtkColumnViewRow>
-        get() = gPointer.reinterpret()
-
     /**
      * The accessible description to set on the row.
      *

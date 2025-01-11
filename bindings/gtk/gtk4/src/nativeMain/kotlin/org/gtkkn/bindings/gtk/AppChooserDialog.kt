@@ -50,33 +50,30 @@ import kotlin.Unit
  * - method `gfile`: Property has no getter nor setter
  * - method `heading`: Property TypeInfo of getter and setter do not match
  */
-public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class AppChooserDialog(public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>) :
+    Dialog(gtkAppChooserDialogPointer.reinterpret()),
     AppChooser,
     KGTyped {
-    public val gtkAppChooserDialogPointer: CPointer<GtkAppChooserDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkAppChooserPointer: CPointer<GtkAppChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkAppChooserDialog` for the provided `GFile`.
@@ -126,7 +123,7 @@ public open class AppChooserDialog(pointer: CPointer<GtkAppChooserDialog>) :
      * @return the `GtkAppChooserWidget` of @self
      */
     public open fun getWidget(): Widget = gtk_app_chooser_dialog_get_widget(gtkAppChooserDialogPointer)!!.run {
-        Widget(this)
+        Widget.WidgetImpl(this)
     }
 
     /**

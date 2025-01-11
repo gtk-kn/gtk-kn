@@ -20,15 +20,14 @@ import kotlin.Unit
  * @since 1.10
  */
 @CairoVersion1_10
-public open class TeeSurface(pointer: CPointer<cairo_surface_t>) :
-    Surface(pointer.reinterpret()),
+public open class TeeSurface(public val cairoTeeSurfacePointer: CPointer<cairo_surface_t>) :
+    Surface(cairoTeeSurfacePointer.reinterpret()),
     KGTyped {
-    public val cairoTeeSurfacePointer: CPointer<cairo_surface_t>
-        get() = gPointer.reinterpret()
+    public open fun add(target: Surface): Unit =
+        cairo_tee_surface_add(cairoTeeSurfacePointer, target.cairoSurfacePointer)
 
-    public open fun add(target: Surface): Unit = cairo_tee_surface_add(cairoTeeSurfacePointer, target.gPointer)
-
-    public open fun remove(target: Surface): Unit = cairo_tee_surface_remove(cairoTeeSurfacePointer, target.gPointer)
+    public open fun remove(target: Surface): Unit =
+        cairo_tee_surface_remove(cairoTeeSurfacePointer, target.cairoSurfacePointer)
 
     public companion object : TypeCompanion<TeeSurface> {
         override val type: GeneratedClassKGType<TeeSurface> =
@@ -38,7 +37,7 @@ public open class TeeSurface(pointer: CPointer<cairo_surface_t>) :
             CairoTypeProvider.register()
         }
 
-        public fun create(primary: Surface): TeeSurface = cairo_tee_surface_create(primary.gPointer)!!.run {
+        public fun create(primary: Surface): TeeSurface = cairo_tee_surface_create(primary.cairoSurfacePointer)!!.run {
             TeeSurface(reinterpret())
         }
 

@@ -33,12 +33,10 @@ import kotlin.collections.List
  *
  * - method `search-path`: Property TypeInfo of getter and setter do not match
  */
-public open class StyleSchemeManager(pointer: CPointer<GtkSourceStyleSchemeManager>) :
-    Object(pointer.reinterpret()),
+public open class StyleSchemeManager(
+    public val gtksourceStyleSchemeManagerPointer: CPointer<GtkSourceStyleSchemeManager>,
+) : Object(gtksourceStyleSchemeManagerPointer.reinterpret()),
     KGTyped {
-    public val gtksourceStyleSchemeManagerPointer: CPointer<GtkSourceStyleSchemeManager>
-        get() = gPointer.reinterpret()
-
     public open val schemeIds: List<String>?
         /**
          * Returns the ids of the available style schemes.

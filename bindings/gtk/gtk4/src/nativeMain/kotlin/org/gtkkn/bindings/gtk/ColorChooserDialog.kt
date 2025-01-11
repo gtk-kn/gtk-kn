@@ -44,33 +44,30 @@ import kotlin.String
  *
  * - method `show-editor`: Property has no getter nor setter
  */
-public open class ColorChooserDialog(pointer: CPointer<GtkColorChooserDialog>) :
-    Dialog(pointer.reinterpret()),
+public open class ColorChooserDialog(public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>) :
+    Dialog(gtkColorChooserDialogPointer.reinterpret()),
     ColorChooser,
     KGTyped {
-    public val gtkColorChooserDialogPointer: CPointer<GtkColorChooserDialog>
-        get() = gPointer.reinterpret()
-
     override val gtkColorChooserPointer: CPointer<GtkColorChooser>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkNativePointer: CPointer<GtkNative>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkRootPointer: CPointer<GtkRoot>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Creates a new `GtkColorChooserDialog`.

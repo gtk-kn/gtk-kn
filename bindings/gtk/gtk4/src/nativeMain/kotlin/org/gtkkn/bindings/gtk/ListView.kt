@@ -146,26 +146,23 @@ import kotlin.Unit
  * `GtkListView` uses the %GTK_ACCESSIBLE_ROLE_LIST role, and the list
  * items use the %GTK_ACCESSIBLE_ROLE_LIST_ITEM role.
  */
-public open class ListView(pointer: CPointer<GtkListView>) :
-    ListBase(pointer.reinterpret()),
+public open class ListView(public val gtkListViewPointer: CPointer<GtkListView>) :
+    ListBase(gtkListViewPointer.reinterpret()),
     KGTyped {
-    public val gtkListViewPointer: CPointer<GtkListView>
-        get() = gPointer.reinterpret()
-
     override val gtkAccessiblePointer: CPointer<GtkAccessible>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkBuildablePointer: CPointer<GtkBuildable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkConstraintTargetPointer: CPointer<GtkConstraintTarget>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkOrientablePointer: CPointer<GtkOrientable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     override val gtkScrollablePointer: CPointer<GtkScrollable>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * Allow rubberband selection.
@@ -244,7 +241,7 @@ public open class ListView(pointer: CPointer<GtkListView>) :
          * @return The model in use
          */
         get() = gtk_list_view_get_model(gtkListViewPointer)?.run {
-            SelectionModel.wrap(reinterpret())
+            SelectionModel.SelectionModelImpl(reinterpret())
         }
 
         /**
@@ -359,7 +356,7 @@ public open class ListView(pointer: CPointer<GtkListView>) :
      */
     @GtkVersion4_12
     public open fun scrollTo(pos: guint, flags: ListScrollFlags, scroll: ScrollInfo? = null): Unit =
-        gtk_list_view_scroll_to(gtkListViewPointer, pos, flags.mask, scroll?.gPointer)
+        gtk_list_view_scroll_to(gtkListViewPointer, pos, flags.mask, scroll?.gtkScrollInfoPointer)
 
     /**
      * Emitted when a row has been activated by the user,
@@ -374,7 +371,7 @@ public open class ListView(pointer: CPointer<GtkListView>) :
      */
     public fun onActivate(connectFlags: ConnectFlags = ConnectFlags(0u), handler: (position: guint) -> Unit): ULong =
         g_signal_connect_data(
-            gPointer,
+            gtkListViewPointer,
             "activate",
             onActivateFunc.reinterpret(),
             StableRef.create(handler).asCPointer(),
@@ -388,7 +385,7 @@ public open class ListView(pointer: CPointer<GtkListView>) :
      * @param position position of item to activate
      */
     public fun emitActivate(position: guint) {
-        g_signal_emit_by_name(gPointer.reinterpret(), "activate", position)
+        g_signal_emit_by_name(gtkListViewPointer.reinterpret(), "activate", position)
     }
 
     public companion object : TypeCompanion<ListView> {

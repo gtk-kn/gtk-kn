@@ -24,12 +24,10 @@ import kotlin.String
  * @since 1.2
  */
 @AdwVersion1_2
-public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarget>) :
-    AnimationTarget(pointer.reinterpret()),
+public class PropertyAnimationTarget(
+    public val adwPropertyAnimationTargetPointer: CPointer<AdwPropertyAnimationTarget>,
+) : AnimationTarget(adwPropertyAnimationTargetPointer.reinterpret()),
     KGTyped {
-    public val adwPropertyAnimationTargetPointer: CPointer<AdwPropertyAnimationTarget>
-        get() = gPointer.reinterpret()
-
     /**
      * The object whose property will be animated.
      *
@@ -69,7 +67,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
          * @since 1.2
          */
         get() = adw_property_animation_target_get_pspec(adwPropertyAnimationTargetPointer)!!.run {
-            ParamSpec(this)
+            ParamSpec.ParamSpecImpl(this)
         }
 
     /**
@@ -84,7 +82,7 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
     public constructor(
         `object`: Object,
         propertyName: String,
-    ) : this(adw_property_animation_target_new(`object`.gPointer, propertyName)!!.reinterpret())
+    ) : this(adw_property_animation_target_new(`object`.gobjectObjectPointer, propertyName)!!.reinterpret())
 
     /**
      * Creates a new `AdwPropertyAnimationTarget` for the @pspec property on
@@ -98,7 +96,12 @@ public class PropertyAnimationTarget(pointer: CPointer<AdwPropertyAnimationTarge
     public constructor(
         `object`: Object,
         pspec: ParamSpec,
-    ) : this(adw_property_animation_target_new_for_pspec(`object`.gPointer, pspec.gPointer)!!.reinterpret())
+    ) : this(
+        adw_property_animation_target_new_for_pspec(
+            `object`.gobjectObjectPointer,
+            pspec.gobjectParamSpecPointer
+        )!!.reinterpret()
+    )
 
     public companion object : TypeCompanion<PropertyAnimationTarget> {
         override val type: GeneratedClassKGType<PropertyAnimationTarget> =

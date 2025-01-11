@@ -218,12 +218,10 @@ import kotlin.collections.List
  * - method `options`: Property has no getter nor setter
  * - method `platform-data`: Property has no getter nor setter
  */
-public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLine>) :
-    Object(pointer.reinterpret()),
+public open class ApplicationCommandLine(
+    public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>,
+) : Object(gioApplicationCommandLinePointer.reinterpret()),
     KGTyped {
-    public val gioApplicationCommandLinePointer: CPointer<GApplicationCommandLine>
-        get() = gPointer.reinterpret()
-
     /**
      * Whether this is a remote commandline.
      *
@@ -254,7 +252,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
     @GioVersion2_36
     public open fun createFileForArg(arg: String): File =
         g_application_command_line_create_file_for_arg(gioApplicationCommandLinePointer, arg)!!.run {
-            File.wrap(reinterpret())
+            File.FileImpl(reinterpret())
         }
 
     /**
@@ -394,7 +392,7 @@ public open class ApplicationCommandLine(pointer: CPointer<GApplicationCommandLi
     @GioVersion2_34
     public open fun getStdin(): InputStream? =
         g_application_command_line_get_stdin(gioApplicationCommandLinePointer)?.run {
-            InputStream(this)
+            InputStream.InputStreamImpl(this)
         }
 
     /**

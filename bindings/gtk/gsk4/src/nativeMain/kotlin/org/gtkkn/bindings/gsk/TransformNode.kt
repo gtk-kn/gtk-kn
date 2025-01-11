@@ -16,12 +16,9 @@ import org.gtkkn.native.gsk.gsk_transform_node_new
 /**
  * A render node applying a `GskTransform` to its single child node.
  */
-public open class TransformNode(pointer: CPointer<GskTransformNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class TransformNode(public val gskTransformNodePointer: CPointer<GskTransformNode>) :
+    RenderNode(gskTransformNodePointer.reinterpret()),
     KGTyped {
-    public val gskTransformNodePointer: CPointer<GskTransformNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will transform the given @child
      * with the given @transform.
@@ -33,7 +30,7 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
     public constructor(
         child: RenderNode,
         transform: Transform,
-    ) : this(gsk_transform_node_new(child.gPointer, transform.gPointer)!!.reinterpret())
+    ) : this(gsk_transform_node_new(child.gskRenderNodePointer, transform.gskTransformPointer)!!.reinterpret())
 
     /**
      * Gets the child node that is getting transformed by the given @node.
@@ -41,7 +38,7 @@ public open class TransformNode(pointer: CPointer<GskTransformNode>) :
      * @return The child that is getting transformed
      */
     public open fun getChild(): RenderNode = gsk_transform_node_get_child(gskTransformNodePointer.reinterpret())!!.run {
-        RenderNode(this)
+        RenderNode.RenderNodeImpl(this)
     }
 
     /**

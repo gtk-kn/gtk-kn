@@ -17,12 +17,9 @@ import kotlin.Boolean
 /**
  * An event related to a broken windowing system grab.
  */
-public open class GrabBrokenEvent(pointer: CPointer<GdkGrabBrokenEvent>) :
-    Event(pointer.reinterpret()),
+public open class GrabBrokenEvent(public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>) :
+    Event(gdkGrabBrokenEventPointer.reinterpret()),
     KGTyped {
-    public val gdkGrabBrokenEventPointer: CPointer<GdkGrabBrokenEvent>
-        get() = gPointer.reinterpret()
-
     /**
      * Extracts the grab surface from a grab broken event.
      *
@@ -30,7 +27,7 @@ public open class GrabBrokenEvent(pointer: CPointer<GdkGrabBrokenEvent>) :
      */
     public open fun getGrabSurface(): Surface =
         gdk_grab_broken_event_get_grab_surface(gdkGrabBrokenEventPointer.reinterpret())!!.run {
-            Surface(this)
+            Surface.SurfaceImpl(this)
         }
 
     /**

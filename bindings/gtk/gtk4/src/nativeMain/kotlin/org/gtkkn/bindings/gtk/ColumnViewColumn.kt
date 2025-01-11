@@ -53,12 +53,9 @@ import kotlin.String
  * [method@Gtk.ColumnViewColumn.set_sorter], to let users influence sorting
  * by clicking on the column header.
  */
-public open class ColumnViewColumn(pointer: CPointer<GtkColumnViewColumn>) :
-    Object(pointer.reinterpret()),
+public open class ColumnViewColumn(public val gtkColumnViewColumnPointer: CPointer<GtkColumnViewColumn>) :
+    Object(gtkColumnViewColumnPointer.reinterpret()),
     KGTyped {
-    public val gtkColumnViewColumnPointer: CPointer<GtkColumnViewColumn>
-        get() = gPointer.reinterpret()
-
     /**
      * The `GtkColumnView` this column is a part of.
      */
@@ -153,7 +150,7 @@ public open class ColumnViewColumn(pointer: CPointer<GtkColumnViewColumn>) :
          * @return the `GMenuModel`
          */
         get() = gtk_column_view_column_get_header_menu(gtkColumnViewColumnPointer)?.run {
-            MenuModel(this)
+            MenuModel.MenuModelImpl(this)
         }
 
         /**

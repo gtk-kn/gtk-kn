@@ -31,20 +31,20 @@ import kotlin.native.ref.createCleaner
  * @since 1.38
  */
 @PangoVersion1_38
-public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<PangoAttrFontFeatures> = pointer
-
+public class AttrFontFeatures(
+    public val pangoAttrFontFeaturesPointer: CPointer<PangoAttrFontFeatures>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(pangoAttrFontFeaturesPointer) {
     /**
      * the features, as a string in CSS syntax
      */
     public var features: String?
-        get() = gPointer.pointed.features?.toKString()
+        get() = pangoAttrFontFeaturesPointer.pointed.features?.toKString()
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.features?.let { g_free(it) }
-            gPointer.pointed.features = value?.let { g_strdup(it) }
+            pangoAttrFontFeaturesPointer.pointed.features?.let { g_free(it) }
+            pangoAttrFontFeaturesPointer.pointed.features = value?.let { g_strdup(it) }
         }
 
     /**
@@ -67,7 +67,7 @@ public class AttrFontFeatures(pointer: CPointer<PangoAttrFontFeatures>, cleaner:
      */
     private constructor(
         pair: Pair<CPointer<PangoAttrFontFeatures>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(pangoAttrFontFeaturesPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new AttrFontFeatures using the provided [AutofreeScope].

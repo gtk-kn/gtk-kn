@@ -19,21 +19,21 @@ import kotlin.native.ref.createCleaner
  * A structure that provides information to the type system which is
  * used specifically for managing fundamental types.
  */
-public class TypeFundamentalInfo(pointer: CPointer<GTypeFundamentalInfo>, cleaner: Cleaner? = null) :
-    ProxyInstance(pointer) {
-    public val gPointer: CPointer<GTypeFundamentalInfo> = pointer
-
+public class TypeFundamentalInfo(
+    public val gobjectTypeFundamentalInfoPointer: CPointer<GTypeFundamentalInfo>,
+    cleaner: Cleaner? = null,
+) : ProxyInstance(gobjectTypeFundamentalInfoPointer) {
     /**
      * #GTypeFundamentalFlags describing the characteristics of the fundamental type
      */
     public var typeFlags: TypeFundamentalFlags
-        get() = gPointer.pointed.type_flags.run {
+        get() = gobjectTypeFundamentalInfoPointer.pointed.type_flags.run {
             TypeFundamentalFlags(this)
         }
 
         @UnsafeFieldSetter
         set(`value`) {
-            gPointer.pointed.type_flags = value.mask
+            gobjectTypeFundamentalInfoPointer.pointed.type_flags = value.mask
         }
 
     /**
@@ -56,7 +56,7 @@ public class TypeFundamentalInfo(pointer: CPointer<GTypeFundamentalInfo>, cleane
      */
     private constructor(
         pair: Pair<CPointer<GTypeFundamentalInfo>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(gobjectTypeFundamentalInfoPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new TypeFundamentalInfo using the provided [AutofreeScope].

@@ -29,9 +29,8 @@ import kotlin.native.ref.createCleaner
  * - field `passthrough`: Fields with callbacks are not supported
  * - field `error`: Fields with callbacks are not supported
  */
-public class MarkupParser(pointer: CPointer<GMarkupParser>, cleaner: Cleaner? = null) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<GMarkupParser> = pointer
-
+public class MarkupParser(public val glibMarkupParserPointer: CPointer<GMarkupParser>, cleaner: Cleaner? = null) :
+    ProxyInstance(glibMarkupParserPointer) {
     /**
      * Allocate a new MarkupParser.
      *
@@ -52,7 +51,7 @@ public class MarkupParser(pointer: CPointer<GMarkupParser>, cleaner: Cleaner? = 
      */
     private constructor(
         pair: Pair<CPointer<GMarkupParser>, Cleaner>,
-    ) : this(pointer = pair.first, cleaner = pair.second)
+    ) : this(glibMarkupParserPointer = pair.first, cleaner = pair.second)
 
     /**
      * Allocate a new MarkupParser using the provided [AutofreeScope].

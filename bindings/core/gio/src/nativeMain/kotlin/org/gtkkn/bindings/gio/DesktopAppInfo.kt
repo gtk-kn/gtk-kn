@@ -77,15 +77,12 @@ import org.gtkkn.bindings.glib.List as GlibList
  * - parameter `length`: length: Out parameter is not supported
  * - function `search`: Nested array types are not supported
  */
-public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
-    Object(pointer.reinterpret()),
+public open class DesktopAppInfo(public val gioDesktopAppInfoPointer: CPointer<GDesktopAppInfo>) :
+    Object(gioDesktopAppInfoPointer.reinterpret()),
     AppInfo,
     KGTyped {
-    public val gioDesktopAppInfoPointer: CPointer<GDesktopAppInfo>
-        get() = gPointer.reinterpret()
-
     override val gioAppInfoPointer: CPointer<GAppInfo>
-        get() = gPointer.reinterpret()
+        get() = handle.reinterpret()
 
     /**
      * The origin filename of this #GDesktopAppInfo
@@ -128,7 +125,9 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
      * @return a new #GDesktopAppInfo or null on error.
      * @since 2.18
      */
-    public constructor(keyFile: KeyFile) : this(g_desktop_app_info_new_from_keyfile(keyFile.gPointer)!!.reinterpret())
+    public constructor(
+        keyFile: KeyFile,
+    ) : this(g_desktop_app_info_new_from_keyfile(keyFile.glibKeyFilePointer)!!.reinterpret())
 
     /**
      * Gets the user-visible display name of the "additional application
@@ -347,7 +346,7 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_desktop_app_info_launch_uris_as_manager(
-            gioDesktopAppInfoPointer, uris.gPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask,
+            gioDesktopAppInfoPointer, uris.glibListPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask,
             userSetup?.let {
                 SpawnChildSetupFuncFunc.reinterpret()
             },
@@ -399,7 +398,7 @@ public open class DesktopAppInfo(pointer: CPointer<GDesktopAppInfo>) :
     ): Result<Boolean> = memScoped {
         val gError = allocPointerTo<GError>()
         val gResult = g_desktop_app_info_launch_uris_as_manager_with_fds(
-            gioDesktopAppInfoPointer, uris.gPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask,
+            gioDesktopAppInfoPointer, uris.glibListPointer, launchContext?.gioAppLaunchContextPointer, spawnFlags.mask,
             userSetup?.let {
                 SpawnChildSetupFuncFunc.reinterpret()
             },

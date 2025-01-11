@@ -124,12 +124,9 @@ import kotlin.Throws
  * - parameter `num_ranges`: num_ranges: Out parameter is not supported
  * - parameter `page_ranges`: Array parameter of type PageRange is not supported
  */
-public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
-    Object(pointer.reinterpret()),
+public open class PrintSettings(public val gtkPrintSettingsPointer: CPointer<GtkPrintSettings>) :
+    Object(gtkPrintSettingsPointer.reinterpret()),
     KGTyped {
-    public val gtkPrintSettingsPointer: CPointer<GtkPrintSettings>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a new `GtkPrintSettings` object.
      *
@@ -170,7 +167,9 @@ public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
      * @param variant an a{sv} `GVariant`
      * @return a new `GtkPrintSettings` object
      */
-    public constructor(variant: Variant) : this(gtk_print_settings_new_from_gvariant(variant.gPointer)!!.reinterpret())
+    public constructor(
+        variant: Variant,
+    ) : this(gtk_print_settings_new_from_gvariant(variant.glibVariantPointer)!!.reinterpret())
 
     /**
      * Reads the print settings from the group @group_name in @key_file.
@@ -188,7 +187,7 @@ public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
     public constructor(keyFile: KeyFile, groupName: String? = null) : this(
         memScoped {
             val gError = allocPointerTo<GError>()
-            val gResult = gtk_print_settings_new_from_key_file(keyFile.gPointer, groupName, gError.ptr)
+            val gResult = gtk_print_settings_new_from_key_file(keyFile.glibKeyFilePointer, groupName, gError.ptr)
             if (gError.pointed != null) {
                 throw resolveException(Error(gError.pointed!!.ptr))
             }
@@ -538,7 +537,7 @@ public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
         val gError = allocPointerTo<GError>()
         val gResult = gtk_print_settings_load_key_file(
             gtkPrintSettingsPointer,
-            keyFile.gPointer,
+            keyFile.glibKeyFilePointer,
             groupName,
             gError.ptr
         ).asBoolean()
@@ -710,7 +709,7 @@ public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
      * @param paperSize a paper size
      */
     public open fun setPaperSize(paperSize: PaperSize): kotlin.Unit =
-        gtk_print_settings_set_paper_size(gtkPrintSettingsPointer, paperSize.gPointer)
+        gtk_print_settings_set_paper_size(gtkPrintSettingsPointer, paperSize.gtkPaperSizePointer)
 
     /**
      * Sets the value of %GTK_PRINT_SETTINGS_PAPER_WIDTH.
@@ -834,7 +833,7 @@ public open class PrintSettings(pointer: CPointer<GtkPrintSettings>) :
      *   null to use the default “Print Settings”
      */
     public open fun toKeyFile(keyFile: KeyFile, groupName: String? = null): kotlin.Unit =
-        gtk_print_settings_to_key_file(gtkPrintSettingsPointer, keyFile.gPointer, groupName)
+        gtk_print_settings_to_key_file(gtkPrintSettingsPointer, keyFile.glibKeyFilePointer, groupName)
 
     /**
      * Removes any value associated with @key.

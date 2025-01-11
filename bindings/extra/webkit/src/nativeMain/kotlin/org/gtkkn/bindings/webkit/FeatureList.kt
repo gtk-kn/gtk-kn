@@ -35,9 +35,8 @@ import kotlin.Unit
  * @since 2.42
  */
 @WebKitVersion2_42
-public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(pointer) {
-    public val gPointer: CPointer<WebKitFeatureList> = pointer
-
+public class FeatureList(public val webkitFeatureListPointer: CPointer<WebKitFeatureList>) :
+    ProxyInstance(webkitFeatureListPointer) {
     /**
      * Gets a feature given its index.
      *
@@ -46,7 +45,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun `get`(index: gsize): Feature = webkit_feature_list_get(gPointer, index)!!.run {
+    public fun `get`(index: gsize): Feature = webkit_feature_list_get(webkitFeatureListPointer, index)!!.run {
         Feature(this)
     }
 
@@ -57,7 +56,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      *
      * Since 2.42
      */
-    public fun getLength(): gsize = webkit_feature_list_get_length(gPointer)
+    public fun getLength(): gsize = webkit_feature_list_get_length(webkitFeatureListPointer)
 
     /**
      * Atomically acquires a reference on the given @feature_list.
@@ -68,7 +67,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun ref(): FeatureList = webkit_feature_list_ref(gPointer)!!.run {
+    public fun ref(): FeatureList = webkit_feature_list_ref(webkitFeatureListPointer)!!.run {
         FeatureList(this)
     }
 
@@ -82,7 +81,7 @@ public class FeatureList(pointer: CPointer<WebKitFeatureList>) : ProxyInstance(p
      * @since 2.42
      */
     @WebKitVersion2_42
-    public fun unref(): Unit = webkit_feature_list_unref(gPointer)
+    public fun unref(): Unit = webkit_feature_list_unref(webkitFeatureListPointer)
 
     public companion object {
         /**

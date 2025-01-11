@@ -18,12 +18,9 @@ import org.gtkkn.native.gsk.gsk_cross_fade_node_new
 /**
  * A render node cross fading between two child nodes.
  */
-public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
-    RenderNode(pointer.reinterpret()),
+public open class CrossFadeNode(public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>) :
+    RenderNode(gskCrossFadeNodePointer.reinterpret()),
     KGTyped {
-    public val gskCrossFadeNodePointer: CPointer<GskCrossFadeNode>
-        get() = gPointer.reinterpret()
-
     /**
      * Creates a `GskRenderNode` that will do a cross-fade between @start and @end.
      *
@@ -37,7 +34,7 @@ public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
         start: RenderNode,
         end: RenderNode,
         progress: gfloat,
-    ) : this(gsk_cross_fade_node_new(start.gPointer, end.gPointer, progress)!!.reinterpret())
+    ) : this(gsk_cross_fade_node_new(start.gskRenderNodePointer, end.gskRenderNodePointer, progress)!!.reinterpret())
 
     /**
      * Retrieves the child `GskRenderNode` at the end of the cross-fade.
@@ -46,7 +43,7 @@ public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
      */
     public open fun getEndChild(): RenderNode =
         gsk_cross_fade_node_get_end_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     /**
@@ -63,7 +60,7 @@ public open class CrossFadeNode(pointer: CPointer<GskCrossFadeNode>) :
      */
     public open fun getStartChild(): RenderNode =
         gsk_cross_fade_node_get_start_child(gskCrossFadeNodePointer.reinterpret())!!.run {
-            RenderNode(this)
+            RenderNode.RenderNodeImpl(this)
         }
 
     public companion object : TypeCompanion<CrossFadeNode> {
