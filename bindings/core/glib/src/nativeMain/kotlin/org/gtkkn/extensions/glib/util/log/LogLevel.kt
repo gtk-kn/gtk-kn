@@ -22,35 +22,18 @@
 
 package org.gtkkn.extensions.glib.util.log
 
-import org.gtkkn.native.glib.GLogLevelFlags
-import org.gtkkn.native.glib.G_LOG_LEVEL_CRITICAL
-import org.gtkkn.native.glib.G_LOG_LEVEL_DEBUG
-import org.gtkkn.native.glib.G_LOG_LEVEL_ERROR
-import org.gtkkn.native.glib.G_LOG_LEVEL_INFO
-import org.gtkkn.native.glib.G_LOG_LEVEL_MESSAGE
-import org.gtkkn.native.glib.G_LOG_LEVEL_WARNING
+import org.gtkkn.bindings.glib.LogLevelFlags
 
 /**
  * Log levels adapted from GLib log levels. Higher values indicate more severe messages.
- *
- * Mapping (lowest to highest):
- * - DEBUG   -> G_LOG_LEVEL_DEBUG
- * - INFO    -> G_LOG_LEVEL_INFO
- * - MESSAGE -> G_LOG_LEVEL_MESSAGE
- * - WARNING -> G_LOG_LEVEL_WARNING
- * - CRITICAL-> G_LOG_LEVEL_CRITICAL
- * - ERROR   -> G_LOG_LEVEL_ERROR
  */
-public enum class LogLevel(
-    internal val glibLevel: GLogLevelFlags,
-    internal val severity: Int
-) {
-    CRITICAL(G_LOG_LEVEL_CRITICAL, 5),
-    DEBUG(G_LOG_LEVEL_DEBUG, 1),
-    ERROR(G_LOG_LEVEL_ERROR, 6),
-    INFO(G_LOG_LEVEL_INFO, 2),
-    MESSAGE(G_LOG_LEVEL_MESSAGE, 3),
-    WARNING(G_LOG_LEVEL_WARNING, 4);
+public enum class LogLevel(internal val flags: LogLevelFlags) {
+    DEBUG(LogLevelFlags.LEVEL_DEBUG),
+    INFO(LogLevelFlags.LEVEL_INFO),
+    MESSAGE(LogLevelFlags.LEVEL_MESSAGE),
+    WARNING(LogLevelFlags.LEVEL_WARNING),
+    CRITICAL(LogLevelFlags.LEVEL_CRITICAL),
+    ERROR(LogLevelFlags.LEVEL_ERROR);
 
     /**
      * Converts a [LogLevel] to a single-character string representation.

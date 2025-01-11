@@ -24,6 +24,7 @@ package org.gtkkn.extensions.glib.util.log.writer
 
 import org.gtkkn.extensions.glib.util.log.Log
 import org.gtkkn.extensions.glib.util.log.LogLevel
+import org.gtkkn.extensions.glib.util.log.formatter.ColorLogFormatter
 import org.gtkkn.extensions.glib.util.log.formatter.LogFormatter
 import org.gtkkn.extensions.glib.util.log.formatter.LogcatLogFormatter
 import org.gtkkn.extensions.glib.util.log.formatter.withColor
@@ -50,17 +51,19 @@ public class ConsoleLogWriter(
     private val minLevel: LogLevel = LogLevel.DEBUG,
     private val formatter: LogFormatter = LogcatLogFormatter().withColor()
 ) : LogWriter {
-    override fun isLoggable(level: LogLevel): Boolean = level.severity >= minLevel.severity
+    override fun isLoggable(level: LogLevel): Boolean = level >= minLevel
 
     override fun write(level: LogLevel, domain: String, message: String) {
         println(formatter.format(level, domain, message))
 
         // If level is ERROR, throw an exception to mimic g_log error behavior
         if (level == LogLevel.ERROR) {
-            println(
-                "LogPriority.ERROR is considered fatal and will terminate the application. " +
+            val errorExplanation = ColorLogFormatter.applyColor(
+                level = LogLevel.CRITICAL,
+                text = "LogPriority.ERROR is considered fatal and will terminate the application. " +
                     "Use LogPriority.CRITICAL for non-fatal critical errors. Sending SIGTRAP.",
             )
+            println(errorExplanation)
             raise(SIGTRAP)
         }
     }

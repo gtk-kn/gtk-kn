@@ -52,15 +52,15 @@ public class GLibLogWriter(
 ) : LogWriter {
     init {
         // Enable debug-level logging in GLib if minPriority includes DEBUG or INFO
-        if (minLevel.severity < LogLevel.MESSAGE.severity) {
+        if (minLevel < LogLevel.MESSAGE) {
             GLib.logSetDebugEnabled(true)
         }
     }
 
-    override fun isLoggable(level: LogLevel): Boolean = level.severity >= minLevel.severity
+    override fun isLoggable(level: LogLevel): Boolean = level >= minLevel
 
     override fun write(level: LogLevel, domain: String, message: String) {
-        g_log(domain, level.glibLevel, message)
+        g_log(domain, level.flags.mask, message)
     }
 }
 
