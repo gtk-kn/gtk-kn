@@ -32,20 +32,30 @@ public class ColorLogFormatter(
     private val colorMap: ColorMap = ColorMap(),
 ) : LogFormatter by base {
     override fun format(level: LogLevel, tag: String, message: String): String {
-        val ansiColor = when (level) {
-            LogLevel.DEBUG -> colorMap.debug
-            LogLevel.INFO -> colorMap.info
-            LogLevel.MESSAGE -> colorMap.message
-            LogLevel.WARNING -> colorMap.warning
-            LogLevel.CRITICAL -> colorMap.critical
-            LogLevel.ERROR -> colorMap.error
+        val formattedMessage = base.format(level, tag, message)
+        return applyColor(level, formattedMessage, colorMap)
+    }
+
+    public companion object {
+        /**
+         * Applies a color to the given string based on the log level.
+         */
+        internal fun applyColor(level: LogLevel, text: String, colorMap: ColorMap = ColorMap()): String {
+            val ansiColor = when (level) {
+                LogLevel.DEBUG -> colorMap.debug
+                LogLevel.INFO -> colorMap.info
+                LogLevel.MESSAGE -> colorMap.message
+                LogLevel.WARNING -> colorMap.warning
+                LogLevel.CRITICAL -> colorMap.critical
+                LogLevel.ERROR -> colorMap.error
+            }
+            return "$ansiColor$text${ColorMap.RESET}"
         }
-        return "${ansiColor}${base.format(level, tag, message)}${ColorMap.RESET}"
     }
 }
 
 public data class ColorMap(
-    public val debug: String = WHITE,
+    public val debug: String = GREY,
     public val info: String = GREEN,
     public val message: String = CYAN,
     public val warning: String = YELLOW,
@@ -53,7 +63,7 @@ public data class ColorMap(
     public val error: String = MAGENTA,
 ) {
     public companion object {
-        public const val WHITE: String = "\u001B[0;37m"
+        public const val GREY: String = "\u001B[0;37m"
         public const val GREEN: String = "\u001B[0;32m"
         public const val CYAN: String = "\u001B[0;36m"
         public const val YELLOW: String = "\u001B[0;33m"

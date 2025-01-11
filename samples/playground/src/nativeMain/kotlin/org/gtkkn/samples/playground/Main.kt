@@ -20,11 +20,8 @@
  * SOFTWARE.
  */
 
-@file:OptIn(ExperimentalForeignApi::class)
-
 package org.gtkkn.samples.playground
 
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.adw.HeaderBar
 import org.gtkkn.bindings.gdk.Rectangle
