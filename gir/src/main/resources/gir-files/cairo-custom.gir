@@ -1518,7 +1518,9 @@
         </parameters>
       </method>
     </record>
-    <class name="Device" c:type="cairo_device_t"
+    <class name="Device"
+      c:type="cairo_device_t"
+      abstract="1"
       glib:type-name="CairoDevice"
       glib:get-type="cairo_gobject_device_get_type"
       free-function="cairo_device_destroy">
@@ -3524,6 +3526,7 @@
     </record>
     <class name="Pattern"
       c:type="cairo_pattern_t"
+      abstract="1"
       glib:type-name="CairoPattern"
       glib:get-type="cairo_gobject_pattern_get_type"
       free-function="cairo_pattern_destroy">
@@ -3677,6 +3680,7 @@
       </method>
     </class>
     <class name="Gradient"
+      abstract="1"
       glib:type-name="CairoGradient"
       glib:get-type="cairo_gobject_pattern_get_type"
       parent="Pattern">

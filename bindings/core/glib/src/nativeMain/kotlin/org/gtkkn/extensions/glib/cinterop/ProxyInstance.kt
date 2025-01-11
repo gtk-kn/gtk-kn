@@ -22,7 +22,7 @@
 
 package org.gtkkn.extensions.glib.cinterop
 
-import kotlinx.cinterop.COpaquePointer
+import org.gtkkn.native.glib.gpointer
 
 /**
  * Base type for a Kotlin proxy object to an instance in native memory.
@@ -32,7 +32,7 @@ import kotlinx.cinterop.COpaquePointer
  *
  * @param handle the memory address of the instance
  */
-public open class ProxyInstance(public override val handle: COpaquePointer?) : Proxy {
+public open class ProxyInstance(public override val handle: gpointer) : Proxy {
     /**
      * Compare two proxy instances for equality. This will compare both the type
      * of the instances, and their memory addresses.
@@ -47,5 +47,5 @@ public open class ProxyInstance(public override val handle: COpaquePointer?) : P
         return handle == other.handle
     }
 
-    override fun hashCode(): Int = handle?.hashCode() ?: 0
+    override fun hashCode(): Int = handle.hashCode()
 }

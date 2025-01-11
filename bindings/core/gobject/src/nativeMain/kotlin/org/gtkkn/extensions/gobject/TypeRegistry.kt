@@ -106,10 +106,10 @@ internal object TypeRegistry {
     }
 
     fun associate(obj: Object) {
-        val typeName = g_type_name_from_instance(obj.gPointer.reinterpret())?.toKString()
+        val typeName = g_type_name_from_instance(obj.gobjectObjectPointer.reinterpret())?.toKString()
         val gType = g_type_from_name(typeName)
         TYPE_MAP[gType]?.let { typeInfo ->
-            val instanceStruct = obj.gPointer.getCustomInstanceStructPointer(typeInfo)
+            val instanceStruct = obj.gobjectObjectPointer.getCustomInstanceStructPointer(typeInfo)
             if (instanceStruct.pointed.internal_obj == null) {
                 // associate the instance
                 val dataHolder = InstanceDataHolder(obj)

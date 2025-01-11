@@ -203,11 +203,8 @@ class ProcessorContext(
         )
 
     private fun resolveClassTypeInfo(registeredType: RegisteredType, cType: String?): TypeInfo.ObjectPointer {
-        val objectPointerName = if (registeredType.allAncestors.isNotEmpty()) {
+        val objectPointerName =
             "${namespacePrefix(registeredType.namespace)}${registeredType.className.simpleName}Pointer"
-        } else {
-            "gPointer"
-        }
         val nativeTypeName =
             BindingsGenerator.KP_CPOINTER.parameterizedBy(
                 buildNativeClassName(
@@ -217,10 +214,17 @@ class ProcessorContext(
                         ?: registeredType.girNamedElement,
                 ),
             )
+        val kotlinTypeNameImpl =
+            if (registeredType.girNamedElement is GirClass && registeredType.girNamedElement.abstract == true) {
+                registeredType.className.nestedClass("${registeredType.className.simpleName}Impl")
+            } else {
+                null
+            }
         val cleanCType = cType?.let { cleanCType(it) }
         return TypeInfo.ObjectPointer(
             nativeTypeName = nativeTypeName,
             kotlinTypeName = registeredType.className,
+            kotlinTypeNameImpl = kotlinTypeNameImpl,
             objectPointerName = objectPointerName,
             needsReinterpret = cleanCType == "gpointer",
         )
@@ -235,14 +239,15 @@ class ProcessorContext(
         val objectPointerName =
             "${namespacePrefix(registeredType.namespace)}${registeredType.className.simpleName}Pointer"
         return TypeInfo.InterfacePointer(
-            BindingsGenerator.KP_CPOINTER.parameterizedBy(
+            nativeTypeName = BindingsGenerator.KP_CPOINTER.parameterizedBy(
                 buildNativeClassName(
                     registeredType.namespace,
                     registeredType.girNamedElement,
                 ),
             ),
-            registeredType.className,
-            objectPointerName,
+            kotlinTypeName = registeredType.className,
+            kotlinTypeNameImpl = registeredType.className.nestedClass("${registeredType.className.simpleName}Impl"),
+            objectPointerName = objectPointerName,
         )
     }
 
@@ -253,7 +258,8 @@ class ProcessorContext(
         if (registeredType.girNamedElement is GirRecord && registeredType.girNamedElement.foreign == true) {
             throw UnresolvableTypeException("Foreign record ${registeredType.rawName} is ignored")
         }
-        val objectPointerName = "gPointer"
+        val objectPointerName =
+            "${namespacePrefix(registeredType.namespace)}${registeredType.className.simpleName}Pointer"
         val cleanCType = cType?.let { cleanCType(it) }
         return TypeInfo.RecordUnionPointer(
             kotlinTypeName = registeredType.className,

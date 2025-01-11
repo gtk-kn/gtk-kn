@@ -41,20 +41,18 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
     /**
      * Builds the primary pointer constructor for a class.
      *
-     * If the class has a parent, it calls the superclass constructor to pass the pointer.
-     * Otherwise, it initializes the `gPointer` property. For the special `Object` class,
-     * it also associates the custom object.
-     *
      * @param builder The [TypeSpec.Builder] to which this constructor is added.
      * @param clazz The [ClassBlueprint] describing the class.
      */
     fun buildPointerConstructor(builder: TypeSpec.Builder, clazz: ClassBlueprint) {
         val constructorSpecBuilder = FunSpec.constructorBuilder()
-            .addParameter("pointer", clazz.objectPointerTypeName)
+            .addParameter(clazz.objectPointerName, clazz.objectPointerTypeName)
 
         if (clazz.hasParent) {
             // If class has a parent, pass the pointer to the superclass constructor
-            builder.addSuperclassConstructorParameter(CodeBlock.of("pointer.%M()", BindingsGenerator.REINTERPRET_FUNC))
+            builder.addSuperclassConstructorParameter(
+                CodeBlock.of("%L.%M()", clazz.objectPointerName, BindingsGenerator.REINTERPRET_FUNC),
+            )
         } else {
             if (clazz.kotlinName == "Object") {
                 constructorSpecBuilder.addStatement("%M()", BindingsGenerator.GOBJECT_ASSOCIATE_CUSTOM_OBJECT)
@@ -234,25 +232,12 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
     /**
      * Builds a property representing the object's pointer.
      *
-     * If the class has a parent, the pointer is accessed via a getter that reinterprets `gPointer`.
-     * Otherwise, it's set directly.
-     *
      * @param clazz The class blueprint.
      */
-    fun buildClassObjectPointerProperty(clazz: ClassBlueprint): PropertySpec {
-        val propertyBuilder = PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
-        if (clazz.hasParent) {
-            // if class has a parent, use a getter
-            propertyBuilder.getter(
-                FunSpec.getterBuilder().apply {
-                    addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
-                }.build(),
-            )
-        } else {
-            propertyBuilder.initializer("pointer")
-        }
-        return propertyBuilder.build()
-    }
+    fun buildClassObjectPointerProperty(clazz: ClassBlueprint): PropertySpec =
+        PropertySpec.builder(clazz.objectPointerName, clazz.objectPointerTypeName)
+            .initializer(clazz.objectPointerName)
+            .build()
 
     /**
      * Builds a property for an interface pointer on a class that implements an interface.
@@ -267,7 +252,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
             .addModifiers(KModifier.OVERRIDE)
             .getter(
                 FunSpec.getterBuilder()
-                    .addStatement("return gPointer.%M()", BindingsGenerator.REINTERPRET_FUNC)
+                    .addStatement("return handle.%M()", BindingsGenerator.REINTERPRET_FUNC)
                     .build(),
             )
             .build()
@@ -324,13 +309,13 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
     /**
      * Adds a primary constructor with `pointer` and optionally `cleaner`.
      */
-    fun addPrimaryConstructorWithCleaner(
-        builder: TypeSpec.Builder,
+    fun TypeSpec.Builder.addPrimaryConstructorWithCleaner(
         objectPointerTypeName: TypeName,
+        objectPointerName: String,
         addCleaner: Boolean
     ) {
         val constructorBuilder = FunSpec.constructorBuilder()
-            .addParameter("pointer", objectPointerTypeName)
+            .addParameter(objectPointerName, objectPointerTypeName)
 
         if (addCleaner) {
             constructorBuilder.addParameter(
@@ -343,7 +328,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
             )
         }
 
-        builder.primaryConstructor(constructorBuilder.build())
+        primaryConstructor(constructorBuilder.build())
     }
 
     /**
@@ -351,13 +336,12 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
      *
      * The allocated memory is freed automatically when the object is GCed.
      */
-    fun addNoArgConstructor(
-        builder: TypeSpec.Builder,
+    fun TypeSpec.Builder.addNoArgConstructor(
         kotlinName: String,
         nativeTypeName: TypeName,
         objectPointerTypeName: TypeName,
     ) {
-        builder.addFunction(
+        addFunction(
             FunSpec.constructorBuilder().apply {
                 buildMethodKDoc(getNoArgConstructorKdoc(kotlinName))?.let { addKdoc(it) }
                 callThisConstructor(buildNoArgAllocationCodeBlock(nativeTypeName))
@@ -388,8 +372,12 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
     /**
      * Adds a private constructor that takes a Pair<CPointer, Cleaner> and unpacks it.
      */
-    fun addPairConstructor(builder: TypeSpec.Builder, kotlinTypeName: ClassName, objectPointerTypeName: TypeName) {
-        builder.addFunction(
+    fun TypeSpec.Builder.addPairConstructor(
+        kotlinTypeName: ClassName,
+        objectPointerName: String,
+        objectPointerTypeName: TypeName
+    ) {
+        addFunction(
             FunSpec.constructorBuilder()
                 .addModifiers(KModifier.PRIVATE)
                 .addKdoc(
@@ -404,7 +392,7 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
                     "pair",
                     BindingsGenerator.PAIR_TYPE.parameterizedBy(objectPointerTypeName, BindingsGenerator.CLEANER),
                 )
-                .callThisConstructor(CodeBlock.of("pointer = pair.first, cleaner = pair.second"))
+                .callThisConstructor(CodeBlock.of("%L = pair.first, cleaner = pair.second", objectPointerName))
                 .build(),
         )
     }
@@ -414,8 +402,8 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
      *
      * The AutofreeScope manages memory lifetime, commonly used with `memScoped`.
      */
-    fun addAutofreeScopeConstructor(builder: TypeSpec.Builder, kotlinName: String, nativeTypeName: TypeName) {
-        builder.addFunction(
+    fun TypeSpec.Builder.addAutofreeScopeConstructor(kotlinName: String, nativeTypeName: TypeName) {
+        addFunction(
             FunSpec.constructorBuilder().apply {
                 val kdoc = getAutofreeScopeConstructorKdoc(kotlinName)
                 buildMethodKDoc(kdoc, listOf(getAutofreeScopeParamForKdoc()))?.let { addKdoc(it) }
@@ -438,19 +426,19 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
      * Adds both a no-arg and an autofree scope constructor that set fields from parameters, after
      * delegating to the base constructors.
      */
-    fun addFieldConstructorsIfAny(builder: TypeSpec.Builder, kotlinName: String, fields: List<FieldBlueprint>) {
+    fun TypeSpec.Builder.addFieldConstructorsIfAny(kotlinName: String, fields: List<FieldBlueprint>) {
         val settableFields = fields.filter { isFieldSetterSupported(it) }
-        if (settableFields.isEmpty()) return
+        if (settableFields.isNotEmpty()) {
+            // No-arg field constructor
+            addFunction(
+                createFieldConstructor(kotlinName, settableFields, noArg = true),
+            )
 
-        // No-arg field constructor
-        builder.addFunction(
-            createFieldConstructor(kotlinName, settableFields, noArg = true),
-        )
-
-        // Autofree scope field constructor
-        builder.addFunction(
-            createFieldConstructor(kotlinName, settableFields, noArg = false),
-        )
+            // Autofree scope field constructor
+            addFunction(
+                createFieldConstructor(kotlinName, settableFields, noArg = false),
+            )
+        }
     }
 
     /**
@@ -548,9 +536,15 @@ interface ConstructorGenerator : FieldGenerator, MethodGenerator {
 
     private fun determineNonNullReturnType(constructor: ConstructorBlueprint) =
         if (!constructor.returnTypeInfo.kotlinTypeName.isNullable) {
-            constructor.returnTypeInfo.kotlinTypeName
+            constructor.returnTypeInfo
         } else {
-            constructor.returnTypeInfo.withNullable(false).kotlinTypeName
+            constructor.returnTypeInfo.withNullable(false)
+        }.run {
+            if (this is TypeInfo.ObjectPointer) {
+                kotlinTypeNameImpl ?: kotlinTypeName
+            } else {
+                kotlinTypeName
+            }
         }
 
     private fun appendSignatureParameters(funBuilder: FunSpec.Builder, parameters: List<ParameterBlueprint>) {

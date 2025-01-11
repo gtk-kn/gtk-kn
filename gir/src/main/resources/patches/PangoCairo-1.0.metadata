@@ -1,0 +1,2 @@
+// The name clashes with `pango_font_map_create_context`
+FontMap.create_context name="create_pango_cairo_context"

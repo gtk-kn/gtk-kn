@@ -31,25 +31,24 @@ interface UnionGenerator : RecordUnionGenerator {
             val addEmptyConstructors = !union.hasNewConstructor &&
                 union.cStructTypeName.simpleName != "GTypeCValue"
 
-            addPrimaryConstructorWithCleaner(this, union.objectPointerTypeName, addEmptyConstructors)
+            addPrimaryConstructorWithCleaner(union.objectPointerTypeName, union.objectPointerName, addEmptyConstructors)
             superclass(BindingsGenerator.PROXY_INSTANCE_TYPE)
-            addSuperclassConstructorParameter("pointer")
+            addSuperclassConstructorParameter(union.objectPointerName)
 
             // Pointer property
             addProperty(
                 PropertySpec.builder(union.objectPointerName, union.objectPointerTypeName)
-                    .initializer("pointer")
+                    .initializer(union.objectPointerName)
                     .build(),
             )
 
             // Add default constructors if needed
             if (addEmptyConstructors) {
-                addNoArgConstructor(this, union.kotlinName, union.nativeTypeName, union.objectPointerTypeName)
-                addPairConstructor(this, union.kotlinTypeName, union.objectPointerTypeName)
-                addAutofreeScopeConstructor(this, union.kotlinName, union.nativeTypeName)
+                addNoArgConstructor(union.kotlinName, union.nativeTypeName, union.objectPointerTypeName)
+                addPairConstructor(union.kotlinTypeName, union.objectPointerName, union.objectPointerTypeName)
+                addAutofreeScopeConstructor(union.kotlinName, union.nativeTypeName)
 
                 addFieldConstructorsIfAny(
-                    this,
                     union.kotlinName,
                     union.fields,
                 )

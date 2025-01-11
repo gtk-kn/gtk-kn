@@ -75,7 +75,8 @@ Feel free to reach out via the [GitLab issue tracker](https://gitlab.com/gtk-kn/
 
 To build the project, follow the setup [instructions here](https://gtk-kn.gitlab.io/gtk-kn/get-started/).
 
-Documentation on deploying bindings to Maven local is available [here](https://gtk-kn.gitlab.io/gtk-kn/user-guide/deploy-on-mavenlocal/).
+Documentation on deploying bindings to Maven local is
+available [here](https://gtk-kn.gitlab.io/gtk-kn/user-guide/deploy-on-mavenlocal/).
 
 ## Running the Examples
 
@@ -105,6 +106,12 @@ To clean generated bindings:
 ./gradlew cleanBindings
 ```
 
+To revert uncommitted changes to the generated bindings:
+
+```shell
+./gradlew revertBindings
+```
+
 ### Bindings Modules
 
 Modules under `bindings/` house generated code for supported libraries. Generated code resides in
@@ -112,8 +119,8 @@ Modules under `bindings/` house generated code for supported libraries. Generate
 
 ### Platform Support
 
-Our focus is on Linux, primarily Ubuntu 24.04 LTS and Arch Linux. Other distributions should also work. Windows and
-macOS support are planned.
+Our focus is on Linux (CI tests every change on Arch Linux, Fedora, openSUSE Tumbleweed and the latest Ubuntu LTS).
+Other distributions should also work. Windows and macOS support are planned.
 
 ### Wrapper classes
 
@@ -122,7 +129,7 @@ macOS support are planned.
 - Class and interface methods are generated as Kotlin methods on the Kotlin class/interface
 - Where possible, class constructors are implemented as constructors on the Kotlin class
 - Other constructors are generated as static factory functions on the companion object
-- Signals on classes, interfaces and other types can be used through `connect<signal-name>()` methods on the Kotlin
+- Signals on classes, interfaces and other types can be used through `on<SignalName>()` methods on the Kotlin
   class
 - GObject class properties are generated as Kotlin properties
 - GObject records (C structs) are generated as Kotlin classes

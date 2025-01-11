@@ -37,15 +37,7 @@ val properties = (extra.properties + (rootDir.resolve("local.properties").takeIf
     }.toMap()
 } ?: mapOf())).map { (k, v) -> "$k" to "$v" }.toMap()
 
-includeBuild("build-conventions")
-includeBuild("gradle-plugin")
-
-include("gir")
-include("coroutines")
-
-include("bindings:common-annotations")
-
-var configFile: String = if (properties.contains("org.gtkkn.configFile")) {
+var configFile: String = if (extra.properties.contains("org.gtkkn.configFile")) {
     checkNotNull(properties["org.gtkkn.configFile"])
 } else {
     "$rootDir/gtkkn.json"
@@ -58,9 +50,20 @@ if (!configFile.startsWith("/")) {
 val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
 
 @Suppress("UNCHECKED_CAST")
-val libraries = config["libraries"] as List<Map<String, String>>
+val bindingLibs = config["libraries"] as List<Map<String, String>>
 
-libraries.forEach { library ->
+gradle.extra["bindingLibs"] = bindingLibs
+
+includeBuild("build-conventions")
+includeBuild("gradle-plugin")
+
+include("gir")
+include("coroutines")
+
+include("bindings:common-annotations")
+
+
+bindingLibs.forEach { library ->
     include("bindings:${library["module"]}")
 }
 
@@ -77,10 +80,10 @@ if (properties["org.gtkkn.samples.disable"] != "true") {
         "samples:gtk:widgets",
         "samples:playground",
     )
-    if (libraries.any { it["module"] == "extra:gtksource" }) {
+    if (bindingLibs.any { it["module"] == "extra:gtksource" }) {
         include("samples:gtksource:sample")
     }
-    if (libraries.any { it["module"] == "extra:webkit" }) {
+    if (bindingLibs.any { it["module"] == "extra:webkit" }) {
         include("samples:webkit:browser")
     }
 }

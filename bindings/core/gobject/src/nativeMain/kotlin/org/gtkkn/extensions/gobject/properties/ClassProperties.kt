@@ -53,7 +53,7 @@ internal class ClassProperties internal constructor() {
         properties.forEach {
             val id = it.key
             val property = it.value
-            g_object_class_install_property(objectClass, id, property.paramSpec.gPointer)
+            g_object_class_install_property(objectClass, id, property.paramSpec.gobjectParamSpecPointer)
         }
         sealed = true
     }

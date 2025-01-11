@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.AbstractDokkaTask
+
 /*
  * Copyright (c) 2024 gtk-kn
  *
@@ -14,23 +16,18 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import org.jetbrains.dokka.gradle.AbstractDokkaTask
-
 plugins {
-    kotlin("multiplatform")
-    id("config-conventions")
     id("org.jetbrains.dokka")
-    id("detekt-conventions")
 }
 
-kotlin {
-    explicitApi()
-    linuxX64()
+dokka {
+    dokkaPublications.html {
+        outputDirectory.set(rootDir.resolve("docs/dokka"))
+    }
+}
 
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
-            languageSettings.optIn("kotlin.experimental.ExperimentalNativeApi")
-        }
+tasks {
+    withType<AbstractDokkaTask> {
+        mustRunAfter(":gir:run")
     }
 }

@@ -246,14 +246,11 @@ private object NativeToKotlinConversions {
                 // nullable type, so we use force !! here
                 beginControlFlow("!!.run")
             }
+            val returnTypeName = returnTypeInfo.withNullable(false).run { kotlinTypeNameImpl ?: kotlinTypeName }
             if (returnTypeInfo.needsReinterpret()) {
-                add(
-                    "%T(%M())",
-                    returnTypeInfo.withNullable(false).kotlinTypeName,
-                    BindingsGenerator.REINTERPRET_FUNC,
-                )
+                add("%T(%M())", returnTypeName, BindingsGenerator.REINTERPRET_FUNC)
             } else {
-                add("%T(this)", returnTypeInfo.withNullable(false).kotlinTypeName)
+                add("%T(this)", returnTypeName)
             }
             endControlFlow()
         }
@@ -268,8 +265,8 @@ private object NativeToKotlinConversions {
             codeBlockBuilder
                 .beginControlFlow("?.run")
                 .add(
-                    "%T.wrap(%M())",
-                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    "%T(%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeNameImpl,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
                 .endControlFlow()
@@ -279,8 +276,8 @@ private object NativeToKotlinConversions {
             codeBlockBuilder
                 .beginControlFlow("!!.run")
                 .add(
-                    "%T.wrap(%M())",
-                    returnTypeInfo.withNullable(false).kotlinTypeName,
+                    "%T(%M())",
+                    returnTypeInfo.withNullable(false).kotlinTypeNameImpl,
                     BindingsGenerator.REINTERPRET_FUNC,
                 )
                 .endControlFlow()
