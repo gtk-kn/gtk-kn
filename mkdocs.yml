@@ -4,8 +4,8 @@
 
 # Project information
 site_name: gtk-kn
-site_url: https://gtk-kn.gitlab.io/gtk-kn/
-site_description: "Kotlin Native bindings for the GTK framework"
+site_url: https://gtk-kn.org
+site_description: "Kotlin/Native bindings for the GTK framework and other GObject-based libraries"
 site_author: gtk-kn
 site_dir: public
 
