@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gtk-kn.org/sitemap.xml
