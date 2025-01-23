@@ -38,6 +38,7 @@ brew update
 brew install \
   openjdk@17 \
   pkgconf \
+  gobject-introspection \
   gtk4 \
   libadwaita \
   gtksourceview5
