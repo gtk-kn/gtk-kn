@@ -25,8 +25,6 @@ import org.gtkkn.gir.coroutines.DefaultCoroutineDispatcherProvider
 import org.gtkkn.gir.generator.BindingsGenerator
 import org.gtkkn.gir.gradleplugin.generateRepositoryAnnotationsFile
 import org.gtkkn.gir.log.logger
-import org.gtkkn.gir.model.GirNamespace
-import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.parser.gir.GirParser
 import org.gtkkn.gir.processor.Phase2Processor
 import org.gtkkn.gir.util.loadResourceAsFile
@@ -53,12 +51,12 @@ class Application(
             .filter { file -> config.matchesGirFile(file) }
             .map { file ->
                 val baseRepo = girParserFactory().parse(file)
+                // The official `cairo-1.0.gir` file is incomplete, so a custom GIR file (`cairo-custom.gir`) is used
+                // as a replacement when parsing Cairo's repository. This ensures all necessary features are available.
                 if (file.name.startsWith("cairo-")) {
                     val customGirFile = loadResourceAsFile("/gir-files/cairo-custom.gir")
                         ?: error("Resource not found: /gir-files/cairo-custom.gir")
-
-                    val customRepo = girParserFactory().parse(customGirFile)
-                    mergeGirRepositories(baseRepo, customRepo)
+                    girParserFactory().parse(customGirFile)
                 } else {
                     baseRepo
                 }
@@ -91,84 +89,5 @@ class Application(
             ?: error("Library $repositoryName is not present in configuration")
         val modulePath = library.module.replace(":", "/")
         return config.outputDir.resolve(modulePath)
-    }
-
-    private fun mergeGirRepositories(
-        baseRepo: GirRepository,
-        customRepo: GirRepository
-    ): GirRepository {
-        // Merge namespaces
-        val mergedNamespaces = baseRepo.namespaces.map { baseNs ->
-            // Find a matching namespace in `customRepo` by the same name
-            val overrideNs = customRepo.namespaces.find { it.name == baseNs.name }
-            if (overrideNs != null) {
-                mergeGirNamespace(baseNs, overrideNs)
-            } else {
-                baseNs
-            }
-        } + customRepo.namespaces.filter { customNs -> baseRepo.namespaces.none { it.name == customNs.name } }
-
-        return baseRepo.copy(
-            namespaces = mergedNamespaces,
-        )
-    }
-
-    private fun mergeGirNamespace(
-        baseNs: GirNamespace,
-        customNs: GirNamespace
-    ): GirNamespace {
-        val customClassNames = customNs.classes.map { it.name }.toSet()
-        val mergedClasses = baseNs.classes.map { baseClass ->
-            // If there's a custom record with the same name, override
-            customNs.classes.find { it.name == baseClass.name } ?: baseClass
-        } + customNs.classes.filter { customClass ->
-            // Add custom classes missing in base
-            baseNs.classes.none { it.name == customClass.name }
-        }
-
-        val mergedEnumerations = baseNs.enumerations.map { baseEnumeration ->
-            // If there's a custom record with the same name, override
-            customNs.enumerations.find { it.name == baseEnumeration.name } ?: baseEnumeration
-        } + customNs.enumerations.filter { customEnumeration ->
-            // Add custom enumerations missing in base
-            baseNs.enumerations.none { it.name == customEnumeration.name }
-        }
-
-        val mergedFunctions = baseNs.functions.map { baseFunction ->
-            // If there's a custom record with the same name, override
-            customNs.functions.find { it.callable.getName() == baseFunction.callable.getName() } ?: baseFunction
-        } + customNs.functions.filter { customFunction ->
-            // Add custom functions missing in base
-            baseNs.functions.none { it.callable.getName() == customFunction.callable.getName() }
-        }
-
-        val mergedRecords = baseNs.records
-            .filter { baseRecord ->
-                // Exclude base records whose name matches any custom class name
-                baseRecord.name !in customClassNames
-            }
-            .map { baseRecord ->
-                // If there's a custom record with the same name, override
-                customNs.records.find { it.name == baseRecord.name } ?: baseRecord
-            } + customNs.records.filter { customRecord ->
-            // Add custom records missing in base
-            baseNs.records.none { it.name == customRecord.name }
-        }
-
-        val mergedUnions = baseNs.unions.map { baseUnion ->
-            // If there's a custom record with the same name, override
-            customNs.unions.find { it.name == baseUnion.name } ?: baseUnion
-        } + customNs.unions.filter { customUnion ->
-            // Add custom unions missing in base
-            baseNs.unions.none { it.name == customUnion.name }
-        }
-
-        return baseNs.copy(
-            classes = mergedClasses,
-            enumerations = mergedEnumerations,
-            functions = mergedFunctions,
-            records = mergedRecords,
-            unions = mergedUnions,
-        )
     }
 }

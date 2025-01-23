@@ -71,9 +71,10 @@ abstract class PkgConfigTask : NativeTask() {
         )
         executable.convention("pkg-config")
         packages.apply {
-            fedora.set("pkgconf")
-            debian.set("pkg-config")
             arch.set("pkgconf")
+            brew.set("pkgconf")
+            debian.set("pkg-config")
+            fedora.set("pkgconf")
         }
         args.convention(
             provider {

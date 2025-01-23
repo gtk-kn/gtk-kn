@@ -30,7 +30,11 @@ import org.gradle.internal.os.OperatingSystem
 interface ToolingPackages {
     @get:Input
     @get:Optional
-    val fedora: Property<String>
+    val arch: Property<String>
+
+    @get:Input
+    @get:Optional
+    val brew: Property<String>
 
     @get:Input
     @get:Optional
@@ -38,11 +42,12 @@ interface ToolingPackages {
 
     @get:Input
     @get:Optional
-    val arch: Property<String>
+    val fedora: Property<String>
 }
 
 internal fun ToolingPackages.glibDefaults() {
     arch.convention("glib2-devel")
+    brew.convention("glib")
     debian.convention("libglib2.0-dev")
     fedora.convention("glib2-devel")
 }
@@ -53,6 +58,10 @@ internal fun ToolingPackages.installInstructions() = when {
         Arch:   ${arch.map { "pacman -S $it" }.getOrElse("N/A")}
         Debian: ${debian.map { "apt install $it" }.getOrElse("N/A")}
         Fedora: ${fedora.map { "dnf install $it" }.getOrElse("N/A")}
+    """.trimIndent()
+
+    OperatingSystem.current().isMacOsX -> """
+        ${brew.map { "brew install $it" }.getOrElse("N/A")}
     """.trimIndent()
 
     else -> """

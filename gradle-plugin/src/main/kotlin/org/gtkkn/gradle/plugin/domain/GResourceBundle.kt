@@ -37,7 +37,7 @@ import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
 import org.gtkkn.gradle.plugin.BuildConfig
 import org.gtkkn.gradle.plugin.GtkPlugin
-import org.gtkkn.gradle.plugin.ext.gtk
+import org.gtkkn.gradle.plugin.ext.gtkKn
 import org.gtkkn.gradle.plugin.task.CompileGResourcesTask
 import org.gtkkn.gradle.plugin.task.GenerateCEmbedDefTask
 import org.gtkkn.gradle.plugin.task.PkgConfigTask
@@ -85,7 +85,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
 
     companion object {
         internal fun create(name: String, project: Project): GResourceBundle {
-            val defFile = project.gtk.outputPrefix.file("gresources/$name/$name.def")
+            val defFile = project.gtkKn.outputPrefix.file("gresources/$name/$name.def")
             return object : GResourceBundle, SourceDirectorySet by project.objects.sourceDirectorySet(name, name) {
                 override fun getName() = name
                 override val manifest = project.objects.fileProperty()
@@ -149,7 +149,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
             group = GtkPlugin.TASK_GROUP
             description = "Compiles gresources into c header file"
             sourceDir.convention(layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
-            target.convention(project.gtk.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.h"))
+            target.convention(project.gtkKn.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.h"))
             generateHeader.convention(true)
             manifest.convention(bundle.manifest)
             cName.convention(bundle.name)
@@ -163,7 +163,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
             group = GtkPlugin.TASK_GROUP
             description = "Compiles gresources into c source file"
             sourceDir.convention(layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
-            target.convention(project.gtk.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.c"))
+            target.convention(project.gtkKn.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.c"))
             generateSource.convention(true)
             manifest.convention(bundle.manifest)
             cName.convention(bundle.name)
@@ -177,7 +177,7 @@ interface GResourceBundle : Named, SourceDirectorySet {
             group = GtkPlugin.TASK_GROUP
             description = "Compiles gresources into bundle file"
             sourceDir.convention(layout.dir(bundle.processTask.map(Copy::getDestinationDir)))
-            target.convention(project.gtk.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.gresource"))
+            target.convention(project.gtkKn.outputPrefix.file("gresources/${bundle.name}/${bundle.name}.gresource"))
             generate.convention(true)
             manifest.convention(bundle.manifest)
             cName.convention(bundle.name)

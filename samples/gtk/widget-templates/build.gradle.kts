@@ -20,18 +20,13 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
+gtkKn {
+    entryPoint = "org.gtkkn.samples.widgettemplates.main"
+    targetLibraryVersions.put("gio", "2.28")
+    gresources.main.embed(project.nativeTargetCompilation())
+}
+
 kotlin {
-    linuxX64 {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.samples.widgettemplates.main"
-            }
-        }
-        gtk {
-            targetLibraryVersions.put("gio", "2.28")
-            gresources.main.embed(compilations.named("main"))
-        }
-    }
     sourceSets {
         nativeMain {
             dependencies {

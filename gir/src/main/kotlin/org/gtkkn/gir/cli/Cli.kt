@@ -140,8 +140,15 @@ private fun resolveDefaultConfigFilePath(): String {
 private fun loadConfigFromFile(file: File): Config {
     val jsonConfig = Json.decodeFromString<GtkKnJsonConfig>(file.readText())
 
+    val girBaseDir = jsonConfig.girBaseDir.takeIf { !it.isNullOrBlank() }
+        ?: when (val hostOs = System.getProperty("os.name")) {
+            "Linux" -> "/usr/share/gir-1.0"
+            "Mac OS X", "macos" -> "/opt/homebrew/share/gir-1.0"
+            else -> error("$hostOs (${System.getProperty("os.arch")}) is not currently supported by gtk-kn")
+        }
+
     return Config(
-        girBaseDir = file.parentFile.resolve(jsonConfig.girBaseDir),
+        girBaseDir = file.parentFile.resolve(girBaseDir),
         outputDir = file.parentFile.resolve(jsonConfig.outputDir),
         gradlePluginDir = file.parentFile.resolve(jsonConfig.gradlePluginDir),
         logLevel = Level.valueOf(jsonConfig.logLevel),

@@ -20,19 +20,12 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
+gtkKn {
+    entryPoint = "org.gtkkn.samples.cairo.clock.main"
+    targetLibraryVersions.putAll(mapOf("gio" to "2.28", "glib" to "2.26", "gtk" to "4.10"))
+}
+
 kotlin {
-    linuxX64 {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.samples.cairo.clock.main"
-            }
-        }
-        gtk {
-            targetLibraryVersions.put("gio", "2.28")
-            targetLibraryVersions.put("glib", "2.26")
-            targetLibraryVersions.put("gtk", "4.10")
-        }
-    }
     sourceSets {
         nativeMain {
             dependencies {

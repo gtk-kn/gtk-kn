@@ -33,8 +33,8 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.domainObjectSet
 import org.gradle.kotlin.dsl.register
 import org.gtkkn.gradle.plugin.GtkPlugin
-import org.gtkkn.gradle.plugin.ext.GtkExt
-import org.gtkkn.gradle.plugin.ext.gtk
+import org.gtkkn.gradle.plugin.ext.GtkKnExt
+import org.gtkkn.gradle.plugin.ext.gtkKn
 import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 
@@ -50,7 +50,7 @@ interface GSchemaBundle : Named {
     /**
      * A directory where to install this gschema.
      *
-     * Defaults to "${[GtkExt.installPrefix]}/glib-2.0/schemas/
+     * Defaults to "${[GtkKnExt.installPrefix]}/glib-2.0/schemas/
      */
     val installDir: DirectoryProperty
 
@@ -83,7 +83,7 @@ interface GSchemaBundle : Named {
                 override val installTask = project.registerInstallTask(this)
             }.apply {
                 manifest.convention(project.layout.projectDirectory.file("src/gschemas/$name.gschema.xml"))
-                installDir.convention(project.gtk.installPrefix.dir("glib-2.0/schemas/"))
+                installDir.convention(project.gtkKn.installPrefix.dir("glib-2.0/schemas/"))
                 preinstall.whenObjectAdded {
                     compileTaskProvider.configure {
                         dependsOn(installTask)

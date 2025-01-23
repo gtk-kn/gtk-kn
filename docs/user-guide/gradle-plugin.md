@@ -53,7 +53,7 @@ to your `build.gradle.kts`:
 
 ```kotlin
 kotlin.linuxX64.gtk {
-    gresources.main.embed(compilations.named("main"))
+    gresources.main.embed(project.nativeTergetCompilation())
 }
 ```
 

@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem
+
 /*
  * Copyright (c) 2024 gtk-kn
  *
@@ -14,8 +16,6 @@
  * along with gtk-kn. If not, see https://www.gnu.org/licenses/.
  */
 
-import org.jetbrains.dokka.gradle.AbstractDokkaTask
-
 plugins {
     kotlin("multiplatform")
     id("config-conventions")
@@ -25,7 +25,14 @@ plugins {
 
 kotlin {
     explicitApi()
-    linuxX64()
+    val hostOs = OperatingSystem.current()
+    val hostArch = System.getProperty("os.arch")
+    val isArm64 = hostArch == "aarch64"
+    when {
+        hostOs.isLinux && !isArm64 -> linuxX64()
+        hostOs.isMacOsX && isArm64 -> macosArm64()
+        else -> throw GradleException("Host OS '${hostOs}' is not supported by gtk-kn.")
+    }
 
     sourceSets {
         all {

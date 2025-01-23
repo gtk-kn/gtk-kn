@@ -18,12 +18,11 @@ plugins {
 }
 
 kotlin {
-    linuxX64()
     sourceSets {
-        named("linuxX64Main") {
+        nativeMain {
             dependencies {
                 // Version automatically resolved by the plugin if not specified
-                implementation("org.gtkkn:gtk4")
+                implementation("org.gtkkn:gtk4:<version>")
             }
         }
     }
@@ -34,7 +33,7 @@ gtk {
     outputPrefix.set(layout.buildDirectory.dir("gtk/"))
     gresources {
         main {
-            embed(kotlin.linuxX64().compilations.named("main"))
+            embed(project.nativeTergetCompilation())
         }
         register("custom") {
             // This is detected by convention and does not have to be set up explicitly
@@ -43,7 +42,7 @@ gtk {
     }
     gschemas {
         main {
-            preinstall(kotlin.linuxX64().compilations.named("main"))
+            preinstall(project.nativeTergetCompilation())
         }
         register("custom") {
             // This is detected by convention and does not have to be set up explicitly
