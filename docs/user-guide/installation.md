@@ -50,12 +50,21 @@ Ubuntu LTS users can install the necessary dependencies using the following scri
 --8<-- "docker/ubuntu/install-ubuntu-deps.sh:18"
 ```
 
-### macOS
+### macOS (Apple Silicon Only)
 
-!!! warning "Support Coming Soon"
+The `gtk-kn` project now supports macOS on Apple Silicon (arm64). To get started:
 
-    Currently, bindings are only available for Linux. macOS support is planned, enabling developers to create cross-platform
-    GUI applications that run on both Linux and macOS.
+1. **Install Xcode**:
+   Ensure Xcode is installed manually via the [Mac App Store](https://apps.apple.com/us/app/xcode/id497799835) or from
+   the [Apple Developer website](https://developer.apple.com/xcode/). Xcode is required to provide essential build
+   tools.
+
+2. **Install Dependencies**:
+   Use the following script to set up additional dependencies:
+
+``` bash title="misc/install_macos_deps.sh"
+--8<-- "misc/install_macos_deps.sh:18"
+```
 
 ### Windows
 
