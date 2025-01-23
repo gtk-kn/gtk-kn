@@ -30,12 +30,13 @@ import org.gtkkn.bindings.gtk.Orientation
 import org.gtkkn.bindings.gtk.ProgressBar
 import org.gtkkn.bindings.gtk.Scale
 import org.gtkkn.extensions.gio.runApplication
+import org.gtkkn.extensions.glib.util.log.Log
 import org.gtkkn.extensions.glib.util.log.log
-import org.gtkkn.extensions.glib.util.loglogger.LogcatStyleLogger
+import org.gtkkn.extensions.glib.util.log.writer.installConsoleLogWriter
 import org.gtkkn.native.glib.G_PRIORITY_DEFAULT
 
 fun main() {
-    LogcatStyleLogger.install()
+    Log.installConsoleLogWriter()
     val app = Application("org.gtkkn.integrationtests", ApplicationFlags.FLAGS_NONE)
     app.onActivate {
         log("App") { "App Activate" }

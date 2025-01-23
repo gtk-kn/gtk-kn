@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Copyright (c) 2025 gtk-kn
 #
@@ -14,6 +15,29 @@
 # along with gtk-kn. If not, see https://www.gnu.org/licenses/.
 #
 
-# Make sure that xcode is installed and the license accepted
+set -e -v
 
-brew install pkgconf gtk4 libadwaita gtksourceview5
+# Check if Xcode is installed
+if ! /usr/bin/xcrun xcodebuild -version &> /dev/null
+then
+  echo "Xcode is not installed or the license has not been accepted. Please install Xcode and accept the license to proceed."
+  exit 1
+fi
+
+# Check if Homebrew is installed, install if missing
+if ! command -v brew &> /dev/null
+then
+  echo "Homebrew not found. Installing..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Update Homebrew
+brew update
+
+# Install packages
+brew install \
+  openjdk@17 \
+  pkgconf \
+  gtk4 \
+  libadwaita \
+  gtksourceview5

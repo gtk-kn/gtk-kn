@@ -54,11 +54,22 @@ class Application(
                 // The official `cairo-1.0.gir` file is incomplete, so a custom GIR file (`cairo-custom.gir`) is used
                 // as a replacement when parsing Cairo's repository. This ensures all necessary features are available.
                 if (file.name.startsWith("cairo-")) {
-                    val customGirFile = loadResourceAsFile("/gir-files/cairo-custom.gir")
-                        ?: error("Resource not found: /gir-files/cairo-custom.gir")
-                    girParserFactory().parse(customGirFile)
+                    girParserFactory().parse(getCairoCustomGirFile())
                 } else {
                     baseRepo
+                }
+            }
+            .let { parsedRepos ->
+                // On macOS, Homebrew does not include the official `cairo-1.0.gir` file when installing Cairo.
+                // To ensure that the necessary Cairo GIR file is available, we manually add a custom `cairo-custom.gir`
+                // file from the resources if it has not already been included in the parsed repositories.
+                if (System.getProperty("os.name").contains("Mac", ignoreCase = true) &&
+                    config.libraries.any { it.girPrefix == "cairo-" } &&
+                    parsedRepos.none { repo -> repo.namespaces.any { it.name == "cairo" } } // Ensure not already added
+                ) {
+                    parsedRepos + girParserFactory().parse(getCairoCustomGirFile())
+                } else {
+                    parsedRepos
                 }
             }
 
@@ -83,6 +94,9 @@ class Application(
             generateRepositoryAnnotationsFile(optInAnnotationsFile, config.gradlePluginDir)
         }
     }
+
+    private fun getCairoCustomGirFile() = loadResourceAsFile("/gir-files/cairo-custom.gir")
+        ?: error("Resource not found: /gir-files/cairo-custom.gir")
 
     private fun getRepositoryOutputPath(repositoryName: String, config: Config): File {
         val library = config.libraries.find { it.name == repositoryName }

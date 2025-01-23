@@ -67,3 +67,13 @@ test-ubuntu-24.04:
     - .ci/gtk-kt-check.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Generate and Check on macOS
+test-macos:
+  extends: .build-base-macos
+  interruptible: true
+  stage: build
+  script:
+    - .ci/gtk-kt-check.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
