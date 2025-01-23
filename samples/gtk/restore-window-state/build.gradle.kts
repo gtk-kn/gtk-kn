@@ -20,18 +20,13 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
+gtkKn {
+    entryPoint = "org.gtkkn.samples.gtk.restorewindowstate.main"
+    targetLibraryVersions.put("gio", "2.28")
+    gschemas.main.preinstall(project.nativeTargetCompilation())
+}
+
 kotlin {
-    linuxX64 {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.samples.gtk.restorewindowstate.main"
-            }
-        }
-        gtk {
-            targetLibraryVersions.put("gio", "2.28")
-            gschemas.main.preinstall(compilations.named("main"))
-        }
-    }
     sourceSets {
         nativeMain {
             dependencies {

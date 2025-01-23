@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem
+
 /*
  * Copyright (c) 2024 gtk-kn
  *
@@ -19,7 +21,14 @@ plugins {
 }
 
 kotlin {
-    linuxX64 {
+    val hostOs = OperatingSystem.current()
+    val isArm64 = System.getProperty("os.arch") == "aarch64"
+    val nativeTarget = when {
+        hostOs.isLinux && !isArm64 -> linuxX64()
+        hostOs.isMacOsX && isArm64 -> macosArm64()
+        else -> throw GradleException("Host OS '${hostOs}' is not supported by gtk-kn.")
+    }
+    nativeTarget.apply {
         binaries {
             executable {
                 entryPoint = "main"

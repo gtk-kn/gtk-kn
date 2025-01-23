@@ -24,22 +24,50 @@ package org.gtkkn.gradle.plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.internal.os.OperatingSystem
+import org.gradle.kotlin.dsl.getByType
 import org.gtkkn.gradle.plugin.config.dependencyResolutionConfig
-import org.gtkkn.gradle.plugin.ext.GtkExt
+import org.gtkkn.gradle.plugin.ext.GtkKnExt
+import org.gtkkn.gradle.plugin.ext.gtkKn
 import org.gtkkn.gradle.plugin.utils.configureOptInAnnotations
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-@Suppress("unused")
 class GtkPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        GtkExt.register(project)
+        GtkKnExt.register(project)
         project.dependencyResolutionConfig()
 
+        project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+            val kotlin = project.extensions.getByType<KotlinMultiplatformExtension>()
+
+            // Detect host OS and architecture
+            val hostOs = OperatingSystem.current()
+            val isArm64 = System.getProperty("os.arch") == "aarch64"
+
+            val nativeTarget = when {
+                hostOs.isLinux && !isArm64 -> kotlin.linuxX64()
+                hostOs.isMacOsX && isArm64 -> kotlin.macosArm64()
+                else -> error("Host OS '$hostOs' is not supported by gtk-kn.")
+            }
+
+            project.afterEvaluate {
+                project.gtkKn.entryPoint.orNull?.let { entryPoint ->
+                    nativeTarget.binaries {
+                        executable {
+                            this.entryPoint = entryPoint
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3. Defer only the logic that truly needs afterEvaluate
         project.afterEvaluate {
             configureOptInAnnotations(project)
         }
     }
 
     companion object {
-        const val TASK_GROUP = "gtk"
+        const val TASK_GROUP = "gtkkn"
     }
 }

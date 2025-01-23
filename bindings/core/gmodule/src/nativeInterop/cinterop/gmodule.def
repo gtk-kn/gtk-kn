@@ -11,12 +11,26 @@ compilerOpts.linux =\
 
 compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
-    -I/usr/lib64/glib-2.0/include \
+    -I/usr/lib64/glib-2.0/include
+
+compilerOpts.osx = \
+-I/opt/homebrew/Cellar/glib/2.82.4/include \
+-I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
+-I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+-I/opt/homebrew/opt/gettext/include \
+-I/opt/homebrew/Cellar/pcre2/10.44/include
 
 # pkg-config --libs gmodule-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 # can't add `-lgmodule-2.0`: https://gitlab.com/gtk-kn/gtk-kn/-/issues/91
 linkerOpts.linux = \
     -lglib-2.0
+
+linkerOpts.osx = \
+    -L/opt/homebrew/Cellar/glib/2.82.4/lib \
+    -lgmodule-2.0 \
+    -lglib-2.0 \
+    -L/opt/homebrew/opt/gettext/lib \
+    -lintl
 
 strictEnums = \
     GModuleError

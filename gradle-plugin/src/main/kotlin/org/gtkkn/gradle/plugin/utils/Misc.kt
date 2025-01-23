@@ -26,7 +26,7 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import org.gtkkn.gradle.plugin.config.repositoryAnnotations
-import org.gtkkn.gradle.plugin.ext.GtkExt
+import org.gtkkn.gradle.plugin.ext.GtkKnExt
 import org.gtkkn.gradle.plugin.ext.capitalized
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
@@ -37,8 +37,8 @@ internal inline fun <reified T : Any> ExtensionContainer.maybeCreate(name: Strin
 internal val KotlinNativeCompilation.qualifiedName get() = "${target.name.capitalized()}${name.capitalized()}"
 
 internal fun configureOptInAnnotations(project: Project) {
-    val gtkExt = project.extensions.getByType(GtkExt::class.java)
-    val repositoryVersions = gtkExt.targetLibraryVersions.getOrElse(emptyMap())
+    val gtkKnExt = project.extensions.getByType(GtkKnExt::class.java)
+    val repositoryVersions = gtkKnExt.targetLibraryVersions.getOrElse(emptyMap())
 
     val annotationsToOptIn = mutableSetOf<String>()
 

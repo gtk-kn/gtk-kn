@@ -27,6 +27,7 @@ import org.gradle.api.Task
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.MapProperty
+import org.gradle.api.provider.Property
 import org.gradle.kotlin.dsl.domainObjectContainer
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
@@ -37,7 +38,19 @@ import org.gtkkn.gradle.plugin.task.CompileGSchemasTask
 import org.gtkkn.gradle.plugin.utils.maybeCreate
 import org.gtkkn.gradle.plugin.utils.maybeRegister
 
-interface GtkExt : ExtensionAware {
+interface GtkKnExt : ExtensionAware {
+    /**
+     * The entry point for the Kotlin/Native executable.
+     * Moved here so that can be specified it in the `gtk` extension block:
+     *
+     * ```kotlin
+     * gtkKn {
+     *     entryPoint = "my.custom.main"
+     * }
+     * ```
+     */
+    val entryPoint: Property<String>
+
     /**
      * Where to place intermediate outputs of various plugin tasks
      */
@@ -57,7 +70,7 @@ interface GtkExt : ExtensionAware {
      *
      * For example:
      * ```
-     * gtk {
+     * gtkKn {
      *     targetLibraryVersions.put("gtk", "4.10")
      *     targetLibraryVersions.put("gio", "2.28")
      * }
@@ -69,9 +82,9 @@ interface GtkExt : ExtensionAware {
     val targetLibraryVersions: MapProperty<String, String>
 
     companion object {
-        const val NAME = "gtk"
-        internal fun register(project: Project) = project.extensions.maybeCreate<GtkExt>(NAME) {
-            outputPrefix.convention(project.layout.buildDirectory.dir("gtk/"))
+        const val NAME = "gtkKn"
+        internal fun register(project: Project) = project.extensions.maybeCreate<GtkKnExt>(NAME) {
+            outputPrefix.convention(project.layout.buildDirectory.dir("gtk-kn/"))
             installPrefix.convention(
                 project.layout.projectDirectory.dir(
                     "${System.getProperty("user.home")}/.local/share",
@@ -84,7 +97,7 @@ interface GtkExt : ExtensionAware {
             targetLibraryVersions.convention(project.objects.mapProperty(String::class.java, String::class.java))
         }
 
-        private fun GtkExt.registerGResources(project: Project) {
+        private fun GtkKnExt.registerGResources(project: Project) {
             project.objects.domainObjectContainer(GResourceBundle::class) { name ->
                 GResourceBundle.create(name, project)
             }.apply {
@@ -104,7 +117,7 @@ interface GtkExt : ExtensionAware {
             }.also { extensions.add("gresources", it) }
         }
 
-        private fun GtkExt.registerGSchemas(project: Project) {
+        private fun GtkKnExt.registerGSchemas(project: Project) {
             project.objects.domainObjectContainer(GSchemaBundle::class) { name ->
                 GSchemaBundle.create(name, project)
             }.apply {
@@ -138,4 +151,4 @@ interface GtkExt : ExtensionAware {
     }
 }
 
-internal inline val Project.gtk: GtkExt get() = extensions.getByType()
+internal inline val Project.gtkKn: GtkKnExt get() = extensions.getByType()

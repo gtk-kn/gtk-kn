@@ -20,19 +20,12 @@ plugins {
     id("org.gtkkn.gtk")
 }
 
+gtkKn {
+    entryPoint = "org.gtkkn.samples.webkit.browser.main"
+    targetLibraryVersions.putAll(mapOf("gio" to "2.28", "glib" to "2.66", "gobject" to "2.26"))
+}
+
 kotlin {
-    linuxX64 {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.samples.webkit.browser.main"
-            }
-        }
-        gtk {
-            targetLibraryVersions.put("gio", "2.28")
-            targetLibraryVersions.put("glib", "2.66")
-            targetLibraryVersions.put("gobject", "2.26")
-        }
-    }
     sourceSets {
         nativeMain {
             dependencies {

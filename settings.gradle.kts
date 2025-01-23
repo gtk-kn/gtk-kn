@@ -15,6 +15,7 @@
  */
 
 import groovy.json.JsonSlurper
+import org.gradle.internal.os.OperatingSystem
 import java.util.Properties
 
 // https://docs.gradle.org/7.0/userguide/declaring_dependencies.html#sec:type-safe-project-accessors
@@ -31,11 +32,14 @@ dependencyResolutionManagement {
 
 rootProject.name = "gtk-kn"
 
-val properties = (extra.properties + (rootDir.resolve("local.properties").takeIf(File::exists)?.let {
-    Properties().apply {
-        it.inputStream().use(this::load)
-    }.toMap()
-} ?: mapOf())).map { (k, v) -> "$k" to "$v" }.toMap()
+val properties = buildMap {
+    putAll(extra.properties.mapKeys { it.key.toString() }.mapValues { it.value.toString() })
+    rootDir.resolve("local.properties").takeIf(File::exists)?.let { file ->
+        file.inputStream().use { input -> Properties().apply { load(input) } }
+            .forEach { key, value -> put(key.toString(), value.toString()) }
+    }
+}
+
 
 var configFile: String = if (extra.properties.contains("org.gtkkn.configFile")) {
     checkNotNull(properties["org.gtkkn.configFile"])
@@ -50,17 +54,18 @@ if (!configFile.startsWith("/")) {
 val config = JsonSlurper().parse(File(configFile)) as Map<String, Any>
 
 @Suppress("UNCHECKED_CAST")
-val bindingLibs = config["libraries"] as List<Map<String, String>>
+val bindingLibs = (config["libraries"] as List<Map<String, String>>).filter { library ->
+    library["platforms"]?.split(",")?.map { it.trim() }?.contains(OperatingSystem.current().name) ?: true
+}
 
 gradle.extra["bindingLibs"] = bindingLibs
 
 includeBuild("build-conventions")
 includeBuild("gradle-plugin")
 
-include("gir")
-include("coroutines")
-
 include("bindings:common-annotations")
+include("coroutines")
+include("gir")
 
 
 bindingLibs.forEach { library ->

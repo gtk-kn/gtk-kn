@@ -2,6 +2,8 @@ headers = gdk-pixbuf/gdk-pixbuf.h gdk-pixbuf/gdk-pixbuf-io.h
 package = org.gtkkn.native.gdk
 headerFilter = gdk-pixbuf/*.h
 
+compilerOpts = -DGDK_PIXBUF_ENABLE_BACKEND=1
+
 # pkg-config --cflags gdk-pixbuf-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 compilerOpts.linux = \
     -I/usr/include/gdk-pixbuf-2.0 \
@@ -13,7 +15,6 @@ compilerOpts.linux = \
     -I/usr/include/libmount \
     -I/usr/include/blkid \
     -DWITH_GZFILEOP \
-    -DGDK_PIXBUF_ENABLE_BACKEND=1 \
     -I/usr/include/sysprof-6 \
     -pthread
 
@@ -21,11 +22,34 @@ compilerOpts.linux_x64 = \
     -I/usr/lib/x86_64-linux-gnu/glib-2.0/include \
     -I/usr/lib64/glib-2.0/include
 
+compilerOpts.osx = \
+    -I/opt/homebrew/Cellar/gdk-pixbuf/2.42.12/include/gdk-pixbuf-2.0 \
+    -I/opt/homebrew/opt/libpng/include/libpng16 \
+    -I/opt/homebrew/Cellar/libtiff/4.7.0/include \
+    -I/opt/homebrew/opt/zstd/include \
+    -I/opt/homebrew/Cellar/xz/5.6.3/include \
+    -I/opt/homebrew/opt/jpeg-turbo/include \
+    -I/opt/homebrew/Cellar/glib/2.82.4/include \
+    -I/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/ffi \
+    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
+    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/gettext/include \
+    -I/opt/homebrew/Cellar/pcre2/10.44/include
+
 # pkg-config --libs gdk-pixbuf-2.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux =\
     -lgdk_pixbuf-2.0 \
     -lgobject-2.0 \
     -lglib-2.0
+
+linkerOpts.osx = \
+    -L/opt/homebrew/Cellar/gdk-pixbuf/2.42.12/lib \
+    -lgdk_pixbuf-2.0 \
+    -L/opt/homebrew/Cellar/glib/2.82.4/lib \
+    -lgobject-2.0 \
+    -lglib-2.0 \
+    -L/opt/homebrew/opt/gettext/lib \
+    -lintl
 
 strictEnums = \
     GdkColorspace \

@@ -22,8 +22,22 @@ compilerOpts.linux_x64 =\
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0 \
     -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include
 
+compilerOpts.osx = \
+    -I/opt/homebrew/Cellar/graphene/1.10.8/include/graphene-1.0 \
+    -I/opt/homebrew/Cellar/graphene/1.10.8/lib/graphene-1.0/include \
+    -I/opt/homebrew/Cellar/glib/2.82.4/include \
+    -I/opt/homebrew/Cellar/glib/2.82.4/include/glib-2.0 \
+    -I/opt/homebrew/Cellar/glib/2.82.4/lib/glib-2.0/include \
+    -I/opt/homebrew/opt/gettext/include \
+    -I/opt/homebrew/Cellar/pcre2/10.44/include \
+    -I/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk/usr/include/ffi
+
 # pkg-config --libs graphene-1.0 | tr ' ' '\n' | sed '$!s/$/ \\/'
 linkerOpts.linux = \
+    -lgraphene-1.0
+
+linkerOpts.osx = \
+    -L/opt/homebrew/Cellar/graphene/1.10.8/lib \
     -lgraphene-1.0
 
 strictEnums = \

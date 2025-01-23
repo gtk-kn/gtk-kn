@@ -1,5 +1,4 @@
 {
-  "girBaseDir": "/usr/share/gir-1.0",
   "outputDir": "bindings",
   "gradlePluginDir": "gradle-plugin",
   "logLevel": "INFO",
@@ -86,17 +85,20 @@
     {
       "name": "javascriptcore",
       "module": "extra:javascriptcore",
-      "girPrefix": "JavaScriptCore-6.0"
+      "girPrefix": "JavaScriptCore-6.0",
+      "platforms": "Linux"
     },
     {
       "name": "soup",
       "module": "extra:soup",
-      "girPrefix": "Soup-3.0"
+      "girPrefix": "Soup-3.0",
+      "platforms": "Linux"
     },
     {
       "name": "webkit",
       "module": "extra:webkit",
-      "girPrefix": "WebKit-6.0"
+      "girPrefix": "WebKit-6.0",
+      "platforms": "Linux"
     }
   ]
 }

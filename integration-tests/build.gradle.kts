@@ -1,20 +1,16 @@
+import org.gradle.internal.os.OperatingSystem
+
 plugins {
     kotlin("multiplatform") version "2.1.0"
     id("org.gtkkn.gtk") version "0.0.1-SNAPSHOT"
 }
 
+gtkKn {
+    entryPoint = "org.gtkkn.integrationtests.main"
+    targetLibraryVersions.putAll(mapOf("gio" to "2.28", "gtk" to "4.10"))
+}
+
 kotlin {
-    linuxX64 {
-        binaries {
-            executable {
-                entryPoint = "org.gtkkn.integrationtests.main"
-            }
-        }
-        gtk {
-            targetLibraryVersions.put("gtk", "4.10")
-            targetLibraryVersions.put("gio", "2.28")
-        }
-    }
     sourceSets {
         nativeMain {
             dependencies {

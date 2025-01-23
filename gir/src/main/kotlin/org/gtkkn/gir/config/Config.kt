@@ -39,6 +39,7 @@ data class Config(
         val name: String,
         val module: String,
         val girPrefix: String,
+        val platforms: String? = null,
     )
 
     fun matchesGirFile(file: File): Boolean =
@@ -50,7 +51,7 @@ data class Config(
  */
 @Serializable
 data class GtkKnJsonConfig(
-    val girBaseDir: String,
+    val girBaseDir: String? = null,
     val outputDir: String,
     val gradlePluginDir: String,
     val logLevel: String,
