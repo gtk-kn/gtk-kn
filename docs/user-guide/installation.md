@@ -70,8 +70,8 @@ The `gtk-kn` project now supports macOS on Apple Silicon (arm64). To get started
 
 !!! warning "Support Coming Soon"
 
-    Currently, bindings are only available for Linux. Windows support is planned, allowing for cross-platform GUI
-    applications that run on Linux and Windows.
+    Windows support is planned, enabling developers to create cross-platform GUI applications that run on Linux, macOS,
+    and Windows.
 
 ## Editor or Integrated Development Environment (IDE)
 
