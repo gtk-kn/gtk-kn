@@ -74,7 +74,7 @@ publishing {
             licenses {
                 license {
                     name.set("LGPL")
-                    url.set("https://www.gnu.org/licenses/lgpl-3.0.html")
+                    url.set("https://www.gnu.org/licenses/lgpl-2.1.html")
                 }
             }
 

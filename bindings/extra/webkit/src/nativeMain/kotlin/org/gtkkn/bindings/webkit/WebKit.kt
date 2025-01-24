@@ -186,7 +186,7 @@ public object WebKit {
      * application compile time, rather than from the library linked
      * against at application run time.
      */
-    public const val MICRO_VERSION: gint = 4
+    public const val MICRO_VERSION: gint = 5
 
     /**
      * Like webkit_get_minor_version(), but from the headers used at

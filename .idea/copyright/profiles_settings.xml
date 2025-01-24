@@ -1,12 +1,13 @@
 <component name="CopyrightManager">
-  <settings default="GPL3">
+  <settings>
     <module2copyright>
       <element module="Bindings" copyright="No copyright" />
-      <element module="Extensions" copyright="MIT" />
-      <element module="Samples" copyright="MIT" />
+      <element module="Dokka" copyright="No copyright" />
+      <element module="Git submodules" copyright="No copyright" />
+      <element module="Integration Tests" copyright="No copyright" />
       <element module="Docs" copyright="CC-BY-SA 4.0" />
-      <element module="GradlePlugin" copyright="MIT" />
-      <element module="All" copyright="GPL3" />
+      <element module="Samples" copyright="MIT" />
+      <element module="All" copyright="LGPL2.1" />
     </module2copyright>
   </settings>
 </component>

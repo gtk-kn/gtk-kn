@@ -20,20 +20,18 @@ import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.blueprints.BlueprintResult
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprintBuilder
-import org.gtkkn.gir.config.Config
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirRepository
 
 @Inject
 class Phase2Processor(
-    private val config: Config,
     private val typeRegistry: TypeRegistry,
 ) {
     /**
      * Process a list of [GirRepository] into [RepositoryBlueprint]
      */
     fun process(repositories: List<GirRepository>): List<RepositoryBlueprint> {
-        val context = ProcessorContext(repositories, config, typeRegistry)
+        val context = ProcessorContext(repositories, typeRegistry)
         logger.info { "Registering Types" }
         repositories.forEach { repository ->
             repository.namespaces.forEach { namespace ->

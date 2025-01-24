@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Integration Tests" pattern="file[gtk-kn]:integration-tests//*" />
+</component>

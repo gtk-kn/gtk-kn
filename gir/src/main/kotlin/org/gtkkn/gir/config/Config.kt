@@ -26,14 +26,8 @@ data class Config(
     val gradlePluginDir: File,
     val logLevel: Level,
     val skipFormat: Boolean,
-    val bindingLicense: License,
     val libraries: List<Library>
 ) {
-    enum class License {
-        LGPL,
-        MIT
-    }
-
     @Serializable
     data class Library(
         val name: String,
@@ -56,7 +50,6 @@ data class GtkKnJsonConfig(
     val gradlePluginDir: String,
     val logLevel: String,
     val skipFormat: Boolean,
-    val bindingLicense: String,
     val libraries: List<Config.Library>,
     val ignoredLibraries: List<Config.Library> = emptyList(),
 )

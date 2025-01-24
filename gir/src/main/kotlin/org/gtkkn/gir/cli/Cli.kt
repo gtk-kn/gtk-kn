@@ -26,7 +26,6 @@ import org.gtkkn.gir.log.logger
 import java.io.File
 import java.util.Locale
 
-private const val ENV_GTK_KN_LICENSE = "GTK_KN_LICENSE"
 private const val ENV_GTK_KN_LOG_LEVEL = "GTK_KN_LOG_LEVEL"
 private const val ENV_GTK_KN_SKIP_FORMAT = "GTK_KN_SKIP_FORMAT"
 
@@ -65,13 +64,6 @@ fun parseConfig(args: Array<String>): Config {
             description = "Log level",
         )
 
-    val license by parser
-        .option(
-            ArgType.Choice<Config.License>(),
-            shortName = "l",
-            description = "License of the generated bindings ",
-        )
-
     val configFile by parser
         .option(
             ArgType.String,
@@ -86,7 +78,6 @@ fun parseConfig(args: Array<String>): Config {
     var config = loadConfigFromFile(File(configFilePath))
 
     // apply env variable overrides
-    getLicenseFromEnv()?.let { config = config.copy(bindingLicense = it) }
     getSkipFormatFromEnv()?.let { config = config.copy(skipFormat = it) }
     getLogLevelFromEnv()?.let { config = config.copy(logLevel = it) }
 
@@ -96,19 +87,12 @@ fun parseConfig(args: Array<String>): Config {
     gradlePluginPath?.let { config = config.copy(gradlePluginDir = File(it)) }
     skipFormat?.let { config = config.copy(skipFormat = it) }
     logLevel?.let { config = config.copy(logLevel = it) }
-    license?.let { config = config.copy(bindingLicense = it) }
 
     return config
 }
 
 private fun getLogLevelFromEnv(): Level? = try {
     System.getenv(ENV_GTK_KN_LOG_LEVEL)?.let { Level.valueOf(it.uppercase(Locale.ROOT)) }
-} catch (e: IllegalArgumentException) {
-    null
-}
-
-private fun getLicenseFromEnv(): Config.License? = try {
-    System.getenv(ENV_GTK_KN_LICENSE)?.let { Config.License.valueOf(it.uppercase(Locale.ROOT)) }
 } catch (e: IllegalArgumentException) {
     null
 }
@@ -153,7 +137,6 @@ private fun loadConfigFromFile(file: File): Config {
         gradlePluginDir = file.parentFile.resolve(jsonConfig.gradlePluginDir),
         logLevel = Level.valueOf(jsonConfig.logLevel),
         skipFormat = jsonConfig.skipFormat,
-        bindingLicense = Config.License.valueOf(jsonConfig.bindingLicense),
         libraries = jsonConfig.libraries,
     )
 }
