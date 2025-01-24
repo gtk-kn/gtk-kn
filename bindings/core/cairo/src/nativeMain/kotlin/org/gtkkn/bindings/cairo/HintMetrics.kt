@@ -1,4 +1,6 @@
 // This is a generated file. Do not modify.
+// Copyright (c) 2025 gtk-kn
+// SPDX-License-Identifier: LGPL-2.1-or-later
 package org.gtkkn.bindings.cairo
 
 import org.gtkkn.native.cairo.cairo_gobject_hint_metrics_get_type

@@ -23,7 +23,7 @@ installation of all necessary development dependencies:
 To set up your environment on Arch Linux, the following script outlines the required packages:
 
 ``` bash title="docker/archlinux/install-archlinux-deps.sh"
---8<-- "docker/archlinux/install-archlinux-deps.sh:18"
+--8<-- "docker/archlinux/install-archlinux-deps.sh:23"
 ```
 
 #### Fedora
@@ -31,7 +31,7 @@ To set up your environment on Arch Linux, the following script outlines the requ
 For Fedora users, ensure your system is equipped with the following dependencies:
 
 ``` bash title="docker/fedora/install-fedora-deps.sh"
---8<-- "docker/fedora/install-fedora-deps.sh:18"
+--8<-- "docker/fedora/install-fedora-deps.sh:23"
 ```
 
 #### openSUSE Tumbleweed
@@ -39,7 +39,7 @@ For Fedora users, ensure your system is equipped with the following dependencies
 If you are using openSUSE Tumbleweed, refer to the script below for the installation steps:
 
 ``` bash title="docker/opensuse-tumbleweed/install-opensuse-tumbleweed-deps.sh"
---8<-- "docker/opensuse-tumbleweed/install-opensuse-tumbleweed-deps.sh:18"
+--8<-- "docker/opensuse-tumbleweed/install-opensuse-tumbleweed-deps.sh:23"
 ```
 
 #### Ubuntu LTS
@@ -47,7 +47,7 @@ If you are using openSUSE Tumbleweed, refer to the script below for the installa
 Ubuntu LTS users can install the necessary dependencies using the following script:
 
 ``` bash title="docker/ubuntu/install-ubuntu-deps.sh"
---8<-- "docker/ubuntu/install-ubuntu-deps.sh:18"
+--8<-- "docker/ubuntu/install-ubuntu-deps.sh:23"
 ```
 
 ### macOS (Apple Silicon Only)
@@ -63,7 +63,7 @@ The `gtk-kn` project now supports macOS on Apple Silicon (arm64). To get started
    Use the following script to set up additional dependencies:
 
 ``` bash title="misc/install_macos_deps.sh"
---8<-- "misc/install_macos_deps.sh:18"
+--8<-- "misc/install_macos_deps.sh:23"
 ```
 
 ### Windows
