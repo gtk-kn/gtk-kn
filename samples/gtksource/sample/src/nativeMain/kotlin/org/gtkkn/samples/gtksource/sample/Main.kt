@@ -72,7 +72,7 @@ fun main() = Application {
         child = sourceView
     }
 
-    val spacesForTabCheckButton = CheckButton.newWithLabel("Spaces for tab").apply {
+    val spacesForTabCheckButton = CheckButton("Spaces for tab").apply {
         active = sourceView.insertSpacesInsteadOfTabs
         onToggled {
             log { "spacesForTabCheckButton Toggled = $active" }
@@ -80,7 +80,7 @@ fun main() = Application {
         }
     }
 
-    val showLineNumberButton = CheckButton.newWithLabel("Show line number").apply {
+    val showLineNumberButton = CheckButton("Show line number").apply {
         active = sourceView.showLineNumbers
         onToggled {
             log { "showLineNumberButton Toggled = $active" }

@@ -54,7 +54,7 @@ fun main() = Application {
     // this is where any playground code can run to set up widgets
     val webView = WebView()
 
-    val back = Button.newFromIconName("go-previous-symbolic").apply {
+    val back = Button.fromIconName("go-previous-symbolic").apply {
         tooltipText = "Back"
         onClicked {
             log { "Back clicked" }
@@ -62,7 +62,7 @@ fun main() = Application {
         }
     }
 
-    val forward = Button.newFromIconName("go-next-symbolic").apply {
+    val forward = Button.fromIconName("go-next-symbolic").apply {
         tooltipText = "Forward"
         onClicked {
             log { "Forward clicked" }
@@ -70,7 +70,7 @@ fun main() = Application {
         }
     }
 
-    val stopOrReload = Button.newFromIconName("process-stop-symbolic").apply {
+    val stopOrReload = Button.fromIconName("process-stop-symbolic").apply {
         tooltipText = "Stop"
         onClicked {
             log { "Stop clicked" }
@@ -78,7 +78,7 @@ fun main() = Application {
         }
     }
 
-    val home = Button.newFromIconName("go-home-symbolic").apply {
+    val home = Button.fromIconName("go-home-symbolic").apply {
         tooltipText = "Home"
         onClicked {
             log { "Home clicked" }

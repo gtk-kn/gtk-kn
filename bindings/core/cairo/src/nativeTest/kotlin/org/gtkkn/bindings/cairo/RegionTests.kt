@@ -29,7 +29,7 @@ import kotlin.test.assertTrue
 class RegionTests {
     @Test
     fun `should create an empty Region with success status`() {
-        val region = Region.create()
+        val region = Region()
         assertEquals(Status.SUCCESS, region.status(), "Expected a newly created empty region to have SUCCESS status")
         assertTrue(region.isEmpty(), "Expected a newly created region to be empty")
     }
@@ -38,7 +38,7 @@ class RegionTests {
     fun `should create Region from rectangle with success status`() = memScoped {
         // Adapt this line if you create a RectangleInt differently
         val rect = RectangleInt(10, 20, 100, 200, this)
-        val region = Region.createRectangle(rect)
+        val region = Region(rect)
         assertEquals(Status.SUCCESS, region.status(), "Expected region creation from rectangle to have SUCCESS status")
         assertFalse(region.isEmpty(), "Expected a region created from a rectangle to be non-empty")
     }
@@ -46,7 +46,7 @@ class RegionTests {
     @Test
     fun `should copy Region and remain equal`() = memScoped {
         val rect = RectangleInt(10, 20, 100, 200, this)
-        val region1 = Region.createRectangle(rect)
+        val region1 = Region(rect)
         val region2 = region1.copy()
 
         assertTrue(region1.equal(region2), "Copied region should be equal to the original")
@@ -57,7 +57,7 @@ class RegionTests {
     @Test
     fun `should get extents of Region`() = memScoped {
         val rect = RectangleInt(10, 20, 100, 200, this)
-        val region = Region.createRectangle(rect)
+        val region = Region(rect)
 
         val outRect = RectangleInt(0, 0, 0, 0, this)
         region.getExtents(outRect)
@@ -80,14 +80,14 @@ class RegionTests {
 
     @Test
     fun `should report correct number of rectangles`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         assertEquals(1, region.numRectangles(), "Expected region to have exactly one rectangle")
         assertEquals(Status.SUCCESS, region.status(), "Expected SUCCESS status")
     }
 
     @Test
     fun `should retrieve correct rectangle by index`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         val rectOut = RectangleInt(0, 0, 0, 0, this)
         region.getRectangle(0, rectOut)
 
@@ -102,8 +102,8 @@ class RegionTests {
 
     @Test
     fun `should report empty region correctly`() = memScoped {
-        val regionEmpty = Region.create()
-        val regionRect = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val regionEmpty = Region()
+        val regionRect = Region(RectangleInt(10, 20, 100, 200, this))
 
         assertTrue(regionEmpty.isEmpty(), "Expected empty region to be empty")
         assertFalse(regionRect.isEmpty(), "Expected region with a rectangle to be non-empty")
@@ -113,7 +113,7 @@ class RegionTests {
 
     @Test
     fun `should verify containment of points`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         assertTrue(region.containsPoint(10, 20), "Point (10, 20) should be inside the region")
         assertFalse(region.containsPoint(9, 20), "Point (9, 20) should be outside the region")
         assertEquals(Status.SUCCESS, region.status(), "Expected SUCCESS status after contain check")
@@ -121,7 +121,7 @@ class RegionTests {
 
     @Test
     fun `should verify rectangle containment`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
 
         val inRect = RectangleInt(10, 20, 100, 200, this)
         val partRect = RectangleInt(11, 21, 100, 200, this)
@@ -135,9 +135,9 @@ class RegionTests {
 
     @Test
     fun `should compare regions for equality`() = memScoped {
-        val region1 = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
-        val region2 = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
-        val region3 = Region.createRectangle(RectangleInt(11, 20, 100, 200, this))
+        val region1 = Region(RectangleInt(10, 20, 100, 200, this))
+        val region2 = Region(RectangleInt(10, 20, 100, 200, this))
+        val region3 = Region(RectangleInt(11, 20, 100, 200, this))
 
         assertTrue(region1.equal(region2), "Regions with same rectangle should be equal")
         assertFalse(region1.equal(region3), "Regions with different rectangles should not be equal")
@@ -146,7 +146,7 @@ class RegionTests {
 
     @Test
     fun `should translate a region successfully`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         region.translate(2, -2)
 
         val extents = RectangleInt(0, 0, 0, 0, this)
@@ -160,8 +160,8 @@ class RegionTests {
 
     @Test
     fun `should intersect two regions correctly`() = memScoped {
-        val region1 = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
-        val region2 = Region.createRectangle(RectangleInt(50, 80, 100, 200, this))
+        val region1 = Region(RectangleInt(10, 20, 100, 200, this))
+        val region2 = Region(RectangleInt(50, 80, 100, 200, this))
         region1.intersect(region2)
 
         val extents1 = RectangleInt(0, 0, 0, 0, this)
@@ -188,7 +188,7 @@ class RegionTests {
 
     @Test
     fun `should intersect region with rectangle`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         val rect = RectangleInt(50, 80, 100, 200, this)
         region.intersectRectangle(rect)
 
@@ -206,8 +206,8 @@ class RegionTests {
 
     @Test
     fun `should subtract one region from another`() = memScoped {
-        val region1 = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
-        val region2 = Region.createRectangle(RectangleInt(20, 20, 100, 200, this))
+        val region1 = Region(RectangleInt(10, 20, 100, 200, this))
+        val region2 = Region(RectangleInt(20, 20, 100, 200, this))
         region1.subtract(region2)
 
         val extents1 = RectangleInt(0, 0, 0, 0, this)
@@ -237,7 +237,7 @@ class RegionTests {
 
     @Test
     fun `should subtract rectangle from region`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         val rect = RectangleInt(20, 20, 100, 200, this)
         region.subtractRectangle(rect)
 
@@ -256,8 +256,8 @@ class RegionTests {
 
     @Test
     fun `should union two regions successfully`() = memScoped {
-        val region1 = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
-        val region2 = Region.createRectangle(RectangleInt(20, 20, 100, 200, this))
+        val region1 = Region(RectangleInt(10, 20, 100, 200, this))
+        val region2 = Region(RectangleInt(20, 20, 100, 200, this))
         region1.union(region2)
 
         val extents1 = RectangleInt(0, 0, 0, 0, this)
@@ -287,7 +287,7 @@ class RegionTests {
 
     @Test
     fun `should union region with a rectangle`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(10, 20, 100, 200, this))
+        val region = Region(RectangleInt(10, 20, 100, 200, this))
         val rect = RectangleInt(20, 20, 100, 200, this)
         region.unionRectangle(rect)
 
@@ -306,8 +306,8 @@ class RegionTests {
 
     @Test
     fun `should XOR two regions correctly`() = memScoped {
-        val region1 = Region.createRectangle(RectangleInt(0, 0, 50, 50, this))
-        val region2 = Region.createRectangle(RectangleInt(0, 0, 50, 20, this))
+        val region1 = Region(RectangleInt(0, 0, 50, 50, this))
+        val region2 = Region(RectangleInt(0, 0, 50, 20, this))
         region1.xor(region2)
 
         val extents1 = RectangleInt(0, 0, 0, 0, this)
@@ -338,7 +338,7 @@ class RegionTests {
 
     @Test
     fun `should XOR region with rectangle correctly`() = memScoped {
-        val region = Region.createRectangle(RectangleInt(0, 0, 50, 50, this))
+        val region = Region(RectangleInt(0, 0, 50, 50, this))
         val rect = RectangleInt(0, 0, 50, 20, this)
         region.xorRectangle(rect)
 

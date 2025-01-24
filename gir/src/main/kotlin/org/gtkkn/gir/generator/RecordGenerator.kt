@@ -21,7 +21,6 @@
 package org.gtkkn.gir.generator
 
 import com.squareup.kotlinpoet.KModifier
-import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gtkkn.gir.blueprints.RecordBlueprint
 
@@ -32,38 +31,19 @@ interface RecordGenerator : RecordUnionGenerator {
     fun buildRecord(record: RecordBlueprint): TypeSpec =
         TypeSpec.classBuilder(record.kotlinTypeName).apply {
             addCommonTopLevelKdocAndAnnotations(record)
-
             if (record.cStructTypeName.simpleName == "GTypeInstance") {
                 addModifiers(KModifier.OPEN)
             }
-
-            val addEmptyConstructors = !record.hasNewConstructor && !record.isOpaque && !record.isDisguised
-
-            addPrimaryConstructorWithCleaner(
-                objectPointerTypeName = record.objectPointerTypeName,
-                objectPointerName = record.objectPointerName,
-                addCleaner = addEmptyConstructors,
-            )
-            superclass(BindingsGenerator.PROXY_INSTANCE_TYPE)
-            addSuperclassConstructorParameter(record.objectPointerName)
-
-            // Pointer property
-            addProperty(
-                PropertySpec.builder(record.objectPointerName, record.objectPointerTypeName)
-                    .initializer(record.objectPointerName)
-                    .build(),
-            )
-
+            val companionSpecBuilder = TypeSpec.companionObjectBuilder()
+            addPrimaryPointerConstructor(record)
+            setupInheritance(record)
+            val addEmptyConstructors =
+                !addGirConstructors(record, companionSpecBuilder) && !record.isOpaque && !record.isDisguised
             // Add default constructors if needed
             if (addEmptyConstructors) {
-                addNoArgConstructor(record.kotlinName, record.nativeTypeName, record.objectPointerTypeName)
-                addPairConstructor(record.kotlinTypeName, record.objectPointerName, record.objectPointerTypeName)
-                addAutofreeScopeConstructor(record.kotlinName, record.nativeTypeName)
-
-                addFieldConstructorsIfAny(
-                    record.kotlinName,
-                    record.fields,
-                )
+                addRecordUnionNoArgConstructor(record.kotlinName, record.nativeTypeName, record.objectPointerTypeName)
+                addRecordUnionAutofreeScopeConstructor(record.kotlinName, record.nativeTypeName)
+                addFieldConstructorsIfAny(record.kotlinName, record.fields)
             }
 
             // Methods and Fields
@@ -73,6 +53,6 @@ interface RecordGenerator : RecordUnionGenerator {
             addToStringIfNeeded(record, isDisguised = record.isDisguised)
 
             // Companion object
-            buildCompanionObject(record, record.kotlinTypeName)?.let { addType(it) }
+            buildCompanionObject(companionSpecBuilder, record, record.kotlinTypeName)?.let { addType(it) }
         }.build()
 }

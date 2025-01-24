@@ -27,6 +27,7 @@ package org.gtkkn.samples.playground
 import kotlinx.cinterop.memScoped
 import org.gtkkn.bindings.adw.HeaderBar
 import org.gtkkn.bindings.gdk.Rectangle
+import org.gtkkn.bindings.glib.DateTime
 import org.gtkkn.bindings.gobject.Value
 import org.gtkkn.bindings.gtk.Align
 import org.gtkkn.bindings.gtk.Box
@@ -51,6 +52,8 @@ fun main() = Application {
     val headerBar = HeaderBar().apply {
         title = "gtk-kn playground"
     }
+    log(INFO) { "headerBar.gClass?.gType = ${headerBar.gClass?.gType}" }
+    log(INFO) { "HeaderBar.getType() = ${HeaderBar.getType()}" }
 
     // setup window layout
     val layout = Box(Orientation.VERTICAL, 0).apply {
@@ -66,6 +69,12 @@ fun main() = Application {
         hexpand = true
         vexpand = true
     }
+
+    log { "#### MemoryCleaner test" };
+    {
+        val d = DateTime()
+        log { "DateTime: ${d.toUnix()}" }
+    }()
 
     log { "#### Record test" }
 

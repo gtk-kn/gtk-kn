@@ -26,7 +26,7 @@ import kotlin.test.assertEquals
 class FontOptionsTests {
     @Test
     fun `should set and get antialias`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         fo.setAntialias(Antialias.FAST)
         assertEquals(Antialias.FAST, fo.getAntialias(), "Antialias should be set to FAST")
         assertEquals(Status.SUCCESS, fo.status(), "Status should be SUCCESS after setting antialias")
@@ -34,7 +34,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set and get subpixel order`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         fo.setSubpixelOrder(SubpixelOrder.BGR)
         assertEquals(SubpixelOrder.BGR, fo.getSubpixelOrder(), "Subpixel order should be set to BGR")
         assertEquals(Status.SUCCESS, fo.status(), "Status should be SUCCESS after setting subpixel order")
@@ -42,7 +42,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set and get hint style`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         fo.setHintStyle(HintStyle.SLIGHT)
         assertEquals(HintStyle.SLIGHT, fo.getHintStyle(), "Hint style should be set to SLIGHT")
         assertEquals(Status.SUCCESS, fo.status(), "Status should be SUCCESS after setting hint style")
@@ -50,7 +50,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set and get hint metrics`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         fo.setHintMetrics(HintMetrics.OFF)
         assertEquals(HintMetrics.OFF, fo.getHintMetrics(), "Hint metrics should be set to OFF")
         assertEquals(Status.SUCCESS, fo.status(), "Status should be SUCCESS after setting hint metrics")
@@ -58,7 +58,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set and get variations`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         fo.setVariations("wght=200,wdth=140.5")
         assertEquals(
             "wght=200,wdth=140.5",
@@ -70,7 +70,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set and get color mode`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         fo.setColorMode(ColorMode.NO_COLOR)
         assertEquals(ColorMode.NO_COLOR, fo.getColorMode(), "Color mode should be set to NO_COLOR")
         assertEquals(Status.SUCCESS, fo.status(), "Status should be SUCCESS after setting color mode")
@@ -78,7 +78,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set and get color palette`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         // If you have a constant for the default palette, use that, e.g., FontOptions.COLOR_PALETTE_DEFAULT
         val defaultPaletteIndex = 0u  // Adjust as needed for your defaults
         fo.setColorPalette(defaultPaletteIndex)
@@ -88,7 +88,7 @@ class FontOptionsTests {
 
     @Test
     fun `should set custom palette color`() {
-        val fo = FontOptions.create()
+        val fo = FontOptions()
         // Set a custom color for palette index 0
         fo.setCustomPaletteColor(
             index = 0u,

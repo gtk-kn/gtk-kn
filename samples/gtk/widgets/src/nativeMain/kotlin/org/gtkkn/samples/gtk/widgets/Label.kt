@@ -126,7 +126,7 @@ private fun getMarkupLabel() = Label("").apply {
 }
 
 private fun getLabelWithMnemonic(button: Widget) =
-    Label.newWithMnemonic("_Press Alt + P to select button to the right").apply {
+    Label.withMnemonic("_Press Alt + P to select button to the right").apply {
         vexpand = true
         hexpand = true
         selectable = true

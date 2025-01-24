@@ -24,6 +24,7 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toPascalCase
+import org.gtkkn.gir.blueprints.MemoryManagement.MemoryCleaner.FreeOperation.CustomFreeFunction
 import org.gtkkn.gir.model.GirClass
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirFunction
@@ -32,8 +33,10 @@ import org.gtkkn.gir.model.GirMethod
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.model.GirProperty
 import org.gtkkn.gir.model.GirSignal
+import org.gtkkn.gir.model.GirType
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
+import org.gtkkn.gir.processor.RegisteredType
 import org.gtkkn.gir.processor.UnresolvableTypeException
 import org.gtkkn.gir.processor.namespaceBindingsPackageName
 import org.gtkkn.gir.processor.namespaceNativePackageName
@@ -97,15 +100,15 @@ class ClassBlueprintBuilder(
         addInterfaceOverrides()
 
         val objectPointerTypeName = context.resolveClassObjectPointerTypeName(girNamespace, girNode)
-
+        val registeredType = context.typeRegistry.get(girNode)
         girNode.methods.forEach { addMethod(it, objectPointerTypeName) }
         girNode.properties.forEach { addProperty(it) }
-        girNode.constructors.forEach { addConstructor(it) }
+        girNode.constructors.forEach { addConstructor(it, getMemoryManagement(registeredType)) }
         girNode.signals.forEach { addSignal(it) }
         girNode.functions.forEach { addFunction(it) }
         propertyMethodBluePrintMap.addSuperPropertyOverrides(propertyBluePrints, superClasses, interfaces)
 
-        val kotlinClassName = context.typeRegistry.get(girNode).className
+        val kotlinClassName = registeredType.className
 
         val objectPointerName = "${namespacePrefix(girNamespace)}${girNode.name.toPascalCase()}Pointer"
 
@@ -118,7 +121,7 @@ class ClassBlueprintBuilder(
         return ClassBlueprint(
             kotlinName = kotlinClassName.simpleName,
             nativeName = girNode.name,
-            typeName = kotlinClassName,
+            kotlinTypeName = kotlinClassName,
             methods = methodBluePrints,
             properties = propertyBluePrints,
             constructors = constructorBlueprints,
@@ -191,12 +194,44 @@ class ClassBlueprintBuilder(
         }
     }
 
-    private fun addConstructor(constructor: GirConstructor) {
-        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor).build()) {
+    private fun addConstructor(constructor: GirConstructor, memoryManagement: MemoryManagement) {
+        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor, memoryManagement).build()) {
             is BlueprintResult.Ok -> constructorBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }
     }
+
+    private fun getMemoryManagement(registeredType: RegisteredType): MemoryManagement =
+        if (registeredType.isGObject) {
+            MemoryManagement.InstanceCache
+        } else {
+            val girNode = registeredType.girNamedElement as GirClass
+            val unrefMethod = girNode.methods.firstOrNull { it.isUnref() }
+            when {
+                !girNode.glibUnrefFunc.isNullOrBlank() -> MemoryManagement.MemoryCleaner(
+                    freeOperation = CustomFreeFunction(
+                        memberName = MemberName(namespaceNativePackageName(girNode.namespace), girNode.glibUnrefFunc),
+                    ),
+                )
+
+                unrefMethod != null -> MemoryManagement.MemoryCleaner(
+                    freeOperation = CustomFreeFunction(
+                        MemberName(
+                            namespaceNativePackageName(unrefMethod.namespace),
+                            checkNotNull(unrefMethod.callable.cIdentifier),
+                        ),
+                    ),
+                )
+
+                registeredType.allAncestors.isNotEmpty() -> getMemoryManagement(registeredType.allAncestors.first())
+                else -> MemoryManagement.MemoryCleaner()
+            }
+        }
+
+    private fun GirMethod.isUnref(): Boolean =
+        callable.getName() == "unref" &&
+            parameters?.parameters?.isEmpty() == true &&
+            (returnValue?.type as? GirType)?.cType == "void"
 
     private fun addSignal(signal: GirSignal) {
         when (val result = SignalBlueprintBuilder(

@@ -28,7 +28,7 @@ import kotlin.test.assertNotNull
 class SurfacePatternTests {
     @Test
     fun `should create SurfacePattern with success status`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val pattern = SurfacePattern(surface)
 
         assertEquals(
@@ -40,7 +40,7 @@ class SurfacePatternTests {
 
     @Test
     fun `should have surface pattern type`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val pattern = SurfacePattern(surface)
 
         // For a surface pattern, the pattern type should be SURFACE
@@ -50,7 +50,7 @@ class SurfacePatternTests {
 
     @Test
     fun `should change extend mode successfully`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val pattern = SurfacePattern(surface)
         assertEquals(Status.SUCCESS, pattern.status())
 
@@ -62,7 +62,7 @@ class SurfacePatternTests {
 
     @Test
     fun `should change filter successfully`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val pattern = SurfacePattern(surface)
         assertEquals(Status.SUCCESS, pattern.status())
 
@@ -74,7 +74,7 @@ class SurfacePatternTests {
 
     @Test
     fun `should set and retrieve matrix successfully`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val pattern = SurfacePattern(surface)
         assertEquals(Status.SUCCESS, pattern.status(), "Expected SUCCESS status for newly created SurfacePattern")
 

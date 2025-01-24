@@ -127,13 +127,7 @@ fun Node.setAttribute(name: String, value: String?) {
 }
 
 fun Node.attributeBooleanValueOrNull(attributeName: String): Boolean? =
-    attributeValueOrNull(attributeName)?.let { bool ->
-        when (bool.lowercase()) {
-            "1", "true" -> true
-            "0", "false" -> false
-            else -> error("String '$this' is not a valid boolean value")
-        }
-    }
+    attributeValueOrNull(attributeName)?.parseBoolean()
 
 /**
  * Converts the current [Document] to its XML representation as a string.

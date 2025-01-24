@@ -35,13 +35,13 @@ class ImageSurfaceTests {
 
     @Test
     fun `should create ImageSurface with specified format and dimensions`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after creating an ImageSurface")
     }
 
     @Test
     fun `should retrieve non-null data from ImageSurface`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val data = surface.getData()
         assertNotNull(data, "Surface data should not be null")
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after retrieving data from ImageSurface")
@@ -49,7 +49,7 @@ class ImageSurfaceTests {
 
     @Test
     fun `should return correct format for created ImageSurface`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val format = surface.getFormat()
         assertEquals(Format.ARGB32, format, "Expected format ARGB32 for created ImageSurface")
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after retrieving format")
@@ -57,21 +57,21 @@ class ImageSurfaceTests {
 
     @Test
     fun `should return correct width for created ImageSurface`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 100)
+        val surface = ImageSurface(Format.ARGB32, 120, 100)
         assertEquals(120, surface.getWidth(), "Expected width to be 120")
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after retrieving width")
     }
 
     @Test
     fun `should return correct height for created ImageSurface`() {
-        val surface = ImageSurface.create(Format.ARGB32, 100, 120)
+        val surface = ImageSurface(Format.ARGB32, 100, 120)
         assertEquals(120, surface.getHeight(), "Expected height to be 120")
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after retrieving height")
     }
 
     @Test
     fun `should calculate valid stride for created ImageSurface`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
         val stride = surface.getStride()
 
         // Typically, for ARGB32, stride = 4 * width, possibly rounded up to alignment.

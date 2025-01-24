@@ -27,21 +27,21 @@ class TeeSurfaceTests {
     @Test
     fun `should create TeeSurface with success status`() {
         // Create a primary ImageSurface to back the TeeSurface
-        val primary = ImageSurface.create(Format.ARGB32, 120, 120)
+        val primary = ImageSurface(Format.ARGB32, 120, 120)
         assertEquals(Status.SUCCESS, primary.status(), "Primary surface should have SUCCESS status")
 
         // Create the TeeSurface from the primary
-        val tee = TeeSurface.create(primary)
+        val tee = TeeSurface(primary)
         assertEquals(Status.SUCCESS, tee.status(), "TeeSurface should have SUCCESS status upon creation")
     }
 
     @Test
     fun `should add and remove surfaces without error`() {
-        val primary = ImageSurface.create(Format.ARGB32, 120, 120)
-        val target = ImageSurface.create(Format.ARGB32, 120, 120)
+        val primary = ImageSurface(Format.ARGB32, 120, 120)
+        val target = ImageSurface(Format.ARGB32, 120, 120)
 
         // Create the TeeSurface from the primary
-        val tee = TeeSurface.create(primary)
+        val tee = TeeSurface(primary)
         assertEquals(Status.SUCCESS, tee.status(), "TeeSurface should have SUCCESS status upon creation")
 
         // Add a secondary target to the TeeSurface

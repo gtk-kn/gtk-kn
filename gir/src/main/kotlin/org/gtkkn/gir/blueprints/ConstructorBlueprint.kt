@@ -38,6 +38,7 @@ import com.squareup.kotlinpoet.MemberName
  * @property kdoc the KDoc of the constructor
  * @property optInVersionBlueprint version number of a constructor
  * @property returnTypeKDoc the KDoc of the return type
+ * @property memoryManagement the [MemoryManagement] information of the constructor
  */
 data class ConstructorBlueprint(
     val kotlinName: String,
@@ -50,6 +51,7 @@ data class ConstructorBlueprint(
     val kdoc: String?,
     val optInVersionBlueprint: OptInVersionBlueprint?,
     val returnTypeKDoc: String?,
+    val memoryManagement: MemoryManagement,
 ) : CallableBlueprint {
     override val noStringConversion: Boolean = false
 }

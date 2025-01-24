@@ -21,6 +21,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.MemberName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.log.logger
 import org.gtkkn.gir.model.GirNamespace
 import org.gtkkn.gir.processor.BlueprintException
@@ -29,7 +30,6 @@ import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.SkippedObjectException
 import org.gtkkn.gir.processor.UnresolvableTypeException
 import org.gtkkn.gir.processor.namespaceBindingsPackageName
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 /**
  * Abstract class for Blueprint builders that provides helper methods
@@ -71,7 +71,7 @@ abstract class BlueprintBuilder<T : Any>(val context: ProcessorContext) {
 
     protected fun GirNamespace.exceptionResolvingFunction() =
         MemberName(
-            packageName = namespaceBindingsPackageName(this) + "." + checkNotNull(name).capitalizeAsciiOnly(),
+            packageName = namespaceBindingsPackageName(this) + "." + checkNotNull(name).toPascalCase(),
             simpleName = "resolveException",
         )
 

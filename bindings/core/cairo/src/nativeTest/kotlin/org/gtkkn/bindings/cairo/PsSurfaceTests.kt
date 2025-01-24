@@ -29,15 +29,15 @@ class PsSurfaceTests {
     @Test
     fun `should create surface with success status using null filename`() {
         // Create a surface using `null` or an empty string, depending on your native support
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
-        assertNotNull(surface, "PsSurface.create(...) returned null, but a surface was expected")
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        assertNotNull(surface, "PsSurface(...) returned null, but a surface was expected")
         assertEquals(Status.SUCCESS, surface.status(), "Expected newly created surface to have SUCCESS status")
         surface.finish()
     }
 
     @Test
     fun `should restrict to PS level 3 successfully`() {
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
         surface.restrictToLevel(PsLevel.LEVEL_3)
 
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after restricting to PS level 3")
@@ -46,7 +46,7 @@ class PsSurfaceTests {
 
     @Test
     fun `should set and get EPS successfully`() {
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
         surface.setEps(true)
 
         // Validate that EPS was indeed set
@@ -59,7 +59,7 @@ class PsSurfaceTests {
 
     @Test
     fun `should set size successfully`() {
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
 
         surface.setSize(widthInPoints = 140.0, heightInPoints = 140.0)
         assertEquals(Status.SUCCESS, surface.status(), "Expected SUCCESS after setting size of the PS surface")
@@ -68,7 +68,7 @@ class PsSurfaceTests {
 
     @Test
     fun `should begin DSC setup without error`() {
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
 
         // The DSC setup should not produce errors
         surface.dscBeginSetup()
@@ -78,7 +78,7 @@ class PsSurfaceTests {
 
     @Test
     fun `should begin DSC page setup without error`() {
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
 
         // The DSC page setup should not produce errors
         surface.dscBeginPageSetup()
@@ -88,7 +88,7 @@ class PsSurfaceTests {
 
     @Test
     fun `should add DSC comment successfully`() {
-        val surface = PsSurface.create(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
+        val surface = PsSurface(filename = null, widthInPoints = 120.0, heightInPoints = 120.0)
 
         // Add a simple DSC comment
         surface.dscComment("%%Title: Test")

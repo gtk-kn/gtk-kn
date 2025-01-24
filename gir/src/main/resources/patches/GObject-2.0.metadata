@@ -25,3 +25,7 @@ TypeCValue.*#field ignore
 
 // The bindings expect a GLib.GList but the native function actually returns a GObject.GList
 ParamSpecPool.list_owned reinterpret
+
+// We need to access these fields for the InstanceCache
+TypeInstance.g_class readable private=false
+TypeClass.g_type readable private=false

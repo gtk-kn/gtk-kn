@@ -28,8 +28,8 @@ import kotlin.test.assertNotNull
 class ContextTests {
     private fun createContext(): Context {
         // Assuming ImageSurface and Format are available in your Kotlin/Native cairo bindings
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
-        return Context.create(surface)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
+        return Context(surface)
     }
 
     @Test
@@ -53,8 +53,8 @@ class ContextTests {
 
     @Test
     fun `should get target surface`() {
-        val surface = ImageSurface.create(Format.ARGB32, 120, 120)
-        val cr = Context.create(surface)
+        val surface = ImageSurface(Format.ARGB32, 120, 120)
+        val cr = Context(surface)
         val target = cr.getTarget()
 
         assertNotNull(target, "Target surface should not be null")

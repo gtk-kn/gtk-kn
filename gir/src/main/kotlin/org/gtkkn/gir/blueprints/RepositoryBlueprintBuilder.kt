@@ -21,6 +21,7 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import net.pearx.kasechange.toPascalCase
 import org.gtkkn.gir.model.GirAlias
 import org.gtkkn.gir.model.GirBitfield
 import org.gtkkn.gir.model.GirCallback
@@ -35,7 +36,6 @@ import org.gtkkn.gir.model.GirRepository
 import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.namespaceBindingsPackageName
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 class RepositoryBlueprintBuilder(
     context: ProcessorContext,
@@ -149,19 +149,20 @@ class RepositoryBlueprintBuilder(
         val kotlinModuleName = checkNotNull(girRepository.namespaces.first().name).lowercase()
         val repositoryObjectName = ClassName(
             namespaceBindingsPackageName(namespace),
-            checkNotNull(girRepository.namespaces.first().name).capitalizeAsciiOnly(),
+            checkNotNull(girRepository.namespaces.first().name).toPascalCase(),
         )
         val repositoryCallbacksName = ClassName(
             namespaceBindingsPackageName(namespace),
             "Callbacks",
         )
+        val name = checkNotNull(girRepository.namespaces.first().name)
         val repositoryTypeProviderTypeName = ClassName(
             namespaceBindingsPackageName(namespace),
-            "${kotlinModuleName.capitalizeAsciiOnly()}TypeProvider",
+            "${name.toPascalCase()}TypeProvider",
         )
 
         return RepositoryBlueprint(
-            name = checkNotNull(girRepository.namespaces.first().name),
+            name = name,
             kotlinModuleName = kotlinModuleName,
             aliasBlueprints = aliasBlueprints,
             classBlueprints = classBlueprints,

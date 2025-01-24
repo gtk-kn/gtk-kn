@@ -31,5 +31,10 @@ kotlin {
                 api(projects.bindings.core.glib)
             }
         }
+        nativeTest {
+            dependencies {
+                implementation(projects.bindings.core.gio)
+            }
+        }
     }
 }

@@ -56,6 +56,18 @@ interface FunctionGenerator : MethodGenerator {
         return builder.build()
     }
 
+    fun buildVariantGetTypeFunction(): FunSpec = FunSpec.builder("getType")
+        .returns(G_TYPE)
+        .addKdoc(
+            """
+                Get the GType of Variant
+
+                @return the GType
+            """.trimIndent(),
+        )
+        .addStatement("return %T.VARIANT", BindingsGenerator.GOBJECT_TYPES)
+        .build()
+
     /**
      * Adds KDoc and any required annotations (such as opt-in annotations) to the function builder.
      */

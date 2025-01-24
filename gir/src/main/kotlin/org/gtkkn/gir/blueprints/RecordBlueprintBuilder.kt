@@ -21,8 +21,11 @@
 package org.gtkkn.gir.blueprints
 
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterizedTypeName
 import net.pearx.kasechange.toPascalCase
+import org.gtkkn.gir.blueprints.MemoryManagement.MemoryCleaner.FreeOperation.BoxedType
+import org.gtkkn.gir.blueprints.MemoryManagement.MemoryCleaner.FreeOperation.CustomFreeFunction
 import org.gtkkn.gir.model.GirConstructor
 import org.gtkkn.gir.model.GirField
 import org.gtkkn.gir.model.GirFunction
@@ -33,6 +36,7 @@ import org.gtkkn.gir.model.GirUnion
 import org.gtkkn.gir.processor.NotIntrospectableException
 import org.gtkkn.gir.processor.ProcessorContext
 import org.gtkkn.gir.processor.UnresolvableTypeException
+import org.gtkkn.gir.processor.buildNativeClassName
 import org.gtkkn.gir.processor.namespaceNativePackageName
 import org.gtkkn.gir.processor.namespacePrefix
 
@@ -66,7 +70,7 @@ class RecordBlueprintBuilder(
 
         // Add top-level methods, constructors, functions
         girNode.methods.forEach { addMethod(it, objectPointerTypeName as? ParameterizedTypeName) }
-        girNode.constructors.forEach { addConstructor(it) }
+        girNode.constructors.forEach { addConstructor(it, getMemoryManagement()) }
         girNode.functions.forEach { addFunction(it) }
 
         // Add top-level fields (no prefix for top-level)
@@ -82,7 +86,7 @@ class RecordBlueprintBuilder(
         return RecordBlueprint(
             kotlinName = kotlinClassName.simpleName,
             kotlinTypeName = kotlinClassName,
-            nativeTypeName = context.buildNativeClassName(girNamespace, girNode),
+            nativeTypeName = buildNativeClassName(girNamespace, girNode),
             constructors = constructorBlueprints,
             functions = functionBlueprints,
             methods = methodBluePrints,
@@ -95,13 +99,23 @@ class RecordBlueprintBuilder(
             ),
             isOpaque = girNode.opaque == true,
             isDisguised = girNode.disguised == true,
-            hasNewConstructor = girNode.constructors.any { it.callable.getName() == "new" },
             optInVersionBlueprint = OptInVersionsBlueprintBuilder(context, girNamespace, girNode.info)
                 .build()
                 .getOrNull(),
             kdoc = context.processKdoc(girNode.doc?.doc?.text),
             skippedObjects = skippedObjects,
         )
+    }
+
+    private fun getMemoryManagement() = when {
+        !girNode.freeFunction.isNullOrBlank() -> MemoryManagement.MemoryCleaner().copy(
+            freeOperation = CustomFreeFunction(
+                MemberName(namespaceNativePackageName(girNamespace), girNode.freeFunction),
+            ),
+        )
+
+        !girNode.glibGetType.isNullOrBlank() -> MemoryManagement.MemoryCleaner(freeOperation = BoxedType)
+        else -> MemoryManagement.MemoryCleaner()
     }
 
     private fun addMethod(method: GirMethod, objectPointerTypeName: ParameterizedTypeName?) {
@@ -116,8 +130,8 @@ class RecordBlueprintBuilder(
         }
     }
 
-    private fun addConstructor(constructor: GirConstructor) {
-        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor).build()) {
+    private fun addConstructor(constructor: GirConstructor, memoryManagement: MemoryManagement) {
+        when (val result = ConstructorBlueprintBuilder(context, girNamespace, constructor, memoryManagement).build()) {
             is BlueprintResult.Ok -> constructorBlueprints.add(result.blueprint)
             is BlueprintResult.Skip -> skippedObjects.add(result.skippedObject)
         }

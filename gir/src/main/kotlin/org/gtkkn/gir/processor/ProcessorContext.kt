@@ -378,15 +378,6 @@ class ProcessorContext(
             }
         }
 
-    fun buildNativeClassName(girNamespace: GirNamespace, girElement: GirNamedElement) =
-        ClassName(
-            namespaceNativePackageName(girNamespace),
-            girElement.cType
-                ?: throw UnresolvableTypeException(
-                    "missing cType for ${girElement::class.simpleName} ${girElement.name}",
-                ),
-        )
-
     fun findRecordByNameOrNull(
         targetNamespace: GirNamespace,
         fullyQualifiedName: String,
@@ -552,3 +543,13 @@ fun namespaceNativePackageName(namespace: GirNamespace): String =
 
 fun namespaceBindingsPackageName(namespace: GirNamespace): String =
     "org.gtkkn.bindings.${namespacePrefix(namespace)}"
+
+fun buildNativeClassName(girNamespace: GirNamespace, girElement: GirNamedElement) =
+    buildNativeClassName(
+        girNamespace,
+        girElement.cType
+            ?: throw UnresolvableTypeException("missing cType for ${girElement::class.simpleName} ${girElement.name}"),
+    )
+
+fun buildNativeClassName(girNamespace: GirNamespace, nativeName: String) =
+    ClassName(namespaceNativePackageName(girNamespace), nativeName)

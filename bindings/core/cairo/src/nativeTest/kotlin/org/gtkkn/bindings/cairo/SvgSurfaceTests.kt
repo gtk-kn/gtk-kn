@@ -28,7 +28,7 @@ import kotlin.test.assertEquals
 class SvgSurfaceTests {
     @Test
     fun `should create SVG surface with empty filename`() {
-        val surface = SvgSurface.create(null, 120.0, 120.0)
+        val surface = SvgSurface(null, 120.0, 120.0)
 
         // Assert that the surface was created successfully
         assertEquals(
@@ -40,7 +40,7 @@ class SvgSurfaceTests {
 
     @Test
     fun `should get document unit with default value`() {
-        val surface = SvgSurface.create(null, 120.0, 120.0)
+        val surface = SvgSurface(null, 120.0, 120.0)
 
         // Attempt to retrieve the document unit (if the underlying library supports it).
         val documentUnit = surface.getDocumentUnit()
@@ -57,7 +57,7 @@ class SvgSurfaceTests {
 
     @Test
     fun `should set document unit without error`() {
-        val surface = SvgSurface.create(null, 120.0, 120.0)
+        val surface = SvgSurface(null, 120.0, 120.0)
 
         surface.setDocumentUnit(CAIRO_SVG_UNIT_CM)
 
@@ -71,7 +71,7 @@ class SvgSurfaceTests {
 
     @Test
     fun `should restrict to SVG 1_2 version without error`() {
-        val surface = SvgSurface.create(null, 120.0, 120.0)
+        val surface = SvgSurface(null, 120.0, 120.0)
 
         surface.restrictToVersion(SvgVersion.VERSION_1_2)
 

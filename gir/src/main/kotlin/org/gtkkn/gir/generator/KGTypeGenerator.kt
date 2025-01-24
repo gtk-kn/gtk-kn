@@ -60,7 +60,7 @@ interface KGTypeGenerator {
         if (clazz.glibGetTypeFunc == null) {
             null
         } else {
-            val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.typeName)
+            val propertyType = BindingsGenerator.GOBJECT_GEN_CLASS_KG_TYPE.parameterizedBy(clazz.kotlinTypeName)
             PropertySpec.builder("type", propertyType)
                 .initializer(
                     "%T(%M(%S)!!) { %T(it.%M()) }",

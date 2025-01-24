@@ -55,7 +55,7 @@ fun main() {
             addCssClass("example-window")
 
             // load the image from the embedded resources
-            val image = Image.newFromResource("/images/kotlin.png")
+            val image = Image.fromResource("/images/kotlin.png")
             image.addCssClass("logo-image")
 
             // set the image as child in the window

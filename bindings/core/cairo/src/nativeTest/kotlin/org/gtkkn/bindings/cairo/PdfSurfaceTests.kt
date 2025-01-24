@@ -26,7 +26,7 @@ import kotlin.test.assertEquals
 class PdfSurfaceTests {
     @Test
     fun `should create PdfSurface with success status`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         assertEquals(
             Status.SUCCESS,
             surface.status(),
@@ -36,7 +36,7 @@ class PdfSurfaceTests {
 
     @Test
     fun `should restrict PDF surface to specific version`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         // Adjust the version enum/value as needed
         surface.restrictToVersion(PdfVersion.VERSION_1_4)
         assertEquals(
@@ -48,7 +48,7 @@ class PdfSurfaceTests {
 
     @Test
     fun `should set PDF surface size`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         surface.setSize(100.0, 100.0)
         assertEquals(
             Status.SUCCESS,
@@ -59,7 +59,7 @@ class PdfSurfaceTests {
 
     @Test
     fun `should set PDF metadata successfully`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         // Adjust PdfMetadata.TITLE if your enum/key is named differently
         surface.setMetadata(PdfMetadata.TITLE, "Test Document")
         assertEquals(
@@ -71,7 +71,7 @@ class PdfSurfaceTests {
 
     @Test
     fun `should set custom metadata successfully`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         surface.setCustomMetadata("ISBN", "978-0123456789")
         assertEquals(
             Status.SUCCESS,
@@ -82,7 +82,7 @@ class PdfSurfaceTests {
 
     @Test
     fun `should set page label successfully`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         surface.setPageLabel("MyPageLabel")
         assertEquals(
             Status.SUCCESS,
@@ -93,7 +93,7 @@ class PdfSurfaceTests {
 
     @Test
     fun `should set thumbnail size successfully`() {
-        val surface = PdfSurface.create(null, 120.0, 120.0)
+        val surface = PdfSurface(null, 120.0, 120.0)
         surface.setThumbnailSize(30, 30)
         assertEquals(
             Status.SUCCESS,

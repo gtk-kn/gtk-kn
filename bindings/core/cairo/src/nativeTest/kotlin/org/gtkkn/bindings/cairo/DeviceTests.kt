@@ -27,7 +27,7 @@ class DeviceTests {
     @Test
     fun `should create script device with success status`() {
         val scriptPath = "/tmp/test_device.script"
-        val device = Script.create(scriptPath)
+        val device = Script(scriptPath)
         assertEquals(Status.SUCCESS, device.status(), "Device should have SUCCESS status after creation")
         device.finish()  // Clean up
     }
@@ -35,7 +35,7 @@ class DeviceTests {
     @Test
     fun `finish should keep device in success status`() {
         val scriptPath = "/tmp/finish_test.script"
-        val device = Script.create(scriptPath)
+        val device = Script(scriptPath)
         device.finish()
         assertEquals(Status.SUCCESS, device.status(), "Device should remain in SUCCESS status after finish()")
     }
@@ -43,7 +43,7 @@ class DeviceTests {
     @Test
     fun `flush should keep device in success status`() {
         val scriptPath = "/tmp/flush_test.script"
-        val device = Script.create(scriptPath)
+        val device = Script(scriptPath)
         device.flush()
         assertEquals(Status.SUCCESS, device.status(), "Device should remain in SUCCESS status after flush()")
         device.finish()  // Clean up
@@ -52,7 +52,7 @@ class DeviceTests {
     @Test
     fun `getDeviceType should return SCRIPT`() {
         val scriptPath = "/tmp/device_type_test.script"
-        val device = Script.create(scriptPath)
+        val device = Script(scriptPath)
         val deviceType = device.getDeviceType()
         assertEquals(DeviceType.SCRIPT, deviceType, "Expected device type to be SCRIPT for a Script device")
         assertEquals(Status.SUCCESS, device.status(), "Device should be SUCCESS after checking device type")
@@ -62,7 +62,7 @@ class DeviceTests {
     @Test
     fun `acquire and release should maintain success status`() {
         val scriptPath = "/tmp/acquire_release_test.script"
-        val device = Script.create(scriptPath)
+        val device = Script(scriptPath)
         val acquireStatus = device.acquire()
         assertEquals(Status.SUCCESS, acquireStatus, "Acquiring the device should return SUCCESS")
         device.release()

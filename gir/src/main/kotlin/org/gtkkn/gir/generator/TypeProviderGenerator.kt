@@ -51,8 +51,11 @@ interface TypeProviderGenerator {
                         "if (%M(%S) != null) put(%T::class, %T.type)",
                         BindingsGenerator.GET_TYPE_OR_NULL_MEMBER,
                         checkNotNull(clazz.glibGetTypeFunc).simpleName,
-                        clazz.typeName,
-                        clazz.typeName,
+                        clazz.kotlinTypeName,
+                        clazz.kotlinTypeName,
+                        "%T::class to %T.type,",
+                        clazz.kotlinTypeName,
+                        clazz.kotlinTypeName,
                     )
                 }
             repository.interfaceBlueprints

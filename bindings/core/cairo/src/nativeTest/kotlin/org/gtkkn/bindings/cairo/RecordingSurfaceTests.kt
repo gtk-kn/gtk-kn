@@ -38,7 +38,7 @@ class RecordingSurfaceTests {
             }
 
             // Create a new RecordingSurface with the specified content and extents
-            val recordingSurface = RecordingSurface.create(Content.COLOR_ALPHA, extents)
+            val recordingSurface = RecordingSurface(Content.COLOR_ALPHA, extents)
 
             // Check that the surface was created successfully
             assertEquals(
@@ -61,7 +61,7 @@ class RecordingSurfaceTests {
             }
 
             // Create the RecordingSurface
-            val recordingSurface = RecordingSurface.create(Content.COLOR_ALPHA, extentsToSet)
+            val recordingSurface = RecordingSurface(Content.COLOR_ALPHA, extentsToSet)
             assertEquals(
                 Status.SUCCESS,
                 recordingSurface.status(),
@@ -93,7 +93,7 @@ class RecordingSurfaceTests {
     fun `should create recording surface alongside image surface`() {
         memScoped {
             // Hypothetical creation of an ImageSurface
-            val imageSurface = ImageSurface.create(Format.ARGB32, 120, 120)
+            val imageSurface = ImageSurface(Format.ARGB32, 120, 120)
             assertEquals(
                 Status.SUCCESS,
                 imageSurface.status(),
@@ -107,7 +107,7 @@ class RecordingSurfaceTests {
                 width = 20.0
                 height = 20.0
             }
-            val recordingSurface = RecordingSurface.create(Content.COLOR_ALPHA, smallRect)
+            val recordingSurface = RecordingSurface(Content.COLOR_ALPHA, smallRect)
             assertEquals(
                 Status.SUCCESS,
                 recordingSurface.status(),
