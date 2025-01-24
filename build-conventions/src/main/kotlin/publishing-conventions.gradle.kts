@@ -74,7 +74,7 @@ publishing {
             licenses {
                 license {
                     name.set("LGPL")
-                    url.set("https://www.gnu.org/licenses/lgpl-2.1.html")
+                    url.set("https://spdx.org/licenses/LGPL-2.1-or-later.html")
                 }
             }
 

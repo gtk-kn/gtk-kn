@@ -26,6 +26,7 @@ import com.squareup.kotlinpoet.MAP
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.STRING
+import org.gtkkn.gir.ext.addCopyrightComment
 import org.gtkkn.gir.generator.BindingsGenerator.Companion.PAIR_TYPE
 import org.gtkkn.gir.generator.KtLintFormatter
 import java.io.File
@@ -60,7 +61,7 @@ internal fun generateRepositoryAnnotationsFile(optInAnnotationsFile: File, gradl
 
     val fileSpec = FileSpec.builder(className)
         .indent("    ")
-        .addFileComment("This is a generated file. Do not modify.")
+        .addCopyrightComment()
         .addProperty(propertySpec)
         .build()
 

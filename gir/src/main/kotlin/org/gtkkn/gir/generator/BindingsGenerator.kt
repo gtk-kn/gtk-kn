@@ -37,6 +37,7 @@ import me.tatarka.inject.annotations.Inject
 import org.gtkkn.gir.blueprints.OptInVersionBlueprint
 import org.gtkkn.gir.blueprints.RepositoryBlueprint
 import org.gtkkn.gir.config.Config
+import org.gtkkn.gir.ext.addCopyrightComment
 import org.gtkkn.gir.log.logger
 import java.io.File
 
@@ -253,7 +254,7 @@ class BindingsGenerator(
 
         FileSpec.builder(className.packageName, className.simpleName)
             .indent("    ")
-            .addFileComment("This is a generated file. Do not modify.")
+            .addCopyrightComment()
             .addType(typeSpec)
             .apply { additionalProperties.forEach { addProperty(it) } }
             .apply { additionalTypeAliases.forEach { addTypeAlias(it) } }
